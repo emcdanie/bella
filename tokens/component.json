@@ -1,0 +1,313 @@
+{
+  "$metadata": {
+    "description": "Component tier — every token here references semantic. Components are the contract AI tools read when generating code. Each component block follows the CBDS metadata structure (TJ Petrie, SmashingConf Amsterdam 2026): name, variants, states, tokens, usage, don't-use-for."
+  },
+
+  "component": {
+    "button": {
+      "$extensions": {
+        "bella": {
+          "name": "Button",
+          "description": "Primary call-to-action. Warm amber background for primary, ink text across variants. Reserved for the single most important action in a view.",
+          "variants": ["primary", "secondary", "ghost"],
+          "states": ["default", "hover", "active", "focus", "disabled"],
+          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit"],
+          "dont": ["Do not use more than one primary button per view", "Do not stack two buttons of the same variant"],
+          "a11y": "All variants use ink foreground (neutral.900) for AAA on parchment (17.2:1). Secondary keeps the amber border — amber as decoration, ink as text. Focus ring uses border-strong at 2px offset. Hit area minimum 44×44px — encoded as min-height on every variant."
+        }
+      },
+
+      "primary": {
+        "background":       { "$value": "{color.semantic.accent}",       "$type": "color" },
+        "background-hover": { "$value": "#B68457",                       "$type": "color", "$description": "Amber darkened ~8%." },
+        "foreground":       { "$value": "{color.neutral.900}",           "$type": "color" },
+        "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
+        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
+        "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
+        "font-family":      { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
+        "font-size":        { "$value": "{typography.font-size.tag}",    "$type": "dimension" },
+        "font-weight":      { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
+        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      },
+
+      "secondary": {
+        "background":       { "$value": "transparent",                   "$type": "color" },
+        "background-hover": { "$value": "{color.semantic.accent-subtle}","$type": "color" },
+        "foreground":       { "$value": "{color.neutral.900}",           "$type": "color" },
+        "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
+        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
+        "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
+        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      },
+
+      "ghost": {
+        "background":       { "$value": "transparent",                   "$type": "color" },
+        "background-hover": { "$value": "{color.semantic.surface}",      "$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-primary}", "$type": "color" },
+        "border":           { "$value": "transparent",                   "$type": "color" },
+        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      }
+    },
+
+    "card": {
+      "$extensions": {
+        "bella": {
+          "name": "Card",
+          "description": "Editorial glass-first card system. Three primary tiers progress from subtle panel (default) to hero glass (glass). Plus featured (solid bright) and inverse (dark-mode embed).",
+          "variants": ["default", "elevated", "glass", "featured", "inverse"],
+          "states": ["resting", "hover", "focus"],
+          "usage": ["Portfolio grid", "CHIP idea clusters", "Dashboard tiles", "Case-study cards", "Hero feature panels"],
+          "dont": ["Do not nest cards inside cards — glass-on-glass becomes mud", "Do not use for navigation — that's nav-link's job", "Do not place glass over amber/steel/dusk/sage — the contrast model breaks"],
+          "a11y": "Glass tiers inherit contrast from the background beneath — parent must be parchment or lighter (light mode) or ink or darker (dark mode). Text on glass: ink (light) or parchment (dark) only. If the whole card is a link, include aria-labelledby referencing the card title."
+        }
+      },
+
+      "default": {
+        "background":       { "$value": "{color.semantic.surface-glass-light}", "$type": "other" },
+        "blur":             { "$value": "{blur.sm}",                            "$type": "dimension" },
+        "shadow":           { "$value": "{shadow.card-default}",                "$type": "shadow" },
+        "border-top":       { "$value": "{color.semantic.border-glass-top}",    "$type": "color" },
+        "border":           { "$value": "{color.semantic.border-glass-edge}",   "$type": "color" },
+        "border-width":     { "$value": "1px",                                  "$type": "dimension" },
+        "border-radius":    { "$value": "{radius.xl}",                          "$type": "dimension" },
+        "padding":          { "$value": "{spacing.5}",                          "$type": "dimension" },
+        "gap":              { "$value": "{spacing.2}",                          "$type": "dimension" },
+        "foreground":       { "$value": "{color.semantic.text-primary}",        "$type": "color" },
+        "transform-hover":  { "$value": "{motion.transform.hover-lift}",        "$type": "other" },
+        "transition":       { "$value": "all {motion.duration.normal} {motion.easing.emphasis}", "$type": "other" }
+      },
+
+      "elevated": {
+        "background":       { "$value": "{color.semantic.surface-glass-elevated}", "$type": "other" },
+        "blur":             { "$value": "{blur.md}",                               "$type": "dimension" },
+        "shadow":           { "$value": "{shadow.card-elevated}",                  "$type": "shadow" },
+        "border-top":       { "$value": "{color.semantic.border-glass-top}",       "$type": "color" },
+        "border":           { "$value": "{color.semantic.border-glass-edge}",      "$type": "color" },
+        "border-width":     { "$value": "1px",                                     "$type": "dimension" },
+        "border-radius":    { "$value": "{radius.2xl}",                            "$type": "dimension" },
+        "padding":          { "$value": "{spacing.6}",                             "$type": "dimension" },
+        "foreground":       { "$value": "{color.semantic.text-primary}",           "$type": "color" }
+      },
+
+      "glass": {
+        "background":       { "$value": "{color.semantic.surface-glass}",          "$type": "other" },
+        "blur":             { "$value": "{blur.lg}",                               "$type": "dimension" },
+        "shadow":           { "$value": "{shadow.raised}",                         "$type": "shadow" },
+        "border-top":       { "$value": "{color.semantic.border-glass-top}",       "$type": "color" },
+        "border":           { "$value": "{color.semantic.border-glass-edge}",      "$type": "color" },
+        "border-width":     { "$value": "1px",                                     "$type": "dimension" },
+        "border-radius":    { "$value": "{radius.3xl}",                            "$type": "dimension" },
+        "padding":          { "$value": "{spacing.8}",                             "$type": "dimension" },
+        "foreground":       { "$value": "{color.semantic.text-primary}",           "$type": "color" }
+      },
+
+      "featured": {
+        "background":       { "$value": "{color.semantic.surface-elevated}","$type": "color" },
+        "border-radius":    { "$value": "{radius.xl}",                   "$type": "dimension" },
+        "padding":          { "$value": "{spacing.8}",                   "$type": "dimension" },
+        "shadow":           { "$value": "{shadow.md}",                   "$type": "shadow" }
+      },
+
+      "inverse": {
+        "background":       { "$value": "{color.semantic.surface-inverse}","$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-inverse}",  "$type": "color" },
+        "border":           { "$value": "{color.alpha.parchment-6}",     "$type": "color" },
+        "border-radius":    { "$value": "{radius.lg}",                   "$type": "dimension" },
+        "padding":          { "$value": "{spacing.5}",                   "$type": "dimension" }
+      }
+    },
+
+    "tag": {
+      "$extensions": {
+        "bella": {
+          "name": "Tag",
+          "description": "Uppercase mono label. Categorizes a card, a project, a mood. Ink-on-amber-wash is the canonical AAA-safe look.",
+          "variants": ["accent", "info", "muted"],
+          "states": ["default"],
+          "usage": ["Card category labels", "Section eyebrows inside content areas", "Filter state chips"],
+          "dont": ["Do not set foreground to amber/steel/dusk/sage on parchment — those fail AAA", "Do not place on amber backgrounds without verifying the foreground contrast"],
+          "a11y": "13px floor. Foreground is ink (AAA against parchment and amber-15 wash). min-height hits 44px — tap area via padding so the visual chip can stay small."
+        }
+      },
+
+      "accent": {
+        "background":     { "$value": "{color.semantic.accent-subtle}", "$type": "color" },
+        "foreground":     { "$value": "{color.brand.ink}",              "$type": "color" },
+        "border":         { "$value": "{color.semantic.accent-border}", "$type": "color" },
+        "border-width":   { "$value": "1px",                            "$type": "dimension" },
+        "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
+        "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
+        "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
+        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
+        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" },
+        "letter-spacing": { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
+        "text-transform": { "$value": "uppercase",                      "$type": "other" },
+        "min-height":     { "$value": "{spacing.touch-target}",         "$type": "dimension" }
+      },
+
+      "info": {
+        "background":     { "$value": "{color.semantic.info-subtle}",  "$type": "color" },
+        "foreground":     { "$value": "{color.brand.ink}",             "$type": "color" },
+        "border":         { "$value": "{color.semantic.info-border}",  "$type": "color" },
+        "min-height":     { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      },
+
+      "muted": {
+        "background":     { "$value": "{color.semantic.surface}",      "$type": "color" },
+        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "border":         { "$value": "{color.semantic.border}",       "$type": "color" },
+        "min-height":     { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      }
+    },
+
+    "eyebrow": {
+      "$extensions": {
+        "bella": {
+          "name": "Eyebrow",
+          "description": "Small mono label above a heading. Signals context or category.",
+          "variants": ["accent", "muted"],
+          "states": ["default"],
+          "usage": ["Above hero headlines", "Above section titles", "Above card groupings"],
+          "dont": ["Do not use as a heading — eyebrows complement a heading, never replace one", "Do not hard-code amber as the foreground — flow through text-accent so AAA enforcement stays centralized"],
+          "a11y": "13px floor. Foreground flows through semantic.text-accent (ink on parchment, amber on ink) for AAA in both modes."
+        }
+      },
+
+      "accent": {
+        "foreground":     { "$value": "{color.semantic.text-accent}",   "$type": "color" },
+        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
+        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" },
+        "letter-spacing": { "$value": "{typography.letter-spacing.wider}","$type": "dimension" },
+        "text-transform": { "$value": "uppercase",                      "$type": "other" }
+      },
+
+      "muted": {
+        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
+        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
+        "letter-spacing": { "$value": "{typography.letter-spacing.wider}","$type": "dimension" },
+        "text-transform": { "$value": "uppercase",                      "$type": "other" }
+      }
+    },
+
+    "input": {
+      "$extensions": {
+        "bella": {
+          "name": "Input",
+          "description": "Text input. Serif-on-surface, linen border, amber focus ring.",
+          "variants": ["default", "search"],
+          "states": ["default", "hover", "focus", "disabled", "error"],
+          "usage": ["Forms", "Search bars", "Filter inputs"],
+          "dont": ["Do not strip the border on default state — it's how inputs are recognizable"],
+          "a11y": "Focus ring is 2px border-strong offset 1px. Label required, never use placeholder as label. min-height hits 44px for touch."
+        }
+      },
+
+      "default": {
+        "background":       { "$value": "{color.semantic.surface}",      "$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-primary}", "$type": "color" },
+        "placeholder":      { "$value": "{color.semantic.text-muted}",   "$type": "color" },
+        "border":           { "$value": "{color.semantic.border}",       "$type": "color" },
+        "border-focus":     { "$value": "{color.semantic.accent}",       "$type": "color" },
+        "border-width":     { "$value": "1px",                           "$type": "dimension" },
+        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
+        "padding-x":        { "$value": "{spacing.4}",                   "$type": "dimension" },
+        "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
+        "font-size":        { "$value": "{typography.font-size.base}",   "$type": "dimension" },
+        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+      }
+    },
+
+    "link": {
+      "$extensions": {
+        "bella": {
+          "name": "Link",
+          "description": "Inline text link inside body copy.",
+          "variants": ["default"],
+          "states": ["default", "hover", "visited", "focus"],
+          "usage": ["Inline references inside paragraphs", "Footer links"],
+          "dont": ["Do not use for primary navigation — that's nav-link", "Do not rely on color alone — always underlined or weight-shifted on hover"],
+          "a11y": "Ink foreground on parchment passes AAA (17.2:1). Hover affordance is text-decoration-thickness or font-weight, not color."
+        }
+      },
+
+      "default": {
+        "foreground":       { "$value": "{color.semantic.link}",       "$type": "color" },
+        "foreground-hover": { "$value": "{color.semantic.link-hover}", "$type": "color" },
+        "text-decoration":  { "$value": "underline",                   "$type": "other" }
+      }
+    },
+
+    "nav-link": {
+      "$extensions": {
+        "bella": {
+          "name": "Nav Link",
+          "description": "Top-level navigation item. Mono, uppercase-lite. Active state reads as ink text with a 2px amber underline — amber is decoration, ink carries the letters.",
+          "variants": ["default", "active"],
+          "states": ["default", "hover", "active", "focus"],
+          "usage": ["Top navigation bar", "Footer navigation"],
+          "dont": ["Do not mix nav-link and inline-link in the same cluster", "Do not color-distinguish the active state with amber text — use the amber underline token instead"],
+          "a11y": "min-height hits 44px — critical for mobile nav. Active variant uses ink text (neutral.900, AAA 17.2:1 on parchment) with a 2px amber border-bottom as the affordance — amber stays non-text decoration."
+        }
+      },
+
+      "default": {
+        "foreground":       { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "foreground-hover": { "$value": "{color.semantic.text-primary}",  "$type": "color" },
+        "font-family":      { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
+        "font-size":        { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
+        "min-height":       { "$value": "{spacing.touch-target}",         "$type": "dimension" }
+      },
+
+      "active": {
+        "foreground":       { "$value": "{color.neutral.900}",            "$type": "color" },
+        "border-bottom":    { "$value": "2px solid {color.semantic.accent}","$type": "other" },
+        "min-height":       { "$value": "{spacing.touch-target}",         "$type": "dimension" }
+      }
+    },
+
+    "section": {
+      "$extensions": {
+        "bella": {
+          "name": "Section",
+          "description": "A vertical slice of a page. Defines standard padding and gap for content blocks.",
+          "usage": ["Case-study sections", "Portfolio page regions"],
+          "dont": ["Do not nest sections inside sections"]
+        }
+      },
+
+      "default": {
+        "padding-y":        { "$value": "{spacing.16}",                  "$type": "dimension" },
+        "padding-x":        { "$value": "{spacing.6}",                   "$type": "dimension" },
+        "gap":              { "$value": "{spacing.12}",                  "$type": "dimension" },
+        "max-width":        { "$value": "1200px",                        "$type": "dimension" }
+      }
+    },
+
+    "modal": {
+      "$extensions": {
+        "bella": {
+          "name": "Modal",
+          "description": "Modal dialog scaffold. Backdrop blur over the page content, centered dialog surface above.",
+          "variants": ["default"],
+          "states": ["open", "closed"],
+          "usage": ["Dialogs", "Sheets", "Confirmations"],
+          "dont": ["Do not nest modals", "Do not use for non-blocking UI — use a drawer or popover instead"],
+          "a11y": "Focus trap required. Escape to close. aria-modal='true'. Backdrop blur must be gated behind prefers-reduced-motion: no-preference for AAA 2.3.3 compliance."
+        }
+      },
+
+      "backdrop": {
+        "blur":             { "$value": "{blur.sm}",                    "$type": "dimension" }
+      }
+    }
+  }
+}

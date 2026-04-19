@@ -1,0 +1,38 @@
+{
+  "color": {
+    "semantic": {
+      "background":         { "$value": "{color.brand.ink}",        "$type": "color", "$description": "Default page background in dark mode.",                          "$extensions": { "bella": { "usage": ["body background in dark mode"] } } },
+      "background-inverse": { "$value": "{color.brand.parchment}",  "$type": "color", "$description": "Inverse light section inside a dark page.",                      "$extensions": { "bella": { "usage": ["full-bleed light sections embedded in a dark layout"] } } },
+      "surface":            { "$value": "{color.brand.slate}",      "$type": "color", "$description": "Raised surface on ink. Cards sit on this in dark mode.",         "$extensions": { "bella": { "usage": ["card default background in dark mode"] } } },
+      "surface-elevated":   { "$value": "#242833",                  "$type": "color", "$description": "Higher-elevation surface in dark mode. One step lighter than slate.","$extensions": { "bella": { "usage": ["modals", "hero cards in dark mode"] } } },
+      "surface-inverse":    { "$value": "{color.neutral.100}",      "$type": "color", "$description": "Raised surface for light sections embedded in dark pages.",      "$extensions": { "bella": { "usage": ["cards inside background-inverse sections"] } } },
+
+      "surface-glass":          { "$value": "{color.alpha.slate-60}", "$type": "color", "$description": "Dark glass. Slate at 60% alpha over ink — warm shadows remain.",   "$extensions": { "bella": { "usage": ["card.glass background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only. Amber passes AAA (7.06:1) for emphasis spans." } } } },
+      "surface-glass-elevated": { "$value": "{color.alpha.slate-48}", "$type": "color", "$description": "Mid dark glass. Elevated cards and content panels.",              "$extensions": { "bella": { "usage": ["card.elevated background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only." } } } },
+      "surface-glass-light":    { "$value": "{color.alpha.slate-32}", "$type": "color", "$description": "Lightest dark glass. Subtle nested panels in dark mode.",         "$extensions": { "bella": { "usage": ["card.default background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only." } } } },
+      "surface-glass-amber":    { "$value": "{color.alpha.amber-15}", "$type": "color", "$description": "Amber-tinted glass — active-state only. Amber at 15% over slate.", "$extensions": { "bella": { "usage": ["Active nav-link glass background in dark mode", "Selected filter chip background"], "a11y": { "contextRequirement": "Only use for active or selected state backgrounds. Never as a default surface. Text on amber-glass: parchment only." } } } },
+
+      "text-primary":   { "$value": "{color.brand.parchment}", "$type": "color", "$description": "Primary text in dark mode.",                "$extensions": { "bella": { "usage": ["body text in dark mode"], "a11y": "AAA against ink." } } },
+      "text-secondary": { "$value": "#B8B4AC",                 "$type": "color", "$description": "Secondary text — warm neutral tuned for dark mode.", "$extensions": { "bella": { "usage": ["card descriptions in dark mode", "captions and footnotes on ink or slate"], "a11y": "AAA ✅ on both dark-mode parent surfaces. Verified contrast: 9.13:1 on background (ink #0F1117), 8.14:1 on surface (slate #1A1D27). Safe for captions, footnotes, and supporting copy at the AAA bar.", "contexts": ["{color.semantic.background} — ink #0F1117 — 9.13:1", "{color.semantic.surface} — slate #1A1D27 — 8.14:1"] } } },
+      "text-muted":     { "$value": "#7A7770",                 "$type": "color", "$description": "Muted text in dark mode. Metadata.",        "$extensions": { "bella": { "usage": ["timestamps"], "dont": ["Never body text"] } } },
+      "text-inverse":   { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Text on light surfaces inside dark pages.", "$extensions": { "bella": { "usage": ["headings inside surface-inverse cards"] } } },
+      "text-accent":    { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Amber text. Eyebrows and emphasis — only on ink backgrounds where AAA holds.","$extensions": { "bella": { "usage": ["eyebrows, highlight spans in dark mode"], "a11y": "AAA against ink (7.06:1) at 16px+." } } },
+
+      "accent":         { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Primary accent. Same amber, both modes." },
+      "accent-subtle":  { "$value": "{color.alpha.amber-15}",  "$type": "color", "$description": "Amber wash — works on ink because alpha is transparent." },
+      "accent-border":  { "$value": "{color.alpha.amber-30}",  "$type": "color", "$description": "Amber border." },
+
+      "border":         { "$value": "{color.alpha.parchment-6}","$type": "color", "$description": "Default border in dark mode. Very subtle parchment wash." },
+      "border-subtle":  { "$value": "#2A2D37",                  "$type": "color", "$description": "Slightly lighter than slate — for section dividers." },
+      "border-strong":  { "$value": "{color.brand.parchment}",  "$type": "color", "$description": "High-contrast border in dark mode. For focus." },
+
+      "link":           { "$value": "{color.brand.parchment}", "$type": "color", "$description": "Default link color in dark mode — parchment. Affordance via underline, not color." },
+      "link-hover":     { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Link hover — amber in dark mode where it passes AAA against ink (7.06:1)." },
+
+      "success":        { "$value": "{color.supporting.sage}", "$type": "color", "$description": "Success state color." },
+      "info":           { "$value": "{color.supporting.steel}","$type": "color", "$description": "Info state color." },
+      "info-subtle":    { "$value": "{color.alpha.steel-15}",  "$type": "color", "$description": "Info chip background." },
+      "info-border":    { "$value": "{color.alpha.steel-30}",  "$type": "color", "$description": "Info chip border." }
+    }
+  }
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BELLA — Token Preview</title>
+<link rel="stylesheet" href="bella.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--typography-font-family-body);
+    font-size: var(--typography-font-size-base);
+    line-height: var(--typography-line-height-normal);
+    background: var(--color-semantic-background);
+    color: var(--color-semantic-text-primary);
+    padding: var(--spacing-10) var(--spacing-6);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  header { margin-bottom: var(--spacing-12); }
+  .eyebrow { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-accent); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wider); margin-bottom: var(--spacing-2); }
+  h1 { font-size: var(--typography-font-size-5xl); font-weight: var(--typography-font-weight-black); line-height: var(--typography-line-height-tight); letter-spacing: var(--typography-letter-spacing-tight); }
+  h1 em { color: var(--color-semantic-accent); font-style: normal; }
+  h2 { font-size: var(--typography-font-size-3xl); font-weight: var(--typography-font-weight-bold); margin-top: var(--spacing-12); margin-bottom: var(--spacing-5); }
+  h3 { font-size: var(--typography-font-size-xl); font-weight: var(--typography-font-weight-bold); margin-top: var(--spacing-8); margin-bottom: var(--spacing-3); }
+  p { margin-bottom: var(--spacing-4); }
+  .theme-toggle { position: fixed; top: var(--spacing-5); right: var(--spacing-5); z-index: 10;
+    background: var(--color-semantic-accent); color: var(--color-brand-ink);
+    padding: var(--spacing-3) var(--spacing-5); border: 0; border-radius: var(--radius-md);
+    font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag);
+    font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-wide);
+    text-transform: uppercase; cursor: pointer; }
+
+  /* Swatches */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--spacing-3); margin-bottom: var(--spacing-6); }
+  .swatch { background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-lg); overflow: hidden; }
+  .swatch-chip { height: 72px; }
+  .swatch-meta { padding: var(--spacing-3); }
+  .swatch-name { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); font-weight: var(--typography-font-weight-medium); margin-bottom: var(--spacing-1); }
+  .swatch-hex { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-text-secondary); }
+  .swatch-desc { font-size: var(--typography-font-size-sm); color: var(--color-semantic-text-secondary); margin-top: var(--spacing-2); line-height: var(--typography-line-height-snug); }
+
+  /* Semantic table */
+  .sem-table { width: 100%; border-collapse: collapse; background: var(--color-semantic-surface); border-radius: var(--radius-lg); overflow: hidden; }
+  .sem-table th, .sem-table td { padding: var(--spacing-3) var(--spacing-4); text-align: left; border-bottom: 1px solid var(--color-semantic-border-subtle); font-size: var(--typography-font-size-sm); }
+  .sem-table th { background: var(--color-semantic-surface-elevated, var(--color-semantic-surface)); font-family: var(--typography-font-family-mono); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); font-size: var(--typography-font-size-tag); color: var(--color-semantic-text-secondary); }
+  .sem-table code { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); }
+  .sem-name { font-family: var(--typography-font-family-mono); }
+  .sem-chip span { display: inline-block; width: 18px; height: 18px; border-radius: var(--radius-sm); vertical-align: middle; margin-right: var(--spacing-2); }
+
+  /* Component previews */
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-5); margin-top: var(--spacing-6); }
+  .meta-desc { color: var(--color-semantic-text-secondary); }
+  .meta-chips code { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); background: var(--color-semantic-accent-subtle); color: var(--color-semantic-accent); padding: 2px var(--spacing-2); border-radius: var(--radius-sm); margin: 0 var(--spacing-1); }
+  .meta-usage { color: var(--color-semantic-text-secondary); font-size: var(--typography-font-size-sm); }
+  .meta-dont { color: var(--color-semantic-text-secondary); font-size: var(--typography-font-size-sm); border-left: 2px solid var(--color-semantic-accent); padding-left: var(--spacing-3); }
+
+  /* Live component examples */
+  .live-card { background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-lg); padding: var(--spacing-5); transition: all var(--motion-duration-normal) var(--motion-easing-emphasis); }
+  .live-card:hover { transform: var(--motion-transform-hover-lift); box-shadow: var(--shadow-hover); }
+  .live-card-eyebrow { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-accent); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wider); margin-bottom: var(--spacing-2); }
+  .live-card-title { font-size: var(--typography-font-size-xl); font-weight: var(--typography-font-weight-bold); margin-bottom: var(--spacing-2); }
+  .live-card-desc { color: var(--color-semantic-text-secondary); font-size: var(--typography-font-size-base); line-height: var(--typography-line-height-normal); }
+
+  .live-tag { display: inline-flex; align-items: center; min-height: var(--spacing-touch-target); padding: var(--spacing-1) var(--spacing-3); border-radius: var(--radius-full); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); font-weight: var(--typography-font-weight-medium); letter-spacing: var(--typography-letter-spacing-wide); text-transform: uppercase; border: 1px solid transparent; margin-right: var(--spacing-2); }
+  .live-tag.accent { background: var(--color-semantic-accent-subtle); color: var(--color-semantic-accent); border-color: var(--color-semantic-accent-border); }
+  .live-tag.info { background: var(--color-semantic-info-subtle); color: var(--color-semantic-info); border-color: var(--color-semantic-info-border); }
+  .live-tag.muted { background: var(--color-semantic-surface); color: var(--color-semantic-text-secondary); border-color: var(--color-semantic-border); }
+
+  .live-btn { display: inline-flex; align-items: center; min-height: var(--spacing-touch-target); padding: var(--spacing-3) var(--spacing-5); background: var(--color-semantic-accent); color: var(--color-brand-ink); border: 1px solid var(--color-semantic-accent); border-radius: var(--radius-md); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-wide); text-transform: uppercase; cursor: pointer; text-decoration: none; margin-right: var(--spacing-3); transition: background var(--motion-duration-fast); }
+  .live-btn.secondary { background: transparent; color: var(--color-semantic-accent); }
+  .live-btn.ghost { background: transparent; color: var(--color-semantic-text-primary); border-color: transparent; }
+
+  .type-specimen { background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-lg); padding: var(--spacing-6); }
+  .type-row { display: flex; align-items: baseline; gap: var(--spacing-5); padding: var(--spacing-3) 0; border-bottom: 1px solid var(--color-semantic-border-subtle); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-label { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-text-secondary); width: 120px; flex-shrink: 0; text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); }
+
+  .spacing-scale { display: flex; flex-direction: column; gap: var(--spacing-2); background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-lg); padding: var(--spacing-5); }
+  .spacing-row { display: flex; align-items: center; gap: var(--spacing-4); }
+  .spacing-row .label { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-text-secondary); width: 80px; }
+  .spacing-row .bar { background: var(--color-semantic-accent); height: 16px; border-radius: var(--radius-sm); }
+  .spacing-row .value { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-semantic-text-secondary); }
+
+  /* Mobile / touch AAA preview */
+  .mobile-frame { max-width: 640px; margin: 0 auto; background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-lg); padding: var(--spacing-5); }
+  .mobile-frame > * + * { margin-top: var(--spacing-5); }
+  .mobile-nav { display: flex; gap: var(--spacing-4); border-bottom: 1px solid var(--color-semantic-border-subtle); padding-bottom: var(--spacing-3); flex-wrap: wrap; }
+  .live-nav-link { display: inline-flex; align-items: center; min-height: var(--spacing-touch-target); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); letter-spacing: var(--typography-letter-spacing-wide); color: var(--color-semantic-text-secondary); text-transform: uppercase; text-decoration: none; cursor: pointer; padding: 0 var(--spacing-2); }
+  .live-nav-link.active { color: var(--color-semantic-text-primary); border-bottom: 2px solid var(--color-semantic-accent); }
+  .live-input { display: block; width: 100%; min-height: var(--spacing-touch-target); background: var(--color-semantic-surface); border: 1px solid var(--color-semantic-border); border-radius: var(--radius-md); padding: var(--spacing-3) var(--spacing-4); font-family: var(--typography-font-family-body); font-size: var(--typography-font-size-base); color: var(--color-semantic-text-primary); box-sizing: border-box; }
+
+  /* Surfaces — glass + shadow + blur preview */
+  .glass-stage         { background: var(--color-semantic-background); padding: var(--spacing-8) var(--spacing-5); border-radius: var(--radius-lg); border: 1px solid var(--color-semantic-border); margin-top: var(--spacing-3); }
+  .glass-row           { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--spacing-5); }
+  .glass-card          { background: var(--color-semantic-surface-glass); backdrop-filter: blur(var(--bella-blur-lg)); -webkit-backdrop-filter: blur(var(--bella-blur-lg)); border: 1px solid var(--color-semantic-border-glass-edge); border-top: 1px solid var(--color-semantic-border-glass-top); border-radius: var(--radius-3xl); padding: var(--spacing-6); box-shadow: var(--shadow-raised); }
+  .glass-card.elevated { background: var(--color-semantic-surface-glass-elevated); backdrop-filter: blur(var(--bella-blur-md)); -webkit-backdrop-filter: blur(var(--bella-blur-md)); border-radius: var(--radius-2xl); box-shadow: var(--shadow-card-elevated); }
+  .glass-card.light    { background: var(--color-semantic-surface-glass-light);    backdrop-filter: blur(var(--bella-blur-sm)); -webkit-backdrop-filter: blur(var(--bella-blur-sm)); border-radius: var(--radius-xl);  box-shadow: var(--shadow-card-default); }
+  .glass-card h4       { font-size: var(--typography-font-size-xl); font-weight: var(--typography-font-weight-bold); margin-bottom: var(--spacing-2); }
+  .glass-card p        { font-size: var(--typography-font-size-base); color: var(--color-semantic-text-secondary); line-height: var(--typography-line-height-normal); }
+
+  .shadow-row                { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--spacing-5); margin-top: var(--spacing-5); }
+  .shadow-chip               { background: var(--color-semantic-surface); border-radius: var(--radius-lg); padding: var(--spacing-6) var(--spacing-4); text-align: center; font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); color: var(--color-semantic-text-secondary); }
+  .shadow-chip.soft          { box-shadow: var(--shadow-soft); }
+  .shadow-chip.layered       { box-shadow: var(--shadow-layered); }
+  .shadow-chip.card-default  { box-shadow: var(--shadow-card-default); }
+  .shadow-chip.card-elevated { box-shadow: var(--shadow-card-elevated); }
+
+  .blur-stage   { position: relative; margin-top: var(--spacing-5); border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #C4956A 0%, #6495C5 35%, #4A7C6F 65%, #7B6E8F 100%); padding: var(--spacing-10) var(--spacing-5); }
+  .blur-row     { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--spacing-3); }
+  .blur-tile    { aspect-ratio: 1; display: flex; align-items: flex-end; justify-content: center; padding: var(--spacing-3); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-brand-ink); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); background: rgba(255,255,255,0.40); border-radius: var(--radius-md); }
+  .blur-tile.xs { backdrop-filter: blur(var(--bella-blur-xs)); -webkit-backdrop-filter: blur(var(--bella-blur-xs)); }
+  .blur-tile.sm { backdrop-filter: blur(var(--bella-blur-sm)); -webkit-backdrop-filter: blur(var(--bella-blur-sm)); }
+  .blur-tile.md { backdrop-filter: blur(var(--bella-blur-md)); -webkit-backdrop-filter: blur(var(--bella-blur-md)); }
+  .blur-tile.lg { backdrop-filter: blur(var(--bella-blur-lg)); -webkit-backdrop-filter: blur(var(--bella-blur-lg)); }
+  .blur-tile.xl { backdrop-filter: blur(var(--bella-blur-xl)); -webkit-backdrop-filter: blur(var(--bella-blur-xl)); }
+
+  .a11y-note-card        { margin-top: var(--spacing-8); background: var(--color-semantic-surface); border-left: 4px solid var(--color-semantic-accent); padding: var(--spacing-5); border-radius: var(--radius-md); }
+  .a11y-note-card strong { font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); color: var(--color-semantic-accent); display: block; margin-bottom: var(--spacing-2); }
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">Toggle Theme</button>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">ctrl_alt_design · BELLA v0.2</div>
+    <h1>Token <em>preview</em>.</h1>
+    <p style="color: var(--color-semantic-text-secondary); max-width: 60ch; margin-top: var(--spacing-3);">Every token in BELLA, seen at once. Tier 1 primitives at the top, tier 2 semantic mappings in the middle, tier 3 component tokens at the bottom with live examples. Toggle the theme to see light/dark.</p>
+  </header>
+
+  <section>
+    <div class="eyebrow">Tier 1</div>
+    <h2>Primitives</h2>
+    <p style="color: var(--color-semantic-text-secondary);">Raw values. Every downstream token references these, never the reverse.</p>
+    <h3>Brand</h3><div class="swatches"><div class="swatch"><div class="swatch-chip" style="background:#0F1117"></div><div class="swatch-meta"><div class="swatch-name">brand.ink</div><div class="swatch-hex">#0F1117</div><div class="swatch-desc">Signature near-black with a blue-cool undertone. The definitive dark surface and high-contrast text color for BELLA.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#F7F4EF"></div><div class="swatch-meta"><div class="swatch-name">brand.parchment</div><div class="swatch-hex">#F7F4EF</div><div class="swatch-desc">Signature warm off-white. The default page background for BELLA. Replaces pure white everywhere.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#C4956A"></div><div class="swatch-meta"><div class="swatch-name">brand.amber</div><div class="swatch-hex">#C4956A</div><div class="swatch-desc">Warm gold accent. The single brand accent — used as background, decoration, and (on ink only) as text.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#1A1D27"></div><div class="swatch-meta"><div class="swatch-name">brand.slate</div><div class="swatch-hex">#1A1D27</div><div class="swatch-desc">Raised card surface on ink backgrounds. One step lighter than ink, same blue-cool family.</div></div></div></div>
+<h3>Supporting</h3><div class="swatches"><div class="swatch"><div class="swatch-chip" style="background:#6495C5"></div><div class="swatch-meta"><div class="swatch-name">supporting.steel</div><div class="swatch-hex">#6495C5</div><div class="swatch-desc">Muted blue. Reserved for info-state chip washes and decorative accents. Not a text color on parchment.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#7B6E8F"></div><div class="swatch-meta"><div class="swatch-name">supporting.dusk</div><div class="swatch-hex">#7B6E8F</div><div class="swatch-desc">Muted purple. Decorative accent and icon color only — not a text color on parchment.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#4A7C6F"></div><div class="swatch-meta"><div class="swatch-name">supporting.sage</div><div class="swatch-hex">#4A7C6F</div><div class="swatch-desc">Muted green. Reserved for success-state decoration — icons, chip washes, borders. Not a text color on parchment.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#E8E4DC"></div><div class="swatch-meta"><div class="swatch-name">supporting.linen</div><div class="swatch-hex">#E8E4DC</div><div class="swatch-desc">Warm light gray. Default border color on parchment backgrounds.</div></div></div></div>
+<h3>Neutral scale</h3><div class="swatches"><div class="swatch"><div class="swatch-chip" style="background:#FBFAF7"></div><div class="swatch-meta"><div class="swatch-name">neutral.50</div><div class="swatch-hex">#FBFAF7</div><div class="swatch-desc">Near-white with a faint warm undertone. The closest BELLA comes to pure white — still warm.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#F0EDE8"></div><div class="swatch-meta"><div class="swatch-name">neutral.100</div><div class="swatch-hex">#F0EDE8</div><div class="swatch-desc">Subtle warm gray. Slightly darker than parchment — used for raised surfaces where a gentle step is needed.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#CCCCCC"></div><div class="swatch-meta"><div class="swatch-name">neutral.200</div><div class="swatch-hex">#CCCCCC</div><div class="swatch-desc">Neutral gray, mid-light.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#999999"></div><div class="swatch-meta"><div class="swatch-name">neutral.400</div><div class="swatch-hex">#999999</div><div class="swatch-desc">Neutral gray, muted text.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#666666"></div><div class="swatch-meta"><div class="swatch-name">neutral.500</div><div class="swatch-hex">#666666</div><div class="swatch-desc">Neutral gray. AA contrast on parchment — superseded by neutral.600 for AAA text roles.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#525252"></div><div class="swatch-meta"><div class="swatch-name">neutral.600</div><div class="swatch-hex">#525252</div><div class="swatch-desc">Dark neutral gray. The AAA-safe secondary text color on parchment.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#333333"></div><div class="swatch-meta"><div class="swatch-name">neutral.700</div><div class="swatch-hex">#333333</div><div class="swatch-desc">Near-black neutral. Alternative to ink when a flatter black is needed.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#111111"></div><div class="swatch-meta"><div class="swatch-name">neutral.900</div><div class="swatch-hex">#111111</div><div class="swatch-desc">Darkest neutral. The default primary text color on light surfaces.</div></div></div></div>
+<h3>Alpha variants</h3><div class="swatches"><div class="swatch"><div class="swatch-chip" style="background:#C4956A26"></div><div class="swatch-meta"><div class="swatch-name">alpha.amber-15</div><div class="swatch-hex">#C4956A26</div><div class="swatch-desc">Amber at 15% alpha. For tag and chip backgrounds on light surfaces.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#C4956A4D"></div><div class="swatch-meta"><div class="swatch-name">alpha.amber-30</div><div class="swatch-hex">#C4956A4D</div><div class="swatch-desc">Amber at 30% alpha. For tag and chip borders.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#6495C526"></div><div class="swatch-meta"><div class="swatch-name">alpha.steel-15</div><div class="swatch-hex">#6495C526</div><div class="swatch-desc">Steel at 15% alpha. For info chip backgrounds.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#6495C54D"></div><div class="swatch-meta"><div class="swatch-name">alpha.steel-30</div><div class="swatch-hex">#6495C54D</div><div class="swatch-desc">Steel at 30% alpha. For info chip borders.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#0F111710"></div><div class="swatch-meta"><div class="swatch-name">alpha.ink-6</div><div class="swatch-hex">#0F111710</div><div class="swatch-desc">Ink at ~6% alpha. Subtle borders and dividers on light surfaces when linen is too warm.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#F7F4EF10"></div><div class="swatch-meta"><div class="swatch-name">alpha.parchment-6</div><div class="swatch-hex">#F7F4EF10</div><div class="swatch-desc">Parchment at ~6% alpha. Subtle borders on ink/slate surfaces in dark mode.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFF47"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-28</div><div class="swatch-hex">#FFFFFF47</div><div class="swatch-desc">White at 28% alpha. Bottom stop of the lightest glass gradient.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFF7A"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-48</div><div class="swatch-hex">#FFFFFF7A</div><div class="swatch-desc">White at 48% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFF8C"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-55</div><div class="swatch-hex">#FFFFFF8C</div><div class="swatch-desc">White at 55% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFFAD"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-68</div><div class="swatch-hex">#FFFFFFAD</div><div class="swatch-desc">White at 68% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFFB8"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-72</div><div class="swatch-hex">#FFFFFFB8</div><div class="swatch-desc">White at 72% alpha. The top highlight of a frosted panel.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFFD1"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-82</div><div class="swatch-hex">#FFFFFFD1</div><div class="swatch-desc">White at 82% alpha. Top stop of the primary glass gradient.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#FFFFFFE6"></div><div class="swatch-meta"><div class="swatch-name">alpha.glass-90</div><div class="swatch-hex">#FFFFFFE6</div><div class="swatch-desc">White at 90% alpha. Crisp inset top highlight on heavy glass.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#2C181008"></div><div class="swatch-meta"><div class="swatch-name">alpha.shadow-warm-03</div><div class="swatch-hex">#2C181008</div><div class="swatch-desc">Espresso ink (#2C1810) at 3% alpha. Cognac drop shadow.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#2C18100A"></div><div class="swatch-meta"><div class="swatch-name">alpha.shadow-warm-04</div><div class="swatch-hex">#2C18100A</div><div class="swatch-desc">Espresso ink at 4% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#2C18100D"></div><div class="swatch-meta"><div class="swatch-name">alpha.shadow-warm-05</div><div class="swatch-hex">#2C18100D</div><div class="swatch-desc">Espresso ink at 5% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#2C18100F"></div><div class="swatch-meta"><div class="swatch-name">alpha.shadow-warm-06</div><div class="swatch-hex">#2C18100F</div><div class="swatch-desc">Espresso ink at 6% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#2C181014"></div><div class="swatch-meta"><div class="swatch-name">alpha.shadow-warm-08</div><div class="swatch-hex">#2C181014</div><div class="swatch-desc">Espresso ink at 8% alpha.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#1A1D2799"></div><div class="swatch-meta"><div class="swatch-name">alpha.slate-60</div><div class="swatch-hex">#1A1D2799</div><div class="swatch-desc">Slate at 60% alpha. Top stop of dark-mode glass.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#1A1D277A"></div><div class="swatch-meta"><div class="swatch-name">alpha.slate-48</div><div class="swatch-hex">#1A1D277A</div><div class="swatch-desc">Slate at 48% alpha. Mid dark-mode glass.</div></div></div><div class="swatch"><div class="swatch-chip" style="background:#1A1D2752"></div><div class="swatch-meta"><div class="swatch-name">alpha.slate-32</div><div class="swatch-hex">#1A1D2752</div><div class="swatch-desc">Slate at 32% alpha. Light dark-mode glass.</div></div></div></div>
+
+    <h3>Spacing scale</h3>
+    <div class="spacing-scale">
+      <div class="spacing-row"><span class="label">spacing.1</span><div class="bar" style="width: 4px"></div><span class="value">4px</span></div><div class="spacing-row"><span class="label">spacing.2</span><div class="bar" style="width: 8px"></div><span class="value">8px</span></div><div class="spacing-row"><span class="label">spacing.3</span><div class="bar" style="width: 12px"></div><span class="value">12px</span></div><div class="spacing-row"><span class="label">spacing.4</span><div class="bar" style="width: 16px"></div><span class="value">16px</span></div><div class="spacing-row"><span class="label">spacing.5</span><div class="bar" style="width: 20px"></div><span class="value">20px</span></div><div class="spacing-row"><span class="label">spacing.6</span><div class="bar" style="width: 24px"></div><span class="value">24px</span></div><div class="spacing-row"><span class="label">spacing.8</span><div class="bar" style="width: 32px"></div><span class="value">32px</span></div><div class="spacing-row"><span class="label">spacing.10</span><div class="bar" style="width: 40px"></div><span class="value">40px</span></div><div class="spacing-row"><span class="label">spacing.12</span><div class="bar" style="width: 48px"></div><span class="value">48px</span></div><div class="spacing-row"><span class="label">spacing.16</span><div class="bar" style="width: 64px"></div><span class="value">64px</span></div><div class="spacing-row"><span class="label">spacing.20</span><div class="bar" style="width: 80px"></div><span class="value">80px</span></div><div class="spacing-row"><span class="label">spacing.touch-target</span><div class="bar" style="width: 44px"></div><span class="value">44px</span></div><div class="spacing-row"><span class="label">spacing.touch-target-comfortable</span><div class="bar" style="width: 48px"></div><span class="value">48px</span></div>
+    </div>
+
+    <h3>Typography specimen</h3>
+    <div class="type-specimen">
+      <div class="type-row"><span class="type-label">display</span><span style="font-size: var(--typography-font-size-5xl); font-weight: var(--typography-font-weight-black); line-height: var(--typography-line-height-tight); letter-spacing: var(--typography-letter-spacing-tight);">Elleta McDaniel</span></div>
+      <div class="type-row"><span class="type-label">heading-1</span><span style="font-size: var(--typography-font-size-4xl); font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-tight);">Design Systems &amp; AI</span></div>
+      <div class="type-row"><span class="type-label">heading-2</span><span style="font-size: var(--typography-font-size-3xl); font-weight: var(--typography-font-weight-bold);">From Drift to Foundation</span></div>
+      <div class="type-row"><span class="type-label">heading-3</span><span style="font-size: var(--typography-font-size-2xl); font-weight: var(--typography-font-weight-bold);">Token architecture</span></div>
+      <div class="type-row"><span class="type-label">card-title</span><span style="font-size: var(--typography-font-size-xl); font-weight: var(--typography-font-weight-bold);">Operational Dashboard</span></div>
+      <div class="type-row"><span class="type-label">body</span><span style="font-size: var(--typography-font-size-base); line-height: var(--typography-line-height-normal);">Designing clarity for complex digital platforms and scaling teams.</span></div>
+      <div class="type-row"><span class="type-label">tag</span><span style="font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wider); color: var(--color-semantic-accent);">Design Systems · AI · ctrl_alt_design</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow" style="margin-top: var(--spacing-12);">Tier 2</div>
+    <h2>Semantic</h2>
+    <p style="color: var(--color-semantic-text-secondary);">Meaning, not value. Components reference these — the mapping to primitives can change per mode without breaking any component.</p>
+    <h3>Light mode resolution</h3>
+    <table class='sem-table'><thead><tr><th>Token</th><th>Reference</th><th>Resolved</th><th>Description</th></tr></thead><tbody><tr><td class="sem-name">color.semantic.background</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">Default page background in light mode.</td></tr><tr><td class="sem-name">color.semantic.background-inverse</td><td class="sem-ref"><code>{color.brand.ink}</code></td><td class="sem-chip"><span style="background:#0F1117;border:1px solid #0001"></span> <code>#0F1117</code></td><td class="sem-desc">Inverse dark section on a light page. Used for dark-mode demo blocks inside light pages.</td></tr><tr><td class="sem-name">color.semantic.surface</td><td class="sem-ref"><code>{color.neutral.100}</code></td><td class="sem-chip"><span style="background:#F0EDE8;border:1px solid #0001"></span> <code>#F0EDE8</code></td><td class="sem-desc">Resting raised surface on parchment. Cards sit on this.</td></tr><tr><td class="sem-name">color.semantic.surface-elevated</td><td class="sem-ref"><code>{color.neutral.50}</code></td><td class="sem-chip"><span style="background:#FBFAF7;border:1px solid #0001"></span> <code>#FBFAF7</code></td><td class="sem-desc">Higher-elevation surface. For modals or cards that need to feel brighter than surface.</td></tr><tr><td class="sem-name">color.semantic.surface-inverse</td><td class="sem-ref"><code>{color.brand.slate}</code></td><td class="sem-chip"><span style="background:#1A1D27;border:1px solid #0001"></span> <code>#1A1D27</code></td><td class="sem-desc">Raised surface on dark backgrounds (dark-mode embedded blocks in light mode).</td></tr><tr><td class="sem-name">color.semantic.surface-glass</td><td class="sem-ref"><code>linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)</code></td><td class="sem-chip"><span style="background:linear-gradient(180deg, #FFFFFFD1 0%, #FFFFFFAD 100%);border:1px solid #0001"></span> <code>linear-gradient(180deg, #FFFFFFD1 0%, #FFFFFFAD 100%)</code></td><td class="sem-desc">Primary glass surface. Parchment shows through the warm cream. Pair with border-glass-top, shadow.raised, and blur.surface.</td></tr><tr><td class="sem-name">color.semantic.surface-glass-elevated</td><td class="sem-ref"><code>linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)</code></td><td class="sem-chip"><span style="background:linear-gradient(180deg, #FFFFFFAD 0%, #FFFFFF7A 100%);border:1px solid #0001"></span> <code>linear-gradient(180deg, #FFFFFFAD 0%, #FFFFFF7A 100%)</code></td><td class="sem-desc">Mid-tier glass. Denser content cards.</td></tr><tr><td class="sem-name">color.semantic.surface-glass-light</td><td class="sem-ref"><code>linear-gradient(180deg, {color.alpha.glass-48} 0%, {color.alpha.glass-28} 100%)</code></td><td class="sem-chip"><span style="background:linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%);border:1px solid #0001"></span> <code>linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%)</code></td><td class="sem-desc">Lightest glass. Subtle secondary panels and nested containers.</td></tr><tr><td class="sem-name">color.semantic.border-glass-top</td><td class="sem-ref"><code>{color.alpha.glass-72}</code></td><td class="sem-chip"><span style="background:#FFFFFFB8;border:1px solid #0001"></span> <code>#FFFFFFB8</code></td><td class="sem-desc">Top highlight on a frosted panel — mimics natural light on glass.</td></tr><tr><td class="sem-name">color.semantic.border-glass-edge</td><td class="sem-ref"><code>{color.alpha.glass-55}</code></td><td class="sem-chip"><span style="background:#FFFFFF8C;border:1px solid #0001"></span> <code>#FFFFFF8C</code></td><td class="sem-desc">Full-perimeter glass edge.</td></tr><tr><td class="sem-name">color.semantic.text-primary</td><td class="sem-ref"><code>{color.neutral.900}</code></td><td class="sem-chip"><span style="background:#111111;border:1px solid #0001"></span> <code>#111111</code></td><td class="sem-desc">Primary text color on light surfaces.</td></tr><tr><td class="sem-name">color.semantic.text-secondary</td><td class="sem-ref"><code>{color.neutral.600}</code></td><td class="sem-chip"><span style="background:#525252;border:1px solid #0001"></span> <code>#525252</code></td><td class="sem-desc">Secondary text. Captions, supporting copy.</td></tr><tr><td class="sem-name">color.semantic.text-muted</td><td class="sem-ref"><code>{color.neutral.400}</code></td><td class="sem-chip"><span style="background:#999999;border:1px solid #0001"></span> <code>#999999</code></td><td class="sem-desc">Muted text. Metadata, placeholders.</td></tr><tr><td class="sem-name">color.semantic.text-inverse</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">Text on dark surfaces. Used inside background-inverse blocks.</td></tr><tr><td class="sem-name">color.semantic.text-accent</td><td class="sem-ref"><code>{color.neutral.900}</code></td><td class="sem-chip"><span style="background:#111111;border:1px solid #0001"></span> <code>#111111</code></td><td class="sem-desc">Accent/emphasis text color — resolves to ink-equivalent on parchment. Amber fails AAA as text (2.44:1); emphasis carries via weight, italic, or a tinted background, not letter color.</td></tr><tr><td class="sem-name">color.semantic.accent</td><td class="sem-ref"><code>{color.brand.amber}</code></td><td class="sem-chip"><span style="background:#C4956A;border:1px solid #0001"></span> <code>#C4956A</code></td><td class="sem-desc">Primary accent — used as background on CTAs and as wash on chips. Text sits on accent, not as accent.</td></tr><tr><td class="sem-name">color.semantic.accent-subtle</td><td class="sem-ref"><code>{color.alpha.amber-15}</code></td><td class="sem-chip"><span style="background:#C4956A26;border:1px solid #0001"></span> <code>#C4956A26</code></td><td class="sem-desc">Amber wash. Tag backgrounds.</td></tr><tr><td class="sem-name">color.semantic.accent-border</td><td class="sem-ref"><code>{color.alpha.amber-30}</code></td><td class="sem-chip"><span style="background:#C4956A4D;border:1px solid #0001"></span> <code>#C4956A4D</code></td><td class="sem-desc">Amber border. Tag and chip borders.</td></tr><tr><td class="sem-name">color.semantic.border</td><td class="sem-ref"><code>{color.supporting.linen}</code></td><td class="sem-chip"><span style="background:#E8E4DC;border:1px solid #0001"></span> <code>#E8E4DC</code></td><td class="sem-desc">Default border on parchment backgrounds.</td></tr><tr><td class="sem-name">color.semantic.border-subtle</td><td class="sem-ref"><code>{color.alpha.ink-6}</code></td><td class="sem-chip"><span style="background:#0F111710;border:1px solid #0001"></span> <code>#0F111710</code></td><td class="sem-desc">Near-invisible border. Use when linen is too warm.</td></tr><tr><td class="sem-name">color.semantic.border-strong</td><td class="sem-ref"><code>{color.neutral.700}</code></td><td class="sem-chip"><span style="background:#333333;border:1px solid #0001"></span> <code>#333333</code></td><td class="sem-desc">High-contrast border for focus states.</td></tr><tr><td class="sem-name">color.semantic.link</td><td class="sem-ref"><code>{color.neutral.900}</code></td><td class="sem-chip"><span style="background:#111111;border:1px solid #0001"></span> <code>#111111</code></td><td class="sem-desc">Default link color — same as body text. Link affordance is underline, not color. Steel was 2.88:1 on parchment and fails AAA.</td></tr><tr><td class="sem-name">color.semantic.link-hover</td><td class="sem-ref"><code>{color.neutral.900}</code></td><td class="sem-chip"><span style="background:#111111;border:1px solid #0001"></span> <code>#111111</code></td><td class="sem-desc">Link hover — same color. Hover affordance carries via text-decoration-thickness bump or font-weight shift, not color change.</td></tr><tr><td class="sem-name">color.semantic.success</td><td class="sem-ref"><code>{color.supporting.sage}</code></td><td class="sem-chip"><span style="background:#4A7C6F;border:1px solid #0001"></span> <code>#4A7C6F</code></td><td class="sem-desc">Success state color — decorative / icon / border use only (sage fails AAA as text on parchment).</td></tr><tr><td class="sem-name">color.semantic.info</td><td class="sem-ref"><code>{color.supporting.steel}</code></td><td class="sem-chip"><span style="background:#6495C5;border:1px solid #0001"></span> <code>#6495C5</code></td><td class="sem-desc">Info state color — decorative / chip-wash / border use only (steel fails AAA as text on parchment).</td></tr><tr><td class="sem-name">color.semantic.info-subtle</td><td class="sem-ref"><code>{color.alpha.steel-15}</code></td><td class="sem-chip"><span style="background:#6495C526;border:1px solid #0001"></span> <code>#6495C526</code></td><td class="sem-desc">Info chip background.</td></tr><tr><td class="sem-name">color.semantic.info-border</td><td class="sem-ref"><code>{color.alpha.steel-30}</code></td><td class="sem-chip"><span style="background:#6495C54D;border:1px solid #0001"></span> <code>#6495C54D</code></td><td class="sem-desc">Info chip border.</td></tr><tr><td class="sem-name">shadow.floating</td><td class="sem-ref"><code>{shadow.soft}</code></td><td class="sem-chip"><span style="background:0 1px 2px #2C18100A, 0 10px 30px #2C18100F, 0 24px 60px #2C18100A;border:1px solid #0001"></span> <code>0 1px 2px #2C18100A, 0 10px 30px #2C18100F, 0 24px 60px #2C18100A</code></td><td class="sem-desc">Default floating-panel shadow. Semantic alias over primitive shadow.soft.</td></tr><tr><td class="sem-name">shadow.raised</td><td class="sem-ref"><code>{shadow.layered}</code></td><td class="sem-chip"><span style="background:0 1px 2px #2C18100D, 0 12px 40px #2C181014, 0 28px 80px #2C18100F, inset 0 1px 0 #FFFFFFE6;border:1px solid #0001"></span> <code>0 1px 2px #2C18100D, 0 12px 40px #2C181014, 0 28px 80px #2C18100F, inset 0 1px 0 #FFFFFFE6</code></td><td class="sem-desc">Primary raised card shadow. Semantic alias over primitive shadow.layered.</td></tr><tr><td class="sem-name">blur.surface</td><td class="sem-ref"><code>{blur.lg}</code></td><td class="sem-chip"><span style="background:18px;border:1px solid #0001"></span> <code>18px</code></td><td class="sem-desc">Default glass surface blur.</td></tr></tbody></table>
+    <h3>Dark mode resolution</h3>
+    <table class='sem-table'><thead><tr><th>Token</th><th>Reference</th><th>Resolved</th><th>Description</th></tr></thead><tbody><tr><td class="sem-name">color.semantic.background</td><td class="sem-ref"><code>{color.brand.ink}</code></td><td class="sem-chip"><span style="background:#0F1117;border:1px solid #0001"></span> <code>#0F1117</code></td><td class="sem-desc">Default page background in dark mode.</td></tr><tr><td class="sem-name">color.semantic.background-inverse</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">Inverse light section inside a dark page.</td></tr><tr><td class="sem-name">color.semantic.surface</td><td class="sem-ref"><code>{color.brand.slate}</code></td><td class="sem-chip"><span style="background:#1A1D27;border:1px solid #0001"></span> <code>#1A1D27</code></td><td class="sem-desc">Raised surface on ink. Cards sit on this in dark mode.</td></tr><tr><td class="sem-name">color.semantic.surface-elevated</td><td class="sem-ref"><code>#242833</code></td><td class="sem-chip"><span style="background:#242833;border:1px solid #0001"></span> <code>#242833</code></td><td class="sem-desc">Higher-elevation surface in dark mode. One step lighter than slate.</td></tr><tr><td class="sem-name">color.semantic.surface-inverse</td><td class="sem-ref"><code>{color.neutral.100}</code></td><td class="sem-chip"><span style="background:#F0EDE8;border:1px solid #0001"></span> <code>#F0EDE8</code></td><td class="sem-desc">Raised surface for light sections embedded in dark pages.</td></tr><tr><td class="sem-name">color.semantic.surface-glass</td><td class="sem-ref"><code>{color.alpha.slate-60}</code></td><td class="sem-chip"><span style="background:#1A1D2799;border:1px solid #0001"></span> <code>#1A1D2799</code></td><td class="sem-desc">Dark glass. Slate at 60% alpha over ink — warm shadows remain.</td></tr><tr><td class="sem-name">color.semantic.surface-glass-elevated</td><td class="sem-ref"><code>{color.alpha.slate-48}</code></td><td class="sem-chip"><span style="background:#1A1D277A;border:1px solid #0001"></span> <code>#1A1D277A</code></td><td class="sem-desc">Mid dark glass. Elevated cards and content panels.</td></tr><tr><td class="sem-name">color.semantic.surface-glass-light</td><td class="sem-ref"><code>{color.alpha.slate-32}</code></td><td class="sem-chip"><span style="background:#1A1D2752;border:1px solid #0001"></span> <code>#1A1D2752</code></td><td class="sem-desc">Lightest dark glass. Subtle nested panels in dark mode.</td></tr><tr><td class="sem-name">color.semantic.surface-glass-amber</td><td class="sem-ref"><code>{color.alpha.amber-15}</code></td><td class="sem-chip"><span style="background:#C4956A26;border:1px solid #0001"></span> <code>#C4956A26</code></td><td class="sem-desc">Amber-tinted glass — active-state only. Amber at 15% over slate.</td></tr><tr><td class="sem-name">color.semantic.text-primary</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">Primary text in dark mode.</td></tr><tr><td class="sem-name">color.semantic.text-secondary</td><td class="sem-ref"><code>#B8B4AC</code></td><td class="sem-chip"><span style="background:#B8B4AC;border:1px solid #0001"></span> <code>#B8B4AC</code></td><td class="sem-desc">Secondary text — warm neutral tuned for dark mode.</td></tr><tr><td class="sem-name">color.semantic.text-muted</td><td class="sem-ref"><code>#7A7770</code></td><td class="sem-chip"><span style="background:#7A7770;border:1px solid #0001"></span> <code>#7A7770</code></td><td class="sem-desc">Muted text in dark mode. Metadata.</td></tr><tr><td class="sem-name">color.semantic.text-inverse</td><td class="sem-ref"><code>{color.neutral.900}</code></td><td class="sem-chip"><span style="background:#111111;border:1px solid #0001"></span> <code>#111111</code></td><td class="sem-desc">Text on light surfaces inside dark pages.</td></tr><tr><td class="sem-name">color.semantic.text-accent</td><td class="sem-ref"><code>{color.brand.amber}</code></td><td class="sem-chip"><span style="background:#C4956A;border:1px solid #0001"></span> <code>#C4956A</code></td><td class="sem-desc">Amber text. Eyebrows and emphasis — only on ink backgrounds where AAA holds.</td></tr><tr><td class="sem-name">color.semantic.accent</td><td class="sem-ref"><code>{color.brand.amber}</code></td><td class="sem-chip"><span style="background:#C4956A;border:1px solid #0001"></span> <code>#C4956A</code></td><td class="sem-desc">Primary accent. Same amber, both modes.</td></tr><tr><td class="sem-name">color.semantic.accent-subtle</td><td class="sem-ref"><code>{color.alpha.amber-15}</code></td><td class="sem-chip"><span style="background:#C4956A26;border:1px solid #0001"></span> <code>#C4956A26</code></td><td class="sem-desc">Amber wash — works on ink because alpha is transparent.</td></tr><tr><td class="sem-name">color.semantic.accent-border</td><td class="sem-ref"><code>{color.alpha.amber-30}</code></td><td class="sem-chip"><span style="background:#C4956A4D;border:1px solid #0001"></span> <code>#C4956A4D</code></td><td class="sem-desc">Amber border.</td></tr><tr><td class="sem-name">color.semantic.border</td><td class="sem-ref"><code>{color.alpha.parchment-6}</code></td><td class="sem-chip"><span style="background:#F7F4EF10;border:1px solid #0001"></span> <code>#F7F4EF10</code></td><td class="sem-desc">Default border in dark mode. Very subtle parchment wash.</td></tr><tr><td class="sem-name">color.semantic.border-subtle</td><td class="sem-ref"><code>#2A2D37</code></td><td class="sem-chip"><span style="background:#2A2D37;border:1px solid #0001"></span> <code>#2A2D37</code></td><td class="sem-desc">Slightly lighter than slate — for section dividers.</td></tr><tr><td class="sem-name">color.semantic.border-strong</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">High-contrast border in dark mode. For focus.</td></tr><tr><td class="sem-name">color.semantic.link</td><td class="sem-ref"><code>{color.brand.parchment}</code></td><td class="sem-chip"><span style="background:#F7F4EF;border:1px solid #0001"></span> <code>#F7F4EF</code></td><td class="sem-desc">Default link color in dark mode — parchment. Affordance via underline, not color.</td></tr><tr><td class="sem-name">color.semantic.link-hover</td><td class="sem-ref"><code>{color.brand.amber}</code></td><td class="sem-chip"><span style="background:#C4956A;border:1px solid #0001"></span> <code>#C4956A</code></td><td class="sem-desc">Link hover — amber in dark mode where it passes AAA against ink (7.06:1).</td></tr><tr><td class="sem-name">color.semantic.success</td><td class="sem-ref"><code>{color.supporting.sage}</code></td><td class="sem-chip"><span style="background:#4A7C6F;border:1px solid #0001"></span> <code>#4A7C6F</code></td><td class="sem-desc">Success state color.</td></tr><tr><td class="sem-name">color.semantic.info</td><td class="sem-ref"><code>{color.supporting.steel}</code></td><td class="sem-chip"><span style="background:#6495C5;border:1px solid #0001"></span> <code>#6495C5</code></td><td class="sem-desc">Info state color.</td></tr><tr><td class="sem-name">color.semantic.info-subtle</td><td class="sem-ref"><code>{color.alpha.steel-15}</code></td><td class="sem-chip"><span style="background:#6495C526;border:1px solid #0001"></span> <code>#6495C526</code></td><td class="sem-desc">Info chip background.</td></tr><tr><td class="sem-name">color.semantic.info-border</td><td class="sem-ref"><code>{color.alpha.steel-30}</code></td><td class="sem-chip"><span style="background:#6495C54D;border:1px solid #0001"></span> <code>#6495C54D</code></td><td class="sem-desc">Info chip border.</td></tr></tbody></table>
+  </section>
+
+  <section>
+    <div class="eyebrow" style="margin-top: var(--spacing-12);">Tier 3</div>
+    <h2>Components</h2>
+    <p style="color: var(--color-semantic-text-secondary);">Every component reference is resolved through semantic, so flipping dark mode flips the components automatically.</p>
+
+    <h3>Button</h3>
+<p class="meta-desc">Primary call-to-action. Warm amber background for primary, ink text across variants. Reserved for the single most important action in a view.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>primary</code> · <code>secondary</code> · <code>ghost</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>active</code> · <code>focus</code> · <code>disabled</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Hero CTA, Card 'Read more' action, Form submit</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use more than one primary button per view; Do not stack two buttons of the same variant</p>
+<h3>Card</h3>
+<p class="meta-desc">Editorial glass-first card system. Three primary tiers progress from subtle panel (default) to hero glass (glass). Plus featured (solid bright) and inverse (dark-mode embed).</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>default</code> · <code>elevated</code> · <code>glass</code> · <code>featured</code> · <code>inverse</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>resting</code> · <code>hover</code> · <code>focus</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Portfolio grid, CHIP idea clusters, Dashboard tiles, Case-study cards, Hero feature panels</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not nest cards inside cards — glass-on-glass becomes mud; Do not use for navigation — that's nav-link's job; Do not place glass over amber/steel/dusk/sage — the contrast model breaks</p>
+<h3>Tag</h3>
+<p class="meta-desc">Uppercase mono label. Categorizes a card, a project, a mood. Ink-on-amber-wash is the canonical AAA-safe look.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>accent</code> · <code>info</code> · <code>muted</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Card category labels, Section eyebrows inside content areas, Filter state chips</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not set foreground to amber/steel/dusk/sage on parchment — those fail AAA; Do not place on amber backgrounds without verifying the foreground contrast</p>
+<h3>Eyebrow</h3>
+<p class="meta-desc">Small mono label above a heading. Signals context or category.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>accent</code> · <code>muted</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Above hero headlines, Above section titles, Above card groupings</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use as a heading — eyebrows complement a heading, never replace one; Do not hard-code amber as the foreground — flow through text-accent so AAA enforcement stays centralized</p>
+<h3>Input</h3>
+<p class="meta-desc">Text input. Serif-on-surface, linen border, amber focus ring.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>default</code> · <code>search</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>focus</code> · <code>disabled</code> · <code>error</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Forms, Search bars, Filter inputs</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not strip the border on default state — it's how inputs are recognizable</p>
+<h3>Link</h3>
+<p class="meta-desc">Inline text link inside body copy.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>default</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>visited</code> · <code>focus</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Inline references inside paragraphs, Footer links</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use for primary navigation — that's nav-link; Do not rely on color alone — always underlined or weight-shifted on hover</p>
+<h3>Nav Link</h3>
+<p class="meta-desc">Top-level navigation item. Mono, uppercase-lite. Active state reads as ink text with a 2px amber underline — amber is decoration, ink carries the letters.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>default</code> · <code>active</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>active</code> · <code>focus</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Top navigation bar, Footer navigation</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not mix nav-link and inline-link in the same cluster; Do not color-distinguish the active state with amber text — use the amber underline token instead</p>
+<h3>Section</h3>
+<p class="meta-desc">A vertical slice of a page. Defines standard padding and gap for content blocks.</p>
+<p class='meta-usage'><strong>Use for:</strong> Case-study sections, Portfolio page regions</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not nest sections inside sections</p>
+<h3>Modal</h3>
+<p class="meta-desc">Modal dialog scaffold. Backdrop blur over the page content, centered dialog surface above.</p>
+<p class="meta-chips"><strong>Variants:</strong> <code>default</code></p>
+<p class="meta-chips"><strong>States:</strong> <code>open</code> · <code>closed</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Dialogs, Sheets, Confirmations</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not nest modals; Do not use for non-blocking UI — use a drawer or popover instead</p>
+
+    <h3>Live examples</h3>
+    <div class="demo-grid">
+      <div class="live-card">
+        <div class="live-card-eyebrow">Design Systems</div>
+        <div class="live-card-title">From Drift to Foundation</div>
+        <div class="live-card-desc">Rebuilding design system thinking in a scaling SaaS product.</div>
+        <div style="margin-top: var(--spacing-4);">
+          <span class="live-tag accent">Tokens</span>
+          <span class="live-tag info">Components</span>
+          <span class="live-tag muted">2026</span>
+        </div>
+      </div>
+      <div class="live-card">
+        <div class="live-card-eyebrow">AI UX</div>
+        <div class="live-card-title">Guardian — Design System Monitor</div>
+        <div class="live-card-desc">AI-assisted drift detection and token governance.</div>
+        <div style="margin-top: var(--spacing-4);">
+          <span class="live-tag accent">Claude API</span>
+          <span class="live-tag info">Governance</span>
+        </div>
+      </div>
+      <div class="live-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div class="live-card-eyebrow">Buttons</div>
+          <div class="live-card-title">All three variants</div>
+          <div class="live-card-desc">Primary, secondary, ghost. Same padding, different emphasis.</div>
+        </div>
+        <div style="margin-top: var(--spacing-5);">
+          <a class="live-btn">View work →</a>
+          <a class="live-btn secondary">Secondary</a>
+          <a class="live-btn ghost">Ghost</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow" style="margin-top: var(--spacing-12);">Mobile / Touch AAA</div>
+    <h2>Mobile preview</h2>
+    <p style="color: var(--color-semantic-text-secondary); max-width: 60ch;">Every interactive element declares <code>min-height: 44px</code> — the WCAG 2.5.5 AAA target-size floor. This frame is capped at 640px so chips, buttons, inputs, and nav render at a realistic mobile width.</p>
+    <div class="mobile-frame">
+      <nav class="mobile-nav">
+        <a class="live-nav-link">Work</a>
+        <a class="live-nav-link active">Writing</a>
+        <a class="live-nav-link">About</a>
+        <a class="live-nav-link">Contact</a>
+      </nav>
+      <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+        <span class="live-tag accent">Tokens</span>
+        <span class="live-tag info">Components</span>
+        <span class="live-tag muted">2026</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+        <a class="live-btn">Primary →</a>
+        <a class="live-btn secondary">Secondary</a>
+        <a class="live-btn ghost">Ghost</a>
+      </div>
+      <input class="live-input" placeholder="Search the archive" />
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow" style="margin-top: var(--spacing-12);">Surfaces</div>
+    <h2>Shadows &amp; Glass</h2>
+    <p style="color: var(--color-semantic-text-secondary); max-width: 60ch;">Three glass tiers, four shadow specimens, five blur steps. Warmth comes from parchment showing through translucent layers — white alpha is an overlay, never a solid fill.</p>
+
+    <h3>Glass tiers</h3>
+    <div class="glass-stage">
+      <div class="glass-row">
+        <div class="glass-card">
+          <h4>card.glass</h4>
+          <p>Primary. Hero panel, feature card. 18px blur, 24px radius, shadow.raised with a crisp inset glass-90 highlight.</p>
+        </div>
+        <div class="glass-card elevated">
+          <h4>card.elevated</h4>
+          <p>Mid-tier. Case-study cards, content panels. 16px blur, 20px radius, shadow.card-elevated with a glass-68 inset.</p>
+        </div>
+        <div class="glass-card light">
+          <h4>card.default</h4>
+          <p>Subtle panel. Secondary surface, nested container. 14px blur, 16px radius, shadow.card-default with a glass-55 inset.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Shadow specimens</h3>
+    <div class="shadow-row">
+      <div class="shadow-chip soft">shadow.soft</div>
+      <div class="shadow-chip layered">shadow.layered</div>
+      <div class="shadow-chip card-default">shadow.card-default</div>
+      <div class="shadow-chip card-elevated">shadow.card-elevated</div>
+    </div>
+
+    <h3>Blur scale</h3>
+    <p style="color: var(--color-semantic-text-secondary); margin-bottom: var(--spacing-3);">Each tile sits on a saturated backdrop so the five blur steps read visually.</p>
+    <div class="blur-stage">
+      <div class="blur-row">
+        <div class="blur-tile xs">xs · 8</div>
+        <div class="blur-tile sm">sm · 14</div>
+        <div class="blur-tile md">md · 16</div>
+        <div class="blur-tile lg">lg · 18</div>
+        <div class="blur-tile xl">xl · 20</div>
+      </div>
+    </div>
+
+    <div class="a11y-note-card">
+      <strong>AAA — Text on glass</strong>
+      Text on glass surfaces inherits the contrast of the background beneath. On parchment, text is ink only. On slate (dark mode), text is parchment. Never stack glass over amber, steel, dusk, or sage — the composite contrast is unpredictable.
+    </div>
+  </section>
+</div>
+</body>
+</html>

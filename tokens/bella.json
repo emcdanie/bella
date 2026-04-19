@@ -1,0 +1,2923 @@
+{
+  "$metadata": {
+    "name": "BELLA",
+    "version": "0.2.0",
+    "generatedAt": "2026-04-19",
+    "note": "Flat rollup of primitive + semantic(light) + component. Dark mode lives in bella.css as [data-theme='dark'] overrides."
+  },
+  "primitive": {
+    "color": {
+      "brand": {
+        "ink": {
+          "$value": "#0F1117",
+          "$type": "color",
+          "$description": "Signature near-black with a blue-cool undertone. The definitive dark surface and high-contrast text color for BELLA.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Dark mode page background",
+                "High-contrast text on light surfaces",
+                "Inverse buttons on accent backgrounds"
+              ],
+              "dont": [
+                "Do not use as body text color on dark surfaces \u2014 use parchment instead",
+                "Do not use pure #000 \u2014 ink is warmer and less harsh"
+              ],
+              "related": [
+                "color.brand.slate (raised surface on dark)",
+                "color.neutral.900 (alternative text color)"
+              ],
+              "a11y": "Passes WCAG AAA against parchment (~17:1) and neutral-100 (~15:1). Fails against amber and steel \u2014 do not combine as text on those."
+            }
+          }
+        },
+        "parchment": {
+          "$value": "#F7F4EF",
+          "$type": "color",
+          "$description": "Signature warm off-white. The default page background for BELLA. Replaces pure white everywhere.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Light mode page background",
+                "Text color on dark surfaces",
+                "Default canvas for cards, sections, layouts"
+              ],
+              "dont": [
+                "Never replace with pure #FFFFFF \u2014 warmth is part of the brand",
+                "Do not use as a card surface on parchment pages \u2014 use neutral-100 for subtle elevation"
+              ],
+              "related": [
+                "color.neutral.100 (raised surface)",
+                "color.supporting.linen (border on parchment)"
+              ],
+              "a11y": "Passes WCAG AAA against ink, slate, and neutral-900 (\u226515:1). Fails against amber \u2014 do not use as text on amber buttons (use ink)."
+            }
+          }
+        },
+        "amber": {
+          "$value": "#C4956A",
+          "$type": "color",
+          "$description": "Warm gold accent. The single brand accent \u2014 used as background, decoration, and (on ink only) as text.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Primary CTA button background (text sits on it, in ink)",
+                "Alpha-tinted backgrounds for tags and chips (via amber-15 / amber-30)",
+                "Borders and underline accents on editorial emphasis",
+                "Text on ink or slate surfaces in dark mode"
+              ],
+              "dont": [
+                "Never text on parchment \u2014 2.44:1 fails every WCAG text threshold",
+                "Do not use for error, success, or info states \u2014 those have dedicated supporting colors",
+                "Do not saturate a screen with amber \u2014 one or two accent moments per view"
+              ],
+              "related": [
+                "color.alpha.amber-15 (tag backgrounds)",
+                "color.alpha.amber-30 (tag borders)"
+              ],
+              "a11y": "Verified contrast on parchment: 2.44:1 (fails all WCAG text thresholds). On ink: 7.06:1 (AAA for normal text). Amber is never text on parchment \u2014 use ink. Safe as text only on ink or neutral-900 surfaces.",
+              "roles": [
+                "background",
+                "decorative",
+                "dark-mode-text-on-ink"
+              ]
+            }
+          }
+        },
+        "slate": {
+          "$value": "#1A1D27",
+          "$type": "color",
+          "$description": "Raised card surface on ink backgrounds. One step lighter than ink, same blue-cool family.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card background on ink pages",
+                "Modal and dialog surfaces in dark mode",
+                "Raised sections in dark layouts"
+              ],
+              "dont": [
+                "Do not use on light backgrounds \u2014 contrast with parchment is strong but undifferentiated from ink visually",
+                "Do not use as text color \u2014 use ink or neutral-900 instead"
+              ],
+              "related": [
+                "color.brand.ink (page background it sits on)",
+                "color.alpha.parchment-10 (subtle border on slate cards)"
+              ]
+            }
+          }
+        }
+      },
+      "supporting": {
+        "steel": {
+          "$value": "#6495C5",
+          "$type": "color",
+          "$description": "Muted blue. Reserved for info-state chip washes and decorative accents. Not a text color on parchment.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Info-state chip wash (via steel-15 alpha)",
+                "Decorative borders on info components",
+                "Dark-mode accents where contrast is verified per surface"
+              ],
+              "dont": [
+                "Never text on parchment \u2014 2.88:1 fails all WCAG text thresholds",
+                "Do not use as a link color \u2014 links are ink",
+                "Do not combine steel and amber in the same tight cluster (competing warms/cools)"
+              ],
+              "related": [
+                "color.alpha.steel-15 (chip background)",
+                "color.alpha.steel-30 (chip border)"
+              ],
+              "a11y": "Verified contrast on parchment: 2.88:1 (fails all WCAG text thresholds). Use only as chip wash or decorative accent \u2014 never as text or link.",
+              "roles": [
+                "chip-wash",
+                "decorative"
+              ]
+            }
+          }
+        },
+        "dusk": {
+          "$value": "#7B6E8F",
+          "$type": "color",
+          "$description": "Muted purple. Decorative accent and icon color only \u2014 not a text color on parchment.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Decorative icon fills",
+                "Chip wash for category taxonomies (via alpha)",
+                "Non-text borders on secondary chips"
+              ],
+              "dont": [
+                "Never text on parchment \u2014 4.28:1 fails all WCAG text thresholds",
+                "Do not use as link or body color"
+              ],
+              "related": [
+                "color.supporting.steel",
+                "color.supporting.sage"
+              ],
+              "a11y": "Verified contrast on parchment: 4.28:1. Passes 3:1 non-text minimum (icons, borders). Fails all text thresholds. Never use as text.",
+              "roles": [
+                "decorative",
+                "icon",
+                "chip-wash",
+                "border"
+              ]
+            }
+          }
+        },
+        "sage": {
+          "$value": "#4A7C6F",
+          "$type": "color",
+          "$description": "Muted green. Reserved for success-state decoration \u2014 icons, chip washes, borders. Not a text color on parchment.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Success icon fills (checkmarks, up arrows)",
+                "Success chip wash (via alpha)",
+                "Success-state borders"
+              ],
+              "dont": [
+                "Never text on parchment \u2014 4.35:1 fails all WCAG text thresholds",
+                "Do not use for generic 'good' decoration \u2014 sage carries explicit success semantics"
+              ],
+              "related": [
+                "color.semantic.success"
+              ],
+              "a11y": "Verified contrast on parchment: 4.35:1. Passes 3:1 non-text minimum (icons, borders). Fails all text thresholds. Never use as text.",
+              "roles": [
+                "decorative",
+                "icon",
+                "chip-wash",
+                "border"
+              ]
+            }
+          }
+        },
+        "linen": {
+          "$value": "#E8E4DC",
+          "$type": "color",
+          "$description": "Warm light gray. Default border color on parchment backgrounds.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card borders on parchment",
+                "Dividers between sections",
+                "Input borders in default state"
+              ],
+              "dont": [
+                "Do not use as a background \u2014 too close to parchment to create surface separation",
+                "Do not use as text \u2014 too low contrast"
+              ],
+              "related": [
+                "color.neutral.100 (slightly warmer alternative)"
+              ]
+            }
+          }
+        }
+      },
+      "neutral": {
+        "50": {
+          "$value": "#FBFAF7",
+          "$type": "color",
+          "$description": "Near-white with a faint warm undertone. The closest BELLA comes to pure white \u2014 still warm.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Elevated card surfaces that need to feel brighter than parchment",
+                "Modal backgrounds in light mode"
+              ],
+              "dont": [
+                "Do not use as the default page background \u2014 that's parchment",
+                "Do not use when you really need pure white \u2014 BELLA avoids #FFFFFF by design"
+              ]
+            }
+          }
+        },
+        "100": {
+          "$value": "#F0EDE8",
+          "$type": "color",
+          "$description": "Subtle warm gray. Slightly darker than parchment \u2014 used for raised surfaces where a gentle step is needed.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card background on parchment pages",
+                "Subtle section backgrounds",
+                "Disabled input backgrounds"
+              ],
+              "dont": [
+                "Do not use with linen borders on parchment backgrounds \u2014 three near-identical warm grays create mud"
+              ],
+              "related": [
+                "color.semantic.surface (light mode alias)"
+              ]
+            }
+          }
+        },
+        "200": {
+          "$value": "#CCCCCC",
+          "$type": "color",
+          "$description": "Neutral gray, mid-light.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Disabled state borders",
+                "Placeholder-adjacent UI"
+              ],
+              "dont": [
+                "Not a brand color \u2014 prefer linen on warm backgrounds"
+              ]
+            }
+          }
+        },
+        "400": {
+          "$value": "#999999",
+          "$type": "color",
+          "$description": "Neutral gray, muted text.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Muted metadata text",
+                "Placeholder text",
+                "Disabled text"
+              ],
+              "dont": [
+                "Do not use for primary body text on parchment \u2014 contrast 3.2:1, fails AA"
+              ]
+            }
+          }
+        },
+        "500": {
+          "$value": "#666666",
+          "$type": "color",
+          "$description": "Neutral gray. AA contrast on parchment \u2014 superseded by neutral.600 for AAA text roles.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Icon fills and decorative accents where AA suffices",
+                "Non-text UI where the 3:1 minimum applies"
+              ],
+              "dont": [
+                "Not a text color at the AAA bar \u2014 use neutral.600 for text-secondary"
+              ],
+              "a11y": "Verified 4.86:1 on parchment \u2014 AA only, fails AAA. Do not use as text-secondary at AAA bar; use neutral.600 instead."
+            }
+          }
+        },
+        "600": {
+          "$value": "#525252",
+          "$type": "color",
+          "$description": "Dark neutral gray. The AAA-safe secondary text color on parchment.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Secondary text on parchment",
+                "Captions, footnotes, form helpers at the AAA bar"
+              ],
+              "related": [
+                "color.neutral.500 (AA only, superseded for text)"
+              ],
+              "a11y": "Verified 7.12:1 on parchment \u2014 the minimum AAA gray. Use for text-secondary, captions, footnotes."
+            }
+          }
+        },
+        "700": {
+          "$value": "#333333",
+          "$type": "color",
+          "$description": "Near-black neutral. Alternative to ink when a flatter black is needed.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Body text as an alternative to neutral-900 for very long-form reading",
+                "Secondary headings"
+              ],
+              "related": [
+                "color.brand.ink (warmer, cooler tone)"
+              ]
+            }
+          }
+        },
+        "900": {
+          "$value": "#111111",
+          "$type": "color",
+          "$description": "Darkest neutral. The default primary text color on light surfaces.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Primary body text on parchment",
+                "Headings on light mode"
+              ],
+              "dont": [
+                "Do not use interchangeably with ink as a background \u2014 ink is warmer"
+              ],
+              "related": [
+                "color.brand.ink"
+              ],
+              "a11y": "Passes WCAG AAA against parchment (~17.4:1)."
+            }
+          }
+        }
+      },
+      "alpha": {
+        "amber-15": {
+          "$value": "#C4956A26",
+          "$type": "color",
+          "$description": "Amber at 15% alpha. For tag and chip backgrounds on light surfaces.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Tag background behind amber foreground text",
+                "Chip fills"
+              ],
+              "related": [
+                "color.brand.amber",
+                "color.alpha.amber-30"
+              ]
+            }
+          }
+        },
+        "amber-30": {
+          "$value": "#C4956A4D",
+          "$type": "color",
+          "$description": "Amber at 30% alpha. For tag and chip borders.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Tag and chip borders"
+              ],
+              "related": [
+                "color.alpha.amber-15"
+              ]
+            }
+          }
+        },
+        "steel-15": {
+          "$value": "#6495C526",
+          "$type": "color",
+          "$description": "Steel at 15% alpha. For info chip backgrounds.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Info-state chip background"
+              ]
+            }
+          }
+        },
+        "steel-30": {
+          "$value": "#6495C54D",
+          "$type": "color",
+          "$description": "Steel at 30% alpha. For info chip borders.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Info-state chip borders"
+              ]
+            }
+          }
+        },
+        "ink-6": {
+          "$value": "#0F111710",
+          "$type": "color",
+          "$description": "Ink at ~6% alpha. Subtle borders and dividers on light surfaces when linen is too warm.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Near-invisible card borders",
+                "Shadow-adjacent dividers"
+              ]
+            }
+          }
+        },
+        "parchment-6": {
+          "$value": "#F7F4EF10",
+          "$type": "color",
+          "$description": "Parchment at ~6% alpha. Subtle borders on ink/slate surfaces in dark mode.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Dark mode card borders"
+              ]
+            }
+          }
+        },
+        "glass-28": {
+          "$value": "#FFFFFF47",
+          "$type": "color",
+          "$description": "White at 28% alpha. Bottom stop of the lightest glass gradient.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay. Never as a solid fill. The warmth comes from parchment showing through.",
+              "usage": [
+                "Bottom stop of surface.glass-light"
+              ]
+            }
+          }
+        },
+        "glass-48": {
+          "$value": "#FFFFFF7A",
+          "$type": "color",
+          "$description": "White at 48% alpha.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay. Never as a solid fill. The warmth comes from parchment showing through.",
+              "usage": [
+                "Bottom stop of surface.glass-elevated",
+                "Top stop of surface.glass-light"
+              ]
+            }
+          }
+        },
+        "glass-55": {
+          "$value": "#FFFFFF8C",
+          "$type": "color",
+          "$description": "White at 55% alpha.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay.",
+              "usage": [
+                "border.glass-edge",
+                "inset top highlight on shadow.card-default"
+              ]
+            }
+          }
+        },
+        "glass-68": {
+          "$value": "#FFFFFFAD",
+          "$type": "color",
+          "$description": "White at 68% alpha.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay.",
+              "usage": [
+                "Bottom stop of surface.glass",
+                "Top stop of surface.glass-elevated",
+                "inset top highlight on shadow.card-elevated"
+              ]
+            }
+          }
+        },
+        "glass-72": {
+          "$value": "#FFFFFFB8",
+          "$type": "color",
+          "$description": "White at 72% alpha. The top highlight of a frosted panel.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay.",
+              "usage": [
+                "border.glass-top"
+              ]
+            }
+          }
+        },
+        "glass-82": {
+          "$value": "#FFFFFFD1",
+          "$type": "color",
+          "$description": "White at 82% alpha. Top stop of the primary glass gradient.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay.",
+              "usage": [
+                "Top stop of surface.glass"
+              ]
+            }
+          }
+        },
+        "glass-90": {
+          "$value": "#FFFFFFE6",
+          "$type": "color",
+          "$description": "White at 90% alpha. Crisp inset top highlight on heavy glass.",
+          "$extensions": {
+            "bella": {
+              "exception": "Pure white alpha is permitted ONLY as a translucent overlay.",
+              "usage": [
+                "inset 0 1px 0 top highlight on shadow.layered"
+              ]
+            }
+          }
+        },
+        "shadow-warm-03": {
+          "$value": "#2C181008",
+          "$type": "color",
+          "$description": "Espresso ink (#2C1810) at 3% alpha. Cognac drop shadow.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "shadow.card-default layer 1"
+              ]
+            }
+          }
+        },
+        "shadow-warm-04": {
+          "$value": "#2C18100A",
+          "$type": "color",
+          "$description": "Espresso ink at 4% alpha.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "shadow.soft layers 1 & 3",
+                "shadow.card-default layer 2",
+                "shadow.card-elevated layer 1"
+              ]
+            }
+          }
+        },
+        "shadow-warm-05": {
+          "$value": "#2C18100D",
+          "$type": "color",
+          "$description": "Espresso ink at 5% alpha.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "shadow.layered layer 1"
+              ]
+            }
+          }
+        },
+        "shadow-warm-06": {
+          "$value": "#2C18100F",
+          "$type": "color",
+          "$description": "Espresso ink at 6% alpha.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "shadow.soft layer 2",
+                "shadow.layered layer 3",
+                "shadow.card-elevated layer 2"
+              ]
+            }
+          }
+        },
+        "shadow-warm-08": {
+          "$value": "#2C181014",
+          "$type": "color",
+          "$description": "Espresso ink at 8% alpha.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "shadow.layered layer 2"
+              ]
+            }
+          }
+        },
+        "slate-60": {
+          "$value": "#1A1D2799",
+          "$type": "color",
+          "$description": "Slate at 60% alpha. Top stop of dark-mode glass.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "surface.glass (dark mode)"
+              ]
+            }
+          }
+        },
+        "slate-48": {
+          "$value": "#1A1D277A",
+          "$type": "color",
+          "$description": "Slate at 48% alpha. Mid dark-mode glass.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "surface.glass-elevated (dark mode)"
+              ]
+            }
+          }
+        },
+        "slate-32": {
+          "$value": "#1A1D2752",
+          "$type": "color",
+          "$description": "Slate at 32% alpha. Light dark-mode glass.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "surface.glass-light (dark mode)"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "spacing": {
+      "1": {
+        "$value": "4px",
+        "$type": "dimension",
+        "$description": "Smallest step. Tight clusters, icon margins.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Icon-to-text spacing",
+              "Tag internal padding vertical"
+            ]
+          }
+        }
+      },
+      "2": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Tight gap. Between related items in a cluster.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Chip gap",
+              "Button internal element spacing"
+            ]
+          }
+        }
+      },
+      "3": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$description": "Small gap. Card internal padding on compact items.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Input padding vertical",
+              "Tag internal padding horizontal"
+            ]
+          }
+        }
+      },
+      "4": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "Base step. Default spacing between text elements.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Paragraph margin-bottom",
+              "Grid gap in tight layouts"
+            ]
+          }
+        }
+      },
+      "5": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "Medium gap. Card padding.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card internal padding",
+              "Button padding horizontal"
+            ]
+          }
+        }
+      },
+      "6": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "Standard section gap. Used between related blocks.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card padding (spacious variant)",
+              "Gap between card grid items"
+            ]
+          }
+        }
+      },
+      "8": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "Large gap. Between minor sections.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Gap between section and its subsections"
+            ]
+          }
+        }
+      },
+      "10": {
+        "$value": "40px",
+        "$type": "dimension",
+        "$description": "Extra-large gap. Between section blocks.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Page section padding vertical on mobile"
+            ]
+          }
+        }
+      },
+      "12": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "Section-level gap. Between major page sections.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Default gap between page sections"
+            ]
+          }
+        }
+      },
+      "16": {
+        "$value": "64px",
+        "$type": "dimension",
+        "$description": "Hero/major-section gap.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Hero padding",
+              "Between hero and first content section"
+            ]
+          }
+        }
+      },
+      "20": {
+        "$value": "80px",
+        "$type": "dimension",
+        "$description": "Largest step. Hero-level breathing room.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Page top/bottom padding on desktop"
+            ]
+          }
+        }
+      },
+      "touch-target": {
+        "$value": "44px",
+        "$type": "dimension",
+        "$description": "WCAG 2.5.5 AAA touch-target minimum. Floor for any interactive element on touch devices.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "min-height / min-width for buttons, inputs, tags, nav-links on touch"
+            ],
+            "dont": [
+              "Do not go below 44px on any touchable element \u2014 fails WCAG 2.5.5 AAA"
+            ],
+            "a11y": "WCAG 2.5.5 Target Size (Enhanced) AAA requires \u226544\u00d744px."
+          }
+        }
+      },
+      "touch-target-comfortable": {
+        "$value": "48px",
+        "$type": "dimension",
+        "$description": "Recommended touch-target for primary actions \u2014 a step beyond the AAA minimum.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Primary CTAs on mobile",
+              "Main navigation on touch devices"
+            ],
+            "related": [
+              "spacing.touch-target (AAA floor)"
+            ]
+          }
+        }
+      }
+    },
+    "breakpoint": {
+      "mobile": {
+        "$value": "640px",
+        "$type": "dimension",
+        "$description": "Mobile breakpoint. Single-column layouts below this width.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "max-width media query for phone layouts"
+            ]
+          }
+        }
+      },
+      "tablet": {
+        "$value": "768px",
+        "$type": "dimension",
+        "$description": "Tablet breakpoint. Two-column grids become feasible from here.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "min-width media query for tablet and up"
+            ]
+          }
+        }
+      },
+      "desktop": {
+        "$value": "1024px",
+        "$type": "dimension",
+        "$description": "Desktop breakpoint. Standard multi-column editorial layouts.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "min-width media query for desktop layouts"
+            ]
+          }
+        }
+      },
+      "wide": {
+        "$value": "1440px",
+        "$type": "dimension",
+        "$description": "Wide-desktop breakpoint. Editorial max-width and hero-scale type sizes.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "min-width media query for large screens"
+            ]
+          }
+        }
+      }
+    },
+    "radius": {
+      "sm": {
+        "$value": "4px",
+        "$type": "dimension",
+        "$description": "Small radius. Chips, tiny controls.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Inline chip corners",
+              "Dense table cells"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Medium radius. Buttons and inputs.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Buttons",
+              "Inputs",
+              "Select menus"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$value": "12px",
+        "$type": "dimension",
+        "$description": "Large radius. Cards and raised surfaces.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards",
+              "Modals",
+              "Dropdowns"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "Extra-large radius. card.default, inner panels, hero images.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.default",
+              "Hero images",
+              "Feature cards"
+            ]
+          }
+        }
+      },
+      "2xl": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "2\u00d7 large radius. Elevated glass cards.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.elevated"
+            ]
+          }
+        }
+      },
+      "3xl": {
+        "$value": "24px",
+        "$type": "dimension",
+        "$description": "3\u00d7 large radius. Feature / hero glass surfaces.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass"
+            ]
+          }
+        }
+      },
+      "full": {
+        "$value": "999px",
+        "$type": "dimension",
+        "$description": "Pill shape. Full radius.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tags",
+              "Chips",
+              "Avatar",
+              "Status pills"
+            ]
+          }
+        }
+      }
+    },
+    "typography": {
+      "font-family": {
+        "display": {
+          "$value": "Georgia, 'Times New Roman', serif",
+          "$type": "fontFamily",
+          "$description": "Display and body typeface. Editorial serif \u2014 Georgia \u2014 chosen for warmth and confidence. Distinctive against generic sans-serif AI aesthetic.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "All headings",
+                "Body paragraphs",
+                "Long-form case-study content"
+              ],
+              "dont": [
+                "Do not pair with another serif as display",
+                "Do not use for UI microcopy at <13px \u2014 Georgia loses legibility below that"
+              ]
+            }
+          }
+        },
+        "body": {
+          "$value": "Georgia, 'Times New Roman', serif",
+          "$type": "fontFamily",
+          "$description": "Body typeface \u2014 currently identical to display (Georgia). Kept as a separate token in case body later splits to a distinct face.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Paragraphs",
+                "Card descriptions",
+                "Long-form reading"
+              ]
+            }
+          }
+        },
+        "mono": {
+          "$value": "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace",
+          "$type": "fontFamily",
+          "$description": "Monospace typeface. JetBrains Mono \u2014 geometric, technical, distinctive. Used for tags, labels, eyebrows, and code.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Tag text",
+                "Eyebrow section labels",
+                "Button CTA text",
+                "Inline code",
+                "Timestamps and technical metadata"
+              ],
+              "dont": [
+                "Do not use for body copy",
+                "Do not use below 13px"
+              ]
+            }
+          }
+        }
+      },
+      "font-size": {
+        "tag": {
+          "$value": "13px",
+          "$type": "dimension",
+          "$description": "Floor for mono tags and small labels. Never go smaller.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Tags, chips, eyebrows"
+              ],
+              "dont": [
+                "Never below 13px anywhere in BELLA"
+              ]
+            }
+          }
+        },
+        "sm": {
+          "$value": "14px",
+          "$type": "dimension",
+          "$description": "Small serif. Secondary captions and footnotes only.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Caption text",
+                "Footnote text"
+              ],
+              "dont": [
+                "Do not use for body copy"
+              ]
+            }
+          }
+        },
+        "base": {
+          "$value": "16px",
+          "$type": "dimension",
+          "$description": "Body text floor. Non-negotiable minimum for reading text in BELLA.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Paragraphs",
+                "Lists",
+                "Default UI text"
+              ],
+              "dont": [
+                "Never below 16px for body"
+              ]
+            }
+          }
+        },
+        "lg": {
+          "$value": "18px",
+          "$type": "dimension",
+          "$description": "Large body. Lead paragraphs, long-form reading comfort.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Lead paragraph after a heading",
+                "Long-form case-study body"
+              ]
+            }
+          }
+        },
+        "xl": {
+          "$value": "20px",
+          "$type": "dimension",
+          "$description": "Card title floor.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card titles",
+                "Subheading within a section"
+              ]
+            }
+          }
+        },
+        "2xl": {
+          "$value": "24px",
+          "$type": "dimension",
+          "$description": "Heading-3 size.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading-3",
+                "Component titles in docs"
+              ]
+            }
+          }
+        },
+        "3xl": {
+          "$value": "32px",
+          "$type": "dimension",
+          "$description": "Section heading floor.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading-2",
+                "Section titles"
+              ]
+            }
+          }
+        },
+        "4xl": {
+          "$value": "40px",
+          "$type": "dimension",
+          "$description": "Heading-1 size.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading-1",
+                "Page titles"
+              ]
+            }
+          }
+        },
+        "5xl": {
+          "$value": "56px",
+          "$type": "dimension",
+          "$description": "Display / hero size.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Hero headlines",
+                "Landing-page impact statements"
+              ]
+            }
+          }
+        }
+      },
+      "font-weight": {
+        "regular": {
+          "$value": "400",
+          "$type": "fontWeight",
+          "$description": "Default body weight.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Body paragraphs"
+              ]
+            }
+          }
+        },
+        "medium": {
+          "$value": "500",
+          "$type": "fontWeight",
+          "$description": "Medium weight. Used sparingly.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Emphasized body text",
+                "Tag medium weight"
+              ]
+            }
+          }
+        },
+        "bold": {
+          "$value": "700",
+          "$type": "fontWeight",
+          "$description": "Bold. Headings and CTAs.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card titles",
+                "Headings-2 and below",
+                "Button CTAs"
+              ]
+            }
+          }
+        },
+        "black": {
+          "$value": "800",
+          "$type": "fontWeight",
+          "$description": "Extra-bold. Display and heading-1 only.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Display",
+                "Heading-1"
+              ],
+              "dont": [
+                "Do not use for body or card titles \u2014 too heavy"
+              ]
+            }
+          }
+        }
+      },
+      "line-height": {
+        "tight": {
+          "$value": "1.1",
+          "$type": "number",
+          "$description": "Display headline line-height.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Display",
+                "Heading-1"
+              ]
+            }
+          }
+        },
+        "snug": {
+          "$value": "1.3",
+          "$type": "number",
+          "$description": "Heading line-height.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading-2 through card titles"
+              ]
+            }
+          }
+        },
+        "normal": {
+          "$value": "1.6",
+          "$type": "number",
+          "$description": "Body line-height.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Body paragraphs"
+              ]
+            }
+          }
+        },
+        "relaxed": {
+          "$value": "1.8",
+          "$type": "number",
+          "$description": "Long-form reading line-height.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Case-study body (editorial reading pace)"
+              ]
+            }
+          }
+        }
+      },
+      "letter-spacing": {
+        "tight": {
+          "$value": "-0.02em",
+          "$type": "dimension",
+          "$description": "Tightened tracking. Display sizes only.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Display",
+                "Heading-1"
+              ]
+            }
+          }
+        },
+        "normal": {
+          "$value": "0",
+          "$type": "dimension",
+          "$description": "Default tracking.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Body",
+                "Most UI text"
+              ]
+            }
+          }
+        },
+        "wide": {
+          "$value": "0.08em",
+          "$type": "dimension",
+          "$description": "Loose tracking. For mono microtext.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Small mono labels without full caps treatment"
+              ]
+            }
+          }
+        },
+        "wider": {
+          "$value": "0.15em",
+          "$type": "dimension",
+          "$description": "Very loose tracking. For uppercase mono eyebrows.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Uppercase mono eyebrows",
+                "All-caps section labels"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "motion": {
+      "duration": {
+        "fast": {
+          "$value": "150ms",
+          "$type": "duration",
+          "$description": "Quick micro-interactions (tap feedback).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Button hover color change"
+              ]
+            }
+          }
+        },
+        "normal": {
+          "$value": "250ms",
+          "$type": "duration",
+          "$description": "Default transition duration.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card hover lift",
+                "Panel opens"
+              ]
+            }
+          }
+        },
+        "slow": {
+          "$value": "400ms",
+          "$type": "duration",
+          "$description": "Emphasis transitions.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Modal enter",
+                "Route changes"
+              ]
+            }
+          }
+        }
+      },
+      "easing": {
+        "standard": {
+          "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+          "$type": "cubicBezier",
+          "$description": "Standard ease. Default.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "All standard hover and focus transitions"
+              ]
+            }
+          }
+        },
+        "emphasis": {
+          "$value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+          "$type": "cubicBezier",
+          "$description": "Overshoot ease. Adds personality.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card hover-lift (subtle bounce)"
+              ],
+              "dont": [
+                "Do not use on text transitions \u2014 feels unstable"
+              ]
+            }
+          }
+        }
+      },
+      "transform": {
+        "hover-lift": {
+          "$value": "translateY(-2px)",
+          "$type": "other",
+          "$description": "Default hover elevation delta for cards.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Card hover state"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "blur": {
+      "xs": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Lightest frost. Hover hints, subtle backdrops.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Hover-glass overlays",
+              "Subtle modal scrims"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "Small frost. Content cards, modal backdrop.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.default",
+              "modal.backdrop"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "Medium frost. Elevated glass cards.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.elevated"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$value": "18px",
+        "$type": "dimension",
+        "$description": "Large frost. Primary glass card / hero panel.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass",
+              "surface.glass hero panels"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$value": "20px",
+        "$type": "dimension",
+        "$description": "Extra-large frost. Display-scale glass overlays.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Hero-scale glass overlays"
+            ]
+          }
+        }
+      }
+    },
+    "shadow": {
+      "sm": {
+        "$value": "0 1px 2px rgba(15,17,23,0.06)",
+        "$type": "shadow",
+        "$description": "Faint shadow. Resting card elevation on parchment.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Resting cards on parchment"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$value": "0 4px 12px rgba(15,17,23,0.08)",
+        "$type": "shadow",
+        "$description": "Medium shadow. Raised elements, dropdowns.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Dropdowns",
+              "Small modals"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$value": "0 12px 32px rgba(15,17,23,0.12)",
+        "$type": "shadow",
+        "$description": "Large shadow. Major modals.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Full-size modals",
+              "Popovers over hero"
+            ]
+          }
+        }
+      },
+      "hover": {
+        "$value": "0 8px 24px rgba(15,17,23,0.10)",
+        "$type": "shadow",
+        "$description": "Card hover shadow \u2014 stronger than sm, lighter than lg.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card hover state, paired with motion.transform.hover-lift"
+            ]
+          }
+        }
+      },
+      "soft": {
+        "$value": "0 1px 2px {color.alpha.shadow-warm-04}, 0 10px 30px {color.alpha.shadow-warm-06}, 0 24px 60px {color.alpha.shadow-warm-04}",
+        "$type": "shadow",
+        "$description": "3-layer warm shadow. Default floating elevation for hero / feature glass.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "shadow.floating (semantic alias)",
+              "Hero glass panels"
+            ]
+          }
+        }
+      },
+      "layered": {
+        "$value": "0 1px 2px {color.alpha.shadow-warm-05}, 0 12px 40px {color.alpha.shadow-warm-08}, 0 28px 80px {color.alpha.shadow-warm-06}, inset 0 1px 0 {color.alpha.glass-90}",
+        "$type": "shadow",
+        "$description": "4-layer shadow \u2014 3 drops + inset top highlight. Primary glass card.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "shadow.raised (semantic alias)",
+              "card.glass"
+            ]
+          }
+        }
+      },
+      "card-default": {
+        "$value": "0 1px 4px {color.alpha.shadow-warm-03}, 0 4px 16px {color.alpha.shadow-warm-04}, inset 0 1px 0 {color.alpha.glass-55}",
+        "$type": "shadow",
+        "$description": "2-layer drop + inset top highlight. Subtle content-panel elevation.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.default"
+            ]
+          }
+        }
+      },
+      "card-elevated": {
+        "$value": "0 1px 2px {color.alpha.shadow-warm-04}, 0 8px 24px {color.alpha.shadow-warm-06}, inset 0 1px 0 {color.alpha.glass-68}",
+        "$type": "shadow",
+        "$description": "2-layer drop + inset top highlight. Elevated case-study card.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.elevated"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "semantic": {
+    "background": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "Default page background in light mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "body background",
+            "main content areas"
+          ],
+          "dont": [
+            "Do not replace with pure white"
+          ]
+        }
+      }
+    },
+    "background-inverse": {
+      "$value": "{color.brand.ink}",
+      "$type": "color",
+      "$description": "Inverse dark section on a light page. Used for dark-mode demo blocks inside light pages.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "full-bleed dark sections embedded in a light layout"
+          ]
+        }
+      }
+    },
+    "surface": {
+      "$value": "{color.neutral.100}",
+      "$type": "color",
+      "$description": "Resting raised surface on parchment. Cards sit on this.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card default background"
+          ]
+        }
+      }
+    },
+    "surface-elevated": {
+      "$value": "{color.neutral.50}",
+      "$type": "color",
+      "$description": "Higher-elevation surface. For modals or cards that need to feel brighter than surface.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "modals",
+            "hero cards"
+          ]
+        }
+      }
+    },
+    "surface-inverse": {
+      "$value": "{color.brand.slate}",
+      "$type": "color",
+      "$description": "Raised surface on dark backgrounds (dark-mode embedded blocks in light mode).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "cards inside background-inverse sections"
+          ]
+        }
+      }
+    },
+    "surface-glass": {
+      "$value": "linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)",
+      "$type": "other",
+      "$description": "Primary glass surface. Parchment shows through the warm cream. Pair with border-glass-top, shadow.raised, and blur.surface.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.glass background"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage."
+          }
+        }
+      }
+    },
+    "surface-glass-elevated": {
+      "$value": "linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)",
+      "$type": "other",
+      "$description": "Mid-tier glass. Denser content cards.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.elevated background"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage."
+          }
+        }
+      }
+    },
+    "surface-glass-light": {
+      "$value": "linear-gradient(180deg, {color.alpha.glass-48} 0%, {color.alpha.glass-28} 100%)",
+      "$type": "other",
+      "$description": "Lightest glass. Subtle secondary panels and nested containers.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.default background"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage."
+          }
+        }
+      }
+    },
+    "border-glass-top": {
+      "$value": "{color.alpha.glass-72}",
+      "$type": "color",
+      "$description": "Top highlight on a frosted panel \u2014 mimics natural light on glass.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.glass border-top",
+            "card.elevated border-top"
+          ]
+        }
+      }
+    },
+    "border-glass-edge": {
+      "$value": "{color.alpha.glass-55}",
+      "$type": "color",
+      "$description": "Full-perimeter glass edge.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.glass / card.elevated / card.default border"
+          ]
+        }
+      }
+    },
+    "text-primary": {
+      "$value": "{color.neutral.900}",
+      "$type": "color",
+      "$description": "Primary text color on light surfaces.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "body text",
+            "headings on parchment"
+          ],
+          "a11y": "AAA against background and surface."
+        }
+      }
+    },
+    "text-secondary": {
+      "$value": "{color.neutral.600}",
+      "$type": "color",
+      "$description": "Secondary text. Captions, supporting copy.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card descriptions",
+            "footnotes"
+          ],
+          "a11y": "AAA against parchment (7.12:1). The AAA-safe secondary gray \u2014 safe for captions, footnotes, and supporting copy at the AAA bar."
+        }
+      }
+    },
+    "text-muted": {
+      "$value": "{color.neutral.400}",
+      "$type": "color",
+      "$description": "Muted text. Metadata, placeholders.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "timestamps",
+            "disabled labels"
+          ],
+          "dont": [
+            "Never primary body text \u2014 fails AA"
+          ]
+        }
+      }
+    },
+    "text-inverse": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "Text on dark surfaces. Used inside background-inverse blocks.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "headings and body inside slate cards"
+          ]
+        }
+      }
+    },
+    "text-accent": {
+      "$value": "{color.neutral.900}",
+      "$type": "color",
+      "$description": "Accent/emphasis text color \u2014 resolves to ink-equivalent on parchment. Amber fails AAA as text (2.44:1); emphasis carries via weight, italic, or a tinted background, not letter color.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "eyebrows",
+            "highlight <span> inside headlines"
+          ],
+          "dont": [
+            "Do not swap back to amber \u2014 2.44:1 fails every WCAG text threshold on parchment"
+          ]
+        }
+      }
+    },
+    "accent": {
+      "$value": "{color.brand.amber}",
+      "$type": "color",
+      "$description": "Primary accent \u2014 used as background on CTAs and as wash on chips. Text sits on accent, not as accent.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "primary button background",
+            "tag wash background"
+          ],
+          "dont": [
+            "Never as text color on parchment \u2014 amber is 2.44:1"
+          ]
+        }
+      }
+    },
+    "accent-subtle": {
+      "$value": "{color.alpha.amber-15}",
+      "$type": "color",
+      "$description": "Amber wash. Tag backgrounds.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "tag background"
+          ]
+        }
+      }
+    },
+    "accent-border": {
+      "$value": "{color.alpha.amber-30}",
+      "$type": "color",
+      "$description": "Amber border. Tag and chip borders.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "tag border",
+            "chip border"
+          ]
+        }
+      }
+    },
+    "border": {
+      "$value": "{color.supporting.linen}",
+      "$type": "color",
+      "$description": "Default border on parchment backgrounds.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card borders",
+            "input borders"
+          ]
+        }
+      }
+    },
+    "border-subtle": {
+      "$value": "{color.alpha.ink-6}",
+      "$type": "color",
+      "$description": "Near-invisible border. Use when linen is too warm.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "section dividers"
+          ]
+        }
+      }
+    },
+    "border-strong": {
+      "$value": "{color.neutral.700}",
+      "$type": "color",
+      "$description": "High-contrast border for focus states.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "focus ring on inputs"
+          ]
+        }
+      }
+    },
+    "link": {
+      "$value": "{color.neutral.900}",
+      "$type": "color",
+      "$description": "Default link color \u2014 same as body text. Link affordance is underline, not color. Steel was 2.88:1 on parchment and fails AAA.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "inline links in body text"
+          ],
+          "dont": [
+            "Do not color-only distinguish links \u2014 always pair with underline or weight"
+          ]
+        }
+      }
+    },
+    "link-hover": {
+      "$value": "{color.neutral.900}",
+      "$type": "color",
+      "$description": "Link hover \u2014 same color. Hover affordance carries via text-decoration-thickness bump or font-weight shift, not color change.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "hover state of inline links"
+          ],
+          "dont": [
+            "Do not swap back to amber on hover \u2014 fails AAA"
+          ]
+        }
+      }
+    },
+    "success": {
+      "$value": "{color.supporting.sage}",
+      "$type": "color",
+      "$description": "Success state color \u2014 decorative / icon / border use only (sage fails AAA as text on parchment)."
+    },
+    "info": {
+      "$value": "{color.supporting.steel}",
+      "$type": "color",
+      "$description": "Info state color \u2014 decorative / chip-wash / border use only (steel fails AAA as text on parchment)."
+    },
+    "info-subtle": {
+      "$value": "{color.alpha.steel-15}",
+      "$type": "color",
+      "$description": "Info chip background."
+    },
+    "info-border": {
+      "$value": "{color.alpha.steel-30}",
+      "$type": "color",
+      "$description": "Info chip border."
+    }
+  },
+  "semantic_dark_overrides": {
+    "background": {
+      "$value": "{color.brand.ink}",
+      "$type": "color",
+      "$description": "Default page background in dark mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "body background in dark mode"
+          ]
+        }
+      }
+    },
+    "background-inverse": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "Inverse light section inside a dark page.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "full-bleed light sections embedded in a dark layout"
+          ]
+        }
+      }
+    },
+    "surface": {
+      "$value": "{color.brand.slate}",
+      "$type": "color",
+      "$description": "Raised surface on ink. Cards sit on this in dark mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card default background in dark mode"
+          ]
+        }
+      }
+    },
+    "surface-elevated": {
+      "$value": "#242833",
+      "$type": "color",
+      "$description": "Higher-elevation surface in dark mode. One step lighter than slate.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "modals",
+            "hero cards in dark mode"
+          ]
+        }
+      }
+    },
+    "surface-inverse": {
+      "$value": "{color.neutral.100}",
+      "$type": "color",
+      "$description": "Raised surface for light sections embedded in dark pages.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "cards inside background-inverse sections"
+          ]
+        }
+      }
+    },
+    "surface-glass": {
+      "$value": "{color.alpha.slate-60}",
+      "$type": "color",
+      "$description": "Dark glass. Slate at 60% alpha over ink \u2014 warm shadows remain.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.glass background in dark mode"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only. Amber passes AAA (7.06:1) for emphasis spans."
+          }
+        }
+      }
+    },
+    "surface-glass-elevated": {
+      "$value": "{color.alpha.slate-48}",
+      "$type": "color",
+      "$description": "Mid dark glass. Elevated cards and content panels.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.elevated background in dark mode"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only."
+          }
+        }
+      }
+    },
+    "surface-glass-light": {
+      "$value": "{color.alpha.slate-32}",
+      "$type": "color",
+      "$description": "Lightest dark glass. Subtle nested panels in dark mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.default background in dark mode"
+          ],
+          "a11y": {
+            "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only."
+          }
+        }
+      }
+    },
+    "surface-glass-amber": {
+      "$value": "{color.alpha.amber-15}",
+      "$type": "color",
+      "$description": "Amber-tinted glass \u2014 active-state only. Amber at 15% over slate.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Active nav-link glass background in dark mode",
+            "Selected filter chip background"
+          ],
+          "a11y": {
+            "contextRequirement": "Only use for active or selected state backgrounds. Never as a default surface. Text on amber-glass: parchment only."
+          }
+        }
+      }
+    },
+    "text-primary": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "Primary text in dark mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "body text in dark mode"
+          ],
+          "a11y": "AAA against ink."
+        }
+      }
+    },
+    "text-secondary": {
+      "$value": "#B8B4AC",
+      "$type": "color",
+      "$description": "Secondary text \u2014 warm neutral tuned for dark mode.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card descriptions in dark mode"
+          ],
+          "a11y": "AA against slate."
+        }
+      }
+    },
+    "text-muted": {
+      "$value": "#7A7770",
+      "$type": "color",
+      "$description": "Muted text in dark mode. Metadata.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "timestamps"
+          ],
+          "dont": [
+            "Never body text"
+          ]
+        }
+      }
+    },
+    "text-inverse": {
+      "$value": "{color.neutral.900}",
+      "$type": "color",
+      "$description": "Text on light surfaces inside dark pages.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "headings inside surface-inverse cards"
+          ]
+        }
+      }
+    },
+    "text-accent": {
+      "$value": "{color.brand.amber}",
+      "$type": "color",
+      "$description": "Amber text. Eyebrows and emphasis \u2014 only on ink backgrounds where AAA holds.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "eyebrows, highlight spans in dark mode"
+          ],
+          "a11y": "AAA against ink (7.06:1) at 16px+."
+        }
+      }
+    },
+    "accent": {
+      "$value": "{color.brand.amber}",
+      "$type": "color",
+      "$description": "Primary accent. Same amber, both modes."
+    },
+    "accent-subtle": {
+      "$value": "{color.alpha.amber-15}",
+      "$type": "color",
+      "$description": "Amber wash \u2014 works on ink because alpha is transparent."
+    },
+    "accent-border": {
+      "$value": "{color.alpha.amber-30}",
+      "$type": "color",
+      "$description": "Amber border."
+    },
+    "border": {
+      "$value": "{color.alpha.parchment-6}",
+      "$type": "color",
+      "$description": "Default border in dark mode. Very subtle parchment wash."
+    },
+    "border-subtle": {
+      "$value": "#2A2D37",
+      "$type": "color",
+      "$description": "Slightly lighter than slate \u2014 for section dividers."
+    },
+    "border-strong": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "High-contrast border in dark mode. For focus."
+    },
+    "link": {
+      "$value": "{color.brand.parchment}",
+      "$type": "color",
+      "$description": "Default link color in dark mode \u2014 parchment. Affordance via underline, not color."
+    },
+    "link-hover": {
+      "$value": "{color.brand.amber}",
+      "$type": "color",
+      "$description": "Link hover \u2014 amber in dark mode where it passes AAA against ink (7.06:1)."
+    },
+    "success": {
+      "$value": "{color.supporting.sage}",
+      "$type": "color",
+      "$description": "Success state color."
+    },
+    "info": {
+      "$value": "{color.supporting.steel}",
+      "$type": "color",
+      "$description": "Info state color."
+    },
+    "info-subtle": {
+      "$value": "{color.alpha.steel-15}",
+      "$type": "color",
+      "$description": "Info chip background."
+    },
+    "info-border": {
+      "$value": "{color.alpha.steel-30}",
+      "$type": "color",
+      "$description": "Info chip border."
+    }
+  },
+  "component": {
+    "button": {
+      "$extensions": {
+        "bella": {
+          "name": "Button",
+          "description": "Primary call-to-action. Warm amber background for primary, ink text across variants. Reserved for the single most important action in a view.",
+          "variants": [
+            "primary",
+            "secondary",
+            "ghost"
+          ],
+          "states": [
+            "default",
+            "hover",
+            "active",
+            "focus",
+            "disabled"
+          ],
+          "usage": [
+            "Hero CTA",
+            "Card 'Read more' action",
+            "Form submit"
+          ],
+          "dont": [
+            "Do not use more than one primary button per view",
+            "Do not stack two buttons of the same variant"
+          ],
+          "a11y": "All variants use ink foreground (neutral.900) for AAA on parchment (17.2:1). Secondary keeps the amber border \u2014 amber as decoration, ink as text. Focus ring uses border-strong at 2px offset. Hit area minimum 44\u00d744px \u2014 encoded as min-height on every variant."
+        }
+      },
+      "primary": {
+        "background": {
+          "$value": "{color.semantic.accent}",
+          "$type": "color"
+        },
+        "background-hover": {
+          "$value": "#B68457",
+          "$type": "color",
+          "$description": "Amber darkened ~8%."
+        },
+        "foreground": {
+          "$value": "{color.neutral.900}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.accent}",
+          "$type": "color"
+        },
+        "border-radius": {
+          "$value": "{radius.md}",
+          "$type": "dimension"
+        },
+        "padding-y": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "padding-x": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.mono}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.bold}",
+          "$type": "fontWeight"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.wide}",
+          "$type": "dimension"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      },
+      "secondary": {
+        "background": {
+          "$value": "transparent",
+          "$type": "color"
+        },
+        "background-hover": {
+          "$value": "{color.semantic.accent-subtle}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.neutral.900}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.accent}",
+          "$type": "color"
+        },
+        "border-radius": {
+          "$value": "{radius.md}",
+          "$type": "dimension"
+        },
+        "padding-y": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "padding-x": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      },
+      "ghost": {
+        "background": {
+          "$value": "transparent",
+          "$type": "color"
+        },
+        "background-hover": {
+          "$value": "{color.semantic.surface}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "transparent",
+          "$type": "color"
+        },
+        "border-radius": {
+          "$value": "{radius.md}",
+          "$type": "dimension"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "card": {
+      "$extensions": {
+        "bella": {
+          "name": "Card",
+          "description": "Editorial glass-first card system. Three primary tiers progress from subtle panel (default) to hero glass (glass). Plus featured (solid bright) and inverse (dark-mode embed).",
+          "variants": [
+            "default",
+            "elevated",
+            "glass",
+            "featured",
+            "inverse"
+          ],
+          "states": [
+            "resting",
+            "hover",
+            "focus"
+          ],
+          "usage": [
+            "Portfolio grid",
+            "CHIP idea clusters",
+            "Dashboard tiles",
+            "Case-study cards",
+            "Hero feature panels"
+          ],
+          "dont": [
+            "Do not nest cards inside cards \u2014 glass-on-glass becomes mud",
+            "Do not use for navigation \u2014 that's nav-link's job",
+            "Do not place glass over amber/steel/dusk/sage \u2014 the contrast model breaks"
+          ],
+          "a11y": "Glass tiers inherit contrast from the background beneath \u2014 parent must be parchment or lighter (light mode) or ink or darker (dark mode). Text on glass: ink (light) or parchment (dark) only. If the whole card is a link, include aria-labelledby referencing the card title."
+        }
+      },
+      "default": {
+        "background": {
+          "$value": "{color.semantic.surface-glass-light}",
+          "$type": "other"
+        },
+        "blur": {
+          "$value": "{blur.sm}",
+          "$type": "dimension"
+        },
+        "shadow": {
+          "$value": "{shadow.card-default}",
+          "$type": "shadow"
+        },
+        "border-top": {
+          "$value": "{color.semantic.border-glass-top}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.border-glass-edge}",
+          "$type": "color"
+        },
+        "border-width": {
+          "$value": "1px",
+          "$type": "dimension"
+        },
+        "border-radius": {
+          "$value": "{radius.xl}",
+          "$type": "dimension"
+        },
+        "padding": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        },
+        "gap": {
+          "$value": "{spacing.2}",
+          "$type": "dimension"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "transform-hover": {
+          "$value": "{motion.transform.hover-lift}",
+          "$type": "other"
+        },
+        "transition": {
+          "$value": "all {motion.duration.normal} {motion.easing.emphasis}",
+          "$type": "other"
+        }
+      },
+      "elevated": {
+        "background": {
+          "$value": "{color.semantic.surface-glass-elevated}",
+          "$type": "other"
+        },
+        "blur": {
+          "$value": "{blur.md}",
+          "$type": "dimension"
+        },
+        "shadow": {
+          "$value": "{shadow.card-elevated}",
+          "$type": "shadow"
+        },
+        "border-top": {
+          "$value": "{color.semantic.border-glass-top}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.border-glass-edge}",
+          "$type": "color"
+        },
+        "border-width": {
+          "$value": "1px",
+          "$type": "dimension"
+        },
+        "border-radius": {
+          "$value": "{radius.2xl}",
+          "$type": "dimension"
+        },
+        "padding": {
+          "$value": "{spacing.6}",
+          "$type": "dimension"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        }
+      },
+      "glass": {
+        "background": {
+          "$value": "{color.semantic.surface-glass}",
+          "$type": "other"
+        },
+        "blur": {
+          "$value": "{blur.lg}",
+          "$type": "dimension"
+        },
+        "shadow": {
+          "$value": "{shadow.raised}",
+          "$type": "shadow"
+        },
+        "border-top": {
+          "$value": "{color.semantic.border-glass-top}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.border-glass-edge}",
+          "$type": "color"
+        },
+        "border-width": {
+          "$value": "1px",
+          "$type": "dimension"
+        },
+        "border-radius": {
+          "$value": "{radius.3xl}",
+          "$type": "dimension"
+        },
+        "padding": {
+          "$value": "{spacing.8}",
+          "$type": "dimension"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        }
+      },
+      "featured": {
+        "background": {
+          "$value": "{color.semantic.surface-elevated}",
+          "$type": "color"
+        },
+        "border-radius": {
+          "$value": "{radius.xl}",
+          "$type": "dimension"
+        },
+        "padding": {
+          "$value": "{spacing.8}",
+          "$type": "dimension"
+        },
+        "shadow": {
+          "$value": "{shadow.md}",
+          "$type": "shadow"
+        }
+      },
+      "inverse": {
+        "background": {
+          "$value": "{color.semantic.surface-inverse}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-inverse}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.alpha.parchment-6}",
+          "$type": "color"
+        },
+        "border-radius": {
+          "$value": "{radius.lg}",
+          "$type": "dimension"
+        },
+        "padding": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "tag": {
+      "$extensions": {
+        "bella": {
+          "name": "Tag",
+          "description": "Uppercase mono label. Categorizes a card, a project, a mood. Ink-on-amber-wash is the canonical AAA-safe look.",
+          "variants": [
+            "accent",
+            "info",
+            "muted"
+          ],
+          "states": [
+            "default"
+          ],
+          "usage": [
+            "Card category labels",
+            "Section eyebrows inside content areas",
+            "Filter state chips"
+          ],
+          "dont": [
+            "Do not set foreground to amber/steel/dusk/sage on parchment \u2014 those fail AAA",
+            "Do not place on amber backgrounds without verifying the foreground contrast"
+          ],
+          "a11y": "13px floor. Foreground is ink (AAA against parchment and amber-15 wash). min-height hits 44px \u2014 tap area via padding so the visual chip can stay small."
+        }
+      },
+      "accent": {
+        "background": {
+          "$value": "{color.semantic.accent-subtle}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.brand.ink}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.accent-border}",
+          "$type": "color"
+        },
+        "border-width": {
+          "$value": "1px",
+          "$type": "dimension"
+        },
+        "border-radius": {
+          "$value": "{radius.full}",
+          "$type": "dimension"
+        },
+        "padding-y": {
+          "$value": "{spacing.1}",
+          "$type": "dimension"
+        },
+        "padding-x": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.mono}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.medium}",
+          "$type": "fontWeight"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.wide}",
+          "$type": "dimension"
+        },
+        "text-transform": {
+          "$value": "uppercase",
+          "$type": "other"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      },
+      "info": {
+        "background": {
+          "$value": "{color.semantic.info-subtle}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.brand.ink}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.info-border}",
+          "$type": "color"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      },
+      "muted": {
+        "background": {
+          "$value": "{color.semantic.surface}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.border}",
+          "$type": "color"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "eyebrow": {
+      "$extensions": {
+        "bella": {
+          "name": "Eyebrow",
+          "description": "Small mono label above a heading. Signals context or category.",
+          "variants": [
+            "accent",
+            "muted"
+          ],
+          "states": [
+            "default"
+          ],
+          "usage": [
+            "Above hero headlines",
+            "Above section titles",
+            "Above card groupings"
+          ],
+          "dont": [
+            "Do not use as a heading \u2014 eyebrows complement a heading, never replace one",
+            "Do not hard-code amber as the foreground \u2014 flow through text-accent so AAA enforcement stays centralized"
+          ],
+          "a11y": "13px floor. Foreground flows through semantic.text-accent (ink on parchment, amber on ink) for AAA in both modes."
+        }
+      },
+      "accent": {
+        "foreground": {
+          "$value": "{color.semantic.text-accent}",
+          "$type": "color"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.mono}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.medium}",
+          "$type": "fontWeight"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.wider}",
+          "$type": "dimension"
+        },
+        "text-transform": {
+          "$value": "uppercase",
+          "$type": "other"
+        }
+      },
+      "muted": {
+        "foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.mono}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.wider}",
+          "$type": "dimension"
+        },
+        "text-transform": {
+          "$value": "uppercase",
+          "$type": "other"
+        }
+      }
+    },
+    "input": {
+      "$extensions": {
+        "bella": {
+          "name": "Input",
+          "description": "Text input. Serif-on-surface, linen border, amber focus ring.",
+          "variants": [
+            "default",
+            "search"
+          ],
+          "states": [
+            "default",
+            "hover",
+            "focus",
+            "disabled",
+            "error"
+          ],
+          "usage": [
+            "Forms",
+            "Search bars",
+            "Filter inputs"
+          ],
+          "dont": [
+            "Do not strip the border on default state \u2014 it's how inputs are recognizable"
+          ],
+          "a11y": "Focus ring is 2px border-strong offset 1px. Label required, never use placeholder as label. min-height hits 44px for touch."
+        }
+      },
+      "default": {
+        "background": {
+          "$value": "{color.semantic.surface}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "placeholder": {
+          "$value": "{color.semantic.text-muted}",
+          "$type": "color"
+        },
+        "border": {
+          "$value": "{color.semantic.border}",
+          "$type": "color"
+        },
+        "border-focus": {
+          "$value": "{color.semantic.accent}",
+          "$type": "color"
+        },
+        "border-width": {
+          "$value": "1px",
+          "$type": "dimension"
+        },
+        "border-radius": {
+          "$value": "{radius.md}",
+          "$type": "dimension"
+        },
+        "padding-y": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "padding-x": {
+          "$value": "{spacing.4}",
+          "$type": "dimension"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.body}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.base}",
+          "$type": "dimension"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "link": {
+      "$extensions": {
+        "bella": {
+          "name": "Link",
+          "description": "Inline text link inside body copy.",
+          "variants": [
+            "default"
+          ],
+          "states": [
+            "default",
+            "hover",
+            "visited",
+            "focus"
+          ],
+          "usage": [
+            "Inline references inside paragraphs",
+            "Footer links"
+          ],
+          "dont": [
+            "Do not use for primary navigation \u2014 that's nav-link",
+            "Do not rely on color alone \u2014 always underlined or weight-shifted on hover"
+          ],
+          "a11y": "Ink foreground on parchment passes AAA (17.2:1). Hover affordance is text-decoration-thickness or font-weight, not color."
+        }
+      },
+      "default": {
+        "foreground": {
+          "$value": "{color.semantic.link}",
+          "$type": "color"
+        },
+        "foreground-hover": {
+          "$value": "{color.semantic.link-hover}",
+          "$type": "color"
+        },
+        "text-decoration": {
+          "$value": "underline",
+          "$type": "other"
+        }
+      }
+    },
+    "nav-link": {
+      "$extensions": {
+        "bella": {
+          "name": "Nav Link",
+          "description": "Top-level navigation item. Mono, uppercase-lite. Active state reads as ink text with a 2px amber underline \u2014 amber is decoration, ink carries the letters.",
+          "variants": [
+            "default",
+            "active"
+          ],
+          "states": [
+            "default",
+            "hover",
+            "active",
+            "focus"
+          ],
+          "usage": [
+            "Top navigation bar",
+            "Footer navigation"
+          ],
+          "dont": [
+            "Do not mix nav-link and inline-link in the same cluster",
+            "Do not color-distinguish the active state with amber text \u2014 use the amber underline token instead"
+          ],
+          "a11y": "min-height hits 44px \u2014 critical for mobile nav. Active variant uses ink text (neutral.900, AAA 17.2:1 on parchment) with a 2px amber border-bottom as the affordance \u2014 amber stays non-text decoration."
+        }
+      },
+      "default": {
+        "foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "foreground-hover": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.mono}",
+          "$type": "fontFamily"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.wide}",
+          "$type": "dimension"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      },
+      "active": {
+        "foreground": {
+          "$value": "{color.neutral.900}",
+          "$type": "color"
+        },
+        "border-bottom": {
+          "$value": "2px solid {color.semantic.accent}",
+          "$type": "other"
+        },
+        "min-height": {
+          "$value": "{spacing.touch-target}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "section": {
+      "$extensions": {
+        "bella": {
+          "name": "Section",
+          "description": "A vertical slice of a page. Defines standard padding and gap for content blocks.",
+          "usage": [
+            "Case-study sections",
+            "Portfolio page regions"
+          ],
+          "dont": [
+            "Do not nest sections inside sections"
+          ]
+        }
+      },
+      "default": {
+        "padding-y": {
+          "$value": "{spacing.16}",
+          "$type": "dimension"
+        },
+        "padding-x": {
+          "$value": "{spacing.6}",
+          "$type": "dimension"
+        },
+        "gap": {
+          "$value": "{spacing.12}",
+          "$type": "dimension"
+        },
+        "max-width": {
+          "$value": "1200px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "modal": {
+      "$extensions": {
+        "bella": {
+          "name": "Modal",
+          "description": "Modal dialog scaffold. Backdrop blur over the page content, centered dialog surface above.",
+          "variants": [
+            "default"
+          ],
+          "states": [
+            "open",
+            "closed"
+          ],
+          "usage": [
+            "Dialogs",
+            "Sheets",
+            "Confirmations"
+          ],
+          "dont": [
+            "Do not nest modals",
+            "Do not use for non-blocking UI \u2014 use a drawer or popover instead"
+          ],
+          "a11y": "Focus trap required. Escape to close. aria-modal='true'. Backdrop blur must be gated behind prefers-reduced-motion: no-preference for AAA 2.3.3 compliance."
+        }
+      },
+      "backdrop": {
+        "blur": {
+          "$value": "{blur.sm}",
+          "$type": "dimension"
+        }
+      }
+    }
+  }
+}

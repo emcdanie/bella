@@ -269,6 +269,19 @@
   --component-section-default-gap: 48px;
   --component-section-default-max-width: 1200px;
   --component-modal-backdrop-blur: 14px;
+
+  /* ---- v0.1 governance tokens (added manually; sync to JSON in next build) ----
+   * Fixed-context tokens: do NOT flip with [data-theme="dark"]. They name
+   * "text on a dark surface" and "focus ring" regardless of the page mode,
+   * because dark surfaces appear inside light pages (and vice-versa). */
+  --ink-on-dark-strong: #F7F4EF;   /* parchment — AAA on ink (#0F1117): 18.6:1 */
+  --ink-on-dark-body:   #E2DDD4;   /* warm dim parchment — AAA on ink: ~14.4:1 */
+  --ink-on-dark-muted:  #B8B4AC;   /* dimmer warm grey for placeholders — AAA on ink: 9.13:1 (passes 7:1 body bar) */
+  --ring-focus-color:   var(--color-semantic-border-strong);
+  --ring-focus-width:   2px;
+  --ring-focus-offset:  2px;
+  --card-min:           280px;     /* responsive card grid floor */
+  --header-height:      64px;      /* default; consumers should override per-app */
 }
 
 [data-theme="dark"] {

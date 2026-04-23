@@ -1,26 +1,42 @@
 [
   {
-    "id": "bella-light",
-    "name": "BELLA — Light",
-    "$figmaCollectionId": "bella-semantic",
-    "$figmaModeId": "light",
+    "id": "bella-primitives-default",
+    "name": "BELLA",
+    "group": "1. Primitives",
     "selectedTokenSets": {
-      "primitive": "source",
-      "semantic/light": "enabled",
-      "component": "enabled"
+      "primitive": "enabled"
     },
-    "description": "Default mode. Warm parchment page, dark ink text, amber accents."
+    "description": "Tier 1 — raw tokens: colors, spacing, typography, radius, shadow, blur, motion. No semantic meaning; referenced by Semantic and Component tiers."
   },
   {
-    "id": "bella-dark",
-    "name": "BELLA — Dark",
-    "$figmaCollectionId": "bella-semantic",
-    "$figmaModeId": "dark",
+    "id": "bella-semantic-light",
+    "name": "Light",
+    "group": "2. Semantic",
     "selectedTokenSets": {
       "primitive": "source",
-      "semantic/dark": "enabled",
+      "semantic/light": "enabled"
+    },
+    "description": "Tier 2 — Light mode. Warm parchment surface, dark ink text, amber accents. References Tier 1 primitives."
+  },
+  {
+    "id": "bella-semantic-dark",
+    "name": "Dark",
+    "group": "2. Semantic",
+    "selectedTokenSets": {
+      "primitive": "source",
+      "semantic/dark": "enabled"
+    },
+    "description": "Tier 2 — Dark mode. Ink page, parchment text, amber accents preserved. References Tier 1 primitives."
+  },
+  {
+    "id": "bella-components",
+    "name": "BELLA",
+    "group": "3. Components",
+    "selectedTokenSets": {
+      "primitive": "source",
+      "semantic/light": "source",
       "component": "enabled"
     },
-    "description": "Dark mode. Ink page, parchment text, amber accents preserved."
+    "description": "Tier 3 — Component tokens: button, card, tag, eyebrow, input, link, nav-link. References Tier 2 semantic (mode-aware) and Tier 1 primitives. Mode-switching cascades automatically through semantic references."
   }
 ]

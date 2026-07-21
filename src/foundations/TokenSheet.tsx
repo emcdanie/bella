@@ -42,6 +42,26 @@ export function walk(node: TokenNode, prefix: string[] = []): TokenLeaf[] {
 export const primitive = rollup.primitive as unknown as TokenNode;
 export const semanticLight = rollup.semantic as unknown as TokenNode;
 
+/* Dark bindings = light shape with the dark overrides merged on top —
+ * the same cascade bella.css emits under [data-theme="dark"]. */
+function mergeTokens(base: TokenNode, override: TokenNode): TokenNode {
+  const out: TokenNode = { ...base };
+  for (const [k, v] of Object.entries(override)) {
+    const b = out[k];
+    if (v && typeof v === 'object' && !('$value' in (v as TokenNode)) && b && typeof b === 'object') {
+      out[k] = mergeTokens(b as TokenNode, v as TokenNode);
+    } else {
+      out[k] = v as TokenNode;
+    }
+  }
+  return out;
+}
+
+export const semanticDark = mergeTokens(
+  semanticLight,
+  rollup.semantic_dark_overrides as unknown as TokenNode
+);
+
 export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
   const node = dotted.split('.').reduce<TokenNode | undefined>(
     (n, k) => (n ? (n[k] as TokenNode) : undefined),

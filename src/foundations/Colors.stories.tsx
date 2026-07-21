@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { leavesUnder, primitive, semanticLight, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
+import { leavesUnder, primitive, semanticDark, semanticLight, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
 
 const meta: Meta = {
   title: 'Foundations/Colors',
@@ -32,14 +32,19 @@ export const Neutrals: StoryObj = {
 };
 
 export const Semantic: StoryObj = {
-  render: () => (
-    <div>
-      <SectionTitle>Semantic (theme-aware)</SectionTitle>
-      <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
-        Chips resolve through the generated CSS custom properties, so this table
-        shows the ACTIVE theme's bindings. Flip the theme toolbar to see the dark set.
-      </p>
-      <TokenTable leaves={walk(semanticLight as never, ['color', 'semantic']).filter((l) => !l.value.startsWith('linear-gradient'))} />
-    </div>
-  ),
+  render: (_args, { globals }) => {
+    const dark = globals.theme === 'dark';
+    const bindings = dark ? semanticDark : semanticLight;
+    return (
+      <div>
+        <SectionTitle>Semantic ({dark ? 'dark' : 'light'} bindings)</SectionTitle>
+        <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
+          Chips resolve through the generated CSS custom properties, and the value
+          column shows the {dark ? 'dark' : 'light'} set's references — both follow
+          the theme toolbar.
+        </p>
+        <TokenTable leaves={walk(bindings as never, ['color', 'semantic']).filter((l) => !l.value.startsWith('linear-gradient'))} />
+      </div>
+    );
+  },
 };

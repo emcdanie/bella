@@ -55,13 +55,13 @@ function Title({ children }: { children: React.ReactNode }) {
 }
 
 function Body({ children }: { children: React.ReactNode }) {
+  // no font-size/line-height: body copy inherits the card reading tier
+  // (--component-card-default-body-*) from the inner panel
   return (
     <span
       style={{
         display: 'block',
-        fontSize: 'var(--typography-font-size-base)',
         color: 'var(--color-semantic-text-secondary)',
-        lineHeight: 'var(--typography-line-height-normal)',
       }}
     >
       {children}
@@ -75,9 +75,9 @@ const meta: Meta<typeof Card> = {
   parameters: {
     docs: {
       description: {
-        // TODO(elleta): the component description — one line, her voice.
-        // Autodocs renders prop docs from Card.tsx TSDoc in the meantime.
-        component: 'TODO(elleta): component description.',
+        // Elleta's line, verbatim (21 Jul 2026) — do not edit.
+        component:
+          'The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.',
       },
     },
   },

@@ -272,6 +272,8 @@ value with the source reference in parentheses.
 | `component.card.default.padding` | `20px` (`{spacing.5}`) | dimension |
 | `component.card.default.gap` | `8px` (`{spacing.2}`) | dimension |
 | `component.card.default.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
+| `component.card.default.body-font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
+| `component.card.default.body-line-height` | `1.6` (`{typography.line-height.normal}`) | number |
 | `component.card.default.transform-hover` | `translateY(-2px)` (`{motion.transform.hover-lift}`) | other |
 | `component.card.default.transition` | `all 250ms cubic-bezier(0.34, 1.56, 0.64, 1)` (`all {motion.duration.normal} {motion.easing.emphasis}`) | other |
 | `component.card.elevated.background` | `linear-gradient(180deg, #FFFFFFAD 0%, #FFFFFF7A 100%)` (`{color.semantic.surface-glass-elevated}`) | other |

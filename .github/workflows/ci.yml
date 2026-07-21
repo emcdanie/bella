@@ -54,6 +54,9 @@ jobs:
 
       - run: npm ci
 
+      - name: npm audit gate (fail on high/critical; allowlist in .npm-audit-allowlist.json)
+        run: node scripts/npm-audit-gate.mjs
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 

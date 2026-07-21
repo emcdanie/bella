@@ -1,9 +1,8 @@
 import React, { type CSSProperties, type ElementType, type ReactNode } from 'react';
 import styles from './Card.module.css';
 
-// TODO(elleta): component description line for autodocs — set it in
-// Card.stories.tsx parameters.docs.description.component. Slot left empty
-// on purpose; the factual behavior is documented on the props below.
+// Component description (autodocs) lives in Card.stories.tsx
+// parameters.docs.description.component — Elleta's line, verbatim.
 
 export interface CardProps {
   /**

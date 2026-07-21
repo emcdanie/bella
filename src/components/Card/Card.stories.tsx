@@ -75,9 +75,9 @@ const meta: Meta<typeof Card> = {
   parameters: {
     docs: {
       description: {
-        // TODO(elleta): the component description — one line, her voice.
-        // Autodocs renders prop docs from Card.tsx TSDoc in the meantime.
-        component: 'TODO(elleta): component description.',
+        // Elleta's line, verbatim (21 Jul 2026) — do not edit.
+        component:
+          'The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.',
       },
     },
   },

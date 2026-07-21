@@ -41,5 +41,24 @@ jobs:
             exit 1
           fi
 
-      # TODO: once Phase 2 (React components + Storybook) lands, add a job here
-      # running the Storybook test suite on every PR.
+  storybook:
+    name: Storybook — a11y + interactions + theme integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # Image-snapshot baselines are per-platform (rendered on darwin locally);
+      # CI runs the theme-integrity check, interactions, and a11y, and skips
+      # pixel comparison until a Linux-baseline (or Docker) decision is made.
+      - name: Run Storybook test suite (both themes)
+        run: SKIP_VISUAL_SNAPSHOTS=1 npm run audit:visual

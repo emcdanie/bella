@@ -1,46 +1,452 @@
 {
   "color": {
     "semantic": {
-      "background":         { "$value": "{color.brand.parchment}",  "$type": "color", "$description": "Default page background in light mode.",                                                  "$extensions": { "bella": { "usage": ["body background", "main content areas"], "dont": ["Do not replace with pure white"] } } },
-      "background-inverse": { "$value": "{color.brand.ink}",        "$type": "color", "$description": "Inverse dark section on a light page. Used for dark-mode demo blocks inside light pages.","$extensions": { "bella": { "usage": ["full-bleed dark sections embedded in a light layout"] } } },
-      "surface":            { "$value": "{color.neutral.100}",      "$type": "color", "$description": "Resting raised surface on parchment. Cards sit on this.",                                  "$extensions": { "bella": { "usage": ["card default background"] } } },
-      "surface-elevated":   { "$value": "{color.neutral.50}",       "$type": "color", "$description": "Higher-elevation surface. For modals or cards that need to feel brighter than surface.",   "$extensions": { "bella": { "usage": ["modals", "hero cards"] } } },
-      "surface-inverse":    { "$value": "{color.brand.slate}",      "$type": "color", "$description": "Raised surface on dark backgrounds (dark-mode embedded blocks in light mode).",            "$extensions": { "bella": { "usage": ["cards inside background-inverse sections"] } } },
-
-      "surface-glass":          { "$value": "linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)", "$type": "other", "$description": "Primary glass surface. Parchment shows through the warm cream. Pair with border-glass-top, shadow.raised, and blur.surface.", "$extensions": { "bella": { "usage": ["card.glass background"], "a11y": { "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage." } } } },
-      "surface-glass-elevated": { "$value": "linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)", "$type": "other", "$description": "Mid-tier glass. Denser content cards.",                                                                            "$extensions": { "bella": { "usage": ["card.elevated background"], "a11y": { "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage." } } } },
-      "surface-glass-light":    { "$value": "linear-gradient(180deg, {color.alpha.glass-48} 0%, {color.alpha.glass-28} 100%)", "$type": "other", "$description": "Lightest glass. Subtle secondary panels and nested containers.",                                                  "$extensions": { "bella": { "usage": ["card.default background"], "a11y": { "contextRequirement": "Parent background must be parchment or lighter. Text on glass: ink only. Do not stack glass over amber/steel/dusk/sage." } } } },
-      "border-glass-top":       { "$value": "{color.alpha.glass-72}", "$type": "color", "$description": "Top highlight on a frosted panel — mimics natural light on glass.", "$extensions": { "bella": { "usage": ["card.glass border-top", "card.elevated border-top"] } } },
-      "border-glass-edge":      { "$value": "{color.alpha.glass-55}", "$type": "color", "$description": "Full-perimeter glass edge.",                                        "$extensions": { "bella": { "usage": ["card.glass / card.elevated / card.default border"] } } },
-
-      "text-primary":   { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Primary text color on light surfaces.",       "$extensions": { "bella": { "usage": ["body text", "headings on parchment"], "a11y": "AAA against background and surface." } } },
-      "text-secondary": { "$value": "{color.neutral.600}",     "$type": "color", "$description": "Secondary text. Captions, supporting copy.",  "$extensions": { "bella": { "usage": ["card descriptions", "footnotes"], "a11y": "AAA against parchment (7.12:1). The AAA-safe secondary gray — safe for captions, footnotes, and supporting copy at the AAA bar." } } },
-      "text-muted":     { "$value": "{color.neutral.400}",     "$type": "color", "$description": "Muted text. Metadata, placeholders.",          "$extensions": { "bella": { "usage": ["timestamps", "disabled labels"], "dont": ["Never primary body text — fails AA"] } } },
-      "text-inverse":   { "$value": "{color.brand.parchment}", "$type": "color", "$description": "Text on dark surfaces. Used inside background-inverse blocks.", "$extensions": { "bella": { "usage": ["headings and body inside slate cards"] } } },
-      "text-accent":    { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Accent/emphasis text color — resolves to ink-equivalent on parchment. Amber fails AAA as text (2.44:1); emphasis carries via weight, italic, or a tinted background, not letter color.", "$extensions": { "bella": { "usage": ["eyebrows", "highlight <span> inside headlines"], "dont": ["Do not swap back to amber — 2.44:1 fails every WCAG text threshold on parchment"] } } },
-
-      "accent":         { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Primary accent — used as background on CTAs and as wash on chips. Text sits on accent, not as accent.", "$extensions": { "bella": { "usage": ["primary button background", "tag wash background"], "dont": ["Never as text color on parchment — amber is 2.44:1"] } } },
-      "accent-subtle":  { "$value": "{color.alpha.amber-15}",  "$type": "color", "$description": "Amber wash. Tag backgrounds.",            "$extensions": { "bella": { "usage": ["tag background"] } } },
-      "accent-border":  { "$value": "{color.alpha.amber-30}",  "$type": "color", "$description": "Amber border. Tag and chip borders.",     "$extensions": { "bella": { "usage": ["tag border", "chip border"] } } },
-
-      "border":         { "$value": "{color.supporting.linen}","$type": "color", "$description": "Default border on parchment backgrounds.", "$extensions": { "bella": { "usage": ["card borders", "input borders"] } } },
-      "border-subtle":  { "$value": "{color.alpha.ink-6}",     "$type": "color", "$description": "Near-invisible border. Use when linen is too warm.","$extensions": { "bella": { "usage": ["section dividers"] } } },
-      "border-strong":  { "$value": "{color.neutral.700}",     "$type": "color", "$description": "High-contrast border for focus states.",    "$extensions": { "bella": { "usage": ["focus ring on inputs"] } } },
-
-      "link":           { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Default link color — same as body text. Link affordance is underline, not color. Steel was 2.88:1 on parchment and fails AAA.", "$extensions": { "bella": { "usage": ["inline links in body text"], "dont": ["Do not color-only distinguish links — always pair with underline or weight"] } } },
-      "link-hover":     { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Link hover — same color. Hover affordance carries via text-decoration-thickness bump or font-weight shift, not color change.", "$extensions": { "bella": { "usage": ["hover state of inline links"], "dont": ["Do not swap back to amber on hover — fails AAA"] } } },
-
-      "success":        { "$value": "{color.supporting.sage}", "$type": "color", "$description": "Success state color — decorative / icon / border use only (sage fails AAA as text on parchment)." },
-      "info":           { "$value": "{color.supporting.steel}","$type": "color", "$description": "Info state color — decorative / chip-wash / border use only (steel fails AAA as text on parchment)." },
-      "info-subtle":    { "$value": "{color.alpha.steel-15}",  "$type": "color", "$description": "Info chip background." },
-      "info-border":    { "$value": "{color.alpha.steel-30}",  "$type": "color", "$description": "Info chip border." }
+      "background": {
+        "$value": "{color.brand.ground}",
+        "$type": "color",
+        "$description": "Default page background in light mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "body background",
+              "main content areas"
+            ],
+            "dont": [
+              "Do not replace with pure white"
+            ]
+          }
+        }
+      },
+      "background-inverse": {
+        "$value": "{color.brand.ink}",
+        "$type": "color",
+        "$description": "Inverse dark section on a light page.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "full-bleed dark sections embedded in a light layout"
+            ]
+          }
+        }
+      },
+      "surface": {
+        "$value": "{color.neutral.paper}",
+        "$type": "color",
+        "$description": "Raised card surface on ground. Cards separate from the page by lift and warmth, not darkness.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card default background"
+            ]
+          }
+        }
+      },
+      "surface-elevated": {
+        "$value": "{color.neutral.paper}",
+        "$type": "color",
+        "$description": "Highest light surface. Same value as surface \u2014 light-mode elevation is shadow-borne (portfolio contract); dark mode steps values instead.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "modals",
+              "hero cards"
+            ]
+          }
+        }
+      },
+      "surface-inset": {
+        "$value": "{color.neutral.surface}",
+        "$type": "color",
+        "$description": "Recessed surface on ground \u2014 wells, tracks, inset panels.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "switch tracks",
+              "recessed wells"
+            ]
+          }
+        }
+      },
+      "surface-inverse": {
+        "$value": "{color.navy.card}",
+        "$type": "color",
+        "$description": "Raised surface inside dark embedded blocks on light pages.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "cards inside background-inverse sections"
+            ]
+          }
+        }
+      },
+      "surface-glass": {
+        "$value": "linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)",
+        "$type": "other",
+        "$description": "Primary glass surface. Ground shows through the warm white. Pair with border-glass-top, shadow.raised, and blur.surface.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass background"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be ground or lighter. Text on glass: ink only. Do not stack glass over saturated fills."
+            }
+          }
+        }
+      },
+      "surface-glass-elevated": {
+        "$value": "linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)",
+        "$type": "other",
+        "$description": "Mid-tier glass. Denser content cards.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.elevated background"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be ground or lighter. Text on glass: ink only."
+            }
+          }
+        }
+      },
+      "surface-glass-light": {
+        "$value": "linear-gradient(180deg, {color.alpha.glass-48} 0%, {color.alpha.glass-28} 100%)",
+        "$type": "other",
+        "$description": "Lightest glass. Subtle secondary panels and nested containers.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.default background"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be ground or lighter. Text on glass: ink only."
+            }
+          }
+        }
+      },
+      "surface-glass-accent": {
+        "$value": "{color.alpha.periwinkle-15}",
+        "$type": "color",
+        "$description": "Periwinkle-tinted glass \u2014 active/selected state only.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Active nav-link background",
+              "Selected filter chip background"
+            ],
+            "a11y": {
+              "contextRequirement": "State backgrounds only, never a default surface. Text on it: ink."
+            }
+          }
+        }
+      },
+      "border-glass-top": {
+        "$value": "{color.alpha.glass-72}",
+        "$type": "color",
+        "$description": "Top highlight on a frosted panel \u2014 mimics natural light on glass.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass border-top",
+              "card.elevated border-top"
+            ]
+          }
+        }
+      },
+      "border-glass-edge": {
+        "$value": "{color.alpha.glass-55}",
+        "$type": "color",
+        "$description": "Full-perimeter glass edge.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass / card.elevated / card.default border"
+            ]
+          }
+        }
+      },
+      "text-primary": {
+        "$value": "{color.brand.ink}",
+        "$type": "color",
+        "$description": "Primary text on light surfaces.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "headings",
+              "high-emphasis text"
+            ],
+            "a11y": "Verified 2026-07-21: 16.06:1 on ground, 16.92:1 on paper \u2014 AAA."
+          }
+        }
+      },
+      "text-secondary": {
+        "$value": "{color.neutral.ink-muted}",
+        "$type": "color",
+        "$description": "Secondary text. Captions, supporting copy.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card descriptions",
+              "footnotes"
+            ],
+            "a11y": "Verified 2026-07-21: 8.33:1 on ground, 7.74:1 on surface-inset \u2014 AAA."
+          }
+        }
+      },
+      "text-muted": {
+        "$value": "{color.neutral.ink-faint}",
+        "$type": "color",
+        "$description": "Muted text. Metadata, placeholders.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "timestamps",
+              "placeholder text"
+            ],
+            "a11y": "Verified 2026-07-21: 5.02:1 on ground, 4.67:1 on surface-inset (worst) \u2014 AA normal text everywhere (bar call: worst-ground-wins).",
+            "dont": [
+              "Never body or secondary text"
+            ]
+          }
+        }
+      },
+      "text-inverse": {
+        "$value": "{color.brand.ground}",
+        "$type": "color",
+        "$description": "Text on dark surfaces inside light pages.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "headings and body inside embedded dark sections"
+            ]
+          }
+        }
+      },
+      "text-accent": {
+        "$value": "{color.brand.iris}",
+        "$type": "color",
+        "$description": "Accent text \u2014 iris. At body scale this reads INTERACTIVE (colour affordance rule); use only where the interactive read is intended.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "accent word in display headings",
+              "interactive text"
+            ],
+            "dont": [
+              "Never on eyebrows \u2014 wayfinding is not action"
+            ],
+            "a11y": "Verified 2026-07-21: 5.66:1 on ground \u2014 AA normal, AAA large. AAA normal text is not attainable with iris on any light surface (max 5.96:1 on paper). Bar-call row, contrast table 2026-07-21."
+          }
+        }
+      },
+      "accent": {
+        "$value": "{color.brand.iris}",
+        "$type": "color",
+        "$description": "The single accent, light mode. Interactive fills, outlines, links, focus.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button background (ground-colored label)",
+              "secondary button outline + text",
+              "focus rings"
+            ],
+            "dont": [
+              "Never pair with a second accent"
+            ],
+            "a11y": "Verified 2026-07-21: ground label on iris fill 5.66:1 (AA); iris as non-text on light surfaces \u22655.25:1 (passes 3:1)."
+          }
+        }
+      },
+      "accent-hover": {
+        "$value": "{color.iris.deep}",
+        "$type": "color",
+        "$description": "Accent hover fill \u2014 iris darkened one step.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button hover background"
+            ],
+            "a11y": "Verified 2026-07-21: ground label on this 7.09:1 \u2014 AAA."
+          }
+        }
+      },
+      "text-on-accent": {
+        "$value": "{color.brand.ground}",
+        "$type": "color",
+        "$description": "Label color on accent fills.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button label"
+            ],
+            "a11y": "Verified 2026-07-21: 5.66:1 on iris, 7.09:1 on accent-hover \u2014 AA/AAA."
+          }
+        }
+      },
+      "accent-subtle": {
+        "$value": "{color.alpha.iris-12}",
+        "$type": "color",
+        "$description": "Iris wash. Secondary-button hover fill.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "secondary button hover background"
+            ]
+          }
+        }
+      },
+      "accent-border": {
+        "$value": "{color.alpha.iris-30}",
+        "$type": "color",
+        "$description": "Iris border wash for accent-adjacent chrome.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "accent-tinted borders"
+            ]
+          }
+        }
+      },
+      "border": {
+        "$value": "{color.neutral.border}",
+        "$type": "color",
+        "$description": "Default solid border on ground backgrounds.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card borders",
+              "input borders"
+            ]
+          }
+        }
+      },
+      "border-subtle": {
+        "$value": "{color.alpha.ink-6}",
+        "$type": "color",
+        "$description": "Near-invisible border. Section dividers.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "section dividers"
+            ]
+          }
+        }
+      },
+      "border-strong": {
+        "$value": "{color.neutral.graphite}",
+        "$type": "color",
+        "$description": "High-contrast border for focus states.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "focus ring on inputs"
+            ],
+            "a11y": "Verified 2026-07-21: 11.72:1 on ground \u2014 well above the 3:1 non-text minimum."
+          }
+        }
+      },
+      "link": {
+        "$value": "{color.brand.ink}",
+        "$type": "color",
+        "$description": "Default link color \u2014 ink. Link affordance is underline; hover turns iris.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "inline links in body text"
+            ],
+            "dont": [
+              "Do not color-only distinguish links \u2014 always pair with underline"
+            ]
+          }
+        }
+      },
+      "link-hover": {
+        "$value": "{color.brand.iris}",
+        "$type": "color",
+        "$description": "Link hover \u2014 iris. The interactive color arriving on intent.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "hover state of inline links"
+            ],
+            "a11y": "Verified 2026-07-21: 5.66:1 on ground \u2014 AA."
+          }
+        }
+      },
+      "success": {
+        "$value": "{color.supporting.sage}",
+        "$type": "color",
+        "$description": "Success state \u2014 CARRIED from April pending lush status palette. Decorative / icon / border only (verified 4.33:1 on ground \u2014 fails AA text)."
+      },
+      "info": {
+        "$value": "{color.supporting.steel}",
+        "$type": "color",
+        "$description": "Info state \u2014 CARRIED from April pending lush status palette. Chip wash / border only (verified 2.87:1 on ground \u2014 fails all thresholds)."
+      },
+      "info-subtle": {
+        "$value": "{color.alpha.steel-15}",
+        "$type": "color",
+        "$description": "Info chip background (carried)."
+      },
+      "info-border": {
+        "$value": "{color.alpha.steel-30}",
+        "$type": "color",
+        "$description": "Info chip border (carried)."
+      }
+    },
+    "accent-ink": {
+      "$value": "{color.brand.iris}",
+      "$type": "color",
+      "$description": "Accent used as TEXT on the mode's page ground.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "accent-colored text"
+          ],
+          "a11y": "Verified 2026-07-21: 5.66:1 on ground \u2014 AA normal, AAA large."
+        }
+      }
     }
   },
   "shadow": {
-    "floating": { "$value": "{shadow.soft}",    "$type": "shadow", "$description": "Default floating-panel shadow. Semantic alias over primitive shadow.soft.",    "$extensions": { "bella": { "usage": ["Hero glass", "Feature cards"] } } },
-    "raised":   { "$value": "{shadow.layered}", "$type": "shadow", "$description": "Primary raised card shadow. Semantic alias over primitive shadow.layered.",    "$extensions": { "bella": { "usage": ["card.glass"] } } }
+    "floating": {
+      "$value": "{shadow.soft}",
+      "$type": "shadow",
+      "$description": "Default floating-panel shadow. Semantic alias over primitive shadow.soft.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Hero glass",
+            "Feature cards"
+          ]
+        }
+      }
+    },
+    "raised": {
+      "$value": "{shadow.layered}",
+      "$type": "shadow",
+      "$description": "Primary raised card shadow. Semantic alias over primitive shadow.layered.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "card.glass"
+          ]
+        }
+      }
+    }
   },
   "blur": {
-    "surface": { "$value": "{blur.lg}", "$type": "dimension", "$description": "Default glass surface blur.", "$extensions": { "bella": { "usage": ["surface-glass backdrop-filter"] } } }
+    "surface": {
+      "$value": "{blur.lg}",
+      "$type": "dimension",
+      "$description": "Default glass surface blur.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "surface-glass backdrop-filter"
+          ]
+        }
+      }
+    }
   }
 }

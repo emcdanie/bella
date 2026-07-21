@@ -73,7 +73,7 @@ def make_resolver(lookup):
     return resolve
 
 light_lookup = {**prim_flat, **light_flat, **comp_flat}
-dark_lookup  = {**prim_flat, **dark_flat,  **comp_flat}
+dark_lookup  = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
 
 resolve_light = make_resolver(light_lookup)
 resolve_dark  = make_resolver(dark_lookup)
@@ -132,9 +132,9 @@ css_lines += [
     "   * Fixed-context tokens: do NOT flip with [data-theme=\"dark\"]. They name",
     "   * \"text on a dark surface\" and \"focus ring\" regardless of the page mode,",
     "   * because dark surfaces appear inside light pages (and vice-versa). */",
-    "  --ink-on-dark-strong: #F7F4EF;   /* parchment — AAA on ink (#0F1117): 18.6:1 */",
-    "  --ink-on-dark-body:   #E2DDD4;   /* warm dim parchment — AAA on ink: ~14.4:1 */",
-    "  --ink-on-dark-muted:  #B8B4AC;   /* dimmer warm grey for placeholders — AAA on ink: 9.13:1 (passes 7:1 body bar) */",
+    "  --ink-on-dark-strong: var(--color-navy-ink);       /* #F4EFE6 — AAA on every dark surface (11.44:1 on raised #2B2B5C, worst; verified 2026-07-21) */",
+    "  --ink-on-dark-body:   var(--color-navy-ink-soft);  /* #E6E1D6 — AAA on every dark surface (10.05:1 on raised, worst) */",
+    "  --ink-on-dark-muted:  var(--color-navy-ink-muted); /* #C6C2D4 — AAA on every dark surface (7.53:1 on raised, worst) */",
     "  --ring-focus-color:   var(--color-semantic-border-strong);",
     "  --ring-focus-width:   2px;",
     "  --ring-focus-offset:  2px;",
@@ -142,6 +142,20 @@ css_lines += [
     "  --header-height:      64px;      /* default; consumers should override per-app */",
 ]
 
+css_lines += [
+    "",
+    "  /* ---- Legacy aliases (pre-0.3 consumer names) ----",
+    "     The portfolio's vendored copy shipped these names; kept as var()",
+    "     aliases so the sync-script swap is drop-in. Remove after the",
+    "     Phase 3 component swaps migrate the references. */",
+    "  --color-alpha-parchment-6: var(--color-alpha-dark-ink-6);",
+    "  --color-alpha-shadow-warm-03: var(--color-alpha-shadow-cool-03);",
+    "  --color-alpha-shadow-warm-04: var(--color-alpha-shadow-cool-04);",
+    "  --color-alpha-shadow-warm-05: var(--color-alpha-shadow-cool-05);",
+    "  --color-alpha-shadow-warm-06: var(--color-alpha-shadow-cool-06);",
+    "  --color-alpha-shadow-warm-08: var(--color-alpha-shadow-cool-08);",
+    "  --color-supporting-linen: var(--color-neutral-border);",
+]
 css_lines += ["}", ""]
 
 css_lines += [
@@ -150,6 +164,17 @@ css_lines += [
 ]
 for path, (v, t, _) in dark_flat.items():
     css_lines.append(f"  {emit_css_var(path)}: {resolve_dark(v)};")
+
+# Component tokens resolve through semantic, so any component value that
+# lands differently under the dark lookup gets a dark override — accent
+# surfaces flip with the mode instead of baking in the light resolution.
+css_lines += ["", "  /* ---- Component (dark) overrides — accent surfaces flip with the mode ---- */"]
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, dict):
+        continue
+    lightv, darkv = resolve_light(v), resolve_dark(v)
+    if lightv != darkv:
+        css_lines.append(f"  {emit_css_var(path)}: {darkv};")
 css_lines += ["}", ""]
 
 # ---- Glass utility classes ----
@@ -210,9 +235,9 @@ for p, (v, t, meta) in prim_flat.items():
 rollup = {
     "$metadata": {
         "name": "BELLA",
-        "version": "0.2.0",
-        "generatedAt": "2026-04-19",
-        "note": "Flat rollup of primitive + semantic(light) + component. Dark mode lives in bella.css as [data-theme='dark'] overrides."
+        "version": "0.3.0",
+        "generatedAt": "2026-07-21",
+        "note": "Flat rollup of primitive + semantic(light) + component. Dark mode lives in bella.css as [data-theme='dark'] overrides (semantic + mode-divergent component tokens)."
     },
     "primitive": primitive,
     "semantic": sem_light["color"]["semantic"],
@@ -234,7 +259,7 @@ def swatch_html(name, hex_value, description=""):
 
 def primitive_colors():
     blocks = []
-    groups = [("brand", "Brand"), ("supporting", "Supporting"), ("neutral", "Neutral scale"), ("alpha", "Alpha variants")]
+    groups = [("brand", "Brand"), ("iris", "Iris/periwinkle ramp"), ("neutral", "Light neutrals"), ("navy", "Navy scale"), ("supporting", "Status (carried)"), ("alpha", "Alpha variants")]
     for key, title in groups:
         items = []
         for path, (v, t, meta) in prim_flat.items():
@@ -305,7 +330,7 @@ preview = f"""<!DOCTYPE html>
   h3 {{ font-size: var(--typography-font-size-xl); font-weight: var(--typography-font-weight-bold); margin-top: var(--spacing-8); margin-bottom: var(--spacing-3); }}
   p {{ margin-bottom: var(--spacing-4); }}
   .theme-toggle {{ position: fixed; top: var(--spacing-5); right: var(--spacing-5); z-index: 10;
-    background: var(--color-semantic-accent); color: var(--color-brand-ink);
+    background: var(--color-semantic-accent); color: var(--component-button-primary-foreground);
     padding: var(--spacing-3) var(--spacing-5); border: 0; border-radius: var(--radius-md);
     font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag);
     font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-wide);
@@ -347,7 +372,7 @@ preview = f"""<!DOCTYPE html>
   .live-tag.info {{ background: var(--color-semantic-info-subtle); color: var(--color-semantic-info); border-color: var(--color-semantic-info-border); }}
   .live-tag.muted {{ background: var(--color-semantic-surface); color: var(--color-semantic-text-secondary); border-color: var(--color-semantic-border); }}
 
-  .live-btn {{ display: inline-flex; align-items: center; min-height: var(--spacing-touch-target); padding: var(--spacing-3) var(--spacing-5); background: var(--color-semantic-accent); color: var(--color-brand-ink); border: 1px solid var(--color-semantic-accent); border-radius: var(--radius-md); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-wide); text-transform: uppercase; cursor: pointer; text-decoration: none; margin-right: var(--spacing-3); transition: background var(--motion-duration-fast); }}
+  .live-btn {{ display: inline-flex; align-items: center; min-height: var(--spacing-touch-target); padding: var(--spacing-3) var(--spacing-5); background: var(--color-semantic-accent); color: var(--component-button-primary-foreground); border: 1px solid var(--color-semantic-accent); border-radius: var(--radius-md); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); font-weight: var(--typography-font-weight-bold); letter-spacing: var(--typography-letter-spacing-wide); text-transform: uppercase; cursor: pointer; text-decoration: none; margin-right: var(--spacing-3); transition: background var(--motion-duration-fast); }}
   .live-btn.secondary {{ background: transparent; color: var(--color-semantic-accent); }}
   .live-btn.ghost {{ background: transparent; color: var(--color-semantic-text-primary); border-color: transparent; }}
 
@@ -386,7 +411,7 @@ preview = f"""<!DOCTYPE html>
   .shadow-chip.card-default  {{ box-shadow: var(--shadow-card-default); }}
   .shadow-chip.card-elevated {{ box-shadow: var(--shadow-card-elevated); }}
 
-  .blur-stage   {{ position: relative; margin-top: var(--spacing-5); border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #C4956A 0%, #6495C5 35%, #4A7C6F 65%, #7B6E8F 100%); padding: var(--spacing-10) var(--spacing-5); }}
+  .blur-stage   {{ position: relative; margin-top: var(--spacing-5); border-radius: var(--radius-lg); overflow: hidden; background: linear-gradient(135deg, #5B4BD1 0%, #7A6BE8 35%, #A79CE2 65%, #1B1B40 100%); padding: var(--spacing-10) var(--spacing-5); }}
   .blur-row     {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--spacing-3); }}
   .blur-tile    {{ aspect-ratio: 1; display: flex; align-items: flex-end; justify-content: center; padding: var(--spacing-3); font-family: var(--typography-font-family-mono); font-size: var(--typography-font-size-tag); color: var(--color-brand-ink); text-transform: uppercase; letter-spacing: var(--typography-letter-spacing-wide); background: rgba(255,255,255,0.40); border-radius: var(--radius-md); }}
   .blur-tile.xs {{ backdrop-filter: blur(var(--bella-blur-xs)); -webkit-backdrop-filter: blur(var(--bella-blur-xs)); }}
@@ -404,7 +429,7 @@ preview = f"""<!DOCTYPE html>
 
 <div class="wrap">
   <header>
-    <div class="eyebrow">ctrl_alt_design · BELLA v0.2</div>
+    <div class="eyebrow">ctrl_alt_design · BELLA v0.3</div>
     <h1>Token <em>preview</em>.</h1>
     <p style="color: var(--color-semantic-text-secondary); max-width: 60ch; margin-top: var(--spacing-3);">Every token in BELLA, seen at once. Tier 1 primitives at the top, tier 2 semantic mappings in the middle, tier 3 component tokens at the bottom with live examples. Toggle the theme to see light/dark.</p>
   </header>
@@ -513,7 +538,7 @@ preview = f"""<!DOCTYPE html>
   <section>
     <div class="eyebrow" style="margin-top: var(--spacing-12);">Surfaces</div>
     <h2>Shadows &amp; Glass</h2>
-    <p style="color: var(--color-semantic-text-secondary); max-width: 60ch;">Three glass tiers, four shadow specimens, five blur steps. Warmth comes from parchment showing through translucent layers — white alpha is an overlay, never a solid fill.</p>
+    <p style="color: var(--color-semantic-text-secondary); max-width: 60ch;">Three glass tiers, four shadow specimens, five blur steps. Warmth comes from ground showing through translucent layers — white alpha is an overlay, never a solid fill.</p>
 
     <h3>Glass tiers</h3>
     <div class="glass-stage">
@@ -555,7 +580,7 @@ preview = f"""<!DOCTYPE html>
 
     <div class="a11y-note-card">
       <strong>AAA — Text on glass</strong>
-      Text on glass surfaces inherits the contrast of the background beneath. On parchment, text is ink only. On slate (dark mode), text is parchment. Never stack glass over amber, steel, dusk, or sage — the composite contrast is unpredictable.
+      Text on glass surfaces inherits the contrast of the background beneath. On ground, text is ink only. On navy (dark mode), text is navy.ink. Never stack glass over saturated fills — the composite contrast is unpredictable.
     </div>
   </section>
 </div>

@@ -1,38 +1,387 @@
 {
   "color": {
     "semantic": {
-      "background":         { "$value": "{color.brand.ink}",        "$type": "color", "$description": "Default page background in dark mode.",                          "$extensions": { "bella": { "usage": ["body background in dark mode"] } } },
-      "background-inverse": { "$value": "{color.brand.parchment}",  "$type": "color", "$description": "Inverse light section inside a dark page.",                      "$extensions": { "bella": { "usage": ["full-bleed light sections embedded in a dark layout"] } } },
-      "surface":            { "$value": "{color.brand.slate}",      "$type": "color", "$description": "Raised surface on ink. Cards sit on this in dark mode.",         "$extensions": { "bella": { "usage": ["card default background in dark mode"] } } },
-      "surface-elevated":   { "$value": "#242833",                  "$type": "color", "$description": "Higher-elevation surface in dark mode. One step lighter than slate.","$extensions": { "bella": { "usage": ["modals", "hero cards in dark mode"] } } },
-      "surface-inverse":    { "$value": "{color.neutral.100}",      "$type": "color", "$description": "Raised surface for light sections embedded in dark pages.",      "$extensions": { "bella": { "usage": ["cards inside background-inverse sections"] } } },
-
-      "surface-glass":          { "$value": "{color.alpha.slate-60}", "$type": "color", "$description": "Dark glass. Slate at 60% alpha over ink — warm shadows remain.",   "$extensions": { "bella": { "usage": ["card.glass background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only. Amber passes AAA (7.06:1) for emphasis spans." } } } },
-      "surface-glass-elevated": { "$value": "{color.alpha.slate-48}", "$type": "color", "$description": "Mid dark glass. Elevated cards and content panels.",              "$extensions": { "bella": { "usage": ["card.elevated background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only." } } } },
-      "surface-glass-light":    { "$value": "{color.alpha.slate-32}", "$type": "color", "$description": "Lightest dark glass. Subtle nested panels in dark mode.",         "$extensions": { "bella": { "usage": ["card.default background in dark mode"], "a11y": { "contextRequirement": "Parent background must be ink or darker. Text on glass: parchment only." } } } },
-      "surface-glass-amber":    { "$value": "{color.alpha.amber-15}", "$type": "color", "$description": "Amber-tinted glass — active-state only. Amber at 15% over slate.", "$extensions": { "bella": { "usage": ["Active nav-link glass background in dark mode", "Selected filter chip background"], "a11y": { "contextRequirement": "Only use for active or selected state backgrounds. Never as a default surface. Text on amber-glass: parchment only." } } } },
-
-      "text-primary":   { "$value": "{color.brand.parchment}", "$type": "color", "$description": "Primary text in dark mode.",                "$extensions": { "bella": { "usage": ["body text in dark mode"], "a11y": "AAA against ink." } } },
-      "text-secondary": { "$value": "#B8B4AC",                 "$type": "color", "$description": "Secondary text — warm neutral tuned for dark mode.", "$extensions": { "bella": { "usage": ["card descriptions in dark mode", "captions and footnotes on ink, slate, or elevated dark surfaces"], "a11y": "AAA ✅ on all three dark-mode parent surfaces. Verified contrast: 9.13:1 on background (ink #0F1117), 8.14:1 on surface (slate #1A1D27), 7.13:1 on surface-elevated (#242833). Safe for captions, footnotes, and supporting copy at the AAA bar.", "contexts": ["{color.semantic.background} — ink #0F1117 — 9.13:1", "{color.semantic.surface} — slate #1A1D27 — 8.14:1", "{color.semantic.surface-elevated} — #242833 — 7.13:1"] } } },
-      "text-muted":     { "$value": "#7A7770",                 "$type": "color", "$description": "Muted text in dark mode. Metadata.",        "$extensions": { "bella": { "usage": ["timestamps"], "dont": ["Never body text"] } } },
-      "text-inverse":   { "$value": "{color.neutral.900}",     "$type": "color", "$description": "Text on light surfaces inside dark pages.", "$extensions": { "bella": { "usage": ["headings inside surface-inverse cards"] } } },
-      "text-accent":    { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Amber text. Eyebrows and emphasis — only on ink backgrounds where AAA holds.","$extensions": { "bella": { "usage": ["eyebrows, highlight spans in dark mode"], "a11y": "AAA against ink (7.06:1) at 16px+." } } },
-
-      "accent":         { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Primary accent. Same amber, both modes." },
-      "accent-subtle":  { "$value": "{color.alpha.amber-15}",  "$type": "color", "$description": "Amber wash — works on ink because alpha is transparent." },
-      "accent-border":  { "$value": "{color.alpha.amber-30}",  "$type": "color", "$description": "Amber border." },
-
-      "border":         { "$value": "{color.alpha.parchment-6}","$type": "color", "$description": "Default border in dark mode. Very subtle parchment wash." },
-      "border-subtle":  { "$value": "#2A2D37",                  "$type": "color", "$description": "Slightly lighter than slate — for section dividers." },
-      "border-strong":  { "$value": "{color.brand.parchment}",  "$type": "color", "$description": "High-contrast border in dark mode. For focus." },
-
-      "link":           { "$value": "{color.brand.parchment}", "$type": "color", "$description": "Default link color in dark mode — parchment. Affordance via underline, not color." },
-      "link-hover":     { "$value": "{color.brand.amber}",     "$type": "color", "$description": "Link hover — amber in dark mode where it passes AAA against ink (7.06:1)." },
-
-      "success":        { "$value": "{color.supporting.sage}", "$type": "color", "$description": "Success state color." },
-      "info":           { "$value": "{color.supporting.steel}","$type": "color", "$description": "Info state color." },
-      "info-subtle":    { "$value": "{color.alpha.steel-15}",  "$type": "color", "$description": "Info chip background." },
-      "info-border":    { "$value": "{color.alpha.steel-30}",  "$type": "color", "$description": "Info chip border." }
+      "background": {
+        "$value": "{color.brand.navy}",
+        "$type": "color",
+        "$description": "Default page background in dark mode \u2014 navy, not black.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "body background in dark mode"
+            ]
+          }
+        }
+      },
+      "background-inverse": {
+        "$value": "{color.navy.ink}",
+        "$type": "color",
+        "$description": "Inverse light section inside a dark page.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "full-bleed light sections embedded in a dark layout"
+            ]
+          }
+        }
+      },
+      "surface": {
+        "$value": "{color.navy.card}",
+        "$type": "color",
+        "$description": "Raised card surface on navy. Dark elevation climbs lighter.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card default background in dark mode"
+            ]
+          }
+        }
+      },
+      "surface-elevated": {
+        "$value": "{color.navy.raised}",
+        "$type": "color",
+        "$description": "Highest dark surface \u2014 modals, elevated panels.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "modals",
+              "hero cards in dark mode"
+            ],
+            "a11y": "Verified 2026-07-21: navy.ink-muted on this 7.53:1 \u2014 the AAA bump surface."
+          }
+        }
+      },
+      "surface-inset": {
+        "$value": "{color.brand.navy}",
+        "$type": "color",
+        "$description": "Recessed surface in dark mode \u2014 falls back to the page ground; depth carries via inset shadow.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "switch tracks (with shadow.switch-track-dark)",
+              "recessed wells"
+            ]
+          }
+        }
+      },
+      "surface-inverse": {
+        "$value": "{color.neutral.surface}",
+        "$type": "color",
+        "$description": "Raised surface for light sections embedded in dark pages.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "cards inside background-inverse sections"
+            ]
+          }
+        }
+      },
+      "surface-glass": {
+        "$value": "{color.alpha.navy-60}",
+        "$type": "color",
+        "$description": "Dark glass. Navy card at 60% alpha over the page.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass background in dark mode"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+            }
+          }
+        }
+      },
+      "surface-glass-elevated": {
+        "$value": "{color.alpha.navy-48}",
+        "$type": "color",
+        "$description": "Mid dark glass. Elevated cards and content panels.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.elevated background in dark mode"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+            }
+          }
+        }
+      },
+      "surface-glass-light": {
+        "$value": "{color.alpha.navy-32}",
+        "$type": "color",
+        "$description": "Lightest dark glass. Subtle nested panels in dark mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.default background in dark mode"
+            ],
+            "a11y": {
+              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+            }
+          }
+        }
+      },
+      "surface-glass-accent": {
+        "$value": "{color.alpha.periwinkle-15}",
+        "$type": "color",
+        "$description": "Periwinkle glass \u2014 active-state only. Glassy over navy, never a flat block.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Active nav-link glass background in dark mode",
+              "Selected filter chip background"
+            ],
+            "a11y": {
+              "contextRequirement": "Only active/selected state backgrounds. Text on it: navy.ink."
+            }
+          }
+        }
+      },
+      "border-glass-top": {
+        "$value": "{color.alpha.dark-ink-14}",
+        "$type": "color",
+        "$description": "Dark glass top highlight.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card.glass border-top in dark mode"
+            ]
+          }
+        }
+      },
+      "border-glass-edge": {
+        "$value": "{color.alpha.dark-ink-10}",
+        "$type": "color",
+        "$description": "Dark glass edge.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "glass card borders in dark mode"
+            ]
+          }
+        }
+      },
+      "text-primary": {
+        "$value": "{color.navy.ink}",
+        "$type": "color",
+        "$description": "Primary text in dark mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "body text in dark mode"
+            ],
+            "a11y": "Verified 2026-07-21: 14.35:1 on navy \u2014 AAA."
+          }
+        }
+      },
+      "text-secondary": {
+        "$value": "{color.navy.text-secondary}",
+        "$type": "color",
+        "$description": "Secondary text in dark mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card descriptions",
+              "captions and footnotes on navy, card, or raised surfaces"
+            ],
+            "a11y": "Verified 2026-07-21: 9.20:1 on navy, 8.23:1 on card #232350, 7.33:1 on raised #2B2B5C \u2014 AAA on all three."
+          }
+        }
+      },
+      "text-muted": {
+        "$value": "{color.navy.text-muted}",
+        "$type": "color",
+        "$description": "Muted text in dark mode. Metadata on any dark surface.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "timestamps and tertiary metadata on any dark surface"
+            ],
+            "dont": [
+              "Never body or secondary text"
+            ],
+            "a11y": "Verified 2026-07-21: 5.66:1 on navy, 5.06:1 on card, 4.51:1 on raised (worst) \u2014 AA normal text on every dark surface (bar call: worst-ground-wins)."
+          }
+        }
+      },
+      "text-inverse": {
+        "$value": "{color.brand.ink}",
+        "$type": "color",
+        "$description": "Text on light surfaces inside dark pages.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "headings inside surface-inverse cards"
+            ]
+          }
+        }
+      },
+      "text-accent": {
+        "$value": "{color.brand.periwinkle}",
+        "$type": "color",
+        "$description": "Accent text in dark mode \u2014 the accent flips to periwinkle on navy; iris itself is banned there (2.64:1).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "accent word in display headings",
+              "interactive text in dark mode"
+            ],
+            "a11y": "Verified 2026-07-21: 6.65:1 on navy \u2014 AA normal, AAA large. Bar-call row, contrast table 2026-07-21."
+          }
+        }
+      },
+      "accent": {
+        "$value": "{color.brand.periwinkle}",
+        "$type": "color",
+        "$description": "The single accent, dark mode. Same accent as light, seen on navy.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button fill (navy label)",
+              "secondary button outline + text",
+              "focus rings in dark mode"
+            ],
+            "a11y": "Verified 2026-07-21: navy label on periwinkle fill 6.65:1 (AA); periwinkle as non-text on dark surfaces \u22655.30:1."
+          }
+        }
+      },
+      "accent-hover": {
+        "$value": "{color.iris.peri-hover}",
+        "$type": "color",
+        "$description": "Accent hover fill in dark mode \u2014 periwinkle brightened.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button hover background (dark)"
+            ],
+            "a11y": "Verified 2026-07-21: navy label on this 8.18:1 \u2014 AAA."
+          }
+        }
+      },
+      "text-on-accent": {
+        "$value": "{color.brand.navy}",
+        "$type": "color",
+        "$description": "Label color on accent fills in dark mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "primary button label (dark)"
+            ],
+            "a11y": "Verified 2026-07-21: 6.65:1 on periwinkle, 8.18:1 on accent-hover \u2014 AA/AAA."
+          }
+        }
+      },
+      "accent-subtle": {
+        "$value": "{color.alpha.periwinkle-15}",
+        "$type": "color",
+        "$description": "Periwinkle wash \u2014 secondary-button hover fill in dark mode.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "secondary button hover background (dark)"
+            ]
+          }
+        }
+      },
+      "accent-border": {
+        "$value": "{color.alpha.periwinkle-30}",
+        "$type": "color",
+        "$description": "Periwinkle border wash.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "accent-tinted borders (dark)"
+            ]
+          }
+        }
+      },
+      "border": {
+        "$value": "{color.alpha.dark-ink-6}",
+        "$type": "color",
+        "$description": "Default border in dark mode. Subtle navy-ink wash.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "card borders in dark mode"
+            ]
+          }
+        }
+      },
+      "border-subtle": {
+        "$value": "{color.navy.divider}",
+        "$type": "color",
+        "$description": "Section dividers on navy \u2014 decorative separation only (1.38:1).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "section dividers in dark mode"
+            ],
+            "dont": [
+              "Never the sole boundary of an interactive component"
+            ]
+          }
+        }
+      },
+      "border-strong": {
+        "$value": "{color.navy.ink}",
+        "$type": "color",
+        "$description": "High-contrast border in dark mode. For focus.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "focus outlines in dark mode"
+            ]
+          }
+        }
+      },
+      "link": {
+        "$value": "{color.navy.ink}",
+        "$type": "color",
+        "$description": "Default link color in dark mode. Affordance via underline; hover turns periwinkle."
+      },
+      "link-hover": {
+        "$value": "{color.brand.periwinkle}",
+        "$type": "color",
+        "$description": "Link hover \u2014 periwinkle on navy.",
+        "$extensions": {
+          "bella": {
+            "a11y": "Verified 2026-07-21: 6.65:1 on navy \u2014 AA."
+          }
+        }
+      },
+      "success": {
+        "$value": "{color.supporting.sage}",
+        "$type": "color",
+        "$description": "Success state \u2014 CARRIED from April pending lush status palette. Decorative only; not re-verified on navy."
+      },
+      "info": {
+        "$value": "{color.supporting.steel}",
+        "$type": "color",
+        "$description": "Info state \u2014 CARRIED from April pending lush status palette. Decorative only; not re-verified on navy."
+      },
+      "info-subtle": {
+        "$value": "{color.alpha.steel-15}",
+        "$type": "color",
+        "$description": "Info chip background (carried)."
+      },
+      "info-border": {
+        "$value": "{color.alpha.steel-30}",
+        "$type": "color",
+        "$description": "Info chip border (carried)."
+      }
+    },
+    "accent-ink": {
+      "$value": "{color.iris.peri-ink}",
+      "$type": "color",
+      "$description": "Accent used as TEXT on navy \u2014 tuned brighter than the fill periwinkle.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "accent-colored text on navy"
+          ],
+          "a11y": "Verified 2026-07-21: 7.89:1 on navy \u2014 AAA."
+        }
+      }
     }
   }
 }

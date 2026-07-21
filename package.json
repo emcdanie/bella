@@ -22,7 +22,7 @@
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "audit:visual": "storybook build --quiet && concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006\"",
-    "gate": "npm run build && git diff --exit-code tokens/bella.css tokens/bella.json docs/bella.css docs/tokens.md && npm run audit:visual"
+    "gate": "npm run build && git diff --exit-code tokens/bella.css tokens/bella.json docs/bella.css docs/tokens.md && node scripts/contract-parity.mjs && npm run audit:visual"
   },
   "repository": {
     "type": "git",

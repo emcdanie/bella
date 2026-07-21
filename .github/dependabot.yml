@@ -5,6 +5,17 @@ updates:
     schedule:
       interval: weekly
     labels: [security]
+    ignore:
+      # Framework-critical packages: majors are deliberate migrations,
+      # not routine bumps (Elleta, 21 Jul 2026). Minor/patch still flow.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: next
+        update-types: ["version-update:semver-major"]
+      - dependency-name: react
+        update-types: ["version-update:semver-major"]
+      - dependency-name: react-dom
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:

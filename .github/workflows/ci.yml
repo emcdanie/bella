@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: Build + drift gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate token sources are well-formed JSON
+        run: |
+          python3 - <<'EOF'
+          import json, pathlib, sys
+          bad = []
+          for p in pathlib.Path("tokens").rglob("*.json"):
+              try:
+                  json.loads(p.read_text())
+              except json.JSONDecodeError as e:
+                  bad.append(f"{p}: {e}")
+          if bad:
+              print("\n".join(bad))
+              sys.exit(1)
+          EOF
+
+      - name: Build tokens
+        run: python3 tokens/build.py
+
+      - name: Fail if generated artifacts drifted from sources
+        run: |
+          if ! git diff --exit-code; then
+            echo "::error::Generated artifacts do not match token sources. Run 'python3 tokens/build.py' and commit the output."
+            exit 1
+          fi
+
+      # TODO: once Phase 2 (React components + Storybook) lands, add a job here
+      # running the Storybook test suite on every PR.

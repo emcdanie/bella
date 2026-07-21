@@ -68,6 +68,7 @@ value with the source reference in parentheses.
 | `color.alpha.navy-32` | `#23235052` | color |
 | `color.alpha.steel-15` | `#6495C526` | color |
 | `color.alpha.steel-30` | `#6495C54D` | color |
+| `color.alpha.ink-22` | `#1A172038` | color |
 | `spacing.1` | `4px` | dimension |
 | `spacing.2` | `8px` | dimension |
 | `spacing.3` | `12px` | dimension |
@@ -151,6 +152,8 @@ value with the source reference in parentheses.
 | `shadow.key-resting` | `1px 3px 0 #4A3FB0, 3px 6px 10px #5B4BD13D, inset 0 1px 0 #FFFFFF66` (`1px 3px 0 {color.iris.edge}, 3px 6px 10px {color.alpha.iris-24}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
 | `shadow.key-hover` | `1px 4px 0 #4A3FB0, 4px 8px 14px #5B4BD147, inset 0 1px 0 #FFFFFF66` (`1px 4px 0 {color.iris.edge}, 4px 8px 14px {color.alpha.iris-28}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
 | `shadow.key-pressed` | `0 1px 0 #4A3FB0, 2px 3px 8px #5B4BD133, inset 0 1px 0 #FFFFFF66` (`0 1px 0 {color.iris.edge}, 2px 3px 8px {color.alpha.iris-20}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.card-rest` | `13px 26px 54px #1A172038` (`13px 26px 54px {color.alpha.ink-22}`) | shadow |
+| `shadow.card-rest-dark` | `13px 26px 54px rgba(0, 0, 0, 0.44)` | shadow |
 
 ## Tier 2 — Semantic (light)
 

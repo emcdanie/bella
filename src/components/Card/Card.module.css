@@ -1,0 +1,229 @@
+/* THE card (one-card system, 2026-07-17), extracted from the portfolio into
+ * BELLA. Tokens only. CALM AT REST: static 1px accent-tinted border, the
+ * card-rest shadow, theme-aware inner panel. The conic colour-trace border
+ * (light) and identity halo (dark) run ONLY on :hover / :focus, as an
+ * affordance. prefers-reduced-motion: never trace; a static solid accent
+ * ring instead.
+ *
+ * Theme safety is structural: the inner surface is --color-semantic-surface,
+ * which flips with [data-theme] — a light page CANNOT render a dark card
+ * through this component. The single deliberate exception is variant="peek",
+ * which is fixed-LIGHT (paper floating on navy); no fixed-dark path exists.
+ *
+ * Recorded divergences from the portfolio original (extraction, 2026-07-21):
+ * - outer radius snapped from the 22px literal to radius.3xl (24px); the
+ *   inner radius derives as outer minus trace width
+ * - resting shadow tint is now the token pair shadow.card-rest/-dark
+ * - the media scrim mixes from brand ink, not pure black (no-pure-black rule)
+ */
+
+@property --trace-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.card {
+  position: relative;
+  /* identity colour; per-card override via the accent prop */
+  --cc: var(--color-iris-bright);
+  --trace-r: var(--radius-3xl);
+  --trace-w: 3px; /* reserved trace-ring thickness (recorded trace geometry); keeps hover layout-stable */
+  border-radius: var(--trace-r);
+  padding: var(--trace-w);
+  box-shadow: var(--shadow-card-rest);
+}
+
+:global([data-theme='dark']) .card {
+  box-shadow: var(--shadow-card-rest-dark);
+}
+
+/* The travelling trace ring (shared recipe; promoted to a bella utility
+ * when Button/keycap lands — one implementation rule). */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--trace-r);
+  padding: var(--trace-w);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  background: conic-gradient(
+    from var(--trace-ang),
+    var(--cc) 0deg,
+    var(--cc) 46deg,
+    color-mix(in srgb, var(--cc) 20%, transparent) 130deg,
+    color-mix(in srgb, var(--cc) 12%, transparent) 300deg,
+    var(--cc) 360deg
+  );
+  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  mask-composite: exclude;
+}
+
+.card:hover::before,
+.card:focus-within::before,
+.card:focus-visible::before {
+  opacity: 1;
+  animation: trace-travel 3.4s linear infinite;
+}
+
+@keyframes trace-travel {
+  to {
+    --trace-ang: 360deg;
+  }
+}
+
+/* Dark ONLY: identity halo, hover/focus affordance like the trace */
+:global([data-theme='dark']) .card:hover,
+:global([data-theme='dark']) .card:focus-within {
+  animation: card-glow-dark 3.6s ease-in-out infinite;
+}
+
+@keyframes card-glow-dark {
+  0%,
+  100% {
+    box-shadow:
+      var(--shadow-card-rest-dark),
+      0 0 16px -6px color-mix(in srgb, var(--cc) 50%, transparent);
+  }
+
+  50% {
+    box-shadow:
+      var(--shadow-card-rest-dark),
+      0 0 28px -5px color-mix(in srgb, var(--cc) 65%, transparent);
+  }
+}
+
+/* Inner panel, THEME-AWARE by default: the semantic surface flips to the
+ * navy card in dark, inks follow the semantic cascade automatically. */
+.inner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  background: var(--color-semantic-surface);
+  border: 1px solid color-mix(in srgb, var(--cc) 22%, transparent);
+  border-radius: calc(var(--trace-r) - var(--trace-w));
+  padding: var(--spacing-6);
+}
+
+/* variant="peek": the fixed ALWAYS-LIGHT reveal panel, meant to float light
+ * on navy. Because this ground never flips, the theme-flipping semantic inks
+ * are re-scoped to fixed light-context values — otherwise dark mode would
+ * render light text on the light panel. Custom properties resolve at the
+ * element they are declared on, so this covers all descendants. */
+.innerPeek {
+  background: var(--color-neutral-paper);
+  color: var(--color-brand-ink);
+  --color-semantic-text-primary: var(--color-brand-ink);
+  --color-semantic-text-secondary: var(--color-neutral-ink-muted);
+  --color-semantic-text-muted: var(--color-neutral-ink-faint);
+  --color-semantic-border: var(--color-neutral-border);
+  --color-semantic-border-subtle: var(--color-alpha-ink-6);
+  --color-semantic-surface-inset: var(--color-neutral-surface);
+  --color-accent-ink: var(--color-brand-iris);
+}
+
+/* Interactive cards: single anchor/button, unmistakably clickable */
+.interactive {
+  display: block;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  /* button-rendered cards: neutralize UA chrome */
+  background: none;
+  border: 0;
+  margin: 0;
+  font: inherit;
+  transition:
+    transform var(--motion-duration-normal) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-normal) var(--motion-easing-standard);
+}
+
+.interactive:hover,
+.interactive:focus-visible {
+  transform: var(--motion-transform-hover-lift);
+  box-shadow: var(--shadow-card-rest), var(--shadow-card-elevated);
+}
+
+:global([data-theme='dark']) .interactive:hover,
+:global([data-theme='dark']) .interactive:focus-visible {
+  box-shadow: var(--shadow-card-rest-dark), var(--shadow-card-elevated);
+}
+
+.interactive:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+/* Media variant: full-bleed cover above the padded body */
+.innerFlush {
+  padding: 0;
+  overflow: hidden;
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-semantic-surface-inset);
+}
+
+.media > :global(img),
+.media > :global(svg) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Token scrim so text over cover media stays AA. Mixed from ink, not pure
+ * black — the no-pure-black rule holds on media too. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-brand-ink) 46%, transparent),
+    color-mix(in srgb, var(--color-brand-ink) 10%, transparent) 42%,
+    transparent 68%
+  );
+}
+
+.body {
+  padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* Reduced motion: no trace ever; hover/focus shows a static solid accent
+ * ring, dark hover a static halo */
+@media (prefers-reduced-motion: reduce) {
+  .interactive,
+  .interactive:hover,
+  .interactive:focus-visible {
+    transition: none;
+    transform: none;
+  }
+
+  .card:hover::before,
+  .card:focus-within::before,
+  .card:focus-visible::before {
+    animation: none;
+    background: var(--cc);
+  }
+
+  :global([data-theme='dark']) .card:hover,
+  :global([data-theme='dark']) .card:focus-within {
+    animation: none;
+    box-shadow:
+      var(--shadow-card-rest-dark),
+      0 0 22px -4px color-mix(in srgb, var(--cc) 55%, transparent);
+  }
+}

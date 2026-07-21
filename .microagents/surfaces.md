@@ -27,7 +27,7 @@ Pick the tier before picking the radius. Radius, shadow, and blur move together 
 ## When NOT to use glass
 
 - **Never glass on glass.** A glass card inside a glass card produces mud. If a card needs sub-sections, use solid surface panels inside.
-- **Never glass over colored surfaces.** Glass is designed for parchment (light mode) or ink (dark mode). Placing glass over amber, steel, sage, or dusk breaks the warmth model and makes text-contrast against the layer underneath unpredictable.
+- **Never glass over colored surfaces.** Glass is designed for ground (light mode) or navy (dark mode). Placing glass over saturated fills (iris, periwinkle, steel, sage) breaks the warmth model and makes text-contrast against the layer underneath unpredictable.
 - **Never glass over a busy photo.** If you have an image backdrop, use a solid surface with `shadow.soft` instead — a frost won't save the readability.
 
 Solid surface + shadow is the right answer whenever glass isn't.
@@ -38,11 +38,11 @@ BELLA's top-level rule is: **never pure white.** The glass tokens break that rul
 
 All glass primitives are white at alpha (28 / 48 / 55 / 68 / 72 / 82 / 90). The justification is encoded in `$extensions.bella.exception` on every one of them:
 
-> Pure white alpha is permitted ONLY as a translucent overlay. Never as a solid fill. The warmth comes from parchment showing through.
+> Pure white alpha is permitted ONLY as a translucent overlay. Never as a solid fill. The warmth comes from ground showing through.
 
-Glass is never a solid fill. Every glass token is painted over parchment (`#F7F4EF`) or, in dark mode, over ink. The warm cream of the page transmits through the frost — you are never looking at `#FFFFFF`, you are looking at parchment filtered through alpha.
+Glass is never a solid fill. Every glass token is painted over ground (`#F5F4EF`) or, in dark mode, over navy. The warm tone of the page transmits through the frost — you are never looking at `#FFFFFF`, you are looking at ground filtered through alpha.
 
-If a glass token is ever used without a warm background behind it (e.g. on pure white canvas, or on a photo without a parchment layer), it resolves visually to opaque white. That's a bug. Fix it by restoring a parchment layer beneath.
+If a glass token is ever used without a warm background behind it (e.g. on pure white canvas, or on a photo without a ground layer), it resolves visually to opaque white. That's a bug. Fix it by restoring a ground layer beneath.
 
 ## Shadow pairing
 
@@ -55,16 +55,16 @@ Glass without shadow reads as flat. Every glass tier ships with a matching shado
 | `card.glass` | `shadow.raised` → `shadow.layered` | 3-layer drop + inset `glass-90` highlight |
 | Floating hero glass | `shadow.floating` → `shadow.soft` | 3-layer drop, no inset |
 
-Shadow tints are warm — cognac (`#2C1810` at 3–8% alpha), not black. That warmth is what keeps BELLA's editorial feel visible even under elevation. Do not substitute black or neutral-tinted shadows.
+Shadow tints are cool violet-ink (`#1C1A2E` at 3–8% alpha, the `shadow-cool-*` family), not black. The tint keeps elevation in the palette's family instead of graying it out. Do not substitute pure-black or warm-brown shadows — the cognac family was the April identity and is retired.
 
 ## Dark mode
 
 In dark mode the rules flip:
 
-- Glass opacity goes from white-alpha to **slate-alpha**: `slate-60 / slate-48 / slate-32` for glass / elevated / light. Parchment isn't beneath, ink is — slate at alpha reads as a lighter slate panel floating over ink.
-- **Shadows stay warm.** Cognac shadows on dark still read as warmth — the CommandCenterDashboard surfaces use this exact combination. Do not swap to neutral-black shadows.
-- An **amber-tinted glass variant** is available for active / selected states only: `surface.glass-amber` (amber at 15% over slate). Use sparingly — for a selected nav item, an active filter chip, a playing track. Never as a default surface.
-- Text on dark glass: `parchment` is primary. `amber` passes AAA on ink (7.06:1) for emphasis spans and active-state text. Nothing else.
+- Glass opacity goes from white-alpha to **navy-alpha**: `navy-60 / navy-48 / navy-32` for glass / elevated / light. Ground isn't beneath, navy is — navy-card at alpha reads as a lighter panel floating over the page.
+- **Shadow tint carries over.** The same cool violet-ink shadow family works on navy. Do not swap to pure-black shadows.
+- A **periwinkle-tinted glass variant** is available for active / selected states only: `surface.glass-accent` (periwinkle at 15% over the navy card). Use sparingly — for a selected nav item, an active filter chip, a playing track. Never as a default surface.
+- Text on dark glass: `navy.ink` (`#F4EFE6`) is primary. `iris.peri-ink` (`#B4ADE8`, 7.89:1 on navy — AAA) for accent emphasis spans; `periwinkle` itself is AA (6.65:1). Nothing else.
 
 ## Motion and reduced-motion (WCAG 2.3.3 AAA)
 

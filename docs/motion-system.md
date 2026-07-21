@@ -1,5 +1,7 @@
 # Motion System
 
+> **Status (2026-07-21):** this document describes the *portfolio's* motion layer (`lib/motion.ts`, `components/motion/` in ctrl-alt-design) — an extraction target for the Storybook/component phase, not yet a BELLA package. BELLA's canonical motion tokens live in `tokens/primitive.json` (`motion.duration.fast/normal/slow` = 150/250/400ms, `motion.easing.standard/emphasis`, `motion.transform.hover-lift/key-press`). The richer ramp below (instant→slow, six easings, stagger) is the portfolio's superset; reconciling the two ramps is part of the motion extraction, not this doc. Identity-neutral otherwise — no palette dependency.
+
 A lightweight, zero-dependency motion system for the portfolio. All animations use native CSS transitions and the IntersectionObserver API — no Framer Motion or GSAP required.
 
 ## Architecture

@@ -9,9 +9,9 @@ The reference points are books, magazines, and well-typeset long reads. Not comp
 That translates to concrete choices:
 
 - Generous vertical rhythm. Sections breathe.
-- Strong weight contrast — 400 body against 700/800 heads, not a muddy 500/600 middle.
+- Strong weight contrast — 400 body against 700 heads, not a muddy 500/600 middle.
 - Rules and margins as composition, not as decoration.
-- Restrained accent color. One editorial red or one considered blue does more than a six-color palette.
+- Restrained accent color. One iris, flipping to periwinkle in the dark, does more than a six-color palette. At body scale the accent means INTERACTIVE, and only that.
 
 ## Anti-generic-AI
 
@@ -21,17 +21,27 @@ What that means in practice:
 
 - No gradient blobs as decoration.
 - No Sparkles, no Stars, no "✨ AI" badges.
-- No "friendly" over-rounding of every element. Corners are intentional: 12px on cards, 8px on buttons, 0 where 0 reads better.
+- No "friendly" over-rounding of every element. Corners are intentional, resolved through the radius tokens, 0 where 0 reads better.
 - No centered-everything, pastel-everything hero layouts.
 - No fake hand-drawn doodles pretending to be warmth.
 
-Warmth in BELLA comes from type, surface color, and pacing — not from decoration.
+Warmth in BELLA comes from type, surface color, and pacing — not from decoration. The 3D language — orbs, keycaps, one upper-left light source — is earned depth with recorded shadow tokens, not decoration; do not flatten it and do not sprinkle it.
 
-## Warm neutrals over pure white
+## Warm neutrals over pure white; navy over black
 
-`#ffffff` reads as *unstyled*. It's the color of an empty Figma frame, a default browser page, a ChatGPT response. BELLA's canvas is `#f9f9f7` — warm enough to feel like paper, neutral enough to stay out of the way.
+`#ffffff` reads as *unstyled*. It's the color of an empty Figma frame, a default browser page, a ChatGPT response. BELLA's canvas is `color.brand.ground` (`#F5F4EF`) — warm enough to feel like paper, neutral enough to stay out of the way. Cards are `color.neutral.paper` (`#FAFAF8`), separated by lift and shadow, not darkness.
 
-The rule is absolute: no pure white anywhere. Not in modals, not in cards on dark backgrounds, not in print exports. If a surface needs to feel "lighter," reach for a warmer neutral or more white space — not a colder color.
+The rule is absolute: no pure white as a solid fill anywhere. Not in modals, not in cards on dark backgrounds, not in print exports. White alpha exists only as translucent glass — the warmth comes from ground showing through.
+
+Dark mode gets the same conviction: navy (`#1B1B40`), not black. Dark elevation climbs lighter instead of stacking shadows on shadow.
+
+<!-- TODO(elleta): the lush-identity voice paragraph — what iris/periwinkle-on-navy
+     says that amber-on-parchment didn't. The palette facts are recorded in
+     primitive.json; the why-it-feels-right is yours. -->
+
+## Accessible on purpose, at a recorded bar
+
+The bar is **AAA-minded AA** (recorded 2026-07-21, `docs/RULES.md` rule 9): AAA for ink and body text, AA where the accent speaks, the accent always theme-flips and never touches its failing ground, worst-ground-wins for every text token. Every ratio is computed and written into the token metadata, dated — not asserted, verified.
 
 ## Token-first because humans and agents share the file
 

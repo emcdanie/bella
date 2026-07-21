@@ -1,39 +1,53 @@
-# Accessibility — BELLA AAA checklist
+# Accessibility — the BELLA bar
 
-BELLA's accessibility baseline is WCAG 2.1 Level AAA. Not AA. Not "AA with best-effort AAA." AAA. If a surface shipping with BELLA fails one of the rules below, the surface is broken and ships only as a known exception with a documented plan to fix.
+BELLA's accessibility bar is **AAA-minded AA** (recorded 2026-07-21, Elleta; `docs/RULES.md` rule 9):
+
+- **AAA for ink and body text** — both ink ladders are verified AAA on every surface they sit on.
+- **AA where the accent speaks** — accent text, buttons, links. AAA accent text is not attainable with iris on light surfaces (5.96:1 ceiling) and is not the bar.
+- **The accent always theme-flips** — iris light, periwinkle dark — and is banned on its failing ground **even as decoration** (the failure includes the 3:1 non-text minimum).
+- **Worst-ground-wins** — every text token passes AA normal text on the worst surface its usage metadata allows, or that surface is forbidden in the metadata.
+
+Every ratio below is computed (WCAG relative luminance), recorded in `$extensions.bella.a11y` on the token, and dated. If a surface shipping with BELLA fails a rule below, the surface is broken and ships only as a known exception with a documented plan to fix.
 
 Consumer projects that install BELLA inherit this checklist. Downstream microagents may tighten these rules. They do not get to relax them.
 
-## Text contrast
+## Text contrast — verified 2026-07-21
 
-- **Normal text on parchment (`#F7F4EF`) must be `ink` (`#0F1117`) or `neutral.600` (`#525252`).** Ink is 17.2:1 — the body-text default. `neutral.600` is 7.12:1 — the AAA-safe gray used by `semantic.text-secondary` for captions, footnotes, and supporting copy. Those are the only two AAA text colors on parchment.
-- **Large text (≥18px regular, or ≥14px bold) must hit 4.5:1.** Most of the system already does; verify when a heading shrinks to 14px bold or dips to 18px regular.
-- **Non-text UI — icons, borders, focus rings — must hit 3:1.** This is where the supporting palette and `neutral.500` earn their keep. `dusk`, `sage`, `steel`, and `neutral.500` all clear 3:1 for decorative and icon roles; as text on parchment they fail.
-- **On ink (dark mode, slate surfaces), only `parchment` (17.2:1) and `amber` (7.06:1) pass AAA for normal text.** Those are the two text colors on ink.
+**Light mode (on ground `#F5F4EF` unless noted):**
 
-## Mid-tones are never text on parchment
-
-Verified contrast on parchment, rounded:
-
-| Color | Ratio | Text on parchment? | Allowed roles |
+| Token | Hex | Ratio | Verdict |
 |---|---|---|---|
-| `amber` | 2.44:1 | No — fails all text thresholds | background, decorative, dark-mode-text-on-ink |
-| `steel` | 2.88:1 | No — fails all text thresholds | chip-wash, decorative |
-| `dusk` | 4.28:1 | No — passes only 3:1 non-text | decorative, icon, chip-wash, border |
-| `sage` | 4.35:1 | No — passes only 3:1 non-text | decorative, icon, chip-wash, border |
-| `neutral.500` | 4.86:1 | No — AA only, fails AAA | icon fills, non-text UI |
+| `brand.ink` (text-primary) | `#1A1720` | 16.06:1 | AAA |
+| `neutral.ink-soft` | `#2E2937` | 12.81:1 | AAA |
+| `neutral.ink-muted` (text-secondary) | `#4A4652` | 8.33:1 | AAA (7.74 on surface-inset, still AAA) |
+| `neutral.ink-faint` (text-muted) | `#6B6678` | 5.02:1 | AA everywhere (4.67 on surface-inset, the worst light ground) |
+| `brand.iris` (accent text) | `#5B4BD1` | 5.66:1 | AA normal, AAA large. The accent ceiling. |
 
-**Rule: supporting palette (amber / steel / dusk / sage) and `neutral.500` or lighter are never text foregrounds on parchment.** Full stop.
+**Dark mode (on navy `#1B1B40` unless noted):**
 
-Allowed text on parchment: `ink` (primary body, links, tag/eyebrow foregrounds, button text) or `neutral.600` (secondary text, captions, footnotes). That's it.
+| Token | Hex | Ratio | Verdict |
+|---|---|---|---|
+| `navy.ink` (text-primary) | `#F4EFE6` | 14.35:1 | AAA (11.44 on raised, worst) |
+| `navy.ink-soft` | `#E6E1D6` | 12.61:1 | AAA (10.05 worst) |
+| `navy.ink-muted` | `#C6C2D4` | 9.45:1 | AAA (7.53 on raised, worst) |
+| `navy.text-secondary` | `#C4BFD4` | 9.20:1 | AAA (7.33 worst) |
+| `navy.text-muted` | `#9994B1` | 5.66:1 | AA everywhere (4.51 on raised, worst) |
+| `brand.periwinkle` (accent text) | `#A79CE2` | 6.65:1 | AA normal, AAA large (5.30 on raised) |
+| `iris.peri-ink` (accent-ink) | `#B4ADE8` | 7.89:1 | AAA |
 
-Supporting palette is usable as:
+**Buttons:** ground label on iris fill 5.66:1 (AA), on hover `#4C3EB8` 7.09:1 (AAA); white label on keycap stops 4.95/6.23:1 (AA); navy label on periwinkle 6.65:1 (AA), on hover `#B9B0E9` 8.18:1 (AAA).
 
-- Alpha-tinted backgrounds and washes
-- Icons, borders, focus-ring accents (≥3:1 non-text)
-- Text on ink in dark mode — but only `amber` clears AAA there
+## The accent never touches its failing ground
 
-Check `primitive.json`'s `$extensions.bella.roles` on each supporting color for its allowed uses. That field is load-bearing — consult it before picking a color.
+| Pair | Ratio | Meaning |
+|---|---|---|
+| iris on navy | 2.64:1 | Fails text AND 3:1 non-text — banned in dark mode entirely, decoration included |
+| periwinkle on ground | 2.24:1 | Fails everything — light mode gets periwinkle only as alpha tints (washes, selection) |
+| `iris.bright` on navy | 3.99:1 | Non-text and AA-large only — hero display accents, never body text |
+
+## Carried status colors are never text
+
+`steel` (2.87:1 on ground — fails even non-text; wash only) and `sage` (4.33:1 — non-text roles only) are carried from the April identity pending a lush-native status ladder (see the open issue). Neither is ever a text foreground. Check `$extensions.bella.roles` / `.status` on each — those fields are load-bearing.
 
 ## Touch targets — 44×44px minimum
 

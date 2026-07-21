@@ -1,22 +1,31 @@
 # Typography
 
-Typography is where BELLA earns the name. Most of the system's personality lives here — in the families, the ramp, and the floors below which nothing is allowed to go.
+Typography is where BELLA earns the name. Most of the system's personality lives here — in the two faces, the ramp, and the floors below which nothing is allowed to go.
 
-## Font families
+## Font families — exactly two (the type lock)
 
-- `typography.font-family.display` — **Georgia**, falling back to `'Times New Roman', serif`. Editorial serif used for display and body alike. Warm, confident, distinctive against the generic sans-serif AI aesthetic.
-- `typography.font-family.body` — **Georgia**. Kept as a separate token in case body later splits from display, but currently identical to `display`.
-- `typography.font-family.mono` — **JetBrains Mono**, falling back to `ui-monospace, 'SF Mono', Menlo, monospace`. Used for tags, chips, eyebrows, button CTA text, inline code, and technical metadata. Geometric and precise.
+- `typography.font-family.display` — **Unique**, falling back to `'Arial Narrow', sans-serif`. The condensed identity face. Bold (700) is the only cut. It renders in exactly three places: display headings (hero / page / section / case tiers), the home hero headline, and the keycap brand lockup. Nowhere else.
+- `typography.font-family.body` — **Geist**, falling back to `system-ui, sans-serif`. Everything Unique doesn't carry: body, card titles, labels, eyebrows, buttons, navigation, metadata.
+- `typography.font-family.mono` — **retired** (2026-07-17). The token remains and repoints to Geist so legacy consumers keep rendering. The eyebrow look is caps + tracking, not a third family. Do not reintroduce a mono face.
 
-There is no sans-serif in BELLA, deliberately. See below.
+The Georgia/JetBrains-Mono pairing was the April identity; it is fully replaced.
 
-## Serif as body, deliberately
+<!-- TODO(elleta): the "why Unique" voice paragraph — the story the serif essay used to
+     carry. What Unique signals, why condensed display against a quiet grotesk, in your
+     words. The factual constraints are recorded below; the conviction is yours to write. -->
 
-Body in Georgia is the loudest statement BELLA makes. Most contemporary UI runs a sans — Inter, SF Pro, something geometric — because "sans is more readable on screens." That rule is thirty years old and modern screens render serifs beautifully.
+## Unique's hard constraints
 
-Georgia-as-body is the anti-SaaS move. It signals that the work here is writing-first: case studies, essays, considered prose. Every AI product in 2026 ships with a rounded sans; BELLA ships with a serif and asks the reader to sit down for a minute.
+These come from the face itself and are encoded in token metadata:
 
-If a surface genuinely needs the density of a sans — a table with forty rows, chart labels, a settings panel — reach for `typography.font-family.mono` (JetBrains Mono). No sans is coming. That's the point.
+- **700 only.** Unique ships one cut. `font-weight.black` (800) is Geist-only.
+- **Never below 24px** (`font-size.2xl`) — except the keycap brand lockup, the single recorded exception. Consumer gates enforce this.
+- **Never negative tracking.** Condensed glyphs collide below 0; Unique display settings always track ≥ 0 (`letter-spacing.normal`). `letter-spacing.tight` is Geist-only.
+- Always all-caps in the established display treatments, with the accent-word pattern where the design already does that.
+
+## Eyebrows
+
+Geist, uppercase, `font-size.sm` (14px — one ramp step up from tag; 13px read too quiet under the display heads), weight 700, tracked with `letter-spacing.wider` (0.15em). The tracking IS the old mono look. Eyebrows are wayfinding, not action — they never wear the interactive accent color.
 
 ## The ramp
 
@@ -24,17 +33,19 @@ Nine named sizes, each with a purpose. `tag` is the hard floor — nothing goes 
 
 | Token | Size | Typical use |
 |---|---|---|
-| `typography.font-size.tag` | **13px** | Tags, chips, eyebrows, button CTAs, inline code. Mono, uppercase, tracked wide. |
-| `typography.font-size.sm` | 14px | Captions and footnotes only. Never body copy. |
+| `typography.font-size.tag` | **13px** | Tags, chips, button CTAs. Geist, uppercase, tracked wide. |
+| `typography.font-size.sm` | 14px | Eyebrows, captions, footnotes. Never body copy. |
 | `typography.font-size.base` | **16px** | Body paragraph floor. The minimum for reading text in BELLA. |
 | `typography.font-size.lg` | 18px | Lead paragraphs, long-form case-study body. |
-| `typography.font-size.xl` | **20px** | Card title floor. Pair with `font-weight.bold` (700). |
-| `typography.font-size.2xl` | 24px | Heading-3, component titles in docs. |
-| `typography.font-size.3xl` | **32px** | Section heading floor. Pair with `font-weight.black` (800). |
+| `typography.font-size.xl` | **20px** | Card title floor. Geist, `font-weight.bold` (700). |
+| `typography.font-size.2xl` | 24px | Heading-3 — and the Unique display floor. |
+| `typography.font-size.3xl` | **32px** | Section heading floor. |
 | `typography.font-size.4xl` | 40px | Heading-1, page titles. |
 | `typography.font-size.5xl` | 56px | Display. Hero headlines, landing-page impact lines. |
 
-The bolded rows are floors, not defaults: body is never below 16px, card titles never below 20px/700, section headings never below 32px/800. The rest of the ramp exists to fit the right size to the right job, not to give you wiggle room to undershoot.
+The bolded rows are floors, not defaults: body is never below 16px, card titles never below 20px/700, section headings never below 32px. The rest of the ramp exists to fit the right size to the right job, not to give you wiggle room to undershoot.
+
+Consumers with fluid type define one clamp() pair per ramp step, endpoints on the ramp, in one place — no ad-hoc clamps in components.
 
 ## Hard floor: 13px
 
@@ -46,27 +57,17 @@ The defaults in most frameworks (14px body, 16px headings, 600-weight everything
 
 - **16px body** respects the reader. It's the threshold below which long-form becomes work.
 - **20px / 700 card titles** make objects feel like objects. A 16px/600 card title looks like body text that got promoted.
-- **32px / 800 section headings** carry real weight on the page. 24px/600 is a subtitle, not a heading.
+- **32px section headings** carry real weight on the page — and at display scale, Unique needs more size than a grotesk in the same slot; give it room.
 
-The weight contrast between 400 body and 700/800 heads is intentional. It's what gives BELLA its editorial feel. A flat ramp (400 → 500 → 600) reads as cautious. The 400 → 700 → 800 ramp reads as confident.
+The weight contrast between 400 body and 700 heads is intentional. A flat ramp (400 → 500 → 600) reads as cautious. BELLA's reads as confident.
 
 ## Weights
 
-Georgia ships a regular (400) and a bold (700). BELLA declares a black (800) for section-heading and display slots; on systems without a native Georgia black, browsers render it as Georgia Bold — acceptable for now. If we later adopt a heavier display face to hit a true 800, that's a token swap, not a layout change.
-
-Used weights:
-
 - **400** (`regular`) — body paragraphs
-- **500** (`medium`) — tag and eyebrow mono text, UI emphasis
-- **700** (`bold`) — card titles, heading-2, button CTAs
-- **800** (`black`) — heading-1, display, section-heading floor
-
-## Italic
-
-Georgia has a true italic. Use it for emphasis in prose, for book and publication titles, and for scientific names — the things italics have always been for. Avoid `font-style: italic` on JetBrains Mono: the synthesized slant reads wrong in a mono.
-
-Small caps aren't set. If the next type update adds them, they'll arrive as a `font-variant` utility, not a separate face.
+- **500** (`medium`) — tag text, UI emphasis
+- **700** (`bold`) — all Unique display settings, card titles, eyebrows, button CTAs
+- **800** (`black`) — Geist-only emphasis weight. Never on Unique (no such cut); never body or card titles.
 
 ## Line length
 
-Aim for 60–75 characters per line for body text. BELLA sets this as a layout concern, not a type token, but the typography rules assume prose is read at comfortable measure — not stretched across a 1400px container.
+Aim for 60–75 characters per line for body text (case-study prose runs ~70ch). BELLA sets this as a layout concern, not a type token, but the typography rules assume prose is read at comfortable measure — not stretched across a 1400px container.

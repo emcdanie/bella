@@ -55,13 +55,13 @@ function Title({ children }: { children: React.ReactNode }) {
 }
 
 function Body({ children }: { children: React.ReactNode }) {
+  // no font-size/line-height: body copy inherits the card reading tier
+  // (--component-card-default-body-*) from the inner panel
   return (
     <span
       style={{
         display: 'block',
-        fontSize: 'var(--typography-font-size-base)',
         color: 'var(--color-semantic-text-secondary)',
-        lineHeight: 'var(--typography-line-height-normal)',
       }}
     >
       {children}

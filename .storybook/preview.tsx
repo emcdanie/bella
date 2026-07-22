@@ -52,7 +52,10 @@ const withBellaTheme: Decorator = (Story, context) => {
     <div
       data-testid="bella-stage"
       style={{
-        minHeight: '100vh',
+        /* Full-height stage in the story view (snapshots judge the whole
+           ground); in docs the stage hugs its content so the embedded
+           preview does not leave a tall empty canvas above the props table. */
+        minHeight: context.viewMode === 'docs' ? undefined : '100vh',
         padding: 'var(--spacing-8)',
         background: 'var(--color-semantic-background)',
         color: 'var(--color-semantic-text-primary)',

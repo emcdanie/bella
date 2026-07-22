@@ -105,6 +105,7 @@ value with the source reference in parentheses.
 | `typography.font-size.3xl` | `32px` | dimension |
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.5xl` | `56px` | dimension |
+| `typography.font-size.6xl` | `88px` | dimension |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
 | `typography.font-weight.bold` | `700` | fontWeight |

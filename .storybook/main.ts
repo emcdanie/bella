@@ -29,6 +29,11 @@ const config: StorybookConfig = {
   docs: {
     defaultName: 'Docs',
   },
+  features: {
+    /* keep the sidebar clean: this is a doc site, not a first-run setup */
+    sidebarOnboardingChecklist: false,
+    menuOnboardingChecklist: false,
+  },
 };
 
 export default config;

@@ -1,0 +1,88 @@
+name: Deploy Storybook to Pages
+
+# The branded Storybook IS the BELLA doc site. Deploys storybook-static to
+# GitHub Pages on every push to main, but only after the gate is green.
+# Requires the repo Pages source to be set to "GitHub Actions" (Elleta's
+# toggle; until then this workflow builds but the deploy step fails closed).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    name: Gate (build + drift + Storybook suite)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Build tokens
+        run: python3 tokens/build.py
+
+      - name: Fail if generated artifacts drifted from sources
+        run: |
+          if ! git diff --exit-code; then
+            echo "::error::Generated artifacts do not match token sources. Run 'python3 tokens/build.py' and commit the output."
+            exit 1
+          fi
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: npm audit gate (fail on high/critical; allowlist in .npm-audit-allowlist.json)
+        run: node scripts/npm-audit-gate.mjs
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      # Same posture as ci.yml: pixel baselines are darwin-local, so CI runs
+      # theme integrity, interactions, and a11y and skips pixel comparison.
+      - name: Run Storybook test suite (both themes)
+        run: SKIP_VISUAL_SNAPSHOTS=1 npm run audit:visual
+
+  deploy:
+    name: Deploy storybook-static
+    needs: gate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build Storybook
+        run: npm run build-storybook -- --quiet
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: storybook-static
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,6 +1,6 @@
 {
   "$metadata": {
-    "description": "Component tier — every token here references semantic. Components are the contract AI tools read when generating code. Each component block follows the CBDS metadata structure (TJ Petrie, SmashingConf Amsterdam 2026): name, variants, states, tokens, usage, don't-use-for."
+    "description": "Component tier, every token here references semantic. Components are the contract AI tools read when generating code. Each component block follows the CBDS metadata structure (TJ Petrie, SmashingConf Amsterdam 2026): name, variants, states, tokens, usage, don't-use-for."
   },
 
   "component": {
@@ -13,7 +13,7 @@
           "states": ["default", "hover", "active", "focus", "disabled"],
           "usage": ["Hero CTA", "Card 'Read more' action", "Form submit"],
           "dont": ["Do not use more than one primary button per view", "Do not stack two buttons of the same variant"],
-          "a11y": "Verified 2026-07-21: primary label on iris fill 5.66:1 (AA), on hover fill 7.09:1 (AAA); dark primary label on periwinkle 6.65:1 (AA). Secondary/ghost use text-primary (AAA on their surfaces); the accent is border, not text. Focus ring uses border-strong at 2px offset. Hit area minimum 44×44px — encoded as min-height on every variant."
+          "a11y": "Verified 2026-07-21: primary label on iris fill 5.66:1 (AA), on hover fill 7.09:1 (AAA); dark primary label on periwinkle 6.65:1 (AA). Secondary/ghost use text-primary (AAA on their surfaces); the accent is border, not text. Focus ring uses border-strong at 2px offset. Hit area minimum 44×44px, encoded as min-height on every variant."
         }
       },
 
@@ -57,14 +57,14 @@
       "$extensions": {
         "bella": {
           "name": "Card",
-          "description": "THE card (one-card system): every card surface renders through this. Calm at rest — 1px accent-tinted border, card-rest shadow; colour trace on hover/focus; media cards add a covered top with the token scrim; interactive cards are a single anchor/button with a visible focus ring and hover lift. Reduced motion swaps the trace for a static accent ring.",
+          "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": ["default", "peek"],
           "states": ["resting", "hover", "focus"],
           "props": ["accent", "variant", "media", "href", "onClick", "ariaLabel", "linkComponent", "className", "innerClassName", "style", "children"],
           "usage": ["Portfolio grid", "Case-study cards", "CHIP idea clusters", "Dashboard tiles"],
-          "dont": ["Do not nest cards inside cards", "Do not use for navigation — that's nav-link's job", "Do not nest links or buttons inside an interactive card — the card is ONE link or ONE button", "Do not build a fixed-dark card — no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
-          "a11y": "Interactive cards render as a single anchor or button — one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
-          "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py — they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision."
+          "dont": ["Do not nest cards inside cards", "Do not use for navigation, that's nav-link's job", "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button", "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
+          "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
+          "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision."
         }
       },
 
@@ -127,12 +127,12 @@
       "$extensions": {
         "bella": {
           "name": "Tag",
-          "description": "Uppercase tracked label (Geist — the mono face is retired). Categorizes a card, a project, a mood. Text-primary on a periwinkle wash is the canonical look.",
+          "description": "Uppercase tracked label (Geist, the mono face is retired). Categorizes a card, a project, a mood. Text-primary on a periwinkle wash is the canonical look.",
           "variants": ["accent", "info", "muted"],
           "states": ["default"],
           "usage": ["Card category labels", "Section eyebrows inside content areas", "Filter state chips"],
-          "dont": ["Do not set foreground to iris/periwinkle/steel/sage — accent and status colors are wash and border here, never label text", "Do not place on saturated backgrounds without verifying the foreground contrast"],
-          "a11y": "13px floor. Foreground is text-primary (AAA against ground and the periwinkle-15 wash in both modes). min-height hits 44px — tap area via padding so the visual chip can stay small."
+          "dont": ["Do not set foreground to iris/periwinkle/steel/sage, accent and status colors are wash and border here, never label text", "Do not place on saturated backgrounds without verifying the foreground contrast"],
+          "a11y": "13px floor. Foreground is text-primary (AAA against ground and the periwinkle-15 wash in both modes). min-height hits 44px, tap area via padding so the visual chip can stay small."
         }
       },
 
@@ -175,8 +175,8 @@
           "variants": ["accent", "muted"],
           "states": ["default"],
           "usage": ["Above hero headlines", "Above section titles", "Above card groupings"],
-          "dont": ["Do not use as a heading — eyebrows complement a heading, never replace one", "Do not hard-code accent color as the foreground — flow through text-accent so AAA enforcement stays centralized"],
-          "a11y": "13px floor. Foreground flows through semantic.text-accent (iris on ground 5.66:1, periwinkle on navy 6.65:1 — AA text, AAA large; verified 2026-07-21)."
+          "dont": ["Do not use as a heading, eyebrows complement a heading, never replace one", "Do not hard-code accent color as the foreground, flow through text-accent so AAA enforcement stays centralized"],
+          "a11y": "13px floor. Foreground flows through semantic.text-accent (iris on ground 5.66:1, periwinkle on navy 6.65:1, AA text, AAA large; verified 2026-07-21)."
         }
       },
 
@@ -206,7 +206,7 @@
           "variants": ["default", "search"],
           "states": ["default", "hover", "focus", "disabled", "error"],
           "usage": ["Forms", "Search bars", "Filter inputs"],
-          "dont": ["Do not strip the border on default state — it's how inputs are recognizable"],
+          "dont": ["Do not strip the border on default state, it's how inputs are recognizable"],
           "a11y": "Focus ring is 2px border-strong offset 1px. Label required, never use placeholder as label. min-height hits 44px for touch."
         }
       },
@@ -235,7 +235,7 @@
           "variants": ["default"],
           "states": ["default", "hover", "visited", "focus"],
           "usage": ["Inline references inside paragraphs", "Footer links"],
-          "dont": ["Do not use for primary navigation — that's nav-link", "Do not rely on color alone — always underlined or weight-shifted on hover"],
+          "dont": ["Do not use for primary navigation, that's nav-link", "Do not rely on color alone, always underlined or weight-shifted on hover"],
           "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is underline; hover turns iris (5.66:1, AA)."
         }
       },
@@ -251,12 +251,12 @@
       "$extensions": {
         "bella": {
           "name": "Nav Link",
-          "description": "Top-level navigation item. Geist, uppercase-lite. Active state reads as text-primary with a 2px accent underline — the accent is decoration, the text carries the letters.",
+          "description": "Top-level navigation item. Geist, uppercase-lite. Active state reads as text-primary with a 2px accent underline, the accent is decoration, the text carries the letters.",
           "variants": ["default", "active"],
           "states": ["default", "hover", "active", "focus"],
           "usage": ["Top navigation bar", "Footer navigation"],
-          "dont": ["Do not mix nav-link and inline-link in the same cluster", "Do not color-distinguish the active state with accent-colored text — use the accent underline token instead"],
-          "a11y": "min-height hits 44px — critical for mobile nav. Active variant uses text-primary (AAA on ground and navy, verified 2026-07-21) with a 2px accent border-bottom as the affordance — the accent stays non-text decoration."
+          "dont": ["Do not mix nav-link and inline-link in the same cluster", "Do not color-distinguish the active state with accent-colored text, use the accent underline token instead"],
+          "a11y": "min-height hits 44px, critical for mobile nav. Active variant uses text-primary (AAA on ground and navy, verified 2026-07-21) with a 2px accent border-bottom as the affordance, the accent stays non-text decoration."
         }
       },
 
@@ -302,7 +302,7 @@
           "variants": ["default"],
           "states": ["open", "closed"],
           "usage": ["Dialogs", "Sheets", "Confirmations"],
-          "dont": ["Do not nest modals", "Do not use for non-blocking UI — use a drawer or popover instead"],
+          "dont": ["Do not nest modals", "Do not use for non-blocking UI, use a drawer or popover instead"],
           "a11y": "Focus trap required. Escape to close. aria-modal='true'. Backdrop blur must be gated behind prefers-reduced-motion: no-preference for AAA 2.3.3 compliance."
         }
       },

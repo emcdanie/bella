@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from './DocBlocks';
+
+<Meta title="Foundations/Tokens" />
+
+<PageIntro title="Tokens">
+  BELLA is token-first: if a value is not a token, it does not exist. The
+  tokens are DTCG format JSON, structured for Tokens Studio, and every
+  downstream artifact is generated from them.
+</PageIntro>
+
+## Tiers
+
+Three tiers, referencing downward only:
+
+1. **Primitive** (`tokens/primitive.json`): the raw scale. Brand and neutral
+   colour, the iris ramp, the navy scale, spacing, radius, type, shadow,
+   motion, blur, icon sizes.
+2. **Semantic** (`tokens/semantic/light.json`, `tokens/semantic/dark.json`):
+   meaning mapped onto primitives. `background`, `text-primary`, `accent`,
+   `surface-glass`, and the rest. Dark mode is a semantic override set, so a
+   consumer that references semantic tokens gets dark mode for free.
+3. **Component** (`tokens/component.json`): per-component contracts (card,
+   button, tag, input). Component tokens resolve through semantic, so any
+   value that lands differently under the dark set flips with the mode
+   automatically.
+
+Token metadata rides along: `$description` for intent,
+`$extensions.bella.a11y` for the verified contrast record, and usage
+constraints AI tools can read.
+
+## Build pipeline
+
+`python3 tokens/build.py` reads the four sources and emits everything else:
+
+| Artifact                          | Job                                              |
+| --------------------------------- | ------------------------------------------------ |
+| `tokens/bella.css`                | CSS custom properties, light default plus `[data-theme="dark"]` overrides |
+| `tokens/bella.json`               | Flat rollup for style-dictionary and other tools |
+| `tokens/preview.html`             | Standalone visual preview of every token         |
+| `docs/bella.css`, `docs/tokens.md`| Copies for the GH Pages site                     |
+| `.storybook/theme-values.json`    | This Storybook's manager theme values            |
+| `.storybook/public/favicon.svg`   | This Storybook's favicon                         |
+
+Generated files are never edited by hand. That includes this Storybook's own
+branding: the manager chrome reads `theme-values.json`, so the doc site cannot
+carry a hex the tokens do not.
+
+## The drift gate
+
+CI rebuilds the tokens on every push and fails if any generated artifact
+differs from what is committed. Locally, `npm run gate` runs the same build
+and diff, then the full visual audit (`audit:visual`: every story, both
+themes, axe plus interaction tests plus image snapshots). A token change that
+skips the build, or a hand-edit to a generated file, cannot reach main.
+
+The [Foundations](?path=/docs/foundations-colors--docs) pages render swatches,
+ramps, and scales from `bella.json` at build time; like the contrast table,
+they are views of the source, not copies of it.

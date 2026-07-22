@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from './DocBlocks';
+
+<Meta title="Welcome" />
+
+<PageIntro title="BELLA">
+  BELLA is the design system for ctrl_alt_design, Elleta McDaniel's design
+  engineering practice. It powers elleta.design, CHIP, and everything
+  downstream. This Storybook is BELLA's documentation site: the same pattern
+  Polaris and Carbon use, where the docs render from the shipped code and
+  cannot drift from it.
+</PageIntro>
+
+## What it is
+
+- **Token-first.** Every colour, spacing step, radius, and type style resolves
+  through a DTCG token. Consumers read `tokens/bella.css` and `tokens/bella.json`
+  as the source of truth. Nothing is hard-coded, including this Storybook's own
+  chrome, which is generated from the token build.
+- **Accessibility-first.** The bar is AAA-minded AA, recorded per token as
+  verified, dated contrast ratios. See the
+  [Accessibility](?path=/docs/foundations-accessibility--docs) page.
+- **Agent-readable.** `AGENTS.md` states the rules for any AI tool that reads,
+  writes, or consumes BELLA. The token metadata carries usage constraints, so
+  the system explains itself to tools as well as people.
+
+## Identity
+
+Two inks, one accent, two faces; warm surfaces that separate by lift, not
+darkness. The full story and its rules are on the
+[Identity](?path=/docs/identity--docs) page.
+
+## Where things live
+
+- [Getting Started](?path=/docs/getting-started--docs) covers the consumer
+  model and the legacy alias table.
+- [Foundations](?path=/docs/foundations-tokens--docs) documents the token
+  tiers, colour, type, spacing, and elevation, rendered from real values.
+- Components are extracted one at a time from the shipped portfolio, worst
+  offenders first. Card is the template the rest follow.
+- The full system write-up lives at
+  [elleta.design/design-system](https://elleta.design/design-system).
+
+## Agent access
+
+In dev mode this Storybook serves an MCP endpoint at `/mcp`
+(`@storybook/addon-mcp`), so AI tools query the stories and docs the same way
+people browse them. Setup and the tool list are in
+[Getting Started](?path=/docs/getting-started--docs).

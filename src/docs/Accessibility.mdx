@@ -1,0 +1,39 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import A11yContrastTable from './A11yContrastTable';
+import { PageIntro } from './DocBlocks';
+
+<Meta title="Foundations/Accessibility" />
+
+<PageIntro title="Accessibility">
+  The bar is AAA-minded AA, recorded as rule 9 in docs/RULES.md (Elleta,
+  2026-07-21). It is a recorded decision, not a vibe: the ratios are
+  computed, written into the tokens, and enforced downstream.
+</PageIntro>
+
+## The bar
+
+- **AAA for ink and body text.** Both ink ladders are verified AAA on every
+  surface they sit on. Body text never drops below AAA.
+- **AA where the accent speaks.** Accent text, buttons, and links are
+  AA-verified per token. AAA accent text is not attainable with iris on light
+  surfaces and is not the bar.
+- **The accent always theme-flips.** Iris in light, periwinkle in dark. Each
+  fails its opposite ground so hard that it is banned there even as
+  decoration; the failure includes the 3:1 non-text minimum.
+- **Worst-ground-wins.** A text token passes AA normal text on the worst
+  surface its usage metadata allows, or that surface is forbidden in the
+  metadata.
+
+Beyond contrast: touch targets hold WCAG 2.5.5 Enhanced (44px minimum via
+`spacing.touch-target`), every story in this Storybook runs axe with
+serious and critical violations failing the build, and each component ships
+with a behavioral suite (keyboard, focus, states) before it lands.
+
+## The verified contrast record
+
+Every row below renders live from `$extensions.bella.a11y` in
+`tokens/bella.json`: the verified, dated ratio record written into each token.
+Nothing on this page is hand-copied, so the table cannot drift from the
+source. Flip the theme in the toolbar to see the values in context.
+
+<A11yContrastTable />

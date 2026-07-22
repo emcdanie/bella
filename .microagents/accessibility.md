@@ -47,7 +47,7 @@ Consumer projects that install BELLA inherit this checklist. Downstream microage
 
 ## Carried status colors are never text
 
-`steel` (2.87:1 on ground — fails even non-text; wash only) and `sage` (4.33:1 — non-text roles only) are carried from the April identity pending a lush-native status ladder (see the open issue). Neither is ever a text foreground. Check `$extensions.bella.roles` / `.status` on each — those fields are load-bearing.
+`steel` (2.87:1 on ground — fails even non-text; wash only) and `sage` (4.33:1 — non-text roles only) are carried from the April identity pending a BELLA-native status ladder (see the open issue). Neither is ever a text foreground. Check `$extensions.bella.roles` / `.status` on each — those fields are load-bearing.
 
 ## Touch targets — 44×44px minimum
 

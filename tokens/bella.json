@@ -3561,6 +3561,88 @@
         "$description": "Portfolio used 600; no semibold token exists, and inventing one for a pill is not the call. Recorded divergence."
       }
     },
+    "filter-chip": {
+      "$extensions": {
+        "bella": {
+          "name": "FilterChip",
+          "description": "The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "pressed",
+            "focus"
+          ],
+          "props": [
+            "pressed",
+            "onClick",
+            "ariaLabel",
+            "className",
+            "children"
+          ],
+          "usage": [
+            "Work library skill/type filters",
+            "Any multi-select narrowing row"
+          ],
+          "dont": [
+            "Do not use for mutually exclusive views: that is SegmentedControl",
+            "Do not raise it: the keycap is reserved for true actions",
+            "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"
+          ],
+          "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
+          "restState": {
+            "description": "At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
+            "atRest": [
+              "outline border",
+              "label"
+            ],
+            "hoverOnly": [
+              "hover wash"
+            ],
+            "invariants": [
+              {
+                "layer": "flat",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "flat",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "border": {
+        "$value": "{color.semantic.border}",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "{color.semantic.text-secondary}",
+        "$type": "color"
+      },
+      "border-radius": {
+        "$value": "{radius.full}",
+        "$type": "dimension"
+      },
+      "font-family": {
+        "$value": "{typography.font-family.body}",
+        "$type": "fontFamily"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.sm}",
+        "$type": "dimension"
+      },
+      "font-weight": {
+        "$value": "{typography.font-weight.medium}",
+        "$type": "fontWeight"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      }
+    },
     "eyebrow": {
       "$extensions": {
         "bella": {

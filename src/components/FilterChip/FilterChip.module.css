@@ -1,0 +1,54 @@
+/* FilterChip (component 5, extracted from the portfolio, 2026-07-22).
+ * Tokens only. The multi-select toggle: flat outline pill, never a keycap;
+ * pressed is a real ARIA state and its paint is the inverse fill (ink on
+ * light, ground-inverse in dark), so the state survives any accent.
+ *
+ * Recorded divergences from the portfolio original:
+ * - min-height is the 44px touch-target token: the portfolio chip sits at
+ *   32px, below the recorded WCAG 2.5.5 Enhanced floor BELLA holds
+ * - the condensed "dense" variant stays in the portfolio (it exists for
+ *   the explore hub density); carrying it would re-open the touch-target
+ *   call, which is Elleta's
+ */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  min-height: var(--component-filter-chip-min-height);
+  padding: var(--spacing-1) var(--spacing-4);
+  border-radius: var(--component-filter-chip-border-radius);
+  border: 1px solid var(--component-filter-chip-border);
+  background: transparent;
+  font-family: var(--component-filter-chip-font-family);
+  font-size: var(--component-filter-chip-font-size);
+  font-weight: var(--component-filter-chip-font-weight);
+  color: var(--component-filter-chip-foreground);
+  margin: 0;
+  transition:
+    background var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.chip:hover {
+  border-color: var(--color-semantic-border-strong);
+  background: var(--color-semantic-border-subtle);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--color-semantic-background-inverse);
+  border-color: var(--color-semantic-background-inverse);
+  color: var(--color-semantic-text-inverse);
+}
+
+.chip:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition: none;
+  }
+}

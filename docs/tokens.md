@@ -330,6 +330,13 @@ value with the source reference in parentheses.
 | `component.status-pill.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.status-pill.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.status-pill.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
+| `component.filter-chip.border` | `#E6E4DC` (`{color.semantic.border}`) | color |
+| `component.filter-chip.foreground` | `#4A4652` (`{color.semantic.text-secondary}`) | color |
+| `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.filter-chip.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.filter-chip.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.filter-chip.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
+| `component.filter-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

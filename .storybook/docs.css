@@ -8,11 +8,35 @@
  * from the semantic ladders; there is no pure white and no gray outside
  * them. */
 
+/* Heading scale from the type ramp. H1 is the top display step: Unique's
+ * condensed proportions need the size to carry a page title, and the H1
+ * must visibly outweigh every H2 below it. H2 is the section tier (32px
+ * floor per AGENTS.md), H3 one step down. */
 #storybook-docs .sbdocs-content h1 {
   font-family: var(--typography-font-family-display);
+  /* !important: addon-docs injects its own heading sizes after this sheet;
+     the ramp sizes must win or the hierarchy inverts */
+  font-size: var(--typography-font-size-5xl) !important;
   font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-tight) !important;
   text-transform: uppercase;
   letter-spacing: var(--typography-letter-spacing-tight);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content h2 {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-3xl) !important;
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content h3 {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-2xl) !important;
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-snug);
   color: var(--color-semantic-text-primary);
 }
 

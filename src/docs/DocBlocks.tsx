@@ -139,7 +139,7 @@ export function TokenChip({ token }: { token: string }) {
 }
 
 const sectionHeadStyle: React.CSSProperties = {
-  fontSize: 'var(--typography-font-size-xl)',
+  fontSize: 'var(--typography-font-size-2xl)',
   fontWeight: 700,
   margin: 'var(--spacing-8) 0 var(--spacing-4)',
 };

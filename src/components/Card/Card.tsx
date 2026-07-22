@@ -76,6 +76,12 @@ export default function Card({
     .filter(Boolean)
     .join(' ');
   const outerStyle = { ['--cc' as string]: accent, ...style };
+  /* stable hook for audit:quality's contract-driven rest-state checks */
+  const outerProps = {
+    className: outerClass,
+    style: outerStyle,
+    'data-bella-component': 'card',
+  } as const;
 
   const content = (
     <div className={innerClass}>
@@ -97,8 +103,7 @@ export default function Card({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className={outerClass}
-          style={outerStyle}
+          {...outerProps}
           aria-label={ariaLabel}
         >
           {content}
@@ -106,7 +111,7 @@ export default function Card({
       );
     }
     return (
-      <LinkComponent href={href} className={outerClass} style={outerStyle} aria-label={ariaLabel}>
+      <LinkComponent href={href} {...outerProps} aria-label={ariaLabel}>
         {content}
       </LinkComponent>
     );
@@ -116,8 +121,7 @@ export default function Card({
       <button
         type="button"
         onClick={onClick}
-        className={outerClass}
-        style={outerStyle}
+        {...outerProps}
         aria-label={ariaLabel}
       >
         {content}
@@ -125,7 +129,7 @@ export default function Card({
     );
   }
   return (
-    <div className={outerClass} style={outerStyle}>
+    <div {...outerProps}>
       {content}
     </div>
   );

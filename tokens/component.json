@@ -62,7 +62,18 @@
           "states": ["resting", "hover", "focus"],
           "usage": ["Portfolio grid", "CHIP idea clusters", "Dashboard tiles", "Case-study cards", "Hero feature panels"],
           "dont": ["Do not nest cards inside cards, glass-on-glass becomes mud", "Do not use for navigation, that's nav-link's job", "Do not place glass over saturated fills, the contrast model breaks"],
-          "a11y": "Glass tiers inherit contrast from the background beneath, parent must be ground or lighter (light mode) or navy or darker (dark mode). Text on glass: ink (light) or navy.ink (dark) only. If the whole card is a link, include aria-labelledby referencing the card title."
+          "a11y": "Glass tiers inherit contrast from the background beneath, parent must be ground or lighter (light mode) or navy or darker (dark mode). Text on glass: ink (light) or navy.ink (dark) only. If the whole card is a link, include aria-labelledby referencing the card title.",
+          "restState": {
+            "description": "CALM AT REST is a contract: only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
+            "atRest": ["inner semantic surface", "1px accent-tinted border", "shadow.card-rest / shadow.card-rest-dark"],
+            "hoverOnly": ["trace ring", "dark identity halo", "hover lift"],
+            "invariants": [
+              { "layer": "trace", "pseudo": "::before", "property": "opacity", "expect": "0" },
+              { "layer": "lift", "property": "transform", "expect": "none" },
+              { "layer": "halo", "property": "animation-name", "expect": "none" },
+              { "layer": "geometry", "type": "containment", "note": "the inner panel stays inside the wrapper; the grid double-surface class of bug" }
+            ]
+          }
         }
       },
 

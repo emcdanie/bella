@@ -2,7 +2,7 @@
 
 Governance rules for any consumer of BELLA (apps that import `tokens/bella.css` or install BELLA as a dependency). These are mandatory. A consuming repo cannot relax them — see `AGENTS.md` "Tiered inheritance."
 
-v0.2 updates v0.1 for the lush identity (2026-07-21): new palette bindings in rules 1 and 8, and a new rule 9 recording the accessibility bar. No rule was relaxed. The v0.1 set is archived at `docs/RULES-v0.1.md`.
+v0.2 updates v0.1 for the 2026-07 identity (2026-07-21): new palette bindings in rules 1 and 8, and a new rule 9 recording the accessibility bar. No rule was relaxed. The v0.1 set is archived at `docs/RULES-v0.1.md`.
 
 Where a rule references a token, that token is defined in `tokens/bella.css`. Consumers that don't currently expose a referenced token (e.g. `--header-height`) must define it locally; consumers must never fork the rule to use a different name.
 

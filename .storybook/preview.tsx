@@ -95,7 +95,9 @@ const preview: Preview = {
       storySort: {
         order: [
           'Welcome',
+          'Identity',
           'Getting Started',
+          'Governance',
           'Foundations',
           ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Elevation'],
           'Components',

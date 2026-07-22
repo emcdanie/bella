@@ -125,7 +125,7 @@ Regenerates every file marked *Generated* above. CI fails any PR where the gener
 
 ## Status
 
-v0.3 — the lush identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced — see `CHANGELOG.md`.
+v0.3 — the 2026-07 identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced — see `CHANGELOG.md`.
 
 Not yet: a React component package, Storybook (in progress — Phase 2 of the extraction plan), Figma library sync, or npm publication. The component layer lives in `tokens/component.json` as a contract for AI tools generating code — the React implementations come next, worst offenders first.
 

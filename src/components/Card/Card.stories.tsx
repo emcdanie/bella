@@ -6,6 +6,22 @@ import {
   expectVisibleFocus,
 } from '../../testing/behavioral';
 import Card from './Card';
+import cardCssRaw from './Card.module.css?raw';
+import componentContract from '../../../tokens/component.json';
+import { ComponentDocsPage } from '../../docs/DocBlocks';
+
+/* Tokens consumed: extracted live from the committed stylesheet, so the
+ * docs list cannot drift from the code. Component-local custom properties
+ * (--cc, the trace geometry) are implementation detail, not tokens. */
+const consumedTokens = Array.from(
+  new Set(
+    (cardCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length))
+  )
+)
+  .filter((v) => !v.startsWith('--cc') && !v.startsWith('--trace'))
+  .sort();
+
+const cardContract = (componentContract as any).component?.card?.$extensions?.bella ?? {};
 
 /* A self-contained SVG cover (data URI) so the media stories need no network
  * and no binary fixtures — iris-to-navy, the brand's own gradient. */
@@ -77,6 +93,15 @@ function Body({ children }: { children: React.ReactNode }) {
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
   component: Card,
+  parameters: {
+    docs: { page: ComponentDocsPage },
+    /* a11y notes come from the component contract in tokens/component.json;
+       the docs page renders whatever is committed there */
+    bellaDocs: {
+      tokens: consumedTokens,
+      a11y: cardContract.a11y,
+    },
+  },
   argTypes: {
     accent: {
       control: 'select',

@@ -10,12 +10,17 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 - GitHub Pages deploy workflow (`pages.yml`): storybook-static to Pages on main, deploy only after the gate is green
 - Card autodocs polish: component description renders verbatim from the committed TSDoc via docgen, curated controls; the template later components inherit
 
+- Brand fonts vendored into the Storybook preview: Unique Bold/Regular and official Geist woff2 400/500/700, loaded locally, never from a CDN; all visual baselines regenerated with the real faces
+- Identity and Governance doc pages; docs styling kit (Unique 700 page H1s, token-styled links/code/blockquotes/tables in both themes) and shared MDX blocks (PageIntro, DoDont, TokenChip); component autodocs anatomy recorded on the Governance page, with tokens-consumed extracted live from the component stylesheet
+
 ### Changed
 - `npm run gate` drift check now also covers the generated Storybook theme values and favicon
+- The internal palette codename removed from all public copy, including token metadata (the status-carry marker is now `carried-pending-status-palette`); the identity is documented on the Identity page
+- `docs/index.html` (the standalone token preview) retired in favour of the Foundations pages; `docs/bella.css` and `docs/tokens.md` remain generated
 
 ## [0.3.0] — 2026-07-21
 
-The lush identity. The April palette (parchment/amber/slate, Georgia/JetBrains Mono) is fully replaced; the portfolio's hand-edited vendored fork is synced back into the token sources and retired as a fork.
+The 2026-07 identity. The April palette (parchment/amber/slate, Georgia/JetBrains Mono) is fully replaced; the portfolio's hand-edited vendored fork is synced back into the token sources and retired as a fork.
 
 ### Changed
 - **Palette**: brand model is now ground `#F5F4EF` / ink `#1A1720` (light), navy `#1B1B40` (dark), with a single theme-flipping accent — iris `#5B4BD1` (light) ↔ periwinkle `#A79CE2` (dark). Amber, parchment, slate, dusk, and linen are retired. Neutral tier restructured into named light neutrals (`cream/paper/surface/border/graphite` + ink ladder) and a `navy` scale (card/raised/divider + dark ink ladder)
@@ -25,7 +30,7 @@ The lush identity. The April palette (parchment/amber/slate, Georgia/JetBrains M
 - `text-muted` adjusted one step in both modes to pass AA normal text on its worst ground: light `#757085` → `#6B6678`, dark `#8F8AA8` → `#9994B1`
 - Dark-mode input focus ring resolves through the semantic accent (iris light / periwinkle dark); the fork's light-mode periwinkle literal (2.36:1, failed the 3:1 non-text minimum) was a bug and is not carried
 - `surface-glass-amber` renamed `surface-glass-accent` (periwinkle-tinted active-state glass)
-- Docs rewritten to the lush identity: `AGENTS.md`, `README.md`, `docs/typography.md`, `docs/principles.md`, `.microagents/{accessibility,surfaces}.md`; `docs/RULES.md` bumped to the v0.2 rule set (new rule 9 records the bar; v0.1 archived at `docs/RULES-v0.1.md`)
+- Docs rewritten to the 2026-07 identity: `AGENTS.md`, `README.md`, `docs/typography.md`, `docs/principles.md`, `.microagents/{accessibility,surfaces}.md`; `docs/RULES.md` bumped to the v0.2 rule set (new rule 9 records the bar; v0.1 archived at `docs/RULES-v0.1.md`)
 
 ### Added
 - Elevation token lock from the portfolio (2026-07-17): `shadow.orb*`, `shadow.key-{resting,hover,pressed}`, `shadow.switch-*`, `shadow.nav-bar`, `motion.transform.key-press`
@@ -34,7 +39,7 @@ The lush identity. The April palette (parchment/amber/slate, Georgia/JetBrains M
 - `build.py` emits component-tier dark overrides — component tokens that resolve differently under the dark semantic set flip with `[data-theme="dark"]` instead of baking in the light value
 - Legacy var() aliases for pre-0.3 consumer names (`--color-alpha-parchment-6`, `--color-alpha-shadow-warm-*`, `--color-supporting-linen`) so the portfolio swap is drop-in; remove after the component swaps migrate
 - MIT license, Contributor Covenant code of conduct
-- Carried status colors (`steel`, `sage`) marked `carried-pending-lush-status-palette`, non-text roles only — lush-native status ladder tracked in an open issue
+- Carried status colors (`steel`, `sage`) marked `carried-pending-status-palette`, non-text roles only — BELLA-native status ladder tracked in an open issue
 
 ### Fixed
 - Dark semantic lookup now falls back to light semantic for tokens dark doesn't override (previously `{shadow.raised}` emitted unresolved in the dark block)

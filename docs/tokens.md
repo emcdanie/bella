@@ -118,6 +118,7 @@ value with the source reference in parentheses.
 | `typography.letter-spacing.normal` | `0` | dimension |
 | `typography.letter-spacing.wide` | `0.08em` | dimension |
 | `typography.letter-spacing.wider` | `0.15em` | dimension |
+| `typography.letter-spacing.hero` | `0.04em` | dimension |
 | `icon.sm` | `16px` | dimension |
 | `icon.md` | `20px` | dimension |
 | `icon.lg` | `24px` | dimension |

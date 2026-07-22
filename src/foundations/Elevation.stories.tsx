@@ -44,7 +44,7 @@ export const Shadows: StoryObj = {
       <SectionTitle>The elevation lock (orb / keycap / nav)</SectionTitle>
       <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
         Token lock 2026-07-17: one light source, upper-left. The depth IS the
-        system — do not flatten.
+        system, do not flatten.
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--spacing-5)', marginTop: 'var(--spacing-5)' }}>
         {lock.map((n) => (

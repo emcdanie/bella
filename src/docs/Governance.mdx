@@ -19,7 +19,9 @@ to main. In plain words, it checks:
   what is committed. A hand-edit to a generated file cannot land.
 - **Both-theme snapshots.** Every story is screenshotted in light and dark
   and compared against committed baselines. Regenerating a baseline to
-  silence a diff without looking at it is the cardinal sin.
+  silence a diff without looking at it is the cardinal sin. Baselines verify
+  sameness, not correctness: a bug that is in the baseline passes the gate,
+  so every new baseline requires human eyes before it is committed.
 - **Theme integrity.** The rendered stage must actually be light in light
   mode and dark in dark mode, checked per story. A light page showing dark
   surfaces fails the build on its own.

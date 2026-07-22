@@ -40,7 +40,7 @@ export const Semantic: StoryObj = {
         <SectionTitle>Semantic ({dark ? 'dark' : 'light'} bindings)</SectionTitle>
         <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
           Chips resolve through the generated CSS custom properties, and the value
-          column shows the {dark ? 'dark' : 'light'} set's references — both follow
+          column shows the {dark ? 'dark' : 'light'} set's references; both follow
           the theme toolbar.
         </p>
         <TokenTable leaves={walk(bindings as never, ['color', 'semantic']).filter((l) => !l.value.startsWith('linear-gradient'))} />

@@ -1,0 +1,36 @@
+/* Docs-container tables, restyled with BELLA tokens in both themes.
+ * Replaces the addon-docs default zebra gray, which reads as a foreign
+ * surface on navy. Semantic tokens flip with [data-theme], which the docs
+ * container mirrors onto <html>, so one rule set covers both modes.
+ * Selectors are scoped to the docs root; story canvases are untouched. */
+
+#storybook-docs .sbdocs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-semantic-surface);
+  border: 1px solid var(--color-semantic-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+#storybook-docs .sbdocs-content table th,
+#storybook-docs .sbdocs-content table td {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 0;
+  border-bottom: 1px solid var(--color-semantic-border-subtle);
+  color: var(--color-semantic-text-primary);
+  background: transparent;
+  font-size: var(--typography-font-size-sm);
+  text-align: left;
+}
+
+#storybook-docs .sbdocs-content table thead th {
+  color: var(--color-semantic-text-secondary);
+}
+
+/* Kill the default zebra in both themes. */
+#storybook-docs .sbdocs-content table tr,
+#storybook-docs .sbdocs-content table tr:nth-of-type(2n) {
+  background: transparent !important;
+  border: 0;
+}

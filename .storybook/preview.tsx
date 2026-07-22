@@ -3,7 +3,9 @@ import type { Preview, Decorator } from '@storybook/react-vite';
 import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
 import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
 import { bellaTheme, bellaThemeDark } from './theme';
+import './fonts.css';
 import '../tokens/bella.css';
+import './docs.css';
 
 /* Docs pages follow the toolbar theme toggle: the container swaps between the
  * generated light/dark manager themes and mirrors [data-theme] onto <html>,
@@ -99,7 +101,6 @@ const preview: Preview = {
           'Components',
           'Patterns',
           'Testing',
-          'Changelog',
         ],
       },
     },

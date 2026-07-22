@@ -1,0 +1,110 @@
+/* The docs styling kit: BELLA tokens only, both themes. Semantic tokens
+ * flip with [data-theme], which the docs container mirrors onto <html>,
+ * so one rule set covers both modes. Selectors are scoped to the docs
+ * root; story canvases are untouched.
+ *
+ * Type: page H1s are Unique 700 (page tier, the allowed display use);
+ * everything else is Geist with body text at 16px minimum. Colours come
+ * from the semantic ladders; there is no pure white and no gray outside
+ * them. */
+
+/* Heading scale from the type ramp. H1 is the hero display step (6xl): Unique's
+ * condensed proportions need the size to carry a page title, and the H1
+ * must visibly outweigh every H2 below it. H2 is the section tier (32px
+ * floor per AGENTS.md), H3 one step down. */
+#storybook-docs .sbdocs-content h1 {
+  font-family: var(--typography-font-family-display);
+  /* !important: addon-docs injects its own heading sizes after this sheet;
+     the ramp sizes must win or the hierarchy inverts */
+  font-size: var(--typography-font-size-6xl) !important;
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-tight) !important;
+  text-transform: uppercase;
+  /* hero tracking, not tight: Unique never takes negative tracking, and
+     the condensed letterforms need air at 6xl (Elleta pick, 2026-07-22) */
+  letter-spacing: var(--typography-letter-spacing-hero);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content h2 {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-3xl) !important;
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content h3 {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-2xl) !important;
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content p,
+#storybook-docs .sbdocs-content li {
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-normal);
+}
+
+/* Inline body links are accent AND underlined: saturated accent at body
+ * scale means interactive, and only that. */
+#storybook-docs .sbdocs-content a {
+  color: var(--color-semantic-text-accent);
+  text-decoration: underline;
+}
+
+#storybook-docs .sbdocs-content a:hover {
+  color: var(--color-semantic-link-hover);
+}
+
+/* Inline code chips: inset surface, primary ink. */
+#storybook-docs .sbdocs-content code {
+  background: var(--color-semantic-surface-inset);
+  border: 1px solid var(--color-semantic-border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--color-semantic-text-primary);
+}
+
+#storybook-docs .sbdocs-content blockquote {
+  margin: var(--spacing-5) 0;
+  padding: var(--spacing-2) var(--spacing-5);
+  border-left: 2px solid var(--color-semantic-border-strong);
+  color: var(--color-semantic-text-secondary);
+}
+
+/* Docs-container tables, restyled with BELLA tokens in both themes.
+ * Replaces the addon-docs default zebra gray, which reads as a foreign
+ * surface on navy. */
+
+#storybook-docs .sbdocs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-semantic-surface);
+  border: 1px solid var(--color-semantic-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+#storybook-docs .sbdocs-content table th,
+#storybook-docs .sbdocs-content table td {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 0;
+  border-bottom: 1px solid var(--color-semantic-border-subtle);
+  color: var(--color-semantic-text-primary);
+  background: transparent;
+  font-size: var(--typography-font-size-sm);
+  text-align: left;
+}
+
+#storybook-docs .sbdocs-content table thead th {
+  color: var(--color-semantic-text-secondary);
+}
+
+/* Kill the default zebra in both themes. */
+#storybook-docs .sbdocs-content table tr,
+#storybook-docs .sbdocs-content table tr:nth-of-type(2n) {
+  background: transparent !important;
+  border: 0;
+}

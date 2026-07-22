@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro, DoDont, TokenChip } from './DocBlocks';
+
+<Meta title="Identity" />
+
+<PageIntro title="Identity">
+  Two inks, one accent, two faces. The identity is a small set of locked
+  decisions; everything else in BELLA is derived from them.
+</PageIntro>
+
+## Two inks, one accent
+
+Light mode sits ink <TokenChip token="color.brand.ink" /> on warm off-white
+ground <TokenChip token="color.brand.ground" />. Dark mode is navy
+<TokenChip token="color.brand.navy" />, not black.
+
+The single accent theme-flips: iris <TokenChip token="color.brand.iris" /> in
+light, periwinkle <TokenChip token="color.brand.periwinkle" /> in dark. They
+are one accent seen in two modes, never two accents, never paired with a
+second accent colour. Each fails its opposite ground so hard that it is
+banned there even as decoration. At body scale the accent means INTERACTIVE,
+and only that.
+
+## Two faces
+
+Type is Unique and Geist, exactly two faces:
+
+- **Unique** (700 is the only cut) is display: page-tier headings, the home
+  hero headline, the keycap brand lockup. Never below 24px, never negative
+  tracking.
+- **Geist** is everything else: body, UI, card titles, eyebrows, nav,
+  buttons, chips. Eyebrows are Geist caps with wide tracking; the tracking is
+  the look.
+- The mono face is retired. Legacy consumers get Geist through the old token.
+
+<DoDont
+  doItems={[
+    'Set display headings in Unique 700, 24px and up',
+    'Set card titles in Geist 700 (cards never carry Unique)',
+    'Track eyebrows wide, in Geist caps',
+  ]}
+  dontItems={[
+    'Unique in body, UI, cards, nav, buttons, or chips',
+    'Unique below 24px (the keycap logo is the single recorded exception)',
+    'Any third face, including a mono for code',
+  ]}
+/>
+
+## Surfaces: lift, not darkness
+
+Pure white is banned as a solid fill. The canvas is ground; cards and raised
+surfaces are paper <TokenChip token="color.neutral.paper" />, separated from
+the page by lift and shadow, not by darker fills. Dark elevation climbs
+lighter: navy page, then card <TokenChip token="color.navy.card" />, then
+raised <TokenChip token="color.navy.raised" />. One light source, upper-left:
+highlights top-left, shadows down-right. The elevation tokens are a lock; the
+depth IS the system.
+
+## The stance
+
+Editorial. Confident. Closer to a magazine or a well-set book than a SaaS
+dashboard. When in doubt, more type, less chrome.

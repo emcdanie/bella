@@ -35,7 +35,7 @@ The rule is absolute: no pure white as a solid fill anywhere. Not in modals, not
 
 Dark mode gets the same conviction: navy (`#1B1B40`), not black. Dark elevation climbs lighter instead of stacking shadows on shadow.
 
-<!-- TODO(elleta): the lush-identity voice paragraph — what iris/periwinkle-on-navy
+<!-- TODO(elleta): the identity voice paragraph — what iris/periwinkle-on-navy
      says that amber-on-parchment didn't. The palette facts are recorded in
      primitive.json; the why-it-feels-right is yours. -->
 

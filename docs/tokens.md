@@ -105,6 +105,7 @@ value with the source reference in parentheses.
 | `typography.font-size.3xl` | `32px` | dimension |
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.5xl` | `56px` | dimension |
+| `typography.font-size.6xl` | `88px` | dimension |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
 | `typography.font-weight.bold` | `700` | fontWeight |
@@ -117,6 +118,7 @@ value with the source reference in parentheses.
 | `typography.letter-spacing.normal` | `0` | dimension |
 | `typography.letter-spacing.wide` | `0.08em` | dimension |
 | `typography.letter-spacing.wider` | `0.15em` | dimension |
+| `typography.letter-spacing.hero` | `0.04em` | dimension |
 | `icon.sm` | `16px` | dimension |
 | `icon.md` | `20px` | dimension |
 | `icon.lg` | `24px` | dimension |

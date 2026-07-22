@@ -57,7 +57,7 @@ When in doubt, the answer is more type, less chrome.
 
 ## Resolved tokens — do not reinvent
 
-BELLA's palette and typography are decided (lush identity, 2026-07). The source of truth is `tokens/primitive.json`.
+BELLA's palette and typography are decided (the 2026-07 identity). The source of truth is `tokens/primitive.json`.
 
 **Brand palette** (a named-color model, not primary/secondary/accent):
 
@@ -69,7 +69,7 @@ BELLA's palette and typography are decided (lush identity, 2026-07). The source 
 
 Iris and periwinkle are one accent in two modes — never two accents, never paired with a second accent color. Amber is retired.
 
-Supporting `steel` and `sage` are carried from the April identity for status states, **non-text roles only**, pending a lush-native status ladder (open issue). Do not use them as text; do not design new status UI around them without asking.
+Supporting `steel` and `sage` are carried from the April identity for status states, **non-text roles only**, pending a BELLA-native status ladder (open issue). Do not use them as text; do not design new status UI around them without asking.
 
 **Typography — exactly two faces (the type lock):**
 

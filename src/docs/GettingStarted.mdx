@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from './DocBlocks';
+
+<Meta title="Getting Started" />
+
+<PageIntro title="Getting Started">
+  BELLA ships as tokens, not as a runtime dependency. A consumer installs the
+  package for provenance, then vendors the built CSS into its own tree and
+  pins it there. The portfolio (ctrl-alt-design) is the reference consumer.
+</PageIntro>
+
+## The sync:bella consumer model
+
+1. **Install** `bella` as a devDependency (git or `file:` while unpublished).
+2. **Sync**: a `sync:bella` script copies `tokens/bella.css` from the package
+   into the consumer's tree (the portfolio vendors it at `lib/bella/bella.css`)
+   and records the synced version.
+3. **Import once**: the vendored file is imported at the top of the consumer's
+   global stylesheet, before anything that references a token.
+4. **Gate**: the consumer's gate hash-checks the vendored copy against the
+   installed package, so a hand-edited or stale vendored file fails CI instead
+   of drifting silently. Upgrades are a sync plus a green gate, reviewed like
+   any other change.
+
+Consumers reference tokens by CSS custom property only
+(`var(--color-semantic-accent)`, `var(--spacing-4)`), never by resolved value.
+Dark mode activates via `data-theme="dark"` on `<html>` or `<body>`; every
+semantic token flips on its own.
+
+Rules travel with the tokens: `AGENTS.md` and `docs/RULES.md` bind consumers
+too. Downstream rules may tighten BELLA's, never relax them.
+
+## Legacy alias table
+
+`bella.css` carries aliases for pre-0.3 consumer names so the portfolio swap
+is drop-in. They resolve via `var()` to the current tokens and will be removed
+once the Phase 3 component swaps migrate the references. Do not use them in
+new code.
+
+| Legacy name (pre-0.3)          | Resolves to                    |
+| ------------------------------ | ------------------------------ |
+| `--color-alpha-parchment-6`    | `--color-alpha-dark-ink-6`     |
+| `--color-alpha-shadow-warm-03` | `--color-alpha-shadow-cool-03` |
+| `--color-alpha-shadow-warm-04` | `--color-alpha-shadow-cool-04` |
+| `--color-alpha-shadow-warm-05` | `--color-alpha-shadow-cool-05` |
+| `--color-alpha-shadow-warm-06` | `--color-alpha-shadow-cool-06` |
+| `--color-alpha-shadow-warm-08` | `--color-alpha-shadow-cool-08` |
+| `--color-supporting-linen`     | `--color-neutral-border`       |
+
+## Agent access
+
+The dev Storybook is agent-readable over MCP via `@storybook/addon-mcp`
+(registered in `.storybook/main.ts`). With `npm run storybook` running, the
+endpoint is `http://localhost:6006/mcp` (streamable HTTP; dev mode only, not
+part of the static build). Point a client at it, for Claude Code:
+
+```
+claude mcp add --transport http bella-storybook http://localhost:6006/mcp
+```
+
+The server exposes story and documentation tools
+(`get-stories-by-component`, `list-all-documentation`, `get-documentation`,
+`preview-stories`, and story-writing instructions). Agents answer component
+API and usage questions from these tools, not from source. The rules still
+bind: `AGENTS.md` and `.microagents/` travel with the repo and outrank
+anything an agent infers from a story.
+
+## What is not here yet
+
+No npm publication, no React package export, no Figma library sync. Components
+are extracted one at a time behind the gate; until a component ships here, the
+contract in `tokens/component.json` is the spec and the consumer keeps its
+local implementation.

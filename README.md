@@ -4,7 +4,7 @@
 
 BELLA is the design system for **ctrl_alt_design** — Elleta McDaniel's design engineering practice.
 
-<!-- TODO(elleta): screenshot or GIF of the token preview here. `open docs/index.html`,
+<!-- TODO(elleta): screenshot or GIF of the Storybook doc site here. `npm run storybook`,
      capture light + dark, drop into docs/assets/. -->
 
 Named for the Italian and Spanish word for *beautiful*. That's the bar: not "clean," not "modern," not "minimal." Beautiful. Editorial in its typography, warm in its surfaces, confident in its restraint.
@@ -105,8 +105,7 @@ bella/
 │   ├── bella.css              Generated — CSS custom properties
 │   ├── bella.json             Generated — flat rollup
 │   └── preview.html           Generated — visual preview
-└── docs/                      GH Pages site + prose docs
-    ├── index.html             Token preview page
+└── docs/                      Prose docs + generated reference
     ├── bella.css              Generated — copy of tokens/bella.css
     ├── tokens.md              Generated — token reference
     ├── principles.md          Why BELLA looks the way it looks
@@ -126,7 +125,7 @@ Regenerates every file marked *Generated* above. CI fails any PR where the gener
 
 ## Status
 
-v0.3 — the lush identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced — see `CHANGELOG.md`.
+v0.3 — the 2026-07 identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced — see `CHANGELOG.md`.
 
 Not yet: a React component package, Storybook (in progress — Phase 2 of the extraction plan), Figma library sync, or npm publication. The component layer lives in `tokens/component.json` as a contract for AI tools generating code — the React implementations come next, worst offenders first.
 

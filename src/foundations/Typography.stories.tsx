@@ -68,9 +68,9 @@ export const Ramp: StoryObj = {
       </div>
       <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-secondary)' }}>
         Two faces, locked: Unique (700, display only, never below 24px) and Geist
-        (everything else). This preview renders the ramp in the body face; Unique
-        specimens arrive with the Heading component in Phase 3 — the webfont is
-        not vendored into BELLA yet.
+        (everything else). This preview renders the ramp in the body face. Unique
+        and Geist ship vendored in this Storybook as woff2, the same files
+        consumers load.
       </p>
     </div>
   ),

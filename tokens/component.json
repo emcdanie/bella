@@ -282,6 +282,36 @@
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
     },
 
+    "select": {
+      "$extensions": {
+        "bella": {
+          "name": "Select",
+          "description": "For long lists only. If the options fit on screen, chips or a segmented control do it better.",
+          "variants": [],
+          "states": ["default", "focus", "open"],
+          "props": ["label", "value", "onChange", "options", "className"],
+          "usage": ["Sort order", "Long single-choice lists"],
+          "dont": ["Do not hand-roll a listbox: the native select owns the popup, the keyboard model, and the assistive-tech semantics", "Do not drop the visible label: an unlabelled dropdown is a guess", "Do not use it for a handful of visible options: SegmentedControl or FilterChip"],
+          "a11y": "Verified 2026-07-22: native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token.",
+          "restState": {
+            "description": "Flat always: field, border, chevron, label. audit:quality asserts no elevation ever (root carries data-bella-component=select).",
+            "atRest": ["field surface + border", "chevron caret", "label"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
+      "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" },
+      "label-font-family": { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
+      "label-font-size":   { "$value": "{typography.font-size.tag}",    "$type": "dimension" }
+    },
+
     "eyebrow": {
       "$extensions": {
         "bella": {

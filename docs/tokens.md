@@ -342,6 +342,11 @@ value with the source reference in parentheses.
 | `component.segmented-control.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.segmented-control.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
 | `component.segmented-control.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.select.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.select.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.select.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.select.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
+| `component.select.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

@@ -1,0 +1,66 @@
+/* Select (component 7, extracted from the portfolio, 2026-07-22). Tokens
+ * only. A styled NATIVE select: the platform owns the popup, the keyboard
+ * model, the screen-reader semantics; BELLA only skins the closed control.
+ * No hand-rolled listbox, ever (the recorded decision).
+ *
+ * Recorded divergences from the portfolio original:
+ * - the chevron is a CSS caret in currentColor (the Iconoir chevron waits
+ *   for the Icon extraction)
+ * - label tracking wide 0.08 (portfolio 0.12em literal has no token)
+ */
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  gap: var(--spacing-2);
+  font-family: var(--component-select-label-font-family);
+  font-size: var(--component-select-label-font-size);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-semantic-text-secondary);
+}
+
+.field {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.control select {
+  min-width: 0;
+  max-width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-select-font-size);
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-surface);
+  border: 1px solid var(--color-semantic-border);
+  border-radius: var(--component-select-border-radius);
+  padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
+  min-height: var(--component-select-min-height);
+}
+
+.control select:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+/* CSS caret in currentColor: no icon dependency, no colour literal */
+.chevron {
+  position: absolute;
+  right: var(--spacing-3);
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  border-right: 2px solid var(--color-semantic-text-secondary);
+  border-bottom: 2px solid var(--color-semantic-text-secondary);
+  transform: translateY(-70%) rotate(45deg);
+}

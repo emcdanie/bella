@@ -57,6 +57,9 @@ jobs:
       - name: npm audit gate (fail on high/critical; allowlist in .npm-audit-allowlist.json)
         run: node scripts/npm-audit-gate.mjs
 
+      - name: Contract parity (Tier 3 contracts ↔ shipped component APIs)
+        run: node scripts/contract-parity.mjs
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 

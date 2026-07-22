@@ -3020,32 +3020,43 @@
       "$extensions": {
         "bella": {
           "name": "Card",
-          "description": "Editorial glass-first card system. Three primary tiers progress from subtle panel (default) to hero glass (glass). Plus featured (solid bright) and inverse (dark-mode embed).",
+          "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": [
             "default",
-            "elevated",
-            "glass",
-            "featured",
-            "inverse"
+            "peek"
           ],
           "states": [
             "resting",
             "hover",
             "focus"
           ],
+          "props": [
+            "accent",
+            "variant",
+            "media",
+            "href",
+            "onClick",
+            "ariaLabel",
+            "linkComponent",
+            "className",
+            "innerClassName",
+            "style",
+            "children"
+          ],
           "usage": [
             "Portfolio grid",
-            "CHIP idea clusters",
-            "Dashboard tiles",
             "Case-study cards",
-            "Hero feature panels"
+            "CHIP idea clusters",
+            "Dashboard tiles"
           ],
           "dont": [
-            "Do not nest cards inside cards, glass-on-glass becomes mud",
+            "Do not nest cards inside cards",
             "Do not use for navigation, that's nav-link's job",
-            "Do not place glass over saturated fills, the contrast model breaks"
+            "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button",
+            "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"
           ],
-          "a11y": "Glass tiers inherit contrast from the background beneath, parent must be ground or lighter (light mode) or navy or darker (dark mode). Text on glass: ink (light) or navy.ink (dark) only. If the whole card is a link, include aria-labelledby referencing the card title.",
+          "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
+          "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
             "description": "CALM AT REST is a contract: only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
             "atRest": [

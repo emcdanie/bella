@@ -65,6 +65,9 @@ function Section({ title, rows }: { title: string; rows: Row[] }) {
             {/^#/.test(r.value) ? (
               <span
                 aria-hidden="true"
+                /* token specimen: renders the token's literal value on
+                   purpose; audit:quality's no-literal lint skips it */
+                data-bella-specimen=""
                 style={{
                   display: 'inline-block',
                   width: 14,

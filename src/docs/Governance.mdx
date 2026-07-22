@@ -30,8 +30,21 @@ to main. In plain words, it checks:
   token metadata.
 - **npm audit.** High and critical advisories fail, against a documented
   allowlist that is currently empty.
+- **Correctness (audit:quality).** Because baselines only verify sameness,
+  this layer verifies rules on every story and docs page: no em or en dashes
+  in rendered text, the type floors (13px hard, 16px for long-form text,
+  24px for Unique), no pure-white solid fills, no colour literals outside
+  token specimens, and each component's recorded rest state: hover and focus
+  layers must be provably inert at rest, driven by the restState section of
+  the component contract. Every check is negative-tested: a known bug is
+  reintroduced as a probe, the gate must fail, the probe is removed.
 
 Green or it does not merge. There is no second track.
+
+A named future layer, not yet built: an LLM judge that reads new stories,
+docs, and baselines against the written rules and flags what the mechanical
+checks cannot see. Advisory only; it will never gate a merge on its own.
+Agents propose, checks verify, the human disposes.
 
 ## The change flow
 

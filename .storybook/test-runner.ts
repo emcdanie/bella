@@ -162,6 +162,9 @@ async function runQualityChecks(
               }
             } else {
               const cs = getComputedStyle(el, inv.pseudo ?? null);
+              /* a pseudo invariant only binds where the pseudo exists;
+                 tiers without the layer (no ::before content) are exempt */
+              if (inv.pseudo && cs.content === 'none') continue;
               const actual = cs.getPropertyValue(inv.property).trim();
               if (actual !== inv.expect) {
                 fails.push(

@@ -1,7 +1,7 @@
 /* THE card (one-card system, 2026-07-17), extracted from the portfolio into
  * BELLA. Tokens only. CALM AT REST: static 1px accent-tinted border, the
  * card-rest shadow, theme-aware inner panel. The conic colour-trace border
- * (light) and identity halo (dark) run ONLY on :hover / :focus, as an
+ * (light; shared/Trace.module.css) and identity halo (dark) run ONLY on :hover / :focus, as an
  * affordance. prefers-reduced-motion: never trace; a static solid accent
  * ring instead.
  *
@@ -17,14 +17,8 @@
  * - the media scrim mixes from brand ink, not pure black (no-pure-black rule)
  */
 
-@property --trace-ang {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
-
 .card {
-  position: relative;
+  composes: traceHost from '../shared/Trace.module.css';
   /* identity colour; per-card override via the accent prop */
   --cc: var(--color-iris-bright);
   --trace-r: var(--radius-3xl);
@@ -38,43 +32,8 @@
   box-shadow: var(--shadow-card-rest-dark);
 }
 
-/* The travelling trace ring (shared recipe; promoted to a bella utility
- * when Button/keycap lands — one implementation rule). */
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--trace-r);
-  padding: var(--trace-w);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
-  background: conic-gradient(
-    from var(--trace-ang),
-    var(--cc) 0deg,
-    var(--cc) 46deg,
-    color-mix(in srgb, var(--cc) 20%, transparent) 130deg,
-    color-mix(in srgb, var(--cc) 12%, transparent) 300deg,
-    var(--cc) 360deg
-  );
-  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
-  mask-composite: exclude;
-}
-
-.card:hover::before,
-.card:focus-within::before,
-.card:focus-visible::before {
-  opacity: 1;
-  animation: trace-travel 3.4s linear infinite;
-}
-
-@keyframes trace-travel {
-  to {
-    --trace-ang: 360deg;
-  }
-}
+/* The trace ring itself lives in shared/Trace.module.css (one
+ * implementation; Button composes the same class). */
 
 /* Dark ONLY: identity halo, hover/focus affordance like the trace */
 :global([data-theme='dark']) .card:hover,
@@ -216,13 +175,6 @@
   .interactive:focus-visible {
     transition: none;
     transform: none;
-  }
-
-  .card:hover::before,
-  .card:focus-within::before,
-  .card:focus-visible::before {
-    animation: none;
-    background: var(--cc);
   }
 
   :global([data-theme='dark']) .card:hover,

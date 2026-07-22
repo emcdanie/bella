@@ -192,6 +192,9 @@ value with the source reference in parentheses.
 | `color.semantic.info` | `#6495C5` (`{color.supporting.steel}`) | color |
 | `color.semantic.info-subtle` | `#6495C526` (`{color.alpha.steel-15}`) | color |
 | `color.semantic.info-border` | `#6495C54D` (`{color.alpha.steel-30}`) | color |
+| `color.semantic.accent-raised-hi` | `#5B4BD1` (`{color.brand.iris}`) | color |
+| `color.semantic.accent-raised-lo` | `#4C3EB8` (`{color.iris.deep}`) | color |
+| `color.semantic.accent-raised-edge` | `#4A3FB0` (`{color.iris.edge}`) | color |
 | `color.accent-ink` | `#5B4BD1` (`{color.brand.iris}`) | color |
 | `shadow.floating` | `0 1px 2px #1C1A2E0A, 0 10px 30px #1C1A2E0F, 0 24px 60px #1C1A2E0A` (`{shadow.soft}`) | shadow |
 | `shadow.raised` | `0 1px 2px #1C1A2E0D, 0 12px 40px #1C1A2E14, 0 28px 80px #1C1A2E0F, inset 0 1px 0 #FFFFFFE6` (`{shadow.layered}`) | shadow |
@@ -232,17 +235,24 @@ value with the source reference in parentheses.
 | `color.semantic.info` | `#6495C5` (`{color.supporting.steel}`) | color |
 | `color.semantic.info-subtle` | `#6495C526` (`{color.alpha.steel-15}`) | color |
 | `color.semantic.info-border` | `#6495C54D` (`{color.alpha.steel-30}`) | color |
+| `color.semantic.accent-raised-hi` | `#B9B0E9` (`{color.iris.peri-hover}`) | color |
+| `color.semantic.accent-raised-lo` | `#A79CE2` (`{color.brand.periwinkle}`) | color |
+| `color.semantic.accent-raised-edge` | `#B4ADE8` (`{color.iris.peri-ink}`) | color |
 | `color.accent-ink` | `#B4ADE8` (`{color.iris.peri-ink}`) | color |
 
 ## Tier 3 — Component
 
 | Token | Value | Type |
 |---|---|---|
-| `component.button.primary.background` | `#5B4BD1` (`{color.semantic.accent}`) | color |
-| `component.button.primary.background-hover` | `#4C3EB8` (`{color.semantic.accent-hover}`) | color |
+| `component.button.primary.fill-hi` | `#5B4BD1` (`{color.semantic.accent-raised-hi}`) | color |
+| `component.button.primary.fill-lo` | `#4C3EB8` (`{color.semantic.accent-raised-lo}`) | color |
+| `component.button.primary.edge` | `#4A3FB0` (`{color.semantic.accent-raised-edge}`) | color |
 | `component.button.primary.foreground` | `#F5F4EF` (`{color.semantic.text-on-accent}`) | color |
-| `component.button.primary.border` | `#5B4BD1` (`{color.semantic.accent}`) | color |
-| `component.button.primary.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.button.primary.trace` | `#7A6BE8` (`{color.iris.bright}`) | color |
+| `component.button.primary.gloss` | `linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)` | other |
+| `component.button.primary.gloss-hover` | `linear-gradient(color-mix(in srgb, white 26%, transparent), transparent 52%)` | other |
+| `component.button.primary.gloss-pressed` | `linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)` | other |
+| `component.button.primary.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.button.primary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.primary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.primary.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
@@ -252,18 +262,18 @@ value with the source reference in parentheses.
 | `component.button.primary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.button.secondary.background` | `transparent` | color |
 | `component.button.secondary.background-hover` | `#5B4BD11F` (`{color.semantic.accent-subtle}`) | color |
-| `component.button.secondary.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
+| `component.button.secondary.background-active` | `#5B4BD14D` (`{color.semantic.accent-border}`) | color |
+| `component.button.secondary.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.button.secondary.border` | `#5B4BD1` (`{color.semantic.accent}`) | color |
 | `component.button.secondary.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.button.secondary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.secondary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
-| `component.button.ghost.background` | `transparent` | color |
-| `component.button.ghost.background-hover` | `#FAFAF8` (`{color.semantic.surface}`) | color |
-| `component.button.ghost.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
-| `component.button.ghost.border` | `transparent` | color |
-| `component.button.ghost.border-radius` | `8px` (`{radius.md}`) | dimension |
-| `component.button.ghost.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.button.tertiary.background` | `transparent` | color |
+| `component.button.tertiary.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
+| `component.button.tertiary.foreground-hover` | `#5B4BD1` (`{color.semantic.link-hover}`) | color |
+| `component.button.tertiary.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.button.tertiary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.card.default.background` | `linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%)` (`{color.semantic.surface-glass-light}`) | other |
 | `component.card.default.blur` | `14px` (`{blur.sm}`) | dimension |
 | `component.card.default.shadow` | `0 1px 4px #1C1A2E08, 0 4px 16px #1C1A2E0A, inset 0 1px 0 #FFFFFF8C` (`{shadow.card-default}`) | shadow |

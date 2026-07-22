@@ -1,0 +1,64 @@
+/* The travelling border light, THE shared trace recipe (one implementation
+ * rule; promoted from Card when Button landed, 2026-07-22). A host composes
+ * .traceHost and declares the geometry on itself:
+ *   --trace-r  ring radius (match the host's border-radius)
+ *   --trace-w  ring thickness
+ *   --cc       identity colour
+ * The ring paints ONLY on :hover / :focus, as an affordance; at rest it is
+ * opacity 0 (asserted by audit:quality's restState invariants). Reduced
+ * motion: never the travelling animation; a static solid accent ring. */
+
+@property --trace-ang {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.traceHost {
+  position: relative;
+}
+
+.traceHost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--trace-r);
+  padding: var(--trace-w);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--motion-duration-fast) var(--motion-easing-standard);
+  background: conic-gradient(
+    from var(--trace-ang),
+    var(--cc) 0deg,
+    var(--cc) 46deg,
+    color-mix(in srgb, var(--cc) 20%, transparent) 130deg,
+    color-mix(in srgb, var(--cc) 12%, transparent) 300deg,
+    var(--cc) 360deg
+  );
+  -webkit-mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(black 0 0) content-box, linear-gradient(black 0 0);
+  mask-composite: exclude;
+}
+
+.traceHost:hover::before,
+.traceHost:focus-within::before,
+.traceHost:focus-visible::before {
+  opacity: 1;
+  animation: trace-travel 3.4s linear infinite;
+}
+
+@keyframes trace-travel {
+  to {
+    --trace-ang: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .traceHost:hover::before,
+  .traceHost:focus-within::before,
+  .traceHost:focus-visible::before {
+    animation: none;
+    background: var(--cc);
+  }
+}

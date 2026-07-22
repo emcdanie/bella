@@ -2503,6 +2503,36 @@
       "$value": "{color.alpha.steel-30}",
       "$type": "color",
       "$description": "Info chip border (carried)."
+    },
+    "accent-raised-hi": {
+      "$value": "{color.brand.iris}",
+      "$type": "color",
+      "$description": "Raised accent plate, top gradient stop (keycap). Light source upper-left: top is the lighter stop.",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: text-on-accent (ground) label on this stop 5.66:1, AA normal text. Worst stop of the plate; the bar holds on every stop. Portfolio divergence recorded: the plate runs one step deeper than the portfolio keycap (iris.hi top failed the ground label at 4.49:1; the white label is not carried, no pure white)."
+        }
+      }
+    },
+    "accent-raised-lo": {
+      "$value": "{color.iris.deep}",
+      "$type": "color",
+      "$description": "Raised accent plate, bottom gradient stop (keycap).",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: ground label on this stop 7.09:1, AAA."
+        }
+      }
+    },
+    "accent-raised-edge": {
+      "$value": "{color.iris.edge}",
+      "$type": "color",
+      "$description": "Raised accent plate edge (the keycap 3D rim).",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: 7.25:1 on ground, non-text edge, far above the 3:1 minimum."
+        }
+      }
     }
   },
   "semantic_dark_overrides": {
@@ -2873,6 +2903,36 @@
       "$value": "{color.alpha.steel-30}",
       "$type": "color",
       "$description": "Info chip border (carried)."
+    },
+    "accent-raised-hi": {
+      "$value": "{color.iris.peri-hover}",
+      "$type": "color",
+      "$description": "Raised accent plate, top stop, dark mode (periwinkle family; the accent theme-flips).",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: text-on-accent (navy) label on this stop 8.18:1, AAA. Plate on navy 8.18:1 non-text."
+        }
+      }
+    },
+    "accent-raised-lo": {
+      "$value": "{color.brand.periwinkle}",
+      "$type": "color",
+      "$description": "Raised accent plate, bottom stop, dark mode.",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: navy label on this stop 6.65:1, AA normal text. Worst stop of the dark plate."
+        }
+      }
+    },
+    "accent-raised-edge": {
+      "$value": "{color.iris.peri-ink}",
+      "$type": "color",
+      "$description": "Raised accent plate edge, dark mode.",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: 7.89:1 on navy, non-text edge."
+        }
+      }
     }
   },
   "component": {
@@ -2880,11 +2940,11 @@
       "$extensions": {
         "bella": {
           "name": "Button",
-          "description": "Primary call-to-action. Iris fill with ground-colored label for primary (periwinkle fill, navy label in dark mode). Reserved for the single most important action in a view.",
+          "description": "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are Geist caps, never Unique.",
           "variants": [
             "primary",
             "secondary",
-            "ghost"
+            "tertiary"
           ],
           "states": [
             "default",
@@ -2893,38 +2953,98 @@
             "focus",
             "disabled"
           ],
+          "props": [
+            "variant",
+            "href",
+            "onClick",
+            "type",
+            "disabled",
+            "linkComponent",
+            "ariaLabel",
+            "className",
+            "children"
+          ],
           "usage": [
             "Hero CTA",
             "Card 'Read more' action",
-            "Form submit"
+            "Form submit",
+            "Contact send"
           ],
           "dont": [
-            "Do not use more than one primary button per view",
-            "Do not stack two buttons of the same variant"
+            "Do not render more than one primary per view: the keycap is the single 3D moment",
+            "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory",
+            "Do not set labels in Unique at any size",
+            "Do not build a neutral keycap: that tier is retired"
           ],
-          "a11y": "Verified 2026-07-21: primary label on iris fill 5.66:1 (AA), on hover fill 7.09:1 (AAA); dark primary label on periwinkle 6.65:1 (AA). Secondary/ghost use text-primary (AAA on their surfaces); the accent is border, not text. Focus ring uses border-strong at 2px offset. Hit area minimum 44\u00d744px, encoded as min-height on every variant."
+          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring independent of the trace. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
+          "restState": {
+            "description": "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring and the rise are hover/focus affordances; the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
+            "atRest": [
+              "plate gradient + gloss",
+              "1px accent-raised-edge border",
+              "shadow.key-resting",
+              "label"
+            ],
+            "hoverOnly": [
+              "trace ring",
+              "hover rise",
+              "press translate"
+            ],
+            "invariants": [
+              {
+                "layer": "trace",
+                "pseudo": "::before",
+                "property": "opacity",
+                "expect": "0"
+              },
+              {
+                "layer": "rise/press",
+                "property": "transform",
+                "expect": "none"
+              }
+            ]
+          }
         }
       },
       "primary": {
-        "background": {
-          "$value": "{color.semantic.accent}",
+        "fill-hi": {
+          "$value": "{color.semantic.accent-raised-hi}",
           "$type": "color"
         },
-        "background-hover": {
-          "$value": "{color.semantic.accent-hover}",
+        "fill-lo": {
+          "$value": "{color.semantic.accent-raised-lo}",
+          "$type": "color"
+        },
+        "edge": {
+          "$value": "{color.semantic.accent-raised-edge}",
           "$type": "color"
         },
         "foreground": {
           "$value": "{color.semantic.text-on-accent}",
           "$type": "color"
         },
-        "border": {
-          "$value": "{color.semantic.accent}",
-          "$type": "color"
+        "trace": {
+          "$value": "{color.iris.bright}",
+          "$type": "color",
+          "$description": "Trace ring colour on the keycap. 3.74:1 on ground, passes the 3:1 non-text minimum; the ring is a hover affordance, not text."
+        },
+        "gloss": {
+          "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)",
+          "$type": "other",
+          "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill."
+        },
+        "gloss-hover": {
+          "$value": "linear-gradient(color-mix(in srgb, white 26%, transparent), transparent 52%)",
+          "$type": "other"
+        },
+        "gloss-pressed": {
+          "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)",
+          "$type": "other"
         },
         "border-radius": {
-          "$value": "{radius.md}",
-          "$type": "dimension"
+          "$value": "{radius.lg}",
+          "$type": "dimension",
+          "$description": "The keycap plate radius; the one control on the lg step."
         },
         "padding-y": {
           "$value": "{spacing.3}",
@@ -2964,8 +3084,12 @@
           "$value": "{color.semantic.accent-subtle}",
           "$type": "color"
         },
+        "background-active": {
+          "$value": "{color.semantic.accent-border}",
+          "$type": "color"
+        },
         "foreground": {
-          "$value": "{color.semantic.text-primary}",
+          "$value": "{color.semantic.text-accent}",
           "$type": "color"
         },
         "border": {
@@ -2989,21 +3113,17 @@
           "$type": "dimension"
         }
       },
-      "ghost": {
+      "tertiary": {
         "background": {
           "$value": "transparent",
           "$type": "color"
         },
-        "background-hover": {
-          "$value": "{color.semantic.surface}",
-          "$type": "color"
-        },
         "foreground": {
-          "$value": "{color.semantic.text-primary}",
+          "$value": "{color.semantic.text-accent}",
           "$type": "color"
         },
-        "border": {
-          "$value": "transparent",
+        "foreground-hover": {
+          "$value": "{color.semantic.link-hover}",
           "$type": "color"
         },
         "border-radius": {

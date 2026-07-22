@@ -1,0 +1,44 @@
+/* Heading (component 8, extracted from the portfolio, 2026-07-22). Tokens
+ * only. THE display primitive: every display heading renders through this,
+ * Unique 700 all-caps on three ramp tiers (hero 6xl, page 5xl, section
+ * 3xl). Semantic level decouples via `as`. Unique never below 24px is
+ * structural here: the smallest tier is the 32px section step. Never
+ * inside a card (contract-enforced: audit:quality fails a heading with a
+ * card ancestor).
+ *
+ * Recorded divergences from the portfolio original:
+ * - tier sizes snap to the ramp tokens (portfolio uses clamp() locals);
+ *   the case tier stays in the portfolio
+ * - tracking is letter-spacing.hero 0.04em, the recorded pick (portfolio
+ *   0.005em literal has no token)
+ * - line-height is the tight token (1.1): the portfolio sets display
+ *   solid at 0.9-0.95, which has no token. FLAG: a display line-height
+ *   step is a token decision for Elleta; until then headings breathe a
+ *   little more than the portfolio's.
+ */
+
+.heading {
+  font-family: var(--typography-font-family-display);
+  font-weight: var(--typography-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-hero);
+  line-height: var(--typography-line-height-tight);
+  color: var(--color-semantic-text-primary);
+  margin: 0;
+}
+
+.hero {
+  font-size: var(--typography-font-size-6xl);
+}
+
+.page {
+  font-size: var(--typography-font-size-5xl);
+}
+
+.section {
+  font-size: var(--typography-font-size-3xl);
+}
+
+.accent {
+  color: var(--color-semantic-text-accent);
+}

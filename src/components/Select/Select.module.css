@@ -1,0 +1,66 @@
+/* Select (component 7, extracted from the portfolio, 2026-07-22). Tokens
+ * only. A styled NATIVE select: the platform owns the popup, the keyboard
+ * model, the screen-reader semantics; BELLA only skins the closed control.
+ * No hand-rolled listbox, ever (the recorded decision).
+ *
+ * Recorded divergences from the portfolio original:
+ * - the chevron is the Iconoir glyph via the Icon component (the interim
+ *   CSS caret is retired; its baselines were regenerated with the swap,
+ *   a recorded deviation from zero-visual-change since the caret never
+ *   matched the Iconoir glyph)
+ * - label tracking wide 0.08 (portfolio 0.12em literal has no token)
+ */
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  gap: var(--spacing-2);
+  font-family: var(--component-select-label-font-family);
+  font-size: var(--component-select-label-font-size);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-semantic-text-secondary);
+}
+
+.field {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.control select {
+  min-width: 0;
+  max-width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-select-font-size);
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-surface);
+  border: 1px solid var(--color-semantic-border);
+  border-radius: var(--component-select-border-radius);
+  padding: var(--spacing-2) var(--spacing-8) var(--spacing-2) var(--spacing-3);
+  min-height: var(--component-select-min-height);
+}
+
+.control select:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+/* The Iconoir chevron via the Icon component (the interim CSS caret is
+   retired with the Icon extraction); text-secondary ink via color */
+.chevron {
+  position: absolute;
+  right: var(--spacing-2);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-semantic-text-secondary);
+}

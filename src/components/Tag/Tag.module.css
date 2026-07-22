@@ -1,0 +1,35 @@
+/* Tag (component 3, extracted from the portfolio, 2026-07-22). Tokens only.
+ * Non-interactive metadata: a flat wash, NO border, cursor default, so it
+ * never reads clickable next to FilterChip. Geist at the 13px metadata
+ * tier.
+ *
+ * Recorded divergences from the portfolio original:
+ * - background is the semantic surface-inset (theme-aware) instead of the
+ *   legacy linen alias; same recessed-wash read, flips to navy raised
+ * - letter-spacing normal: the portfolio's 0.02em literal has no token,
+ *   and inventing one for a chip is not worth a ramp step
+ * - the per-case identity tint stays in the portfolio; BELLA carries the
+ *   generic accent wash variant instead
+ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--component-tag-default-padding-y) var(--component-tag-default-padding-x);
+  border-radius: var(--component-tag-default-border-radius);
+  border: none;
+  cursor: default;
+  background: var(--component-tag-default-background);
+  font-family: var(--component-tag-default-font-family);
+  font-size: var(--component-tag-default-font-size);
+  font-weight: var(--component-tag-default-font-weight);
+  line-height: var(--typography-line-height-normal);
+  letter-spacing: var(--typography-letter-spacing-normal);
+  color: var(--component-tag-default-foreground);
+  white-space: nowrap;
+}
+
+.accent {
+  background: var(--component-tag-accent-background);
+  color: var(--component-tag-accent-foreground);
+}

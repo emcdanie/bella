@@ -1,0 +1,101 @@
+/* SegmentedControl (component 6, extracted from the portfolio,
+ * 2026-07-22). Tokens only. Mutually exclusive views, all options
+ * visible, immediate apply.
+ *
+ * Platform-first behavior, discovery pass 2026-07-22 (cited in the PR):
+ * plain buttons in a list with aria-current, Tab moves between segments,
+ * Enter/Space selects. NOT a radiogroup (W3C APG radio: single tab stop,
+ * arrows change selection, so a screen reader cannot survey options
+ * without selecting) and NOT tablist (no owned panel). This matches
+ * GitHub Primer's SegmentedControl guidance and the portfolio original.
+ *
+ * Recorded divergences from the portfolio original:
+ * - segment min-height is the 44px touch-target token (portfolio 38px)
+ * - tracking wide 0.08 (portfolio 0.10em literal has no token)
+ * - weight bold (600 has no token)
+ * - the group fill is semantic surface (the glass token stack stays in
+ *   the portfolio)
+ * - concentric radii carried: inner radius = outer minus the inset
+ * - the icon slot restored 2026-07-22 (first extraction dropped it): a
+ *   decorative leading slot sized by the icon tokens; the Icon component
+ *   itself still waits for its own extraction, so consumers pass the SVG
+ */
+
+.control {
+  display: inline-flex;
+  list-style: none;
+  margin: 0;
+  --seg-inset: 3px;
+  padding: var(--seg-inset);
+  gap: 0;
+  border: 1px solid var(--color-semantic-border);
+  border-radius: var(--component-segmented-control-border-radius);
+  background: var(--color-semantic-surface);
+}
+
+.control li {
+  display: contents;
+}
+
+.control button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  min-height: var(--component-segmented-control-min-height);
+  padding: 0 var(--spacing-4);
+  border-radius: calc(var(--component-segmented-control-border-radius) - var(--seg-inset));
+  font-family: var(--component-segmented-control-font-family);
+  font-size: var(--component-segmented-control-font-size);
+  font-weight: var(--component-segmented-control-font-weight);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-semantic-text-secondary);
+  margin: 0;
+  transition:
+    background var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+/* hairline divider between segments; the seam dies against the selected
+   fill on both sides (the fill's own ring replaces it) */
+.control li + li button {
+  box-shadow: -1px 0 0 0 var(--color-semantic-border);
+}
+
+.control li:has(button[aria-current='true']) + li button {
+  box-shadow: none;
+}
+
+.control button[aria-current='true'] {
+  background: var(--color-semantic-accent-subtle);
+  color: var(--color-semantic-text-accent);
+  box-shadow: inset 0 0 0 1px var(--color-semantic-accent-border);
+}
+
+.control button:hover:not([aria-current='true']) {
+  background: var(--color-semantic-border-subtle);
+}
+
+.control button:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: calc(-1 * var(--seg-inset));
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon :global(svg) {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .control button {
+    transition: none;
+  }
+}

@@ -1,0 +1,142 @@
+/* Button (component 2, extracted from the portfolio keycap system,
+ * 2026-07-22). Tokens only. Three tiers: primary is the raised keycap (the
+ * one 3D moment per view), secondary the flat accent outline, tertiary the
+ * text tier. Labels are Geist caps (the mono token is repointed to Geist),
+ * never Unique. Theme-aware by construction: the plate resolves through the
+ * semantic accent-raised trio, so it is iris in light and periwinkle in
+ * dark; the label is text-on-accent (ground / navy), AA on the worst stop.
+ *
+ * Recorded divergences from the portfolio original (extraction, 2026-07-22):
+ * - the plate gradient runs accent-raised-hi to -lo, one step DEEPER than
+ *   the portfolio's iris.hi top: the ground label computes 4.49:1 on iris.hi
+ *   (fails AA normal text under worst-ground-wins); the portfolio passed
+ *   only via its pure-white label, which BELLA does not carry (no pure
+ *   white as text). Elleta's eye at review decides if the plate flips back
+ *   with a different label decision.
+ * - the trace colour is the accent-raised-hi stop in dark (the portfolio
+ *   used a fixed bright-iris literal); light keeps iris.bright.
+ * - dark plate is periwinkle (the accent theme-flips); the portfolio keycap
+ *   stayed iris in dark.
+ * - the locked shadow.key-* pair is consumed as-is; its iris-tinted edge
+ *   under the dark periwinkle plate is a recorded nit, Elleta's call.
+ */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  cursor: pointer;
+  box-sizing: border-box;
+  min-height: var(--component-button-primary-min-height);
+  padding: var(--component-button-primary-padding-y) var(--component-button-primary-padding-x);
+  font-family: var(--component-button-primary-font-family);
+  font-size: var(--component-button-primary-font-size);
+  font-weight: var(--component-button-primary-font-weight);
+  letter-spacing: var(--component-button-primary-letter-spacing);
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  background: none;
+  margin: 0;
+}
+
+.button:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+/* PRIMARY: the raised keycap. Gloss (white alpha, the permitted translucent
+ * overlay) over the semantic plate gradient; the locked shadow.key pair
+ * carries the elevation. Hover: the cap rises a hair and the shared trace
+ * ring lights. Active: press onto the reduced plate. */
+.primary {
+  composes: traceHost from '../shared/Trace.module.css';
+  color: var(--component-button-primary-foreground);
+  border: 1px solid var(--color-semantic-accent-raised-edge);
+  border-radius: var(--component-button-primary-border-radius);
+  background:
+    var(--component-button-primary-gloss),
+    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
+  box-shadow: var(--shadow-key-resting);
+  transition:
+    transform var(--motion-duration-fast) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-easing-standard),
+    background var(--motion-duration-fast) var(--motion-easing-standard);
+  --trace-r: var(--component-button-primary-border-radius);
+  --trace-w: 2px;
+  --cc: var(--component-button-primary-trace);
+}
+
+.primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background:
+    var(--component-button-primary-gloss-hover),
+    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
+  box-shadow: var(--shadow-key-hover);
+}
+
+.primary:active:not(:disabled) {
+  transform: translateY(2px);
+  background:
+    var(--component-button-primary-gloss-pressed),
+    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
+  box-shadow: var(--shadow-key-pressed);
+}
+
+/* SECONDARY: flat accent outline, accent label, no elevation. */
+.secondary {
+  color: var(--color-semantic-text-accent);
+  border: 1px solid var(--color-semantic-accent);
+  border-radius: var(--component-button-secondary-border-radius);
+  background: var(--component-button-secondary-background);
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--component-button-secondary-background-hover);
+}
+
+.secondary:active:not(:disabled) {
+  background: var(--color-semantic-accent-border);
+}
+
+/* TERTIARY: the text tier. Accent AND underlined: saturated accent at
+ * body scale means interactive, and the underline is the affordance. */
+.tertiary {
+  color: var(--color-semantic-text-accent);
+  border-radius: var(--component-button-tertiary-border-radius);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.tertiary:hover:not(:disabled) {
+  color: var(--color-semantic-link-hover);
+}
+
+/* DISABLED (buttons only): muted surface, no elevation, no affordances. */
+.button:disabled {
+  cursor: not-allowed;
+  color: var(--color-semantic-text-muted);
+  background: var(--color-semantic-surface-inset);
+  border: 1px solid var(--color-semantic-border);
+  box-shadow: none;
+  transform: none;
+  text-decoration: none;
+}
+
+.button:disabled::before {
+  content: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button,
+  .primary,
+  .primary:hover:not(:disabled),
+  .primary:active:not(:disabled) {
+    transition: none;
+    transform: none;
+  }
+}

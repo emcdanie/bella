@@ -115,6 +115,17 @@ async function runQualityChecks(
         }
       }
 
+      /* one icon set, declared: any inline <svg> outside the Icon
+         component fails; Icon marks its svg with data-bella-icon */
+      for (const svg of root.querySelectorAll('svg')) {
+        if (svg.hasAttribute('data-bella-icon')) continue;
+        fails.push(
+          `inline <svg> outside the Icon component (one-set rule): ${
+            (svg.outerHTML ?? '').slice(0, 80)
+          }`
+        );
+      }
+
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;
@@ -144,7 +155,13 @@ async function runQualityChecks(
              affordance layers are allowed to paint */
           if (el.matches(':focus-within') || el.matches(':hover')) continue;
           for (const inv of contract.restState.invariants) {
-            if (inv.type === 'containment') {
+            if (inv.type === 'forbidden-ancestor') {
+              if (el.parentElement?.closest(inv.ancestor)) {
+                fails.push(
+                  `[${contract.name}] placement: rendered inside a forbidden ancestor ${inv.ancestor}${inv.note ? ` (${inv.note})` : ''}`
+                );
+              }
+            } else if (inv.type === 'containment') {
               const child = el.firstElementChild;
               if (!child) continue;
               const a = el.getBoundingClientRect();
@@ -162,6 +179,9 @@ async function runQualityChecks(
               }
             } else {
               const cs = getComputedStyle(el, inv.pseudo ?? null);
+              /* a pseudo invariant only binds where the pseudo exists;
+                 tiers without the layer (no ::before content) are exempt */
+              if (inv.pseudo && cs.content === 'none') continue;
               const actual = cs.getPropertyValue(inv.property).trim();
               if (actual !== inv.expect) {
                 fails.push(

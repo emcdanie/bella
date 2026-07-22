@@ -8,21 +8,35 @@
       "$extensions": {
         "bella": {
           "name": "Button",
-          "description": "Primary call-to-action. Iris fill with ground-colored label for primary (periwinkle fill, navy label in dark mode). Reserved for the single most important action in a view.",
-          "variants": ["primary", "secondary", "ghost"],
+          "description": "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are Geist caps, never Unique.",
+          "variants": ["primary", "secondary", "tertiary"],
           "states": ["default", "hover", "active", "focus", "disabled"],
-          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit"],
-          "dont": ["Do not use more than one primary button per view", "Do not stack two buttons of the same variant"],
-          "a11y": "Verified 2026-07-21: primary label on iris fill 5.66:1 (AA), on hover fill 7.09:1 (AAA); dark primary label on periwinkle 6.65:1 (AA). Secondary/ghost use text-primary (AAA on their surfaces); the accent is border, not text. Focus ring uses border-strong at 2px offset. Hit area minimum 44×44px, encoded as min-height on every variant."
+          "props": ["variant", "href", "onClick", "type", "disabled", "linkComponent", "ariaLabel", "className", "children"],
+          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send"],
+          "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired"],
+          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring independent of the trace. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
+          "restState": {
+            "description": "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring and the rise are hover/focus affordances; the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
+            "atRest": ["plate gradient + gloss", "1px accent-raised-edge border", "shadow.key-resting", "label"],
+            "hoverOnly": ["trace ring", "hover rise", "press translate"],
+            "invariants": [
+              { "layer": "trace", "pseudo": "::before", "property": "opacity", "expect": "0" },
+              { "layer": "rise/press", "property": "transform", "expect": "none" }
+            ]
+          }
         }
       },
 
       "primary": {
-        "background":       { "$value": "{color.semantic.accent}",       "$type": "color" },
-        "background-hover": { "$value": "{color.semantic.accent-hover}", "$type": "color" },
+        "fill-hi":          { "$value": "{color.semantic.accent-raised-hi}", "$type": "color" },
+        "fill-lo":          { "$value": "{color.semantic.accent-raised-lo}", "$type": "color" },
+        "edge":             { "$value": "{color.semantic.accent-raised-edge}", "$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-on-accent}", "$type": "color" },
-        "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
-        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "trace":            { "$value": "{color.iris.bright}",             "$type": "color", "$description": "Trace ring colour on the keycap. 3.74:1 on ground, passes the 3:1 non-text minimum; the ring is a hover affordance, not text." },
+        "gloss":            { "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)", "$type": "other", "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill." },
+        "gloss-hover":      { "$value": "linear-gradient(color-mix(in srgb, white 26%, transparent), transparent 52%)", "$type": "other" },
+        "gloss-pressed":    { "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)", "$type": "other" },
+        "border-radius":    { "$value": "{radius.lg}",                   "$type": "dimension", "$description": "The keycap plate radius; the one control on the lg step." },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "font-family":      { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
@@ -35,7 +49,8 @@
       "secondary": {
         "background":       { "$value": "transparent",                   "$type": "color" },
         "background-hover": { "$value": "{color.semantic.accent-subtle}","$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-primary}",  "$type": "color" },
+        "background-active":{ "$value": "{color.semantic.accent-border}","$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
         "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
         "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
@@ -43,11 +58,10 @@
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       },
 
-      "ghost": {
+      "tertiary": {
         "background":       { "$value": "transparent",                   "$type": "color" },
-        "background-hover": { "$value": "{color.semantic.surface}",      "$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-primary}", "$type": "color" },
-        "border":           { "$value": "transparent",                   "$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
+        "foreground-hover": { "$value": "{color.semantic.link-hover}",   "$type": "color" },
         "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       }
@@ -60,7 +74,7 @@
           "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": ["default", "peek"],
           "states": ["resting", "hover", "focus"],
-          "props": ["accent", "variant", "media", "href", "onClick", "ariaLabel", "linkComponent", "className", "innerClassName", "style", "children"],
+          "props": ["accent", "variant", "media", "mediaScrim", "href", "onClick", "ariaLabel", "linkComponent", "className", "innerClassName", "style", "children"],
           "usage": ["Portfolio grid", "Case-study cards", "CHIP idea clusters", "Dashboard tiles"],
           "dont": ["Do not nest cards inside cards", "Do not use for navigation, that's nav-link's job", "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button", "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
           "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
@@ -138,44 +152,224 @@
       "$extensions": {
         "bella": {
           "name": "Tag",
-          "description": "Uppercase tracked label (Geist, the mono face is retired). Categorizes a card, a project, a mood. Text-primary on a periwinkle wash is the canonical look.",
-          "variants": ["accent", "info", "muted"],
+          "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
+          "variants": ["default", "accent"],
           "states": ["default"],
-          "usage": ["Card category labels", "Section eyebrows inside content areas", "Filter state chips"],
-          "dont": ["Do not set foreground to iris/periwinkle/steel/sage, accent and status colors are wash and border here, never label text", "Do not place on saturated backgrounds without verifying the foreground contrast"],
-          "a11y": "13px floor. Foreground is text-primary (AAA against ground and the periwinkle-15 wash in both modes). min-height hits 44px, tap area via padding so the visual chip can stay small."
+          "props": ["variant", "className", "style", "children"],
+          "usage": ["Card category labels", "Project metadata rows", "Mood and topic markers"],
+          "dont": ["Do not make it clickable: narrowing a set is FilterChip's job", "Do not add a border: the flat wash is what separates it from interactive chips", "Do not set the label in an accent or status colour: tints are wash-only here"],
+          "a11y": "Verified 2026-07-22: default label is text-secondary, 7.74:1 on the surface-inset wash in light and 7.33:1 worst in dark, AAA both. Accent label is text-accent on the accent-subtle wash, 5.25:1 worst in light and 5.30:1 worst in dark, AA. Non-interactive: no tab stop, no pointer affordance, cursor default.",
+          "restState": {
+            "description": "A Tag is entirely static: the wash and the label are the whole component, in every state. audit:quality asserts it never lifts or animates (root carries data-bella-component=tag).",
+            "atRest": ["wash fill", "label"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
+      },
+
+      "default": {
+        "background":     { "$value": "{color.semantic.surface-inset}", "$type": "color" },
+        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
+        "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
+        "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
+        "font-family":    { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
+        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" }
       },
 
       "accent": {
         "background":     { "$value": "{color.semantic.accent-subtle}", "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-primary}",  "$type": "color" },
-        "border":         { "$value": "{color.semantic.accent-border}", "$type": "color" },
-        "border-width":   { "$value": "1px",                            "$type": "dimension" },
+        "foreground":     { "$value": "{color.semantic.text-accent}",   "$type": "color" },
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
-        "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
-        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
-        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" },
-        "letter-spacing": { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
-        "text-transform": { "$value": "uppercase",                      "$type": "other" },
-        "min-height":     { "$value": "{spacing.touch-target}",         "$type": "dimension" }
-      },
-
-      "info": {
-        "background":     { "$value": "{color.semantic.info-subtle}",  "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-primary}", "$type": "color" },
-        "border":         { "$value": "{color.semantic.info-border}",  "$type": "color" },
-        "min-height":     { "$value": "{spacing.touch-target}",        "$type": "dimension" }
-      },
-
-      "muted": {
-        "background":     { "$value": "{color.semantic.surface}",      "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
-        "border":         { "$value": "{color.semantic.border}",       "$type": "color" },
-        "min-height":     { "$value": "{spacing.touch-target}",        "$type": "dimension" }
+        "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" }
       }
+    },
+
+    "status-pill": {
+      "$extensions": {
+        "bella": {
+          "name": "StatusPill",
+          "description": "A status word in a pill. Non-interactive, one tint per state, readable in both themes.",
+          "variants": ["accent", "success", "info"],
+          "states": ["default"],
+          "props": ["variant", "className", "children"],
+          "usage": ["Current-focus marker", "Project state rows", "Availability notes"],
+          "dont": ["Do not make it clickable: a pill that toggles is a FilterChip", "Do not colour the label with the state tint: the tint is border and wash only, the word carries the meaning", "Do not design new status UI on the carried tints without asking: the BELLA-native status ladder (issue #1) is pending and will restyle this"],
+          "a11y": "Verified 2026-07-22: the label never depends on the tint. Accent label is text-accent, 5.66:1 light / 6.65:1 dark (AA). Success/info labels are text-secondary, AAA both themes. Tints as non-text rings: sage 4.33:1 on ground and 3.45:1 on navy (passes 3:1); steel 2.87:1 on ground (fails 3:1, wash-only per the recorded carry) and 5.20:1 on navy. The state is always readable from the word alone. CARRIED TINTS: pending the status-ladder sitting (issue #1).",
+          "restState": {
+            "description": "Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=status-pill).",
+            "atRest": ["ring border", "state wash", "label"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
+      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
+      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight", "$description": "Portfolio used 600; no semibold token exists, and inventing one for a pill is not the call. Recorded divergence." }
+    },
+
+    "filter-chip": {
+      "$extensions": {
+        "bella": {
+          "name": "FilterChip",
+          "description": "The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.",
+          "variants": [],
+          "states": ["default", "hover", "pressed", "focus"],
+          "props": ["pressed", "onClick", "ariaLabel", "className", "children"],
+          "usage": ["Work library skill/type filters", "Any multi-select narrowing row"],
+          "dont": ["Do not use for mutually exclusive views: that is SegmentedControl", "Do not raise it: the keycap is reserved for true actions", "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"],
+          "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
+          "restState": {
+            "description": "At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
+            "atRest": ["outline border", "label"],
+            "hoverOnly": ["hover wash"],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "border":         { "$value": "{color.semantic.border}",          "$type": "color" },
+      "foreground":     { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
+      "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
+      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
+      "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
+      "font-weight":    { "$value": "{typography.font-weight.medium}",  "$type": "fontWeight" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
+    },
+
+    "segmented-control": {
+      "$extensions": {
+        "bella": {
+          "name": "SegmentedControl",
+          "description": "Pick one view among a few, all options visible. The selected state lives in ARIA, not just paint.",
+          "variants": [],
+          "states": ["default", "hover", "selected", "focus"],
+          "props": ["options", "value", "onChange", "label", "className"],
+          "usage": ["Work library view switcher (Cards / Map / Table)", "Any mutually exclusive view pick with few options"],
+          "dont": ["Do not use for multi-select: that is FilterChip", "Do not use radiogroup or tablist semantics: plain buttons with aria-current, per the recorded discovery pass (W3C APG radio rejected: single tab stop plus arrow-select blocks surveying; Primer SegmentedControl guidance matches)", "Do not hide options behind it: if they do not all fit, it is a Select"],
+          "a11y": "Verified 2026-07-22: each segment is a real button; Tab moves between segments, Enter/Space selects, arrows deliberately inert; aria-current=true marks the selection in the tree; the group carries a required aria-label. Segment icons are a decorative leading slot, aria-hidden, sized by the icon tokens; the text label always stays and carries the name (restored 2026-07-22 after the first extraction dropped it, a recorded divergence). Labels text-secondary 8.33:1 light / 9.20:1 dark (AAA); selected label text-accent on accent-subtle, 5.25:1 worst light / 5.30:1 worst dark (AA). Focus ring inset. Segments hit the 44px touch-target token (portfolio 38px is a recorded divergence).",
+          "restState": {
+            "description": "Flat always: the group border, dividers, and the selected fill are the whole paint. audit:quality asserts no elevation ever (root carries data-bella-component=segmented-control).",
+            "atRest": ["group border", "hairline dividers", "selected fill + inset ring", "labels"],
+            "hoverOnly": ["hover wash"],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "border-radius":  { "$value": "{radius.lg}",                      "$type": "dimension" },
+      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension" },
+      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
+    },
+
+    "select": {
+      "$extensions": {
+        "bella": {
+          "name": "Select",
+          "description": "For long lists only. If the options fit on screen, chips or a segmented control do it better.",
+          "variants": [],
+          "states": ["default", "focus", "open"],
+          "props": ["label", "value", "onChange", "options", "className"],
+          "usage": ["Sort order", "Long single-choice lists"],
+          "dont": ["Do not hand-roll a listbox: the native select owns the popup, the keyboard model, and the assistive-tech semantics", "Do not drop the visible label: an unlabelled dropdown is a guess", "Do not use it for a handful of visible options: SegmentedControl or FilterChip"],
+          "a11y": "Verified 2026-07-22: native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token.",
+          "restState": {
+            "description": "Flat always: field, border, chevron, label. audit:quality asserts no elevation ever (root carries data-bella-component=select).",
+            "atRest": ["field surface + border", "chevron caret", "label"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
+      "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" },
+      "label-font-family": { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
+      "label-font-size":   { "$value": "{typography.font-size.tag}",    "$type": "dimension" }
+    },
+
+    "heading": {
+      "$extensions": {
+        "bella": {
+          "name": "Heading",
+          "description": "Unique carries display, Geist carries everything else. 24px floor, page tier only, never inside a card.",
+          "variants": ["hero", "page", "section"],
+          "states": ["default"],
+          "props": ["tier", "as", "accent", "id", "className", "style", "children"],
+          "usage": ["Page titles", "Section heads", "The hero headline"],
+          "dont": ["Never inside a card: cards are Geist territory (contract-enforced by audit:quality)", "Never below 24px: the smallest tier here is the 32px section step, and the keycap logo is the only recorded sub-24 exception", "Never negative tracking on Unique"],
+          "a11y": "Verified 2026-07-22: text-primary on the semantic grounds, 16.06:1 light / 14.35:1 dark (AAA). The accent segment is text-accent, 5.66:1 light / 6.65:1 dark, AA large far above threshold at display sizes. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
+          "restState": {
+            "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
+            "atRest": ["the glyphs"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" },
+              { "layer": "placement", "type": "forbidden-ancestor", "ancestor": "[data-bella-component=card]", "note": "Unique never renders inside a card" }
+            ]
+          }
+        }
+      },
+
+      "font-family":    { "$value": "{typography.font-family.display}", "$type": "fontFamily" },
+      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight" },
+      "letter-spacing": { "$value": "{typography.letter-spacing.hero}", "$type": "dimension" },
+      "hero":    { "font-size": { "$value": "{typography.font-size.6xl}", "$type": "dimension" } },
+      "page":    { "font-size": { "$value": "{typography.font-size.5xl}", "$type": "dimension" } },
+      "section": { "font-size": { "$value": "{typography.font-size.3xl}", "$type": "dimension" } }
+    },
+
+    "icon": {
+      "$extensions": {
+        "bella": {
+          "name": "Icon",
+          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["name", "size", "label", "className", "style"],
+          "usage": ["Segment glyphs", "The Select chevron", "Any leading icon slot"],
+          "dont": ["Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)", "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"],
+          "a11y": "Verified 2026-07-22: aria-hidden by default (decorative); with label, role=img plus aria-label. Colour is always currentColor, so contrast rides on the text token of the context. Sizes from the icon tokens (sm 16 / md 20 / lg 24), stroke from icon.stroke.",
+          "restState": {
+            "description": "Static glyph. audit:quality has no elevation to assert; the invariants hold trivially.",
+            "atRest": ["the glyph"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "size-sm": { "$value": "{icon.sm}", "$type": "dimension" },
+      "size-md": { "$value": "{icon.md}", "$type": "dimension" },
+      "size-lg": { "$value": "{icon.lg}", "$type": "dimension" },
+      "stroke":  { "$value": "{icon.stroke}", "$type": "number" }
     },
 
     "eyebrow": {
@@ -213,29 +407,28 @@
       "$extensions": {
         "bella": {
           "name": "Input",
-          "description": "Text input. Geist on the card surface, warm border, iris focus ring (periwinkle in dark mode).",
-          "variants": ["default", "search"],
-          "states": ["default", "hover", "focus", "disabled", "error"],
-          "usage": ["Forms", "Search bars", "Filter inputs"],
-          "dont": ["Do not strip the border on default state, it's how inputs are recognizable"],
-          "a11y": "Focus ring is 2px border-strong offset 1px. Label required, never use placeholder as label. min-height hits 44px for touch."
+          "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.",
+          "variants": [],
+          "states": ["default", "focus", "disabled", "error"],
+          "props": ["label", "value", "onChange", "multiline", "error", "hint", "type", "placeholder", "autoComplete", "name", "required", "disabled", "id", "className"],
+          "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
+          "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not colour errors until the status ladder lands: the interim is ink + structure, recorded"],
+          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors: aria-invalid + role=alert message via aria-describedby; message is text-primary bold, border flips to border-strong (11.72:1). ERROR TINT BLOCKED on the status ladder (issue #1): no danger token exists and none was invented. Focus: accent border + 2px accent wash ring, theme-flipping. 44px min-height.",
+          "restState": {
+            "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
+            "atRest": ["field surface + border", "label", "hint or error message"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
       },
 
-      "default": {
-        "background":       { "$value": "{color.semantic.surface}",      "$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-primary}", "$type": "color" },
-        "placeholder":      { "$value": "{color.semantic.text-muted}",   "$type": "color" },
-        "border":           { "$value": "{color.semantic.border}",       "$type": "color" },
-        "border-focus":     { "$value": "{color.semantic.accent}",       "$type": "color" },
-        "border-width":     { "$value": "1px",                           "$type": "dimension" },
-        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
-        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
-        "padding-x":        { "$value": "{spacing.4}",                   "$type": "dimension" },
-        "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
-        "font-size":        { "$value": "{typography.font-size.base}",   "$type": "dimension" },
-        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
-      }
+      "font-size":      { "$value": "{typography.font-size.base}",      "$type": "dimension", "$description": "Form entry is body text, 16px; it also defeats iOS zoom-on-focus." },
+      "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
     },
 
     "link": {

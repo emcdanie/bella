@@ -44,6 +44,16 @@ for (const entry of docs) {
       );
     }
 
+    /* one icon set: inline <svg> outside the Icon component fails; the
+       Icon svg carries data-bella-icon, Storybook chrome is exempt */
+    for (const svg of root.querySelectorAll('svg')) {
+      if (svg.hasAttribute('data-bella-icon')) continue;
+      /* Storybook chrome: docblock UI, canvas toolbars, and the heading
+         permalink anchors (fragment links) it injects beside every h2+ */
+      if (svg.closest('button, [class*="docblock"], .sbdocs-preview, a[href^="#"]')) continue;
+      out.push(`inline <svg> outside the Icon component: ${(svg.outerHTML ?? '').slice(0, 80)}`);
+    }
+
     for (const el of root.querySelectorAll('*')) {
       const own = Array.from(el.childNodes)
         .filter((n) => n.nodeType === Node.TEXT_NODE)

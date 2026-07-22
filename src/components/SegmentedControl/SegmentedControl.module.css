@@ -14,8 +14,11 @@
  * - tracking wide 0.08 (portfolio 0.10em literal has no token)
  * - weight bold (600 has no token)
  * - the group fill is semantic surface (the glass token stack stays in
- *   the portfolio); the icon slot waits for the Icon extraction
+ *   the portfolio)
  * - concentric radii carried: inner radius = outer minus the inset
+ * - the icon slot restored 2026-07-22 (first extraction dropped it): a
+ *   decorative leading slot sized by the icon tokens; the Icon component
+ *   itself still waits for its own extraction, so consumers pass the SVG
  */
 
 .control {
@@ -79,6 +82,16 @@
 .control button:focus-visible {
   outline: var(--ring-focus-width) solid var(--ring-focus-color);
   outline-offset: calc(-1 * var(--seg-inset));
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon :global(svg) {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {

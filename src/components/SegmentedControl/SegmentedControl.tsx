@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import styles from './SegmentedControl.module.css';
 
 export interface SegmentedControlProps {
-  /** The visible options; a segmented control shows ALL of them. */
-  options: { value: string; label: string }[];
+  /**
+   * The visible options; a segmented control shows ALL of them. `icon` is
+   * a leading decorative slot (rendered aria-hidden, sized by the icon
+   * tokens); the text label always stays and carries the semantics.
+   */
+  options: { value: string; label: string; icon?: ReactNode }[];
   /** The selected value; selection lives in aria-current, not just paint. */
   value: string;
   onChange: (value: string) => void;
@@ -37,6 +41,11 @@ export default function SegmentedControl({
             aria-current={value === o.value ? 'true' : undefined}
             onClick={() => onChange(o.value)}
           >
+            {o.icon != null ? (
+              <span className={styles.icon} aria-hidden="true">
+                {o.icon}
+              </span>
+            ) : null}
             {o.label}
           </button>
         </li>

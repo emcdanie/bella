@@ -379,29 +379,28 @@
       "$extensions": {
         "bella": {
           "name": "Input",
-          "description": "Text input. Geist on the card surface, warm border, iris focus ring (periwinkle in dark mode).",
-          "variants": ["default", "search"],
-          "states": ["default", "hover", "focus", "disabled", "error"],
-          "usage": ["Forms", "Search bars", "Filter inputs"],
-          "dont": ["Do not strip the border on default state, it's how inputs are recognizable"],
-          "a11y": "Focus ring is 2px border-strong offset 1px. Label required, never use placeholder as label. min-height hits 44px for touch."
+          "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.",
+          "variants": [],
+          "states": ["default", "focus", "disabled", "error"],
+          "props": ["label", "value", "onChange", "multiline", "error", "hint", "type", "placeholder", "required", "disabled", "id", "className"],
+          "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
+          "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not colour errors until the status ladder lands: the interim is ink + structure, recorded"],
+          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors: aria-invalid + role=alert message via aria-describedby; message is text-primary bold, border flips to border-strong (11.72:1). ERROR TINT BLOCKED on the status ladder (issue #1): no danger token exists and none was invented. Focus: accent border + 2px accent wash ring, theme-flipping. 44px min-height.",
+          "restState": {
+            "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
+            "atRest": ["field surface + border", "label", "hint or error message"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
       },
 
-      "default": {
-        "background":       { "$value": "{color.semantic.surface}",      "$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-primary}", "$type": "color" },
-        "placeholder":      { "$value": "{color.semantic.text-muted}",   "$type": "color" },
-        "border":           { "$value": "{color.semantic.border}",       "$type": "color" },
-        "border-focus":     { "$value": "{color.semantic.accent}",       "$type": "color" },
-        "border-width":     { "$value": "1px",                           "$type": "dimension" },
-        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
-        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
-        "padding-x":        { "$value": "{spacing.4}",                   "$type": "dimension" },
-        "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
-        "font-size":        { "$value": "{typography.font-size.base}",   "$type": "dimension" },
-        "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
-      }
+      "font-size":      { "$value": "{typography.font-size.base}",      "$type": "dimension", "$description": "Form entry is body text, 16px; it also defeats iOS zoom-on-focus." },
+      "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
+      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
     },
 
     "link": {

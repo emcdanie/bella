@@ -364,18 +364,9 @@ value with the source reference in parentheses.
 | `component.eyebrow.muted.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.eyebrow.muted.letter-spacing` | `0.15em` (`{typography.letter-spacing.wider}`) | dimension |
 | `component.eyebrow.muted.text-transform` | `uppercase` | other |
-| `component.input.default.background` | `#FAFAF8` (`{color.semantic.surface}`) | color |
-| `component.input.default.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
-| `component.input.default.placeholder` | `#6B6678` (`{color.semantic.text-muted}`) | color |
-| `component.input.default.border` | `#E6E4DC` (`{color.semantic.border}`) | color |
-| `component.input.default.border-focus` | `#5B4BD1` (`{color.semantic.accent}`) | color |
-| `component.input.default.border-width` | `1px` | dimension |
-| `component.input.default.border-radius` | `8px` (`{radius.md}`) | dimension |
-| `component.input.default.padding-y` | `12px` (`{spacing.3}`) | dimension |
-| `component.input.default.padding-x` | `16px` (`{spacing.4}`) | dimension |
-| `component.input.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.input.default.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
-| `component.input.default.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.input.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.input.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.input.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.link.default.foreground` | `#1A1720` (`{color.semantic.link}`) | color |
 | `component.link.default.foreground-hover` | `#5B4BD1` (`{color.semantic.link-hover}`) | color |
 | `component.link.default.text-decoration` | `underline` | other |

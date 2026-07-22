@@ -1,0 +1,84 @@
+/* Input set (component 9, extracted from the portfolio contact form,
+ * 2026-07-22). Tokens only. Native input/textarea, labelled by a real
+ * <label for>, honest errors: aria-invalid + role=alert message wired via
+ * aria-describedby, exactly the shipped contact-form pattern.
+ *
+ * Recorded divergences from the portfolio original:
+ * - ERROR COLOUR IS BLOCKED ON THE STATUS LADDER (issue #1, an Elleta
+ *   sitting): the portfolio paints errors in a case tint that stays
+ *   there, and BELLA has no danger token. Interim: the error message is
+ *   text-primary bold and the field border flips to border-strong, so
+ *   the state is unmissable without inventing a colour. The ladder
+ *   sitting restyles this.
+ * - focus is the accent ring pair from the portfolio pattern (border +
+ *   2px accent wash), on semantic accent so it theme-flips
+ */
+
+.wrapper {
+  display: grid;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-tag);
+  font-weight: var(--typography-font-weight-bold);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-semantic-text-secondary);
+}
+
+.field {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-input-font-size);
+  line-height: var(--typography-line-height-normal);
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-surface);
+  border: 1px solid var(--color-semantic-border);
+  border-radius: var(--component-input-border-radius);
+  padding: var(--spacing-3) var(--spacing-4);
+  min-height: var(--component-input-min-height);
+}
+
+textarea.field {
+  resize: vertical;
+}
+
+.field::placeholder {
+  color: var(--color-semantic-text-muted);
+  opacity: 1; /* Firefox lowers placeholder opacity; reset so the AA ratio holds */
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--color-semantic-accent);
+  box-shadow: 0 0 0 2px var(--color-semantic-accent-border);
+}
+
+.field:disabled {
+  color: var(--color-semantic-text-muted);
+  background: var(--color-semantic-surface-inset);
+  cursor: not-allowed;
+}
+
+.invalid .field {
+  border-color: var(--color-semantic-border-strong);
+  box-shadow: inset 0 0 0 1px var(--color-semantic-border-strong);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+
+.error {
+  margin: 0;
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--color-semantic-text-primary);
+}

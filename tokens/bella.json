@@ -3643,6 +3643,82 @@
         "$type": "dimension"
       }
     },
+    "segmented-control": {
+      "$extensions": {
+        "bella": {
+          "name": "SegmentedControl",
+          "description": "Pick one view among a few, all options visible. The selected state lives in ARIA, not just paint.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "focus"
+          ],
+          "props": [
+            "options",
+            "value",
+            "onChange",
+            "label",
+            "className"
+          ],
+          "usage": [
+            "Work library view switcher (Cards / Map / Table)",
+            "Any mutually exclusive view pick with few options"
+          ],
+          "dont": [
+            "Do not use for multi-select: that is FilterChip",
+            "Do not use radiogroup or tablist semantics: plain buttons with aria-current, per the recorded discovery pass (W3C APG radio rejected: single tab stop plus arrow-select blocks surveying; Primer SegmentedControl guidance matches)",
+            "Do not hide options behind it: if they do not all fit, it is a Select"
+          ],
+          "a11y": "Verified 2026-07-22: each segment is a real button; Tab moves between segments, Enter/Space selects, arrows deliberately inert; aria-current=true marks the selection in the tree; the group carries a required aria-label. Labels text-secondary 8.33:1 light / 9.20:1 dark (AAA); selected label text-accent on accent-subtle, 5.25:1 worst light / 5.30:1 worst dark (AA). Focus ring inset. Segments hit the 44px touch-target token (portfolio 38px is a recorded divergence).",
+          "restState": {
+            "description": "Flat always: the group border, dividers, and the selected fill are the whole paint. audit:quality asserts no elevation ever (root carries data-bella-component=segmented-control).",
+            "atRest": [
+              "group border",
+              "hairline dividers",
+              "selected fill + inset ring",
+              "labels"
+            ],
+            "hoverOnly": [
+              "hover wash"
+            ],
+            "invariants": [
+              {
+                "layer": "flat",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "flat",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "border-radius": {
+        "$value": "{radius.lg}",
+        "$type": "dimension"
+      },
+      "font-family": {
+        "$value": "{typography.font-family.mono}",
+        "$type": "fontFamily"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension"
+      },
+      "font-weight": {
+        "$value": "{typography.font-weight.bold}",
+        "$type": "fontWeight"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      }
+    },
     "eyebrow": {
       "$extensions": {
         "bella": {

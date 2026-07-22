@@ -229,7 +229,7 @@ export const Grid: Story = {
       <Card {...args} accent="var(--color-brand-periwinkle)">
         <Kicker>Identity accent</Kicker>
         <Title>Sibling with its own colour</Title>
-        <Body>Three siblings, one height, from the grid — never min-height.</Body>
+        <Body>Three siblings, one height, from the grid, never min-height.</Body>
       </Card>
     </div>
   ),

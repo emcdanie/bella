@@ -8,15 +8,15 @@ const meta: Meta = {
 export default meta;
 
 const ramp = [
-  { token: '5xl', label: 'Display — 56px' },
-  { token: '4xl', label: 'Heading-1 — 40px' },
-  { token: '3xl', label: 'Heading-2 — 32px (section floor)' },
-  { token: '2xl', label: 'Heading-3 — 24px (Unique display floor)' },
-  { token: 'xl', label: 'Card title — 20px / 700' },
-  { token: 'lg', label: 'Lead — 18px' },
-  { token: 'base', label: 'Body — 16px (floor)' },
-  { token: 'sm', label: 'Eyebrow / caption — 14px' },
-  { token: 'tag', label: 'Tag — 13px (hard floor)' },
+  { token: '5xl', label: 'Display, 56px' },
+  { token: '4xl', label: 'Heading-1, 40px' },
+  { token: '3xl', label: 'Heading-2, 32px (section floor)' },
+  { token: '2xl', label: 'Heading-3, 24px (Unique display floor)' },
+  { token: 'xl', label: 'Card title, 20px / 700' },
+  { token: 'lg', label: 'Lead, 18px' },
+  { token: 'base', label: 'Body, 16px (floor)' },
+  { token: 'sm', label: 'Eyebrow / caption, 14px' },
+  { token: 'tag', label: 'Tag, 13px (hard floor)' },
 ];
 
 export const Ramp: StoryObj = {
@@ -89,7 +89,7 @@ export const Eyebrow: StoryObj = {
           color: 'var(--color-semantic-text-secondary)',
         }}
       >
-        Caps and tracking — not a third face
+        Caps and tracking, not a third face
       </div>
     </div>
   ),

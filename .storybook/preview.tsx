@@ -98,6 +98,7 @@ const preview: Preview = {
           'Identity',
           'Getting Started',
           'Governance',
+          'Changelog',
           'Foundations',
           ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Elevation'],
           'Components',

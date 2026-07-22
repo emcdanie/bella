@@ -103,6 +103,12 @@
   position: relative;
   z-index: 1;
   height: 100%;
+  /* border-box is load-bearing: with the default content-box, height:100%
+     plus this padding overflows the wrapper by padding+border in any
+     stretched context (the grid bug: a duplicated surface edge past the
+     card's bottom/right corner). The component must not depend on a
+     consumer's global reset. */
+  box-sizing: border-box;
   background: var(--color-semantic-surface);
   border: 1px solid color-mix(in srgb, var(--cc) 22%, transparent);
   border-radius: calc(var(--trace-r) - var(--trace-w));

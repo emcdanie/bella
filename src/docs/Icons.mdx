@@ -1,0 +1,65 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro, DoDont } from './DocBlocks';
+import Icon from '../components/Icon/Icon';
+import { ICON_NAMES } from '../components/Icon/registry';
+
+<Meta title="Foundations/Icons" />
+
+<PageIntro title="Icons">
+  One set, declared: Iconoir is BELLA's only icon source. Every glyph lives
+  in the registry and renders through the Icon component; this page IS the
+  registry, rendered live.
+</PageIntro>
+
+## The registry
+
+Everything BELLA ships, at the three ramp steps (sm 16, md 20, lg 24),
+in the context ink. Adding an icon means adding its Iconoir paths to
+`src/components/Icon/registry.ts`; nothing renders inline, and
+audit:quality fails any `<svg>` outside the Icon component.
+
+<table style={{ borderCollapse: 'collapse', width: '100%' }}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: 'left', padding: 'var(--spacing-2) var(--spacing-3)' }}>Name</th>
+      <th style={{ textAlign: 'left', padding: 'var(--spacing-2) var(--spacing-3)' }}>sm</th>
+      <th style={{ textAlign: 'left', padding: 'var(--spacing-2) var(--spacing-3)' }}>md</th>
+      <th style={{ textAlign: 'left', padding: 'var(--spacing-2) var(--spacing-3)' }}>lg</th>
+    </tr>
+  </thead>
+  <tbody>
+    {ICON_NAMES.map((name) => (
+      <tr key={name}>
+        <td style={{ padding: 'var(--spacing-2) var(--spacing-3)', fontFamily: 'var(--typography-font-family-mono)', fontSize: 'var(--typography-font-size-sm)' }}>
+          {name}
+        </td>
+        <td style={{ padding: 'var(--spacing-2) var(--spacing-3)' }}><Icon name={name} size="sm" /></td>
+        <td style={{ padding: 'var(--spacing-2) var(--spacing-3)' }}><Icon name={name} size="md" /></td>
+        <td style={{ padding: 'var(--spacing-2) var(--spacing-3)' }}><Icon name={name} size="lg" /></td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+## The rules
+
+- **currentColor, always.** An icon inherits the ink of its text context;
+  dark mode recolours it for free. A hardcoded icon colour is a bug.
+- **Decorative by default.** Icons render aria-hidden. A meaningful icon
+  requires the `label` prop (role img), and it never stands without text
+  unless its accessible name is proven in a Behavior story.
+- **The ramp is the sizing model.** sm 16 / md 20 / lg 24 plus the stroke
+  token; no ad-hoc icon sizes.
+
+<DoDont
+  doItems={[
+    'Add new glyphs to the registry with their Iconoir paths',
+    'Let the context ink colour the icon',
+    'Pair a meaningful icon with a visible text label',
+  ]}
+  dontItems={[
+    'Mix icon sets or draw one-off SVGs',
+    'Import an icon library component surface',
+    'Use an unlabelled icon as the only affordance',
+  ]}
+/>

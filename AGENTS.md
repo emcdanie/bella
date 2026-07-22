@@ -77,6 +77,8 @@ Supporting `steel` and `sage` are carried from the April identity for status sta
 - `typography.font-family.body` — **Geist**. Everything else. Eyebrows are Geist caps with `letter-spacing.wider` — the tracking is the look.
 - `typography.font-family.mono` — **retired**, repointed to Geist for legacy consumers. Do not reintroduce a mono family.
 
+**Icons — one set, declared (2026-07-22):** Iconoir (MIT, the portfolio's set) is BELLA's only icon source. Every glyph lives in the Icon registry (`src/components/Icon/registry.ts`) and renders through the Icon component: icon-ramp sizes, always currentColor, decorative by default. No mixing sets, no one-off inline SVGs anywhere; a meaningful icon requires a label and never stands without text unless its accessible name is proven in a Behavior story. audit:quality fails any inline `<svg>` outside the Icon component.
+
 Any value you see as `"TBD"` in the token JSON is a genuine unknown — stop and ask. Do not fill it in.
 
 ## Tiered inheritance

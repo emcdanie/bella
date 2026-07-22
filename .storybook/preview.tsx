@@ -103,7 +103,7 @@ const preview: Preview = {
           'Governance',
           'Changelog',
           'Foundations',
-          ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Elevation'],
+          ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Elevation', 'Icons'],
           'Components',
           'Patterns',
           'Testing',

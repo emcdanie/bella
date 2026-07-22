@@ -353,7 +353,7 @@
           "states": ["default"],
           "props": ["name", "size", "label", "className", "style"],
           "usage": ["Segment glyphs", "The Select chevron", "Any leading icon slot"],
-          "dont": ["Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not use an icon as the only label: decorative by default, and a meaningful icon needs the label prop"],
+          "dont": ["Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)", "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"],
           "a11y": "Verified 2026-07-22: aria-hidden by default (decorative); with label, role=img plus aria-label. Colour is always currentColor, so contrast rides on the text token of the context. Sizes from the icon tokens (sm 16 / md 20 / lg 24), stroke from icon.stroke.",
           "restState": {
             "description": "Static glyph. audit:quality has no elevation to assert; the invariants hold trivially.",

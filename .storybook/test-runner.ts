@@ -115,6 +115,17 @@ async function runQualityChecks(
         }
       }
 
+      /* one icon set, declared: any inline <svg> outside the Icon
+         component fails; Icon marks its svg with data-bella-icon */
+      for (const svg of root.querySelectorAll('svg')) {
+        if (svg.hasAttribute('data-bella-icon')) continue;
+        fails.push(
+          `inline <svg> outside the Icon component (one-set rule): ${
+            (svg.outerHTML ?? '').slice(0, 80)
+          }`
+        );
+      }
+
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;

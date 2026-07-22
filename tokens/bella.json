@@ -3386,43 +3386,61 @@
       "$extensions": {
         "bella": {
           "name": "Tag",
-          "description": "Uppercase tracked label (Geist, the mono face is retired). Categorizes a card, a project, a mood. Text-primary on a periwinkle wash is the canonical look.",
+          "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
           "variants": [
-            "accent",
-            "info",
-            "muted"
+            "default",
+            "accent"
           ],
           "states": [
             "default"
           ],
+          "props": [
+            "variant",
+            "className",
+            "style",
+            "children"
+          ],
           "usage": [
             "Card category labels",
-            "Section eyebrows inside content areas",
-            "Filter state chips"
+            "Project metadata rows",
+            "Mood and topic markers"
           ],
           "dont": [
-            "Do not set foreground to iris/periwinkle/steel/sage, accent and status colors are wash and border here, never label text",
-            "Do not place on saturated backgrounds without verifying the foreground contrast"
+            "Do not make it clickable: narrowing a set is FilterChip's job",
+            "Do not add a border: the flat wash is what separates it from interactive chips",
+            "Do not set the label in an accent or status colour: tints are wash-only here"
           ],
-          "a11y": "13px floor. Foreground is text-primary (AAA against ground and the periwinkle-15 wash in both modes). min-height hits 44px, tap area via padding so the visual chip can stay small."
+          "a11y": "Verified 2026-07-22: default label is text-secondary, 7.74:1 on the surface-inset wash in light and 7.33:1 worst in dark, AAA both. Accent label is text-accent on the accent-subtle wash, 5.25:1 worst in light and 5.30:1 worst in dark, AA. Non-interactive: no tab stop, no pointer affordance, cursor default.",
+          "restState": {
+            "description": "A Tag is entirely static: the wash and the label are the whole component, in every state. audit:quality asserts it never lifts or animates (root carries data-bella-component=tag).",
+            "atRest": [
+              "wash fill",
+              "label"
+            ],
+            "hoverOnly": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
         }
       },
-      "accent": {
+      "default": {
         "background": {
-          "$value": "{color.semantic.accent-subtle}",
+          "$value": "{color.semantic.surface-inset}",
           "$type": "color"
         },
         "foreground": {
-          "$value": "{color.semantic.text-primary}",
+          "$value": "{color.semantic.text-secondary}",
           "$type": "color"
-        },
-        "border": {
-          "$value": "{color.semantic.accent-border}",
-          "$type": "color"
-        },
-        "border-width": {
-          "$value": "1px",
-          "$type": "dimension"
         },
         "border-radius": {
           "$value": "{radius.full}",
@@ -3437,7 +3455,7 @@
           "$type": "dimension"
         },
         "font-family": {
-          "$value": "{typography.font-family.mono}",
+          "$value": "{typography.font-family.body}",
           "$type": "fontFamily"
         },
         "font-size": {
@@ -3447,53 +3465,27 @@
         "font-weight": {
           "$value": "{typography.font-weight.medium}",
           "$type": "fontWeight"
-        },
-        "letter-spacing": {
-          "$value": "{typography.letter-spacing.wide}",
-          "$type": "dimension"
-        },
-        "text-transform": {
-          "$value": "uppercase",
-          "$type": "other"
-        },
-        "min-height": {
-          "$value": "{spacing.touch-target}",
-          "$type": "dimension"
         }
       },
-      "info": {
+      "accent": {
         "background": {
-          "$value": "{color.semantic.info-subtle}",
+          "$value": "{color.semantic.accent-subtle}",
           "$type": "color"
         },
         "foreground": {
-          "$value": "{color.semantic.text-primary}",
+          "$value": "{color.semantic.text-accent}",
           "$type": "color"
         },
-        "border": {
-          "$value": "{color.semantic.info-border}",
-          "$type": "color"
-        },
-        "min-height": {
-          "$value": "{spacing.touch-target}",
+        "border-radius": {
+          "$value": "{radius.full}",
           "$type": "dimension"
-        }
-      },
-      "muted": {
-        "background": {
-          "$value": "{color.semantic.surface}",
-          "$type": "color"
         },
-        "foreground": {
-          "$value": "{color.semantic.text-secondary}",
-          "$type": "color"
+        "padding-y": {
+          "$value": "{spacing.1}",
+          "$type": "dimension"
         },
-        "border": {
-          "$value": "{color.semantic.border}",
-          "$type": "color"
-        },
-        "min-height": {
-          "$value": "{spacing.touch-target}",
+        "padding-x": {
+          "$value": "{spacing.3}",
           "$type": "dimension"
         }
       }

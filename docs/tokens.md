@@ -313,27 +313,19 @@ value with the source reference in parentheses.
 | `component.card.inverse.border` | `#F4EFE610` (`{color.alpha.dark-ink-6}`) | color |
 | `component.card.inverse.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.card.inverse.padding` | `20px` (`{spacing.5}`) | dimension |
+| `component.tag.default.background` | `#EDECE4` (`{color.semantic.surface-inset}`) | color |
+| `component.tag.default.foreground` | `#4A4652` (`{color.semantic.text-secondary}`) | color |
+| `component.tag.default.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.tag.default.padding-y` | `4px` (`{spacing.1}`) | dimension |
+| `component.tag.default.padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.tag.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.tag.default.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.tag.default.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.tag.accent.background` | `#5B4BD11F` (`{color.semantic.accent-subtle}`) | color |
-| `component.tag.accent.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
-| `component.tag.accent.border` | `#5B4BD14D` (`{color.semantic.accent-border}`) | color |
-| `component.tag.accent.border-width` | `1px` | dimension |
+| `component.tag.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
-| `component.tag.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
-| `component.tag.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.tag.accent.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
-| `component.tag.accent.letter-spacing` | `0.08em` (`{typography.letter-spacing.wide}`) | dimension |
-| `component.tag.accent.text-transform` | `uppercase` | other |
-| `component.tag.accent.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
-| `component.tag.info.background` | `#6495C526` (`{color.semantic.info-subtle}`) | color |
-| `component.tag.info.foreground` | `#1A1720` (`{color.semantic.text-primary}`) | color |
-| `component.tag.info.border` | `#6495C54D` (`{color.semantic.info-border}`) | color |
-| `component.tag.info.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
-| `component.tag.muted.background` | `#FAFAF8` (`{color.semantic.surface}`) | color |
-| `component.tag.muted.foreground` | `#4A4652` (`{color.semantic.text-secondary}`) | color |
-| `component.tag.muted.border` | `#E6E4DC` (`{color.semantic.border}`) | color |
-| `component.tag.muted.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

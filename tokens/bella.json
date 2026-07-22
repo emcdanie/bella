@@ -3791,6 +3791,97 @@
         "$type": "dimension"
       }
     },
+    "heading": {
+      "$extensions": {
+        "bella": {
+          "name": "Heading",
+          "description": "Unique carries display, Geist carries everything else. 24px floor, page tier only, never inside a card.",
+          "variants": [
+            "hero",
+            "page",
+            "section"
+          ],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "tier",
+            "as",
+            "accent",
+            "id",
+            "className",
+            "style",
+            "children"
+          ],
+          "usage": [
+            "Page titles",
+            "Section heads",
+            "The hero headline"
+          ],
+          "dont": [
+            "Never inside a card: cards are Geist territory (contract-enforced by audit:quality)",
+            "Never below 24px: the smallest tier here is the 32px section step, and the keycap logo is the only recorded sub-24 exception",
+            "Never negative tracking on Unique"
+          ],
+          "a11y": "Verified 2026-07-22: text-primary on the semantic grounds, 16.06:1 light / 14.35:1 dark (AAA). The accent segment is text-accent, 5.66:1 light / 6.65:1 dark, AA large far above threshold at display sizes. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
+          "restState": {
+            "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
+            "atRest": [
+              "the glyphs"
+            ],
+            "hoverOnly": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              },
+              {
+                "layer": "placement",
+                "type": "forbidden-ancestor",
+                "ancestor": "[data-bella-component=card]",
+                "note": "Unique never renders inside a card"
+              }
+            ]
+          }
+        }
+      },
+      "font-family": {
+        "$value": "{typography.font-family.display}",
+        "$type": "fontFamily"
+      },
+      "font-weight": {
+        "$value": "{typography.font-weight.bold}",
+        "$type": "fontWeight"
+      },
+      "letter-spacing": {
+        "$value": "{typography.letter-spacing.hero}",
+        "$type": "dimension"
+      },
+      "hero": {
+        "font-size": {
+          "$value": "{typography.font-size.6xl}",
+          "$type": "dimension"
+        }
+      },
+      "page": {
+        "font-size": {
+          "$value": "{typography.font-size.5xl}",
+          "$type": "dimension"
+        }
+      },
+      "section": {
+        "font-size": {
+          "$value": "{typography.font-size.3xl}",
+          "$type": "dimension"
+        }
+      }
+    },
     "eyebrow": {
       "$extensions": {
         "bella": {

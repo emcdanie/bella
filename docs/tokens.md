@@ -347,6 +347,12 @@ value with the source reference in parentheses.
 | `component.select.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.select.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.select.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.heading.font-family` | `Unique, 'Arial Narrow', sans-serif` (`{typography.font-family.display}`) | fontFamily |
+| `component.heading.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
+| `component.heading.letter-spacing` | `0.04em` (`{typography.letter-spacing.hero}`) | dimension |
+| `component.heading.hero.font-size` | `88px` (`{typography.font-size.6xl}`) | dimension |
+| `component.heading.page.font-size` | `56px` (`{typography.font-size.5xl}`) | dimension |
+| `component.heading.section.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

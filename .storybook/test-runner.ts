@@ -144,7 +144,13 @@ async function runQualityChecks(
              affordance layers are allowed to paint */
           if (el.matches(':focus-within') || el.matches(':hover')) continue;
           for (const inv of contract.restState.invariants) {
-            if (inv.type === 'containment') {
+            if (inv.type === 'forbidden-ancestor') {
+              if (el.parentElement?.closest(inv.ancestor)) {
+                fails.push(
+                  `[${contract.name}] placement: rendered inside a forbidden ancestor ${inv.ancestor}${inv.note ? ` (${inv.note})` : ''}`
+                );
+              }
+            } else if (inv.type === 'containment') {
               const child = el.firstElementChild;
               if (!child) continue;
               const a = el.getBoundingClientRect();

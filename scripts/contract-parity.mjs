@@ -39,7 +39,8 @@ for (const key of Object.keys(contracts)) {
   const body = ifaceMatch[1].replace(/\/\*[\s\S]*?\*\//g, "");
 
   const codeProps = [...body.matchAll(/^\s*([A-Za-z_$][\w$]*)\??:/gm)].map((m) => m[1]);
-  const variantMatch = body.match(/\bvariant\?\s*:\s*([^;]+);/);
+  // variant OR tier: Heading's visual axis is named tier, same contract role
+  const variantMatch = body.match(/\b(?:variant|tier)\?\s*:\s*([^;]+);/);
   const codeVariants = variantMatch
     ? [...variantMatch[1].matchAll(/'([^']+)'/g)].map((m) => m[1])
     : null;

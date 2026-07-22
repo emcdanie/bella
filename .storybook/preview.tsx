@@ -1,6 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Preview, Decorator } from '@storybook/react-vite';
+import { DocsContainer, type DocsContainerProps } from '@storybook/addon-docs/blocks';
+import { GLOBALS_UPDATED } from 'storybook/internal/core-events';
+import { bellaTheme, bellaThemeDark } from './theme';
 import '../tokens/bella.css';
+
+/* Docs pages follow the toolbar theme toggle: the container swaps between the
+ * generated light/dark manager themes and mirrors [data-theme] onto <html>,
+ * so token-driven content inside MDX (the contrast table, swatches) flips
+ * even on pages that render no story. */
+const BellaDocsContainer = ({
+  children,
+  context,
+}: React.PropsWithChildren<DocsContainerProps>) => {
+  const [theme, setTheme] = useState<string>(
+    () => ((context as any).store?.userGlobals?.globals?.theme as string) ?? 'light'
+  );
+  useEffect(() => {
+    const channel = (context as any).channel;
+    const onGlobalsUpdated = ({ globals }: { globals?: { theme?: string } }) => {
+      if (globals?.theme) setTheme(globals.theme);
+    };
+    channel?.on(GLOBALS_UPDATED, onGlobalsUpdated);
+    return () => channel?.off(GLOBALS_UPDATED, onGlobalsUpdated);
+  }, [context]);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+  return (
+    <DocsContainer context={context} theme={theme === 'dark' ? bellaThemeDark : bellaTheme}>
+      {children}
+    </DocsContainer>
+  );
+};
 
 /* Every story renders inside the BELLA stage: semantic background + primary
  * text, so a story's surfaces are judged against the real page ground.
@@ -54,6 +86,30 @@ const preview: Preview = {
   parameters: {
     layout: 'fullscreen',
     backgrounds: { disable: true },
+    docs: {
+      container: BellaDocsContainer,
+    },
+    options: {
+      storySort: {
+        order: [
+          'Welcome',
+          'Getting Started',
+          'Foundations',
+          ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Elevation'],
+          'Components',
+          'Patterns',
+          'Testing',
+          'Changelog',
+        ],
+      },
+    },
+    viewport: {
+      options: {
+        mobile: { name: 'Mobile (390)', styles: { width: '390px', height: '844px' } },
+        tablet: { name: 'Tablet (768)', styles: { width: '768px', height: '1024px' } },
+        desktop: { name: 'Desktop (1240)', styles: { width: '1240px', height: '900px' } },
+      },
+    },
     a11y: {
       // Fail the story on any serious/critical axe violation. The contrast
       // bar itself is enforced upstream (verified ratios in token metadata)

@@ -69,17 +69,38 @@ function Body({ children }: { children: React.ReactNode }) {
   );
 }
 
+/* The autodocs page is the template every later component inherits: the
+ * component description comes verbatim from the committed TSDoc in Card.tsx
+ * (docgen renders it; no override here, so it cannot drift), the prop table
+ * comes from the CardProps TSDoc, and controls are curated — token-valued
+ * props offer token choices, wiring/slot props stay out of the panel. */
 const meta: Meta<typeof Card> = {
   title: 'Components/Card',
   component: Card,
-  parameters: {
-    docs: {
-      description: {
-        // TODO(elleta): the component description — one line, her voice.
-        // Autodocs renders prop docs from Card.tsx TSDoc in the meantime.
-        component: 'TODO(elleta): component description.',
+  argTypes: {
+    accent: {
+      control: 'select',
+      options: [
+        'var(--color-iris-bright)',
+        'var(--color-brand-periwinkle)',
+        'var(--color-semantic-accent)',
+      ],
+      labels: {
+        'var(--color-iris-bright)': 'iris.bright (default)',
+        'var(--color-brand-periwinkle)': 'brand.periwinkle',
+        'var(--color-semantic-accent)': 'semantic.accent (theme-flipping)',
       },
     },
+    variant: { control: 'inline-radio' },
+    href: { control: 'text' },
+    ariaLabel: { control: 'text' },
+    media: { control: false },
+    onClick: { control: false },
+    linkComponent: { control: false },
+    className: { control: false },
+    innerClassName: { control: false },
+    style: { control: false },
+    children: { control: false },
   },
   args: {
     accent: 'var(--color-iris-bright)',

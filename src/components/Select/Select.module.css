@@ -4,8 +4,10 @@
  * No hand-rolled listbox, ever (the recorded decision).
  *
  * Recorded divergences from the portfolio original:
- * - the chevron is a CSS caret in currentColor (the Iconoir chevron waits
- *   for the Icon extraction)
+ * - the chevron is the Iconoir glyph via the Icon component (the interim
+ *   CSS caret is retired; its baselines were regenerated with the swap,
+ *   a recorded deviation from zero-visual-change since the caret never
+ *   matched the Iconoir glyph)
  * - label tracking wide 0.08 (portfolio 0.12em literal has no token)
  */
 
@@ -52,15 +54,13 @@
   outline-offset: var(--ring-focus-offset);
 }
 
-/* CSS caret in currentColor: no icon dependency, no colour literal */
+/* The Iconoir chevron via the Icon component (the interim CSS caret is
+   retired with the Icon extraction); text-secondary ink via color */
 .chevron {
   position: absolute;
-  right: var(--spacing-3);
+  right: var(--spacing-2);
   top: 50%;
-  width: 8px;
-  height: 8px;
+  transform: translateY(-50%);
   pointer-events: none;
-  border-right: 2px solid var(--color-semantic-text-secondary);
-  border-bottom: 2px solid var(--color-semantic-text-secondary);
-  transform: translateY(-70%) rotate(45deg);
+  color: var(--color-semantic-text-secondary);
 }

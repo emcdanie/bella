@@ -23,6 +23,8 @@ export interface CardProps {
    * `ariaLabel` names the card.
    */
   media?: ReactNode;
+  /** The ink-mix scrim over media, on by default; disable per instance when the cover carries no text. */
+  mediaScrim?: boolean;
   /** Whole card is ONE link, no nested links. External (http…) hrefs open in a new tab. */
   href?: string;
   /** Whole card is ONE button (e.g. opens a modal). Ignored when `href` is set. */
@@ -51,6 +53,7 @@ export default function Card({
   accent = 'var(--color-iris-bright)',
   variant = 'default',
   media,
+  mediaScrim = true,
   href,
   onClick,
   ariaLabel,
@@ -88,7 +91,7 @@ export default function Card({
       {media != null && (
         <div className={styles.media} aria-hidden={ariaLabel ? true : undefined}>
           {media}
-          <span className={styles.scrim} aria-hidden="true" />
+          {mediaScrim ? <span className={styles.scrim} aria-hidden="true" /> : null}
         </div>
       )}
       {media != null ? <div className={styles.body}>{children}</div> : children}

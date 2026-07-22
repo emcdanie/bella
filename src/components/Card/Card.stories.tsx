@@ -181,6 +181,21 @@ export const WithMedia: Story = {
   },
 };
 
+/** Cover media with the scrim disabled: for covers that carry no text,
+ * per instance; the default stays on (restored prop, omission audit). */
+export const WithMediaNoScrim: Story = {
+  render: (args) => (
+    <div style={{ maxWidth: 420 }}>
+      <Card {...args} mediaScrim={false}>
+        {sampleContent}
+      </Card>
+    </div>
+  ),
+  args: {
+    media: <img src={cover} alt="" />,
+  },
+};
+
 /** Per-card identity accent (border tint + trace colour ride the prop). */
 export const AccentOverride: Story = {
   render: (args) => (

@@ -353,6 +353,10 @@ value with the source reference in parentheses.
 | `component.heading.hero.font-size` | `88px` (`{typography.font-size.6xl}`) | dimension |
 | `component.heading.page.font-size` | `56px` (`{typography.font-size.5xl}`) | dimension |
 | `component.heading.section.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
+| `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |
+| `component.icon.size-lg` | `24px` (`{icon.lg}`) | dimension |
+| `component.icon.stroke` | `1.5` (`{icon.stroke}`) | number |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

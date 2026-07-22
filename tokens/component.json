@@ -74,7 +74,7 @@
           "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": ["default", "peek"],
           "states": ["resting", "hover", "focus"],
-          "props": ["accent", "variant", "media", "href", "onClick", "ariaLabel", "linkComponent", "className", "innerClassName", "style", "children"],
+          "props": ["accent", "variant", "media", "mediaScrim", "href", "onClick", "ariaLabel", "linkComponent", "className", "innerClassName", "style", "children"],
           "usage": ["Portfolio grid", "Case-study cards", "CHIP idea clusters", "Dashboard tiles"],
           "dont": ["Do not nest cards inside cards", "Do not use for navigation, that's nav-link's job", "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button", "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
           "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
@@ -344,6 +344,34 @@
       "section": { "font-size": { "$value": "{typography.font-size.3xl}", "$type": "dimension" } }
     },
 
+    "icon": {
+      "$extensions": {
+        "bella": {
+          "name": "Icon",
+          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["name", "size", "label", "className", "style"],
+          "usage": ["Segment glyphs", "The Select chevron", "Any leading icon slot"],
+          "dont": ["Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not use an icon as the only label: decorative by default, and a meaningful icon needs the label prop"],
+          "a11y": "Verified 2026-07-22: aria-hidden by default (decorative); with label, role=img plus aria-label. Colour is always currentColor, so contrast rides on the text token of the context. Sizes from the icon tokens (sm 16 / md 20 / lg 24), stroke from icon.stroke.",
+          "restState": {
+            "description": "Static glyph. audit:quality has no elevation to assert; the invariants hold trivially.",
+            "atRest": ["the glyph"],
+            "hoverOnly": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "size-sm": { "$value": "{icon.sm}", "$type": "dimension" },
+      "size-md": { "$value": "{icon.md}", "$type": "dimension" },
+      "size-lg": { "$value": "{icon.lg}", "$type": "dimension" },
+      "stroke":  { "$value": "{icon.stroke}", "$type": "number" }
+    },
+
     "eyebrow": {
       "$extensions": {
         "bella": {
@@ -382,7 +410,7 @@
           "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.",
           "variants": [],
           "states": ["default", "focus", "disabled", "error"],
-          "props": ["label", "value", "onChange", "multiline", "error", "hint", "type", "placeholder", "required", "disabled", "id", "className"],
+          "props": ["label", "value", "onChange", "multiline", "error", "hint", "type", "placeholder", "autoComplete", "name", "required", "disabled", "id", "className"],
           "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
           "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not colour errors until the status ladder lands: the interim is ink + structure, recorded"],
           "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors: aria-invalid + role=alert message via aria-describedby; message is text-primary bold, border flips to border-strong (11.72:1). ERROR TINT BLOCKED on the status ladder (issue #1): no danger token exists and none was invented. Focus: accent border + 2px accent wash ring, theme-flipping. 44px min-height.",

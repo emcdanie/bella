@@ -81,7 +81,15 @@ function FormHarness() {
   const error = touched && value.length < 2 ? 'Tell me your name.' : undefined;
   return (
     <div style={{ maxWidth: 420 }} onBlur={() => setTouched(true)}>
-      <Input label="Name" value={value} onChange={setValue} error={error} required />
+      <Input
+        label="Name"
+        value={value}
+        onChange={setValue}
+        error={error}
+        required
+        name="name"
+        autoComplete="name"
+      />
     </div>
   );
 }
@@ -95,6 +103,11 @@ export const Behavior: Story = {
 
     await step('label is real: for/id wiring resolves the field', async () => {
       expect(field.tagName).toBe('INPUT');
+    });
+
+    await step('autoComplete and name reach the DOM (contact-form contract)', async () => {
+      expect(field).toHaveAttribute('autocomplete', 'name');
+      expect(field).toHaveAttribute('name', 'name');
     });
 
     await step('error is honest: aria-invalid + role=alert, described-by wired', async () => {

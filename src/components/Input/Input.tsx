@@ -15,6 +15,10 @@ export interface InputProps {
   /** Input type for the single-line control. */
   type?: 'text' | 'email' | 'url';
   placeholder?: string;
+  /** Autofill hint, passed straight through (the shipped contact form sets these). */
+  autoComplete?: string;
+  /** Form field name, passed straight through. */
+  name?: string;
   required?: boolean;
   disabled?: boolean;
   id?: string;
@@ -35,6 +39,8 @@ export default function Input({
   hint,
   type = 'text',
   placeholder,
+  autoComplete,
+  name,
   required,
   disabled,
   id,
@@ -52,6 +58,8 @@ export default function Input({
     className: styles.field,
     value,
     placeholder,
+    autoComplete,
+    name,
     required,
     disabled,
     'aria-invalid': error ? true : undefined,

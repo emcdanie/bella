@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Select.module.css';
+import Icon from '../Icon/Icon';
 
 export interface SelectProps {
   /** Visible label, always rendered; the control is labelled by containment. */
@@ -36,7 +37,7 @@ export default function Select({
             </option>
           ))}
         </select>
-        <span className={styles.chevron} aria-hidden="true" />
+        <Icon name="NavArrowDown" size="sm" className={styles.chevron} />
       </span>
     </label>
   );

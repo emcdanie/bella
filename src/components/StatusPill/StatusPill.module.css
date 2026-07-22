@@ -1,0 +1,50 @@
+/* StatusPill (component 4, extracted from the portfolio, 2026-07-22).
+ * Tokens only. Non-interactive: a status word in a ringed pill. The TINT
+ * carries the state as border and wash, never as label colour; the label
+ * is always a passing ink, so the word stays readable if the tint fails.
+ *
+ * The success/info tints are the CARRIED steel/sage pair, non-text roles
+ * only per the recorded decision (2026-07-21); the BELLA-native status
+ * ladder (issue #1, an Elleta sitting) will restyle this component.
+ *
+ * Recorded divergences from the portfolio original:
+ * - label size is the 13px tag token: the portfolio's 11px is its own
+ *   recorded exception, and BELLA's hard floor is 13px
+ * - tracking is letter-spacing.wide (0.08em): the portfolio's 0.12em
+ *   literal has no token
+ * - washes compose from the state tokens via color-mix (the Card border
+ *   pattern); no new alpha primitives invented
+ */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: 2px var(--spacing-2);
+  border-radius: var(--component-status-pill-border-radius);
+  font-family: var(--component-status-pill-font-family);
+  font-size: var(--component-status-pill-font-size);
+  font-weight: var(--component-status-pill-font-weight);
+  letter-spacing: var(--typography-letter-spacing-wide);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: default;
+  color: var(--color-semantic-text-secondary);
+  border: 1px solid transparent;
+}
+
+.accent {
+  color: var(--color-semantic-text-accent);
+  border-color: var(--color-semantic-accent-border);
+  background: transparent;
+}
+
+.success {
+  border-color: var(--color-semantic-success);
+  background: color-mix(in srgb, var(--color-semantic-success) 10%, transparent);
+}
+
+.info {
+  border-color: var(--color-semantic-info-border);
+  background: var(--color-semantic-info-subtle);
+}

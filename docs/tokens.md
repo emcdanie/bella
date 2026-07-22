@@ -326,6 +326,10 @@ value with the source reference in parentheses.
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.status-pill.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.status-pill.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
+| `component.status-pill.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.status-pill.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
 | `component.eyebrow.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.eyebrow.accent.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
 | `component.eyebrow.accent.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |

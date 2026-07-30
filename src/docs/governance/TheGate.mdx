@@ -1,0 +1,105 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from '../DocBlocks';
+
+<Meta title="Governance/The Gate" />
+
+<PageIntro title="The gate">
+  One command decides whether work ships. `npm run gate` runs the whole thing
+  locally, CI runs it on every pull request and every push to main, and there
+  is no partial pass. Green or it isn't done.
+</PageIntro>
+
+## The rule
+
+**Green or it isn't done.** Not "green except the snapshot", not "green once
+you regenerate the baseline", not "green on my machine". A red gate means the
+work is not finished, and the fix is the work, not the gate.
+
+There is no per-check opt-out. No skip attribute, no ignore hook, no
+"this one is a special case" flag. A check you can opt out of is not a check,
+it is a suggestion with extra steps. The one allowlist that exists, for npm
+advisories, is capped and dated and described below.
+
+## What runs, and why each one exists
+
+Every check here was added because something got through. The reason column is
+the specific failure it now prevents.
+
+| Check | What it asserts | Why it exists |
+| --- | --- | --- |
+| **Source validity** | Every token JSON source parses. | A malformed token file used to fail late, inside the build, with a stack trace instead of a filename. |
+| **Build** | `tokens/build.py` regenerates every artifact from the four sources. | The generated files are downstream of the JSON, always. |
+| **Drift diff** | `bella.css`, `bella.json`, the docs copies, this Storybook's theme values and its favicon all match what is committed. | A hand-edit to a generated file used to survive until the next rebuild silently reverted it. The doc site's own branding is included, so the chrome cannot carry a hex the tokens do not. |
+| **Contract parity** | Every Tier 3 contract with a shipped component matches that component's real exported API: variants and props, both directions. | The card contract described props the Card had not had for weeks. A contract that lies is worse than no contract. |
+| **Interaction tests** | Each component's Behavior story passes: keyboard, focus, roles, states. | Behaviour regressions do not show up in a screenshot. |
+| **Accessibility** | axe runs on every story; serious and critical violations fail. | The contrast bar itself is enforced upstream in token metadata; this catches structure, naming and role errors. |
+| **Theme integrity** | The rendered stage is actually light in light mode and dark in dark mode, per story. | A light page rendering dark surfaces shipped once. This check is that bug, frozen. |
+| **Visual snapshots** | Every story, in both themes, against committed baselines. | Catches the change nobody described in the PR. |
+| **Correctness (`audit:quality`)** | The rules baselines cannot see. Listed separately below. | Baselines verify sameness. A bug that is already in the baseline passes forever. |
+| **npm audit** | No high or critical advisory, against a dated allowlist. | Supply chain. |
+
+## What `audit:quality` checks
+
+Snapshots prove that today looks like yesterday. They cannot prove that
+yesterday was right. This layer asserts the written rules against the rendered
+DOM of every story and every docs page:
+
+- **No em or en dashes** in rendered text. The voice rule, mechanically.
+- **The type floors**: 13px absolute, 16px for long-form reading text, 24px for
+  Unique. Asserted on the COMPUTED value, not the declared one, so a cascade
+  accident cannot hide under a correct-looking stylesheet.
+- **No pure-white solid fills.** Warm neutrals or nothing.
+- **No colour literals** in inline styles, except in token specimens, which opt
+  out explicitly because showing a hex is their job.
+- **Rest-state invariants**, driven by each component's `restState` contract:
+  hover and focus layers must be provably inert at rest. The travelling trace
+  sits at opacity 0 until you touch it, and the gate proves that rather than
+  trusting it.
+- **No inline SVG** outside the Icon component. One icon set, declared.
+
+Every one of these was negative-tested when it landed: reintroduce the bug as
+a probe, watch the gate fail, remove the probe. A check nobody has watched fail
+is a check nobody knows works.
+
+## Where each check runs
+
+| | Local `npm run gate` | CI |
+| --- | --- | --- |
+| Source validity, build, drift | yes | yes |
+| Contract parity | yes | yes |
+| Interactions, a11y, theme integrity | yes | yes |
+| Pixel snapshots | yes | **no** |
+| `audit:quality` | yes | yes |
+| npm audit | no | yes |
+
+Two deliberate asymmetries:
+
+**Pixel snapshots are local only.** The baselines are rendered on darwin, and
+a Linux runner produces different antialiasing, so CI would fail on font
+rendering rather than on design. CI runs the same suite with snapshots skipped.
+This means the visual baseline is a human's responsibility before the PR, not
+the runner's after it.
+
+**npm audit runs in CI only.** It needs the network and it changes answer over
+time as advisories publish, which would make the local gate non-deterministic.
+
+## The one allowlist
+
+`.npm-audit-allowlist.json`, currently empty by design. An entry needs an
+advisory id, a written reason, and an expiry date. It is the only opt-out
+anywhere in the gate, it exists because a transitive advisory in a dev
+dependency can be genuinely unfixable for a while, and it is dated so that
+"temporarily accepted" cannot quietly become "accepted".
+
+Empty means BELLA currently accepts nothing, so a new high or critical
+advisory anywhere in the tree turns this check red until someone decides,
+in writing, what to do about it. That is the intended behaviour and not a
+malfunction.
+
+## When the gate is red for a reason that is not yours
+
+It happens: an advisory publishes overnight and every open PR goes red on a
+check that has nothing to do with its diff. The rule does not bend, but the
+diagnosis matters. Say so plainly in the PR, show that the branch does not
+touch the relevant surface, and fix it as its own change. What is not allowed
+is quietly widening the allowlist to make your own PR green.

@@ -1,0 +1,191 @@
+/* ResourceCard (2026-07-30). Tokens only. Composes Card's shell rather than
+ * adding a second markup path to Card, so Card keeps one anatomy and this
+ * keeps its own.
+ *
+ * The folder-tab construction, which is the whole point of the component:
+ * the tab is NOT a chip sitting on the cover. It is the sheet folded up. It
+ * shares the sheet's exact background and casts no shadow, and the concave
+ * notch to its right is what makes the fold read as continuous rather than
+ * as two shapes that happen to touch.
+ *
+ * Studied from Carmen Rincon's live implementation (carmen-elena.space).
+ * Recorded divergences, all of them BELLA floors rather than taste:
+ * - title 20px, not 16: the card-title floor
+ * - description 16px, not 13: it is reading text, and the body floor is 16
+ * - tab label and footer meta 13px, not 10 and 12: the hard floor is 13
+ * The card is therefore taller than the reference. That is correct.
+ */
+
+.card {
+  /* Cover and sheet meet at the card's own rounded edge; the fold happens
+     inside, so nothing may spill past the corner. */
+  overflow: hidden;
+}
+
+/* Card's inner panel becomes the sheet: no padding, because the cover is
+   full-bleed and the body owns its own spacing. */
+.sheet {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cover {
+  height: var(--component-resource-card-default-cover-height);
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  /* Fixed-context dark surface in BOTH themes, like Card's peek in reverse.
+     Navy, never black. */
+  background: var(--component-resource-card-default-cover-background);
+}
+
+.cover > :global(img),
+.cover > :global(svg) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* The sheet rides up over the cover. z-index keeps it above, and the
+   negative margin is exactly the tab row's height. */
+.body {
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--component-resource-card-default-sheet-overlap));
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tabRow {
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Top corners only. Same background as .content below, no shadow: that is
+   what makes it a fold instead of a chip. */
+.tab {
+  display: flex;
+  align-items: center;
+  background: var(--color-semantic-surface);
+  border-radius: var(--component-resource-card-default-tab-radius)
+    var(--component-resource-card-default-tab-radius) 0 0;
+  padding: var(--component-resource-card-default-tab-padding-top)
+    var(--component-resource-card-default-tab-padding-x) 0;
+}
+
+.tabLabel {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-resource-card-default-tab-font-size);
+  font-weight: var(--component-resource-card-default-tab-font-weight);
+  letter-spacing: var(--component-resource-card-default-tab-letter-spacing);
+  line-height: var(--typography-line-height-normal);
+  color: var(--component-resource-card-default-tab-foreground);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* THE FOLD. A square of nothing whose only job is one background: a circle
+ * centred on this square's own top-right corner, transparent inside and
+ * sheet-coloured outside. The painted leftover IS the concave curve joining
+ * the tab's right edge to the sheet's top edge.
+ *
+ * The colour is a token reference, not a literal, so the notch flips with
+ * the theme along with the sheet. Get this wrong and dark mode shows a cream
+ * bite out of the navy card, visible only in the dark snapshot.
+ *
+ * The 1px inset and 0.5px overlap on the stops are anti-aliasing, not design
+ * values: they keep the arc from fringing against the cover. */
+.notch {
+  width: var(--component-resource-card-default-notch-size);
+  height: var(--component-resource-card-default-notch-size);
+  flex-shrink: 0;
+  align-self: flex-end;
+  background: radial-gradient(
+    circle at 100% 0,
+    transparent calc(var(--component-resource-card-default-notch-size) - 1px),
+    var(--color-semantic-surface) calc(var(--component-resource-card-default-notch-size) + 0.5px)
+  );
+}
+
+/* Lets the cover show through to the right of the tab. */
+.filler {
+  flex: 1;
+}
+
+/* Top-RIGHT corner only: it completes the curve on the far side of the
+   notch, so the fold reads as one continuous edge. */
+.content {
+  background: var(--color-semantic-surface);
+  border-top-right-radius: var(--component-resource-card-default-tab-radius);
+  padding: var(--component-resource-card-default-body-padding);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.title {
+  margin: 0 0 var(--spacing-2);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-resource-card-default-title-font-size);
+  font-weight: var(--component-resource-card-default-title-font-weight);
+  line-height: var(--typography-line-height-snug);
+  color: var(--component-resource-card-default-title-foreground);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-resource-card-default-description-font-size);
+  line-height: var(--typography-line-height-normal);
+  color: var(--component-resource-card-default-description-foreground);
+  /* Two lines, then it stops. Write to two. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--component-resource-card-default-divider-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-resource-card-default-meta-font-size);
+  color: var(--component-resource-card-default-meta-foreground);
+}
+
+/* Neutral pending issue #1. When the status ladder lands, this token gains
+   per-state values and nothing else about the card changes. */
+.dot {
+  width: var(--component-resource-card-default-status-dot-size);
+  height: var(--component-resource-card-default-status-dot-size);
+  border-radius: var(--radius-full);
+  background: var(--component-resource-card-default-status-dot-color);
+  flex-shrink: 0;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-resource-card-default-action-font-size);
+  font-weight: var(--component-resource-card-default-action-font-weight);
+  color: var(--component-resource-card-default-action-foreground);
+  white-space: nowrap;
+}

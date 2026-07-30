@@ -1,0 +1,73 @@
+/* Avatar (2026-07-30). Tokens only. Promoted from the portfolio's
+ * .photo-bubble recipe, which had three consumers (About hero, Hero,
+ * ContactSection) and no component.
+ *
+ * Recorded divergences from the portfolio original:
+ * - the portfolio bubble carries the orb elevation tokens and a fixed
+ *   pixel size per consumer; BELLA ships a three-step ramp and leaves
+ *   elevation to the surface the avatar sits on, so it composes inside a
+ *   Card without stacking two shadows
+ * - the ring is painted with box-shadow, not border or outline: a border
+ *   would eat into the disc and change the image size between ring and
+ *   no-ring, and outline cannot paint the gap
+ */
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  /* border-box is load-bearing: the ramp sizes are the OUTER size, so adding
+     the edge must not grow the disc past its step. */
+  box-sizing: border-box;
+  background: var(--component-avatar-default-background);
+  color: var(--component-avatar-default-foreground);
+  /* The disc always carries an edge. In dark, surface-inset resolves to the
+     same navy as the page ground, so a fill alone leaves the initials
+     floating with no disc at all (caught at GATE 2, not by the snapshot,
+     which had no earlier baseline to differ from). */
+  border: 1px solid var(--component-avatar-default-border-color);
+  border-radius: var(--component-avatar-default-border-radius);
+  font-family: var(--component-avatar-default-font-family);
+  font-weight: var(--component-avatar-default-font-weight);
+  line-height: 1;
+  letter-spacing: var(--typography-letter-spacing-normal);
+  user-select: none;
+}
+
+.sm {
+  width: var(--component-avatar-sm-size);
+  height: var(--component-avatar-sm-size);
+  font-size: var(--component-avatar-sm-font-size);
+}
+
+.md {
+  width: var(--component-avatar-md-size);
+  height: var(--component-avatar-md-size);
+  font-size: var(--component-avatar-md-font-size);
+}
+
+.lg {
+  width: var(--component-avatar-lg-size);
+  height: var(--component-avatar-lg-size);
+  font-size: var(--component-avatar-lg-font-size);
+}
+
+/* Two rings, painted outward: the first is the gap, filled with the
+   surrounding ground so the accent reads as separate from the disc; the
+   second is the accent itself. Spread only, no blur, no offset, so this
+   is a ring and not a shadow. */
+.ring {
+  box-shadow:
+    0 0 0 var(--component-avatar-default-ring-gap) var(--color-semantic-background),
+    0 0 0 calc(var(--component-avatar-default-ring-gap) + var(--component-avatar-default-ring-width))
+      var(--component-avatar-default-ring-color);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

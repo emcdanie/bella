@@ -3384,6 +3384,182 @@
         }
       }
     },
+    "resource-card": {
+      "$extensions": {
+        "bella": {
+          "name": "ResourceCard",
+          "description": "The folder card. A dark file window on top, a warm sheet below, and a tab folded up from the sheet itself so the two read as one piece of paper. Built for the toolkit gallery, where every item is a file you can open.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "focus-visible"
+          ],
+          "props": [
+            "type",
+            "title",
+            "description",
+            "href",
+            "cover",
+            "statusLabel",
+            "accent",
+            "linkComponent",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The toolkit gallery, one card per installable skill",
+            "Any gallery where the items are files or documents with a type and a state"
+          ],
+          "dont": [
+            "Do not put a second link inside it: the whole card is one link, the Open action is a span that inherits it",
+            "Do not give the tab its own colour or a shadow: it is the sheet folded up, and a shadow breaks the fold",
+            "Do not write the description longer than two lines: it clamps, and a clamped third line reads as a bug",
+            "Do not colour the status dot yet: the ladder is unresolved (issue #1) and the neutral dot is the honest placeholder"
+          ],
+          "a11y": "Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 13px metadata tier, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop.",
+          "restState": {
+            "description": "At rest the card is the cover, the sheet, the tab and the notch. The travelling trace and the lift are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card.",
+            "atRest": [
+              "cover",
+              "sheet",
+              "tab",
+              "notch",
+              "title",
+              "description",
+              "divider",
+              "footer"
+            ],
+            "hoverOnly": [
+              "trace ring",
+              "hover lift",
+              "elevated shadow"
+            ],
+            "invariants": [
+              {
+                "layer": "trace",
+                "property": "opacity",
+                "expect": "0"
+              },
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "default": {
+        "cover-height": {
+          "$value": "200px",
+          "$type": "dimension",
+          "$description": "Fixed cover well. A component-tier literal: there is no primitive size ramp, and the cover has to reserve its space before artwork loads or the whole grid jumps."
+        },
+        "cover-background": {
+          "$value": "{color.brand.navy}",
+          "$type": "color",
+          "$description": "The file window is navy in BOTH themes on purpose: it is a fixed-context surface, like Card's peek but dark. Never pure black."
+        },
+        "sheet-overlap": {
+          "$value": "{spacing.12}",
+          "$type": "dimension",
+          "$description": "How far the sheet is pulled up over the cover. Equals the tab row height plus its breathing room; change one and the fold stops lining up."
+        },
+        "tab-radius": {
+          "$value": "{radius.xl}",
+          "$type": "dimension"
+        },
+        "notch-size": {
+          "$value": "{radius.xl}",
+          "$type": "dimension",
+          "$description": "Radius of the concave corner joining the tab's right edge to the sheet's top edge. Matches tab-radius so the convex and concave curves are the same arc."
+        },
+        "tab-padding-x": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "tab-padding-top": {
+          "$value": "{spacing.2}",
+          "$type": "dimension"
+        },
+        "tab-font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "tab-font-weight": {
+          "$value": "{typography.font-weight.bold}",
+          "$type": "fontWeight"
+        },
+        "tab-letter-spacing": {
+          "$value": "{typography.letter-spacing.wide}",
+          "$type": "dimension"
+        },
+        "tab-foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "body-padding": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        },
+        "title-font-size": {
+          "$value": "{typography.font-size.xl}",
+          "$type": "dimension",
+          "$description": "The card-title floor. 20px, never smaller, whatever the reference implementation does."
+        },
+        "title-font-weight": {
+          "$value": "{typography.font-weight.bold}",
+          "$type": "fontWeight"
+        },
+        "title-foreground": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "description-font-size": {
+          "$value": "{typography.font-size.base}",
+          "$type": "dimension",
+          "$description": "Reading text, so the 16px body floor applies. The reference sets 13px; BELLA cannot."
+        },
+        "description-foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "divider-color": {
+          "$value": "{color.semantic.border-subtle}",
+          "$type": "color"
+        },
+        "meta-font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "meta-foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "status-dot-size": {
+          "$value": "{spacing.2}",
+          "$type": "dimension"
+        },
+        "status-dot-color": {
+          "$value": "{color.semantic.text-muted}",
+          "$type": "color",
+          "$description": "NEUTRAL ON PURPOSE, pending issue #1. The status ladder is unresolved, so a real semantic colour here would be invented. When the ladder lands this token gains per-state values and nothing else about the card changes."
+        },
+        "action-foreground": {
+          "$value": "{color.semantic.text-accent}",
+          "$type": "color"
+        },
+        "action-font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        },
+        "action-font-weight": {
+          "$value": "{typography.font-weight.medium}",
+          "$type": "fontWeight"
+        }
+      }
+    },
     "tag": {
       "$extensions": {
         "bella": {
@@ -3943,6 +4119,130 @@
       "stroke": {
         "$value": "{icon.stroke}",
         "$type": "number"
+      }
+    },
+    "avatar": {
+      "$extensions": {
+        "bella": {
+          "name": "Avatar",
+          "description": "A person or entity as a circle. An image when there is one, the initials of the name when there is not, never an empty grey disc.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "src",
+            "alt",
+            "name",
+            "size",
+            "ring",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A portrait beside a name and role",
+            "An author or testimonial attribution",
+            "The identity slot in a contact panel"
+          ],
+          "dont": [
+            "Do not use it as a decorative circle: an Avatar stands for someone, a plain disc is artwork",
+            "Do not ship it without a name: the initials fallback is the point, an empty disc is a bug",
+            "Do not put a status dot on it yet: the status ladder is unresolved (issue #1)"
+          ],
+          "a11y": "Verified 2026-07-30: initials are text-secondary on the surface-inset wash, 7.74:1 in light and 7.33:1 worst in dark, AAA both. With an image the img carries alt; without one the root is role=img labelled by name and the initials are aria-hidden, so it announces once, as the person, never as two letters.",
+          "restState": {
+            "description": "An Avatar is entirely static. The ring is a rest-state affordance, not a hover one: it is either on or off, it never animates. audit:quality asserts it never transforms or animates (root carries data-bella-component=avatar).",
+            "atRest": [
+              "disc fill",
+              "image or initials",
+              "ring when ring is set"
+            ],
+            "hoverOnly": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "default": {
+        "background": {
+          "$value": "{color.semantic.surface-inset}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color"
+        },
+        "border-color": {
+          "$value": "{color.semantic.border-subtle}",
+          "$type": "color",
+          "$description": "The disc always needs an edge. In dark, surface-inset resolves to the same navy as the page ground, so a fill alone makes the disc vanish on an unfilled page; this border draws the circle whatever it sits on."
+        },
+        "border-radius": {
+          "$value": "{radius.full}",
+          "$type": "dimension"
+        },
+        "font-family": {
+          "$value": "{typography.font-family.body}",
+          "$type": "fontFamily"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.bold}",
+          "$type": "fontWeight"
+        },
+        "ring-color": {
+          "$value": "{color.semantic.accent}",
+          "$type": "color"
+        },
+        "ring-width": {
+          "$value": "2px",
+          "$type": "dimension",
+          "$description": "Ring stroke. A component-tier literal on purpose: there is no primitive ring scale, and the alternative is a hard-coded value in build.py, which is the class of thing issue #3 is about."
+        },
+        "ring-gap": {
+          "$value": "2px",
+          "$type": "dimension",
+          "$description": "Gap between the disc edge and the ring, painted in the surrounding ground so the ring reads as separate."
+        }
+      },
+      "sm": {
+        "size": {
+          "$value": "{spacing.8}",
+          "$type": "dimension"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        }
+      },
+      "md": {
+        "size": {
+          "$value": "{spacing.12}",
+          "$type": "dimension"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.base}",
+          "$type": "dimension"
+        }
+      },
+      "lg": {
+        "size": {
+          "$value": "{spacing.20}",
+          "$type": "dimension"
+        },
+        "font-size": {
+          "$value": "{typography.font-size.2xl}",
+          "$type": "dimension"
+        }
       }
     },
     "eyebrow": {

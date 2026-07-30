@@ -1,0 +1,122 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from '../DocBlocks';
+
+<Meta title="Governance/Contribution & Tiers" />
+
+<PageIntro title="Contribution and tiers">
+  Where a value belongs, how a consumer gets it, and what happens when the fix
+  you need is in a file you are not allowed to edit. The short version: values
+  flow down the tiers, artifacts flow out to consumers, and fixes flow back up
+  to the source.
+</PageIntro>
+
+## The tiers, and the rule that makes them work
+
+Three tiers, referencing **downward only**. A primitive never reaches for a
+semantic; a semantic never reaches for a component token.
+
+1. **Primitive** is the raw scale. Colour ramps, spacing, radius, type, shadow,
+   motion, blur, icon sizes. It names what a value IS: `color.brand.iris` is a
+   specific purple.
+2. **Semantic** maps meaning onto primitives, per theme. It names what a value
+   is FOR: `color.semantic.accent` is whatever the accent is in this mode. Dark
+   mode is a semantic override set, which is why a consumer that references
+   semantic tokens gets dark mode without doing anything.
+3. **Component** holds per-component contracts. Component tokens resolve
+   through semantic, so a component value automatically flips with the mode.
+
+The full tier reference, the build pipeline and the drift gate live on
+[Foundations / Tokens](?path=/docs/foundations-tokens--docs). This page is
+about the direction of travel, not the inventory.
+
+**Which tier does a new value go in?** If it is a raw step on a scale, it is a
+primitive. If it names a role that changes between light and dark, it is
+semantic. If only one component will ever read it, it is a component token.
+When a value is none of those, that is a design question, not a naming one, so
+it stops and gets asked rather than guessed.
+
+**A value with no tier is a bug, not a shortcut.** Anything hard-coded in
+`tokens/build.py` rather than declared in a token source is invisible to every
+consumer that reads `bella.json`, which is all of them, including any machine.
+There are known instances of exactly this and they are tracked, not tolerated.
+
+## How a consumer gets BELLA
+
+Copy-sync, not a runtime dependency. The consumer vendors the built artifacts
+into its own tree and pins them by hash, so what it ships is exactly what was
+reviewed.
+
+1. Install BELLA for provenance.
+2. A `sync:bella` script copies the built artifacts into the consumer's tree
+   and records the version and commit they came from.
+3. The consumer imports the vendored CSS once, before anything that reads a
+   token.
+4. The consumer's own gate hash-checks every vendored file, so a hand-edited
+   or stale copy fails CI instead of drifting quietly.
+
+The consumer steps in detail, including the legacy alias table, are on
+[Getting Started](?path=/docs/getting-started--docs).
+
+**Vendored files are DO NOT EDIT, and the hash check is what makes that real
+rather than a comment nobody reads.** The reference consumer proved this loop
+on 30 July with the Card swap: the vendored token file had silently drifted a
+full identity behind, from v0.1.1 to 0.3.0, because its version was recorded by
+hand in a README. Hashes do not forget.
+
+## Consumers may tighten, never relax
+
+Downstream rules extend BELLA's or they tighten them. They never loosen them.
+A consuming repo cannot re-enable pure white, drop reading text to 14px, or put
+iris on navy, whatever its own conventions say. Where a consumer's rules
+conflict with BELLA's, BELLA wins and the conflict gets flagged rather than
+silently resolved.
+
+The legitimate consumer-side override is a **token value**, not a rule: a repo
+may re-point a semantic token at its own tuned value when it has a recorded
+reason, because that keeps one implementation and one name. What it may not do
+is fork the component.
+
+## How a fix goes upstream
+
+The rule is one implementation. When a consumer finds a bug in a vendored
+component, the fix does not go in the vendored copy, because the next sync
+overwrites it and the hash check fails in the meantime.
+
+1. **Fix it here**, in BELLA, on a branch.
+2. **Prove it here**: stories, behaviour suite, both-theme baselines reviewed
+   by eye, contract entry updated, gate green.
+3. **Elleta merges.** Agents never merge.
+4. **Sync it down.** The consumer re-runs `sync:bella`, reviews the resulting
+   diff like any other change, and its own gate re-hashes.
+
+If the fix is urgent and upstream is slow, the consumer's escape hatch is a
+token override or a wrapper, never an edit to the vendored file.
+
+## Extracting a component into BELLA
+
+Components move up from the reference consumer one at a time, worst offenders
+first. Done means all of it:
+
+1. Stories for every visual variant, green.
+2. The behaviour suite green: keyboard, focus, roles, states.
+3. Both-theme snapshot baselines committed and reviewed by eye.
+4. The component description written by Elleta, not by an agent.
+5. A matching contract entry in `tokens/component.json`, including its
+   `restState` invariants.
+6. The consumer swaps its import and deletes its local copy in the same
+   commit.
+
+Step 6 is the one that gets skipped, and skipping it is how a system ends up
+with two Buttons that slowly stop matching. A component that ships here while
+the consumer keeps its fork has not been extracted; it has been copied.
+
+**Recorded divergences.** An extraction that changes something records what
+changed and why, next to the thing that changed. A divergence without a
+written record is a bug.
+
+## Who merges
+
+Agents work on short-lived branches and open pull requests. Agents never merge.
+One human reviews and merges, on green. Escalation levels, decision records and
+versioning are on
+[Governance / Overview](?path=/docs/governance-overview--docs).

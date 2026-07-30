@@ -1,0 +1,106 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro } from './DocBlocks';
+
+<Meta title="Foundations/Responsiveness" />
+
+<PageIntro title="Responsiveness">
+  BELLA components do not carry breakpoints. They are intrinsically
+  responsive: they fill the space a layout gives them and they wrap. The
+  breakpoints are tokens the CONSUMER reaches for when a page-level layout has
+  to change shape. This page is the record of that split, and of what BELLA
+  has deliberately not adopted yet.
+</PageIntro>
+
+## The four breakpoints
+
+Named by the range they describe, never Mode 1 / Mode 2. Each token names the
+width where the NEXT tier begins, so `breakpoint.mobile` is the ceiling of the
+mobile range, not its floor. Read the table by range, not by token name.
+
+| Range name          | Token                  | Value  | What changes here                              |
+| ------------------- | ---------------------- | ------ | ---------------------------------------------- |
+| `mobile (0-639)`    | `breakpoint.mobile`    | 640px  | Single column below this width.                |
+| `tablet (640-767)`  | `breakpoint.tablet`    | 768px  | Two-column grids become feasible from here.    |
+| `desktop (768-1023)`| `breakpoint.desktop`   | 1024px | Standard multi-column editorial layouts.       |
+| `wide (1024+)`      | `breakpoint.wide`      | 1440px | Editorial max-width and hero-scale type sizes. |
+
+<div style={{
+  padding: 'var(--spacing-4)',
+  marginBlock: 'var(--spacing-5)',
+  background: 'var(--color-semantic-surface-inset)',
+  borderLeft: '3px solid var(--color-semantic-accent-border)',
+  borderRadius: 'var(--radius-md)',
+}}>
+  <strong>Open, and deliberately not resolved here.</strong> The wide token is
+  1440px, but the reference consumer caps its container at 1240px, and the
+  Storybook viewport presets are 390 / 768 / 1240. Three sources, two answers.
+  Nothing is changed until that call is made, because moving a breakpoint
+  token moves every consumer that reads it. Tracked as an open decision, not
+  as a defect.
+</div>
+
+## Components do not own breakpoints
+
+Grep the component styles and you will find no width media query. That is the
+design, not an omission. A component that carries its own breakpoints decides
+the layout of a page it cannot see, and then every consumer fights it.
+
+Instead, components are intrinsically responsive:
+
+- They fill the width they are given and let the parent decide that width.
+- They wrap rather than overflow: metadata rows, tag rows and footers are flex
+  containers with `flex-wrap`, so a narrow column reflows instead of clipping.
+- Height is content-driven, with `height: 100%` where a grid needs equal
+  siblings, so a row of cards matches without a measurement pass.
+- Media wells hold an `aspect-ratio`, so a cover reserves its space before the
+  image loads and the layout does not jump.
+
+The consumer composes the grid, sets the column count at whatever breakpoint
+its page needs, and BELLA fills the cells.
+
+## The one media query components DO carry
+
+`prefers-reduced-motion: reduce`. It is a user contract, not a layout
+decision, so it belongs in the component. Five components honour it today:
+Button, Card, FilterChip, SegmentedControl, and the shared Trace recipe.
+
+Under reduced motion the travelling trace never runs, transitions and
+transforms are removed, and hover falls back to a static accent ring. The
+affordance survives; only the movement stops. Any new component that moves
+inherits this obligation.
+
+## Fluid type and space: not adopted
+
+BELLA's type ramp and spacing scale are fixed steps. There is no `clamp()`
+anywhere in the system, and no fluid interpolation between breakpoints.
+
+This is a position, not an oversight. Fixed steps keep the type floors
+enforceable: the gate can assert that reading text never computes below 16px
+and that Unique never renders below 24px, because the values are knowable
+without resolving a viewport. A fluid ramp makes those floors a function of
+window width, and the floors are the accessibility bar.
+
+If fluid type is adopted later it needs to arrive with the floors as clamp
+minimums, and the gate needs to keep asserting the computed value, not the
+declared one.
+
+## Container queries: not adopted
+
+No component declares `container-type`. The intrinsic approach above covers
+the cases BELLA has met so far, because the components are small and wrap
+cleanly.
+
+Container queries are the right tool the moment a component needs to change
+its internal arrangement based on its own width rather than the window's: a
+card that stacks its media above the body in a narrow column and beside it in
+a wide one. When that case arrives, it belongs in the component and it needs a
+named container, not a window media query. Nothing in BELLA needs it yet, and
+adopting it before there is a case would be architecture in advance of a
+problem.
+
+## Verifying it
+
+`audit:visual` snapshots every story in both themes. The Storybook viewport
+presets are 390 / 768 / 1240, and GATE 2 on any new component means rendering
+it at every breakpoint range in both themes and actually looking, not trusting
+that it fills.

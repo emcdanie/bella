@@ -1,8 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import yaml from '/Users/Elleta/DEV/cbds-components/design-system-documentation-schema/node_modules/js-yaml/dist/js-yaml.mjs';
+import { fileURLToPath } from 'node:url';
+import yaml from 'js-yaml';
 
-const BELLA = '/Users/Elleta/DEV/bella';
+// Repo root, resolved from this file's own location: scripts/ -> repo root.
+const BELLA = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const STAGE = Number(process.env.STAGE || 3);
 const OUT = process.env.OUT || path.join(BELLA, 'bella.dsds.yaml');
 

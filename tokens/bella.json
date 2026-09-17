@@ -2979,17 +2979,36 @@
           ],
           "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring independent of the trace. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
           "restState": {
-            "description": "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring and the rise are hover/focus affordances; the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
+            "description": "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring is a hover and focus affordance, the rise is hover-only, and the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": [
               "plate gradient + gloss",
               "1px accent-raised-edge border",
               "shadow.key-resting",
               "label"
             ],
-            "hoverOnly": [
-              "trace ring",
-              "hover rise",
-              "press translate"
+            "triggered": [
+              {
+                "layer": "trace ring",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": true
+              },
+              {
+                "layer": "hover rise",
+                "on": [
+                  "hover"
+                ],
+                "asserted": true
+              },
+              {
+                "layer": "press translate",
+                "on": [
+                  "active"
+                ],
+                "asserted": true
+              }
             ],
             "invariants": [
               {
@@ -3186,10 +3205,32 @@
               "1px accent-tinted border",
               "shadow.card-rest / shadow.card-rest-dark"
             ],
-            "hoverOnly": [
-              "trace ring",
-              "dark identity halo",
-              "hover lift"
+            "triggered": [
+              {
+                "layer": "trace ring",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": true
+              },
+              {
+                "layer": "dark identity halo",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "theme": "dark",
+                "asserted": true
+              },
+              {
+                "layer": "hover lift",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": true
+              }
             ],
             "invariants": [
               {
@@ -3430,10 +3471,31 @@
               "divider",
               "footer"
             ],
-            "hoverOnly": [
-              "trace ring",
-              "hover lift",
-              "elevated shadow"
+            "triggered": [
+              {
+                "layer": "trace ring",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": true
+              },
+              {
+                "layer": "hover lift",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": true
+              },
+              {
+                "layer": "elevated shadow",
+                "on": [
+                  "hover",
+                  "focus"
+                ],
+                "asserted": false
+              }
             ],
             "invariants": [
               {
@@ -3595,7 +3657,7 @@
               "wash fill",
               "label"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "static",
@@ -3704,7 +3766,7 @@
               "state wash",
               "label"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "static",
@@ -3774,8 +3836,14 @@
               "outline border",
               "label"
             ],
-            "hoverOnly": [
-              "hover wash"
+            "triggered": [
+              {
+                "layer": "hover wash",
+                "on": [
+                  "hover"
+                ],
+                "asserted": false
+              }
             ],
             "invariants": [
               {
@@ -3858,8 +3926,14 @@
               "selected fill + inset ring",
               "labels"
             ],
-            "hoverOnly": [
-              "hover wash"
+            "triggered": [
+              {
+                "layer": "hover wash",
+                "on": [
+                  "hover"
+                ],
+                "asserted": false
+              }
             ],
             "invariants": [
               {
@@ -3932,7 +4006,7 @@
               "chevron caret",
               "label"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "flat",
@@ -4007,7 +4081,7 @@
             "atRest": [
               "the glyphs"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "static",
@@ -4093,7 +4167,7 @@
             "atRest": [
               "the glyph"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "static",
@@ -4157,7 +4231,7 @@
               "image or initials",
               "ring when ring is set"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "static",
@@ -4363,7 +4437,7 @@
               "label",
               "hint or error message"
             ],
-            "hoverOnly": [],
+            "triggered": [],
             "invariants": [
               {
                 "layer": "flat",

@@ -279,8 +279,11 @@ function componentEntry(key) {
       description: c.restState.description,
       context: 'anatomy',
       items: [
-        ...c.restState.atRest.map((layer) => ({ term: layer, definition: 'Paints at rest.' })),
-        ...(c.restState.hoverOnly ?? []).map((layer) => ({ term: layer, definition: 'Hover or focus only. Provably inert at rest; audit:quality asserts it.' })),
+        ...c.restState.atRest.map((layer) => ({ term: layer, definition: 'Trigger: rest. Paints at rest.' })),
+        ...(c.restState.triggered ?? []).map((t) => ({
+          term: t.layer,
+          definition: `Trigger: ${t.on.join(', ')}${t.theme ? ` (${t.theme} theme only)` : ''}. Inert at rest${t.asserted ? '; audit:quality asserts it' : ''}.`,
+        })),
       ],
     });
   }

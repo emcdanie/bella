@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/emcdanie/bella/actions/workflows/ci.yml/badge.svg)](https://github.com/emcdanie/bella/actions/workflows/ci.yml)
 
+**[Storybook](https://emcdanie.github.io/bella/)** · **[Case study](https://elleta.design/design-system)** · **[elleta.design](https://elleta.design)** · **[LinkedIn](https://www.linkedin.com/in/elleta-mcdaniel/)**
+
 BELLA is the design system for **ctrl_alt_design** — Elleta McDaniel's design engineering practice.
 
 <!-- TODO(elleta): screenshot or GIF of the Storybook doc site here. `npm run storybook`,
@@ -15,8 +17,8 @@ BELLA is token-first, accessibility-first, and AI-ready. Every color, space, and
 
 It powers:
 
-- `elleta.design` — the practice's site
-- **CHIP** — Elleta's companion tool
+- [elleta.design](https://elleta.design) — the practice's site
+- [CHIP](https://elleta.design/case-studies/chip) — Elleta's companion tool
 - The rest of the ctrl_alt_design portfolio as it comes online
 
 ## The identity, in five tokens
@@ -78,7 +80,7 @@ Full token listing: [`docs/tokens.md`](./docs/tokens.md) (generated).
 
 ## Docs
 
-- **Live preview** — <https://emcdanie.github.io/bella/>
+- **Storybook doc site** — <https://emcdanie.github.io/bella/>
 - [`docs/principles.md`](./docs/principles.md) — why BELLA looks the way it looks
 - [`docs/typography.md`](./docs/typography.md) — the type system in detail
 - [`docs/motion-system.md`](./docs/motion-system.md) — hover, elevation, duration
@@ -125,9 +127,16 @@ Regenerates every file marked *Generated* above. CI fails any PR where the gener
 
 ## Status
 
-v0.3 — the 2026-07 identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced — see `CHANGELOG.md`.
+v0.3.0 is the 2026-07 identity: tokens complete across all three tiers, with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced; see `CHANGELOG.md`.
 
-Not yet: a React component package, Storybook (in progress — Phase 2 of the extraction plan), Figma library sync, or npm publication. The component layer lives in `tokens/component.json` as a contract for AI tools generating code — the React implementations come next, worst offenders first.
+Unreleased on top of 0.3.0:
+
+- **12 React components** in `src/components/`: Avatar, Button, Card, FilterChip, Heading, Icon, Input, ResourceCard, SegmentedControl, Select, StatusPill, Tag. Each has a Tier 3 contract in `tokens/component.json`, a Behavior story, and light and dark baselines. `scripts/contract-parity.mjs` fails CI if a contract and its component's API disagree.
+- **Storybook is the doc site**, published to [GitHub Pages](https://emcdanie.github.io/bella/) after the gate passes, with foundations, accessibility and governance pages. In dev it serves an MCP endpoint (`@storybook/addon-mcp`) for agents.
+- **One gate**, `npm run gate`: build, drift diff, contract parity, interaction and axe tests, theme integrity, visual snapshots and `audit:quality`.
+- **`bella.dsds.yaml`**: the system described in the Design System Docs Spec, generated and drift-checked.
+
+Not yet: components for the eyebrow, link, nav-link, section and modal contracts; a BELLA-native status ladder; Figma library sync; npm publication.
 
 ## Contributing
 

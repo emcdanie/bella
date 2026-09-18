@@ -1444,6 +1444,45 @@
             ]
           }
         }
+      },
+      "display-hero": {
+        "$value": "clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)",
+        "$type": "dimension",
+        "$description": "Hero display tier, fluid from 40px at a 390 viewport to 72px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+            "Heading primitive",
+            "Unique 700 display only"
+            ]
+          }
+        }
+      },
+      "display-page": {
+        "$value": "clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)",
+        "$type": "dimension",
+        "$description": "Page-title display tier, fluid from 36px at a 390 viewport to 56px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 36px floor clears the 24px Unique minimum.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+            "Heading primitive",
+            "Unique 700 display only"
+            ]
+          }
+        }
+      },
+      "display-section": {
+        "$value": "clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)",
+        "$type": "dimension",
+        "$description": "Section display tier (the portfolio case tier shares it on purpose), fluid from 32px at a 390 viewport to 48px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 32px floor clears the 24px Unique minimum.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+            "Heading primitive",
+            "Unique 700 display only"
+            ]
+          }
+        }
       }
     },
     "font-weight": {
@@ -1553,6 +1592,18 @@
             ]
           }
         }
+      },
+      "display": {
+        "$value": "1.05",
+        "$type": "number",
+        "$description": "Display line-height for Unique caps (display-type-scale fix, 2026-09-18). A floor: Unique leading never drops below 1, the condensed bold cut collides at 0.9.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+            "Heading primitive, all tiers"
+            ]
+          }
+        }
       }
     },
     "letter-spacing": {
@@ -1614,12 +1665,12 @@
       "hero": {
         "$value": "0.04em",
         "$type": "dimension",
-        "$description": "Hero display tracking (Elleta pick, 2026-07-22, from a three-way render at 6xl). Positive tracking that opens Unique's condensed letterforms at hero sizes; pairs with font-size.6xl. Unique never takes negative tracking.",
+        "$description": "Display tracking for every Unique heading tier (Elleta pick 2026-07-22 at 6xl; extended to all display tiers by the display-type-scale fix, 2026-09-18). A floor that opens Unique's condensed letterforms. Unique never takes less, and never negative.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Doc-site page H1s",
-              "Unique 700 display at 6xl"
+              "Heading primitive, all tiers",
+              "Doc-site page H1s"
             ]
           }
         }

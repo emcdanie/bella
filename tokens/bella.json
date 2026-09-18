@@ -1451,6 +1451,45 @@
               ]
             }
           }
+        },
+        "display-hero": {
+          "$value": "clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)",
+          "$type": "dimension",
+          "$description": "Hero display tier, fluid from 40px at a 390 viewport to 72px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading primitive",
+                "Unique 700 display only"
+              ]
+            }
+          }
+        },
+        "display-page": {
+          "$value": "clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)",
+          "$type": "dimension",
+          "$description": "Page-title display tier, fluid from 36px at a 390 viewport to 56px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 36px floor clears the 24px Unique minimum.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading primitive",
+                "Unique 700 display only"
+              ]
+            }
+          }
+        },
+        "display-section": {
+          "$value": "clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)",
+          "$type": "dimension",
+          "$description": "Section display tier (the portfolio case tier shares it on purpose), fluid from 32px at a 390 viewport to 48px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 32px floor clears the 24px Unique minimum.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading primitive",
+                "Unique 700 display only"
+              ]
+            }
+          }
         }
       },
       "font-weight": {
@@ -1560,6 +1599,18 @@
               ]
             }
           }
+        },
+        "display": {
+          "$value": "1.05",
+          "$type": "number",
+          "$description": "Display line-height for Unique caps (display-type-scale fix, 2026-09-18). A floor: Unique leading never drops below 1, the condensed bold cut collides at 0.9.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Heading primitive, all tiers"
+              ]
+            }
+          }
         }
       },
       "letter-spacing": {
@@ -1621,12 +1672,12 @@
         "hero": {
           "$value": "0.04em",
           "$type": "dimension",
-          "$description": "Hero display tracking (Elleta pick, 2026-07-22, from a three-way render at 6xl). Positive tracking that opens Unique's condensed letterforms at hero sizes; pairs with font-size.6xl. Unique never takes negative tracking.",
+          "$description": "Display tracking for every Unique heading tier (Elleta pick 2026-07-22 at 6xl; extended to all display tiers by the display-type-scale fix, 2026-09-18). A floor that opens Unique's condensed letterforms. Unique never takes less, and never negative.",
           "$extensions": {
             "bella": {
               "usage": [
-                "Doc-site page H1s",
-                "Unique 700 display at 6xl"
+                "Heading primitive, all tiers",
+                "Doc-site page H1s"
               ]
             }
           }
@@ -3822,7 +3873,7 @@
           ],
           "dont": [
             "Never inside a card: cards are Geist territory (contract-enforced by audit:quality)",
-            "Never below 24px: the smallest tier here is the 32px section step, and the keycap logo is the only recorded sub-24 exception",
+            "Never below 24px: the smallest tier here is the section step, fluid from a 32px floor, and the keycap logo is the only recorded sub-24 exception",
             "Never negative tracking on Unique"
           ],
           "a11y": "Verified 2026-07-22: text-primary on the semantic grounds, 16.06:1 light / 14.35:1 dark (AAA). The accent segment is text-accent, 5.66:1 light / 6.65:1 dark, AA large far above threshold at display sizes. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
@@ -3865,21 +3916,25 @@
         "$value": "{typography.letter-spacing.hero}",
         "$type": "dimension"
       },
+      "line-height": {
+        "$value": "{typography.line-height.display}",
+        "$type": "number"
+      },
       "hero": {
         "font-size": {
-          "$value": "{typography.font-size.6xl}",
+          "$value": "{typography.font-size.display-hero}",
           "$type": "dimension"
         }
       },
       "page": {
         "font-size": {
-          "$value": "{typography.font-size.5xl}",
+          "$value": "{typography.font-size.display-page}",
           "$type": "dimension"
         }
       },
       "section": {
         "font-size": {
-          "$value": "{typography.font-size.3xl}",
+          "$value": "{typography.font-size.display-section}",
           "$type": "dimension"
         }
       }

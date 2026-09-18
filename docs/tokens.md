@@ -106,8 +106,8 @@ value with the source reference in parentheses.
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.5xl` | `56px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
-| `typography.font-size.display-hero` | `clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)` | dimension |
-| `typography.font-size.display-page` | `clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)` | dimension |
+| `typography.font-size.display-hero` | `clamp(40px, 40px + 140 * (100vw - 390px) / 1050, 180px)` | dimension |
+| `typography.font-size.display-page` | `clamp(40px, 40px + 24 * (100vw - 390px) / 1050, 64px)` | dimension |
 | `typography.font-size.display-section` | `clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)` | dimension |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
@@ -355,8 +355,8 @@ value with the source reference in parentheses.
 | `component.heading.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
 | `component.heading.letter-spacing` | `0.04em` (`{typography.letter-spacing.hero}`) | dimension |
 | `component.heading.line-height` | `1.05` (`{typography.line-height.display}`) | number |
-| `component.heading.hero.font-size` | `clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)` (`{typography.font-size.display-hero}`) | dimension |
-| `component.heading.page.font-size` | `clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)` (`{typography.font-size.display-page}`) | dimension |
+| `component.heading.hero.font-size` | `clamp(40px, 40px + 140 * (100vw - 390px) / 1050, 180px)` (`{typography.font-size.display-hero}`) | dimension |
+| `component.heading.page.font-size` | `clamp(40px, 40px + 24 * (100vw - 390px) / 1050, 64px)` (`{typography.font-size.display-page}`) | dimension |
 | `component.heading.section.font-size` | `clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |

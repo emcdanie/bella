@@ -86,7 +86,17 @@ export function AssetTile({
 }
 
 /** The lockup inside a dashed clear-space frame (one ear-height all round). */
-export function ClearSpace({ src, alt }: { src: string; alt: string }) {
+/* Renders both lockups; .storybook/docs.css shows the one matching the
+ * toolbar theme ([data-theme]), not the OS setting. */
+export function ClearSpace({
+  srcLight,
+  srcDark,
+  alt,
+}: {
+  srcLight: string;
+  srcDark: string;
+  alt: string;
+}) {
   return (
     <div
       style={{
@@ -97,7 +107,8 @@ export function ClearSpace({ src, alt }: { src: string; alt: string }) {
         margin: 'var(--spacing-5) 0 var(--spacing-8)',
       }}
     >
-      <img src={src} alt={alt} style={{ height: 64, display: 'block' }} />
+      <img className="bella-cs-light" src={srcLight} alt={alt} style={{ height: 64 }} />
+      <img className="bella-cs-dark" src={srcDark} alt={alt} style={{ height: 64 }} />
     </div>
   );
 }

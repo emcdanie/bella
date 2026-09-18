@@ -1,5 +1,6 @@
 /* The travelling border light, THE shared trace recipe (one implementation
- * rule; promoted from Card when Button landed, 2026-07-22). A host composes
+ * rule; promoted from Card when Button landed, 2026-07-22; Button dropped
+ * it on 2026-09-18, so Card is the only host: buttons never trace). A host composes
  * .traceHost and declares the geometry on itself:
  *   --trace-r  ring radius (match the host's border-radius)
  *   --trace-w  ring thickness
@@ -45,7 +46,7 @@
 .traceHost:focus-within::before,
 .traceHost:focus-visible::before {
   opacity: 1;
-  animation: trace-travel 3.4s linear infinite;
+  animation: trace-travel var(--component-card-trace-duration) linear infinite;
 }
 
 @keyframes trace-travel {

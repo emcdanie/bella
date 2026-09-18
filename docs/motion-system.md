@@ -1,224 +1,80 @@
 # Motion System
 
-> **Status (2026-07-21):** this document describes the *portfolio's* motion layer (`lib/motion.ts`, `components/motion/` in ctrl-alt-design) — an extraction target for the Storybook/component phase, not yet a BELLA package. BELLA's canonical motion tokens live in `tokens/primitive.json` (`motion.duration.fast/normal/slow` = 150/250/400ms, `motion.easing.standard/emphasis`, `motion.transform.hover-lift/key-press`). The richer ramp below (instant→slow, six easings, stagger) is the portfolio's superset; reconciling the two ramps is part of the motion extraction, not this doc. Identity-neutral otherwise — no palette dependency.
+BELLA's motion is small, fast and purposeful: every movement answers a state
+change, and each state has one job. The tokens live in `tokens/primitive.json`
+(`motion.*`) and reach components through `tokens/component.json`; the CSS
+consumes the generated custom properties. No animation library, no spring
+physics, no bounce on text.
 
-A lightweight, zero-dependency motion system for the portfolio. All animations use native CSS transitions and the IntersectionObserver API — no Framer Motion or GSAP required.
-
-## Architecture
-
-```
-lib/motion.ts              ← Tokens (durations, easings, distances)
-lib/web-vitals.ts          ← Core Web Vitals monitoring (dev only)
-lib/a11y-dev.ts            ← axe-core accessibility auditing (dev only)
-components/motion/         ← Motion primitives
-  ├── FadeIn.tsx           ← Viewport fade + slide-up
-  ├── SlideUp.tsx          ← Viewport slide-up (no fade)
-  ├── ScaleIn.tsx          ← Viewport scale + fade entrance
-  ├── HoverLift.tsx        ← Standardized hover lift
-  ├── StaggerContainer.tsx ← Stagger timing context
-  ├── StaggerItem.tsx      ← Individual stagger item
-  ├── PageTransition.tsx   ← Page-level fade on mount
-  ├── LoadingBubbles.tsx   ← Lightweight loading indicator
-  ├── useReducedMotion.ts  ← Reduced motion preference hook
-  ├── useInView.ts         ← IntersectionObserver hook
-  └── index.ts             ← Barrel exports
-components/DevTools.tsx    ← Dev-only Web Vitals + a11y init
-```
-
-## Motion Tokens
-
-All animation values are centralized in `lib/motion.ts`.
+## Tokens
 
 ### Durations
 
-| Token      | Value  | Use                                     |
-|------------|--------|-----------------------------------------|
-| `instant`  | 100ms  | Micro-interactions, toggles             |
-| `fast`     | 150ms  | Hover states, button feedback           |
-| `normal`   | 240ms  | Default transitions, card state changes |
-| `moderate` | 350ms  | Entrances, exits, reveals               |
-| `entrance` | 550ms  | Viewport-triggered fade-ins             |
-| `slow`     | 700ms  | Hero/page-level transitions             |
+| Token | Value | Use |
+| --- | --- | --- |
+| `motion.duration.fast` | 150ms | Colour shifts, the keycap press |
+| `motion.duration.normal` | 250ms | The button label roll, card hover lift, panel opens |
+| `motion.duration.slow` | 400ms | Modal enter, route changes |
+| `motion.duration.trace` | 3400ms | One lap of Card's travelling trace ring (linear loop) |
 
 ### Easings
 
-| Token        | Value                             | Use                        |
-|--------------|-----------------------------------|----------------------------|
-| `default`    | `cubic-bezier(0.25, 0.1, 0.25, 1)` | General purpose          |
-| `out`        | `cubic-bezier(0.16, 1, 0.3, 1)`    | Entrances (decelerate)   |
-| `in`         | `cubic-bezier(0.55, 0, 1, 0.45)`   | Exits (accelerate)       |
-| `inOut`      | `cubic-bezier(0.45, 0, 0.55, 1)`   | Toggles, state changes   |
-| `expressive` | `cubic-bezier(0.76, 0, 0.24, 1)`   | Menu reveals, overlays   |
-| `linear`     | `linear`                            | Continuous animations    |
+| Token | Value | Use |
+| --- | --- | --- |
+| `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | Default for colour and state changes |
+| `motion.easing.out` | `cubic-bezier(0.22, 1, 0.36, 1)` | Decelerate: the button label roll |
+| `motion.easing.emphasis` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Overshoot: card lift only, never text |
 
-### Distances
+### Transforms
 
-| Token    | Value | Use                           |
-|----------|-------|-------------------------------|
-| `micro`  | 3px   | Hover lift, small feedback    |
-| `small`  | 16px  | Card entrance, content reveal |
-| `medium` | 24px  | Section entrance, fade-in     |
-| `large`  | 40px  | Hero entrance, page slide     |
+| Token | Value | Use |
+| --- | --- | --- |
+| `motion.transform.hover-lift` | `translateY(-2px)` | Card hover. Cards only |
+| `motion.transform.key-press` | `translateY(2px)` | Primary keycap `:active`. Down, never up |
 
-### Stagger
+## Rules
 
-| Token     | Value | Use                       |
-|-----------|-------|---------------------------|
-| `fast`    | 40ms  | Small lists               |
-| `default` | 80ms  | Section content           |
-| `slow`    | 120ms | Hero sequences            |
+1. **Buttons never lift on hover; lift is reserved for cards.** A card is an
+   object you pick up; a button is a key you press. Hover on a button is the
+   label roll, never a rise.
+2. **One job per state.**
+   - Hover and focus-visible: the label roll (the label slides up out of view
+     while an identical copy slides in from below, `duration.normal` on
+     `easing.out`), plus a small colour shift on every tier: the primary
+     plate settles onto its deep stop, the secondary fill tints, the
+     tertiary label moves to `accent-hover` (`duration.fast`).
+   - Active: the keycap press (`transform.key-press`, tighter shadow,
+     `duration.fast`) on the primary; the secondary deepens its fill.
+   - No trace ring on buttons: the travelling ring is Card's hover and focus
+     affordance.
+3. **Accessible duplicates.** The rolling copy is a real element with
+   `aria-hidden="true"`, never CSS `content:`, so assistive tech reads the
+   label once.
+4. **Reduced motion is colour only.** Under `prefers-reduced-motion: reduce`
+   there is no roll, no press, no lift and no travelling trace (Card shows a
+   static ring). Colour changes remain, and every Button tier has one, so
+   hover feedback never disappears.
+5. **Quick and eased.** Hover transitions stay at or under 250ms. Loops run
+   linear (the trace); everything else eases.
+6. **Tokens only.** Durations, easings and transforms come from `motion.*`
+   (through component tokens where a component owns the value). A literal
+   `ms`, `cubic-bezier()` or `translateY()` in component CSS is a bug. The
+   roll's `translateY(100%)` is geometry (one label height), not a motion
+   value.
 
-## Component Usage
+## Where it lives
 
-### FadeIn
+| Component | Motion | Tokens |
+| --- | --- | --- |
+| Button | label roll (hover, focus-visible); keycap press (primary active); secondary fill and tertiary colour shift | `component.button.motion.*` |
+| Card | hover lift; travelling trace ring; dark identity halo | `component.card.trace.*`, `motion.transform.hover-lift` |
+| Shared trace (`src/components/shared/Trace.module.css`) | the ring recipe Card composes | `component.card.trace.duration` |
 
-Viewport-triggered fade-in with slide-up:
+## History
 
-```tsx
-import { FadeIn } from "@/components/motion";
-
-<FadeIn delay={100} distance={24}>
-  <h2>Section Title</h2>
-</FadeIn>
-```
-
-Props: `delay?` (ms), `distance?` (px), `ms?` (duration), `as?` (HTML tag), `className?`
-
-### SlideUp
-
-Pure vertical slide without opacity change:
-
-```tsx
-<SlideUp distance={16}>
-  <Card />
-</SlideUp>
-```
-
-### ScaleIn
-
-Scale + fade entrance for media/cards:
-
-```tsx
-<ScaleIn from={0.92} delay={200}>
-  <Image ... />
-</ScaleIn>
-```
-
-### HoverLift
-
-Standardized hover effect for interactive elements:
-
-```tsx
-<HoverLift lift={3} shadow="0 12px 32px rgba(44,24,16,0.08)">
-  <Card />
-</HoverLift>
-```
-
-### Stagger
-
-Sequential entrance for lists:
-
-```tsx
-import { StaggerContainer, StaggerItem } from "@/components/motion";
-
-<StaggerContainer stagger={80}>
-  {items.map((item, i) => (
-    <StaggerItem key={item.id} index={i} visible={containerInView}>
-      <Card data={item} />
-    </StaggerItem>
-  ))}
-</StaggerContainer>
-```
-
-### PageTransition
-
-Page-level fade on mount:
-
-```tsx
-import { PageTransition } from "@/components/motion";
-
-export default function Page() {
-  return (
-    <PageTransition>
-      <main>...</main>
-    </PageTransition>
-  );
-}
-```
-
-### LoadingBubbles
-
-Lightweight loading indicator:
-
-```tsx
-import { LoadingBubbles } from "@/components/motion";
-
-<LoadingBubbles count={3} size={8} color="#8C8CA0" />
-```
-
-## Accessibility
-
-### prefers-reduced-motion
-
-Every motion primitive respects the user's OS-level motion preference:
-
-- **Reduced motion ON**: Animations resolve instantly (opacity fades still work, transforms are skipped)
-- **Reduced motion OFF**: Full animation experience
-
-The `useReducedMotion()` hook provides reactive access:
-
-```tsx
-import { useReducedMotion } from "@/components/motion";
-
-function MyComponent() {
-  const reduced = useReducedMotion();
-  // Adapt behavior based on preference
-}
-```
-
-Global CSS fallback in `globals.css`:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-```
-
-## Performance Guidelines
-
-### Do
-
-- Animate only `transform` and `opacity` (compositor-only properties)
-- Use `will-change` sparingly and only on elements that animate
-- Use `{ passive: true }` on all scroll event listeners
-- Use `requestAnimationFrame` for JS-driven animations
-- Lazy-load below-fold images with `loading="lazy"`
-- Use `priority` prop on above-fold hero images
-
-### Don't
-
-- Animate `width`, `height`, `top`, `left`, `margin`, `padding` (triggers layout)
-- Animate `box-shadow` directly (triggers paint) — use pseudo-elements or opacity instead
-- Add `will-change` to more than 5–6 elements simultaneously
-- Run continuous JS animations when the tab is not visible
-
-## Dev Tools
-
-### Web Vitals
-
-Automatically reports LCP, CLS, INP, and FCP to the browser console in development. Color-coded by rating (green/yellow/red).
-
-### Accessibility Audit
-
-Runs axe-core on page load in development. Reports violations grouped by severity. Requires `axe-core` as a dev dependency:
-
-```bash
-npm install -D axe-core
-```
-
-Both are initialized by the `<DevTools />` component in `layout.tsx` and have zero production impact (tree-shaken by the `NODE_ENV` check).
+Until 2026-09-18 this page described the portfolio's own motion layer
+(`lib/motion.ts`, `components/motion/`), a superset ramp that was never
+reconciled with BELLA's tokens. The portfolio retired that layer, and this
+page now documents BELLA's system only. Same day: the Button primary stopped
+lifting on hover and lost its trace ring, the label roll arrived, and
+`motion.duration.trace` and `motion.easing.out` were added.

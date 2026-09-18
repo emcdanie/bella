@@ -231,6 +231,8 @@ const BOOL_TRAITS = {
 };
 
 const ENUM_EXTRA = {
+  button: { id: 'shape', description: 'Outline shape, quoted from the Button TSDoc.', setBy: 'consumer',
+    values: [{ id: 'default', description: 'The keycap radius every tier shares.' }, { id: 'pill', description: 'Rounds the ends fully (e.g. a nav call to action).' }] },
   avatar: { id: 'size', description: 'Step from the avatar ramp: sm 32, md 48, lg 80.', setBy: 'consumer',
     values: [{ id: 'sm', description: '32px disc.' }, { id: 'md', description: '48px disc.' }, { id: 'lg', description: '80px disc.' }] },
   icon: { id: 'size', description: 'Size step from the icon ramp: sm 16, md 20, lg 24.', setBy: 'consumer',

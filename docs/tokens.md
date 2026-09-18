@@ -93,6 +93,7 @@ value with the source reference in parentheses.
 | `radius.2xl` | `20px` | dimension |
 | `radius.3xl` | `24px` | dimension |
 | `radius.full` | `999px` | dimension |
+| `border.width.thick` | `3px` | dimension |
 | `typography.font-family.display` | `Unique, 'Arial Narrow', sans-serif` | fontFamily |
 | `typography.font-family.body` | `Geist, system-ui, sans-serif` | fontFamily |
 | `typography.font-family.mono` | `Geist, system-ui, sans-serif` | fontFamily |
@@ -126,8 +127,10 @@ value with the source reference in parentheses.
 | `motion.duration.fast` | `150ms` | duration |
 | `motion.duration.normal` | `250ms` | duration |
 | `motion.duration.slow` | `400ms` | duration |
+| `motion.duration.trace` | `3400ms` | duration |
 | `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | cubicBezier |
 | `motion.easing.emphasis` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | cubicBezier |
+| `motion.easing.out` | `cubic-bezier(0.22, 1, 0.36, 1)` | cubicBezier |
 | `motion.transform.hover-lift` | `translateY(-2px)` | other |
 | `motion.transform.key-press` | `translateY(2px)` | other |
 | `blur.xs` | `8px` | dimension |
@@ -244,15 +247,21 @@ value with the source reference in parentheses.
 
 | Token | Value | Type |
 |---|---|---|
+| `component.button.shape.default` | `12px` (`{radius.lg}`) | dimension |
+| `component.button.shape.pill` | `999px` (`{radius.full}`) | dimension |
+| `component.button.motion.roll-duration` | `250ms` (`{motion.duration.normal}`) | duration |
+| `component.button.motion.roll-easing` | `cubic-bezier(0.22, 1, 0.36, 1)` (`{motion.easing.out}`) | cubicBezier |
+| `component.button.motion.shift-duration` | `150ms` (`{motion.duration.fast}`) | duration |
+| `component.button.motion.shift-easing` | `cubic-bezier(0.4, 0, 0.2, 1)` (`{motion.easing.standard}`) | cubicBezier |
+| `component.button.motion.press` | `translateY(2px)` (`{motion.transform.key-press}`) | other |
 | `component.button.primary.fill-hi` | `#5B4BD1` (`{color.semantic.accent-raised-hi}`) | color |
 | `component.button.primary.fill-lo` | `#4C3EB8` (`{color.semantic.accent-raised-lo}`) | color |
+| `component.button.primary.fill-hi-hover` | `#4C3EB8` (`{color.semantic.accent-raised-lo}`) | color |
+| `component.button.primary.fill-lo-hover` | `#4C3EB8` (`{color.semantic.accent-raised-lo}`) | color |
 | `component.button.primary.edge` | `#4A3FB0` (`{color.semantic.accent-raised-edge}`) | color |
 | `component.button.primary.foreground` | `#F5F4EF` (`{color.semantic.text-on-accent}`) | color |
-| `component.button.primary.trace` | `#7A6BE8` (`{color.iris.bright}`) | color |
 | `component.button.primary.gloss` | `linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)` | other |
-| `component.button.primary.gloss-hover` | `linear-gradient(color-mix(in srgb, white 26%, transparent), transparent 52%)` | other |
 | `component.button.primary.gloss-pressed` | `linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)` | other |
-| `component.button.primary.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.button.primary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.primary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.primary.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.mono}`) | fontFamily |
@@ -265,15 +274,15 @@ value with the source reference in parentheses.
 | `component.button.secondary.background-active` | `#5B4BD14D` (`{color.semantic.accent-border}`) | color |
 | `component.button.secondary.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
 | `component.button.secondary.border` | `#5B4BD1` (`{color.semantic.accent}`) | color |
-| `component.button.secondary.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.button.secondary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.secondary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.button.tertiary.background` | `transparent` | color |
 | `component.button.tertiary.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
-| `component.button.tertiary.foreground-hover` | `#5B4BD1` (`{color.semantic.link-hover}`) | color |
-| `component.button.tertiary.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.button.tertiary.foreground-hover` | `#4C3EB8` (`{color.semantic.accent-hover}`) | color |
 | `component.button.tertiary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.card.trace.width` | `3px` (`{border.width.thick}`) | dimension |
+| `component.card.trace.duration` | `3400ms` (`{motion.duration.trace}`) | duration |
 | `component.card.default.background` | `linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%)` (`{color.semantic.surface-glass-light}`) | other |
 | `component.card.default.blur` | `14px` (`{blur.sm}`) | dimension |
 | `component.card.default.shadow` | `0 1px 4px #1C1A2E08, 0 4px 16px #1C1A2E0A, inset 0 1px 0 #FFFFFF8C` (`{shadow.card-default}`) | shadow |

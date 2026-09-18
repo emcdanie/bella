@@ -21,7 +21,8 @@ const componentContract = JSON.parse(
  *      colour properties in inline styles resolve through var(), never
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
- *      at rest, driven by $extensions.bella.restState per component.
+ *      at rest, driven by $extensions.bella.restState per component;
+ *      no id attributes inside icon SVGs.
  * Negative-tested (PR ritual): the grid double-surface and an em dash were
  * reintroduced as probes; both failed the gate, were removed, and it passed. */
 
@@ -118,7 +119,17 @@ async function runQualityChecks(
       /* one icon set, declared: any inline <svg> outside the Icon
          component fails; Icon marks its svg with data-bella-icon */
       for (const svg of root.querySelectorAll('svg')) {
-        if (svg.hasAttribute('data-bella-icon')) continue;
+        if (svg.hasAttribute('data-bella-icon')) {
+          /* an icon renders more than once (the Button label roll
+             duplicates it), so an id inside it collides: paths and
+             currentColor only */
+          for (const withId of [svg, ...svg.querySelectorAll('[id]')].filter((n) => n.id)) {
+            fails.push(
+              `id inside an icon SVG (ids collide when the glyph repeats): <${withId.tagName.toLowerCase()} id="${withId.id}">`
+            );
+          }
+          continue;
+        }
         fails.push(
           `inline <svg> outside the Icon component (one-set rule): ${
             (svg.outerHTML ?? '').slice(0, 80)
@@ -176,6 +187,22 @@ async function runQualityChecks(
                 fails.push(
                   `[${contract.name}] rest-state geometry: inner (${Math.round(b.bottom)}) overflows wrapper (${Math.round(a.bottom)}), the duplicated-surface class of bug`
                 );
+              }
+            } else if (inv.type === 'translate-y') {
+              /* a descendant's vertical offset as a percentage of its own
+                 height: computed transforms are pixel matrices, so
+                 translateY(100%) cannot be compared as a string */
+              for (const part of el.querySelectorAll<HTMLElement>(inv.selector)) {
+                const t = getComputedStyle(part).transform;
+                const m = new DOMMatrixReadOnly(t === 'none' ? undefined : t);
+                /* fractional height: offsetHeight rounds, the translate does not */
+                const h = part.getBoundingClientRect().height;
+                const pct = h ? Math.round((m.f / h) * 100) : 0;
+                if (`${pct}%` !== inv.expect) {
+                  fails.push(
+                    `[${contract.name}] rest-state layer "${inv.layer}" paints at rest: ${inv.selector} sits at translateY(${pct}%), contract expects ${inv.expect}`
+                  );
+                }
               }
             } else {
               const cs = getComputedStyle(el, inv.pseudo ?? null);

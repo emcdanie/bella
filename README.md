@@ -83,7 +83,7 @@ Full token listing: [`docs/tokens.md`](./docs/tokens.md) (generated).
 - **Storybook doc site** — <https://emcdanie.github.io/bella/>
 - [`docs/principles.md`](./docs/principles.md) — why BELLA looks the way it looks
 - [`docs/typography.md`](./docs/typography.md) — the type system in detail
-- [`docs/motion-system.md`](./docs/motion-system.md) — hover, elevation, duration
+- [`docs/motion-system.md`](./docs/motion-system.md) — motion tokens and rules (buttons roll, cards lift)
 - [`docs/RULES.md`](./docs/RULES.md) — mandatory governance rules for consumers (v0.2; v0.1 archived)
 - [`docs/tokens.md`](./docs/tokens.md) — generated token reference
 - [`AGENTS.md`](./AGENTS.md) — rules for AI agents touching BELLA

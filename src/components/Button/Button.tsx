@@ -9,6 +9,11 @@ export interface ButtonProps {
    * The neutral keycap is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
+  /**
+   * Outline shape. `"default"` is the keycap radius every tier shares;
+   * `"pill"` rounds the ends fully (e.g. a nav call to action).
+   */
+  shape?: 'default' | 'pill';
   /** Renders the button as ONE anchor. External (http...) hrefs open in a new tab. */
   href?: string;
   /** Renders a real button. Ignored when `href` is set. */
@@ -31,10 +36,13 @@ export interface ButtonProps {
 
 /**
  * Keycaps with real hierarchy: two colour treatments, three tiers, one
- * primary per view. Labels are Geist caps, never Unique.
+ * primary per view. Labels are Geist caps, never Unique. One job per
+ * state: hover and focus-visible roll the label, active presses the
+ * keycap; a button never lifts on hover (lift is for cards).
  */
 export default function Button({
   variant = 'secondary',
+  shape = 'default',
   href,
   onClick,
   type = 'button',
@@ -44,7 +52,23 @@ export default function Button({
   className,
   children,
 }: ButtonProps) {
-  const cls = [styles.button, styles[variant], className].filter(Boolean).join(' ');
+  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', className]
+    .filter(Boolean)
+    .join(' ');
+  /* The label roll: the real label slides up and out while an identical
+   * copy slides in from below. The copy is a real span, aria-hidden, so
+   * assistive tech reads the label once (never CSS content:). Icons roll
+   * with the text because the whole children block is duplicated. */
+  const label = (
+    <span className={styles.roll}>
+      <span className={styles.rollLabel} data-bella-roll="label">
+        {children}
+      </span>
+      <span className={styles.rollCopy} data-bella-roll="copy" aria-hidden="true">
+        {children}
+      </span>
+    </span>
+  );
   /* stable hook for audit:quality's contract-driven rest-state checks */
   const shared = {
     className: cls,
@@ -57,19 +81,19 @@ export default function Button({
     if (external) {
       return (
         <a href={href} target="_blank" rel="noopener noreferrer" {...shared}>
-          {children}
+          {label}
         </a>
       );
     }
     return (
       <LinkComponent href={href} {...shared}>
-        {children}
+        {label}
       </LinkComponent>
     );
   }
   return (
     <button type={type} onClick={onClick} disabled={disabled} {...shared}>
-      {children}
+      {label}
     </button>
   );
 }

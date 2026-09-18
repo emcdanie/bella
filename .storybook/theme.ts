@@ -1,5 +1,14 @@
 import { create } from 'storybook/theming/create';
 import values from './theme-values.json';
+import pkg from '../package.json';
+
+/* Sidebar lockup: the mark in front of the name, the version
+ * read from package.json so it never goes stale. */
+const lockup = (ink: string, muted: string) =>
+  `<span style="display:flex;align-items:center;gap:10px">` +
+  `<img src="./brand/bella-mark-iris.svg" alt="" width="34" height="34" style="display:block" />` +
+  `<span><span style="display:block;font-family:Unique,${values.fontBody};font-weight:700;font-size:24px;letter-spacing:0.04em;line-height:1;color:${ink}">BELLA</span>` +
+  `<span style="display:block;margin-top:4px;font-family:${values.fontBody};font-weight:500;font-size:10px;letter-spacing:0.18em;color:${muted}">DESIGN SYSTEM · V${pkg.version.split('.').slice(0, 2).join('.')}</span></span></span>`;
 
 /* The branded manager theme. Every colour, font, and radius here comes from
  * .storybook/theme-values.json, which tokens/build.py generates from the
@@ -8,7 +17,7 @@ import values from './theme-values.json';
 export const bellaTheme = create({
   base: 'light',
 
-  brandTitle: 'BELLA',
+  brandTitle: lockup(values.ink, values.inkMuted),
   brandUrl: 'https://elleta.design/design-system',
   brandTarget: '_blank',
 

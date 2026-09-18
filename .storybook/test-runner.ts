@@ -188,6 +188,37 @@ async function runQualityChecks(
                   `[${contract.name}] rest-state geometry: inner (${Math.round(b.bottom)}) overflows wrapper (${Math.round(a.bottom)}), the duplicated-surface class of bug`
                 );
               }
+            } else if (inv.type === 'underline-contained') {
+              /* an underlined rolling span must hold its underline inside
+                 its own box (padding-bottom >= offset + thickness) and the
+                 clip window must match the span, or the outgoing copy's
+                 line shows at the window edge mid-roll */
+              for (const part of el.querySelectorAll<HTMLElement>(inv.selector)) {
+                const cs = getComputedStyle(part);
+                if (!cs.textDecorationLine.includes('underline')) continue;
+                const px = (v: string) => (/^-?[\d.]+px$/.test(v) ? parseFloat(v) : NaN);
+                const off = px(cs.textUnderlineOffset);
+                const th = px(cs.textDecorationThickness);
+                const pb = px(cs.paddingBottom);
+                if (Number.isNaN(off) || Number.isNaN(th)) {
+                  fails.push(
+                    `[${contract.name}] "${inv.layer}": ${inv.selector} underline offset/thickness must be explicit lengths (got "${cs.textUnderlineOffset}" / "${cs.textDecorationThickness}")`
+                  );
+                  continue;
+                }
+                if (pb + 0.01 < off + th) {
+                  fails.push(
+                    `[${contract.name}] "${inv.layer}": ${inv.selector} underline escapes its box (padding-bottom ${pb}px < offset ${off}px + thickness ${th}px)`
+                  );
+                }
+                const win = part.parentElement!.getBoundingClientRect().height;
+                const own = part.getBoundingClientRect().height;
+                if (Math.abs(win - own) > 0.5) {
+                  fails.push(
+                    `[${contract.name}] "${inv.layer}": clip window ${win}px does not match ${inv.selector} ${own}px`
+                  );
+                }
+              }
             } else if (inv.type === 'translate-y') {
               /* a descendant's vertical offset as a percentage of its own
                  height: computed transforms are pixel matrices, so

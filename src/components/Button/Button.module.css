@@ -160,10 +160,16 @@
 .tertiary .rollLabel,
 .tertiary .rollCopy {
   text-decoration: underline;
-  text-underline-offset: var(--spacing-1);
-  /* room for the underline INSIDE each span, so the rolled-away label
-     never shows its line at the top of the window */
-  padding-block: var(--spacing-1);
+  text-underline-offset: var(--component-button-tertiary-underline-offset);
+  text-decoration-thickness: var(--component-button-tertiary-underline-thickness);
+  /* the underline sits INSIDE each span (bottom padding = offset +
+     thickness) and the window is the span's own height, so the outgoing
+     label's line leaves with it and never shows at the window edge.
+     audit:quality asserts both (underline-contained). */
+  padding-block-start: var(--spacing-1);
+  padding-block-end: calc(
+    var(--component-button-tertiary-underline-offset) + var(--component-button-tertiary-underline-thickness)
+  );
 }
 
 .tertiary:hover:not(:disabled),

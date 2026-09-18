@@ -489,6 +489,36 @@ entries:
       rel: file
       role: primitive.color.iris.logo-hi
   - kind: token
+    id: color.iris.peri-deep
+    name: Peri Deep
+    description: Periwinkle one step deeper (the same step as peri-hover to periwinkle, taken again). Dark-mode primary button hover plate.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-18"
+          by: human:elleta
+          note: navy label on this 5.34:1, AA normal text.
+      tags:
+        - primitive
+        - color
+      group: color.iris
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Dark-mode primary button hover plate
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.iris.peri-deep
+  - kind: token
     id: color.iris.peri-hover
     name: Peri Hover
     description: Brightened periwinkle. Dark-mode primary button hover fill.
@@ -2681,6 +2711,32 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.radius.full
+  - kind: token
+    id: border.width.thin
+    name: Thin
+    description: Thin line width. Underline thickness where a component needs it explicit.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - border
+      group: border.width
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Tertiary Button underline
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.border.width.thin
   - kind: token
     id: border.width.thick
     name: Thick
@@ -5626,6 +5682,32 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.iris.deep}"
   - kind: token
+    id: color.semantic.accent-raised-hover
+    name: Accent Raised Hover
+    description: "Raised accent plate on hover and focus-visible: the plate settles onto its deep stop, flat."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-07-22"
+          by: human:elleta
+          note: ground label on this stop 7.09:1, AAA.
+      tags:
+        - semantic
+        - accent-raised-hover
+      group: color.semantic
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.accent-raised-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.iris.deep}"
+  - kind: token
     id: color.semantic.accent-raised-edge
     name: Accent Raised Edge
     description: Raised accent plate edge (the keycap 3D rim).
@@ -5852,7 +5934,7 @@ entries:
   - kind: token
     id: component.button.primary.fill-hi-hover
     name: Fill Hi Hover
-    description: "Hover and focus-visible: the plate settles onto its deep stop. A colour shift, not a lift; it stays under reduced motion."
+    description: "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion."
     metadata:
       origin:
         method: extracted
@@ -5870,11 +5952,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-raised-lo}"
+        alias: "{color.semantic.accent-raised-hover}"
   - kind: token
     id: component.button.primary.fill-lo-hover
     name: Fill Lo Hover
-    description: Component-tier alias. Resolves to `color.semantic.accent-raised-lo` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.accent-raised-hover` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -5892,7 +5974,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-raised-lo}"
+        alias: "{color.semantic.accent-raised-hover}"
   - kind: token
     id: component.button.primary.edge
     name: Primary Edge
@@ -6339,6 +6421,50 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-accent}"
+  - kind: token
+    id: component.button.tertiary.underline-offset
+    name: Underline Offset
+    description: Component-tier alias. Resolves to `spacing.1` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - button
+      group: component.button.tertiary
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.tertiary.underline-offset
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.1}"
+  - kind: token
+    id: component.button.tertiary.underline-thickness
+    name: Underline Thickness
+    description: "Explicit so the rolling span can reserve room for it: padding-bottom is offset + thickness."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.tertiary
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.tertiary.underline-thickness
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.thin}"
   - kind: token
     id: component.button.tertiary.foreground-hover
     name: Foreground Hover
@@ -9812,7 +9938,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute."
+          note: "worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute."
       tags:
         - component
         - button
@@ -9968,6 +10094,9 @@ entries:
               type: translate-y
               selector: "[data-bella-roll=label]"
               expect: 0%
+            - layer: label roll underline
+              type: underline-contained
+              selector: "[data-bella-roll]"
   - kind: component
     id: card
     name: Card

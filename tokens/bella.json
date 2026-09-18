@@ -213,6 +213,19 @@
             }
           }
         },
+        "peri-deep": {
+          "$value": "#9588DB",
+          "$type": "color",
+          "$description": "Periwinkle one step deeper (the same step as peri-hover to periwinkle, taken again). Dark-mode primary button hover plate.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Dark-mode primary button hover plate"
+              ],
+              "a11y": "Verified 2026-09-18: navy label on this 5.34:1, AA normal text."
+            }
+          }
+        },
         "peri-hover": {
           "$value": "#B9B0E9",
           "$type": "color",
@@ -1254,6 +1267,18 @@
     },
     "border": {
       "width": {
+        "thin": {
+          "$value": "1px",
+          "$type": "dimension",
+          "$description": "Thin line width. Underline thickness where a component needs it explicit.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Tertiary Button underline"
+              ]
+            }
+          }
+        },
         "thick": {
           "$value": "3px",
           "$type": "dimension",
@@ -2573,6 +2598,16 @@
         }
       }
     },
+    "accent-raised-hover": {
+      "$value": "{color.iris.deep}",
+      "$type": "color",
+      "$description": "Raised accent plate on hover and focus-visible: the plate settles onto its deep stop, flat.",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-07-22: ground label on this stop 7.09:1, AAA."
+        }
+      }
+    },
     "accent-raised-edge": {
       "$value": "{color.iris.edge}",
       "$type": "color",
@@ -2973,6 +3008,16 @@
         }
       }
     },
+    "accent-raised-hover": {
+      "$value": "{color.iris.peri-deep}",
+      "$type": "color",
+      "$description": "Raised accent plate on hover and focus-visible, dark mode: one step deeper than periwinkle, flat.",
+      "$extensions": {
+        "bella": {
+          "a11y": "Verified 2026-09-18: navy label on this 5.34:1, AA normal text. Worst stop of the dark plate in any state."
+        }
+      }
+    },
     "accent-raised-edge": {
       "$value": "{color.iris.peri-ink}",
       "$type": "color",
@@ -3029,7 +3074,7 @@
             "Do not lift a button on hover: lift is reserved for cards; hover is the label roll",
             "Do not add the trace ring to a button: the trace is Card's affordance"
           ],
-          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
+          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
           "restState": {
             "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": [
@@ -3103,6 +3148,11 @@
                 "type": "translate-y",
                 "selector": "[data-bella-roll=label]",
                 "expect": "0%"
+              },
+              {
+                "layer": "label roll underline",
+                "type": "underline-contained",
+                "selector": "[data-bella-roll]"
               }
             ]
           }
@@ -3155,12 +3205,12 @@
           "$type": "color"
         },
         "fill-hi-hover": {
-          "$value": "{color.semantic.accent-raised-lo}",
+          "$value": "{color.semantic.accent-raised-hover}",
           "$type": "color",
-          "$description": "Hover and focus-visible: the plate settles onto its deep stop. A colour shift, not a lift; it stays under reduced motion."
+          "$description": "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion."
         },
         "fill-lo-hover": {
-          "$value": "{color.semantic.accent-raised-lo}",
+          "$value": "{color.semantic.accent-raised-hover}",
           "$type": "color"
         },
         "edge": {
@@ -3251,6 +3301,15 @@
         "foreground": {
           "$value": "{color.semantic.text-accent}",
           "$type": "color"
+        },
+        "underline-offset": {
+          "$value": "{spacing.1}",
+          "$type": "dimension"
+        },
+        "underline-thickness": {
+          "$value": "{border.width.thin}",
+          "$type": "dimension",
+          "$description": "Explicit so the rolling span can reserve room for it: padding-bottom is offset + thickness."
         },
         "foreground-hover": {
           "$value": "{color.semantic.accent-hover}",

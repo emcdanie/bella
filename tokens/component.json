@@ -30,7 +30,7 @@
               { "layer": "press", "property": "transform", "expect": "none" },
               { "layer": "label roll", "type": "translate-y", "selector": "[data-bella-roll=copy]", "expect": "100%" },
               { "layer": "label roll", "type": "translate-y", "selector": "[data-bella-roll=label]", "expect": "0%" },
-              { "layer": "label roll underline", "type": "underline-contained", "selector": "[data-bella-roll]" }
+              { "layer": "label roll underline", "type": "single-underline", "window": "[data-bella-roll=window]", "selector": "[data-bella-roll=label], [data-bella-roll=copy]", "underlinedVariant": "tertiary" }
             ]
           }
         }
@@ -82,7 +82,7 @@
         "background":       { "$value": "transparent",                   "$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
         "underline-offset": { "$value": "{spacing.1}",                   "$type": "dimension" },
-        "underline-thickness": { "$value": "{border.width.thin}",        "$type": "dimension", "$description": "Explicit so the rolling span can reserve room for it: padding-bottom is offset + thickness." },
+        "underline-thickness": { "$value": "{border.width.thin}",        "$type": "dimension", "$description": "The one static underline on the roll window. The rolling spans reserve offset + thickness below the text for it." },
         "foreground-hover": { "$value": "{color.semantic.accent-hover}", "$type": "color", "$description": "Hover and focus-visible label colour. accent-hover, not link-hover: link-hover equals the rest colour, so the shift would be invisible." },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       }

@@ -6446,7 +6446,7 @@ entries:
   - kind: token
     id: component.button.tertiary.underline-thickness
     name: Underline Thickness
-    description: "Explicit so the rolling span can reserve room for it: padding-bottom is offset + thickness."
+    description: The one static underline on the roll window. The rolling spans reserve offset + thickness below the text for it.
     metadata:
       origin:
         method: extracted
@@ -10095,8 +10095,10 @@ entries:
               selector: "[data-bella-roll=label]"
               expect: 0%
             - layer: label roll underline
-              type: underline-contained
-              selector: "[data-bella-roll]"
+              type: single-underline
+              window: "[data-bella-roll=window]"
+              selector: "[data-bella-roll=label], [data-bella-roll=copy]"
+              underlinedVariant: tertiary
   - kind: component
     id: card
     name: Card

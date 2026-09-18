@@ -60,7 +60,7 @@ export default function Button({
    * assistive tech reads the label once (never CSS content:). Icons roll
    * with the text because the whole children block is duplicated. */
   const label = (
-    <span className={styles.roll}>
+    <span className={styles.roll} data-bella-roll="window">
       <span className={styles.rollLabel} data-bella-roll="label">
         {children}
       </span>
@@ -73,6 +73,7 @@ export default function Button({
   const shared = {
     className: cls,
     'data-bella-component': 'button',
+    'data-bella-variant': variant,
     'aria-label': ariaLabel,
   } as const;
 

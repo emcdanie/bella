@@ -148,8 +148,10 @@
 }
 
 /* TERTIARY: the text tier. Accent AND underlined: saturated accent at
- * body scale means interactive, and the underline is the affordance. The
- * underline rides on each rolling span so it travels with its text. */
+ * body scale means interactive, and the underline is the affordance. ONE
+ * static underline sits on the roll window; only the text rolls, so no
+ * line ever travels through the window edge. It is currentColor, so it
+ * takes the hover colour shift. */
 .tertiary {
   min-height: var(--component-button-tertiary-min-height);
   color: var(--component-button-tertiary-foreground);
@@ -157,19 +159,24 @@
   transition: color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
 }
 
+/* room under the text for the window's line: offset + thickness */
 .tertiary .rollLabel,
 .tertiary .rollCopy {
-  text-decoration: underline;
-  text-underline-offset: var(--component-button-tertiary-underline-offset);
-  text-decoration-thickness: var(--component-button-tertiary-underline-thickness);
-  /* the underline sits INSIDE each span (bottom padding = offset +
-     thickness) and the window is the span's own height, so the outgoing
-     label's line leaves with it and never shows at the window edge.
-     audit:quality asserts both (underline-contained). */
   padding-block-start: var(--spacing-1);
   padding-block-end: calc(
     var(--component-button-tertiary-underline-offset) + var(--component-button-tertiary-underline-thickness)
   );
+}
+
+/* the one underline, static on the window. audit:quality asserts it is
+ * the only underline, at rest and mid-roll (single-underline). */
+.tertiary .roll::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: var(--component-button-tertiary-underline-thickness);
+  background: currentColor;
 }
 
 .tertiary:hover:not(:disabled),
@@ -194,8 +201,8 @@
   border: 0;
 }
 
-.tertiary:disabled .rollLabel {
-  text-decoration: none;
+.tertiary:disabled .roll::after {
+  content: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

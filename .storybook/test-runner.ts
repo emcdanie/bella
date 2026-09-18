@@ -22,7 +22,8 @@ const componentContract = JSON.parse(
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
  *      at rest, driven by $extensions.bella.restState per component;
- *      no id attributes inside icon SVGs.
+ *      no id attributes inside icon SVGs; the Button label roll keeps ONE
+ *      static underline on its window, checked at rest and mid-roll.
  * Negative-tested (PR ritual): the grid double-surface and an em dash were
  * reintroduced as probes; both failed the gate, were removed, and it passed. */
 
@@ -59,6 +60,120 @@ function relativeLuminance(rgb: [number, number, number]): number {
     return s <= 0.04045 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
   });
   return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+}
+
+/* The rolling label's underline contract (single-underline): the rolling
+ * spans never carry text-decoration, and the only underline is the roll
+ * window's ::after, present exactly once on the underlined variant and
+ * absent elsewhere (and on disabled). Registered on the page so the rest
+ * pass and the mid-roll pass run the SAME check. */
+function underlineCheck(el: Element, inv: any): string[] {
+  const out: string[] = [];
+  for (const span of el.querySelectorAll(inv.selector)) {
+    const line = getComputedStyle(span).textDecorationLine;
+    if (line !== 'none') out.push(`rolling span carries text-decoration "${line}"; the underline belongs on the window`);
+  }
+  let count = 0;
+  for (const node of [el, ...el.querySelectorAll('*')]) {
+    if (node.matches(inv.selector)) continue;
+    if (getComputedStyle(node).textDecorationLine.includes('underline')) count++;
+  }
+  const win = el.querySelector(inv.window);
+  const after = win ? getComputedStyle(win, '::after') : null;
+  const drawn = !!after && after.content !== 'none' && parseFloat(after.height) > 0;
+  if (drawn) count++;
+  const want =
+    el.getAttribute('data-bella-variant') === inv.underlinedVariant && !(el as HTMLButtonElement).disabled ? 1 : 0;
+  if (count !== want || (want === 1 && !drawn))
+    out.push(`${count} underline(s), expected ${want}${want ? ' on the roll window' : ''}`);
+  return out;
+}
+
+async function registerUnderlineCheck(page: Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0]) {
+  await page.evaluate(`window.__bellaUnderlineCheck = ${underlineCheck.toString()}`);
+}
+
+/* Mid-roll: hover each underlined, enabled button and, on every animation
+ * frame for the length of the roll, run the same check while the text is
+ * in flight. At least one sampled frame must be genuinely mid-roll, so a
+ * pass cannot come from sampling only the settled end state. */
+async function runMidRollChecks(
+  page: Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0],
+  storyId: string,
+  theme: string
+): Promise<void> {
+  const inv = REST_CONTRACTS.find((c) => c.name === 'button')?.restState.invariants.find(
+    (i: any) => i.type === 'single-underline'
+  );
+  if (!inv) return;
+  const targets = page.locator(
+    `#storybook-root [data-bella-component="button"][data-bella-variant="${inv.underlinedVariant}"]:not(:disabled)`
+  );
+  const n = await targets.count();
+  if (!n) return;
+  /* In the test runner Storybook pauses every transition with an injected
+     `transition: none !important` sheet (stable captures). The roll only
+     exists as a transition, so lift that sheet for this pass and restore
+     it before anything else runs. */
+  const toggleStoryPause = (off: boolean) =>
+    page.evaluate((o) => {
+      for (const st of document.head.querySelectorAll('style')) {
+        if (st.textContent?.includes('animation-play-state: paused !important')) (st as HTMLStyleElement).disabled = o;
+      }
+    }, off);
+  await toggleStoryPause(true);
+  const failures: string[] = [];
+  try {
+  for (let i = 0; i < n; i++) {
+    const t = targets.nth(i);
+    const box = await t.boundingBox();
+    if (!box) continue;
+    await page.mouse.move(0, 0);
+    await page.waitForTimeout(400);
+    /* arm the sampler BEFORE the pointer moves: it starts on the button's
+       own pointerenter, so input latency cannot let the roll finish first */
+    await t.evaluate((b, i2) => {
+      const w = window as any;
+      w.__bellaRoll = null;
+      b.addEventListener(
+        'pointerenter',
+        () => {
+          const dur = parseFloat(getComputedStyle(b).getPropertyValue('--component-button-motion-roll-duration')) || 250;
+          const label = b.querySelector('[data-bella-roll=label]') as HTMLElement;
+          const fails = new Set<string>();
+          let frames = 0;
+          let midFrames = 0;
+          const start = performance.now();
+          const tick = () => {
+            frames++;
+            const tf = getComputedStyle(label).transform;
+            const y = new DOMMatrixReadOnly(tf === 'none' ? undefined : tf).f;
+            const h = label.getBoundingClientRect().height;
+            if (y < -0.5 && y > -h + 0.5) midFrames++;
+            for (const f of w.__bellaUnderlineCheck(b, i2)) fails.add(f);
+            if (performance.now() - start < dur + 100) requestAnimationFrame(tick);
+            else w.__bellaRoll = { frames, midFrames, fails: [...fails] };
+          };
+          tick();
+        },
+        { once: true }
+      );
+    }, inv);
+    await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+    await page.waitForFunction(() => (window as any).__bellaRoll !== null, undefined, { timeout: 5000 });
+    const res = await page.evaluate(() => (window as any).__bellaRoll as { frames: number; midFrames: number; fails: string[] });
+    for (const f of res.fails) failures.push(`button #${i} mid-roll: ${f}`);
+    if (res.midFrames === 0)
+      failures.push(`button #${i}: no mid-roll frame sampled (${res.frames} frames), the check saw only settled states`);
+  }
+  await page.mouse.move(0, 0);
+  await page.waitForTimeout(400);
+  } finally {
+    await toggleStoryPause(false);
+  }
+  if (failures.length > 0) {
+    throw new Error(`[audit:quality] ${storyId} (${theme}):\n  - ${failures.join('\n  - ')}`);
+  }
 }
 
 async function runQualityChecks(
@@ -188,37 +303,9 @@ async function runQualityChecks(
                   `[${contract.name}] rest-state geometry: inner (${Math.round(b.bottom)}) overflows wrapper (${Math.round(a.bottom)}), the duplicated-surface class of bug`
                 );
               }
-            } else if (inv.type === 'underline-contained') {
-              /* an underlined rolling span must hold its underline inside
-                 its own box (padding-bottom >= offset + thickness) and the
-                 clip window must match the span, or the outgoing copy's
-                 line shows at the window edge mid-roll */
-              for (const part of el.querySelectorAll<HTMLElement>(inv.selector)) {
-                const cs = getComputedStyle(part);
-                if (!cs.textDecorationLine.includes('underline')) continue;
-                const px = (v: string) => (/^-?[\d.]+px$/.test(v) ? parseFloat(v) : NaN);
-                const off = px(cs.textUnderlineOffset);
-                const th = px(cs.textDecorationThickness);
-                const pb = px(cs.paddingBottom);
-                if (Number.isNaN(off) || Number.isNaN(th)) {
-                  fails.push(
-                    `[${contract.name}] "${inv.layer}": ${inv.selector} underline offset/thickness must be explicit lengths (got "${cs.textUnderlineOffset}" / "${cs.textDecorationThickness}")`
-                  );
-                  continue;
-                }
-                if (pb + 0.01 < off + th) {
-                  fails.push(
-                    `[${contract.name}] "${inv.layer}": ${inv.selector} underline escapes its box (padding-bottom ${pb}px < offset ${off}px + thickness ${th}px)`
-                  );
-                }
-                const win = part.parentElement!.getBoundingClientRect().height;
-                const own = part.getBoundingClientRect().height;
-                if (Math.abs(win - own) > 0.5) {
-                  fails.push(
-                    `[${contract.name}] "${inv.layer}": clip window ${win}px does not match ${inv.selector} ${own}px`
-                  );
-                }
-              }
+            } else if (inv.type === 'single-underline') {
+              for (const f of (window as any).__bellaUnderlineCheck(el, inv))
+                fails.push(`[${contract.name}] "${inv.layer}": ${f}`);
             } else if (inv.type === 'translate-y') {
               /* a descendant's vertical offset as a percentage of its own
                  height: computed transforms are pixel matrices, so
@@ -280,7 +367,9 @@ const config: TestRunnerConfig = {
       // but give any transitions a beat, then freeze animations for capture)
       await page.waitForTimeout(100);
 
+      await registerUnderlineCheck(page);
       await runQualityChecks(page, context.id, theme);
+      await runMidRollChecks(page, context.id, theme);
 
       if (checkIntegrity) {
         const bg = await page.evaluate(() => {

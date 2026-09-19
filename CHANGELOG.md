@@ -28,10 +28,19 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 - Brand fonts vendored into the Storybook preview: Unique Bold/Regular and official Geist woff2 400/500/700, loaded locally, never from a CDN; all visual baselines regenerated with the real faces
 - Identity and Governance doc pages; docs styling kit (Unique 700 page H1s, token-styled links/code/blockquotes/tables in both themes) and shared MDX blocks (PageIntro, DoDont, TokenChip); component autodocs anatomy recorded on the Governance page, with tokens-consumed extracted live from the component stylesheet
 
+- Surface rules tokens (2026-09-19): `color.night.*` warm dark ladder (ground `#110F0D`, card `#1B1916`, inset `#252320`, raised `#2C2A27`, divider `#33312E`) with `alpha.night-60/48/32`; `color.neutral.card` `#ECEBE7`; semantic `surface-card` and `border-faint`; `alpha.ink-8`, `alpha.ink-10`, `alpha.dark-ink-12`; `radius.card` (1rem) and `radius.pill` (999px); `motion.duration.lift` (200ms); `shadow.hover-dark`, bound as the dark override of `shadow.hover`
+
 ### Changed
+- **Card is flat** (surface rules, 2026-09-19): `surface-card` panel, 1px `border-faint`, `radius.card`, no shadow at rest, no accent-tinted border, no trace ring, no dark halo, no scrim over media. Only interactive cards (href or onClick) lift on hover and focus: 2px plus `shadow.hover`, none under reduced motion. The card restState contract now asserts no transform and no box-shadow at rest. Peek stays fixed-light, flattened the same way
+- **Dark ground is warm near-black, not navy**: dark `background` `#1B1B40` → `#110F0D`, `surface` `#232350` → `#1B1916`, `surface-elevated` `#2B2B5C` → `#2C2A27`, `surface-inset` `#1B1B40` → `#252320`, `surface-glass*` navy alphas → `night-60/48/32`, `border-subtle` `#32325F` → `#33312E`. Navy stays for the site footer and the light-mode primary. Dark contrast ratios re-verified (all improve; `text-muted` worst case now 4.92:1 on raised). Every dark baseline regenerated
+- `shadow.hover` value corrected to the surface rules: `0 8px 24px rgba(28,26,46,0.10)` → `0 8px 24px` ink at 8%
 - `npm run gate` drift check now also covers the generated Storybook theme values and favicon
 - The internal palette codename removed from all public copy, including token metadata (the status-carry marker is now `carried-pending-status-palette`); the identity is documented on the Identity page
 - `docs/index.html` (the standalone token preview) retired in favour of the Foundations pages; `docs/bella.css` and `docs/tokens.md` remain generated
+
+### Deprecated
+- Card `accent` and `mediaScrim` props: no visual effect since the flat surface rules; removal in the next major. The AccentOverride and WithMediaNoScrim stories and their baselines are removed
+- `shadow.card-rest`, `shadow.card-rest-dark`, `alpha.ink-22`: no longer used by BELLA; kept while the portfolio's vendored Card copy still reads them
 
 ## [0.3.0] - 2026-07-21
 

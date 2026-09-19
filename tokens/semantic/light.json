@@ -41,6 +41,19 @@
           }
         }
       },
+      "surface-card": {
+        "$value": "{color.neutral.card}",
+        "$type": "color",
+        "$description": "Flat card surface: the page ground 4% darker. Cards separate from the page by this step and a faint border, not by shadow (surface rules, 2026-09-19).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card inner panel"
+            ],
+            "a11y": "Verified 2026-09-19: text-primary 14.83:1, text-secondary 7.69:1 (AAA); text-muted 4.64:1, text-accent 5.22:1 (AA normal text)."
+          }
+        }
+      },
       "surface-elevated": {
         "$value": "{color.neutral.paper}",
         "$type": "color",
@@ -203,7 +216,7 @@
               "timestamps",
               "placeholder text"
             ],
-            "a11y": "Verified 2026-07-21: 5.02:1 on ground, 4.67:1 on surface-inset (worst), AA normal text everywhere (bar call: worst-ground-wins).",
+            "a11y": "Verified 2026-07-21: 5.02:1 on ground, 4.67:1 on surface-inset; 2026-09-19: 4.64:1 on surface-card (worst). AA normal text everywhere (bar call: worst-ground-wins).",
             "dont": [
               "Never body or secondary text"
             ]
@@ -328,6 +341,21 @@
           "bella": {
             "usage": [
               "section dividers"
+            ]
+          }
+        }
+      },
+      "border-faint": {
+        "$value": "{color.alpha.ink-10}",
+        "$type": "color",
+        "$description": "Faint 1px card edge, ink at 10%. Decorative separation; the surface step carries the card boundary.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card border"
+            ],
+            "dont": [
+              "Never the sole boundary of an interactive control"
             ]
           }
         }

@@ -211,8 +211,9 @@ export const Behavior: Story = {
       expect(parseFloat(getComputedStyle(desc).fontSize)).toBeGreaterThanOrEqual(16);
     });
 
-    await step('the trace is inert at rest', async () => {
-      expect(getComputedStyle(links[0], '::before').opacity).toBe('0');
+    await step('the card is flat at rest (no shadow, no lift)', async () => {
+      expect(getComputedStyle(links[0]).boxShadow).toBe('none');
+      expect(getComputedStyle(links[0]).transform).toBe('none');
     });
 
     await step('the fold: tab and sheet share one background, and the tab casts no shadow', async () => {

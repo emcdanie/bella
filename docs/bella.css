@@ -21,6 +21,7 @@
   --color-neutral-cream: #FAF9F5;
   --color-neutral-paper: #FAFAF8;
   --color-neutral-surface: #EDECE4;
+  --color-neutral-card: #ECEBE7;
   --color-neutral-border: #E6E4DC;
   --color-neutral-graphite: #33303B;
   --color-neutral-ink-soft: #2E2937;
@@ -34,6 +35,11 @@
   --color-navy-ink-muted: #C6C2D4;
   --color-navy-text-secondary: #C4BFD4;
   --color-navy-text-muted: #9994B1;
+  --color-night-ground: #110F0D;
+  --color-night-card: #1B1916;
+  --color-night-inset: #252320;
+  --color-night-raised: #2C2A27;
+  --color-night-divider: #33312E;
   --color-supporting-sage: #4A7C6F;
   --color-supporting-steel: #6495C5;
   --color-alpha-iris-12: #5B4BD11F;
@@ -44,8 +50,11 @@
   --color-alpha-periwinkle-15: #A79CE226;
   --color-alpha-periwinkle-30: #A79CE24D;
   --color-alpha-ink-6: #1A172010;
+  --color-alpha-ink-8: #1A172014;
+  --color-alpha-ink-10: #1A17201A;
   --color-alpha-dark-ink-6: #F4EFE610;
   --color-alpha-dark-ink-10: #F4EFE61A;
+  --color-alpha-dark-ink-12: #F4EFE61F;
   --color-alpha-dark-ink-14: #F4EFE624;
   --color-alpha-glass-28: #FFFFFF47;
   --color-alpha-glass-35: #FFFFFF59;
@@ -64,6 +73,9 @@
   --color-alpha-navy-60: #23235099;
   --color-alpha-navy-48: #2323507A;
   --color-alpha-navy-32: #23235052;
+  --color-alpha-night-60: #1B191699;
+  --color-alpha-night-48: #1B19167A;
+  --color-alpha-night-32: #1B191652;
   --color-alpha-steel-15: #6495C526;
   --color-alpha-steel-30: #6495C54D;
   --color-alpha-ink-22: #1A172038;
@@ -91,6 +103,8 @@
   --radius-2xl: 20px;
   --radius-3xl: 24px;
   --radius-full: 999px;
+  --radius-card: 1rem;
+  --radius-pill: 999px;
   --border-width-thin: 1px;
   --border-width-thick: 3px;
   --typography-font-family-display: Unique, 'Arial Narrow', sans-serif;
@@ -129,6 +143,7 @@
   --icon-stroke: 1.5;
   --motion-duration-fast: 150ms;
   --motion-duration-normal: 250ms;
+  --motion-duration-lift: 200ms;
   --motion-duration-slow: 400ms;
   --motion-duration-trace: 3400ms;
   --motion-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
@@ -144,7 +159,7 @@
   --shadow-sm: 0 1px 2px rgba(28,26,46,0.06);
   --shadow-md: 0 4px 12px rgba(28,26,46,0.08);
   --shadow-lg: 0 12px 32px rgba(28,26,46,0.12);
-  --shadow-hover: 0 8px 24px rgba(28,26,46,0.10);
+  --shadow-hover: 0 8px 24px #1A172014;
   --shadow-soft: 0 1px 2px #1C1A2E0A, 0 10px 30px #1C1A2E0F, 0 24px 60px #1C1A2E0A;
   --shadow-layered: 0 1px 2px #1C1A2E0D, 0 12px 40px #1C1A2E14, 0 28px 80px #1C1A2E0F, inset 0 1px 0 #FFFFFFE6;
   --shadow-card-default: 0 1px 4px #1C1A2E08, 0 4px 16px #1C1A2E0A, inset 0 1px 0 #FFFFFF8C;
@@ -162,11 +177,13 @@
   --shadow-key-pressed: 0 1px 0 #4A3FB0, 2px 3px 8px #5B4BD133, inset 0 1px 0 #FFFFFF66;
   --shadow-card-rest: 13px 26px 54px #1A172038;
   --shadow-card-rest-dark: 13px 26px 54px rgba(0, 0, 0, 0.44);
+  --shadow-hover-dark: 0 8px 24px rgba(0, 0, 0, 0.45);
 
   /* ---- Semantic (light) ---- */
   --color-semantic-background: #F5F4EF;
   --color-semantic-background-inverse: #1A1720;
   --color-semantic-surface: #FAFAF8;
+  --color-semantic-surface-card: #ECEBE7;
   --color-semantic-surface-elevated: #FAFAF8;
   --color-semantic-surface-inset: #EDECE4;
   --color-semantic-surface-inverse: #232350;
@@ -188,6 +205,7 @@
   --color-semantic-accent-border: #5B4BD14D;
   --color-semantic-border: #E6E4DC;
   --color-semantic-border-subtle: #1A172010;
+  --color-semantic-border-faint: #1A17201A;
   --color-semantic-border-strong: #33303B;
   --color-semantic-link: #1A1720;
   --color-semantic-link-hover: #5B4BD1;
@@ -427,15 +445,16 @@
 
 [data-theme="dark"] {
   /* ---- Semantic (dark) overrides ---- */
-  --color-semantic-background: #1B1B40;
+  --color-semantic-background: #110F0D;
   --color-semantic-background-inverse: #F4EFE6;
-  --color-semantic-surface: #232350;
-  --color-semantic-surface-elevated: #2B2B5C;
-  --color-semantic-surface-inset: #1B1B40;
+  --color-semantic-surface: #1B1916;
+  --color-semantic-surface-card: #1B1916;
+  --color-semantic-surface-elevated: #2C2A27;
+  --color-semantic-surface-inset: #252320;
   --color-semantic-surface-inverse: #EDECE4;
-  --color-semantic-surface-glass: #23235099;
-  --color-semantic-surface-glass-elevated: #2323507A;
-  --color-semantic-surface-glass-light: #23235052;
+  --color-semantic-surface-glass: #1B191699;
+  --color-semantic-surface-glass-elevated: #1B19167A;
+  --color-semantic-surface-glass-light: #1B191652;
   --color-semantic-surface-glass-accent: #A79CE226;
   --color-semantic-border-glass-top: #F4EFE624;
   --color-semantic-border-glass-edge: #F4EFE61A;
@@ -450,7 +469,8 @@
   --color-semantic-accent-subtle: #A79CE226;
   --color-semantic-accent-border: #A79CE24D;
   --color-semantic-border: #F4EFE610;
-  --color-semantic-border-subtle: #32325F;
+  --color-semantic-border-subtle: #33312E;
+  --color-semantic-border-faint: #F4EFE61F;
   --color-semantic-border-strong: #F4EFE6;
   --color-semantic-link: #F4EFE6;
   --color-semantic-link-hover: #A79CE2;
@@ -463,6 +483,7 @@
   --color-semantic-accent-raised-hover: #9588DB;
   --color-semantic-accent-raised-edge: #B4ADE8;
   --color-accent-ink: #B4ADE8;
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45);
 
   /* ---- Component (dark) overrides — accent surfaces flip with the mode ---- */
   --component-button-primary-fill-hi: #B9B0E9;
@@ -477,37 +498,37 @@
   --component-button-secondary-border: #A79CE2;
   --component-button-tertiary-foreground: #A79CE2;
   --component-button-tertiary-foreground-hover: #B9B0E9;
-  --component-card-default-background: #23235052;
+  --component-card-default-background: #1B191652;
   --component-card-default-border-top: #F4EFE624;
   --component-card-default-border: #F4EFE61A;
   --component-card-default-foreground: #F4EFE6;
-  --component-card-elevated-background: #2323507A;
+  --component-card-elevated-background: #1B19167A;
   --component-card-elevated-border-top: #F4EFE624;
   --component-card-elevated-border: #F4EFE61A;
   --component-card-elevated-foreground: #F4EFE6;
-  --component-card-glass-background: #23235099;
+  --component-card-glass-background: #1B191699;
   --component-card-glass-border-top: #F4EFE624;
   --component-card-glass-border: #F4EFE61A;
   --component-card-glass-foreground: #F4EFE6;
-  --component-card-featured-background: #2B2B5C;
+  --component-card-featured-background: #2C2A27;
   --component-card-inverse-background: #EDECE4;
   --component-card-inverse-foreground: #1A1720;
   --component-resource-card-default-tab-foreground: #C4BFD4;
   --component-resource-card-default-title-foreground: #F4EFE6;
   --component-resource-card-default-description-foreground: #C4BFD4;
-  --component-resource-card-default-divider-color: #32325F;
+  --component-resource-card-default-divider-color: #33312E;
   --component-resource-card-default-meta-foreground: #C4BFD4;
   --component-resource-card-default-status-dot-color: #9994B1;
   --component-resource-card-default-action-foreground: #A79CE2;
-  --component-tag-default-background: #1B1B40;
+  --component-tag-default-background: #252320;
   --component-tag-default-foreground: #C4BFD4;
   --component-tag-accent-background: #A79CE226;
   --component-tag-accent-foreground: #A79CE2;
   --component-filter-chip-border: #F4EFE610;
   --component-filter-chip-foreground: #C4BFD4;
-  --component-avatar-default-background: #1B1B40;
+  --component-avatar-default-background: #252320;
   --component-avatar-default-foreground: #C4BFD4;
-  --component-avatar-default-border-color: #32325F;
+  --component-avatar-default-border-color: #33312E;
   --component-avatar-default-ring-color: #A79CE2;
   --component-eyebrow-accent-foreground: #A79CE2;
   --component-eyebrow-muted-foreground: #C4BFD4;

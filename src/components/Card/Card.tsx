@@ -3,29 +3,37 @@ import styles from './Card.module.css';
 
 export interface CardProps {
   /**
-   * Identity colour driving the border tint, hover trace, and dark halo.
-   * A CSS color value; pass a BELLA token reference, e.g.
-   * `var(--color-iris-bright)` (the default) or a case identity variable.
+   * @deprecated No visual effect since the flat surface rules (2026-09-19):
+   * cards carry no accent border, trace, or halo. Accepted so existing
+   * callers keep compiling; slated for removal in the next major.
    */
   accent?: string;
   /**
    * Surface behavior. `"default"` is theme-aware: the inner panel renders
-   * the semantic surface (paper in light, navy card in dark) and inks follow
-   * the semantic cascade, so a light page structurally cannot show a dark
-   * card. `"peek"` is the one recorded exception: a fixed always-light paper
-   * panel meant to float light on navy; its inks are re-scoped so dark mode
-   * cannot render light-on-light. There is no fixed-dark variant.
+   * the flat card surface (surface-card: the page ground one step darker, in
+   * both themes) and inks follow the semantic cascade, so a light page
+   * structurally cannot show a dark card. `"peek"` is the one recorded
+   * exception: a fixed always-light paper panel meant to float light on the
+   * dark ground; its inks are re-scoped so dark mode cannot render
+   * light-on-light. There is no fixed-dark variant.
    */
   variant?: 'default' | 'peek';
   /**
-   * Full-bleed cover media above the padded body. Rendered with the ink-mix
-   * scrim so text over the image stays AA. Marked `aria-hidden` when an
-   * `ariaLabel` names the card.
+   * Full-bleed cover media above the padded body, shown as is: no gradient
+   * or scrim over the image, so never set text on the cover. Marked
+   * `aria-hidden` when an `ariaLabel` names the card.
    */
   media?: ReactNode;
-  /** The ink-mix scrim over media, on by default; disable per instance when the cover carries no text. */
+  /**
+   * @deprecated No effect since the flat surface rules (2026-09-19): media
+   * never carries a scrim. Slated for removal in the next major.
+   */
   mediaScrim?: boolean;
-  /** Whole card is ONE link, no nested links. External (http…) hrefs open in a new tab. */
+  /**
+   * Whole card is ONE link, no nested links. External (http…) hrefs open in
+   * a new tab. Interactive cards (href or onClick) are the only cards that
+   * lift on hover and focus.
+   */
   href?: string;
   /** Whole card is ONE button (e.g. opens a modal). Ignored when `href` is set. */
   onClick?: () => void;
@@ -36,7 +44,7 @@ export interface CardProps {
    * (e.g. next/link) at the consumer; defaults to a plain anchor.
    */
   linkComponent?: ElementType;
-  /** Extra classes on the outer trace wrapper. */
+  /** Extra classes on the outer wrapper. */
   className?: string;
   /** Extra classes on the inner panel (e.g. custom padding/layout). */
   innerClassName?: string;
@@ -45,15 +53,14 @@ export interface CardProps {
 }
 
 /**
- * The one-card system: every card surface renders through this. Calm at
- * rest, theme-aware by construction; the only fixed-light path is Peek,
- * on purpose.
+ * The one-card system: every card surface renders through this. Flat at
+ * rest (surface-card, a faint border, no shadow), theme-aware by
+ * construction; only interactive cards lift on hover and focus. The only
+ * fixed-light path is Peek, on purpose.
  */
 export default function Card({
-  accent = 'var(--color-iris-bright)',
   variant = 'default',
   media,
-  mediaScrim = true,
   href,
   onClick,
   ariaLabel,
@@ -78,11 +85,10 @@ export default function Card({
   ]
     .filter(Boolean)
     .join(' ');
-  const outerStyle = { ['--cc' as string]: accent, ...style };
   /* stable hook for audit:quality's contract-driven rest-state checks */
   const outerProps = {
     className: outerClass,
-    style: outerStyle,
+    style,
     'data-bella-component': 'card',
   } as const;
 
@@ -91,7 +97,6 @@ export default function Card({
       {media != null && (
         <div className={styles.media} aria-hidden={ariaLabel ? true : undefined}>
           {media}
-          {mediaScrim ? <span className={styles.scrim} aria-hidden="true" /> : null}
         </div>
       )}
       {media != null ? <div className={styles.body}>{children}</div> : children}

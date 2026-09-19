@@ -3687,57 +3687,28 @@
             "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button",
             "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"
           ],
-          "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). prefers-reduced-motion replaces the trace with a static accent ring.",
+          "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). Only interactive cards lift on hover and focus; prefers-reduced-motion keeps them still (the shadow still marks hover and focus). Card text sits on surface-card: text-muted 4.64:1 light / 6.03:1 dark, the worst pair (AA).",
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
-            "description": "CALM AT REST is a contract: only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
+            "description": "FLAT AT REST is a contract (surface rules, 2026-09-19): only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
             "atRest": [
-              "inner semantic surface",
-              "1px accent-tinted border",
-              "shadow.card-rest / shadow.card-rest-dark"
+              "surface-card inner panel",
+              "1px border-faint",
+              "radius.card",
+              "no shadow"
             ],
-            "triggered": [
-              {
-                "layer": "trace ring",
-                "on": [
-                  "hover",
-                  "focus"
-                ],
-                "asserted": true
-              },
-              {
-                "layer": "dark identity halo",
-                "on": [
-                  "hover",
-                  "focus"
-                ],
-                "theme": "dark",
-                "asserted": true
-              },
-              {
-                "layer": "hover lift",
-                "on": [
-                  "hover",
-                  "focus"
-                ],
-                "asserted": true
-              }
+            "hoverOnly": [
+              "hover lift + shadow.hover, interactive cards only"
             ],
             "invariants": [
-              {
-                "layer": "trace",
-                "pseudo": "::before",
-                "property": "opacity",
-                "expect": "0"
-              },
               {
                 "layer": "lift",
                 "property": "transform",
                 "expect": "none"
               },
               {
-                "layer": "halo",
-                "property": "animation-name",
+                "layer": "shadow",
+                "property": "box-shadow",
                 "expect": "none"
               },
               {

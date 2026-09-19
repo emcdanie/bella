@@ -11,14 +11,12 @@ import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 /* Tokens consumed: extracted live from the committed stylesheet, so the
- * docs list cannot drift from the code. Component-local custom properties
- * (--cc, the trace geometry) are implementation detail, not tokens. */
+ * docs list cannot drift from the code. */
 const consumedTokens = Array.from(
   new Set(
     (cardCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length))
   )
 )
-  .filter((v) => !v.startsWith('--cc') && !v.startsWith('--trace'))
   .sort();
 
 const cardContract = (componentContract as any).component?.card?.$extensions?.bella ?? {};
@@ -103,19 +101,8 @@ const meta: Meta<typeof Card> = {
     },
   },
   argTypes: {
-    accent: {
-      control: 'select',
-      options: [
-        'var(--color-iris-bright)',
-        'var(--color-brand-periwinkle)',
-        'var(--color-semantic-accent)',
-      ],
-      labels: {
-        'var(--color-iris-bright)': 'iris.bright (default)',
-        'var(--color-brand-periwinkle)': 'brand.periwinkle',
-        'var(--color-semantic-accent)': 'semantic.accent (theme-flipping)',
-      },
-    },
+    accent: { control: false },
+    mediaScrim: { control: false },
     variant: { control: 'inline-radio' },
     href: { control: 'text' },
     ariaLabel: { control: 'text' },
@@ -128,7 +115,6 @@ const meta: Meta<typeof Card> = {
     children: { control: false },
   },
   args: {
-    accent: 'var(--color-iris-bright)',
     variant: 'default',
   },
 };
@@ -141,13 +127,13 @@ const sampleContent = (
     <Kicker>Design systems</Kicker>
     <Title>From drift to foundation</Title>
     <Body>
-      Theme-aware by construction: this surface is the semantic card, so it
-      flips to navy with light inks in dark mode on its own.
+      Flat and theme-aware by construction: this surface is the semantic
+      card, so it flips to the warm dark card with light inks on its own.
     </Body>
   </>
 );
 
-/** Static content card, the resting state, both themes. */
+/** Static content card: flat, never lifts or changes on hover. Both themes. */
 export const Default: Story = {
   render: (args) => (
     <div style={{ maxWidth: 420 }}>
@@ -156,7 +142,8 @@ export const Default: Story = {
   ),
 };
 
-/** Whole card is one link: hover lift + trace, visible focus ring. */
+/** Whole card is one link: the only kind of card that lifts (2px plus
+ * shadow.hover) on hover and focus, with a visible focus ring. */
 export const InteractiveLink: Story = {
   render: (args) => (
     <div style={{ maxWidth: 420 }}>
@@ -167,7 +154,8 @@ export const InteractiveLink: Story = {
   ),
 };
 
-/** Cover media above the body, with the ink-mix scrim. */
+/** Cover media above the body, shown as is: no gradient or scrim over the
+ * image. */
 export const WithMedia: Story = {
   render: (args) => (
     <div style={{ maxWidth: 420 }}>
@@ -181,33 +169,8 @@ export const WithMedia: Story = {
   },
 };
 
-/** Cover media with the scrim disabled: for covers that carry no text,
- * per instance; the default stays on (restored prop, omission audit). */
-export const WithMediaNoScrim: Story = {
-  render: (args) => (
-    <div style={{ maxWidth: 420 }}>
-      <Card {...args} mediaScrim={false}>
-        {sampleContent}
-      </Card>
-    </div>
-  ),
-  args: {
-    media: <img src={cover} alt="" />,
-  },
-};
-
-/** Per-card identity accent (border tint + trace colour ride the prop). */
-export const AccentOverride: Story = {
-  render: (args) => (
-    <div style={{ maxWidth: 420 }}>
-      <Card {...args} accent="var(--color-brand-periwinkle)">
-        {sampleContent}
-      </Card>
-    </div>
-  ),
-};
-
-/** The fixed always-light reveal panel: floats light on navy, never flips.
+/** The fixed always-light reveal panel: floats light on the dark ground,
+ * never flips; flat like every card.
  * The one recorded exception to theme-aware surfaces; light-on-dark is
  * legitimate; a fixed-dark variant does not exist. */
 export const Peek: Story = {
@@ -241,9 +204,9 @@ export const Grid: Story = {
         <Kicker>Short card</Kicker>
         <Title>Grows to match</Title>
       </Card>
-      <Card {...args} accent="var(--color-brand-periwinkle)">
-        <Kicker>Identity accent</Kicker>
-        <Title>Sibling with its own colour</Title>
+      <Card {...args}>
+        <Kicker>Third sibling</Kicker>
+        <Title>Same flat surface</Title>
         <Body>Three siblings, one height, from the grid, never min-height.</Body>
       </Card>
     </div>

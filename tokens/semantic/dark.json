@@ -2,9 +2,9 @@
   "color": {
     "semantic": {
       "background": {
-        "$value": "{color.brand.navy}",
+        "$value": "{color.night.ground}",
         "$type": "color",
-        "$description": "Default page background in dark mode, navy, not black.",
+        "$description": "Default page background in dark mode: warm near-black #110F0D (surface rules, 2026-09-19). Navy is the site footer, not the dark page.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -26,19 +26,33 @@
         }
       },
       "surface": {
-        "$value": "{color.navy.card}",
+        "$value": "{color.night.card}",
         "$type": "color",
-        "$description": "Raised card surface on navy. Dark elevation climbs lighter.",
+        "$description": "Raised surface on the warm dark ground. Dark elevation climbs lighter.",
         "$extensions": {
           "bella": {
             "usage": [
               "card default background in dark mode"
-            ]
+            ],
+            "a11y": "Verified 2026-09-19: text-primary 15.32:1, text-secondary 9.81:1 (AAA); text-muted 6.03:1 (AA)."
+          }
+        }
+      },
+      "surface-card": {
+        "$value": "{color.night.card}",
+        "$type": "color",
+        "$description": "Flat card surface in dark mode: the dark ground mixed 4% toward navy.ink (surface rules, 2026-09-19).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card inner panel (dark)"
+            ],
+            "a11y": "Verified 2026-09-19: text-primary 15.32:1, text-secondary 9.81:1 (AAA); text-muted 6.03:1, text-accent 7.10:1 (AA)."
           }
         }
       },
       "surface-elevated": {
-        "$value": "{color.navy.raised}",
+        "$value": "{color.night.raised}",
         "$type": "color",
         "$description": "Highest dark surface, modals, elevated panels.",
         "$extensions": {
@@ -47,14 +61,14 @@
               "modals",
               "hero cards in dark mode"
             ],
-            "a11y": "Verified 2026-07-21: navy.ink-muted on this 7.53:1, the AAA bump surface."
+            "a11y": "Verified 2026-09-19: navy.ink-muted on this 8.22:1, text-muted 4.92:1 (worst dark ground, AA)."
           }
         }
       },
       "surface-inset": {
-        "$value": "{color.brand.navy}",
+        "$value": "{color.night.inset}",
         "$type": "color",
-        "$description": "Recessed surface in dark mode, falls back to the page ground; depth carries via inset shadow.",
+        "$description": "Recessed surface in dark mode, a warm well one step up from the card.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -77,22 +91,22 @@
         }
       },
       "surface-glass": {
-        "$value": "{color.alpha.navy-60}",
+        "$value": "{color.alpha.night-60}",
         "$type": "color",
-        "$description": "Dark glass. Navy card at 60% alpha over the page.",
+        "$description": "Dark glass. Warm dark card at 60% alpha over the page.",
         "$extensions": {
           "bella": {
             "usage": [
               "card.glass background in dark mode"
             ],
             "a11y": {
-              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+              "contextRequirement": "Parent background must be the dark ground or darker. Text on glass: navy.ink only."
             }
           }
         }
       },
       "surface-glass-elevated": {
-        "$value": "{color.alpha.navy-48}",
+        "$value": "{color.alpha.night-48}",
         "$type": "color",
         "$description": "Mid dark glass. Elevated cards and content panels.",
         "$extensions": {
@@ -101,13 +115,13 @@
               "card.elevated background in dark mode"
             ],
             "a11y": {
-              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+              "contextRequirement": "Parent background must be the dark ground or darker. Text on glass: navy.ink only."
             }
           }
         }
       },
       "surface-glass-light": {
-        "$value": "{color.alpha.navy-32}",
+        "$value": "{color.alpha.night-32}",
         "$type": "color",
         "$description": "Lightest dark glass. Subtle nested panels in dark mode.",
         "$extensions": {
@@ -116,7 +130,7 @@
               "card.default background in dark mode"
             ],
             "a11y": {
-              "contextRequirement": "Parent background must be navy or darker. Text on glass: navy.ink only."
+              "contextRequirement": "Parent background must be the dark ground or darker. Text on glass: navy.ink only."
             }
           }
         }
@@ -170,7 +184,7 @@
             "usage": [
               "body text in dark mode"
             ],
-            "a11y": "Verified 2026-07-21: 14.35:1 on navy, AAA."
+            "a11y": "Verified 2026-09-19: 16.70:1 on the dark ground, 12.49:1 on raised (worst), AAA."
           }
         }
       },
@@ -184,7 +198,7 @@
               "card descriptions",
               "captions and footnotes on navy, card, or raised surfaces"
             ],
-            "a11y": "Verified 2026-07-21: 9.20:1 on navy, 8.23:1 on card #232350, 7.33:1 on raised #2B2B5C, AAA on all three."
+            "a11y": "Verified 2026-09-19: 10.70:1 on the dark ground, 9.81:1 on card, 8.01:1 on raised, AAA on all three."
           }
         }
       },
@@ -200,7 +214,7 @@
             "dont": [
               "Never body or secondary text"
             ],
-            "a11y": "Verified 2026-07-21: 5.66:1 on navy, 5.06:1 on card, 4.51:1 on raised (worst), AA normal text on every dark surface (bar call: worst-ground-wins)."
+            "a11y": "Verified 2026-09-19: 6.58:1 on the dark ground, 6.03:1 on card, 5.39:1 on inset, 4.92:1 on raised (worst), AA normal text on every dark surface (bar call: worst-ground-wins)."
           }
         }
       },
@@ -219,21 +233,21 @@
       "text-accent": {
         "$value": "{color.brand.periwinkle}",
         "$type": "color",
-        "$description": "Accent text in dark mode, the accent flips to periwinkle on navy; iris itself is banned there (2.64:1).",
+        "$description": "Accent text in dark mode, the accent flips to periwinkle; iris is banned on the dark ground.",
         "$extensions": {
           "bella": {
             "usage": [
               "accent word in display headings",
               "interactive text in dark mode"
             ],
-            "a11y": "Verified 2026-07-21: 6.65:1 on navy, AA normal, AAA large. Bar-call row, contrast table 2026-07-21."
+            "a11y": "Verified 2026-09-19: 7.74:1 on the dark ground, 7.10:1 on card, AA normal, AAA large."
           }
         }
       },
       "accent": {
         "$value": "{color.brand.periwinkle}",
         "$type": "color",
-        "$description": "The single accent, dark mode. Same accent as light, seen on navy.",
+        "$description": "The single accent, dark mode. Same accent as light, seen on the dark ground.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -241,7 +255,7 @@
               "secondary button outline + text",
               "focus rings in dark mode"
             ],
-            "a11y": "Verified 2026-07-21: navy label on periwinkle fill 6.65:1 (AA); periwinkle as non-text on dark surfaces \u22655.30:1."
+            "a11y": "Verified 2026-07-21: navy label on periwinkle fill 6.65:1 (AA). 2026-09-19: periwinkle as non-text on dark surfaces \u22655.79:1."
           }
         }
       },
@@ -308,9 +322,9 @@
         }
       },
       "border-subtle": {
-        "$value": "{color.navy.divider}",
+        "$value": "{color.night.divider}",
         "$type": "color",
-        "$description": "Section dividers on navy, decorative separation only (1.38:1).",
+        "$description": "Section dividers on the warm dark ground, decorative separation only (1.48:1).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -318,6 +332,21 @@
             ],
             "dont": [
               "Never the sole boundary of an interactive component"
+            ]
+          }
+        }
+      },
+      "border-faint": {
+        "$value": "{color.alpha.dark-ink-12}",
+        "$type": "color",
+        "$description": "Faint 1px card edge in dark mode, navy.ink at 12%.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card border (dark)"
+            ],
+            "dont": [
+              "Never the sole boundary of an interactive control"
             ]
           }
         }
@@ -345,7 +374,7 @@
         "$description": "Link hover, periwinkle on navy.",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-21: 6.65:1 on navy, AA."
+            "a11y": "Verified 2026-09-19: 7.74:1 on the dark ground, AA."
           }
         }
       },
@@ -375,7 +404,7 @@
         "$description": "Raised accent plate, top stop, dark mode (periwinkle family; the accent theme-flips).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: text-on-accent (navy) label on this stop 8.18:1, AAA. Plate on navy 8.18:1 non-text."
+            "a11y": "Verified 2026-07-22: text-on-accent (navy) label on this stop 8.18:1, AAA. 2026-09-19: plate on the dark ground 9.52:1 non-text."
           }
         }
       },
@@ -405,7 +434,7 @@
         "$description": "Raised accent plate edge, dark mode.",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: 7.89:1 on navy, non-text edge."
+            "a11y": "Verified 2026-09-19: 9.18:1 on the dark ground, non-text edge."
           }
         }
       }
@@ -413,13 +442,27 @@
     "accent-ink": {
       "$value": "{color.iris.peri-ink}",
       "$type": "color",
-      "$description": "Accent used as TEXT on navy, tuned brighter than the fill periwinkle.",
+      "$description": "Accent used as TEXT on the dark ground, tuned brighter than the fill periwinkle.",
       "$extensions": {
         "bella": {
           "usage": [
             "accent-colored text on navy"
           ],
-          "a11y": "Verified 2026-07-21: 7.89:1 on navy, AAA."
+          "a11y": "Verified 2026-09-19: 9.18:1 on the dark ground, AAA."
+        }
+      }
+    }
+  },
+  "shadow": {
+    "hover": {
+      "$value": "{shadow.hover-dark}",
+      "$type": "shadow",
+      "$description": "Hover and focus shadow for interactive cards, dark mode. Nothing at rest.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Interactive card :hover / :focus-visible (dark)"
+          ]
         }
       }
     }

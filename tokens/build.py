@@ -308,7 +308,7 @@ def swatch_html(name, hex_value, description=""):
 
 def primitive_colors():
     blocks = []
-    groups = [("brand", "Brand"), ("iris", "Iris/periwinkle ramp"), ("neutral", "Light neutrals"), ("navy", "Navy scale"), ("supporting", "Status (carried)"), ("alpha", "Alpha variants")]
+    groups = [("brand", "Brand"), ("iris", "Iris/periwinkle ramp"), ("neutral", "Light neutrals"), ("navy", "Navy scale"), ("night", "Warm dark scale"), ("supporting", "Status (carried)"), ("alpha", "Alpha variants")]
     for key, title in groups:
         items = []
         for path, (v, t, meta) in prim_flat.items():

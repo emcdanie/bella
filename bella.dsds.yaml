@@ -161,7 +161,7 @@ entries:
           - level: must-not
             statement: "Never replace with pure #FFFFFF — warmth is part of the brand"
           - level: must-not
-            statement: Do not use as a card surface on ground pages — cards use neutral.paper
+            statement: "Do not use as a card surface on ground pages: flat cards use neutral.card"
     related:
       - to: color.neutral.paper
         rel: relates-to
@@ -177,7 +177,7 @@ entries:
   - kind: token
     id: color.brand.navy
     name: Navy
-    description: Deep blue-violet. The dark-mode page background. Replaces the near-black ink page; dark mode is navy, not black.
+    description: Deep blue-violet. Since the surface rules (2026-09-19) navy is the site footer and the light-mode primary, not the dark-mode page; the dark ground is color.night.ground.
     metadata:
       origin:
         method: extracted
@@ -198,11 +198,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Dark mode page background
+            statement: Site footer
           - level: may
             statement: Text on periwinkle fills (dark primary button label)
-          - level: may
-            statement: Dark-mode inset surfaces
       - kind: guidelines
         for: all
         title: How to use it
@@ -212,9 +210,6 @@ entries:
           - level: must-not
             statement: Do not use as a light-mode text color
     related:
-      - to: color.navy.card
-        rel: relates-to
-        note: / raised (the dark surface ladder)
       - to: color.brand.periwinkle
         rel: relates-to
         note: dark-mode accent
@@ -680,12 +675,49 @@ entries:
         title: How to use it
         items:
           - level: must-not
-            statement: Not a card surface — cards are paper and separate by lift, not darkness
+            statement: "Not a card surface: flat cards use neutral.card (surface rules, 2026-09-19)"
     tokenType: color
     source:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.neutral.surface
+  - kind: token
+    id: color.neutral.card
+    name: Card
+    description: "Flat card surface, light mode: ground mixed 4% toward ink. Cards sit on the page as flat panels, separated by a faint border, not by shadow (surface rules, 2026-09-19)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: ink 14.83:1, ink-muted 7.69:1 (AAA); ink-faint 4.64:1, iris 5.22:1 (AA normal text).
+      tags:
+        - primitive
+        - color
+      group: color.neutral
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.surface-card (light)
+    related:
+      - to: color.brand.ground
+        rel: relates-to
+        note: page it sits on
+      - to: color.night.card
+        rel: relates-to
+        note: dark counterpart
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.neutral.card
   - kind: token
     id: color.neutral.border
     name: Border
@@ -862,8 +894,8 @@ entries:
       role: primitive.color.neutral.ink-faint
   - kind: token
     id: color.navy.card
-    name: Card
-    description: Raised card surface on navy. One step lighter than the page; dark elevation climbs lighter.
+    name: Navy Card
+    description: Raised card surface on navy. No longer a dark-mode semantic binding (the dark ladder is color.night.*, 2026-09-19); still the light-mode surface-inverse.
     metadata:
       origin:
         method: extracted
@@ -880,9 +912,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Card background in dark mode
+            statement: color.semantic.surface-inverse (light)
           - level: may
-            statement: Dark glass base color
+            statement: Surfaces inside navy footer blocks
     related:
       - to: color.navy.raised
         rel: relates-to
@@ -895,7 +927,7 @@ entries:
   - kind: token
     id: color.navy.raised
     name: Raised
-    description: Highest dark surface. Modals and elevated panels on navy.
+    description: Highest navy surface. No longer a dark-mode semantic binding (dark surface-elevated is color.night.raised, 2026-09-19).
     metadata:
       origin:
         method: extracted
@@ -1122,6 +1154,164 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.navy.text-muted
+  - kind: token
+    id: color.night.ground
+    name: Night Ground
+    description: Warm near-black. The dark-mode page ground (surface rules, 2026-09-19); navy stays for the site footer and the light-mode primary.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: navy.ink 16.70:1, navy.text-muted 6.58:1, periwinkle 7.74:1.
+      tags:
+        - primitive
+        - color
+      group: color.night
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.background (dark)
+    related:
+      - to: color.brand.navy
+        rel: relates-to
+        note: footer, light-mode primary
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.night.ground
+  - kind: token
+    id: color.night.card
+    name: Night Card
+    description: "Flat card surface on the warm dark ground: ground mixed 4% toward navy.ink. Dark elevation still climbs lighter."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: navy.ink 15.32:1, text-secondary 9.81:1 (AAA); text-muted 6.03:1 (AA).
+      tags:
+        - primitive
+        - color
+      group: color.night
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.surface (dark)
+          - level: may
+            statement: color.semantic.surface-card (dark)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.night.card
+  - kind: token
+    id: color.night.inset
+    name: Inset
+    description: Recessed well on the warm dark ground, about 9% toward navy.ink.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: navy.ink 13.68:1; text-muted 5.39:1 (AA).
+      tags:
+        - primitive
+        - color
+      group: color.night
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.surface-inset (dark)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.night.inset
+  - kind: token
+    id: color.night.raised
+    name: Night Raised
+    description: Highest warm dark surface, 12% toward navy.ink. Modals and elevated panels.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: navy.ink-muted 8.22:1 (AAA); text-muted 4.92:1, the worst dark ground (AA).
+      tags:
+        - primitive
+        - color
+      group: color.night
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.surface-elevated (dark)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.night.raised
+  - kind: token
+    id: color.night.divider
+    name: Night Divider
+    description: Subtle divider on the warm dark ground. Decorative separation only, 1.48:1 against night.ground.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.night
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.border-subtle (dark)
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Never the sole boundary of an interactive component: fails the 3:1 non-text minimum"
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.night.divider
   - kind: token
     id: color.supporting.sage
     name: Sage
@@ -1419,6 +1609,58 @@ entries:
       rel: file
       role: primitive.color.alpha.ink-6
   - kind: token
+    id: color.alpha.ink-8
+    name: Ink 8
+    description: Ink at 8% alpha. The card hover shadow tint.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: shadow.hover (light)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.ink-8
+  - kind: token
+    id: color.alpha.ink-10
+    name: Ink 10
+    description: Ink at 10% alpha. The faint card border, light mode.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.border-faint (light)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.ink-10
+  - kind: token
     id: color.alpha.dark-ink-6
     name: Dark Ink 6
     description: Navy ink at ~6% alpha. Default border in dark mode.
@@ -1472,6 +1714,32 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.alpha.dark-ink-10
+  - kind: token
+    id: color.alpha.dark-ink-12
+    name: Dark Ink 12
+    description: Dark ink (#F4EFE6) at 12% alpha. The faint card border, dark mode.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.border-faint (dark)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.dark-ink-12
   - kind: token
     id: color.alpha.dark-ink-14
     name: Dark Ink 14
@@ -1957,6 +2225,84 @@ entries:
       rel: file
       role: primitive.color.alpha.navy-32
   - kind: token
+    id: color.alpha.night-60
+    name: Night 60
+    description: Warm dark card at 60% alpha. Top of dark-mode glass.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: surface.glass (dark mode)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.night-60
+  - kind: token
+    id: color.alpha.night-48
+    name: Night 48
+    description: Warm dark card at 48% alpha. Mid dark-mode glass.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: surface.glass-elevated (dark mode)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.night-48
+  - kind: token
+    id: color.alpha.night-32
+    name: Night 32
+    description: Warm dark card at 32% alpha. Light dark-mode glass.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: surface.glass-light (dark mode)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.night-32
+  - kind: token
     id: color.alpha.steel-15
     name: Steel 15
     description: Steel at 15% alpha. Info chip backgrounds (carried pending status-palette decision).
@@ -2011,7 +2357,7 @@ entries:
   - kind: token
     id: color.alpha.ink-22
     name: Ink 22
-    description: Ink at 22% alpha. The card resting-shadow tint (extracted from the portfolio's one-card system, 2026-07-17).
+    description: Ink at 22% alpha. The shadow.card-rest tint; retired with it from BELLA Card, kept while the portfolio's vendored Card copy reads it.
     metadata:
       origin:
         method: extracted
@@ -2711,6 +3057,65 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.radius.full
+  - kind: token
+    id: radius.card
+    name: Radius Card
+    description: Card corner radius (16px at the default root size). Surface rules, 2026-09-19.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - radius
+      group: radius
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Card
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.radius.card
+  - kind: token
+    id: radius.pill
+    name: Pill
+    description: Pill shape by role. Same value as radius.full.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - radius
+      group: radius
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Tags
+          - level: may
+            statement: Chips
+          - level: may
+            statement: Pill buttons
+    related:
+      - to: radius.full
+        rel: relates-to
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.radius.pill
   - kind: token
     id: border.width.thin
     name: Thin
@@ -3828,6 +4233,32 @@ entries:
       rel: file
       role: primitive.motion.duration.normal
   - kind: token
+    id: motion.duration.lift
+    name: Lift
+    description: Hover lift on interactive cards. Surface rules, 2026-09-19.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.duration
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Interactive card hover and focus lift
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.duration.lift
+  - kind: token
     id: motion.duration.slow
     name: Slow
     description: Emphasis transitions.
@@ -4250,7 +4681,7 @@ entries:
   - kind: token
     id: shadow.hover
     name: Hover
-    description: Card hover shadow, stronger than sm, lighter than lg.
+    description: Interactive card hover and focus shadow, light mode; nothing at rest (surface rules, 2026-09-19). Flips to shadow.hover-dark under [data-theme=dark].
     metadata:
       origin:
         method: extracted
@@ -4267,7 +4698,10 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Card hover state, paired with motion.transform.hover-lift
+            statement: Interactive card :hover / :focus-visible, paired with motion.transform.hover-lift
+    related:
+      - to: shadow.hover-dark
+        rel: relates-to
     tokenType: shadow
     source:
       href: ./tokens/bella.json
@@ -4670,7 +5104,7 @@ entries:
   - kind: token
     id: shadow.card-rest
     name: Card Rest
-    description: Card resting shadow, the one-card system's calm-at-rest cast. Directional (down-right) per the one-light-source rule.
+    description: "Retired from BELLA Card (flat surface rules, 2026-09-19: no shadow at rest). Kept only because the portfolio's vendored Card copy still reads it; remove once that copy syncs."
     metadata:
       origin:
         method: extracted
@@ -4700,7 +5134,7 @@ entries:
   - kind: token
     id: shadow.card-rest-dark
     name: Card Rest Dark
-    description: Card resting shadow on navy, deeper black-alpha cast (black alpha in shadows follows the orb-lock precedent).
+    description: Dark counterpart of shadow.card-rest. Retired from BELLA Card; kept only for the portfolio's vendored Card copy.
     metadata:
       origin:
         method: extracted
@@ -4723,6 +5157,32 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.shadow.card-rest-dark
+  - kind: token
+    id: shadow.hover-dark
+    name: Hover Dark
+    description: Interactive card hover and focus shadow, dark mode (black alpha in shadows follows the orb-lock precedent). Bound as the dark override of shadow.hover in semantic/dark.json.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - shadow
+      group: shadow
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: shadow.hover (dark override)
+    tokenType: shadow
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.shadow.hover-dark
   - kind: token
     id: color.semantic.background
     name: Background
@@ -4821,6 +5281,40 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.neutral.paper}"
+  - kind: token
+    id: color.semantic.surface-card
+    name: Surface Card
+    description: "Flat card surface: the page ground 4% darker. Cards separate from the page by this step and a faint border, not by shadow (surface rules, 2026-09-19)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-19"
+          by: human:elleta
+          note: text-primary 14.83:1, text-secondary 7.69:1 (AAA); text-muted 4.64:1, text-accent 5.22:1 (AA normal text).
+      tags:
+        - semantic
+        - surface-card
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Card inner panel
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.surface-card
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.neutral.card}"
   - kind: token
     id: color.semantic.surface-elevated
     name: Surface Elevated
@@ -5207,7 +5701,7 @@ entries:
       reviewed:
         - date: "2026-07-21"
           by: human:elleta
-          note: "5.02:1 on ground, 4.67:1 on surface-inset (worst), AA normal text everywhere (bar call: worst-ground-wins)."
+          note: "5.02:1 on ground, 4.67:1 on surface-inset; 2026-09-19: 4.64:1 on surface-card (worst). AA normal text everywhere (bar call: worst-ground-wins)."
       tags:
         - semantic
         - text-muted
@@ -5544,6 +6038,42 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.alpha.ink-6}"
   - kind: token
+    id: color.semantic.border-faint
+    name: Border Faint
+    description: Faint 1px card edge, ink at 10%. Decorative separation; the surface step carries the card boundary.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - border-faint
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Card border
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: Never the sole boundary of an interactive control
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.border-faint
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.alpha.ink-10}"
+  - kind: token
     id: color.semantic.border-strong
     name: Border Strong
     description: High-contrast border for focus states.
@@ -5863,7 +6393,7 @@ entries:
         alias: "{radius.lg}"
   - kind: token
     id: component.button.shape.pill
-    name: Pill
+    name: Shape Pill
     description: "shape=\"pill\": fully rounded ends, e.g. the nav call to action."
     metadata:
       origin:

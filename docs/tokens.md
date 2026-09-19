@@ -24,6 +24,7 @@ value with the source reference in parentheses.
 | `color.neutral.cream` | `#FAF9F5` | color |
 | `color.neutral.paper` | `#FAFAF8` | color |
 | `color.neutral.surface` | `#EDECE4` | color |
+| `color.neutral.card` | `#ECEBE7` | color |
 | `color.neutral.border` | `#E6E4DC` | color |
 | `color.neutral.graphite` | `#33303B` | color |
 | `color.neutral.ink-soft` | `#2E2937` | color |
@@ -37,6 +38,11 @@ value with the source reference in parentheses.
 | `color.navy.ink-muted` | `#C6C2D4` | color |
 | `color.navy.text-secondary` | `#C4BFD4` | color |
 | `color.navy.text-muted` | `#9994B1` | color |
+| `color.night.ground` | `#110F0D` | color |
+| `color.night.card` | `#1B1916` | color |
+| `color.night.inset` | `#252320` | color |
+| `color.night.raised` | `#2C2A27` | color |
+| `color.night.divider` | `#33312E` | color |
 | `color.supporting.sage` | `#4A7C6F` | color |
 | `color.supporting.steel` | `#6495C5` | color |
 | `color.alpha.iris-12` | `#5B4BD11F` | color |
@@ -47,8 +53,11 @@ value with the source reference in parentheses.
 | `color.alpha.periwinkle-15` | `#A79CE226` | color |
 | `color.alpha.periwinkle-30` | `#A79CE24D` | color |
 | `color.alpha.ink-6` | `#1A172010` | color |
+| `color.alpha.ink-8` | `#1A172014` | color |
+| `color.alpha.ink-10` | `#1A17201A` | color |
 | `color.alpha.dark-ink-6` | `#F4EFE610` | color |
 | `color.alpha.dark-ink-10` | `#F4EFE61A` | color |
+| `color.alpha.dark-ink-12` | `#F4EFE61F` | color |
 | `color.alpha.dark-ink-14` | `#F4EFE624` | color |
 | `color.alpha.glass-28` | `#FFFFFF47` | color |
 | `color.alpha.glass-35` | `#FFFFFF59` | color |
@@ -67,6 +76,9 @@ value with the source reference in parentheses.
 | `color.alpha.navy-60` | `#23235099` | color |
 | `color.alpha.navy-48` | `#2323507A` | color |
 | `color.alpha.navy-32` | `#23235052` | color |
+| `color.alpha.night-60` | `#1B191699` | color |
+| `color.alpha.night-48` | `#1B19167A` | color |
+| `color.alpha.night-32` | `#1B191652` | color |
 | `color.alpha.steel-15` | `#6495C526` | color |
 | `color.alpha.steel-30` | `#6495C54D` | color |
 | `color.alpha.ink-22` | `#1A172038` | color |
@@ -94,6 +106,8 @@ value with the source reference in parentheses.
 | `radius.2xl` | `20px` | dimension |
 | `radius.3xl` | `24px` | dimension |
 | `radius.full` | `999px` | dimension |
+| `radius.card` | `1rem` | dimension |
+| `radius.pill` | `999px` | dimension |
 | `border.width.thin` | `1px` | dimension |
 | `border.width.thick` | `3px` | dimension |
 | `typography.font-family.display` | `Unique, 'Arial Narrow', sans-serif` | fontFamily |
@@ -132,6 +146,7 @@ value with the source reference in parentheses.
 | `icon.stroke` | `1.5` | number |
 | `motion.duration.fast` | `150ms` | duration |
 | `motion.duration.normal` | `250ms` | duration |
+| `motion.duration.lift` | `200ms` | duration |
 | `motion.duration.slow` | `400ms` | duration |
 | `motion.duration.trace` | `3400ms` | duration |
 | `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | cubicBezier |
@@ -147,7 +162,7 @@ value with the source reference in parentheses.
 | `shadow.sm` | `0 1px 2px rgba(28,26,46,0.06)` | shadow |
 | `shadow.md` | `0 4px 12px rgba(28,26,46,0.08)` | shadow |
 | `shadow.lg` | `0 12px 32px rgba(28,26,46,0.12)` | shadow |
-| `shadow.hover` | `0 8px 24px rgba(28,26,46,0.10)` | shadow |
+| `shadow.hover` | `0 8px 24px #1A172014` (`0 8px 24px {color.alpha.ink-8}`) | shadow |
 | `shadow.soft` | `0 1px 2px #1C1A2E0A, 0 10px 30px #1C1A2E0F, 0 24px 60px #1C1A2E0A` (`0 1px 2px {color.alpha.shadow-cool-04}, 0 10px 30px {color.alpha.shadow-cool-06}, 0 24px 60px {color.alpha.shadow-cool-04}`) | shadow |
 | `shadow.layered` | `0 1px 2px #1C1A2E0D, 0 12px 40px #1C1A2E14, 0 28px 80px #1C1A2E0F, inset 0 1px 0 #FFFFFFE6` (`0 1px 2px {color.alpha.shadow-cool-05}, 0 12px 40px {color.alpha.shadow-cool-08}, 0 28px 80px {color.alpha.shadow-cool-06}, inset 0 1px 0 {color.alpha.glass-90}`) | shadow |
 | `shadow.card-default` | `0 1px 4px #1C1A2E08, 0 4px 16px #1C1A2E0A, inset 0 1px 0 #FFFFFF8C` (`0 1px 4px {color.alpha.shadow-cool-03}, 0 4px 16px {color.alpha.shadow-cool-04}, inset 0 1px 0 {color.alpha.glass-55}`) | shadow |
@@ -165,6 +180,7 @@ value with the source reference in parentheses.
 | `shadow.key-pressed` | `0 1px 0 #4A3FB0, 2px 3px 8px #5B4BD133, inset 0 1px 0 #FFFFFF66` (`0 1px 0 {color.iris.edge}, 2px 3px 8px {color.alpha.iris-20}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
 | `shadow.card-rest` | `13px 26px 54px #1A172038` (`13px 26px 54px {color.alpha.ink-22}`) | shadow |
 | `shadow.card-rest-dark` | `13px 26px 54px rgba(0, 0, 0, 0.44)` | shadow |
+| `shadow.hover-dark` | `0 8px 24px rgba(0, 0, 0, 0.45)` | shadow |
 
 ## Tier 2 — Semantic (light)
 
@@ -173,6 +189,7 @@ value with the source reference in parentheses.
 | `color.semantic.background` | `#F5F4EF` (`{color.brand.ground}`) | color |
 | `color.semantic.background-inverse` | `#1A1720` (`{color.brand.ink}`) | color |
 | `color.semantic.surface` | `#FAFAF8` (`{color.neutral.paper}`) | color |
+| `color.semantic.surface-card` | `#ECEBE7` (`{color.neutral.card}`) | color |
 | `color.semantic.surface-elevated` | `#FAFAF8` (`{color.neutral.paper}`) | color |
 | `color.semantic.surface-inset` | `#EDECE4` (`{color.neutral.surface}`) | color |
 | `color.semantic.surface-inverse` | `#232350` (`{color.navy.card}`) | color |
@@ -194,6 +211,7 @@ value with the source reference in parentheses.
 | `color.semantic.accent-border` | `#5B4BD14D` (`{color.alpha.iris-30}`) | color |
 | `color.semantic.border` | `#E6E4DC` (`{color.neutral.border}`) | color |
 | `color.semantic.border-subtle` | `#1A172010` (`{color.alpha.ink-6}`) | color |
+| `color.semantic.border-faint` | `#1A17201A` (`{color.alpha.ink-10}`) | color |
 | `color.semantic.border-strong` | `#33303B` (`{color.neutral.graphite}`) | color |
 | `color.semantic.link` | `#1A1720` (`{color.brand.ink}`) | color |
 | `color.semantic.link-hover` | `#5B4BD1` (`{color.brand.iris}`) | color |
@@ -214,15 +232,16 @@ value with the source reference in parentheses.
 
 | Token | Value | Type |
 |---|---|---|
-| `color.semantic.background` | `#1B1B40` (`{color.brand.navy}`) | color |
+| `color.semantic.background` | `#110F0D` (`{color.night.ground}`) | color |
 | `color.semantic.background-inverse` | `#F4EFE6` (`{color.navy.ink}`) | color |
-| `color.semantic.surface` | `#232350` (`{color.navy.card}`) | color |
-| `color.semantic.surface-elevated` | `#2B2B5C` (`{color.navy.raised}`) | color |
-| `color.semantic.surface-inset` | `#1B1B40` (`{color.brand.navy}`) | color |
+| `color.semantic.surface` | `#1B1916` (`{color.night.card}`) | color |
+| `color.semantic.surface-card` | `#1B1916` (`{color.night.card}`) | color |
+| `color.semantic.surface-elevated` | `#2C2A27` (`{color.night.raised}`) | color |
+| `color.semantic.surface-inset` | `#252320` (`{color.night.inset}`) | color |
 | `color.semantic.surface-inverse` | `#EDECE4` (`{color.neutral.surface}`) | color |
-| `color.semantic.surface-glass` | `#23235099` (`{color.alpha.navy-60}`) | color |
-| `color.semantic.surface-glass-elevated` | `#2323507A` (`{color.alpha.navy-48}`) | color |
-| `color.semantic.surface-glass-light` | `#23235052` (`{color.alpha.navy-32}`) | color |
+| `color.semantic.surface-glass` | `#1B191699` (`{color.alpha.night-60}`) | color |
+| `color.semantic.surface-glass-elevated` | `#1B19167A` (`{color.alpha.night-48}`) | color |
+| `color.semantic.surface-glass-light` | `#1B191652` (`{color.alpha.night-32}`) | color |
 | `color.semantic.surface-glass-accent` | `#A79CE226` (`{color.alpha.periwinkle-15}`) | color |
 | `color.semantic.border-glass-top` | `#F4EFE624` (`{color.alpha.dark-ink-14}`) | color |
 | `color.semantic.border-glass-edge` | `#F4EFE61A` (`{color.alpha.dark-ink-10}`) | color |
@@ -237,7 +256,8 @@ value with the source reference in parentheses.
 | `color.semantic.accent-subtle` | `#A79CE226` (`{color.alpha.periwinkle-15}`) | color |
 | `color.semantic.accent-border` | `#A79CE24D` (`{color.alpha.periwinkle-30}`) | color |
 | `color.semantic.border` | `#F4EFE610` (`{color.alpha.dark-ink-6}`) | color |
-| `color.semantic.border-subtle` | `#32325F` (`{color.navy.divider}`) | color |
+| `color.semantic.border-subtle` | `#33312E` (`{color.night.divider}`) | color |
+| `color.semantic.border-faint` | `#F4EFE61F` (`{color.alpha.dark-ink-12}`) | color |
 | `color.semantic.border-strong` | `#F4EFE6` (`{color.navy.ink}`) | color |
 | `color.semantic.link` | `#F4EFE6` (`{color.navy.ink}`) | color |
 | `color.semantic.link-hover` | `#A79CE2` (`{color.brand.periwinkle}`) | color |
@@ -250,6 +270,7 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-hover` | `#9588DB` (`{color.iris.peri-deep}`) | color |
 | `color.semantic.accent-raised-edge` | `#B4ADE8` (`{color.iris.peri-ink}`) | color |
 | `color.accent-ink` | `#B4ADE8` (`{color.iris.peri-ink}`) | color |
+| `shadow.hover` | `0 8px 24px rgba(0, 0, 0, 0.45)` (`{shadow.hover-dark}`) | shadow |
 
 ## Tier 3 — Component
 

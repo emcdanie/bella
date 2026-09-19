@@ -40,7 +40,7 @@ Dark mode is navy (`color.brand.navy`, `#1B1B40`), not black. Dark elevation cli
 ## Surface behavior
 
 - Cards: radius from the token tier — `radius.xl` (16px) for `card.default`, `radius.2xl` (20px) elevated, `radius.3xl` (24px) glass. On hover, `motion.transform.hover-lift` (`translateY(-2px)`). The lift is the tell — cards are objects, not panels.
-- Buttons: `radius.md` (8px); the primary keycap plate is `radius.lg` (12px).
+- Buttons: every tier shares `radius.lg` (12px, `component.button.shape.default`); `shape="pill"` uses `radius.full`. Buttons never lift on hover: lift is reserved for cards. Hover and focus-visible roll the label; active presses the primary keycap (`motion.transform.key-press`). No trace ring on buttons. See `docs/motion-system.md`.
 - One light source, upper-left: highlights top-left, shadows down-right (orbs, keycaps, cards). The elevation tokens (`shadow.orb*`, `shadow.key-*`, `shadow.switch-*`) are a token lock — do not flatten; the depth IS the system.
 - Hover transitions are quick (≤250ms) and eased. No bouncing, no spring physics.
 

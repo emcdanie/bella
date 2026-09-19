@@ -489,6 +489,36 @@ entries:
       rel: file
       role: primitive.color.iris.logo-hi
   - kind: token
+    id: color.iris.peri-deep
+    name: Peri Deep
+    description: Periwinkle one step deeper (the same step as peri-hover to periwinkle, taken again). Dark-mode primary button hover plate.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-18"
+          by: human:elleta
+          note: navy label on this 5.34:1, AA normal text.
+      tags:
+        - primitive
+        - color
+      group: color.iris
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Dark-mode primary button hover plate
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.iris.peri-deep
+  - kind: token
     id: color.iris.peri-hover
     name: Peri Hover
     description: Brightened periwinkle. Dark-mode primary button hover fill.
@@ -2506,7 +2536,7 @@ entries:
   - kind: token
     id: radius.md
     name: Md
-    description: Medium radius. Buttons and inputs.
+    description: Medium radius. Inputs.
     metadata:
       origin:
         method: extracted
@@ -2522,8 +2552,6 @@ entries:
         framing: when-to-use
         title: Where it is used
         items:
-          - level: may
-            statement: Buttons
           - level: may
             statement: Inputs
           - level: may
@@ -2559,7 +2587,7 @@ entries:
           - level: may
             statement: Dropdowns
           - level: may
-            statement: Keycap buttons
+            statement: Buttons (every tier, default shape)
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -2676,11 +2704,65 @@ entries:
             statement: Avatar
           - level: may
             statement: Status pills
+          - level: may
+            statement: Button shape="pill"
     tokenType: dimension
     source:
       href: ./tokens/bella.json
       rel: file
       role: primitive.radius.full
+  - kind: token
+    id: border.width.thin
+    name: Thin
+    description: Thin line width. Underline thickness where a component needs it explicit.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - border
+      group: border.width
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Tertiary Button underline
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.border.width.thin
+  - kind: token
+    id: border.width.thick
+    name: Thick
+    description: Thick border width. Reserved ring thickness that keeps hover layout-stable.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - border
+      group: border.width
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Card trace ring
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.border.width.thick
   - kind: token
     id: typography.font-family.display
     name: Display
@@ -3707,7 +3789,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Button hover color change
+            statement: Button hover colour shift
+          - level: may
+            statement: Keycap press
     tokenType: duration
     source:
       href: ./tokens/bella.json
@@ -3736,6 +3820,8 @@ entries:
             statement: Card hover lift
           - level: may
             statement: Panel opens
+          - level: may
+            statement: Button label roll
     tokenType: duration
     source:
       href: ./tokens/bella.json
@@ -3769,6 +3855,38 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.motion.duration.slow
+  - kind: token
+    id: motion.duration.trace
+    name: Trace
+    description: One lap of the travelling trace ring (Card hover/focus affordance). Continuous loop, linear.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.duration
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Card trace ring
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Do not use on Button: buttons have no trace ring"
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.duration.trace
   - kind: token
     id: motion.easing.standard
     name: Standard
@@ -3828,9 +3946,35 @@ entries:
       rel: file
       role: primitive.motion.easing.emphasis
   - kind: token
+    id: motion.easing.out
+    name: Out
+    description: "Decelerate: fast start, soft landing, no overshoot."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.easing
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Button label roll
+    tokenType: cubicBezier
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.easing.out
+  - kind: token
     id: motion.transform.hover-lift
     name: Hover Lift
-    description: Default hover elevation delta for cards.
+    description: "Default hover elevation delta for cards. Cards only: buttons never lift on hover."
     metadata:
       origin:
         method: extracted
@@ -3848,6 +3992,12 @@ entries:
         items:
           - level: may
             statement: Card hover state
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Do not apply to buttons: lift is reserved for cards"
     tokenType: other
     source:
       href: ./tokens/bella.json
@@ -5638,6 +5788,32 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.iris.deep}"
   - kind: token
+    id: color.semantic.accent-raised-hover
+    name: Accent Raised Hover
+    description: "Raised accent plate on hover and focus-visible: the plate settles onto its deep stop, flat."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-07-22"
+          by: human:elleta
+          note: ground label on this stop 7.09:1, AAA.
+      tags:
+        - semantic
+        - accent-raised-hover
+      group: color.semantic
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.accent-raised-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.iris.deep}"
+  - kind: token
     id: color.semantic.accent-raised-edge
     name: Accent Raised Edge
     description: Raised accent plate edge (the keycap 3D rim).
@@ -5663,6 +5839,160 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.iris.edge}"
+  - kind: token
+    id: component.button.shape.default
+    name: Default
+    description: "Every tier shares the keycap radius (lg): the keycap is the signature, and one radius makes the tiers read as one family."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.shape
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.shape.default
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.lg}"
+  - kind: token
+    id: component.button.shape.pill
+    name: Pill
+    description: "shape=\"pill\": fully rounded ends, e.g. the nav call to action."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.shape
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.shape.pill
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.full}"
+  - kind: token
+    id: component.button.motion.roll-duration
+    name: Roll Duration
+    description: Label roll on hover and focus-visible.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.motion
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.motion.roll-duration
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.duration.normal}"
+  - kind: token
+    id: component.button.motion.roll-easing
+    name: Roll Easing
+    description: Component-tier alias. Resolves to `motion.easing.out` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - button
+      group: component.button.motion
+    tokenType: cubicBezier
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.motion.roll-easing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.easing.out}"
+  - kind: token
+    id: component.button.motion.shift-duration
+    name: Shift Duration
+    description: Colour shift and keycap press.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.motion
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.motion.shift-duration
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.duration.fast}"
+  - kind: token
+    id: component.button.motion.shift-easing
+    name: Shift Easing
+    description: Component-tier alias. Resolves to `motion.easing.standard` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - button
+      group: component.button.motion
+    tokenType: cubicBezier
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.motion.shift-easing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.easing.standard}"
+  - kind: token
+    id: component.button.motion.press
+    name: Press
+    description: Primary :active sinks onto the reduced plate. Down only, never up.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.motion
+    tokenType: other
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.motion.press
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.transform.key-press}"
   - kind: token
     id: component.button.primary.fill-hi
     name: Fill Hi
@@ -5708,6 +6038,50 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.accent-raised-lo}"
   - kind: token
+    id: component.button.primary.fill-hi-hover
+    name: Fill Hi Hover
+    description: "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.primary
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.primary.fill-hi-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.accent-raised-hover}"
+  - kind: token
+    id: component.button.primary.fill-lo-hover
+    name: Fill Lo Hover
+    description: Component-tier alias. Resolves to `color.semantic.accent-raised-hover` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - button
+      group: component.button.primary
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.primary.fill-lo-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.accent-raised-hover}"
+  - kind: token
     id: component.button.primary.edge
     name: Primary Edge
     description: Component-tier alias. Resolves to `color.semantic.accent-raised-edge` in `tokens/bella.json`.
@@ -5752,28 +6126,6 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-on-accent}"
   - kind: token
-    id: component.button.primary.trace
-    name: Trace
-    description: Trace ring colour on the keycap. 3.74:1 on ground, passes the 3:1 non-text minimum; the ring is a hover affordance, not text.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - component
-        - button
-      group: component.button.primary
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: component.button.primary.trace
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.iris.bright}"
-  - kind: token
     id: component.button.primary.gloss
     name: Gloss
     description: Resting sheen. White alpha, the permitted translucent overlay; never a solid fill.
@@ -5792,24 +6144,6 @@ entries:
       rel: file
       role: component.button.primary.gloss
   - kind: token
-    id: component.button.primary.gloss-hover
-    name: Gloss Hover
-    description: Component-tier other, declared literally in `tokens/bella.json`.
-    metadata:
-      origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
-      tags:
-        - component
-        - button
-      group: component.button.primary
-    tokenType: other
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: component.button.primary.gloss-hover
-  - kind: token
     id: component.button.primary.gloss-pressed
     name: Gloss Pressed
     description: Component-tier other, declared literally in `tokens/bella.json`.
@@ -5827,28 +6161,6 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: component.button.primary.gloss-pressed
-  - kind: token
-    id: component.button.primary.border-radius
-    name: Border Radius
-    description: The keycap plate radius; the one control on the lg step.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - component
-        - button
-      group: component.button.primary
-    tokenType: dimension
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: component.button.primary.border-radius
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{radius.lg}"
   - kind: token
     id: component.button.primary.padding-y
     name: Padding Y
@@ -6110,28 +6422,6 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.accent}"
   - kind: token
-    id: component.button.secondary.border-radius
-    name: Secondary Border Radius
-    description: Component-tier alias. Resolves to `radius.md` in `tokens/bella.json`.
-    metadata:
-      origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
-      tags:
-        - component
-        - button
-      group: component.button.secondary
-    tokenType: dimension
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: component.button.secondary.border-radius
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{radius.md}"
-  - kind: token
     id: component.button.secondary.padding-y
     name: Secondary Padding Y
     description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
@@ -6238,31 +6528,9 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-accent}"
   - kind: token
-    id: component.button.tertiary.foreground-hover
-    name: Foreground Hover
-    description: Component-tier alias. Resolves to `color.semantic.link-hover` in `tokens/bella.json`.
-    metadata:
-      origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
-      tags:
-        - component
-        - button
-      group: component.button.tertiary
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: component.button.tertiary.foreground-hover
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.link-hover}"
-  - kind: token
-    id: component.button.tertiary.border-radius
-    name: Tertiary Border Radius
-    description: Component-tier alias. Resolves to `radius.md` in `tokens/bella.json`.
+    id: component.button.tertiary.underline-offset
+    name: Underline Offset
+    description: Component-tier alias. Resolves to `spacing.1` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -6276,11 +6544,55 @@ entries:
     source:
       href: ./tokens/bella.json
       rel: file
-      role: component.button.tertiary.border-radius
+      role: component.button.tertiary.underline-offset
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{radius.md}"
+        alias: "{spacing.1}"
+  - kind: token
+    id: component.button.tertiary.underline-thickness
+    name: Underline Thickness
+    description: The one static underline on the roll window. The rolling spans reserve offset + thickness below the text for it.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.tertiary
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.tertiary.underline-thickness
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.thin}"
+  - kind: token
+    id: component.button.tertiary.foreground-hover
+    name: Foreground Hover
+    description: "Hover and focus-visible label colour. accent-hover, not link-hover: link-hover equals the rest colour, so the shift would be invisible."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.tertiary
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.tertiary.foreground-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.accent-hover}"
   - kind: token
     id: component.button.tertiary.min-height
     name: Tertiary Min Height
@@ -6303,6 +6615,50 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{spacing.touch-target}"
+  - kind: token
+    id: component.card.trace.width
+    name: Width
+    description: Reserved trace-ring thickness (recorded trace geometry); keeps hover layout-stable.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - card
+      group: component.card.trace
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.card.trace.width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.thick}"
+  - kind: token
+    id: component.card.trace.duration
+    name: Duration
+    description: "One lap of the travelling ring. Card only: buttons have no trace."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - card
+      group: component.card.trace
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.card.trace.duration
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.duration.trace}"
   - kind: token
     id: component.card.default.background
     name: Default Background
@@ -6433,7 +6789,7 @@ entries:
       role: component.card.default.border-width
   - kind: token
     id: component.card.default.border-radius
-    name: Default Border Radius
+    name: Border Radius
     description: Component-tier alias. Resolves to `radius.xl` in `tokens/bella.json`.
     metadata:
       origin:
@@ -7737,7 +8093,7 @@ entries:
         alias: "{color.semantic.text-secondary}"
   - kind: token
     id: component.tag.default.border-radius
-    name: Tag Default Border Radius
+    name: Default Border Radius
     description: Component-tier alias. Resolves to `radius.full` in `tokens/bella.json`.
     metadata:
       origin:
@@ -9710,7 +10066,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring independent of the trace. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute."
+          note: "worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute."
       tags:
         - component
         - button
@@ -9728,6 +10084,8 @@ entries:
             statement: Form submit
           - level: may
             statement: Contact send
+          - level: may
+            statement: Nav call to action (shape pill)
       - kind: guidelines
         for: all
         title: Do not
@@ -9740,10 +10098,14 @@ entries:
             statement: Do not set labels in Unique at any size
           - level: must-not
             statement: "Do not build a neutral keycap: that tier is retired"
+          - level: must-not
+            statement: "Do not lift a button on hover: lift is reserved for cards; hover is the label roll"
+          - level: must-not
+            statement: "Do not add the trace ring to a button: the trace is Card's affordance"
       - kind: definitions
         for: all
         title: At rest
-        description: "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring is a hover and focus affordance, the rise is hover-only, and the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
+        description: "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
         context: anatomy
         items:
           - term: plate gradient + gloss
@@ -9754,12 +10116,18 @@ entries:
             definition: "Trigger: rest. Paints at rest."
           - term: label
             definition: "Trigger: rest. Paints at rest."
-          - term: trace ring
+          - term: label roll
             definition: "Trigger: hover, focus. Inert at rest; audit:quality asserts it."
-          - term: hover rise
-            definition: "Trigger: hover. Inert at rest; audit:quality asserts it."
-          - term: press translate
+          - term: primary plate shift
+            definition: "Trigger: hover, focus. Inert at rest."
+          - term: secondary fill shift
+            definition: "Trigger: hover, focus. Inert at rest."
+          - term: tertiary colour shift
+            definition: "Trigger: hover, focus. Inert at rest."
+          - term: keycap press (primary)
             definition: "Trigger: active. Inert at rest; audit:quality asserts it."
+          - term: secondary fill deepen
+            definition: "Trigger: active. Inert at rest."
     refs:
       - href: ./src/components/Button/Button.stories.tsx
         rel: storybook
@@ -9784,6 +10152,15 @@ entries:
             description: The flat accent outline.
           - id: tertiary
             description: "The text tier: accent and underlined, nothing else."
+      - kind: enum
+        id: shape
+        description: Outline shape, quoted from the Button TSDoc.
+        setBy: consumer
+        values:
+          - id: default
+            description: The keycap radius every tier shares.
+          - id: pill
+            description: Rounds the ends fully (e.g. a nav call to action).
       - kind: boolean
         id: disabled
         description: "Disabled state: muted surface, no elevation, no affordances. Buttons only, not links."
@@ -9798,34 +10175,58 @@ entries:
           - focus
           - disabled
         restState:
-          description: "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring is a hover and focus affordance, the rise is hover-only, and the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
+          description: "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
           atRest:
             - plate gradient + gloss
             - 1px accent-raised-edge border
             - shadow.key-resting
             - label
           triggered:
-            - layer: trace ring
+            - layer: label roll
               "on":
                 - hover
                 - focus
               asserted: true
-            - layer: hover rise
+            - layer: primary plate shift
               "on":
                 - hover
-              asserted: true
-            - layer: press translate
+                - focus
+              asserted: false
+            - layer: secondary fill shift
+              "on":
+                - hover
+                - focus
+              asserted: false
+            - layer: tertiary colour shift
+              "on":
+                - hover
+                - focus
+              asserted: false
+            - layer: keycap press (primary)
               "on":
                 - active
               asserted: true
+            - layer: secondary fill deepen
+              "on":
+                - active
+              asserted: false
           invariants:
-            - layer: trace
-              pseudo: "::before"
-              property: opacity
-              expect: "0"
-            - layer: rise/press
+            - layer: press
               property: transform
               expect: none
+            - layer: label roll
+              type: translate-y
+              selector: "[data-bella-roll=copy]"
+              expect: 100%
+            - layer: label roll
+              type: translate-y
+              selector: "[data-bella-roll=label]"
+              expect: 0%
+            - layer: label roll underline
+              type: single-underline
+              window: "[data-bella-roll=window]"
+              selector: "[data-bella-roll=label], [data-bella-roll=copy]"
+              underlinedVariant: tertiary
   - kind: component
     id: card
     name: Card
@@ -10646,6 +11047,13 @@ entries:
         for: all
         title: Do not
         items:
+          - level: must-not
+            statement: "Do not put id attributes inside an icon SVG: the glyph renders more than once (the Button label roll duplicates it), so an id-referenced gradient or clip would collide; draw with paths and currentColor only (audit:quality enforces)"
+            checks:
+              - href: ./scripts/audit-quality-docs.mjs
+                rel: lint-rule
+                role: audit:quality
+            checkedBy: automated
           - level: must-not
             statement: "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)"
             checks:

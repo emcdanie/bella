@@ -1,20 +1,30 @@
 /* Button (component 2, extracted from the portfolio keycap system,
- * 2026-07-22). Tokens only. Three tiers: primary is the raised keycap (the
- * one 3D moment per view), secondary the flat accent outline, tertiary the
- * text tier. Labels are Geist caps (the mono token is repointed to Geist),
- * never Unique. Theme-aware by construction: the plate resolves through the
- * semantic accent-raised trio, so it is iris in light and periwinkle in
- * dark; the label is text-on-accent (ground / navy), AA on the worst stop.
+ * 2026-07-22; motion reworked 2026-09-18). Tokens only. Three tiers:
+ * primary is the raised keycap (the one 3D moment per view), secondary the
+ * flat accent outline, tertiary the text tier. Labels are Geist caps (the
+ * mono token is repointed to Geist), never Unique. Theme-aware by
+ * construction: every colour resolves through component.button.*, which
+ * points at the semantic accent-raised trio, so the plate is iris in light
+ * and periwinkle in dark; the label is text-on-accent (ground / navy), AA
+ * on the worst stop.
+ *
+ * ONE JOB PER STATE (2026-09-18):
+ * - hover + focus-visible: the label roll (label up, aria-hidden copy in
+ *   from below, motion.duration.normal on motion.easing.out), plus a
+ *   colour shift on every tier: primary plate to its deep stop, secondary
+ *   fill, tertiary label (motion.duration.fast).
+ * - active: the keycap press (motion.transform.key-press, tighter shadow),
+ *   primary only; secondary keeps its fill change. Down, never up.
+ * - Buttons never lift on hover: lift is reserved for cards. No trace ring:
+ *   the trace is Card's affordance.
+ * - Reduced motion: no roll, no press; the colour shift stays.
  *
  * Recorded divergences from the portfolio original (extraction, 2026-07-22):
  * - the plate gradient runs accent-raised-hi to -lo, one step DEEPER than
  *   the portfolio's iris.hi top: the ground label computes 4.49:1 on iris.hi
  *   (fails AA normal text under worst-ground-wins); the portfolio passed
  *   only via its pure-white label, which BELLA does not carry (no pure
- *   white as text). Elleta's eye at review decides if the plate flips back
- *   with a different label decision.
- * - the trace colour is the accent-raised-hi stop in dark (the portfolio
- *   used a fixed bright-iris literal); light keeps iris.bright.
+ *   white as text).
  * - dark plate is periwinkle (the accent theme-flips); the portfolio keycap
  *   stayed iris in dark.
  * - the locked shadow.key-* pair is consumed as-is; its iris-tinted edge
@@ -25,7 +35,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-2);
   cursor: pointer;
   box-sizing: border-box;
   min-height: var(--component-button-primary-min-height);
@@ -37,8 +46,13 @@
   text-transform: uppercase;
   text-decoration: none;
   border: 0;
+  border-radius: var(--component-button-shape-default);
   background: none;
   margin: 0;
+}
+
+.pill {
+  border-radius: var(--component-button-shape-pill);
 }
 
 .button:focus-visible {
@@ -46,77 +60,133 @@
   outline-offset: var(--ring-focus-offset);
 }
 
-/* PRIMARY: the raised keycap. Gloss (white alpha, the permitted translucent
- * overlay) over the semantic plate gradient; the locked shadow.key pair
- * carries the elevation. Hover: the cap rises a hair and the shared trace
- * ring lights. Active: press onto the reduced plate. */
-.primary {
-  composes: traceHost from '../shared/Trace.module.css';
-  color: var(--component-button-primary-foreground);
-  border: 1px solid var(--color-semantic-accent-raised-edge);
-  border-radius: var(--component-button-primary-border-radius);
-  background:
-    var(--component-button-primary-gloss),
-    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
-  box-shadow: var(--shadow-key-resting);
-  transition:
-    transform var(--motion-duration-fast) var(--motion-easing-standard),
-    box-shadow var(--motion-duration-fast) var(--motion-easing-standard),
-    background var(--motion-duration-fast) var(--motion-easing-standard);
-  --trace-r: var(--component-button-primary-border-radius);
-  --trace-w: 2px;
-  --cc: var(--component-button-primary-trace);
+/* THE LABEL ROLL. The window clips to one line; the label and its copy
+ * stack in it. The copy is aria-hidden (see Button.tsx). */
+.roll {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
 }
 
-.primary:hover:not(:disabled) {
-  transform: translateY(-1px);
+.rollLabel,
+.rollCopy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  transition: transform var(--component-button-motion-roll-duration) var(--component-button-motion-roll-easing);
+}
+
+.rollCopy {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  /* selecting or copying the label yields it once */
+  user-select: none;
+}
+
+.button:hover:not(:disabled) .rollLabel,
+.button:focus-visible .rollLabel {
+  transform: translateY(-100%);
+}
+
+.button:hover:not(:disabled) .rollCopy,
+.button:focus-visible .rollCopy {
+  transform: translateY(0);
+}
+
+/* PRIMARY: the raised keycap. Gloss (white alpha, the permitted translucent
+ * overlay) over the plate gradient; the locked shadow.key pair carries the
+ * elevation. Hover rolls the label and deepens the plate. Active: press onto
+ * the reduced plate. */
+.primary {
+  color: var(--component-button-primary-foreground);
+  border: 1px solid var(--component-button-primary-edge);
   background:
-    var(--component-button-primary-gloss-hover),
-    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
-  box-shadow: var(--shadow-key-hover);
+    var(--component-button-primary-gloss),
+    linear-gradient(var(--component-button-primary-fill-hi), var(--component-button-primary-fill-lo));
+  box-shadow: var(--shadow-key-resting);
+  transition:
+    transform var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing),
+    box-shadow var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
+}
+
+/* Hover and focus-visible: the plate settles onto its deep stop. Colour
+ * only, so it stays under reduced motion. */
+.primary:hover:not(:disabled),
+.primary:focus-visible {
+  background:
+    var(--component-button-primary-gloss),
+    linear-gradient(var(--component-button-primary-fill-hi-hover), var(--component-button-primary-fill-lo-hover));
 }
 
 .primary:active:not(:disabled) {
-  transform: translateY(2px);
+  transform: var(--component-button-motion-press);
   background:
     var(--component-button-primary-gloss-pressed),
-    linear-gradient(var(--color-semantic-accent-raised-hi), var(--color-semantic-accent-raised-lo));
+    linear-gradient(var(--component-button-primary-fill-hi), var(--component-button-primary-fill-lo));
   box-shadow: var(--shadow-key-pressed);
 }
 
-/* SECONDARY: flat accent outline, accent label, no elevation. */
+/* SECONDARY: flat accent outline, accent label, no elevation. Hover shifts
+ * the fill; active deepens it. */
 .secondary {
-  color: var(--color-semantic-text-accent);
-  border: 1px solid var(--color-semantic-accent);
-  border-radius: var(--component-button-secondary-border-radius);
+  min-height: var(--component-button-secondary-min-height);
+  padding: var(--component-button-secondary-padding-y) var(--component-button-secondary-padding-x);
+  color: var(--component-button-secondary-foreground);
+  border: 1px solid var(--component-button-secondary-border);
   background: var(--component-button-secondary-background);
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: background-color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
 }
 
-.secondary:hover:not(:disabled) {
+.secondary:hover:not(:disabled),
+.secondary:focus-visible {
   background: var(--component-button-secondary-background-hover);
 }
 
 .secondary:active:not(:disabled) {
-  background: var(--color-semantic-accent-border);
+  background: var(--component-button-secondary-background-active);
 }
 
 /* TERTIARY: the text tier. Accent AND underlined: saturated accent at
- * body scale means interactive, and the underline is the affordance. */
+ * body scale means interactive, and the underline is the affordance. ONE
+ * static underline sits on the roll window; only the text rolls, so no
+ * line ever travels through the window edge. It is currentColor, so it
+ * takes the hover colour shift. */
 .tertiary {
-  color: var(--color-semantic-text-accent);
-  border-radius: var(--component-button-tertiary-border-radius);
-  background: transparent;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color var(--motion-duration-fast) var(--motion-easing-standard);
+  min-height: var(--component-button-tertiary-min-height);
+  color: var(--component-button-tertiary-foreground);
+  background: var(--component-button-tertiary-background);
+  transition: color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
 }
 
-.tertiary:hover:not(:disabled) {
-  color: var(--color-semantic-link-hover);
+/* room under the text for the window's line: offset + thickness */
+.tertiary .rollLabel,
+.tertiary .rollCopy {
+  padding-block-start: var(--spacing-1);
+  padding-block-end: calc(
+    var(--component-button-tertiary-underline-offset) + var(--component-button-tertiary-underline-thickness)
+  );
 }
 
-/* DISABLED (buttons only): muted surface, no elevation, no affordances. */
+/* the one underline, static on the window. audit:quality asserts it is
+ * the only underline, at rest and mid-roll (single-underline). */
+.tertiary .roll::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: var(--component-button-tertiary-underline-thickness);
+  background: currentColor;
+}
+
+.tertiary:hover:not(:disabled),
+.tertiary:focus-visible {
+  color: var(--component-button-tertiary-foreground-hover);
+}
+
+/* DISABLED (buttons only): no roll, no press, no affordances. Primary and
+ * secondary sit on the muted inset surface; the text tier stays text
+ * (muted, no box). */
 .button:disabled {
   cursor: not-allowed;
   color: var(--color-semantic-text-muted);
@@ -124,19 +194,35 @@
   border: 1px solid var(--color-semantic-border);
   box-shadow: none;
   transform: none;
-  text-decoration: none;
 }
 
-.button:disabled::before {
+.tertiary:disabled {
+  background: transparent;
+  border: 0;
+}
+
+.tertiary:disabled .roll::after {
   content: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button,
-  .primary,
-  .primary:hover:not(:disabled),
-  .primary:active:not(:disabled) {
+  .rollLabel,
+  .rollCopy,
+  .primary {
     transition: none;
+  }
+
+  .button:hover:not(:disabled) .rollLabel,
+  .button:focus-visible .rollLabel {
+    transform: none;
+  }
+
+  .button:hover:not(:disabled) .rollCopy,
+  .button:focus-visible .rollCopy {
+    transform: translateY(100%);
+  }
+
+  .primary:active:not(:disabled) {
     transform: none;
   }
 }

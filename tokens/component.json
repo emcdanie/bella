@@ -11,36 +11,53 @@
           "description": "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are Geist caps, never Unique.",
           "variants": ["primary", "secondary", "tertiary"],
           "states": ["default", "hover", "active", "focus", "disabled"],
-          "props": ["variant", "href", "onClick", "type", "disabled", "linkComponent", "ariaLabel", "className", "children"],
-          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send"],
-          "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired"],
-          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring independent of the trace. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
+          "props": ["variant", "shape", "href", "onClick", "type", "disabled", "linkComponent", "ariaLabel", "className", "children"],
+          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send", "Nav call to action (shape pill)"],
+          "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired", "Do not lift a button on hover: lift is reserved for cards; hover is the label roll", "Do not add the trace ring to a button: the trace is Card's affordance"],
+          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
           "restState": {
-            "description": "At rest the primary keycap is calm: plate, gloss, edge, resting key shadow, label. The trace ring is a hover and focus affordance, the rise is hover-only, and the press is active-only. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
+            "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": ["plate gradient + gloss", "1px accent-raised-edge border", "shadow.key-resting", "label"],
             "triggered": [
-              { "layer": "trace ring", "on": ["hover", "focus"], "asserted": true },
-              { "layer": "hover rise", "on": ["hover"], "asserted": true },
-              { "layer": "press translate", "on": ["active"], "asserted": true }
+              { "layer": "label roll", "on": ["hover", "focus"], "asserted": true },
+              { "layer": "primary plate shift", "on": ["hover", "focus"], "asserted": false },
+              { "layer": "secondary fill shift", "on": ["hover", "focus"], "asserted": false },
+              { "layer": "tertiary colour shift", "on": ["hover", "focus"], "asserted": false },
+              { "layer": "keycap press (primary)", "on": ["active"], "asserted": true },
+              { "layer": "secondary fill deepen", "on": ["active"], "asserted": false }
             ],
             "invariants": [
-              { "layer": "trace", "pseudo": "::before", "property": "opacity", "expect": "0" },
-              { "layer": "rise/press", "property": "transform", "expect": "none" }
+              { "layer": "press", "property": "transform", "expect": "none" },
+              { "layer": "label roll", "type": "translate-y", "selector": "[data-bella-roll=copy]", "expect": "100%" },
+              { "layer": "label roll", "type": "translate-y", "selector": "[data-bella-roll=label]", "expect": "0%" },
+              { "layer": "label roll underline", "type": "single-underline", "window": "[data-bella-roll=window]", "selector": "[data-bella-roll=label], [data-bella-roll=copy]", "underlinedVariant": "tertiary" }
             ]
           }
         }
       },
 
+      "shape": {
+        "default":          { "$value": "{radius.lg}",                   "$type": "dimension", "$description": "Every tier shares the keycap radius (lg): the keycap is the signature, and one radius makes the tiers read as one family." },
+        "pill":             { "$value": "{radius.full}",                 "$type": "dimension", "$description": "shape=\"pill\": fully rounded ends, e.g. the nav call to action." }
+      },
+
+      "motion": {
+        "roll-duration":    { "$value": "{motion.duration.normal}",      "$type": "duration", "$description": "Label roll on hover and focus-visible." },
+        "roll-easing":      { "$value": "{motion.easing.out}",           "$type": "cubicBezier" },
+        "shift-duration":   { "$value": "{motion.duration.fast}",        "$type": "duration", "$description": "Colour shift and keycap press." },
+        "shift-easing":     { "$value": "{motion.easing.standard}",      "$type": "cubicBezier" },
+        "press":            { "$value": "{motion.transform.key-press}",  "$type": "other", "$description": "Primary :active sinks onto the reduced plate. Down only, never up." }
+      },
+
       "primary": {
         "fill-hi":          { "$value": "{color.semantic.accent-raised-hi}", "$type": "color" },
         "fill-lo":          { "$value": "{color.semantic.accent-raised-lo}", "$type": "color" },
+        "fill-hi-hover":    { "$value": "{color.semantic.accent-raised-hover}", "$type": "color", "$description": "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion." },
+        "fill-lo-hover":    { "$value": "{color.semantic.accent-raised-hover}", "$type": "color" },
         "edge":             { "$value": "{color.semantic.accent-raised-edge}", "$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-on-accent}", "$type": "color" },
-        "trace":            { "$value": "{color.iris.bright}",             "$type": "color", "$description": "Trace ring colour on the keycap. 3.74:1 on ground, passes the 3:1 non-text minimum; the ring is a hover affordance, not text." },
         "gloss":            { "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)", "$type": "other", "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill." },
-        "gloss-hover":      { "$value": "linear-gradient(color-mix(in srgb, white 26%, transparent), transparent 52%)", "$type": "other" },
         "gloss-pressed":    { "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)", "$type": "other" },
-        "border-radius":    { "$value": "{radius.lg}",                   "$type": "dimension", "$description": "The keycap plate radius; the one control on the lg step." },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "font-family":      { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
@@ -56,7 +73,6 @@
         "background-active":{ "$value": "{color.semantic.accent-border}","$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
         "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
-        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
@@ -65,8 +81,9 @@
       "tertiary": {
         "background":       { "$value": "transparent",                   "$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
-        "foreground-hover": { "$value": "{color.semantic.link-hover}",   "$type": "color" },
-        "border-radius":    { "$value": "{radius.md}",                   "$type": "dimension" },
+        "underline-offset": { "$value": "{spacing.1}",                   "$type": "dimension" },
+        "underline-thickness": { "$value": "{border.width.thin}",        "$type": "dimension", "$description": "The one static underline on the roll window. The rolling spans reserve offset + thickness below the text for it." },
+        "foreground-hover": { "$value": "{color.semantic.accent-hover}", "$type": "color", "$description": "Hover and focus-visible label colour. accent-hover, not link-hover: link-hover equals the rest colour, so the shift would be invisible." },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       }
     },
@@ -99,6 +116,11 @@
             ]
           }
         }
+      },
+
+      "trace": {
+        "width":            { "$value": "{border.width.thick}",                                  "$type": "dimension", "$description": "Reserved trace-ring thickness (recorded trace geometry); keeps hover layout-stable." },
+        "duration":         { "$value": "{motion.duration.trace}",              "$type": "duration", "$description": "One lap of the travelling ring. Card only: buttons have no trace." }
       },
 
       "default": {
@@ -421,7 +443,7 @@
           "states": ["default"],
           "props": ["name", "size", "label", "className", "style"],
           "usage": ["Segment glyphs", "The Select chevron", "Any leading icon slot"],
-          "dont": ["Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)", "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"],
+          "dont": ["Do not put id attributes inside an icon SVG: the glyph renders more than once (the Button label roll duplicates it), so an id-referenced gradient or clip would collide; draw with paths and currentColor only (audit:quality enforces)", "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)", "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)", "Do not hardcode an icon colour: currentColor inherits the themed ink", "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"],
           "a11y": "Verified 2026-07-22: aria-hidden by default (decorative); with label, role=img plus aria-label. Colour is always currentColor, so contrast rides on the text token of the context. Sizes from the icon tokens (sm 16 / md 20 / lg 24), stroke from icon.stroke.",
           "restState": {
             "description": "Static glyph. audit:quality has no elevation to assert; the invariants hold trivially.",

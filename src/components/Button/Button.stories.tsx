@@ -8,21 +8,19 @@ import {
 } from '../../testing/behavioral';
 import Button from './Button';
 import buttonCssRaw from './Button.module.css?raw';
-import traceCssRaw from '../shared/Trace.module.css?raw';
 import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
-/* Tokens consumed: extracted live from the committed stylesheets (the
- * button module plus the shared trace recipe), so the docs list cannot
- * drift from the code. Component-local custom properties are detail. */
+/* Tokens consumed: extracted live from the committed stylesheet, so the
+ * docs list cannot drift from the code. Buttons carry no trace ring (Card
+ * only), so the trace recipe is no longer part of this list. */
 const consumedTokens = Array.from(
   new Set(
-    ((buttonCssRaw + traceCssRaw).match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) =>
+    (buttonCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) =>
       m.slice('var('.length)
     )
   )
 )
-  .filter((v) => !v.startsWith('--cc') && !v.startsWith('--trace'))
   .sort();
 
 const buttonContract = (componentContract as any).component?.button?.$extensions?.bella ?? {};
@@ -42,6 +40,7 @@ const meta: Meta<typeof Button> = {
   },
   argTypes: {
     variant: { control: 'inline-radio' },
+    shape: { control: 'inline-radio' },
     href: { control: 'text' },
     ariaLabel: { control: 'text' },
     disabled: { control: 'boolean' },
@@ -53,6 +52,7 @@ const meta: Meta<typeof Button> = {
   },
   args: {
     variant: 'secondary',
+    shape: 'default',
     disabled: false,
   },
 };
@@ -77,8 +77,10 @@ export const Tiers: Story = {
   ),
 };
 
-/** Every tier in default and disabled; hover/active/focus are live states,
- * exercised by the Behavior story and the trace/rest assertions. */
+/** Every tier in default and disabled. Hover and focus-visible roll the
+ * label (never lift); active presses the primary keycap; reduced motion is
+ * colour only. Live states, exercised by the Behavior story and the
+ * rest-state assertions. */
 export const States: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
@@ -97,6 +99,41 @@ export const States: Story = {
       ))}
     </div>
   ),
+};
+
+/** Shape: every tier shares the keycap radius by default; `shape="pill"`
+ * rounds the ends fully. The label still reads once: the rolling copy is
+ * aria-hidden. */
+export const Shape: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+      {(['default', 'pill'] as const).map((shape) => (
+        <div
+          key={shape}
+          style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}
+        >
+          <Button variant="primary" shape={shape} onClick={() => {}}>
+            Get in touch
+          </Button>
+          <Button variant="secondary" shape={shape} onClick={() => {}}>
+            See the system
+          </Button>
+          <Button variant="tertiary" shape={shape} onClick={() => {}}>
+            All work
+          </Button>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    await step('pill: fully rounded, name read once', async () => {
+      const [square, pill] = canvas.getAllByRole('button', { name: 'Get in touch' });
+      expect(pill).toHaveAccessibleName('Get in touch');
+      expect(getComputedStyle(pill).borderTopLeftRadius).not.toBe(
+        getComputedStyle(square).borderTopLeftRadius
+      );
+    });
+  },
 };
 
 /** Anchor rendering: one link, external opens a new tab. */
@@ -144,6 +181,12 @@ export const Behavior: Story = {
 
     await step('touch target: 44px minimum', async () => {
       expectTouchTarget(button);
+    });
+
+    await step('roll: the label copy is aria-hidden, never read twice', async () => {
+      const copies = button.querySelectorAll('[aria-hidden="true"]');
+      expect(copies).toHaveLength(1);
+      expect(copies[0].textContent).toBe('Send');
     });
 
     await step('states: accessible name, single interactive element', async () => {

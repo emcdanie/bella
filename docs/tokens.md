@@ -106,6 +106,9 @@ value with the source reference in parentheses.
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.5xl` | `56px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
+| `typography.font-size.display-hero` | `clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)` | dimension |
+| `typography.font-size.display-page` | `clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)` | dimension |
+| `typography.font-size.display-section` | `clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)` | dimension |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
 | `typography.font-weight.bold` | `700` | fontWeight |
@@ -114,6 +117,7 @@ value with the source reference in parentheses.
 | `typography.line-height.snug` | `1.3` | number |
 | `typography.line-height.normal` | `1.6` | number |
 | `typography.line-height.relaxed` | `1.8` | number |
+| `typography.line-height.display` | `1.05` | number |
 | `typography.letter-spacing.tight` | `-0.02em` | dimension |
 | `typography.letter-spacing.normal` | `0` | dimension |
 | `typography.letter-spacing.wide` | `0.08em` | dimension |
@@ -375,9 +379,10 @@ value with the source reference in parentheses.
 | `component.heading.font-family` | `Unique, 'Arial Narrow', sans-serif` (`{typography.font-family.display}`) | fontFamily |
 | `component.heading.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
 | `component.heading.letter-spacing` | `0.04em` (`{typography.letter-spacing.hero}`) | dimension |
-| `component.heading.hero.font-size` | `88px` (`{typography.font-size.6xl}`) | dimension |
-| `component.heading.page.font-size` | `56px` (`{typography.font-size.5xl}`) | dimension |
-| `component.heading.section.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.heading.line-height` | `1.05` (`{typography.line-height.display}`) | number |
+| `component.heading.hero.font-size` | `clamp(40px, 40px + 32 * (100vw - 390px) / 1050, 72px)` (`{typography.font-size.display-hero}`) | dimension |
+| `component.heading.page.font-size` | `clamp(36px, 36px + 20 * (100vw - 390px) / 1050, 56px)` (`{typography.font-size.display-page}`) | dimension |
+| `component.heading.section.font-size` | `clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |
 | `component.icon.size-lg` | `24px` (`{icon.lg}`) | dimension |

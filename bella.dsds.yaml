@@ -3098,6 +3098,90 @@ entries:
       rel: file
       role: primitive.typography.font-size.6xl
   - kind: token
+    id: typography.font-size.display-hero
+    name: Display Hero
+    description: Hero display tier, fluid from 40px at a 390 viewport to 72px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 40px floor clears the 24px Unique minimum.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Heading primitive
+          - level: may
+            statement: Unique 700 display only
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.display-hero
+  - kind: token
+    id: typography.font-size.display-page
+    name: Display Page
+    description: Page-title display tier, fluid from 36px at a 390 viewport to 56px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 36px floor clears the 24px Unique minimum.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Heading primitive
+          - level: may
+            statement: Unique 700 display only
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.display-page
+  - kind: token
+    id: typography.font-size.display-section
+    name: Display Section
+    description: Section display tier (the portfolio case tier shares it on purpose), fluid from 32px at a 390 viewport to 48px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 32px floor clears the 24px Unique minimum.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Heading primitive
+          - level: may
+            statement: Unique 700 display only
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.display-section
+  - kind: token
     id: typography.font-weight.regular
     name: Regular
     description: Default body weight.
@@ -3324,6 +3408,32 @@ entries:
       rel: file
       role: primitive.typography.line-height.relaxed
   - kind: token
+    id: typography.line-height.display
+    name: Line Height Display
+    description: "Display line-height for Unique caps (display-type-scale fix, 2026-09-18). A floor: Unique leading never drops below 1, the condensed bold cut collides at 0.9."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.line-height
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Heading primitive, all tiers
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.line-height.display
+  - kind: token
     id: typography.letter-spacing.tight
     name: Letter Spacing Tight
     description: Tightened tracking. Geist display sizes only, never Unique.
@@ -3444,7 +3554,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.hero
     name: Hero
-    description: Hero display tracking (Elleta pick, 2026-07-22, from a three-way render at 6xl). Positive tracking that opens Unique's condensed letterforms at hero sizes; pairs with font-size.6xl. Unique never takes negative tracking.
+    description: Display tracking for every Unique heading tier (Elleta pick 2026-07-22 at 6xl; extended to all display tiers by the display-type-scale fix, 2026-09-18). A floor that opens Unique's condensed letterforms. Unique never takes less, and never negative.
     metadata:
       origin:
         method: extracted
@@ -3461,9 +3571,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Doc-site page H1s
+            statement: Heading primitive, all tiers
           - level: may
-            statement: Unique 700 display at 6xl
+            statement: Doc-site page H1s
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -8400,9 +8510,31 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{typography.letter-spacing.hero}"
   - kind: token
+    id: component.heading.line-height
+    name: Line Height
+    description: Component-tier alias. Resolves to `typography.line-height.display` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - heading
+      group: component.heading
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.heading.line-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.line-height.display}"
+  - kind: token
     id: component.heading.hero.font-size
     name: Hero Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.6xl` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.display-hero` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -8420,11 +8552,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.6xl}"
+        alias: "{typography.font-size.display-hero}"
   - kind: token
     id: component.heading.page.font-size
     name: Page Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.5xl` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.display-page` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -8442,11 +8574,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.5xl}"
+        alias: "{typography.font-size.display-page}"
   - kind: token
     id: component.heading.section.font-size
     name: Section Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.3xl` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.display-section` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -8464,7 +8596,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.3xl}"
+        alias: "{typography.font-size.display-section}"
   - kind: token
     id: component.icon.size-sm
     name: Size Sm
@@ -10430,7 +10562,7 @@ entries:
                 role: audit:quality
             checkedBy: automated
           - level: must-not
-            statement: "Never below 24px: the smallest tier here is the 32px section step, and the keycap logo is the only recorded sub-24 exception"
+            statement: "Never below 24px: the smallest tier here is the section step, fluid from a 32px floor, and the keycap logo is the only recorded sub-24 exception"
           - level: must-not
             statement: Never negative tracking on Unique
       - kind: definitions

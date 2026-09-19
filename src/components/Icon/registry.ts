@@ -28,6 +28,9 @@ export const GLYPHS = {
     'M7.5 3V21',
   ],
   NavArrowDown: ['M6 9L12 15L18 9'],
+  /* ResourceCard's "Open" action. Extracted from iconoir-react ArrowUpRight,
+     not redrawn: the exact path the portfolio's icon set renders. */
+  ArrowUpRight: ['M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005'],
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

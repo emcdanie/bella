@@ -1,7 +1,7 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 import { PageIntro } from './DocBlocks';
 
-<Meta title="Governance" />
+<Meta title="Governance/Overview" />
 
 <PageIntro title="Governance">
   How BELLA changes. Governance here is a visible process, not a committee:
@@ -11,40 +11,12 @@ import { PageIntro } from './DocBlocks';
 
 ## The gate
 
-`npm run gate` is the ship check, and CI runs it on every PR and every push
-to main. In plain words, it checks:
+`npm run gate` is the ship check, and CI runs it on every PR and every push to
+main. Green or it isn't done: there is no partial pass and no per-check
+opt-out.
 
-- **Build diff.** The tokens rebuild from source and every generated artifact
-  (CSS, rollup, docs, this Storybook's theme values and favicon) must match
-  what is committed. A hand-edit to a generated file cannot land.
-- **Both-theme snapshots.** Every story is screenshotted in light and dark
-  and compared against committed baselines. Regenerating a baseline to
-  silence a diff without looking at it is the cardinal sin. Baselines verify
-  sameness, not correctness: a bug that is in the baseline passes the gate,
-  so every new baseline requires human eyes before it is committed.
-- **Theme integrity.** The rendered stage must actually be light in light
-  mode and dark in dark mode, checked per story. A light page showing dark
-  surfaces fails the build on its own.
-- **Accessibility.** axe runs on every story; serious and critical
-  violations fail. The contrast bar itself is enforced upstream, in the
-  token metadata.
-- **npm audit.** High and critical advisories fail, against a documented
-  allowlist that is currently empty.
-- **Correctness (audit:quality).** Because baselines only verify sameness,
-  this layer verifies rules on every story and docs page: no em or en dashes
-  in rendered text, the type floors (13px hard, 16px for long-form text,
-  24px for Unique), no pure-white solid fills, no colour literals outside
-  token specimens, and each component's recorded rest state: hover and focus
-  layers must be provably inert at rest, driven by the restState section of
-  the component contract. Every check is negative-tested: a known bug is
-  reintroduced as a probe, the gate must fail, the probe is removed.
-
-Green or it does not merge. There is no second track.
-
-A named future layer, not yet built: an LLM judge that reads new stories,
-docs, and baselines against the written rules and flags what the mechanical
-checks cannot see. Advisory only; it will never gate a merge on its own.
-Agents propose, checks verify, the human disposes.
+Every audit, what it asserts, why it exists, where it runs, and the one dated
+allowlist are on [Governance / The Gate](?path=/docs/governance-the-gate--docs).
 
 ## The change flow
 
@@ -70,16 +42,11 @@ No level allows merging, force-pushing, or relaxing a recorded rule.
 
 ## Component extraction
 
-Components move from the portfolio into BELLA one at a time, worst offenders
-first. The definition of done, per component:
-
-1. Stories for every visual variant, green.
-2. The behavioral suite (keyboard, focus, states) green.
-3. Both-theme snapshot baselines committed and reviewed by eye.
-4. The component description written by Elleta.
-5. A matching contract entry in `tokens/component.json`.
-6. The portfolio swaps its import and deletes its local copy in the same
-   commit. One implementation, always.
+Components move up from the reference consumer one at a time, worst offenders
+first, and the consumer deletes its local copy in the same commit. The full
+definition of done, the copy-sync model, and how a fix travels back upstream
+are on
+[Governance / Contribution & Tiers](?path=/docs/governance-contribution-tiers--docs).
 
 ## Decision records
 

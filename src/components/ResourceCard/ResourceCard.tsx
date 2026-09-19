@@ -20,7 +20,7 @@ export interface ResourceCardProps {
    * would be a colour nobody can defend.
    */
   statusLabel?: string;
-  /** Identity colour, passed through to Card's border tint and hover trace. */
+  /** Identity colour, passed through to Card. */
   accent?: string;
   /** Router Link for internal hrefs; injected by the consumer, defaults to an anchor. */
   linkComponent?: ElementType;

@@ -392,7 +392,7 @@ const config: TestRunnerConfig = {
             throw new Error(
               `[audit:visual] ${context.id}: dark theme renders a light stage ` +
                 `(background rgb(${bg.join(',')}), luminance ${lum.toFixed(3)}). ` +
-                `A dark-mode story must sit on navy.`
+                `A dark-mode story must sit on the dark ground.`
             );
           }
         }

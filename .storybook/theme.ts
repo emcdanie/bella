@@ -53,8 +53,9 @@ export const bellaTheme = create({
   inputBorderRadius: parseInt(values.radiusMd, 10),
 });
 
-/* Dark counterpart for the themed docs container: the navy page, dark inks,
- * periwinkle accent — the same flip the semantic tier makes. */
+/* Dark counterpart for the themed docs container: the warm dark ground
+ * (color.night.*, surface rules 2026-09-19), dark inks, periwinkle accent;
+ * the same flip the semantic tier makes. */
 export const bellaThemeDark = create({
   base: 'dark',
 
@@ -65,31 +66,31 @@ export const bellaThemeDark = create({
   colorPrimary: values.periwinkle,
   colorSecondary: values.periwinkle,
 
-  appBg: values.navy,
-  appContentBg: values.navy,
-  appPreviewBg: values.navy,
-  appBorderColor: values.navyDivider,
+  appBg: values.night,
+  appContentBg: values.night,
+  appPreviewBg: values.night,
+  appBorderColor: values.nightDivider,
   appBorderRadius: parseInt(values.radiusLg, 10),
 
   fontBase: values.fontBody,
   fontCode: values.fontMono,
 
   textColor: values.navyInk,
-  textInverseColor: values.navy,
+  textInverseColor: values.night,
   textMutedColor: values.navyInkMuted,
 
   barTextColor: values.navyInkMuted,
   barSelectedColor: values.periwinkle,
   barHoverColor: values.periwinkle,
-  barBg: values.navyCard,
+  barBg: values.nightCard,
 
-  buttonBg: values.navyCard,
-  buttonBorder: values.navyDivider,
-  booleanBg: values.navyCard,
-  booleanSelectedBg: values.navy,
+  buttonBg: values.nightCard,
+  buttonBorder: values.nightDivider,
+  booleanBg: values.nightCard,
+  booleanSelectedBg: values.night,
 
-  inputBg: values.navyCard,
-  inputBorder: values.navyDivider,
+  inputBg: values.nightCard,
+  inputBorder: values.nightDivider,
   inputTextColor: values.navyInk,
   inputBorderRadius: parseInt(values.radiusMd, 10),
 });

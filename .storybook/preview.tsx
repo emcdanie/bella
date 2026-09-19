@@ -78,7 +78,7 @@ const preview: Preview = {
         icon: 'mirror',
         items: [
           { value: 'light', title: 'Light (ground)' },
-          { value: 'dark', title: 'Dark (navy)' },
+          { value: 'dark', title: 'Dark (warm ground)' },
         ],
         dynamicTitle: true,
       },

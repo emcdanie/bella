@@ -1,6 +1,6 @@
 # Surfaces — glass, shadow, and when to use which
 
-BELLA ships three glass tiers plus a handful of solid surfaces. This file governs when each one is right, why the pure-white-alpha exception exists, and how dark mode changes the rules.
+BELLA ships three glass tiers plus a handful of solid surfaces. The Card component is none of them: it is flat (`surface-card`, 1px `border-faint`, `radius.card`, no shadow at rest; only interactive cards lift on hover and focus, per the surface rules of 2026-09-19). The glass tiers below are the `.bella-card-*` utility classes. This file governs when each one is right, why the pure-white-alpha exception exists, and how dark mode changes the rules.
 
 Consumer projects inherit this file. Downstream microagents may tighten these rules; they do not get to relax them.
 
@@ -27,7 +27,7 @@ Pick the tier before picking the radius. Radius, shadow, and blur move together 
 ## When NOT to use glass
 
 - **Never glass on glass.** A glass card inside a glass card produces mud. If a card needs sub-sections, use solid surface panels inside.
-- **Never glass over colored surfaces.** Glass is designed for ground (light mode) or navy (dark mode). Placing glass over saturated fills (iris, periwinkle, steel, sage) breaks the warmth model and makes text-contrast against the layer underneath unpredictable.
+- **Never glass over colored surfaces.** Glass is designed for ground (light mode) or the warm dark ground (dark mode). Placing glass over saturated fills (iris, periwinkle, steel, sage) breaks the warmth model and makes text-contrast against the layer underneath unpredictable.
 - **Never glass over a busy photo.** If you have an image backdrop, use a solid surface with `shadow.soft` instead — a frost won't save the readability.
 
 Solid surface + shadow is the right answer whenever glass isn't.
@@ -40,7 +40,7 @@ All glass primitives are white at alpha (28 / 48 / 55 / 68 / 72 / 82 / 90). The 
 
 > Pure white alpha is permitted ONLY as a translucent overlay. Never as a solid fill. The warmth comes from ground showing through.
 
-Glass is never a solid fill. Every glass token is painted over ground (`#F5F4EF`) or, in dark mode, over navy. The warm tone of the page transmits through the frost — you are never looking at `#FFFFFF`, you are looking at ground filtered through alpha.
+Glass is never a solid fill. Every glass token is painted over ground (`#F5F4EF`) or, in dark mode, over the warm dark ground (`#110F0D`). The warm tone of the page transmits through the frost: you are never looking at `#FFFFFF`, you are looking at ground filtered through alpha.
 
 If a glass token is ever used without a warm background behind it (e.g. on pure white canvas, or on a photo without a ground layer), it resolves visually to opaque white. That's a bug. Fix it by restoring a ground layer beneath.
 
@@ -61,10 +61,10 @@ Shadow tints are cool violet-ink (`#1C1A2E` at 3–8% alpha, the `shadow-cool-*`
 
 In dark mode the rules flip:
 
-- Glass opacity goes from white-alpha to **navy-alpha**: `navy-60 / navy-48 / navy-32` for glass / elevated / light. Ground isn't beneath, navy is — navy-card at alpha reads as a lighter panel floating over the page.
-- **Shadow tint carries over.** The same cool violet-ink shadow family works on navy. Do not swap to pure-black shadows.
-- A **periwinkle-tinted glass variant** is available for active / selected states only: `surface.glass-accent` (periwinkle at 15% over the navy card). Use sparingly — for a selected nav item, an active filter chip, a playing track. Never as a default surface.
-- Text on dark glass: `navy.ink` (`#F4EFE6`) is primary. `iris.peri-ink` (`#B4ADE8`, 7.89:1 on navy — AAA) for accent emphasis spans; `periwinkle` itself is AA (6.65:1). Nothing else.
+- Glass opacity goes from white-alpha to **warm-dark-alpha**: `night-60 / night-48 / night-32` for glass / elevated / light. Ground isn't beneath, the warm dark ground (`#110F0D`) is, so the dark card (`#1B1916`) at alpha reads as a lighter panel floating over the page. The navy alphas are no longer the dark glass (2026-09-19).
+- **Shadow tint carries over.** The same cool violet-ink shadow family works on the dark ground. Do not swap to pure-black shadows.
+- A **periwinkle-tinted glass variant** is available for active / selected states only: `surface.glass-accent` (periwinkle at 15% over the dark card). Use sparingly: a selected nav item, an active filter chip, a playing track. Never as a default surface.
+- Text on dark glass: `navy.ink` (`#F4EFE6`) is primary. `iris.peri-ink` (`#B4ADE8`, 9.18:1 on the dark ground, AAA) for accent emphasis spans; `periwinkle` itself is 7.74:1 on the ground and 7.10:1 on the card (verified 2026-09-19). Nothing else.
 
 ## Motion and reduced-motion (WCAG 2.3.3 AAA)
 

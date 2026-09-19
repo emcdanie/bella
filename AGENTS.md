@@ -14,9 +14,9 @@ Reference tokens by path (`color.brand.iris`, `spacing.4`, `typography.font-size
 
 **AAA-minded AA.** Concretely:
 
-- **AAA for ink and body text.** Both ink ladders are verified AAA on every surface they sit on (light: 16.06 / 12.81 / 8.33 on ground; dark: 14.35 / 12.61 / 9.45 on navy). Body text never drops below AAA.
+- **AAA for ink and body text.** Both ink ladders are verified AAA on every surface they sit on (light: 16.06 / 12.81 / 8.33 on ground; dark: 16.70 / 14.67 / 10.99 on the warm dark ground, re-verified 2026-09-19). Body text never drops below AAA.
 - **AA where the accent speaks.** Iris tops out at 5.96:1 on light surfaces — AAA accent text is not attainable and is not the bar. Accent text, buttons, and links are AA-verified per token.
-- **The accent always theme-flips.** Iris in light, periwinkle in dark. Each fails its opposite ground so hard (2.64:1 / 2.24:1) that it is banned there **even as decoration** — the failure includes the 3:1 non-text minimum.
+- **The accent always theme-flips.** Iris in light, periwinkle in dark. Each fails its opposite ground (iris 3.07:1 on the dark ground and 2.82:1 on the dark card; periwinkle 2.24:1 on ground), so each is banned there **even as decoration**. Iris on the dark card fails the 3:1 non-text minimum; on the bare dark ground it clears it by a hair, which is not a licence.
 - **Worst-ground-wins.** A text token passes AA normal text on the *worst* surface it is allowed to sit on, or its usage metadata forbids that surface. Verified ratios are recorded per token in `$extensions.bella.a11y`, dated.
 
 ## Typography minimums
@@ -33,15 +33,15 @@ Fine-print, captions, and metadata live at 13–14px and should be rare. If you'
 
 ## No pure white
 
-Backgrounds are warm neutrals. `#ffffff` is banned as a solid fill. The default canvas is `color.brand.ground` (`#F5F4EF`) — warm off-white. Cards and raised surfaces are `color.neutral.paper` (`#FAFAF8`), separated from the page by lift and shadow, not darkness. White alpha is permitted only as a translucent glass overlay — the warmth comes from ground showing through.
+Backgrounds are warm neutrals. `#ffffff` is banned as a solid fill. The default canvas is `color.brand.ground` (`#F5F4EF`), warm off-white. Cards are flat: `color.semantic.surface-card` (`#ECEBE7`, the ground one small step darker) with a 1px `color.semantic.border-faint` edge, no shadow at rest (surface rules, 2026-09-19). `color.neutral.paper` (`#FAFAF8`) stays the fixed-context paper surface (the Peek card, modals). White alpha is permitted only as a translucent glass overlay; the warmth comes from ground showing through.
 
-Dark mode is navy (`color.brand.navy`, `#1B1B40`), not black. Dark elevation climbs lighter: page → `navy.card` (`#232350`) → `navy.raised` (`#2B2B5C`).
+Dark mode is a warm near-black ground (`color.night.ground`, `#110F0D`), not navy and not pure black. Dark elevation climbs lighter: page `#110F0D`, then card `color.night.card` (`#1B1916`), inset `color.night.inset` (`#252320`), raised `color.night.raised` (`#2C2A27`). Navy is for the site footer, not the dark page.
 
 ## Surface behavior
 
-- Cards: radius from the token tier — `radius.xl` (16px) for `card.default`, `radius.2xl` (20px) elevated, `radius.3xl` (24px) glass. On hover, `motion.transform.hover-lift` (`translateY(-2px)`). The lift is the tell — cards are objects, not panels.
+- Cards: flat. `surface-card` fill, 1px `border-faint`, `radius.card` (16px), no shadow at rest, no accent-tinted border, no gradient or scrim over media. Only interactive cards (one link or one button) respond: on hover and focus-visible, `motion.transform.hover-lift` (`translateY(-2px)`) plus `shadow.hover`, over `motion.duration.lift` (200ms). No lift under reduced motion. A static card never changes on hover. The lift is the tell: it marks what you can click.
 - Buttons: every tier shares `radius.lg` (12px, `component.button.shape.default`); `shape="pill"` uses `radius.full`. Buttons never lift on hover: lift is reserved for cards. Hover and focus-visible roll the label; active presses the primary keycap (`motion.transform.key-press`). No trace ring on buttons. See `docs/motion-system.md`.
-- One light source, upper-left: highlights top-left, shadows down-right (orbs, keycaps, cards). The elevation tokens (`shadow.orb*`, `shadow.key-*`, `shadow.switch-*`) are a token lock — do not flatten; the depth IS the system.
+- One light source, upper-left: highlights top-left, shadows down-right (orbs, keycaps). The elevation tokens (`shadow.orb*`, `shadow.key-*`, `shadow.switch-*`) are a token lock: do not flatten; the depth IS the system.
 - Hover transitions are quick (≤250ms) and eased. No bouncing, no spring physics.
 
 ## Aesthetic stance
@@ -63,7 +63,8 @@ BELLA's palette and typography are decided (the 2026-07 identity). The source of
 
 - `color.brand.ink` — `#1A1720`, near-black with a warm plum undertone; light-mode text
 - `color.brand.ground` — `#F5F4EF`, warm off-white, the default canvas
-- `color.brand.navy` — `#1B1B40`, deep blue-violet, the dark-mode page
+- `color.brand.navy` `#1B1B40`, deep blue-violet: the site footer and the light-mode primary. Also still valid as the dark-mode `text-on-accent` (the label on periwinkle fills) and, via `navy.card`, the light-mode `surface-inverse`. It is not the dark-mode page
+- `color.night.ground` `#110F0D`, warm near-black, the dark-mode page; `color.night.card` `#1B1916` is the dark card surface
 - `color.brand.iris` — `#5B4BD1`, **the single accent**, light mode. At body scale iris means INTERACTIVE and only that.
 - `color.brand.periwinkle` — `#A79CE2`, the same accent seen in dark mode; decorative lavender tints (alpha washes) in light
 

@@ -25,7 +25,7 @@ It powers:
 
 - `color.brand.ground` `#F5F4EF` — warm off-white canvas; pure white is banned
 - `color.brand.ink` `#1A1720` — near-black with a warm plum undertone
-- `color.brand.navy` `#1B1B40` — dark mode is navy, not black
+- `color.night.ground` `#110F0D`: dark mode is a warm near-black ground (cards `#1B1916`), not navy; navy `#1B1B40` stays for the footer, dark text-on-accent, and light surface-inverse
 - `color.brand.iris` `#5B4BD1` — the single accent; at body scale it means *interactive*
 - `color.brand.periwinkle` `#A79CE2` — the same accent, seen in the dark; the two always theme-flip
 
@@ -151,7 +151,7 @@ Regenerates every file marked *Generated* above. CI fails any PR where the gener
 
 ## Status
 
-v0.3.0 is the 2026-07 identity: tokens complete across all three tiers, with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark, one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced; see `CHANGELOG.md`.
+v0.3: the 2026-07 identity. Tokens complete across all three tiers with verified, dated contrast metadata on every color that speaks. Palette: ground/ink light, navy dark (superseded 2026-09-19: the dark ground is warm near-black `#110F0D`), one iris↔periwinkle accent. Typography: Unique + Geist, two faces, locked. Elevation: the orb/keycap/switch shadow lock. The April identity (parchment/amber, Georgia/JetBrains Mono) is fully replaced; see `CHANGELOG.md`.
 
 Unreleased on top of 0.3.0:
 

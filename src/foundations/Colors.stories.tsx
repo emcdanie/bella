@@ -25,6 +25,8 @@ export const Neutrals: StoryObj = {
       <SwatchGrid leaves={leavesUnder(primitive, 'color.neutral')} />
       <SectionTitle>Navy scale</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.navy')} />
+      <SectionTitle>Warm dark scale (the dark ground)</SectionTitle>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.night')} />
       <SectionTitle>Status (carried, non-text only)</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.supporting')} />
     </div>

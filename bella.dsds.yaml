@@ -2988,7 +2988,7 @@ entries:
   - kind: token
     id: typography.font-size.3xl
     name: Font Size 3xl
-    description: Section heading floor.
+    description: "32px ramp step for Geist H2s. Not a Heading tier: the Unique section tier sizes from font-size.display-section, whose 32px floor matches this step."
     metadata:
       origin:
         method: extracted
@@ -3005,9 +3005,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Heading-2
+            statement: Doc-site H2s (Geist 700)
           - level: may
-            statement: Section titles
+            statement: Storybook foundations section titles
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -3016,7 +3016,7 @@ entries:
   - kind: token
     id: typography.font-size.4xl
     name: 4xl
-    description: Heading-1 size.
+    description: "40px ramp step. Not a Heading tier: the Unique page tier sizes from font-size.display-page (36 to 56). No component consumer since the display-type-scale fix (2026-09-18)."
     metadata:
       origin:
         method: extracted
@@ -3033,9 +3033,7 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Heading-1
-          - level: may
-            statement: Page titles
+            statement: Ramp step, no current component consumer
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -3044,7 +3042,7 @@ entries:
   - kind: token
     id: typography.font-size.5xl
     name: 5xl
-    description: Display / hero size.
+    description: "56px ramp step. Not a Heading tier: the Unique hero tier sizes from font-size.display-hero (40 to 72). No component consumer since the display-type-scale fix (2026-09-18)."
     metadata:
       origin:
         method: extracted
@@ -3061,9 +3059,7 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Hero headlines
-          - level: may
-            statement: Landing-page impact statements
+            statement: Ramp step, no current component consumer
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -3100,7 +3096,7 @@ entries:
   - kind: token
     id: typography.font-size.display-hero
     name: Display Hero
-    description: Hero display tier, fluid from 40px at a 390 viewport to 72px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 40px floor clears the 24px Unique minimum.
+    description: Hero display tier, fluid from 40px at a 390 viewport to 180px at 1440 (display-type-scale fix, 2026-09-18; ceiling synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.
     metadata:
       origin:
         method: extracted
@@ -3128,7 +3124,7 @@ entries:
   - kind: token
     id: typography.font-size.display-page
     name: Display Page
-    description: Page-title display tier, fluid from 36px at a 390 viewport to 56px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 36px floor clears the 24px Unique minimum.
+    description: Page-title display tier, fluid from 40px at a 390 viewport to 64px at 1440 (display-type-scale fix, 2026-09-18; range synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.
     metadata:
       origin:
         method: extracted
@@ -3304,7 +3300,7 @@ entries:
   - kind: token
     id: typography.line-height.tight
     name: Tight
-    description: Display headline line-height.
+    description: Tight line-height for the doc-site H1 and Geist display text. Heading tiers use line-height.display (1.05).
     metadata:
       origin:
         method: extracted
@@ -3321,9 +3317,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Display
+            statement: Doc-site page H1s
           - level: may
-            statement: Heading-1
+            statement: Geist display sizes
     tokenType: number
     source:
       href: ./tokens/bella.json
@@ -3468,7 +3464,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.normal
     name: Letter Spacing Normal
-    description: Default tracking, and the Unique display floor.
+    description: Default tracking for body and UI text. Unique headings take letter-spacing.hero (0.04em), the display floor.
     metadata:
       origin:
         method: extracted
@@ -3489,7 +3485,7 @@ entries:
           - level: may
             statement: Most UI text
           - level: may
-            statement: All Unique display settings
+            statement: Tag labels
     tokenType: dimension
     source:
       href: ./tokens/bella.json

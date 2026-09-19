@@ -104,7 +104,7 @@ const preview: Preview = {
           ['Overview', 'The Gate', 'Contribution & Tiers'],
           'Changelog',
           'Foundations',
-          ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Responsiveness', 'Elevation', 'Icons'],
+          ['Logo', 'Illustration', 'Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Responsiveness', 'Elevation', 'Icons'],
           'Components',
           'Patterns',
           'Testing',

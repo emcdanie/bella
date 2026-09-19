@@ -128,7 +128,7 @@ export function TokenChip({ token }: { token: string }) {
             height: 12,
             borderRadius: 'var(--radius-sm)',
             background: `var(${cssVar})`,
-            border: '1px solid var(--color-semantic-border)',
+            border: '1px solid var(--color-semantic-border-strong)',
             flexShrink: 0,
           }}
         />

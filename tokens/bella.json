@@ -2022,6 +2022,22 @@
             }
           }
         },
+        "slower": {
+          "$value": "600ms",
+          "$type": "duration",
+          "$description": "Entrance ease-ins: content arriving for the first time.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Section and card-grid reveal on scroll",
+                "Long draw and trace transitions"
+              ],
+              "dont": [
+                "Do not use for hover or press feedback: it reads as lag"
+              ]
+            }
+          }
+        },
         "trace": {
           "$value": "3400ms",
           "$type": "duration",
@@ -2074,6 +2090,22 @@
             "bella": {
               "usage": [
                 "Button label roll"
+              ]
+            }
+          }
+        },
+        "in-out": {
+          "$value": "cubic-bezier(0.65, 0, 0.35, 1)",
+          "$type": "cubicBezier",
+          "$description": "Symmetric ease: equal acceleration in and out. For movement that reverses, so open and close feel the same.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Accordion open and close",
+                "Toggle and switch travel"
+              ],
+              "dont": [
+                "Do not use for entrances: use easing.out so they land softly"
               ]
             }
           }

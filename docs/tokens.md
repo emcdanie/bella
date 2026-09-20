@@ -148,10 +148,12 @@ value with the source reference in parentheses.
 | `motion.duration.normal` | `250ms` | duration |
 | `motion.duration.lift` | `200ms` | duration |
 | `motion.duration.slow` | `400ms` | duration |
+| `motion.duration.slower` | `600ms` | duration |
 | `motion.duration.trace` | `3400ms` | duration |
 | `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | cubicBezier |
 | `motion.easing.emphasis` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | cubicBezier |
 | `motion.easing.out` | `cubic-bezier(0.22, 1, 0.36, 1)` | cubicBezier |
+| `motion.easing.in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` | cubicBezier |
 | `motion.transform.hover-lift` | `translateY(-2px)` | other |
 | `motion.transform.key-press` | `translateY(2px)` | other |
 | `blur.xs` | `8px` | dimension |

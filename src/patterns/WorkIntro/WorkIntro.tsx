@@ -14,8 +14,9 @@ export interface WorkIntroProps {
   after?: ReactNode;
   /** The practice paragraph: two lines at wide widths. */
   practice: ReactNode;
-  /** Optional side proof panel: figures with a short label each. */
-  proof?: { figure: string; label: string }[];
+  /** Optional side proof panel: confirmed lines, rendered verbatim. No
+   * derived or paraphrased figures. */
+  proof?: ReactNode[];
   /** Accessible name for the proof panel. */
   proofLabel?: string;
 }
@@ -32,7 +33,7 @@ export default function WorkIntro({
   after,
   practice,
   proof,
-  proofLabel = 'In numbers',
+  proofLabel = 'Proof',
 }: WorkIntroProps) {
   return (
     <header className={styles.container} data-bella-pattern="work-intro">
@@ -49,14 +50,13 @@ export default function WorkIntro({
           <p className={styles.practice}>{practice}</p>
           {proof?.length ? (
             <Card className={styles.proof}>
-              <dl className={styles.figures} aria-label={proofLabel}>
-                {proof.map((p) => (
-                  <div key={p.label} className={styles.figureRow}>
-                    <dt className={styles.figureLabel}>{p.label}</dt>
-                    <dd className={styles.figure}>{p.figure}</dd>
-                  </div>
+              <ul className={styles.proofList} aria-label={proofLabel}>
+                {proof.map((line, i) => (
+                  <li key={i} className={styles.proofLine}>
+                    {line}
+                  </li>
                 ))}
-              </dl>
+              </ul>
             </Card>
           ) : null}
         </div>

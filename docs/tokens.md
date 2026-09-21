@@ -137,6 +137,7 @@ value with the source reference in parentheses.
 | `typography.line-height.display` | `1.05` | number |
 | `typography.letter-spacing.tight` | `-0.02em` | dimension |
 | `typography.letter-spacing.normal` | `0` | dimension |
+| `typography.letter-spacing.body` | `-0.01em` | dimension |
 | `typography.letter-spacing.wide` | `0.08em` | dimension |
 | `typography.letter-spacing.wider` | `0.15em` | dimension |
 | `typography.letter-spacing.hero` | `0.04em` | dimension |

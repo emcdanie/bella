@@ -83,6 +83,7 @@ export function SectionTitle({ children }: { children: React.ReactNode }) {
         fontSize: 'var(--typography-font-size-3xl)',
         fontWeight: 700,
         margin: 'var(--spacing-10) 0 var(--spacing-5)',
+        letterSpacing: 'var(--typography-letter-spacing-normal)',
       }}
     >
       {children}

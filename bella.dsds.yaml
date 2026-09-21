@@ -3951,7 +3951,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.normal
     name: Letter Spacing Normal
-    description: Default tracking for body and UI text. Unique headings take letter-spacing.hero (0.04em), the display floor.
+    description: Zero tracking for UI text that sets its own (tags, avatar initials). Geist body text takes letter-spacing.body; Unique headings take letter-spacing.hero (0.04em), the display floor.
     metadata:
       origin:
         method: extracted
@@ -3968,8 +3968,6 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Body
-          - level: may
             statement: Most UI text
           - level: may
             statement: Tag labels
@@ -3978,6 +3976,42 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.typography.letter-spacing.normal
+  - kind: token
+    id: typography.letter-spacing.body
+    name: Letter Spacing Body
+    description: Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.letter-spacing
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Geist body text
+          - level: may
+            statement: Paragraphs and card copy that inherit the body setting
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Never on Unique: every Unique element sets letter-spacing.hero explicitly"
+          - level: must-not
+            statement: "Not a heading tracking: the heading locks are unchanged"
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.letter-spacing.body
   - kind: token
     id: typography.letter-spacing.wide
     name: Letter Spacing Wide

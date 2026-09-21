@@ -48,11 +48,11 @@ BELLA is the one source; the site consumes it via sync.
     14 / 16 / 18 / 28 / 52 / 80; Geist Mono only for code and token names.
     Before/after Typography story at 1440 and 390, both themes. No site
     sync until approved.
-    **BLOCKED** on conflicts with AGENTS.md locks, awaiting Elleta:
-    - "Never negative tracking on Unique" (headings are Unique)
-    - Unique ships one cut, Bold 700; card titles are "20px min, weight 700"
-    - Mono is "retired, do not reintroduce"
-    - 28 replaces the 32px section-heading floor and drops the 20px step
+    **RESOLVED 2026-09-22 (Elleta):** every Unique heading lock stays (no
+    negative tracking, 700, the 32px section and 20px card-title floors).
+    Only Geist body text changes: `letter-spacing.body` -0.01em. Geist Mono
+    stays retired. Story: Foundations/Typography "Body tracking, before /
+    after". SectionIndex defaults to `as="p"` so the 32px rule holds.
 
 ## Cut
 

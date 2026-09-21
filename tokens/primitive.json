@@ -1681,8 +1681,8 @@
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
@@ -1694,8 +1694,8 @@
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
@@ -1707,8 +1707,8 @@
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
@@ -1829,7 +1829,7 @@
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive, all tiers"
+              "Heading primitive, all tiers"
             ]
           }
         }
@@ -1854,13 +1854,29 @@
       "normal": {
         "$value": "0",
         "$type": "dimension",
-        "$description": "Default tracking for body and UI text. Unique headings take letter-spacing.hero (0.04em), the display floor.",
+        "$description": "Zero tracking for UI text that sets its own (tags, avatar initials). Geist body text takes letter-spacing.body; Unique headings take letter-spacing.hero (0.04em), the display floor.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Body",
               "Most UI text",
               "Tag labels"
+            ]
+          }
+        }
+      },
+      "body": {
+        "$value": "-0.01em",
+        "$type": "dimension",
+        "$description": "Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Geist body text",
+              "Paragraphs and card copy that inherit the body setting"
+            ],
+            "dont": [
+              "Never on Unique: every Unique element sets letter-spacing.hero explicitly",
+              "Not a heading tracking: the heading locks are unchanged"
             ]
           }
         }

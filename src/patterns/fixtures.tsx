@@ -93,23 +93,25 @@ export const intro = {
   after: '.',
   practice:
     'Tokens, components, and the governance that keeps them from drifting. I read code and work with engineers directly.',
+  /* Confirmed lines only, verbatim (Elleta, 2026-09-22). No paraphrased figures. */
   proof: [
-    { figure: '5+', label: 'booking verticals on one token set' },
-    { figure: 'From zero', label: 'a first design system, to production' },
-    { figure: 'Parity', label: 'Figma and Storybook, one source' },
+    '81% said booking was too complex',
+    'Funded: an engineering team and two designers',
+    'Figma and code share token names',
   ],
 };
 
-/** B2B travel: the decision-support case (site: content/case-studies/
- * _archive/filters-decision-support-system.ts). */
+/** B2B travel: the umbrella case (site: content/case-studies/booking-platform.ts,
+ * lib/workLibrary.ts). Cover is the shipped flights screen, de-branded
+ * (site: public/images/case-studies/travel/flights-after.webp), whole and
+ * uncropped: a portrait screen, so it sits in the 16:10 well with room around it. */
 export const featured: FeaturedCaseProps = {
-  kicker: 'UX Strategy · 2024-25',
-  title: 'Travel Booking',
-  impact:
-    'Search, filtering and results as one decision flow for a multi-vertical B2B travel platform, with policy visible on every result.',
-  tags: ['Interaction Design', 'Search UX', 'Cognitive UX', 'B2B Travel'],
-  href: '#case-studies/filters-decision-support-system',
-  cover: img('work/travel-cover.png', 2560, 1600),
+  kicker: 'B2B travel · 2024-26',
+  title: 'B2B travel platform',
+  impact: 'A redesign that had not shipped in two years became a platform that did',
+  tags: ['Product design', 'Design systems', 'UX research', 'Design system governance'],
+  href: '#case-studies/booking-platform',
+  cover: img('work/flights-after.webp', 1440, 2035),
 };
 
 export const grid: CaseGridItem[] = [

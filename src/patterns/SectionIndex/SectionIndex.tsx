@@ -7,11 +7,13 @@ export interface SectionIndexProps {
   /** The section name (e.g. "Featured"); set in caps by the pattern. */
   label: string;
   /**
-   * Semantic element. `"h2"` (default) keeps the page outline honest: the
-   * index names the section below it. `"p"` when a real heading follows.
+   * Semantic element. `"p"` (default): at 14px the index is a label, not a
+   * heading, and section headings are 32px minimum (AGENTS.md). Name the
+   * section with its id via aria-labelledby. Opt into `"h2"`/`"h3"` only
+   * where the page has no real section heading, knowing it breaks the floor.
    */
   as?: 'h2' | 'h3' | 'p';
-  /** Heading id, for the section's aria-labelledby. */
+  /** Element id, for the section's aria-labelledby. */
   id?: string;
 }
 
@@ -20,7 +22,7 @@ export interface SectionIndexProps {
  * rule line. Index, slash, label, then a hairline to the edge. The slash
  * and the rule are decoration; the name reads "01 Featured".
  */
-export default function SectionIndex({ index, label, as: Tag = 'h2', id }: SectionIndexProps) {
+export default function SectionIndex({ index, label, as: Tag = 'p', id }: SectionIndexProps) {
   return (
     <div className={styles.row} data-bella-pattern="section-index">
       <Tag className={styles.text} id={id}>

@@ -62,6 +62,7 @@ const withBellaTheme: Decorator = (Story, context) => {
         fontFamily: 'var(--typography-font-family-body)',
         fontSize: 'var(--typography-font-size-base)',
         lineHeight: 'var(--typography-line-height-normal)',
+        letterSpacing: 'var(--typography-letter-spacing-body)',
       }}
     >
       <Story />

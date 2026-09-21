@@ -5,7 +5,7 @@ import SectionIndex from './SectionIndex';
 const meta: Meta<typeof SectionIndex> = {
   title: 'Patterns/SectionIndex',
   component: SectionIndex,
-  args: { index: '01', label: 'Featured', as: 'h2' },
+  args: { index: '01', label: 'Featured', as: 'p' },
   argTypes: { as: { control: 'inline-radio' } },
 };
 export default meta;

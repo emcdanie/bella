@@ -76,6 +76,7 @@ Supporting `steel` and `sage` are carried from the April identity for status sta
 
 - `typography.font-family.display` — **Unique** (Bold/700 is the only cut). Display headings, the home hero headline, and the keycap brand lockup. Never below 24px (keycap logo excepted), never negative tracking, never for body/UI/card titles/eyebrows/nav/buttons/chips.
 - `typography.font-family.body` — **Geist**. Everything else. Eyebrows are Geist caps with `letter-spacing.wider` — the tracking is the look.
+- **Geist body tracking is `letter-spacing.body` (-0.01em)** (body amendment, 2026-09-22, Elleta). Set it where body text is established; prose inherits it. Body only: Geist titles set `letter-spacing.normal`, and every Unique element keeps `letter-spacing.hero`. Body sizes stay on the scale (13 / 14 / 16 / 18 / 20); no off-scale sizes.
 - `typography.font-family.mono` — **retired**, repointed to Geist for legacy consumers. Do not reintroduce a mono family.
 
 **Icons — one set, declared (2026-07-22):** Iconoir (MIT, the portfolio's set) is BELLA's only icon source. Every glyph lives in the Icon registry (`src/components/Icon/registry.ts`) and renders through the Icon component: icon-ramp sizes, always currentColor, decorative by default. No mixing sets, no one-off inline SVGs anywhere; a meaningful icon requires a label and never stands without text unless its accessible name is proven in a Behavior story. audit:quality fails any inline `<svg>` outside the Icon component.

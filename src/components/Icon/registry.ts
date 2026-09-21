@@ -31,6 +31,8 @@ export const GLYPHS = {
   /* ResourceCard's "Open" action. Extracted from iconoir-react ArrowUpRight,
      not redrawn: the exact path the portfolio's icon set renders. */
   ArrowUpRight: ['M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005'],
+  /* FeaturedCase and CaseGrid's "Read it" cue. Iconoir ArrowRight (regular). */
+  ArrowRight: ['M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5'],
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

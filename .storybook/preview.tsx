@@ -107,6 +107,7 @@ const preview: Preview = {
           ['Logo', 'Illustration', 'Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Responsiveness', 'Elevation', 'Icons'],
           'Components',
           'Patterns',
+          'Pages',
           'Testing',
         ],
       },
@@ -116,6 +117,9 @@ const preview: Preview = {
         mobile: { name: 'Mobile (390)', styles: { width: '390px', height: '844px' } },
         tablet: { name: 'Tablet (768)', styles: { width: '768px', height: '1024px' } },
         desktop: { name: 'Desktop (1240)', styles: { width: '1240px', height: '900px' } },
+        /* the Work patterns' review widths (2026-09-21) */
+        laptop: { name: 'Laptop (1024)', styles: { width: '1024px', height: '768px' } },
+        wide: { name: 'Wide (1440)', styles: { width: '1440px', height: '900px' } },
       },
     },
     a11y: {

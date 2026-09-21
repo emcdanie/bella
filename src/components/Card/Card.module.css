@@ -88,7 +88,13 @@
   outline-offset: var(--ring-focus-offset);
 }
 
-/* Media variant: full-bleed cover above the padded body */
+/* Media variant: full-bleed cover above the padded body. The cover slot
+ * (Work patterns, 2026-09-21): a fixed 16:10 well that NEVER crops. Images
+ * sit at contain on the card's own surface, so a cover of another ratio
+ * letterboxes onto surface-card, not onto a second (inset) tone. A live
+ * specimen fills the well (ScaledFrame scales it to fit). Sharpness is the
+ * consumer's contract: natural width at least 2x the rendered width,
+ * asserted in the Cover stories. */
 .innerFlush {
   padding: 0;
   overflow: hidden;
@@ -98,14 +104,14 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--color-semantic-surface-inset);
+  background: var(--color-semantic-surface-card);
 }
 
 .media > :global(img),
 .media > :global(svg) {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 

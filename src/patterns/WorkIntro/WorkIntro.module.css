@@ -1,0 +1,75 @@
+/* WorkIntro (Work patterns, 2026-09-21). Tokens only. The proof panel sits
+ * beside the practice paragraph once the intro's own container is wide
+ * (768px = breakpoint.tablet), below it otherwise. */
+
+.container {
+  container: work-intro / inline-size;
+}
+
+.intro {
+  display: grid;
+  row-gap: var(--spacing-6);
+}
+
+.label {
+  margin: 0;
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-wider);
+  color: var(--color-semantic-text-primary);
+}
+
+.bracket {
+  color: var(--color-semantic-text-accent);
+}
+
+.statement {
+  max-width: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-8);
+  align-items: start;
+}
+
+@container work-intro (min-width: 768px) {
+  .withProof {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+.practice {
+  margin: 0;
+  max-width: 48rem;
+  font-size: var(--typography-font-size-xl);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--color-semantic-text-secondary);
+}
+
+.figures {
+  margin: 0;
+  display: grid;
+  row-gap: var(--spacing-5);
+}
+
+.figureRow {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--spacing-1);
+}
+
+.figure {
+  margin: 0;
+  font-size: var(--typography-font-size-3xl);
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-tight);
+  color: var(--color-semantic-text-primary);
+}
+
+.figureLabel {
+  font-size: var(--typography-font-size-base);
+  color: var(--color-semantic-text-secondary);
+}

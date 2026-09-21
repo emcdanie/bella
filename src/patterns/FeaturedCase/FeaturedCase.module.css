@@ -1,0 +1,96 @@
+/* FeaturedCase (Work patterns, 2026-09-21). Tokens only. The pattern owns
+ * a named container, so the card decides its own arrangement from its own
+ * width (Foundations/Responsiveness: container queries for exactly this
+ * case). 768px = breakpoint.tablet; container queries cannot read var(). */
+
+.container {
+  container: featured-case / inline-size;
+  height: 100%;
+}
+
+.card {
+  height: 100%;
+}
+
+/* stacked (default and narrow): media above, body grows so the call to
+   action sits on the foot of every tile in a row */
+.inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.inner > :last-child {
+  flex: 1;
+}
+
+@container featured-case (min-width: 768px) {
+  .auto .inner {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: center;
+  }
+
+  .auto .inner > :last-child {
+    padding: var(--spacing-8);
+  }
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: var(--spacing-6);
+  box-sizing: border-box;
+  font-size: var(--typography-font-size-2xl);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--color-semantic-text-muted);
+  text-align: center;
+}
+
+.kicker {
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--typography-letter-spacing-wider);
+  color: var(--color-semantic-text-secondary);
+}
+
+.title {
+  font-size: var(--typography-font-size-xl);
+  font-weight: var(--typography-font-weight-bold);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+.titleFeatured {
+  font-size: var(--typography-font-size-2xl);
+}
+
+@container featured-case (min-width: 768px) {
+  .titleFeatured {
+    font-size: var(--typography-font-size-3xl);
+  }
+}
+
+.impact {
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--color-semantic-text-secondary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  padding-top: var(--spacing-2);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-top: auto;
+  padding-top: var(--spacing-4);
+  font-weight: var(--typography-font-weight-bold);
+  color: var(--color-semantic-text-accent);
+}

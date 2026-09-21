@@ -1,0 +1,28 @@
+/* CaseGrid (Work patterns, 2026-09-21). Tokens only. Columns follow the
+ * grid's own width (named container). 768px = breakpoint.tablet. Equal
+ * heights come from the grid stretch plus height: 100% down the chain,
+ * never a min-height. */
+
+.container {
+  container: case-grid / inline-size;
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-6);
+  align-items: stretch;
+}
+
+@container case-grid (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .closer {
+    grid-column: 1 / -1;
+  }
+}

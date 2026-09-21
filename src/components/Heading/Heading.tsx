@@ -12,6 +12,13 @@ export interface HeadingProps {
   as?: 'h1' | 'h2' | 'h3';
   /** Optional accent segment rendered in the theme accent after the text. */
   accent?: ReactNode;
+  /** Text that follows the accent segment in the primary ink (e.g. a full stop). */
+  after?: ReactNode;
+  /**
+   * Accessible name override, for when an interactive accent (a glossary
+   * term button) would otherwise pad or garble the heading's name.
+   */
+  label?: string;
   id?: string;
   /** Extra classes on the heading. */
   className?: string;
@@ -27,6 +34,8 @@ export default function Heading({
   tier = 'section',
   as,
   accent,
+  after,
+  label,
   id,
   className,
   style,
@@ -36,12 +45,14 @@ export default function Heading({
   return (
     <Tag
       id={id}
+      aria-label={label}
       style={style}
       className={[styles.heading, styles[tier], className].filter(Boolean).join(' ')}
       data-bella-component="heading"
     >
       {children}
       {accent != null ? <span className={styles.accent}> {accent}</span> : null}
+      {after}
     </Tag>
   );
 }

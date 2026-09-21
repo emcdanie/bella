@@ -84,19 +84,20 @@ If fluid type is adopted later it needs to arrive with the floors as clamp
 minimums, and the gate needs to keep asserting the computed value, not the
 declared one.
 
-## Container queries: not adopted
+## Container queries: adopted for patterns (2026-09-21)
 
-No component declares `container-type`. The intrinsic approach above covers
-the cases BELLA has met so far, because the components are small and wrap
-cleanly.
+Primitives still carry none. The case this page waited for arrived with the
+Work patterns: FeaturedCase puts its cover beside the body in a wide column
+and above it in a narrow one, and that has to follow its own width, not the
+window's, or it breaks the moment a consumer places it in a sidebar.
 
-Container queries are the right tool the moment a component needs to change
-its internal arrangement based on its own width rather than the window's: a
-card that stacks its media above the body in a narrow column and beside it in
-a wide one. When that case arrives, it belongs in the component and it needs a
-named container, not a window media query. Nothing in BELLA needs it yet, and
-adopting it before there is a case would be architecture in advance of a
-problem.
+So each pattern in `src/patterns/`, and the layout component SectionHeader,
+declares a named container
+(`featured-case`, `case-grid`, `work-intro`, `before-after`, `case-meta`,
+and SectionHeader's `section-header`) and queries only that. The threshold
+is the `breakpoint.tablet` value, 768px, written as a literal because a
+container query cannot read `var()`; each stylesheet says so next to the
+query. A pattern never reads the window.
 
 ## Verifying it
 

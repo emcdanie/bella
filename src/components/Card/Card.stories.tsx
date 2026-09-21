@@ -3,8 +3,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import {
   expectKeyboardOperable,
+  expectSharpImages,
   expectVisibleFocus,
 } from '../../testing/behavioral';
+import ScaledFrame from '../ScaledFrame/ScaledFrame';
+import { LiveSpecimen } from '../../patterns/fixtures';
 import Card from './Card';
 import cardCssRaw from './Card.module.css?raw';
 import componentContract from '../../../tokens/component.json';
@@ -166,6 +169,82 @@ export const WithMedia: Story = {
   ),
   args: {
     media: <img src={cover} alt="" />,
+  },
+};
+
+/** The cover slot: one fixed 16:10 well, three kinds of cover. A live
+ * specimen (real BELLA components in a ScaledFrame, flips with the theme),
+ * a sharp image (contain on the card surface: a cover of another ratio
+ * letterboxes onto the card itself, never crops, never shows a second
+ * tone), and the placeholder (no cover yet: the title, muted). The play
+ * test asserts every raster cover is at least 2x its rendered width. */
+export const Cover: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+        gap: 'var(--spacing-6)',
+        alignItems: 'stretch',
+      }}
+    >
+      <Card
+        href="#cover-live"
+        ariaLabel="Live specimen cover"
+        media={
+          <ScaledFrame title="BELLA specimen: status pills, a type sample, the semantic swatches">
+            <LiveSpecimen />
+          </ScaledFrame>
+        }
+      >
+        <Kicker>Live specimen</Kicker>
+        <Title>Real components, scaled</Title>
+        <Body>Rendered in the page, so it flips with the theme.</Body>
+      </Card>
+      <Card
+        href="#cover-image"
+        ariaLabel="Image cover"
+        media={<img src="work/code-first-cover.png" alt="" width={1760} height={1040} />}
+      >
+        <Kicker>Image</Kicker>
+        <Title>Contain, never cropped</Title>
+        <Body>A 1.69 cover in the 16:10 well letterboxes onto the card surface.</Body>
+      </Card>
+      <Card
+        href="#cover-placeholder"
+        ariaLabel="Placeholder cover"
+        media={
+          <span
+            style={{
+              display: 'grid',
+              placeItems: 'center',
+              height: '100%',
+              fontSize: 'var(--typography-font-size-2xl)',
+              fontWeight: 'var(--typography-font-weight-bold)',
+              color: 'var(--color-semantic-text-muted)',
+            }}
+          >
+            Design Lab
+          </span>
+        }
+      >
+        <Kicker>Placeholder</Kicker>
+        <Title>No cover yet</Title>
+        <Body>The title holds the well; same ratio, same surface.</Body>
+      </Card>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('covers are at least 2x their rendered width', () =>
+      expectSharpImages(canvasElement)
+    );
+    await step('the well is 16:10 and nothing crops', async () => {
+      for (const img of Array.from(canvasElement.querySelectorAll('img'))) {
+        expect(getComputedStyle(img).objectFit).toBe('contain');
+        const well = img.parentElement!.getBoundingClientRect();
+        expect(Math.abs(well.width / well.height - 1.6)).toBeLessThan(0.02);
+      }
+    });
   },
 };
 

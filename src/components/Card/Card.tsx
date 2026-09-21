@@ -19,8 +19,10 @@ export interface CardProps {
    */
   variant?: 'default' | 'peek';
   /**
-   * Full-bleed cover media above the padded body, shown as is: no gradient
-   * or scrim over the image, so never set text on the cover. Marked
+   * Full-bleed cover media above the padded body, in a fixed 16:10 well
+   * that never crops: images sit at contain on the card surface. Shown as
+   * is: no gradient or scrim over the image, so never set text on the
+   * cover. Supply images at least 2x the rendered width. Marked
    * `aria-hidden` when an `ariaLabel` names the card.
    */
   media?: ReactNode;

@@ -1,0 +1,51 @@
+/* SectionHeader (ported from the portfolio layout copy, 2026-09-21).
+ * Tokens only. Split vs stacked is decided by the header's OWN width via a
+ * named container (the case Foundations/Responsiveness reserved container
+ * queries for): the header never reads the window. The threshold is the
+ * breakpoint.tablet token value; container queries cannot read var(). */
+
+.container {
+  container: section-header / inline-size;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--spacing-5);
+  align-items: start;
+}
+
+/* 768px = breakpoint.tablet */
+@container section-header (min-width: 768px) {
+  .header:not(.stacked) {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: var(--spacing-12);
+  }
+}
+
+.side {
+  display: grid;
+  row-gap: var(--spacing-5);
+  max-width: 42rem;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--typography-font-size-xl);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+.body {
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--color-semantic-text-secondary);
+}
+
+.body > * {
+  margin: 0;
+}
+
+.body > * + * {
+  margin-top: var(--spacing-5);
+}

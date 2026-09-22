@@ -14,7 +14,7 @@ export const Default: Story = {};
 
 /** With a caption under the panel. */
 export const WithCaption: Story = {
-  args: { caption: 'One lavender token travels the whole way. Recreated concept.' },
+  args: { caption: 'One blue token travels the whole way. Recreated concept.' },
 };
 
 export const Behavior: Story = {

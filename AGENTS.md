@@ -40,7 +40,7 @@ The light page is `color.light.bg`, pure white `#ffffff`, and that is the **only
 
 Dark mode is neutral and climbs lighter: page `color.dark.bg` `#0d0d0d`, surface and panel `color.dark.surface` `#161616`, inset `color.dark.inset` `#1f1f1f`, raised `color.dark.raised` `#262626`. Control borders (`border-strong` `#636363`) never sit on raised (2.52:1).
 
-**Colour lives in fills, never in strokes or body text** — except the focus ring, which is `color.semantic.focus-ring` (ochre-deep light, ochre dark). Strokes are 1px ink (`border-ink`) or hairline. The chip fills (`chip.c1` lavender `#c9bff5`, `c2` peach `#f6c9a8`, `c3` mint `#cfe8dc`) are the same in both themes and always carry `chip.text` `#17191a` (10.29:1 worst). A chip fill is never the only signal of state (1.19–1.71:1 against the light page).
+**Colour lives in fills, never in strokes or body text** — except focus and status (amended 2026-09-22, Elleta). Focus is `color.semantic.focus-ring` (ochre-deep light, ochre dark). Status is `danger-*` and `success-*`: text at AA or better (4.5:1), borders and icons at 3:1, on every surface; a status colour never stands alone (an error is the danger edge + the WarningCircle icon + the message + `aria-invalid`). Every other stroke is 1px ink (`border-ink`) or hairline. The chip fills (`chip.c1` soft tiger-blue `#cfe0ef`, `c2` peach `#f6c9a8`, `c3` mint `#cfe8dc`) are the same in both themes and always carry `chip.text` `#17191a` (11.63:1 worst). A chip fill is never the only signal of state (1.16–1.52:1 against the light page). No purple anywhere.
 
 ## Surface behavior
 
@@ -69,14 +69,15 @@ BELLA's palette and typography are decided (the 2026-07 identity, restyled by th
 
 - `color.light.*` — ink `#121212`, muted `#515151`, line `#e3e3e3`, control `#8c8c8c`, panel `#f2f2f2`, bg `#ffffff`
 - `color.dark.*` — ink `#ededed`, muted `#b1b1b1`, line `#2a2a2a`, control `#636363`, surface `#161616`, inset `#1f1f1f`, raised `#262626`, bg `#0d0d0d`
-- `color.chip.*` — c1 lavender `#c9bff5`, c2 peach `#f6c9a8`, c3 mint `#cfe8dc`, text `#17191a`; same in both themes, fills only
+- `color.chip.*` — c1 soft tiger-blue `#cfe0ef` (from the pattern; replaced lavender, 2026-09-22), c2 peach `#f6c9a8`, c3 mint `#cfe8dc`, text `#17191a`; same in both themes, fills only
+- `color.light.danger` `#b3261e` / `danger-subtle` `#fcebe9`, `color.light.success` `#1a7439` / `success-subtle` `#e6f3ea`; dark: danger `#ff8f84` / `#3a1714`, success `#72d08b` / `#12301d` (status tokens, 2026-09-22). Read through `color.semantic.danger-text`, `danger-border`, `danger-subtle` and the `success-*` set. Checked in the gate by `scripts/contrast-pairs.mjs`
 - `color.brand.ochre` — `#e8a83e`, **the single accent**: a fill with ink text in both themes, and the dark focus ring
 - `color.brand.ochre-deep` — `#b97a14`: ochre's line and ring on light surfaces
 - `color.pattern.*` — the brand pattern (ochre ground, tiger blue, cream, rosette, pink, leopard green, zebra lime, ink, coral): BrandWordmark, PatternField and the favicon only. Never recoloured, never a UI or state colour.
 
 Ochre is the only accent. Iris and periwinkle are retired (brand refresh, 2026-09-22). The chip fills are not accents: they are fills that carry no interaction meaning. Amber is retired. The 2026-07 brand values (`brand.ink`, `brand.ground`, `navy.*`, `night.*`) remain in the primitives for legacy consumers; semantic tokens no longer point at them (Card's fixed-context peek panel still re-scopes to the warm paper values).
 
-Supporting `steel` and `sage` are carried from the April identity for status states, **non-text roles only**, pending a BELLA-native status ladder (open issue). Do not use them as text; do not design new status UI around them without asking.
+The status ladder has **danger and success** (2026-09-22); warning and info are still open (issue #1). Supporting `steel` and `sage` are carried from the April identity for StatusPill's tints, **non-text roles only**. Do not use them as text; do not design new status UI around them, or invent warning/info values, without asking.
 
 **Typography — Geist, three cuts, plus the wordmark (the type lock, style unify 2026-09-22):**
 
@@ -92,6 +93,6 @@ Any value you see as `"TBD"` in the token JSON is a genuine unknown — stop and
 
 ## Tiered inheritance
 
-Repos that install BELLA as a `devDependency` inherit this AGENTS.md automatically. They may add their own `AGENTS.md` at their root to layer additional rules — but downstream rules only *extend* or *tighten* BELLA's. They do not relax them. A consuming repo cannot, for example, use pure white off the page ground, drop body text to 14px, put colour in a stroke, set ochre as text on light, or set Mono below 13px.
+Repos that install BELLA as a `devDependency` inherit this AGENTS.md automatically. They may add their own `AGENTS.md` at their root to layer additional rules — but downstream rules only *extend* or *tighten* BELLA's. They do not relax them. A consuming repo cannot, for example, use pure white off the page ground, drop body text to 14px, put colour in a stroke outside focus and status, set ochre as text on light, or set Mono below 13px.
 
 If a consuming repo's rules conflict with BELLA's, BELLA wins. Flag the conflict; don't silently resolve it.

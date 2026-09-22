@@ -21,7 +21,7 @@ const DEFAULT_LABEL =
  * FlowDiagram (style unify, 2026-09-22; ported from the Geist direction
  * study, flow v2). Tokens become components become pages: a fixed
  * 900 x 198 viewBox scaled to fit, every block centred on its frame, 1px
- * ink strokes, colour only in the chip fills, one lavender token travelling
+ * ink strokes, colour only in the chip fills, one blue (chip c1) token travelling
  * the whole way. Plays once when in view, then holds; Replay runs it again;
  * reduced motion shows the finished frame. A named diagram exception to the
  * one-icon-set rule: labelled image, data-bella-diagram.

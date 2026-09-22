@@ -4,12 +4,11 @@
  * aria-describedby, exactly the shipped contact-form pattern.
  *
  * Recorded divergences from the portfolio original:
- * - ERROR COLOUR IS BLOCKED ON THE STATUS LADDER (issue #1, an Elleta
- *   sitting): the portfolio paints errors in a case tint that stays
- *   there, and BELLA has no danger token. Interim: the error message is
- *   text-primary bold and the field border flips to border-ink (2px ink), so
- *   the state is unmissable without inventing a colour. The ladder
- *   sitting restyles this.
+ * - error state (status tokens, brand refresh, 2026-09-22, Elleta): the
+ *   border goes danger (2px), and the message is danger text led by the
+ *   WarningCircle icon, so the state reads without colour too (icon, words,
+ *   aria-invalid). Status is one of the two colours allowed in a stroke;
+ *   focus is the other.
  * - focus is the shared focus ring (3px, 3px offset, ochre-deep light /
  *   ochre dark) plus an ink edge (brand refresh, 2026-09-22)
  */
@@ -69,8 +68,8 @@ textarea.field {
 }
 
 .invalid .field {
-  border-color: var(--color-semantic-border-ink);
-  box-shadow: inset 0 0 0 1px var(--color-semantic-border-ink);
+  border-color: var(--color-semantic-danger-border);
+  box-shadow: inset 0 0 0 1px var(--color-semantic-danger-border);
 }
 
 .hint {
@@ -80,8 +79,17 @@ textarea.field {
 }
 
 .error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
   margin: 0;
   font-size: var(--typography-font-size-sm);
-  font-weight: var(--typography-font-weight-bold);
-  color: var(--color-semantic-text-primary);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--color-semantic-danger-text);
+}
+
+/* optically on the first line of the message */
+.errorIcon {
+  flex: none;
+  margin-top: calc((1lh - var(--component-icon-size-sm)) / 2);
 }

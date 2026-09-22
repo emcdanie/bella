@@ -1,4 +1,5 @@
 import React, { useId, type ReactNode } from 'react';
+import Icon from '../Icon/Icon';
 import styles from './Input.module.css';
 
 export interface InputProps {
@@ -8,7 +9,7 @@ export interface InputProps {
   onChange: (value: string) => void;
   /** Renders a textarea instead of a single-line input. */
   multiline?: boolean;
-  /** Honest error: sets aria-invalid, renders a role=alert message wired via aria-describedby. */
+  /** Honest error: danger border, an error icon and a danger message (role=alert), wired via aria-invalid and aria-describedby. */
   error?: string;
   /** Supporting hint below the field, wired via aria-describedby. */
   hint?: string;
@@ -88,7 +89,8 @@ export default function Input({
       ) : null}
       {error ? (
         <p id={errorId} role="alert" className={styles.error}>
-          {error}
+          <Icon name="WarningCircle" size="sm" className={styles.errorIcon} />
+          <span>{error}</span>
         </p>
       ) : null}
     </div>

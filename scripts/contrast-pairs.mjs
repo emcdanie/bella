@@ -50,6 +50,7 @@ const ratio = (a, b) => {
 
 /* [label, foreground var, background var, minimum, themes] */
 const AAA = 7;
+const AA = 4.5;
 const NON_TEXT = 3;
 const PAIRS = [
   ['ink text on the page', '--color-semantic-text-primary', '--color-semantic-background', AAA],
@@ -68,6 +69,23 @@ const PAIRS = [
   ['control border on the page', '--color-semantic-border-strong', '--color-semantic-background', NON_TEXT],
   ['control border on panel', '--color-semantic-border-strong', '--color-semantic-surface-card', NON_TEXT],
   ['ink plate against panel', '--component-button-primary-fill-hi', '--color-semantic-surface-card', NON_TEXT],
+  /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
+  ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
+  ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],
+  ['danger text on raised', '--color-semantic-danger-text', '--color-semantic-surface-elevated', AA],
+  ['danger text on its wash', '--color-semantic-danger-text', '--color-semantic-danger-subtle', AA],
+  ['ink text on the danger wash', '--color-semantic-text-primary', '--color-semantic-danger-subtle', AAA],
+  ['danger border on panel', '--color-semantic-danger-border', '--color-semantic-surface-card', NON_TEXT],
+  ['success text on the page', '--color-semantic-success-text', '--color-semantic-background', AA],
+  ['success text on panel', '--color-semantic-success-text', '--color-semantic-surface-card', AA],
+  ['success text on raised', '--color-semantic-success-text', '--color-semantic-surface-elevated', AA],
+  ['success text on its wash', '--color-semantic-success-text', '--color-semantic-success-subtle', AA],
+  ['ink text on the success wash', '--color-semantic-text-primary', '--color-semantic-success-subtle', AAA],
+  ['success border on panel', '--color-semantic-success-border', '--color-semantic-surface-card', NON_TEXT],
+  /* chip fills carry chip text */
+  ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
+  ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
+  ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
 ];
 
 /* Pairs that must stay BELOW a bar: the rule forbids them, and the check

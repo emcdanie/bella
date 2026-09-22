@@ -78,6 +78,10 @@ value with the source reference in parentheses.
 | `color.light.panel` | `#f2f2f2` | color |
 | `color.light.bg` | `#ffffff` | color |
 | `color.light.ink-hover` | `#343434` | color |
+| `color.light.danger` | `#b3261e` | color |
+| `color.light.danger-subtle` | `#fcebe9` | color |
+| `color.light.success` | `#1a7439` | color |
+| `color.light.success-subtle` | `#e6f3ea` | color |
 | `color.dark.ink` | `#ededed` | color |
 | `color.dark.muted` | `#b1b1b1` | color |
 | `color.dark.line` | `#2a2a2a` | color |
@@ -87,7 +91,11 @@ value with the source reference in parentheses.
 | `color.dark.raised` | `#262626` | color |
 | `color.dark.bg` | `#0d0d0d` | color |
 | `color.dark.ink-hover` | `#cdcdcd` | color |
-| `color.chip.c1` | `#c9bff5` | color |
+| `color.dark.danger` | `#ff8f84` | color |
+| `color.dark.danger-subtle` | `#3a1714` | color |
+| `color.dark.success` | `#72d08b` | color |
+| `color.dark.success-subtle` | `#12301d` | color |
+| `color.chip.c1` | `#cfe0ef` | color |
 | `color.chip.c2` | `#f6c9a8` | color |
 | `color.chip.c3` | `#cfe8dc` | color |
 | `color.chip.text` | `#17191a` | color |
@@ -252,7 +260,13 @@ value with the source reference in parentheses.
 | `color.semantic.border-strong` | `#8c8c8c` (`{color.light.control}`) | color |
 | `color.semantic.border-ink` | `#121212` (`{color.light.ink}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
-| `color.semantic.chip-1` | `#c9bff5` (`{color.chip.c1}`) | color |
+| `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
+| `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
+| `color.semantic.danger-subtle` | `#fcebe9` (`{color.light.danger-subtle}`) | color |
+| `color.semantic.success-text` | `#1a7439` (`{color.light.success}`) | color |
+| `color.semantic.success-border` | `#1a7439` (`{color.light.success}`) | color |
+| `color.semantic.success-subtle` | `#e6f3ea` (`{color.light.success-subtle}`) | color |
+| `color.semantic.chip-1` | `#cfe0ef` (`{color.chip.c1}`) | color |
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |
@@ -305,7 +319,13 @@ value with the source reference in parentheses.
 | `color.semantic.border-strong` | `#636363` (`{color.dark.control}`) | color |
 | `color.semantic.border-ink` | `#ededed` (`{color.dark.ink}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
-| `color.semantic.chip-1` | `#c9bff5` (`{color.chip.c1}`) | color |
+| `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
+| `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |
+| `color.semantic.danger-subtle` | `#3a1714` (`{color.dark.danger-subtle}`) | color |
+| `color.semantic.success-text` | `#72d08b` (`{color.dark.success}`) | color |
+| `color.semantic.success-border` | `#72d08b` (`{color.dark.success}`) | color |
+| `color.semantic.success-subtle` | `#12301d` (`{color.dark.success-subtle}`) | color |
+| `color.semantic.chip-1` | `#cfe0ef` (`{color.chip.c1}`) | color |
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |

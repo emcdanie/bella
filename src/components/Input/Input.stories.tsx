@@ -121,6 +121,20 @@ export const Behavior: Story = {
       });
     });
 
+    await step('error is not colour alone: danger edge, icon and danger message', async () => {
+      const probe = document.createElement('span');
+      probe.style.color = 'var(--color-semantic-danger-border)';
+      document.body.append(probe);
+      const danger = getComputedStyle(probe).color;
+      probe.remove();
+      const alert = canvas.getByRole('alert');
+      expect(getComputedStyle(field).borderTopColor).toBe(danger);
+      expect(getComputedStyle(alert).color).toBe(danger);
+      const icon = alert.querySelector('svg');
+      expect(icon).not.toBeNull();
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+    });
+
     await step('typing clears the error live', async () => {
       field.focus();
       // set value the React way so the controlled input updates

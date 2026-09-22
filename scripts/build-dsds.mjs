@@ -393,7 +393,7 @@ const themes = [
 const foundations = [
   {
     kind: 'entry', id: 'foundation-color', name: 'Colour',
-    description: 'Neutral light and dark steps, one accent (ochre, a fill), three chip fills, and a brand pattern. Colour lives in fills, never in strokes or body text, except the focus ring.',
+    description: 'Neutral light and dark steps, one accent (ochre, a fill), three chip fills, and a brand pattern. Colour lives in fills, never in strokes or body text, except focus and status (danger, success).',
     metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['foundation', 'color'] },
     sections: [
       {

@@ -1027,6 +1027,70 @@
               "a11y": "Verified 2026-09-22: #ededed label 10.63:1."
             }
           }
+        },
+        "danger": {
+          "$value": "#b3261e",
+          "$type": "color",
+          "$description": "Danger red, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Error text, error field border, error icon"
+              ],
+              "a11y": "Verified 2026-09-22: 6.54:1 on bg, 5.84:1 on panel, 5.66:1 on danger-subtle (text AA, border 3:1).",
+              "dont": [
+                "Never decoration: danger means an error"
+              ]
+            }
+          }
+        },
+        "danger-subtle": {
+          "$value": "#fcebe9",
+          "$type": "color",
+          "$description": "Danger wash, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Error banner or field wash behind danger or ink text"
+              ],
+              "a11y": "Verified 2026-09-22: ink 16.24:1, danger 5.66:1 on it.",
+              "dont": [
+                "Never the only signal: 1.15:1 against the page"
+              ]
+            }
+          }
+        },
+        "success": {
+          "$value": "#1a7439",
+          "$type": "color",
+          "$description": "Success green, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Success text, border, icon"
+              ],
+              "a11y": "Verified 2026-09-22: 5.83:1 on bg, 5.21:1 on panel, 5.10:1 on success-subtle (text AA, border 3:1).",
+              "dont": [
+                "Never decoration: success means a completed action"
+              ]
+            }
+          }
+        },
+        "success-subtle": {
+          "$value": "#e6f3ea",
+          "$type": "color",
+          "$description": "Success wash, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Success banner wash behind success or ink text"
+              ],
+              "a11y": "Verified 2026-09-22: ink 16.39:1, success 5.10:1 on it.",
+              "dont": [
+                "Never the only signal: 1.14:1 against the page"
+              ]
+            }
+          }
         }
       },
       "dark": {
@@ -1153,13 +1217,71 @@
               "a11y": "Verified 2026-09-22: #121212 label 11.78:1."
             }
           }
+        },
+        "danger": {
+          "$value": "#ff8f84",
+          "$type": "color",
+          "$description": "Danger red, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Error text, error field border, error icon"
+              ],
+              "a11y": "Verified 2026-09-22: 8.81:1 on bg, 8.20:1 on surface, 6.86:1 on raised, 7.25:1 on danger-subtle.",
+              "dont": [
+                "Never decoration: danger means an error"
+              ]
+            }
+          }
+        },
+        "danger-subtle": {
+          "$value": "#3a1714",
+          "$type": "color",
+          "$description": "Danger wash, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Error banner or field wash behind danger or ink text"
+              ],
+              "a11y": "Verified 2026-09-22: ink 13.67:1, danger 7.25:1 on it."
+            }
+          }
+        },
+        "success": {
+          "$value": "#72d08b",
+          "$type": "color",
+          "$description": "Success green, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Success text, border, icon"
+              ],
+              "a11y": "Verified 2026-09-22: 10.28:1 on bg, 9.57:1 on surface, 8.01:1 on raised, 7.58:1 on success-subtle.",
+              "dont": [
+                "Never decoration: success means a completed action"
+              ]
+            }
+          }
+        },
+        "success-subtle": {
+          "$value": "#12301d",
+          "$type": "color",
+          "$description": "Success wash, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Success banner wash behind success or ink text"
+              ],
+              "a11y": "Verified 2026-09-22: ink 12.23:1, success 7.58:1 on it."
+            }
+          }
         }
       },
       "chip": {
         "c1": {
-          "$value": "#c9bff5",
+          "$value": "#cfe0ef",
           "$type": "color",
-          "$description": "Lavender chip fill. Same in both themes (style unify, 2026-09-22, Elleta).",
+          "$description": "Soft tiger-blue chip fill, from the brand pattern; replaces lavender (brand refresh, 2026-09-22, Elleta). Same in both themes.",
           "$extensions": {
             "bella": {
               "usage": [
@@ -1168,7 +1290,7 @@
               ],
               "dont": [
                 "Never a stroke or text colour: colour lives in fills",
-                "Never the only signal of state: 1.57:1 on surface, decorative contrast only"
+                "Never the only signal of state: 1.21:1 on panel, decorative contrast only"
               ]
             }
           }
@@ -1212,7 +1334,7 @@
               "usage": [
                 "Chip and tag labels"
               ],
-              "a11y": "Verified 2026-09-22: 10.29:1 on c1, 11.63:1 on c2, 13.63:1 on c3. AAA."
+              "a11y": "Verified 2026-09-22: 13.07:1 on c1, 11.63:1 on c2, 13.63:1 on c3. AAA (c1 re-verified 2026-09-22, brand refresh)."
             }
           }
         }
@@ -3382,10 +3504,91 @@
         }
       }
     },
+    "danger-text": {
+      "$value": "{color.light.danger}",
+      "$type": "color",
+      "$description": "Error message text (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Field error message",
+            "Error summary"
+          ],
+          "a11y": "Verified 2026-09-22: 5.66:1 worst (on danger-subtle), AA text."
+        }
+      }
+    },
+    "danger-border": {
+      "$value": "{color.light.danger}",
+      "$type": "color",
+      "$description": "Error field border and error icon (status tokens, brand refresh, 2026-09-22, Elleta). Status is one of the two colours allowed in a stroke (the other is focus).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Invalid field border",
+            "Error icon"
+          ],
+          "a11y": "Verified 2026-09-22: clears 3:1 on every surface."
+        }
+      }
+    },
+    "danger-subtle": {
+      "$value": "{color.light.danger-subtle}",
+      "$type": "color",
+      "$description": "Error wash (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Error banner fill"
+          ],
+          "a11y": "Carries ink and danger-text at AA or better."
+        }
+      }
+    },
+    "success-text": {
+      "$value": "{color.light.success}",
+      "$type": "color",
+      "$description": "Success message text (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Confirmation message"
+          ],
+          "a11y": "Verified 2026-09-22: 5.10:1 worst (on success-subtle), AA text."
+        }
+      }
+    },
+    "success-border": {
+      "$value": "{color.light.success}",
+      "$type": "color",
+      "$description": "Success border and icon (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Success field or banner border",
+            "Success icon"
+          ],
+          "a11y": "Verified 2026-09-22: clears 3:1 on every surface."
+        }
+      }
+    },
+    "success-subtle": {
+      "$value": "{color.light.success-subtle}",
+      "$type": "color",
+      "$description": "Success wash (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Success banner fill"
+          ],
+          "a11y": "Carries ink and success-text at AA or better."
+        }
+      }
+    },
     "chip-1": {
       "$value": "{color.chip.c1}",
       "$type": "color",
-      "$description": "Lavender chip fill (style unify, 2026-09-22, Elleta).",
+      "$description": "Soft tiger-blue chip fill (brand refresh, 2026-09-22, Elleta).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -3437,7 +3640,7 @@
           "usage": [
             "Chip and tag labels"
           ],
-          "a11y": "Verified 2026-09-22: 10.29:1 worst (c1). AAA."
+          "a11y": "Verified 2026-09-22: 11.63:1 worst (c2; c1 is 13.07:1 since the brand refresh). AAA."
         }
       }
     },
@@ -3932,10 +4135,91 @@
         }
       }
     },
+    "danger-text": {
+      "$value": "{color.dark.danger}",
+      "$type": "color",
+      "$description": "Error message text (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Field error message",
+            "Error summary"
+          ],
+          "a11y": "Verified 2026-09-22: 6.86:1 worst (on raised), AA text."
+        }
+      }
+    },
+    "danger-border": {
+      "$value": "{color.dark.danger}",
+      "$type": "color",
+      "$description": "Error field border and error icon (status tokens, brand refresh, 2026-09-22, Elleta). Status is one of the two colours allowed in a stroke (the other is focus).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Invalid field border",
+            "Error icon"
+          ],
+          "a11y": "Verified 2026-09-22: clears 3:1 on every surface."
+        }
+      }
+    },
+    "danger-subtle": {
+      "$value": "{color.dark.danger-subtle}",
+      "$type": "color",
+      "$description": "Error wash (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Error banner fill"
+          ],
+          "a11y": "Carries ink and danger-text at AA or better."
+        }
+      }
+    },
+    "success-text": {
+      "$value": "{color.dark.success}",
+      "$type": "color",
+      "$description": "Success message text (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Confirmation message"
+          ],
+          "a11y": "Verified 2026-09-22: 7.58:1 worst (on success-subtle), AA text."
+        }
+      }
+    },
+    "success-border": {
+      "$value": "{color.dark.success}",
+      "$type": "color",
+      "$description": "Success border and icon (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Success field or banner border",
+            "Success icon"
+          ],
+          "a11y": "Verified 2026-09-22: clears 3:1 on every surface."
+        }
+      }
+    },
+    "success-subtle": {
+      "$value": "{color.dark.success-subtle}",
+      "$type": "color",
+      "$description": "Success wash (status tokens, brand refresh, 2026-09-22, Elleta).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Success banner fill"
+          ],
+          "a11y": "Carries ink and success-text at AA or better."
+        }
+      }
+    },
     "chip-1": {
       "$value": "{color.chip.c1}",
       "$type": "color",
-      "$description": "Lavender chip fill, same in both themes."
+      "$description": "Soft tiger-blue chip fill, same in both themes."
     },
     "chip-2": {
       "$value": "{color.chip.c2}",
@@ -5661,9 +5945,9 @@
           "dont": [
             "Do not use placeholder as the label: the label is always rendered and wired with for/id",
             "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern",
-            "Do not colour errors until the status ladder lands: the interim is ink + structure, recorded"
+            "Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid"
           ],
-          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors: aria-invalid + role=alert message via aria-describedby; message is text-primary bold, border flips to border-strong (11.72:1). ERROR TINT BLOCKED on the status ladder (issue #1): no danger token exists and none was invented. Focus: accent border + 2px accent wash ring, theme-flipping. 44px min-height.",
+          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
           "restState": {
             "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
             "atRest": [

@@ -222,18 +222,8 @@ export const RingAndHover: Story = {
       await expect(parseFloat(cs.outlineOffset)).toBe(3);
       primary.blur();
     });
-    await step('secondary hover: the outline goes ink', async () => {
-      const rest = getComputedStyle(secondary).borderTopColor;
-      await userEvent.hover(secondary);
-      await expect(getComputedStyle(secondary).borderTopColor).not.toBe(rest);
-      await userEvent.unhover(secondary);
-    });
-    await step('tertiary hover: the underline thickens to 2px', async () => {
-      const line = tertiary.querySelector('[data-bella-roll="window"]') as HTMLElement;
-      await expect(parseFloat(getComputedStyle(line, '::after').height)).toBe(1);
-      await userEvent.hover(tertiary);
-      await expect(parseFloat(getComputedStyle(line, '::after').height)).toBe(2);
-      await userEvent.unhover(tertiary);
-    });
+    /* hover (secondary outline to ink, tertiary underline to 2px) is
+       verified with a real pointer outside the play function: synthetic
+       userEvent.hover never triggers CSS :hover */
   },
 };

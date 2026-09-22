@@ -66,10 +66,14 @@ const glyphNote: React.CSSProperties = {
 export const GlyphSheet: Story = {
   render: () => (
     <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
-      <p style={glyphNote}>
-        weight {LOCK.weight} · width {LOCK.width} · height {LOCK.height} · tracking {LOCK.tracking} · soft corners ·
-        E, A and B bars on the low line (66)
-      </p>
+      <ul style={{ ...glyphNote, margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-4)' }}>
+        <li>weight {LOCK.weight}</li>
+        <li>width {LOCK.width}</li>
+        <li>height {LOCK.height}</li>
+        <li>tracking {LOCK.tracking}</li>
+        <li>soft corners</li>
+        <li>bars on the low line, 66</li>
+      </ul>
       <div
         style={{
           display: 'flex',
@@ -92,7 +96,7 @@ export const GlyphSheet: Story = {
               style={{ height: 'var(--spacing-20)', width: 'auto', color: 'var(--color-semantic-text-primary)' }}
             >
               <path d={g.d} fill="none" stroke="currentColor" strokeWidth={LOCK.weight} strokeLinejoin="round" />
-              <path d={g.d} fill="none" style={{ stroke: 'var(--color-brand-ochre-deep)' }} strokeWidth={1} />
+              <path d={g.d} fill="none" style={{ stroke: 'var(--color-brand-ochre-deep)' }} strokeWidth={2} />
               <line x1={-12} x2={g.w + 12} y1={66} y2={66} style={{ stroke: 'var(--color-semantic-border)' }} strokeWidth={0.5} />
             </svg>
           );

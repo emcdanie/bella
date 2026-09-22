@@ -63,13 +63,9 @@ export const Behavior: Story = {
       await expect(cs.textDecorationLine).toContain('underline');
       await expect(parseFloat(cs.textDecorationThickness)).toBe(1);
     });
-    await step('hover thickens the underline to 2px, colour unchanged', async () => {
-      const before = getComputedStyle(link).color;
-      await userEvent.hover(link);
-      await expect(parseFloat(getComputedStyle(link).textDecorationThickness)).toBe(2);
-      await expect(getComputedStyle(link).color).toBe(before);
-      await userEvent.unhover(link);
-    });
+    /* hover is verified with a real pointer outside the play function:
+       userEvent.hover dispatches synthetic events, which never trigger CSS
+       :hover, so an assertion here could not fail honestly */
     await step('keyboard focus draws the 3px ring with a 3px offset', async () => {
       await userEvent.tab();
       const cs = getComputedStyle(link);

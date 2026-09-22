@@ -4,6 +4,7 @@ import { expect } from 'storybook/test';
 import { expectSharpImages } from '../../testing/behavioral';
 import WorkIntro from '../WorkIntro/WorkIntro';
 import SectionIndex from '../SectionIndex/SectionIndex';
+import Heading from '../../components/Heading/Heading';
 import FeaturedCase from '../FeaturedCase/FeaturedCase';
 import CaseGrid from '../CaseGrid/CaseGrid';
 import BeforeAfterFrame from '../BeforeAfterFrame/BeforeAfterFrame';
@@ -16,15 +17,30 @@ function WorkPage() {
     <main style={{ display: 'grid', rowGap: 'var(--spacing-20)' }}>
       <WorkIntro {...intro} />
       <section aria-labelledby="work-featured" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <SectionIndex index="01" label="Featured" id="work-featured" />
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+          <SectionIndex index="01" label="Featured" />
+          <Heading tier="section" as="h2" id="work-featured">
+            Featured
+          </Heading>
+        </div>
         <FeaturedCase {...featured} />
       </section>
       <section aria-labelledby="work-selected" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <SectionIndex index="02" label="Selected work" id="work-selected" />
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+          <SectionIndex index="02" label="Selected work" />
+          <Heading tier="section" as="h2" id="work-selected">
+            Selected work
+          </Heading>
+        </div>
         <CaseGrid items={grid} label="Selected work" />
       </section>
       <section aria-labelledby="work-studies" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <SectionIndex index="03" label="Pattern studies" id="work-studies" />
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+          <SectionIndex index="03" label="Pattern studies" />
+          <Heading tier="section" as="h2" id="work-studies">
+            Pattern studies
+          </Heading>
+        </div>
         <BeforeAfterFrame states={filterStudy} label="Filters study: screen state" caption={filterCaption} />
       </section>
     </main>
@@ -45,6 +61,8 @@ export const Work: Story = {
   play: async ({ canvas, canvasElement }) => {
     await expectSharpImages(canvasElement);
     await expect(canvas.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    /* section titles are real h2s; the SectionIndex above each stays a p */
+    await expect(canvas.getAllByRole('heading', { level: 2 })).toHaveLength(3);
     await expect(canvas.getAllByRole('link')).toHaveLength(4);
   },
 };

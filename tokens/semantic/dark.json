@@ -4,7 +4,7 @@
       "background": {
         "$value": "{color.dark.bg}",
         "$type": "color",
-        "$description": "Dark page background #0d0d0d (style unify (2026-09-22, Elleta)).",
+        "$description": "Dark page background #0d0d0d (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -41,7 +41,7 @@
       "surface-card": {
         "$value": "{color.dark.surface}",
         "$type": "color",
-        "$description": "Dark card and panel fill #161616 (style unify (2026-09-22, Elleta)).",
+        "$description": "Dark card and panel fill #161616 (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -52,7 +52,7 @@
         }
       },
       "surface-elevated": {
-        "$value": "{color.night.raised}",
+        "$value": "{color.dark.raised}",
         "$type": "color",
         "$description": "Highest dark surface, modals, elevated panels.",
         "$extensions": {
@@ -66,7 +66,7 @@
         }
       },
       "surface-inset": {
-        "$value": "{color.night.inset}",
+        "$value": "{color.dark.inset}",
         "$type": "color",
         "$description": "Recessed surface in dark mode, a warm well one step up from the card.",
         "$extensions": {
@@ -79,7 +79,7 @@
         }
       },
       "surface-inverse": {
-        "$value": "{color.light.surface}",
+        "$value": "{color.light.panel}",
         "$type": "color",
         "$description": "Raised surface for light sections embedded in dark pages.",
         "$extensions": {
@@ -184,7 +184,7 @@
             "usage": [
               "body text in dark mode"
             ],
-            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
+            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 12.93:1 on raised (worst). AAA."
           }
         }
       },
@@ -198,10 +198,7 @@
               "card descriptions",
               "captions and footnotes on navy, card, or raised surfaces"
             ],
-            "a11y": "Verified 2026-09-22: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA.",
-            "dont": [
-              "Not on surface-inset or surface-elevated (legacy night.inset / night.raised): 6.07:1 and 5.54:1"
-            ]
+            "a11y": "Verified 2026-09-22: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA."
           }
         }
       },
@@ -214,10 +211,7 @@
             "usage": [
               "timestamps and tertiary metadata on any dark surface"
             ],
-            "dont": [
-              "Not on surface-inset or surface-elevated (legacy night.inset / night.raised)"
-            ],
-            "a11y": "Verified 2026-09-22: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA."
+            "a11y": "Verified 2026-09-22: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA."
           }
         }
       },
@@ -357,20 +351,23 @@
       "border-strong": {
         "$value": "{color.dark.control}",
         "$type": "color",
-        "$description": "Dark control border, 3:1 (style unify (2026-09-22, Elleta)).",
+        "$description": "Dark control border, 3:1 (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA."
+            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA.",
+            "dont": [
+              "Not on surface-elevated (raised): 2.52:1; disabled fields on surface-inset only (2.74:1, disabled is exempt)"
+            ]
           }
         }
       },
       "border-ink": {
         "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "1px ink stroke in dark (style unify (2026-09-22, Elleta)).",
+        "$description": "1px ink stroke in dark (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -383,7 +380,7 @@
       "focus-ring": {
         "$value": "{color.brand.periwinkle}",
         "$type": "color",
-        "$description": "Focus ring in dark (style unify (2026-09-22, Elleta)).",
+        "$description": "Focus ring in dark (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [

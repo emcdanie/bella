@@ -2383,7 +2383,7 @@ entries:
   - kind: token
     id: color.light.ink
     name: Light Ink
-    description: "Light-mode ink: text, 1px strokes, the ink border (style unify (2026-09-22, Elleta))."
+    description: "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -2415,7 +2415,7 @@ entries:
   - kind: token
     id: color.light.muted
     name: Muted
-    description: "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify (2026-09-22, Elleta))."
+    description: "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -2424,7 +2424,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: 7.94:1 on bg, 7.28:1 on surface, 7.09:1 on panel (worst). AAA.
+          note: 7.94:1 on bg, 7.09:1 on panel (worst). AAA.
       tags:
         - primitive
         - color
@@ -2447,7 +2447,7 @@ entries:
   - kind: token
     id: color.light.line
     name: Line
-    description: Hairline. Decorative only (style unify (2026-09-22, Elleta)).
+    description: Hairline. Decorative only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2483,7 +2483,7 @@ entries:
   - kind: token
     id: color.light.control
     name: Control
-    description: Control border, the 3:1 non-text step (style unify (2026-09-22, Elleta)).
+    description: Control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2511,40 +2511,18 @@ entries:
       rel: file
       role: primitive.color.light.control
   - kind: token
-    id: color.light.surface
-    name: Light Surface
-    description: Light surface (style unify (2026-09-22, Elleta)).
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.light
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Raised blocks on the white page
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.light.surface
-  - kind: token
     id: color.light.panel
     name: Panel
-    description: "Light panel: cards, figure wells, diagram panels (style unify (2026-09-22, Elleta))."
+    description: "Light surface and panel, merged into one step (Elleta, 2026-09-22): cards, raised blocks, figure wells, diagram panels, insets."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-22"
+          by: human:elleta
+          note: ink 16.73:1, muted 7.09:1 on panel (the worst light surface). AAA.
       tags:
         - primitive
         - color
@@ -2558,7 +2536,11 @@ entries:
           - level: may
             statement: Card fill
           - level: may
+            statement: Raised blocks on the white page
+          - level: may
             statement: Figure and diagram panels
+          - level: may
+            statement: Inset wells
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -2567,7 +2549,7 @@ entries:
   - kind: token
     id: color.light.bg
     name: Bg
-    description: Light page background. The one place pure white is allowed (style unify (2026-09-22, Elleta)).
+    description: Light page background. The one place pure white is allowed (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2599,7 +2581,7 @@ entries:
   - kind: token
     id: color.dark.ink
     name: Dark Ink
-    description: Dark-mode ink (style unify (2026-09-22, Elleta)).
+    description: Dark-mode ink (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2631,7 +2613,7 @@ entries:
   - kind: token
     id: color.dark.muted
     name: Dark Muted
-    description: "Dark-mode muted text. Lifted from the study's #9a9a9a (6.43:1 on surface) to hold AAA (style unify (2026-09-22, Elleta))."
+    description: "Dark-mode muted text. #a1a1a1 held 7.00:1 only on #161616; lifted to #b1b1b1 so it holds AAA on the neutral inset and raised steps too (style unify, 2026-09-22)."
     metadata:
       origin:
         method: extracted
@@ -2640,7 +2622,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA.
+          note: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA.
       tags:
         - primitive
         - color
@@ -2653,12 +2635,6 @@ entries:
         items:
           - level: may
             statement: Secondary and muted text
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: "Not on night.inset or night.raised: 6.07:1 and 5.54:1, under AAA"
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -2667,7 +2643,7 @@ entries:
   - kind: token
     id: color.dark.line
     name: Dark Line
-    description: Dark hairline. Decorative only (style unify (2026-09-22, Elleta)).
+    description: Dark hairline. Decorative only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2701,7 +2677,7 @@ entries:
   - kind: token
     id: color.dark.control
     name: Dark Control
-    description: Dark control border, the 3:1 non-text step (style unify (2026-09-22, Elleta)).
+    description: Dark control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2723,6 +2699,12 @@ entries:
         items:
           - level: may
             statement: Input, select and control borders
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -2731,7 +2713,7 @@ entries:
   - kind: token
     id: color.dark.surface
     name: Dark Surface
-    description: Dark surface and panel (style unify (2026-09-22, Elleta)).
+    description: Dark surface and panel (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2755,9 +2737,69 @@ entries:
       rel: file
       role: primitive.color.dark.surface
   - kind: token
+    id: color.dark.inset
+    name: Dark Inset
+    description: "Dark inset: recessed wells one step above the surface. Neutral, replaces the warm night.inset #252320 (2026-09-22)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.dark
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Inset wells
+          - level: may
+            statement: Disabled field fill in dark
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.dark.inset
+  - kind: token
+    id: color.dark.raised
+    name: Dark Raised
+    description: "Dark raised: the highest dark step. Neutral, replaces the warm night.raised #2C2A27 (2026-09-22)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.dark
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Elevated panels in dark
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Not under control borders: border-strong #636363 is 2.52:1 here"
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.dark.raised
+  - kind: token
     id: color.dark.bg
     name: Dark Bg
-    description: Dark page background (style unify (2026-09-22, Elleta)).
+    description: Dark page background (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2783,7 +2825,7 @@ entries:
   - kind: token
     id: color.chip.c1
     name: C1
-    description: Lavender chip fill. Same in both themes (style unify (2026-09-22, Elleta)).
+    description: Lavender chip fill. Same in both themes (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2819,7 +2861,7 @@ entries:
   - kind: token
     id: color.chip.c2
     name: C2
-    description: Peach chip fill. Same in both themes (style unify (2026-09-22, Elleta)).
+    description: Peach chip fill. Same in both themes (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2851,7 +2893,7 @@ entries:
   - kind: token
     id: color.chip.c3
     name: C3
-    description: Mint chip fill. Same in both themes (style unify (2026-09-22, Elleta)).
+    description: Mint chip fill. Same in both themes (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -2883,7 +2925,7 @@ entries:
   - kind: token
     id: color.chip.text
     name: Text
-    description: Text on every chip fill, both themes (style unify (2026-09-22, Elleta)).
+    description: Text on every chip fill, both themes (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -3701,7 +3743,7 @@ entries:
   - kind: token
     id: typography.font-family.display
     name: Display
-    description: "Headings: Geist, set Light 300 with tight tracking (style unify (2026-09-22, Elleta)). Unique moved to font-family.wordmark."
+    description: "Headings: Geist, set Light 300 with tight tracking (style unify, 2026-09-22, Elleta). Unique moved to font-family.wordmark."
     metadata:
       origin:
         method: extracted
@@ -3733,7 +3775,7 @@ entries:
   - kind: token
     id: typography.font-family.wordmark
     name: Wordmark
-    description: "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify (2026-09-22, Elleta))."
+    description: "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -3807,7 +3849,7 @@ entries:
   - kind: token
     id: typography.font-family.mono
     name: Mono
-    description: "Geist Mono 400: eyebrows, labels, meta and diagram text, at 13px, ss09, no tracking. The only use of Mono (style unify (2026-09-22, Elleta); reverses the 2026-09-21 retirement)."
+    description: "Geist Mono 400: eyebrows, labels, meta and diagram text, at 13px, ss09, no tracking. The only use of Mono (style unify, 2026-09-22, Elleta; reverses the 2026-09-21 retirement)."
     metadata:
       origin:
         method: extracted
@@ -3881,7 +3923,7 @@ entries:
   - kind: token
     id: typography.font-size.mono
     name: Font Size Mono
-    description: Mono labels, eyebrows, meta and diagram text (style unify (2026-09-22, Elleta)). At the 13px hard floor.
+    description: Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At the 13px hard floor.
     metadata:
       origin:
         method: extracted
@@ -3985,7 +4027,7 @@ entries:
   - kind: token
     id: typography.font-size.body
     name: Font Size Body
-    description: "Body text: Geist 400 at 17px (style unify (2026-09-22, Elleta)). font-size.base stays 16px so existing consumers do not shift."
+    description: "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift."
     metadata:
       origin:
         method: extracted
@@ -4209,7 +4251,7 @@ entries:
   - kind: token
     id: typography.font-size.display-hero
     name: Display Hero
-    description: "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify (2026-09-22, Elleta); was 40 to 180 for Unique)."
+    description: "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique)."
     metadata:
       origin:
         method: extracted
@@ -4237,7 +4279,7 @@ entries:
   - kind: token
     id: typography.font-size.display-page
     name: Display Page
-    description: "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify (2026-09-22, Elleta); was 40 to 64)."
+    description: "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64)."
     metadata:
       origin:
         method: extracted
@@ -4265,7 +4307,7 @@ entries:
   - kind: token
     id: typography.font-size.display-section
     name: Display Section
-    description: "Section heading (h2), Geist Light: 32px floor to 44px (style unify (2026-09-22, Elleta); the study starts at 28px, held at the 32px section floor)."
+    description: "Section heading (h2), Geist Light: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor)."
     metadata:
       origin:
         method: extracted
@@ -4293,7 +4335,7 @@ entries:
   - kind: token
     id: typography.font-weight.light
     name: Light
-    description: "Geist Light: every heading tier (style unify (2026-09-22, Elleta))."
+    description: "Geist Light: every heading tier (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -4351,7 +4393,7 @@ entries:
   - kind: token
     id: typography.font-weight.medium
     name: Medium
-    description: Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify (2026-09-22, Elleta)).
+    description: Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4577,7 +4619,7 @@ entries:
   - kind: token
     id: typography.line-height.heading
     name: Heading
-    description: Geist Light heading leading (style unify (2026-09-22, Elleta)).
+    description: Geist Light heading leading (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4699,7 +4741,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.display
     name: Letter Spacing Display
-    description: Hero and page heading tracking, Geist Light (style unify (2026-09-22, Elleta)).
+    description: Hero and page heading tracking, Geist Light (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4731,7 +4773,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.h2
     name: H2
-    description: Section heading (h2) tracking, Geist Light (style unify (2026-09-22, Elleta)).
+    description: Section heading (h2) tracking, Geist Light (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4763,7 +4805,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.title
     name: Title
-    description: "Title tracking: Geist 500 at 20px (style unify (2026-09-22, Elleta))."
+    description: "Title tracking: Geist 500 at 20px (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -4789,7 +4831,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.mono
     name: Letter Spacing Mono
-    description: Mono takes no tracking (style unify (2026-09-22, Elleta)).
+    description: Mono takes no tracking (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4871,7 +4913,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.hero
     name: Hero
-    description: Unique wordmark tracking (0.04em). Unique is the wordmark only (style unify (2026-09-22, Elleta)).
+    description: Unique wordmark tracking (0.04em). Unique is the wordmark only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -4899,7 +4941,7 @@ entries:
   - kind: token
     id: typography.font-feature.mono
     name: Font Feature Mono
-    description: Geist Mono stylistic set 9, on every Mono run (style unify (2026-09-22, Elleta)).
+    description: Geist Mono stylistic set 9, on every Mono run (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5181,7 +5223,7 @@ entries:
   - kind: token
     id: motion.duration.draw
     name: Draw
-    description: Line draw (style unify (2026-09-22, Elleta)).
+    description: Line draw (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5213,7 +5255,7 @@ entries:
   - kind: token
     id: motion.duration.pop
     name: Pop
-    description: Pop-in of a diagram element (style unify (2026-09-22, Elleta)).
+    description: Pop-in of a diagram element (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5323,7 +5365,7 @@ entries:
   - kind: token
     id: motion.easing.draw
     name: Easing Draw
-    description: Draw ease (style unify (2026-09-22, Elleta)).
+    description: Draw ease (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5351,7 +5393,7 @@ entries:
   - kind: token
     id: motion.easing.pop
     name: Easing Pop
-    description: Pop ease, a small overshoot (style unify (2026-09-22, Elleta)).
+    description: Pop ease, a small overshoot (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5441,7 +5483,7 @@ entries:
   - kind: token
     id: motion.stagger.min
     name: Min
-    description: Shortest stagger between diagram steps (style unify (2026-09-22, Elleta)).
+    description: Shortest stagger between diagram steps (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -5467,7 +5509,7 @@ entries:
   - kind: token
     id: motion.stagger.max
     name: Max
-    description: Longest stagger between diagram steps (style unify (2026-09-22, Elleta)).
+    description: Longest stagger between diagram steps (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -6216,7 +6258,7 @@ entries:
   - kind: token
     id: color.semantic.background
     name: Background
-    description: "Light page background: pure white, the page ground only (style unify (2026-09-22, Elleta))."
+    description: "Light page background: pure white, the page ground only (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -6310,11 +6352,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.light.surface}"
+        alias: "{color.light.panel}"
   - kind: token
     id: color.semantic.surface-card
     name: Surface Card
-    description: "Flat card fill: panel #f2f2f2 on the white page (style unify (2026-09-22, Elleta))."
+    description: "Flat card fill: panel #f2f2f2 on the white page (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -6376,7 +6418,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.light.surface}"
+        alias: "{color.light.panel}"
   - kind: token
     id: color.semantic.surface-inset
     name: Surface Inset
@@ -7008,7 +7050,7 @@ entries:
   - kind: token
     id: color.semantic.border
     name: Border
-    description: Hairline, decorative only (style unify (2026-09-22, Elleta)).
+    description: Hairline, decorative only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7046,7 +7088,7 @@ entries:
   - kind: token
     id: color.semantic.border-subtle
     name: Border Subtle
-    description: Hairline divider, decorative only (style unify (2026-09-22, Elleta)).
+    description: Hairline divider, decorative only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7076,7 +7118,7 @@ entries:
   - kind: token
     id: color.semantic.border-faint
     name: Border Faint
-    description: Hairline card edge, decorative only (style unify (2026-09-22, Elleta)).
+    description: Hairline card edge, decorative only (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7112,7 +7154,7 @@ entries:
   - kind: token
     id: color.semantic.border-strong
     name: Border Strong
-    description: "Control border, 3:1: inputs, selects and controls (style unify (2026-09-22, Elleta))."
+    description: "Control border, 3:1: inputs, selects and controls (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -7146,7 +7188,7 @@ entries:
   - kind: token
     id: color.semantic.border-ink
     name: Border Ink
-    description: "1px ink stroke: diagram frames, the pressed chip, ink rules (style unify (2026-09-22, Elleta))."
+    description: "1px ink stroke: diagram frames, the pressed chip, ink rules (style unify, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -7178,7 +7220,7 @@ entries:
   - kind: token
     id: color.semantic.focus-ring
     name: Focus Ring
-    description: "Focus ring: the one coloured stroke (style unify (2026-09-22, Elleta); colour never in strokes, except the focus ring)."
+    description: "Focus ring: the one coloured stroke (style unify, 2026-09-22, Elleta; colour never in strokes, except the focus ring)."
     metadata:
       origin:
         method: extracted
@@ -7212,7 +7254,7 @@ entries:
   - kind: token
     id: color.semantic.chip-1
     name: Chip 1
-    description: Lavender chip fill (style unify (2026-09-22, Elleta)).
+    description: Lavender chip fill (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7250,7 +7292,7 @@ entries:
   - kind: token
     id: color.semantic.chip-2
     name: Chip 2
-    description: Peach chip fill (style unify (2026-09-22, Elleta)).
+    description: Peach chip fill (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7286,7 +7328,7 @@ entries:
   - kind: token
     id: color.semantic.chip-3
     name: Chip 3
-    description: Mint chip fill (style unify (2026-09-22, Elleta)).
+    description: Mint chip fill (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7322,7 +7364,7 @@ entries:
   - kind: token
     id: color.semantic.chip-text
     name: Chip Text
-    description: Text on chip fills (style unify (2026-09-22, Elleta)).
+    description: Text on chip fills (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -9298,7 +9340,7 @@ entries:
   - kind: token
     id: component.resource-card.default.cover-background
     name: Cover Background
-    description: "The file window is navy in BOTH themes on purpose: it is a fixed-context surface, like Card's peek but dark. Never pure black."
+    description: "The file window is a fixed-context dark surface in BOTH themes, like Card's peek but dark: the neutral dark inset (style unify, 2026-09-22; was navy). Never pure black."
     metadata:
       origin:
         method: extracted
@@ -9316,7 +9358,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.navy}"
+        alias: "{color.dark.inset}"
   - kind: token
     id: component.resource-card.default.sheet-overlap
     name: Sheet Overlap
@@ -9958,12 +10000,12 @@ entries:
   - kind: token
     id: component.tag.default.font-family
     name: Default Font Family
-    description: Component-tier alias. Resolves to `typography.font-family.body` in `tokens/bella.json`.
+    description: "Geist Mono: tags are meta labels (style unify, 2026-09-22)."
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - tag
@@ -9976,11 +10018,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-family.body}"
+        alias: "{typography.font-family.mono}"
   - kind: token
     id: component.tag.default.font-size
     name: Default Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.tag` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -9998,16 +10040,16 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.tag}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.tag.default.font-weight
     name: Default Font Weight
-    description: Component-tier alias. Resolves to `typography.font-weight.medium` in `tokens/bella.json`.
+    description: Mono ships one cut, 400.
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - tag
@@ -10020,16 +10062,60 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.medium}"
+        alias: "{typography.font-weight.regular}"
   - kind: token
-    id: component.tag.accent.background
-    name: Accent Background
-    description: Component-tier alias. Resolves to `color.semantic.accent-subtle` in `tokens/bella.json`.
+    id: component.tag.default.letter-spacing
+    name: Default Letter Spacing
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
         author: machine-generated
         note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tag
+      group: component.tag.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tag.default.letter-spacing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.letter-spacing.mono}"
+  - kind: token
+    id: component.tag.default.font-feature-settings
+    name: Font Feature Settings
+    description: Component-tier alias. Resolves to `typography.font-feature.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tag
+      group: component.tag.default
+    tokenType: other
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tag.default.font-feature-settings
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-feature.mono}"
+  - kind: token
+    id: component.tag.accent.background
+    name: Accent Background
+    description: "Lavender chip fill: colour lives in fills, and iris is interactive only (style unify, 2026-09-22)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - tag
@@ -10042,11 +10128,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-subtle}"
+        alias: "{color.semantic.chip-1}"
   - kind: token
     id: component.tag.accent.foreground
     name: Accent Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-accent` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.chip-text` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -10064,7 +10150,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-accent}"
+        alias: "{color.semantic.chip-text}"
   - kind: token
     id: component.tag.accent.border-radius
     name: Accent Border Radius
@@ -10156,12 +10242,12 @@ entries:
   - kind: token
     id: component.status-pill.font-family
     name: Status Pill Font Family
-    description: Component-tier alias. Resolves to `typography.font-family.body` in `tokens/bella.json`.
+    description: "Geist Mono: a status word is a meta label (style unify, 2026-09-22)."
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - status-pill
@@ -10174,7 +10260,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-family.body}"
+        alias: "{typography.font-family.mono}"
   - kind: token
     id: component.status-pill.font-size
     name: Status Pill Font Size
@@ -10196,11 +10282,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.tag}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.status-pill.font-weight
     name: Status Pill Font Weight
-    description: Portfolio used 600; no semibold token exists, and inventing one for a pill is not the call. Recorded divergence.
+    description: Mono ships one cut, 400.
     metadata:
       origin:
         method: extracted
@@ -10218,7 +10304,95 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.bold}"
+        alias: "{typography.font-weight.regular}"
+  - kind: token
+    id: component.status-pill.letter-spacing
+    name: Status Pill Letter Spacing
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - status-pill
+      group: component.status-pill
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.status-pill.letter-spacing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.letter-spacing.mono}"
+  - kind: token
+    id: component.status-pill.font-feature-settings
+    name: Status Pill Font Feature Settings
+    description: Component-tier alias. Resolves to `typography.font-feature.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - status-pill
+      group: component.status-pill
+    tokenType: other
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.status-pill.font-feature-settings
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-feature.mono}"
+  - kind: token
+    id: component.status-pill.accent.background
+    name: Status Pill Accent Background
+    description: "Lavender fill, no ring: colour lives in fills, iris is interactive only (style unify, 2026-09-22)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - status-pill
+      group: component.status-pill.accent
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.status-pill.accent.background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.chip-1}"
+  - kind: token
+    id: component.status-pill.accent.foreground
+    name: Status Pill Accent Foreground
+    description: Component-tier alias. Resolves to `color.semantic.chip-text` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - status-pill
+      group: component.status-pill.accent
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.status-pill.accent.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.chip-text}"
   - kind: token
     id: component.filter-chip.border
     name: Filter Chip Border
@@ -11291,7 +11465,7 @@ entries:
         alias: "{typography.letter-spacing.mono}"
   - kind: token
     id: component.eyebrow.muted.font-feature-settings
-    name: Font Feature Settings
+    name: Muted Font Feature Settings
     description: Component-tier alias. Resolves to `typography.font-feature.mono` in `tokens/bella.json`.
     metadata:
       origin:
@@ -11661,7 +11835,7 @@ entries:
         alias: "{typography.font-size.tag}"
   - kind: token
     id: component.nav-link.default.letter-spacing
-    name: Default Letter Spacing
+    name: Nav Link Default Letter Spacing
     description: Component-tier alias. Resolves to `typography.letter-spacing.wide` in `tokens/bella.json`.
     metadata:
       origin:
@@ -13069,7 +13243,7 @@ entries:
   - kind: component
     id: heading
     name: Heading
-    description: Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify (2026-09-22, Elleta)). Unique is the wordmark only. Never inside a card.
+    description: Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify, 2026-09-22, Elleta). Unique is the wordmark only. Never inside a card.
     metadata:
       origin:
         method: extracted
@@ -13078,7 +13252,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is text-accent, 6.23:1 light / 7.86:1 dark. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.
+          note: "text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): iris is interactive only. Semantic level decouples from the visual tier via the as prop, so the outline stays honest."
       tags:
         - component
         - heading

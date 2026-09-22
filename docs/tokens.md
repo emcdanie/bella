@@ -86,14 +86,15 @@ value with the source reference in parentheses.
 | `color.light.muted` | `#515151` | color |
 | `color.light.line` | `#e3e3e3` | color |
 | `color.light.control` | `#8c8c8c` | color |
-| `color.light.surface` | `#f5f5f4` | color |
 | `color.light.panel` | `#f2f2f2` | color |
 | `color.light.bg` | `#ffffff` | color |
 | `color.dark.ink` | `#ededed` | color |
-| `color.dark.muted` | `#a1a1a1` | color |
+| `color.dark.muted` | `#b1b1b1` | color |
 | `color.dark.line` | `#2a2a2a` | color |
 | `color.dark.control` | `#636363` | color |
 | `color.dark.surface` | `#161616` | color |
+| `color.dark.inset` | `#1f1f1f` | color |
+| `color.dark.raised` | `#262626` | color |
 | `color.dark.bg` | `#0d0d0d` | color |
 | `color.chip.c1` | `#c9bff5` | color |
 | `color.chip.c2` | `#f6c9a8` | color |
@@ -222,9 +223,9 @@ value with the source reference in parentheses.
 |---|---|---|
 | `color.semantic.background` | `#ffffff` (`{color.light.bg}`) | color |
 | `color.semantic.background-inverse` | `#121212` (`{color.light.ink}`) | color |
-| `color.semantic.surface` | `#f5f5f4` (`{color.light.surface}`) | color |
+| `color.semantic.surface` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-card` | `#f2f2f2` (`{color.light.panel}`) | color |
-| `color.semantic.surface-elevated` | `#f5f5f4` (`{color.light.surface}`) | color |
+| `color.semantic.surface-elevated` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-inset` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-inverse` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-glass` | `linear-gradient(180deg, #FFFFFFD1 0%, #FFFFFFAD 100%)` (`linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)`) | other |
@@ -276,9 +277,9 @@ value with the source reference in parentheses.
 | `color.semantic.background-inverse` | `#ededed` (`{color.dark.ink}`) | color |
 | `color.semantic.surface` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-card` | `#161616` (`{color.dark.surface}`) | color |
-| `color.semantic.surface-elevated` | `#2C2A27` (`{color.night.raised}`) | color |
-| `color.semantic.surface-inset` | `#252320` (`{color.night.inset}`) | color |
-| `color.semantic.surface-inverse` | `#f5f5f4` (`{color.light.surface}`) | color |
+| `color.semantic.surface-elevated` | `#262626` (`{color.dark.raised}`) | color |
+| `color.semantic.surface-inset` | `#1f1f1f` (`{color.dark.inset}`) | color |
+| `color.semantic.surface-inverse` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-glass` | `#1B191699` (`{color.alpha.night-60}`) | color |
 | `color.semantic.surface-glass-elevated` | `#1B19167A` (`{color.alpha.night-48}`) | color |
 | `color.semantic.surface-glass-light` | `#1B191652` (`{color.alpha.night-32}`) | color |
@@ -286,8 +287,8 @@ value with the source reference in parentheses.
 | `color.semantic.border-glass-top` | `#F4EFE624` (`{color.alpha.dark-ink-14}`) | color |
 | `color.semantic.border-glass-edge` | `#F4EFE61A` (`{color.alpha.dark-ink-10}`) | color |
 | `color.semantic.text-primary` | `#ededed` (`{color.dark.ink}`) | color |
-| `color.semantic.text-secondary` | `#a1a1a1` (`{color.dark.muted}`) | color |
-| `color.semantic.text-muted` | `#a1a1a1` (`{color.dark.muted}`) | color |
+| `color.semantic.text-secondary` | `#b1b1b1` (`{color.dark.muted}`) | color |
+| `color.semantic.text-muted` | `#b1b1b1` (`{color.dark.muted}`) | color |
 | `color.semantic.text-inverse` | `#121212` (`{color.light.ink}`) | color |
 | `color.semantic.text-accent` | `#A79CE2` (`{color.brand.periwinkle}`) | color |
 | `color.semantic.accent` | `#A79CE2` (`{color.brand.periwinkle}`) | color |
@@ -390,7 +391,7 @@ value with the source reference in parentheses.
 | `component.card.glass.border-radius` | `24px` (`{radius.3xl}`) | dimension |
 | `component.card.glass.padding` | `32px` (`{spacing.8}`) | dimension |
 | `component.card.glass.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
-| `component.card.featured.background` | `#f5f5f4` (`{color.semantic.surface-elevated}`) | color |
+| `component.card.featured.background` | `#f2f2f2` (`{color.semantic.surface-elevated}`) | color |
 | `component.card.featured.border-radius` | `16px` (`{radius.xl}`) | dimension |
 | `component.card.featured.padding` | `32px` (`{spacing.8}`) | dimension |
 | `component.card.featured.shadow` | `0 4px 12px rgba(28,26,46,0.08)` (`{shadow.md}`) | shadow |
@@ -400,7 +401,7 @@ value with the source reference in parentheses.
 | `component.card.inverse.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.card.inverse.padding` | `20px` (`{spacing.5}`) | dimension |
 | `component.resource-card.default.cover-height` | `200px` | dimension |
-| `component.resource-card.default.cover-background` | `#1B1B40` (`{color.brand.navy}`) | color |
+| `component.resource-card.default.cover-background` | `#1f1f1f` (`{color.dark.inset}`) | color |
 | `component.resource-card.default.sheet-overlap` | `48px` (`{spacing.12}`) | dimension |
 | `component.resource-card.default.tab-radius` | `16px` (`{radius.xl}`) | dimension |
 | `component.resource-card.default.notch-size` | `16px` (`{radius.xl}`) | dimension |
@@ -430,18 +431,24 @@ value with the source reference in parentheses.
 | `component.tag.default.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.default.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.default.padding-x` | `12px` (`{spacing.3}`) | dimension |
-| `component.tag.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.tag.default.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.tag.default.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
-| `component.tag.accent.background` | `#5B4BD11F` (`{color.semantic.accent-subtle}`) | color |
-| `component.tag.accent.foreground` | `#5B4BD1` (`{color.semantic.text-accent}`) | color |
+| `component.tag.default.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.tag.default.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.tag.default.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
+| `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
+| `component.tag.default.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.tag.accent.background` | `#c9bff5` (`{color.semantic.chip-1}`) | color |
+| `component.tag.accent.foreground` | `#17191a` (`{color.semantic.chip-text}`) | color |
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
 | `component.status-pill.border-radius` | `999px` (`{radius.full}`) | dimension |
-| `component.status-pill.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.status-pill.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.status-pill.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
+| `component.status-pill.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.status-pill.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.status-pill.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
+| `component.status-pill.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
+| `component.status-pill.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.status-pill.accent.background` | `#c9bff5` (`{color.semantic.chip-1}`) | color |
+| `component.status-pill.accent.foreground` | `#17191a` (`{color.semantic.chip-text}`) | color |
 | `component.filter-chip.border` | `#8c8c8c` (`{color.semantic.border-strong}`) | color |
 | `component.filter-chip.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |

@@ -10,7 +10,7 @@ export interface HeadingProps {
   tier?: 'hero' | 'page' | 'section';
   /** Semantic element, decoupled from the visual tier; defaults h1 for hero/page, h2 otherwise. */
   as?: 'h1' | 'h2' | 'h3';
-  /** Optional accent segment rendered in the theme accent after the text. */
+  /** Optional accent segment after the text: the muted half-line. An interactive accent (a term button) colours itself. */
   accent?: ReactNode;
   /** Text that follows the accent segment in the primary ink (e.g. a full stop). */
   after?: ReactNode;

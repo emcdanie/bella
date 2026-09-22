@@ -7,25 +7,52 @@ const meta: Meta = {
 };
 export default meta;
 
-export const Brand: StoryObj = {
+const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' };
+
+/** The palette the semantic tier reads (style unify, 2026-09-22): neutral
+ * light and dark steps, three chip fills, one accent in two modes. */
+export const Palette: StoryObj = {
   render: () => (
     <div>
-      <SectionTitle>Brand</SectionTitle>
-      <SwatchGrid leaves={leavesUnder(primitive, 'color.brand')} />
-      <SectionTitle>Iris / periwinkle ramp</SectionTitle>
-      <SwatchGrid leaves={leavesUnder(primitive, 'color.iris')} />
+      <SectionTitle>Light</SectionTitle>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.light')} />
+      <SectionTitle>Dark</SectionTitle>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.dark')} />
+      <SectionTitle>Chips</SectionTitle>
+      <p style={note}>
+        Fills only, the same in both themes, always with chip text. Colour lives in
+        fills, never in strokes or body text.
+      </p>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.chip')} />
+      <SectionTitle>Accent</SectionTitle>
+      <p style={note}>
+        Iris in light, periwinkle in dark: one accent, interactive only (links and
+        the focus ring).
+      </p>
+      <SwatchGrid
+        leaves={leavesUnder(primitive, 'color.brand').filter((l) => /iris|periwinkle/.test(l.path))}
+      />
     </div>
   ),
 };
 
-export const Neutrals: StoryObj = {
+/** The 2026-07 identity primitives, kept for legacy consumers. The semantic
+ * tier no longer reads them, except navy as the dark text-on-accent. */
+export const Legacy: StoryObj = {
   render: () => (
     <div>
-      <SectionTitle>Light neutrals</SectionTitle>
+      <SectionTitle>2026-07 brand</SectionTitle>
+      <p style={note}>Kept for legacy consumers; not read by the semantic tier.</p>
+      <SwatchGrid
+        leaves={leavesUnder(primitive, 'color.brand').filter((l) => !/iris|periwinkle/.test(l.path))}
+      />
+      <SectionTitle>Iris / periwinkle ramp</SectionTitle>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.iris')} />
+      <SectionTitle>Warm neutrals</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.neutral')} />
       <SectionTitle>Navy scale</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.navy')} />
-      <SectionTitle>Warm dark scale (the dark ground)</SectionTitle>
+      <SectionTitle>Warm dark scale</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.night')} />
       <SectionTitle>Status (carried, non-text only)</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.supporting')} />
@@ -40,12 +67,15 @@ export const Semantic: StoryObj = {
     return (
       <div>
         <SectionTitle>Semantic ({dark ? 'dark' : 'light'} bindings)</SectionTitle>
-        <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
+        <p style={note}>
           Chips resolve through the generated CSS custom properties, and the value
           column shows the {dark ? 'dark' : 'light'} set's references; both follow
-          the theme toolbar.
+          the theme toolbar. At narrow widths the table scrolls inside its frame.
         </p>
-        <TokenTable leaves={walk(bindings as never, ['color', 'semantic']).filter((l) => !l.value.startsWith('linear-gradient'))} />
+        <TokenTable
+          label={`Semantic colour tokens, ${dark ? 'dark' : 'light'} bindings`}
+          leaves={walk(bindings as never, ['color', 'semantic']).filter((l) => !l.value.startsWith('linear-gradient'))}
+        />
       </div>
     );
   },

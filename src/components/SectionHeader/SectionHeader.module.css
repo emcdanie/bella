@@ -23,22 +23,32 @@
   }
 }
 
+.titleBlock {
+  display: grid;
+  row-gap: var(--spacing-4);
+  align-content: start;
+}
+
 .side {
   display: grid;
   row-gap: var(--spacing-5);
   max-width: 42rem;
 }
 
+/* style unify, 2026-09-22: the lead is the 20px muted line, the body is
+   Geist 17 with the body tracking */
 .lead {
   margin: 0;
+  max-width: 40ch;
   font-size: var(--typography-font-size-xl);
   line-height: var(--typography-line-height-snug);
-  color: var(--color-semantic-text-primary);
+  color: var(--color-semantic-text-secondary);
 }
 
 .body {
-  font-size: var(--typography-font-size-base);
-  line-height: var(--typography-line-height-relaxed);
+  font-size: var(--typography-font-size-body);
+  letter-spacing: var(--typography-letter-spacing-body);
+  line-height: var(--typography-line-height-normal);
   color: var(--color-semantic-text-secondary);
 }
 

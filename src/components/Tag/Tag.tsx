@@ -3,9 +3,9 @@ import styles from './Tag.module.css';
 
 export interface TagProps {
   /**
-   * `"default"` is the quiet neutral wash. `"accent"` wears the accent
-   * wash (subtle fill, accent text), the generic form of the portfolio's
-   * per-case identity tint.
+   * `"default"` is the quiet neutral wash. `"accent"` wears the lavender
+   * chip fill with chip text (colour lives in fills; iris is interactive
+   * only). Both set in Geist Mono at 13px.
    */
   variant?: 'default' | 'accent';
   /** Extra classes on the chip. */

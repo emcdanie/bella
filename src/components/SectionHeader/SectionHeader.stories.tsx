@@ -37,6 +37,17 @@ export const Split: Story = {
   ),
 };
 
+/** With a Mono eyebrow above the heading (style unify, 2026-09-22). */
+export const WithEyebrow: Story = {
+  args: {
+    eyebrow: '01 · The problem, framed',
+    heading: 'It felt complicated.',
+    accent: 'The numbers said why.',
+    after: undefined,
+    lead: 'Research with the teams who used it, before a single component changed.',
+  },
+};
+
 /** Stacked: the page opening, heading above the lead at every width. */
 export const StackedPageOpening: Story = {
   args: { as: 'h1', layout: 'stacked', heading: 'The', accent: 'library', after: '.' },
@@ -52,7 +63,8 @@ export const TermAccent: Story = {
         type="button"
         style={{
           font: 'inherit',
-          color: 'inherit',
+          /* interactive, so it wears the accent */
+          color: 'var(--color-semantic-text-accent)',
           letterSpacing: 'inherit',
           textTransform: 'inherit',
           background: 'none',

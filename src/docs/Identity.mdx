@@ -23,40 +23,43 @@ second accent colour. Each fails its opposite ground so hard that it is
 banned there even as decoration. At body scale the accent means INTERACTIVE,
 and only that.
 
-## Two faces
+## Geist, three cuts, and a wordmark
 
-Type is Unique and Geist, exactly two faces:
+Type is Geist (style unify, 2026-09-22), in three cuts plus Mono:
 
-- **Unique** (700 is the only cut) is display: page-tier headings, the home
-  hero headline, the keycap brand lockup. Never below 24px, never negative
-  tracking.
-- **Geist** is everything else: body, UI, card titles, eyebrows, nav,
-  buttons, chips. Eyebrows are Geist caps with wide tracking; the tracking is
-  the look.
-- The mono face is retired. Legacy consumers get Geist through the old token.
+- **Headings** are Geist Light 300 with tight tracking (−0.035em display,
+  −0.03em for the section h2), sentence case, through the Heading component.
+  Section headings never drop below 32px.
+- **Titles** are Geist 500 at 20px. **Body** is Geist 400 at 17px with
+  −0.01em tracking.
+- **Eyebrows and meta labels** are Geist Mono 400 at 13px, stylistic set 9,
+  no tracking, no caps. Tag and StatusPill use it; Button, Select, NavLink and
+  form labels stay Geist.
+- **Unique** is the wordmark and nothing else.
 
 <DoDont
   doItems={[
-    'Set display headings in Unique 700, 24px and up',
-    'Set card titles in Geist 700 (cards never carry Unique)',
-    'Track eyebrows wide, in Geist caps',
+    'Set every heading in Geist Light through Heading',
+    'Set card and step titles in Geist 500 at 20px',
+    'Set eyebrows and meta in Geist Mono at 13px, untracked',
   ]}
   dontItems={[
-    'Unique in body, UI, cards, nav, buttons, or chips',
-    'Unique below 24px (the keycap logo is the single recorded exception)',
-    'Any third face, including a mono for code',
+    'Unique anywhere but the wordmark',
+    'Mono below 13px, tracked, or in caps',
+    'Bold display headings, or tracked caps eyebrows',
   ]}
 />
 
 ## Surfaces: flat cards, lift means clickable
 
-Pure white is banned as a solid fill. The canvas is ground; cards are flat,
-the ground one small step darker <TokenChip token="color.semantic.surface-card" />
-with a faint 1px edge <TokenChip token="color.semantic.border-faint" /> and no
-shadow at rest. Only an interactive card lifts, 2px with a soft shadow, on
-hover and focus; a static card never moves. Dark elevation climbs lighter:
-the warm ground, then card <TokenChip token="color.night.card" />, then
-raised <TokenChip token="color.night.raised" />. One light source,
+The light page is pure white, and that is the only place white is allowed.
+Cards and panels are one step down <TokenChip token="color.semantic.surface-card" />
+with a 1px hairline <TokenChip token="color.semantic.border-faint" /> and no
+shadow at rest. Colour lives in fills, never in strokes or body text, except
+the focus ring. Only an interactive card lifts, 2px with a soft shadow, on
+hover and focus; a static card never moves. Dark elevation climbs lighter
+on neutral greys: the page, then surface <TokenChip token="color.dark.surface" />,
+inset <TokenChip token="color.dark.inset" />, and raised <TokenChip token="color.dark.raised" />. One light source,
 upper-left: highlights top-left, shadows down-right. The orb and keycap
 elevation tokens are a lock; that depth IS the system.
 

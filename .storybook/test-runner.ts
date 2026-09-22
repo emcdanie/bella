@@ -246,6 +246,14 @@ async function runQualityChecks(
           }
           continue;
         }
+        /* the one named exception (2026-09-22): diagram patterns draw their
+           own SVG, and only as a labelled image that tells the story */
+        if (svg.hasAttribute('data-bella-diagram')) {
+          if (svg.getAttribute('role') !== 'img' || !(svg.getAttribute('aria-label') ?? '').trim()) {
+            fails.push('diagram <svg> without role="img" and an aria-label that tells the story');
+          }
+          continue;
+        }
         fails.push(
           `inline <svg> outside the Icon component (one-set rule): ${
             (svg.outerHTML ?? '').slice(0, 80)
@@ -403,7 +411,18 @@ const config: TestRunnerConfig = {
         }
       }
 
+      /* play-once reveals (diagrams, style unify 2026-09-22) are frozen at
+         their first keyframe by Storybook's capture pause; their reduced-
+         motion render IS the finished frame, so capture those stories under
+         prefers-reduced-motion: reduce. Scoped by data-bella-reveal so no
+         other component's reduced-motion rules touch its baseline. */
+      const hasReveal = await page.evaluate(() => !!document.querySelector('[data-bella-reveal]'));
+      if (hasReveal) {
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.waitForTimeout(50);
+      }
       const image = await page.screenshot({ fullPage: true, animations: 'disabled' });
+      if (hasReveal) await page.emulateMedia({ reducedMotion: null });
 
       if (checkIntegrity) {
         // Pixel-level integrity: the computed-style check above only sees the

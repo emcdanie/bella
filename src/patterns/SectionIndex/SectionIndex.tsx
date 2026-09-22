@@ -4,7 +4,7 @@ import styles from './SectionIndex.module.css';
 export interface SectionIndexProps {
   /** The index number, zero-padded (e.g. "01"). */
   index: string;
-  /** The section name (e.g. "Featured"); set in caps by the pattern. */
+  /** The section name (e.g. "Featured"); set in Mono as written. */
   label: string;
   /**
    * Semantic element. `"p"` (default): at 14px the index is a label, not a

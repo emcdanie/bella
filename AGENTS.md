@@ -14,7 +14,7 @@ Reference tokens by path (`color.brand.iris`, `spacing.4`, `typography.font-size
 
 **AAA-minded AA.** Concretely:
 
-- **AAA for ink and body text, muted included.** Light: ink 18.73 on bg, 16.73 on panel; muted `#515151` 7.94 on bg, 7.09 on panel (worst). Dark: ink 16.60 on bg, 15.46 on surface; muted `#a1a1a1` 7.52 on bg, 7.00 on surface (worst allowed). Body text never drops below AAA. Dark muted is forbidden on the legacy `night.inset` / `night.raised` surfaces (6.07 / 5.54).
+- **AAA for ink and body text, muted included.** Light: ink 18.73 on bg, 16.73 on panel; muted `#515151` 7.94 on bg, 7.09 on panel (worst). Dark: ink 16.60 on bg, 12.93 on raised; muted `#b1b1b1` 9.06 on bg, 7.06 on raised (worst). Body text never drops below AAA on any surface.
 - **AA where the accent speaks.** Iris is 6.23:1 on the white bg and 5.56:1 on panel: AA, not AAA, and AAA is not the bar for accent. Accent text, links and the focus ring are AA-verified per token.
 - **The accent always theme-flips.** Iris in light, periwinkle in dark. Each fails its opposite ground (iris 3.12:1 on the dark bg, 2.91:1 on the dark surface; periwinkle 2.47:1 on the white bg), so each is banned there **even as decoration**.
 - **Controls clear 3:1, hairlines are decoration.** `border-strong` (`#8c8c8c` light, `#636363` dark) is the input and control border, 3.00:1 worst. The hairline (`border`, `border-subtle`, `border-faint`: `#e3e3e3` / `#2a2a2a`) is decorative only and never marks a control.
@@ -34,9 +34,9 @@ Fine-print, captions, and metadata live at 13–14px and should be rare. If you'
 
 ## White page, neutral surfaces (style unify, 2026-09-22)
 
-The light page is `color.light.bg`, pure white `#ffffff`, and that is the **only** place pure white is allowed (audit:quality allows it on the page ground: the stage or `[data-bella-ground]`). Surfaces step down from it: `surface` `#f5f5f4`, cards and panels `panel` `#f2f2f2`. Cards are flat: panel fill, a 1px hairline edge, no shadow at rest. White alpha stays permitted as a translucent glass overlay.
+The light page is `color.light.bg`, pure white `#ffffff`, and that is the **only** place pure white is allowed (audit:quality allows it on the page ground: the stage or `[data-bella-ground]`). Everything raised or inset is one step down: `panel` `#f2f2f2` (surface and panel merged, 2026-09-22). A disabled field has no fill of its own: muted text and the border mark it. Cards are flat: panel fill, a 1px hairline edge, no shadow at rest. White alpha stays permitted as a translucent glass overlay.
 
-Dark mode is neutral: page `color.dark.bg` `#0d0d0d`, surface and panel `color.dark.surface` `#161616`. The legacy warm `night.*` values remain only as `surface-inset` / `surface-elevated` in dark until neutral steps are decided.
+Dark mode is neutral and climbs lighter: page `color.dark.bg` `#0d0d0d`, surface and panel `color.dark.surface` `#161616`, inset `color.dark.inset` `#1f1f1f`, raised `color.dark.raised` `#262626`. Control borders (`border-strong` `#636363`) never sit on raised (2.52:1).
 
 **Colour lives in fills, never in strokes or body text** — except the focus ring, which is `color.semantic.focus-ring` (iris light, periwinkle dark). Strokes are 1px ink (`border-ink`) or hairline. The chip fills (`chip.c1` lavender `#c9bff5`, `c2` peach `#f6c9a8`, `c3` mint `#cfe8dc`) are the same in both themes and always carry `chip.text` `#17191a` (10.29:1 worst). A chip fill is never the only signal of state (1.19–1.71:1 against the light page).
 
@@ -65,8 +65,8 @@ BELLA's palette and typography are decided (the 2026-07 identity, restyled by th
 
 **Palette:**
 
-- `color.light.*` — ink `#121212`, muted `#515151`, line `#e3e3e3`, control `#8c8c8c`, surface `#f5f5f4`, panel `#f2f2f2`, bg `#ffffff`
-- `color.dark.*` — ink `#ededed`, muted `#a1a1a1`, line `#2a2a2a`, control `#636363`, surface `#161616`, bg `#0d0d0d`
+- `color.light.*` — ink `#121212`, muted `#515151`, line `#e3e3e3`, control `#8c8c8c`, panel `#f2f2f2`, bg `#ffffff`
+- `color.dark.*` — ink `#ededed`, muted `#b1b1b1`, line `#2a2a2a`, control `#636363`, surface `#161616`, inset `#1f1f1f`, raised `#262626`, bg `#0d0d0d`
 - `color.chip.*` — c1 lavender `#c9bff5`, c2 peach `#f6c9a8`, c3 mint `#cfe8dc`, text `#17191a`; same in both themes, fills only
 - `color.brand.iris` — `#5B4BD1`, **the single accent**, light mode, **interactive only**: links, the focus ring, accent text that is a link. Never on eyebrows, headings or decoration.
 - `color.brand.periwinkle` — `#A79CE2`, the same accent in dark mode
@@ -80,10 +80,10 @@ Supporting `steel` and `sage` are carried from the April identity for status sta
 - **Headings** — `typography.font-family.display` is **Geist** at `font-weight.light` (300), sentence case, `line-height.heading` (1.08). Hero and page tiers track `letter-spacing.display` (-0.035em); the section tier (h2) tracks `letter-spacing.h2` (-0.03em). Through the Heading component and its contract.
 - **Titles** — Geist `font-weight.medium` (500) at 20px, `letter-spacing.title` (-0.015em).
 - **Body** — Geist 400, `font-size.body` (17px) for new body copy, `letter-spacing.body` (-0.01em). `font-size.base` stays 16px for existing consumers.
-- **Eyebrows, labels, meta and diagram text** — `typography.font-family.mono`, **Geist Mono** 400 at `font-size.mono` (13px), `font-feature.mono` (ss09), `letter-spacing.mono` (0): no tracking, no caps. This is the only use of Mono (reverses the 2026-09-21 retirement).
+- **Eyebrows, meta labels and diagram text** — `typography.font-family.mono`, **Geist Mono** 400 at `font-size.mono` (13px), `font-feature.mono` (ss09), `letter-spacing.mono` (0): no tracking, no caps. Components on Mono: Eyebrow, Tag, StatusPill, the Callout gap label. Button, Select, NavLink and the Input label stay Geist (2026-09-22). This is the only use of Mono (reverses the 2026-09-21 retirement).
 - **Wordmark** — `typography.font-family.wordmark` is **Unique** Bold 700: the ELLETA / BELLA wordmark and the keycap lockup only. Never a heading, never below 24px (keycap logo excepted), never negative tracking.
 
-**Icons — one set, declared (2026-07-22):** Iconoir (MIT, the portfolio's set) is BELLA's only icon source. Every glyph lives in the Icon registry (`src/components/Icon/registry.ts`) and renders through the Icon component: icon-ramp sizes, always currentColor, decorative by default. No mixing sets, no one-off inline SVGs anywhere; a meaningful icon requires a label and never stands without text unless its accessible name is proven in a Behavior story. audit:quality fails any inline `<svg>` outside the Icon component.
+**Icons — one set, declared (2026-07-22):** Iconoir (MIT, the portfolio's set) is BELLA's only icon source. Every glyph lives in the Icon registry (`src/components/Icon/registry.ts`) and renders through the Icon component: icon-ramp sizes, always currentColor, decorative by default. No mixing sets, no one-off inline SVGs anywhere; a meaningful icon requires a label and never stands without text unless its accessible name is proven in a Behavior story. audit:quality fails any inline `<svg>` outside the Icon component. **The one named exception (2026-09-22): diagram patterns** — FlowDiagram, ProcessSteps and case-study diagrams under `src/patterns/Diagrams/` — draw their own SVG, marked `data-bella-diagram`; 1px ink strokes and chip fills only, `role="img"` with an aria-label that tells the story.
 
 Any value you see as `"TBD"` in the token JSON is a genuine unknown — stop and ask. Do not fill it in.
 

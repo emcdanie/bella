@@ -1,8 +1,11 @@
 import React, { isValidElement, type ReactNode } from 'react';
 import Heading from '../Heading/Heading';
+import Eyebrow from '../Eyebrow/Eyebrow';
 import styles from './SectionHeader.module.css';
 
 export interface SectionHeaderProps {
+  /** Optional Mono eyebrow above the heading (e.g. "01 · Decisions"). */
+  eyebrow?: ReactNode;
   /** The heading text. */
   heading: ReactNode;
   /** One accent segment after the heading (the iris word), e.g. a glossary term. */
@@ -46,6 +49,7 @@ function spokenName(heading: ReactNode, term?: string, after?: ReactNode): strin
  * window, so the header behaves the same in any column it is placed in.
  */
 export default function SectionHeader({
+  eyebrow,
   heading,
   accent,
   after,
@@ -63,6 +67,8 @@ export default function SectionHeader({
   return (
     <div className={styles.container} data-bella-component="section-header">
       <div className={cls}>
+        <div className={styles.titleBlock}>
+        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
         <Heading
           tier={as === 'h1' ? 'page' : 'section'}
           as={as}
@@ -73,6 +79,7 @@ export default function SectionHeader({
         >
           {heading}
         </Heading>
+        </div>
         {lead || children ? (
           <div className={styles.side}>
             {lead ? <p className={styles.lead}>{lead}</p> : null}

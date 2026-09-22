@@ -200,7 +200,7 @@
       },
       "default": {
         "cover-height": { "$value": "200px", "$type": "dimension", "$description": "Fixed cover well. A component-tier literal: there is no primitive size ramp, and the cover has to reserve its space before artwork loads or the whole grid jumps." },
-        "cover-background": { "$value": "{color.brand.navy}", "$type": "color", "$description": "The file window is navy in BOTH themes on purpose: it is a fixed-context surface, like Card's peek but dark. Never pure black." },
+        "cover-background": { "$value": "{color.dark.inset}", "$type": "color", "$description": "The file window is a fixed-context dark surface in BOTH themes, like Card's peek but dark: the neutral dark inset (style unify, 2026-09-22; was navy). Never pure black." },
         "sheet-overlap": { "$value": "{spacing.12}", "$type": "dimension", "$description": "How far the sheet is pulled up over the cover. Equals the tab row height plus its breathing room; change one and the fold stops lining up." },
         "tab-radius": { "$value": "{radius.xl}", "$type": "dimension" },
         "notch-size": { "$value": "{radius.xl}", "$type": "dimension", "$description": "Radius of the concave corner joining the tab's right edge to the sheet's top edge. Matches tab-radius so the convex and concave curves are the same arc." },
@@ -257,14 +257,16 @@
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
-        "font-family":    { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
-        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" }
+        "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: tags are meta labels (style unify, 2026-09-22)." },
+        "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+        "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" }
       },
 
       "accent": {
-        "background":     { "$value": "{color.semantic.accent-subtle}", "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-accent}",   "$type": "color" },
+        "background":     { "$value": "{color.semantic.chip-1}",        "$type": "color", "$description": "Lavender chip fill: colour lives in fills, and iris is interactive only (style unify, 2026-09-22)." },
+        "foreground":     { "$value": "{color.semantic.chip-text}",     "$type": "color" },
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" }
@@ -295,9 +297,15 @@
       },
 
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
-      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
-      "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
-      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight", "$description": "Portfolio used 600; no semibold token exists, and inventing one for a pill is not the call. Recorded divergence." }
+      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: a status word is a meta label (style unify, 2026-09-22)." },
+      "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
+      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+      "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+      "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" },
+      "accent": {
+        "background":   { "$value": "{color.semantic.chip-1}",    "$type": "color", "$description": "Lavender fill, no ring: colour lives in fills, iris is interactive only (style unify, 2026-09-22)." },
+        "foreground":   { "$value": "{color.semantic.chip-text}", "$type": "color" }
+      }
     },
 
     "filter-chip": {
@@ -400,13 +408,13 @@
       "$extensions": {
         "bella": {
           "name": "Heading",
-          "description": "Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify (2026-09-22, Elleta)). Unique is the wordmark only. Never inside a card.",
+          "description": "Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify, 2026-09-22, Elleta). Unique is the wordmark only. Never inside a card.",
           "variants": ["hero", "page", "section"],
           "states": ["default"],
           "props": ["tier", "as", "accent", "after", "label", "id", "className", "style", "children"],
           "usage": ["Page titles", "Section heads", "The hero headline"],
           "dont": ["Never inside a card: cards carry titles (Geist 500), not headings (contract-enforced by audit:quality)", "Never below 32px: the section tier floors at 32px", "Never Unique: the wordmark is the only Unique"],
-          "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is text-accent, 6.23:1 light / 7.86:1 dark. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
+          "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): iris is interactive only. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
           "restState": {
             "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
             "atRest": ["the glyphs"],
@@ -511,12 +519,22 @@
       "$extensions": {
         "bella": {
           "name": "Eyebrow",
-          "description": "Geist Mono 13px label above a heading: no tracking, no caps, ss09 (style unify (2026-09-22, Elleta)). Signals context or category.",
+          "description": "Geist Mono 13px label above a heading: no tracking, no caps, ss09 (style unify, 2026-09-22, Elleta). Signals context or category.",
           "variants": ["muted", "ink"],
           "states": ["default"],
+          "props": ["variant", "as", "className", "children"],
           "usage": ["Above hero headlines", "Above section titles", "Above card groupings"],
           "dont": ["Do not use as a heading: eyebrows complement a heading, never replace one", "Never iris or any accent colour: iris means interactive, and wayfinding is not action", "Never below 13px, never tracked, never uppercased"],
-          "a11y": "13px floor. muted: text-secondary, 7.09:1 worst light / 7.00:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22."
+          "a11y": "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": ["the label"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
       },
 
@@ -657,7 +675,7 @@
       "$extensions": {
         "bella": {
           "name": "Callout",
-          "description": "A quiet aside beside the content it qualifies (style unify (2026-09-22, Elleta); from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a Mono label, marking words the author still owes. Static: no interaction, no motion.",
+          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a Mono label, marking words the author still owes. Static: no interaction, no motion.",
           "variants": ["note", "gap"],
           "states": ["default"],
           "props": ["variant", "label", "children", "className"],

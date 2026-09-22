@@ -2,9 +2,9 @@
   "color": {
     "semantic": {
       "background": {
-        "$value": "{color.night.ground}",
+        "$value": "{color.dark.bg}",
         "$type": "color",
-        "$description": "Default page background in dark mode: warm near-black #110F0D (surface rules, 2026-09-19). Navy is the site footer, not the dark page.",
+        "$description": "Dark page background #0d0d0d (style unify (2026-09-22, Elleta)).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -14,7 +14,7 @@
         }
       },
       "background-inverse": {
-        "$value": "{color.navy.ink}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
         "$description": "Inverse light section inside a dark page.",
         "$extensions": {
@@ -26,7 +26,7 @@
         }
       },
       "surface": {
-        "$value": "{color.night.card}",
+        "$value": "{color.dark.surface}",
         "$type": "color",
         "$description": "Raised surface on the warm dark ground. Dark elevation climbs lighter.",
         "$extensions": {
@@ -39,9 +39,9 @@
         }
       },
       "surface-card": {
-        "$value": "{color.night.card}",
+        "$value": "{color.dark.surface}",
         "$type": "color",
-        "$description": "Flat card surface in dark mode: the dark ground mixed 4% toward navy.ink (surface rules, 2026-09-19).",
+        "$description": "Dark card and panel fill #161616 (style unify (2026-09-22, Elleta)).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -79,7 +79,7 @@
         }
       },
       "surface-inverse": {
-        "$value": "{color.neutral.surface}",
+        "$value": "{color.light.surface}",
         "$type": "color",
         "$description": "Raised surface for light sections embedded in dark pages.",
         "$extensions": {
@@ -176,7 +176,7 @@
         }
       },
       "text-primary": {
-        "$value": "{color.navy.ink}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
         "$description": "Primary text in dark mode.",
         "$extensions": {
@@ -184,12 +184,12 @@
             "usage": [
               "body text in dark mode"
             ],
-            "a11y": "Verified 2026-09-19: 16.70:1 on the dark ground, 12.49:1 on raised (worst), AAA."
+            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
           }
         }
       },
       "text-secondary": {
-        "$value": "{color.navy.text-secondary}",
+        "$value": "{color.dark.muted}",
         "$type": "color",
         "$description": "Secondary text in dark mode.",
         "$extensions": {
@@ -198,12 +198,15 @@
               "card descriptions",
               "captions and footnotes on navy, card, or raised surfaces"
             ],
-            "a11y": "Verified 2026-09-19: 10.70:1 on the dark ground, 9.81:1 on card, 8.01:1 on raised, AAA on all three."
+            "a11y": "Verified 2026-09-22: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA.",
+            "dont": [
+              "Not on surface-inset or surface-elevated (legacy night.inset / night.raised): 6.07:1 and 5.54:1"
+            ]
           }
         }
       },
       "text-muted": {
-        "$value": "{color.navy.text-muted}",
+        "$value": "{color.dark.muted}",
         "$type": "color",
         "$description": "Muted text in dark mode. Metadata on any dark surface.",
         "$extensions": {
@@ -212,14 +215,14 @@
               "timestamps and tertiary metadata on any dark surface"
             ],
             "dont": [
-              "Never body or secondary text"
+              "Not on surface-inset or surface-elevated (legacy night.inset / night.raised)"
             ],
-            "a11y": "Verified 2026-09-19: 6.58:1 on the dark ground, 6.03:1 on card, 5.39:1 on inset, 4.92:1 on raised (worst), AA normal text on every dark surface (bar call: worst-ground-wins)."
+            "a11y": "Verified 2026-09-22: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA."
           }
         }
       },
       "text-inverse": {
-        "$value": "{color.brand.ink}",
+        "$value": "{color.light.ink}",
         "$type": "color",
         "$description": "Text on light surfaces inside dark pages.",
         "$extensions": {
@@ -240,7 +243,7 @@
               "accent word in display headings",
               "interactive text in dark mode"
             ],
-            "a11y": "Verified 2026-09-19: 7.74:1 on the dark ground, 7.10:1 on card, AA normal, AAA large."
+            "a11y": "Verified 2026-09-22: 7.86:1 on bg, 7.32:1 on surface. AAA. Interactive only."
           }
         }
       },
@@ -310,7 +313,7 @@
         }
       },
       "border": {
-        "$value": "{color.alpha.dark-ink-6}",
+        "$value": "{color.dark.line}",
         "$type": "color",
         "$description": "Default border in dark mode. Subtle navy-ink wash.",
         "$extensions": {
@@ -322,7 +325,7 @@
         }
       },
       "border-subtle": {
-        "$value": "{color.night.divider}",
+        "$value": "{color.dark.line}",
         "$type": "color",
         "$description": "Section dividers on the warm dark ground, decorative separation only (1.48:1).",
         "$extensions": {
@@ -337,7 +340,7 @@
         }
       },
       "border-faint": {
-        "$value": "{color.alpha.dark-ink-12}",
+        "$value": "{color.dark.line}",
         "$type": "color",
         "$description": "Faint 1px card edge in dark mode, navy.ink at 12%.",
         "$extensions": {
@@ -352,21 +355,71 @@
         }
       },
       "border-strong": {
-        "$value": "{color.navy.ink}",
+        "$value": "{color.dark.control}",
         "$type": "color",
-        "$description": "High-contrast border in dark mode. For focus.",
+        "$description": "Dark control border, 3:1 (style unify (2026-09-22, Elleta)).",
         "$extensions": {
           "bella": {
             "usage": [
-              "focus outlines in dark mode"
+              "Input, select and control borders"
+            ],
+            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA."
+          }
+        }
+      },
+      "border-ink": {
+        "$value": "{color.dark.ink}",
+        "$type": "color",
+        "$description": "1px ink stroke in dark (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Diagram strokes",
+              "1px ink frames"
             ]
           }
         }
       },
-      "link": {
-        "$value": "{color.navy.ink}",
+      "focus-ring": {
+        "$value": "{color.brand.periwinkle}",
         "$type": "color",
-        "$description": "Default link color in dark mode. Affordance via underline; hover turns periwinkle."
+        "$description": "Focus ring in dark (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              ":focus-visible outline"
+            ],
+            "a11y": "Verified 2026-09-22: 7.86:1 on bg, 7.32:1 on surface. Non-text AAA."
+          }
+        }
+      },
+      "chip-1": {
+        "$value": "{color.chip.c1}",
+        "$type": "color",
+        "$description": "Lavender chip fill, same in both themes."
+      },
+      "chip-2": {
+        "$value": "{color.chip.c2}",
+        "$type": "color",
+        "$description": "Peach chip fill, same in both themes."
+      },
+      "chip-3": {
+        "$value": "{color.chip.c3}",
+        "$type": "color",
+        "$description": "Mint chip fill, same in both themes."
+      },
+      "chip-text": {
+        "$value": "{color.chip.text}",
+        "$type": "color",
+        "$description": "Text on chip fills, both themes."
+      },
+      "link": {
+        "$value": "{color.dark.ink}",
+        "$type": "color",
+        "$description": "Default link color in dark mode. Affordance via underline; hover turns periwinkle.",
+        "$extensions": {
+          "bella": {}
+        }
       },
       "link-hover": {
         "$value": "{color.brand.periwinkle}",

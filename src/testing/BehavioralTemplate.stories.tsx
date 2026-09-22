@@ -29,10 +29,13 @@ function TemplateControl() {
       style={{
         minHeight: 'var(--spacing-touch-target)',
         padding: 'var(--spacing-3) var(--spacing-5)',
-        background: 'var(--component-button-primary-background)',
-        color: 'var(--component-button-primary-foreground)',
-        border: '1px solid var(--component-button-primary-border)',
-        borderRadius: 'var(--component-button-primary-border-radius)',
+        /* semantic accent pair: the component-button-primary-background /
+           -border / -border-radius vars this used were renamed by the keycap
+           Button (d8aa3a8) and resolved to nothing (fixed 2026-09-22) */
+        background: 'var(--color-semantic-accent)',
+        color: 'var(--color-semantic-text-on-accent)',
+        border: '1px solid var(--color-semantic-accent)',
+        borderRadius: 'var(--radius-lg)',
         fontFamily: 'var(--typography-font-family-body)',
         fontSize: 'var(--typography-font-size-tag)',
         fontWeight: 700,

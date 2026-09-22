@@ -110,7 +110,7 @@ export function SwatchGrid({ leaves }: { leaves: TokenLeaf[] }) {
             overflow: 'hidden',
           }}
         >
-          <div style={{ height: 64, background: `var(${leaf.cssVar})` }} />
+          <div data-bella-specimen style={{ height: 64, background: `var(${leaf.cssVar})` }} />
           <div style={{ padding: 'var(--spacing-3)' }}>
             <div style={{ ...mono, fontWeight: 500 }}>{leaf.path}</div>
             <div style={{ ...mono, color: 'var(--color-semantic-text-secondary)' }}>
@@ -164,6 +164,7 @@ export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
             </td>
             <td style={{ padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
               <span
+                data-bella-specimen
                 style={{
                   display: 'inline-block',
                   width: 20,

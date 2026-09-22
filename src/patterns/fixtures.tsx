@@ -18,6 +18,7 @@ export function LiveSpecimen() {
   const swatch = (token: string) => (
     <span
       key={token}
+      data-bella-specimen
       style={{
         display: 'block',
         height: 'var(--spacing-20)',
@@ -29,6 +30,7 @@ export function LiveSpecimen() {
   );
   return (
     <div
+      data-bella-ground
       style={{
         height: '100%',
         boxSizing: 'border-box',

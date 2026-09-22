@@ -113,7 +113,7 @@ export function TokenChip({ token }: { token: string }) {
         border: '1px solid var(--color-semantic-border-subtle)',
         borderRadius: 'var(--radius-sm)',
         padding: '1px var(--spacing-2)',
-        fontFamily: 'var(--typography-font-family-mono)',
+        fontFamily: 'var(--typography-font-family-body)',
         fontSize: 'var(--typography-font-size-sm)',
         color: 'var(--color-semantic-text-primary)',
         whiteSpace: 'nowrap',
@@ -122,6 +122,7 @@ export function TokenChip({ token }: { token: string }) {
       {isColor && (
         <span
           aria-hidden="true"
+          data-bella-specimen
           style={{
             display: 'inline-block',
             width: 12,

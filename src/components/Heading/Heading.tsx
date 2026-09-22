@@ -3,9 +3,9 @@ import styles from './Heading.module.css';
 
 export interface HeadingProps {
   /**
-   * Visual tier on the ramp: `"hero"` is the 6xl hero step, `"page"` the
-   * 5xl display step, `"section"` the 3xl section tier. All Unique 700
-   * caps; the 24px display floor is structural (the smallest tier is 32px).
+   * Visual tier: `"hero"` and `"page"` are the 40 to 76px display ramp,
+   * `"section"` the 32 to 44px h2 ramp. All Geist Light 300, sentence case,
+   * tight tracking; the 32px section floor is structural.
    */
   tier?: 'hero' | 'page' | 'section';
   /** Semantic element, decoupled from the visual tier; defaults h1 for hero/page, h2 otherwise. */
@@ -27,8 +27,8 @@ export interface HeadingProps {
 }
 
 /**
- * Unique carries display, Geist carries everything else. 24px floor, page
- * tier only, never inside a card.
+ * Geist Light carries every heading tier; Unique is the wordmark only.
+ * 32px floor, never inside a card.
  */
 export default function Heading({
   tier = 'section',

@@ -1,37 +1,32 @@
-/* Heading (component 8, extracted from the portfolio, 2026-07-22). Tokens
- * only. THE display primitive: every display heading renders through this,
- * Unique 700 all-caps on three fluid display tiers (hero, page, section;
- * 390 to 1440 viewport, display-type-scale fix 2026-09-18). Semantic level
- * decouples via `as`. Unique never below 24px is structural here: the
- * smallest tier floors at 32px. Never inside a card (contract-enforced:
- * audit:quality fails a heading with a card ancestor).
- *
- * Recorded divergences from the portfolio original:
- * - the case tier stays in the portfolio; it renders the section size
- * - tracking (letter-spacing.hero 0.04em) and leading (line-height.display
- *   1.05) now match the portfolio: both are floors for every Unique tier
+/* Heading (component 8, extracted from the portfolio, 2026-07-22; restyled
+ * by the style unify, 2026-09-22). Tokens only, read through the heading
+ * contract: Geist Light 300, tight tracking, sentence case, on three fluid
+ * tiers (hero, page, section; 390 to 1440 viewport). Semantic level
+ * decouples via `as`. The section tier floors at 32px. Never inside a card
+ * (contract-enforced: audit:quality fails a heading with a card ancestor).
+ * Unique is the wordmark only; it never renders here.
  */
 
 .heading {
-  font-family: var(--typography-font-family-display);
-  font-weight: var(--typography-font-weight-bold);
-  text-transform: uppercase;
-  letter-spacing: var(--typography-letter-spacing-hero);
-  line-height: var(--typography-line-height-display);
+  font-family: var(--component-heading-font-family);
+  font-weight: var(--component-heading-font-weight);
+  letter-spacing: var(--component-heading-letter-spacing);
+  line-height: var(--component-heading-line-height);
   color: var(--color-semantic-text-primary);
   margin: 0;
 }
 
 .hero {
-  font-size: var(--typography-font-size-display-hero);
+  font-size: var(--component-heading-hero-font-size);
 }
 
 .page {
-  font-size: var(--typography-font-size-display-page);
+  font-size: var(--component-heading-page-font-size);
 }
 
 .section {
-  font-size: var(--typography-font-size-display-section);
+  font-size: var(--component-heading-section-font-size);
+  letter-spacing: var(--component-heading-section-letter-spacing);
 }
 
 .accent {

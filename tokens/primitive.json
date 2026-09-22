@@ -1096,6 +1096,253 @@
           }
         }
       }
+    },
+    "light": {
+      "ink": {
+        "$value": "#121212",
+        "$type": "color",
+        "$description": "Light-mode ink: text, 1px strokes, the ink border (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Text on bg, surface, panel",
+              "1px ink strokes"
+            ],
+            "a11y": "Verified 2026-09-22: 18.73:1 on bg, 17.17:1 on surface, 16.73:1 on panel. AAA."
+          }
+        }
+      },
+      "muted": {
+        "$value": "#515151",
+        "$type": "color",
+        "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Secondary and muted text",
+              "Mono labels and meta"
+            ],
+            "a11y": "Verified 2026-09-22: 7.94:1 on bg, 7.28:1 on surface, 7.09:1 on panel (worst). AAA."
+          }
+        }
+      },
+      "line": {
+        "$value": "#e3e3e3",
+        "$type": "color",
+        "$description": "Hairline. Decorative only (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Dividers",
+              "Section rules",
+              "Decorative frames"
+            ],
+            "dont": [
+              "Never as an input or control border: 1.18:1 on surface fails the 3:1 non-text minimum; use control"
+            ]
+          }
+        }
+      },
+      "control": {
+        "$value": "#8c8c8c",
+        "$type": "color",
+        "$description": "Control border, the 3:1 non-text step (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Input, select and control borders"
+            ],
+            "a11y": "Verified 2026-09-22: 3.36:1 on bg, 3.08:1 on surface, 3.00:1 on panel (worst). Non-text AA."
+          }
+        }
+      },
+      "surface": {
+        "$value": "#f5f5f4",
+        "$type": "color",
+        "$description": "Light surface (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Raised blocks on the white page"
+            ]
+          }
+        }
+      },
+      "panel": {
+        "$value": "#f2f2f2",
+        "$type": "color",
+        "$description": "Light panel: cards, figure wells, diagram panels (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card fill",
+              "Figure and diagram panels"
+            ]
+          }
+        }
+      },
+      "bg": {
+        "$value": "#ffffff",
+        "$type": "color",
+        "$description": "Light page background. The one place pure white is allowed (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page ground only"
+            ],
+            "dont": [
+              "Not a surface, card or chip fill: surfaces and panels step down from it"
+            ]
+          }
+        }
+      }
+    },
+    "dark": {
+      "ink": {
+        "$value": "#ededed",
+        "$type": "color",
+        "$description": "Dark-mode ink (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Text on dark bg and surface",
+              "1px ink strokes"
+            ],
+            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
+          }
+        }
+      },
+      "muted": {
+        "$value": "#a1a1a1",
+        "$type": "color",
+        "$description": "Dark-mode muted text. Lifted from the study's #9a9a9a (6.43:1 on surface) to hold AAA (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Secondary and muted text"
+            ],
+            "dont": [
+              "Not on night.inset or night.raised: 6.07:1 and 5.54:1, under AAA"
+            ],
+            "a11y": "Verified 2026-09-22: 7.52:1 on bg, 7.00:1 on surface (worst allowed). AAA."
+          }
+        }
+      },
+      "line": {
+        "$value": "#2a2a2a",
+        "$type": "color",
+        "$description": "Dark hairline. Decorative only (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Dividers",
+              "Section rules"
+            ],
+            "dont": [
+              "Never as an input or control border: use control"
+            ]
+          }
+        }
+      },
+      "control": {
+        "$value": "#636363",
+        "$type": "color",
+        "$description": "Dark control border, the 3:1 non-text step (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Input, select and control borders"
+            ],
+            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA."
+          }
+        }
+      },
+      "surface": {
+        "$value": "#161616",
+        "$type": "color",
+        "$description": "Dark surface and panel (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards, panels, figure wells"
+            ]
+          }
+        }
+      },
+      "bg": {
+        "$value": "#0d0d0d",
+        "$type": "color",
+        "$description": "Dark page background (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page ground in dark mode"
+            ]
+          }
+        }
+      }
+    },
+    "chip": {
+      "c1": {
+        "$value": "#c9bff5",
+        "$type": "color",
+        "$description": "Lavender chip fill. Same in both themes (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills",
+              "The one highlighted thing per diagram"
+            ],
+            "dont": [
+              "Never a stroke or text colour: colour lives in fills",
+              "Never the only signal of state: 1.57:1 on surface, decorative contrast only"
+            ]
+          }
+        }
+      },
+      "c2": {
+        "$value": "#f6c9a8",
+        "$type": "color",
+        "$description": "Peach chip fill. Same in both themes (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills"
+            ],
+            "dont": [
+              "Never a stroke or text colour"
+            ]
+          }
+        }
+      },
+      "c3": {
+        "$value": "#cfe8dc",
+        "$type": "color",
+        "$description": "Mint chip fill. Same in both themes (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills"
+            ],
+            "dont": [
+              "Never a stroke or text colour"
+            ]
+          }
+        }
+      },
+      "text": {
+        "$value": "#17191a",
+        "$type": "color",
+        "$description": "Text on every chip fill, both themes (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Chip and tag labels"
+            ],
+            "a11y": "Verified 2026-09-22: 10.29:1 on c1, 11.63:1 on c2, 13.63:1 on c3. AAA."
+          }
+        }
+      }
     }
   },
   "spacing": {
@@ -1479,20 +1726,33 @@
   "typography": {
     "font-family": {
       "display": {
-        "$value": "Unique, 'Arial Narrow', sans-serif",
+        "$value": "Geist, system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Display typeface, Unique, the condensed identity face. Bold (700) cut only. Display headings, the home hero headline, and the keycap brand lockup, nothing else.",
+        "$description": "Headings: Geist, set Light 300 with tight tracking (style unify (2026-09-22, Elleta)). Unique moved to font-family.wordmark.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Display headings (hero / page / section / case tiers)",
-              "Home hero headline",
-              "Keycap brand lockup"
+              "Every heading tier"
             ],
             "dont": [
-              "Never below 24px except the keycap logo (recorded exception)",
-              "Never for body, UI text, card titles, eyebrows, meta, nav links, buttons, or chips",
-              "Never negative tracking \u2014 Unique glyphs collide; display sizes always track \u2265 0"
+              "Not Unique: Unique is the wordmark only"
+            ]
+          }
+        }
+      },
+      "wordmark": {
+        "$value": "Unique, 'Arial Narrow', sans-serif",
+        "$type": "fontFamily",
+        "$description": "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The wordmark",
+              "The keycap brand lockup"
+            ],
+            "dont": [
+              "Never a heading, body, UI or label face",
+              "Never below 24px (keycap logo excepted), never negative tracking"
             ]
           }
         }
@@ -1516,18 +1776,22 @@
         }
       },
       "mono": {
-        "$value": "Geist, system-ui, sans-serif",
+        "$value": "'Geist Mono', ui-monospace, monospace",
         "$type": "fontFamily",
-        "$description": "RETIRED as a distinct face (2026-07-17): the eyebrow look is caps + tracking, not a third family. Token kept and repointed to Geist so legacy consumers keep rendering.",
+        "$description": "Geist Mono 400: eyebrows, labels, meta and diagram text, at 13px, ss09, no tracking. The only use of Mono (style unify (2026-09-22, Elleta); reverses the 2026-09-21 retirement).",
         "$extensions": {
           "bella": {
             "usage": [
-              "Legacy references only \u2014 new work should reference font-family.body"
+              "Eyebrows",
+              "Labels",
+              "Meta",
+              "Diagram text"
             ],
             "dont": [
-              "Do not reintroduce a mono family \u2014 the type lock is exactly two faces"
-            ],
-            "status": "retired-repointed-to-body"
+              "Not body, headings or titles",
+              "Never below 13px",
+              "No letter-spacing: Mono takes letter-spacing.mono (0)"
+            ]
           }
         }
       }
@@ -1544,6 +1808,21 @@
             ],
             "dont": [
               "Never below 13px anywhere in BELLA"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$value": "13px",
+        "$type": "dimension",
+        "$description": "Mono labels, eyebrows, meta and diagram text (style unify (2026-09-22, Elleta)). At the 13px hard floor.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Mono text"
+            ],
+            "dont": [
+              "Never below 13px"
             ]
           }
         }
@@ -1578,6 +1857,18 @@
             ],
             "dont": [
               "Never below 16px for body"
+            ]
+          }
+        }
+      },
+      "body": {
+        "$value": "17px",
+        "$type": "dimension",
+        "$description": "Body text: Geist 400 at 17px (style unify (2026-09-22, Elleta)). font-size.base stays 16px so existing consumers do not shift.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Body copy in the new patterns"
             ]
           }
         }
@@ -1675,9 +1966,9 @@
         }
       },
       "display-hero": {
-        "$value": "clamp(40px, 40px + 140 * (100vw - 390px) / 1050, 180px)",
+        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
         "$type": "dimension",
-        "$description": "Hero display tier, fluid from 40px at a 390 viewport to 180px at 1440 (display-type-scale fix, 2026-09-18; ceiling synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+        "$description": "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify (2026-09-22, Elleta); was 40 to 180 for Unique).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -1688,9 +1979,9 @@
         }
       },
       "display-page": {
-        "$value": "clamp(40px, 40px + 24 * (100vw - 390px) / 1050, 64px)",
+        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
         "$type": "dimension",
-        "$description": "Page-title display tier, fluid from 40px at a 390 viewport to 64px at 1440 (display-type-scale fix, 2026-09-18; range synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+        "$description": "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify (2026-09-22, Elleta); was 40 to 64).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -1701,9 +1992,9 @@
         }
       },
       "display-section": {
-        "$value": "clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)",
+        "$value": "clamp(32px, 32px + 12 * (100vw - 390px) / 1050, 44px)",
         "$type": "dimension",
-        "$description": "Section display tier (the portfolio case tier shares it on purpose), fluid from 32px at a 390 viewport to 48px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 32px floor clears the 24px Unique minimum.",
+        "$description": "Section heading (h2), Geist Light: 32px floor to 44px (style unify (2026-09-22, Elleta); the study starts at 28px, held at the 32px section floor).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -1715,6 +2006,21 @@
       }
     },
     "font-weight": {
+      "light": {
+        "$value": 300,
+        "$type": "fontWeight",
+        "$description": "Geist Light: every heading tier (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Headings"
+            ],
+            "dont": [
+              "Not titles or body"
+            ]
+          }
+        }
+      },
       "regular": {
         "$value": "400",
         "$type": "fontWeight",
@@ -1730,7 +2036,7 @@
       "medium": {
         "$value": "500",
         "$type": "fontWeight",
-        "$description": "Medium weight. Used sparingly.",
+        "$description": "Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify (2026-09-22, Elleta)).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -1833,6 +2139,18 @@
             ]
           }
         }
+      },
+      "heading": {
+        "$value": "1.08",
+        "$type": "number",
+        "$description": "Geist Light heading leading (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Every heading tier"
+            ]
+          }
+        }
       }
     },
     "letter-spacing": {
@@ -1881,6 +2199,60 @@
           }
         }
       },
+      "display": {
+        "$value": "-0.035em",
+        "$type": "dimension",
+        "$description": "Hero and page heading tracking, Geist Light (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Heading hero and page tiers"
+            ],
+            "dont": [
+              "Never on Unique"
+            ]
+          }
+        }
+      },
+      "h2": {
+        "$value": "-0.03em",
+        "$type": "dimension",
+        "$description": "Section heading (h2) tracking, Geist Light (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Heading section tier"
+            ],
+            "dont": [
+              "Never on Unique"
+            ]
+          }
+        }
+      },
+      "title": {
+        "$value": "-0.015em",
+        "$type": "dimension",
+        "$description": "Title tracking: Geist 500 at 20px (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card and step titles"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$value": "0",
+        "$type": "dimension",
+        "$description": "Mono takes no tracking (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Every Geist Mono run"
+            ]
+          }
+        }
+      },
       "wide": {
         "$value": "0.08em",
         "$type": "dimension",
@@ -1910,12 +2282,26 @@
       "hero": {
         "$value": "0.04em",
         "$type": "dimension",
-        "$description": "Display tracking for every Unique heading tier (Elleta pick 2026-07-22 at 6xl; extended to all display tiers by the display-type-scale fix, 2026-09-18). A floor that opens Unique's condensed letterforms. Unique never takes less, and never negative.",
+        "$description": "Unique wordmark tracking (0.04em). Unique is the wordmark only (style unify (2026-09-22, Elleta)).",
         "$extensions": {
           "bella": {
             "usage": [
-              "Heading primitive, all tiers",
-              "Doc-site page H1s"
+              "The wordmark",
+              "Doc-site brand lockup"
+            ]
+          }
+        }
+      }
+    },
+    "font-feature": {
+      "mono": {
+        "$value": "\"ss09\" 1",
+        "$type": "other",
+        "$description": "Geist Mono stylistic set 9, on every Mono run (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "font-feature-settings on Mono"
             ]
           }
         }
@@ -2045,6 +2431,33 @@
             ]
           }
         }
+      },
+      "draw": {
+        "$value": "900ms",
+        "$type": "duration",
+        "$description": "Line draw (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Diagram strokes drawing in"
+            ],
+            "dont": [
+              "Plays once when in view, then holds; reduced motion shows the finished frame"
+            ]
+          }
+        }
+      },
+      "pop": {
+        "$value": "450ms",
+        "$type": "duration",
+        "$description": "Pop-in of a diagram element (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Diagram tokens, fills and nodes appearing"
+            ]
+          }
+        }
       }
     },
     "easing": {
@@ -2086,6 +2499,34 @@
             ]
           }
         }
+      },
+      "draw": {
+        "$value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "$type": "cubicBezier",
+        "$description": "Draw ease (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Line draw",
+              "Travelling token"
+            ]
+          }
+        }
+      },
+      "pop": {
+        "$value": "cubic-bezier(0.34, 1.4, 0.64, 1)",
+        "$type": "cubicBezier",
+        "$description": "Pop ease, a small overshoot (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Play-once diagram reveals only"
+            ],
+            "dont": [
+              "Never on hover or state changes: hover stays eased, no bounce"
+            ]
+          }
+        }
       }
     },
     "transform": {
@@ -2112,6 +2553,32 @@
           "bella": {
             "usage": [
               "Primary keycap button :active"
+            ]
+          }
+        }
+      }
+    },
+    "stagger": {
+      "min": {
+        "$value": "120ms",
+        "$type": "duration",
+        "$description": "Shortest stagger between diagram steps (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Sequenced reveals"
+            ]
+          }
+        }
+      },
+      "max": {
+        "$value": "200ms",
+        "$type": "duration",
+        "$description": "Longest stagger between diagram steps (style unify (2026-09-22, Elleta)).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Sequenced reveals"
             ]
           }
         }

@@ -137,7 +137,7 @@ css_lines += [
     "  --ink-on-dark-strong: var(--color-navy-ink);       /* #F4EFE6 — AAA on every dark surface (11.44:1 on raised #2B2B5C, worst; verified 2026-07-21) */",
     "  --ink-on-dark-body:   var(--color-navy-ink-soft);  /* #E6E1D6 — AAA on every dark surface (10.05:1 on raised, worst) */",
     "  --ink-on-dark-muted:  var(--color-navy-ink-muted); /* #C6C2D4 — AAA on every dark surface (7.53:1 on raised, worst) */",
-    "  --ring-focus-color:   var(--color-semantic-border-strong);",
+    "  --ring-focus-color:   var(--color-semantic-focus-ring);  /* iris light, periwinkle dark: the one coloured stroke (style unify, 2026-09-22) */",
     "  --ring-focus-width:   2px;",
     "  --ring-focus-offset:  2px;",
     "  --card-min:           280px;     /* responsive card grid floor */",

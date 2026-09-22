@@ -17,7 +17,8 @@ const componentContract = JSON.parse(
  *      floor); own text past ~40 chars computes >= 16px (metadata rows are
  *      the recorded 13-14px tier and exempt via the length heuristic);
  *      Unique never below 24px.
- *   2. Computed styles: no pure-white solid fills (alpha overlays pass);
+ *   2. Computed styles: no pure-white solid fills except the page ground
+ *      (the stage or [data-bella-ground]; alpha overlays pass);
  *      colour properties in inline styles resolve through var(), never
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
@@ -255,7 +256,11 @@ async function runQualityChecks(
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;
-        if (bg === 'rgb(255, 255, 255)') {
+        /* Pure white is the light page ground (style unify, 2026-09-22) and
+           nothing else: only the stage or a marked ground container may
+           paint it. Cards, chips and surfaces step down from it. */
+        const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
+        if (bg === 'rgb(255, 255, 255)' && !ground) {
           fails.push(
             `pure white solid fill on <${el.tagName.toLowerCase()} class="${el.className}">`
           );

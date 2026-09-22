@@ -71,13 +71,15 @@ export const Behavior: Story = {
       expect(h.id).toBe('sub');
     });
 
-    await step('display face, uppercase, at or above the 24px floor', async () => {
+    await step('Geist Light, sentence case, tight tracking, at or above the 32px section floor', async () => {
       const h = canvas.getByRole('heading', { level: 3 });
       const cs = getComputedStyle(h);
-      expect(cs.fontFamily).toMatch(/Unique/);
-      expect(cs.textTransform).toBe('uppercase');
-      expect(parseFloat(cs.fontSize)).toBeGreaterThanOrEqual(24);
-      expect(parseFloat(cs.letterSpacing)).toBeGreaterThanOrEqual(0);
+      expect(cs.fontFamily).toMatch(/^Geist\b/);
+      expect(cs.fontFamily).not.toMatch(/Unique/);
+      expect(cs.fontWeight).toBe('300');
+      expect(cs.textTransform).toBe('none');
+      expect(parseFloat(cs.fontSize)).toBeGreaterThanOrEqual(32);
+      expect(parseFloat(cs.letterSpacing)).toBeLessThan(0);
     });
   },
 };

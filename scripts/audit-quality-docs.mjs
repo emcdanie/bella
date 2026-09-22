@@ -4,7 +4,7 @@
  *   - no em or en dashes in rendered doc content (.sbdocs-content)
  *   - nothing below the 13px hard floor
  *   - Unique never below 24px
- *   - no pure-white solid fills
+ *   - no pure-white solid fills except the page ground ([data-bella-ground])
  *   - no colour literals in inline styles (token specimens opt out with
  *     data-bella-specimen)
  * Scope note: the long-form 16px rule runs on stories only. Docs pages embed
@@ -75,7 +75,9 @@ for (const entry of docs) {
           out.push(`Unique below 24px (${size}px): "${own.slice(0, 40)}"`);
       }
       if (el.closest('[data-bella-specimen]')) continue;
-      if (cs.backgroundColor === 'rgb(255, 255, 255)')
+      /* Pure white is the light page ground only (style unify, 2026-09-22) */
+      const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
+      if (cs.backgroundColor === 'rgb(255, 255, 255)' && !ground)
         out.push(`pure white fill on <${el.tagName.toLowerCase()}>`);
       const inline = el.getAttribute('style');
       if (

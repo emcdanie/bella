@@ -1,58 +1,52 @@
 import { Meta } from '@storybook/addon-docs/blocks';
-import { PageIntro, DoDont, TokenChip } from './DocBlocks';
-import { AssetGrid, AssetTile, ClearSpace } from './BrandBlocks';
-import lockupLight from '../assets/brand/bella-lockup-light.svg';
-import lockupDark from '../assets/brand/bella-lockup-dark.svg';
-import markIris from '../assets/brand/bella-mark-iris.svg';
-import markLavender from '../assets/brand/bella-mark-lavender.svg';
-import markInk from '../assets/brand/bella-mark-ink.svg';
+import { PageIntro, DoDont } from './DocBlocks';
+import { AssetGrid, AssetTile } from './BrandBlocks';
+import BrandWordmark from '../components/BrandWordmark/BrandWordmark';
+import favicon from '../assets/brand/favicon/favicon.svg';
 
-<Meta title="Foundations/Logo" />
+<Meta title="Brand/Logo" />
 
 <PageIntro title="Logo">
-  Bella in one line: floppy ear up, eyes closed, mid-grin. The mark always
-  sits in front of the name.
+  The logo is the wordmark: ELLETA for the site, BELLA for the system, drawn
+  in the brand's own letters and cut through with the pattern. The E alone
+  is the favicon.
 </PageIntro>
 
-## The lockup
-
-Use it wherever BELLA introduces itself: this sidebar, the design-system page
-header, slides. The version is set as live text next to it, never baked into
-the file.
+## Which mark, where
 
 <AssetGrid columns={2}>
-  <AssetTile src={lockupLight} alt="BELLA lockup on ground" ground="ground" label="On ground" height={110} download="bella-lockup-light.svg" />
-  <AssetTile src={lockupDark} alt="BELLA lockup on navy" ground="navy" label="On navy" height={110} download="bella-lockup-dark.svg" />
+  <AssetTile ground="light" label="ELLETA · the site nav and footer">
+    <BrandWordmark word="ELLETA" size="nav" />
+  </AssetTile>
+  <AssetTile ground="light" label="BELLA · the system, this Storybook, the repo">
+    <BrandWordmark word="BELLA" size="nav" />
+  </AssetTile>
+  <AssetTile ground="dark" label="Ink, on dark: where the pattern would clash">
+    <BrandWordmark word="ELLETA" size="nav" variant="ink" />
+  </AssetTile>
+  <AssetTile src={favicon} alt="The favicon: the pattern E on cream" ground="panel" label="The E: favicon and app icon" height={64} download="favicon.svg" />
 </AssetGrid>
 
-## The mark
+The full rules for each live on their own pages: [Wordmark](?path=/docs/brand-wordmark--docs),
+[Pattern](?path=/docs/brand-pattern--docs) and [Favicon](?path=/docs/brand-favicon--docs).
 
-On its own when space is tight: favicon, avatar, loader. One colour, never two.
+## Retired
 
-<AssetGrid>
-  <AssetTile src={markIris} alt="Mark in iris" ground="ground" label={<TokenChip token="color.brand.iris" />} download="bella-mark-iris.svg" />
-  <AssetTile src={markLavender} alt="Mark in periwinkle" ground="navy" label={<TokenChip token="color.brand.periwinkle" />} download="bella-mark-lavender.svg" />
-  <AssetTile src={markInk} alt="Mark in ink" ground="paper" label={<TokenChip token="color.brand.ink" />} download="bella-mark-ink.svg" />
-</AssetGrid>
-
-## Clear space and size
-
-Keep one ear-height of space all round. The mark stops reading below 16px;
-the lockup below 96px wide.
-
-<ClearSpace srcLight={lockupLight} srcDark={lockupDark} alt="Lockup with clear space" />
+The line-drawn dog lockups and marks (2026-07) are retired from the brand
+(2026-09-22). The SVG files stay in `src/assets/brand/` for old consumers,
+each marked deprecated; nothing new should use them.
 
 ## Do and don't
 
 <DoDont
   doItems={[
-    'Iris on light grounds, periwinkle on navy',
-    'Mark in front of the name',
-    'Scale the SVG, never a PNG',
+    'Use the wordmark component, never a screenshot of it',
+    'ELLETA for the site, BELLA for the system',
+    'The E alone only as the favicon or app icon',
   ]}
   dontItems={[
-    'Flip Bella to face right',
-    'Fill the outline or add a second colour',
-    'Put the mark on the elleta site header (that one is the wordmark)',
+    "Don't put the wordmark below 32px tall",
+    "Don't use the retired dog lockups",
+    "Don't set the name in another typeface as a logo",
   ]}
 />

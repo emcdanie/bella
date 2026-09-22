@@ -17,12 +17,13 @@
     "CHANGELOG.md"
   ],
   "scripts": {
-    "build": "python3 tokens/build.py && node scripts/build-dsds.mjs",
+    "build": "python3 tokens/build.py && node scripts/build-dsds.mjs && node scripts/build-favicons.mjs --svg-only",
+    "build:favicons": "node scripts/build-favicons.mjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "audit:visual": "storybook build --quiet && concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --testTimeout=30000 && node scripts/audit-quality-docs.mjs http://127.0.0.1:6006\"",
-    "gate": "npm run build && git diff --exit-code tokens/bella.css tokens/bella.json bella.dsds.yaml docs/bella.css docs/tokens.md .storybook/theme-values.json .storybook/public/favicon.svg && node scripts/contract-parity.mjs && node scripts/contrast-pairs.mjs && npm run audit:visual",
+    "gate": "npm run build && git diff --exit-code tokens/bella.css tokens/bella.json bella.dsds.yaml docs/bella.css docs/tokens.md .storybook/theme-values.json .storybook/public/favicon.svg src/assets/brand/favicon/favicon.svg .storybook/public/brand/bella-wordmark-ink.svg && node scripts/contract-parity.mjs && node scripts/contrast-pairs.mjs && npm run audit:visual",
     "build:dsds": "node scripts/build-dsds.mjs",
     "story-ui": "story-ui start --port 4001",
     "storybook-with-ui": "concurrently \"npm run storybook\" \"npm run story-ui\""

@@ -17,7 +17,8 @@ const componentContract = JSON.parse(
  *      floor); own text past ~40 chars computes >= 16px (metadata rows are
  *      the recorded 13-14px tier and exempt via the length heuristic);
  *      Unique never below 24px.
- *   2. Computed styles: no pure-white solid fills (alpha overlays pass);
+ *   2. Computed styles: no pure-white solid fills except the page ground
+ *      (the stage or [data-bella-ground]; alpha overlays pass);
  *      colour properties in inline styles resolve through var(), never
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
@@ -245,6 +246,24 @@ async function runQualityChecks(
           }
           continue;
         }
+        /* the one named exception (2026-09-22): diagram patterns draw their
+           own SVG, and only as a labelled image that tells the story */
+        /* the second named exception (brand refresh, 2026-09-22): brand art
+           (BrandWordmark, PatternField) draws its own SVG, as a labelled
+           image or as aria-hidden decoration, nothing in between */
+        if (svg.hasAttribute('data-bella-brand')) {
+          const labelled = svg.getAttribute('role') === 'img' && !!(svg.getAttribute('aria-label') ?? '').trim();
+          if (!labelled && svg.getAttribute('aria-hidden') !== 'true') {
+            fails.push('brand <svg> that is neither a labelled image nor aria-hidden');
+          }
+          continue;
+        }
+        if (svg.hasAttribute('data-bella-diagram')) {
+          if (svg.getAttribute('role') !== 'img' || !(svg.getAttribute('aria-label') ?? '').trim()) {
+            fails.push('diagram <svg> without role="img" and an aria-label that tells the story');
+          }
+          continue;
+        }
         fails.push(
           `inline <svg> outside the Icon component (one-set rule): ${
             (svg.outerHTML ?? '').slice(0, 80)
@@ -255,7 +274,11 @@ async function runQualityChecks(
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;
-        if (bg === 'rgb(255, 255, 255)') {
+        /* Pure white is the light page ground (style unify, 2026-09-22) and
+           nothing else: only the stage or a marked ground container may
+           paint it. Cards, chips and surfaces step down from it. */
+        const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
+        if (bg === 'rgb(255, 255, 255)' && !ground) {
           fails.push(
             `pure white solid fill on <${el.tagName.toLowerCase()} class="${el.className}">`
           );
@@ -398,7 +421,18 @@ const config: TestRunnerConfig = {
         }
       }
 
+      /* play-once reveals (diagrams, style unify 2026-09-22) are frozen at
+         their first keyframe by Storybook's capture pause; their reduced-
+         motion render IS the finished frame, so capture those stories under
+         prefers-reduced-motion: reduce. Scoped by data-bella-reveal so no
+         other component's reduced-motion rules touch its baseline. */
+      const hasReveal = await page.evaluate(() => !!document.querySelector('[data-bella-reveal]'));
+      if (hasReveal) {
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.waitForTimeout(50);
+      }
       const image = await page.screenshot({ fullPage: true, animations: 'disabled' });
+      if (hasReveal) await page.emulateMedia({ reducedMotion: null });
 
       if (checkIntegrity) {
         // Pixel-level integrity: the computed-style check above only sees the

@@ -3,47 +3,48 @@
 BELLA's accessibility bar is **AAA-minded AA** (recorded 2026-07-21, Elleta; `docs/RULES.md` rule 9):
 
 - **AAA for ink and body text** — both ink ladders are verified AAA on every surface they sit on.
-- **AA where the accent speaks** — accent text, buttons, links. AAA accent text is not attainable with iris on light surfaces (5.96:1 ceiling) and is not the bar.
-- **The accent always theme-flips** — iris light, periwinkle dark — and is banned on its failing ground **even as decoration** (the failure includes the 3:1 non-text minimum).
-- **Worst-ground-wins** — every text token passes AA normal text on the worst surface its usage metadata allows, or that surface is forbidden in the metadata.
+- **Ochre is a fill, never text on light** (brand refresh, 2026-09-22) — ochre carries ink text (9.01:1) in both themes; on light it is never text, a hairline or a ring (2.08:1 on white). Lines and the ring on light are ochre-deep.
+- **The focus ring means focus only** — 3px, 3px offset, ochre-deep light / ochre dark, never at rest.
+- **Worst-ground-wins** — every text token passes on the worst surface its usage metadata allows, or that surface is forbidden in the metadata.
 
-Every ratio below is computed (WCAG relative luminance), recorded in `$extensions.bella.a11y` on the token, and dated. If a surface shipping with BELLA fails a rule below, the surface is broken and ships only as a known exception with a documented plan to fix.
+Every ratio below is computed (WCAG relative luminance), recorded in `$extensions.bella.a11y` on the token, dated, and re-checked on every gate run by `scripts/contrast-pairs.mjs`. If a surface shipping with BELLA fails a rule below, the surface is broken and ships only as a known exception with a documented plan to fix.
 
 Consumer projects that install BELLA inherit this checklist. Downstream microagents may tighten these rules. They do not get to relax them.
 
-## Text contrast — verified 2026-07-21
+## Text contrast — verified 2026-09-22
 
-**Light mode (on ground `#F5F4EF` unless noted):**
-
-| Token | Hex | Ratio | Verdict |
-|---|---|---|---|
-| `brand.ink` (text-primary) | `#1A1720` | 16.06:1 | AAA |
-| `neutral.ink-soft` | `#2E2937` | 12.81:1 | AAA |
-| `neutral.ink-muted` (text-secondary) | `#4A4652` | 8.33:1 | AAA (7.74 on surface-inset, still AAA) |
-| `neutral.ink-faint` (text-muted) | `#6B6678` | 5.02:1 | AA everywhere (4.67 on surface-inset, the worst light ground) |
-| `brand.iris` (accent text) | `#5B4BD1` | 5.66:1 | AA normal, AAA large. The accent ceiling. |
-
-**Dark mode (on navy `#1B1B40` unless noted):**
+**Light mode (page `#ffffff`, panel `#f2f2f2`):**
 
 | Token | Hex | Ratio | Verdict |
 |---|---|---|---|
-| `navy.ink` (text-primary) | `#F4EFE6` | 14.35:1 | AAA (11.44 on raised, worst) |
-| `navy.ink-soft` | `#E6E1D6` | 12.61:1 | AAA (10.05 worst) |
-| `navy.ink-muted` | `#C6C2D4` | 9.45:1 | AAA (7.53 on raised, worst) |
-| `navy.text-secondary` | `#C4BFD4` | 9.20:1 | AAA (7.33 worst) |
-| `navy.text-muted` | `#9994B1` | 5.66:1 | AA everywhere (4.51 on raised, worst) |
-| `brand.periwinkle` (accent text) | `#A79CE2` | 6.65:1 | AA normal, AAA large (5.30 on raised) |
-| `iris.peri-ink` (accent-ink) | `#B4ADE8` | 7.89:1 | AAA |
+| `light.ink` (text-primary, links, button labels) | `#121212` | 18.73:1 page, 16.73:1 panel | AAA |
+| `light.muted` (text-secondary, text-muted) | `#515151` | 7.94:1 page, 7.09:1 panel (worst) | AAA |
+| ink on `brand.ochre` (text-on-accent) | `#121212` on `#e8a83e` | 9.01:1 | AAA |
 
-**Buttons:** ground label on iris fill 5.66:1 (AA), on hover `#4C3EB8` 7.09:1 (AAA); white label on keycap stops 4.95/6.23:1 (AA); navy label on periwinkle 6.65:1 (AA), on hover `#B9B0E9` 8.18:1 (AAA).
+**Dark mode (page `#0d0d0d`, surface `#161616`, inset `#1f1f1f`, raised `#262626`):**
 
-## The accent never touches its failing ground
+| Token | Hex | Ratio | Verdict |
+|---|---|---|---|
+| `dark.ink` (text-primary) | `#ededed` | 16.60:1 page, 12.93:1 raised (worst) | AAA |
+| `dark.muted` (text-secondary, text-muted) | `#b1b1b1` | 9.06:1 page, 7.06:1 raised (worst) | AAA |
+| ink on `brand.ochre` | `#121212` on `#e8a83e` | 9.01:1 | AAA |
+
+**Buttons:** the primary label (text-inverse) on the ink plate 16.0:1, on the hover plate 10.63:1 light / 11.78:1 dark (AAA). Secondary and tertiary labels are ink (AAA). The secondary outline is `border-strong`, 3.00:1 worst (non-text AA).
+
+## Non-text: the ring and the controls
 
 | Pair | Ratio | Meaning |
 |---|---|---|
-| iris on navy | 2.64:1 | Fails text AND 3:1 non-text — banned in dark mode entirely, decoration included |
-| periwinkle on ground | 2.24:1 | Fails everything — light mode gets periwinkle only as alpha tints (washes, selection) |
-| `iris.bright` on navy | 3.99:1 | Non-text and AA-large only — hero display accents, never body text |
+| focus ring, light (`ochre-deep` on panel) | 3.20:1 | Passes the 3:1 non-text minimum on the worst light surface |
+| focus ring, dark (`ochre` on surface) | 8.70:1 | 7.28:1 on raised, the worst dark surface |
+| control border (`border-strong`) | 3.00:1 light panel, 3.01:1 dark surface | The input and control outline; never on dark raised (2.52:1) |
+
+## Forbidden pairs (the gate proves they still fail)
+
+| Pair | Ratio | Meaning |
+|---|---|---|
+| ochre as text on white | 2.08:1 | Fails text and non-text: ochre is never text on light |
+| ochre as a line on panel | 1.86:1 | Use ochre-deep for any ochre line on light |
 
 ## Carried status colors are never text
 

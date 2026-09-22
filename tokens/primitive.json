@@ -10,7 +10,7 @@
             "usage": [
               "High-contrast text on ground and paper",
               "Inverse (dark) sections embedded in light pages",
-              "Light-mode link color (affordance is underline + iris hover)"
+              "Legacy light-mode link colour (affordance is the underline)"
             ],
             "dont": [
               "Do not use as body text on navy \u2014 use navy.ink instead",
@@ -32,7 +32,7 @@
           "bella": {
             "usage": [
               "Light mode page background",
-              "Text on iris fills (primary button label)",
+              "Legacy: the 2026-07 primary button label",
               "Text color on navy where navy.ink is too bright"
             ],
             "dont": [
@@ -43,7 +43,7 @@
               "color.neutral.paper (raised card)",
               "color.neutral.surface (inset surface)"
             ],
-            "a11y": "Verified 2026-07-21: as text on iris #5B4BD1 5.66:1 (AA), on iris.deep hover #4C3EB8 7.09:1 (AAA)."
+            "a11y": "Legacy value; the current ratios live on the semantic tokens."
           }
         }
       },
@@ -55,192 +55,53 @@
           "bella": {
             "usage": [
               "Site footer",
-              "Text on periwinkle fills (dark primary button label)"
+              "Legacy: the 2026-07 dark primary button label"
             ],
             "dont": [
-              "Do not use iris text on navy \u2014 2.64:1 fails everything; the accent flips to periwinkle",
+              "Legacy: not referenced by the current accent (ochre)",
               "Do not use as a light-mode text color"
             ],
             "related": [
               "color.night.* (the warm dark surface ladder, 2026-09-19)",
-              "color.brand.periwinkle (dark-mode accent)"
+              "color.brand.ochre (the current accent)"
             ],
-            "a11y": "Verified 2026-07-21: as text on periwinkle #A79CE2 6.65:1 (AA normal, AAA large), on periwinkle hover #B9B0E9 8.18:1 (AAA)."
+            "a11y": "Legacy value; the current ratios live on the semantic tokens."
           }
         }
       },
-      "iris": {
-        "$value": "#5B4BD1",
+      "ochre": {
+        "$value": "#e8a83e",
         "$type": "color",
-        "$description": "The single accent, light mode. Saturated iris violet. At body scale iris means INTERACTIVE and only that (colour affordance rule, 2026-07-17).",
+        "$description": "The accent (brand refresh, 2026-09-22, Elleta): a fill. On light surfaces always with ink #121212 text (9.01:1). The dark-theme focus ring.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Primary button fill (ground/white label)",
-              "Secondary button outline + text",
-              "Inline link color paired with underline",
-              "Accent word in display headings",
-              "Focus rings"
+              "Accent fills with ink text",
+              "Dark-theme focus ring (8.70:1 on the dark surface)",
+              "Chip and marker fills"
             ],
             "dont": [
-              "Never on navy \u2014 2.64:1 fails text AND the 3:1 non-text minimum; dark mode uses periwinkle",
-              "Never on eyebrows \u2014 wayfinding is not action",
-              "Never pair with a second accent color"
+              "Never text or hairlines on light surfaces: 2.08:1 on white, 1.86:1 on panel",
+              "Never a focus ring on light: use ochre-deep"
             ],
-            "related": [
-              "color.brand.periwinkle (dark-mode counterpart)",
-              "color.iris.* (interaction ramp)"
-            ],
-            "a11y": "Verified 2026-07-21: on ground 5.66:1, on paper 5.96:1, on surface 5.25:1, AA text + AAA large + 3:1 non-text on all light surfaces; AAA normal-text fails everywhere (max 5.96:1). On navy 2.64:1, fails all thresholds, including non-text.",
-            "roles": [
-              "interactive",
-              "accent-text-light",
-              "focus"
-            ],
-            "bar": "AAA-minded AA (Elleta, 2026-07-21): AA where the accent speaks; the accent always theme-flips; never on its failing ground, even as decoration."
+            "a11y": "Verified 2026-09-22: ink on ochre 9.01:1 (AAA). Ochre on dark: 9.35:1 bg, 8.70:1 surface, 7.93:1 inset, 7.28:1 raised."
           }
         }
       },
-      "periwinkle": {
-        "$value": "#A79CE2",
+      "ochre-deep": {
+        "$value": "#b97a14",
         "$type": "color",
-        "$description": "The accent's dark-mode form; decorative lavender tints in light mode. Iris and periwinkle are one accent seen in two modes, never two accents.",
+        "$description": "The deep accent (brand refresh, 2026-09-22, Elleta): the light-theme focus ring and any ochre line on light.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Dark-mode accent text and secondary-button outline",
-              "Dark-mode primary button fill (navy label)",
-              "Decorative tints in light mode via alpha washes",
-              "Selection highlight"
+              "Light-theme focus ring",
+              "Ochre lines on light surfaces"
             ],
             "dont": [
-              "Never as text or interactive color on light surfaces \u2014 2.24:1 on ground fails everything, including 3:1 non-text",
-              "Never as a solid decorative block in light mode \u2014 tints only"
+              "Not body text: 3.59:1 on white is non-text AA only"
             ],
-            "related": [
-              "color.brand.iris (light-mode counterpart)",
-              "color.alpha.periwinkle-15 / periwinkle-30 (washes)"
-            ],
-            "a11y": "Verified 2026-07-21: on navy 6.65:1 (AA normal, AAA large), on dark card #232350 5.95:1 (AA), on dark raised #2B2B5C 5.30:1 (AA). On ground 2.24:1, on paper 2.36:1, fails every threshold on light surfaces.",
-            "roles": [
-              "interactive-dark",
-              "accent-text-dark",
-              "decorative-tint-light"
-            ],
-            "bar": "AAA-minded AA (Elleta, 2026-07-21): AA where the accent speaks; the accent always theme-flips; never on its failing ground, even as decoration."
-          }
-        }
-      }
-    },
-    "iris": {
-      "bright": {
-        "$value": "#7A6BE8",
-        "$type": "color",
-        "$description": "Brightened iris for hero accents on navy. Non-text and large-scale display use only.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Hero display accents on navy",
-              "Large decorative marks in dark mode"
-            ],
-            "dont": [
-              "Not a text color at body scale \u2014 3.99:1 on navy fails AA normal text"
-            ],
-            "a11y": "Verified 2026-07-21: 3.99:1 on navy, passes 3:1 non-text and AA large text only."
-          }
-        }
-      },
-      "hi": {
-        "$value": "#6C5CE0",
-        "$type": "color",
-        "$description": "Keycap fill gradient, top stop. One step brighter than iris.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Primary keycap button fill, top stop (with brand.iris as bottom stop)"
-            ],
-            "a11y": "Verified 2026-07-21: white label on this stop 4.95:1, AA. Every fill stop under a white label must stay \u22654.5:1."
-          }
-        }
-      },
-      "deep": {
-        "$value": "#4C3EB8",
-        "$type": "color",
-        "$description": "Darkened iris. Primary button hover fill in light mode.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Primary button hover background"
-            ],
-            "a11y": "Verified 2026-07-21: ground text on this 7.09:1, AAA."
-          }
-        }
-      },
-      "edge": {
-        "$value": "#4A3FB0",
-        "$type": "color",
-        "$description": "Iris keycap edge. The hard bottom-edge plate of the extruded key.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Keycap edge line in shadow.key-* tokens",
-              "Keycap border"
-            ]
-          }
-        }
-      },
-      "logo-hi": {
-        "$value": "#8E7EEC",
-        "$type": "color",
-        "$description": "Brand-lockup keycap gradient, top stop. Lighter than the button fill ramp.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Keycap logo (the DESIGN key) gradient top stop"
-            ],
-            "dont": [
-              "Never under a white label \u2014 3.3:1 on the stop fails 4.5:1 (recorded portfolio measurement)"
-            ],
-            "a11y": "Verified 2026-07-21: 4.97:1 against navy as a non-text plate."
-          }
-        }
-      },
-      "peri-deep": {
-        "$value": "#9588DB",
-        "$type": "color",
-        "$description": "Periwinkle one step deeper (the same step as peri-hover to periwinkle, taken again). Dark-mode primary button hover plate.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Dark-mode primary button hover plate"
-            ],
-            "a11y": "Verified 2026-09-18: navy label on this 5.34:1, AA normal text."
-          }
-        }
-      },
-      "peri-hover": {
-        "$value": "#B9B0E9",
-        "$type": "color",
-        "$description": "Brightened periwinkle. Dark-mode primary button hover fill.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Dark-mode primary button hover background"
-            ],
-            "a11y": "Verified 2026-07-21: navy text on this 8.18:1, AAA."
-          }
-        }
-      },
-      "peri-ink": {
-        "$value": "#B4ADE8",
-        "$type": "color",
-        "$description": "Periwinkle tuned for use as TEXT on navy (accent-ink, dark mode).",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Accent-colored text on navy (accent-ink dark binding)"
-            ],
-            "a11y": "Verified 2026-07-21: 7.89:1 on navy, AAA."
+            "a11y": "Verified 2026-09-22: 3.59:1 on white, 3.20:1 on panel (non-text AA); 5.42:1 on the dark bg."
           }
         }
       }
@@ -311,7 +172,7 @@
               "color.brand.ground (page it sits on)",
               "color.night.card (dark counterpart)"
             ],
-            "a11y": "Verified 2026-09-19: ink 14.83:1, ink-muted 7.69:1 (AAA); ink-faint 4.64:1, iris 5.22:1 (AA normal text)."
+            "a11y": "Verified 2026-09-19: ink 14.83:1, ink-muted 7.69:1 (AAA); ink-faint 4.64:1 (AA normal text)."
           }
         }
       },
@@ -527,7 +388,7 @@
             "related": [
               "color.brand.navy (footer, light-mode primary)"
             ],
-            "a11y": "Verified 2026-09-19: navy.ink 16.70:1, navy.text-muted 6.58:1, periwinkle 7.74:1."
+            "a11y": "Verified 2026-09-19: navy.ink 16.70:1, navy.text-muted 6.58:1."
           }
         }
       },
@@ -627,94 +488,6 @@
       }
     },
     "alpha": {
-      "iris-12": {
-        "$value": "#5B4BD11F",
-        "$type": "color",
-        "$description": "Iris at 12% alpha. Accent-subtle wash: secondary-button hover fill.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "accent-subtle (light)",
-              "secondary button hover background"
-            ]
-          }
-        }
-      },
-      "iris-20": {
-        "$value": "#5B4BD133",
-        "$type": "color",
-        "$description": "Iris at 20% alpha. Keycap pressed cast shadow color.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "shadow.key-pressed cast layer"
-            ]
-          }
-        }
-      },
-      "iris-24": {
-        "$value": "#5B4BD13D",
-        "$type": "color",
-        "$description": "Iris at 24% alpha. Keycap resting cast shadow color.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "shadow.key-resting cast layer"
-            ]
-          }
-        }
-      },
-      "iris-28": {
-        "$value": "#5B4BD147",
-        "$type": "color",
-        "$description": "Iris at 28% alpha. Keycap hover cast shadow color.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "shadow.key-hover cast layer"
-            ]
-          }
-        }
-      },
-      "iris-30": {
-        "$value": "#5B4BD14D",
-        "$type": "color",
-        "$description": "Iris at 30% alpha. Accent borders in light mode.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "accent-border (light)"
-            ]
-          }
-        }
-      },
-      "periwinkle-15": {
-        "$value": "#A79CE226",
-        "$type": "color",
-        "$description": "Periwinkle at 15% alpha. Decorative lavender wash on light surfaces; accent-subtle in dark.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Tag accent wash (light)",
-              "accent-subtle (dark)",
-              "Active nav-link glass (dark)"
-            ]
-          }
-        }
-      },
-      "periwinkle-30": {
-        "$value": "#A79CE24D",
-        "$type": "color",
-        "$description": "Periwinkle at 30% alpha. Tag borders; accent-border in dark.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Tag accent border",
-              "accent-border (dark)"
-            ]
-          }
-        }
-      },
       "ink-6": {
         "$value": "#1A172010",
         "$type": "color",
@@ -1095,6 +868,630 @@
             ]
           }
         }
+      },
+      "ochre-15": {
+        "$value": "#e8a83e26",
+        "$type": "color",
+        "$description": "Ochre at 15%: the accent glass wash (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "surface-glass-accent"
+            ]
+          }
+        }
+      },
+      "key-20": {
+        "$value": "#12121233",
+        "$type": "color",
+        "$description": "Ink at 20%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "shadow.key-*"
+            ]
+          }
+        }
+      },
+      "key-24": {
+        "$value": "#1212123D",
+        "$type": "color",
+        "$description": "Ink at 24%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "shadow.key-*"
+            ]
+          }
+        }
+      },
+      "key-28": {
+        "$value": "#12121247",
+        "$type": "color",
+        "$description": "Ink at 28%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "shadow.key-*"
+            ]
+          }
+        }
+      }
+    },
+    "light": {
+      "ink": {
+        "$value": "#121212",
+        "$type": "color",
+        "$description": "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Text on bg, surface, panel",
+              "1px ink strokes"
+            ],
+            "a11y": "Verified 2026-09-22: 18.73:1 on bg, 17.17:1 on surface, 16.73:1 on panel. AAA."
+          }
+        }
+      },
+      "muted": {
+        "$value": "#515151",
+        "$type": "color",
+        "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Secondary and muted text",
+              "Mono labels and meta"
+            ],
+            "a11y": "Verified 2026-09-22: 7.94:1 on bg, 7.09:1 on panel (worst). AAA."
+          }
+        }
+      },
+      "line": {
+        "$value": "#e3e3e3",
+        "$type": "color",
+        "$description": "Hairline. Decorative only (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Dividers",
+              "Section rules",
+              "Decorative frames"
+            ],
+            "dont": [
+              "Never as an input or control border: 1.18:1 on surface fails the 3:1 non-text minimum; use control"
+            ]
+          }
+        }
+      },
+      "control": {
+        "$value": "#8c8c8c",
+        "$type": "color",
+        "$description": "Control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Input, select and control borders"
+            ],
+            "a11y": "Verified 2026-09-22: 3.36:1 on bg, 3.08:1 on surface, 3.00:1 on panel (worst). Non-text AA."
+          }
+        }
+      },
+      "panel": {
+        "$value": "#f2f2f2",
+        "$type": "color",
+        "$description": "Light surface and panel, merged into one step (Elleta, 2026-09-22): cards, raised blocks, figure wells, diagram panels, insets.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card fill",
+              "Raised blocks on the white page",
+              "Figure and diagram panels",
+              "Inset wells"
+            ],
+            "a11y": "Verified 2026-09-22: ink 16.73:1, muted 7.09:1 on panel (the worst light surface). AAA."
+          }
+        }
+      },
+      "bg": {
+        "$value": "#ffffff",
+        "$type": "color",
+        "$description": "Light page background. The one place pure white is allowed (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page ground only"
+            ],
+            "dont": [
+              "Not a surface, card or chip fill: surfaces and panels step down from it"
+            ]
+          }
+        }
+      },
+      "ink-hover": {
+        "$value": "#343434",
+        "$type": "color",
+        "$description": "Ink plate hover: ink 85% over panel (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Primary button hover and focus-visible plate"
+            ],
+            "a11y": "Verified 2026-09-22: #ededed label 10.63:1."
+          }
+        }
+      },
+      "danger": {
+        "$value": "#b3261e",
+        "$type": "color",
+        "$description": "Danger red, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Error text, error field border, error icon"
+            ],
+            "a11y": "Verified 2026-09-22: 6.54:1 on bg, 5.84:1 on panel, 5.66:1 on danger-subtle (text AA, border 3:1).",
+            "dont": [
+              "Never decoration: danger means an error"
+            ]
+          }
+        }
+      },
+      "danger-subtle": {
+        "$value": "#fcebe9",
+        "$type": "color",
+        "$description": "Danger wash, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Error banner or field wash behind danger or ink text"
+            ],
+            "a11y": "Verified 2026-09-22: ink 16.24:1, danger 5.66:1 on it.",
+            "dont": [
+              "Never the only signal: 1.15:1 against the page"
+            ]
+          }
+        }
+      },
+      "success": {
+        "$value": "#1a7439",
+        "$type": "color",
+        "$description": "Success green, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Success text, border, icon"
+            ],
+            "a11y": "Verified 2026-09-22: 5.83:1 on bg, 5.21:1 on panel, 5.10:1 on success-subtle (text AA, border 3:1).",
+            "dont": [
+              "Never decoration: success means a completed action"
+            ]
+          }
+        }
+      },
+      "success-subtle": {
+        "$value": "#e6f3ea",
+        "$type": "color",
+        "$description": "Success wash, light (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Success banner wash behind success or ink text"
+            ],
+            "a11y": "Verified 2026-09-22: ink 16.39:1, success 5.10:1 on it.",
+            "dont": [
+              "Never the only signal: 1.14:1 against the page"
+            ]
+          }
+        }
+      }
+    },
+    "dark": {
+      "ink": {
+        "$value": "#ededed",
+        "$type": "color",
+        "$description": "Dark-mode ink (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Text on dark bg and surface",
+              "1px ink strokes"
+            ],
+            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
+          }
+        }
+      },
+      "muted": {
+        "$value": "#b1b1b1",
+        "$type": "color",
+        "$description": "Dark-mode muted text. #a1a1a1 held 7.00:1 only on #161616; lifted to #b1b1b1 so it holds AAA on the neutral inset and raised steps too (style unify, 2026-09-22).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Secondary and muted text"
+            ],
+            "a11y": "Verified 2026-09-22: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA."
+          }
+        }
+      },
+      "line": {
+        "$value": "#2a2a2a",
+        "$type": "color",
+        "$description": "Dark hairline. Decorative only (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Dividers",
+              "Section rules"
+            ],
+            "dont": [
+              "Never as an input or control border: use control"
+            ]
+          }
+        }
+      },
+      "control": {
+        "$value": "#636363",
+        "$type": "color",
+        "$description": "Dark control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Input, select and control borders"
+            ],
+            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA.",
+            "dont": [
+              "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
+            ]
+          }
+        }
+      },
+      "surface": {
+        "$value": "#161616",
+        "$type": "color",
+        "$description": "Dark surface and panel (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards, panels, figure wells"
+            ]
+          }
+        }
+      },
+      "inset": {
+        "$value": "#1f1f1f",
+        "$type": "color",
+        "$description": "Dark inset: recessed wells one step above the surface. Neutral, replaces the warm night.inset #252320 (2026-09-22).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Inset wells",
+              "Disabled field fill in dark"
+            ]
+          }
+        }
+      },
+      "raised": {
+        "$value": "#262626",
+        "$type": "color",
+        "$description": "Dark raised: the highest dark step. Neutral, replaces the warm night.raised #2C2A27 (2026-09-22).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Elevated panels in dark"
+            ],
+            "dont": [
+              "Not under control borders: border-strong #636363 is 2.52:1 here"
+            ]
+          }
+        }
+      },
+      "bg": {
+        "$value": "#0d0d0d",
+        "$type": "color",
+        "$description": "Dark page background (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page ground in dark mode"
+            ]
+          }
+        }
+      },
+      "ink-hover": {
+        "$value": "#cdcdcd",
+        "$type": "color",
+        "$description": "Dark ink plate hover: ink 85% over surface (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Primary button hover and focus-visible plate in dark"
+            ],
+            "a11y": "Verified 2026-09-22: #121212 label 11.78:1."
+          }
+        }
+      },
+      "danger": {
+        "$value": "#ff8f84",
+        "$type": "color",
+        "$description": "Danger red, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Error text, error field border, error icon"
+            ],
+            "a11y": "Verified 2026-09-22: 8.81:1 on bg, 8.20:1 on surface, 6.86:1 on raised, 7.25:1 on danger-subtle.",
+            "dont": [
+              "Never decoration: danger means an error"
+            ]
+          }
+        }
+      },
+      "danger-subtle": {
+        "$value": "#3a1714",
+        "$type": "color",
+        "$description": "Danger wash, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Error banner or field wash behind danger or ink text"
+            ],
+            "a11y": "Verified 2026-09-22: ink 13.67:1, danger 7.25:1 on it."
+          }
+        }
+      },
+      "success": {
+        "$value": "#72d08b",
+        "$type": "color",
+        "$description": "Success green, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Success text, border, icon"
+            ],
+            "a11y": "Verified 2026-09-22: 10.28:1 on bg, 9.57:1 on surface, 8.01:1 on raised, 7.58:1 on success-subtle.",
+            "dont": [
+              "Never decoration: success means a completed action"
+            ]
+          }
+        }
+      },
+      "success-subtle": {
+        "$value": "#12301d",
+        "$type": "color",
+        "$description": "Success wash, dark (status tokens, brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Success banner wash behind success or ink text"
+            ],
+            "a11y": "Verified 2026-09-22: ink 12.23:1, success 7.58:1 on it."
+          }
+        }
+      }
+    },
+    "chip": {
+      "c1": {
+        "$value": "#cfe0ef",
+        "$type": "color",
+        "$description": "Soft tiger-blue chip fill, from the brand pattern; replaces lavender (brand refresh, 2026-09-22, Elleta). Same in both themes.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills",
+              "The one highlighted thing per diagram"
+            ],
+            "dont": [
+              "Never a stroke or text colour: colour lives in fills",
+              "Never the only signal of state: 1.21:1 on panel, decorative contrast only"
+            ]
+          }
+        }
+      },
+      "c2": {
+        "$value": "#f6c9a8",
+        "$type": "color",
+        "$description": "Peach chip fill. Same in both themes (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills"
+            ],
+            "dont": [
+              "Never a stroke or text colour"
+            ]
+          }
+        }
+      },
+      "c3": {
+        "$value": "#cfe8dc",
+        "$type": "color",
+        "$description": "Mint chip fill. Same in both themes (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Tag and chip fills"
+            ],
+            "dont": [
+              "Never a stroke or text colour"
+            ]
+          }
+        }
+      },
+      "text": {
+        "$value": "#17191a",
+        "$type": "color",
+        "$description": "Text on every chip fill, both themes (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Chip and tag labels"
+            ],
+            "a11y": "Verified 2026-09-22: 13.07:1 on c1, 11.63:1 on c2, 13.63:1 on c3. AAA (c1 re-verified 2026-09-22, brand refresh)."
+          }
+        }
+      }
+    },
+    "pattern": {
+      "ground": {
+        "$value": "#e8a83e",
+        "$type": "color",
+        "$description": "Pattern ground: ochre (the same value as color.brand.ochre). (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "tiger": {
+        "$value": "#4d7fae",
+        "$type": "color",
+        "$description": "Tiger stripes, blue, over the ochre ground. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "cream": {
+        "$value": "#f4ecd6",
+        "$type": "color",
+        "$description": "Cream collage patches; also the favicon ground. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "rosette": {
+        "$value": "#b8c8de",
+        "$type": "color",
+        "$description": "Pale blue rosettes on the cream patches. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "pink": {
+        "$value": "#e79aa8",
+        "$type": "color",
+        "$description": "Pink collage patches under the leopard spots. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "leopard": {
+        "$value": "#3e7a3c",
+        "$type": "color",
+        "$description": "Leopard spots, leaf green, on the pink patches. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "zebra": {
+        "$value": "#c7cc72",
+        "$type": "color",
+        "$description": "Lime patches under the zebra strokes. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "zebra-light": {
+        "$value": "#e6e6ae",
+        "$type": "color",
+        "$description": "Light zebra strokes on the lime patches. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "ink": {
+        "$value": "#161616",
+        "$type": "color",
+        "$description": "Ink brush lines across the collage. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
+      },
+      "coral": {
+        "$value": "#e66c52",
+        "$type": "color",
+        "$description": "Coral accent spots. (brand refresh, 2026-09-22, Elleta)",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The brand pattern: BrandWordmark, PatternField, the favicon"
+            ],
+            "dont": [
+              "Never recolour the pattern",
+              "Never as text, a UI fill or a state colour: pattern only"
+            ]
+          }
+        }
       }
     }
   },
@@ -1462,6 +1859,18 @@
           }
         }
       },
+      "medium": {
+        "$value": "2px",
+        "$type": "dimension",
+        "$description": "Medium line: the link underline on hover (brand refresh, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Link and text-button underline on hover"
+            ]
+          }
+        }
+      },
       "thick": {
         "$value": "3px",
         "$type": "dimension",
@@ -1479,20 +1888,33 @@
   "typography": {
     "font-family": {
       "display": {
-        "$value": "Unique, 'Arial Narrow', sans-serif",
+        "$value": "Geist, system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Display typeface, Unique, the condensed identity face. Bold (700) cut only. Display headings, the home hero headline, and the keycap brand lockup, nothing else.",
+        "$description": "Headings: Geist, set Light 300 with tight tracking (style unify, 2026-09-22, Elleta). Unique moved to font-family.wordmark.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Display headings (hero / page / section / case tiers)",
-              "Home hero headline",
-              "Keycap brand lockup"
+              "Every heading tier"
             ],
             "dont": [
-              "Never below 24px except the keycap logo (recorded exception)",
-              "Never for body, UI text, card titles, eyebrows, meta, nav links, buttons, or chips",
-              "Never negative tracking \u2014 Unique glyphs collide; display sizes always track \u2265 0"
+              "Not Unique: Unique is the wordmark only"
+            ]
+          }
+        }
+      },
+      "wordmark": {
+        "$value": "Unique, 'Arial Narrow', sans-serif",
+        "$type": "fontFamily",
+        "$description": "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The wordmark",
+              "The keycap brand lockup"
+            ],
+            "dont": [
+              "Never a heading, body, UI or label face",
+              "Never below 24px (keycap logo excepted), never negative tracking"
             ]
           }
         }
@@ -1516,18 +1938,22 @@
         }
       },
       "mono": {
-        "$value": "Geist, system-ui, sans-serif",
+        "$value": "'Geist Mono', ui-monospace, monospace",
         "$type": "fontFamily",
-        "$description": "RETIRED as a distinct face (2026-07-17): the eyebrow look is caps + tracking, not a third family. Token kept and repointed to Geist so legacy consumers keep rendering.",
+        "$description": "Geist Mono 400: eyebrows, labels, meta and diagram text, at 13px, ss09, no tracking. The only use of Mono (style unify, 2026-09-22, Elleta; reverses the 2026-09-21 retirement).",
         "$extensions": {
           "bella": {
             "usage": [
-              "Legacy references only \u2014 new work should reference font-family.body"
+              "Eyebrows",
+              "Labels",
+              "Meta",
+              "Diagram text"
             ],
             "dont": [
-              "Do not reintroduce a mono family \u2014 the type lock is exactly two faces"
-            ],
-            "status": "retired-repointed-to-body"
+              "Not body, headings or titles",
+              "Never below 13px",
+              "No letter-spacing: Mono takes letter-spacing.mono (0)"
+            ]
           }
         }
       }
@@ -1544,6 +1970,21 @@
             ],
             "dont": [
               "Never below 13px anywhere in BELLA"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$value": "13px",
+        "$type": "dimension",
+        "$description": "Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At the 13px hard floor.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Mono text"
+            ],
+            "dont": [
+              "Never below 13px"
             ]
           }
         }
@@ -1578,6 +2019,18 @@
             ],
             "dont": [
               "Never below 16px for body"
+            ]
+          }
+        }
+      },
+      "body": {
+        "$value": "17px",
+        "$type": "dimension",
+        "$description": "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Body copy in the new patterns"
             ]
           }
         }
@@ -1675,46 +2128,61 @@
         }
       },
       "display-hero": {
-        "$value": "clamp(40px, 40px + 140 * (100vw - 390px) / 1050, 180px)",
+        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
         "$type": "dimension",
-        "$description": "Hero display tier, fluid from 40px at a 390 viewport to 180px at 1440 (display-type-scale fix, 2026-09-18; ceiling synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+        "$description": "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique).",
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
       },
       "display-page": {
-        "$value": "clamp(40px, 40px + 24 * (100vw - 390px) / 1050, 64px)",
+        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
         "$type": "dimension",
-        "$description": "Page-title display tier, fluid from 40px at a 390 viewport to 64px at 1440 (display-type-scale fix, 2026-09-18; range synced to the portfolio site). Unique 700 only; the 40px floor clears the 24px Unique minimum.",
+        "$description": "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64).",
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
       },
       "display-section": {
-        "$value": "clamp(32px, 32px + 16 * (100vw - 390px) / 1050, 48px)",
+        "$value": "clamp(32px, 32px + 12 * (100vw - 390px) / 1050, 44px)",
         "$type": "dimension",
-        "$description": "Section display tier (the portfolio case tier shares it on purpose), fluid from 32px at a 390 viewport to 48px at 1440 (display-type-scale fix, 2026-09-18). Unique 700 only; the 32px floor clears the 24px Unique minimum.",
+        "$description": "Section heading (h2), Geist Light: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor).",
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive",
-            "Unique 700 display only"
+              "Heading primitive",
+              "Unique 700 display only"
             ]
           }
         }
       }
     },
     "font-weight": {
+      "light": {
+        "$value": 300,
+        "$type": "fontWeight",
+        "$description": "Geist Light: every heading tier (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Headings"
+            ],
+            "dont": [
+              "Not titles or body"
+            ]
+          }
+        }
+      },
       "regular": {
         "$value": "400",
         "$type": "fontWeight",
@@ -1730,7 +2198,7 @@
       "medium": {
         "$value": "500",
         "$type": "fontWeight",
-        "$description": "Medium weight. Used sparingly.",
+        "$description": "Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -1829,7 +2297,19 @@
         "$extensions": {
           "bella": {
             "usage": [
-            "Heading primitive, all tiers"
+              "Heading primitive, all tiers"
+            ]
+          }
+        }
+      },
+      "heading": {
+        "$value": "1.08",
+        "$type": "number",
+        "$description": "Geist Light heading leading (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Every heading tier"
             ]
           }
         }
@@ -1854,13 +2334,83 @@
       "normal": {
         "$value": "0",
         "$type": "dimension",
-        "$description": "Default tracking for body and UI text. Unique headings take letter-spacing.hero (0.04em), the display floor.",
+        "$description": "Zero tracking for UI text that sets its own (tags, avatar initials). Geist body text takes letter-spacing.body; Unique headings take letter-spacing.hero (0.04em), the display floor.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Body",
               "Most UI text",
               "Tag labels"
+            ]
+          }
+        }
+      },
+      "body": {
+        "$value": "-0.01em",
+        "$type": "dimension",
+        "$description": "Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Geist body text",
+              "Paragraphs and card copy that inherit the body setting"
+            ],
+            "dont": [
+              "Never on Unique: every Unique element sets letter-spacing.hero explicitly",
+              "Not a heading tracking: the heading locks are unchanged"
+            ]
+          }
+        }
+      },
+      "display": {
+        "$value": "-0.035em",
+        "$type": "dimension",
+        "$description": "Hero and page heading tracking, Geist Light (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Heading hero and page tiers"
+            ],
+            "dont": [
+              "Never on Unique"
+            ]
+          }
+        }
+      },
+      "h2": {
+        "$value": "-0.03em",
+        "$type": "dimension",
+        "$description": "Section heading (h2) tracking, Geist Light (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Heading section tier"
+            ],
+            "dont": [
+              "Never on Unique"
+            ]
+          }
+        }
+      },
+      "title": {
+        "$value": "-0.015em",
+        "$type": "dimension",
+        "$description": "Title tracking: Geist 500 at 20px (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Card and step titles"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$value": "0",
+        "$type": "dimension",
+        "$description": "Mono takes no tracking (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Every Geist Mono run"
             ]
           }
         }
@@ -1894,12 +2444,26 @@
       "hero": {
         "$value": "0.04em",
         "$type": "dimension",
-        "$description": "Display tracking for every Unique heading tier (Elleta pick 2026-07-22 at 6xl; extended to all display tiers by the display-type-scale fix, 2026-09-18). A floor that opens Unique's condensed letterforms. Unique never takes less, and never negative.",
+        "$description": "Unique wordmark tracking (0.04em). Unique is the wordmark only (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
-              "Heading primitive, all tiers",
-              "Doc-site page H1s"
+              "The wordmark",
+              "Doc-site brand lockup"
+            ]
+          }
+        }
+      }
+    },
+    "font-feature": {
+      "mono": {
+        "$value": "\"ss09\" 1",
+        "$type": "other",
+        "$description": "Geist Mono stylistic set 9, on every Mono run (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "font-feature-settings on Mono"
             ]
           }
         }
@@ -2029,6 +2593,33 @@
             ]
           }
         }
+      },
+      "draw": {
+        "$value": "900ms",
+        "$type": "duration",
+        "$description": "Line draw (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Diagram strokes drawing in"
+            ],
+            "dont": [
+              "Plays once when in view, then holds; reduced motion shows the finished frame"
+            ]
+          }
+        }
+      },
+      "pop": {
+        "$value": "450ms",
+        "$type": "duration",
+        "$description": "Pop-in of a diagram element (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Diagram tokens, fills and nodes appearing"
+            ]
+          }
+        }
       }
     },
     "easing": {
@@ -2070,6 +2661,34 @@
             ]
           }
         }
+      },
+      "draw": {
+        "$value": "cubic-bezier(0.65, 0, 0.35, 1)",
+        "$type": "cubicBezier",
+        "$description": "Draw ease (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Line draw",
+              "Travelling token"
+            ]
+          }
+        }
+      },
+      "pop": {
+        "$value": "cubic-bezier(0.34, 1.4, 0.64, 1)",
+        "$type": "cubicBezier",
+        "$description": "Pop ease, a small overshoot (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Play-once diagram reveals only"
+            ],
+            "dont": [
+              "Never on hover or state changes: hover stays eased, no bounce"
+            ]
+          }
+        }
       }
     },
     "transform": {
@@ -2096,6 +2715,32 @@
           "bella": {
             "usage": [
               "Primary keycap button :active"
+            ]
+          }
+        }
+      }
+    },
+    "stagger": {
+      "min": {
+        "$value": "120ms",
+        "$type": "duration",
+        "$description": "Shortest stagger between diagram steps (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Sequenced reveals"
+            ]
+          }
+        }
+      },
+      "max": {
+        "$value": "200ms",
+        "$type": "duration",
+        "$description": "Longest stagger between diagram steps (style unify, 2026-09-22, Elleta).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Sequenced reveals"
             ]
           }
         }
@@ -2368,7 +3013,7 @@
       }
     },
     "key-resting": {
-      "$value": "1px 3px 0 {color.iris.edge}, 3px 6px 10px {color.alpha.iris-24}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "1px 3px 0 {color.light.ink}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
       "$type": "shadow",
       "$description": "Primary keycap at rest: thin edge plate, small soft cast, inset upper-left glass highlight. Calm extrusion (button grammar v5).",
       "$extensions": {
@@ -2380,7 +3025,7 @@
       }
     },
     "key-hover": {
-      "$value": "1px 4px 0 {color.iris.edge}, 4px 8px 14px {color.alpha.iris-28}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "1px 4px 0 {color.light.ink}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
       "$type": "shadow",
       "$description": "Primary keycap hover: one step more lift.",
       "$extensions": {
@@ -2392,7 +3037,7 @@
       }
     },
     "key-pressed": {
-      "$value": "0 1px 0 {color.iris.edge}, 2px 3px 8px {color.alpha.iris-20}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "0 1px 0 {color.light.ink}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
       "$type": "shadow",
       "$description": "Primary keycap pressed: sunk onto the reduced plate (pair with motion.transform.key-press).",
       "$extensions": {

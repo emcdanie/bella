@@ -67,7 +67,7 @@ Rationale: a fixed 3-column grid leaves a single dangling card whenever the data
 
 `outline: none` is permitted only when an equivalent `box-shadow` ring or `border` swap is provided. A `:focus` rule that removes the outline and adds nothing visible is a WCAG 2.4.7 failure.
 
-The ring color resolves through `--color-semantic-border-strong` (graphite `#33303B` in light, 11.72:1 on ground; `navy.ink` in dark) or `--color-semantic-accent` where the accent ring is the design (iris in light, periwinkle in dark — each verified ≥3:1 non-text on its own mode's surfaces). The fork-era literal periwinkle ring on light surfaces (2.36:1) was a bug, not intent — never reintroduce it.
+The ring colour resolves through `--color-semantic-focus-ring` (brand refresh, 2026-09-22): ochre-deep `#b97a14` in light (3.59:1 on the page, 3.20:1 on panel) and ochre `#e8a83e` in dark (8.70:1 on the surface, 7.28:1 on raised), 3px wide with a 3px offset. The ring means focus only: never on an element at rest. Plain ochre on a light surface (1.86:1 on panel) fails and is forbidden; `scripts/contrast-pairs.mjs` keeps that pair failing on purpose.
 
 Rationale: the only acceptable reason to remove the default outline is that BELLA's ring is more legible — never that the design "looks cleaner." Keyboard users need a visible focus indicator at all times.
 
@@ -86,8 +86,8 @@ Rationale: stated in `AGENTS.md` and `docs/principles.md` — repeated here beca
 ## 9. The accessibility bar: AAA-minded AA (recorded 2026-07-21)
 
 - Ink and body text hold **AAA** on every surface they sit on — both ink ladders are verified per token.
-- Where the accent speaks (accent text, buttons, links), the bar is **AA**, verified per token. AAA accent text is not attainable with iris on light surfaces (5.96:1 ceiling) and is not the bar.
-- The accent **always theme-flips**: iris light, periwinkle dark. Each is banned on its failing ground **even as decoration** — the failure includes the 3:1 non-text minimum (iris on navy 2.64:1, periwinkle on ground 2.24:1).
+- Links and button labels are ink, so they hold **AAA**. The accent (ochre) is a fill with ink text (9.01:1).
+- Ochre is **never text, a hairline or a ring on light** (2.08:1 on white, 1.86:1 on panel): on light, ochre lines and the ring are ochre-deep. Every declared pair is recomputed in both themes by `scripts/contrast-pairs.mjs` on each gate run.
 - **Worst-ground-wins**: every text token passes AA normal text on the worst surface its usage metadata allows, or that surface is forbidden in the metadata. Verified ratios live in `$extensions.bella.a11y`, dated.
 
 Rationale: the bar is a recorded decision, not a vibe. Ratios are computed, written into the tokens, and enforced downstream (`audit:contrast` in consumers; `audit:visual` per component from Phase 2 on).

@@ -1,3 +1,4 @@
+import '../src/stories/StoryUI/manager';
 import { addons } from 'storybook/manager-api';
 import { bellaTheme } from './theme';
 

@@ -1,0 +1,56 @@
+/* WorkIntro (Work patterns, 2026-09-21). Tokens only. The proof panel sits
+ * beside the practice paragraph once the intro's own container is wide
+ * (768px = breakpoint.tablet), below it otherwise. */
+
+.container {
+  container: work-intro / inline-size;
+}
+
+.intro {
+  display: grid;
+  row-gap: var(--spacing-6);
+}
+
+.statement {
+  max-width: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-8);
+  align-items: start;
+}
+
+@container work-intro (min-width: 768px) {
+  .withProof {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+.practice {
+  margin: 0;
+  max-width: 40ch;
+  font-size: var(--typography-font-size-xl);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-secondary);
+}
+
+.proofList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  row-gap: var(--spacing-4);
+}
+
+.proofLine {
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+.proofLine + .proofLine {
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--color-semantic-border-faint);
+}

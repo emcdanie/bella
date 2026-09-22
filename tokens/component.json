@@ -8,13 +8,13 @@
       "$extensions": {
         "bella": {
           "name": "Button",
-          "description": "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are Geist caps, never Unique.",
+          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique.",
           "variants": ["primary", "secondary", "tertiary"],
           "states": ["default", "hover", "active", "focus", "disabled"],
           "props": ["variant", "shape", "href", "onClick", "type", "disabled", "linkComponent", "ariaLabel", "className", "children"],
-          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send", "Nav call to action (shape pill)"],
+          "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send", "Nav call to action (shape pill)", "The primary contact CTA reads \"Let's talk\" (brand refresh, 2026-09-22)"],
           "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired", "Do not lift a button on hover: lift is reserved for cards; hover is the label roll", "Do not add the trace ring to a button: the trace is Card's affordance"],
-          "a11y": "Verified 2026-07-22, worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute.",
+          "a11y": "Verified 2026-09-22: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.",
           "restState": {
             "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": ["plate gradient + gloss", "1px accent-raised-edge border", "shadow.key-resting", "label"],
@@ -52,15 +52,15 @@
       "primary": {
         "fill-hi":          { "$value": "{color.semantic.accent-raised-hi}", "$type": "color" },
         "fill-lo":          { "$value": "{color.semantic.accent-raised-lo}", "$type": "color" },
-        "fill-hi-hover":    { "$value": "{color.semantic.accent-raised-hover}", "$type": "color", "$description": "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion." },
+        "fill-hi-hover":    { "$value": "{color.semantic.accent-raised-hover}", "$type": "color", "$description": "Hover and focus-visible: the ink plate eases one step lighter (ink-hover in both themes). A colour shift, not a lift; it stays under reduced motion." },
         "fill-lo-hover":    { "$value": "{color.semantic.accent-raised-hover}", "$type": "color" },
         "edge":             { "$value": "{color.semantic.accent-raised-edge}", "$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-on-accent}", "$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-inverse}", "$type": "color" },
         "gloss":            { "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)", "$type": "other", "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill." },
         "gloss-pressed":    { "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)", "$type": "other" },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
-        "font-family":      { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
+        "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
         "font-size":        { "$value": "{typography.font-size.tag}",    "$type": "dimension" },
         "font-weight":      { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
         "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
@@ -69,10 +69,11 @@
 
       "secondary": {
         "background":       { "$value": "transparent",                   "$type": "color" },
-        "background-hover": { "$value": "{color.semantic.accent-subtle}","$type": "color" },
-        "background-active":{ "$value": "{color.semantic.accent-border}","$type": "color" },
+        "background-hover": { "$value": "transparent","$type": "color" },
+        "background-active":{ "$value": "{color.semantic.surface-inset}","$type": "color" },
         "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
-        "border":           { "$value": "{color.semantic.accent}",       "$type": "color" },
+        "border":           { "$value": "{color.semantic.border-strong}",       "$type": "color", "$description": "The 3:1 control outline at rest (brand refresh, 2026-09-22)." },
+        "border-hover":     { "$value": "{color.semantic.border-ink}",   "$type": "color", "$description": "Hover and focus-visible: the outline goes ink." },
         "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
@@ -80,10 +81,11 @@
 
       "tertiary": {
         "background":       { "$value": "transparent",                   "$type": "color" },
-        "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
+        "foreground":       { "$value": "{color.semantic.link}",         "$type": "color", "$description": "Ink with an underline (brand refresh, 2026-09-22): links are ink." },
         "underline-offset": { "$value": "{spacing.1}",                   "$type": "dimension" },
         "underline-thickness": { "$value": "{border.width.thin}",        "$type": "dimension", "$description": "The one static underline on the roll window. The rolling spans reserve offset + thickness below the text for it." },
-        "foreground-hover": { "$value": "{color.semantic.accent-hover}", "$type": "color", "$description": "Hover and focus-visible label colour. accent-hover, not link-hover: link-hover equals the rest colour, so the shift would be invisible." },
+        "foreground-hover": { "$value": "{color.semantic.link-hover}", "$type": "color", "$description": "Stays ink on hover and focus-visible; the underline thickens instead." },
+        "underline-thickness-hover": { "$value": "{border.width.medium}", "$type": "dimension", "$description": "Hover and focus-visible: the underline thickens to 2px." },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       }
     },
@@ -200,7 +202,7 @@
       },
       "default": {
         "cover-height": { "$value": "200px", "$type": "dimension", "$description": "Fixed cover well. A component-tier literal: there is no primitive size ramp, and the cover has to reserve its space before artwork loads or the whole grid jumps." },
-        "cover-background": { "$value": "{color.brand.navy}", "$type": "color", "$description": "The file window is navy in BOTH themes on purpose: it is a fixed-context surface, like Card's peek but dark. Never pure black." },
+        "cover-background": { "$value": "{color.dark.inset}", "$type": "color", "$description": "The file window is a fixed-context dark surface in BOTH themes, like Card's peek but dark: the neutral dark inset (style unify, 2026-09-22; was navy). Never pure black." },
         "sheet-overlap": { "$value": "{spacing.12}", "$type": "dimension", "$description": "How far the sheet is pulled up over the cover. Equals the tab row height plus its breathing room; change one and the fold stops lining up." },
         "tab-radius": { "$value": "{radius.xl}", "$type": "dimension" },
         "notch-size": { "$value": "{radius.xl}", "$type": "dimension", "$description": "Radius of the concave corner joining the tab's right edge to the sheet's top edge. Matches tab-radius so the convex and concave curves are the same arc." },
@@ -212,7 +214,8 @@
         "tab-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
         "body-padding": { "$value": "{spacing.5}", "$type": "dimension" },
         "title-font-size": { "$value": "{typography.font-size.xl}", "$type": "dimension", "$description": "The card-title floor. 20px, never smaller, whatever the reference implementation does." },
-        "title-font-weight": { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
+        "title-font-weight": { "$value": "{typography.font-weight.medium}", "$type": "fontWeight" },
+        "title-letter-spacing": { "$value": "{typography.letter-spacing.title}", "$type": "dimension" },
         "title-foreground": { "$value": "{color.semantic.text-primary}", "$type": "color" },
         "description-font-size": { "$value": "{typography.font-size.base}", "$type": "dimension", "$description": "Reading text, so the 16px body floor applies. The reference sets 13px; BELLA cannot." },
         "description-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
@@ -256,14 +259,16 @@
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
-        "font-family":    { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
-        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" }
+        "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: tags are meta labels (style unify, 2026-09-22)." },
+        "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+        "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" }
       },
 
       "accent": {
-        "background":     { "$value": "{color.semantic.accent-subtle}", "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-accent}",   "$type": "color" },
+        "background":     { "$value": "{color.semantic.accent}",        "$type": "color", "$description": "Ochre fill with ink text (brand refresh, 2026-09-22): the accent is a fill." },
+        "foreground":     { "$value": "{color.semantic.text-on-accent}",     "$type": "color" },
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" }
@@ -294,9 +299,15 @@
       },
 
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
-      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
-      "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
-      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight", "$description": "Portfolio used 600; no semibold token exists, and inventing one for a pill is not the call. Recorded divergence." }
+      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: a status word is a meta label (style unify, 2026-09-22)." },
+      "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
+      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+      "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+      "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" },
+      "accent": {
+        "background":   { "$value": "{color.semantic.accent}",    "$type": "color", "$description": "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill." },
+        "foreground":   { "$value": "{color.semantic.text-on-accent}", "$type": "color" }
+      }
     },
 
     "filter-chip": {
@@ -324,7 +335,7 @@
         }
       },
 
-      "border":         { "$value": "{color.semantic.border}",          "$type": "color" },
+      "border":         { "$value": "{color.semantic.border-strong}",          "$type": "color" },
       "foreground":     { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
       "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
@@ -359,7 +370,7 @@
       },
 
       "border-radius":  { "$value": "{radius.lg}",                      "$type": "dimension" },
-      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
       "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension" },
       "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight" },
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
@@ -391,7 +402,7 @@
       "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
       "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" },
-      "label-font-family": { "$value": "{typography.font-family.mono}", "$type": "fontFamily" },
+      "label-font-family": { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
       "label-font-size":   { "$value": "{typography.font-size.tag}",    "$type": "dimension" }
     },
 
@@ -399,13 +410,13 @@
       "$extensions": {
         "bella": {
           "name": "Heading",
-          "description": "Unique carries display, Geist carries everything else. 24px floor, page tier only, never inside a card.",
+          "description": "Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify, 2026-09-22, Elleta). Unique is the wordmark only. Never inside a card.",
           "variants": ["hero", "page", "section"],
           "states": ["default"],
-          "props": ["tier", "as", "accent", "id", "className", "style", "children"],
+          "props": ["tier", "as", "accent", "after", "label", "id", "className", "style", "children"],
           "usage": ["Page titles", "Section heads", "The hero headline"],
-          "dont": ["Never inside a card: cards are Geist territory (contract-enforced by audit:quality)", "Never below 24px: the smallest tier here is the section step, fluid from a 32px floor, and the keycap logo is the only recorded sub-24 exception", "Never negative tracking on Unique"],
-          "a11y": "Verified 2026-07-22: text-primary on the semantic grounds, 16.06:1 light / 14.35:1 dark (AAA). The accent segment is text-accent, 5.66:1 light / 6.65:1 dark, AA large far above threshold at display sizes. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
+          "dont": ["Never inside a card: cards carry titles (Geist 500), not headings (contract-enforced by audit:quality)", "Never below 32px: the section tier floors at 32px", "Never Unique: the wordmark is the only Unique"],
+          "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
           "restState": {
             "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
             "atRest": ["the glyphs"],
@@ -413,19 +424,22 @@
             "invariants": [
               { "layer": "static", "property": "transform", "expect": "none" },
               { "layer": "static", "property": "animation-name", "expect": "none" },
-              { "layer": "placement", "type": "forbidden-ancestor", "ancestor": "[data-bella-component=card]", "note": "Unique never renders inside a card" }
+              { "layer": "placement", "type": "forbidden-ancestor", "ancestor": "[data-bella-component=card]", "note": "Headings never render inside a card" }
             ]
           }
         }
       },
 
-      "font-family":    { "$value": "{typography.font-family.display}", "$type": "fontFamily" },
-      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight" },
-      "letter-spacing": { "$value": "{typography.letter-spacing.hero}", "$type": "dimension" },
-      "line-height":    { "$value": "{typography.line-height.display}", "$type": "number" },
+      "font-family":    { "$value": "{typography.font-family.display}",    "$type": "fontFamily" },
+      "font-weight":    { "$value": "{typography.font-weight.light}",      "$type": "fontWeight" },
+      "letter-spacing": { "$value": "{typography.letter-spacing.display}", "$type": "dimension" },
+      "line-height":    { "$value": "{typography.line-height.heading}",    "$type": "number" },
       "hero":    { "font-size": { "$value": "{typography.font-size.display-hero}",    "$type": "dimension" } },
       "page":    { "font-size": { "$value": "{typography.font-size.display-page}",    "$type": "dimension" } },
-      "section": { "font-size": { "$value": "{typography.font-size.display-section}", "$type": "dimension" } }
+      "section": {
+        "font-size":      { "$value": "{typography.font-size.display-section}", "$type": "dimension" },
+        "letter-spacing": { "$value": "{typography.letter-spacing.h2}",         "$type": "dimension" }
+      }
     },
 
     "icon": {
@@ -485,7 +499,7 @@
         "border-radius": { "$value": "{radius.full}", "$type": "dimension" },
         "font-family": { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
         "font-weight": { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
-        "ring-color": { "$value": "{color.semantic.accent}", "$type": "color" },
+        "ring-color": { "$value": "{color.semantic.border-ink}", "$type": "color" },
         "ring-width": { "$value": "2px", "$type": "dimension", "$description": "Ring stroke. A component-tier literal on purpose: there is no primitive ring scale, and the alternative is a hard-coded value in build.py, which is the class of thing issue #3 is about." },
         "ring-gap": { "$value": "2px", "$type": "dimension", "$description": "Gap between the disc edge and the ring, painted in the surrounding ground so the ring reads as separate." }
       },
@@ -507,30 +521,41 @@
       "$extensions": {
         "bella": {
           "name": "Eyebrow",
-          "description": "Small tracked caps label above a heading (Geist; the mono token is retired and repointed). Signals context or category.",
-          "variants": ["accent", "muted"],
+          "description": "Geist Mono 13px label above a heading: no tracking, no caps, ss09 (style unify, 2026-09-22, Elleta). Signals context or category.",
+          "variants": ["muted", "ink"],
           "states": ["default"],
+          "props": ["variant", "as", "className", "children"],
           "usage": ["Above hero headlines", "Above section titles", "Above card groupings"],
-          "dont": ["Do not use as a heading, eyebrows complement a heading, never replace one", "Do not hard-code accent color as the foreground, flow through text-accent so AAA enforcement stays centralized"],
-          "a11y": "13px floor. Foreground flows through semantic.text-accent (iris on ground 5.66:1, periwinkle on navy 6.65:1, AA text, AAA large; verified 2026-07-21)."
+          "dont": ["Do not use as a heading: eyebrows complement a heading, never replace one", "Never an accent colour: wayfinding is not action", "Never below 13px, never tracked, never uppercased"],
+          "a11y": "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": ["the label"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
       },
 
-      "accent": {
-        "foreground":     { "$value": "{color.semantic.text-accent}",   "$type": "color" },
-        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
-        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.medium}","$type": "fontWeight" },
-        "letter-spacing": { "$value": "{typography.letter-spacing.wider}","$type": "dimension" },
-        "text-transform": { "$value": "uppercase",                      "$type": "other" }
+      "muted": {
+        "foreground":            { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
+        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
       },
 
-      "muted": {
-        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
-        "font-family":    { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
-        "font-size":      { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "letter-spacing": { "$value": "{typography.letter-spacing.wider}","$type": "dimension" },
-        "text-transform": { "$value": "uppercase",                      "$type": "other" }
+      "ink": {
+        "foreground":            { "$value": "{color.semantic.text-primary}", "$type": "color" },
+        "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
+        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
       }
     },
 
@@ -543,8 +568,8 @@
           "states": ["default", "focus", "disabled", "error"],
           "props": ["label", "value", "onChange", "multiline", "error", "hint", "type", "placeholder", "autoComplete", "name", "required", "disabled", "id", "className"],
           "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
-          "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not colour errors until the status ladder lands: the interim is ink + structure, recorded"],
-          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors: aria-invalid + role=alert message via aria-describedby; message is text-primary bold, border flips to border-strong (11.72:1). ERROR TINT BLOCKED on the status ladder (issue #1): no danger token exists and none was invented. Focus: accent border + 2px accent wash ring, theme-flipping. 44px min-height.",
+          "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid"],
+          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
           "restState": {
             "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
             "atRest": ["field surface + border", "label", "hint or error message"],
@@ -566,19 +591,23 @@
       "$extensions": {
         "bella": {
           "name": "Link",
-          "description": "Inline text link inside body copy.",
-          "variants": ["default"],
+          "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
+          "variants": [],
           "states": ["default", "hover", "visited", "focus"],
+          "props": ["href", "external", "className", "children"],
           "usage": ["Inline references inside paragraphs", "Footer links"],
           "dont": ["Do not use for primary navigation, that's nav-link", "Do not rely on color alone, always underlined or weight-shifted on hover"],
-          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is underline; hover turns iris (5.66:1, AA)."
+          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout."
         }
       },
 
       "default": {
         "foreground":       { "$value": "{color.semantic.link}",       "$type": "color" },
         "foreground-hover": { "$value": "{color.semantic.link-hover}", "$type": "color" },
-        "text-decoration":  { "$value": "underline",                   "$type": "other" }
+        "text-decoration":  { "$value": "underline",                   "$type": "other" },
+        "underline-thickness":       { "$value": "{border.width.thin}",   "$type": "dimension", "$description": "1px at rest." },
+        "underline-thickness-hover": { "$value": "{border.width.medium}", "$type": "dimension", "$description": "Hover thickens the underline to 2px (brand refresh, 2026-09-22)." },
+        "underline-offset":          { "$value": "{spacing.1}",           "$type": "dimension" }
       }
     },
 
@@ -598,7 +627,7 @@
       "default": {
         "foreground":       { "$value": "{color.semantic.text-secondary}","$type": "color" },
         "foreground-hover": { "$value": "{color.semantic.text-primary}",  "$type": "color" },
-        "font-family":      { "$value": "{typography.font-family.mono}",  "$type": "fontFamily" },
+        "font-family":      { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
         "font-size":        { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
         "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",         "$type": "dimension" }
@@ -606,7 +635,7 @@
 
       "active": {
         "foreground":       { "$value": "{color.semantic.text-primary}",  "$type": "color" },
-        "border-bottom":    { "$value": "2px solid {color.semantic.accent}","$type": "other" },
+        "border-bottom":    { "$value": "2px solid {color.semantic.accent-hover}","$type": "other" },
         "min-height":       { "$value": "{spacing.touch-target}",         "$type": "dimension" }
       }
     },
@@ -642,8 +671,107 @@
         }
       },
 
+      
       "backdrop": {
         "blur":             { "$value": "{blur.sm}",                    "$type": "dimension" }
+      }
+    },
+
+    "brand-wordmark": {
+      "$extensions": {
+        "bella": {
+          "name": "BrandWordmark",
+          "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink.",
+          "variants": ["pattern", "ink"],
+          "states": ["default"],
+          "props": ["word", "variant", "size", "seed", "onReroll", "className"],
+          "usage": ["The site nav (size nav, 40px tall)", "The footer sign-off (size full-bleed)", "The BELLA name on its own pages"],
+          "dont": ["Never below 32px tall", "Never recolour the pattern: it only comes from color.pattern.*", "Never as body type or a heading: it is a mark, not a typeface", "Never animate it"],
+          "a11y": "role=img with the word as its accessible name; the pattern layers are aria-hidden. The ink variant is text-primary (AAA). Static: nothing moves, so reduced motion needs no change.",
+          "restState": {
+            "description": "Entirely static.",
+            "atRest": ["the letters"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "nav-height": { "$value": "{spacing.10}", "$type": "dimension", "$description": "The nav wordmark is 40px tall." },
+      "min-height": { "$value": "{spacing.8}", "$type": "dimension", "$description": "The floor: never below 32px tall." }
+    },
+
+    "pattern-field": {
+      "$extensions": {
+        "bella": {
+          "name": "PatternField",
+          "description": "The brand pattern as a hero background (brand refresh, 2026-09-22): greyscale at about 7% (inverted grey at about 6% in dark) with a radial fade. Replaces the dot grid.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["seed", "className"],
+          "usage": ["Behind a page opening or hero, first child of a position: relative container"],
+          "dont": ["Never behind body text at more than its token opacity", "Never in colour: the colour pattern belongs to the wordmark", "Never interactive"],
+          "a11y": "Decorative: aria-hidden, focusable=false, pointer-events none. At 7% greyscale it does not reduce text contrast measurably; axe checks the text over it.",
+          "restState": {
+            "description": "Entirely static.",
+            "atRest": ["the field"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "opacity": { "$value": "{opacity.pattern-field}", "$type": "number", "$description": "7% light, 6% dark, through the semantic opacity token." }
+    },
+
+    "callout": {
+      "$extensions": {
+        "bella": {
+          "name": "Callout",
+          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a Mono label, marking words the author still owes. Static: no interaction, no motion.",
+          "variants": ["note", "gap"],
+          "states": ["default"],
+          "props": ["variant", "label", "children", "className"],
+          "usage": ["note: a caveat or source line under a figure or section", "gap: a visible placeholder for content still to be written"],
+          "dont": ["Not a status banner: no info, success, warning or error variants", "Never interactive: no hover, no lift, never a link as a whole", "No colour: hairline or dashed muted frame only, no chip fill, no accent", "gap is a visible TODO: never ship it as finished copy"],
+          "a11y": "note: text-secondary, AAA (2026-09-22). gap: Mono label in text-primary, body in text-secondary, AAA; the dashed frame is decorative (text carries the meaning). No landmark role.",
+          "restState": {
+            "description": "Entirely static.",
+            "atRest": ["the rule or frame", "the text"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "note": {
+        "foreground":           { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "font-size":            { "$value": "{typography.font-size.mono}",     "$type": "dimension" },
+        "rule-color":           { "$value": "{color.semantic.border-subtle}",  "$type": "color" },
+        "rule-width":           { "$value": "{border.width.thin}",             "$type": "dimension" },
+        "padding-inline-start": { "$value": "{spacing.3}",                     "$type": "dimension" }
+      },
+
+      "gap": {
+        "foreground":        { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "font-size":         { "$value": "{typography.font-size.base}",     "$type": "dimension" },
+        "label-foreground":  { "$value": "{color.semantic.text-primary}",   "$type": "color" },
+        "label-font-family": { "$value": "{typography.font-family.mono}",   "$type": "fontFamily" },
+        "label-font-size":   { "$value": "{typography.font-size.mono}",     "$type": "dimension" },
+        "border-color":      { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "border-style":      { "$value": "dashed",                            "$type": "other" },
+        "border-width":      { "$value": "{border.width.thin}",             "$type": "dimension" },
+        "radius":            { "$value": "{radius.lg}",                     "$type": "dimension" },
+        "padding":           { "$value": "{spacing.4}",                     "$type": "dimension" }
       }
     }
   }

@@ -1,15 +1,17 @@
 import React, { type ReactNode } from 'react';
 
-/* Tiles for the Logo and Illustration pages. Tokens only. The stage colour
- * is fixed per tile (a logo is shown on the ground it was made for), so the
- * stage uses brand primitives; the frame and caption flip with [data-theme]. */
+/* Tiles for the Brand pages (brand refresh, 2026-09-22). Tokens only. The
+ * stage ground is fixed per tile (an asset is shown on the ground it is made
+ * for: the white page, the panel, the dark page); the frame and caption flip
+ * with [data-theme]. A tile holds an image (src) or a live component
+ * (children). */
 
-type Ground = 'ground' | 'navy' | 'paper';
+type Ground = 'light' | 'panel' | 'dark';
 
 const stageBg: Record<Ground, string> = {
-  ground: 'var(--color-brand-ground)',
-  navy: 'var(--color-brand-navy)',
-  paper: 'var(--color-neutral-paper)',
+  light: 'var(--color-light-bg)',
+  panel: 'var(--color-light-panel)',
+  dark: 'var(--color-dark-bg)',
 };
 
 export function AssetGrid({ columns = 3, children }: { columns?: number; children: ReactNode }) {
@@ -29,18 +31,22 @@ export function AssetGrid({ columns = 3, children }: { columns?: number; childre
 
 export function AssetTile({
   src,
-  alt,
-  ground = 'ground',
+  alt = '',
+  ground = 'light',
   label,
   height = 96,
   download,
+  format = 'SVG',
+  children,
 }: {
-  src: string;
-  alt: string;
+  src?: string;
+  alt?: string;
   ground?: Ground;
   label: ReactNode;
   height?: number;
   download?: string;
+  format?: string;
+  children?: ReactNode;
 }) {
   return (
     <figure
@@ -53,6 +59,7 @@ export function AssetTile({
       }}
     >
       <div
+        data-bella-ground
         style={{
           background: stageBg[ground],
           minHeight: 200,
@@ -60,9 +67,10 @@ export function AssetTile({
           alignItems: 'center',
           justifyContent: 'center',
           padding: 'var(--spacing-6)',
+          color: ground === 'dark' ? 'var(--color-dark-ink)' : 'var(--color-light-ink)',
         }}
       >
-        <img src={src} alt={alt} style={{ height, maxWidth: '100%', display: 'block' }} />
+        {children ?? <img src={src} alt={alt} style={{ height, maxWidth: '100%', display: 'block' }} />}
       </div>
       <figcaption
         style={{
@@ -77,38 +85,12 @@ export function AssetTile({
         }}
       >
         <span>{label}</span>
-        <a href={src} download={download} style={{ color: 'var(--color-semantic-link)', fontWeight: 500 }}>
-          SVG ↓
-        </a>
+        {src && download ? (
+          <a href={src} download={download} style={{ color: 'var(--color-semantic-link)', fontWeight: 500 }}>
+            {format} ↓
+          </a>
+        ) : null}
       </figcaption>
     </figure>
-  );
-}
-
-/** The lockup inside a dashed clear-space frame (one ear-height all round). */
-/* Renders both lockups; .storybook/docs.css shows the one matching the
- * toolbar theme ([data-theme]), not the OS setting. */
-export function ClearSpace({
-  srcLight,
-  srcDark,
-  alt,
-}: {
-  srcLight: string;
-  srcDark: string;
-  alt: string;
-}) {
-  return (
-    <div
-      style={{
-        display: 'inline-block',
-        padding: 'var(--spacing-8)',
-        outline: '1.5px dashed var(--color-semantic-accent-border)',
-        borderRadius: 'var(--radius-sm)',
-        margin: 'var(--spacing-5) 0 var(--spacing-8)',
-      }}
-    >
-      <img className="bella-cs-light" src={srcLight} alt={alt} style={{ height: 64 }} />
-      <img className="bella-cs-dark" src={srcDark} alt={alt} style={{ height: 64 }} />
-    </div>
   );
 }

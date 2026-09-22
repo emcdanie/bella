@@ -1,0 +1,160 @@
+/* BeforeAfterFrame (Work patterns, 2026-09-21). Tokens only. The notes sit
+ * beside the stage once the frame's own container is wide (768px =
+ * breakpoint.tablet), below it otherwise. */
+
+.container {
+  container: before-after / inline-size;
+  margin: 0;
+}
+
+.frame {
+  display: grid;
+  row-gap: var(--spacing-5);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-6);
+  align-items: start;
+}
+
+@container before-after (min-width: 768px) {
+  .withNotes {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+}
+
+/* The stage: the screen on the inset surface, with a marker-sized gutter
+   on every side so an edge marker draws whole (never clipped). */
+.stage {
+  --marker-size: var(--spacing-8);
+  display: grid;
+  row-gap: var(--spacing-3);
+  padding: calc(var(--marker-size) / 2 + var(--spacing-2));
+  background: var(--color-semantic-surface-inset);
+  border: 1px solid var(--color-semantic-border-faint);
+  border-radius: var(--radius-card);
+}
+
+.shot {
+  position: relative;
+  width: 100%;
+}
+
+.img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-semantic-border-faint);
+  box-sizing: border-box;
+}
+
+/* The window. Fit: it is transparent and the cue is gone. Scroll (and
+   auto below the tablet width): a 16:10 window where the screen keeps a
+   legible width and scrolls both ways, with the cue. Its own padding is
+   the marker gutter, so markers stay whole while the screen scrolls. */
+.scroller {
+  border-radius: var(--radius-md);
+}
+
+.cue {
+  display: none;
+  margin: 0;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--typography-font-size-base);
+  color: var(--color-semantic-text-secondary);
+}
+
+.scroll .scroller {
+  aspect-ratio: 16 / 10;
+  overflow: auto;
+  padding: calc(var(--marker-size) / 2);
+  margin-inline: calc(var(--marker-size) / -2);
+  margin-top: calc(var(--marker-size) / -2);
+}
+
+.scroll .shot {
+  width: max(100%, 60rem);
+}
+
+.scroll .cue {
+  display: inline-flex;
+}
+
+/* auto: scroll below the tablet width (768px = breakpoint.tablet) */
+@container before-after (max-width: 767.98px) {
+  /* square on a phone: a 16:10 slit is too short to read a screen through */
+  .auto .scroller {
+    aspect-ratio: 1 / 1;
+    overflow: auto;
+    padding: calc(var(--marker-size) / 2);
+    margin-inline: calc(var(--marker-size) / -2);
+    margin-top: calc(var(--marker-size) / -2);
+  }
+
+  .auto .shot {
+    width: max(100%, 60rem);
+  }
+
+  .auto .cue {
+    display: inline-flex;
+  }
+}
+
+.scroller:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.marker {
+  position: absolute;
+  width: var(--marker-size);
+  height: var(--marker-size);
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-accent);
+  color: var(--color-semantic-text-on-accent);
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.notes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  row-gap: var(--spacing-4);
+}
+
+.note {
+  display: grid;
+  grid-template-columns: var(--spacing-8) minmax(0, 1fr);
+  column-gap: var(--spacing-3);
+  align-items: start;
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-relaxed);
+  color: var(--color-semantic-text-primary);
+}
+
+.noteIndex {
+  display: grid;
+  place-items: center;
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-accent);
+  color: var(--color-semantic-text-on-accent);
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-bold);
+}
+
+.caption {
+  margin-top: var(--spacing-3);
+  font-size: var(--typography-font-size-base);
+  color: var(--color-semantic-text-secondary);
+}

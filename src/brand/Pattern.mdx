@@ -1,0 +1,42 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { PageIntro, DoDont } from '../docs/DocBlocks';
+import * as PatternStories from './Pattern.stories';
+
+<Meta of={PatternStories} />
+
+<PageIntro title="Pattern">
+  One hand-drawn collage: blue tiger stripes on ochre, leopard on pink, zebra
+  in lime, cream patches, loose ink brush lines and a grain. In colour it
+  lives inside the wordmark; behind a page it is a quiet grey field.
+</PageIntro>
+
+## PatternField
+
+The pattern as a hero background: greyscale at about 7%, fading out from the
+upper right, inverted grey at about 6% in dark. It replaces the dot grid.
+It is decoration only: hidden from assistive tech, never interactive, never
+moving.
+
+<Canvas of={PatternStories.HeroField} />
+
+## Seeds
+
+The pattern is drawn from a seed. The same seed always draws the same field,
+so a page looks the same on every visit.
+
+<Canvas of={PatternStories.AnotherSeed} />
+
+## Do and don't
+
+<DoDont
+  doItems={[
+    'Put it first inside a position: relative hero',
+    'Keep one seed per page',
+    'Let the text over it carry the contrast; axe still checks it',
+  ]}
+  dontItems={[
+    "Don't show the field in colour: colour is the wordmark's",
+    "Don't raise its opacity behind body text",
+    "Don't animate it",
+  ]}
+/>

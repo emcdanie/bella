@@ -58,7 +58,7 @@ function Section({ title, rows }: { title: string; rows: Row[] }) {
       </tr>
       {rows.map((r) => (
         <tr key={r.path}>
-          <td style={{ ...cellStyle, whiteSpace: 'nowrap', fontFamily: 'var(--typography-font-family-mono)' }}>
+          <td style={{ ...cellStyle, whiteSpace: 'nowrap', fontFamily: 'var(--typography-font-family-body)' }}>
             {r.path}
           </td>
           <td style={cellStyle}>
@@ -80,7 +80,7 @@ function Section({ title, rows }: { title: string; rows: Row[] }) {
                 }}
               />
             ) : null}
-            <code style={{ fontFamily: 'var(--typography-font-family-mono)' }}>{r.value}</code>
+            <code style={{ fontFamily: 'var(--typography-font-family-body)' }}>{r.value}</code>
           </td>
           <td style={cellStyle}>{r.note}</td>
         </tr>

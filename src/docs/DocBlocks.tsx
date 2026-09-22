@@ -70,8 +70,8 @@ function DoDontList({ items }: { items: string[] }) {
 }
 
 /** Paired examples. Typographic, not colour-coded: status colours are
- * non-text roles and iris at body scale means interactive, so the labels
- * carry the meaning. */
+ * non-text roles and the accent is a fill, so the labels carry the
+ * meaning. */
 export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: string[] }) {
   return (
     <div
@@ -96,8 +96,8 @@ export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: s
   );
 }
 
-/** Inline token reference. Accepts a dotted token path (color.brand.iris)
- * or a CSS custom property (--color-brand-iris). Colour tokens get a live
+/** Inline token reference. Accepts a dotted token path (color.brand.ochre)
+ * or a CSS custom property (--color-brand-ochre). Colour tokens get a live
  * swatch driven by the token's own custom property, so it flips with the
  * theme. */
 export function TokenChip({ token }: { token: string }) {
@@ -113,7 +113,7 @@ export function TokenChip({ token }: { token: string }) {
         border: '1px solid var(--color-semantic-border-subtle)',
         borderRadius: 'var(--radius-sm)',
         padding: '1px var(--spacing-2)',
-        fontFamily: 'var(--typography-font-family-mono)',
+        fontFamily: 'var(--typography-font-family-body)',
         fontSize: 'var(--typography-font-size-sm)',
         color: 'var(--color-semantic-text-primary)',
         whiteSpace: 'nowrap',
@@ -122,6 +122,7 @@ export function TokenChip({ token }: { token: string }) {
       {isColor && (
         <span
           aria-hidden="true"
+          data-bella-specimen
           style={{
             display: 'inline-block',
             width: 12,

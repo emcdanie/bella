@@ -4,7 +4,7 @@
  *   - no em or en dashes in rendered doc content (.sbdocs-content)
  *   - nothing below the 13px hard floor
  *   - Unique never below 24px
- *   - no pure-white solid fills
+ *   - no pure-white solid fills except the page ground ([data-bella-ground])
  *   - no colour literals in inline styles (token specimens opt out with
  *     data-bella-specimen)
  * Scope note: the long-form 16px rule runs on stories only. Docs pages embed
@@ -48,6 +48,10 @@ for (const entry of docs) {
        Icon svg carries data-bella-icon, Storybook chrome is exempt */
     for (const svg of root.querySelectorAll('svg')) {
       if (svg.hasAttribute('data-bella-icon')) continue;
+      /* named exception: brand art, a labelled image or aria-hidden */
+      if (svg.hasAttribute('data-bella-brand') && ((svg.getAttribute('role') === 'img' && (svg.getAttribute('aria-label') ?? '').trim()) || svg.getAttribute('aria-hidden') === 'true')) continue;
+      /* named exception: diagram patterns, labelled images only */
+      if (svg.hasAttribute('data-bella-diagram') && svg.getAttribute('role') === 'img' && (svg.getAttribute('aria-label') ?? '').trim()) continue;
       /* Storybook chrome: docblock UI, canvas toolbars, and the heading
          permalink anchors (fragment links) it injects beside every h2+ */
       if (svg.closest('button, [class*="docblock"], .sbdocs-preview, a[href^="#"]')) continue;
@@ -75,7 +79,15 @@ for (const entry of docs) {
           out.push(`Unique below 24px (${size}px): "${own.slice(0, 40)}"`);
       }
       if (el.closest('[data-bella-specimen]')) continue;
-      if (cs.backgroundColor === 'rgb(255, 255, 255)')
+      /* Pure white is the light page ground only (style unify, 2026-09-22) */
+      /* the ground: the story stage, a marked container, or Storybook's own
+         docs surfaces, which paint the page background (the docs wrapper,
+         preview frames and their toolbars, source docblocks) */
+      const ground =
+        el.matches('[data-testid="bella-stage"], [data-bella-ground], .sbdocs-wrapper, .sbdocs-preview') ||
+        !!el.closest('[class*="docblock"]') ||
+        (!!el.closest('.sbdocs-preview') && !el.closest('[data-testid="bella-stage"]'));
+      if (cs.backgroundColor === 'rgb(255, 255, 255)' && !ground)
         out.push(`pure white fill on <${el.tagName.toLowerCase()}>`);
       const inline = el.getAttribute('style');
       if (

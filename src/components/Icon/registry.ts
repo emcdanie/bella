@@ -31,6 +31,15 @@ export const GLYPHS = {
   /* ResourceCard's "Open" action. Extracted from iconoir-react ArrowUpRight,
      not redrawn: the exact path the portfolio's icon set renders. */
   ArrowUpRight: ['M6.00005 19L19 5.99996M19 5.99996V18.48M19 5.99996H6.52005'],
+  /* FeaturedCase and CaseGrid's "Read it" cue. Iconoir ArrowRight (regular). */
+  ArrowRight: ['M3 12L21 12M21 12L12.5 3.5M21 12L12.5 20.5'],
+  /* Input's error message (status tokens, 2026-09-22). Iconoir WarningCircle
+     (regular), from iconoir@7 icons/regular/warning-circle.svg. */
+  WarningCircle: [
+    'M12 7L12 13',
+    'M12 17.01L12.01 16.9989',
+    'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
+  ],
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

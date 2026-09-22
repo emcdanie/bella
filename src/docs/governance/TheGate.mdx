@@ -48,7 +48,11 @@ DOM of every story and every docs page:
 - **The type floors**: 13px absolute, 16px for long-form reading text, 24px for
   Unique. Asserted on the COMPUTED value, not the declared one, so a cascade
   accident cannot hide under a correct-looking stylesheet.
-- **No pure-white solid fills.** Warm neutrals or nothing.
+- **No pure-white solid fills** except the light page ground (the stage, or
+  a container marked `data-bella-ground`).
+- **One icon set.** Inline SVG fails outside the Icon component, with one
+  named exception: diagram patterns marked `data-bella-diagram`, which must be
+  a labelled image (`role="img"` and an aria-label that tells the story).
 - **No colour literals** in inline styles, except in token specimens, which opt
   out explicitly because showing a hex is their job.
 - **Rest-state invariants**, driven by each component's `restState` contract:

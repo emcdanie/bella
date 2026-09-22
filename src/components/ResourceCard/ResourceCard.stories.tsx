@@ -33,9 +33,10 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
       <span
         style={{
-          fontFamily: 'var(--typography-font-family-body)',
-          fontSize: 'var(--typography-font-size-tag)',
-          color: 'var(--color-navy-text-muted)',
+          fontFamily: 'var(--typography-font-family-mono)',
+          fontSize: 'var(--typography-font-size-mono)',
+          fontFeatureSettings: 'var(--typography-font-feature-mono)',
+          color: 'var(--color-dark-muted)',
         }}
       >
         {filename}
@@ -45,8 +46,8 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
       style={{
         flex: 1,
         borderRadius: 'var(--radius-md)',
-        background: 'var(--color-navy-card)',
-        border: '1px solid var(--color-navy-divider)',
+        background: 'var(--color-dark-surface)',
+        border: '1px solid var(--color-dark-line)',
         padding: 'var(--spacing-4)',
         display: 'flex',
         flexDirection: 'column',
@@ -61,7 +62,7 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
             height: 'var(--spacing-2)',
             width: `${w}%`,
             borderRadius: 'var(--radius-full)',
-            background: 'var(--color-navy-raised)',
+            background: 'var(--color-dark-raised)',
           }}
         />
       ))}
@@ -71,7 +72,7 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
           height: 'var(--spacing-2)',
           width: '40%',
           borderRadius: 'var(--radius-full)',
-          background: 'var(--color-alpha-periwinkle-30)',
+          background: 'var(--color-chip-c1)',
         }}
       />
     </div>
@@ -174,7 +175,7 @@ export const LongDescription: Story = {
  * One link, one tab stop, inert at rest, and the fold is theme-driven. The
  * notch check is the named GATE-2 item: its gradient must resolve from the
  * same semantic surface token as the sheet, or dark mode bites a light hole
- * in the navy card.
+ * in the dark card.
  */
 export const Behavior: Story = {
   render: () => (

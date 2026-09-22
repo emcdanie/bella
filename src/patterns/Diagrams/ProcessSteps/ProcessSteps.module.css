@@ -1,0 +1,118 @@
+/* ProcessSteps (style unify, 2026-09-22). Tokens only. Hairline rules,
+ * 1px ink progress, chip-1 dots (colour lives in fills), Mono numbers,
+ * Geist 500 titles. The static render is the finished frame; .play fills
+ * the line and the dots one step at a time, from the motion tokens. */
+
+.container {
+  container: process-steps / inline-size;
+  --step: var(--motion-duration-pop);
+}
+
+.track {
+  position: relative;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.step {
+  position: relative;
+  padding: var(--spacing-6) var(--spacing-5) var(--spacing-6) 0;
+  border-top: 1px solid var(--color-semantic-border);
+}
+
+.dot {
+  position: absolute;
+  top: calc(var(--spacing-1) * -1);
+  left: 0;
+  width: var(--spacing-2);
+  height: var(--spacing-2);
+  box-sizing: border-box;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-semantic-border-ink);
+  background: var(--color-semantic-chip-1);
+}
+
+.n {
+  display: block;
+  margin-bottom: var(--spacing-8);
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+  font-feature-settings: var(--typography-font-feature-mono);
+  letter-spacing: var(--typography-letter-spacing-mono);
+  color: var(--color-semantic-text-secondary);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-font-size-xl);
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-title);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+.body {
+  margin: var(--spacing-2) 0 0;
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-normal);
+  color: var(--color-semantic-text-secondary);
+}
+
+/* the ink line that fills: only in the row layout */
+.progress {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--color-semantic-border-ink);
+  transform-origin: left center;
+  z-index: 1;
+}
+
+@container process-steps (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  }
+  .step {
+    padding: var(--spacing-8) var(--spacing-6) 0 0;
+  }
+  .progress {
+    display: block;
+  }
+  .dot {
+    z-index: 2;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .armed .progress {
+    transform: scaleX(0);
+  }
+  .armed .dot {
+    background: var(--color-semantic-background);
+  }
+  .play .progress {
+    animation: fill calc(var(--step) * var(--n)) var(--motion-easing-draw) both;
+  }
+  .play .dot {
+    animation: on var(--step) var(--motion-easing-standard) both calc(var(--step) * var(--i));
+  }
+}
+
+@keyframes fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes on {
+  from { background: var(--color-semantic-background); }
+  to { background: var(--color-semantic-chip-1); }
+}

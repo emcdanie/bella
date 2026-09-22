@@ -1,5 +1,6 @@
 import React from 'react';
 import rollup from '../../tokens/bella.json';
+import Heading from '../components/Heading/Heading';
 
 /* Token-sheet renderers for the Foundations stories.
  *
@@ -70,23 +71,20 @@ export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
   return node ? walk(node, dotted.split('.')) : [];
 }
 
+/* token names and values are meta: Geist Mono, 13px, ss09, no tracking */
 const mono: React.CSSProperties = {
-  fontFamily: 'var(--typography-font-family-body)',
-  fontSize: 'var(--typography-font-size-tag)',
-  letterSpacing: 'var(--typography-letter-spacing-wide)',
+  fontFamily: 'var(--typography-font-family-mono)',
+  fontSize: 'var(--typography-font-size-mono)',
+  letterSpacing: 'var(--typography-letter-spacing-mono)',
+  fontFeatureSettings: 'var(--typography-font-feature-mono)',
 };
 
+/* A real section heading: the Heading section tier, h2, Geist Light. */
 export function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2
-      style={{
-        fontSize: 'var(--typography-font-size-3xl)',
-        fontWeight: 700,
-        margin: 'var(--spacing-10) 0 var(--spacing-5)',
-      }}
-    >
+    <Heading tier="section" as="h2" style={{ margin: 'var(--spacing-10) 0 var(--spacing-5)' }}>
       {children}
-    </h2>
+    </Heading>
   );
 }
 
@@ -109,7 +107,7 @@ export function SwatchGrid({ leaves }: { leaves: TokenLeaf[] }) {
             overflow: 'hidden',
           }}
         >
-          <div style={{ height: 64, background: `var(${leaf.cssVar})` }} />
+          <div data-bella-specimen style={{ height: 64, background: `var(${leaf.cssVar})` }} />
           <div style={{ padding: 'var(--spacing-3)' }}>
             <div style={{ ...mono, fontWeight: 500 }}>{leaf.path}</div>
             <div style={{ ...mono, color: 'var(--color-semantic-text-secondary)' }}>
@@ -122,15 +120,27 @@ export function SwatchGrid({ leaves }: { leaves: TokenLeaf[] }) {
   );
 }
 
-export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
+/* The table keeps its columns; at narrow widths it scrolls inside its own
+ * keyboard-reachable region instead of pushing the page sideways. */
+export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLeaf[]; label?: string }) {
   return (
+    <div
+      role="region"
+      aria-label={label}
+      tabIndex={0}
+      style={{
+        maxWidth: '100%',
+        overflowX: 'auto',
+        background: 'var(--color-semantic-surface)',
+        border: '1px solid var(--color-semantic-border)',
+        borderRadius: 'var(--radius-lg)',
+      }}
+    >
     <table
       style={{
         width: '100%',
+        minWidth: 'calc(var(--spacing-20) * 9)',
         borderCollapse: 'collapse',
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-lg)',
-        overflow: 'hidden',
       }}
     >
       <thead>
@@ -141,7 +151,6 @@ export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
               style={{
                 ...mono,
                 textAlign: 'left',
-                textTransform: 'uppercase',
                 color: 'var(--color-semantic-text-secondary)',
                 padding: 'var(--spacing-3) var(--spacing-4)',
                 borderBottom: '1px solid var(--color-semantic-border-subtle)',
@@ -162,7 +171,9 @@ export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
               {leaf.value}
             </td>
             <td style={{ padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
+              {/^(#|rgb|hsl|\{color\.)/.test(leaf.value) ? (
               <span
+                data-bella-specimen
                 style={{
                   display: 'inline-block',
                   width: 20,
@@ -173,6 +184,7 @@ export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
                   verticalAlign: 'middle',
                 }}
               />
+              ) : null}
             </td>
             <td style={{ fontSize: 'var(--typography-font-size-sm)', padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-secondary)' }}>
               {leaf.description ?? ''}
@@ -181,5 +193,6 @@ export function TokenTable({ leaves }: { leaves: TokenLeaf[] }) {
         ))}
       </tbody>
     </table>
+    </div>
   );
 }

@@ -1,0 +1,195 @@
+/* FlowDiagram (style unify, 2026-09-22). Tokens only; the numbers in the
+ * SVG and the 60-unit travel below are viewBox geometry (the wire length),
+ * not design values. The static render is the finished frame; .play runs
+ * the reveal once, timed entirely from the motion tokens. */
+
+.figure {
+  margin: 0;
+  display: grid;
+  row-gap: var(--spacing-4);
+}
+
+.panel {
+  position: relative;
+  background: var(--color-semantic-surface-card);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-10) 0 var(--spacing-6);
+  /* timeline, from the motion tokens */
+  --d: var(--motion-duration-draw);
+  --p: var(--motion-duration-pop);
+  --s: var(--motion-stagger-min);
+  --S: var(--motion-stagger-max);
+}
+
+.flow {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.frame,
+.wire,
+.btnLine,
+.card {
+  fill: none;
+  stroke: var(--color-semantic-border-ink);
+  stroke-width: 1;
+  /* no vector-effect: non-scaling-stroke would move the dash into screen
+     units and break the pathLength-normalised draw */
+}
+
+.bar {
+  fill: var(--color-semantic-border);
+}
+
+.c1 { fill: var(--color-semantic-chip-1); }
+.c2 { fill: var(--color-semantic-chip-2); }
+.c3 { fill: var(--color-semantic-chip-3); }
+
+.btnText {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+  font-feature-settings: var(--typography-font-feature-mono);
+  fill: var(--color-semantic-chip-text);
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+/* the travelling token only exists while it travels */
+.dot {
+  opacity: 0;
+}
+
+.tok,
+.btnFill,
+.pill {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6.667%;
+  padding: 0 6.667%;
+  margin-top: var(--spacing-1);
+  text-align: center;
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+  font-feature-settings: var(--typography-font-feature-mono);
+  letter-spacing: var(--typography-letter-spacing-mono);
+  color: var(--color-semantic-text-secondary);
+}
+
+/* Replay sits under the labels in a narrow panel and moves to the top
+   corner once the figure's own width reaches 768px (breakpoint.tablet),
+   where the drawing leaves room for it */
+.figure {
+  container: flow-diagram / inline-size;
+}
+
+.replay {
+  display: flex;
+  justify-content: flex-end;
+  padding: var(--spacing-4) var(--spacing-4) 0;
+}
+
+@container flow-diagram (min-width: 768px) {
+  /* room above the drawing for the corner Replay (44px touch target plus
+     its inset), so it never meets the frames at the narrow end of this range */
+  .panel {
+    padding-top: var(--spacing-16);
+  }
+  .replay {
+    position: absolute;
+    top: var(--spacing-2);
+    right: var(--spacing-2);
+    padding: 0;
+  }
+}
+
+.caption {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+  font-feature-settings: var(--typography-font-feature-mono);
+  color: var(--color-semantic-text-secondary);
+  text-align: center;
+}
+
+/* ---- the reveal ---- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .armed .frame,
+  .armed .wire,
+  .armed .card {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  .armed .tok,
+  .armed .fade,
+  .armed .btnFill,
+  .armed .btnText,
+  .armed .pill {
+    opacity: 0;
+  }
+}
+
+.play .frame,
+.play .wire,
+.play .card {
+  stroke-dasharray: 1;
+}
+
+.play .frame { animation: draw var(--d) var(--motion-easing-draw) both; }
+.play .d1 { animation-delay: var(--s); }
+.play .d2 { animation-delay: calc(var(--s) * 2); }
+
+.play .tok { animation: pop var(--p) var(--motion-easing-pop) both; }
+.play .t1 { animation-delay: var(--d); }
+.play .t2 { animation-delay: calc(var(--d) + var(--S)); }
+.play .t3 { animation-delay: calc(var(--d) + var(--S) * 2); }
+
+.play .fade { animation: fade var(--p) var(--motion-easing-standard) both calc(var(--d) + var(--S) * 3); }
+
+.play .w1 { animation: draw var(--p) var(--motion-easing-draw) both calc(var(--d) + var(--S) * 3 + var(--p)); }
+.play .m1 { animation: travel var(--d) var(--motion-easing-draw) both calc(var(--d) + var(--S) * 3 + var(--p)); }
+.play .btnFill { animation: pop var(--p) var(--motion-easing-pop) both calc(var(--d) * 2 + var(--S) * 3 + var(--p)); }
+.play .btnText { animation: fade var(--p) var(--motion-easing-standard) both calc(var(--d) * 2 + var(--S) * 4 + var(--p)); }
+
+.play .w2 { animation: draw var(--p) var(--motion-easing-draw) both calc(var(--d) * 2 + var(--S) * 4 + var(--p) * 2); }
+.play .m2 { animation: travel var(--d) var(--motion-easing-draw) both calc(var(--d) * 2 + var(--S) * 4 + var(--p) * 2); }
+.play .card { animation: draw var(--d) var(--motion-easing-draw) both calc(var(--d) * 3 + var(--S) * 4 + var(--p) * 2); }
+.play .k2 { animation-delay: calc(var(--d) * 3 + var(--S) * 4 + var(--p) * 2 + var(--s)); }
+.play .pill { animation: pop var(--p) var(--motion-easing-pop) both calc(var(--d) * 3 + var(--S) * 5 + var(--p) * 2); }
+
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 60 = the wire length in viewBox units */
+@keyframes travel {
+  0% { opacity: 0; transform: translateX(0); }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(60px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play * {
+    animation: none !important;
+  }
+  .replay {
+    display: none;
+  }
+}

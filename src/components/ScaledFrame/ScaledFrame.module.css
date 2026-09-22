@@ -1,0 +1,26 @@
+/* ScaledFrame (ported from the portfolio, 2026-09-21). The frame reserves
+ * the design aspect ratio; the canvas lays out at its design size from the
+ * top-left corner and is scaled to the frame's width, so nothing crops. */
+
+.frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  box-sizing: border-box;
+}
+
+.iframe {
+  border: 0;
+  display: block;
+}
+
+.static {
+  pointer-events: none;
+}

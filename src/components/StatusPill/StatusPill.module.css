@@ -10,8 +10,9 @@
  * Recorded divergences from the portfolio original:
  * - label size is the 13px tag token: the portfolio's 11px is its own
  *   recorded exception, and BELLA's hard floor is 13px
- * - tracking is letter-spacing.wide (0.08em): the portfolio's 0.12em
- *   literal has no token
+ * - Geist Mono, sentence case, no tracking (style unify, 2026-09-22):
+ *   a status word is a meta label; the accent pill is an ochre
+ *   fill with ink text (brand refresh, 2026-09-22)
  * - washes compose from the state tokens via color-mix (the Card border
  *   pattern); no new alpha primitives invented
  */
@@ -25,8 +26,8 @@
   font-family: var(--component-status-pill-font-family);
   font-size: var(--component-status-pill-font-size);
   font-weight: var(--component-status-pill-font-weight);
-  letter-spacing: var(--typography-letter-spacing-wide);
-  text-transform: uppercase;
+  letter-spacing: var(--component-status-pill-letter-spacing);
+  font-feature-settings: var(--component-status-pill-font-feature-settings);
   white-space: nowrap;
   cursor: default;
   color: var(--color-semantic-text-secondary);
@@ -34,9 +35,8 @@
 }
 
 .accent {
-  color: var(--color-semantic-text-accent);
-  border-color: var(--color-semantic-accent-border);
-  background: transparent;
+  color: var(--component-status-pill-accent-foreground);
+  background: var(--component-status-pill-accent-background);
 }
 
 .success {

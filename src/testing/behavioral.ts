@@ -83,3 +83,29 @@ export function expectTouchTarget(el: HTMLElement, floor = 44): void {
   const rect = el.getBoundingClientRect();
   expect(rect.height).toBeGreaterThanOrEqual(floor);
 }
+
+/** Every raster <img> under root has loaded at a natural width of at least
+ * 2x its rendered width (vector sources are exempt: they have no natural
+ * resolution to run out of). The cover-slot sharpness contract. Under
+ * object-fit: contain the rendered width is the painted image, not the box:
+ * a portrait screen in a 16:10 well paints narrower than its element. */
+export async function expectSharpImages(root: HTMLElement): Promise<void> {
+  const imgs = Array.from(root.querySelectorAll('img')).filter(
+    (i) => !/\.svg($|\?)|^data:image\/svg/.test(i.currentSrc || i.src)
+  );
+  /* lazy images below the fold never start loading on their own: force them */
+  for (const i of imgs) i.loading = 'eager';
+  await Promise.all(imgs.map((i) => i.decode().catch(() => null)));
+  for (const i of imgs) {
+    const box = i.getBoundingClientRect();
+    const rendered =
+      getComputedStyle(i).objectFit === 'contain' && i.naturalHeight > 0
+        ? Math.min(box.width, (box.height * i.naturalWidth) / i.naturalHeight)
+        : box.width;
+    if (rendered === 0) continue;
+    expect(
+      i.naturalWidth,
+      `${i.src.split('/').pop()}: natural ${i.naturalWidth}px vs rendered ${Math.round(rendered)}px`
+    ).toBeGreaterThanOrEqual(rendered * 2);
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent } from 'storybook/test';
 import {
   expectKeyboardOperable,
   expectVisibleFocus,
@@ -113,7 +113,7 @@ export const Shape: Story = {
           style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}
         >
           <Button variant="primary" shape={shape} onClick={() => {}}>
-            Get in touch
+            Let's talk
           </Button>
           <Button variant="secondary" shape={shape} onClick={() => {}}>
             See the system
@@ -127,8 +127,8 @@ export const Shape: Story = {
   ),
   play: async ({ canvas, step }) => {
     await step('pill: fully rounded, name read once', async () => {
-      const [square, pill] = canvas.getAllByRole('button', { name: 'Get in touch' });
-      expect(pill).toHaveAccessibleName('Get in touch');
+      const [square, pill] = canvas.getAllByRole('button', { name: "Let's talk" });
+      expect(pill).toHaveAccessibleName("Let's talk");
       expect(getComputedStyle(pill).borderTopLeftRadius).not.toBe(
         getComputedStyle(square).borderTopLeftRadius
       );
@@ -194,5 +194,36 @@ export const Behavior: Story = {
       expect(canvas.queryAllByRole('button')).toHaveLength(1);
       expect(canvas.queryAllByRole('link')).toHaveLength(0);
     });
+  },
+};
+
+/** Brand refresh (2026-09-22): the ring means focus only, hover is a
+ * small shift per tier, and there is no accent colour at rest. */
+export const RingAndHover: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Button variant="primary" onClick={() => {}}>Let's talk</Button>
+      <Button variant="secondary" onClick={() => {}}>See the work</Button>
+      <Button variant="tertiary" onClick={() => {}}>Read the case</Button>
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    const [primary, secondary, tertiary] = canvas.getAllByRole('button');
+    await step('no ring at rest on any tier', async () => {
+      for (const b of [primary, secondary, tertiary]) {
+        await expect(getComputedStyle(b).outlineStyle).toBe('none');
+      }
+    });
+    await step('keyboard focus: 3px ring, 3px offset', async () => {
+      await userEvent.tab();
+      const cs = getComputedStyle(primary);
+      await expect(cs.outlineStyle).toBe('solid');
+      await expect(parseFloat(cs.outlineWidth)).toBe(3);
+      await expect(parseFloat(cs.outlineOffset)).toBe(3);
+      primary.blur();
+    });
+    /* hover (secondary outline to ink, tertiary underline to 2px) is
+       verified with a real pointer outside the play function: synthetic
+       userEvent.hover never triggers CSS :hover */
   },
 };

@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { PageIntro, DoDont, TokenChip } from '../docs/DocBlocks';
+import { AssetGrid, AssetTile } from '../docs/BrandBlocks';
+import faviconSvg from '../assets/brand/favicon/favicon.svg';
+import favicon32 from '../assets/brand/favicon/favicon-32.png';
+import favicon16 from '../assets/brand/favicon/favicon-16.png';
+import touch from '../assets/brand/favicon/apple-touch-icon.png';
+import icon512 from '../assets/brand/favicon/icon-512.png';
+import ico from '../assets/brand/favicon/favicon.ico';
+
+<Meta title="Brand/Favicon" />
+
+<PageIntro title="Favicon">
+  The wordmark's E, cut through with the pattern, on a cream rounded square.
+  A 1px <TokenChip token="color.brand.ochre-deep" /> edge keeps it from
+  melting into light tabs.
+</PageIntro>
+
+## The files
+
+One generator, one fixed seed (189), so the pattern never changes between
+builds. The seed was picked by measurement, not by eye:
+`scripts/score-favicon-seeds.mjs` renders seeds 1 to 200 at 32px and keeps
+the one with no cream and mostly ochre, blue or pink under every bar and the
+stem (the middle bar counts double). `npm run build` writes the SVG (and the gate checks it has not
+drifted); `npm run build:favicons` rasterises the PNGs and packs the ICO.
+
+<AssetGrid>
+  <AssetTile src={faviconSvg} alt="Favicon, the pattern E on cream" ground="light" label="favicon.svg" height={96} download="favicon.svg" />
+  <AssetTile src={icon512} alt="Favicon at 512px" ground="panel" label="icon-512.png" height={128} download="icon-512.png" format="PNG" />
+  <AssetTile src={touch} alt="Apple touch icon at 180px" ground="light" label="apple-touch-icon.png (180)" height={96} download="apple-touch-icon.png" format="PNG" />
+  <AssetTile src={favicon32} alt="Favicon at 32px" ground="light" label="favicon-32.png" height={32} download="favicon-32.png" format="PNG" />
+  <AssetTile src={favicon16} alt="Favicon at 16px" ground="light" label="favicon-16.png" height={16} download="favicon-16.png" format="PNG" />
+  <AssetTile src={favicon32} alt="Favicon at 32px on a dark tab" ground="dark" label="favicon.ico (16 + 32)" height={32} />
+</AssetGrid>
+
+<a href={ico} download="favicon.ico">Download favicon.ico</a>
+
+## In the head
+
+```html
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest"> <!-- icon-512.png -->
+```
+
+## Do and don't
+
+<DoDont
+  doItems={[
+    'Regenerate with the script; never edit the files by hand',
+    'Keep the seed fixed at 7',
+    'Ship the SVG and the ICO together: older browsers take the ICO',
+  ]}
+  dontItems={[
+    "Don't drop the ochre-deep edge: without it the square melts into light tabs",
+    "Don't swap the letter or the ground colour",
+    "Don't reroll the favicon pattern",
+  ]}
+/>

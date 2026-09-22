@@ -25,16 +25,16 @@ const consumedTokens = Array.from(
 const cardContract = (componentContract as any).component?.card?.$extensions?.bella ?? {};
 
 /* A self-contained SVG cover (data URI) so the media stories need no network
- * and no binary fixtures, iris-to-navy, the brand's own gradient. */
+ * and no binary fixtures, ochre-to-ink, the brand's own colours. */
 const cover =
   'data:image/svg+xml;utf8,' +
   encodeURIComponent(
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100">
       <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#7A6BE8"/><stop offset="1" stop-color="#1B1B40"/>
+        <stop offset="0" stop-color="#e8a83e"/><stop offset="1" stop-color="#121212"/>
       </linearGradient></defs>
       <rect width="160" height="100" fill="url(#g)"/>
-      <circle cx="122" cy="30" r="34" fill="#A79CE2" opacity="0.55"/>
+      <circle cx="122" cy="30" r="34" fill="#f4ecd6" opacity="0.55"/>
     </svg>`
   );
 

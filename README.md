@@ -23,13 +23,13 @@ It powers:
 
 ## The identity, in five tokens
 
-- `color.brand.ground` `#F5F4EF` — warm off-white canvas; pure white is banned
-- `color.brand.ink` `#1A1720` — near-black with a warm plum undertone
-- `color.night.ground` `#110F0D`: dark mode is a warm near-black ground (cards `#1B1916`), not navy; navy `#1B1B40` stays for the footer, dark text-on-accent, and light surface-inverse
-- `color.brand.iris` `#5B4BD1` — the single accent; at body scale it means *interactive*
-- `color.brand.periwinkle` `#A79CE2` — the same accent, seen in the dark; the two always theme-flip
+- `color.light.bg` `#ffffff` and `color.light.panel` `#f2f2f2` — the white page and its one step down
+- `color.light.ink` `#121212` — near-black ink; links and button labels are ink
+- `color.dark.bg` `#0d0d0d` — the neutral dark page; elevation climbs lighter
+- `color.brand.ochre` `#e8a83e` — the single accent, a fill with ink text; `ochre-deep` `#b97a14` is its line and focus ring on light
+- `color.pattern.*` — the brand pattern, in the wordmark and (grey) behind page openings
 
-Two typefaces, locked: **Unique** (700, display only, never below 24px) and **Geist** (everything else). No mono face — the eyebrow look is caps + tracking.
+Type is **Geist** (Light 300 headings, 500 titles, 400 body) and **Geist Mono** for eyebrows and meta labels. The logo is the BrandWordmark: custom E, L, T, A, B strokes filled with the pattern.
 
 ## Install
 
@@ -155,12 +155,13 @@ v0.3: the 2026-07 identity. Tokens complete across all three tiers with verified
 
 Unreleased on top of 0.3.0:
 
-- **12 React components** in `src/components/`: Avatar, Button, Card, FilterChip, Heading, Icon, Input, ResourceCard, SegmentedControl, Select, StatusPill, Tag. Each has a Tier 3 contract in `tokens/component.json`, a Behavior story, and light and dark baselines. `scripts/contract-parity.mjs` fails CI if a contract and its component's API disagree.
+- **React components** in `src/components/`: Avatar, BrandWordmark, Button, Card, Eyebrow, FilterChip, Heading, Icon, Input, Link, PatternField, ResourceCard, ScaledFrame, SectionHeader, SegmentedControl, Select, StatusPill, Tag. Each has a Tier 3 contract in `tokens/component.json`, a Behavior story, and light and dark baselines. `scripts/contract-parity.mjs` fails CI if a contract and its component's API disagree.
 - **Storybook is the doc site**, published to [GitHub Pages](https://emcdanie.github.io/bella/) after the gate passes, with foundations, accessibility and governance pages. In dev it serves an MCP endpoint (`@storybook/addon-mcp`) for agents.
 - **One gate**, `npm run gate`: build, drift diff, contract parity, interaction and axe tests, theme integrity, visual snapshots and `audit:quality`.
 - **`bella.dsds.yaml`**: the system described in the Design System Docs Spec, generated and drift-checked.
+- **Brand refresh (2026-09-22)**: ochre replaces the iris / periwinkle accent; the BrandWordmark (ELLETA, BELLA) and PatternField components; a pattern-E favicon; `scripts/contrast-pairs.mjs` in the gate. The style unify the same day moved type to Geist Light / Geist Mono and the palette to neutral light and dark.
 
-Not yet: components for the eyebrow, link, nav-link, section and modal contracts; a BELLA-native status ladder; Figma library sync; npm publication.
+Not yet: components for the nav-link, section, modal and callout contracts; a BELLA-native status ladder; Figma library sync; npm publication.
 
 ## Contributing
 

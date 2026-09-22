@@ -113,7 +113,7 @@ export const Shape: Story = {
           style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}
         >
           <Button variant="primary" shape={shape} onClick={() => {}}>
-            Get in touch
+            Let's talk
           </Button>
           <Button variant="secondary" shape={shape} onClick={() => {}}>
             See the system
@@ -127,8 +127,8 @@ export const Shape: Story = {
   ),
   play: async ({ canvas, step }) => {
     await step('pill: fully rounded, name read once', async () => {
-      const [square, pill] = canvas.getAllByRole('button', { name: 'Get in touch' });
-      expect(pill).toHaveAccessibleName('Get in touch');
+      const [square, pill] = canvas.getAllByRole('button', { name: "Let's talk" });
+      expect(pill).toHaveAccessibleName("Let's talk");
       expect(getComputedStyle(pill).borderTopLeftRadius).not.toBe(
         getComputedStyle(square).borderTopLeftRadius
       );

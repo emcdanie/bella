@@ -8,7 +8,7 @@ export interface SectionHeaderProps {
   eyebrow?: ReactNode;
   /** The heading text. */
   heading: ReactNode;
-  /** One accent segment after the heading (the iris word), e.g. a glossary term. */
+  /** One accent segment after the heading (the muted half-line), e.g. a glossary term. */
   accent?: ReactNode;
   /** Text after the accent in the primary ink (e.g. a full stop). */
   after?: ReactNode;

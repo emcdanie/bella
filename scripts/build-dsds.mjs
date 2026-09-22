@@ -38,7 +38,7 @@ for (const layer of ['primitive', 'semantic', 'component']) {
 }
 
 // DSDS id from bella.json's own addressing scheme:
-//   primitive.color.brand.iris -> color.brand.iris      (the alias form bella.json itself uses)
+//   primitive.color.brand.ochre -> color.brand.ochre    (the alias form bella.json itself uses)
 //   semantic.accent            -> color.semantic.accent (ditto, see component token $values)
 //   component.button.primary.* -> component.button.primary.*
 function idFor(segs) {
@@ -348,7 +348,7 @@ const system = {
     {
       kind: 'guidelines', for: 'all', title: 'Token-first',
       items: [
-        { level: 'must', statement: 'Reference tokens by path (`color.brand.iris`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.', checkedBy: 'manual' },
+        { level: 'must', statement: 'Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.', checkedBy: 'manual' },
         { level: 'must', statement: 'When the token you need does not exist yet, stop and ask.', checkedBy: 'manual' },
         { level: 'must', statement: 'A value written `TBD` in the token JSON is a genuine unknown. Stop and ask; do not fill it in.', checkedBy: 'manual' },
         { level: 'must-not',
@@ -375,14 +375,14 @@ const system = {
 const themes = [
   {
     kind: 'theme', id: 'light', name: 'Light',
-    description: 'The default theme. Warm off-white ground, plum-black ink, iris as the single accent.',
+    description: 'The default theme. A white page, neutral panels, near-black ink, ochre as the single accent (a fill, with ink text).',
     metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['theme'] },
     colorScheme: 'light',
     source: { href: './tokens/semantic/light.json', rel: 'file', role: 'DTCG source for this theme’s semantic values.' },
   },
   {
     kind: 'theme', id: 'dark', name: 'Dark',
-    description: 'Navy, not black. Elevation climbs lighter, and the accent flips from iris to periwinkle.',
+    description: 'Neutral near-black. Elevation climbs lighter (surface, inset, raised); ochre stays the accent and becomes the focus ring.',
     metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['theme'] },
     extends: [{ to: 'light', rel: 'extends' }],
     colorScheme: 'dark',
@@ -393,17 +393,17 @@ const themes = [
 const foundations = [
   {
     kind: 'entry', id: 'foundation-color', name: 'Colour',
-    description: 'A named-colour brand model, one theme-flipping accent, and warm neutrals in place of pure white and pure black.',
+    description: 'Neutral light and dark steps, one accent (ochre, a fill), three chip fills, and a brand pattern. Colour lives in fills, never in strokes or body text, except the focus ring.',
     metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['foundation', 'color'] },
     sections: [
       {
         kind: 'guidelines', for: 'all', title: 'The palette is decided',
         items: [
-          { level: 'must', statement: 'Dark mode is navy (`color.brand.navy`), and dark elevation MUST climb lighter: page, then `color.navy.card`, then `color.navy.raised`.', checkedBy: 'manual' },
+          { level: 'must', statement: 'Dark elevation MUST climb lighter on neutral greys: page `color.dark.bg`, then `color.dark.surface`, `color.dark.inset`, `color.dark.raised`.', checkedBy: 'manual' },
           { level: 'may', statement: 'White alpha is permitted as a translucent glass overlay only; the warmth comes from the ground showing through.', checkedBy: 'manual' },
           { level: 'should-not', statement: 'Supporting `steel` and `sage` are carried from the April identity for status states in non-text roles only. Do not design new status UI around them without asking.', checkedBy: 'manual' },
-          { level: 'must-not', statement: '`#ffffff` is banned as a solid fill. The default canvas is `color.brand.ground`; cards and raised surfaces are `color.neutral.paper`, separated from the page by lift and shadow, not darkness.', checks: [QUALITY_CHECK], checkedBy: 'automated' },
-          { level: 'must-not', statement: 'Iris and periwinkle are one accent in two modes. Never two accents, and never paired with a second accent colour. Amber is retired.', checkedBy: 'manual' },
+          { level: 'must-not', statement: 'Pure white is the light page ground (`color.light.bg`) and nothing else: panels, cards and chips step down from it.', checkedBy: 'assisted' },
+          { level: 'must-not', statement: 'Ochre (`color.brand.ochre`) is the one accent: a fill, always with ink text (9.01:1), never text or a hairline on light (2.08:1). Iris and periwinkle are retired (2026-09-22).', checkedBy: 'assisted' },
         ],
       },
       {
@@ -416,7 +416,7 @@ const foundations = [
       },
     ],
     refs: [
-      { to: 'color.brand.iris', rel: 'composes', note: 'One member of the `color.brand` group. Every token whose `metadata.group` starts with `color` is part of this foundation; DSDS has no token-group entity to point at as a unit, so the group name is the only handle.' },
+      { to: 'color.brand.ochre', rel: 'composes', note: 'One member of the `color.brand` group. Every token whose `metadata.group` starts with `color` is part of this foundation; DSDS has no token-group entity to point at as a unit, so the group name is the only handle.' },
     ],
   },
   {
@@ -485,14 +485,14 @@ const shared = [
             evidence: [{ href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-enhanced.html', rel: 'external-link', role: 'WCAG 2.2 SC 1.4.6 (AAA)' }],
             checkedBy: 'assisted', tags: ['accessibility', 'contrast'] },
           { id: 'aa-where-the-accent-speaks', level: 'must',
-            statement: 'Accent text, buttons, and links MUST be AA-verified per token. Iris tops out at 5.96:1 on light surfaces, so AAA accent text is not attainable and is not the bar.',
+            statement: 'Links and button labels are ink, so they hold AAA. The accent is a fill with ink text (9.01:1); the focus ring MUST clear 3:1 on every surface it can sit on (ochre-deep 3.20:1 on the light panel, ochre 7.28:1 on the dark raised surface). scripts/contrast-pairs.mjs checks every declared pair in both themes.',
             evidence: [{ href: 'https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html', rel: 'external-link', role: 'WCAG 2.2 SC 1.4.3 (AA)' }],
             checkedBy: 'assisted', tags: ['accessibility', 'contrast'] },
           { id: 'worst-ground-wins', level: 'must',
             statement: 'A text token MUST pass AA normal text on the worst surface it is allowed to sit on, or its usage metadata MUST forbid that surface. Verified ratios are recorded per token, dated.',
             checkedBy: 'assisted', tags: ['accessibility', 'contrast'] },
           { id: 'the-accent-always-theme-flips', level: 'must-not',
-            statement: 'Iris in light, periwinkle in dark. Each fails its opposite ground so hard (2.64:1 and 2.24:1) that it MUST NOT appear there even as decoration; the failure includes the 3:1 non-text minimum.',
+            statement: 'Ochre MUST NOT be text, a hairline or a ring on light surfaces: 2.08:1 on white and 1.86:1 on panel fail both 4.5:1 and the 3:1 non-text minimum. On light, lines and the focus ring are ochre-deep. The ring means focus only, never decoration at rest.',
             checkedBy: 'assisted', tags: ['accessibility', 'contrast'] },
         ],
       },

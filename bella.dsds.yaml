@@ -40,7 +40,7 @@ entries:
         title: Token-first
         items:
           - level: must
-            statement: Reference tokens by path (`color.brand.iris`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.
+            statement: Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.
             checkedBy: manual
           - level: must
             statement: When the token you need does not exist yet, stop and ask.
@@ -104,7 +104,7 @@ entries:
           - level: may
             statement: Inverse (dark) sections embedded in light pages
           - level: may
-            statement: Light-mode link color (affordance is underline + iris hover)
+            statement: Legacy light-mode link colour (affordance is the underline)
       - kind: guidelines
         for: all
         title: How to use it
@@ -135,9 +135,8 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: "as text on iris #5B4BD1 5.66:1 (AA), on iris.deep hover #4C3EB8 7.09:1 (AAA)."
+        - by: human:elleta
+          note: Legacy value; the current ratios live on the semantic tokens.
       tags:
         - primitive
         - color
@@ -151,7 +150,7 @@ entries:
           - level: may
             statement: Light mode page background
           - level: may
-            statement: Text on iris fills (primary button label)
+            statement: "Legacy: the 2026-07 primary button label"
           - level: may
             statement: Text color on navy where navy.ink is too bright
       - kind: guidelines
@@ -184,9 +183,8 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: "as text on periwinkle #A79CE2 6.65:1 (AA normal, AAA large), on periwinkle hover #B9B0E9 8.18:1 (AAA)."
+        - by: human:elleta
+          note: Legacy value; the current ratios live on the semantic tokens.
       tags:
         - primitive
         - color
@@ -200,15 +198,19 @@ entries:
           - level: may
             statement: Site footer
           - level: may
-            statement: Text on periwinkle fills (dark primary button label)
+            statement: "Legacy: the 2026-07 dark primary button label"
       - kind: guidelines
         for: all
         title: How to use it
         items:
           - level: must-not
-            statement: Do not use iris text on navy — 2.64:1 fails everything; the accent flips to periwinkle
+            statement: "Legacy: not referenced by the current accent (ochre)"
           - level: must-not
             statement: Do not use as a light-mode text color
+    related:
+      - to: color.brand.ochre
+        rel: relates-to
+        note: the current accent
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -414,7 +416,7 @@ entries:
       reviewed:
         - date: "2026-09-19"
           by: human:elleta
-          note: ink 14.83:1, ink-muted 7.69:1 (AAA); ink-faint 4.64:1, iris 5.22:1 (AA normal text).
+          note: ink 14.83:1, ink-muted 7.69:1 (AAA); ink-faint 4.64:1 (AA normal text).
       tags:
         - primitive
         - color
@@ -887,7 +889,7 @@ entries:
       reviewed:
         - date: "2026-09-19"
           by: human:elleta
-          note: navy.ink 16.70:1, navy.text-muted 6.58:1, periwinkle 7.74:1.
+          note: navy.ink 16.70:1, navy.text-muted 6.58:1.
       tags:
         - primitive
         - color
@@ -1940,7 +1942,7 @@ entries:
   - kind: token
     id: color.alpha.key-20
     name: Key 20
-    description: "Ink at 20%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    description: "Ink at 20%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -1966,7 +1968,7 @@ entries:
   - kind: token
     id: color.alpha.key-24
     name: Key 24
-    description: "Ink at 24%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    description: "Ink at 24%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -1992,7 +1994,7 @@ entries:
   - kind: token
     id: color.alpha.key-28
     name: Key 28
-    description: "Ink at 28%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    description: "Ink at 28%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -7057,7 +7059,7 @@ entries:
   - kind: token
     id: color.semantic.accent-subtle
     name: Accent Subtle
-    description: Neutral selected wash (brand refresh, 2026-09-22, Elleta; was the iris wash).
+    description: Neutral selected wash (brand refresh, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7087,7 +7089,7 @@ entries:
   - kind: token
     id: color.semantic.accent-border
     name: Accent Border
-    description: Control-weight edge for a selected item (brand refresh, 2026-09-22, Elleta; was iris 30%).
+    description: Control-weight edge for a selected item (brand refresh, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7629,7 +7631,7 @@ entries:
   - kind: token
     id: color.semantic.accent-raised-hi
     name: Accent Raised Hi
-    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -7655,7 +7657,7 @@ entries:
   - kind: token
     id: color.semantic.accent-raised-lo
     name: Accent Raised Lo
-    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -7707,7 +7709,7 @@ entries:
   - kind: token
     id: color.semantic.accent-raised-edge
     name: Accent Raised Edge
-    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -12619,7 +12621,7 @@ entries:
   - kind: theme
     id: light
     name: Light
-    description: The default theme. Warm off-white ground, plum-black ink, iris as the single accent.
+    description: The default theme. A white page, neutral panels, near-black ink, ochre as the single accent (a fill, with ink text).
     metadata:
       origin:
         method: extracted
@@ -12634,7 +12636,7 @@ entries:
   - kind: theme
     id: dark
     name: Dark
-    description: Navy, not black. Elevation climbs lighter, and the accent flips from iris to periwinkle.
+    description: Neutral near-black. Elevation climbs lighter (surface, inset, raised); ochre stays the accent and becomes the focus ring.
     metadata:
       origin:
         method: extracted
@@ -12681,6 +12683,8 @@ entries:
             statement: Contact send
           - level: may
             statement: Nav call to action (shape pill)
+          - level: may
+            statement: The primary contact CTA reads "Let's talk" (brand refresh, 2026-09-22)
       - kind: guidelines
         for: all
         title: Do not
@@ -13885,7 +13889,7 @@ entries:
   - kind: entry
     id: foundation-color
     name: Colour
-    description: A named-colour brand model, one theme-flipping accent, and warm neutrals in place of pure white and pure black.
+    description: Neutral light and dark steps, one accent (ochre, a fill), three chip fills, and a brand pattern. Colour lives in fills, never in strokes or body text, except the focus ring.
     metadata:
       origin:
         method: extracted
@@ -13899,7 +13903,7 @@ entries:
         title: The palette is decided
         items:
           - level: must
-            statement: "Dark mode is navy (`color.brand.navy`), and dark elevation MUST climb lighter: page, then `color.navy.card`, then `color.navy.raised`."
+            statement: "Dark elevation MUST climb lighter on neutral greys: page `color.dark.bg`, then `color.dark.surface`, `color.dark.inset`, `color.dark.raised`."
             checkedBy: manual
           - level: may
             statement: White alpha is permitted as a translucent glass overlay only; the warmth comes from the ground showing through.
@@ -13908,15 +13912,11 @@ entries:
             statement: Supporting `steel` and `sage` are carried from the April identity for status states in non-text roles only. Do not design new status UI around them without asking.
             checkedBy: manual
           - level: must-not
-            statement: "`#ffffff` is banned as a solid fill. The default canvas is `color.brand.ground`; cards and raised surfaces are `color.neutral.paper`, separated from the page by lift and shadow, not darkness."
-            checks:
-              - href: ./scripts/audit-quality-docs.mjs
-                rel: lint-rule
-                role: audit:quality
-            checkedBy: automated
+            statement: "Pure white is the light page ground (`color.light.bg`) and nothing else: panels, cards and chips step down from it."
+            checkedBy: assisted
           - level: must-not
-            statement: Iris and periwinkle are one accent in two modes. Never two accents, and never paired with a second accent colour. Amber is retired.
-            checkedBy: manual
+            statement: "Ochre (`color.brand.ochre`) is the one accent: a fill, always with ink text (9.01:1), never text or a hairline on light (2.08:1). Iris and periwinkle are retired (2026-09-22)."
+            checkedBy: assisted
       - kind: guidelines
         for: all
         title: Accessibility
@@ -13944,7 +13944,7 @@ entries:
               - to: bella-a11y#the-accent-always-theme-flips
                 rel: same-as
     refs:
-      - to: color.brand.iris
+      - to: color.brand.ochre
         rel: composes
         note: One member of the `color.brand` group. Every token whose `metadata.group` starts with `color` is part of this foundation; DSDS has no token-group entity to point at as a unit, so the group name is the only handle.
   - kind: entry
@@ -14079,7 +14079,7 @@ shared:
               - contrast
           - id: aa-where-the-accent-speaks
             level: must
-            statement: Accent text, buttons, and links MUST be AA-verified per token. Iris tops out at 5.96:1 on light surfaces, so AAA accent text is not attainable and is not the bar.
+            statement: Links and button labels are ink, so they hold AAA. The accent is a fill with ink text (9.01:1); the focus ring MUST clear 3:1 on every surface it can sit on (ochre-deep 3.20:1 on the light panel, ochre 7.28:1 on the dark raised surface). scripts/contrast-pairs.mjs checks every declared pair in both themes.
             evidence:
               - href: https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html
                 rel: external-link
@@ -14097,7 +14097,7 @@ shared:
               - contrast
           - id: the-accent-always-theme-flips
             level: must-not
-            statement: Iris in light, periwinkle in dark. Each fails its opposite ground so hard (2.64:1 and 2.24:1) that it MUST NOT appear there even as decoration; the failure includes the 3:1 non-text minimum.
+            statement: "Ochre MUST NOT be text, a hairline or a ring on light surfaces: 2.08:1 on white and 1.86:1 on panel fail both 4.5:1 and the 3:1 non-text minimum. On light, lines and the focus ring are ochre-deep. The ring means focus only, never decoration at rest."
             checkedBy: assisted
             tags:
               - accessibility

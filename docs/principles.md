@@ -11,7 +11,7 @@ That translates to concrete choices:
 - Generous vertical rhythm. Sections breathe.
 - Strong weight contrast — 400 body against 700 heads, not a muddy 500/600 middle.
 - Rules and margins as composition, not as decoration.
-- Restrained accent color. One iris, flipping to periwinkle in the dark, does more than a six-color palette. At body scale the accent means INTERACTIVE, and only that.
+- Restrained accent colour. One ochre, used as a fill, does more than a six-colour palette. Interaction is ink and an underline; the ochre ring means focus.
 
 ## Anti-generic-AI
 
@@ -27,16 +27,14 @@ What that means in practice:
 
 Warmth in BELLA comes from type, surface color, and pacing — not from decoration. The 3D language — orbs, keycaps, one upper-left light source — is earned depth with recorded shadow tokens, not decoration; do not flatten it and do not sprinkle it.
 
-## Warm neutrals over pure white; navy over black
+## A white page, neutral steps, one ochre accent
 
-`#ffffff` reads as *unstyled*. It's the color of an empty Figma frame, a default browser page, a ChatGPT response. BELLA's canvas is `color.brand.ground` (`#F5F4EF`) — warm enough to feel like paper, neutral enough to stay out of the way. Cards are `color.neutral.paper` (`#FAFAF8`), separated by lift and shadow, not darkness.
+The page is white (`color.light.bg`) and everything raised steps down to one neutral panel (`color.light.panel`, `#f2f2f2`); dark mode is a neutral near-black (`color.dark.bg`, `#0d0d0d`) whose elevation climbs lighter. White appears as the page ground and nowhere else (style unify and brand refresh, 2026-09-22; this reverses the 2026-07 warm-neutral rule).
 
-The rule is absolute: no pure white as a solid fill anywhere. Not in modals, not in cards on dark backgrounds, not in print exports. White alpha exists only as translucent glass — the warmth comes from ground showing through.
+The one accent is ochre (`color.brand.ochre`), and it is a fill with ink text, never text on light. Colour otherwise lives in the brand pattern, not in the interface.
 
-Dark mode gets the same conviction: navy (`#1B1B40`), not black. Dark elevation climbs lighter instead of stacking shadows on shadow.
-
-<!-- TODO(elleta): the identity voice paragraph — what iris/periwinkle-on-navy
-     says that amber-on-parchment didn't. The palette facts are recorded in
+<!-- TODO(elleta): the identity voice paragraph — what ochre and the pattern
+     say that iris-on-navy didn't. The palette facts are recorded in
      primitive.json; the why-it-feels-right is yours. -->
 
 ## Accessible on purpose, at a recorded bar

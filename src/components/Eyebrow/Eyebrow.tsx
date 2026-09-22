@@ -12,7 +12,7 @@ export interface EyebrowProps {
 
 /**
  * Eyebrow (style unify, 2026-09-22): the Geist Mono label above a heading.
- * 13px, ss09, no tracking, no caps. Never iris: wayfinding is not action.
+ * 13px, ss09, no tracking, no caps. Never an accent: wayfinding is not action.
  */
 export default function Eyebrow({ variant = 'muted', as: Tag = 'p', className, children }: EyebrowProps) {
   return (

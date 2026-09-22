@@ -9,8 +9,9 @@ export default meta;
 
 const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' };
 
-/** The palette the semantic tier reads (style unify, 2026-09-22): neutral
- * light and dark steps, three chip fills, one accent in two modes. */
+/** The palette the semantic tier reads (style unify and brand refresh,
+ * 2026-09-22): neutral light and dark steps, three chip fills, the brand
+ * pattern, one accent (ochre). */
 export const Palette: StoryObj = {
   render: () => (
     <div>
@@ -24,30 +25,34 @@ export const Palette: StoryObj = {
         fills, never in strokes or body text.
       </p>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.chip')} />
+      <SectionTitle>Pattern</SectionTitle>
+      <p style={note}>
+        The brand pattern's colours: the wordmark, PatternField and the favicon only.
+        Never a UI or state colour, never recoloured.
+      </p>
+      <SwatchGrid leaves={leavesUnder(primitive, 'color.pattern')} />
       <SectionTitle>Accent</SectionTitle>
       <p style={note}>
-        Iris in light, periwinkle in dark: one accent, interactive only (links and
-        the focus ring).
+        Ochre is the one accent: a fill with ink text. On light, its lines and the
+        focus ring are ochre-deep. It is never text on a light surface.
       </p>
       <SwatchGrid
-        leaves={leavesUnder(primitive, 'color.brand').filter((l) => /iris|periwinkle/.test(l.path))}
+        leaves={leavesUnder(primitive, 'color.brand').filter((l) => /ochre/.test(l.path))}
       />
     </div>
   ),
 };
 
 /** The 2026-07 identity primitives, kept for legacy consumers. The semantic
- * tier no longer reads them, except navy as the dark text-on-accent. */
+ * tier no longer reads them. */
 export const Legacy: StoryObj = {
   render: () => (
     <div>
       <SectionTitle>2026-07 brand</SectionTitle>
       <p style={note}>Kept for legacy consumers; not read by the semantic tier.</p>
       <SwatchGrid
-        leaves={leavesUnder(primitive, 'color.brand').filter((l) => !/iris|periwinkle/.test(l.path))}
+        leaves={leavesUnder(primitive, 'color.brand').filter((l) => !/ochre/.test(l.path))}
       />
-      <SectionTitle>Iris / periwinkle ramp</SectionTitle>
-      <SwatchGrid leaves={leavesUnder(primitive, 'color.iris')} />
       <SectionTitle>Warm neutrals</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.neutral')} />
       <SectionTitle>Navy scale</SectionTitle>

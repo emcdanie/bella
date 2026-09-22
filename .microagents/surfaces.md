@@ -27,7 +27,7 @@ Pick the tier before picking the radius. Radius, shadow, and blur move together 
 ## When NOT to use glass
 
 - **Never glass on glass.** A glass card inside a glass card produces mud. If a card needs sub-sections, use solid surface panels inside.
-- **Never glass over colored surfaces.** Glass is designed for ground (light mode) or the warm dark ground (dark mode). Placing glass over saturated fills (iris, periwinkle, steel, sage) breaks the warmth model and makes text-contrast against the layer underneath unpredictable.
+- **Never glass over colored surfaces.** Glass is designed for the page ground (light or dark). Placing glass over saturated fills (ochre, the chip fills, the pattern, steel, sage) breaks the surface model and makes text-contrast against the layer underneath unpredictable.
 - **Never glass over a busy photo.** If you have an image backdrop, use a solid surface with `shadow.soft` instead — a frost won't save the readability.
 
 Solid surface + shadow is the right answer whenever glass isn't.
@@ -63,8 +63,8 @@ In dark mode the rules flip:
 
 - Glass opacity goes from white-alpha to **warm-dark-alpha**: `night-60 / night-48 / night-32` for glass / elevated / light. Ground isn't beneath, the warm dark ground (`#110F0D`) is, so the dark card (`#1B1916`) at alpha reads as a lighter panel floating over the page. The navy alphas are no longer the dark glass (2026-09-19).
 - **Shadow tint carries over.** The same cool violet-ink shadow family works on the dark ground. Do not swap to pure-black shadows.
-- A **periwinkle-tinted glass variant** is available for active / selected states only: `surface.glass-accent` (periwinkle at 15% over the dark card). Use sparingly: a selected nav item, an active filter chip, a playing track. Never as a default surface.
-- Text on dark glass: `navy.ink` (`#F4EFE6`) is primary. `iris.peri-ink` (`#B4ADE8`, 9.18:1 on the dark ground, AAA) for accent emphasis spans; `periwinkle` itself is 7.74:1 on the ground and 7.10:1 on the card (verified 2026-09-19). Nothing else.
+- An **ochre-tinted glass variant** is available for active / selected states only: `surface.glass-accent` (ochre at 15%, `color.alpha.ochre-15`, brand refresh 2026-09-22). Use sparingly: a selected nav item, an active filter chip, a playing track. Never as a default surface.
+- Text on dark glass: `dark.ink` (`#ededed`) is primary and `dark.muted` (`#b1b1b1`) secondary. Ochre is never text on glass; it is a fill. Nothing else.
 
 ## Motion and reduced-motion (WCAG 2.3.3 AAA)
 

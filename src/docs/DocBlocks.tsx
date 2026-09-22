@@ -70,8 +70,8 @@ function DoDontList({ items }: { items: string[] }) {
 }
 
 /** Paired examples. Typographic, not colour-coded: status colours are
- * non-text roles and iris at body scale means interactive, so the labels
- * carry the meaning. */
+ * non-text roles and the accent is a fill, so the labels carry the
+ * meaning. */
 export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: string[] }) {
   return (
     <div
@@ -96,8 +96,8 @@ export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: s
   );
 }
 
-/** Inline token reference. Accepts a dotted token path (color.brand.iris)
- * or a CSS custom property (--color-brand-iris). Colour tokens get a live
+/** Inline token reference. Accepts a dotted token path (color.brand.ochre)
+ * or a CSS custom property (--color-brand-ochre). Colour tokens get a live
  * swatch driven by the token's own custom property, so it flips with the
  * theme. */
 export function TokenChip({ token }: { token: string }) {

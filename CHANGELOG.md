@@ -4,6 +4,15 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Brand refresh (2026-09-22)
+- **Ochre replaces iris and periwinkle** (BREAKING): `color.brand.ochre` `#e8a83e` (a fill, always with ink text, 9.01:1) and `color.brand.ochre-deep` `#b97a14` (its line and focus ring on light). Removed: `color.brand.iris`, `color.brand.periwinkle`, the `color.iris.*` ramp and the iris / periwinkle alphas. Every semantic reference repointed; links and `text-accent` are ink.
+- **Focus ring**: 3px with a 3px offset, ochre-deep light (3.20:1 on panel) / ochre dark (8.70:1), focus-visible only.
+- **Button**: ink keycap primary (label roll and press unchanged), control-outline secondary that goes ink on hover, ink text tier whose underline thickens to 2px. The primary contact CTA reads "Let's talk".
+- **New components**: BrandWordmark (ELLETA / BELLA, pattern or ink, nav or full-bleed, seeded), PatternField (the pattern as a quiet grey hero field, replacing the dot grid), Link (the link contract, implemented).
+- **Favicon**: the pattern E on cream with an ochre-deep edge, fixed seed; SVG, 16/32 PNG, ICO, 180 and 512.
+- **Gate**: `scripts/contrast-pairs.mjs` recomputes every declared pair in both themes, plus two forbidden pairs that must stay failing. Brand art is the second named inline-SVG exception.
+- **Retired**: Foundations/Illustration and `src/assets/illustrations`; the line-dog lockups leave the docs (SVGs kept, marked deprecated).
+
 ### Changed
 - **Card cover slot** (2026-09-21, Work patterns): the 16:10 media well never crops. Images sit at `object-fit: contain` on the card's own surface (`surface-card`, was `surface-inset`), so an off-ratio cover letterboxes onto the card, not onto a second tone. Sharpness is a tested contract: `expectSharpImages` (src/testing/behavioral.ts) asserts every raster cover is at least 2x its rendered width, negative-tested with an undersized probe
 - **Heading**: new `after` (text after the accent, primary ink) and `label` (accessible-name override for an interactive accent) props; contract updated

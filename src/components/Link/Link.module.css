@@ -1,0 +1,31 @@
+/* Link (brand refresh, 2026-09-22). Tokens only, read through the link
+ * contract. */
+
+.link {
+  color: var(--component-link-default-foreground);
+  text-decoration: var(--component-link-default-text-decoration);
+  text-decoration-thickness: var(--component-link-default-underline-thickness);
+  text-underline-offset: var(--component-link-default-underline-offset);
+  transition: text-decoration-thickness var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.link:visited {
+  color: var(--component-link-default-foreground);
+}
+
+.link:hover {
+  color: var(--component-link-default-foreground-hover);
+  text-decoration-thickness: var(--component-link-default-underline-thickness-hover);
+}
+
+.link:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}

@@ -136,6 +136,14 @@ export const Behavior: Story = {
       });
     });
 
+    await step('focus: the shared 3px ring with a 3px offset (brand refresh)', async () => {
+      field.focus();
+      const cs = getComputedStyle(field);
+      expect(cs.outlineStyle).toBe('solid');
+      expect(parseFloat(cs.outlineWidth)).toBe(3);
+      expect(parseFloat(cs.outlineOffset)).toBe(3);
+    });
+
     await step('focus: visible ring; touch target holds', async () => {
       await expectVisibleFocus(field);
       expectTouchTarget(field);

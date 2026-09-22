@@ -5704,15 +5704,19 @@
       "$extensions": {
         "bella": {
           "name": "Link",
-          "description": "Inline text link inside body copy.",
-          "variants": [
-            "default"
-          ],
+          "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
+          "variants": [],
           "states": [
             "default",
             "hover",
             "visited",
             "focus"
+          ],
+          "props": [
+            "href",
+            "external",
+            "className",
+            "children"
           ],
           "usage": [
             "Inline references inside paragraphs",
@@ -5737,6 +5741,20 @@
         "text-decoration": {
           "$value": "underline",
           "$type": "other"
+        },
+        "underline-thickness": {
+          "$value": "{border.width.thin}",
+          "$type": "dimension",
+          "$description": "1px at rest."
+        },
+        "underline-thickness-hover": {
+          "$value": "{border.width.medium}",
+          "$type": "dimension",
+          "$description": "Hover thickens the underline to 2px (brand refresh, 2026-09-22)."
+        },
+        "underline-offset": {
+          "$value": "{spacing.1}",
+          "$type": "dimension"
         }
       }
     },

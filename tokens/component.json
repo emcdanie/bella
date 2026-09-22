@@ -591,9 +591,10 @@
       "$extensions": {
         "bella": {
           "name": "Link",
-          "description": "Inline text link inside body copy.",
-          "variants": ["default"],
+          "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
+          "variants": [],
           "states": ["default", "hover", "visited", "focus"],
+          "props": ["href", "external", "className", "children"],
           "usage": ["Inline references inside paragraphs", "Footer links"],
           "dont": ["Do not use for primary navigation, that's nav-link", "Do not rely on color alone, always underlined or weight-shifted on hover"],
           "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout."
@@ -603,7 +604,10 @@
       "default": {
         "foreground":       { "$value": "{color.semantic.link}",       "$type": "color" },
         "foreground-hover": { "$value": "{color.semantic.link-hover}", "$type": "color" },
-        "text-decoration":  { "$value": "underline",                   "$type": "other" }
+        "text-decoration":  { "$value": "underline",                   "$type": "other" },
+        "underline-thickness":       { "$value": "{border.width.thin}",   "$type": "dimension", "$description": "1px at rest." },
+        "underline-thickness-hover": { "$value": "{border.width.medium}", "$type": "dimension", "$description": "Hover thickens the underline to 2px (brand refresh, 2026-09-22)." },
+        "underline-offset":          { "$value": "{spacing.1}",           "$type": "dimension" }
       }
     },
 

@@ -517,6 +517,9 @@ value with the source reference in parentheses.
 | `component.link.default.foreground` | `#121212` (`{color.semantic.link}`) | color |
 | `component.link.default.foreground-hover` | `#121212` (`{color.semantic.link-hover}`) | color |
 | `component.link.default.text-decoration` | `underline` | other |
+| `component.link.default.underline-thickness` | `1px` (`{border.width.thin}`) | dimension |
+| `component.link.default.underline-thickness-hover` | `2px` (`{border.width.medium}`) | dimension |
+| `component.link.default.underline-offset` | `4px` (`{spacing.1}`) | dimension |
 | `component.nav-link.default.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
 | `component.nav-link.default.foreground-hover` | `#121212` (`{color.semantic.text-primary}`) | color |
 | `component.nav-link.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |

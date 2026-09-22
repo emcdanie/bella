@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent } from 'storybook/test';
 import {
   expectKeyboardOperable,
   expectVisibleFocus,
@@ -193,6 +193,47 @@ export const Behavior: Story = {
       expect(button).toHaveAccessibleName('Send message');
       expect(canvas.queryAllByRole('button')).toHaveLength(1);
       expect(canvas.queryAllByRole('link')).toHaveLength(0);
+    });
+  },
+};
+
+/** Brand refresh (2026-09-22): the ring means focus only, hover is a
+ * small shift per tier, and there is no accent colour at rest. */
+export const RingAndHover: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Button variant="primary" onClick={() => {}}>Let's talk</Button>
+      <Button variant="secondary" onClick={() => {}}>See the work</Button>
+      <Button variant="tertiary" onClick={() => {}}>Read the case</Button>
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    const [primary, secondary, tertiary] = canvas.getAllByRole('button');
+    await step('no ring at rest on any tier', async () => {
+      for (const b of [primary, secondary, tertiary]) {
+        await expect(getComputedStyle(b).outlineStyle).toBe('none');
+      }
+    });
+    await step('keyboard focus: 3px ring, 3px offset', async () => {
+      await userEvent.tab();
+      const cs = getComputedStyle(primary);
+      await expect(cs.outlineStyle).toBe('solid');
+      await expect(parseFloat(cs.outlineWidth)).toBe(3);
+      await expect(parseFloat(cs.outlineOffset)).toBe(3);
+      primary.blur();
+    });
+    await step('secondary hover: the outline goes ink', async () => {
+      const rest = getComputedStyle(secondary).borderTopColor;
+      await userEvent.hover(secondary);
+      await expect(getComputedStyle(secondary).borderTopColor).not.toBe(rest);
+      await userEvent.unhover(secondary);
+    });
+    await step('tertiary hover: the underline thickens to 2px', async () => {
+      const line = tertiary.querySelector('[data-bella-roll="window"]') as HTMLElement;
+      await expect(parseFloat(getComputedStyle(line, '::after').height)).toBe(1);
+      await userEvent.hover(tertiary);
+      await expect(parseFloat(getComputedStyle(line, '::after').height)).toBe(2);
+      await userEvent.unhover(tertiary);
     });
   },
 };

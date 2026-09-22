@@ -46,15 +46,23 @@
   letter-spacing: var(--typography-letter-spacing-body);
 }
 
-/* Inline body links are accent AND underlined: saturated accent at body
- * scale means interactive, and only that. */
+/* Inline body links are ink with an underline; hover thickens the
+ * underline (brand refresh, 2026-09-22). Focus is the shared ochre ring. */
 #storybook-docs .sbdocs-content a {
-  color: var(--color-semantic-text-accent);
+  color: var(--color-semantic-link);
   text-decoration: underline;
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: var(--spacing-1);
 }
 
 #storybook-docs .sbdocs-content a:hover {
   color: var(--color-semantic-link-hover);
+  text-decoration-thickness: var(--border-width-medium);
+}
+
+#storybook-docs .sbdocs-content a:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
 }
 
 /* Inline code chips: inset surface, primary ink. */

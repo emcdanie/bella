@@ -1,34 +1,22 @@
 /* Button (component 2, extracted from the portfolio keycap system,
- * 2026-07-22; motion reworked 2026-09-18). Tokens only. Three tiers:
- * primary is the raised keycap (the one 3D moment per view), secondary the
- * flat accent outline, tertiary the text tier. Labels are Geist caps (the
- * mono token is repointed to Geist), never Unique. Theme-aware by
- * construction: every colour resolves through component.button.*, which
- * points at the semantic accent-raised trio, so the plate is iris in light
- * and periwinkle in dark; the label is text-on-accent (ground / navy), AA
- * on the worst stop.
+ * 2026-07-22; motion reworked 2026-09-18; recoloured by the brand refresh,
+ * 2026-09-22). Tokens only. Three tiers: primary is the raised INK keycap
+ * (the one 3D moment per view), secondary the control outline, tertiary
+ * the ink text link. No accent colour on any tier at rest: the ochre ring
+ * is focus-visible only (--ring-focus-*, 3px, 3px offset). Labels are
+ * Geist caps, never Unique.
  *
- * ONE JOB PER STATE (2026-09-18):
+ * ONE JOB PER STATE (2026-09-18, kept exactly):
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
- *   from below, motion.duration.normal on motion.easing.out), plus a
- *   colour shift on every tier: primary plate to its deep stop, secondary
- *   fill, tertiary label (motion.duration.fast).
+ *   from below, motion.duration.normal on motion.easing.out), plus a shift
+ *   on every tier: primary plate to ink-hover, secondary outline to ink,
+ *   tertiary underline to 2px (motion.duration.fast).
  * - active: the keycap press (motion.transform.key-press, tighter shadow),
- *   primary only; secondary keeps its fill change. Down, never up.
- * - Buttons never lift on hover: lift is reserved for cards. No trace ring:
- *   the trace is Card's affordance.
+ *   primary only; secondary settles onto the inset fill. Down, never up.
+ * - Buttons never lift on hover: lift is reserved for cards.
  * - Reduced motion: no roll, no press; the colour shift stays.
  *
- * Recorded divergences from the portfolio original (extraction, 2026-07-22):
- * - the plate gradient runs accent-raised-hi to -lo, one step DEEPER than
- *   the portfolio's iris.hi top: the ground label computes 4.49:1 on iris.hi
- *   (fails AA normal text under worst-ground-wins); the portfolio passed
- *   only via its pure-white label, which BELLA does not carry (no pure
- *   white as text).
- * - dark plate is periwinkle (the accent theme-flips); the portfolio keycap
- *   stayed iris in dark.
- * - the locked shadow.key-* pair is consumed as-is; its iris-tinted edge
- *   under the dark periwinkle plate is a recorded nit, Elleta's call.
+ * The locked shadow.key-* pair now casts in ink (it was iris-tinted).
  */
 
 .button {
@@ -127,8 +115,8 @@
   box-shadow: var(--shadow-key-pressed);
 }
 
-/* SECONDARY: flat accent outline, accent label, no elevation. Hover shifts
- * the fill; active deepens it. */
+/* SECONDARY: the control outline, ink label, no elevation. Hover and
+ * focus-visible take the outline to ink; active settles onto the inset. */
 .secondary {
   min-height: var(--component-button-secondary-min-height);
   padding: var(--component-button-secondary-padding-y) var(--component-button-secondary-padding-x);
@@ -141,14 +129,15 @@
 .secondary:hover:not(:disabled),
 .secondary:focus-visible {
   background: var(--component-button-secondary-background-hover);
+  border-color: var(--component-button-secondary-border-hover);
 }
 
 .secondary:active:not(:disabled) {
   background: var(--component-button-secondary-background-active);
 }
 
-/* TERTIARY: the text tier. Accent AND underlined: saturated accent at
- * body scale means interactive, and the underline is the affordance. ONE
+/* TERTIARY: the text tier. Ink AND underlined: the underline is the
+ * affordance, and it thickens on hover and focus-visible. ONE
  * static underline sits on the roll window; only the text rolls, so no
  * line ever travels through the window edge. It is currentColor, so it
  * takes the hover colour shift. */
@@ -182,6 +171,11 @@
 .tertiary:hover:not(:disabled),
 .tertiary:focus-visible {
   color: var(--component-button-tertiary-foreground-hover);
+}
+
+.tertiary:hover:not(:disabled) .roll::after,
+.tertiary:focus-visible .roll::after {
+  height: var(--component-button-tertiary-underline-thickness-hover);
 }
 
 /* DISABLED (buttons only): no roll, no press, no affordances. Primary and

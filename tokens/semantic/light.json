@@ -138,9 +138,9 @@
         }
       },
       "surface-glass-accent": {
-        "$value": "{color.alpha.periwinkle-15}",
+        "$value": "{color.alpha.ochre-15}",
         "$type": "color",
-        "$description": "Periwinkle-tinted glass, active/selected state only.",
+        "$description": "Ochre-tinted glass: active or selected state only.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -236,9 +236,9 @@
         }
       },
       "text-accent": {
-        "$value": "{color.brand.iris}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Accent text, iris. At body scale this reads INTERACTIVE (colour affordance rule); use only where the interactive read is intended.",
+        "$description": "Accent text is ink (brand refresh, 2026-09-22, Elleta): ochre is never text on light, and links are ink with an underline.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -246,60 +246,63 @@
               "interactive text"
             ],
             "dont": [
-              "Not on eyebrows, headings or decoration: iris means interactive (links, focus) and only that"
+              "Never ochre"
             ],
-            "a11y": "Verified 2026-09-22: 6.23:1 on bg, 5.56:1 on panel (worst). AA. Interactive only."
+            "a11y": "Verified 2026-09-22: same as text-primary."
           }
         }
       },
       "accent": {
-        "$value": "{color.brand.iris}",
+        "$value": "{color.brand.ochre}",
         "$type": "color",
-        "$description": "The single accent, light mode. Interactive fills, outlines, links, focus.",
+        "$description": "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent).",
         "$extensions": {
           "bella": {
             "usage": [
-              "primary button background (ground-colored label)",
-              "secondary button outline + text",
-              "focus rings"
+              "Accent fills",
+              "Markers"
             ],
             "dont": [
-              "Never pair with a second accent"
+              "Never text, hairline or stroke on light surfaces (2.08:1 on white)",
+              "Never the only signal of a state"
             ],
-            "a11y": "Verified 2026-07-21: ground label on iris fill 5.66:1 (AA); iris as non-text on light surfaces \u22655.25:1 (passes 3:1)."
+            "a11y": "Verified 2026-09-22: ink on ochre 9.01:1."
           }
         }
       },
       "accent-hover": {
-        "$value": "{color.iris.deep}",
+        "$value": "{color.brand.ochre-deep}",
         "$type": "color",
-        "$description": "Accent hover fill, iris darkened one step.",
+        "$description": "Accent line/hover step (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
               "primary button hover background"
             ],
-            "a11y": "Verified 2026-07-21: ground label on this 7.09:1, AAA."
+            "a11y": "Verified 2026-07-21: ground label on this 7.09:1, AAA.",
+            "dont": [
+              "Not text"
+            ]
           }
         }
       },
       "text-on-accent": {
-        "$value": "{color.light.bg}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Label color on accent fills.",
+        "$description": "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
               "primary button label"
             ],
-            "a11y": "Verified 2026-09-22: 6.23:1 on iris. AA."
+            "a11y": "Verified 2026-09-22: 9.01:1 on ochre."
           }
         }
       },
       "accent-subtle": {
-        "$value": "{color.alpha.iris-12}",
+        "$value": "{color.light.panel}",
         "$type": "color",
-        "$description": "Iris wash. Secondary-button hover fill.",
+        "$description": "Neutral selected wash (brand refresh, 2026-09-22, Elleta; was the iris wash).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -309,9 +312,9 @@
         }
       },
       "accent-border": {
-        "$value": "{color.alpha.iris-30}",
+        "$value": "{color.light.control}",
         "$type": "color",
-        "$description": "Iris border wash for accent-adjacent chrome.",
+        "$description": "Control-weight edge for a selected item (brand refresh, 2026-09-22, Elleta; was iris 30%).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -390,15 +393,18 @@
         }
       },
       "focus-ring": {
-        "$value": "{color.brand.iris}",
+        "$value": "{color.brand.ochre-deep}",
         "$type": "color",
-        "$description": "Focus ring: the one coloured stroke (style unify, 2026-09-22, Elleta; colour never in strokes, except the focus ring).",
+        "$description": "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre-deep in light. Means focus only, never decoration at rest.",
         "$extensions": {
           "bella": {
             "usage": [
               ":focus-visible outline"
             ],
-            "a11y": "Verified 2026-09-22: 6.23:1 on bg, 5.56:1 on panel. Non-text AA."
+            "a11y": "Verified 2026-09-22: 3.59:1 on white, 3.20:1 on panel (non-text AA).",
+            "dont": [
+              "Never at rest: the ring means focus only"
+            ]
           }
         }
       },
@@ -464,7 +470,7 @@
       "link": {
         "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Default link color, ink. Link affordance is underline; hover turns iris.",
+        "$description": "Links are ink with an underline (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -477,9 +483,9 @@
         }
       },
       "link-hover": {
-        "$value": "{color.brand.iris}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Link hover, iris. The interactive color arriving on intent.",
+        "$description": "Link hover keeps ink; the underline thickens (border.width.medium) (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -510,56 +516,56 @@
         "$description": "Info chip border (carried)."
       },
       "accent-raised-hi": {
-        "$value": "{color.brand.iris}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Raised accent plate, top gradient stop (keycap). Light source upper-left: top is the lighter stop.",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: text-on-accent (ground) label on this stop 5.66:1, AA normal text. Worst stop of the plate; the bar holds on every stop. Portfolio divergence recorded: the plate runs one step deeper than the portfolio keycap (iris.hi top failed the ground label at 4.49:1; the white label is not carried, no pure white)."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-lo": {
-        "$value": "{color.iris.deep}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Raised accent plate, bottom gradient stop (keycap).",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: ground label on this stop 7.09:1, AAA."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-hover": {
-        "$value": "{color.iris.deep}",
+        "$value": "{color.light.ink-hover}",
         "$type": "color",
-        "$description": "Raised accent plate on hover and focus-visible: the plate settles onto its deep stop, flat.",
+        "$description": "Primary button plate on hover and focus-visible: ink 85% (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: ground label on this stop 7.09:1, AAA."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-edge": {
-        "$value": "{color.iris.edge}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Raised accent plate edge (the keycap 3D rim).",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: 7.25:1 on ground, non-text edge, far above the 3:1 minimum."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       }
     },
     "accent-ink": {
-      "$value": "{color.brand.iris}",
+      "$value": "{color.light.ink}",
       "$type": "color",
-      "$description": "Accent used as TEXT on the mode's page ground.",
+      "$description": "Legacy: accent text is ink (brand refresh, 2026-09-22, Elleta). Ochre is never text on light; links are ink with an underline.",
       "$extensions": {
         "bella": {
           "usage": [
-            "accent-colored text"
+            "Legacy consumers of accent text"
           ],
-          "a11y": "Verified 2026-07-21: 5.66:1 on ground, AA normal, AAA large."
+          "a11y": "Same as text-primary."
         }
       }
     }

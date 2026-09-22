@@ -136,9 +136,9 @@
         }
       },
       "surface-glass-accent": {
-        "$value": "{color.alpha.periwinkle-15}",
+        "$value": "{color.alpha.ochre-15}",
         "$type": "color",
-        "$description": "Periwinkle glass, active-state only. Glassy over navy, never a flat block.",
+        "$description": "Ochre-tinted glass: active or selected state only.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -228,64 +228,73 @@
         }
       },
       "text-accent": {
-        "$value": "{color.brand.periwinkle}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Accent text in dark mode, the accent flips to periwinkle; iris is banned on the dark ground.",
+        "$description": "Accent text is ink (brand refresh, 2026-09-22, Elleta): ochre is never text on light, and links are ink with an underline.",
         "$extensions": {
           "bella": {
             "usage": [
               "accent word in display headings",
               "interactive text in dark mode"
             ],
-            "a11y": "Verified 2026-09-22: 7.86:1 on bg, 7.32:1 on surface. AAA. Interactive only."
+            "a11y": "Verified 2026-09-22: same as text-primary.",
+            "dont": [
+              "Never ochre"
+            ]
           }
         }
       },
       "accent": {
-        "$value": "{color.brand.periwinkle}",
+        "$value": "{color.brand.ochre}",
         "$type": "color",
-        "$description": "The single accent, dark mode. Same accent as light, seen on the dark ground.",
+        "$description": "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent).",
         "$extensions": {
           "bella": {
             "usage": [
-              "primary button fill (navy label)",
-              "secondary button outline + text",
-              "focus rings in dark mode"
+              "Accent fills",
+              "Markers"
             ],
-            "a11y": "Verified 2026-07-21: navy label on periwinkle fill 6.65:1 (AA). 2026-09-19: periwinkle as non-text on dark surfaces \u22655.79:1."
+            "a11y": "Verified 2026-09-22: ink on ochre 9.01:1.",
+            "dont": [
+              "Never text, hairline or stroke on light surfaces (2.08:1 on white)",
+              "Never the only signal of a state"
+            ]
           }
         }
       },
       "accent-hover": {
-        "$value": "{color.iris.peri-hover}",
+        "$value": "{color.brand.ochre}",
         "$type": "color",
-        "$description": "Accent hover fill in dark mode, periwinkle brightened.",
+        "$description": "Accent line/hover step (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
               "primary button hover background (dark)"
             ],
-            "a11y": "Verified 2026-07-21: navy label on this 8.18:1, AAA."
+            "a11y": "Verified 2026-07-21: navy label on this 8.18:1, AAA.",
+            "dont": [
+              "Not text"
+            ]
           }
         }
       },
       "text-on-accent": {
-        "$value": "{color.brand.navy}",
+        "$value": "{color.light.ink}",
         "$type": "color",
-        "$description": "Label color on accent fills in dark mode.",
+        "$description": "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
               "primary button label (dark)"
             ],
-            "a11y": "Verified 2026-07-21: 6.65:1 on periwinkle, 8.18:1 on accent-hover, AA/AAA."
+            "a11y": "Verified 2026-09-22: 9.01:1 on ochre."
           }
         }
       },
       "accent-subtle": {
-        "$value": "{color.alpha.periwinkle-15}",
+        "$value": "{color.dark.surface}",
         "$type": "color",
-        "$description": "Periwinkle wash, secondary-button hover fill in dark mode.",
+        "$description": "Neutral selected wash (brand refresh, 2026-09-22, Elleta; was the iris wash).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -295,9 +304,9 @@
         }
       },
       "accent-border": {
-        "$value": "{color.alpha.periwinkle-30}",
+        "$value": "{color.dark.control}",
         "$type": "color",
-        "$description": "Periwinkle border wash.",
+        "$description": "Control-weight edge for a selected item (brand refresh, 2026-09-22, Elleta; was iris 30%).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -378,15 +387,18 @@
         }
       },
       "focus-ring": {
-        "$value": "{color.brand.periwinkle}",
+        "$value": "{color.brand.ochre}",
         "$type": "color",
-        "$description": "Focus ring in dark (style unify, 2026-09-22, Elleta).",
+        "$description": "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre in dark. Means focus only, never decoration at rest.",
         "$extensions": {
           "bella": {
             "usage": [
               ":focus-visible outline"
             ],
-            "a11y": "Verified 2026-09-22: 7.86:1 on bg, 7.32:1 on surface. Non-text AAA."
+            "a11y": "Verified 2026-09-22: 9.35:1 on bg, 8.70:1 on surface, 7.28:1 on raised (non-text AAA).",
+            "dont": [
+              "Never at rest: the ring means focus only"
+            ]
           }
         }
       },
@@ -413,15 +425,15 @@
       "link": {
         "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Default link color in dark mode. Affordance via underline; hover turns periwinkle.",
+        "$description": "Links are ink with an underline (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {}
         }
       },
       "link-hover": {
-        "$value": "{color.brand.periwinkle}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Link hover, periwinkle on navy.",
+        "$description": "Link hover keeps ink; the underline thickens (border.width.medium) (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "a11y": "Verified 2026-09-19: 7.74:1 on the dark ground, AA."
@@ -449,56 +461,56 @@
         "$description": "Info chip border (carried)."
       },
       "accent-raised-hi": {
-        "$value": "{color.iris.peri-hover}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Raised accent plate, top stop, dark mode (periwinkle family; the accent theme-flips).",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: text-on-accent (navy) label on this stop 8.18:1, AAA. 2026-09-19: plate on the dark ground 9.52:1 non-text."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-lo": {
-        "$value": "{color.brand.periwinkle}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Raised accent plate, bottom stop, dark mode.",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-07-22: navy label on this stop 6.65:1, AA normal text. Worst stop of the dark plate."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-hover": {
-        "$value": "{color.iris.peri-deep}",
+        "$value": "{color.dark.ink-hover}",
         "$type": "color",
-        "$description": "Raised accent plate on hover and focus-visible, dark mode: one step deeper than periwinkle, flat.",
+        "$description": "Primary button plate on hover and focus-visible: ink 85% (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-09-18: navy label on this 5.34:1, AA normal text. Worst stop of the dark plate in any state."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       },
       "accent-raised-edge": {
-        "$value": "{color.iris.peri-ink}",
+        "$value": "{color.dark.ink}",
         "$type": "color",
-        "$description": "Raised accent plate edge, dark mode.",
+        "$description": "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap).",
         "$extensions": {
           "bella": {
-            "a11y": "Verified 2026-09-19: 9.18:1 on the dark ground, non-text edge."
+            "a11y": "Verified 2026-09-22: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel."
           }
         }
       }
     },
     "accent-ink": {
-      "$value": "{color.iris.peri-ink}",
+      "$value": "{color.dark.ink}",
       "$type": "color",
-      "$description": "Accent used as TEXT on the dark ground, tuned brighter than the fill periwinkle.",
+      "$description": "Legacy: accent text is ink (brand refresh, 2026-09-22, Elleta). Ochre is never text on light; links are ink with an underline.",
       "$extensions": {
         "bella": {
           "usage": [
-            "accent-colored text on navy"
+            "Legacy consumers of accent text"
           ],
-          "a11y": "Verified 2026-09-19: 9.18:1 on the dark ground, AAA."
+          "a11y": "Same as text-primary."
         }
       }
     }

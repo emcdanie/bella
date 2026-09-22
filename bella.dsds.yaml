@@ -209,28 +209,24 @@ entries:
             statement: Do not use iris text on navy — 2.64:1 fails everything; the accent flips to periwinkle
           - level: must-not
             statement: Do not use as a light-mode text color
-    related:
-      - to: color.brand.periwinkle
-        rel: relates-to
-        note: dark-mode accent
     tokenType: color
     source:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.brand.navy
   - kind: token
-    id: color.brand.iris
-    name: Iris
-    description: The single accent, light mode. Saturated iris violet. At body scale iris means INTERACTIVE and only that (colour affordance rule, 2026-07-17).
+    id: color.brand.ochre
+    name: Ochre
+    description: "The accent (brand refresh, 2026-09-22, Elleta): a fill. On light surfaces always with ink #121212 text (9.01:1). The dark-theme focus ring."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-21"
+        - date: "2026-09-22"
           by: human:elleta
-          note: on ground 5.66:1, on paper 5.96:1, on surface 5.25:1, AA text + AAA large + 3:1 non-text on all light surfaces; AAA normal-text fails everywhere (max 5.96:1). On navy 2.64:1, fails all thresholds, including non-text.
+          note: "ink on ochre 9.01:1 (AAA). Ochre on dark: 9.35:1 bg, 8.70:1 surface, 7.93:1 inset, 7.28:1 raised."
       tags:
         - primitive
         - color
@@ -242,47 +238,37 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Primary button fill (ground/white label)
+            statement: Accent fills with ink text
           - level: may
-            statement: Secondary button outline + text
+            statement: Dark-theme focus ring (8.70:1 on the dark surface)
           - level: may
-            statement: Inline link color paired with underline
-          - level: may
-            statement: Accent word in display headings
-          - level: may
-            statement: Focus rings
+            statement: Chip and marker fills
       - kind: guidelines
         for: all
         title: How to use it
         items:
           - level: must-not
-            statement: Never on navy — 2.64:1 fails text AND the 3:1 non-text minimum; dark mode uses periwinkle
+            statement: "Never text or hairlines on light surfaces: 2.08:1 on white, 1.86:1 on panel"
           - level: must-not
-            statement: Never on eyebrows — wayfinding is not action
-          - level: must-not
-            statement: Never pair with a second accent color
-    related:
-      - to: color.brand.periwinkle
-        rel: relates-to
-        note: dark-mode counterpart
+            statement: "Never a focus ring on light: use ochre-deep"
     tokenType: color
     source:
       href: ./tokens/bella.json
       rel: file
-      role: primitive.color.brand.iris
+      role: primitive.color.brand.ochre
   - kind: token
-    id: color.brand.periwinkle
-    name: Periwinkle
-    description: The accent's dark-mode form; decorative lavender tints in light mode. Iris and periwinkle are one accent seen in two modes, never two accents.
+    id: color.brand.ochre-deep
+    name: Ochre Deep
+    description: "The deep accent (brand refresh, 2026-09-22, Elleta): the light-theme focus ring and any ochre line on light."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-21"
+        - date: "2026-09-22"
           by: human:elleta
-          note: "on navy 6.65:1 (AA normal, AAA large), on dark card #232350 5.95:1 (AA), on dark raised #2B2B5C 5.30:1 (AA). On ground 2.24:1, on paper 2.36:1, fails every threshold on light surfaces."
+          note: 3.59:1 on white, 3.20:1 on panel (non-text AA); 5.42:1 on the dark bg.
       tags:
         - primitive
         - color
@@ -294,285 +280,20 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Dark-mode accent text and secondary-button outline
+            statement: Light-theme focus ring
           - level: may
-            statement: Dark-mode primary button fill (navy label)
-          - level: may
-            statement: Decorative tints in light mode via alpha washes
-          - level: may
-            statement: Selection highlight
+            statement: Ochre lines on light surfaces
       - kind: guidelines
         for: all
         title: How to use it
         items:
           - level: must-not
-            statement: Never as text or interactive color on light surfaces — 2.24:1 on ground fails everything, including 3:1 non-text
-          - level: must-not
-            statement: Never as a solid decorative block in light mode — tints only
-    related:
-      - to: color.brand.iris
-        rel: relates-to
-        note: light-mode counterpart
-      - to: color.alpha.periwinkle-15
-        rel: relates-to
-        note: / periwinkle-30 (washes)
+            statement: "Not body text: 3.59:1 on white is non-text AA only"
     tokenType: color
     source:
       href: ./tokens/bella.json
       rel: file
-      role: primitive.color.brand.periwinkle
-  - kind: token
-    id: color.iris.bright
-    name: Bright
-    description: Brightened iris for hero accents on navy. Non-text and large-scale display use only.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: 3.99:1 on navy, passes 3:1 non-text and AA large text only.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Hero display accents on navy
-          - level: may
-            statement: Large decorative marks in dark mode
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Not a text color at body scale — 3.99:1 on navy fails AA normal text
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.bright
-  - kind: token
-    id: color.iris.hi
-    name: Hi
-    description: Keycap fill gradient, top stop. One step brighter than iris.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: white label on this stop 4.95:1, AA. Every fill stop under a white label must stay ≥4.5:1.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Primary keycap button fill, top stop (with brand.iris as bottom stop)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.hi
-  - kind: token
-    id: color.iris.deep
-    name: Deep
-    description: Darkened iris. Primary button hover fill in light mode.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: ground text on this 7.09:1, AAA.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Primary button hover background
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.deep
-  - kind: token
-    id: color.iris.edge
-    name: Edge
-    description: Iris keycap edge. The hard bottom-edge plate of the extruded key.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Keycap edge line in shadow.key-* tokens
-          - level: may
-            statement: Keycap border
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.edge
-  - kind: token
-    id: color.iris.logo-hi
-    name: Logo Hi
-    description: Brand-lockup keycap gradient, top stop. Lighter than the button fill ramp.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: 4.97:1 against navy as a non-text plate.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Keycap logo (the DESIGN key) gradient top stop
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Never under a white label — 3.3:1 on the stop fails 4.5:1 (recorded portfolio measurement)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.logo-hi
-  - kind: token
-    id: color.iris.peri-deep
-    name: Peri Deep
-    description: Periwinkle one step deeper (the same step as peri-hover to periwinkle, taken again). Dark-mode primary button hover plate.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-09-18"
-          by: human:elleta
-          note: navy label on this 5.34:1, AA normal text.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Dark-mode primary button hover plate
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.peri-deep
-  - kind: token
-    id: color.iris.peri-hover
-    name: Peri Hover
-    description: Brightened periwinkle. Dark-mode primary button hover fill.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: navy text on this 8.18:1, AAA.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Dark-mode primary button hover background
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.peri-hover
-  - kind: token
-    id: color.iris.peri-ink
-    name: Peri Ink
-    description: Periwinkle tuned for use as TEXT on navy (accent-ink, dark mode).
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      reviewed:
-        - date: "2026-07-21"
-          by: human:elleta
-          note: 7.89:1 on navy, AAA.
-      tags:
-        - primitive
-        - color
-      group: color.iris
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Accent-colored text on navy (accent-ink dark binding)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.iris.peri-ink
+      role: primitive.color.brand.ochre-deep
   - kind: token
     id: color.neutral.cream
     name: Cream
@@ -1391,196 +1112,6 @@ entries:
       rel: file
       role: primitive.color.supporting.steel
   - kind: token
-    id: color.alpha.iris-12
-    name: Iris 12
-    description: "Iris at 12% alpha. Accent-subtle wash: secondary-button hover fill."
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: accent-subtle (light)
-          - level: may
-            statement: secondary button hover background
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.iris-12
-  - kind: token
-    id: color.alpha.iris-20
-    name: Iris 20
-    description: Iris at 20% alpha. Keycap pressed cast shadow color.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: shadow.key-pressed cast layer
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.iris-20
-  - kind: token
-    id: color.alpha.iris-24
-    name: Iris 24
-    description: Iris at 24% alpha. Keycap resting cast shadow color.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: shadow.key-resting cast layer
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.iris-24
-  - kind: token
-    id: color.alpha.iris-28
-    name: Iris 28
-    description: Iris at 28% alpha. Keycap hover cast shadow color.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: shadow.key-hover cast layer
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.iris-28
-  - kind: token
-    id: color.alpha.iris-30
-    name: Iris 30
-    description: Iris at 30% alpha. Accent borders in light mode.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: accent-border (light)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.iris-30
-  - kind: token
-    id: color.alpha.periwinkle-15
-    name: Periwinkle 15
-    description: Periwinkle at 15% alpha. Decorative lavender wash on light surfaces; accent-subtle in dark.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Tag accent wash (light)
-          - level: may
-            statement: accent-subtle (dark)
-          - level: may
-            statement: Active nav-link glass (dark)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.periwinkle-15
-  - kind: token
-    id: color.alpha.periwinkle-30
-    name: Periwinkle 30
-    description: Periwinkle at 30% alpha. Tag borders; accent-border in dark.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - color
-      group: color.alpha
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Tag accent border
-          - level: may
-            statement: accent-border (dark)
-    tokenType: color
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.color.alpha.periwinkle-30
-  - kind: token
     id: color.alpha.ink-6
     name: Ink 6
     description: Ink at ~6% alpha. Near-invisible borders on light surfaces.
@@ -2381,6 +1912,110 @@ entries:
       rel: file
       role: primitive.color.alpha.ink-22
   - kind: token
+    id: color.alpha.ochre-15
+    name: Ochre 15
+    description: "Ochre at 15%: the accent glass wash (brand refresh, 2026-09-22, Elleta)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: surface-glass-accent
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.ochre-15
+  - kind: token
+    id: color.alpha.key-20
+    name: Key 20
+    description: "Ink at 20%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: shadow.key-*
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.key-20
+  - kind: token
+    id: color.alpha.key-24
+    name: Key 24
+    description: "Ink at 24%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: shadow.key-*
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.key-24
+  - kind: token
+    id: color.alpha.key-28
+    name: Key 28
+    description: "Ink at 28%: the keycap cast shadow (brand refresh, 2026-09-22, Elleta; was iris)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: shadow.key-*
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.key-28
+  - kind: token
     id: color.light.ink
     name: Light Ink
     description: "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta)."
@@ -2578,6 +2213,36 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.light.bg
+  - kind: token
+    id: color.light.ink-hover
+    name: Ink Hover
+    description: "Ink plate hover: ink 85% over panel (brand refresh, 2026-09-22, Elleta)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-22"
+          by: human:elleta
+          note: "#ededed label 10.63:1."
+      tags:
+        - primitive
+        - color
+      group: color.light
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Primary button hover and focus-visible plate
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.light.ink-hover
   - kind: token
     id: color.dark.ink
     name: Dark Ink
@@ -2822,6 +2487,36 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.dark.bg
+  - kind: token
+    id: color.dark.ink-hover
+    name: Dark Ink Hover
+    description: "Dark ink plate hover: ink 85% over surface (brand refresh, 2026-09-22, Elleta)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-09-22"
+          by: human:elleta
+          note: "#121212 label 11.78:1."
+      tags:
+        - primitive
+        - color
+      group: color.dark
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Primary button hover and focus-visible plate in dark
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.dark.ink-hover
   - kind: token
     id: color.chip.c1
     name: C1
@@ -3715,6 +3410,32 @@ entries:
       rel: file
       role: primitive.border.width.thin
   - kind: token
+    id: border.width.medium
+    name: Medium
+    description: "Medium line: the link underline on hover (brand refresh, 2026-09-22, Elleta)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - border
+      group: border.width
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Link and text-button underline on hover
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.border.width.medium
+  - kind: token
     id: border.width.thick
     name: Thick
     description: Thick border width. Reserved ring thickness that keeps hover layout-stable.
@@ -4392,7 +4113,7 @@ entries:
       role: primitive.typography.font-weight.regular
   - kind: token
     id: typography.font-weight.medium
-    name: Medium
+    name: Font Weight Medium
     description: Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify, 2026-09-22, Elleta).
     metadata:
       origin:
@@ -6589,7 +6310,7 @@ entries:
   - kind: token
     id: color.semantic.surface-glass-accent
     name: Surface Glass Accent
-    description: Periwinkle-tinted glass, active/selected state only.
+    description: "Ochre-tinted glass: active or selected state only."
     metadata:
       origin:
         method: extracted
@@ -6626,7 +6347,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.alpha.periwinkle-15}"
+        alias: "{color.alpha.ochre-15}"
   - kind: token
     id: color.semantic.border-glass-top
     name: Border Glass Top
@@ -6836,7 +6557,7 @@ entries:
   - kind: token
     id: color.semantic.text-accent
     name: Text Accent
-    description: Accent text, iris. At body scale this reads INTERACTIVE (colour affordance rule); use only where the interactive read is intended.
+    description: "Accent text is ink (brand refresh, 2026-09-22, Elleta): ochre is never text on light, and links are ink with an underline."
     metadata:
       origin:
         method: extracted
@@ -6845,7 +6566,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: 6.23:1 on bg, 5.56:1 on panel (worst). AA. Interactive only.
+          note: same as text-primary.
       tags:
         - semantic
         - text-accent
@@ -6865,7 +6586,7 @@ entries:
         title: How to use it
         items:
           - level: must-not
-            statement: "Not on eyebrows, headings or decoration: iris means interactive (links, focus) and only that"
+            statement: Never ochre
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -6874,20 +6595,20 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.iris}"
+        alias: "{color.light.ink}"
   - kind: token
     id: color.semantic.accent
     name: Accent
-    description: The single accent, light mode. Interactive fills, outlines, links, focus.
+    description: "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent)."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-21"
+        - date: "2026-09-22"
           by: human:elleta
-          note: ground label on iris fill 5.66:1 (AA); iris as non-text on light surfaces ≥5.25:1 (passes 3:1).
+          note: ink on ochre 9.01:1.
       tags:
         - semantic
         - accent
@@ -6899,17 +6620,17 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: primary button background (ground-colored label)
+            statement: Accent fills
           - level: may
-            statement: secondary button outline + text
-          - level: may
-            statement: focus rings
+            statement: Markers
       - kind: guidelines
         for: all
         title: How to use it
         items:
           - level: must-not
-            statement: Never pair with a second accent
+            statement: Never text, hairline or stroke on light surfaces (2.08:1 on white)
+          - level: must-not
+            statement: Never the only signal of a state
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -6918,11 +6639,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.iris}"
+        alias: "{color.brand.ochre}"
   - kind: token
     id: color.semantic.accent-hover
     name: Accent Hover
-    description: Accent hover fill, iris darkened one step.
+    description: Accent line/hover step (brand refresh, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -6944,6 +6665,12 @@ entries:
         items:
           - level: may
             statement: primary button hover background
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: Not text
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -6952,11 +6679,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.iris.deep}"
+        alias: "{color.brand.ochre-deep}"
   - kind: token
     id: color.semantic.text-on-accent
     name: Text On Accent
-    description: Label color on accent fills.
+    description: "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
@@ -6965,7 +6692,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: 6.23:1 on iris. AA.
+          note: 9.01:1 on ochre.
       tags:
         - semantic
         - text-on-accent
@@ -6986,11 +6713,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.light.bg}"
+        alias: "{color.light.ink}"
   - kind: token
     id: color.semantic.accent-subtle
     name: Accent Subtle
-    description: Iris wash. Secondary-button hover fill.
+    description: Neutral selected wash (brand refresh, 2026-09-22, Elleta; was the iris wash).
     metadata:
       origin:
         method: extracted
@@ -7016,11 +6743,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.alpha.iris-12}"
+        alias: "{color.light.panel}"
   - kind: token
     id: color.semantic.accent-border
     name: Accent Border
-    description: Iris border wash for accent-adjacent chrome.
+    description: Control-weight edge for a selected item (brand refresh, 2026-09-22, Elleta; was iris 30%).
     metadata:
       origin:
         method: extracted
@@ -7046,7 +6773,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.alpha.iris-30}"
+        alias: "{color.light.control}"
   - kind: token
     id: color.semantic.border
     name: Border
@@ -7220,7 +6947,7 @@ entries:
   - kind: token
     id: color.semantic.focus-ring
     name: Focus Ring
-    description: "Focus ring: the one coloured stroke (style unify, 2026-09-22, Elleta; colour never in strokes, except the focus ring)."
+    description: "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre-deep in light. Means focus only, never decoration at rest."
     metadata:
       origin:
         method: extracted
@@ -7229,7 +6956,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: 6.23:1 on bg, 5.56:1 on panel. Non-text AA.
+          note: 3.59:1 on white, 3.20:1 on panel (non-text AA).
       tags:
         - semantic
         - focus-ring
@@ -7242,6 +6969,12 @@ entries:
         items:
           - level: may
             statement: ":focus-visible outline"
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Never at rest: the ring means focus only"
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -7250,7 +6983,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.iris}"
+        alias: "{color.brand.ochre-deep}"
   - kind: token
     id: color.semantic.chip-1
     name: Chip 1
@@ -7398,7 +7131,7 @@ entries:
   - kind: token
     id: color.semantic.link
     name: Link
-    description: Default link color, ink. Link affordance is underline; hover turns iris.
+    description: Links are ink with an underline (brand refresh, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7434,7 +7167,7 @@ entries:
   - kind: token
     id: color.semantic.link-hover
     name: Link Hover
-    description: Link hover, iris. The interactive color arriving on intent.
+    description: Link hover keeps ink; the underline thickens (border.width.medium) (brand refresh, 2026-09-22, Elleta).
     metadata:
       origin:
         method: extracted
@@ -7464,7 +7197,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.iris}"
+        alias: "{color.light.ink}"
   - kind: token
     id: color.semantic.success
     name: Success
@@ -7556,16 +7289,16 @@ entries:
   - kind: token
     id: color.semantic.accent-raised-hi
     name: Accent Raised Hi
-    description: "Raised accent plate, top gradient stop (keycap). Light source upper-left: top is the lighter stop."
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-22"
+        - date: "2026-09-22"
           by: human:elleta
-          note: "text-on-accent (ground) label on this stop 5.66:1, AA normal text. Worst stop of the plate; the bar holds on every stop. Portfolio divergence recorded: the plate runs one step deeper than the portfolio keycap (iris.hi top failed the ground label at 4.49:1; the white label is not carried, no pure white)."
+          note: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel.
       tags:
         - semantic
         - accent-raised-hi
@@ -7578,20 +7311,20 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.iris}"
+        alias: "{color.light.ink}"
   - kind: token
     id: color.semantic.accent-raised-lo
     name: Accent Raised Lo
-    description: Raised accent plate, bottom gradient stop (keycap).
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-22"
+        - date: "2026-09-22"
           by: human:elleta
-          note: ground label on this stop 7.09:1, AAA.
+          note: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel.
       tags:
         - semantic
         - accent-raised-lo
@@ -7604,20 +7337,20 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.iris.deep}"
+        alias: "{color.light.ink}"
   - kind: token
     id: color.semantic.accent-raised-hover
     name: Accent Raised Hover
-    description: "Raised accent plate on hover and focus-visible: the plate settles onto its deep stop, flat."
+    description: "Primary button plate on hover and focus-visible: ink 85% (brand refresh, 2026-09-22, Elleta)."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-22"
+        - date: "2026-09-22"
           by: human:elleta
-          note: ground label on this stop 7.09:1, AAA.
+          note: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel.
       tags:
         - semantic
         - accent-raised-hover
@@ -7630,20 +7363,20 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.iris.deep}"
+        alias: "{color.light.ink-hover}"
   - kind: token
     id: color.semantic.accent-raised-edge
     name: Accent Raised Edge
-    description: Raised accent plate edge (the keycap 3D rim).
+    description: "Primary button plate and edge: ink (brand refresh, 2026-09-22, Elleta; was the iris keycap)."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-07-22"
+        - date: "2026-09-22"
           by: human:elleta
-          note: 7.25:1 on ground, non-text edge, far above the 3:1 minimum.
+          note: the button label (text-inverse) is 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate; the plate is 16.7:1 light / 15.5:1 dark against the panel.
       tags:
         - semantic
         - accent-raised-edge
@@ -7656,7 +7389,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.iris.edge}"
+        alias: "{color.light.ink}"
   - kind: token
     id: component.button.shape.default
     name: Default
@@ -7858,7 +7591,7 @@ entries:
   - kind: token
     id: component.button.primary.fill-hi-hover
     name: Fill Hi Hover
-    description: "Hover and focus-visible: the plate flattens one step deeper (iris deep in light, peri-deep in dark). A colour shift, not a lift; it stays under reduced motion."
+    description: "Hover and focus-visible: the ink plate eases one step lighter (ink-hover in both themes). A colour shift, not a lift; it stays under reduced motion."
     metadata:
       origin:
         method: extracted
@@ -7901,7 +7634,7 @@ entries:
         alias: "{color.semantic.accent-raised-hover}"
   - kind: token
     id: component.button.primary.edge
-    name: Primary Edge
+    name: Edge
     description: Component-tier alias. Resolves to `color.semantic.accent-raised-edge` in `tokens/bella.json`.
     metadata:
       origin:
@@ -7924,7 +7657,7 @@ entries:
   - kind: token
     id: component.button.primary.foreground
     name: Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-on-accent` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-inverse` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -7942,7 +7675,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-on-accent}"
+        alias: "{color.semantic.text-inverse}"
   - kind: token
     id: component.button.primary.gloss
     name: Gloss
@@ -8154,7 +7887,7 @@ entries:
   - kind: token
     id: component.button.secondary.background-hover
     name: Background Hover
-    description: Component-tier alias. Resolves to `color.semantic.accent-subtle` in `tokens/bella.json`.
+    description: Component-tier color, declared literally in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -8169,14 +7902,10 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: component.button.secondary.background-hover
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-subtle}"
   - kind: token
     id: component.button.secondary.background-active
     name: Background Active
-    description: Component-tier alias. Resolves to `color.semantic.accent-border` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.surface-inset` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -8194,7 +7923,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-border}"
+        alias: "{color.semantic.surface-inset}"
   - kind: token
     id: component.button.secondary.foreground
     name: Secondary Foreground
@@ -8220,12 +7949,12 @@ entries:
   - kind: token
     id: component.button.secondary.border
     name: Secondary Border
-    description: Component-tier alias. Resolves to `color.semantic.accent` in `tokens/bella.json`.
+    description: The 3:1 control outline at rest (brand refresh, 2026-09-22).
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - button
@@ -8238,7 +7967,29 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent}"
+        alias: "{color.semantic.border-strong}"
+  - kind: token
+    id: component.button.secondary.border-hover
+    name: Border Hover
+    description: "Hover and focus-visible: the outline goes ink."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.secondary
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.secondary.border-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border-ink}"
   - kind: token
     id: component.button.secondary.padding-y
     name: Secondary Padding Y
@@ -8326,12 +8077,12 @@ entries:
   - kind: token
     id: component.button.tertiary.foreground
     name: Tertiary Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-accent` in `tokens/bella.json`.
+    description: "Ink with an underline (brand refresh, 2026-09-22): links are ink."
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - button
@@ -8344,7 +8095,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-accent}"
+        alias: "{color.semantic.link}"
   - kind: token
     id: component.button.tertiary.underline-offset
     name: Underline Offset
@@ -8392,7 +8143,7 @@ entries:
   - kind: token
     id: component.button.tertiary.foreground-hover
     name: Foreground Hover
-    description: "Hover and focus-visible label colour. accent-hover, not link-hover: link-hover equals the rest colour, so the shift would be invisible."
+    description: Stays ink on hover and focus-visible; the underline thickens instead.
     metadata:
       origin:
         method: extracted
@@ -8410,7 +8161,29 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent-hover}"
+        alias: "{color.semantic.link-hover}"
+  - kind: token
+    id: component.button.tertiary.underline-thickness-hover
+    name: Underline Thickness Hover
+    description: "Hover and focus-visible: the underline thickens to 2px."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - button
+      group: component.button.tertiary
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.button.tertiary.underline-thickness-hover
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.medium}"
   - kind: token
     id: component.button.tertiary.min-height
     name: Tertiary Min Height
@@ -10110,7 +9883,7 @@ entries:
   - kind: token
     id: component.tag.accent.background
     name: Accent Background
-    description: "Lavender chip fill: colour lives in fills, and iris is interactive only (style unify, 2026-09-22)."
+    description: "Ochre fill with ink text (brand refresh, 2026-09-22): the accent is a fill."
     metadata:
       origin:
         method: extracted
@@ -10128,11 +9901,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.chip-1}"
+        alias: "{color.semantic.accent}"
   - kind: token
     id: component.tag.accent.foreground
     name: Accent Foreground
-    description: Component-tier alias. Resolves to `color.semantic.chip-text` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-on-accent` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -10150,7 +9923,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.chip-text}"
+        alias: "{color.semantic.text-on-accent}"
   - kind: token
     id: component.tag.accent.border-radius
     name: Accent Border Radius
@@ -10352,7 +10125,7 @@ entries:
   - kind: token
     id: component.status-pill.accent.background
     name: Status Pill Accent Background
-    description: "Lavender fill, no ring: colour lives in fills, iris is interactive only (style unify, 2026-09-22)."
+    description: "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill."
     metadata:
       origin:
         method: extracted
@@ -10370,11 +10143,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.chip-1}"
+        alias: "{color.semantic.accent}"
   - kind: token
     id: component.status-pill.accent.foreground
     name: Status Pill Accent Foreground
-    description: Component-tier alias. Resolves to `color.semantic.chip-text` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-on-accent` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -10392,7 +10165,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.chip-text}"
+        alias: "{color.semantic.text-on-accent}"
   - kind: token
     id: component.filter-chip.border
     name: Filter Chip Border
@@ -11166,7 +10939,7 @@ entries:
   - kind: token
     id: component.avatar.default.ring-color
     name: Ring Color
-    description: Component-tier alias. Resolves to `color.semantic.accent` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.border-ink` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11184,7 +10957,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.accent}"
+        alias: "{color.semantic.border-ink}"
   - kind: token
     id: component.avatar.default.ring-width
     name: Ring Width
@@ -12407,16 +12180,16 @@ entries:
   - kind: component
     id: button
     name: Button
-    description: "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are Geist caps, never Unique."
+    description: "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
-        - date: "2026-07-22"
+        - date: "2026-09-22"
           by: human:elleta
-          note: "worst-stop-wins on the plate gradient: primary label (text-on-accent) 5.66:1 on accent-raised-hi and 7.09:1 on -lo in light (AA / AAA); 8.18:1 and 6.65:1 in dark (AAA / AA). Hover plate (flat, accent-raised-hover): 7.09:1 light, 5.34:1 dark on peri-deep (AA), verified 2026-09-18. Secondary and tertiary labels are text-accent, 5.66:1 light / 6.65:1 dark (AA); the accent never sits on its failing ground. Focus ring on every tier. The rolling label duplicate is aria-hidden, so the accessible name is read once. Hit area 44px minimum on every tier. Disabled uses text-muted on surface-inset, 4.67:1 worst (AA), with aria-disabled semantics from the native attribute."
+          note: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.
       tags:
         - component
         - button
@@ -13252,7 +13025,7 @@ entries:
       reviewed:
         - date: "2026-09-22"
           by: human:elleta
-          note: "text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): iris is interactive only. Semantic level decouples from the visual tier via the as prop, so the outline stays honest."
+          note: "text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest."
       tags:
         - component
         - heading

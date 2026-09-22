@@ -10,8 +10,8 @@
  *   text-primary bold and the field border flips to border-ink (2px ink), so
  *   the state is unmissable without inventing a colour. The ladder
  *   sitting restyles this.
- * - focus is the accent ring pair from the portfolio pattern (border +
- *   2px accent wash), on semantic accent so it theme-flips
+ * - focus is the shared focus ring (3px, 3px offset, ochre-deep light /
+ *   ochre dark) plus an ink edge (brand refresh, 2026-09-22)
  */
 
 .wrapper {
@@ -53,10 +53,13 @@ textarea.field {
   opacity: 1; /* Firefox lowers placeholder opacity; reset so the AA ratio holds */
 }
 
+/* focus: the standard focus ring (brand refresh, 2026-09-22): 3px
+   ochre-deep in light, ochre in dark, 3px offset, and the edge goes ink */
+.field:focus-visible,
 .field:focus {
-  outline: none;
-  border-color: var(--color-semantic-accent);
-  box-shadow: 0 0 0 2px var(--color-semantic-accent-border);
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+  border-color: var(--color-semantic-border-ink);
 }
 
 .field:disabled {

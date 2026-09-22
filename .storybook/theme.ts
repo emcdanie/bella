@@ -21,8 +21,8 @@ export const bellaTheme = create({
   brandUrl: 'https://elleta.design/design-system',
   brandTarget: '_blank',
 
-  colorPrimary: values.iris,
-  colorSecondary: values.iris,
+  colorPrimary: values.ink,
+  colorSecondary: values.ink,
 
   appBg: values.bg,
   appContentBg: values.bg,
@@ -38,8 +38,8 @@ export const bellaTheme = create({
   textMutedColor: values.muted,
 
   barTextColor: values.muted,
-  barSelectedColor: values.iris,
-  barHoverColor: values.irisDeep,
+  barSelectedColor: values.ink,
+  barHoverColor: values.inkHover,
   barBg: values.panel,
 
   buttonBg: values.panel,
@@ -54,7 +54,7 @@ export const bellaTheme = create({
 });
 
 /* Dark counterpart for the themed docs container: the neutral dark ground
- * (color.dark.*, style unify 2026-09-22), dark inks, periwinkle accent;
+ * (color.dark.*, style unify 2026-09-22), dark inks, ink selection (ochre is a fill, never text);
  * the same flip the semantic tier makes. */
 export const bellaThemeDark = create({
   base: 'dark',
@@ -63,8 +63,8 @@ export const bellaThemeDark = create({
   brandUrl: 'https://elleta.design/design-system',
   brandTarget: '_blank',
 
-  colorPrimary: values.periwinkle,
-  colorSecondary: values.periwinkle,
+  colorPrimary: values.darkInk,
+  colorSecondary: values.darkInk,
 
   appBg: values.darkBg,
   appContentBg: values.darkBg,
@@ -80,8 +80,8 @@ export const bellaThemeDark = create({
   textMutedColor: values.darkMuted,
 
   barTextColor: values.darkMuted,
-  barSelectedColor: values.periwinkle,
-  barHoverColor: values.periwinkle,
+  barSelectedColor: values.darkInk,
+  barHoverColor: values.darkMuted,
   barBg: values.darkSurface,
 
   buttonBg: values.darkSurface,

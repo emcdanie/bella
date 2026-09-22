@@ -248,6 +248,16 @@ async function runQualityChecks(
         }
         /* the one named exception (2026-09-22): diagram patterns draw their
            own SVG, and only as a labelled image that tells the story */
+        /* the second named exception (brand refresh, 2026-09-22): brand art
+           (BrandWordmark, PatternField) draws its own SVG, as a labelled
+           image or as aria-hidden decoration, nothing in between */
+        if (svg.hasAttribute('data-bella-brand')) {
+          const labelled = svg.getAttribute('role') === 'img' && !!(svg.getAttribute('aria-label') ?? '').trim();
+          if (!labelled && svg.getAttribute('aria-hidden') !== 'true') {
+            fails.push('brand <svg> that is neither a labelled image nor aria-hidden');
+          }
+          continue;
+        }
         if (svg.hasAttribute('data-bella-diagram')) {
           if (svg.getAttribute('role') !== 'img' || !(svg.getAttribute('aria-label') ?? '').trim()) {
             fails.push('diagram <svg> without role="img" and an aria-label that tells the story');

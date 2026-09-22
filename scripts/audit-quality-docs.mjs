@@ -48,6 +48,8 @@ for (const entry of docs) {
        Icon svg carries data-bella-icon, Storybook chrome is exempt */
     for (const svg of root.querySelectorAll('svg')) {
       if (svg.hasAttribute('data-bella-icon')) continue;
+      /* named exception: brand art, a labelled image or aria-hidden */
+      if (svg.hasAttribute('data-bella-brand') && ((svg.getAttribute('role') === 'img' && (svg.getAttribute('aria-label') ?? '').trim()) || svg.getAttribute('aria-hidden') === 'true')) continue;
       /* named exception: diagram patterns, labelled images only */
       if (svg.hasAttribute('data-bella-diagram') && svg.getAttribute('role') === 'img' && (svg.getAttribute('aria-label') ?? '').trim()) continue;
       /* Storybook chrome: docblock UI, canvas toolbars, and the heading

@@ -1,0 +1,66 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import { PageIntro, DoDont, TokenChip } from '../docs/DocBlocks';
+import * as WordmarkStories from './Wordmark.stories';
+
+<Meta of={WordmarkStories} />
+
+<PageIntro title="Wordmark">
+  Five letters, drawn for this brand: E, L, T, A and B as even strokes with
+  soft corners, cut through with the animal-print pattern. It spells ELLETA
+  for the site and BELLA for the system.
+</PageIntro>
+
+## ELLETA and BELLA
+
+Full-bleed, the wordmark fills its container's width and sits on the
+baseline: nothing hangs below the letters, so it closes a footer cleanly.
+
+<Canvas of={WordmarkStories.Elleta} />
+<Canvas of={WordmarkStories.Bella} />
+
+## Pattern and ink
+
+The pattern is the default. Ink is the fallback where the pattern would
+fight what is around it, or where colour is not available. Ink strokes in
+<TokenChip token="color.semantic.text-primary" />.
+
+<Canvas of={WordmarkStories.Ink} />
+
+## In the nav
+
+The nav wordmark is 40px tall. Below 32px the pattern turns to noise, so
+that is the floor.
+
+<Canvas of={WordmarkStories.NavSize} />
+
+## Reroll
+
+The pattern is drawn from a seed, and the same seed always draws the same
+pattern, so a page renders the same on every visit. Pass `onReroll` to add a
+Reroll control that picks a new seed.
+
+<Canvas of={WordmarkStories.Reroll} />
+<Controls of={WordmarkStories.Elleta} />
+
+## The glyph sheet
+
+Each glyph on a 100-unit cap height, with its centre line: the path the
+stroke follows. The locked settings are weight 12, width 58, height 130,
+tracking 16 and soft corners. The E, A and B bars all sit on one low line.
+
+<Canvas of={WordmarkStories.GlyphSheet} />
+
+## Do and don't
+
+<DoDont
+  doItems={[
+    'Keep it at least 32px tall; 40px in the nav',
+    'Use the pattern variant by default, ink where the pattern would clash',
+    'Keep a fixed seed on a page so it renders the same every time',
+  ]}
+  dontItems={[
+    "Don't put it below 32px tall",
+    "Don't recolour the pattern: it only comes from color.pattern",
+    "Don't use it as body type or a heading: it is a mark, not a typeface",
+  ]}
+/>

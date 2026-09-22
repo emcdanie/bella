@@ -91,6 +91,16 @@ value with the source reference in parentheses.
 | `color.chip.c2` | `#f6c9a8` | color |
 | `color.chip.c3` | `#cfe8dc` | color |
 | `color.chip.text` | `#17191a` | color |
+| `color.pattern.ground` | `#e8a83e` | color |
+| `color.pattern.tiger` | `#4d7fae` | color |
+| `color.pattern.cream` | `#f4ecd6` | color |
+| `color.pattern.rosette` | `#b8c8de` | color |
+| `color.pattern.pink` | `#e79aa8` | color |
+| `color.pattern.leopard` | `#3e7a3c` | color |
+| `color.pattern.zebra` | `#c7cc72` | color |
+| `color.pattern.zebra-light` | `#e6e6ae` | color |
+| `color.pattern.ink` | `#161616` | color |
+| `color.pattern.coral` | `#e66c52` | color |
 | `spacing.1` | `4px` | dimension |
 | `spacing.2` | `8px` | dimension |
 | `spacing.3` | `12px` | dimension |
@@ -260,6 +270,7 @@ value with the source reference in parentheses.
 | `shadow.floating` | `0 1px 2px #1C1A2E0A, 0 10px 30px #1C1A2E0F, 0 24px 60px #1C1A2E0A` (`{shadow.soft}`) | shadow |
 | `shadow.raised` | `0 1px 2px #1C1A2E0D, 0 12px 40px #1C1A2E14, 0 28px 80px #1C1A2E0F, inset 0 1px 0 #FFFFFFE6` (`{shadow.layered}`) | shadow |
 | `blur.surface` | `18px` (`{blur.lg}`) | dimension |
+| `opacity.pattern-field` | `0.07` | number |
 
 ## Tier 2 — Semantic (dark overrides)
 
@@ -310,6 +321,7 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-edge` | `#ededed` (`{color.dark.ink}`) | color |
 | `color.accent-ink` | `#ededed` (`{color.dark.ink}`) | color |
 | `shadow.hover` | `0 8px 24px rgba(0, 0, 0, 0.45)` (`{shadow.hover-dark}`) | shadow |
+| `opacity.pattern-field` | `0.06` | number |
 
 ## Tier 3 — Component
 
@@ -519,6 +531,9 @@ value with the source reference in parentheses.
 | `component.section.default.gap` | `48px` (`{spacing.12}`) | dimension |
 | `component.section.default.max-width` | `1200px` | dimension |
 | `component.modal.backdrop.blur` | `14px` (`{blur.sm}`) | dimension |
+| `component.brand-wordmark.nav-height` | `40px` (`{spacing.10}`) | dimension |
+| `component.brand-wordmark.min-height` | `32px` (`{spacing.8}`) | dimension |
+| `component.pattern-field.opacity` | `0.07` (`{opacity.pattern-field}`) | number |
 | `component.callout.note.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.note.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
 | `component.callout.note.rule-color` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |

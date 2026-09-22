@@ -673,6 +673,59 @@
       }
     },
 
+    "brand-wordmark": {
+      "$extensions": {
+        "bella": {
+          "name": "BrandWordmark",
+          "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink.",
+          "variants": ["pattern", "ink"],
+          "states": ["default"],
+          "props": ["word", "variant", "size", "seed", "onReroll", "className"],
+          "usage": ["The site nav (size nav, 40px tall)", "The footer sign-off (size full-bleed)", "The BELLA name on its own pages"],
+          "dont": ["Never below 32px tall", "Never recolour the pattern: it only comes from color.pattern.*", "Never as body type or a heading: it is a mark, not a typeface", "Never animate it"],
+          "a11y": "role=img with the word as its accessible name; the pattern layers are aria-hidden. The ink variant is text-primary (AAA). Static: nothing moves, so reduced motion needs no change.",
+          "restState": {
+            "description": "Entirely static.",
+            "atRest": ["the letters"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "nav-height": { "$value": "{spacing.10}", "$type": "dimension", "$description": "The nav wordmark is 40px tall." },
+      "min-height": { "$value": "{spacing.8}", "$type": "dimension", "$description": "The floor: never below 32px tall." }
+    },
+
+    "pattern-field": {
+      "$extensions": {
+        "bella": {
+          "name": "PatternField",
+          "description": "The brand pattern as a hero background (brand refresh, 2026-09-22): greyscale at about 7% (inverted grey at about 6% in dark) with a radial fade. Replaces the dot grid.",
+          "variants": ["default"],
+          "states": ["default"],
+          "props": ["seed", "className"],
+          "usage": ["Behind a page opening or hero, first child of a position: relative container"],
+          "dont": ["Never behind body text at more than its token opacity", "Never in colour: the colour pattern belongs to the wordmark", "Never interactive"],
+          "a11y": "Decorative: aria-hidden, focusable=false, pointer-events none. At 7% greyscale it does not reduce text contrast measurably; axe checks the text over it.",
+          "restState": {
+            "description": "Entirely static.",
+            "atRest": ["the field"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "opacity": { "$value": "{opacity.pattern-field}", "$type": "number", "$description": "7% light, 6% dark, through the semantic opacity token." }
+    },
+
     "callout": {
       "$extensions": {
         "bella": {

@@ -18,8 +18,11 @@ import ico from '../assets/brand/favicon/favicon.ico';
 
 ## The files
 
-One generator, one fixed seed (7), so the pattern never changes between
-builds. `npm run build` writes the SVG (and the gate checks it has not
+One generator, one fixed seed (189), so the pattern never changes between
+builds. The seed was picked by measurement, not by eye:
+`scripts/score-favicon-seeds.mjs` renders seeds 1 to 200 at 32px and keeps
+the one with no cream and mostly ochre, blue or pink under every bar and the
+stem (the middle bar counts double). `npm run build` writes the SVG (and the gate checks it has not
 drifted); `npm run build:favicons` rasterises the PNGs and packs the ICO.
 
 <AssetGrid>

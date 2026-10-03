@@ -187,6 +187,7 @@ const IMPL = {
   'segmented-control': 'SegmentedControl', select: 'Select', 'status-pill': 'StatusPill', tag: 'Tag',
   tabs: 'Tabs', kbd: 'Kbd', 'nav-list': 'NavList', stat: 'Stat',
   'score-strip': 'ScoreStrip', 'data-table': 'DataTable', 'drawer': 'Drawer', 'combobox': 'Combobox', 'action-chip': 'ActionChip', 'disclosure': 'Disclosure',
+  'page-header': 'PageHeader', section: 'Section', 'sidebar-layout': 'SidebarLayout', columns: 'Columns',
 };
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no

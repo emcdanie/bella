@@ -50,6 +50,17 @@ Dark mode is neutral and climbs lighter: page `color.dark.bg` `#0d0d0d`, surface
 - Hover transitions are quick (≤250ms) and eased. No bouncing, no spring physics.
 - **Diagram motion** (style unify, 2026-09-22): `motion.duration.draw` + `motion.easing.draw` for lines, `motion.duration.pop` + `motion.easing.pop` for elements appearing, `motion.stagger.min`–`max` between steps. Plays once when in view, then holds still; reduced motion shows the finished frame. The pop overshoot is for play-once reveals only, never hover or state changes.
 
+## Actions in a view (layout foundation, 2026-10-03, Elleta)
+
+One style per job, so a page never mixes button looks for the same kind of action:
+
+- **Main action:** at most ONE keycap (Button `primary`, caps) per view, and only for the action the view exists for. Zero is fine. A keycap shown as a specimen (Atlas, Storybook) is content, not an action.
+- **Secondary actions:** Button `secondary`.
+- **Small inline actions** (on a tile, under an answer, in a list row, "Test", "Copy"): ActionChip, sentence case.
+- **Navigation** (going somewhere else): Link, or NavList in a sidebar. Not a Button and not an ActionChip.
+- **Filters, toggles, sort, picking a view:** FilterChip, SegmentedControl, Select. Never a Button.
+- No locally styled `<button>` in a consuming app: if none of these fits, ask before inventing one.
+
 ## Aesthetic stance
 
 Editorial. Confident. Closer to a magazine or a well-set book than a SaaS dashboard. Avoid:

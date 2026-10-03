@@ -3188,5 +3188,117 @@
         }
       }
     }
+  },
+  "layout": {
+    "container": {
+      "max": {
+        "$value": "1440px",
+        "$type": "dimension",
+        "$description": "The widest a page's content gets, inside the side padding. Wider windows centre it (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "App and page container max-width"
+            ]
+          }
+        }
+      },
+      "pad": {
+        "$value": "clamp(16px, 4vw, 32px)",
+        "$type": "dimension",
+        "$description": "Side padding of the page container: 16px on a phone, 32px from 800px up (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Container padding-inline",
+              "The header row, so its left edge matches the content"
+            ]
+          }
+        }
+      }
+    },
+    "section": {
+      "space": {
+        "$value": "clamp(32px, 24px + 2vw, 48px)",
+        "$type": "dimension",
+        "$description": "The space between two sections of a page: 32px on a phone, 48px from 1200px up (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Section to section",
+              "Page header to the first section"
+            ]
+          }
+        }
+      }
+    },
+    "stack": {
+      "sm": {
+        "$value": "{spacing.2}",
+        "$type": "dimension",
+        "$description": "Gap inside a group: label to value, heading to its lede (layout foundation, 2026-10-03)."
+      },
+      "md": {
+        "$value": "{spacing.4}",
+        "$type": "dimension",
+        "$description": "Gap between items inside a card or section (layout foundation, 2026-10-03)."
+      },
+      "lg": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "Gap between blocks: a section heading to its body, card to card (layout foundation, 2026-10-03)."
+      }
+    },
+    "gutter": {
+      "$value": "{spacing.6}",
+      "$type": "dimension",
+      "$description": "The grid gap between columns and between cards, one value at every width (layout foundation, 2026-10-03).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Columns gap",
+            "SidebarLayout gap"
+          ]
+        }
+      }
+    },
+    "card": {
+      "padding": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "The one card padding, what Card renders (layout foundation, 2026-10-03)."
+      }
+    },
+    "grid": {
+      "columns-wide": {
+        "$value": 12,
+        "$type": "number",
+        "$description": "Page grid columns at 1200px and up (layout foundation, 2026-10-03)."
+      },
+      "columns-medium": {
+        "$value": 8,
+        "$type": "number",
+        "$description": "Page grid columns from 768 to 1199px (layout foundation, 2026-10-03)."
+      },
+      "columns-narrow": {
+        "$value": 4,
+        "$type": "number",
+        "$description": "Page grid columns below 768px (layout foundation, 2026-10-03)."
+      }
+    },
+    "measure": {
+      "body": {
+        "$value": "70ch",
+        "$type": "dimension",
+        "$description": "The longest line of body text (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Paragraphs, ledes, the reader column"
+            ]
+          }
+        }
+      }
+    }
   }
 }

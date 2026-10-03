@@ -675,6 +675,7 @@ value with the source reference in parentheses.
 | `component.action-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
 | `component.action-chip.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
 | `component.action-chip.hover-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.action-chip.quiet-hover-background` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
 | `component.page-header.title.font-size` | `40px` (`{typography.font-size.4xl}`) | dimension |
 | `component.page-header.title.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.page-header.title.line-height` | `1.08` (`{typography.line-height.heading}`) | number |

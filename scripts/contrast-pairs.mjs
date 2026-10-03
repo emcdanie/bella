@@ -87,6 +87,7 @@ const PAIRS = [
   ['action chip label on the page', '--component-action-chip-foreground', '--color-semantic-background', AAA],
   ['action chip label on its hover wash', '--component-action-chip-foreground', '--component-action-chip-hover-background', AAA],
   ['action chip border on panel', '--component-action-chip-border', '--color-semantic-surface-card', NON_TEXT],
+  ['quiet action chip label on its hover fill', '--component-action-chip-foreground', '--component-action-chip-quiet-hover-background', AAA],
   ['disclosure title on panel', '--component-disclosure-foreground', '--color-semantic-surface-card', AAA],
   ['disclosure summary on panel', '--component-disclosure-meta-foreground', '--color-semantic-surface-card', AA],
   ['neutral status pill label on its inset fill', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],

@@ -13,6 +13,8 @@ export interface ActionChipProps {
   disabled?: boolean;
   /** An accessible name when the visible words are not enough. */
   ariaLabel?: string;
+  /** `"quiet"`: no border at rest, the inset fill on hover and focus; for a small icon action like a ⋯ menu beside content. */
+  variant?: 'default' | 'quiet';
   className?: string;
 }
 
@@ -28,9 +30,10 @@ export default function ActionChip({
   linkComponent: LinkComponent = 'a',
   disabled,
   ariaLabel,
+  variant = 'default',
   className,
 }: ActionChipProps) {
-  const cls = [styles.chip, className].filter(Boolean).join(' ');
+  const cls = [styles.chip, variant === 'quiet' ? styles.quiet : '', className].filter(Boolean).join(' ');
   if (href && !disabled) {
     return (
       <LinkComponent href={href} className={cls} aria-label={ariaLabel} data-bella-component="action-chip">

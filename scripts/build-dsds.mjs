@@ -211,6 +211,10 @@ const VARIANT_DESC = {
     default: 'The quiet neutral wash.',
     accent: 'The accent wash (subtle fill, accent text), the generic form of the portfolio’s per-case identity tint.',
   },
+  'action-chip': {
+    default: 'The control-border pill, sentence case.',
+    quiet: 'No border at rest, the inset fill on hover and focus; for an icon action beside content, such as a ⋯ menu.',
+  },
   'status-pill': {
     accent: 'The quiet accent ring (the portfolio’s "Current focus").',
     success: 'Wears the carried sage tint, non-text roles only per the recorded decision; the pending status ladder (issue #1) will restyle it.',

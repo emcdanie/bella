@@ -53,6 +53,18 @@ function Counter() {
 }
 
 /** Behavioral suite: a real button, sentence case, 44px, no toggle state. */
+/** Quiet: an icon action beside content (the ⋯ menu): no border at rest. */
+export const Quiet: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-3)', alignItems: 'center' }}>
+      <span>Checks</span>
+      <ActionChip variant="quiet" ariaLabel="Checks: visibility and status" onClick={() => {}}>
+        ⋯
+      </ActionChip>
+    </div>
+  ),
+};
+
 export const Behavior: Story = {
   render: () => <Counter />,
   play: async ({ canvas, step }) => {

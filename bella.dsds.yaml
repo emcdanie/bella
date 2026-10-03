@@ -15399,6 +15399,28 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.border-subtle}"
   - kind: token
+    id: component.action-chip.quiet-hover-background
+    name: Quiet Hover Background
+    description: Component-tier alias. Resolves to `color.semantic.surface-inset` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - action-chip
+      group: component.action-chip
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.action-chip.quiet-hover-background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface-inset}"
+  - kind: token
     id: component.page-header.title.font-size
     name: Page Header Title Font Size
     description: Component-tier alias. Resolves to `typography.font-size.4xl` in `tokens/bella.json`.
@@ -18116,6 +18138,8 @@ entries:
             statement: Component chips that open Atlas
           - level: may
             statement: Small actions on a tile (Which have none?)
+          - level: may
+            statement: "quiet: an icon action beside content, such as the ⋯ visibility menu (no border at rest)"
       - kind: guidelines
         for: all
         title: Do not
@@ -18150,6 +18174,16 @@ entries:
         rel: contract
         role: BELLA component contract ($extensions.bella)
         note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    traits:
+      - kind: enum
+        id: variant
+        description: Which visual treatment to render.
+        setBy: consumer
+        values:
+          - id: default
+            description: The control-border pill, sentence case.
+          - id: quiet
+            description: No border at rest, the inset fill on hover and focus; for an icon action beside content, such as a ⋯ menu.
     $extensions:
       design.bella:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."

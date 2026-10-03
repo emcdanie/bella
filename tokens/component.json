@@ -1173,10 +1173,10 @@
           "category": "Actions",
           "rendersAs": "a button, or one anchor with href",
           "description": "The quiet action (CHIP components, 2026-10-03, Elleta): a sentence-case pill for suggestions, chips and the small actions under an answer. Below secondary in weight; not a toggle and not the page's main action.",
-          "variants": [],
+          "variants": ["default", "quiet"],
           "states": ["default", "hover", "focus", "disabled"],
-          "props": ["children", "onClick", "href", "linkComponent", "disabled", "ariaLabel", "className"],
-          "usage": ["OBI suggestions and answer actions", "Component chips that open Atlas", "Small actions on a tile (Which have none?)"],
+          "props": ["children", "onClick", "href", "linkComponent", "disabled", "ariaLabel", "variant", "className"],
+          "usage": ["OBI suggestions and answer actions", "Component chips that open Atlas", "Small actions on a tile (Which have none?)", "quiet: an icon action beside content, such as the ⋯ visibility menu (no border at rest)"],
           "dont": ["Do not set it in caps: sentence case is the point", "Do not use it as a filter or toggle: that is FilterChip with aria-pressed", "Do not use it for the main action of a view: that is Button primary"],
           "a11y": "Verified 2026-10-03: a real button (or a link with href), 44px. Label ink on the page and on panel (AAA in light, warm and dark); the control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring.",
           "restState": {
@@ -1196,7 +1196,8 @@
       "border-radius":    { "$value": "{radius.full}",                   "$type": "dimension" },
       "border":           { "$value": "{color.semantic.border-strong}",  "$type": "color" },
       "foreground":       { "$value": "{color.semantic.text-primary}",   "$type": "color" },
-      "hover-background": { "$value": "{color.semantic.border-subtle}",  "$type": "color" }
+      "hover-background": { "$value": "{color.semantic.border-subtle}",  "$type": "color" },
+      "quiet-hover-background": { "$value": "{color.semantic.surface-inset}", "$type": "color" }
     },
 
     "page-header": {

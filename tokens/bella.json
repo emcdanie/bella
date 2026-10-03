@@ -8063,7 +8063,10 @@
           "category": "Actions",
           "rendersAs": "a button, or one anchor with href",
           "description": "The quiet action (CHIP components, 2026-10-03, Elleta): a sentence-case pill for suggestions, chips and the small actions under an answer. Below secondary in weight; not a toggle and not the page's main action.",
-          "variants": [],
+          "variants": [
+            "default",
+            "quiet"
+          ],
           "states": [
             "default",
             "hover",
@@ -8077,12 +8080,14 @@
             "linkComponent",
             "disabled",
             "ariaLabel",
+            "variant",
             "className"
           ],
           "usage": [
             "OBI suggestions and answer actions",
             "Component chips that open Atlas",
-            "Small actions on a tile (Which have none?)"
+            "Small actions on a tile (Which have none?)",
+            "quiet: an icon action beside content, such as the \u22ef visibility menu (no border at rest)"
           ],
           "dont": [
             "Do not set it in caps: sentence case is the point",
@@ -8142,6 +8147,10 @@
       },
       "hover-background": {
         "$value": "{color.semantic.border-subtle}",
+        "$type": "color"
+      },
+      "quiet-hover-background": {
+        "$value": "{color.semantic.surface-inset}",
         "$type": "color"
       }
     },

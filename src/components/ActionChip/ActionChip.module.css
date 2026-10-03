@@ -44,6 +44,24 @@
   border-color: var(--color-semantic-border);
 }
 
+/* quiet (Atlas v4 review, 2026-10-03): for an icon action beside content
+   (a ⋯ menu). No border at rest; the inset fill on hover and focus; still
+   the 44px target, square when it holds one glyph. */
+.quiet {
+  justify-content: center;
+  min-width: var(--component-action-chip-min-height);
+  padding-inline: var(--spacing-3);
+  border-color: transparent;
+  color: var(--color-semantic-text-secondary);
+}
+
+.quiet:hover,
+.quiet:focus-visible {
+  border-color: transparent;
+  background: var(--component-action-chip-quiet-hover-background);
+  color: var(--component-action-chip-foreground);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chip {
     transition: none;

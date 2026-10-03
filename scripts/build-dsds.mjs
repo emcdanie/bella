@@ -179,12 +179,13 @@ function tokenEntry(t) {
 }
 
 // ---------- components ----------
-// Only the 12 contracts in tokens/component.json that have a real implementation
+// Only the contracts in tokens/component.json that have a real implementation
 // in src/components/ - the same test scripts/contract-parity.mjs applies.
 const IMPL = {
   avatar: 'Avatar', button: 'Button', card: 'Card', 'filter-chip': 'FilterChip',
   heading: 'Heading', icon: 'Icon', input: 'Input', 'resource-card': 'ResourceCard',
   'segmented-control': 'SegmentedControl', select: 'Select', 'status-pill': 'StatusPill', tag: 'Tag',
+  tabs: 'Tabs',
 };
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no

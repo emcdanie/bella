@@ -13102,6 +13102,160 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{spacing.4}"
+  - kind: token
+    id: component.tabs.font-family
+    name: Tabs Font Family
+    description: Component-tier alias. Resolves to `typography.font-family.body` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: fontFamily
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.font-family
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-family.body}"
+  - kind: token
+    id: component.tabs.font-size
+    name: Tabs Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.sm}"
+  - kind: token
+    id: component.tabs.font-weight
+    name: Tabs Font Weight
+    description: Component-tier alias. Resolves to `typography.font-weight.medium` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: fontWeight
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.font-weight
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-weight.medium}"
+  - kind: token
+    id: component.tabs.min-height
+    name: Tabs Min Height
+    description: Component-tier alias. Resolves to `spacing.touch-target` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.min-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.touch-target}"
+  - kind: token
+    id: component.tabs.border-radius
+    name: Tabs Border Radius
+    description: Component-tier alias. Resolves to `radius.md` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.border-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.md}"
+  - kind: token
+    id: component.tabs.indicator
+    name: Indicator
+    description: Component-tier alias. Resolves to `color.semantic.border-ink` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.indicator
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border-ink}"
+  - kind: token
+    id: component.tabs.indicator-width
+    name: Indicator Width
+    description: Component-tier alias. Resolves to `border.width.medium` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tabs
+      group: component.tabs
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tabs.indicator-width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.medium}"
   - kind: theme
     id: light
     name: Light
@@ -14363,6 +14517,101 @@ entries:
             - label
             - hint or error message
           triggered: []
+          invariants:
+            - layer: flat
+              property: transform
+              expect: none
+            - layer: flat
+              property: animation-name
+              expect: none
+  - kind: component
+    id: tabs
+    name: Tabs
+    description: Switch between panels that share one place on the page (CHIP components, 2026-10-03). W3C APG tabs with automatic activation; each tab owns a panel. Optional run state per tab, drawn as a dot and spoken as text.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.
+      tags:
+        - component
+        - tabs
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP workspace switcher
+          - level: may
+            statement: CHIP terminal switcher (with run state)
+          - level: may
+            statement: Any set of panels where one shows at a time
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use to switch a view of the same content: that is SegmentedControl"
+          - level: must-not
+            statement: "Do not use for navigation between pages: that is NavList"
+          - level: must-not
+            statement: "Do not mark the selected tab with colour alone: ink text plus the 2px ink bar"
+          - level: must-not
+            statement: "Do not render panels without tabPanelProps: aria-controls must resolve"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: "Flat: the hairline, the selected bar and the labels are the whole paint. audit:quality asserts no elevation or animation (root carries data-bella-component=tabs)."
+        context: anatomy
+        items:
+          - term: hairline under the list
+            definition: "Trigger: rest. Paints at rest."
+          - term: selected ink bar
+            definition: "Trigger: rest. Paints at rest."
+          - term: labels
+            definition: "Trigger: rest. Paints at rest."
+          - term: run dots
+            definition: "Trigger: rest. Paints at rest."
+          - term: hover wash
+            definition: "Trigger: hover. Inert at rest."
+    refs:
+      - href: ./src/components/Tabs/Tabs.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Tabs/Tabs.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - selected
+          - focus
+        restState:
+          description: "Flat: the hairline, the selected bar and the labels are the whole paint. audit:quality asserts no elevation or animation (root carries data-bella-component=tabs)."
+          atRest:
+            - hairline under the list
+            - selected ink bar
+            - labels
+            - run dots
+          triggered:
+            - layer: hover wash
+              "on":
+                - hover
+              asserted: false
           invariants:
             - layer: flat
               property: transform

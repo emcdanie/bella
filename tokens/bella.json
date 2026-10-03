@@ -6402,6 +6402,99 @@
           "$type": "dimension"
         }
       }
+    },
+    "tabs": {
+      "$extensions": {
+        "bella": {
+          "name": "Tabs",
+          "description": "Switch between panels that share one place on the page (CHIP components, 2026-10-03). W3C APG tabs with automatic activation; each tab owns a panel. Optional run state per tab, drawn as a dot and spoken as text.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "focus"
+          ],
+          "props": [
+            "tabs",
+            "value",
+            "onChange",
+            "label",
+            "idBase",
+            "className"
+          ],
+          "usage": [
+            "CHIP workspace switcher",
+            "CHIP terminal switcher (with run state)",
+            "Any set of panels where one shows at a time"
+          ],
+          "dont": [
+            "Do not use to switch a view of the same content: that is SegmentedControl",
+            "Do not use for navigation between pages: that is NavList",
+            "Do not mark the selected tab with colour alone: ink text plus the 2px ink bar",
+            "Do not render panels without tabPanelProps: aria-controls must resolve"
+          ],
+          "a11y": "Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.",
+          "restState": {
+            "description": "Flat: the hairline, the selected bar and the labels are the whole paint. audit:quality asserts no elevation or animation (root carries data-bella-component=tabs).",
+            "atRest": [
+              "hairline under the list",
+              "selected ink bar",
+              "labels",
+              "run dots"
+            ],
+            "triggered": [
+              {
+                "layer": "hover wash",
+                "on": [
+                  "hover"
+                ],
+                "asserted": false
+              }
+            ],
+            "invariants": [
+              {
+                "layer": "flat",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "flat",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "font-family": {
+        "$value": "{typography.font-family.body}",
+        "$type": "fontFamily"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.sm}",
+        "$type": "dimension"
+      },
+      "font-weight": {
+        "$value": "{typography.font-weight.medium}",
+        "$type": "fontWeight"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.md}",
+        "$type": "dimension"
+      },
+      "indicator": {
+        "$value": "{color.semantic.border-ink}",
+        "$type": "color"
+      },
+      "indicator-width": {
+        "$value": "{border.width.medium}",
+        "$type": "dimension"
+      }
     }
   }
 }

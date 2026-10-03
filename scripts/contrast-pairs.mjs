@@ -69,6 +69,7 @@ const PAIRS = [
   ['control border on the page', '--color-semantic-border-strong', '--color-semantic-background', NON_TEXT],
   ['control border on panel', '--color-semantic-border-strong', '--color-semantic-surface-card', NON_TEXT],
   ['ink plate against panel', '--component-button-primary-fill-hi', '--color-semantic-surface-card', NON_TEXT],
+  ['selected tab bar (ink) on the page', '--component-tabs-indicator', '--color-semantic-background', NON_TEXT],
   /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
   ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
   ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],

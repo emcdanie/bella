@@ -572,3 +572,10 @@ value with the source reference in parentheses.
 | `component.callout.gap.border-width` | `1px` (`{border.width.thin}`) | dimension |
 | `component.callout.gap.radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.callout.gap.padding` | `16px` (`{spacing.4}`) | dimension |
+| `component.tabs.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.tabs.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.tabs.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
+| `component.tabs.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.tabs.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.tabs.indicator` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.tabs.indicator-width` | `2px` (`{border.width.medium}`) | dimension |

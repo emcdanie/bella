@@ -1,0 +1,97 @@
+/* Tabs (CHIP components, 2026-10-03). Tokens only. W3C APG tabs, automatic
+ * activation. Built for CHIP's workspace and terminal switchers.
+ *
+ * Why tabs and not SegmentedControl: each tab OWNS a panel (tabpanel,
+ * aria-controls), which is exactly what SegmentedControl's recorded
+ * discovery pass says it is not.
+ *
+ * Paint: the hairline under the list is decoration; the selected tab is
+ * marked by ink text plus a 2px ink bar, never by colour alone. The run
+ * dot is a fill (running) or a ring (idle), and the state is also text.
+ *
+ * Recorded divergence: the focus ring sits inside the tab (negative
+ * offset) like SegmentedControl, so a scrolling tablist cannot clip it.
+ */
+
+.list {
+  display: flex;
+  gap: var(--spacing-1);
+  border-bottom: var(--border-width-thin) solid var(--color-semantic-border);
+  overflow-x: auto;
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex: none;
+  min-height: var(--component-tabs-min-height);
+  padding: 0 var(--spacing-4);
+  margin: 0;
+  border: none;
+  border-radius: var(--component-tabs-border-radius) var(--component-tabs-border-radius) 0 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--component-tabs-font-family);
+  font-size: var(--component-tabs-font-size);
+  font-weight: var(--component-tabs-font-weight);
+  letter-spacing: var(--typography-letter-spacing-body);
+  color: var(--color-semantic-text-secondary);
+  white-space: nowrap;
+  transition:
+    background var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.tab:hover {
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-border-subtle);
+}
+
+.tab[aria-selected='true'] {
+  color: var(--color-semantic-text-primary);
+}
+
+.tab[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: var(--component-tabs-indicator-width);
+  background: var(--component-tabs-indicator);
+}
+
+.tab:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: calc(-1 * var(--ring-focus-width));
+}
+
+.dot {
+  width: var(--spacing-2);
+  height: var(--spacing-2);
+  border-radius: var(--radius-full);
+  flex: none;
+}
+
+.dot[data-status='running'] {
+  background: var(--color-semantic-border-ink);
+}
+
+.dot[data-status='idle'] {
+  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-semantic-border-strong);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab {
+    transition: none;
+  }
+}

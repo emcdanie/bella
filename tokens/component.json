@@ -900,6 +900,39 @@
       "value-font-size":   { "$value": "{typography.font-size.3xl}",       "$type": "dimension" },
       "value-font-weight": { "$value": "{typography.font-weight.light}",   "$type": "fontWeight" },
       "delta-font-size":   { "$value": "{typography.font-size.sm}",        "$type": "dimension" }
+    },
+
+    "score-strip": {
+      "$extensions": {
+        "bella": {
+          "name": "ScoreStrip",
+          "description": "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) are a word and a dashed frame, never a fill. Ships with ScoreLegend and scoreBand.",
+          "variants": [],
+          "states": ["strong", "mid", "low", "self"],
+          "props": ["name", "kind", "score", "cells", "as", "className"],
+          "usage": ["CHIP readiness map, fed by the station scores in bella.json", "Any per-dimension score for a named system"],
+          "dont": ["Do not invent a warning colour for the mid band: it stays neutral until the status ladder adds one (issue #1)", "Do not show a self-assessed score as a measured number", "Do not drop ScoreLegend from a map: the bands need their key", "Do not rely on the wash: the edge, the figure and the spoken band carry the meaning"],
+          "a11y": "Verified 2026-10-03: a region labelled by the system heading (level set by as); stations are a labelled list, each spoken as full name, value of 100 and band word, or self-assessed; the visible figure and short label are aria-hidden duplicates. Cell text is ink on every wash, 16.24:1 light / 12.23:1 dark worst (AAA; muted would fall to 6.68:1). Band edges are status borders at 3:1 or better on panel (success, danger) or the control border (3.00:1); the washes alone are near 1:1 on light panel and never carry meaning. The overall bar is aria-hidden, ink on the border-subtle track (14.60:1 / 12.26:1).",
+          "restState": {
+            "description": "Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=score-strip).",
+            "atRest": ["name, kind, overall score", "ink bar", "station cells with band edge and wash"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "name-font-size":     { "$value": "{typography.font-size.xl}",        "$type": "dimension" },
+      "score-font-size":    { "$value": "{typography.font-size.3xl}",       "$type": "dimension" },
+      "value-font-size":    { "$value": "{typography.font-size.lg}",        "$type": "dimension" },
+      "label-font-family":  { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "label-font-size":    { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+      "cell-border-radius": { "$value": "{radius.md}",                      "$type": "dimension" },
+      "track":              { "$value": "{color.semantic.border-subtle}",   "$type": "color" },
+      "track-fill":         { "$value": "{color.semantic.border-ink}",      "$type": "color" }
     }
   }
 }

@@ -1,0 +1,188 @@
+/* ScoreStrip (CHIP components, 2026-10-03). Tokens only. One system's
+ * readiness: the overall score with an ink bar, then one cell per station.
+ *
+ * Bands are status, so colour is allowed in strokes and washes here (the
+ * 2026-09-22 amendment), but never alone:
+ * - strong (80 to 100): success wash, success edge
+ * - mid (60 to 79): neutral, control edge (there is no warning colour yet,
+ *   issue #1; this does not invent one)
+ * - low (under 60): danger wash, danger edge
+ * - self-assessed (null): no wash, dashed control frame, the word "self"
+ * The edge clears 3:1 on panel; the washes alone do not (success-subtle is
+ * 1.02:1 on light panel), which is why the edge, the figure and the spoken
+ * band carry the meaning. All cell text is ink: muted on the washes falls
+ * under AAA (6.68:1 worst). */
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-5) var(--spacing-8);
+  align-items: flex-start;
+}
+
+.id {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1 1 calc(var(--spacing-20) * 2);
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-score-strip-name-font-size);
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-title);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-primary);
+}
+
+.kind,
+.selfWord,
+.label {
+  font-family: var(--component-score-strip-label-font-family);
+  font-size: var(--component-score-strip-label-font-size);
+  font-feature-settings: var(--typography-font-feature-mono);
+  letter-spacing: var(--typography-letter-spacing-mono);
+}
+
+.kind {
+  margin: 0;
+  color: var(--color-semantic-text-secondary);
+}
+
+.overall {
+  margin: var(--spacing-2) 0 0;
+  color: var(--color-semantic-text-primary);
+}
+
+.score {
+  font-family: var(--typography-font-family-display);
+  font-size: var(--component-score-strip-score-font-size);
+  font-weight: var(--typography-font-weight-light);
+  letter-spacing: var(--typography-letter-spacing-h2);
+  line-height: var(--typography-line-height-heading);
+  font-variant-numeric: tabular-nums;
+}
+
+.of {
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+
+.selfWord {
+  color: var(--color-semantic-text-secondary);
+}
+
+.track {
+  block-size: var(--spacing-1);
+  border-radius: var(--radius-full);
+  background: var(--component-score-strip-track);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  block-size: 100%;
+  background: var(--component-score-strip-track-fill);
+}
+
+.cells {
+  flex: 3 1 calc(var(--spacing-20) * 4);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--spacing-12), 1fr));
+  gap: var(--spacing-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-2) var(--spacing-1);
+  border-radius: var(--component-score-strip-cell-border-radius);
+  border-top: var(--border-width-thick) solid var(--color-semantic-border-strong);
+  color: var(--color-semantic-text-primary);
+}
+
+.cell[data-band='strong'] {
+  background: var(--color-semantic-success-subtle);
+  border-top-color: var(--color-semantic-success-border);
+}
+
+.cell[data-band='low'] {
+  background: var(--color-semantic-danger-subtle);
+  border-top-color: var(--color-semantic-danger-border);
+}
+
+.cell[data-band='self'] {
+  border: var(--border-width-thin) dashed var(--color-semantic-border-strong);
+}
+
+.value {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-score-strip-value-font-size);
+  font-weight: var(--typography-font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--typography-line-height-snug);
+}
+
+.cell[data-band='self'] .value {
+  font-family: var(--component-score-strip-label-font-family);
+  font-size: var(--component-score-strip-label-font-size);
+  font-weight: var(--typography-font-weight-regular);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2) var(--spacing-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--component-score-strip-label-font-family);
+  font-size: var(--component-score-strip-label-font-size);
+  font-feature-settings: var(--typography-font-feature-mono);
+  color: var(--color-semantic-text-secondary);
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.swatch {
+  inline-size: var(--spacing-3);
+  block-size: var(--spacing-3);
+  border-radius: var(--radius-sm);
+  border-top: var(--border-width-thick) solid var(--color-semantic-border-strong);
+}
+
+.swatch[data-band='strong'] {
+  background: var(--color-semantic-success-subtle);
+  border-top-color: var(--color-semantic-success-border);
+}
+
+.swatch[data-band='low'] {
+  background: var(--color-semantic-danger-subtle);
+  border-top-color: var(--color-semantic-danger-border);
+}
+
+.swatch[data-band='self'] {
+  border: var(--border-width-thin) dashed var(--color-semantic-border-strong);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -599,3 +599,11 @@ value with the source reference in parentheses.
 | `component.stat.value-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
 | `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.stat.delta-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.score-strip.name-font-size` | `20px` (`{typography.font-size.xl}`) | dimension |
+| `component.score-strip.score-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.score-strip.value-font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
+| `component.score-strip.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.score-strip.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.score-strip.track` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.score-strip.track-fill` | `#121212` (`{color.semantic.border-ink}`) | color |

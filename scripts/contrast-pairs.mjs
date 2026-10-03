@@ -71,6 +71,8 @@ const PAIRS = [
   ['ink plate against panel', '--component-button-primary-fill-hi', '--color-semantic-surface-card', NON_TEXT],
   ['selected tab bar (ink) on the page', '--component-tabs-indicator', '--color-semantic-background', NON_TEXT],
   ['current nav item: ink on its wash', '--color-semantic-text-primary', '--component-nav-list-current-background', AAA],
+  ['score bar (ink) on its track', '--component-score-strip-track-fill', '--component-score-strip-track', NON_TEXT],
+  ['ink text on inset', '--color-semantic-text-primary', '--color-semantic-surface-inset', AAA],
   /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
   ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
   ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],

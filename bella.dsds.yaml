@@ -14283,6 +14283,22 @@ entries:
             definition: "Trigger: rest. Paints at rest."
           - term: no shadow
             definition: "Trigger: rest. Paints at rest."
+      - kind: definitions
+        for: all
+        title: Anatomy
+        description: Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.
+        context: anatomy
+        items:
+          - term: 1. Hover shadow
+            definition: "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift. Trigger: hover. Token --shadow-hover; target :scope."
+          - term: 2. Surface
+            definition: "the page ground one step darker; flat at rest. Trigger: rest. Token --color-semantic-surface-card; target :scope > div."
+          - term: 3. Edge
+            definition: "1px hairline, radius 16 (--radius-card). Trigger: rest. Token --color-semantic-border-faint; target :scope > div."
+          - term: 4. Padding
+            definition: "24px all round. Trigger: rest. Token --spacing-6; target :scope > div."
+          - term: 5. Focus ring
+            definition: "interactive cards only: 3px, 3px offset, focus-visible only. Trigger: focus. Token --ring-focus-color; target :scope."
     refs:
       - href: ./src/components/Card/Card.stories.tsx
         rel: storybook
@@ -14677,6 +14693,24 @@ entries:
             definition: "Trigger: rest. Paints at rest."
           - term: hover wash
             definition: "Trigger: hover. Inert at rest."
+      - kind: definitions
+        for: all
+        title: Anatomy
+        description: Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.
+        context: anatomy
+        items:
+          - term: 1. Box
+            definition: "44px min, padding 4 / 16, pill radius. Trigger: rest. Token --component-filter-chip-min-height; target :scope."
+          - term: 2. Outline
+            definition: "1px border-strong, never raised. Trigger: rest. Token --component-filter-chip-border; target :scope."
+          - term: 3. Hover wash
+            definition: "border-subtle wash, the edge goes ink. Trigger: hover. Token --color-semantic-border-subtle; target :scope."
+          - term: 4. Pressed fill
+            definition: "inverse fill, label text-inverse; aria-pressed is the state. Trigger: pressed. Token --color-semantic-background-inverse; target :scope."
+          - term: 5. Label
+            definition: "Geist 14, 500, text-secondary. Trigger: rest. Token --component-filter-chip-foreground; target :scope."
+          - term: 6. Focus ring
+            definition: "3px, 3px offset, focus-visible only. Trigger: focus. Token --ring-focus-color; target :scope."
     refs:
       - href: ./src/components/FilterChip/FilterChip.stories.tsx
         rel: storybook
@@ -15230,6 +15264,24 @@ entries:
             definition: "Trigger: rest. Paints at rest."
           - term: hint or error message
             definition: "Trigger: rest. Paints at rest."
+      - kind: definitions
+        for: all
+        title: Anatomy
+        description: Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.
+        context: anatomy
+        items:
+          - term: 1. Label
+            definition: "Geist 13, 700, caps; a real label wired for/id. Trigger: rest. Token --color-semantic-text-secondary; target label."
+          - term: 2. Field
+            definition: "surface, padding 12 / 16, radius 8. Trigger: rest. Token --color-semantic-surface; target input, textarea."
+          - term: 3. Border
+            definition: "1px border-strong, the 3:1 control edge. Trigger: rest. Token --color-semantic-border-strong; target input, textarea."
+          - term: 4. Box
+            definition: "44px min, field text 16px. Trigger: rest. Token --component-input-min-height; target input, textarea."
+          - term: 5. Placeholder
+            definition: "text-muted, opacity reset for Firefox; never the label. Trigger: rest. Token --color-semantic-text-muted; target input, textarea."
+          - term: 6. Focus ring
+            definition: "3px, 3px offset, and the edge goes ink. Trigger: focus. Token --ring-focus-color; target input, textarea."
     refs:
       - href: ./src/components/Input/Input.stories.tsx
         rel: storybook

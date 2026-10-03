@@ -297,7 +297,7 @@ function componentEntry(key) {
       title: 'Anatomy',
       description: 'Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.',
       context: 'anatomy',
-      items: c.anatomy.map((p, i) => ({ term: `${i + 1}. ${p.title}`, definition: `${p.detail}. Token ${p.token}; target ${p.target}.` })),
+      items: c.anatomy.map((p, i) => ({ term: `${i + 1}. ${p.title}`, definition: `${p.detail}. ${p.trigger ? `Trigger: ${p.trigger}. ` : ''}Token ${p.token}; target ${p.target}.` })),
     });
   }
   if (sections.length) e.sections = sections;

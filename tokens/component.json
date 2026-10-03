@@ -108,6 +108,13 @@
           "usage": ["Portfolio grid", "Case-study cards", "CHIP idea clusters", "Dashboard tiles"],
           "dont": ["Do not nest cards inside cards", "Do not use for navigation, that's nav-link's job", "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button", "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
           "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). Only interactive cards lift on hover and focus; prefers-reduced-motion keeps them still (the shadow still marks hover and focus). Card text sits on surface-card: text-muted 4.64:1 light / 6.03:1 dark, the worst pair (AA).",
+          "anatomy": [
+            {"key": "shadow", "title": "Hover shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-hover", "trigger": "hover", "detail": "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift"},
+            {"key": "surface", "title": "Surface", "kind": "fill", "target": ":scope > div", "zone": {"inset": 12}, "token": "--color-semantic-surface-card", "trigger": "rest", "detail": "the page ground one step darker; flat at rest"},
+            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-faint", "trigger": "rest", "detail": "1px hairline, radius 16 (--radius-card)"},
+            {"key": "padding", "title": "Padding", "kind": "box", "target": ":scope > div", "zone": {"inset": 0}, "token": "--spacing-6", "trigger": "rest", "detail": "24px all round"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -8}, "token": "--ring-focus-color", "trigger": "focus", "detail": "interactive cards only: 3px, 3px offset, focus-visible only"}
+          ],
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
             "description": "FLAT AT REST is a contract (surface rules, 2026-09-19): only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
@@ -328,6 +335,14 @@
           "usage": ["Work library skill/type filters", "Any multi-select narrowing row"],
           "dont": ["Do not use for mutually exclusive views: that is SegmentedControl", "Do not raise it: the keycap is reserved for true actions", "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"],
           "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
+          "anatomy": [
+            {"key": "box", "title": "Box", "kind": "box", "target": ":scope", "zone": {"inset": 0}, "token": "--component-filter-chip-min-height", "trigger": "rest", "detail": "44px min, padding 4 / 16, pill radius"},
+            {"key": "outline", "title": "Outline", "kind": "edge", "target": ":scope", "zone": {"inset": -3}, "token": "--component-filter-chip-border", "trigger": "rest", "detail": "1px border-strong, never raised"},
+            {"key": "hover", "title": "Hover wash", "kind": "state", "target": ":scope", "zone": {"inset": 4}, "token": "--color-semantic-border-subtle", "trigger": "hover", "detail": "border-subtle wash, the edge goes ink"},
+            {"key": "pressed", "title": "Pressed fill", "kind": "fill", "target": ":scope", "zone": {"inset": 8}, "token": "--color-semantic-background-inverse", "trigger": "pressed", "detail": "inverse fill, label text-inverse; aria-pressed is the state"},
+            {"key": "label", "title": "Label", "kind": "content", "target": ":scope", "zone": {"inset": 12}, "token": "--component-filter-chip-foreground", "trigger": "rest", "detail": "Geist 14, 500, text-secondary"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, focus-visible only"}
+          ],
           "restState": {
             "description": "At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
             "atRest": ["outline border", "label"],
@@ -577,6 +592,14 @@
           "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
           "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid"],
           "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
+          "anatomy": [
+            {"key": "label", "title": "Label", "kind": "content", "target": "label", "zone": {"inset": -2}, "token": "--color-semantic-text-secondary", "trigger": "rest", "detail": "Geist 13, 700, caps; a real label wired for/id"},
+            {"key": "field", "title": "Field", "kind": "fill", "target": "input, textarea", "zone": {"inset": 6}, "token": "--color-semantic-surface", "trigger": "rest", "detail": "surface, padding 12 / 16, radius 8"},
+            {"key": "border", "title": "Border", "kind": "edge", "target": "input, textarea", "zone": {"inset": -3}, "token": "--color-semantic-border-strong", "trigger": "rest", "detail": "1px border-strong, the 3:1 control edge"},
+            {"key": "box", "title": "Box", "kind": "box", "target": "input, textarea", "zone": {"inset": 0}, "token": "--component-input-min-height", "trigger": "rest", "detail": "44px min, field text 16px"},
+            {"key": "placeholder", "title": "Placeholder", "kind": "content", "target": "input, textarea", "zone": {"inset": 12}, "token": "--color-semantic-text-muted", "trigger": "rest", "detail": "text-muted, opacity reset for Firefox; never the label"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": "input, textarea", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, and the edge goes ink"}
+          ],
           "restState": {
             "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
             "atRest": ["field surface + border", "label", "hint or error message"],
@@ -604,7 +627,13 @@
           "props": ["href", "external", "className", "children"],
           "usage": ["Inline references inside paragraphs", "Footer links"],
           "dont": ["Do not use for primary navigation, that's nav-link", "Do not rely on color alone, always underlined or weight-shifted on hover"],
-          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout."
+          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout.",
+          "anatomy": [
+            {"key": "text", "title": "Text", "kind": "content", "target": ":scope", "zone": {"inset": -2}, "token": "--component-link-default-foreground", "trigger": "rest", "detail": "ink; visited stays ink"},
+            {"key": "underline", "title": "Underline", "kind": "edge", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--component-link-default-underline-thickness", "trigger": "rest", "detail": "1px, 4px offset (--component-link-default-underline-offset)"},
+            {"key": "underline-hover", "title": "Hover underline", "kind": "state", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--component-link-default-underline-thickness-hover", "trigger": "hover", "detail": "thickens to 2px; colour stays ink"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, radius 4, focus-visible only"}
+          ]
         }
       },
 

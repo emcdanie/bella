@@ -3488,6 +3488,21 @@
         }
       }
     },
+    "scrim": {
+      "$value": "{color.alpha.ink-22}",
+      "$type": "color",
+      "$description": "Ink at 22%: the scrim behind a modal panel (Drawer). It darkens the page without hiding it.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Drawer backdrop"
+          ],
+          "dont": [
+            "Not a surface or a text colour"
+          ]
+        }
+      }
+    },
     "focus-ring": {
       "$value": "{color.brand.ochre-deep}",
       "$type": "color",
@@ -4115,6 +4130,21 @@
           "usage": [
             "Diagram strokes",
             "1px ink frames"
+          ]
+        }
+      }
+    },
+    "scrim": {
+      "$value": "{color.alpha.night-60}",
+      "$type": "color",
+      "$description": "Warm dark at 60%: the scrim behind a modal panel (Drawer) on the dark page.",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Drawer backdrop"
+          ],
+          "dont": [
+            "Not a surface or a text colour"
           ]
         }
       }
@@ -7041,7 +7071,7 @@
       "$extensions": {
         "bella": {
           "name": "Stat",
-          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour.",
+          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour. An optional sparkline (series, two points or more) draws the history as a 1px ink line, spoken as one sentence.",
           "variants": [],
           "states": [
             "default"
@@ -7051,6 +7081,8 @@
             "value",
             "delta",
             "trend",
+            "series",
+            "seriesLabel",
             "className"
           ],
           "usage": [
@@ -7060,9 +7092,11 @@
           "dont": [
             "Do not colour the change: up is not always good, and the status ladder has no neutral change colour",
             "Do not invent figures: a Stat shows a real count or nothing",
-            "Do not give it its own box: place Stats on a Card or panel"
+            "Do not give it its own box: place Stats on a Card or panel",
+            "Do not draw a sparkline from fewer than two real points, and never from made-up history",
+            "Do not colour the sparkline: its shape carries the trend"
           ],
-          "a11y": "Verified 2026-10-03: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals.",
+          "a11y": "Verified 2026-10-03: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals. The sparkline is role=img with an aria-label that says the first and last values and the number of points (or seriesLabel); line and end dot text-primary, 3:1+ as non-text on page and panel in both themes.",
           "anatomy": [
             {
               "key": "label",
@@ -7096,6 +7130,18 @@
               },
               "token": "--component-stat-delta-font-size",
               "detail": "Geist 14, muted; arrow hidden, direction spoken"
+            },
+            {
+              "key": "trend",
+              "title": "Sparkline",
+              "kind": "content",
+              "target": "[data-bella-diagram]",
+              "zone": {
+                "inset": -2
+              },
+              "token": "--component-stat-trend-stroke",
+              "trigger": "rest",
+              "detail": "1px ink line and end dot, 80 by 24; shown with two or more points"
             }
           ],
           "restState": {
@@ -7144,6 +7190,19 @@
       "delta-font-size": {
         "$value": "{typography.font-size.sm}",
         "$type": "dimension"
+      },
+      "trend-width": {
+        "$value": "{spacing.20}",
+        "$type": "dimension"
+      },
+      "trend-height": {
+        "$value": "{spacing.6}",
+        "$type": "dimension"
+      },
+      "trend-stroke": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color",
+        "$description": "Ink. The line's shape is the signal; it never takes a status or accent colour."
       }
     },
     "score-strip": {
@@ -7325,6 +7384,91 @@
       "selected-foreground": {
         "$value": "{color.semantic.text-on-accent}",
         "$type": "color"
+      }
+    },
+    "drawer": {
+      "$extensions": {
+        "bella": {
+          "name": "Drawer",
+          "description": "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
+          "variants": [],
+          "states": [
+            "closed",
+            "open",
+            "focus"
+          ],
+          "sides": [
+            "left",
+            "right"
+          ],
+          "props": [
+            "open",
+            "onClose",
+            "label",
+            "side",
+            "children",
+            "className"
+          ],
+          "usage": [
+            "CHIP sidebar below 720px",
+            "Any navigation or filter panel that cannot stay on screen at phone width"
+          ],
+          "dont": [
+            "Do not use it as a page section: it is a modal and blocks the page",
+            "Do not open it without a visible trigger: focus has to return somewhere",
+            "Do not dim content inside the panel: the scrim covers the page, never the drawer"
+          ],
+          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion.",
+          "restState": {
+            "description": "Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.",
+            "atRest": [
+              "nothing (closed)"
+            ],
+            "triggered": [
+              {
+                "layer": "panel slide and scrim",
+                "on": [
+                  "open"
+                ],
+                "asserted": false
+              }
+            ],
+            "invariants": []
+          }
+        }
+      },
+      "width": {
+        "$value": "min(85vw, 20rem)",
+        "$type": "dimension",
+        "$description": "Most of a phone screen, never wider than a sidebar."
+      },
+      "padding": {
+        "$value": "{spacing.5}",
+        "$type": "dimension"
+      },
+      "background": {
+        "$value": "{color.semantic.surface-elevated}",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "{color.semantic.border}",
+        "$type": "color"
+      },
+      "shadow": {
+        "$value": "{shadow.lg}",
+        "$type": "shadow"
+      },
+      "scrim": {
+        "$value": "{color.semantic.scrim}",
+        "$type": "color"
+      },
+      "duration": {
+        "$value": "{motion.duration.normal}",
+        "$type": "duration"
       }
     }
   }

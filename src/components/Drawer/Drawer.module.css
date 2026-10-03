@@ -1,0 +1,91 @@
+/* Drawer (CHIP components, 2026-10-03). Tokens only. Slides from the left
+ * (navigation) or the right (side="right", a tool panel). A native modal
+ * <dialog>: the top layer stacks it (no z-index), ::backdrop is the scrim,
+ * and the page behind is inert while it is open.
+ *
+ * Slides in from the left over motion.duration.normal; under reduced motion
+ * it simply appears. The panel is the raised surface with a hairline edge
+ * and the large shadow: it floats over the page, it is not a card. */
+
+.drawer {
+  box-sizing: border-box;
+  margin: 0;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+  block-size: 100dvh;
+  max-block-size: none;
+  inline-size: var(--component-drawer-width);
+  max-inline-size: 100vw;
+  padding: 0;
+  border: 0;
+  border-inline-end: var(--border-width-thin) solid var(--component-drawer-border);
+  background: var(--component-drawer-background);
+  color: var(--component-drawer-foreground);
+  box-shadow: var(--component-drawer-shadow);
+}
+
+.drawer[open] {
+  display: flex;
+  flex-direction: column;
+  transform: none;
+  transition: transform var(--component-drawer-duration) var(--motion-easing-standard);
+}
+
+/* the slide is a transition from an off-screen starting style, so anything
+   that stops transitions (reduced motion, a capture) shows it in place */
+@starting-style {
+  .drawer[open] {
+    transform: translateX(-100%);
+  }
+
+  .drawer[data-side='right'][open] {
+    transform: translateX(100%);
+  }
+}
+
+.drawer[data-side='right'] {
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  border-inline-end: 0;
+  border-inline-start: var(--border-width-thin) solid var(--component-drawer-border);
+}
+
+.drawer:focus {
+  outline: none; /* the dialog takes focus on open so its title is announced; its controls keep the ring */
+}
+
+.drawer::backdrop {
+  background: var(--component-drawer-scrim);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--component-drawer-padding);
+  border-block-end: var(--border-width-thin) solid var(--component-drawer-border);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-xl);
+  font-weight: var(--typography-font-weight-medium);
+  letter-spacing: var(--typography-letter-spacing-title);
+  line-height: var(--typography-line-height-snug);
+}
+
+.body {
+  flex: 1;
+  min-block-size: 0;
+  overflow: auto;
+  padding: var(--component-drawer-padding);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer[open] {
+    transition: none;
+  }
+}

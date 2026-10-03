@@ -7563,6 +7563,42 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.light.ink}"
   - kind: token
+    id: color.semantic.scrim
+    name: Scrim
+    description: "Ink at 22%: the scrim behind a modal panel (Drawer). It darkens the page without hiding it."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - scrim
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Drawer backdrop
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: Not a surface or a text colour
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.scrim
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.alpha.ink-22}"
+  - kind: token
     id: color.semantic.focus-ring
     name: Focus Ring
     description: "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre-deep in light. Means focus only, never decoration at rest."
@@ -13697,6 +13733,72 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{typography.font-size.sm}"
   - kind: token
+    id: component.stat.trend-width
+    name: Trend Width
+    description: Component-tier alias. Resolves to `spacing.20` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.trend-width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.20}"
+  - kind: token
+    id: component.stat.trend-height
+    name: Trend Height
+    description: Component-tier alias. Resolves to `spacing.6` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.trend-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.6}"
+  - kind: token
+    id: component.stat.trend-stroke
+    name: Trend Stroke
+    description: Ink. The line's shape is the signal; it never takes a status or accent colour.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.trend-stroke
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-primary}"
+  - kind: token
     id: component.score-strip.name-font-size
     name: Name Font Size
     description: Component-tier alias. Resolves to `typography.font-size.xl` in `tokens/bella.json`.
@@ -14004,6 +14106,178 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-on-accent}"
+  - kind: token
+    id: component.drawer.width
+    name: Drawer Width
+    description: Most of a phone screen, never wider than a sidebar.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.width
+  - kind: token
+    id: component.drawer.padding
+    name: Drawer Padding
+    description: Component-tier alias. Resolves to `spacing.5` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.padding
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.5}"
+  - kind: token
+    id: component.drawer.background
+    name: Drawer Background
+    description: Component-tier alias. Resolves to `color.semantic.surface-elevated` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface-elevated}"
+  - kind: token
+    id: component.drawer.foreground
+    name: Drawer Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-primary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-primary}"
+  - kind: token
+    id: component.drawer.border
+    name: Drawer Border
+    description: Component-tier alias. Resolves to `color.semantic.border` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.border
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border}"
+  - kind: token
+    id: component.drawer.shadow
+    name: Drawer Shadow
+    description: Component-tier alias. Resolves to `shadow.lg` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: shadow
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.shadow
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{shadow.lg}"
+  - kind: token
+    id: component.drawer.scrim
+    name: Drawer Scrim
+    description: Component-tier alias. Resolves to `color.semantic.scrim` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.scrim
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.scrim}"
+  - kind: token
+    id: component.drawer.duration
+    name: Drawer Duration
+    description: Component-tier alias. Resolves to `motion.duration.normal` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - drawer
+      group: component.drawer
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.drawer.duration
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.duration.normal}"
   - kind: theme
     id: light
     name: Light
@@ -15627,7 +15901,7 @@ entries:
   - kind: component
     id: stat
     name: Stat
-    description: "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour."
+    description: "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour. An optional sparkline (series, two points or more) draws the history as a 1px ink line, spoken as one sentence."
     metadata:
       origin:
         method: extracted
@@ -15636,7 +15910,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals.
+          note: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals. The sparkline is role=img with an aria-label that says the first and last values and the number of points (or seriesLabel); line and end dot text-primary, 3:1+ as non-text on page and panel in both themes.
       tags:
         - component
         - stat
@@ -15660,6 +15934,10 @@ entries:
             statement: "Do not invent figures: a Stat shows a real count or nothing"
           - level: must-not
             statement: "Do not give it its own box: place Stats on a Card or panel"
+          - level: must-not
+            statement: Do not draw a sparkline from fewer than two real points, and never from made-up history
+          - level: must-not
+            statement: "Do not colour the sparkline: its shape carries the trend"
       - kind: definitions
         for: all
         title: At rest
@@ -15684,6 +15962,8 @@ entries:
             definition: Geist 300, 32, tabular numerals. Token --component-stat-value-font-size; target dd:first-of-type.
           - term: 3. Change line
             definition: Geist 14, muted; arrow hidden, direction spoken. Token --component-stat-delta-font-size; target dd:nth-of-type(2).
+          - term: 4. Sparkline
+            definition: "1px ink line and end dot, 80 by 24; shown with two or more points. Trigger: rest. Token --component-stat-trend-stroke; target [data-bella-diagram]."
     refs:
       - href: ./src/components/Stat/Stat.stories.tsx
         rel: storybook
@@ -15894,6 +16174,81 @@ entries:
             - layer: flat
               property: animation-name
               expect: none
+  - kind: component
+    id: drawer
+    name: Drawer
+    description: "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion.
+      tags:
+        - component
+        - drawer
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP sidebar below 720px
+          - level: may
+            statement: Any navigation or filter panel that cannot stay on screen at phone width
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it as a page section: it is a modal and blocks the page"
+          - level: must-not
+            statement: "Do not open it without a visible trigger: focus has to return somewhere"
+          - level: must-not
+            statement: "Do not dim content inside the panel: the scrim covers the page, never the drawer"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.
+        context: anatomy
+        items:
+          - term: nothing (closed)
+            definition: "Trigger: rest. Paints at rest."
+          - term: panel slide and scrim
+            definition: "Trigger: open. Inert at rest."
+    refs:
+      - href: ./src/components/Drawer/Drawer.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Drawer/Drawer.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - closed
+          - open
+          - focus
+        restState:
+          description: Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.
+          atRest:
+            - nothing (closed)
+          triggered:
+            - layer: panel slide and scrim
+              "on":
+                - open
+              asserted: false
+          invariants: []
   - kind: entry
     id: foundation-color
     name: Colour

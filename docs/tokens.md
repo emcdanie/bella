@@ -593,3 +593,9 @@ value with the source reference in parentheses.
 | `component.nav-list.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.nav-list.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.nav-list.current-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.stat.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.stat.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.stat.value-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
+| `component.stat.value-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.stat.delta-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |

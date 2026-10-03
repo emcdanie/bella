@@ -13564,6 +13564,138 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.border-subtle}"
+  - kind: token
+    id: component.stat.label-font-family
+    name: Stat Label Font Family
+    description: Component-tier alias. Resolves to `typography.font-family.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: fontFamily
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.label-font-family
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-family.mono}"
+  - kind: token
+    id: component.stat.label-font-size
+    name: Stat Label Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.label-font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.mono}"
+  - kind: token
+    id: component.stat.value-font-family
+    name: Value Font Family
+    description: Component-tier alias. Resolves to `typography.font-family.display` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: fontFamily
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.value-font-family
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-family.display}"
+  - kind: token
+    id: component.stat.value-font-size
+    name: Value Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.3xl` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.value-font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.3xl}"
+  - kind: token
+    id: component.stat.value-font-weight
+    name: Value Font Weight
+    description: Component-tier alias. Resolves to `typography.font-weight.light` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: fontWeight
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.value-font-weight
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-weight.light}"
+  - kind: token
+    id: component.stat.delta-font-size
+    name: Delta Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - stat
+      group: component.stat
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.stat.delta-font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.sm}"
   - kind: theme
     id: light
     name: Light
@@ -15100,6 +15232,85 @@ entries:
               property: transform
               expect: none
             - layer: flat
+              property: animation-name
+              expect: none
+  - kind: component
+    id: stat
+    name: Stat
+    description: "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals.
+      tags:
+        - component
+        - stat
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP health figures (components, failures, indexed chunks, last sync)
+          - level: may
+            statement: Any small row of headline figures on a Card or panel
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not colour the change: up is not always good, and the status ladder has no neutral change colour"
+          - level: must-not
+            statement: "Do not invent figures: a Stat shows a real count or nothing"
+          - level: must-not
+            statement: "Do not give it its own box: place Stats on a Card or panel"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=stat).
+        context: anatomy
+        items:
+          - term: label
+            definition: "Trigger: rest. Paints at rest."
+          - term: figure
+            definition: "Trigger: rest. Paints at rest."
+          - term: change line
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Stat/Stat.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Stat/Stat.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=stat).
+          atRest:
+            - label
+            - figure
+            - change line
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
               property: animation-name
               expect: none
   - kind: entry

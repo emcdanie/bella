@@ -6667,6 +6667,80 @@
         "$value": "{color.semantic.border-subtle}",
         "$type": "color"
       }
+    },
+    "stat": {
+      "$extensions": {
+        "bella": {
+          "name": "Stat",
+          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: Mono label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "value",
+            "delta",
+            "trend",
+            "className"
+          ],
+          "usage": [
+            "CHIP health figures (components, failures, indexed chunks, last sync)",
+            "Any small row of headline figures on a Card or panel"
+          ],
+          "dont": [
+            "Do not colour the change: up is not always good, and the status ladder has no neutral change colour",
+            "Do not invent figures: a Stat shows a real count or nothing",
+            "Do not give it its own box: place Stats on a Card or panel"
+          ],
+          "a11y": "Verified 2026-10-03: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals.",
+          "restState": {
+            "description": "Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=stat).",
+            "atRest": [
+              "label",
+              "figure",
+              "change line"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "label-font-family": {
+        "$value": "{typography.font-family.mono}",
+        "$type": "fontFamily"
+      },
+      "label-font-size": {
+        "$value": "{typography.font-size.mono}",
+        "$type": "dimension"
+      },
+      "value-font-family": {
+        "$value": "{typography.font-family.display}",
+        "$type": "fontFamily"
+      },
+      "value-font-size": {
+        "$value": "{typography.font-size.3xl}",
+        "$type": "dimension"
+      },
+      "value-font-weight": {
+        "$value": "{typography.font-weight.light}",
+        "$type": "fontWeight"
+      },
+      "delta-font-size": {
+        "$value": "{typography.font-size.sm}",
+        "$type": "dimension"
+      }
     }
   }
 }

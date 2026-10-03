@@ -1,0 +1,77 @@
+/* SidebarLayout (layout foundation, 2026-10-03). Tokens only. The page
+ * grid by the layout's own width (a named container, like the patterns):
+ * one column below 768px, 8 columns from 768px, 12 from 1200px.
+ * 768px = breakpoint.tablet and 1200px = the content cap
+ * (component.section.default.max-width); container queries cannot read
+ * var(), so the values are written here.
+ *
+ * The aside sticks under the sticky header (--header-height, the app sets
+ * it) and scrolls on its own when it is taller than the screen less the
+ * header and the OBI dock (--dock-height, 0 when there is none). */
+
+.container {
+  container: sidebar-layout / inline-size;
+  min-width: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--component-sidebar-layout-gap);
+  align-items: start;
+}
+
+.content,
+.rail,
+.aside {
+  min-width: 0;
+}
+
+.aside:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+@container sidebar-layout (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .aside {
+    grid-column: 1 / span 3;
+    grid-row: 1 / span 2;
+    position: sticky;
+    inset-block-start: calc(var(--header-height) + var(--layout-stack-lg));
+    max-block-size: calc(100dvh - var(--header-height) - var(--dock-height, 0px) - 2 * var(--layout-stack-lg));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .content,
+  .rail {
+    grid-column: 4 / -1;
+  }
+}
+
+@container sidebar-layout (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(var(--component-sidebar-layout-columns), minmax(0, 1fr));
+  }
+
+  .aside {
+    grid-row: 1;
+  }
+
+  .content {
+    grid-column: 4 / -1;
+  }
+
+  .withRail .content {
+    grid-column: 4 / span 6;
+  }
+
+  .withRail .rail {
+    grid-column: 10 / -1;
+    grid-row: 1;
+  }
+}

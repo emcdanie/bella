@@ -231,6 +231,18 @@
   --shadow-card-rest: 13px 26px 54px #1A172038;
   --shadow-card-rest-dark: 13px 26px 54px rgba(0, 0, 0, 0.44);
   --shadow-hover-dark: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --layout-container-max: 1440px;
+  --layout-container-pad: clamp(16px, 4vw, 32px);
+  --layout-section-space: clamp(32px, 24px + 2vw, 48px);
+  --layout-stack-sm: 8px;
+  --layout-stack-md: 16px;
+  --layout-stack-lg: 24px;
+  --layout-gutter: 24px;
+  --layout-card-padding: 24px;
+  --layout-grid-columns-wide: 12;
+  --layout-grid-columns-medium: 8;
+  --layout-grid-columns-narrow: 4;
+  --layout-measure-body: 70ch;
 
   /* ---- Semantic (light) ---- */
   --color-semantic-background: #ffffff;
@@ -496,6 +508,11 @@
   --component-section-default-padding-x: 24px;
   --component-section-default-gap: 48px;
   --component-section-default-max-width: 1200px;
+  --component-section-heading-font-size: 32px;
+  --component-section-heading-font-weight: 300;
+  --component-section-heading-letter-spacing: -0.03em;
+  --component-section-space: clamp(32px, 24px + 2vw, 48px);
+  --component-section-body-gap: 24px;
   --component-modal-backdrop-blur: 14px;
   --component-brand-wordmark-nav-height: 40px;
   --component-brand-wordmark-min-height: 32px;
@@ -590,6 +607,19 @@
   --component-action-chip-border: #838383;
   --component-action-chip-foreground: #121212;
   --component-action-chip-hover-background: #e3e3e3;
+  --component-page-header-title-font-size: 40px;
+  --component-page-header-title-font-weight: 300;
+  --component-page-header-title-line-height: 1.08;
+  --component-page-header-title-letter-spacing: -0.035em;
+  --component-page-header-lede-font-size: 18px;
+  --component-page-header-lede-max-width: 70ch;
+  --component-page-header-meta-font-size: 14px;
+  --component-page-header-foreground: #121212;
+  --component-page-header-meta-foreground: #4b4b4b;
+  --component-page-header-gap: 8px;
+  --component-sidebar-layout-gap: 24px;
+  --component-sidebar-layout-columns: 12;
+  --component-columns-gap: 24px;
 
   /* ---- v0.1 governance tokens (see docs/RULES.md) ----
    * Fixed-context tokens: do NOT flip with [data-theme="dark"]. They name
@@ -755,6 +785,8 @@
   --component-action-chip-border: #707070;
   --component-action-chip-foreground: #ededed;
   --component-action-chip-hover-background: #2a2a2a;
+  --component-page-header-foreground: #ededed;
+  --component-page-header-meta-foreground: #b1b1b1;
 }
 
 [data-theme="warm"] {
@@ -812,6 +844,7 @@
   --component-disclosure-meta-foreground: #4f463d;
   --component-action-chip-border: #857a6a;
   --component-action-chip-hover-background: #e3dbcf;
+  --component-page-header-meta-foreground: #4f463d;
 }
 
 /* Glass utility classes — surface + blur + shadow + borders, bundled. */

@@ -234,6 +234,18 @@ value with the source reference in parentheses.
 | `shadow.card-rest` | `13px 26px 54px #1A172038` (`13px 26px 54px {color.alpha.ink-22}`) | shadow |
 | `shadow.card-rest-dark` | `13px 26px 54px rgba(0, 0, 0, 0.44)` | shadow |
 | `shadow.hover-dark` | `0 8px 24px rgba(0, 0, 0, 0.45)` | shadow |
+| `layout.container.max` | `1440px` | dimension |
+| `layout.container.pad` | `clamp(16px, 4vw, 32px)` | dimension |
+| `layout.section.space` | `clamp(32px, 24px + 2vw, 48px)` | dimension |
+| `layout.stack.sm` | `8px` (`{spacing.2}`) | dimension |
+| `layout.stack.md` | `16px` (`{spacing.4}`) | dimension |
+| `layout.stack.lg` | `24px` (`{spacing.6}`) | dimension |
+| `layout.gutter` | `24px` (`{spacing.6}`) | dimension |
+| `layout.card.padding` | `24px` (`{spacing.6}`) | dimension |
+| `layout.grid.columns-wide` | `12` | number |
+| `layout.grid.columns-medium` | `8` | number |
+| `layout.grid.columns-narrow` | `4` | number |
+| `layout.measure.body` | `70ch` | dimension |
 
 ## Tier 2 — Semantic (light)
 
@@ -563,6 +575,11 @@ value with the source reference in parentheses.
 | `component.section.default.padding-x` | `24px` (`{spacing.6}`) | dimension |
 | `component.section.default.gap` | `48px` (`{spacing.12}`) | dimension |
 | `component.section.default.max-width` | `1200px` | dimension |
+| `component.section.heading.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.section.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.section.heading.letter-spacing` | `-0.03em` (`{typography.letter-spacing.h2}`) | dimension |
+| `component.section.space` | `clamp(32px, 24px + 2vw, 48px)` (`{layout.section.space}`) | dimension |
+| `component.section.body-gap` | `24px` (`{layout.stack.lg}`) | dimension |
 | `component.modal.backdrop.blur` | `14px` (`{blur.sm}`) | dimension |
 | `component.brand-wordmark.nav-height` | `40px` (`{spacing.10}`) | dimension |
 | `component.brand-wordmark.min-height` | `32px` (`{spacing.8}`) | dimension |
@@ -657,3 +674,16 @@ value with the source reference in parentheses.
 | `component.action-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
 | `component.action-chip.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
 | `component.action-chip.hover-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.page-header.title.font-size` | `40px` (`{typography.font-size.4xl}`) | dimension |
+| `component.page-header.title.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.page-header.title.line-height` | `1.08` (`{typography.line-height.heading}`) | number |
+| `component.page-header.title.letter-spacing` | `-0.035em` (`{typography.letter-spacing.display}`) | dimension |
+| `component.page-header.lede.font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
+| `component.page-header.lede.max-width` | `70ch` (`{layout.measure.body}`) | dimension |
+| `component.page-header.meta.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.page-header.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.page-header.meta-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.page-header.gap` | `8px` (`{layout.stack.sm}`) | dimension |
+| `component.sidebar-layout.gap` | `24px` (`{layout.gutter}`) | dimension |
+| `component.sidebar-layout.columns` | `12` (`{layout.grid.columns-wide}`) | number |
+| `component.columns.gap` | `24px` (`{layout.gutter}`) | dimension |

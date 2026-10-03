@@ -6815,6 +6815,288 @@ entries:
       rel: file
       role: primitive.shadow.hover-dark
   - kind: token
+    id: layout.container.max
+    name: Container Max
+    description: The widest a page's content gets, inside the side padding. Wider windows centre it (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.container
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: App and page container max-width
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.container.max
+  - kind: token
+    id: layout.container.pad
+    name: Pad
+    description: "Side padding of the page container: 16px on a phone, 32px from 800px up (layout foundation, 2026-10-03)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.container
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Container padding-inline
+          - level: may
+            statement: The header row, so its left edge matches the content
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.container.pad
+  - kind: token
+    id: layout.section.space
+    name: Space
+    description: "The space between two sections of a page: 32px on a phone, 48px from 1200px up (layout foundation, 2026-10-03)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.section
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Section to section
+          - level: may
+            statement: Page header to the first section
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.section.space
+  - kind: token
+    id: layout.stack.sm
+    name: Stack Sm
+    description: "Gap inside a group: label to value, heading to its lede (layout foundation, 2026-10-03)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.stack
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.stack.sm
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.2}"
+  - kind: token
+    id: layout.stack.md
+    name: Stack Md
+    description: Gap between items inside a card or section (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.stack
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.stack.md
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.4}"
+  - kind: token
+    id: layout.stack.lg
+    name: Stack Lg
+    description: "Gap between blocks: a section heading to its body, card to card (layout foundation, 2026-10-03)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.stack
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.stack.lg
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.6}"
+  - kind: token
+    id: layout.gutter
+    name: Gutter
+    description: The grid gap between columns and between cards, one value at every width (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Columns gap
+          - level: may
+            statement: SidebarLayout gap
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.gutter
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.6}"
+  - kind: token
+    id: layout.card.padding
+    name: Padding
+    description: The one card padding, what Card renders (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.card
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.card.padding
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.6}"
+  - kind: token
+    id: layout.grid.columns-wide
+    name: Columns Wide
+    description: Page grid columns at 1200px and up (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.grid
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.grid.columns-wide
+  - kind: token
+    id: layout.grid.columns-medium
+    name: Columns Medium
+    description: Page grid columns from 768 to 1199px (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.grid
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.grid.columns-medium
+  - kind: token
+    id: layout.grid.columns-narrow
+    name: Columns Narrow
+    description: Page grid columns below 768px (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.grid
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.grid.columns-narrow
+  - kind: token
+    id: layout.measure.body
+    name: Measure Body
+    description: The longest line of body text (layout foundation, 2026-10-03).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - layout
+      group: layout.measure
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Paragraphs, ledes, the reader column
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.layout.measure.body
+  - kind: token
     id: color.semantic.background
     name: Background
     description: "Light page background: pure white, the page ground only (style unify, 2026-09-22, Elleta)."
@@ -9484,7 +9766,7 @@ entries:
         alias: "{radius.xl}"
   - kind: token
     id: component.card.default.padding
-    name: Padding
+    name: Default Padding
     description: Component-tier alias. Resolves to `spacing.5` in `tokens/bella.json`.
     metadata:
       origin:
@@ -12929,6 +13211,116 @@ entries:
       rel: file
       role: component.section.default.max-width
   - kind: token
+    id: component.section.heading.font-size
+    name: Heading Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.3xl` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - section
+      group: component.section.heading
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.section.heading.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.3xl}"
+  - kind: token
+    id: component.section.heading.font-weight
+    name: Section Heading Font Weight
+    description: Component-tier alias. Resolves to `typography.font-weight.light` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - section
+      group: component.section.heading
+    tokenType: fontWeight
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.section.heading.font-weight
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-weight.light}"
+  - kind: token
+    id: component.section.heading.letter-spacing
+    name: Section Heading Letter Spacing
+    description: Component-tier alias. Resolves to `typography.letter-spacing.h2` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - section
+      group: component.section.heading
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.section.heading.letter-spacing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.letter-spacing.h2}"
+  - kind: token
+    id: component.section.space
+    name: Section Space
+    description: Component-tier alias. Resolves to `layout.section.space` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - section
+      group: component.section
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.section.space
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.section.space}"
+  - kind: token
+    id: component.section.body-gap
+    name: Body Gap
+    description: Component-tier alias. Resolves to `layout.stack.lg` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - section
+      group: component.section
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.section.body-gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.stack.lg}"
+  - kind: token
     id: component.modal.backdrop.blur
     name: Backdrop Blur
     description: Component-tier alias. Resolves to `blur.sm` in `tokens/bella.json`.
@@ -14984,6 +15376,292 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.border-subtle}"
+  - kind: token
+    id: component.page-header.title.font-size
+    name: Page Header Title Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.4xl` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.title
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.title.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.4xl}"
+  - kind: token
+    id: component.page-header.title.font-weight
+    name: Page Header Title Font Weight
+    description: Component-tier alias. Resolves to `typography.font-weight.light` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.title
+    tokenType: fontWeight
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.title.font-weight
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-weight.light}"
+  - kind: token
+    id: component.page-header.title.line-height
+    name: Title Line Height
+    description: Component-tier alias. Resolves to `typography.line-height.heading` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.title
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.title.line-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.line-height.heading}"
+  - kind: token
+    id: component.page-header.title.letter-spacing
+    name: Page Header Title Letter Spacing
+    description: Component-tier alias. Resolves to `typography.letter-spacing.display` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.title
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.title.letter-spacing
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.letter-spacing.display}"
+  - kind: token
+    id: component.page-header.lede.font-size
+    name: Lede Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.lg` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.lede
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.lede.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.lg}"
+  - kind: token
+    id: component.page-header.lede.max-width
+    name: Lede Max Width
+    description: Component-tier alias. Resolves to `layout.measure.body` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.lede
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.lede.max-width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.measure.body}"
+  - kind: token
+    id: component.page-header.meta.font-size
+    name: Page Header Meta Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header.meta
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.meta.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.sm}"
+  - kind: token
+    id: component.page-header.foreground
+    name: Page Header Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-primary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-primary}"
+  - kind: token
+    id: component.page-header.meta-foreground
+    name: Page Header Meta Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.meta-foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-secondary}"
+  - kind: token
+    id: component.page-header.gap
+    name: Page Header Gap
+    description: Component-tier alias. Resolves to `layout.stack.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - page-header
+      group: component.page-header
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.page-header.gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.stack.sm}"
+  - kind: token
+    id: component.sidebar-layout.gap
+    name: Sidebar Layout Gap
+    description: Component-tier alias. Resolves to `layout.gutter` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - sidebar-layout
+      group: component.sidebar-layout
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.sidebar-layout.gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.gutter}"
+  - kind: token
+    id: component.sidebar-layout.columns
+    name: Columns
+    description: Component-tier alias. Resolves to `layout.grid.columns-wide` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - sidebar-layout
+      group: component.sidebar-layout
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.sidebar-layout.columns
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.grid.columns-wide}"
+  - kind: token
+    id: component.columns.gap
+    name: Columns Gap
+    description: Component-tier alias. Resolves to `layout.gutter` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - columns
+      group: component.columns
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.columns.gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{layout.gutter}"
   - kind: theme
     id: light
     name: Light
@@ -16321,6 +16999,87 @@ entries:
               property: animation-name
               expect: none
   - kind: component
+    id: section
+    name: Section
+    description: "A vertical slice of a page (layout foundation, 2026-10-03): an h2 at the one section size, an optional lede and actions, then the body. The id makes it an anchor for an On this page list, and the anchor clears a sticky header. Sections are spaced by layout.section.space on every page. The default group (padding, max-width) is the portfolio's older section box; the container now comes from layout.container."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: a section element named by its h2 (aria-labelledby); the h2 is 32px text-primary (AAA, the section-heading floor); the lede is text-secondary (AAA) held to 70ch; scroll-margin keeps an anchored heading clear of a sticky header.
+      tags:
+        - component
+        - section
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Every block of a page below the PageHeader
+          - level: may
+            statement: Case-study sections
+          - level: may
+            statement: "Health: Readiness map, Usage, Open failures, Components"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not nest sections inside sections: inside a section, use Card titles"
+          - level: must-not
+            statement: "Do not leave out the heading: a block with no heading is a Columns or a Card"
+          - level: must-not
+            statement: "Do not set your own margins between sections: the section space is the rhythm"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Type only, entirely static.
+        context: anatomy
+        items:
+          - term: heading
+            definition: "Trigger: rest. Paints at rest."
+          - term: lede
+            definition: "Trigger: rest. Paints at rest."
+          - term: body
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Section/Section.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Section/Section.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Type only, entirely static.
+          atRest:
+            - heading
+            - lede
+            - body
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
     id: tabs
     name: Tabs
     description: Switch between panels that share one place on the page (CHIP components, 2026-10-03). W3C APG tabs with automatic activation; each tab owns a panel. Optional run state per tab, drawn as a dot and spoken as text.
@@ -17210,6 +17969,238 @@ entries:
               property: transform
               expect: none
             - layer: flat
+              property: animation-name
+              expect: none
+  - kind: component
+    id: page-header
+    name: PageHeader
+    description: "The top of every page (layout foundation, 2026-10-03, Elleta: one page-title size on every page, not display). A quiet meta line (breadcrumb, source or category), the page title at one fixed 40px, an optional lede held to the body measure, and an optional actions row."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: one h1; the title is text-primary (AAA); meta and lede are text-secondary (AAA on the page ground in light, warm and dark); the lede holds to 70ch; the title balances its lines.
+      tags:
+        - component
+        - page-header
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "The first block of every page template: Overview, Object page, Library and Settings"
+          - level: may
+            statement: "Atlas: the component name, its category and number as meta"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use a display Heading tier for an app page title: display is for editorial heroes"
+          - level: must-not
+            statement: "Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips"
+          - level: must-not
+            statement: "Do not use it twice on a page: one h1"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Type only, entirely static.
+        context: anatomy
+        items:
+          - term: meta
+            definition: "Trigger: rest. Paints at rest."
+          - term: title
+            definition: "Trigger: rest. Paints at rest."
+          - term: lede
+            definition: "Trigger: rest. Paints at rest."
+          - term: actions
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/PageHeader/PageHeader.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/PageHeader/PageHeader.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Type only, entirely static.
+          atRest:
+            - meta
+            - title
+            - lede
+            - actions
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
+    id: sidebar-layout
+    name: SidebarLayout
+    description: "A sticky aside beside the content, with an optional rail on the right (layout foundation, 2026-10-03). On the 12-column grid: aside 3 and content 9, or aside 3, content 6 and rail 3. Under 1200px of its own width the rail drops under the content; under 768px everything stacks and the aside stops sticking. The aside sticks under the sticky header (--header-height) and scrolls on its own when it is taller than the screen less the header and the dock (--dock-height)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: the aside and rail are complementary landmarks named by asideLabel and railLabel; source order is aside, content, rail, so reading and keyboard order follow the visual order at every width; a scrolling aside is focusable so the keyboard can scroll it.
+      tags:
+        - component
+        - sidebar-layout
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "Atlas: the library beside the component"
+          - level: may
+            statement: "Docs: the list, the reader, the doc rail"
+          - level: may
+            statement: "Health: On this page, then the sections"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not put the page title in the aside: the PageHeader sits in the content column"
+          - level: must-not
+            statement: "Do not add another scroll container: only the aside list, code blocks and tables scroll on their own"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Layout only, entirely static.
+        context: anatomy
+        items:
+          - term: aside
+            definition: "Trigger: rest. Paints at rest."
+          - term: content
+            definition: "Trigger: rest. Paints at rest."
+          - term: rail
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/SidebarLayout/SidebarLayout.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/SidebarLayout/SidebarLayout.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Layout only, entirely static.
+          atRest:
+            - aside
+            - content
+            - rail
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
+    id: columns
+    name: Columns
+    description: "Two or three columns that collapse by their own width (layout foundation, 2026-10-03): three become two under 1200px and one under 768px; two become one under 768px. Even by default; split wide-start makes two columns 2:1 (a stage beside its facts). Cells stretch to the row, so cards in a row line up top and bottom."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: no landmark or role of its own; reading order is source order at every width.
+      tags:
+        - component
+        - columns
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "Atlas: the specimen beside its facts (wide-start), the examples under them (even)"
+          - level: may
+            statement: Health stat cards
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it for a sidebar: that is SidebarLayout"
+          - level: must-not
+            statement: Do not nest Columns inside Columns
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Layout only, entirely static.
+        context: anatomy
+        items:
+          - term: cells
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Columns/Columns.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Columns/Columns.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Layout only, entirely static.
+          atRest:
+            - cells
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
               property: animation-name
               expect: none
   - kind: entry

@@ -258,9 +258,10 @@
 <p class='meta-usage'><strong>Use for:</strong> Top navigation bar, Footer navigation</p>
 <p class='meta-dont'><strong>Don't use for:</strong> Do not mix nav-link and inline-link in the same cluster; Do not color-distinguish the active state with accent-colored text, use the accent underline token instead</p>
 <h3>Section</h3>
-<p class="meta-desc">A vertical slice of a page. Defines standard padding and gap for content blocks.</p>
-<p class='meta-usage'><strong>Use for:</strong> Case-study sections, Portfolio page regions</p>
-<p class='meta-dont'><strong>Don't use for:</strong> Do not nest sections inside sections</p>
+<p class="meta-desc">A vertical slice of a page (layout foundation, 2026-10-03): an h2 at the one section size, an optional lede and actions, then the body. The id makes it an anchor for an On this page list, and the anchor clears a sticky header. Sections are spaced by layout.section.space on every page. The default group (padding, max-width) is the portfolio's older section box; the container now comes from layout.container.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Every block of a page below the PageHeader, Case-study sections, Health: Readiness map, Usage, Open failures, Components</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not nest sections inside sections: inside a section, use Card titles; Do not leave out the heading: a block with no heading is a Columns or a Card; Do not set your own margins between sections: the section space is the rhythm</p>
 <h3>Modal</h3>
 <p class="meta-desc">Modal dialog scaffold. Backdrop blur over the page content, centered dialog surface above.</p>
 <p class="meta-chips"><strong>Variants:</strong> <code>default</code></p>
@@ -334,6 +335,21 @@
 <p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>focus</code> · <code>disabled</code></p>
 <p class='meta-usage'><strong>Use for:</strong> OBI suggestions and answer actions, Component chips that open Atlas, Small actions on a tile (Which have none?)</p>
 <p class='meta-dont'><strong>Don't use for:</strong> Do not set it in caps: sentence case is the point; Do not use it as a filter or toggle: that is FilterChip with aria-pressed; Do not use it for the main action of a view: that is Button primary</p>
+<h3>PageHeader</h3>
+<p class="meta-desc">The top of every page (layout foundation, 2026-10-03, Elleta: one page-title size on every page, not display). A quiet meta line (breadcrumb, source or category), the page title at one fixed 40px, an optional lede held to the body measure, and an optional actions row.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> The first block of every page template: Overview, Object page, Library and Settings, Atlas: the component name, its category and number as meta</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use a display Heading tier for an app page title: display is for editorial heroes; Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips; Do not use it twice on a page: one h1</p>
+<h3>SidebarLayout</h3>
+<p class="meta-desc">A sticky aside beside the content, with an optional rail on the right (layout foundation, 2026-10-03). On the 12-column grid: aside 3 and content 9, or aside 3, content 6 and rail 3. Under 1200px of its own width the rail drops under the content; under 768px everything stacks and the aside stops sticking. The aside sticks under the sticky header (--header-height) and scrolls on its own when it is taller than the screen less the header and the dock (--dock-height).</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Atlas: the library beside the component, Docs: the list, the reader, the doc rail, Health: On this page, then the sections</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not put the page title in the aside: the PageHeader sits in the content column; Do not add another scroll container: only the aside list, code blocks and tables scroll on their own</p>
+<h3>Columns</h3>
+<p class="meta-desc">Two or three columns that collapse by their own width (layout foundation, 2026-10-03): three become two under 1200px and one under 768px; two become one under 768px. Even by default; split wide-start makes two columns 2:1 (a stage beside its facts). Cells stretch to the row, so cards in a row line up top and bottom.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Atlas: the specimen beside its facts (wide-start), the examples under them (even), Health stat cards</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use it for a sidebar: that is SidebarLayout; Do not nest Columns inside Columns</p>
 
     <h3>Live examples</h3>
     <div class="demo-grid">

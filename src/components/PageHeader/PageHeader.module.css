@@ -1,0 +1,55 @@
+/* PageHeader (layout foundation, 2026-10-03, Elleta: "one size for every
+ * page, not display"). Tokens only. Meta, title, lede, actions; the space
+ * to the first section is the section space, the same on every page. */
+
+.header {
+  display: grid;
+  gap: var(--component-page-header-gap);
+  margin-block-end: var(--component-section-space);
+  color: var(--component-page-header-foreground);
+}
+
+.meta {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-page-header-meta-font-size);
+  line-height: var(--typography-line-height-normal);
+  color: var(--component-page-header-meta-foreground);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--layout-stack-md);
+}
+
+.title {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--typography-font-family-display);
+  font-size: var(--component-page-header-title-font-size);
+  font-weight: var(--component-page-header-title-font-weight);
+  line-height: var(--component-page-header-title-line-height);
+  letter-spacing: var(--component-page-header-title-letter-spacing);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-stack-sm);
+}
+
+.lede {
+  margin: 0;
+  max-width: var(--component-page-header-lede-max-width);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-page-header-lede-font-size);
+  line-height: var(--typography-line-height-normal);
+  color: var(--component-page-header-meta-foreground);
+  text-wrap: pretty;
+}

@@ -1,0 +1,57 @@
+/* Section (layout foundation, 2026-10-03). Tokens only. The h2 at the one
+ * section size (the 32px section-heading floor), the lede at the body
+ * measure, then the body. Section to section is the section space. */
+
+.section {
+  display: grid;
+  gap: var(--layout-stack-sm);
+  min-width: 0;
+  /* an anchored section clears a sticky header */
+  scroll-margin-block-start: calc(var(--header-height) + var(--layout-stack-lg));
+}
+
+.section + .section {
+  margin-block-start: var(--component-section-space);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--layout-stack-md);
+}
+
+.heading {
+  margin: 0;
+  min-width: 0;
+  font-family: var(--typography-font-family-display);
+  font-size: var(--component-section-heading-font-size);
+  font-weight: var(--component-section-heading-font-weight);
+  line-height: var(--typography-line-height-heading);
+  letter-spacing: var(--component-section-heading-letter-spacing);
+  color: var(--color-semantic-text-primary);
+  text-wrap: balance;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--layout-stack-sm);
+}
+
+.lede {
+  margin: 0;
+  max-width: var(--layout-measure-body);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-body);
+  line-height: var(--typography-line-height-normal);
+  color: var(--color-semantic-text-secondary);
+  text-wrap: pretty;
+}
+
+.body {
+  margin-block-start: calc(var(--component-section-body-gap) - var(--layout-stack-sm));
+  min-width: 0;
+}

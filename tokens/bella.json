@@ -3195,6 +3195,118 @@
           }
         }
       }
+    },
+    "layout": {
+      "container": {
+        "max": {
+          "$value": "1440px",
+          "$type": "dimension",
+          "$description": "The widest a page's content gets, inside the side padding. Wider windows centre it (layout foundation, 2026-10-03).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "App and page container max-width"
+              ]
+            }
+          }
+        },
+        "pad": {
+          "$value": "clamp(16px, 4vw, 32px)",
+          "$type": "dimension",
+          "$description": "Side padding of the page container: 16px on a phone, 32px from 800px up (layout foundation, 2026-10-03).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Container padding-inline",
+                "The header row, so its left edge matches the content"
+              ]
+            }
+          }
+        }
+      },
+      "section": {
+        "space": {
+          "$value": "clamp(32px, 24px + 2vw, 48px)",
+          "$type": "dimension",
+          "$description": "The space between two sections of a page: 32px on a phone, 48px from 1200px up (layout foundation, 2026-10-03).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Section to section",
+                "Page header to the first section"
+              ]
+            }
+          }
+        }
+      },
+      "stack": {
+        "sm": {
+          "$value": "{spacing.2}",
+          "$type": "dimension",
+          "$description": "Gap inside a group: label to value, heading to its lede (layout foundation, 2026-10-03)."
+        },
+        "md": {
+          "$value": "{spacing.4}",
+          "$type": "dimension",
+          "$description": "Gap between items inside a card or section (layout foundation, 2026-10-03)."
+        },
+        "lg": {
+          "$value": "{spacing.6}",
+          "$type": "dimension",
+          "$description": "Gap between blocks: a section heading to its body, card to card (layout foundation, 2026-10-03)."
+        }
+      },
+      "gutter": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "The grid gap between columns and between cards, one value at every width (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Columns gap",
+              "SidebarLayout gap"
+            ]
+          }
+        }
+      },
+      "card": {
+        "padding": {
+          "$value": "{spacing.6}",
+          "$type": "dimension",
+          "$description": "The one card padding, what Card renders (layout foundation, 2026-10-03)."
+        }
+      },
+      "grid": {
+        "columns-wide": {
+          "$value": 12,
+          "$type": "number",
+          "$description": "Page grid columns at 1200px and up (layout foundation, 2026-10-03)."
+        },
+        "columns-medium": {
+          "$value": 8,
+          "$type": "number",
+          "$description": "Page grid columns from 768 to 1199px (layout foundation, 2026-10-03)."
+        },
+        "columns-narrow": {
+          "$value": 4,
+          "$type": "number",
+          "$description": "Page grid columns below 768px (layout foundation, 2026-10-03)."
+        }
+      },
+      "measure": {
+        "body": {
+          "$value": "70ch",
+          "$type": "dimension",
+          "$description": "The longest line of body text (layout foundation, 2026-10-03).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Paragraphs, ledes, the reader column"
+              ]
+            }
+          }
+        }
+      }
     }
   },
   "semantic": {
@@ -6655,14 +6767,53 @@
       "$extensions": {
         "bella": {
           "name": "Section",
-          "description": "A vertical slice of a page. Defines standard padding and gap for content blocks.",
+          "category": "Layout",
+          "rendersAs": "a section labelled by its h2",
+          "description": "A vertical slice of a page (layout foundation, 2026-10-03): an h2 at the one section size, an optional lede and actions, then the body. The id makes it an anchor for an On this page list, and the anchor clears a sticky header. Sections are spaced by layout.section.space on every page. The default group (padding, max-width) is the portfolio's older section box; the container now comes from layout.container.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "heading",
+            "id",
+            "lede",
+            "actions",
+            "children",
+            "className"
+          ],
           "usage": [
+            "Every block of a page below the PageHeader",
             "Case-study sections",
-            "Portfolio page regions"
+            "Health: Readiness map, Usage, Open failures, Components"
           ],
           "dont": [
-            "Do not nest sections inside sections"
-          ]
+            "Do not nest sections inside sections: inside a section, use Card titles",
+            "Do not leave out the heading: a block with no heading is a Columns or a Card",
+            "Do not set your own margins between sections: the section space is the rhythm"
+          ],
+          "a11y": "Verified 2026-10-03: a section element named by its h2 (aria-labelledby); the h2 is 32px text-primary (AAA, the section-heading floor); the lede is text-secondary (AAA) held to 70ch; scroll-margin keeps an anchored heading clear of a sticky header.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": [
+              "heading",
+              "lede",
+              "body"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
         }
       },
       "default": {
@@ -6682,6 +6833,28 @@
           "$value": "1200px",
           "$type": "dimension"
         }
+      },
+      "heading": {
+        "font-size": {
+          "$value": "{typography.font-size.3xl}",
+          "$type": "dimension"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.light}",
+          "$type": "fontWeight"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.h2}",
+          "$type": "dimension"
+        }
+      },
+      "space": {
+        "$value": "{layout.section.space}",
+        "$type": "dimension"
+      },
+      "body-gap": {
+        "$value": "{layout.stack.lg}",
+        "$type": "dimension"
       }
     },
     "modal": {
@@ -7960,6 +8133,219 @@
       "hover-background": {
         "$value": "{color.semantic.border-subtle}",
         "$type": "color"
+      }
+    },
+    "page-header": {
+      "$extensions": {
+        "bella": {
+          "name": "PageHeader",
+          "category": "Layout",
+          "rendersAs": "a header with the page's one h1",
+          "description": "The top of every page (layout foundation, 2026-10-03, Elleta: one page-title size on every page, not display). A quiet meta line (breadcrumb, source or category), the page title at one fixed 40px, an optional lede held to the body measure, and an optional actions row.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "meta",
+            "title",
+            "lede",
+            "actions",
+            "id",
+            "className"
+          ],
+          "usage": [
+            "The first block of every page template: Overview, Object page, Library and Settings",
+            "Atlas: the component name, its category and number as meta"
+          ],
+          "dont": [
+            "Do not use a display Heading tier for an app page title: display is for editorial heroes",
+            "Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips",
+            "Do not use it twice on a page: one h1"
+          ],
+          "a11y": "Verified 2026-10-03: one h1; the title is text-primary (AAA); meta and lede are text-secondary (AAA on the page ground in light, warm and dark); the lede holds to 70ch; the title balances its lines.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": [
+              "meta",
+              "title",
+              "lede",
+              "actions"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "title": {
+        "font-size": {
+          "$value": "{typography.font-size.4xl}",
+          "$type": "dimension"
+        },
+        "font-weight": {
+          "$value": "{typography.font-weight.light}",
+          "$type": "fontWeight"
+        },
+        "line-height": {
+          "$value": "{typography.line-height.heading}",
+          "$type": "number"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.display}",
+          "$type": "dimension"
+        }
+      },
+      "lede": {
+        "font-size": {
+          "$value": "{typography.font-size.lg}",
+          "$type": "dimension"
+        },
+        "max-width": {
+          "$value": "{layout.measure.body}",
+          "$type": "dimension"
+        }
+      },
+      "meta": {
+        "font-size": {
+          "$value": "{typography.font-size.sm}",
+          "$type": "dimension"
+        }
+      },
+      "foreground": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "meta-foreground": {
+        "$value": "{color.semantic.text-secondary}",
+        "$type": "color"
+      },
+      "gap": {
+        "$value": "{layout.stack.sm}",
+        "$type": "dimension"
+      }
+    },
+    "sidebar-layout": {
+      "$extensions": {
+        "bella": {
+          "name": "SidebarLayout",
+          "category": "Layout",
+          "rendersAs": "a grid of an aside, the content and an optional rail",
+          "description": "A sticky aside beside the content, with an optional rail on the right (layout foundation, 2026-10-03). On the 12-column grid: aside 3 and content 9, or aside 3, content 6 and rail 3. Under 1200px of its own width the rail drops under the content; under 768px everything stacks and the aside stops sticking. The aside sticks under the sticky header (--header-height) and scrolls on its own when it is taller than the screen less the header and the dock (--dock-height).",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "aside",
+            "asideLabel",
+            "rail",
+            "railLabel",
+            "children",
+            "className"
+          ],
+          "usage": [
+            "Atlas: the library beside the component",
+            "Docs: the list, the reader, the doc rail",
+            "Health: On this page, then the sections"
+          ],
+          "dont": [
+            "Do not put the page title in the aside: the PageHeader sits in the content column",
+            "Do not add another scroll container: only the aside list, code blocks and tables scroll on their own"
+          ],
+          "a11y": "Verified 2026-10-03: the aside and rail are complementary landmarks named by asideLabel and railLabel; source order is aside, content, rail, so reading and keyboard order follow the visual order at every width; a scrolling aside is focusable so the keyboard can scroll it.",
+          "restState": {
+            "description": "Layout only, entirely static.",
+            "atRest": [
+              "aside",
+              "content",
+              "rail"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "gap": {
+        "$value": "{layout.gutter}",
+        "$type": "dimension"
+      },
+      "columns": {
+        "$value": "{layout.grid.columns-wide}",
+        "$type": "number"
+      }
+    },
+    "columns": {
+      "$extensions": {
+        "bella": {
+          "name": "Columns",
+          "category": "Layout",
+          "rendersAs": "a grid of equal columns",
+          "description": "Two or three columns that collapse by their own width (layout foundation, 2026-10-03): three become two under 1200px and one under 768px; two become one under 768px. Even by default; split wide-start makes two columns 2:1 (a stage beside its facts). Cells stretch to the row, so cards in a row line up top and bottom.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "count",
+            "split",
+            "children",
+            "className"
+          ],
+          "usage": [
+            "Atlas: the specimen beside its facts (wide-start), the examples under them (even)",
+            "Health stat cards"
+          ],
+          "dont": [
+            "Do not use it for a sidebar: that is SidebarLayout",
+            "Do not nest Columns inside Columns"
+          ],
+          "a11y": "Verified 2026-10-03: no landmark or role of its own; reading order is source order at every width.",
+          "restState": {
+            "description": "Layout only, entirely static.",
+            "atRest": [
+              "cells"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "gap": {
+        "$value": "{layout.gutter}",
+        "$type": "dimension"
       }
     }
   }

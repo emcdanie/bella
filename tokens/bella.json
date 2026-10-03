@@ -8357,6 +8357,102 @@
         "$value": "{layout.gutter}",
         "$type": "dimension"
       }
+    },
+    "slider": {
+      "$extensions": {
+        "bella": {
+          "name": "Slider",
+          "category": "Inputs",
+          "rendersAs": "a native range input, with a number field for its value",
+          "description": "A native range with its value beside it and editable, the 44px target, and optional marks where a rule lives (Atlas v4, 2026-10-03, Elleta: sliders, not prop controls). The value is read out with its unit.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "focus",
+            "disabled"
+          ],
+          "props": [
+            "label",
+            "value",
+            "onChange",
+            "min",
+            "max",
+            "step",
+            "unit",
+            "marks",
+            "hint",
+            "disabled",
+            "id",
+            "className"
+          ],
+          "usage": [
+            "Atlas Try a change: one slider per tunable token, marks at the rules (24px WCAG 2.5.8, 44px BELLA floor)",
+            "Any bounded number people tune by feel and then fine-tune by typing"
+          ],
+          "dont": [
+            "Do not use it for a choice between a few named options: that is SegmentedControl or Select",
+            "Do not hide the number: the value always shows beside the track and can be typed",
+            "Do not put a mark without a label: a mark says which rule lives there"
+          ],
+          "a11y": "Verified 2026-10-03: a native range (slider role, arrow keys, Home and End from the browser) labelled by its visible label, aria-valuetext with the unit, marks listed and referenced by aria-describedby; the number field is labelled too. The input is the 44px target; the thumb border is ink and the track the 3:1 control border; focus is the shared ring.",
+          "restState": {
+            "description": "Flat: the track, the fill to the value, the thumb, the value field and any marks.",
+            "atRest": [
+              "track",
+              "fill",
+              "thumb",
+              "value",
+              "marks"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "flat",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "flat",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "track-height": {
+        "$value": "{spacing.1}",
+        "$type": "dimension"
+      },
+      "thumb-size": {
+        "$value": "{spacing.6}",
+        "$type": "dimension"
+      },
+      "track": {
+        "$value": "{color.semantic.border-strong}",
+        "$type": "color"
+      },
+      "fill": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "thumb-background": {
+        "$value": "{color.semantic.surface-card}",
+        "$type": "color"
+      },
+      "thumb-border": {
+        "$value": "{color.semantic.border-ink}",
+        "$type": "color"
+      },
+      "mark": {
+        "$value": "{color.semantic.text-secondary}",
+        "$type": "color"
+      }
     }
   }
 }

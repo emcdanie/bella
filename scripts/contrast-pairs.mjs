@@ -90,6 +90,9 @@ const PAIRS = [
   ['disclosure title on panel', '--component-disclosure-foreground', '--color-semantic-surface-card', AAA],
   ['disclosure summary on panel', '--component-disclosure-meta-foreground', '--color-semantic-surface-card', AA],
   ['neutral status pill label on its inset fill', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],
+  ['slider track on panel', '--component-slider-track', '--color-semantic-surface-card', NON_TEXT],
+  ['slider fill on panel', '--component-slider-fill', '--color-semantic-surface-card', NON_TEXT],
+  ['slider thumb edge on panel', '--component-slider-thumb-border', '--color-semantic-surface-card', NON_TEXT],
   ['page title on the page', '--component-page-header-foreground', '--color-semantic-background', AAA],
   ['page meta and lede on the page', '--component-page-header-meta-foreground', '--color-semantic-background', AAA],
   /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */

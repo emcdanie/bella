@@ -688,3 +688,11 @@ value with the source reference in parentheses.
 | `component.sidebar-layout.gap` | `24px` (`{layout.gutter}`) | dimension |
 | `component.sidebar-layout.columns` | `12` (`{layout.grid.columns-wide}`) | number |
 | `component.columns.gap` | `24px` (`{layout.gutter}`) | dimension |
+| `component.slider.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.slider.track-height` | `4px` (`{spacing.1}`) | dimension |
+| `component.slider.thumb-size` | `24px` (`{spacing.6}`) | dimension |
+| `component.slider.track` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.slider.fill` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.slider.thumb-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.slider.thumb-border` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.slider.mark` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |

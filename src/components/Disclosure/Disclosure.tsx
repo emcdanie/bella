@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, type ReactNode } from 'react';
+import React, { useRef, type MouseEvent, type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
 import styles from './Disclosure.module.css';
 
@@ -26,21 +26,37 @@ export interface DisclosureProps {
  * not navigation.
  */
 export default function Disclosure({ title, summary, defaultOpen, open, onToggle, children, id, className }: DisclosureProps) {
-  const ref = useRef<HTMLDetailsElement>(null);
-  // controlled: the prop wins on every render
-  useEffect(() => {
-    if (open !== undefined && ref.current && ref.current.open !== open) ref.current.open = open;
-  }, [open]);
+  const controlled = open !== undefined;
+  // uncontrolled: report real changes only (a details that starts open fires
+  // a toggle on mount, which is not the person's choice)
+  const last = useRef(Boolean(defaultOpen));
+  // controlled: the click asks the parent, the prop decides; the browser's own
+  // toggle never runs, so the two cannot drift apart
+  const onSummaryClick = controlled
+    ? (e: MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+        onToggle?.(!open);
+      }
+    : undefined;
   return (
     <details
-      ref={ref}
       id={id}
       className={[styles.disclosure, className].filter(Boolean).join(' ')}
-      open={open ?? defaultOpen}
-      onToggle={(e) => onToggle?.((e.currentTarget as HTMLDetailsElement).open)}
+      open={controlled ? open : defaultOpen}
+      onToggle={
+        controlled
+          ? undefined
+          : (e) => {
+              const now = (e.currentTarget as HTMLDetailsElement).open;
+              if (now !== last.current) {
+                last.current = now;
+                onToggle?.(now);
+              }
+            }
+      }
       data-bella-component="disclosure"
     >
-      <summary className={styles.summary}>
+      <summary className={styles.summary} onClick={onSummaryClick}>
         <span className={styles.title}>{title}</span>
         {summary != null ? <span className={styles.meta}>{summary}</span> : null}
         <Icon name="NavArrowDown" size="sm" className={styles.chevron} />

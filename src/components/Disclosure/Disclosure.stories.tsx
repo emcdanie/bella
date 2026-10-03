@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
 import Disclosure from './Disclosure';
@@ -74,6 +74,59 @@ export const Behavior: Story = {
     await step('a second click closes it', async () => {
       await userEvent.click(summary);
       expect(details.open).toBe(false);
+    });
+  },
+};
+
+function Controlled() {
+  const [open, setOpen] = useState(false);
+  const [calls, setCalls] = useState(0);
+  return (
+    <div>
+      <Disclosure title="Try a change" summary={open ? 'On the stage' : null} open={open} onToggle={(v) => { setCalls((n) => n + 1); setOpen(v); }}>
+        <p style={{ margin: 0 }}>The stage is the sandbox now.</p>
+      </Disclosure>
+      <span data-testid="calls">{calls}</span>
+    </div>
+  );
+}
+
+/** Controlled: the click asks, the parent's state decides; no call on mount. */
+export const ControlledBehavior: Story = {
+  render: () => <Controlled />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const details = canvasElement.querySelector('details') as HTMLDetailsElement;
+    await step('nothing is reported on mount', async () => {
+      expect(canvas.getByTestId('calls').textContent).toBe('0');
+      expect(details.open).toBe(false);
+    });
+    await step('a click asks once and the state opens it', async () => {
+      await userEvent.click(canvas.getByText('Try a change'));
+      expect(canvas.getByTestId('calls').textContent).toBe('1');
+      expect(details.open).toBe(true);
+    });
+  },
+};
+
+function OpenOnMount() {
+  const [calls, setCalls] = useState(0);
+  return (
+    <div>
+      <Disclosure title="Facts" defaultOpen onToggle={() => setCalls((n) => n + 1)}>
+        <p style={{ margin: 0 }}>Open from the start.</p>
+      </Disclosure>
+      <span data-testid="calls">{calls}</span>
+    </div>
+  );
+}
+
+/** Uncontrolled and open from the start: the browser's mount toggle is not reported. */
+export const NoToggleOnMount: Story = {
+  render: () => <OpenOnMount />,
+  play: async ({ canvas, step }) => {
+    await step('no onToggle call before anyone clicks', async () => {
+      await new Promise((r) => setTimeout(r, 50));
+      expect(canvas.getByTestId('calls').textContent).toBe('0');
     });
   },
 };

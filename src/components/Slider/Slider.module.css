@@ -47,6 +47,18 @@
   text-align: end;
 }
 
+/* no spinner arrows: the arrow keys still step the number */
+.value {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.value::-webkit-inner-spin-button,
+.value::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .value:focus-visible {
   outline: var(--ring-focus-width) solid var(--ring-focus-color);
   outline-offset: var(--ring-focus-offset);

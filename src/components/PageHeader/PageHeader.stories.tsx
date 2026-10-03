@@ -46,6 +46,24 @@ export const WithActions: Story = {
   },
 };
 
+/** Something that belongs to the title sits beside it, outside the h1 (a quiet ⋯ menu). */
+export const WithTitleAside: Story = {
+  args: {
+    meta: 'Specimen No. 002 · Actions',
+    title: 'Button',
+    titleAside: (
+      <ActionChip variant="quiet" ariaLabel="Button: visibility and status" onClick={() => {}}>
+        ⋯
+      </ActionChip>
+    ),
+    actions: <Button variant="secondary" onClick={() => {}}>Open the story</Button>,
+  },
+  play: async ({ canvas }) => {
+    // the heading's name is the title alone
+    expect(canvas.getByRole('heading', { level: 1 }).textContent).toBe('Button');
+  },
+};
+
 /** A long title balances over two lines; the lede stops at the body measure. */
 export const LongTitle: Story = {
   args: {

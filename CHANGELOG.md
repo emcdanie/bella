@@ -4,6 +4,9 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Surface levels (2026-10-03)
+- **`color.semantic.ground` and `color.semantic.raised`** (added, no component reads them yet): three surface levels for the portfolio's Gate 2 layout, ordered ground < inset < raised in every theme. Light `#e3e3e3` / `#ffffff`, dark `#0d0d0d` / `#262626`, warm `#e3dbcf` / `#fbfaf7`, all from existing primitives. Ink is AAA on both in all themes; muted on ground is AA only in light and warm (forbidden pair, put meta on raised). Re-sync consumers with `audit:sync`.
+
 ### Brand refresh (2026-09-22)
 - **Ochre replaces iris and periwinkle** (BREAKING): `color.brand.ochre` `#e8a83e` (a fill, always with ink text, 9.01:1) and `color.brand.ochre-deep` `#b97a14` (its line and focus ring on light). Removed: `color.brand.iris`, `color.brand.periwinkle`, the `color.iris.*` ramp and the iris / periwinkle alphas. Every semantic reference repointed; links and `text-accent` are ink.
 - **Focus ring**: 3px with a 3px offset, ochre-deep light (3.20:1 on panel) / ochre dark (8.70:1), focus-visible only.

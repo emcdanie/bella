@@ -50,6 +50,14 @@
   vertical-align: middle;
 }
 
+/* density="compact": display-only tables, rows under the 44px target */
+.wrap[data-density='compact'] .table th,
+.wrap[data-density='compact'] .table td {
+  padding: var(--spacing-1) var(--spacing-3);
+  min-block-size: var(--component-data-table-compact-row-min-height);
+  block-size: var(--component-data-table-compact-row-min-height);
+}
+
 .table tbody tr:last-child > * {
   border-bottom: none;
 }

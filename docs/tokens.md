@@ -623,6 +623,7 @@ value with the source reference in parentheses.
 | `component.score-strip.track-fill` | `#121212` (`{color.semantic.border-ink}`) | color |
 | `component.data-table.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.data-table.row-min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.data-table.compact-row-min-height` | `32px` (`{spacing.8}`) | dimension |
 | `component.data-table.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.data-table.header-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
 | `component.data-table.selected-background` | `#e8a83e` (`{color.semantic.accent}`) | color |

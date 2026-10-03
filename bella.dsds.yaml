@@ -14241,6 +14241,28 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{spacing.touch-target}"
   - kind: token
+    id: component.data-table.compact-row-min-height
+    name: Compact Row Min Height
+    description: density=compact, display-only tables only.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.compact-row-min-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.8}"
+  - kind: token
     id: component.data-table.border-radius
     name: Data Table Border Radius
     description: Component-tier alias. Resolves to `radius.lg` in `tokens/bella.json`.
@@ -16691,6 +16713,8 @@ entries:
             statement: "Do not left-align figures: numeric columns are right-aligned and tabular"
           - level: must-not
             statement: "Do not drop the caption: it names the table"
+          - level: must-not
+            statement: "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"
       - kind: definitions
         for: all
         title: At rest

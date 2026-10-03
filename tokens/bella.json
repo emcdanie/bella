@@ -4519,6 +4519,11 @@
         "bella": {
           "name": "Button",
           "category": "Actions",
+          "shapes": [
+            "default",
+            "pill"
+          ],
+          "rendersAs": "a button, or one anchor with href",
           "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique.",
           "variants": [
             "primary",
@@ -4885,6 +4890,7 @@
         "bella": {
           "name": "Card",
           "category": "Layout",
+          "rendersAs": "a div; with href one anchor, with onClick one button",
           "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": [
             "default",
@@ -5607,6 +5613,7 @@
         "bella": {
           "name": "FilterChip",
           "category": "Actions",
+          "rendersAs": "a button with aria-pressed",
           "description": "The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.",
           "variants": [],
           "states": [
@@ -6470,6 +6477,7 @@
         "bella": {
           "name": "Link",
           "category": "Actions",
+          "rendersAs": "an anchor; external opens a new tab",
           "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
           "variants": [],
           "states": [
@@ -7509,7 +7517,12 @@
             "selectedKey",
             "onSelect",
             "maxHeight",
+            "density",
             "className"
+          ],
+          "densities": [
+            "default",
+            "compact"
           ],
           "usage": [
             "CHIP per-component health results",
@@ -7519,7 +7532,8 @@
             "Do not dim unselected rows: selection is the ochre fill, everything else keeps its paint",
             "Do not use ochre-deep for selection: it is the focus ring only",
             "Do not left-align figures: numeric columns are right-aligned and tabular",
-            "Do not drop the caption: it names the table"
+            "Do not drop the caption: it names the table",
+            "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"
           ],
           "a11y": "Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is ochre fill with ink text, 9.01:1 (AAA), nested components included (a muted StatusPill label on ochre would be 3.51:1), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.",
           "restState": {
@@ -7563,6 +7577,11 @@
         "$value": "{spacing.touch-target}",
         "$type": "dimension"
       },
+      "compact-row-min-height": {
+        "$value": "{spacing.8}",
+        "$type": "dimension",
+        "$description": "density=compact, display-only tables only."
+      },
       "border-radius": {
         "$value": "{radius.lg}",
         "$type": "dimension"
@@ -7586,6 +7605,7 @@
         "bella": {
           "name": "Drawer",
           "category": "Layout",
+          "rendersAs": "a native dialog, opened modal",
           "description": "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
           "variants": [],
           "states": [
@@ -7776,6 +7796,7 @@
         "bella": {
           "name": "ActionChip",
           "category": "Actions",
+          "rendersAs": "a button, or one anchor with href",
           "description": "The quiet action (CHIP components, 2026-10-03, Elleta): a sentence-case pill for suggestions, chips and the small actions under an answer. Below secondary in weight; not a toggle and not the page's main action.",
           "variants": [],
           "states": [

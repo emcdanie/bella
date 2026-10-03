@@ -77,6 +77,48 @@ function SelectHarness() {
   );
 }
 
+/** density="compact": a display-only table (an answer, a read-only list), rows under 44px. */
+export const Compact: Story = {
+  render: () => (
+    <div style={{ maxWidth: 640 }}>
+      <DataTable
+        columns={[
+          { key: 'name', label: 'Component' },
+          { key: 'contract', label: 'Contract' },
+          { key: 'tokens', label: 'Tokens', numeric: true },
+        ]}
+        rows={ROWS}
+        rowKey="name"
+        caption="Component health, read only"
+        density="compact"
+      />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const wrap = canvasElement.querySelector('[data-bella-component="data-table"]') as HTMLElement;
+    await step('compact rows sit under the 44px target', async () => {
+      expect(wrap).toHaveAttribute('data-density', 'compact');
+      expect(wrap.querySelector('tbody td')!.getBoundingClientRect().height).toBeLessThan(44);
+    });
+  },
+};
+
+/** Compact is ignored where rows are interactive: a sortable table keeps 44px. */
+export const CompactIgnoredWhenSortable: Story = {
+  render: () => (
+    <div style={{ maxWidth: 640 }}>
+      <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Component health" density="compact" />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const wrap = canvasElement.querySelector('[data-bella-component="data-table"]') as HTMLElement;
+    await step('no compact rows on a sortable table', async () => {
+      expect(wrap).not.toHaveAttribute('data-density');
+      expect(wrap.querySelector('tbody td')!.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
+    });
+  },
+};
+
 /** Single selection fills the row ochre; nothing else dims. The header sticks inside a capped height. */
 export const Selectable: Story = {
   render: () => <SelectHarness />,

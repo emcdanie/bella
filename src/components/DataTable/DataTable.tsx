@@ -31,6 +31,9 @@ export interface DataTableProps<Row extends Record<string, any>> {
   onSelect?: (key: string | null) => void;
   /** Caps the height (a token, e.g. `calc(var(--spacing-20) * 5)`) so the sticky header has something to stick in. */
   maxHeight?: string;
+  /** Row height. compact is for display-only tables (answers, read-only lists): rows under 44px.
+   *  It is ignored on a sortable or selectable table, whose rows keep the 44px target. */
+  density?: 'default' | 'compact';
   /** Extra classes on the scroll wrapper. */
   className?: string;
 }
@@ -54,9 +57,12 @@ export default function DataTable<Row extends Record<string, any>>({
   selectedKey,
   onSelect,
   maxHeight,
+  density = 'default',
   className,
 }: DataTableProps<Row>) {
   const [sort, setSort] = useState<DataTableSort | undefined>(defaultSort);
+  // compact only where nothing in a row is interactive
+  const compact = density === 'compact' && !onSelect && !columns.some((c) => c.sortable);
 
   const sorted = useMemo(() => {
     if (!sort) return rows;
@@ -82,6 +88,7 @@ export default function DataTable<Row extends Record<string, any>>({
       className={[styles.wrap, className].filter(Boolean).join(' ')}
       style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
       data-bella-component="data-table"
+      data-density={compact ? 'compact' : undefined}
       tabIndex={maxHeight ? 0 : undefined}
       role={maxHeight ? 'region' : undefined}
       aria-label={maxHeight ? caption : undefined}

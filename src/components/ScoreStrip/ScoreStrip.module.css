@@ -88,8 +88,11 @@
   background: var(--component-score-strip-track-fill);
 }
 
+/* --cells is the station count (set inline): the strip only takes the row
+   beside the name when every cell fits at its minimum, otherwise the name
+   wraps above and the cells keep one row. */
 .cells {
-  flex: 3 1 calc(var(--spacing-20) * 4);
+  flex: 3 1 calc(var(--cells, 10) * (var(--spacing-12) + var(--spacing-1)));
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--spacing-12), 1fr));
   gap: var(--spacing-1);

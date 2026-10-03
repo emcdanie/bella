@@ -78,7 +78,11 @@ export default function ScoreStrip({ name, kind, score, cells, as: Tag = 'h3', c
           </div>
         ) : null}
       </div>
-      <ul className={styles.cells} aria-label={`${name} stations`}>
+      <ul
+        className={styles.cells}
+        aria-label={`${name} stations`}
+        style={{ '--cells': cells.length } as React.CSSProperties}
+      >
         {cells.map((c) => {
           const band = scoreBand(c.value);
           return (

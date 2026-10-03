@@ -53,7 +53,8 @@ const REST_CONTRACTS = Object.entries(
  * surface) with parameters: { bella: { themeIntegrity: false } }.
  */
 
-const THEMES = ['light', 'dark'] as const;
+// warm (2026-10-03): a light-family theme, held to the light integrity bands
+const THEMES = ['light', 'dark', 'warm'] as const;
 
 function relativeLuminance(rgb: [number, number, number]): number {
   const lin = rgb.map((c) => {
@@ -404,9 +405,9 @@ const config: TestRunnerConfig = {
         });
         if (bg) {
           const lum = relativeLuminance(bg as [number, number, number]);
-          if (theme === 'light' && lum < 0.4) {
+          if ((theme === 'light' || theme === 'warm') && lum < 0.4) {
             throw new Error(
-              `[audit:visual] ${context.id}: light theme renders a dark stage ` +
+              `[audit:visual] ${context.id}: ${theme} theme renders a dark stage ` +
                 `(background rgb(${bg.join(',')}), luminance ${lum.toFixed(3)}). ` +
                 `A light-mode story must sit on the light ground.`
             );
@@ -446,9 +447,9 @@ const config: TestRunnerConfig = {
           sum += (0.2126 * png.data[i] + 0.7152 * png.data[i + 1] + 0.0722 * png.data[i + 2]) / 255;
         }
         const mean = sum / n;
-        if (theme === 'light' && mean < 0.6) {
+        if ((theme === 'light' || theme === 'warm') && mean < 0.6) {
           throw new Error(
-            `[audit:visual] ${context.id}: light theme renders predominantly dark ` +
+            `[audit:visual] ${context.id}: ${theme} theme renders predominantly dark ` +
               `(mean luminance ${mean.toFixed(3)}, expected ≥ 0.6). Dark surfaces are ` +
               `leaking into the light theme. Opt out only for deliberate fixed-dark ` +
               `stories via parameters.bella.themeIntegrity = false.`

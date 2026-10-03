@@ -31,12 +31,13 @@ mobile range, not its floor. Read the table by range, not by token name.
   borderLeft: '3px solid var(--color-semantic-accent-border)',
   borderRadius: 'var(--radius-md)',
 }}>
-  <strong>Open, and deliberately not resolved here.</strong> The wide token is
-  1440px, but the reference consumer caps its container at 1240px, and the
-  Storybook viewport presets are 390 / 768 / 1240. Three sources, two answers.
-  Nothing is changed until that call is made, because moving a breakpoint
-  token moves every consumer that reads it. Tracked as an open decision, not
-  as a defect.
+  <strong>1440 and 1200 are two different things, not a conflict.</strong>
+  `breakpoint.wide` (1440px) is where the fluid display ramps stop growing:
+  every display clamp ends at 1440. `component.section.default.max-width`
+  (1200px) is the content cap, the widest a section's content ever gets; at
+  the Desktop preset that cap plus its gutters is 1240. Reach for
+  `breakpoint.wide` when something should change with the window's scale,
+  and for the section max-width when something should stop getting wider.
 </div>
 
 ## Components do not own breakpoints
@@ -69,20 +70,28 @@ transforms are removed, and hover falls back to a static accent ring. The
 affordance survives; only the movement stops. Any new component that moves
 inherits this obligation.
 
-## Fluid type and space: not adopted
+## Fluid type: display tiers only
 
-BELLA's type ramp and spacing scale are fixed steps. There is no `clamp()`
-anywhere in the system, and no fluid interpolation between breakpoints.
+The three display tiers are fluid. `font-size.display-hero`, `display-page`
+and `display-section` are `clamp()` ramps from 390px to 1440px:
 
-This is a position, not an oversight. Fixed steps keep the type floors
-enforceable: the gate can assert that reading text never computes below 16px
-and that Unique never renders below 24px, because the values are knowable
-without resolving a viewport. A fluid ramp makes those floors a function of
-window width, and the floors are the accessibility bar.
+| Token                     | At 390px | At 1440px |
+| ------------------------- | -------- | --------- |
+| `font-size.display-hero`    | 40px     | 76px      |
+| `font-size.display-page`    | 40px     | 76px      |
+| `font-size.display-section` | 32px     | 44px      |
 
-If fluid type is adopted later it needs to arrive with the floors as clamp
-minimums, and the gate needs to keep asserting the computed value, not the
-declared one.
+The clamp minimum is the floor: below 390px a display heading holds its
+minimum, above 1440px it holds its maximum. Everything else stays in fixed
+steps: body, labels and the spacing scale do not interpolate, so the reading
+floors (16px for reading text, 13px hard floor for anything visible) are
+knowable without resolving a viewport.
+
+The gate asserts computed values, not declared ones: `audit:visual` reads
+`getComputedStyle` for the 13px hard floor and the 16px reading floor on
+every story. **Open item:** nothing yet asserts the display clamp minimums
+(40 / 40 / 32) as computed floors, and the stories render at one viewport,
+so a ramp that fell below its minimum at 390px would not fail the gate.
 
 ## Container queries: adopted for patterns (2026-09-21)
 
@@ -94,14 +103,20 @@ window's, or it breaks the moment a consumer places it in a sidebar.
 So each pattern in `src/patterns/`, and the layout component SectionHeader,
 declares a named container
 (`featured-case`, `case-grid`, `work-intro`, `before-after`, `case-meta`,
-and SectionHeader's `section-header`) and queries only that. The threshold
-is the `breakpoint.tablet` value, 768px, written as a literal because a
-container query cannot read `var()`; each stylesheet says so next to the
-query. A pattern never reads the window.
+the diagram containers `process-steps` and `flow-diagram`, and
+SectionHeader's `section-header`) and queries only that. The threshold is
+the `breakpoint.tablet` value, 768px, written as a literal because a
+container query cannot read `var()`. A pattern never reads the window.
+
+**Open item:** the stylesheets do not all say so yet. CaseMeta, FeaturedCase
+and SectionHeader carry the full note; CaseGrid, WorkIntro, BeforeAfterFrame
+and FlowDiagram name the token but not the `var()` reason; ProcessSteps
+carries no note.
 
 ## Verifying it
 
-`audit:visual` snapshots every story in both themes. The Storybook viewport
-presets are 390 / 768 / 1240, and GATE 2 on any new component means rendering
-it at every breakpoint range in both themes and actually looking, not trusting
-that it fills.
+`audit:visual` snapshots every story in every theme (light, dark, warm). The
+Storybook viewport presets are 390 / 768 / 1240 / 1440 (Mobile, Tablet,
+Desktop, Wide; Laptop 1024 is there for the Work patterns), and GATE 2 on
+any new component means rendering it at every breakpoint range in every
+theme and actually looking, not trusting that it fills.

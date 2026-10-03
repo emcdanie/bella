@@ -7,6 +7,8 @@ export interface FilterChipProps {
   onClick: () => void;
   /** Accessible name when the visible label isn't the right name. */
   ariaLabel?: string;
+  /** `"compact"`: tighter padding and the 13px label for a long wrapping row of filters; the 44px target stays. */
+  size?: 'default' | 'compact';
   /** Extra classes on the chip. */
   className?: string;
   children?: ReactNode;
@@ -20,13 +22,14 @@ export default function FilterChip({
   pressed,
   onClick,
   ariaLabel,
+  size = 'default',
   className,
   children,
 }: FilterChipProps) {
   return (
     <button
       type="button"
-      className={[styles.chip, className].filter(Boolean).join(' ')}
+      className={[styles.chip, size === 'compact' ? styles.compact : '', className].filter(Boolean).join(' ')}
       aria-pressed={pressed}
       aria-label={ariaLabel}
       onClick={onClick}

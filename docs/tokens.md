@@ -502,6 +502,7 @@ value with the source reference in parentheses.
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.filter-chip.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.filter-chip.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.filter-chip.compact.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.filter-chip.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.filter-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.segmented-control.border-radius` | `12px` (`{radius.lg}`) | dimension |

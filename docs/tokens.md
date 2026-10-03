@@ -586,3 +586,10 @@ value with the source reference in parentheses.
 | `component.kbd.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
 | `component.kbd.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
 | `component.kbd.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.nav-list.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.nav-list.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.nav-list.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.nav-list.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.nav-list.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.nav-list.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.nav-list.current-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |

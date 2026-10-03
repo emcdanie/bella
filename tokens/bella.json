@@ -6573,6 +6573,100 @@
         "$value": "{typography.font-feature.mono}",
         "$type": "other"
       }
+    },
+    "nav-list": {
+      "$extensions": {
+        "bella": {
+          "name": "NavList",
+          "description": "A sidebar of grouped links (CHIP components, 2026-10-03). Where you are is aria-current, painted as a wash plus ink plus medium weight. Optional Mono group labels, counts, a footer row and a hide / show toggle.",
+          "variants": [],
+          "states": [
+            "default",
+            "hover",
+            "current",
+            "focus",
+            "collapsed"
+          ],
+          "props": [
+            "groups",
+            "label",
+            "collapsed",
+            "onToggle",
+            "onNavigate",
+            "footer",
+            "className"
+          ],
+          "usage": [
+            "CHIP workspace sidebar",
+            "Any app sidebar of views or sections"
+          ],
+          "dont": [
+            "Do not use for the site's top nav: that is the nav-link contract",
+            "Do not use for in-page panels: that is Tabs",
+            "Do not mark the current item with a wash alone: aria-current plus ink plus weight",
+            "Do not collapse without onToggle: the lists would be unreachable"
+          ],
+          "a11y": "Verified 2026-10-03: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 3px, inset. Rows and the toggle hit the 44px touch-target token.",
+          "restState": {
+            "description": "Flat: text rows and the current wash. audit:quality asserts no elevation or animation (root carries data-bella-component=nav-list).",
+            "atRest": [
+              "group labels",
+              "item rows",
+              "current wash",
+              "counts"
+            ],
+            "triggered": [
+              {
+                "layer": "hover wash",
+                "on": [
+                  "hover"
+                ],
+                "asserted": false
+              }
+            ],
+            "invariants": [
+              {
+                "layer": "flat",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "flat",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      },
+      "font-family": {
+        "$value": "{typography.font-family.body}",
+        "$type": "fontFamily"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.base}",
+        "$type": "dimension"
+      },
+      "label-font-family": {
+        "$value": "{typography.font-family.mono}",
+        "$type": "fontFamily"
+      },
+      "label-font-size": {
+        "$value": "{typography.font-size.mono}",
+        "$type": "dimension"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.md}",
+        "$type": "dimension"
+      },
+      "current-background": {
+        "$value": "{color.semantic.border-subtle}",
+        "$type": "color"
+      }
     }
   }
 }

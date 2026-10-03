@@ -96,3 +96,16 @@ Any value you see as `"TBD"` in the token JSON is a genuine unknown — stop and
 Repos that install BELLA as a `devDependency` inherit this AGENTS.md automatically. They may add their own `AGENTS.md` at their root to layer additional rules — but downstream rules only *extend* or *tighten* BELLA's. They do not relax them. A consuming repo cannot, for example, use pure white off the page ground, drop body text to 14px, put colour in a stroke outside focus and status, set ochre as text on light, or set Mono below 13px.
 
 If a consuming repo's rules conflict with BELLA's, BELLA wins. Flag the conflict; don't silently resolve it.
+
+## Data marks (2026-10-03, Elleta)
+
+Data marks (sparklines, charts) may use inline SVG, marked `data-bella-diagram`, and must carry an accessible text equivalent: `role="img"` with an `aria-label` that says what the mark shows (Stat's sparkline: "Stories: 18 to 22 over 22 syncs"). Same drawing rules as diagrams: ink strokes, chip fills, no state colour.
+
+## Relay (agents working on BELLA for CHIP)
+
+- Instructions arrive in `~/DEV/chip/docs/reference/inbox/next.md` (CHIP repo, gitignored). When Elleta says "go", read it and do it.
+- Reports go to `~/DEV/chip/docs/reference/inbox/report.md`: under 15 lines, then a "Needs Elleta" list (empty if none). Screenshots go to `~/DEV/chip/docs/reference/screens/` and are named in the report.
+- When a step finishes, move `next.md` to `inbox/done/<date>-<short-name>.md`.
+- **Decide alone** and log it in `~/DEV/chip/docs/reference/decisions-while-away.md` (what, why, how to undo): anything these rules already answer, anything that passes the gate and contrast checks, adding tests, snapshots or docs.
+- **Stop and ask only for:** a brand change beyond an approved theme; removing or renaming a public BELLA API; anything touching git remotes or pushes; a gate that still fails after two fixes.
+- Local CI: `.git/hooks/pre-commit` (local, not committed) runs `npm run gate` and the NDA scan on staged lines, and blocks the commit on failure.

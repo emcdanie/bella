@@ -13872,6 +13872,138 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.border-ink}"
+  - kind: token
+    id: component.data-table.font-size
+    name: Data Table Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.base` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.base}"
+  - kind: token
+    id: component.data-table.row-min-height
+    name: Row Min Height
+    description: Component-tier alias. Resolves to `spacing.touch-target` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.row-min-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.touch-target}"
+  - kind: token
+    id: component.data-table.border-radius
+    name: Data Table Border Radius
+    description: Component-tier alias. Resolves to `radius.lg` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.border-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.lg}"
+  - kind: token
+    id: component.data-table.header-background
+    name: Header Background
+    description: Component-tier alias. Resolves to `color.semantic.surface-card` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.header-background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface-card}"
+  - kind: token
+    id: component.data-table.selected-background
+    name: Selected Background
+    description: Selection is the ochre fill (highlight, never dim).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.selected-background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.accent}"
+  - kind: token
+    id: component.data-table.selected-foreground
+    name: Selected Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-on-accent` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - data-table
+      group: component.data-table
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.data-table.selected-foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-on-accent}"
   - kind: theme
     id: light
     name: Light
@@ -15571,6 +15703,101 @@ entries:
               property: transform
               expect: none
             - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
+    id: data-table
+    name: DataTable
+    description: Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row ochre without dimming any other row.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is ochre fill with ink text, 9.01:1 (AAA), nested components included (a muted StatusPill label on ochre would be 3.51:1), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.
+      tags:
+        - component
+        - data-table
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP per-component health results
+          - level: may
+            statement: Any comparison of the same facts across many items
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not dim unselected rows: selection is the ochre fill, everything else keeps its paint"
+          - level: must-not
+            statement: "Do not use ochre-deep for selection: it is the focus ring only"
+          - level: must-not
+            statement: "Do not left-align figures: numeric columns are right-aligned and tabular"
+          - level: must-not
+            statement: "Do not drop the caption: it names the table"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: "Flat: rules, the sticky header and the cell text. audit:quality asserts no elevation or animation (root carries data-bella-component=data-table)."
+        context: anatomy
+        items:
+          - term: outer hairline
+            definition: "Trigger: rest. Paints at rest."
+          - term: sticky header on panel
+            definition: "Trigger: rest. Paints at rest."
+          - term: row rules
+            definition: "Trigger: rest. Paints at rest."
+          - term: cells
+            definition: "Trigger: rest. Paints at rest."
+          - term: sort arrow
+            definition: "Trigger: hover, sorted. Inert at rest."
+    refs:
+      - href: ./src/components/DataTable/DataTable.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/DataTable/DataTable.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - sorted
+          - selected
+          - hover
+          - focus
+        restState:
+          description: "Flat: rules, the sticky header and the cell text. audit:quality asserts no elevation or animation (root carries data-bella-component=data-table)."
+          atRest:
+            - outer hairline
+            - sticky header on panel
+            - row rules
+            - cells
+          triggered:
+            - layer: sort arrow
+              "on":
+                - hover
+                - sorted
+              asserted: false
+          invariants:
+            - layer: flat
+              property: transform
+              expect: none
+            - layer: flat
               property: animation-name
               expect: none
   - kind: entry

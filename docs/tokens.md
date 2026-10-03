@@ -607,3 +607,9 @@ value with the source reference in parentheses.
 | `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.score-strip.track` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
 | `component.score-strip.track-fill` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.data-table.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.data-table.row-min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.data-table.border-radius` | `12px` (`{radius.lg}`) | dimension |
+| `component.data-table.header-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.data-table.selected-background` | `#e8a83e` (`{color.semantic.accent}`) | color |
+| `component.data-table.selected-foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |

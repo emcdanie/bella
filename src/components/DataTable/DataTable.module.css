@@ -1,0 +1,132 @@
+/* DataTable (CHIP components, 2026-10-03). Tokens only.
+ *
+ * Paint: hairline row rules, a header on the panel surface that sticks to
+ * the top of the wrapper, figures right-aligned in tabular numerals.
+ * Selection is the ochre fill with ink text on the whole row: highlight,
+ * never dim, so every other row keeps its normal paint. Ochre-deep stays
+ * the focus ring only.
+ *
+ * Sticky needs a scrolling ancestor: with maxHeight the wrapper scrolls
+ * (and becomes a focusable named region so keyboards can scroll it);
+ * without it the wrapper only scrolls sideways and the header rides along. */
+
+.wrap {
+  overflow: auto;
+  border: var(--border-width-thin) solid var(--color-semantic-border);
+  border-radius: var(--component-data-table-border-radius);
+}
+
+.wrap:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-data-table-font-size);
+  letter-spacing: var(--typography-letter-spacing-body);
+  color: var(--color-semantic-text-primary);
+}
+
+.caption {
+  caption-side: top;
+  text-align: start;
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+  font-feature-settings: var(--typography-font-feature-mono);
+  color: var(--color-semantic-text-secondary);
+}
+
+.table th,
+.table td {
+  padding: var(--spacing-2) var(--spacing-4);
+  min-block-size: var(--component-data-table-row-min-height);
+  block-size: var(--component-data-table-row-min-height);
+  border-bottom: var(--border-width-thin) solid var(--color-semantic-border);
+  text-align: start;
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child > * {
+  border-bottom: none;
+}
+
+.table thead th {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  background: var(--component-data-table-header-background);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--color-semantic-text-secondary);
+  white-space: nowrap;
+}
+
+.table tbody th {
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.table .numeric {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.sort,
+.select {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  min-block-size: var(--spacing-touch-target);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.table .numeric .sort {
+  flex-direction: row-reverse;
+}
+
+.sort:hover {
+  color: var(--color-semantic-text-primary);
+}
+
+.sort:focus-visible,
+.select:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.select:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: var(--spacing-1);
+}
+
+.arrow {
+  display: inline-flex;
+  opacity: 0;
+}
+
+.sort:hover .arrow,
+.arrow[data-direction] {
+  opacity: 1;
+}
+
+.arrow[data-direction='ascending'] {
+  transform: rotate(180deg);
+}
+
+tr[data-selected] > * {
+  background: var(--component-data-table-selected-background);
+  color: var(--component-data-table-selected-foreground);
+}
+
+/* every text on the ochre fill goes ink, nested components included: a
+   muted label on ochre is 3.51:1 (caught by axe on a StatusPill) */
+tr[data-selected] > * * {
+  color: var(--component-data-table-selected-foreground);
+}

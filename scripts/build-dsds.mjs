@@ -186,7 +186,7 @@ const IMPL = {
   heading: 'Heading', icon: 'Icon', input: 'Input', 'resource-card': 'ResourceCard',
   'segmented-control': 'SegmentedControl', select: 'Select', 'status-pill': 'StatusPill', tag: 'Tag',
   tabs: 'Tabs', kbd: 'Kbd', 'nav-list': 'NavList', stat: 'Stat',
-  'score-strip': 'ScoreStrip',
+  'score-strip': 'ScoreStrip', 'data-table': 'DataTable',
 };
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no

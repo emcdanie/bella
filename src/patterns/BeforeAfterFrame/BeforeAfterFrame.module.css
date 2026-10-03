@@ -19,6 +19,7 @@
   align-items: start;
 }
 
+/* 768px = breakpoint.tablet; container queries cannot read var(). */
 @container before-after (min-width: 768px) {
   .withNotes {
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
@@ -84,7 +85,8 @@
   display: inline-flex;
 }
 
-/* auto: scroll below the tablet width (768px = breakpoint.tablet) */
+/* auto: scroll below the tablet width (768px = breakpoint.tablet;
+   container queries cannot read var()) */
 @container before-after (max-width: 767.98px) {
   /* square on a phone: a 16:10 slit is too short to read a screen through */
   .auto .scroller {

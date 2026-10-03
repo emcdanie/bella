@@ -213,10 +213,12 @@ export const RingAndHover: Story = {
       for (const b of [primary, secondary, tertiary]) {
         await expect(getComputedStyle(b).outlineStyle).toBe('none');
       }
+      await expect(getComputedStyle(primary, '::before').outlineStyle).toBe('none');
     });
     await step('keyboard focus: 3px ring, 3px offset', async () => {
       await userEvent.tab();
-      const cs = getComputedStyle(primary);
+      /* primary draws its ring on ::before, sized to the visible keycap */
+      const cs = getComputedStyle(primary, '::before');
       await expect(cs.outlineStyle).toBe('solid');
       await expect(parseFloat(cs.outlineWidth)).toBe(3);
       await expect(parseFloat(cs.outlineOffset)).toBe(3);

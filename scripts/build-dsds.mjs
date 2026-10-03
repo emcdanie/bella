@@ -291,6 +291,15 @@ function componentEntry(key) {
       ],
     });
   }
+  if (c.anatomy?.length) {
+    sections.push({
+      kind: 'definitions', for: 'all',
+      title: 'Anatomy',
+      description: 'Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.',
+      context: 'anatomy',
+      items: c.anatomy.map((p, i) => ({ term: `${i + 1}. ${p.title}`, definition: `${p.detail}. Token ${p.token}; target ${p.target}.` })),
+    });
+  }
   if (sections.length) e.sections = sections;
 
   e.refs = [{ href: `./src/components/${Pascal}/${Pascal}.stories.tsx`, rel: 'storybook', role: 'CSF story source' }];

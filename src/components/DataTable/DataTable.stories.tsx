@@ -44,7 +44,7 @@ const COLUMNS: DataTableColumn<Row>[] = [
     label: 'Story',
     sortable: true,
     sortValue: (r) => (r.story ? 1 : 0),
-    render: (r) => <StatusPill variant={r.story ? 'success' : 'accent'}>{r.story ? 'present' : 'missing'}</StatusPill>,
+    render: (r) => <StatusPill variant={r.story ? 'success' : 'info'}>{r.story ? 'present' : 'missing'}</StatusPill>,
   },
   { key: 'contract', label: 'Contract', sortable: true },
   { key: 'tokens', label: 'Tokens', numeric: true, sortable: true },

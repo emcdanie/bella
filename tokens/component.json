@@ -15,6 +15,13 @@
           "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send", "Nav call to action (shape pill)", "The primary contact CTA reads \"Let's talk\" (brand refresh, 2026-09-22)"],
           "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired", "Do not lift a button on hover: lift is reserved for cards; hover is the label roll", "Do not add the trace ring to a button: the trace is Card's affordance"],
           "a11y": "Verified 2026-09-22: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.",
+          "anatomy": [
+            {"key": "shadow", "title": "Key shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-key-resting", "detail": "1px 3px 0 ink, soft drop, inset highlight (primary)"},
+            {"key": "fill", "title": "Fill", "kind": "fill", "target": ":scope", "zone": {"inset": 6}, "token": "--component-button-primary-fill-hi", "detail": "ink plate, 1px edge, white-alpha gloss"},
+            {"key": "box", "title": "Box", "kind": "box", "target": ":scope", "zone": {"inset": 0}, "token": "--component-button-primary-min-height", "detail": "44px min, padding 12 / 20, radius 12"},
+            {"key": "label", "title": "Label", "kind": "content", "target": "[data-bella-roll=label]", "zone": {"inset": -4}, "token": "--component-button-primary-font-size", "detail": "Geist 13, 700, caps, 0.08em"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "detail": "3px, 3px offset, focus-visible only"}
+          ],
           "restState": {
             "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": ["plate gradient + gloss", "1px accent-raised-edge border", "shadow.key-resting", "label"],
@@ -786,6 +793,12 @@
           "usage": ["CHIP workspace switcher", "CHIP terminal switcher (with run state)", "Any set of panels where one shows at a time"],
           "dont": ["Do not use to switch a view of the same content: that is SegmentedControl", "Do not use for navigation between pages: that is NavList", "Do not mark the selected tab with colour alone: ink text plus the 2px ink bar", "Do not render panels without tabPanelProps: aria-controls must resolve"],
           "a11y": "Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.",
+          "anatomy": [
+            {"key": "hairline", "title": "Hairline", "kind": "edge", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--color-semantic-border", "detail": "1px decorative rule under the list"},
+            {"key": "bar", "title": "Selected bar", "kind": "part", "target": "[aria-selected=true]", "zone": {"edge": "bottom", "size": 8}, "token": "--component-tabs-indicator", "detail": "2px ink bar under the selected tab"},
+            {"key": "labels", "title": "Labels", "kind": "content", "target": "[role=tab]", "zone": {"inset": 6}, "token": "--component-tabs-font-size", "detail": "Geist 14, 500; muted at rest, ink when selected"},
+            {"key": "dots", "title": "Run dots", "kind": "part", "target": "[data-status]", "zone": {"inset": -4}, "token": "--color-semantic-border-ink", "detail": "ink fill running, control ring idle"}
+          ],
           "restState": {
             "description": "Flat: the hairline, the selected bar and the labels are the whole paint. audit:quality asserts no elevation or animation (root carries data-bella-component=tabs).",
             "atRest": ["hairline under the list", "selected ink bar", "labels", "run dots"],
@@ -882,6 +895,11 @@
           "usage": ["CHIP health figures (components, failures, indexed chunks, last sync)", "Any small row of headline figures on a Card or panel"],
           "dont": ["Do not colour the change: up is not always good, and the status ladder has no neutral change colour", "Do not invent figures: a Stat shows a real count or nothing", "Do not give it its own box: place Stats on a Card or panel"],
           "a11y": "Verified 2026-10-03: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals.",
+          "anatomy": [
+            {"key": "label", "title": "Label", "kind": "content", "target": "dt", "zone": {"inset": -2}, "token": "--component-stat-label-font-size", "detail": "Geist Mono 13, muted"},
+            {"key": "figure", "title": "Figure", "kind": "content", "target": "dd:first-of-type", "zone": {"inset": -2}, "token": "--component-stat-value-font-size", "detail": "Geist 300, 32, tabular numerals"},
+            {"key": "change", "title": "Change line", "kind": "content", "target": "dd:nth-of-type(2)", "zone": {"inset": -2}, "token": "--component-stat-delta-font-size", "detail": "Geist 14, muted; arrow hidden, direction spoken"}
+          ],
           "restState": {
             "description": "Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=stat).",
             "atRest": ["label", "figure", "change line"],

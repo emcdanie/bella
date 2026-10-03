@@ -1,0 +1,51 @@
+/* ActionChip (CHIP components, 2026-10-03, Elleta: "a quiet sentence-case
+ * action"). Tokens only. A pill with the control border and ink text, sentence
+ * case, Geist at base size, 44px. Hover adds the hairline wash and the edge
+ * goes ink; focus is the shared ring. Flat always: no lift, no roll. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-height: var(--component-action-chip-min-height);
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: var(--spacing-2) var(--spacing-4);
+  border: var(--border-width-thin) solid var(--component-action-chip-border);
+  border-radius: var(--component-action-chip-border-radius);
+  background: transparent;
+  color: var(--component-action-chip-foreground);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-action-chip-font-size);
+  font-weight: var(--typography-font-weight-regular);
+  letter-spacing: var(--typography-letter-spacing-body);
+  line-height: var(--typography-line-height-snug);
+  text-align: start;
+  text-decoration: none;
+  text-transform: none;
+  cursor: pointer;
+  margin: 0;
+  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.chip:hover {
+  border-color: var(--color-semantic-border-ink);
+  background: var(--component-action-chip-hover-background);
+}
+
+.chip:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.chip:disabled {
+  cursor: not-allowed;
+  color: var(--color-semantic-text-muted);
+  border-color: var(--color-semantic-border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip {
+    transition: none;
+  }
+}

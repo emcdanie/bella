@@ -319,6 +319,16 @@
 <p class="meta-chips"><strong>States:</strong> <code>closed</code> · <code>open</code> · <code>focus</code></p>
 <p class='meta-usage'><strong>Use for:</strong> CHIP sidebar below 720px, Any navigation or filter panel that cannot stay on screen at phone width</p>
 <p class='meta-dont'><strong>Don't use for:</strong> Do not use it as a page section: it is a modal and blocks the page; Do not open it without a visible trigger: focus has to return somewhere; Do not dim content inside the panel: the scrim covers the page, never the drawer</p>
+<h3>Combobox</h3>
+<p class="meta-desc">One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the ochre fill.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>open</code> · <code>active-option</code> · <code>focus</code></p>
+<p class='meta-usage'><strong>Use for:</strong> CHIP's one input: jump to a component or doc, or ask OBI, Any field that picks from a grouped, filtered list</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant; Do not dim the other options: the active one gets the ochre fill, nothing else changes; Do not use it for a fixed short list without typing: that is Select</p>
+<h3>ActionChip</h3>
+<p class="meta-desc">The quiet action (CHIP components, 2026-10-03, Elleta): a sentence-case pill for suggestions, chips and the small actions under an answer. Below secondary in weight; not a toggle and not the page's main action.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code> · <code>hover</code> · <code>focus</code> · <code>disabled</code></p>
+<p class='meta-usage'><strong>Use for:</strong> OBI suggestions and answer actions, Component chips that open Atlas, Small actions on a tile (Which have none?)</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not set it in caps: sentence case is the point; Do not use it as a filter or toggle: that is FilterChip with aria-pressed; Do not use it for the main action of a view: that is Button primary</p>
 
     <h3>Live examples</h3>
     <div class="demo-grid">

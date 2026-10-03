@@ -634,3 +634,19 @@ value with the source reference in parentheses.
 | `component.drawer.shadow` | `0 12px 32px rgba(28,26,46,0.12)` (`{shadow.lg}`) | shadow |
 | `component.drawer.scrim` | `#1A172038` (`{color.semantic.scrim}`) | color |
 | `component.drawer.duration` | `250ms` (`{motion.duration.normal}`) | duration |
+| `component.combobox.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.combobox.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.combobox.border-radius` | `12px` (`{radius.lg}`) | dimension |
+| `component.combobox.border` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.combobox.background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.combobox.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.combobox.list-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.combobox.group-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.combobox.active-background` | `#e8a83e` (`{color.semantic.accent}`) | color |
+| `component.combobox.active-foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
+| `component.action-chip.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.action-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.action-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.action-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.action-chip.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.action-chip.hover-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |

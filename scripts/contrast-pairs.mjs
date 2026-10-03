@@ -80,6 +80,13 @@ const PAIRS = [
   ['table header label on its panel', '--color-semantic-text-secondary', '--component-data-table-header-background', AAA],
   ['drawer text on its panel', '--component-drawer-foreground', '--component-drawer-background', AAA],
   ['stat sparkline (ink) on panel', '--component-stat-trend-stroke', '--color-semantic-surface-card', NON_TEXT],
+  ['combobox option text on its list', '--component-combobox-foreground', '--component-combobox-list-background', AAA],
+  ['combobox group heading on its list', '--component-combobox-group-foreground', '--component-combobox-list-background', AAA],
+  ['combobox active option: ink on ochre', '--component-combobox-active-foreground', '--component-combobox-active-background', AAA],
+  ['combobox field border on the page', '--component-combobox-border', '--color-semantic-background', NON_TEXT],
+  ['action chip label on the page', '--component-action-chip-foreground', '--color-semantic-background', AAA],
+  ['action chip label on its hover wash', '--component-action-chip-foreground', '--component-action-chip-hover-background', AAA],
+  ['action chip border on panel', '--component-action-chip-border', '--color-semantic-surface-card', NON_TEXT],
   /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
   ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
   ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],

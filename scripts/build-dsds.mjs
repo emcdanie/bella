@@ -215,6 +215,7 @@ const VARIANT_DESC = {
     accent: 'The quiet accent ring (the portfolio’s "Current focus").',
     success: 'Wears the carried sage tint, non-text roles only per the recorded decision; the pending status ladder (issue #1) will restyle it.',
     info: 'Wears the carried steel tint, non-text roles only per the recorded decision; the pending status ladder (issue #1) will restyle it.',
+    neutral: 'No tint: the inset fill and a hairline, for a state that is neither good nor bad ("not tested", "draft", "disabled").',
   },
 };
 

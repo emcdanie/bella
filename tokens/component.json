@@ -302,10 +302,10 @@
           "name": "StatusPill",
           "category": "Data",
           "description": "A status word in a pill. Non-interactive, one tint per state, readable in both themes.",
-          "variants": ["accent", "success", "info"],
+          "variants": ["accent", "success", "info", "neutral"],
           "states": ["default"],
           "props": ["variant", "className", "children"],
-          "usage": ["Current-focus marker", "Project state rows", "Availability notes"],
+          "usage": ["Current-focus marker", "Project state rows", "Availability notes", "neutral: a state that is neither good nor bad (not tested, draft, disabled), no tint (CHIP, 2026-10-03)"],
           "dont": ["Do not make it clickable: a pill that toggles is a FilterChip", "Do not colour the label with the state tint: the tint is border and wash only, the word carries the meaning", "Do not design new status UI on the carried tints without asking: the BELLA-native status ladder (issue #1) is pending and will restyle this"],
           "a11y": "Verified 2026-07-22: the label never depends on the tint. Accent label is text-accent, 5.66:1 light / 6.65:1 dark (AA). Success/info labels are text-secondary, AAA both themes. Tints as non-text rings: sage 4.33:1 on ground and 3.45:1 on navy (passes 3:1); steel 2.87:1 on ground (fails 3:1, wash-only per the recorded carry) and 5.20:1 on navy. The state is always readable from the word alone. CARRIED TINTS: pending the status-ladder sitting (issue #1).",
           "restState": {

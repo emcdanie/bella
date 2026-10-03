@@ -50,6 +50,7 @@ export const Variants: Story = {
       <StatusPill variant="accent">Current focus</StatusPill>
       <StatusPill variant="success">Shipped</StatusPill>
       <StatusPill variant="info">In review</StatusPill>
+      <StatusPill variant="neutral">Not tested</StatusPill>
     </div>
   ),
 };

@@ -47,20 +47,23 @@
 }
 
 /* Inline body links are ink with an underline; hover thickens the
- * underline (brand refresh, 2026-09-22). Focus is the shared ochre ring. */
-#storybook-docs .sbdocs-content a {
+ * underline (brand refresh, 2026-09-22). Focus is the shared ochre ring.
+ * :not(.docs-story a) keeps these off story canvases: at (1,1,1) they beat
+ * component classes, which turned Button href's label into link ink on the
+ * ink keycap. */
+#storybook-docs .sbdocs-content a:not(.docs-story a) {
   color: var(--color-semantic-link);
   text-decoration: underline;
   text-decoration-thickness: var(--border-width-thin);
   text-underline-offset: var(--spacing-1);
 }
 
-#storybook-docs .sbdocs-content a:hover {
+#storybook-docs .sbdocs-content a:not(.docs-story a):hover {
   color: var(--color-semantic-link-hover);
   text-decoration-thickness: var(--border-width-medium);
 }
 
-#storybook-docs .sbdocs-content a:focus-visible {
+#storybook-docs .sbdocs-content a:not(.docs-story a):focus-visible {
   outline: var(--ring-focus-width) solid var(--ring-focus-color);
   outline-offset: var(--ring-focus-offset);
 }

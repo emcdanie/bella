@@ -213,10 +213,12 @@ export const RingAndHover: Story = {
       for (const b of [primary, secondary, tertiary]) {
         await expect(getComputedStyle(b).outlineStyle).toBe('none');
       }
+      await expect(getComputedStyle(primary, '::before').outlineStyle).toBe('none');
     });
     await step('keyboard focus: 3px ring, 3px offset', async () => {
       await userEvent.tab();
-      const cs = getComputedStyle(primary);
+      /* primary draws its ring on ::before, sized to the visible keycap */
+      const cs = getComputedStyle(primary, '::before');
       await expect(cs.outlineStyle).toBe('solid');
       await expect(parseFloat(cs.outlineWidth)).toBe(3);
       await expect(parseFloat(cs.outlineOffset)).toBe(3);
@@ -226,4 +228,41 @@ export const RingAndHover: Story = {
        verified with a real pointer outside the play function: synthetic
        userEvent.hover never triggers CSS :hover */
   },
+};
+
+/* Visual baselines for the keyboard-focused primary (3 Oct 2026). The ring
+ * draws on ::before, sized to the visible keycap, so only a capture of the
+ * focused state shows whether it sits even on all four sides. */
+function focusPrimary(): Story['play'] {
+  return async ({ canvas }) => {
+    const button = canvas.getByRole('button');
+    await userEvent.tab();
+    await expect(button).toHaveFocus();
+    await expect(button.matches(':focus-visible')).toBe(true);
+    /* the ring draws on ::before, sized to the visible keycap */
+    const cs = getComputedStyle(button, '::before');
+    await expect(cs.outlineStyle).toBe('solid');
+    await expect(parseFloat(cs.outlineWidth)).toBe(3);
+    await expect(parseFloat(cs.outlineOffset)).toBe(3);
+  };
+}
+
+export const FocusedPrimary: Story = {
+  parameters: { bella: { snapshotClip: 'focused' } },
+  render: () => (
+    <Button variant="primary" onClick={() => {}}>
+      Send
+    </Button>
+  ),
+  play: focusPrimary(),
+};
+
+export const FocusedPrimaryPill: Story = {
+  parameters: { bella: { snapshotClip: 'focused' } },
+  render: () => (
+    <Button variant="primary" shape="pill" onClick={() => {}}>
+      Let's talk
+    </Button>
+  ),
+  play: focusPrimary(),
 };

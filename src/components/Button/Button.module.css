@@ -115,6 +115,37 @@
   box-shadow: var(--shadow-key-pressed);
 }
 
+/* PRIMARY FOCUS RING. The resting key edge (shadow.key-resting, 1px 3px 0)
+ * makes the visible keycap 1px wider and 3px taller than the box, so a plain
+ * outline sat tight against the bottom-right edge. The ring is drawn on a
+ * pseudo-element sized to the visible keycap instead: same width, offset and
+ * colour tokens, now even on all four sides. Pressed, the edge is 0 1px 0. */
+.primary {
+  position: relative;
+}
+
+.primary:focus-visible {
+  outline: none;
+}
+
+.primary::before {
+  content: '';
+  position: absolute;
+  /* -1px clears the 1px border; right and bottom add the key edge */
+  inset: -1px -2px -4px -1px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.primary:focus-visible::before {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.primary:active:not(:disabled)::before {
+  inset: -1px -1px -2px -1px;
+}
+
 /* SECONDARY: the control outline, ink label, no elevation. Hover and
  * focus-visible take the outline to ink; active settles onto the inset. */
 .secondary {

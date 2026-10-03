@@ -53,6 +53,55 @@ const REST_CONTRACTS = Object.entries(
  * surface) with parameters: { bella: { themeIntegrity: false } }.
  */
 
+/* Fluid display floors (3 Oct 2026). The display tiers are clamp() ramps
+ * from 390 to 1440 (tokens/bella.css, font-size.display-*); the minimum is
+ * the accessibility floor. A story with parameters: { bella: { fluidType:
+ * true } } is re-measured at 390 and 1440: every heading computes at or
+ * above its floor at 390 and at most its ceiling at 1440. The values are
+ * the contract, written out so a token edit that lowers a floor fails here. */
+const DISPLAY_RAMP: Record<string, { min: number; max: number }> = {
+  hero: { min: 40, max: 76 },
+  page: { min: 40, max: 76 },
+  section: { min: 32, max: 44 },
+};
+
+async function runFluidTypeChecks(
+  page: Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0],
+  storyId: string
+): Promise<void> {
+  const original = page.viewportSize();
+  const failures: string[] = [];
+  let measured = 0;
+  try {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.waitForTimeout(100);
+      const sizes = await page.evaluate(() =>
+        [...document.querySelectorAll<HTMLElement>('#storybook-root [data-bella-component="heading"]')].map((h) => ({
+          tier: h.dataset.bellaTier ?? '',
+          size: parseFloat(getComputedStyle(h).fontSize),
+          text: (h.textContent ?? '').trim().slice(0, 30),
+        }))
+      );
+      for (const { tier, size, text } of sizes) {
+        const ramp = DISPLAY_RAMP[tier];
+        if (!ramp) continue;
+        measured++;
+        if (width === 390 && size < ramp.min)
+          failures.push(`${tier} "${text}" computes ${size}px at 390, below its ${ramp.min}px floor`);
+        if (width === 1440 && size > ramp.max)
+          failures.push(`${tier} "${text}" computes ${size}px at 1440, above its ${ramp.max}px ceiling`);
+      }
+    }
+  } finally {
+    if (original) await page.setViewportSize(original);
+  }
+  if (measured === 0) failures.push('fluidType is set but no tiered heading was measured');
+  if (failures.length > 0) {
+    throw new Error(`[audit:type] ${storyId}:\n  - ${failures.join('\n  - ')}`);
+  }
+}
+
 // warm (2026-10-03): a light-family theme, held to the light integrity bands
 const THEMES = ['light', 'dark', 'warm'] as const;
 
@@ -382,6 +431,10 @@ const config: TestRunnerConfig = {
     const storyContext = await getStoryContext(page, context);
     const checkIntegrity = storyContext.parameters?.bella?.themeIntegrity !== false;
     const skipSnapshots = process.env.SKIP_VISUAL_SNAPSHOTS === '1';
+
+    if (storyContext.parameters?.bella?.fluidType === true) {
+      await runFluidTypeChecks(page, context.id);
+    }
 
     for (const theme of THEMES) {
       await page.evaluate((t) => {

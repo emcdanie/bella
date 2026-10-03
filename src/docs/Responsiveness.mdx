@@ -89,9 +89,10 @@ knowable without resolving a viewport.
 
 The gate asserts computed values, not declared ones: `audit:visual` reads
 `getComputedStyle` for the 13px hard floor and the 16px reading floor on
-every story. **Open item:** nothing yet asserts the display clamp minimums
-(40 / 40 / 32) as computed floors, and the stories render at one viewport,
-so a ramp that fell below its minimum at 390px would not fail the gate.
+every story. The display floors are checked the same way: a story marked
+`bella.fluidType` (Heading's Tiers) is re-rendered at 390 and 1440, and
+every heading must compute at or above its floor (40 / 40 / 32) at 390 and
+at most its ceiling (76 / 76 / 44) at 1440.
 
 ## Container queries: adopted for patterns (2026-09-21)
 

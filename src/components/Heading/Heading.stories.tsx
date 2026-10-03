@@ -37,6 +37,7 @@ type Story = StoryObj<typeof Heading>;
 
 /** The three tiers on the ramp: hero 6xl, page 5xl, section 3xl. */
 export const Tiers: Story = {
+  parameters: { bella: { fluidType: true } },
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-6)' }}>
       <Heading tier="hero">Hero step</Heading>

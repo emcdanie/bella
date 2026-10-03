@@ -49,6 +49,7 @@ export default function Heading({
       style={style}
       className={[styles.heading, styles[tier], className].filter(Boolean).join(' ')}
       data-bella-component="heading"
+      data-bella-tier={tier}
     >
       {children}
       {accent != null ? <span className={styles.accent}> {accent}</span> : null}

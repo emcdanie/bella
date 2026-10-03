@@ -2052,16 +2052,16 @@ entries:
   - kind: token
     id: color.light.muted
     name: Muted
-    description: "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta)."
+    description: "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta); one more step (#515151 to #4b4b4b, 2026-10-03) so it holds AAA on the new inset."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: 7.94:1 on bg, 7.09:1 on panel (worst). AAA.
+          note: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA.
       tags:
         - primitive
         - color
@@ -2127,9 +2127,9 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: 3.36:1 on bg, 3.08:1 on surface, 3.00:1 on panel (worst). Non-text AA.
+          note: "3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA. (Was #8c8c8c, darkened 2026-10-03 to clear 3:1 on the new inset.)"
       tags:
         - primitive
         - color
@@ -2183,6 +2183,38 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.light.panel
+  - kind: token
+    id: color.light.inset
+    name: Light Inset
+    description: "Light inset and selected wash, one visible step below panel (2026-10-03, Elleta): before this, inset, wash and panel were all #f2f2f2 and a selected row showed nothing."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: ink 15.29:1, muted 7.12:1 on inset. AAA. Control border 3.09:1. Visible against panel (1.09:1) and the page (1.23:1).
+      tags:
+        - primitive
+        - color
+      group: color.light
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Inset wells, tracks
+          - level: may
+            statement: Neutral selected wash
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.light.inset
   - kind: token
     id: color.light.bg
     name: Bg
@@ -2689,9 +2721,9 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA.
+          note: "3.92:1 on bg, 3.65:1 on surface, 3.33:1 on inset, 3.06:1 on raised (worst). Non-text AA on every dark surface (was #636363, 2.74:1 on inset, 2.52:1 on raised)."
       tags:
         - primitive
         - color
@@ -2704,12 +2736,6 @@ entries:
         items:
           - level: may
             statement: Input, select and control borders
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -6983,7 +7009,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.light.panel}"
+        alias: "{color.light.inset}"
   - kind: token
     id: color.semantic.surface-inverse
     name: Surface Inverse
@@ -7268,9 +7294,9 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: 7.94:1 on bg, 7.09:1 on panel (worst). AAA.
+          note: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA.
       tags:
         - semantic
         - text-secondary
@@ -7304,9 +7330,9 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: "7.94:1 on bg, 7.09:1 on panel (worst). AAA. Same value as text-secondary: one muted step."
+          note: "8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA. Same value as text-secondary: one muted step."
       tags:
         - semantic
         - text-muted
@@ -7555,7 +7581,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.light.panel}"
+        alias: "{color.light.inset}"
   - kind: token
     id: color.semantic.accent-border
     name: Accent Border
@@ -7700,9 +7726,9 @@ entries:
         author: machine-assisted
         note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       reviewed:
-        - date: "2026-09-22"
+        - date: "2026-10-03"
           by: human:elleta
-          note: 3.36:1 on bg, 3.00:1 on panel (worst). Non-text AA.
+          note: 3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA.
       tags:
         - semantic
         - border-strong

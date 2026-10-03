@@ -14,12 +14,12 @@ Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-siz
 
 **AAA-minded AA.** Concretely:
 
-- **AAA for ink and body text, muted included.** Light: ink 18.73 on bg, 16.73 on panel; muted `#515151` 7.94 on bg, 7.09 on panel (worst). Dark: ink 16.60 on bg, 12.93 on raised; muted `#b1b1b1` 9.06 on bg, 7.06 on raised (worst). Body text never drops below AAA on any surface.
+- **AAA for ink and body text, muted included.** Light: ink 18.73 on bg, 16.73 on panel; muted `#4b4b4b` 8.72 on bg, 7.79 on panel, 7.12 on inset (worst; was `#515151` until 2026-10-03). Dark: ink 16.60 on bg, 12.93 on raised; muted `#b1b1b1` 9.06 on bg, 7.06 on raised (worst). Body text never drops below AAA on any surface.
 - **Ochre is a fill, never text on light (brand refresh, 2026-09-22).** `color.brand.ochre` `#e8a83e` carries ink `#121212` text (9.01:1) in both themes. On light it is never text or a hairline (2.08:1 on white, 1.86:1 on panel); lines and the ring on light are `color.brand.ochre-deep` `#b97a14` (3.59:1 on white, 3.20:1 on panel). On dark, ochre clears 7.28:1 even on raised.
 - **The focus ring means focus only.** 3px, 3px offset: ochre-deep in light (3.20:1 on panel), ochre in dark (8.70:1 on surface). Never at rest, never as decoration.
 - **Links are ink with an underline**; hover thickens the underline to 2px (`border.width.medium`). Ink holds AAA everywhere, so link and button labels are AAA.
 - **The pairs are checked, not just recorded.** `scripts/contrast-pairs.mjs` (in the gate) computes every declared foreground/background pair in both themes, plus the forbidden pairs that must stay failing.
-- **Controls clear 3:1, hairlines are decoration.** `border-strong` (`#8c8c8c` light, `#636363` dark) is the input and control border, 3.00:1 worst. The hairline (`border`, `border-subtle`, `border-faint`: `#e3e3e3` / `#2a2a2a`) is decorative only and never marks a control.
+- **Controls clear 3:1, hairlines are decoration.** `border-strong` (`#838383` light, `#707070` dark, raised 2026-10-03) is the input and control border, 3:1 or better on every surface it can sit on, inset and raised included (3.06:1 worst, dark raised). The hairline (`border`, `border-subtle`, `border-faint`: `#e3e3e3` / `#2a2a2a`) is decorative only and never marks a control.
 - **Worst-ground-wins.** A text token passes on the *worst* surface it is allowed to sit on, or its usage metadata forbids that surface. Verified ratios are recorded per token in `$extensions.bella.a11y`, dated.
 
 ## Typography minimums
@@ -36,9 +36,9 @@ Fine-print, captions, and metadata live at 13–14px and should be rare. If you'
 
 ## White page, neutral surfaces (style unify, 2026-09-22)
 
-The light page is `color.light.bg`, pure white `#ffffff`, and that is the **only** place pure white is allowed (audit:quality allows it on the page ground: the stage or `[data-bella-ground]`). Everything raised or inset is one step down: `panel` `#f2f2f2` (surface and panel merged, 2026-09-22). A disabled field has no fill of its own: muted text and the border mark it. Cards are flat: panel fill, a 1px hairline edge, no shadow at rest. White alpha stays permitted as a translucent glass overlay.
+The light page is `color.light.bg`, pure white `#ffffff`, and that is the **only** place pure white is allowed (audit:quality allows it on the page ground: the stage or `[data-bella-ground]`). Everything raised is one step down: `panel` `#f2f2f2` (surface and panel merged, 2026-09-22); inset and the selected wash go one more step, `inset` `#e8e8e8` (2026-10-03), so a selected row is always visible. A disabled field has no fill of its own: muted text and the border mark it. Cards are flat: panel fill, a 1px hairline edge, no shadow at rest. White alpha stays permitted as a translucent glass overlay.
 
-Dark mode is neutral and climbs lighter: page `color.dark.bg` `#0d0d0d`, surface and panel `color.dark.surface` `#161616`, inset `color.dark.inset` `#1f1f1f`, raised `color.dark.raised` `#262626`. Control borders (`border-strong` `#636363`) never sit on raised (2.52:1).
+Dark mode is neutral and climbs lighter: page `color.dark.bg` `#0d0d0d`, surface and panel `color.dark.surface` `#161616`, inset `color.dark.inset` `#1f1f1f`, raised `color.dark.raised` `#262626`. Control borders (`border-strong` `#707070`, 2026-10-03) clear 3:1 on every dark surface, raised included (3.06:1). The selected wash is inset, not surface, so it reads against the panel.
 
 **Colour lives in fills, never in strokes or body text** — except focus and status (amended 2026-09-22, Elleta). Focus is `color.semantic.focus-ring` (ochre-deep light, ochre dark). Status is `danger-*` and `success-*`: text at AA or better (4.5:1), borders and icons at 3:1, on every surface; a status colour never stands alone (an error is the danger edge + the WarningCircle icon + the message + `aria-invalid`). Every other stroke is 1px ink (`border-ink`) or hairline. The chip fills (`chip.c1` soft tiger-blue `#cfe0ef`, `c2` peach `#f6c9a8`, `c3` mint `#cfe8dc`) are the same in both themes and always carry `chip.text` `#17191a` (11.63:1 worst). A chip fill is never the only signal of state (1.16–1.52:1 against the light page). No purple anywhere.
 
@@ -67,8 +67,8 @@ BELLA's palette and typography are decided (the 2026-07 identity, restyled by th
 
 **Palette:**
 
-- `color.light.*` — ink `#121212`, muted `#515151`, line `#e3e3e3`, control `#8c8c8c`, panel `#f2f2f2`, bg `#ffffff`
-- `color.dark.*` — ink `#ededed`, muted `#b1b1b1`, line `#2a2a2a`, control `#636363`, surface `#161616`, inset `#1f1f1f`, raised `#262626`, bg `#0d0d0d`
+- `color.light.*` — ink `#121212`, muted `#4b4b4b`, line `#e3e3e3`, control `#838383`, panel `#f2f2f2`, inset `#e8e8e8` (inset and the selected wash, 2026-10-03), bg `#ffffff`
+- `color.dark.*` — ink `#ededed`, muted `#b1b1b1`, line `#2a2a2a`, control `#707070`, surface `#161616`, inset `#1f1f1f`, raised `#262626`, bg `#0d0d0d`
 - `color.chip.*` — c1 soft tiger-blue `#cfe0ef` (from the pattern; replaced lavender, 2026-09-22), c2 peach `#f6c9a8`, c3 mint `#cfe8dc`, text `#17191a`; same in both themes, fills only
 - `color.light.danger` `#b3261e` / `danger-subtle` `#fcebe9`, `color.light.success` `#1a7439` / `success-subtle` `#e6f3ea`; dark: danger `#ff8f84` / `#3a1714`, success `#72d08b` / `#12301d` (status tokens, 2026-09-22). Read through `color.semantic.danger-text`, `danger-border`, `danger-subtle` and the `success-*` set. Checked in the gate by `scripts/contrast-pairs.mjs`
 - `color.brand.ochre` — `#e8a83e`, **the single accent**: a fill with ink text in both themes, and the dark focus ring

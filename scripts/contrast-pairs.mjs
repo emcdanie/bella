@@ -69,6 +69,8 @@ const PAIRS = [
   ['focus ring on panel', '--color-semantic-focus-ring', '--color-semantic-surface-card', NON_TEXT],
   ['control border on the page', '--color-semantic-border-strong', '--color-semantic-background', NON_TEXT],
   ['control border on panel', '--color-semantic-border-strong', '--color-semantic-surface-card', NON_TEXT],
+  ['control border on inset', '--color-semantic-border-strong', '--color-semantic-surface-inset', NON_TEXT],
+  ['control border on raised', '--color-semantic-border-strong', '--color-semantic-surface-elevated', NON_TEXT],
   ['ink plate against panel', '--component-button-primary-fill-hi', '--color-semantic-surface-card', NON_TEXT],
   ['selected tab bar (ink) on the page', '--component-tabs-indicator', '--color-semantic-background', NON_TEXT],
   ['current nav item: ink on its wash', '--color-semantic-text-primary', '--component-nav-list-current-background', AAA],
@@ -97,6 +99,16 @@ const PAIRS = [
   ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
 ];
 
+/* Surfaces that must stay visibly apart (2026-10-03): a selected wash or
+ * an inset the eye cannot find breaks "highlight, never dim". A low floor,
+ * not a text bar: these are fills, not marks. */
+const APART = 1.08;
+const DISTINCT = [
+  ['selected wash vs panel', '--color-semantic-accent-subtle', '--color-semantic-surface-card'],
+  ['selected wash vs the page', '--color-semantic-accent-subtle', '--color-semantic-background'],
+  ['inset vs panel', '--color-semantic-surface-inset', '--color-semantic-surface-card'],
+];
+
 /* Pairs that must stay BELOW a bar: the rule forbids them, and the check
  * proves the rule is still needed (ochre as text or a hairline on light). */
 const FORBIDDEN_LIGHT = [
@@ -113,6 +125,13 @@ for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) 
     if (r < min) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${min}:1 (${fg} on ${bg})`);
   }
 }
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
+  for (const [label, a, b] of DISTINCT) {
+    const r = ratio(resolve(vars, a), resolve(vars, b));
+    lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
+    if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1; ${a} vs ${b})`);
+  }
+}
 for (const [label, fg, bg, under] of FORBIDDEN_LIGHT) {
   const r = ratio(resolve(light, fg), resolve(light, bg));
   lines.push(`light ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
@@ -124,4 +143,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${PAIRS.length * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK`);
+console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK`);

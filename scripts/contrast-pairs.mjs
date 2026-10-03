@@ -27,6 +27,7 @@ function block(selectorRe) {
 
 const light = block(/:root\s*\{/);
 const dark = { ...light, ...block(/\[data-theme=["']?dark["']?\]\s*\{/) };
+const warm = { ...light, ...block(/\[data-theme=["']?warm["']?\]\s*\{/) };
 
 function resolve(vars, name, seen = new Set()) {
   if (seen.has(name)) throw new Error(`cycle at ${name}`);
@@ -105,7 +106,7 @@ const FORBIDDEN_LIGHT = [
 
 const failures = [];
 const lines = [];
-for (const [theme, vars] of [['light', light], ['dark', dark]]) {
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
   for (const [label, fg, bg, min] of PAIRS) {
     const r = ratio(resolve(vars, fg), resolve(vars, bg));
     lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
@@ -123,4 +124,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${PAIRS.length * 2 + FORBIDDEN_LIGHT.length} checked, OK`);
+console.log(`contrast pairs: ${PAIRS.length * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK`);

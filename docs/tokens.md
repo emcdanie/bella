@@ -82,6 +82,13 @@ value with the source reference in parentheses.
 | `color.light.danger-subtle` | `#fcebe9` | color |
 | `color.light.success` | `#1a7439` | color |
 | `color.light.success-subtle` | `#e6f3ea` | color |
+| `color.warm.bg` | `#f6f1e8` | color |
+| `color.warm.panel` | `#fbfaf7` | color |
+| `color.warm.surface` | `#f0ede8` | color |
+| `color.warm.inset` | `#ebe4d6` | color |
+| `color.warm.muted` | `#4f463d` | color |
+| `color.warm.line` | `#e3dbcf` | color |
+| `color.warm.control` | `#857a6a` | color |
 | `color.dark.ink` | `#ededed` | color |
 | `color.dark.muted` | `#b1b1b1` | color |
 | `color.dark.line` | `#2a2a2a` | color |

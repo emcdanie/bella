@@ -121,3 +121,4 @@ Data marks (sparklines, charts) may use inline SVG, marked `data-bella-diagram`,
 - **Decide alone** and log it in `~/DEV/chip/docs/reference/decisions-while-away.md` (what, why, how to undo): anything these rules already answer, anything that passes the gate and contrast checks, adding tests, snapshots or docs.
 - **Stop and ask only for:** a brand change beyond an approved theme; removing or renaming a public BELLA API; anything touching git remotes or pushes; a gate that still fails after two fixes.
 - Local CI: `.git/hooks/pre-commit` (local, not committed) runs `npm run gate` and the NDA scan on staged lines, and blocks the commit on failure.
+- **A commit waits for green, every time.** Run the check and the commit as one `&&` chain (`npm run checkpoint && git commit …` in CHIP; the gate runs in BELLA's hook) or under `set -e`; never chain them with `;`, which commits even when the check fails (2026-10-03: a CHIP commit went in on a red checkpoint).

@@ -467,22 +467,22 @@ value with the source reference in parentheses.
 | `component.tag.default.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.default.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.default.padding-x` | `12px` (`{spacing.3}`) | dimension |
-| `component.tag.default.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.tag.default.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.tag.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.tag.default.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.tag.default.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.tag.default.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.tag.default.font-feature-settings` | `normal` | other |
 | `component.tag.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.tag.accent.foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
 | `component.status-pill.border-radius` | `999px` (`{radius.full}`) | dimension |
-| `component.status-pill.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.status-pill.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.status-pill.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.status-pill.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.status-pill.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.status-pill.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.status-pill.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.status-pill.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.status-pill.font-feature-settings` | `normal` | other |
 | `component.status-pill.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.status-pill.accent.foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
 | `component.filter-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
@@ -494,14 +494,14 @@ value with the source reference in parentheses.
 | `component.filter-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.segmented-control.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.segmented-control.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.segmented-control.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.segmented-control.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
+| `component.segmented-control.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.segmented-control.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.segmented-control.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.select.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.select.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.select.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.select.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.select.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.select.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.heading.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
 | `component.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.heading.letter-spacing` | `-0.035em` (`{typography.letter-spacing.display}`) | dimension |
@@ -530,17 +530,17 @@ value with the source reference in parentheses.
 | `component.avatar.lg.size` | `80px` (`{spacing.20}`) | dimension |
 | `component.avatar.lg.font-size` | `24px` (`{typography.font-size.2xl}`) | dimension |
 | `component.eyebrow.muted.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
-| `component.eyebrow.muted.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.eyebrow.muted.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.eyebrow.muted.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.eyebrow.muted.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.eyebrow.muted.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.eyebrow.muted.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.eyebrow.muted.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.eyebrow.muted.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.eyebrow.muted.font-feature-settings` | `normal` | other |
 | `component.eyebrow.ink.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
-| `component.eyebrow.ink.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.eyebrow.ink.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.eyebrow.ink.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.eyebrow.ink.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.eyebrow.ink.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.eyebrow.ink.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.eyebrow.ink.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.eyebrow.ink.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.eyebrow.ink.font-feature-settings` | `normal` | other |
 | `component.input.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.input.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.input.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
@@ -575,7 +575,7 @@ value with the source reference in parentheses.
 | `component.callout.gap.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.gap.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.callout.gap.label-foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
-| `component.callout.gap.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.callout.gap.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.callout.gap.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
 | `component.callout.gap.border-color` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.gap.border-style` | `dashed` | other |
@@ -598,13 +598,13 @@ value with the source reference in parentheses.
 | `component.kbd.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
 | `component.nav-list.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.nav-list.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
-| `component.nav-list.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.nav-list.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.nav-list.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.nav-list.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.nav-list.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.nav-list.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.nav-list.current-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
-| `component.stat.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.stat.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.stat.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.stat.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.stat.value-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
 | `component.stat.value-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
 | `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
@@ -615,8 +615,8 @@ value with the source reference in parentheses.
 | `component.score-strip.name-font-size` | `20px` (`{typography.font-size.xl}`) | dimension |
 | `component.score-strip.score-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
 | `component.score-strip.value-font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
-| `component.score-strip.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.score-strip.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.score-strip.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.score-strip.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.score-strip.cell-min-width` | `calc(80px * 1.5)` (`calc({spacing.20} * 1.5)`) | dimension |
 | `component.score-strip.track` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |

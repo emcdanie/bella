@@ -14,7 +14,7 @@ export interface NavListItem {
 }
 
 export interface NavListGroup {
-  /** Optional group heading, set as a Mono label; it names the list for assistive tech. */
+  /** Optional group heading, set in the sans label style; it names the list for assistive tech. */
   label?: string;
   items: NavListItem[];
 }

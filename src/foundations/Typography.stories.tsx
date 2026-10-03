@@ -11,7 +11,15 @@ export default meta;
 
 const specimenText = 'Clean and easy to read';
 
+/* the sans label style (2026-10-03): muted, sentence case, untracked */
 const meta13: React.CSSProperties = {
+  fontFamily: 'var(--typography-font-family-body)',
+  fontSize: 'var(--typography-font-size-sm)',
+  color: 'var(--color-semantic-text-secondary)',
+};
+
+/* mono: tokens, code and hashes only */
+const mono13: React.CSSProperties = {
   fontFamily: 'var(--typography-font-family-mono)',
   fontSize: 'var(--typography-font-size-mono)',
   letterSpacing: 'var(--typography-letter-spacing-mono)',
@@ -76,8 +84,12 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     sample: <span style={{ fontSize: 'var(--typography-font-size-base)' }}>Existing consumers stay at 16px.</span>,
   },
   {
-    label: 'Meta · Geist Mono 400 · 13 · ss09',
+    label: 'Label · Geist 400 · 14 · muted',
     sample: <span style={meta13}>2024 to 2026 · B2B travel platform</span>,
+  },
+  {
+    label: 'Mono · Geist Mono 400 · 13 · tokens, code, hashes',
+    sample: <span style={mono13}>--color-semantic-accent · 3127923</span>,
   },
   {
     label: 'Wordmark · Unique 700 · 24+ only',
@@ -118,7 +130,7 @@ export const Ramp: StoryObj = {
   ),
 };
 
-/** The eyebrow: Geist Mono, not tracked caps. */
+/** The eyebrow: the sans label style, never tracked caps (mono is for tokens, code and hashes). */
 export const Eyebrows: StoryObj = {
   render: () => (
     <div style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>

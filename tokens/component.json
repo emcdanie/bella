@@ -805,6 +805,38 @@
       "border-radius":   { "$value": "{radius.md}",                     "$type": "dimension" },
       "indicator":       { "$value": "{color.semantic.border-ink}",     "$type": "color" },
       "indicator-width": { "$value": "{border.width.medium}",           "$type": "dimension" }
+    },
+
+    "kbd": {
+      "$extensions": {
+        "bella": {
+          "name": "Kbd",
+          "description": "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["keys", "label", "className"],
+          "usage": ["Shortcut hint inside a search field", "Shortcut legend in a help menu", "Inline in body copy that names a shortcut"],
+          "dont": ["Do not make it clickable: a pressable keycap is Button", "Do not raise or animate it: the raised keycap is Button's, Kbd is recessed and flat", "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"],
+          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.",
+          "restState": {
+            "description": "Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).",
+            "atRest": ["cap wash", "hairline edge", "key glyphs"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "background":            { "$value": "{color.semantic.surface-inset}",   "$type": "color" },
+      "foreground":            { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
+      "border":                { "$value": "{color.semantic.border-subtle}",   "$type": "color", "$description": "Decorative hairline: a Kbd is not a control." },
+      "border-radius":         { "$value": "{radius.sm}",                      "$type": "dimension" },
+      "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+      "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
     }
   }
 }

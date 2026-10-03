@@ -579,3 +579,10 @@ value with the source reference in parentheses.
 | `component.tabs.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.tabs.indicator` | `#121212` (`{color.semantic.border-ink}`) | color |
 | `component.tabs.indicator-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.kbd.background` | `#f2f2f2` (`{color.semantic.surface-inset}`) | color |
+| `component.kbd.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.kbd.border` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.kbd.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.kbd.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.kbd.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.kbd.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |

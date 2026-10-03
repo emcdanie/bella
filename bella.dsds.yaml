@@ -13256,6 +13256,160 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{border.width.medium}"
+  - kind: token
+    id: component.kbd.background
+    name: Kbd Background
+    description: Component-tier alias. Resolves to `color.semantic.surface-inset` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface-inset}"
+  - kind: token
+    id: component.kbd.foreground
+    name: Kbd Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-secondary}"
+  - kind: token
+    id: component.kbd.border
+    name: Kbd Border
+    description: "Decorative hairline: a Kbd is not a control."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.border
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border-subtle}"
+  - kind: token
+    id: component.kbd.border-radius
+    name: Kbd Border Radius
+    description: Component-tier alias. Resolves to `radius.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.border-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.sm}"
+  - kind: token
+    id: component.kbd.font-family
+    name: Kbd Font Family
+    description: Component-tier alias. Resolves to `typography.font-family.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: fontFamily
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.font-family
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-family.mono}"
+  - kind: token
+    id: component.kbd.font-size
+    name: Kbd Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.mono}"
+  - kind: token
+    id: component.kbd.font-feature-settings
+    name: Kbd Font Feature Settings
+    description: Component-tier alias. Resolves to `typography.font-feature.mono` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - kbd
+      group: component.kbd
+    tokenType: other
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.kbd.font-feature-settings
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-feature.mono}"
   - kind: theme
     id: light
     name: Light
@@ -14617,6 +14771,87 @@ entries:
               property: transform
               expect: none
             - layer: flat
+              property: animation-name
+              expect: none
+  - kind: component
+    id: kbd
+    name: Kbd
+    description: "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.
+      tags:
+        - component
+        - kbd
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Shortcut hint inside a search field
+          - level: may
+            statement: Shortcut legend in a help menu
+          - level: may
+            statement: Inline in body copy that names a shortcut
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not make it clickable: a pressable keycap is Button"
+          - level: must-not
+            statement: "Do not raise or animate it: the raised keycap is Button's, Kbd is recessed and flat"
+          - level: must-not
+            statement: "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).
+        context: anatomy
+        items:
+          - term: cap wash
+            definition: "Trigger: rest. Paints at rest."
+          - term: hairline edge
+            definition: "Trigger: rest. Paints at rest."
+          - term: key glyphs
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Kbd/Kbd.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Kbd/Kbd.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).
+          atRest:
+            - cap wash
+            - hairline edge
+            - key glyphs
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
               property: animation-name
               expect: none
   - kind: entry

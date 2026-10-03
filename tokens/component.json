@@ -1114,6 +1114,33 @@
       "active-foreground": { "$value": "{color.semantic.text-on-accent}",  "$type": "color" }
     },
 
+    "disclosure": {
+      "$extensions": {
+        "bella": {
+          "name": "Disclosure",
+          "category": "Layout",
+          "rendersAs": "a native details with its summary",
+          "description": "One open/close section (Atlas v4, 2026-10-03, Elleta: a stack of open/close sections so a card fits the screen). The header row is the whole 44px target and carries a short summary, so a closed section still says something.",
+          "variants": [],
+          "states": ["default", "hover", "focus", "open"],
+          "props": ["title", "summary", "defaultOpen", "open", "onToggle", "children", "id", "className"],
+          "usage": ["Facts, Checks, Tokens and Notes on the Atlas Facts card", "Any long card that should fit the screen closed"],
+          "dont": ["Do not use it for navigation or to switch views: that is Tabs or SegmentedControl", "Do not hide the one thing people came for: keep the main section open by default", "Do not nest a disclosure inside another"],
+          "a11y": "Verified 2026-10-03: native details/summary, so the expanded state is announced and Enter or Space toggles it. The header row is at least 44px; title AAA and summary AA on panel in light, warm and dark; the hairline is a divider only; focus is the shared ring; the chevron does not turn under reduced motion.",
+          "restState": {
+            "description": "Closed: a hairline, the title, the summary and a chevron pointing down.",
+            "atRest": ["hairline", "title", "summary", "chevron"],
+            "triggered": [{ "layer": "chevron turned", "on": ["open"], "asserted": false }],
+            "invariants": [{ "layer": "flat", "property": "animation-name", "expect": "none" }]
+          }
+        }
+      },
+      "font-size": { "$value": "{typography.font-size.base}", "$type": "dimension" },
+      "min-height": { "$value": "{spacing.touch-target}", "$type": "dimension" },
+      "border": { "$value": "{color.semantic.border}", "$type": "color" },
+      "foreground": { "$value": "{color.semantic.text-primary}", "$type": "color" },
+      "meta-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" }
+    },
     "action-chip": {
       "$extensions": {
         "bella": {

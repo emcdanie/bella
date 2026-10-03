@@ -87,6 +87,8 @@ const PAIRS = [
   ['action chip label on the page', '--component-action-chip-foreground', '--color-semantic-background', AAA],
   ['action chip label on its hover wash', '--component-action-chip-foreground', '--component-action-chip-hover-background', AAA],
   ['action chip border on panel', '--component-action-chip-border', '--color-semantic-surface-card', NON_TEXT],
+  ['disclosure title on panel', '--component-disclosure-foreground', '--color-semantic-surface-card', AAA],
+  ['disclosure summary on panel', '--component-disclosure-meta-foreground', '--color-semantic-surface-card', AA],
   /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
   ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
   ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],

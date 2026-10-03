@@ -646,6 +646,11 @@ value with the source reference in parentheses.
 | `component.combobox.group-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.combobox.active-background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.combobox.active-foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
+| `component.disclosure.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.disclosure.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.disclosure.border` | `#e3e3e3` (`{color.semantic.border}`) | color |
+| `component.disclosure.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.disclosure.meta-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.action-chip.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.action-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.action-chip.border-radius` | `999px` (`{radius.full}`) | dimension |

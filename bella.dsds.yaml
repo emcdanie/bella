@@ -14743,6 +14743,116 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-on-accent}"
   - kind: token
+    id: component.disclosure.font-size
+    name: Disclosure Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.base` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - disclosure
+      group: component.disclosure
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.disclosure.font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.base}"
+  - kind: token
+    id: component.disclosure.min-height
+    name: Disclosure Min Height
+    description: Component-tier alias. Resolves to `spacing.touch-target` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - disclosure
+      group: component.disclosure
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.disclosure.min-height
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.touch-target}"
+  - kind: token
+    id: component.disclosure.border
+    name: Disclosure Border
+    description: Component-tier alias. Resolves to `color.semantic.border` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - disclosure
+      group: component.disclosure
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.disclosure.border
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border}"
+  - kind: token
+    id: component.disclosure.foreground
+    name: Disclosure Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-primary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - disclosure
+      group: component.disclosure
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.disclosure.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-primary}"
+  - kind: token
+    id: component.disclosure.meta-foreground
+    name: Disclosure Meta Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - disclosure
+      group: component.disclosure
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.disclosure.meta-foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-secondary}"
+  - kind: token
     id: component.action-chip.font-size
     name: Action Chip Font Size
     description: Component-tier alias. Resolves to `typography.font-size.base` in `tokens/bella.json`.
@@ -16927,6 +17037,94 @@ entries:
                 - focus
               asserted: false
           invariants: []
+  - kind: component
+    id: disclosure
+    name: Disclosure
+    description: "One open/close section (Atlas v4, 2026-10-03, Elleta: a stack of open/close sections so a card fits the screen). The header row is the whole 44px target and carries a short summary, so a closed section still says something."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-10-03"
+          by: human:elleta
+          note: native details/summary, so the expanded state is announced and Enter or Space toggles it. The header row is at least 44px; title AAA and summary AA on panel in light, warm and dark; the hairline is a divider only; focus is the shared ring; the chevron does not turn under reduced motion.
+      tags:
+        - component
+        - disclosure
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Facts, Checks, Tokens and Notes on the Atlas Facts card
+          - level: may
+            statement: Any long card that should fit the screen closed
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it for navigation or to switch views: that is Tabs or SegmentedControl"
+          - level: must-not
+            statement: "Do not hide the one thing people came for: keep the main section open by default"
+          - level: must-not
+            statement: Do not nest a disclosure inside another
+      - kind: definitions
+        for: all
+        title: At rest
+        description: "Closed: a hairline, the title, the summary and a chevron pointing down."
+        context: anatomy
+        items:
+          - term: hairline
+            definition: "Trigger: rest. Paints at rest."
+          - term: title
+            definition: "Trigger: rest. Paints at rest."
+          - term: summary
+            definition: "Trigger: rest. Paints at rest."
+          - term: chevron
+            definition: "Trigger: rest. Paints at rest."
+          - term: chevron turned
+            definition: "Trigger: open. Inert at rest."
+    refs:
+      - href: ./src/components/Disclosure/Disclosure.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Disclosure/Disclosure.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - focus
+          - open
+        restState:
+          description: "Closed: a hairline, the title, the summary and a chevron pointing down."
+          atRest:
+            - hairline
+            - title
+            - summary
+            - chevron
+          triggered:
+            - layer: chevron turned
+              "on":
+                - open
+              asserted: false
+          invariants:
+            - layer: flat
+              property: animation-name
+              expect: none
   - kind: component
     id: action-chip
     name: ActionChip

@@ -978,7 +978,7 @@
         "bella": {
           "name": "ScoreStrip",
           "category": "Data",
-          "description": "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) are a word and a dashed frame, never a fill. Ships with ScoreLegend and scoreBand.",
+          "description": "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) say Self-assessed in a dashed frame, never a fill. Cells carry full station names and wrap into rows; no abbreviations. Ships with ScoreLegend and scoreBand.",
           "variants": [],
           "states": ["strong", "mid", "low", "self"],
           "props": ["name", "kind", "score", "cells", "as", "className"],
@@ -1003,6 +1003,7 @@
       "label-font-family":  { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
       "label-font-size":    { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
       "cell-border-radius": { "$value": "{radius.md}",                      "$type": "dimension" },
+      "cell-min-width":     { "$value": "calc({spacing.20} * 1.5)", "$type": "dimension", "$description": "Wide enough for a full station name; cells wrap into rows rather than abbreviate." },
       "track":              { "$value": "{color.semantic.border-subtle}",   "$type": "color" },
       "track-fill":         { "$value": "{color.semantic.border-ink}",      "$type": "color" }
     },

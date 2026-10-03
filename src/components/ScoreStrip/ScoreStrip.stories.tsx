@@ -34,15 +34,15 @@ export default meta;
 type Story = StoryObj<typeof ScoreStrip>;
 
 const STATIONS: [string, string][] = [
-  ['Cov', 'Coverage'],
-  ['Best', 'Best practice'],
-  ['A11y', 'Accessibility'],
-  ['Lang', 'Language'],
-  ['Test', 'Testing'],
-  ['Orch', 'Orchestration'],
-  ['Gov', 'Governance'],
-  ['Docs', 'Documentation'],
-  ['MRead', 'Machine-readable'],
+  ['Coverage', 'Coverage'],
+  ['Best practice', 'Best practice'],
+  ['Accessibility', 'Accessibility'],
+  ['Language', 'Language'],
+  ['Testing', 'Testing'],
+  ['Orchestration', 'Orchestration'],
+  ['Governance', 'Governance'],
+  ['Documentation', 'Documentation'],
+  ['Machine-readable', 'Machine-readable'],
   ['Agent', 'Agent'],
 ];
 

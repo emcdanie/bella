@@ -14151,6 +14151,24 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{radius.md}"
   - kind: token
+    id: component.score-strip.cell-min-width
+    name: Cell Min Width
+    description: Wide enough for a full station name; cells wrap into rows rather than abbreviate.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - score-strip
+      group: component.score-strip
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.score-strip.cell-min-width
+  - kind: token
     id: component.score-strip.track
     name: Track
     description: Component-tier alias. Resolves to `color.semantic.border-subtle` in `tokens/bella.json`.
@@ -16570,7 +16588,7 @@ entries:
   - kind: component
     id: score-strip
     name: ScoreStrip
-    description: "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) are a word and a dashed frame, never a fill. Ships with ScoreLegend and scoreBand."
+    description: "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) say Self-assessed in a dashed frame, never a fill. Cells carry full station names and wrap into rows; no abbreviations. Ships with ScoreLegend and scoreBand."
     metadata:
       origin:
         method: extracted

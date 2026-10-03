@@ -618,6 +618,7 @@ value with the source reference in parentheses.
 | `component.score-strip.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
 | `component.score-strip.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
 | `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.score-strip.cell-min-width` | `calc(80px * 1.5)` (`calc({spacing.20} * 1.5)`) | dimension |
 | `component.score-strip.track` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
 | `component.score-strip.track-fill` | `#121212` (`{color.semantic.border-ink}`) | color |
 | `component.data-table.font-size` | `16px` (`{typography.font-size.base}`) | dimension |

@@ -7,7 +7,7 @@
  * - mid (60 to 79): neutral, control edge (there is no warning colour yet,
  *   issue #1; this does not invent one)
  * - low (under 60): danger wash, danger edge
- * - self-assessed (null): no wash, dashed control frame, the word "self"
+ * - self-assessed (null): no wash, dashed control frame, the words "Self-assessed"
  * The edge clears 3:1 on panel; the washes alone do not (success-subtle is
  * 1.02:1 on light panel), which is why the edge, the figure and the spoken
  * band carry the meaning. All cell text is ink: muted on the washes falls
@@ -88,13 +88,13 @@
   background: var(--component-score-strip-track-fill);
 }
 
-/* --cells is the station count (set inline): the strip only takes the row
-   beside the name when every cell fits at its minimum, otherwise the name
-   wraps above and the cells keep one row. */
+/* Full station names, never abbreviations (Elleta, 2026-10-03): each cell is
+   wide enough for a name, and the cells wrap into as many rows as they need
+   under the system's name. --cells (set inline) stays for consumers. */
 .cells {
-  flex: 3 1 calc(var(--cells, 10) * (var(--spacing-12) + var(--spacing-1)));
+  flex: 1 1 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--spacing-12), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--component-score-strip-cell-min-width), 1fr));
   gap: var(--spacing-1);
   list-style: none;
   margin: 0;
@@ -133,6 +133,11 @@
   font-weight: var(--typography-font-weight-medium);
   font-variant-numeric: tabular-nums;
   line-height: var(--typography-line-height-snug);
+}
+
+.label {
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .cell[data-band='self'] .value {

@@ -88,7 +88,7 @@ export default function ScoreStrip({ name, kind, score, cells, as: Tag = 'h3', c
           return (
             <li key={c.label} className={styles.cell} data-band={band}>
               <span className={styles.value} aria-hidden="true">
-                {c.value === null ? 'self' : c.value}
+                {c.value === null ? 'Self-assessed' : c.value}
               </span>
               <span className={styles.label} aria-hidden="true">
                 {c.label}
@@ -117,7 +117,7 @@ export function ScoreLegend({ className }: { className?: string }) {
       ))}
       <li>
         <span className={styles.swatch} data-band="self" aria-hidden="true" />
-        self, self-assessed
+        Self-assessed, not measured yet
       </li>
     </ul>
   );

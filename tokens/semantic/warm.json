@@ -26,6 +26,38 @@
         "$type": "color",
         "$description": "Warm recessed surface: wells and tracks."
       },
+      "ground": {
+        "$value": "{color.warm.line}",
+        "$type": "color",
+        "$description": "The page ground under raised cards, the lowest of three surface levels (ground < inset < raised in lightness, all themes). warm: #e3dbcf ground (warm line: the warm page bg #f6f1e8 is lighter than warm inset, so it would break the order), #fbfaf7 raised. Added 2026-10-03 for the portfolio layout (Gate 2).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page behind raised cards in a three-level layout",
+              "Not the default page: that stays background"
+            ],
+            "dont": [
+              "Do not put muted text on ground in light or warm: 6.80:1 and 6.72:1 are AA, not AAA; put meta on raised, or use ink",
+              "Do not use it for strokes: that is border"
+            ]
+          }
+        }
+      },
+      "raised": {
+        "$value": "{color.warm.panel}",
+        "$type": "color",
+        "$description": "A raised card on the ground, the highest of three surface levels: always lighter than inset and ground, also in dark, so cards never read as holes. warm: #fbfaf7 raised. Added 2026-10-03.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards and panels that sit on ground"
+            ],
+            "dont": [
+              "Do not put it on the plain page background in light: both are white there"
+            ]
+          }
+        }
+      },
       "text-secondary": {
         "$value": "{color.warm.muted}",
         "$type": "color",

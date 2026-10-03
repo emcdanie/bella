@@ -257,6 +257,8 @@ value with the source reference in parentheses.
 | `color.semantic.surface-card` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-elevated` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-inset` | `#e8e8e8` (`{color.light.inset}`) | color |
+| `color.semantic.ground` | `#e3e3e3` (`{color.light.line}`) | color |
+| `color.semantic.raised` | `#ffffff` (`{color.light.bg}`) | color |
 | `color.semantic.surface-inverse` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-glass` | `linear-gradient(180deg, #FFFFFFD1 0%, #FFFFFFAD 100%)` (`linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)`) | other |
 | `color.semantic.surface-glass-elevated` | `linear-gradient(180deg, #FFFFFFAD 0%, #FFFFFF7A 100%)` (`linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)`) | other |
@@ -317,6 +319,8 @@ value with the source reference in parentheses.
 | `color.semantic.surface-card` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-elevated` | `#262626` (`{color.dark.raised}`) | color |
 | `color.semantic.surface-inset` | `#1f1f1f` (`{color.dark.inset}`) | color |
+| `color.semantic.ground` | `#0d0d0d` (`{color.dark.bg}`) | color |
+| `color.semantic.raised` | `#262626` (`{color.dark.raised}`) | color |
 | `color.semantic.surface-inverse` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-glass` | `#1B191699` (`{color.alpha.night-60}`) | color |
 | `color.semantic.surface-glass-elevated` | `#1B19167A` (`{color.alpha.night-48}`) | color |

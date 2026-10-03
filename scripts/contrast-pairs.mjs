@@ -60,6 +60,10 @@ const PAIRS = [
   ['muted text on panel', '--color-semantic-text-secondary', '--color-semantic-surface-card', AAA],
   ['muted text on inset', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],
   ['muted text on raised', '--color-semantic-text-secondary', '--color-semantic-surface-elevated', AAA],
+  /* three surface levels (2026-10-03): body text stays AAA on ground and raised in every theme */
+  ['ink text on ground', '--color-semantic-text-primary', '--color-semantic-ground', AAA],
+  ['ink text on the raised surface', '--color-semantic-text-primary', '--color-semantic-raised', AAA],
+  ['muted text on the raised surface', '--color-semantic-text-secondary', '--color-semantic-raised', AAA],
   ['ink text on an ochre fill', '--color-semantic-text-on-accent', '--color-semantic-accent', AAA],
   ['link on the page', '--color-semantic-link', '--color-semantic-background', AAA],
   ['primary button label on the ink plate', '--component-button-primary-foreground', '--component-button-primary-fill-hi', AAA],
@@ -130,6 +134,7 @@ const DISTINCT = [
 const FORBIDDEN_LIGHT = [
   ['ochre as text on white (forbidden)', '--color-brand-ochre', '--color-light-bg', 4.5],
   ['ochre as a line on panel (forbidden, use ochre-deep)', '--color-brand-ochre', '--color-light-panel', NON_TEXT],
+  ['muted text on ground (forbidden in light and warm: AA, not AAA; meta sits on raised)', '--color-light-muted', '--color-light-line', 7],
 ];
 
 const failures = [];

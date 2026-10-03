@@ -7293,6 +7293,82 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.light.inset}"
   - kind: token
+    id: color.semantic.ground
+    name: Ground
+    description: "The page ground under raised cards, the lowest of three surface levels (ground < inset < raised in lightness, all themes). light: #e3e3e3 ground, #ffffff raised. Added 2026-10-03 for the portfolio layout (Gate 2)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - ground
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The page behind raised cards in a three-level layout
+          - level: may
+            statement: "Not the default page: that stays background"
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Do not put muted text on ground in light or warm: 6.80:1 and 6.72:1 are AA, not AAA; put meta on raised, or use ink"
+          - level: must-not
+            statement: "Do not use it for strokes: that is border"
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.ground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.light.line}"
+  - kind: token
+    id: color.semantic.raised
+    name: Raised
+    description: "A raised card on the ground, the highest of three surface levels: always lighter than inset and ground, also in dark, so cards never read as holes. light: #ffffff raised. Added 2026-10-03."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - raised
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Cards and panels that sit on ground
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Do not put it on the plain page background in light: both are white there"
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.raised
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.light.bg}"
+  - kind: token
     id: color.semantic.surface-inverse
     name: Surface Inverse
     description: Raised surface inside dark embedded blocks on light pages.

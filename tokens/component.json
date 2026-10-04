@@ -234,7 +234,7 @@
         "tab-foreground": { "$value": "{color.semantic.text-body}", "$type": "color" },
         "body-padding": { "$value": "{spacing.5}", "$type": "dimension" },
         "title-font-size": { "$value": "{typography.font-size.xl}", "$type": "dimension", "$description": "The card-title floor. 20px, never smaller, whatever the reference implementation does." },
-        "title-font-weight": { "$value": "{typography.font-weight.medium}", "$type": "fontWeight" },
+        "title-font-weight": { "$value": "{typography.font-weight.semibold}", "$type": "fontWeight" },
         "title-letter-spacing": { "$value": "{typography.letter-spacing.title}", "$type": "dimension" },
         "title-foreground": { "$value": "{color.semantic.text-primary}", "$type": "color" },
         "description-font-size": { "$value": "{typography.font-size.base}", "$type": "dimension", "$description": "Reading text, so the 16px body floor applies. The reference sets 13px; BELLA cannot." },
@@ -448,12 +448,12 @@
         "bella": {
           "name": "Heading",
           "category": "Layout",
-          "description": "Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify, 2026-09-22, Elleta). Unique is the wordmark only. Never inside a card.",
+          "description": "Figtree SemiBold 600 carries every heading tier, tight tracking, sentence case (heading weight, 2026-10-04, Elleta; was Geist Light 300). Unique is the wordmark only. Never inside a card.",
           "variants": ["hero", "page", "section"],
           "states": ["default"],
           "props": ["tier", "as", "accent", "after", "label", "id", "className", "style", "children"],
           "usage": ["Page titles", "Section heads", "The hero headline"],
-          "dont": ["Never inside a card: cards carry titles (Geist 500), not headings (contract-enforced by audit:quality)", "Never below 32px: the section tier floors at 32px", "Never Unique: the wordmark is the only Unique"],
+          "dont": ["Never inside a card: cards carry titles (Figtree 600), not headings (contract-enforced by audit:quality)", "Never below 32px: the section tier floors at 32px", "Never Unique: the wordmark is the only Unique"],
           "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
           "restState": {
             "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
@@ -469,7 +469,7 @@
       },
 
       "font-family":    { "$value": "{typography.font-family.display}",    "$type": "fontFamily" },
-      "font-weight":    { "$value": "{typography.font-weight.medium}",      "$type": "fontWeight" },
+      "font-weight":    { "$value": "{typography.font-weight.semibold}",    "$type": "fontWeight" },
       "letter-spacing": { "$value": "{typography.letter-spacing.display}", "$type": "dimension" },
       "line-height":    { "$value": "{typography.line-height.heading}",    "$type": "number" },
       "hero":    { "font-size": { "$value": "{typography.font-size.display-hero}",    "$type": "dimension" } },

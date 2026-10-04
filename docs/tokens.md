@@ -498,7 +498,7 @@ value with the source reference in parentheses.
 | `component.resource-card.default.tab-foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.resource-card.default.body-padding` | `20px` (`{spacing.5}`) | dimension |
 | `component.resource-card.default.title-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
-| `component.resource-card.default.title-font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
+| `component.resource-card.default.title-font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
 | `component.resource-card.default.title-letter-spacing` | `0` (`{typography.letter-spacing.title}`) | dimension |
 | `component.resource-card.default.title-foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.resource-card.default.description-font-size` | `18px` (`{typography.font-size.base}`) | dimension |
@@ -553,7 +553,7 @@ value with the source reference in parentheses.
 | `component.select.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.select.label-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.heading.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
-| `component.heading.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
+| `component.heading.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
 | `component.heading.letter-spacing` | `-0.02em` (`{typography.letter-spacing.display}`) | dimension |
 | `component.heading.line-height` | `1.15` (`{typography.line-height.heading}`) | number |
 | `component.heading.hero.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-hero}`) | dimension |
@@ -613,7 +613,7 @@ value with the source reference in parentheses.
 | `component.section.default.padding-x` | `24px` (`{spacing.6}`) | dimension |
 | `component.section.default.gap` | `48px` (`{spacing.12}`) | dimension |
 | `component.section.default.max-width` | `1200px` | dimension |
-| `component.section.heading.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.section.heading.font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
 | `component.section.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.section.heading.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
 | `component.section.space` | `clamp(32px, 24px + 2vw, 48px)` (`{layout.section.space}`) | dimension |
@@ -661,14 +661,14 @@ value with the source reference in parentheses.
 | `component.stat.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.stat.label-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.stat.value-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
-| `component.stat.value-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.stat.value-font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
 | `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.stat.delta-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.stat.trend-width` | `80px` (`{spacing.20}`) | dimension |
 | `component.stat.trend-height` | `24px` (`{spacing.6}`) | dimension |
 | `component.stat.trend-stroke` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.score-strip.name-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
-| `component.score-strip.score-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.score-strip.score-font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
 | `component.score-strip.value-font-size` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` (`{typography.font-size.lg}`) | dimension |
 | `component.score-strip.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.score-strip.label-font-size` | `16px` (`{typography.font-size.tag}`) | dimension |

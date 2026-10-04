@@ -4,9 +4,12 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Heading weight (2026-10-04)
+- **Headings and titles Figtree SemiBold 600** (`typography.font-weight.semibold`): `component.heading.font-weight` (hero, page, section), `component.resource-card.default.title-font-weight` and the ProcessSteps step title. Why: pages win; Elleta picked 600 over the 500 kept "for now" in the type lock. Token descriptions, AGENTS.md and the Heading and Typography stories updated; `font-weight.light` no longer carries any heading.
+
 ### Type lock for readability (2026-10-04)
 - **Figtree** (vendored variable woff2, SIL OFL) for headings, body, labels and buttons; Geist Mono for real code and token names only, 16px. Why: Elleta could not read the pages comfortably (small grey body, tiny caps mono labels, too many sizes); readability is a hard requirement.
-- **Five sizes** (BREAKING): H1 44-60, H2 34-40 (`font-size.4xl` 40 = fixed H2), lead 21-22, body 20 fixed (line height 1.7), small 18; labels 16; titles 22. `font-size.2xl`, `3xl`, `5xl` removed; `6xl` 88 is cover only. Headings Figtree 500 (kept "for now", Elleta).
+- **Five sizes** (BREAKING): H1 44-60, H2 34-40 (`font-size.4xl` 40 = fixed H2), lead 21-22, body 20 fixed (line height 1.7), small 18; labels 16; titles 22. `font-size.2xl`, `3xl`, `5xl` removed; `6xl` 88 is cover only. Headings Figtree 500 (kept "for now", Elleta; moved to 600 the same day, see Heading weight).
 - **`color.semantic.text-body`** (light `cool.825` #2b2f3d, dark = text-primary) for every sentence anyone reads, captions included; captions differ by size, not colour. `text-secondary` is non-reading UI only. Rejected: a separate caption ink (#33384a, too close to need a token) and #5b6072 captions (5.83:1, below the 7:1 muted bar).
 - **No caps, no tracking** on any label; Button labels Figtree SemiBold 16, sentence case, every size. Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
 - **Gate floors raised**: 16px hard floor, 18px for long-form text (audit:quality, docs audit); docs code at 16px.

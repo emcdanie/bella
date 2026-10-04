@@ -79,7 +79,7 @@ const mono: React.CSSProperties = {
   fontFeatureSettings: 'var(--typography-font-feature-mono)',
 };
 
-/* A real section heading: the Heading section tier, h2, Geist Light. */
+/* A real section heading: the Heading section tier, h2, Figtree SemiBold. */
 export function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <Heading tier="section" as="h2" style={{ margin: 'var(--spacing-10) 0 var(--spacing-5)' }}>

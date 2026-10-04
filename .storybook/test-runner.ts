@@ -51,6 +51,12 @@ const REST_CONTRACTS = Object.entries(
  *
  * Opt a story out of the integrity check (e.g. a deliberately fixed-context
  * surface) with parameters: { bella: { themeIntegrity: false } }.
+ *
+ * Clip the snapshot to the focused element with
+ * parameters: { bella: { snapshotClip: 'focused' } }. A focus ring on a
+ * full page is far under the 1% threshold; clipped to the control plus a
+ * margin for the ring, it is a large share of the image (3 Oct 2026). The
+ * integrity check still reads the full page.
  */
 
 /* Fluid display floors (3 Oct 2026). The display tiers are clamp() ramps
@@ -430,6 +436,7 @@ const config: TestRunnerConfig = {
   async postVisit(page, context) {
     const storyContext = await getStoryContext(page, context);
     const checkIntegrity = storyContext.parameters?.bella?.themeIntegrity !== false;
+    const clipFocused = storyContext.parameters?.bella?.snapshotClip === 'focused';
     const skipSnapshots = process.env.SKIP_VISUAL_SNAPSHOTS === '1';
 
     if (storyContext.parameters?.bella?.fluidType === true) {
@@ -518,7 +525,21 @@ const config: TestRunnerConfig = {
       }
 
       if (!skipSnapshots) {
-        expect(image).toMatchImageSnapshot({
+        let snapshot = image;
+        if (clipFocused) {
+          const box = await page.evaluate(() => {
+            const r = document.activeElement?.getBoundingClientRect();
+            return r && r.width ? { x: r.x, y: r.y, width: r.width, height: r.height } : null;
+          });
+          if (!box) throw new Error(`[audit:visual] ${context.id}: snapshotClip 'focused' but nothing holds focus`);
+          /* ring: up to 4px of key edge, 3px offset, 3px width, plus air */
+          const m = 16;
+          snapshot = await page.screenshot({
+            clip: { x: box.x - m, y: box.y - m, width: box.width + m * 2, height: box.height + m * 2 },
+            animations: 'disabled',
+          });
+        }
+        expect(snapshot).toMatchImageSnapshot({
           customSnapshotsDir: 'src/__image_snapshots__',
           customSnapshotIdentifier: `${context.id}-${theme}`,
           failureThreshold: 0.01,

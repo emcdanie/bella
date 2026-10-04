@@ -98,7 +98,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
         style={{
           fontFamily: 'var(--typography-font-family-wordmark)',
           fontWeight: 'var(--typography-font-weight-bold)',
-          fontSize: 'var(--typography-font-size-2xl)',
+          fontSize: 'var(--typography-font-size-4xl)',
           letterSpacing: 'var(--typography-letter-spacing-hero)',
         }}
       >

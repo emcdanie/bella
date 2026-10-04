@@ -5064,71 +5064,9 @@ entries:
       rel: file
       role: primitive.typography.font-size.xl
   - kind: token
-    id: typography.font-size.2xl
-    name: Font Size 2xl
-    description: Heading-3 size, also the Unique display floor.
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - typography
-      group: typography.font-size
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Heading-3
-          - level: may
-            statement: Component titles in docs
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Unique never renders below this size outside the keycap logo
-    tokenType: dimension
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.typography.font-size.2xl
-  - kind: token
-    id: typography.font-size.3xl
-    name: Font Size 3xl
-    description: "32px ramp step for Geist H2s. Not a Heading tier: the Unique section tier sizes from font-size.display-section, whose 32px floor matches this step."
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - typography
-      group: typography.font-size
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Doc-site H2s (Geist 700)
-          - level: may
-            statement: Storybook foundations section titles
-    tokenType: dimension
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.typography.font-size.3xl
-  - kind: token
     id: typography.font-size.4xl
     name: 4xl
-    description: "40px ramp step. Not a Heading tier: the Unique page tier sizes from font-size.display-page (36 to 56). No component consumer since the display-type-scale fix (2026-09-18)."
+    description: "H2 at desktop, 40px: the top of the section tier (display-section, 34 to 40px). Kept as the fixed H2 size for docs and Figma (type lock, Elleta, 2026-10-04)."
     metadata:
       origin:
         method: extracted
@@ -5152,35 +5090,9 @@ entries:
       rel: file
       role: primitive.typography.font-size.4xl
   - kind: token
-    id: typography.font-size.5xl
-    name: 5xl
-    description: "56px ramp step. Not a Heading tier: the Unique hero tier sizes from font-size.display-hero (40 to 72). No component consumer since the display-type-scale fix (2026-09-18)."
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - typography
-      group: typography.font-size
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: Ramp step, no current component consumer
-    tokenType: dimension
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.typography.font-size.5xl
-  - kind: token
     id: typography.font-size.6xl
     name: 6xl
-    description: Hero display step (Elleta, 2026-07-22). One step above 5xl, continuing the ramp's doubling gaps (8, 8, 16, 32). Sized so a short Unique 700 uppercase title visually outweighs a Geist 700 32px section head; Unique's condensed proportions need the size to carry a page title.
+    description: "Cover only: the Figma file cover and doc-site covers, never reading text (type lock, 2026-10-04)."
     metadata:
       origin:
         method: extracted
@@ -13151,7 +13063,7 @@ entries:
   - kind: token
     id: component.avatar.lg.font-size
     name: Lg Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.2xl` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.xl` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13169,7 +13081,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.2xl}"
+        alias: "{typography.font-size.xl}"
   - kind: token
     id: component.eyebrow.muted.foreground
     name: Muted Foreground
@@ -19298,23 +19210,23 @@ entries:
         description: Floors, not defaults. Going below is a bug.
         items:
           - level: must
-            statement: Body text MUST be at least 16px (`typography.font-size.base`).
+            statement: Reading text MUST be at least 18px (`typography.font-size.sm`); body is 20px (`typography.font-size.body`).
             checks:
               - href: ./scripts/audit-quality-docs.mjs
                 rel: lint-rule
                 role: audit:quality
             checkedBy: automated
           - level: must
-            statement: Card titles MUST be at least 20px (`typography.font-size.xl`) at weight 700.
+            statement: Card titles MUST be 22px (`typography.font-size.xl`) at weight 500.
             checkedBy: assisted
           - level: must
-            statement: Section headings MUST be at least 32px (`typography.font-size.3xl`).
+            statement: Section headings MUST be at least 34px (`typography.font-size.display-section`, 34 to 40px).
             checkedBy: assisted
           - level: should
-            statement: Fine print, captions, and metadata live at 13-14px and SHOULD be rare. If you are reaching for 12px, rethink the layout.
+            statement: Captions are 18px and labels 16px; nothing read sits below 18px.
             checkedBy: manual
           - level: must-not
-            statement: Nothing, anywhere, renders below 13px (`typography.font-size.tag`).
+            statement: Nothing, anywhere, renders below 16px (`typography.font-size.tag`).
             checks:
               - href: ./scripts/audit-quality-docs.mjs
                 rel: lint-rule

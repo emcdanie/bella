@@ -218,7 +218,7 @@ export const Cover: Story = {
               display: 'grid',
               placeItems: 'center',
               height: '100%',
-              fontSize: 'var(--typography-font-size-2xl)',
+              fontSize: 'var(--typography-font-size-xl)',
               fontWeight: 'var(--typography-font-weight-bold)',
               color: 'var(--color-semantic-text-muted)',
             }}

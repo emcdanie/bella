@@ -176,10 +176,7 @@ value with the source reference in parentheses.
 | `typography.font-size.body` | `20px` | dimension |
 | `typography.font-size.lg` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` | dimension |
 | `typography.font-size.xl` | `22px` | dimension |
-| `typography.font-size.2xl` | `24px` | dimension |
-| `typography.font-size.3xl` | `32px` | dimension |
 | `typography.font-size.4xl` | `40px` | dimension |
-| `typography.font-size.5xl` | `56px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
 | `typography.font-size.display-hero` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
 | `typography.font-size.display-page` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
@@ -581,7 +578,7 @@ value with the source reference in parentheses.
 | `component.avatar.md.size` | `48px` (`{spacing.12}`) | dimension |
 | `component.avatar.md.font-size` | `18px` (`{typography.font-size.base}`) | dimension |
 | `component.avatar.lg.size` | `80px` (`{spacing.20}`) | dimension |
-| `component.avatar.lg.font-size` | `24px` (`{typography.font-size.2xl}`) | dimension |
+| `component.avatar.lg.font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
 | `component.eyebrow.muted.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.eyebrow.muted.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.eyebrow.muted.font-size` | `16px` (`{typography.font-size.mono}`) | dimension |

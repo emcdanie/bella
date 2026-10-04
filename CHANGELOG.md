@@ -4,6 +4,12 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Hero, quote and the keycap edge (2026-10-05)
+- **`font-size.display-hero` 48 to 82px** (BREAKING visually, the hero tier only): fluid 390 to 1440, matching the site hero words (82 at 1440, 48 floor). Was 44 to 60. Why: the type role map (Elleta, 4 Oct) gives the hero its own tier above Display/Page. `display-page` (44 to 60) and `display-section` (34 to 40) were already fluid; their descriptions now name the Figma styles.
+- **Quote style**: `font-size.quote` (24 to 32px, Figtree Regular), `line-height.quote` (1.08, as on the site) and `font-size.quote-mark` (144px, one mark size everywhere). Why: the site set quotes in raw 32 with three different mark sizes.
+- **Labels on the type tokens**: Tag reads `font-size.tag` (was the `mono` alias, same 16px); Button and Avatar already did. Stale "Geist" notes in Button, Tag and the contract corrected to Figtree.
+- **Keycap edge straight** (`shadow.key-resting`, `-hover`, `-pressed`): the edge is `0 2px 0` (pressed `0 1px 0`) in the ink one step darker than the face, no x offset; the soft drop stays. Light edge `cool.950`, dark edge `cool.100` through new `shadow.key-*-dark` primitives and semantic dark `shadow.key-*`. Why: the 1px 3px 0 hard edge read as a misaligned, clipped corner (Elleta flagged it twice). The primary focus ring's pseudo-element now clears the 2px edge only (`inset: -1px -1px -3px -1px`).
+
 ### Heading weight (2026-10-04)
 - **Headings and titles Figtree SemiBold 600** (`typography.font-weight.semibold`): `component.heading.font-weight` (hero, page, section), `component.resource-card.default.title-font-weight` and the ProcessSteps step title. Why: pages win; Elleta picked 600 over the 500 kept "for now" in the type lock. Token descriptions, AGENTS.md and the Heading and Typography stories updated; `font-weight.light` no longer carries any heading.
 

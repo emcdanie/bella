@@ -11,7 +11,7 @@
           "category": "Actions",
           "shapes": ["default", "pill"],
           "rendersAs": "a button, or one anchor with href",
-          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique.",
+          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Figtree SemiBold on the label type token, sentence case, never Unique.",
           "variants": ["primary", "secondary", "tertiary"],
           "states": ["default", "hover", "active", "focus", "disabled"],
           "props": ["variant", "shape", "href", "onClick", "type", "disabled", "linkComponent", "ariaLabel", "className", "children"],
@@ -19,10 +19,10 @@
           "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired", "Do not lift a button on hover: lift is reserved for cards; hover is the label roll", "Do not add the trace ring to a button: the trace is Card's affordance"],
           "a11y": "Verified 2026-09-22: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.",
           "anatomy": [
-            {"key": "shadow", "title": "Key shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-key-resting", "detail": "1px 3px 0 ink, soft drop, inset highlight (primary)"},
+            {"key": "shadow", "title": "Key shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-key-resting", "detail": "0 2px 0 key edge one step darker than the face, soft drop, inset highlight (primary)"},
             {"key": "fill", "title": "Fill", "kind": "fill", "target": ":scope", "zone": {"inset": 6}, "token": "--component-button-primary-fill-hi", "detail": "ink plate, 1px edge, white-alpha gloss"},
             {"key": "box", "title": "Box", "kind": "box", "target": ":scope", "zone": {"inset": 0}, "token": "--component-button-primary-min-height", "detail": "44px min, padding 12 / 20, radius 12"},
-            {"key": "label", "title": "Label", "kind": "content", "target": "[data-bella-roll=label]", "zone": {"inset": -4}, "token": "--component-button-primary-font-size", "detail": "Geist 13, 700, caps, 0.08em"},
+            {"key": "label", "title": "Label", "kind": "content", "target": "[data-bella-roll=label]", "zone": {"inset": -4}, "token": "--component-button-primary-font-size", "detail": "Figtree 16, 600, sentence case (font-size.tag)"},
             {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "detail": "3px, 3px offset, focus-visible only"}
           ],
           "restState": {
@@ -282,7 +282,7 @@
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
         "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only." },
-        "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-size":      { "$value": "{typography.font-size.tag}",      "$type": "dimension" },
         "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
         "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
         "font-feature-settings": { "$value": "normal", "$type": "other" }

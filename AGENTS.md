@@ -28,7 +28,7 @@ These are floors, not defaults. Going below is a bug.
 
 - Reading text: **18px minimum**; body is `font-size.body` (20px, line-height 1.7), in `text-body`, never grey (type lock, Elleta, 2026-10-04)
 - Titles (card, step): **22px, Figtree SemiBold 600**
-- Section headings (H2): **34 to 40px**; H1 44 to 60px
+- Section headings (H2): **34 to 40px**; H1 44 to 60px; the hero tier 48 to 82px (`display-hero`); quotes 24 to 32px (`font-size.quote`)
 - Nothing, anywhere, below **16px**: labels and meta sit at the 16px floor, in Figtree, sentence case, no tracking
 - **Unique never below 24px** — the keycap brand lockup is the single recorded exception
 

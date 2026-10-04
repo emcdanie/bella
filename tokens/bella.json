@@ -2296,9 +2296,9 @@
           }
         },
         "display-hero": {
-          "$value": "clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)",
+          "$value": "clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)",
           "$type": "dimension",
-          "$description": "Hero and page-opening heading, Figtree SemiBold: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique).",
+          "$description": "Hero heading (Display/Hero), Figtree SemiBold: 48px at 390, fluid to 82px at 1440 (type role map, Elleta, 2026-10-04; was 44 to 60). The phone floor matches the site hero words.",
           "$extensions": {
             "bella": {
               "usage": [
@@ -2311,7 +2311,7 @@
         "display-page": {
           "$value": "clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)",
           "$type": "dimension",
-          "$description": "Page heading, Figtree SemiBold: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64).",
+          "$description": "Page heading (Display/Page), Figtree SemiBold: 44px at 390, fluid to 60px at 1440 (type role map, Elleta, 2026-10-04).",
           "$extensions": {
             "bella": {
               "usage": [
@@ -2324,12 +2324,36 @@
         "display-section": {
           "$value": "clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)",
           "$type": "dimension",
-          "$description": "Section heading (h2), Figtree SemiBold: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor).",
+          "$description": "Section heading (Display/Section, h2), Figtree SemiBold: 34px at 390, fluid to 40px at 1440 (type role map, Elleta, 2026-10-04).",
           "$extensions": {
             "bella": {
               "usage": [
                 "Heading primitive",
                 "Unique 700 display only"
+              ]
+            }
+          }
+        },
+        "quote": {
+          "$value": "clamp(24px, 24px + 8 * (100vw - 390px) / 1050, 32px)",
+          "$type": "dimension",
+          "$description": "Quote text (Quote style), Figtree Regular: 24px at 390, fluid to 32px at 1440 (type role map, Elleta, 2026-10-04).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Pull quotes and testimonials: the one Quote style"
+              ]
+            }
+          }
+        },
+        "quote-mark": {
+          "$value": "144px",
+          "$type": "dimension",
+          "$description": "The decorative quote mark beside a Quote: one size everywhere (type role map, Elleta, 2026-10-04).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Quote mark glyph (decorative, aria-hidden)"
               ]
             }
           }
@@ -2495,6 +2519,18 @@
             "bella": {
               "usage": [
                 "Every heading tier"
+              ]
+            }
+          }
+        },
+        "quote": {
+          "$value": "1.08",
+          "$type": "number",
+          "$description": "Quote text line height, as on the site (type role map, Elleta, 2026-10-04).",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "Quote style"
               ]
             }
           }
@@ -3218,9 +3254,9 @@
         }
       },
       "key-resting": {
-        "$value": "1px 3px 0 {color.light.ink}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "0 2px 0 {color.cool.950}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
         "$type": "shadow",
-        "$description": "Primary keycap at rest: thin edge plate, small soft cast, inset upper-left glass highlight. Calm extrusion (button grammar v5).",
+        "$description": "Primary keycap at rest: a straight key edge 2px down (no x offset, so the corners read true), in the ink one step darker than the face, a small soft cast and the inset glass highlight (Elleta, 2026-10-04; was 1px 3px 0).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -3230,9 +3266,9 @@
         }
       },
       "key-hover": {
-        "$value": "1px 4px 0 {color.light.ink}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "0 2px 0 {color.cool.950}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
         "$type": "shadow",
-        "$description": "Primary keycap hover: one step more lift.",
+        "$description": "Primary keycap hover: the same straight edge, a deeper soft cast.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -3242,13 +3278,49 @@
         }
       },
       "key-pressed": {
-        "$value": "0 1px 0 {color.light.ink}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "0 1px 0 {color.cool.950}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
         "$type": "shadow",
-        "$description": "Primary keycap pressed: sunk onto the reduced plate (pair with motion.transform.key-press).",
+        "$description": "Primary keycap pressed: the edge sinks to 1px (pair with motion.transform.key-press).",
         "$extensions": {
           "bella": {
             "usage": [
               "Primary keycap button, :active"
+            ]
+          }
+        }
+      },
+      "key-resting-dark": {
+        "$value": "0 2px 0 {color.cool.100}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$type": "shadow",
+        "$description": "Primary keycap resting on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-resting.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Semantic dark shadow.key-resting"
+            ]
+          }
+        }
+      },
+      "key-hover-dark": {
+        "$value": "0 2px 0 {color.cool.100}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$type": "shadow",
+        "$description": "Primary keycap hover on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-hover.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Semantic dark shadow.key-hover"
+            ]
+          }
+        }
+      },
+      "key-pressed-dark": {
+        "$value": "0 1px 0 {color.cool.100}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$type": "shadow",
+        "$description": "Primary keycap pressed on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-pressed.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Semantic dark shadow.key-pressed"
             ]
           }
         }
@@ -4856,7 +4928,7 @@
             "pill"
           ],
           "rendersAs": "a button, or one anchor with href",
-          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique.",
+          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Figtree SemiBold on the label type token, sentence case, never Unique.",
           "variants": [
             "primary",
             "secondary",
@@ -4909,7 +4981,7 @@
                 "size": 12
               },
               "token": "--shadow-key-resting",
-              "detail": "1px 3px 0 ink, soft drop, inset highlight (primary)"
+              "detail": "0 2px 0 key edge one step darker than the face, soft drop, inset highlight (primary)"
             },
             {
               "key": "fill",
@@ -4942,7 +5014,7 @@
                 "inset": -4
               },
               "token": "--component-button-primary-font-size",
-              "detail": "Geist 13, 700, caps, 0.08em"
+              "detail": "Figtree 16, 600, sentence case (font-size.tag)"
             },
             {
               "key": "ring",
@@ -5821,7 +5893,7 @@
           "$description": "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
         },
         "font-size": {
-          "$value": "{typography.font-size.mono}",
+          "$value": "{typography.font-size.tag}",
           "$type": "dimension"
         },
         "font-weight": {

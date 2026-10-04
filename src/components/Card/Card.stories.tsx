@@ -131,7 +131,7 @@ const sampleContent = (
     <Title>From drift to foundation</Title>
     <Body>
       Flat and theme-aware by construction: this surface is the semantic
-      card, so it flips to the warm dark card with light inks on its own.
+      card, so it flips to the cool dark card with light inks on its own.
     </Body>
   </>
 );

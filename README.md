@@ -23,9 +23,8 @@ It powers:
 
 ## The identity, in five tokens
 
-- `color.light.bg` `#ffffff` and `color.light.panel` `#f2f2f2` — the white page and its one step down
-- `color.light.ink` `#121212` — near-black ink; links and button labels are ink
-- `color.dark.bg` `#0d0d0d` — the neutral dark page; elevation climbs lighter
+- `color.cool.*` — one cool ink-tinted grey ramp (`#ffffff` to `#0f1117`) that both themes read from: light ground `cool.25` `#f6f7f9` with white cards, dark ground `cool.975` `#0f1117`, elevation climbing lighter
+- `color.cool.900` `#1d2030` — the ink; links and button labels are ink
 - `color.brand.ochre` `#e8a83e` — the single accent, a fill with ink text; `ochre-deep` `#b97a14` is its line and focus ring on light
 - `color.pattern.*` — the brand pattern, in the wordmark and (grey) behind page openings
 

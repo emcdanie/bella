@@ -7,7 +7,7 @@ BELLA is small on purpose. Before adding anything, read [`AGENTS.md`](./AGENTS.m
 - **Token-first.** No hard-coded hex values, arbitrary pixel numbers, or one-off font sizes anywhere. If the token you need doesn't exist, open an issue proposing it — don't invent one inline.
 - **Sources vs. generated.** Edit only `tokens/primitive.json`, `tokens/semantic/{light,dark}.json`, `tokens/component.json`, `tokens/build.py`, and prose docs. `tokens/bella.css`, `tokens/bella.json`, `tokens/preview.html`, `docs/bella.css`, and `docs/tokens.md` are generated — never edit them by hand.
 - **References flow downward only.** Primitives reference nothing. Semantic references primitives. Component references semantic (or primitives). Never upward.
-- **Non-negotiables** (from `AGENTS.md`): typography floors (16px body, nothing below 13px), no pure white, amber is the only accent, Georgia + JetBrains Mono.
+- **Non-negotiables** (from `AGENTS.md`): typography floors (16px body, nothing below 13px), the page ground is never pure white (white is the card), ochre is the only accent, Geist + Geist Mono.
 
 ## Workflow
 

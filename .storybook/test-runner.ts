@@ -408,9 +408,20 @@ async function runQualityChecks(
                  tiers without the layer (no ::before content) are exempt */
               if (inv.pseudo && cs.content === 'none') continue;
               const actual = cs.getPropertyValue(inv.property).trim();
-              if (actual !== inv.expect) {
+              /* expectVar: the value a token resolves to in this element's
+                 own context (theme, local re-scopes), read off a probe
+                 child so both sides are computed the same way */
+              let expected = inv.expect;
+              if (inv.expectVar) {
+                const probe = document.createElement('span');
+                probe.style.setProperty(inv.property, `var(${inv.expectVar})`);
+                el.appendChild(probe);
+                expected = getComputedStyle(probe).getPropertyValue(inv.property).trim();
+                probe.remove();
+              }
+              if (actual !== expected) {
                 fails.push(
-                  `[${contract.name}] rest-state layer "${inv.layer}" paints at rest: ${inv.property} is "${actual}", contract expects "${inv.expect}"`
+                  `[${contract.name}] rest-state layer "${inv.layer}" paints at rest: ${inv.property} is "${actual}", contract expects "${expected}"${inv.expectVar ? ` (${inv.expectVar})` : ''}`
                 );
               }
             }

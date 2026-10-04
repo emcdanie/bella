@@ -19,7 +19,8 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 ### Colour direction B (2026-10-04)
 - **`color.cool.*`** (BREAKING): one cool ink-tinted grey ramp (OKLCH hue 272, 16 steps incl. 825) that both themes read from; `color.light.*` / `color.dark.*` are aliases into it. Why: greys with a hint of ink make borders softer, text calmer and ochre pop harder (concept lock, Elleta, 4 Oct). Ochre stays the only accent; indigo is for case visuals only and not in BELLA.
 - **Surfaces**: light ground `cool.25`, white cards, inset `cool.50`; dark ground `cool.975`, surface `cool.950`, raised `cool.850`. New `hover-fill`, `icon-muted`. Three lock values were tuned to hold the gate: secondary `#474c5e` (lock #5b6072 was 5.83:1), control border `#858b9f` (lock #c3c7d2 was 1.58:1), dark secondary `#b1b7c7`.
-- **Ink-tinted two-layer shadows** `card-ink`, `ui-ink` (+ dark) and theme-aware `shadow.card` / `shadow.ui`; Card stays flat at rest (open decision).
+- **Ink-tinted two-layer shadows** `card-ink`, `ui-ink` (+ dark) and theme-aware `shadow.card` / `shadow.ui`.
+- **Card at rest wears `shadow.card`** (Elleta, 4 Oct; was flat): every Card, ResourceCard included. Interactive cards keep the 2px lift and `shadow.hover` on hover and focus; static cards never change on hover; Peek stays flat (re-scopes `--shadow-card` to none). The rest-state contract asserts the shadow through a new `expectVar` invariant, resolved in the card's own context so both themes and Peek are checked.
 - **audit:quality pure-white rule inverted**: white is the card surface; a page ground painted pure white fails.
 
 ### Surface levels (2026-10-03)

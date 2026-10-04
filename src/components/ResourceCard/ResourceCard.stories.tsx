@@ -212,8 +212,14 @@ export const Behavior: Story = {
       expect(parseFloat(getComputedStyle(desc).fontSize)).toBeGreaterThanOrEqual(16);
     });
 
-    await step('the card is flat at rest (no shadow, no lift)', async () => {
-      expect(getComputedStyle(links[0]).boxShadow).toBe('none');
+    await step('at rest the card wears shadow.card and does not lift', async () => {
+      const probe = document.createElement('span');
+      probe.style.boxShadow = 'var(--shadow-card)';
+      links[0].appendChild(probe);
+      const restShadow = getComputedStyle(probe).boxShadow;
+      probe.remove();
+      expect(restShadow).not.toBe('none');
+      expect(getComputedStyle(links[0]).boxShadow).toBe(restShadow);
       expect(getComputedStyle(links[0]).transform).toBe('none');
     });
 

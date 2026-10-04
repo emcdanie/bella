@@ -16695,7 +16695,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). Only interactive cards lift on hover and focus; prefers-reduced-motion keeps them still (the shadow still marks hover and focus). Card text sits on surface-card: text-muted 4.64:1 light / 6.03:1 dark, the worst pair (AA)."
+          note: "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). Every card wears shadow.card at rest (peek stays flat); only interactive cards lift on hover and focus; prefers-reduced-motion keeps them still (the shadow still marks hover and focus). Card text sits on surface-card: text-muted 4.64:1 light / 6.03:1 dark, the worst pair (AA)."
       tags:
         - component
         - card
@@ -16728,16 +16728,16 @@ entries:
       - kind: definitions
         for: all
         title: At rest
-        description: "FLAT AT REST is a contract (surface rules, 2026-09-19): only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card)."
+        description: "The rest state is a contract (Colour B, Elleta, 2026-10-04; flat from 2026-09-19): only these layers may paint before hover/focus, and the shadow at rest is exactly shadow.card (peek re-scopes it to none and stays flat). audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card)."
         context: anatomy
         items:
+          - term: "shadow.card (peek: none)"
+            definition: "Trigger: rest. Paints at rest."
           - term: surface-card inner panel
             definition: "Trigger: rest. Paints at rest."
           - term: 1px border-faint
             definition: "Trigger: rest. Paints at rest."
           - term: radius.card
-            definition: "Trigger: rest. Paints at rest."
-          - term: no shadow
             definition: "Trigger: rest. Paints at rest."
       - kind: definitions
         for: all
@@ -16747,13 +16747,15 @@ entries:
         items:
           - term: 1. Hover shadow
             definition: "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift. Trigger: hover. Token --shadow-hover; target :scope."
-          - term: 2. Surface
-            definition: "the card fill, flat at rest. Trigger: rest. Token --color-semantic-surface-card; target :scope > div."
-          - term: 3. Edge
+          - term: 2. Rest shadow
+            definition: "every card but peek (re-scoped to none), Colour B, 2026-10-04. Trigger: rest. Token --shadow-card; target :scope."
+          - term: 3. Surface
+            definition: "the card fill. Trigger: rest. Token --color-semantic-surface-card; target :scope > div."
+          - term: 4. Edge
             definition: "1px hairline, radius 16 (--radius-card). Trigger: rest. Token --color-semantic-border-faint; target :scope > div."
-          - term: 4. Padding
+          - term: 5. Padding
             definition: "24px all round. Trigger: rest. Token --spacing-6; target :scope > div."
-          - term: 5. Focus ring
+          - term: 6. Focus ring
             definition: "interactive cards only: 3px, 3px offset, focus-visible only. Trigger: focus. Token --ring-focus-color; target :scope."
     refs:
       - href: ./src/components/Card/Card.stories.tsx
@@ -16789,12 +16791,12 @@ entries:
           - hover
           - focus
         restState:
-          description: "FLAT AT REST is a contract (surface rules, 2026-09-19): only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card)."
+          description: "The rest state is a contract (Colour B, Elleta, 2026-10-04; flat from 2026-09-19): only these layers may paint before hover/focus, and the shadow at rest is exactly shadow.card (peek re-scopes it to none and stays flat). audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card)."
           atRest:
+            - "shadow.card (peek: none)"
             - surface-card inner panel
             - 1px border-faint
             - radius.card
-            - no shadow
           hoverOnly:
             - hover lift + shadow.hover, interactive cards only
           invariants:
@@ -16803,7 +16805,8 @@ entries:
               expect: none
             - layer: shadow
               property: box-shadow
-              expect: none
+              expectVar: "--shadow-card"
+              note: resolved in the card's own context, so peek's re-scope to none counts
             - layer: geometry
               type: containment
               note: the inner panel stays inside the wrapper; the grid double-surface class of bug
@@ -16849,7 +16852,7 @@ entries:
       - kind: definitions
         for: all
         title: At rest
-        description: "At rest the card is the cover, the sheet, the tab and the notch. Flat at rest like Card: no shadow; the lift and shadow are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card."
+        description: At rest the card is the cover, the sheet, the tab and the notch, under Card's rest shadow (shadow.card, 2026-10-04); the lift and shadow.hover are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card.
         context: anatomy
         items:
           - term: cover
@@ -16892,7 +16895,7 @@ entries:
           - hover
           - focus-visible
         restState:
-          description: "At rest the card is the cover, the sheet, the tab and the notch. Flat at rest like Card: no shadow; the lift and shadow are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card."
+          description: At rest the card is the cover, the sheet, the tab and the notch, under Card's rest shadow (shadow.card, 2026-10-04); the lift and shadow.hover are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card.
           atRest:
             - cover
             - sheet
@@ -16916,7 +16919,7 @@ entries:
           invariants:
             - layer: shadow
               property: box-shadow
-              expect: none
+              expectVar: "--shadow-card"
             - layer: static
               property: transform
               expect: none

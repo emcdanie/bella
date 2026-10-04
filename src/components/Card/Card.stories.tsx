@@ -129,13 +129,13 @@ const sampleContent = (
     <Kicker>Design systems</Kicker>
     <Title>From drift to foundation</Title>
     <Body>
-      Flat and theme-aware by construction: this surface is the semantic
+      Theme-aware by construction, with shadow.card at rest: this surface is the semantic
       card, so it flips to the cool dark card with light inks on its own.
     </Body>
   </>
 );
 
-/** Static content card: flat, never lifts or changes on hover. Both themes. */
+/** Static content card: wears shadow.card at rest, never lifts or changes on hover. Both themes. */
 export const Default: Story = {
   render: (args) => (
     <div style={{ maxWidth: 420 }}>
@@ -248,7 +248,7 @@ export const Cover: Story = {
 };
 
 /** The fixed always-light reveal panel: floats light on the dark ground,
- * never flips; flat like every card.
+ * never flips; flat, the one card without the rest shadow.
  * The one recorded exception to theme-aware surfaces; light-on-dark is
  * legitimate; a fixed-dark variant does not exist. */
 export const Peek: Story = {
@@ -284,7 +284,7 @@ export const Grid: Story = {
       </Card>
       <Card {...args}>
         <Kicker>Third sibling</Kicker>
-        <Title>Same flat surface</Title>
+        <Title>Same surface</Title>
         <Body>Three siblings, one height, from the grid, never min-height.</Body>
       </Card>
     </div>

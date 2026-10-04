@@ -934,16 +934,16 @@
         }
       },
       "muted": {
-        "$value": "#515151",
+        "$value": "#4b4b4b",
         "$type": "color",
-        "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta).",
+        "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta); one more step (#515151 to #4b4b4b, 2026-10-03) so it holds AAA on the new inset.",
         "$extensions": {
           "bella": {
             "usage": [
               "Secondary and muted text",
               "Mono labels and meta"
             ],
-            "a11y": "Verified 2026-09-22: 7.94:1 on bg, 7.09:1 on panel (worst). AAA."
+            "a11y": "Verified 2026-10-03: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA."
           }
         }
       },
@@ -965,7 +965,7 @@
         }
       },
       "control": {
-        "$value": "#8c8c8c",
+        "$value": "#838383",
         "$type": "color",
         "$description": "Control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -973,7 +973,7 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-09-22: 3.36:1 on bg, 3.08:1 on surface, 3.00:1 on panel (worst). Non-text AA."
+            "a11y": "Verified 2026-10-03: 3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA. (Was #8c8c8c, darkened 2026-10-03 to clear 3:1 on the new inset.)"
           }
         }
       },
@@ -990,6 +990,20 @@
               "Inset wells"
             ],
             "a11y": "Verified 2026-09-22: ink 16.73:1, muted 7.09:1 on panel (the worst light surface). AAA."
+          }
+        }
+      },
+      "inset": {
+        "$value": "#e8e8e8",
+        "$type": "color",
+        "$description": "Light inset and selected wash, one visible step below panel (2026-10-03, Elleta): before this, inset, wash and panel were all #f2f2f2 and a selected row showed nothing.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Inset wells, tracks",
+              "Neutral selected wash"
+            ],
+            "a11y": "Verified 2026-10-03: ink 15.29:1, muted 7.12:1 on inset. AAA. Control border 3.09:1. Visible against panel (1.09:1) and the page (1.23:1)."
           }
         }
       },
@@ -1086,6 +1100,96 @@
         }
       }
     },
+    "warm": {
+      "bg": {
+        "$value": "#f6f1e8",
+        "$type": "color",
+        "$description": "Warm parchment page ground ([data-theme=warm], 2026-10-03, Elleta; from the workspace mock).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm page ground"
+            ]
+          }
+        }
+      },
+      "panel": {
+        "$value": "#fbfaf7",
+        "$type": "color",
+        "$description": "Warm raised paper: cards and panels sit one step lighter than the parchment ground (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm card and panel fill",
+              "Warm raised surface"
+            ]
+          }
+        }
+      },
+      "surface": {
+        "$value": "#f0ede8",
+        "$type": "color",
+        "$description": "Warm surface between ground and inset (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm surface"
+            ]
+          }
+        }
+      },
+      "inset": {
+        "$value": "#ebe4d6",
+        "$type": "color",
+        "$description": "Warm sunk surface: wells, tracks, the selected wash (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm inset",
+              "Warm neutral selected wash"
+            ]
+          }
+        }
+      },
+      "muted": {
+        "$value": "#4f463d",
+        "$type": "color",
+        "$description": "Warm muted text (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Secondary and muted text in the warm theme"
+            ],
+            "a11y": "Verified 2026-10-03: 8.20:1 on bg, 8.84:1 on panel, 7.90:1 on surface, 7.29:1 on inset (worst). AAA."
+          }
+        }
+      },
+      "line": {
+        "$value": "#e3dbcf",
+        "$type": "color",
+        "$description": "Warm hairline: decorative only, never a control edge (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm hairline, divider, card edge"
+            ]
+          }
+        }
+      },
+      "control": {
+        "$value": "#857a6a",
+        "$type": "color",
+        "$description": "Warm control border, 3:1 on every warm surface (2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Warm input and control border"
+            ],
+            "a11y": "Verified 2026-10-03: 3.74:1 on bg, 4.03:1 on panel, 3.60:1 on surface, 3.33:1 on inset (worst)."
+          }
+        }
+      }
+    },
     "dark": {
       "ink": {
         "$value": "#ededed",
@@ -1131,7 +1235,7 @@
         }
       },
       "control": {
-        "$value": "#636363",
+        "$value": "#707070",
         "$type": "color",
         "$description": "Dark control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1139,10 +1243,7 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-09-22: 3.24:1 on bg, 3.01:1 on surface (worst). Non-text AA.",
-            "dont": [
-              "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
-            ]
+            "a11y": "Verified 2026-10-03: 3.92:1 on bg, 3.65:1 on surface, 3.33:1 on inset, 3.06:1 on raised (worst). Non-text AA on every dark surface (was #636363, 2.74:1 on inset, 2.52:1 on raised)."
           }
         }
       },
@@ -3084,6 +3185,118 @@
           "usage": [
             "shadow.hover (dark override)"
           ]
+        }
+      }
+    }
+  },
+  "layout": {
+    "container": {
+      "max": {
+        "$value": "1440px",
+        "$type": "dimension",
+        "$description": "The widest a page's content gets, inside the side padding. Wider windows centre it (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "App and page container max-width"
+            ]
+          }
+        }
+      },
+      "pad": {
+        "$value": "clamp(16px, 4vw, 32px)",
+        "$type": "dimension",
+        "$description": "Side padding of the page container: 16px on a phone, 32px from 800px up (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Container padding-inline",
+              "The header row, so its left edge matches the content"
+            ]
+          }
+        }
+      }
+    },
+    "section": {
+      "space": {
+        "$value": "clamp(32px, 24px + 2vw, 48px)",
+        "$type": "dimension",
+        "$description": "The space between two sections of a page: 32px on a phone, 48px from 1200px up (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Section to section",
+              "Page header to the first section"
+            ]
+          }
+        }
+      }
+    },
+    "stack": {
+      "sm": {
+        "$value": "{spacing.2}",
+        "$type": "dimension",
+        "$description": "Gap inside a group: label to value, heading to its lede (layout foundation, 2026-10-03)."
+      },
+      "md": {
+        "$value": "{spacing.4}",
+        "$type": "dimension",
+        "$description": "Gap between items inside a card or section (layout foundation, 2026-10-03)."
+      },
+      "lg": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "Gap between blocks: a section heading to its body, card to card (layout foundation, 2026-10-03)."
+      }
+    },
+    "gutter": {
+      "$value": "{spacing.6}",
+      "$type": "dimension",
+      "$description": "The grid gap between columns and between cards, one value at every width (layout foundation, 2026-10-03).",
+      "$extensions": {
+        "bella": {
+          "usage": [
+            "Columns gap",
+            "SidebarLayout gap"
+          ]
+        }
+      }
+    },
+    "card": {
+      "padding": {
+        "$value": "{spacing.6}",
+        "$type": "dimension",
+        "$description": "The one card padding, what Card renders (layout foundation, 2026-10-03)."
+      }
+    },
+    "grid": {
+      "columns-wide": {
+        "$value": 12,
+        "$type": "number",
+        "$description": "Page grid columns at 1200px and up (layout foundation, 2026-10-03)."
+      },
+      "columns-medium": {
+        "$value": 8,
+        "$type": "number",
+        "$description": "Page grid columns from 768 to 1199px (layout foundation, 2026-10-03)."
+      },
+      "columns-narrow": {
+        "$value": 4,
+        "$type": "number",
+        "$description": "Page grid columns below 768px (layout foundation, 2026-10-03)."
+      }
+    },
+    "measure": {
+      "body": {
+        "$value": "70ch",
+        "$type": "dimension",
+        "$description": "The longest line of body text (layout foundation, 2026-10-03).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Paragraphs, ledes, the reader column"
+            ]
+          }
         }
       }
     }

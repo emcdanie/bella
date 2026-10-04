@@ -9,6 +9,9 @@
  * - the condensed "dense" variant stays in the portfolio (it exists for
  *   the explore hub density); carrying it would re-open the touch-target
  *   call, which is Elleta's
+ * - size="compact" (CHIP Docs filters, 2026-10-03, Elleta: "compact size,
+ *   still 44px targets"): tighter padding and the 13px tag size; the
+ *   target does not shrink
  */
 
 .chip {
@@ -29,6 +32,12 @@
   transition:
     background var(--motion-duration-fast) var(--motion-easing-standard),
     color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.compact {
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--component-filter-chip-compact-font-size);
 }
 
 .chip:hover {

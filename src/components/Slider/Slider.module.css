@@ -1,0 +1,177 @@
+/* Slider (Atlas v4, 2026-10-03, Elleta: "sliders, not prop controls").
+ * Tokens only. A native range: the browser gives arrow keys, Home/End and
+ * the slider role. The input is the 44px target; the drawn track is thin
+ * and the thumb 24px inside it. Marks sit where a rule lives, aligned to
+ * the thumb's centre (which travels half a thumb in from each end). Focus
+ * is the shared ring around the whole target. */
+
+.slider {
+  display: grid;
+  gap: var(--spacing-2);
+  min-width: 0;
+  --thumb: var(--component-slider-thumb-size);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.label {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-sm);
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--color-semantic-text-secondary);
+}
+
+.valueBox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.value {
+  inline-size: calc(var(--spacing-16) + var(--spacing-2));
+  min-height: var(--component-slider-min-height);
+  box-sizing: border-box;
+  padding: 0 var(--spacing-2);
+  border: 1px solid var(--color-semantic-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-semantic-surface);
+  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-base);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
+/* no spinner arrows: the arrow keys still step the number */
+.value {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.value::-webkit-inner-spin-button,
+.value::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.value:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+  border-color: var(--color-semantic-border-ink);
+}
+
+.unit {
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+
+.track {
+  position: relative;
+}
+
+.range {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  inline-size: 100%;
+  min-height: var(--component-slider-min-height);
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+  border-radius: var(--radius-md);
+}
+
+.range::-webkit-slider-runnable-track {
+  block-size: var(--component-slider-track-height);
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--component-slider-fill) var(--slider-pct), var(--component-slider-track) var(--slider-pct));
+}
+
+.range::-moz-range-track {
+  block-size: var(--component-slider-track-height);
+  border-radius: var(--radius-full);
+  background: var(--component-slider-track);
+}
+
+.range::-moz-range-progress {
+  block-size: var(--component-slider-track-height);
+  border-radius: var(--radius-full);
+  background: var(--component-slider-fill);
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  inline-size: var(--thumb);
+  block-size: var(--thumb);
+  margin-block-start: calc((var(--component-slider-track-height) - var(--thumb)) / 2);
+  border-radius: var(--radius-full);
+  background: var(--component-slider-thumb-background);
+  border: var(--border-width-medium) solid var(--component-slider-thumb-border);
+  box-sizing: border-box;
+}
+
+.range::-moz-range-thumb {
+  inline-size: var(--thumb);
+  block-size: var(--thumb);
+  border-radius: var(--radius-full);
+  background: var(--component-slider-thumb-background);
+  border: var(--border-width-medium) solid var(--component-slider-thumb-border);
+  box-sizing: border-box;
+}
+
+.range:disabled {
+  cursor: not-allowed;
+}
+
+.marks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-block-size: calc(var(--spacing-6) + var(--spacing-1));
+}
+
+/* a mark sits under the thumb's centre at that value */
+.mark {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: calc(var(--thumb) / 2 + (100% - var(--thumb)) * var(--mark-f));
+  display: grid;
+  justify-items: center;
+  gap: var(--spacing-1);
+  transform: translateX(-50%);
+}
+
+.tick {
+  inline-size: var(--border-width-medium);
+  block-size: var(--spacing-2);
+  background: var(--component-slider-mark);
+}
+
+.markLabel {
+  white-space: nowrap;
+  font-size: var(--typography-font-size-tag);
+  color: var(--color-semantic-text-secondary);
+}
+
+.markLabel b {
+  font-weight: var(--typography-font-weight-medium);
+  color: var(--color-semantic-text-primary);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+

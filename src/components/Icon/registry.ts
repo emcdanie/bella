@@ -40,6 +40,24 @@ export const GLYPHS = {
     'M12 17.01L12.01 16.9989',
     'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z',
   ],
+  /* NavList's hide / show toggle (CHIP components, 2026-10-03). Iconoir
+     SidebarCollapse and SidebarExpand (regular), from iconoir@7.11.0. */
+  SidebarCollapse: [
+    'M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z',
+    'M7.25 10L5.5 12L7.25 14',
+    'M9.5 21V3',
+  ],
+  SidebarExpand: [
+    'M19 21L5 21C3.89543 21 3 20.1046 3 19L3 5C3 3.89543 3.89543 3 5 3L19 3C20.1046 3 21 3.89543 21 5L21 19C21 20.1046 20.1046 21 19 21Z',
+    'M9.5 21V3',
+    'M5.5 10L7.25 12L5.5 14',
+  ],
+  /* Search fields (CHIP components, 2026-10-03). Iconoir Search (regular),
+     from iconoir@7.11.0. */
+  Search: [
+    'M17 17L21 21',
+    'M3 11C3 15.4183 6.58172 19 11 19C13.213 19 15.2161 18.1015 16.6644 16.6493C18.1077 15.2022 19 13.2053 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11Z',
+  ],
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

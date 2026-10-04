@@ -1,0 +1,152 @@
+/* NavList (CHIP components, 2026-10-03). Tokens only. A sidebar of grouped
+ * links for CHIP's workspace shell.
+ *
+ * Paint: items are flat text rows. Where you are is aria-current="page",
+ * painted as the border-subtle wash plus ink text plus medium weight, so
+ * it never rests on a wash alone (hover is the lighter inset wash). Group
+ * labels use the sans label style. The badge is a bare count, read as
+ * part of the link name.
+ *
+ * Recorded divergence: focus rings sit inside the row (negative offset),
+ * because a sidebar scrolls and an outset ring would be clipped.
+ */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  min-width: var(--component-nav-list-min-height);
+  min-height: var(--component-nav-list-min-height);
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: var(--component-nav-list-border-radius);
+  background: transparent;
+  color: var(--color-semantic-text-secondary);
+  cursor: pointer;
+  transition:
+    background var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.toggle:hover {
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-border-subtle);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.body[hidden] {
+  display: none;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.groupLabel {
+  margin: 0;
+  padding: 0 var(--spacing-3);
+  font-family: var(--component-nav-list-label-font-family);
+  font-size: var(--component-nav-list-label-font-size);
+  color: var(--color-semantic-text-secondary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-height: var(--component-nav-list-min-height);
+  padding: 0 var(--spacing-3);
+  border-radius: var(--component-nav-list-border-radius);
+  font-family: var(--component-nav-list-font-family);
+  font-size: var(--component-nav-list-font-size);
+  font-weight: var(--typography-font-weight-regular);
+  letter-spacing: var(--typography-letter-spacing-body);
+  color: var(--color-semantic-text-secondary);
+  text-decoration: none;
+  transition:
+    background var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.item:hover {
+  color: var(--color-semantic-text-primary);
+  background: var(--color-semantic-surface-inset);
+}
+
+.item[aria-current='page'] {
+  color: var(--color-semantic-text-primary);
+  background: var(--component-nav-list-current-background);
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.item:focus-visible,
+.toggle:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: calc(-1 * var(--ring-focus-width));
+}
+
+.itemLabel {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  flex: none;
+  font-family: var(--component-nav-list-label-font-family);
+  font-size: var(--component-nav-list-label-font-size);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--typography-font-weight-regular);
+  color: var(--color-semantic-text-secondary);
+}
+
+.footer {
+  padding: var(--spacing-3);
+  border-top: var(--border-width-thin) solid var(--color-semantic-border);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .toggle {
+    transition: none;
+  }
+}
+
+/* on the current wash the count goes ink: muted on border-subtle is AA, not AAA */
+.item[aria-current='page'] .badge {
+  color: inherit;
+}

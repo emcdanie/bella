@@ -68,7 +68,7 @@
         }
       },
       "surface-inset": {
-        "$value": "{color.light.panel}",
+        "$value": "{color.light.inset}",
         "$type": "color",
         "$description": "Recessed surface on ground, wells, tracks, inset panels.",
         "$extensions": {
@@ -76,6 +76,38 @@
             "usage": [
               "switch tracks",
               "recessed wells"
+            ]
+          }
+        }
+      },
+      "ground": {
+        "$value": "{color.light.line}",
+        "$type": "color",
+        "$description": "The page ground under raised cards, the lowest of three surface levels (ground < inset < raised in lightness, all themes). light: #e3e3e3 ground, #ffffff raised. Added 2026-10-03 for the portfolio layout (Gate 2).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page behind raised cards in a three-level layout",
+              "Not the default page: that stays background"
+            ],
+            "dont": [
+              "Do not put muted text on ground in light or warm: 6.80:1 and 6.72:1 are AA, not AAA; put meta on raised, or use ink",
+              "Do not use it for strokes: that is border"
+            ]
+          }
+        }
+      },
+      "raised": {
+        "$value": "{color.light.bg}",
+        "$type": "color",
+        "$description": "A raised card on the ground, the highest of three surface levels: always lighter than inset and ground, also in dark, so cards never read as holes. light: #ffffff raised. Added 2026-10-03.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards and panels that sit on ground"
+            ],
+            "dont": [
+              "Do not put it on the plain page background in light: both are white there"
             ]
           }
         }
@@ -202,7 +234,7 @@
               "card descriptions",
               "footnotes"
             ],
-            "a11y": "Verified 2026-09-22: 7.94:1 on bg, 7.09:1 on panel (worst). AAA."
+            "a11y": "Verified 2026-10-03: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA."
           }
         }
       },
@@ -216,7 +248,7 @@
               "timestamps",
               "placeholder text"
             ],
-            "a11y": "Verified 2026-09-22: 7.94:1 on bg, 7.09:1 on panel (worst). AAA. Same value as text-secondary: one muted step.",
+            "a11y": "Verified 2026-10-03: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA. Same value as text-secondary: one muted step.",
             "dont": [
               "Never body or secondary text"
             ]
@@ -300,7 +332,7 @@
         }
       },
       "accent-subtle": {
-        "$value": "{color.light.panel}",
+        "$value": "{color.light.inset}",
         "$type": "color",
         "$description": "Neutral selected wash (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
@@ -375,7 +407,7 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-09-22: 3.36:1 on bg, 3.00:1 on panel (worst). Non-text AA."
+            "a11y": "Verified 2026-10-03: 3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA."
           }
         }
       },
@@ -388,6 +420,21 @@
             "usage": [
               "Diagram strokes",
               "1px ink frames"
+            ]
+          }
+        }
+      },
+      "scrim": {
+        "$value": "{color.alpha.ink-22}",
+        "$type": "color",
+        "$description": "Ink at 22%: the scrim behind a modal panel (Drawer). It darkens the page without hiding it.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Drawer backdrop"
+            ],
+            "dont": [
+              "Not a surface or a text colour"
             ]
           }
         }

@@ -59,7 +59,57 @@ const REST_CONTRACTS = Object.entries(
  * integrity check still reads the full page.
  */
 
-const THEMES = ['light', 'dark'] as const;
+/* Fluid display floors (3 Oct 2026). The display tiers are clamp() ramps
+ * from 390 to 1440 (tokens/bella.css, font-size.display-*); the minimum is
+ * the accessibility floor. A story with parameters: { bella: { fluidType:
+ * true } } is re-measured at 390 and 1440: every heading computes at or
+ * above its floor at 390 and at most its ceiling at 1440. The values are
+ * the contract, written out so a token edit that lowers a floor fails here. */
+const DISPLAY_RAMP: Record<string, { min: number; max: number }> = {
+  hero: { min: 40, max: 76 },
+  page: { min: 40, max: 76 },
+  section: { min: 32, max: 44 },
+};
+
+async function runFluidTypeChecks(
+  page: Parameters<NonNullable<TestRunnerConfig['postVisit']>>[0],
+  storyId: string
+): Promise<void> {
+  const original = page.viewportSize();
+  const failures: string[] = [];
+  let measured = 0;
+  try {
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.waitForTimeout(100);
+      const sizes = await page.evaluate(() =>
+        [...document.querySelectorAll<HTMLElement>('#storybook-root [data-bella-component="heading"]')].map((h) => ({
+          tier: h.dataset.bellaTier ?? '',
+          size: parseFloat(getComputedStyle(h).fontSize),
+          text: (h.textContent ?? '').trim().slice(0, 30),
+        }))
+      );
+      for (const { tier, size, text } of sizes) {
+        const ramp = DISPLAY_RAMP[tier];
+        if (!ramp) continue;
+        measured++;
+        if (width === 390 && size < ramp.min)
+          failures.push(`${tier} "${text}" computes ${size}px at 390, below its ${ramp.min}px floor`);
+        if (width === 1440 && size > ramp.max)
+          failures.push(`${tier} "${text}" computes ${size}px at 1440, above its ${ramp.max}px ceiling`);
+      }
+    }
+  } finally {
+    if (original) await page.setViewportSize(original);
+  }
+  if (measured === 0) failures.push('fluidType is set but no tiered heading was measured');
+  if (failures.length > 0) {
+    throw new Error(`[audit:type] ${storyId}:\n  - ${failures.join('\n  - ')}`);
+  }
+}
+
+// warm (2026-10-03): a light-family theme, held to the light integrity bands
+const THEMES = ['light', 'dark', 'warm'] as const;
 
 function relativeLuminance(rgb: [number, number, number]): number {
   const lin = rgb.map((c) => {
@@ -389,6 +439,10 @@ const config: TestRunnerConfig = {
     const clipFocused = storyContext.parameters?.bella?.snapshotClip === 'focused';
     const skipSnapshots = process.env.SKIP_VISUAL_SNAPSHOTS === '1';
 
+    if (storyContext.parameters?.bella?.fluidType === true) {
+      await runFluidTypeChecks(page, context.id);
+    }
+
     for (const theme of THEMES) {
       await page.evaluate((t) => {
         document.documentElement.setAttribute('data-theme', t);
@@ -411,9 +465,9 @@ const config: TestRunnerConfig = {
         });
         if (bg) {
           const lum = relativeLuminance(bg as [number, number, number]);
-          if (theme === 'light' && lum < 0.4) {
+          if ((theme === 'light' || theme === 'warm') && lum < 0.4) {
             throw new Error(
-              `[audit:visual] ${context.id}: light theme renders a dark stage ` +
+              `[audit:visual] ${context.id}: ${theme} theme renders a dark stage ` +
                 `(background rgb(${bg.join(',')}), luminance ${lum.toFixed(3)}). ` +
                 `A light-mode story must sit on the light ground.`
             );
@@ -453,9 +507,9 @@ const config: TestRunnerConfig = {
           sum += (0.2126 * png.data[i] + 0.7152 * png.data[i + 1] + 0.0722 * png.data[i + 2]) / 255;
         }
         const mean = sum / n;
-        if (theme === 'light' && mean < 0.6) {
+        if ((theme === 'light' || theme === 'warm') && mean < 0.6) {
           throw new Error(
-            `[audit:visual] ${context.id}: light theme renders predominantly dark ` +
+            `[audit:visual] ${context.id}: ${theme} theme renders predominantly dark ` +
               `(mean luminance ${mean.toFixed(3)}, expected ≥ 0.6). Dark surfaces are ` +
               `leaking into the light theme. Opt out only for deliberate fixed-dark ` +
               `stories via parameters.bella.themeIntegrity = false.`

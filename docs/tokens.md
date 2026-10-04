@@ -72,20 +72,28 @@ value with the source reference in parentheses.
 | `color.alpha.key-24` | `#1212123D` | color |
 | `color.alpha.key-28` | `#12121247` | color |
 | `color.light.ink` | `#121212` | color |
-| `color.light.muted` | `#515151` | color |
+| `color.light.muted` | `#4b4b4b` | color |
 | `color.light.line` | `#e3e3e3` | color |
-| `color.light.control` | `#8c8c8c` | color |
+| `color.light.control` | `#838383` | color |
 | `color.light.panel` | `#f2f2f2` | color |
+| `color.light.inset` | `#e8e8e8` | color |
 | `color.light.bg` | `#ffffff` | color |
 | `color.light.ink-hover` | `#343434` | color |
 | `color.light.danger` | `#b3261e` | color |
 | `color.light.danger-subtle` | `#fcebe9` | color |
 | `color.light.success` | `#1a7439` | color |
 | `color.light.success-subtle` | `#e6f3ea` | color |
+| `color.warm.bg` | `#f6f1e8` | color |
+| `color.warm.panel` | `#fbfaf7` | color |
+| `color.warm.surface` | `#f0ede8` | color |
+| `color.warm.inset` | `#ebe4d6` | color |
+| `color.warm.muted` | `#4f463d` | color |
+| `color.warm.line` | `#e3dbcf` | color |
+| `color.warm.control` | `#857a6a` | color |
 | `color.dark.ink` | `#ededed` | color |
 | `color.dark.muted` | `#b1b1b1` | color |
 | `color.dark.line` | `#2a2a2a` | color |
-| `color.dark.control` | `#636363` | color |
+| `color.dark.control` | `#707070` | color |
 | `color.dark.surface` | `#161616` | color |
 | `color.dark.inset` | `#1f1f1f` | color |
 | `color.dark.raised` | `#262626` | color |
@@ -226,6 +234,18 @@ value with the source reference in parentheses.
 | `shadow.card-rest` | `13px 26px 54px #1A172038` (`13px 26px 54px {color.alpha.ink-22}`) | shadow |
 | `shadow.card-rest-dark` | `13px 26px 54px rgba(0, 0, 0, 0.44)` | shadow |
 | `shadow.hover-dark` | `0 8px 24px rgba(0, 0, 0, 0.45)` | shadow |
+| `layout.container.max` | `1440px` | dimension |
+| `layout.container.pad` | `clamp(16px, 4vw, 32px)` | dimension |
+| `layout.section.space` | `clamp(32px, 24px + 2vw, 48px)` | dimension |
+| `layout.stack.sm` | `8px` (`{spacing.2}`) | dimension |
+| `layout.stack.md` | `16px` (`{spacing.4}`) | dimension |
+| `layout.stack.lg` | `24px` (`{spacing.6}`) | dimension |
+| `layout.gutter` | `24px` (`{spacing.6}`) | dimension |
+| `layout.card.padding` | `24px` (`{spacing.6}`) | dimension |
+| `layout.grid.columns-wide` | `12` | number |
+| `layout.grid.columns-medium` | `8` | number |
+| `layout.grid.columns-narrow` | `4` | number |
+| `layout.measure.body` | `70ch` | dimension |
 
 ## Tier 2 — Semantic (light)
 
@@ -236,7 +256,9 @@ value with the source reference in parentheses.
 | `color.semantic.surface` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-card` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-elevated` | `#f2f2f2` (`{color.light.panel}`) | color |
-| `color.semantic.surface-inset` | `#f2f2f2` (`{color.light.panel}`) | color |
+| `color.semantic.surface-inset` | `#e8e8e8` (`{color.light.inset}`) | color |
+| `color.semantic.ground` | `#e3e3e3` (`{color.light.line}`) | color |
+| `color.semantic.raised` | `#ffffff` (`{color.light.bg}`) | color |
 | `color.semantic.surface-inverse` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-glass` | `linear-gradient(180deg, #FFFFFFD1 0%, #FFFFFFAD 100%)` (`linear-gradient(180deg, {color.alpha.glass-82} 0%, {color.alpha.glass-68} 100%)`) | other |
 | `color.semantic.surface-glass-elevated` | `linear-gradient(180deg, #FFFFFFAD 0%, #FFFFFF7A 100%)` (`linear-gradient(180deg, {color.alpha.glass-68} 0%, {color.alpha.glass-48} 100%)`) | other |
@@ -245,20 +267,21 @@ value with the source reference in parentheses.
 | `color.semantic.border-glass-top` | `#FFFFFFB8` (`{color.alpha.glass-72}`) | color |
 | `color.semantic.border-glass-edge` | `#FFFFFF8C` (`{color.alpha.glass-55}`) | color |
 | `color.semantic.text-primary` | `#121212` (`{color.light.ink}`) | color |
-| `color.semantic.text-secondary` | `#515151` (`{color.light.muted}`) | color |
-| `color.semantic.text-muted` | `#515151` (`{color.light.muted}`) | color |
+| `color.semantic.text-secondary` | `#4b4b4b` (`{color.light.muted}`) | color |
+| `color.semantic.text-muted` | `#4b4b4b` (`{color.light.muted}`) | color |
 | `color.semantic.text-inverse` | `#ededed` (`{color.dark.ink}`) | color |
 | `color.semantic.text-accent` | `#121212` (`{color.light.ink}`) | color |
 | `color.semantic.accent` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.accent-hover` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.text-on-accent` | `#121212` (`{color.light.ink}`) | color |
-| `color.semantic.accent-subtle` | `#f2f2f2` (`{color.light.panel}`) | color |
-| `color.semantic.accent-border` | `#8c8c8c` (`{color.light.control}`) | color |
+| `color.semantic.accent-subtle` | `#e8e8e8` (`{color.light.inset}`) | color |
+| `color.semantic.accent-border` | `#838383` (`{color.light.control}`) | color |
 | `color.semantic.border` | `#e3e3e3` (`{color.light.line}`) | color |
 | `color.semantic.border-subtle` | `#e3e3e3` (`{color.light.line}`) | color |
 | `color.semantic.border-faint` | `#e3e3e3` (`{color.light.line}`) | color |
-| `color.semantic.border-strong` | `#8c8c8c` (`{color.light.control}`) | color |
+| `color.semantic.border-strong` | `#838383` (`{color.light.control}`) | color |
 | `color.semantic.border-ink` | `#121212` (`{color.light.ink}`) | color |
+| `color.semantic.scrim` | `#1A172038` (`{color.alpha.ink-22}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
 | `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
@@ -296,6 +319,8 @@ value with the source reference in parentheses.
 | `color.semantic.surface-card` | `#161616` (`{color.dark.surface}`) | color |
 | `color.semantic.surface-elevated` | `#262626` (`{color.dark.raised}`) | color |
 | `color.semantic.surface-inset` | `#1f1f1f` (`{color.dark.inset}`) | color |
+| `color.semantic.ground` | `#0d0d0d` (`{color.dark.bg}`) | color |
+| `color.semantic.raised` | `#262626` (`{color.dark.raised}`) | color |
 | `color.semantic.surface-inverse` | `#f2f2f2` (`{color.light.panel}`) | color |
 | `color.semantic.surface-glass` | `#1B191699` (`{color.alpha.night-60}`) | color |
 | `color.semantic.surface-glass-elevated` | `#1B19167A` (`{color.alpha.night-48}`) | color |
@@ -311,13 +336,14 @@ value with the source reference in parentheses.
 | `color.semantic.accent` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.accent-hover` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.text-on-accent` | `#121212` (`{color.light.ink}`) | color |
-| `color.semantic.accent-subtle` | `#161616` (`{color.dark.surface}`) | color |
-| `color.semantic.accent-border` | `#636363` (`{color.dark.control}`) | color |
+| `color.semantic.accent-subtle` | `#1f1f1f` (`{color.dark.inset}`) | color |
+| `color.semantic.accent-border` | `#707070` (`{color.dark.control}`) | color |
 | `color.semantic.border` | `#2a2a2a` (`{color.dark.line}`) | color |
 | `color.semantic.border-subtle` | `#2a2a2a` (`{color.dark.line}`) | color |
 | `color.semantic.border-faint` | `#2a2a2a` (`{color.dark.line}`) | color |
-| `color.semantic.border-strong` | `#636363` (`{color.dark.control}`) | color |
+| `color.semantic.border-strong` | `#707070` (`{color.dark.control}`) | color |
 | `color.semantic.border-ink` | `#ededed` (`{color.dark.ink}`) | color |
+| `color.semantic.scrim` | `#1B191699` (`{color.alpha.night-60}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
 | `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |
@@ -371,9 +397,9 @@ value with the source reference in parentheses.
 | `component.button.primary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.button.secondary.background` | `transparent` | color |
 | `component.button.secondary.background-hover` | `transparent` | color |
-| `component.button.secondary.background-active` | `#f2f2f2` (`{color.semantic.surface-inset}`) | color |
+| `component.button.secondary.background-active` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
 | `component.button.secondary.foreground` | `#121212` (`{color.semantic.text-accent}`) | color |
-| `component.button.secondary.border` | `#8c8c8c` (`{color.semantic.border-strong}`) | color |
+| `component.button.secondary.border` | `#838383` (`{color.semantic.border-strong}`) | color |
 | `component.button.secondary.border-hover` | `#121212` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
@@ -436,62 +462,63 @@ value with the source reference in parentheses.
 | `component.resource-card.default.tab-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.resource-card.default.tab-font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
 | `component.resource-card.default.tab-letter-spacing` | `0.08em` (`{typography.letter-spacing.wide}`) | dimension |
-| `component.resource-card.default.tab-foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.resource-card.default.tab-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.resource-card.default.body-padding` | `20px` (`{spacing.5}`) | dimension |
 | `component.resource-card.default.title-font-size` | `20px` (`{typography.font-size.xl}`) | dimension |
 | `component.resource-card.default.title-font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.resource-card.default.title-letter-spacing` | `-0.015em` (`{typography.letter-spacing.title}`) | dimension |
 | `component.resource-card.default.title-foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
 | `component.resource-card.default.description-font-size` | `16px` (`{typography.font-size.base}`) | dimension |
-| `component.resource-card.default.description-foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.resource-card.default.description-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.resource-card.default.divider-color` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
 | `component.resource-card.default.meta-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.resource-card.default.meta-foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.resource-card.default.meta-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.resource-card.default.status-dot-size` | `8px` (`{spacing.2}`) | dimension |
-| `component.resource-card.default.status-dot-color` | `#515151` (`{color.semantic.text-muted}`) | color |
+| `component.resource-card.default.status-dot-color` | `#4b4b4b` (`{color.semantic.text-muted}`) | color |
 | `component.resource-card.default.action-foreground` | `#121212` (`{color.semantic.text-accent}`) | color |
 | `component.resource-card.default.action-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.resource-card.default.action-font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
-| `component.tag.default.background` | `#f2f2f2` (`{color.semantic.surface-inset}`) | color |
-| `component.tag.default.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.tag.default.background` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
+| `component.tag.default.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.tag.default.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.default.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.default.padding-x` | `12px` (`{spacing.3}`) | dimension |
-| `component.tag.default.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.tag.default.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.tag.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.tag.default.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.tag.default.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.tag.default.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.tag.default.font-feature-settings` | `normal` | other |
 | `component.tag.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.tag.accent.foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
 | `component.status-pill.border-radius` | `999px` (`{radius.full}`) | dimension |
-| `component.status-pill.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.status-pill.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.status-pill.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.status-pill.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.status-pill.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.status-pill.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.status-pill.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.status-pill.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.status-pill.font-feature-settings` | `normal` | other |
 | `component.status-pill.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.status-pill.accent.foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
-| `component.filter-chip.border` | `#8c8c8c` (`{color.semantic.border-strong}`) | color |
-| `component.filter-chip.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.filter-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.filter-chip.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.filter-chip.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.filter-chip.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.filter-chip.compact.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
 | `component.filter-chip.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.filter-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.segmented-control.border-radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.segmented-control.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.segmented-control.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
-| `component.segmented-control.font-weight` | `700` (`{typography.font-weight.bold}`) | fontWeight |
+| `component.segmented-control.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.segmented-control.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.segmented-control.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.select.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.select.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.select.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.select.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.select.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.select.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.heading.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
 | `component.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.heading.letter-spacing` | `-0.035em` (`{typography.letter-spacing.display}`) | dimension |
@@ -504,8 +531,8 @@ value with the source reference in parentheses.
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |
 | `component.icon.size-lg` | `24px` (`{icon.lg}`) | dimension |
 | `component.icon.stroke` | `1.5` (`{icon.stroke}`) | number |
-| `component.avatar.default.background` | `#f2f2f2` (`{color.semantic.surface-inset}`) | color |
-| `component.avatar.default.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.avatar.default.background` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
+| `component.avatar.default.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.avatar.default.border-color` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
 | `component.avatar.default.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.avatar.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
@@ -519,18 +546,18 @@ value with the source reference in parentheses.
 | `component.avatar.md.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.avatar.lg.size` | `80px` (`{spacing.20}`) | dimension |
 | `component.avatar.lg.font-size` | `24px` (`{typography.font-size.2xl}`) | dimension |
-| `component.eyebrow.muted.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
-| `component.eyebrow.muted.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.eyebrow.muted.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.eyebrow.muted.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.eyebrow.muted.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.eyebrow.muted.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.eyebrow.muted.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.eyebrow.muted.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.eyebrow.muted.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.eyebrow.muted.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.eyebrow.muted.font-feature-settings` | `normal` | other |
 | `component.eyebrow.ink.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
-| `component.eyebrow.ink.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
-| `component.eyebrow.ink.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.eyebrow.ink.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.eyebrow.ink.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
 | `component.eyebrow.ink.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
-| `component.eyebrow.ink.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
-| `component.eyebrow.ink.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.eyebrow.ink.letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
+| `component.eyebrow.ink.font-feature-settings` | `normal` | other |
 | `component.input.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.input.border-radius` | `8px` (`{radius.md}`) | dimension |
 | `component.input.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
@@ -540,7 +567,7 @@ value with the source reference in parentheses.
 | `component.link.default.underline-thickness` | `1px` (`{border.width.thin}`) | dimension |
 | `component.link.default.underline-thickness-hover` | `2px` (`{border.width.medium}`) | dimension |
 | `component.link.default.underline-offset` | `4px` (`{spacing.1}`) | dimension |
-| `component.nav-link.default.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.nav-link.default.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.nav-link.default.foreground-hover` | `#121212` (`{color.semantic.text-primary}`) | color |
 | `component.nav-link.default.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.nav-link.default.font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
@@ -553,22 +580,124 @@ value with the source reference in parentheses.
 | `component.section.default.padding-x` | `24px` (`{spacing.6}`) | dimension |
 | `component.section.default.gap` | `48px` (`{spacing.12}`) | dimension |
 | `component.section.default.max-width` | `1200px` | dimension |
+| `component.section.heading.font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.section.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.section.heading.letter-spacing` | `-0.03em` (`{typography.letter-spacing.h2}`) | dimension |
+| `component.section.space` | `clamp(32px, 24px + 2vw, 48px)` (`{layout.section.space}`) | dimension |
+| `component.section.body-gap` | `24px` (`{layout.stack.lg}`) | dimension |
 | `component.modal.backdrop.blur` | `14px` (`{blur.sm}`) | dimension |
 | `component.brand-wordmark.nav-height` | `40px` (`{spacing.10}`) | dimension |
 | `component.brand-wordmark.min-height` | `32px` (`{spacing.8}`) | dimension |
 | `component.pattern-field.opacity` | `0.07` (`{opacity.pattern-field}`) | number |
-| `component.callout.note.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.callout.note.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.note.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
 | `component.callout.note.rule-color` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
 | `component.callout.note.rule-width` | `1px` (`{border.width.thin}`) | dimension |
 | `component.callout.note.padding-inline-start` | `12px` (`{spacing.3}`) | dimension |
-| `component.callout.gap.foreground` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.callout.gap.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.gap.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
 | `component.callout.gap.label-foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
-| `component.callout.gap.label-font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.callout.gap.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.callout.gap.label-font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
-| `component.callout.gap.border-color` | `#515151` (`{color.semantic.text-secondary}`) | color |
+| `component.callout.gap.border-color` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
 | `component.callout.gap.border-style` | `dashed` | other |
 | `component.callout.gap.border-width` | `1px` (`{border.width.thin}`) | dimension |
 | `component.callout.gap.radius` | `12px` (`{radius.lg}`) | dimension |
 | `component.callout.gap.padding` | `16px` (`{spacing.4}`) | dimension |
+| `component.tabs.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.tabs.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.tabs.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
+| `component.tabs.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.tabs.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.tabs.indicator` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.tabs.indicator-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.kbd.background` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
+| `component.kbd.foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.kbd.border` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.kbd.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.kbd.font-family` | `'Geist Mono', ui-monospace, monospace` (`{typography.font-family.mono}`) | fontFamily |
+| `component.kbd.font-size` | `13px` (`{typography.font-size.mono}`) | dimension |
+| `component.kbd.font-feature-settings` | `"ss09" 1` (`{typography.font-feature.mono}`) | other |
+| `component.nav-list.font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.nav-list.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.nav-list.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.nav-list.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.nav-list.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.nav-list.border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.nav-list.current-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.stat.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.stat.label-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.stat.value-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
+| `component.stat.value-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.stat.delta-font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.stat.trend-width` | `80px` (`{spacing.20}`) | dimension |
+| `component.stat.trend-height` | `24px` (`{spacing.6}`) | dimension |
+| `component.stat.trend-stroke` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.score-strip.name-font-size` | `20px` (`{typography.font-size.xl}`) | dimension |
+| `component.score-strip.score-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
+| `component.score-strip.value-font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
+| `component.score-strip.label-font-family` | `Geist, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
+| `component.score-strip.label-font-size` | `13px` (`{typography.font-size.tag}`) | dimension |
+| `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
+| `component.score-strip.cell-min-width` | `calc(80px * 1.5)` (`calc({spacing.20} * 1.5)`) | dimension |
+| `component.score-strip.track` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.score-strip.track-fill` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.data-table.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.data-table.row-min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.data-table.compact-row-min-height` | `32px` (`{spacing.8}`) | dimension |
+| `component.data-table.border-radius` | `12px` (`{radius.lg}`) | dimension |
+| `component.data-table.header-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.data-table.selected-background` | `#e8a83e` (`{color.semantic.accent}`) | color |
+| `component.data-table.selected-foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
+| `component.drawer.width` | `min(85vw, 20rem)` | dimension |
+| `component.drawer.padding` | `20px` (`{spacing.5}`) | dimension |
+| `component.drawer.background` | `#f2f2f2` (`{color.semantic.surface-elevated}`) | color |
+| `component.drawer.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.drawer.border` | `#e3e3e3` (`{color.semantic.border}`) | color |
+| `component.drawer.shadow` | `0 12px 32px rgba(28,26,46,0.12)` (`{shadow.lg}`) | shadow |
+| `component.drawer.scrim` | `#1A172038` (`{color.semantic.scrim}`) | color |
+| `component.drawer.duration` | `250ms` (`{motion.duration.normal}`) | duration |
+| `component.combobox.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.combobox.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.combobox.border-radius` | `12px` (`{radius.lg}`) | dimension |
+| `component.combobox.border` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.combobox.background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.combobox.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.combobox.list-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.combobox.group-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.combobox.active-background` | `#e8a83e` (`{color.semantic.accent}`) | color |
+| `component.combobox.active-foreground` | `#121212` (`{color.semantic.text-on-accent}`) | color |
+| `component.disclosure.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.disclosure.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.disclosure.border` | `#e3e3e3` (`{color.semantic.border}`) | color |
+| `component.disclosure.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.disclosure.meta-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.action-chip.font-size` | `16px` (`{typography.font-size.base}`) | dimension |
+| `component.action-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.action-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.action-chip.border` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.action-chip.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.action-chip.hover-background` | `#e3e3e3` (`{color.semantic.border-subtle}`) | color |
+| `component.action-chip.quiet-hover-background` | `#e8e8e8` (`{color.semantic.surface-inset}`) | color |
+| `component.page-header.title.font-size` | `40px` (`{typography.font-size.4xl}`) | dimension |
+| `component.page-header.title.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.page-header.title.line-height` | `1.08` (`{typography.line-height.heading}`) | number |
+| `component.page-header.title.letter-spacing` | `-0.035em` (`{typography.letter-spacing.display}`) | dimension |
+| `component.page-header.lede.font-size` | `18px` (`{typography.font-size.lg}`) | dimension |
+| `component.page-header.lede.max-width` | `70ch` (`{layout.measure.body}`) | dimension |
+| `component.page-header.meta.font-size` | `14px` (`{typography.font-size.sm}`) | dimension |
+| `component.page-header.foreground` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.page-header.meta-foreground` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |
+| `component.page-header.gap` | `8px` (`{layout.stack.sm}`) | dimension |
+| `component.sidebar-layout.gap` | `24px` (`{layout.gutter}`) | dimension |
+| `component.sidebar-layout.columns` | `12` (`{layout.grid.columns-wide}`) | number |
+| `component.columns.gap` | `24px` (`{layout.gutter}`) | dimension |
+| `component.slider.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.slider.track-height` | `4px` (`{spacing.1}`) | dimension |
+| `component.slider.thumb-size` | `24px` (`{spacing.6}`) | dimension |
+| `component.slider.track` | `#838383` (`{color.semantic.border-strong}`) | color |
+| `component.slider.fill` | `#121212` (`{color.semantic.text-primary}`) | color |
+| `component.slider.thumb-background` | `#f2f2f2` (`{color.semantic.surface-card}`) | color |
+| `component.slider.thumb-border` | `#121212` (`{color.semantic.border-ink}`) | color |
+| `component.slider.mark` | `#4b4b4b` (`{color.semantic.text-secondary}`) | color |

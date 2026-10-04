@@ -30,7 +30,7 @@ for (const key of Object.keys(contracts)) {
   const meta = contracts[key]?.$extensions?.bella ?? {};
   const src = readFileSync(file, "utf8");
   const ifaceMatch = src.match(
-    new RegExp(`export interface ${name}Props\\s*\\{([\\s\\S]*?)\\n\\}`)
+    new RegExp(`export interface ${name}Props(?:<[^{]*>)?\\s*\\{([\\s\\S]*?)\\n\\}`)
   );
   if (!ifaceMatch) {
     failures.push(`${key}: ${file} exports no "interface ${name}Props" the check can read`);

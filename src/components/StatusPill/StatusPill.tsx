@@ -6,9 +6,11 @@ export interface StatusPillProps {
    * The state tint. `"accent"` is the quiet accent ring (the portfolio's
    * "Current focus"). `"success"` and `"info"` wear the carried sage and
    * steel tints, non-text roles only per the recorded decision; the
-   * pending status ladder (issue #1) will restyle them.
+   * pending status ladder (issue #1) will restyle them. `"neutral"` has no
+   * tint: the inset fill and a hairline, for a state that is neither good
+   * nor bad ("not tested", "draft", "disabled").
    */
-  variant?: 'accent' | 'success' | 'info';
+  variant?: 'accent' | 'success' | 'info' | 'neutral';
   /** Extra classes on the pill. */
   className?: string;
   children?: ReactNode;

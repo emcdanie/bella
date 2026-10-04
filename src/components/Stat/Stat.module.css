@@ -1,0 +1,80 @@
+/* Stat (CHIP components, 2026-10-03). Tokens only. One figure: a sans label,
+ * a light display figure in tabular numerals, an optional change line with
+ * an optional sparkline (2026-10-03, Elleta: a trend that never relies on
+ * colour).
+ *
+ * No colour for direction: up and down are an arrow glyph plus a spoken
+ * word, in text-secondary. Green-for-up would claim that up is good, and
+ * the status ladder has no neutral "changed" colour. No box of its own:
+ * the consumer places Stats on a Card or panel. */
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  margin: 0;
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--component-stat-label-font-family);
+  font-size: var(--component-stat-label-font-size);
+  color: var(--color-semantic-text-secondary);
+}
+
+.value {
+  margin: 0;
+  font-family: var(--component-stat-value-font-family);
+  font-size: var(--component-stat-value-font-size);
+  font-weight: var(--component-stat-value-font-weight);
+  line-height: var(--typography-line-height-heading);
+  letter-spacing: var(--typography-letter-spacing-h2);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-semantic-text-primary);
+}
+
+.delta {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-stat-delta-font-size);
+  letter-spacing: var(--typography-letter-spacing-body);
+  color: var(--color-semantic-text-secondary);
+}
+
+.delta:has(.spark) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* the sparkline: a 1px ink line and an end dot. Its shape and the arrow plus
+   spoken word carry the direction; colour carries nothing */
+.spark {
+  inline-size: var(--component-stat-trend-width);
+  block-size: var(--component-stat-trend-height);
+  flex: none;
+  overflow: visible;
+}
+
+.spark polyline {
+  fill: none;
+  stroke: var(--component-stat-trend-stroke);
+  stroke-width: var(--border-width-thin);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.spark circle {
+  fill: var(--component-stat-trend-stroke);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

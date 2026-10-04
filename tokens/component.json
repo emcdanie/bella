@@ -8,6 +8,9 @@
       "$extensions": {
         "bella": {
           "name": "Button",
+          "category": "Actions",
+          "shapes": ["default", "pill"],
+          "rendersAs": "a button, or one anchor with href",
           "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique.",
           "variants": ["primary", "secondary", "tertiary"],
           "states": ["default", "hover", "active", "focus", "disabled"],
@@ -15,6 +18,13 @@
           "usage": ["Hero CTA", "Card 'Read more' action", "Form submit", "Contact send", "Nav call to action (shape pill)", "The primary contact CTA reads \"Let's talk\" (brand refresh, 2026-09-22)"],
           "dont": ["Do not render more than one primary per view: the keycap is the single 3D moment", "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory", "Do not set labels in Unique at any size", "Do not build a neutral keycap: that tier is retired", "Do not lift a button on hover: lift is reserved for cards; hover is the label roll", "Do not add the trace ring to a button: the trace is Card's affordance"],
           "a11y": "Verified 2026-09-22: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.",
+          "anatomy": [
+            {"key": "shadow", "title": "Key shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-key-resting", "detail": "1px 3px 0 ink, soft drop, inset highlight (primary)"},
+            {"key": "fill", "title": "Fill", "kind": "fill", "target": ":scope", "zone": {"inset": 6}, "token": "--component-button-primary-fill-hi", "detail": "ink plate, 1px edge, white-alpha gloss"},
+            {"key": "box", "title": "Box", "kind": "box", "target": ":scope", "zone": {"inset": 0}, "token": "--component-button-primary-min-height", "detail": "44px min, padding 12 / 20, radius 12"},
+            {"key": "label", "title": "Label", "kind": "content", "target": "[data-bella-roll=label]", "zone": {"inset": -4}, "token": "--component-button-primary-font-size", "detail": "Geist 13, 700, caps, 0.08em"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "detail": "3px, 3px offset, focus-visible only"}
+          ],
           "restState": {
             "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": ["plate gradient + gloss", "1px accent-raised-edge border", "shadow.key-resting", "label"],
@@ -94,6 +104,8 @@
       "$extensions": {
         "bella": {
           "name": "Card",
+          "category": "Layout",
+          "rendersAs": "a div; with href one anchor, with onClick one button",
           "description": "The one-card system: every card surface renders through this. Calm at rest, theme-aware by construction; the only fixed-light path is Peek, on purpose.",
           "variants": ["default", "peek"],
           "states": ["resting", "hover", "focus"],
@@ -101,6 +113,13 @@
           "usage": ["Portfolio grid", "Case-study cards", "CHIP idea clusters", "Dashboard tiles"],
           "dont": ["Do not nest cards inside cards", "Do not use for navigation, that's nav-link's job", "Do not nest links or buttons inside an interactive card: the card is ONE link or ONE button", "Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context exception"],
           "a11y": "Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes). Only interactive cards lift on hover and focus; prefers-reduced-motion keeps them still (the shadow still marks hover and focus). Card text sits on surface-card: text-muted 4.64:1 light / 6.03:1 dark, the worst pair (AA).",
+          "anatomy": [
+            {"key": "shadow", "title": "Hover shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-hover", "trigger": "hover", "detail": "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift"},
+            {"key": "surface", "title": "Surface", "kind": "fill", "target": ":scope > div", "zone": {"inset": 12}, "token": "--color-semantic-surface-card", "trigger": "rest", "detail": "the card fill, flat at rest"},
+            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-faint", "trigger": "rest", "detail": "1px hairline, radius 16 (--radius-card)"},
+            {"key": "padding", "title": "Padding", "kind": "box", "target": ":scope > div", "zone": {"inset": 0}, "token": "--spacing-6", "trigger": "rest", "detail": "24px all round"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -8}, "token": "--ring-focus-color", "trigger": "focus", "detail": "interactive cards only: 3px, 3px offset, focus-visible only"}
+          ],
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
             "description": "FLAT AT REST is a contract (surface rules, 2026-09-19): only these layers may paint before hover/focus. audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
@@ -179,6 +198,7 @@
       "$extensions": {
         "bella": {
           "name": "ResourceCard",
+          "category": "Layout",
           "description": "The folder card. A dark file window on top, a warm sheet below, and a tab folded up from the sheet itself so the two read as one piece of paper. Built for the toolkit gallery, where every item is a file you can open.",
           "variants": [],
           "states": ["default", "hover", "focus-visible"],
@@ -234,6 +254,7 @@
       "$extensions": {
         "bella": {
           "name": "Tag",
+          "category": "Data",
           "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
           "variants": ["default", "accent"],
           "states": ["default"],
@@ -259,11 +280,11 @@
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
-        "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: tags are meta labels (style unify, 2026-09-22)." },
-        "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
-        "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
-        "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" }
+        "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Geist sans: tags use the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)." },
+        "font-size":      { "$value": "{typography.font-size.tag}",      "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Regular weight: a quiet label." },
+        "letter-spacing": { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "normal", "$type": "other" }
       },
 
       "accent": {
@@ -279,11 +300,12 @@
       "$extensions": {
         "bella": {
           "name": "StatusPill",
+          "category": "Data",
           "description": "A status word in a pill. Non-interactive, one tint per state, readable in both themes.",
-          "variants": ["accent", "success", "info"],
+          "variants": ["accent", "success", "info", "neutral"],
           "states": ["default"],
           "props": ["variant", "className", "children"],
-          "usage": ["Current-focus marker", "Project state rows", "Availability notes"],
+          "usage": ["Current-focus marker", "Project state rows", "Availability notes", "neutral: a state that is neither good nor bad (not tested, draft, disabled), no tint (CHIP, 2026-10-03)"],
           "dont": ["Do not make it clickable: a pill that toggles is a FilterChip", "Do not colour the label with the state tint: the tint is border and wash only, the word carries the meaning", "Do not design new status UI on the carried tints without asking: the BELLA-native status ladder (issue #1) is pending and will restyle this"],
           "a11y": "Verified 2026-07-22: the label never depends on the tint. Accent label is text-accent, 5.66:1 light / 6.65:1 dark (AA). Success/info labels are text-secondary, AAA both themes. Tints as non-text rings: sage 4.33:1 on ground and 3.45:1 on navy (passes 3:1); steel 2.87:1 on ground (fails 3:1, wash-only per the recorded carry) and 5.20:1 on navy. The state is always readable from the word alone. CARRIED TINTS: pending the status-ladder sitting (issue #1).",
           "restState": {
@@ -299,11 +321,11 @@
       },
 
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
-      "font-family":    { "$value": "{typography.font-family.mono}",    "$type": "fontFamily", "$description": "Geist Mono: a status word is a meta label (style unify, 2026-09-22)." },
-      "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
-      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
-      "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
-      "font-feature-settings": { "$value": "{typography.font-feature.mono}", "$type": "other" },
+      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Geist sans: a status word uses the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)." },
+      "font-size":      { "$value": "{typography.font-size.tag}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
+      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Regular weight: a quiet label." },
+      "letter-spacing": { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+      "font-feature-settings": { "$value": "normal", "$type": "other" },
       "accent": {
         "background":   { "$value": "{color.semantic.accent}",    "$type": "color", "$description": "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill." },
         "foreground":   { "$value": "{color.semantic.text-on-accent}", "$type": "color" }
@@ -314,13 +336,23 @@
       "$extensions": {
         "bella": {
           "name": "FilterChip",
+          "category": "Actions",
+          "rendersAs": "a button with aria-pressed",
           "description": "The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.",
           "variants": [],
           "states": ["default", "hover", "pressed", "focus"],
-          "props": ["pressed", "onClick", "ariaLabel", "className", "children"],
-          "usage": ["Work library skill/type filters", "Any multi-select narrowing row"],
+          "props": ["pressed", "onClick", "ariaLabel", "size", "className", "children"],
+          "usage": ["Work library skill/type filters", "Any multi-select narrowing row", "size compact: a long wrapping row of tag filters (CHIP Docs); the 44px target stays"],
           "dont": ["Do not use for mutually exclusive views: that is SegmentedControl", "Do not raise it: the keycap is reserved for true actions", "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"],
           "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
+          "anatomy": [
+            {"key": "box", "title": "Box", "kind": "box", "target": ":scope", "zone": {"inset": 0}, "token": "--component-filter-chip-min-height", "trigger": "rest", "detail": "44px min, padding 4 / 16, pill radius"},
+            {"key": "outline", "title": "Outline", "kind": "edge", "target": ":scope", "zone": {"inset": -3}, "token": "--component-filter-chip-border", "trigger": "rest", "detail": "1px border-strong, never raised"},
+            {"key": "hover", "title": "Hover wash", "kind": "state", "target": ":scope", "zone": {"inset": 4}, "token": "--color-semantic-border-subtle", "trigger": "hover", "detail": "border-subtle wash, the edge goes ink"},
+            {"key": "pressed", "title": "Pressed fill", "kind": "fill", "target": ":scope", "zone": {"inset": 8}, "token": "--color-semantic-background-inverse", "trigger": "pressed", "detail": "inverse fill, label text-inverse; aria-pressed is the state"},
+            {"key": "label", "title": "Label", "kind": "content", "target": ":scope", "zone": {"inset": 12}, "token": "--component-filter-chip-foreground", "trigger": "rest", "detail": "Geist 14, 500, text-secondary"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, focus-visible only"}
+          ],
           "restState": {
             "description": "At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
             "atRest": ["outline border", "label"],
@@ -340,6 +372,9 @@
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
       "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
       "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
+      "compact": {
+        "font-size":    { "$value": "{typography.font-size.tag}",       "$type": "dimension" }
+      },
       "font-weight":    { "$value": "{typography.font-weight.medium}",  "$type": "fontWeight" },
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
     },
@@ -348,6 +383,7 @@
       "$extensions": {
         "bella": {
           "name": "SegmentedControl",
+          "category": "Actions",
           "description": "Pick one view among a few, all options visible. The selected state lives in ARIA, not just paint.",
           "variants": [],
           "states": ["default", "hover", "selected", "focus"],
@@ -371,8 +407,8 @@
 
       "border-radius":  { "$value": "{radius.lg}",                      "$type": "dimension" },
       "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
-      "font-size":      { "$value": "{typography.font-size.tag}",       "$type": "dimension" },
-      "font-weight":    { "$value": "{typography.font-weight.bold}",    "$type": "fontWeight" },
+      "font-size":      { "$value": "{typography.font-size.sm}",       "$type": "dimension" },
+      "font-weight":    { "$value": "{typography.font-weight.medium}",    "$type": "fontWeight" },
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
     },
 
@@ -380,6 +416,7 @@
       "$extensions": {
         "bella": {
           "name": "Select",
+          "category": "Inputs",
           "description": "For long lists only. If the options fit on screen, chips or a segmented control do it better.",
           "variants": [],
           "states": ["default", "focus", "open"],
@@ -403,13 +440,14 @@
       "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
       "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" },
       "label-font-family": { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
-      "label-font-size":   { "$value": "{typography.font-size.tag}",    "$type": "dimension" }
+      "label-font-size":   { "$value": "{typography.font-size.sm}",    "$type": "dimension" }
     },
 
     "heading": {
       "$extensions": {
         "bella": {
           "name": "Heading",
+          "category": "Layout",
           "description": "Geist Light 300 carries every heading tier, tight tracking, sentence case (style unify, 2026-09-22, Elleta). Unique is the wordmark only. Never inside a card.",
           "variants": ["hero", "page", "section"],
           "states": ["default"],
@@ -446,6 +484,7 @@
       "$extensions": {
         "bella": {
           "name": "Icon",
+          "category": "Data",
           "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful.",
           "variants": [],
           "states": ["default"],
@@ -474,6 +513,7 @@
       "$extensions": {
         "bella": {
           "name": "Avatar",
+          "category": "Data",
           "description": "A person or entity as a circle. An image when there is one, the initials of the name when there is not, never an empty grey disc.",
           "variants": [],
           "states": ["default"],
@@ -521,7 +561,8 @@
       "$extensions": {
         "bella": {
           "name": "Eyebrow",
-          "description": "Geist Mono 13px label above a heading: no tracking, no caps, ss09 (style unify, 2026-09-22, Elleta). Signals context or category.",
+          "category": "Layout",
+          "description": "Sans label above a heading, 14px, no tracking, no caps (label style; mono is for tokens, code and hashes only, Elleta, 2026-10-03). Signals context or category.",
           "variants": ["muted", "ink"],
           "states": ["default"],
           "props": ["variant", "as", "className", "children"],
@@ -542,20 +583,20 @@
 
       "muted": {
         "foreground":            { "$value": "{color.semantic.text-secondary}", "$type": "color" },
-        "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
-        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-family":           { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
+        "font-size":             { "$value": "{typography.font-size.sm}",      "$type": "dimension" },
         "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
-        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
-        "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
+        "letter-spacing":        { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "normal",   "$type": "other" }
       },
 
       "ink": {
         "foreground":            { "$value": "{color.semantic.text-primary}", "$type": "color" },
-        "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
-        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-family":           { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
+        "font-size":             { "$value": "{typography.font-size.sm}",      "$type": "dimension" },
         "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
-        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
-        "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
+        "letter-spacing":        { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "font-feature-settings": { "$value": "normal",   "$type": "other" }
       }
     },
 
@@ -563,6 +604,7 @@
       "$extensions": {
         "bella": {
           "name": "Input",
+          "category": "Inputs",
           "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.",
           "variants": [],
           "states": ["default", "focus", "disabled", "error"],
@@ -570,6 +612,14 @@
           "usage": ["Contact form fields", "Any labelled free-text entry; multiline renders the textarea"],
           "dont": ["Do not use placeholder as the label: the label is always rendered and wired with for/id", "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern", "Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid"],
           "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
+          "anatomy": [
+            {"key": "label", "title": "Label", "kind": "content", "target": "label", "zone": {"inset": -2}, "token": "--color-semantic-text-secondary", "trigger": "rest", "detail": "Geist 13, 700, caps; a real label wired for/id"},
+            {"key": "field", "title": "Field", "kind": "fill", "target": "input, textarea", "zone": {"inset": 6}, "token": "--color-semantic-surface", "trigger": "rest", "detail": "surface, padding 12 / 16, radius 8"},
+            {"key": "border", "title": "Border", "kind": "edge", "target": "input, textarea", "zone": {"inset": -3}, "token": "--color-semantic-border-strong", "trigger": "rest", "detail": "1px border-strong, the 3:1 control edge"},
+            {"key": "box", "title": "Box", "kind": "box", "target": "input, textarea", "zone": {"inset": 0}, "token": "--component-input-min-height", "trigger": "rest", "detail": "44px min, field text 16px"},
+            {"key": "placeholder", "title": "Placeholder", "kind": "content", "target": "input, textarea", "zone": {"inset": 12}, "token": "--color-semantic-text-muted", "trigger": "rest", "detail": "text-muted, opacity reset for Firefox; never the label"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": "input, textarea", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, and the edge goes ink"}
+          ],
           "restState": {
             "description": "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input).",
             "atRest": ["field surface + border", "label", "hint or error message"],
@@ -591,13 +641,21 @@
       "$extensions": {
         "bella": {
           "name": "Link",
+          "category": "Actions",
+          "rendersAs": "an anchor; external opens a new tab",
           "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
           "variants": [],
           "states": ["default", "hover", "visited", "focus"],
           "props": ["href", "external", "className", "children"],
           "usage": ["Inline references inside paragraphs", "Footer links"],
           "dont": ["Do not use for primary navigation, that's nav-link", "Do not rely on color alone, always underlined or weight-shifted on hover"],
-          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout."
+          "a11y": "Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout.",
+          "anatomy": [
+            {"key": "text", "title": "Text", "kind": "content", "target": ":scope", "zone": {"inset": -2}, "token": "--component-link-default-foreground", "trigger": "rest", "detail": "ink; visited stays ink"},
+            {"key": "underline", "title": "Underline", "kind": "edge", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--component-link-default-underline-thickness", "trigger": "rest", "detail": "1px, 4px offset (--component-link-default-underline-offset)"},
+            {"key": "underline-hover", "title": "Hover underline", "kind": "state", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--component-link-default-underline-thickness-hover", "trigger": "hover", "detail": "thickens to 2px; colour stays ink"},
+            {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -6}, "token": "--ring-focus-color", "trigger": "focus", "detail": "3px, 3px offset, radius 4, focus-visible only"}
+          ]
         }
       },
 
@@ -644,9 +702,24 @@
       "$extensions": {
         "bella": {
           "name": "Section",
-          "description": "A vertical slice of a page. Defines standard padding and gap for content blocks.",
-          "usage": ["Case-study sections", "Portfolio page regions"],
-          "dont": ["Do not nest sections inside sections"]
+          "category": "Layout",
+          "rendersAs": "a section labelled by its h2",
+          "description": "A vertical slice of a page (layout foundation, 2026-10-03): an h2 at the one section size, an optional lede and actions, then the body. The id makes it an anchor for an On this page list, and the anchor clears a sticky header. Sections are spaced by layout.section.space on every page. The default group (padding, max-width) is the portfolio's older section box; the container now comes from layout.container.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["heading", "id", "lede", "actions", "children", "className"],
+          "usage": ["Every block of a page below the PageHeader", "Case-study sections", "Health: Readiness map, Usage, Open failures, Components"],
+          "dont": ["Do not nest sections inside sections: inside a section, use Card titles", "Do not leave out the heading: a block with no heading is a Columns or a Card", "Do not set your own margins between sections: the section space is the rhythm"],
+          "a11y": "Verified 2026-10-03: a section element named by its h2 (aria-labelledby); the h2 is 32px text-primary (AAA, the section-heading floor); the lede is text-secondary (AAA) held to 70ch; scroll-margin keeps an anchored heading clear of a sticky header.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": ["heading", "lede", "body"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
         }
       },
 
@@ -655,7 +728,14 @@
         "padding-x":        { "$value": "{spacing.6}",                   "$type": "dimension" },
         "gap":              { "$value": "{spacing.12}",                  "$type": "dimension" },
         "max-width":        { "$value": "1200px",                        "$type": "dimension" }
-      }
+      },
+      "heading": {
+        "font-size":        { "$value": "{typography.font-size.3xl}",          "$type": "dimension" },
+        "font-weight":      { "$value": "{typography.font-weight.light}",      "$type": "fontWeight" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.h2}",      "$type": "dimension" }
+      },
+      "space":              { "$value": "{layout.section.space}",              "$type": "dimension" },
+      "body-gap":           { "$value": "{layout.stack.lg}",                   "$type": "dimension" }
     },
 
     "modal": {
@@ -681,6 +761,7 @@
       "$extensions": {
         "bella": {
           "name": "BrandWordmark",
+          "category": "Brand",
           "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink.",
           "variants": ["pattern", "ink"],
           "states": ["default"],
@@ -708,6 +789,7 @@
       "$extensions": {
         "bella": {
           "name": "PatternField",
+          "category": "Brand",
           "description": "The brand pattern as a hero background (brand refresh, 2026-09-22): greyscale at about 7% (inverted grey at about 6% in dark) with a radial fade. Replaces the dot grid.",
           "variants": [],
           "states": ["default"],
@@ -734,13 +816,13 @@
       "$extensions": {
         "bella": {
           "name": "Callout",
-          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a Mono label, marking words the author still owes. Static: no interaction, no motion.",
+          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a sans label, marking words the author still owes. Static: no interaction, no motion.",
           "variants": ["note", "gap"],
           "states": ["default"],
           "props": ["variant", "label", "children", "className"],
           "usage": ["note: a caveat or source line under a figure or section", "gap: a visible placeholder for content still to be written"],
           "dont": ["Not a status banner: no info, success, warning or error variants", "Never interactive: no hover, no lift, never a link as a whole", "No colour: hairline or dashed muted frame only, no chip fill, no accent", "gap is a visible TODO: never ship it as finished copy"],
-          "a11y": "note: text-secondary, AAA (2026-09-22). gap: Mono label in text-primary, body in text-secondary, AAA; the dashed frame is decorative (text carries the meaning). No landmark role.",
+          "a11y": "note: text-secondary, AAA (2026-09-22). gap: label (sans) in text-primary, body in text-secondary, AAA; the dashed frame is decorative (text carries the meaning). No landmark role.",
           "restState": {
             "description": "Entirely static.",
             "atRest": ["the rule or frame", "the text"],
@@ -765,7 +847,7 @@
         "foreground":        { "$value": "{color.semantic.text-secondary}", "$type": "color" },
         "font-size":         { "$value": "{typography.font-size.base}",     "$type": "dimension" },
         "label-foreground":  { "$value": "{color.semantic.text-primary}",   "$type": "color" },
-        "label-font-family": { "$value": "{typography.font-family.mono}",   "$type": "fontFamily" },
+        "label-font-family": { "$value": "{typography.font-family.body}",   "$type": "fontFamily" },
         "label-font-size":   { "$value": "{typography.font-size.mono}",     "$type": "dimension" },
         "border-color":      { "$value": "{color.semantic.text-secondary}", "$type": "color" },
         "border-style":      { "$value": "dashed",                            "$type": "other" },
@@ -773,6 +855,484 @@
         "radius":            { "$value": "{radius.lg}",                     "$type": "dimension" },
         "padding":           { "$value": "{spacing.4}",                     "$type": "dimension" }
       }
+    },
+
+    "tabs": {
+      "$extensions": {
+        "bella": {
+          "name": "Tabs",
+          "category": "Actions",
+          "description": "Switch between panels that share one place on the page (CHIP components, 2026-10-03). W3C APG tabs with automatic activation; each tab owns a panel. Optional run state per tab, drawn as a dot and spoken as text.",
+          "variants": [],
+          "states": ["default", "hover", "selected", "focus"],
+          "props": ["tabs", "value", "onChange", "label", "idBase", "className"],
+          "usage": ["CHIP workspace switcher", "CHIP terminal switcher (with run state)", "Any set of panels where one shows at a time"],
+          "dont": ["Do not use to switch a view of the same content: that is SegmentedControl", "Do not use for navigation between pages: that is NavList", "Do not mark the selected tab with colour alone: ink text plus the 2px ink bar", "Do not render panels without tabPanelProps: aria-controls must resolve"],
+          "a11y": "Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.",
+          "anatomy": [
+            {"key": "hairline", "title": "Hairline", "kind": "edge", "target": ":scope", "zone": {"edge": "bottom", "size": 6}, "token": "--color-semantic-border", "detail": "1px decorative rule under the list"},
+            {"key": "bar", "title": "Selected bar", "kind": "part", "target": "[aria-selected=true]", "zone": {"edge": "bottom", "size": 8}, "token": "--component-tabs-indicator", "detail": "2px ink bar under the selected tab"},
+            {"key": "labels", "title": "Labels", "kind": "content", "target": "[role=tab]", "zone": {"inset": 6}, "token": "--component-tabs-font-size", "detail": "Geist 14, 500; muted at rest, ink when selected"},
+            {"key": "dots", "title": "Run dots", "kind": "part", "target": "[data-status]", "zone": {"inset": -4}, "token": "--color-semantic-border-ink", "detail": "ink fill running, control ring idle"}
+          ],
+          "restState": {
+            "description": "Flat: the hairline, the selected bar and the labels are the whole paint. audit:quality asserts no elevation or animation (root carries data-bella-component=tabs).",
+            "atRest": ["hairline under the list", "selected ink bar", "labels", "run dots"],
+            "triggered": [{ "layer": "hover wash", "on": ["hover"], "asserted": false }],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "font-family":     { "$value": "{typography.font-family.body}",   "$type": "fontFamily" },
+      "font-size":       { "$value": "{typography.font-size.sm}",       "$type": "dimension" },
+      "font-weight":     { "$value": "{typography.font-weight.medium}", "$type": "fontWeight" },
+      "min-height":      { "$value": "{spacing.touch-target}",          "$type": "dimension" },
+      "border-radius":   { "$value": "{radius.md}",                     "$type": "dimension" },
+      "indicator":       { "$value": "{color.semantic.border-ink}",     "$type": "color" },
+      "indicator-width": { "$value": "{border.width.medium}",           "$type": "dimension" }
+    },
+
+    "kbd": {
+      "$extensions": {
+        "bella": {
+          "name": "Kbd",
+          "category": "Data",
+          "description": "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["keys", "label", "className"],
+          "usage": ["Shortcut hint inside a search field", "Shortcut legend in a help menu", "Inline in body copy that names a shortcut"],
+          "dont": ["Do not make it clickable: a pressable keycap is Button", "Do not raise or animate it: the raised keycap is Button's, Kbd is recessed and flat", "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"],
+          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.",
+          "restState": {
+            "description": "Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).",
+            "atRest": ["cap wash", "hairline edge", "key glyphs"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "background":            { "$value": "{color.semantic.surface-inset}",   "$type": "color" },
+      "foreground":            { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
+      "border":                { "$value": "{color.semantic.border-subtle}",   "$type": "color", "$description": "Decorative hairline: a Kbd is not a control." },
+      "border-radius":         { "$value": "{radius.sm}",                      "$type": "dimension" },
+      "font-family":           { "$value": "{typography.font-family.mono}",    "$type": "fontFamily" },
+      "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+      "font-feature-settings": { "$value": "{typography.font-feature.mono}",   "$type": "other" }
+    },
+
+    "nav-list": {
+      "$extensions": {
+        "bella": {
+          "name": "NavList",
+          "category": "Layout",
+          "description": "A sidebar of grouped links (CHIP components, 2026-10-03). Where you are is aria-current, painted as a wash plus ink plus medium weight. Optional sans group labels, counts, a footer row and a hide / show toggle.",
+          "variants": [],
+          "states": ["default", "hover", "current", "focus", "collapsed"],
+          "props": ["groups", "label", "collapsed", "onToggle", "onNavigate", "footer", "className"],
+          "usage": ["CHIP workspace sidebar", "Any app sidebar of views or sections"],
+          "dont": ["Do not use for the site's top nav: that is the nav-link contract", "Do not use for in-page panels: that is Tabs", "Do not mark the current item with a wash alone: aria-current plus ink plus weight", "Do not collapse without onToggle: the lists would be unreachable"],
+          "a11y": "Verified 2026-10-03: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 3px, inset. Rows and the toggle hit the 44px touch-target token.",
+          "restState": {
+            "description": "Flat: text rows and the current wash. audit:quality asserts no elevation or animation (root carries data-bella-component=nav-list).",
+            "atRest": ["group labels", "item rows", "current wash", "counts"],
+            "triggered": [{ "layer": "hover wash", "on": ["hover"], "asserted": false }],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "font-family":        { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
+      "font-size":          { "$value": "{typography.font-size.base}",    "$type": "dimension" },
+      "label-font-family":  { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
+      "label-font-size":    { "$value": "{typography.font-size.sm}",    "$type": "dimension" },
+      "min-height":         { "$value": "{spacing.touch-target}",         "$type": "dimension" },
+      "border-radius":      { "$value": "{radius.md}",                    "$type": "dimension" },
+      "current-background": { "$value": "{color.semantic.border-subtle}", "$type": "color" }
+    },
+
+    "stat": {
+      "$extensions": {
+        "bella": {
+          "name": "Stat",
+          "category": "Data",
+          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: a sans label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour. An optional sparkline (series, two points or more) draws the history as a 1px ink line, spoken as one sentence.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["label", "value", "delta", "trend", "series", "seriesLabel", "className"],
+          "usage": ["CHIP health figures (components, failures, indexed chunks, last sync)", "Any small row of headline figures on a Card or panel"],
+          "dont": ["Do not colour the change: up is not always good, and the status ladder has no neutral change colour", "Do not invent figures: a Stat shows a real count or nothing", "Do not give it its own box: place Stats on a Card or panel", "Do not draw a sparkline from fewer than two real points, and never from made-up history", "Do not colour the sparkline: its shape carries the trend"],
+          "a11y": "Verified 2026-10-03: a dl with a dt label and dd figure, so the label names the figure. The trend arrow is aria-hidden and a spoken Up / Down precedes the change. Figure text-primary, label and change text-secondary, all AAA on the page and on panel (7.09:1 light / 8.44:1 dark worst for muted). Tabular numerals. The sparkline is role=img with an aria-label that says the first and last values and the number of points (or seriesLabel); line and end dot text-primary, 3:1+ as non-text on page and panel in both themes.",
+          "anatomy": [
+            {"key": "label", "title": "Label", "kind": "content", "target": "dt", "zone": {"inset": -2}, "token": "--component-stat-label-font-size", "detail": "Geist 14, muted"},
+            {"key": "figure", "title": "Figure", "kind": "content", "target": "dd:first-of-type", "zone": {"inset": -2}, "token": "--component-stat-value-font-size", "detail": "Geist 300, 32, tabular numerals"},
+            {"key": "change", "title": "Change line", "kind": "content", "target": "dd:nth-of-type(2)", "zone": {"inset": -2}, "token": "--component-stat-delta-font-size", "detail": "Geist 14, muted; arrow hidden, direction spoken"},
+            {"key": "trend", "title": "Sparkline", "kind": "content", "target": "[data-bella-diagram]", "zone": {"inset": -2}, "token": "--component-stat-trend-stroke", "trigger": "rest", "detail": "1px ink line and end dot, 80 by 24; shown with two or more points"}
+          ],
+          "restState": {
+            "description": "Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=stat).",
+            "atRest": ["label", "figure", "change line"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "label-font-family": { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
+      "label-font-size":   { "$value": "{typography.font-size.sm}",      "$type": "dimension" },
+      "value-font-family": { "$value": "{typography.font-family.display}", "$type": "fontFamily" },
+      "value-font-size":   { "$value": "{typography.font-size.3xl}",       "$type": "dimension" },
+      "value-font-weight": { "$value": "{typography.font-weight.light}",   "$type": "fontWeight" },
+      "delta-font-size":   { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
+      "trend-width":       { "$value": "{spacing.20}",                     "$type": "dimension" },
+      "trend-height":      { "$value": "{spacing.6}",                      "$type": "dimension" },
+      "trend-stroke":      { "$value": "{color.semantic.text-primary}",    "$type": "color", "$description": "Ink. The line's shape is the signal; it never takes a status or accent colour." }
+    },
+
+    "score-strip": {
+      "$extensions": {
+        "bella": {
+          "name": "ScoreStrip",
+          "category": "Data",
+          "description": "One system's readiness (CHIP components, 2026-10-03): an overall score with an ink bar, then one cell per station, banded sturdy (80 to 100), drifting (60 to 79) or check engine (under 60). Self-assessed stations (null) say Self-assessed in a dashed frame, never a fill. Cells carry full station names and wrap into rows; no abbreviations. Ships with ScoreLegend and scoreBand.",
+          "variants": [],
+          "states": ["strong", "mid", "low", "self"],
+          "props": ["name", "kind", "score", "cells", "as", "className"],
+          "usage": ["CHIP readiness map, fed by the station scores in bella.json", "Any per-dimension score for a named system"],
+          "dont": ["Do not invent a warning colour for the mid band: it stays neutral until the status ladder adds one (issue #1)", "Do not show a self-assessed score as a measured number", "Do not drop ScoreLegend from a map: the bands need their key", "Do not rely on the wash: the edge, the figure and the spoken band carry the meaning"],
+          "a11y": "Verified 2026-10-03: a region labelled by the system heading (level set by as); stations are a labelled list, each spoken as full name, value of 100 and band word, or self-assessed; the visible figure and short label are aria-hidden duplicates. Cell text is ink on every wash, 16.24:1 light / 12.23:1 dark worst (AAA; muted would fall to 6.68:1). Band edges are status borders at 3:1 or better on panel (success, danger) or the control border (3.00:1); the washes alone are near 1:1 on light panel and never carry meaning. The overall bar is aria-hidden, ink on the border-subtle track (14.60:1 / 12.26:1).",
+          "restState": {
+            "description": "Entirely static. audit:quality asserts it never lifts or animates (root carries data-bella-component=score-strip).",
+            "atRest": ["name, kind, overall score", "ink bar", "station cells with band edge and wash"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "name-font-size":     { "$value": "{typography.font-size.xl}",        "$type": "dimension" },
+      "score-font-size":    { "$value": "{typography.font-size.3xl}",       "$type": "dimension" },
+      "value-font-size":    { "$value": "{typography.font-size.lg}",        "$type": "dimension" },
+      "label-font-family":  { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
+      "label-font-size":    { "$value": "{typography.font-size.tag}",      "$type": "dimension" },
+      "cell-border-radius": { "$value": "{radius.md}",                      "$type": "dimension" },
+      "cell-min-width":     { "$value": "calc({spacing.20} * 1.5)", "$type": "dimension", "$description": "Wide enough for a full station name; cells wrap into rows rather than abbreviate." },
+      "track":              { "$value": "{color.semantic.border-subtle}",   "$type": "color" },
+      "track-fill":         { "$value": "{color.semantic.border-ink}",      "$type": "color" }
+    },
+
+    "data-table": {
+      "$extensions": {
+        "bella": {
+          "name": "DataTable",
+          "category": "Data",
+          "description": "Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row ochre without dimming any other row.",
+          "variants": [],
+          "states": ["default", "sorted", "selected", "hover", "focus"],
+          "props": ["columns", "rows", "rowKey", "caption", "defaultSort", "selectedKey", "onSelect", "maxHeight", "density", "className"],
+          "densities": ["default", "compact"],
+          "usage": ["CHIP per-component health results", "Any comparison of the same facts across many items"],
+          "dont": ["Do not dim unselected rows: selection is the ochre fill, everything else keeps its paint", "Do not use ochre-deep for selection: it is the focus ring only", "Do not left-align figures: numeric columns are right-aligned and tabular", "Do not drop the caption: it names the table", "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"],
+          "a11y": "Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is ochre fill with ink text, 9.01:1 (AAA), nested components included (a muted StatusPill label on ochre would be 3.51:1), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.",
+          "restState": {
+            "description": "Flat: rules, the sticky header and the cell text. audit:quality asserts no elevation or animation (root carries data-bella-component=data-table).",
+            "atRest": ["outer hairline", "sticky header on panel", "row rules", "cells"],
+            "triggered": [{ "layer": "sort arrow", "on": ["hover", "sorted"], "asserted": false }],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "font-size":           { "$value": "{typography.font-size.base}",      "$type": "dimension" },
+      "row-min-height":      { "$value": "{spacing.touch-target}",           "$type": "dimension" },
+      "compact-row-min-height": { "$value": "{spacing.8}",                 "$type": "dimension", "$description": "density=compact, display-only tables only." },
+      "border-radius":       { "$value": "{radius.lg}",                      "$type": "dimension" },
+      "header-background":   { "$value": "{color.semantic.surface-card}",    "$type": "color" },
+      "selected-background": { "$value": "{color.semantic.accent}",          "$type": "color", "$description": "Selection is the ochre fill (highlight, never dim)." },
+      "selected-foreground": { "$value": "{color.semantic.text-on-accent}",  "$type": "color" }
+    },
+
+    "drawer": {
+      "$extensions": {
+        "bella": {
+          "name": "Drawer",
+          "category": "Layout",
+          "rendersAs": "a native dialog, opened modal",
+          "description": "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
+          "variants": [],
+          "states": ["closed", "open", "focus"],
+          "sides": ["left", "right"],
+          "props": ["open", "onClose", "label", "side", "children", "className"],
+          "usage": ["CHIP sidebar below 720px", "Any navigation or filter panel that cannot stay on screen at phone width"],
+          "dont": ["Do not use it as a page section: it is a modal and blocks the page", "Do not open it without a visible trigger: focus has to return somewhere", "Do not dim content inside the panel: the scrim covers the page, never the drawer"],
+          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion.",
+          "restState": {
+            "description": "Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.",
+            "atRest": ["nothing (closed)"],
+            "triggered": [{ "layer": "panel slide and scrim", "on": ["open"], "asserted": false }],
+            "invariants": []
+          }
+        }
+      },
+
+      "width":      { "$value": "min(85vw, 20rem)",                 "$type": "dimension", "$description": "Most of a phone screen, never wider than a sidebar." },
+      "padding":    { "$value": "{spacing.5}",                      "$type": "dimension" },
+      "background": { "$value": "{color.semantic.surface-elevated}", "$type": "color" },
+      "foreground": { "$value": "{color.semantic.text-primary}",     "$type": "color" },
+      "border":     { "$value": "{color.semantic.border}",           "$type": "color" },
+      "shadow":     { "$value": "{shadow.lg}",                       "$type": "shadow" },
+      "scrim":      { "$value": "{color.semantic.scrim}",            "$type": "color" },
+      "duration":   { "$value": "{motion.duration.normal}",          "$type": "duration" }
+    },
+
+    "combobox": {
+      "$extensions": {
+        "bella": {
+          "name": "Combobox",
+          "category": "Inputs",
+          "description": "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the ochre fill.",
+          "variants": [],
+          "states": ["default", "open", "active-option", "focus"],
+          "placements": ["below", "above"],
+          "props": ["label", "hideLabel", "value", "onChange", "groups", "onSelect", "defaultOptionId", "placement", "placeholder", "hint", "onKeyDown", "id", "className"],
+          "usage": ["CHIP's one input: jump to a component or doc, or ask OBI", "Any field that picks from a grouped, filtered list"],
+          "dont": ["Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant", "Do not dim the other options: the active one gets the ochre fill, nothing else changes", "Do not use it for a fixed short list without typing: that is Select"],
+          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on ochre 9.01:1 (AAA). Options and field are 44px. Focus ring on the field.",
+          "restState": {
+            "description": "Closed: the field alone. Open: the list floats with the large shadow.",
+            "atRest": ["field", "control border"],
+            "triggered": [{ "layer": "list", "on": ["typing", "focus"], "asserted": false }],
+            "invariants": []
+          }
+        }
+      },
+
+      "font-size":         { "$value": "{typography.font-size.base}",      "$type": "dimension" },
+      "min-height":        { "$value": "{spacing.touch-target}",           "$type": "dimension" },
+      "border-radius":     { "$value": "{radius.lg}",                      "$type": "dimension" },
+      "border":            { "$value": "{color.semantic.border-strong}",   "$type": "color" },
+      "background":        { "$value": "{color.semantic.surface-card}",    "$type": "color" },
+      "foreground":        { "$value": "{color.semantic.text-primary}",    "$type": "color" },
+      "list-background":   { "$value": "{color.semantic.surface-card}",    "$type": "color" },
+      "group-foreground":  { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
+      "active-background": { "$value": "{color.semantic.accent}",          "$type": "color", "$description": "The active option is the ochre fill (highlight, never dim)." },
+      "active-foreground": { "$value": "{color.semantic.text-on-accent}",  "$type": "color" }
+    },
+
+    "disclosure": {
+      "$extensions": {
+        "bella": {
+          "name": "Disclosure",
+          "category": "Layout",
+          "rendersAs": "a native details with its summary",
+          "description": "One open/close section (Atlas v4, 2026-10-03, Elleta: a stack of open/close sections so a card fits the screen). The header row is the whole 44px target and carries a short summary, so a closed section still says something.",
+          "variants": [],
+          "states": ["default", "hover", "focus", "open"],
+          "props": ["title", "summary", "defaultOpen", "open", "onToggle", "children", "id", "className"],
+          "usage": ["Facts, Checks, Tokens and Notes on the Atlas Facts card", "Any long card that should fit the screen closed"],
+          "dont": ["Do not use it for navigation or to switch views: that is Tabs or SegmentedControl", "Do not hide the one thing people came for: keep the main section open by default", "Do not nest a disclosure inside another"],
+          "a11y": "Verified 2026-10-03: native details/summary, so the expanded state is announced and Enter or Space toggles it. The header row is at least 44px; title AAA and summary AA on panel in light, warm and dark; the hairline is a divider only; focus is the shared ring; the chevron does not turn under reduced motion.",
+          "restState": {
+            "description": "Closed: a hairline, the title, the summary and a chevron pointing down.",
+            "atRest": ["hairline", "title", "summary", "chevron"],
+            "triggered": [{ "layer": "chevron turned", "on": ["open"], "asserted": false }],
+            "invariants": [{ "layer": "flat", "property": "animation-name", "expect": "none" }]
+          }
+        }
+      },
+      "font-size": { "$value": "{typography.font-size.base}", "$type": "dimension" },
+      "min-height": { "$value": "{spacing.touch-target}", "$type": "dimension" },
+      "border": { "$value": "{color.semantic.border}", "$type": "color" },
+      "foreground": { "$value": "{color.semantic.text-primary}", "$type": "color" },
+      "meta-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" }
+    },
+    "action-chip": {
+      "$extensions": {
+        "bella": {
+          "name": "ActionChip",
+          "category": "Actions",
+          "rendersAs": "a button, or one anchor with href",
+          "description": "The quiet action (CHIP components, 2026-10-03, Elleta): a sentence-case pill for suggestions, chips and the small actions under an answer. Below secondary in weight; not a toggle and not the page's main action.",
+          "variants": ["default", "quiet"],
+          "states": ["default", "hover", "focus", "disabled"],
+          "props": ["children", "onClick", "href", "linkComponent", "disabled", "ariaLabel", "variant", "className"],
+          "usage": ["OBI suggestions and answer actions", "Component chips that open Atlas", "Small actions on a tile (Which have none?)", "quiet: an icon action beside content, such as the ⋯ visibility menu (no border at rest)"],
+          "dont": ["Do not set it in caps: sentence case is the point", "Do not use it as a filter or toggle: that is FilterChip with aria-pressed", "Do not use it for the main action of a view: that is Button primary"],
+          "a11y": "Verified 2026-10-03: a real button (or a link with href), 44px. Label ink on the page and on panel (AAA in light, warm and dark); the control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring.",
+          "restState": {
+            "description": "Flat always: the control-border pill and its label. audit:quality asserts no elevation or animation (root carries data-bella-component=action-chip).",
+            "atRest": ["control border", "label"],
+            "triggered": [{ "layer": "hover wash", "on": ["hover"], "asserted": false }],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "font-size":        { "$value": "{typography.font-size.base}",     "$type": "dimension" },
+      "min-height":       { "$value": "{spacing.touch-target}",          "$type": "dimension" },
+      "border-radius":    { "$value": "{radius.full}",                   "$type": "dimension" },
+      "border":           { "$value": "{color.semantic.border-strong}",  "$type": "color" },
+      "foreground":       { "$value": "{color.semantic.text-primary}",   "$type": "color" },
+      "hover-background": { "$value": "{color.semantic.border-subtle}",  "$type": "color" },
+      "quiet-hover-background": { "$value": "{color.semantic.surface-inset}", "$type": "color" }
+    },
+
+    "page-header": {
+      "$extensions": {
+        "bella": {
+          "name": "PageHeader",
+          "category": "Layout",
+          "rendersAs": "a header with the page's one h1",
+          "description": "The top of every page (layout foundation, 2026-10-03, Elleta: one page-title size on every page, not display). A quiet meta line (breadcrumb, source or category), the page title at one fixed 40px, an optional lede held to the body measure, and an optional actions row.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["meta", "title", "titleAside", "lede", "actions", "id", "className"],
+          "usage": ["The first block of every page template: Overview, Object page, Library and Settings", "Atlas: the component name, its category and number as meta"],
+          "dont": ["Do not use a display Heading tier for an app page title: display is for editorial heroes", "Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips", "Do not use it twice on a page: one h1"],
+          "a11y": "Verified 2026-10-03: one h1; the title is text-primary (AAA); meta and lede are text-secondary (AAA on the page ground in light, warm and dark); the lede holds to 70ch; the title balances its lines.",
+          "restState": {
+            "description": "Type only, entirely static.",
+            "atRest": ["meta", "title", "lede", "actions"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "title": {
+        "font-size":        { "$value": "{typography.font-size.4xl}",          "$type": "dimension" },
+        "font-weight":      { "$value": "{typography.font-weight.light}",      "$type": "fontWeight" },
+        "line-height":      { "$value": "{typography.line-height.heading}",    "$type": "number" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.display}", "$type": "dimension" }
+      },
+      "lede": {
+        "font-size":        { "$value": "{typography.font-size.lg}",           "$type": "dimension" },
+        "max-width":        { "$value": "{layout.measure.body}",               "$type": "dimension" }
+      },
+      "meta": {
+        "font-size":        { "$value": "{typography.font-size.sm}",           "$type": "dimension" }
+      },
+      "foreground":         { "$value": "{color.semantic.text-primary}",       "$type": "color" },
+      "meta-foreground":    { "$value": "{color.semantic.text-secondary}",     "$type": "color" },
+      "gap":                { "$value": "{layout.stack.sm}",                   "$type": "dimension" }
+    },
+
+    "sidebar-layout": {
+      "$extensions": {
+        "bella": {
+          "name": "SidebarLayout",
+          "category": "Layout",
+          "rendersAs": "a grid of an aside, the content and an optional rail",
+          "description": "A sticky aside beside the content, with an optional rail on the right (layout foundation, 2026-10-03). On the 12-column grid: aside 3 and content 9, or aside 3, content 6 and rail 3. Under 1200px of its own width the rail drops under the content; under 768px everything stacks and the aside stops sticking. The aside sticks under the sticky header (--header-height) and scrolls on its own when it is taller than the screen less the header and the dock (--dock-height).",
+          "variants": [],
+          "states": ["default"],
+          "props": ["aside", "asideLabel", "rail", "railLabel", "children", "className"],
+          "usage": ["Atlas: the library beside the component", "Docs: the list, the reader, the doc rail", "Health: On this page, then the sections"],
+          "dont": ["Do not put the page title in the aside: the PageHeader sits in the content column", "Do not add another scroll container: only the aside list, code blocks and tables scroll on their own"],
+          "a11y": "Verified 2026-10-03: the aside and rail are complementary landmarks named by asideLabel and railLabel; source order is aside, content, rail, so reading and keyboard order follow the visual order at every width; a scrolling aside is focusable so the keyboard can scroll it.",
+          "restState": {
+            "description": "Layout only, entirely static.",
+            "atRest": ["aside", "content", "rail"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "gap":                { "$value": "{layout.gutter}",                     "$type": "dimension" },
+      "columns":            { "$value": "{layout.grid.columns-wide}",          "$type": "number" }
+    },
+
+    "columns": {
+      "$extensions": {
+        "bella": {
+          "name": "Columns",
+          "category": "Layout",
+          "rendersAs": "a grid of equal columns",
+          "description": "Two or three columns that collapse by their own width (layout foundation, 2026-10-03): three become two under 1200px and one under 768px; two become one under 768px. Even by default; split wide-start makes two columns 2:1 (a stage beside its facts). Cells stretch to the row, so cards in a row line up top and bottom.",
+          "variants": [],
+          "states": ["default"],
+          "props": ["count", "split", "children", "className"],
+          "usage": ["Atlas: the specimen beside its facts (wide-start), the examples under them (even)", "Health stat cards"],
+          "dont": ["Do not use it for a sidebar: that is SidebarLayout", "Do not nest Columns inside Columns"],
+          "a11y": "Verified 2026-10-03: no landmark or role of its own; reading order is source order at every width.",
+          "restState": {
+            "description": "Layout only, entirely static.",
+            "atRest": ["cells"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "static", "property": "transform", "expect": "none" },
+              { "layer": "static", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "gap":                { "$value": "{layout.gutter}",                     "$type": "dimension" }
+    },
+
+    "slider": {
+      "$extensions": {
+        "bella": {
+          "name": "Slider",
+          "category": "Inputs",
+          "rendersAs": "a native range input, with a number field for its value",
+          "description": "A native range with its value beside it and editable, the 44px target, and optional marks where a rule lives (Atlas v4, 2026-10-03, Elleta: sliders, not prop controls). The value is read out with its unit.",
+          "variants": [],
+          "states": ["default", "hover", "focus", "disabled"],
+          "props": ["label", "value", "onChange", "min", "max", "step", "unit", "marks", "hint", "disabled", "id", "className"],
+          "usage": ["Atlas Try a change: one slider per tunable token, marks at the rules (24px WCAG 2.5.8, 44px BELLA floor)", "Any bounded number people tune by feel and then fine-tune by typing"],
+          "dont": ["Do not use it for a choice between a few named options: that is SegmentedControl or Select", "Do not hide the number: the value always shows beside the track and can be typed", "Do not put a mark without a label: a mark says which rule lives there"],
+          "a11y": "Verified 2026-10-03: a native range (slider role, arrow keys, Home and End from the browser) labelled by its visible label, aria-valuetext with the unit, marks listed and referenced by aria-describedby; the number field is labelled too. The input is the 44px target; the thumb border is ink and the track the 3:1 control border; focus is the shared ring.",
+          "restState": {
+            "description": "Flat: the track, the fill to the value, the thumb, the value field and any marks.",
+            "atRest": ["track", "fill", "thumb", "value", "marks"],
+            "triggered": [],
+            "invariants": [
+              { "layer": "flat", "property": "transform", "expect": "none" },
+              { "layer": "flat", "property": "animation-name", "expect": "none" }
+            ]
+          }
+        }
+      },
+
+      "min-height":         { "$value": "{spacing.touch-target}",              "$type": "dimension" },
+      "track-height":       { "$value": "{spacing.1}",                         "$type": "dimension" },
+      "thumb-size":         { "$value": "{spacing.6}",                         "$type": "dimension" },
+      "track":              { "$value": "{color.semantic.border-strong}",      "$type": "color" },
+      "fill":               { "$value": "{color.semantic.text-primary}",       "$type": "color" },
+      "thumb-background":   { "$value": "{color.semantic.surface-card}",       "$type": "color" },
+      "thumb-border":       { "$value": "{color.semantic.border-ink}",         "$type": "color" },
+      "mark":               { "$value": "{color.semantic.text-secondary}",     "$type": "color" }
     }
   }
 }

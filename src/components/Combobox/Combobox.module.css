@@ -1,0 +1,154 @@
+/* Combobox (CHIP components, 2026-10-03). Tokens only. One field over a
+ * grouped list, the ARIA combobox pattern. The field is Input's sibling:
+ * control border, 44px, focus ring. The list floats below (or above) on
+ * the panel surface with the large shadow. The active option is the ochre
+ * fill with ink text; no other option changes. */
+
+.combobox {
+  display: grid;
+  align-content: start; /* the field keeps its own height in a taller box */
+  gap: var(--spacing-2);
+  min-width: 0;
+}
+
+.label {
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+
+.anchor {
+  position: relative; /* the list hangs off the field, wherever the box grows */
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-height: var(--component-combobox-min-height);
+  padding-inline: var(--spacing-4) var(--spacing-3);
+  border: var(--border-width-thin) solid var(--component-combobox-border);
+  border-radius: var(--component-combobox-border-radius);
+  background: var(--component-combobox-background);
+}
+
+.field:focus-within {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+  border-color: var(--color-semantic-border-ink);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--component-combobox-foreground);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-combobox-font-size);
+  line-height: var(--typography-line-height-normal);
+}
+
+.input:focus {
+  outline: none; /* the field draws the ring */
+}
+
+.input::placeholder {
+  color: var(--color-semantic-text-muted);
+  opacity: 1;
+}
+
+.hint {
+  flex: none;
+  display: inline-flex;
+}
+
+.list {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(100% + var(--spacing-2));
+  z-index: 1;
+  display: grid;
+  gap: var(--spacing-1);
+  max-block-size: calc(var(--spacing-20) * 5);
+  overflow-y: auto;
+  padding: var(--spacing-2);
+  border-radius: var(--radius-lg);
+  border: var(--border-width-thin) solid var(--color-semantic-border);
+  background: var(--component-combobox-list-background);
+  box-shadow: var(--shadow-lg);
+}
+
+.list[hidden] {
+  display: none;
+}
+
+.combobox[data-placement='above'] .list {
+  inset-block-start: auto;
+  inset-block-end: calc(100% + var(--spacing-2));
+}
+
+.group {
+  display: grid;
+  gap: var(--spacing-1);
+}
+
+.group + .group {
+  padding-block-start: var(--spacing-1);
+  border-block-start: var(--border-width-thin) solid var(--color-semantic-border);
+}
+
+.groupLabel {
+  margin: 0;
+  padding: var(--spacing-2) var(--spacing-3) 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-sm);
+  color: var(--component-combobox-group-foreground);
+}
+
+.option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  min-height: var(--spacing-touch-target);
+  box-sizing: border-box;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  color: var(--component-combobox-foreground);
+  font-size: var(--component-combobox-font-size);
+  cursor: pointer;
+}
+
+.option[aria-selected='true'] {
+  background: var(--component-combobox-active-background);
+  color: var(--component-combobox-active-foreground);
+}
+
+.optionLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  flex: none;
+  font-size: var(--typography-font-size-sm);
+  color: var(--component-combobox-group-foreground);
+}
+
+.option[aria-selected='true'] .meta {
+  color: var(--component-combobox-active-foreground);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

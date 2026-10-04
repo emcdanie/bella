@@ -42,10 +42,10 @@ export const Behavior: Story = {
       await expect(list.tagName).toBe('OL');
       await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(5);
     });
-    await step('Mono numbers at the 13px floor', async () => {
+    await step('step numbers in the sans label style at the 13px floor', async () => {
       const n = canvas.getByText('01');
       const cs = getComputedStyle(n);
-      await expect(cs.fontFamily).toMatch(/Geist Mono/);
+      await expect(cs.fontFamily).not.toMatch(/Geist Mono/);
       await expect(parseFloat(cs.fontSize)).toBe(13);
     });
     await step('no shadows', async () => {

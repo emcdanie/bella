@@ -35,12 +35,12 @@ export const Behavior: Story = {
   play: async ({ canvas, step }) => {
     const el = canvas.getByText('01 · The problem, framed');
     const cs = getComputedStyle(el);
-    await step('Geist Mono at the 13px floor, no tracking, no caps, ss09', async () => {
-      await expect(cs.fontFamily).toMatch(/Geist Mono/);
-      await expect(parseFloat(cs.fontSize)).toBe(13);
+    await step('the sans label style: Geist (not Mono), 14px, no tracking, no caps', async () => {
+      await expect(cs.fontFamily).toMatch(/^Geist,/);
+      await expect(cs.fontFamily).not.toMatch(/Geist Mono/);
+      await expect(parseFloat(cs.fontSize)).toBe(14);
       await expect(parseFloat(cs.letterSpacing) || 0).toBe(0);
       await expect(cs.textTransform).toBe('none');
-      await expect(cs.fontFeatureSettings).toMatch(/ss09/);
     });
     await step('never a heading', async () => {
       await expect(canvas.queryByRole('heading')).toBeNull();

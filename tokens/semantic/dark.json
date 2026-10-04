@@ -78,6 +78,38 @@
           }
         }
       },
+      "ground": {
+        "$value": "{color.dark.bg}",
+        "$type": "color",
+        "$description": "The page ground under raised cards, the lowest of three surface levels (ground < inset < raised in lightness, all themes). dark: #0d0d0d ground (the darkest step), #262626 raised (the lightest). Added 2026-10-03 for the portfolio layout (Gate 2).",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "The page behind raised cards in a three-level layout",
+              "Not the default page: that stays background"
+            ],
+            "dont": [
+              "Do not put muted text on ground in light or warm: 6.80:1 and 6.72:1 are AA, not AAA; put meta on raised, or use ink",
+              "Do not use it for strokes: that is border"
+            ]
+          }
+        }
+      },
+      "raised": {
+        "$value": "{color.dark.raised}",
+        "$type": "color",
+        "$description": "A raised card on the ground, the highest of three surface levels: always lighter than inset and ground, also in dark, so cards never read as holes. dark: #262626 raised (the lightest). Added 2026-10-03.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Cards and panels that sit on ground"
+            ],
+            "dont": [
+              "Do not put it on the plain page background in light: both are white there"
+            ]
+          }
+        }
+      },
       "surface-inverse": {
         "$value": "{color.light.panel}",
         "$type": "color",
@@ -292,9 +324,9 @@
         }
       },
       "accent-subtle": {
-        "$value": "{color.dark.surface}",
+        "$value": "{color.dark.inset}",
         "$type": "color",
-        "$description": "Neutral selected wash (brand refresh, 2026-09-22, Elleta).",
+        "$description": "Neutral selected wash (brand refresh, 2026-09-22, Elleta). Moved to dark.inset (2026-10-03): on surface it matched the panel and a selected row showed nothing.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -382,6 +414,21 @@
             "usage": [
               "Diagram strokes",
               "1px ink frames"
+            ]
+          }
+        }
+      },
+      "scrim": {
+        "$value": "{color.alpha.night-60}",
+        "$type": "color",
+        "$description": "Warm dark at 60%: the scrim behind a modal panel (Drawer) on the dark page.",
+        "$extensions": {
+          "bella": {
+            "usage": [
+              "Drawer backdrop"
+            ],
+            "dont": [
+              "Not a surface or a text colour"
             ]
           }
         }

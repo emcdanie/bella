@@ -31,6 +31,7 @@ def load(name: str) -> dict:
 primitive = load("primitive.json")
 sem_light = load("semantic/light.json")
 sem_dark  = load("semantic/dark.json")
+sem_warm  = load("semantic/warm.json")  # overrides on top of light (2026-10-03)
 component = load("component.json")
 
 # ---------- flatten ----------
@@ -54,6 +55,7 @@ def flatten(tree):
 prim_flat = flatten(primitive)
 light_flat = flatten(sem_light)
 dark_flat  = flatten(sem_dark)
+warm_flat  = flatten(sem_warm)
 comp_flat  = flatten(component)
 
 # ---------- resolve references ----------
@@ -76,9 +78,11 @@ def make_resolver(lookup):
 
 light_lookup = {**prim_flat, **light_flat, **comp_flat}
 dark_lookup  = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
+warm_lookup  = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
 
 resolve_light = make_resolver(light_lookup)
 resolve_dark  = make_resolver(dark_lookup)
+resolve_warm  = make_resolver(warm_lookup)
 
 # ---------- emit bella.css ----------
 
@@ -166,6 +170,9 @@ css_lines += [
 ]
 for path, (v, t, _) in dark_flat.items():
     css_lines.append(f"  {emit_css_var(path)}: {resolve_dark(v)};")
+# a var() declared on :root resolves there, so a nested [data-theme] wrapper
+# would inherit the light ring; re-declare it inside each theme (2026-10-03)
+css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
 
 # Component tokens resolve through semantic, so any component value that
 # lands differently under the dark lookup gets a dark override — accent
@@ -177,6 +184,25 @@ for path, (v, t, _) in comp_flat.items():
     lightv, darkv = resolve_light(v), resolve_dark(v)
     if lightv != darkv:
         css_lines.append(f"  {emit_css_var(path)}: {darkv};")
+css_lines += ["}", ""]
+
+# [data-theme="warm"]: parchment, a third theme on top of light (2026-10-03).
+# Only the semantic tokens warm.json overrides, plus any component token
+# whose value lands differently under the warm lookup.
+css_lines += [
+    "[data-theme=\"warm\"] {",
+    "  /* ---- Semantic (warm) overrides on top of light ---- */",
+]
+for path, (v, t, _) in warm_flat.items():
+    css_lines.append(f"  {emit_css_var(path)}: {resolve_warm(v)};")
+css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
+css_lines += ["", "  /* ---- Component (warm) overrides ---- */"]
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, dict):
+        continue
+    lightv, warmv = resolve_light(v), resolve_warm(v)
+    if lightv != warmv:
+        css_lines.append(f"  {emit_css_var(path)}: {warmv};")
 css_lines += ["}", ""]
 
 # ---- Glass utility classes ----
@@ -244,6 +270,7 @@ rollup = {
     "primitive": primitive,
     "semantic": sem_light["color"]["semantic"],
     "semantic_dark_overrides": sem_dark["color"]["semantic"],
+    "semantic_warm_overrides": sem_warm["color"]["semantic"],
     "component": component["component"]
 }
 

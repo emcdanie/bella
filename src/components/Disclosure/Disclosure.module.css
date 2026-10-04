@@ -1,0 +1,72 @@
+/* Disclosure (Atlas v4, 2026-10-03, Elleta: "a stack of open/close
+ * sections"). Tokens only. A hairline between sections, a 44px header row
+ * that is the whole target, the title in ink, the summary quieter, a chevron
+ * that turns on open. Focus is the shared ring. */
+
+.disclosure {
+  border-block-start: var(--border-width-thin) solid var(--component-disclosure-border);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-height: var(--component-disclosure-min-height);
+  box-sizing: border-box;
+  padding: var(--spacing-2) 0;
+  cursor: pointer;
+  list-style: none;
+  color: var(--component-disclosure-foreground);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-disclosure-font-size);
+  line-height: var(--typography-line-height-snug);
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary:hover .title {
+  text-decoration: underline;
+  text-underline-offset: var(--component-link-default-underline-offset);
+}
+
+.summary:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.title {
+  font-weight: var(--typography-font-weight-medium);
+}
+
+.meta {
+  margin-inline-start: auto;
+  color: var(--component-disclosure-meta-foreground);
+  font-size: var(--typography-font-size-sm);
+  text-align: end;
+}
+
+.chevron {
+  flex: none;
+  color: var(--component-disclosure-meta-foreground);
+  transition: transform var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.title + .chevron {
+  margin-inline-start: auto;
+}
+
+.disclosure[open] > .summary .chevron {
+  transform: rotate(180deg);
+}
+
+.body {
+  padding-block: 0 var(--spacing-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chevron {
+    transition: none;
+  }
+}

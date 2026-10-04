@@ -179,12 +179,15 @@ function tokenEntry(t) {
 }
 
 // ---------- components ----------
-// Only the 12 contracts in tokens/component.json that have a real implementation
+// Only the contracts in tokens/component.json that have a real implementation
 // in src/components/ - the same test scripts/contract-parity.mjs applies.
 const IMPL = {
   avatar: 'Avatar', button: 'Button', card: 'Card', 'filter-chip': 'FilterChip',
   heading: 'Heading', icon: 'Icon', input: 'Input', 'resource-card': 'ResourceCard',
   'segmented-control': 'SegmentedControl', select: 'Select', 'status-pill': 'StatusPill', tag: 'Tag',
+  tabs: 'Tabs', kbd: 'Kbd', 'nav-list': 'NavList', stat: 'Stat',
+  'score-strip': 'ScoreStrip', 'data-table': 'DataTable', 'drawer': 'Drawer', 'combobox': 'Combobox', 'action-chip': 'ActionChip', 'disclosure': 'Disclosure',
+  'page-header': 'PageHeader', section: 'Section', 'sidebar-layout': 'SidebarLayout', columns: 'Columns', slider: 'Slider',
 };
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no
@@ -208,10 +211,15 @@ const VARIANT_DESC = {
     default: 'The quiet neutral wash.',
     accent: 'The accent wash (subtle fill, accent text), the generic form of the portfolio’s per-case identity tint.',
   },
+  'action-chip': {
+    default: 'The control-border pill, sentence case.',
+    quiet: 'No border at rest, the inset fill on hover and focus; for an icon action beside content, such as a ⋯ menu.',
+  },
   'status-pill': {
     accent: 'The quiet accent ring (the portfolio’s "Current focus").',
     success: 'Wears the carried sage tint, non-text roles only per the recorded decision; the pending status ladder (issue #1) will restyle it.',
     info: 'Wears the carried steel tint, non-text roles only per the recorded decision; the pending status ladder (issue #1) will restyle it.',
+    neutral: 'No tint: the inset fill and a hairline, for a state that is neither good nor bad ("not tested", "draft", "disabled").',
   },
 };
 
@@ -287,6 +295,15 @@ function componentEntry(key) {
           definition: `Trigger: ${t.on.join(', ')}${t.theme ? ` (${t.theme} theme only)` : ''}. Inert at rest${t.asserted ? '; audit:quality asserts it' : ''}.`,
         })),
       ],
+    });
+  }
+  if (c.anatomy?.length) {
+    sections.push({
+      kind: 'definitions', for: 'all',
+      title: 'Anatomy',
+      description: 'Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.',
+      context: 'anatomy',
+      items: c.anatomy.map((p, i) => ({ term: `${i + 1}. ${p.title}`, definition: `${p.detail}. ${p.trigger ? `Trigger: ${p.trigger}. ` : ''}Token ${p.token}; target ${p.target}.` })),
     });
   }
   if (sections.length) e.sections = sections;

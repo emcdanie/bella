@@ -56,6 +56,25 @@ export const States: Story = {
   ),
 };
 
+/** Compact: a long wrapping row of tag filters; the 44px target stays. */
+export const Compact: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-1) var(--spacing-2)', flexWrap: 'wrap', maxWidth: 320 }}>
+      {['answer', 'decision', 'handoff', 'loop', 'note', 'plan'].map((t, i) => (
+        <FilterChip key={t} size="compact" pressed={i === 1} onClick={() => {}}>
+          {t}
+        </FilterChip>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const chip of canvasElement.querySelectorAll('button')) {
+      expect(chip.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
+      expect(getComputedStyle(chip).fontSize).toBe('13px');
+    }
+  },
+};
+
 function FilterRowHarness() {
   const [on, setOn] = useState(false);
   const [activations, setActivations] = useState(0);

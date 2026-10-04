@@ -573,7 +573,7 @@ value with the source reference in parentheses.
 | `component.avatar.default.ring-color` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.avatar.default.ring-width` | `2px` | dimension |
 | `component.avatar.default.ring-gap` | `2px` | dimension |
-| `component.avatar.sm.size` | `32px` (`{spacing.8}`) | dimension |
+| `component.avatar.sm.size` | `40px` (`{spacing.10}`) | dimension |
 | `component.avatar.sm.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
 | `component.avatar.md.size` | `48px` (`{spacing.12}`) | dimension |
 | `component.avatar.md.font-size` | `18px` (`{typography.font-size.base}`) | dimension |

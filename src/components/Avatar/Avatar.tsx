@@ -17,7 +17,7 @@ export interface AvatarProps {
    * an empty disc, which is a bug, not a state.
    */
   name: string;
-  /** Step from the avatar ramp: sm 32, md 48, lg 80. */
+  /** Step from the avatar ramp: sm 40, md 48, lg 80 (sm was 32 until the 16px initials, 2026-10-04). */
   size?: 'sm' | 'md' | 'lg';
   /** Accent ring, separated from the disc by a gap of ground. A rest state, never a hover one. */
   ring?: boolean;

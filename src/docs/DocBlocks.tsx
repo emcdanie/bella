@@ -22,7 +22,7 @@ export function PageIntro({ title, children }: { title: string; children: ReactN
         style={{
           fontSize: 'var(--typography-font-size-lg)',
           lineHeight: 'var(--typography-line-height-normal)',
-          color: 'var(--color-semantic-text-secondary)',
+          color: 'var(--color-semantic-text-body)',
           maxWidth: '65ch',
           margin: 0,
         }}
@@ -44,7 +44,6 @@ const dodontLabelStyle: React.CSSProperties = {
   display: 'block',
   fontSize: 'var(--typography-font-size-sm)',
   fontWeight: 700,
-  textTransform: 'uppercase',
   letterSpacing: 'var(--typography-letter-spacing-wider)',
   marginBottom: 'var(--spacing-3)',
 };
@@ -140,7 +139,7 @@ export function TokenChip({ token }: { token: string }) {
 }
 
 const sectionHeadStyle: React.CSSProperties = {
-  fontSize: 'var(--typography-font-size-2xl)',
+  fontSize: 'var(--typography-font-size-xl)',
   fontWeight: 700,
   margin: 'var(--spacing-8) 0 var(--spacing-4)',
 };

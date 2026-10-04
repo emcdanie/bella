@@ -31,7 +31,7 @@ export const HeroField: Story = {
         <Heading tier="page" as="h1" accent="systems." after={undefined}>
           AI-enabled design
         </Heading>
-        <p style={{ margin: 0, maxWidth: '40ch', fontSize: 'var(--typography-font-size-xl)', color: 'var(--color-semantic-text-secondary)' }}>
+        <p style={{ margin: 0, maxWidth: '40ch', fontSize: 'var(--typography-font-size-xl)', color: 'var(--color-semantic-text-body)' }}>
           Tokens, components and the governance that keeps them honest.
         </p>
       </div>

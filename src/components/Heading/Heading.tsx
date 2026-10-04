@@ -4,7 +4,7 @@ import styles from './Heading.module.css';
 export interface HeadingProps {
   /**
    * Visual tier: `"hero"` and `"page"` are the 40 to 76px display ramp,
-   * `"section"` the 32 to 44px h2 ramp. All Geist Light 300, sentence case,
+   * `"section"` the 34 to 40px h2 ramp. All Figtree 600, sentence case,
    * tight tracking; the 32px section floor is structural.
    */
   tier?: 'hero' | 'page' | 'section';
@@ -27,7 +27,7 @@ export interface HeadingProps {
 }
 
 /**
- * Geist Light carries every heading tier; Unique is the wordmark only.
+ * Figtree SemiBold 600 carries every heading tier (heading weight, 2026-10-04); Unique is the wordmark only.
  * 32px floor, never inside a card.
  */
 export default function Heading({

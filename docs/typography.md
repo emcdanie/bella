@@ -1,73 +1,43 @@
 # Typography
 
-Typography is where BELLA earns the name. Most of the system's personality lives here — in the two faces, the ramp, and the floors below which nothing is allowed to go.
+Typography is set for reading (type lock, Elleta, 4 Oct 2026; supersedes the Unique and Geist locks). One face carries everything anyone reads, five sizes cover every job, and the floors below are rules, not suggestions.
 
-## Font families — exactly two (the type lock)
+## Font families
 
-- `typography.font-family.display` — **Unique**, falling back to `'Arial Narrow', sans-serif`. The condensed identity face. Bold (700) is the only cut. It renders in exactly three places: display headings (hero / page / section / case tiers), the home hero headline, and the keycap brand lockup. Nowhere else.
-- `typography.font-family.body` — **Geist**, falling back to `system-ui, sans-serif`. Everything Unique doesn't carry: body, card titles, labels, eyebrows, buttons, navigation, metadata.
-- `typography.font-family.mono` — **retired** (2026-07-17). The token remains and repoints to Geist so legacy consumers keep rendering. The eyebrow look is caps + tracking, not a third family. Do not reintroduce a mono face.
+- `typography.font-family.display` and `typography.font-family.body` — **Figtree**, falling back to `system-ui, sans-serif`. Headings, body, labels, buttons, navigation and meta.
+- `typography.font-family.mono` — **Geist Mono**, for real code and token names only, at 16px. Never labels, eyebrows or meta.
+- `typography.font-family.wordmark` — Unique, legacy consumers only. The wordmarks are drawn (BrandWordmark), not set in a font.
 
-The Georgia/JetBrains-Mono pairing was the April identity; it is fully replaced.
+## The five sizes, plus labels
 
-<!-- TODO(elleta): the "why Unique" voice paragraph — the story the serif essay used to
-     carry. What Unique signals, why condensed display against a quiet grotesk, in your
-     words. The factual constraints are recorded below; the conviction is yours to write. -->
+| Role | Token | Size | Notes |
+|---|---|---|---|
+| H1 | `font-size.display-hero`, `display-page` | 44 to 60px | Figtree 500, -0.02em, line height 1.15 |
+| H2 | `font-size.display-section` (`4xl` is the fixed 40px) | 34 to 40px | Figtree 500, -0.015em |
+| Lead | `font-size.lg` | 21 to 22px | Card and item titles use this size: `font-size.xl`, 22px, Figtree 500 |
+| Body | `font-size.body` | 20px | Figtree 400, line height 1.7, no tracking, `text-body` |
+| Small | `font-size.sm` | 18px | Captions; same ink as body, smaller size |
+| Labels and meta | `font-size.tag` | 16px | Sentence case, no caps, no tracking; buttons Figtree SemiBold 16 |
 
-## Unique's hard constraints
+`font-size.base` (18px) is the UI text size for controls; `font-size.6xl` (88px) is cover only: the Figma file cover and doc-site covers, never reading text. The 24, 32 and 56px steps are retired.
 
-These come from the face itself and are encoded in token metadata:
+## Floors
 
-- **700 only.** Unique ships one cut. `font-weight.black` (800) is Geist-only.
-- **Never below 24px** (`font-size.2xl`) — except the keycap brand lockup, the single recorded exception. Consumer gates enforce this.
-- **Never negative tracking.** Condensed glyphs collide below 0; Unique display settings always track ≥ 0 (`letter-spacing.normal`). `letter-spacing.tight` is Geist-only.
-- Always all-caps in the established display treatments, with the accent-word pattern where the design already does that.
+- Nothing, anywhere, below **16px** (`audit:quality`).
+- Long-form reading text never below **18px**; body is 20px.
+- Headings balance their lines (`text-wrap: balance`); body, lead and captions avoid widows (`text-wrap: pretty`). Both come from `typography.text-wrap.*`, emitted as zero-specificity base rules in `bella.css`.
 
-## Eyebrows
+## Colour
 
-Geist, uppercase, `font-size.sm` (14px — one ramp step up from tag; 13px read too quiet under the display heads), weight 700, tracked with `letter-spacing.wider` (0.15em). The tracking IS the old mono look. Eyebrows are wayfinding, not action — they never wear the interactive accent color.
-
-## The ramp
-
-Nine named sizes, each with a purpose. `tag` is the hard floor — nothing goes below 13px anywhere. Sizes above `3xl` are display territory and must be used deliberately, not as default slot-fillers.
-
-| Token | Size | Typical use |
-|---|---|---|
-| `typography.font-size.tag` | **13px** | Tags, chips, button CTAs. Geist, uppercase, tracked wide. |
-| `typography.font-size.sm` | 14px | Eyebrows, captions, footnotes. Never body copy. |
-| `typography.font-size.base` | **16px** | Body paragraph floor. The minimum for reading text in BELLA. |
-| `typography.font-size.lg` | 18px | Lead paragraphs, long-form case-study body. |
-| `typography.font-size.xl` | **20px** | Card title floor. Geist, `font-weight.bold` (700). |
-| `typography.font-size.2xl` | 24px | Heading-3 — and the Unique display floor. |
-| `typography.font-size.3xl` | **32px** | Section heading floor. |
-| `typography.font-size.4xl` | 40px | Heading-1, page titles. |
-| `typography.font-size.5xl` | 56px | Display. Hero headlines, landing-page impact lines. |
-
-The bolded rows are floors, not defaults: body is never below 16px, card titles never below 20px/700, section headings never below 32px. The rest of the ramp exists to fit the right size to the right job, not to give you wiggle room to undershoot.
-
-Consumers with fluid type define one clamp() pair per ramp step, endpoints on the ramp, in one place — no ad-hoc clamps in components.
-
-## Hard floor: 13px
-
-Nothing renders below 13px. Not captions, not metadata, not disclosure text, not legal footers. 13–14px is the caption zone and should be used sparingly — if you find yourself reaching for 12px to "make it fit," the layout is wrong, not the type size.
-
-## Why the minimums matter
-
-The defaults in most frameworks (14px body, 16px headings, 600-weight everything) produce a soft, middle-of-the-road voice. Readable, forgettable. BELLA's minimums push in the opposite direction:
-
-- **16px body** respects the reader. It's the threshold below which long-form becomes work.
-- **20px / 700 card titles** make objects feel like objects. A 16px/600 card title looks like body text that got promoted.
-- **32px section headings** carry real weight on the page — and at display scale, Unique needs more size than a grotesk in the same slot; give it room.
-
-The weight contrast between 400 body and 700 heads is intentional. A flat ramp (400 → 500 → 600) reads as cautious. BELLA's reads as confident.
+Body and captions use `color.semantic.text-body` (light `cool.825` #2b2f3d, dark = text-primary): near-black, never grey. `text-secondary` is for non-reading UI only (icons, placeholders, borders-as-text).
 
 ## Weights
 
-- **400** (`regular`) — body paragraphs
-- **500** (`medium`) — tag text, UI emphasis
-- **700** (`bold`) — all Unique display settings, card titles, eyebrows, button CTAs
-- **800** (`black`) — Geist-only emphasis weight. Never on Unique (no such cut); never body or card titles.
+- **400** (`regular`): body and lead
+- **500** (`medium`): headings and titles
+- **600** (`semibold`): button labels
+- **700** (`bold`): strong labels, never a heading weight
 
 ## Line length
 
-Aim for 60–75 characters per line for body text (case-study prose runs ~70ch). BELLA sets this as a layout concern, not a type token, but the typography rules assume prose is read at comfortable measure — not stretched across a 1400px container.
+Body text runs 45 to 75 characters per line, about 640px at 20px. A layout concern, not a type token, but the rules assume prose is read at that measure, never stretched across a wide container.

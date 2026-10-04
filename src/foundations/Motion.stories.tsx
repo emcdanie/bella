@@ -11,7 +11,7 @@ const meta: Meta = {
 };
 export default meta;
 
-const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' };
+const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-body)' };
 
 function Specimens() {
   const { ref, armed, playing, run, replay } = usePlayOnce<HTMLDivElement>();

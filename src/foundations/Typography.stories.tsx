@@ -24,7 +24,7 @@ const mono13: React.CSSProperties = {
   fontSize: 'var(--typography-font-size-mono)',
   letterSpacing: 'var(--typography-letter-spacing-mono)',
   fontFeatureSettings: 'var(--typography-font-feature-mono)',
-  color: 'var(--color-semantic-text-secondary)',
+  color: 'var(--color-semantic-text-body)',
 };
 
 /* a fixed label column that wraps above the sample at narrow widths */
@@ -42,7 +42,7 @@ const row: React.CSSProperties = {
  * Unique as the wordmark only. Every sample reads its tokens. */
 const ramp: { label: string; sample: React.ReactNode }[] = [
   {
-    label: 'Display · 300 · 40 to 76 · -0.035em',
+    label: 'Display · 600 · 40 to 76 · -0.035em',
     sample: (
       <Heading tier="page" as="p">
         {specimenText}
@@ -50,7 +50,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     ),
   },
   {
-    label: 'Section h2 · 300 · 32 to 44 · -0.03em',
+    label: 'Section h2 · 600 · 32 to 44 · -0.03em',
     sample: (
       <Heading tier="section" as="p">
         {specimenText}
@@ -58,12 +58,12 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     ),
   },
   {
-    label: 'Title · 500 · 20 · -0.015em',
+    label: 'Title · 600 · 20 · -0.015em',
     sample: (
       <span
         style={{
           fontSize: 'var(--typography-font-size-xl)',
-          fontWeight: 'var(--typography-font-weight-medium)',
+          fontWeight: 'var(--typography-font-weight-semibold)',
           letterSpacing: 'var(--typography-letter-spacing-title)',
         }}
       >
@@ -98,7 +98,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
         style={{
           fontFamily: 'var(--typography-font-family-wordmark)',
           fontWeight: 'var(--typography-font-weight-bold)',
-          fontSize: 'var(--typography-font-size-2xl)',
+          fontSize: 'var(--typography-font-size-4xl)',
           letterSpacing: 'var(--typography-letter-spacing-hero)',
         }}
       >
@@ -121,9 +121,9 @@ export const Ramp: StoryObj = {
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-secondary)' }}>
-        Geist Light for every heading, Geist 500 for titles, Geist 400 for body, Geist
-        Mono for eyebrows and meta labels. Unique is the wordmark and nothing else. All
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
+        Figtree SemiBold (600) for headings, titles and button labels; 400 for body and
+        labels. Geist Mono for code only. Unique is the wordmark and nothing else. All
         faces ship vendored in this Storybook as woff2, the same files consumers load.
       </p>
     </div>
@@ -187,7 +187,7 @@ export const BodyTrackingBeforeAfter: StoryObj = {
               style={{
                 margin: '0 0 var(--spacing-3)',
                 fontSize: 'var(--typography-font-size-xl)',
-                fontWeight: 'var(--typography-font-weight-medium)',
+                fontWeight: 'var(--typography-font-weight-semibold)',
                 lineHeight: 'var(--typography-line-height-snug)',
                 letterSpacing: 'var(--typography-letter-spacing-title)',
               }}
@@ -200,7 +200,7 @@ export const BodyTrackingBeforeAfter: StoryObj = {
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-secondary)' }}>
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
         Body only. Titles take letter-spacing.title, headings take the display and h2
         tracking, and Unique (the wordmark) keeps letter-spacing.hero, never negative.
       </p>

@@ -12,7 +12,7 @@ export interface ProcessStepsProps {
   steps: ProcessStep[];
   /** Accessible name for the list. */
   label: string;
-  /** Heading level for each step title; the titles are Geist 500 at 20px either way. */
+  /** Heading level for each step title; the titles are Figtree SemiBold at 22px either way. */
   titleAs?: 'h3' | 'h4';
 }
 

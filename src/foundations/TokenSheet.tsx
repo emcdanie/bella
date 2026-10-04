@@ -79,7 +79,7 @@ const mono: React.CSSProperties = {
   fontFeatureSettings: 'var(--typography-font-feature-mono)',
 };
 
-/* A real section heading: the Heading section tier, h2, Geist Light. */
+/* A real section heading: the Heading section tier, h2, Figtree SemiBold. */
 export function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <Heading tier="section" as="h2" style={{ margin: 'var(--spacing-10) 0 var(--spacing-5)' }}>
@@ -110,7 +110,7 @@ export function SwatchGrid({ leaves }: { leaves: TokenLeaf[] }) {
           <div data-bella-specimen style={{ height: 64, background: `var(${leaf.cssVar})` }} />
           <div style={{ padding: 'var(--spacing-3)' }}>
             <div style={{ ...mono, fontWeight: 500 }}>{leaf.path}</div>
-            <div style={{ ...mono, color: 'var(--color-semantic-text-secondary)' }}>
+            <div style={{ ...mono, color: 'var(--color-semantic-text-body)' }}>
               {leaf.value}
             </div>
           </div>
@@ -151,7 +151,7 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
               style={{
                 ...mono,
                 textAlign: 'left',
-                color: 'var(--color-semantic-text-secondary)',
+                color: 'var(--color-semantic-text-body)',
                 padding: 'var(--spacing-3) var(--spacing-4)',
                 borderBottom: '1px solid var(--color-semantic-border-subtle)',
               }}
@@ -167,7 +167,7 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
             <td style={{ ...mono, padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
               {leaf.path}
             </td>
-            <td style={{ ...mono, padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-secondary)' }}>
+            <td style={{ ...mono, padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-body)' }}>
               {leaf.value}
             </td>
             <td style={{ padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
@@ -186,7 +186,7 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
               />
               ) : null}
             </td>
-            <td style={{ fontSize: 'var(--typography-font-size-sm)', padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-secondary)' }}>
+            <td style={{ fontSize: 'var(--typography-font-size-sm)', padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-body)' }}>
               {leaf.description ?? ''}
             </td>
           </tr>

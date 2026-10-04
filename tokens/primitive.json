@@ -488,6 +488,9 @@
       }
     },
     "alpha": {
+      "ink-shadow-06": { "$value": "#1d20300f", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 6%." },
+      "ink-shadow-08": { "$value": "#1d203014", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 8%." },
+      "ink-shadow-10": { "$value": "#1d20301a", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 10%." },
       "ink-6": {
         "$value": "#1A172010",
         "$type": "color",
@@ -918,9 +921,28 @@
         }
       }
     },
+    "cool": {
+      "$description": "Colour direction B (Elleta, 2026-10-04): cool ink-tinted greys, one hue (OKLCH h 272), light and dark themes read from the one ramp.",
+      "0": { "$value": "#ffffff", "$type": "color", "$description": "Card and raised surfaces in light. The only pure white." },
+      "25": { "$value": "#f6f7f9", "$type": "color", "$description": "Light page ground; light hover fill." },
+      "50": { "$value": "#eceef3", "$type": "color", "$description": "Light subtle hairline and inset wash (tags, code); dark ink (text-primary)." },
+      "100": { "$value": "#e4e6ec", "$type": "color", "$description": "Light hairline (border)." },
+      "200": { "$value": "#c3c7d2", "$type": "color", "$description": "Dark ink hover." },
+      "300": { "$value": "#b1b7c7", "$type": "color", "$description": "Dark secondary text. Tuned from #a3a8b8 to hold 7:1 on dark raised." },
+      "400": { "$value": "#858b9f", "$type": "color", "$description": "Light control border (3:1) and muted icons. Tuned from #8a8fa3 (3.00:1 on ground, no margin). Not text on light." },
+      "500": { "$value": "#686d7d", "$type": "color", "$description": "Dark control border (3:1 on dark surface, inset, ground)." },
+      "600": { "$value": "#474c5e", "$type": "color", "$description": "Light secondary text. Tuned from #5b6072 (5.83:1 on ground) to hold the AAA muted bar on every light surface, inset included (7.34:1 worst)." },
+      "700": { "$value": "#3a3f50", "$type": "color", "$description": "Light ink hover (primary plate hover)." },
+      "800": { "$value": "#2e3240", "$type": "color", "$description": "Dark hairline (border)." },
+      "825": { "$value": "#2b2f3d", "$type": "color", "$description": "Light reading text (text-body): body and captions. 12.43:1 on the ground, 13.32:1 on the card (type lock, 2026-10-04)." },
+      "850": { "$value": "#262a35", "$type": "color", "$description": "Dark raised surface; dark subtle hairline." },
+      "900": { "$value": "#1d2030", "$type": "color", "$description": "Light ink: text, primary fill, ink strokes, shadow tint. Dark inset." },
+      "950": { "$value": "#171a22", "$type": "color", "$description": "Dark surface and card." },
+      "975": { "$value": "#0f1117", "$type": "color", "$description": "Dark page ground." }
+    },
     "light": {
       "ink": {
-        "$value": "#121212",
+        "$value": "{color.cool.900}",
         "$type": "color",
         "$description": "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -929,12 +951,12 @@
               "Text on bg, surface, panel",
               "1px ink strokes"
             ],
-            "a11y": "Verified 2026-09-22: 18.73:1 on bg, 17.17:1 on surface, 16.73:1 on panel. AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "muted": {
-        "$value": "#4b4b4b",
+        "$value": "{color.cool.600}",
         "$type": "color",
         "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta); one more step (#515151 to #4b4b4b, 2026-10-03) so it holds AAA on the new inset.",
         "$extensions": {
@@ -943,12 +965,12 @@
               "Secondary and muted text",
               "Mono labels and meta"
             ],
-            "a11y": "Verified 2026-10-03: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "line": {
-        "$value": "#e3e3e3",
+        "$value": "{color.cool.100}",
         "$type": "color",
         "$description": "Hairline. Decorative only (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -965,7 +987,7 @@
         }
       },
       "control": {
-        "$value": "#838383",
+        "$value": "{color.cool.500}",
         "$type": "color",
         "$description": "Control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -973,12 +995,12 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-10-03: 3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA. (Was #8c8c8c, darkened 2026-10-03 to clear 3:1 on the new inset.)"
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "panel": {
-        "$value": "#f2f2f2",
+        "$value": "{color.cool.25}",
         "$type": "color",
         "$description": "Light surface and panel, merged into one step (Elleta, 2026-09-22): cards, raised blocks, figure wells, diagram panels, insets.",
         "$extensions": {
@@ -989,26 +1011,26 @@
               "Figure and diagram panels",
               "Inset wells"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.73:1, muted 7.09:1 on panel (the worst light surface). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "inset": {
-        "$value": "#e8e8e8",
+        "$value": "{color.cool.50}",
         "$type": "color",
-        "$description": "Light inset and selected wash, one visible step below panel (2026-10-03, Elleta): before this, inset, wash and panel were all #f2f2f2 and a selected row showed nothing.",
+        "$description": "Light inset and selected wash, one visible step below the ground (2026-10-03; colour B alias into color.cool, 2026-10-04, Elleta). Selected must differ from hover (the ground), so the wash is cool.50, never cool.25.",
         "$extensions": {
           "bella": {
             "usage": [
               "Inset wells, tracks",
               "Neutral selected wash"
             ],
-            "a11y": "Verified 2026-10-03: ink 15.29:1, muted 7.12:1 on inset. AAA. Control border 3.09:1. Visible against panel (1.09:1) and the page (1.23:1)."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "bg": {
-        "$value": "#ffffff",
+        "$value": "{color.cool.0}",
         "$type": "color",
         "$description": "Light page background. The one place pure white is allowed (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1023,7 +1045,7 @@
         }
       },
       "ink-hover": {
-        "$value": "#343434",
+        "$value": "{color.cool.700}",
         "$type": "color",
         "$description": "Ink plate hover: ink 85% over panel (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1031,7 +1053,7 @@
             "usage": [
               "Primary button hover and focus-visible plate"
             ],
-            "a11y": "Verified 2026-09-22: #ededed label 10.63:1."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1044,7 +1066,7 @@
             "usage": [
               "Error text, error field border, error icon"
             ],
-            "a11y": "Verified 2026-09-22: 6.54:1 on bg, 5.84:1 on panel, 5.66:1 on danger-subtle (text AA, border 3:1).",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: danger means an error"
             ]
@@ -1060,7 +1082,7 @@
             "usage": [
               "Error banner or field wash behind danger or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.24:1, danger 5.66:1 on it.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never the only signal: 1.15:1 against the page"
             ]
@@ -1076,7 +1098,7 @@
             "usage": [
               "Success text, border, icon"
             ],
-            "a11y": "Verified 2026-09-22: 5.83:1 on bg, 5.21:1 on panel, 5.10:1 on success-subtle (text AA, border 3:1).",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: success means a completed action"
             ]
@@ -1092,7 +1114,7 @@
             "usage": [
               "Success banner wash behind success or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.39:1, success 5.10:1 on it.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never the only signal: 1.14:1 against the page"
             ]
@@ -1192,7 +1214,7 @@
     },
     "dark": {
       "ink": {
-        "$value": "#ededed",
+        "$value": "{color.cool.50}",
         "$type": "color",
         "$description": "Dark-mode ink (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1201,12 +1223,12 @@
               "Text on dark bg and surface",
               "1px ink strokes"
             ],
-            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "muted": {
-        "$value": "#b1b1b1",
+        "$value": "{color.cool.300}",
         "$type": "color",
         "$description": "Dark-mode muted text. #a1a1a1 held 7.00:1 only on #161616; lifted to #b1b1b1 so it holds AAA on the neutral inset and raised steps too (style unify, 2026-09-22).",
         "$extensions": {
@@ -1214,12 +1236,12 @@
             "usage": [
               "Secondary and muted text"
             ],
-            "a11y": "Verified 2026-09-22: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "line": {
-        "$value": "#2a2a2a",
+        "$value": "{color.cool.800}",
         "$type": "color",
         "$description": "Dark hairline. Decorative only (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1235,7 +1257,7 @@
         }
       },
       "control": {
-        "$value": "#707070",
+        "$value": "{color.cool.400}",
         "$type": "color",
         "$description": "Dark control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1243,12 +1265,15 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-10-03: 3.92:1 on bg, 3.65:1 on surface, 3.33:1 on inset, 3.06:1 on raised (worst). Non-text AA on every dark surface (was #636363, 2.74:1 on inset, 2.52:1 on raised)."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
+            "dont": [
+              "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
+            ]
           }
         }
       },
       "surface": {
-        "$value": "#161616",
+        "$value": "{color.cool.950}",
         "$type": "color",
         "$description": "Dark surface and panel (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1260,7 +1285,7 @@
         }
       },
       "inset": {
-        "$value": "#1f1f1f",
+        "$value": "{color.cool.900}",
         "$type": "color",
         "$description": "Dark inset: recessed wells one step above the surface. Neutral, replaces the warm night.inset #252320 (2026-09-22).",
         "$extensions": {
@@ -1273,7 +1298,7 @@
         }
       },
       "raised": {
-        "$value": "#262626",
+        "$value": "{color.cool.850}",
         "$type": "color",
         "$description": "Dark raised: the highest dark step. Neutral, replaces the warm night.raised #2C2A27 (2026-09-22).",
         "$extensions": {
@@ -1288,7 +1313,7 @@
         }
       },
       "bg": {
-        "$value": "#0d0d0d",
+        "$value": "{color.cool.975}",
         "$type": "color",
         "$description": "Dark page background (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1300,7 +1325,7 @@
         }
       },
       "ink-hover": {
-        "$value": "#cdcdcd",
+        "$value": "{color.cool.200}",
         "$type": "color",
         "$description": "Dark ink plate hover: ink 85% over surface (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1308,7 +1333,7 @@
             "usage": [
               "Primary button hover and focus-visible plate in dark"
             ],
-            "a11y": "Verified 2026-09-22: #121212 label 11.78:1."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1321,7 +1346,7 @@
             "usage": [
               "Error text, error field border, error icon"
             ],
-            "a11y": "Verified 2026-09-22: 8.81:1 on bg, 8.20:1 on surface, 6.86:1 on raised, 7.25:1 on danger-subtle.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: danger means an error"
             ]
@@ -1337,7 +1362,7 @@
             "usage": [
               "Error banner or field wash behind danger or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 13.67:1, danger 7.25:1 on it."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1350,7 +1375,7 @@
             "usage": [
               "Success text, border, icon"
             ],
-            "a11y": "Verified 2026-09-22: 10.28:1 on bg, 9.57:1 on surface, 8.01:1 on raised, 7.58:1 on success-subtle.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: success means a completed action"
             ]
@@ -1366,7 +1391,7 @@
             "usage": [
               "Success banner wash behind success or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 12.23:1, success 7.58:1 on it."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       }
@@ -1989,9 +2014,9 @@
   "typography": {
     "font-family": {
       "display": {
-        "$value": "Geist, system-ui, sans-serif",
+        "$value": "Figtree, system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Headings: Geist, set Light 300 with tight tracking (style unify, 2026-09-22, Elleta). Unique moved to font-family.wordmark.",
+        "$description": "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta; was Geist Light 300). Unique moved to font-family.wordmark.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2021,7 +2046,7 @@
         }
       },
       "body": {
-        "$value": "Geist, system-ui, sans-serif",
+        "$value": "Figtree, system-ui, sans-serif",
         "$type": "fontFamily",
         "$description": "Body and UI typeface, Geist. Everything Unique doesn't carry: body, labels, eyebrows, buttons, navigation.",
         "$extensions": {
@@ -2061,7 +2086,7 @@
     },
     "font-size": {
       "tag": {
-        "$value": "13px",
+        "$value": "16px",
         "$type": "dimension",
         "$description": "Floor for tags and small labels. Never go smaller.",
         "$extensions": {
@@ -2076,7 +2101,7 @@
         }
       },
       "mono": {
-        "$value": "13px",
+        "$value": "16px",
         "$type": "dimension",
         "$description": "Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At the 13px hard floor.",
         "$extensions": {
@@ -2091,7 +2116,7 @@
         }
       },
       "sm": {
-        "$value": "14px",
+        "$value": "18px",
         "$type": "dimension",
         "$description": "Small text. Eyebrows, secondary captions, footnotes.",
         "$extensions": {
@@ -2108,7 +2133,7 @@
         }
       },
       "base": {
-        "$value": "16px",
+        "$value": "18px",
         "$type": "dimension",
         "$description": "Body text floor. Non-negotiable minimum for reading text in BELLA.",
         "$extensions": {
@@ -2125,7 +2150,7 @@
         }
       },
       "body": {
-        "$value": "17px",
+        "$value": "20px",
         "$type": "dimension",
         "$description": "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift.",
         "$extensions": {
@@ -2137,7 +2162,7 @@
         }
       },
       "lg": {
-        "$value": "18px",
+        "$value": "clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)",
         "$type": "dimension",
         "$description": "Large body. Lead paragraphs, long-form reading comfort.",
         "$extensions": {
@@ -2150,7 +2175,7 @@
         }
       },
       "xl": {
-        "$value": "20px",
+        "$value": "22px",
         "$type": "dimension",
         "$description": "Card title floor.",
         "$extensions": {
@@ -2162,51 +2187,10 @@
           }
         }
       },
-      "2xl": {
-        "$value": "24px",
-        "$type": "dimension",
-        "$description": "Heading-3 size, also the Unique display floor.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Heading-3",
-              "Component titles in docs"
-            ],
-            "dont": [
-              "Unique never renders below this size outside the keycap logo"
-            ]
-          }
-        }
-      },
-      "3xl": {
-        "$value": "32px",
-        "$type": "dimension",
-        "$description": "32px ramp step for Geist H2s. Not a Heading tier: the Unique section tier sizes from font-size.display-section, whose 32px floor matches this step.",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Doc-site H2s (Geist 700)",
-              "Storybook foundations section titles"
-            ]
-          }
-        }
-      },
       "4xl": {
         "$value": "40px",
         "$type": "dimension",
-        "$description": "40px ramp step. Not a Heading tier: the Unique page tier sizes from font-size.display-page (36 to 56). No component consumer since the display-type-scale fix (2026-09-18).",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "Ramp step, no current component consumer"
-            ]
-          }
-        }
-      },
-      "5xl": {
-        "$value": "56px",
-        "$type": "dimension",
-        "$description": "56px ramp step. Not a Heading tier: the Unique hero tier sizes from font-size.display-hero (40 to 72). No component consumer since the display-type-scale fix (2026-09-18).",
+        "$description": "H2 at desktop, 40px: the top of the section tier (display-section, 34 to 40px). Kept as the fixed H2 size for docs and Figma (type lock, Elleta, 2026-10-04).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2218,7 +2202,7 @@
       "6xl": {
         "$value": "88px",
         "$type": "dimension",
-        "$description": "Hero display step (Elleta, 2026-07-22). One step above 5xl, continuing the ramp's doubling gaps (8, 8, 16, 32). Sized so a short Unique 700 uppercase title visually outweighs a Geist 700 32px section head; Unique's condensed proportions need the size to carry a page title.",
+        "$description": "Cover only: the Figma file cover and doc-site covers, never reading text (type lock, 2026-10-04).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2229,9 +2213,9 @@
         }
       },
       "display-hero": {
-        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
+        "$value": "clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)",
         "$type": "dimension",
-        "$description": "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique).",
+        "$description": "Hero and page-opening heading, Figtree SemiBold: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2242,9 +2226,9 @@
         }
       },
       "display-page": {
-        "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
+        "$value": "clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)",
         "$type": "dimension",
-        "$description": "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64).",
+        "$description": "Page heading, Figtree SemiBold: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2255,9 +2239,9 @@
         }
       },
       "display-section": {
-        "$value": "clamp(32px, 32px + 12 * (100vw - 390px) / 1050, 44px)",
+        "$value": "clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)",
         "$type": "dimension",
-        "$description": "Section heading (h2), Geist Light: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor).",
+        "$description": "Section heading (h2), Figtree SemiBold: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2272,7 +2256,7 @@
       "light": {
         "$value": 300,
         "$type": "fontWeight",
-        "$description": "Geist Light: every heading tier (style unify, 2026-09-22, Elleta).",
+        "$description": "Light 300. No heading tier uses it since headings moved to semibold (2026-10-04, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2299,7 +2283,7 @@
       "medium": {
         "$value": "500",
         "$type": "fontWeight",
-        "$description": "Medium weight. Used sparingly. Titles are Geist 500 at 20px (style unify, 2026-09-22, Elleta).",
+        "$description": "Medium weight. Used sparingly: emphasised UI text, never headings or titles (titles moved to semibold, 2026-10-04, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2309,6 +2293,7 @@
           }
         }
       },
+      "semibold": { "$value": "600", "$type": "fontWeight", "$description": "Figtree SemiBold: every heading tier and title, and button labels (heading weight, 2026-10-04, Elleta)." },
       "bold": {
         "$value": "700",
         "$type": "fontWeight",
@@ -2341,6 +2326,10 @@
         }
       }
     },
+    "text-wrap": {
+      "heading": { "$value": "balance", "$type": "other", "$description": "Headings and titles balance their lines (type lock, Elleta, 2026-10-04)." },
+      "body": { "$value": "pretty", "$type": "other", "$description": "Body, lead and captions avoid widows (type lock, Elleta, 2026-10-04)." }
+    },
     "line-height": {
       "tight": {
         "$value": "1.1",
@@ -2368,7 +2357,7 @@
         }
       },
       "normal": {
-        "$value": "1.6",
+        "$value": "1.7",
         "$type": "number",
         "$description": "Body line-height.",
         "$extensions": {
@@ -2392,7 +2381,7 @@
         }
       },
       "display": {
-        "$value": "1.05",
+        "$value": "1.1",
         "$type": "number",
         "$description": "Display line-height for Unique caps (display-type-scale fix, 2026-09-18). A floor: Unique leading never drops below 1, the condensed bold cut collides at 0.9.",
         "$extensions": {
@@ -2404,9 +2393,9 @@
         }
       },
       "heading": {
-        "$value": "1.08",
+        "$value": "1.15",
         "$type": "number",
-        "$description": "Geist Light heading leading (style unify, 2026-09-22, Elleta).",
+        "$description": "Heading leading (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2446,7 +2435,7 @@
         }
       },
       "body": {
-        "$value": "-0.01em",
+        "$value": "0",
         "$type": "dimension",
         "$description": "Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.",
         "$extensions": {
@@ -2463,9 +2452,9 @@
         }
       },
       "display": {
-        "$value": "-0.035em",
+        "$value": "-0.02em",
         "$type": "dimension",
-        "$description": "Hero and page heading tracking, Geist Light (style unify, 2026-09-22, Elleta).",
+        "$description": "Hero and page heading tracking, Figtree SemiBold (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2478,9 +2467,9 @@
         }
       },
       "h2": {
-        "$value": "-0.03em",
+        "$value": "-0.015em",
         "$type": "dimension",
-        "$description": "Section heading (h2) tracking, Geist Light (style unify, 2026-09-22, Elleta).",
+        "$description": "Section heading (h2) tracking, Figtree SemiBold (style unify, 2026-09-22, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2493,9 +2482,9 @@
         }
       },
       "title": {
-        "$value": "-0.015em",
+        "$value": "0",
         "$type": "dimension",
-        "$description": "Title tracking: Geist 500 at 20px (style unify, 2026-09-22, Elleta).",
+        "$description": "Title tracking: Figtree SemiBold titles (style unify, 2026-09-22; weight 2026-10-04, Elleta).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2517,7 +2506,7 @@
         }
       },
       "wide": {
-        "$value": "0.08em",
+        "$value": "0",
         "$type": "dimension",
         "$description": "Loose tracking. Small labels without full caps treatment.",
         "$extensions": {
@@ -2530,7 +2519,7 @@
         }
       },
       "wider": {
-        "$value": "0.15em",
+        "$value": "0",
         "$type": "dimension",
         "$description": "Very loose tracking. Uppercase eyebrows, the tracking IS the old mono look.",
         "$extensions": {
@@ -2914,6 +2903,10 @@
     }
   },
   "shadow": {
+    "card-ink": { "$value": "0 1px 3px {color.alpha.ink-shadow-06}, 0 12px 28px {color.alpha.ink-shadow-10}", "$type": "shadow", "$description": "Colour B (2026-10-04): two-layer ink-tinted card shadow, light." },
+    "ui-ink": { "$value": "0 1px 2px {color.alpha.ink-shadow-06}, 0 4px 10px {color.alpha.ink-shadow-08}", "$type": "shadow", "$description": "Colour B (2026-10-04): softer two-layer pair for small UI, light." },
+    "card-ink-dark": { "$value": "0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)", "$type": "shadow", "$description": "Colour B (2026-10-04): card shadow on the dark ground." },
+    "ui-ink-dark": { "$value": "0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)", "$type": "shadow", "$description": "Colour B (2026-10-04): small-UI shadow on the dark ground." },
     "sm": {
       "$value": "0 1px 2px rgba(28,26,46,0.06)",
       "$type": "shadow",

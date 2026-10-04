@@ -3,9 +3,9 @@
  * so one rule set covers both modes. Selectors are scoped to the docs
  * root; story canvases are untouched.
  *
- * Type: H1 and H2 are Geist Light through the heading contract; everything
- * else is Geist with body text at 16px minimum. Colours come from the
- * semantic ladders; pure white is the page ground only. */
+ * Type (type lock, 2026-10-04): Figtree throughout; H1 and H2 through the
+ * heading contract; body 20 to 22px, nothing below 16px, code in Geist Mono
+ * 16px. Colours come from the semantic ladders; white is the card. */
 
 /* Heading scale from the heading contract (style unify, 2026-09-22): H1 is
  * the page tier, H2 the section tier (32px floor per AGENTS.md), both Geist
@@ -32,7 +32,7 @@
 
 #storybook-docs .sbdocs-content h3 {
   font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-2xl) !important;
+  font-size: var(--typography-font-size-xl) !important;
   font-weight: var(--typography-font-weight-medium);
   letter-spacing: var(--typography-letter-spacing-title);
   line-height: var(--typography-line-height-snug);
@@ -74,6 +74,16 @@
   border: 1px solid var(--color-semantic-border-subtle);
   border-radius: var(--radius-sm);
   color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--typography-font-size-mono);
+}
+
+/* Code blocks hold the 16px floor too (type lock, 2026-10-04). */
+#storybook-docs .sbdocs-content pre,
+#storybook-docs .sbdocs-content pre code,
+#storybook-docs .docblock-source,
+#storybook-docs .docblock-source code {
+  font-size: var(--typography-font-size-mono) !important;
 }
 
 #storybook-docs .sbdocs-content blockquote {

@@ -1,13 +1,15 @@
 /* THE card (one-card system, 2026-07-17), extracted from the portfolio into
- * BELLA. Tokens only. FLAT AT REST (surface rules, 2026-09-19): the inner
- * panel is color.semantic.surface-card (the page ground one small step
- * darker) with a 1px border-faint edge and radius.card. No shadow, no
- * accent-tinted border, no trace ring, no halo, no scrim over media.
+ * BELLA. Tokens only. AT REST the card wears shadow.card (Colour B, Elleta,
+ * 2026-10-04; was flat since 2026-09-19): the theme-aware ink-tinted
+ * two-layer shadow, under an inner panel of color.semantic.surface-card
+ * with a 1px border-faint edge and radius.card. No accent-tinted border, no
+ * trace ring, no halo, no scrim over media.
  *
  * Only INTERACTIVE cards (rendered as one link or one button: href or
  * onClick) respond to hover and focus: a 2px lift plus shadow.hover over
- * motion.duration.lift. Static cards never change on hover. Reduced motion
- * keeps interactive cards still; the shadow alone marks hover and focus.
+ * motion.duration.lift. Static cards keep shadow.card and never change on
+ * hover. Reduced motion keeps interactive cards still; the shadow alone
+ * marks hover and focus.
  *
  * Theme safety is structural: surface-card flips with [data-theme], so a
  * light page CANNOT render a dark card through this component. The single
@@ -18,6 +20,7 @@
 .card {
   position: relative;
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   --trace-w: var(--component-card-trace-width); /* reserved ring thickness; keeps hover layout-stable */
 }
 
@@ -39,7 +42,7 @@
 }
 
 /* variant="peek": the fixed ALWAYS-LIGHT reveal panel, meant to float light
- * on the dark ground. Flat like every card. Because this ground never flips,
+ * on the dark ground. Peek stays flat (no rest shadow; see .peek). Because this ground never flips,
  * the theme-flipping semantic inks and edge are re-scoped to fixed
  * light-context values; otherwise dark mode would render light text on the
  * light panel. Custom properties resolve at the element they are declared
@@ -49,12 +52,20 @@
   color: var(--color-brand-ink);
   --color-semantic-text-primary: var(--color-brand-ink);
   --color-semantic-text-secondary: var(--color-neutral-ink-muted);
+  --color-semantic-text-body: var(--color-neutral-ink-soft);
   --color-semantic-text-muted: var(--color-neutral-ink-faint);
   --color-semantic-border: var(--color-neutral-border);
   --color-semantic-border-subtle: var(--color-alpha-ink-6);
   --color-semantic-border-faint: var(--color-alpha-ink-10);
   --color-semantic-surface-inset: var(--color-neutral-surface);
   border-color: var(--color-semantic-border-faint);
+}
+
+/* Peek stays flat at rest: the rest shadow is re-scoped to none on its
+ * outer element, the same way the inner panel re-scopes its inks. Hover
+ * and focus on an interactive peek still bring shadow.hover. */
+.peek {
+  --shadow-card: none;
 }
 
 /* Interactive cards: single anchor/button, unmistakably clickable */

@@ -2,7 +2,7 @@
 /* audit:quality, docs leg. The test-runner covers every story; this script
  * covers every docs page against a running (static) Storybook:
  *   - no em or en dashes in rendered doc content (.sbdocs-content)
- *   - nothing below the 13px hard floor
+ *   - nothing below the 16px hard floor (type lock, 2026-10-04)
  *   - Unique never below 24px
  *   - no pure-white solid fills except the page ground ([data-bella-ground])
  *   - no colour literals in inline styles (token specimens opt out with
@@ -74,21 +74,18 @@ for (const entry of docs) {
       );
       if (own && !sbChrome) {
         const size = parseFloat(cs.fontSize);
-        if (size < 13) out.push(`text below 13px (${size}px): "${own.slice(0, 40)}"`);
+        if (size < 16) out.push(`text below 16px (${size}px): "${own.slice(0, 40)}"`);
         if (/\bUnique\b/.test(cs.fontFamily) && size < 24)
           out.push(`Unique below 24px (${size}px): "${own.slice(0, 40)}"`);
       }
       if (el.closest('[data-bella-specimen]')) continue;
-      /* Pure white is the light page ground only (style unify, 2026-09-22) */
-      /* the ground: the story stage, a marked container, or Storybook's own
-         docs surfaces, which paint the page background (the docs wrapper,
-         preview frames and their toolbars, source docblocks) */
-      const ground =
-        el.matches('[data-testid="bella-stage"], [data-bella-ground], .sbdocs-wrapper, .sbdocs-preview') ||
-        !!el.closest('[class*="docblock"]') ||
-        (!!el.closest('.sbdocs-preview') && !el.closest('[data-testid="bella-stage"]'));
-      if (cs.backgroundColor === 'rgb(255, 255, 255)' && !ground)
-        out.push(`pure white fill on <${el.tagName.toLowerCase()}>`);
+      /* Colour B (Elleta, 2026-10-04): white is the card surface, the
+         ground is cool.25; the stage or a marked ground painting pure white
+         skipped the background token. Storybook's own docs chrome is not
+         checked. */
+      const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
+      if (cs.backgroundColor === 'rgb(255, 255, 255)' && ground)
+        out.push(`page ground painted pure white on <${el.tagName.toLowerCase()}>`);
       const inline = el.getAttribute('style');
       if (
         inline &&

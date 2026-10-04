@@ -10,7 +10,7 @@ export interface CardProps {
   accent?: string;
   /**
    * Surface behavior. `"default"` is theme-aware: the inner panel renders
-   * the flat card surface (surface-card: the page ground one step darker, in
+   * the card surface (surface-card: the page ground one step darker, in
    * both themes) and inks follow the semantic cascade, so a light page
    * structurally cannot show a dark card. `"peek"` is the one recorded
    * exception: a fixed always-light paper panel meant to float light on the
@@ -55,8 +55,9 @@ export interface CardProps {
 }
 
 /**
- * The one-card system: every card surface renders through this. Flat at
- * rest (surface-card, a faint border, no shadow), theme-aware by
+ * The one-card system: every card surface renders through this. At rest
+ * it wears shadow.card over surface-card and a faint border (Colour B,
+ * 2026-10-04; peek stays flat), theme-aware by
  * construction; only interactive cards lift on hover and focus. The only
  * fixed-light path is Peek, on purpose.
  */
@@ -74,6 +75,7 @@ export default function Card({
 }: CardProps) {
   const outerClass = [
     styles.card,
+    variant === 'peek' ? styles.peek : '',
     href || onClick ? styles.interactive : '',
     className,
   ]

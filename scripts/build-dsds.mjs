@@ -453,11 +453,11 @@ const foundations = [
       {
         kind: 'guidelines', for: 'all', title: 'Size floors', description: 'Floors, not defaults. Going below is a bug.',
         items: [
-          { level: 'must', statement: 'Body text MUST be at least 16px (`typography.font-size.base`).', checks: [QUALITY_CHECK], checkedBy: 'automated' },
-          { level: 'must', statement: 'Card titles MUST be at least 20px (`typography.font-size.xl`) at weight 700.', checkedBy: 'assisted' },
-          { level: 'must', statement: 'Section headings MUST be at least 32px (`typography.font-size.3xl`).', checkedBy: 'assisted' },
-          { level: 'should', statement: 'Fine print, captions, and metadata live at 13-14px and SHOULD be rare. If you are reaching for 12px, rethink the layout.', checkedBy: 'manual' },
-          { level: 'must-not', statement: 'Nothing, anywhere, renders below 13px (`typography.font-size.tag`).', checks: [QUALITY_CHECK], checkedBy: 'automated' },
+          { level: 'must', statement: 'Reading text MUST be at least 18px (`typography.font-size.sm`); body is 20px (`typography.font-size.body`).', checks: [QUALITY_CHECK], checkedBy: 'automated' },
+          { level: 'must', statement: 'Card titles MUST be 22px (`typography.font-size.xl`) at weight 500.', checkedBy: 'assisted' },
+          { level: 'must', statement: 'Section headings MUST be at least 34px (`typography.font-size.display-section`, 34 to 40px).', checkedBy: 'assisted' },
+          { level: 'should', statement: 'Captions are 18px and labels 16px; nothing read sits below 18px.', checkedBy: 'manual' },
+          { level: 'must-not', statement: 'Nothing, anywhere, renders below 16px (`typography.font-size.tag`).', checks: [QUALITY_CHECK], checkedBy: 'automated' },
         ],
       },
     ],

@@ -40,7 +40,6 @@ function TemplateControl() {
         fontSize: 'var(--typography-font-size-tag)',
         fontWeight: 700,
         letterSpacing: 'var(--typography-letter-spacing-wide)',
-        textTransform: 'uppercase',
         cursor: 'pointer',
       }}
     >

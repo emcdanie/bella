@@ -4,7 +4,7 @@ import styles from './Tag.module.css';
 export interface TagProps {
   /**
    * `"default"` is the quiet neutral wash. `"accent"` is the ochre fill
-   * with ink text (brand refresh, 2026-09-22). Both set in the sans label style at 13px (2026-10-03; was Geist Mono).
+   * with ink text (brand refresh, 2026-09-22). Both set in Figtree at 16px, sentence case (type lock, 2026-10-04).
    */
   variant?: 'default' | 'accent';
   /** Extra classes on the chip. */

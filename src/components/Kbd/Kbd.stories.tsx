@@ -93,9 +93,9 @@ export const Behavior: Story = {
       expect(plain.textContent).toBe('Esc');
     });
 
-    await step('Mono at the 13px floor', async () => {
+    await step('Mono at the 16px floor (type lock)', async () => {
       const cs = getComputedStyle(labelled.querySelector('kbd kbd') as HTMLElement);
-      expect(parseFloat(cs.fontSize)).toBe(13);
+      expect(parseFloat(cs.fontSize)).toBe(16);
     });
   },
 };

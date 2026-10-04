@@ -70,7 +70,7 @@ export const Compact: Story = {
   play: async ({ canvasElement }) => {
     for (const chip of canvasElement.querySelectorAll('button')) {
       expect(chip.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
-      expect(getComputedStyle(chip).fontSize).toBe('13px');
+      expect(getComputedStyle(chip).fontSize).toBe('16px');
     }
   },
 };

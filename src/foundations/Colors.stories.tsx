@@ -7,7 +7,7 @@ const meta: Meta = {
 };
 export default meta;
 
-const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' };
+const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-body)' };
 
 /** The palette the semantic tier reads (style unify and brand refresh,
  * 2026-09-22): neutral light and dark steps, three chip fills, the brand

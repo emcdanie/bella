@@ -13,12 +13,13 @@ const componentContract = JSON.parse(
 
 /* audit:quality — the correctness layer. Baselines verify sameness; these
  * checks verify rules, per story, in the same pass:
- *   1. Rendered-text lint: no em/en dashes; nothing below 13px (the hard
- *      floor); own text past ~40 chars computes >= 16px (metadata rows are
- *      the recorded 13-14px tier and exempt via the length heuristic);
+ *   1. Rendered-text lint: no em/en dashes; nothing below 16px (the hard
+ *      floor); own text past ~40 chars computes >= 18px (labels and meta
+ *      are the 16px tier and exempt via the length heuristic);
  *      Unique never below 24px.
- *   2. Computed styles: no pure-white solid fills except the page ground
- *      (the stage or [data-bella-ground]; alpha overlays pass);
+ *   2. Computed styles: the page ground (the stage or [data-bella-ground])
+ *      is never pure white: it is the cool ground, and white is the card
+ *      and raised surface (colour B, 2026-10-04);
  *      colour properties in inline styles resolve through var(), never
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
@@ -268,18 +269,18 @@ async function runQualityChecks(
           const cs = getComputedStyle(el);
           const size = parseFloat(cs.fontSize);
           const snippet = own.slice(0, 40);
-          if (size < 13) {
-            fails.push(`text below the 13px hard floor (${size}px): "${snippet}"`);
+          if (size < 16) {
+            fails.push(`text below the 16px hard floor (${size}px): "${snippet}"`);
           } else if (
-            size < 16 &&
+            size < 18 &&
             own.length > 40 &&
             (el.tagName === 'P' || el.tagName === 'LI')
           ) {
             /* the recorded audit:type heuristic: long-form reading text
-               (P/LI past ~40 own chars) holds the 16px floor; table cells,
-               tags, and captions are the 13-14px metadata tier */
+               (P/LI past ~40 own chars) holds the 18px floor; labels and
+               meta are the 16px tier (type lock, 2026-10-04) */
             fails.push(
-              `long-form text below 16px (${size}px, ${own.length} chars): "${snippet}"`
+              `long-form text below 18px (${size}px, ${own.length} chars): "${snippet}"`
             );
           }
           if (/\bUnique\b/.test(cs.fontFamily) && size < 24) {
@@ -330,13 +331,13 @@ async function runQualityChecks(
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;
-        /* Pure white is the light page ground (style unify, 2026-09-22) and
-           nothing else: only the stage or a marked ground container may
-           paint it. Cards, chips and surfaces step down from it. */
+        /* Colour B (Elleta, 2026-10-04; inverts the 2026-09-22 white page):
+           white is the card and raised surface, the ground is cool.25. A
+           ground painting pure white means it skipped the background token. */
         const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
-        if (bg === 'rgb(255, 255, 255)' && !ground) {
+        if (bg === 'rgb(255, 255, 255)' && ground) {
           fails.push(
-            `pure white solid fill on <${el.tagName.toLowerCase()} class="${el.className}">`
+            `page ground painted pure white on <${el.tagName.toLowerCase()} class="${el.className}">; use color.semantic.background`
           );
         }
         const inline = el.getAttribute('style');
@@ -407,9 +408,20 @@ async function runQualityChecks(
                  tiers without the layer (no ::before content) are exempt */
               if (inv.pseudo && cs.content === 'none') continue;
               const actual = cs.getPropertyValue(inv.property).trim();
-              if (actual !== inv.expect) {
+              /* expectVar: the value a token resolves to in this element's
+                 own context (theme, local re-scopes), read off a probe
+                 child so both sides are computed the same way */
+              let expected = inv.expect;
+              if (inv.expectVar) {
+                const probe = document.createElement('span');
+                probe.style.setProperty(inv.property, `var(${inv.expectVar})`);
+                el.appendChild(probe);
+                expected = getComputedStyle(probe).getPropertyValue(inv.property).trim();
+                probe.remove();
+              }
+              if (actual !== expected) {
                 fails.push(
-                  `[${contract.name}] rest-state layer "${inv.layer}" paints at rest: ${inv.property} is "${actual}", contract expects "${inv.expect}"`
+                  `[${contract.name}] rest-state layer "${inv.layer}" paints at rest: ${inv.property} is "${actual}", contract expects "${expected}"${inv.expectVar ? ` (${inv.expectVar})` : ''}`
                 );
               }
             }

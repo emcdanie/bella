@@ -78,7 +78,7 @@ export const WithName: Story = {
           style={{
             display: 'block',
             fontSize: 'var(--typography-font-size-tag)',
-            color: 'var(--color-semantic-text-secondary)',
+            color: 'var(--color-semantic-text-body)',
           }}
         >
           Design systems

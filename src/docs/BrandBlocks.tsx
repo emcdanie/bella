@@ -9,8 +9,9 @@ import React, { type ReactNode } from 'react';
 type Ground = 'light' | 'panel' | 'dark';
 
 const stageBg: Record<Ground, string> = {
-  light: 'var(--color-light-bg)',
-  panel: 'var(--color-light-panel)',
+  /* colour B (2026-10-04): the light ground is cool.25; white is the card */
+  light: 'var(--color-light-panel)',
+  panel: 'var(--color-cool-50)',
   dark: 'var(--color-dark-bg)',
 };
 

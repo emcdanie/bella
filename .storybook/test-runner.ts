@@ -17,8 +17,9 @@ const componentContract = JSON.parse(
  *      floor); own text past ~40 chars computes >= 16px (metadata rows are
  *      the recorded 13-14px tier and exempt via the length heuristic);
  *      Unique never below 24px.
- *   2. Computed styles: no pure-white solid fills except the page ground
- *      (the stage or [data-bella-ground]; alpha overlays pass);
+ *   2. Computed styles: the page ground (the stage or [data-bella-ground])
+ *      is never pure white: it is the cool ground, and white is the card
+ *      and raised surface (colour B, 2026-10-04);
  *      colour properties in inline styles resolve through var(), never
  *      literals (token specimens opt out with data-bella-specimen);
  *      contract rest-state invariants: hover/focus-only layers are inert
@@ -330,13 +331,13 @@ async function runQualityChecks(
       for (const el of root.querySelectorAll<HTMLElement>('*')) {
         if (el.closest('[data-bella-specimen]')) continue;
         const bg = getComputedStyle(el).backgroundColor;
-        /* Pure white is the light page ground (style unify, 2026-09-22) and
-           nothing else: only the stage or a marked ground container may
-           paint it. Cards, chips and surfaces step down from it. */
+        /* Colour B (Elleta, 2026-10-04; inverts the 2026-09-22 white page):
+           white is the card and raised surface, the ground is cool.25. A
+           ground painting pure white means it skipped the background token. */
         const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
-        if (bg === 'rgb(255, 255, 255)' && !ground) {
+        if (bg === 'rgb(255, 255, 255)' && ground) {
           fails.push(
-            `pure white solid fill on <${el.tagName.toLowerCase()} class="${el.className}">`
+            `page ground painted pure white on <${el.tagName.toLowerCase()} class="${el.className}">; use color.semantic.background`
           );
         }
         const inline = el.getAttribute('style');

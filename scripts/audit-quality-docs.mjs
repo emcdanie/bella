@@ -79,16 +79,13 @@ for (const entry of docs) {
           out.push(`Unique below 24px (${size}px): "${own.slice(0, 40)}"`);
       }
       if (el.closest('[data-bella-specimen]')) continue;
-      /* Pure white is the light page ground only (style unify, 2026-09-22) */
-      /* the ground: the story stage, a marked container, or Storybook's own
-         docs surfaces, which paint the page background (the docs wrapper,
-         preview frames and their toolbars, source docblocks) */
-      const ground =
-        el.matches('[data-testid="bella-stage"], [data-bella-ground], .sbdocs-wrapper, .sbdocs-preview') ||
-        !!el.closest('[class*="docblock"]') ||
-        (!!el.closest('.sbdocs-preview') && !el.closest('[data-testid="bella-stage"]'));
-      if (cs.backgroundColor === 'rgb(255, 255, 255)' && !ground)
-        out.push(`pure white fill on <${el.tagName.toLowerCase()}>`);
+      /* Colour B (Elleta, 2026-10-04): white is the card surface, the
+         ground is cool.25; the stage or a marked ground painting pure white
+         skipped the background token. Storybook's own docs chrome is not
+         checked. */
+      const ground = el.matches('[data-testid="bella-stage"], [data-bella-ground]');
+      if (cs.backgroundColor === 'rgb(255, 255, 255)' && ground)
+        out.push(`page ground painted pure white on <${el.tagName.toLowerCase()}>`);
       const inline = el.getAttribute('style');
       if (
         inline &&

@@ -488,6 +488,9 @@
       }
     },
     "alpha": {
+      "ink-shadow-06": { "$value": "#1d20300f", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 6%." },
+      "ink-shadow-08": { "$value": "#1d203014", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 8%." },
+      "ink-shadow-10": { "$value": "#1d20301a", "$type": "color", "$description": "Colour B shadow tint: cool.900 at 10%." },
       "ink-6": {
         "$value": "#1A172010",
         "$type": "color",
@@ -918,9 +921,27 @@
         }
       }
     },
+    "cool": {
+      "$description": "Colour direction B (Elleta, 2026-10-04): cool ink-tinted greys, one hue (OKLCH h 272), light and dark themes read from the one ramp.",
+      "0": { "$value": "#ffffff", "$type": "color", "$description": "Card and raised surfaces in light. The only pure white." },
+      "25": { "$value": "#f6f7f9", "$type": "color", "$description": "Light page ground; light hover fill." },
+      "50": { "$value": "#eceef3", "$type": "color", "$description": "Light subtle hairline and inset wash (tags, code); dark ink (text-primary)." },
+      "100": { "$value": "#e4e6ec", "$type": "color", "$description": "Light hairline (border)." },
+      "200": { "$value": "#c3c7d2", "$type": "color", "$description": "Dark ink hover." },
+      "300": { "$value": "#b1b7c7", "$type": "color", "$description": "Dark secondary text. Tuned from #a3a8b8 to hold 7:1 on dark raised." },
+      "400": { "$value": "#858b9f", "$type": "color", "$description": "Light control border (3:1) and muted icons. Tuned from #8a8fa3 (3.00:1 on ground, no margin). Not text on light." },
+      "500": { "$value": "#686d7d", "$type": "color", "$description": "Dark control border (3:1 on dark surface, inset, ground)." },
+      "600": { "$value": "#474c5e", "$type": "color", "$description": "Light secondary text. Tuned from #5b6072 (5.83:1 on ground) to hold the AAA muted bar on every light surface, inset included (7.34:1 worst)." },
+      "700": { "$value": "#3a3f50", "$type": "color", "$description": "Light ink hover (primary plate hover)." },
+      "800": { "$value": "#2e3240", "$type": "color", "$description": "Dark hairline (border)." },
+      "850": { "$value": "#262a35", "$type": "color", "$description": "Dark raised surface; dark subtle hairline." },
+      "900": { "$value": "#1d2030", "$type": "color", "$description": "Light ink: text, primary fill, ink strokes, shadow tint. Dark inset." },
+      "950": { "$value": "#171a22", "$type": "color", "$description": "Dark surface and card." },
+      "975": { "$value": "#0f1117", "$type": "color", "$description": "Dark page ground." }
+    },
     "light": {
       "ink": {
-        "$value": "#121212",
+        "$value": "{color.cool.900}",
         "$type": "color",
         "$description": "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -929,12 +950,12 @@
               "Text on bg, surface, panel",
               "1px ink strokes"
             ],
-            "a11y": "Verified 2026-09-22: 18.73:1 on bg, 17.17:1 on surface, 16.73:1 on panel. AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "muted": {
-        "$value": "#4b4b4b",
+        "$value": "{color.cool.600}",
         "$type": "color",
         "$description": "Light-mode muted text. Darkened from the study's #6b6b6b to hold AAA on every light surface (style unify, 2026-09-22, Elleta); one more step (#515151 to #4b4b4b, 2026-10-03) so it holds AAA on the new inset.",
         "$extensions": {
@@ -943,12 +964,12 @@
               "Secondary and muted text",
               "Mono labels and meta"
             ],
-            "a11y": "Verified 2026-10-03: 8.72:1 on bg, 7.79:1 on panel, 7.12:1 on inset (worst). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "line": {
-        "$value": "#e3e3e3",
+        "$value": "{color.cool.100}",
         "$type": "color",
         "$description": "Hairline. Decorative only (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -965,7 +986,7 @@
         }
       },
       "control": {
-        "$value": "#838383",
+        "$value": "{color.cool.400}",
         "$type": "color",
         "$description": "Control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -973,12 +994,12 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-10-03: 3.79:1 on bg, 3.39:1 on panel, 3.09:1 on inset (worst). Non-text AA. (Was #8c8c8c, darkened 2026-10-03 to clear 3:1 on the new inset.)"
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "panel": {
-        "$value": "#f2f2f2",
+        "$value": "{color.cool.25}",
         "$type": "color",
         "$description": "Light surface and panel, merged into one step (Elleta, 2026-09-22): cards, raised blocks, figure wells, diagram panels, insets.",
         "$extensions": {
@@ -989,26 +1010,26 @@
               "Figure and diagram panels",
               "Inset wells"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.73:1, muted 7.09:1 on panel (the worst light surface). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "inset": {
-        "$value": "#e8e8e8",
+        "$value": "{color.cool.50}",
         "$type": "color",
-        "$description": "Light inset and selected wash, one visible step below panel (2026-10-03, Elleta): before this, inset, wash and panel were all #f2f2f2 and a selected row showed nothing.",
+        "$description": "Light inset and selected wash, one visible step below the ground (2026-10-03; colour B alias into color.cool, 2026-10-04, Elleta). Selected must differ from hover (the ground), so the wash is cool.50, never cool.25.",
         "$extensions": {
           "bella": {
             "usage": [
               "Inset wells, tracks",
               "Neutral selected wash"
             ],
-            "a11y": "Verified 2026-10-03: ink 15.29:1, muted 7.12:1 on inset. AAA. Control border 3.09:1. Visible against panel (1.09:1) and the page (1.23:1)."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "bg": {
-        "$value": "#ffffff",
+        "$value": "{color.cool.0}",
         "$type": "color",
         "$description": "Light page background. The one place pure white is allowed (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1023,7 +1044,7 @@
         }
       },
       "ink-hover": {
-        "$value": "#343434",
+        "$value": "{color.cool.700}",
         "$type": "color",
         "$description": "Ink plate hover: ink 85% over panel (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1031,7 +1052,7 @@
             "usage": [
               "Primary button hover and focus-visible plate"
             ],
-            "a11y": "Verified 2026-09-22: #ededed label 10.63:1."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1044,7 +1065,7 @@
             "usage": [
               "Error text, error field border, error icon"
             ],
-            "a11y": "Verified 2026-09-22: 6.54:1 on bg, 5.84:1 on panel, 5.66:1 on danger-subtle (text AA, border 3:1).",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: danger means an error"
             ]
@@ -1060,7 +1081,7 @@
             "usage": [
               "Error banner or field wash behind danger or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.24:1, danger 5.66:1 on it.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never the only signal: 1.15:1 against the page"
             ]
@@ -1076,7 +1097,7 @@
             "usage": [
               "Success text, border, icon"
             ],
-            "a11y": "Verified 2026-09-22: 5.83:1 on bg, 5.21:1 on panel, 5.10:1 on success-subtle (text AA, border 3:1).",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: success means a completed action"
             ]
@@ -1092,7 +1113,7 @@
             "usage": [
               "Success banner wash behind success or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 16.39:1, success 5.10:1 on it.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never the only signal: 1.14:1 against the page"
             ]
@@ -1192,7 +1213,7 @@
     },
     "dark": {
       "ink": {
-        "$value": "#ededed",
+        "$value": "{color.cool.50}",
         "$type": "color",
         "$description": "Dark-mode ink (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1201,12 +1222,12 @@
               "Text on dark bg and surface",
               "1px ink strokes"
             ],
-            "a11y": "Verified 2026-09-22: 16.60:1 on bg, 15.46:1 on surface. AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "muted": {
-        "$value": "#b1b1b1",
+        "$value": "{color.cool.300}",
         "$type": "color",
         "$description": "Dark-mode muted text. #a1a1a1 held 7.00:1 only on #161616; lifted to #b1b1b1 so it holds AAA on the neutral inset and raised steps too (style unify, 2026-09-22).",
         "$extensions": {
@@ -1214,12 +1235,12 @@
             "usage": [
               "Secondary and muted text"
             ],
-            "a11y": "Verified 2026-09-22: 9.06:1 on bg, 8.44:1 on surface, 7.69:1 on inset, 7.06:1 on raised (worst). AAA."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
       "line": {
-        "$value": "#2a2a2a",
+        "$value": "{color.cool.800}",
         "$type": "color",
         "$description": "Dark hairline. Decorative only (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1235,7 +1256,7 @@
         }
       },
       "control": {
-        "$value": "#707070",
+        "$value": "{color.cool.500}",
         "$type": "color",
         "$description": "Dark control border, the 3:1 non-text step (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1243,12 +1264,15 @@
             "usage": [
               "Input, select and control borders"
             ],
-            "a11y": "Verified 2026-10-03: 3.92:1 on bg, 3.65:1 on surface, 3.33:1 on inset, 3.06:1 on raised (worst). Non-text AA on every dark surface (was #636363, 2.74:1 on inset, 2.52:1 on raised)."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
+            "dont": [
+              "Not on dark.raised: 2.52:1 there; controls sit on bg, surface or inset (inset 2.74:1: disabled fields only)"
+            ]
           }
         }
       },
       "surface": {
-        "$value": "#161616",
+        "$value": "{color.cool.950}",
         "$type": "color",
         "$description": "Dark surface and panel (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1260,7 +1284,7 @@
         }
       },
       "inset": {
-        "$value": "#1f1f1f",
+        "$value": "{color.cool.900}",
         "$type": "color",
         "$description": "Dark inset: recessed wells one step above the surface. Neutral, replaces the warm night.inset #252320 (2026-09-22).",
         "$extensions": {
@@ -1273,7 +1297,7 @@
         }
       },
       "raised": {
-        "$value": "#262626",
+        "$value": "{color.cool.850}",
         "$type": "color",
         "$description": "Dark raised: the highest dark step. Neutral, replaces the warm night.raised #2C2A27 (2026-09-22).",
         "$extensions": {
@@ -1288,7 +1312,7 @@
         }
       },
       "bg": {
-        "$value": "#0d0d0d",
+        "$value": "{color.cool.975}",
         "$type": "color",
         "$description": "Dark page background (style unify, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1300,7 +1324,7 @@
         }
       },
       "ink-hover": {
-        "$value": "#cdcdcd",
+        "$value": "{color.cool.200}",
         "$type": "color",
         "$description": "Dark ink plate hover: ink 85% over surface (brand refresh, 2026-09-22, Elleta).",
         "$extensions": {
@@ -1308,7 +1332,7 @@
             "usage": [
               "Primary button hover and focus-visible plate in dark"
             ],
-            "a11y": "Verified 2026-09-22: #121212 label 11.78:1."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1321,7 +1345,7 @@
             "usage": [
               "Error text, error field border, error icon"
             ],
-            "a11y": "Verified 2026-09-22: 8.81:1 on bg, 8.20:1 on surface, 6.86:1 on raised, 7.25:1 on danger-subtle.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: danger means an error"
             ]
@@ -1337,7 +1361,7 @@
             "usage": [
               "Error banner or field wash behind danger or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 13.67:1, danger 7.25:1 on it."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       },
@@ -1350,7 +1374,7 @@
             "usage": [
               "Success text, border, icon"
             ],
-            "a11y": "Verified 2026-09-22: 10.28:1 on bg, 9.57:1 on surface, 8.01:1 on raised, 7.58:1 on success-subtle.",
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs.",
             "dont": [
               "Never decoration: success means a completed action"
             ]
@@ -1366,7 +1390,7 @@
             "usage": [
               "Success banner wash behind success or ink text"
             ],
-            "a11y": "Verified 2026-09-22: ink 12.23:1, success 7.58:1 on it."
+            "a11y": "Colour B (2026-10-04): now an alias into color.cool; ratios are recorded on the semantic tokens and checked by scripts/contrast-pairs.mjs."
           }
         }
       }
@@ -2914,6 +2938,10 @@
     }
   },
   "shadow": {
+    "card-ink": { "$value": "0 1px 3px {color.alpha.ink-shadow-06}, 0 12px 28px {color.alpha.ink-shadow-10}", "$type": "shadow", "$description": "Colour B (2026-10-04): two-layer ink-tinted card shadow, light." },
+    "ui-ink": { "$value": "0 1px 2px {color.alpha.ink-shadow-06}, 0 4px 10px {color.alpha.ink-shadow-08}", "$type": "shadow", "$description": "Colour B (2026-10-04): softer two-layer pair for small UI, light." },
+    "card-ink-dark": { "$value": "0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)", "$type": "shadow", "$description": "Colour B (2026-10-04): card shadow on the dark ground." },
+    "ui-ink-dark": { "$value": "0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)", "$type": "shadow", "$description": "Colour B (2026-10-04): small-UI shadow on the dark ground." },
     "sm": {
       "$value": "0 1px 2px rgba(28,26,46,0.06)",
       "$type": "shadow",

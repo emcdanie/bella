@@ -4,6 +4,21 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Type lock for readability (2026-10-04)
+- **Figtree** (vendored variable woff2, SIL OFL) for headings, body, labels and buttons; Geist Mono for real code and token names only, 16px. Why: Elleta could not read the pages comfortably (small grey body, tiny caps mono labels, too many sizes); readability is a hard requirement.
+- **Five sizes** (BREAKING): H1 44-60, H2 34-40 (`font-size.4xl` 40 = fixed H2), lead 21-22, body 20 fixed (line height 1.7), small 18; labels 16; titles 22. `font-size.2xl`, `3xl`, `5xl` removed; `6xl` 88 is cover only. Headings Figtree 500 (kept "for now", Elleta).
+- **`color.semantic.text-body`** (light `cool.825` #2b2f3d, dark = text-primary) for every sentence anyone reads, captions included; captions differ by size, not colour. `text-secondary` is non-reading UI only. Rejected: a separate caption ink (#33384a, too close to need a token) and #5b6072 captions (5.83:1, below the 7:1 muted bar).
+- **No caps, no tracking** on any label; Button labels Figtree SemiBold 16, sentence case, every size. Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
+- **Gate floors raised**: 16px hard floor, 18px for long-form text (audit:quality, docs audit); docs code at 16px.
+- **Reading flow**: `typography.text-wrap.heading` (balance) and `.body` (pretty), emitted as zero-specificity `:where()` base rules in bella.css (fixed the CaseMeta lead widow).
+- Avatar `sm` 32 to 40px so the 16px initials have room; Card peek re-scopes `text-body` to the paper ink.
+
+### Colour direction B (2026-10-04)
+- **`color.cool.*`** (BREAKING): one cool ink-tinted grey ramp (OKLCH hue 272, 16 steps incl. 825) that both themes read from; `color.light.*` / `color.dark.*` are aliases into it. Why: greys with a hint of ink make borders softer, text calmer and ochre pop harder (concept lock, Elleta, 4 Oct). Ochre stays the only accent; indigo is for case visuals only and not in BELLA.
+- **Surfaces**: light ground `cool.25`, white cards, inset `cool.50`; dark ground `cool.975`, surface `cool.950`, raised `cool.850`. New `hover-fill`, `icon-muted`. Three lock values were tuned to hold the gate: secondary `#474c5e` (lock #5b6072 was 5.83:1), control border `#858b9f` (lock #c3c7d2 was 1.58:1), dark secondary `#b1b7c7`.
+- **Ink-tinted two-layer shadows** `card-ink`, `ui-ink` (+ dark) and theme-aware `shadow.card` / `shadow.ui`; Card stays flat at rest (open decision).
+- **audit:quality pure-white rule inverted**: white is the card surface; a page ground painted pure white fails.
+
 ### Surface levels (2026-10-03)
 - **`color.semantic.ground` and `color.semantic.raised`** (added, no component reads them yet): three surface levels for the portfolio's Gate 2 layout, ordered ground < inset < raised in every theme. Light `#e3e3e3` / `#ffffff`, dark `#0d0d0d` / `#262626`, warm `#e3dbcf` / `#fbfaf7`, all from existing primitives. Ink is AAA on both in all themes; muted on ground is AA only in light and warm (forbidden pair, put meta on raised). Re-sync consumers with `audit:sync`.
 

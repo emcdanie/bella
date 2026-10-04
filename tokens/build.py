@@ -205,6 +205,22 @@ for path, (v, t, _) in comp_flat.items():
         css_lines.append(f"  {emit_css_var(path)}: {warmv};")
 css_lines += ["}", ""]
 
+# ---- Reading flow (type lock, Elleta, 2026-10-04) ----
+# Zero-specificity element rules, so any component rule still wins. Headings
+# and titles balance; body, lead and captions avoid a widow on the last line.
+css_lines += [
+    "/* Reading flow: headings balance, paragraphs avoid widows. :where() keeps",
+    "   specificity at zero, so components override freely. */",
+    ":where(h1, h2, h3, h4, h5, h6, [data-bella-component=\"heading\"]) {",
+    "  text-wrap: var(--typography-text-wrap-heading);",
+    "}",
+    "",
+    ":where(p, li, dd, dt, blockquote, figcaption, caption) {",
+    "  text-wrap: var(--typography-text-wrap-body);",
+    "}",
+    "",
+]
+
 # ---- Glass utility classes ----
 # Composed from semantic + primitive tokens so backdrop-filter and its
 # -webkit-prefixed pair stay in lock-step.

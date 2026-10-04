@@ -190,6 +190,8 @@ value with the source reference in parentheses.
 | `typography.font-weight.semibold` | `600` | fontWeight |
 | `typography.font-weight.bold` | `700` | fontWeight |
 | `typography.font-weight.black` | `800` | fontWeight |
+| `typography.text-wrap.heading` | `balance` | other |
+| `typography.text-wrap.body` | `pretty` | other |
 | `typography.line-height.tight` | `1.1` | number |
 | `typography.line-height.snug` | `1.3` | number |
 | `typography.line-height.normal` | `1.7` | number |
@@ -668,9 +670,9 @@ value with the source reference in parentheses.
 | `component.stat.trend-width` | `80px` (`{spacing.20}`) | dimension |
 | `component.stat.trend-height` | `24px` (`{spacing.6}`) | dimension |
 | `component.stat.trend-stroke` | `#1d2030` (`{color.semantic.text-primary}`) | color |
-| `component.score-strip.name-font-size` | `24px` (`{typography.font-size.xl}`) | dimension |
+| `component.score-strip.name-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
 | `component.score-strip.score-font-size` | `32px` (`{typography.font-size.3xl}`) | dimension |
-| `component.score-strip.value-font-size` | `clamp(21px, 21px + 3 * (100vw - 390px) / 1050, 24px)` (`{typography.font-size.lg}`) | dimension |
+| `component.score-strip.value-font-size` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` (`{typography.font-size.lg}`) | dimension |
 | `component.score-strip.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.score-strip.label-font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
 | `component.score-strip.cell-border-radius` | `8px` (`{radius.md}`) | dimension |
@@ -718,7 +720,7 @@ value with the source reference in parentheses.
 | `component.page-header.title.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.page-header.title.line-height` | `1.15` (`{typography.line-height.heading}`) | number |
 | `component.page-header.title.letter-spacing` | `-0.02em` (`{typography.letter-spacing.display}`) | dimension |
-| `component.page-header.lede.font-size` | `clamp(21px, 21px + 3 * (100vw - 390px) / 1050, 24px)` (`{typography.font-size.lg}`) | dimension |
+| `component.page-header.lede.font-size` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` (`{typography.font-size.lg}`) | dimension |
 | `component.page-header.lede.max-width` | `70ch` (`{layout.measure.body}`) | dimension |
 | `component.page-header.meta.font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.page-header.foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |

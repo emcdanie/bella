@@ -66,9 +66,9 @@ export const Behavior: Story = {
     await step('a region named by its heading', async () => {
       expect(canvas.getByRole('region', { name: 'Usage' })).toBe(section);
     });
-    await step('the h2 is 32px, the section-heading floor', async () => {
+    await step('the h2 is on the section tier, 34px floor (type lock)', async () => {
       const h2 = section.querySelector('h2') as HTMLElement;
-      expect(getComputedStyle(h2).fontSize).toBe('32px');
+      expect(parseFloat(getComputedStyle(h2).fontSize)).toBeGreaterThanOrEqual(34);
     });
     await step('the id is on the section, so an On this page link lands on it', async () => {
       expect(section.id).toBe('usage');

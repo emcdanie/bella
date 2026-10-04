@@ -5,7 +5,7 @@
 // the record; this is the check that the record is still true. Part of
 // `npm run gate`.
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 const css = readFileSync('tokens/bella.css', 'utf8');
 
@@ -123,14 +123,16 @@ const PAIRS = [
   ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
 ];
 
-/* Surfaces that must stay visibly apart (2026-10-03): a selected wash or
- * an inset the eye cannot find breaks "highlight, never dim". A low floor,
- * not a text bar: these are fills, not marks. */
+/* Surfaces that must stay visibly apart (2026-10-03): a selected wash the
+ * eye cannot find breaks "highlight, never dim". A low floor, not a text
+ * bar: these are fills, not marks. The inset fill left this list on
+ * 2026-10-04 (Elleta): it is decorative, and where it bounds a field the
+ * edge carries the boundary (border-strong, 3:1 on inset and on the card,
+ * the pairs above). See the inset rule below. */
 const APART = 1.08;
 const DISTINCT = [
   ['selected wash vs panel', '--color-semantic-accent-subtle', '--color-semantic-surface-card'],
   ['selected wash vs the page', '--color-semantic-accent-subtle', '--color-semantic-background'],
-  ['inset vs panel', '--color-semantic-surface-inset', '--color-semantic-surface-card'],
 ];
 
 /* Pairs that must stay BELOW a bar: the rule forbids them, and the check
@@ -143,6 +145,84 @@ const FORBIDDEN_LIGHT = [
 
 const failures = [];
 const lines = [];
+
+/* The inset rule (Elleta, 2026-10-04). The inset fill is decorative; the
+ * edge carries the boundary. Every rule in src/components and src/patterns
+ * that paints a background from surface-inset (directly or through a
+ * component token that is surface-inset) is classified here:
+ * - a field you type or choose in (Input, Select, Combobox, Textarea) on
+ *   inset must carry border-strong in the same rule, or the gate fails;
+ * - INSET_EXEMPT lists every other consumer with its reason;
+ * - anything else is unclassified and fails until it is added to one list.
+ * src/docs (Storybook docs chrome) is out of scope. */
+const INSET_FIELDS = /^src\/components\/(Input|Select|Combobox|Textarea)\//;
+const INSET_EXEMPT = {
+  'src/patterns/BeforeAfterFrame/BeforeAfterFrame.module.css :: .stage': 'decorative container around a screen, not a control',
+  'src/components/Tag/Tag.module.css :: .tag': 'identified by its text, not the fill',
+  'src/components/StatusPill/StatusPill.module.css :: .neutral': 'identified by its text, not the fill',
+  'src/components/Kbd/Kbd.module.css :: .key': 'identified by its key label, not the fill',
+  'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
+  'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
+  'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
+  'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'active state fill: the press is the state marker',
+  'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
+  'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
+};
+{
+  const comp = JSON.parse(readFileSync('tokens/component.json', 'utf8')).component;
+  const varsOf = (target) => {
+    const out = [];
+    const walk = (o, p) => {
+      if (!o || typeof o !== 'object') return;
+      if ('$value' in o) { if (o.$value === target) out.push(`--component-${p.join('-')}`); return; }
+      for (const [k, v] of Object.entries(o)) if (k !== '$extensions') walk(v, [...p, k]);
+    };
+    walk(comp, []);
+    return out;
+  };
+  const insetVars = ['--color-semantic-surface-inset', ...varsOf('{color.semantic.surface-inset}')];
+  const strongVars = ['--color-semantic-border-strong', ...varsOf('{color.semantic.border-strong}')];
+  const insetBg = new RegExp(`background(-color)?\\s*:[^;]*var\\((${insetVars.join('|')})\\)`);
+  const insetInline = new RegExp(`background(Color)?\\s*:\\s*['"\`][^'"\`]*var\\((${insetVars.join('|')})\\)`);
+  const strongEdge = new RegExp(`(border|box-shadow|outline)[a-z-]*\\s*:[^;]*var\\((${strongVars.join('|')})\\)`);
+  const cssRules = (css) => {
+    css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+    const out = [];
+    const stack = [];
+    let buf = '';
+    for (const ch of css) {
+      if (ch === '{') { stack.push(buf.trim()); buf = ''; }
+      else if (ch === '}') { const sel = stack.pop(); if (buf.trim()) out.push([sel.replace(/\s+/g, ' '), buf]); buf = ''; }
+      else buf += ch;
+    }
+    return out;
+  };
+  const seen = new Set();
+  for (const root of ['src/components', 'src/patterns']) {
+    for (const rel of readdirSync(root, { recursive: true })) {
+      const file = `${root}/${rel}`;
+      if (file.endsWith('.css')) {
+        for (const [sel, body] of cssRules(readFileSync(file, 'utf8'))) {
+          if (!insetBg.test(body)) continue;
+          const key = `${file} :: ${sel}`;
+          seen.add(key);
+          if (INSET_EXEMPT[key]) { lines.push(`inset  exempt  ${key} (${INSET_EXEMPT[key]})`); continue; }
+          if (INSET_FIELDS.test(file)) {
+            if (strongEdge.test(body)) lines.push(`inset  field   ${key} carries border-strong`);
+            else failures.push(`inset: ${key} is a field on the inset fill without border-strong in the same rule (the edge carries the boundary)`);
+            continue;
+          }
+          failures.push(`inset: ${key} paints the inset fill and is unclassified: add border-strong as a field, or list it in INSET_EXEMPT with a reason`);
+        }
+      } else if (file.endsWith('.tsx') && !file.endsWith('.stories.tsx') && insetInline.test(readFileSync(file, 'utf8'))) {
+        failures.push(`inset: ${file} paints the inset fill in an inline style; move it to CSS and classify it`);
+      }
+    }
+  }
+  for (const key of Object.keys(INSET_EXEMPT)) {
+    if (!seen.has(key)) failures.push(`inset: INSET_EXEMPT lists ${key}, which no longer paints the inset fill; remove the entry`);
+  }
+}
 for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
   for (const [label, fg, bg, min] of PAIRS) {
     const r = ratio(resolve(vars, fg), resolve(vars, bg));
@@ -168,4 +248,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK`);
+console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);

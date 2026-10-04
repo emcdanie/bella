@@ -93,7 +93,7 @@ value with the source reference in parentheses.
 | `color.light.ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.light.muted` | `#474c5e` (`{color.cool.600}`) | color |
 | `color.light.line` | `#e4e6ec` (`{color.cool.100}`) | color |
-| `color.light.control` | `#858b9f` (`{color.cool.400}`) | color |
+| `color.light.control` | `#686d7d` (`{color.cool.500}`) | color |
 | `color.light.panel` | `#f6f7f9` (`{color.cool.25}`) | color |
 | `color.light.inset` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.light.bg` | `#ffffff` (`{color.cool.0}`) | color |
@@ -112,7 +112,7 @@ value with the source reference in parentheses.
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |
-| `color.dark.control` | `#686d7d` (`{color.cool.500}`) | color |
+| `color.dark.control` | `#858b9f` (`{color.cool.400}`) | color |
 | `color.dark.surface` | `#171a22` (`{color.cool.950}`) | color |
 | `color.dark.inset` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.dark.raised` | `#262a35` (`{color.cool.850}`) | color |
@@ -305,7 +305,7 @@ value with the source reference in parentheses.
 | `color.semantic.border` | `#e4e6ec` (`{color.cool.100}`) | color |
 | `color.semantic.border-subtle` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.border-faint` | `#eceef3` (`{color.cool.50}`) | color |
-| `color.semantic.border-strong` | `#858b9f` (`{color.cool.400}`) | color |
+| `color.semantic.border-strong` | `#686d7d` (`{color.cool.500}`) | color |
 | `color.semantic.border-ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.scrim` | `#1A172038` (`{color.alpha.ink-22}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
@@ -367,12 +367,12 @@ value with the source reference in parentheses.
 | `color.semantic.accent` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.accent-hover` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.text-on-accent` | `#1d2030` (`{color.cool.900}`) | color |
-| `color.semantic.accent-subtle` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.accent-subtle` | `#262a35` (`{color.cool.850}`) | color |
 | `color.semantic.accent-border` | `#686d7d` (`{color.cool.500}`) | color |
 | `color.semantic.border` | `#2e3240` (`{color.cool.800}`) | color |
 | `color.semantic.border-subtle` | `#262a35` (`{color.cool.850}`) | color |
 | `color.semantic.border-faint` | `#262a35` (`{color.cool.850}`) | color |
-| `color.semantic.border-strong` | `#686d7d` (`{color.cool.500}`) | color |
+| `color.semantic.border-strong` | `#858b9f` (`{color.cool.400}`) | color |
 | `color.semantic.border-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.scrim` | `#1B191699` (`{color.alpha.night-60}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
@@ -432,7 +432,7 @@ value with the source reference in parentheses.
 | `component.button.secondary.background-hover` | `transparent` | color |
 | `component.button.secondary.background-active` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
 | `component.button.secondary.foreground` | `#1d2030` (`{color.semantic.text-accent}`) | color |
-| `component.button.secondary.border` | `#858b9f` (`{color.semantic.border-strong}`) | color |
+| `component.button.secondary.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.button.secondary.border-hover` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.padding-y` | `12px` (`{spacing.3}`) | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
@@ -534,7 +534,7 @@ value with the source reference in parentheses.
 | `component.status-pill.font-feature-settings` | `normal` | other |
 | `component.status-pill.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.status-pill.accent.foreground` | `#1d2030` (`{color.semantic.text-on-accent}`) | color |
-| `component.filter-chip.border` | `#858b9f` (`{color.semantic.border-strong}`) | color |
+| `component.filter-chip.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.filter-chip.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.filter-chip.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
@@ -613,8 +613,8 @@ value with the source reference in parentheses.
 | `component.section.default.padding-x` | `24px` (`{spacing.6}`) | dimension |
 | `component.section.default.gap` | `48px` (`{spacing.12}`) | dimension |
 | `component.section.default.max-width` | `1200px` | dimension |
-| `component.section.heading.font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
-| `component.section.heading.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.section.heading.font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
+| `component.section.heading.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
 | `component.section.heading.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
 | `component.section.space` | `clamp(32px, 24px + 2vw, 48px)` (`{layout.section.space}`) | dimension |
 | `component.section.body-gap` | `24px` (`{layout.stack.lg}`) | dimension |
@@ -661,14 +661,14 @@ value with the source reference in parentheses.
 | `component.stat.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.stat.label-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.stat.value-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.display}`) | fontFamily |
-| `component.stat.value-font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
+| `component.stat.value-font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.stat.value-font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
 | `component.stat.delta-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.stat.trend-width` | `80px` (`{spacing.20}`) | dimension |
 | `component.stat.trend-height` | `24px` (`{spacing.6}`) | dimension |
 | `component.stat.trend-stroke` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.score-strip.name-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
-| `component.score-strip.score-font-size` | `{typography.font-size.3xl}` (`{typography.font-size.3xl}`) | dimension |
+| `component.score-strip.score-font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.score-strip.value-font-size` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` (`{typography.font-size.lg}`) | dimension |
 | `component.score-strip.label-font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.score-strip.label-font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
@@ -694,7 +694,7 @@ value with the source reference in parentheses.
 | `component.combobox.font-size` | `18px` (`{typography.font-size.base}`) | dimension |
 | `component.combobox.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.combobox.border-radius` | `12px` (`{radius.lg}`) | dimension |
-| `component.combobox.border` | `#858b9f` (`{color.semantic.border-strong}`) | color |
+| `component.combobox.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.combobox.background` | `#ffffff` (`{color.semantic.surface-card}`) | color |
 | `component.combobox.foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.combobox.list-background` | `#ffffff` (`{color.semantic.surface-card}`) | color |
@@ -709,12 +709,12 @@ value with the source reference in parentheses.
 | `component.action-chip.font-size` | `18px` (`{typography.font-size.base}`) | dimension |
 | `component.action-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.action-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
-| `component.action-chip.border` | `#858b9f` (`{color.semantic.border-strong}`) | color |
+| `component.action-chip.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.action-chip.foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.action-chip.hover-background` | `#eceef3` (`{color.semantic.border-subtle}`) | color |
 | `component.action-chip.quiet-hover-background` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
 | `component.page-header.title.font-size` | `40px` (`{typography.font-size.4xl}`) | dimension |
-| `component.page-header.title.font-weight` | `300` (`{typography.font-weight.light}`) | fontWeight |
+| `component.page-header.title.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
 | `component.page-header.title.line-height` | `1.15` (`{typography.line-height.heading}`) | number |
 | `component.page-header.title.letter-spacing` | `-0.02em` (`{typography.letter-spacing.display}`) | dimension |
 | `component.page-header.lede.font-size` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` (`{typography.font-size.lg}`) | dimension |
@@ -729,7 +729,7 @@ value with the source reference in parentheses.
 | `component.slider.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.slider.track-height` | `4px` (`{spacing.1}`) | dimension |
 | `component.slider.thumb-size` | `24px` (`{spacing.6}`) | dimension |
-| `component.slider.track` | `#858b9f` (`{color.semantic.border-strong}`) | color |
+| `component.slider.track` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.slider.fill` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.slider.thumb-background` | `#ffffff` (`{color.semantic.surface-card}`) | color |
 | `component.slider.thumb-border` | `#1d2030` (`{color.semantic.border-ink}`) | color |

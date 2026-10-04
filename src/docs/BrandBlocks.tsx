@@ -82,7 +82,7 @@ export function AssetTile({
           padding: 'var(--spacing-3) var(--spacing-4)',
           borderTop: '1px solid var(--color-semantic-border)',
           fontSize: 'var(--typography-font-size-sm)',
-          color: 'var(--color-semantic-text-secondary)',
+          color: 'var(--color-semantic-text-body)',
         }}
       >
         <span>{label}</span>

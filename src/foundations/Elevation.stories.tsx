@@ -21,9 +21,8 @@ function Chip({ name }: { name: string }) {
         padding: 'var(--spacing-6) var(--spacing-4)',
         textAlign: 'center',
         fontSize: 'var(--typography-font-size-tag)',
-        textTransform: 'uppercase',
         letterSpacing: 'var(--typography-letter-spacing-wide)',
-        color: 'var(--color-semantic-text-secondary)',
+        color: 'var(--color-semantic-text-body)',
         boxShadow: `var(--shadow-${name})`,
       }}
     >
@@ -42,7 +41,7 @@ export const Shadows: StoryObj = {
         ))}
       </div>
       <SectionTitle>The elevation lock (orb / keycap / nav)</SectionTitle>
-      <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-secondary)' }}>
+      <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-body)' }}>
         Token lock 2026-07-17: one light source, upper-left. The depth IS the
         system, do not flatten.
       </p>

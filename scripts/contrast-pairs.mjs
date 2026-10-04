@@ -56,6 +56,10 @@ const NON_TEXT = 3;
 const PAIRS = [
   ['ink text on the page', '--color-semantic-text-primary', '--color-semantic-background', AAA],
   ['ink text on panel', '--color-semantic-text-primary', '--color-semantic-surface-card', AAA],
+  ['body text on the page', '--color-semantic-text-body', '--color-semantic-background', AAA],
+  ['body text on the card', '--color-semantic-text-body', '--color-semantic-surface-card', AAA],
+  ['body text on inset', '--color-semantic-text-body', '--color-semantic-surface-inset', AAA],
+  ['body text on raised', '--color-semantic-text-body', '--color-semantic-surface-elevated', AAA],
   ['muted text on the page', '--color-semantic-text-secondary', '--color-semantic-background', AAA],
   ['muted text on panel', '--color-semantic-text-secondary', '--color-semantic-surface-card', AAA],
   ['muted text on inset', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],

@@ -24,7 +24,7 @@ const mono13: React.CSSProperties = {
   fontSize: 'var(--typography-font-size-mono)',
   letterSpacing: 'var(--typography-letter-spacing-mono)',
   fontFeatureSettings: 'var(--typography-font-feature-mono)',
-  color: 'var(--color-semantic-text-secondary)',
+  color: 'var(--color-semantic-text-body)',
 };
 
 /* a fixed label column that wraps above the sample at narrow widths */
@@ -121,9 +121,9 @@ export const Ramp: StoryObj = {
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-secondary)' }}>
-        Geist Light for every heading, Geist 500 for titles, Geist 400 for body, Geist
-        Mono for eyebrows and meta labels. Unique is the wordmark and nothing else. All
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
+        Figtree for headings (500), titles, body (400) and labels; SemiBold for button
+        labels. Geist Mono for code only. Unique is the wordmark and nothing else. All
         faces ship vendored in this Storybook as woff2, the same files consumers load.
       </p>
     </div>
@@ -200,7 +200,7 @@ export const BodyTrackingBeforeAfter: StoryObj = {
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-secondary)' }}>
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
         Body only. Titles take letter-spacing.title, headings take the display and h2
         tracking, and Unique (the wordmark) keeps letter-spacing.hero, never negative.
       </p>

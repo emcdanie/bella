@@ -2270,6 +2270,24 @@ entries:
       rel: file
       role: primitive.color.cool.800
   - kind: token
+    id: color.cool.825
+    name: "825"
+    description: "Light reading text (text-body): body and captions. 12.43:1 on the ground, 13.32:1 on the card (type lock, 2026-10-04)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.cool
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.cool.825
+  - kind: token
     id: color.cool.850
     name: "850"
     description: Dark raised surface; dark subtle hairline.
@@ -5358,6 +5376,24 @@ entries:
       rel: file
       role: primitive.typography.font-weight.medium
   - kind: token
+    id: typography.font-weight.semibold
+    name: Semibold
+    description: "Figtree SemiBold: button labels (type lock, 2026-10-04)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-weight
+    tokenType: fontWeight
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-weight.semibold
+  - kind: token
     id: typography.font-weight.bold
     name: Bold
     description: Bold. All Unique display settings (Unique Bold is the only cut), headings, eyebrows, CTAs.
@@ -7549,6 +7585,28 @@ entries:
       rel: file
       role: primitive.layout.measure.body
   - kind: token
+    id: color.semantic.text-body
+    name: Text Body
+    description: "Reading text: body and captions, never grey (type lock, Elleta, 2026-10-04). 12.43:1 on the ground, 13.32:1 on card, 11.47:1 on inset. AAA."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - text-body
+      group: color.semantic
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.text-body
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.cool.825}"
+  - kind: token
     id: color.semantic.hover-fill
     name: Hover Fill
     description: "Colour B (2026-10-04): hover fill = the ground. Visible on cards; on the ground itself use a border or underline instead."
@@ -9739,7 +9797,7 @@ entries:
   - kind: token
     id: component.button.primary.font-weight
     name: Font Weight
-    description: Component-tier alias. Resolves to `typography.font-weight.bold` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-weight.semibold` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -9757,11 +9815,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.bold}"
+        alias: "{typography.font-weight.semibold}"
   - kind: token
     id: component.button.primary.letter-spacing
     name: Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.wide` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -9779,7 +9837,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.wide}"
+        alias: "{typography.letter-spacing.normal}"
   - kind: token
     id: component.button.primary.min-height
     name: Min Height
@@ -11225,7 +11283,7 @@ entries:
   - kind: token
     id: component.resource-card.default.tab-letter-spacing
     name: Tab Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.wide` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11243,11 +11301,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.wide}"
+        alias: "{typography.letter-spacing.normal}"
   - kind: token
     id: component.resource-card.default.tab-foreground
     name: Tab Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11265,7 +11323,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.resource-card.default.body-padding
     name: Body Padding
@@ -11401,7 +11459,7 @@ entries:
   - kind: token
     id: component.resource-card.default.description-foreground
     name: Description Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11419,7 +11477,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.resource-card.default.divider-color
     name: Divider Color
@@ -11467,7 +11525,7 @@ entries:
   - kind: token
     id: component.resource-card.default.meta-foreground
     name: Meta Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11485,7 +11543,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.resource-card.default.status-dot-size
     name: Status Dot Size
@@ -11621,7 +11679,7 @@ entries:
   - kind: token
     id: component.tag.default.foreground
     name: Tag Default Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11639,7 +11697,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.tag.default.border-radius
     name: Default Border Radius
@@ -11709,7 +11767,7 @@ entries:
   - kind: token
     id: component.tag.default.font-family
     name: Default Font Family
-    description: "Geist sans: tags use the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)."
+    description: "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
     metadata:
       origin:
         method: extracted
@@ -11731,7 +11789,7 @@ entries:
   - kind: token
     id: component.tag.default.font-size
     name: Default Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.tag` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11749,11 +11807,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.tag}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.tag.default.font-weight
     name: Default Font Weight
-    description: "Regular weight: a quiet label."
+    description: Mono ships one cut, 400.
     metadata:
       origin:
         method: extracted
@@ -11775,7 +11833,7 @@ entries:
   - kind: token
     id: component.tag.default.letter-spacing
     name: Default Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11793,7 +11851,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.normal}"
+        alias: "{typography.letter-spacing.mono}"
   - kind: token
     id: component.tag.default.font-feature-settings
     name: Font Feature Settings
@@ -11947,7 +12005,7 @@ entries:
   - kind: token
     id: component.status-pill.font-family
     name: Status Pill Font Family
-    description: "Geist sans: a status word uses the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)."
+    description: "Figtree: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
     metadata:
       origin:
         method: extracted
@@ -11987,11 +12045,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.tag}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.status-pill.font-weight
     name: Status Pill Font Weight
-    description: "Regular weight: a quiet label."
+    description: Mono ships one cut, 400.
     metadata:
       origin:
         method: extracted
@@ -12013,7 +12071,7 @@ entries:
   - kind: token
     id: component.status-pill.letter-spacing
     name: Status Pill Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -12031,7 +12089,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.normal}"
+        alias: "{typography.letter-spacing.mono}"
   - kind: token
     id: component.status-pill.font-feature-settings
     name: Status Pill Font Feature Settings
@@ -12119,7 +12177,7 @@ entries:
   - kind: token
     id: component.filter-chip.foreground
     name: Filter Chip Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -12137,7 +12195,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.filter-chip.border-radius
     name: Filter Chip Border Radius
@@ -12515,7 +12573,7 @@ entries:
   - kind: token
     id: component.heading.font-weight
     name: Heading Font Weight
-    description: Component-tier alias. Resolves to `typography.font-weight.light` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-weight.medium` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -12533,7 +12591,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.light}"
+        alias: "{typography.font-weight.medium}"
   - kind: token
     id: component.heading.letter-spacing
     name: Heading Letter Spacing
@@ -12779,7 +12837,7 @@ entries:
   - kind: token
     id: component.avatar.default.foreground
     name: Avatar Default Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -12797,7 +12855,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.avatar.default.border-color
     name: Border Color
@@ -13079,7 +13137,7 @@ entries:
   - kind: token
     id: component.eyebrow.muted.foreground
     name: Muted Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13097,7 +13155,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.eyebrow.muted.font-family
     name: Muted Font Family
@@ -13123,7 +13181,7 @@ entries:
   - kind: token
     id: component.eyebrow.muted.font-size
     name: Muted Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13141,7 +13199,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.sm}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.eyebrow.muted.font-weight
     name: Muted Font Weight
@@ -13167,7 +13225,7 @@ entries:
   - kind: token
     id: component.eyebrow.muted.letter-spacing
     name: Muted Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13185,7 +13243,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.normal}"
+        alias: "{typography.letter-spacing.mono}"
   - kind: token
     id: component.eyebrow.muted.font-feature-settings
     name: Muted Font Feature Settings
@@ -13251,7 +13309,7 @@ entries:
   - kind: token
     id: component.eyebrow.ink.font-size
     name: Ink Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13269,7 +13327,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.sm}"
+        alias: "{typography.font-size.mono}"
   - kind: token
     id: component.eyebrow.ink.font-weight
     name: Ink Font Weight
@@ -13295,7 +13353,7 @@ entries:
   - kind: token
     id: component.eyebrow.ink.letter-spacing
     name: Ink Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.mono` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13313,7 +13371,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.normal}"
+        alias: "{typography.letter-spacing.mono}"
   - kind: token
     id: component.eyebrow.ink.font-feature-settings
     name: Ink Font Feature Settings
@@ -13529,7 +13587,7 @@ entries:
   - kind: token
     id: component.nav-link.default.foreground
     name: Nav Link Default Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13547,7 +13605,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.nav-link.default.foreground-hover
     name: Nav Link Default Foreground Hover
@@ -13617,7 +13675,7 @@ entries:
   - kind: token
     id: component.nav-link.default.letter-spacing
     name: Nav Link Default Letter Spacing
-    description: Component-tier alias. Resolves to `typography.letter-spacing.wide` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.letter-spacing.normal` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13635,7 +13693,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.letter-spacing.wide}"
+        alias: "{typography.letter-spacing.normal}"
   - kind: token
     id: component.nav-link.default.min-height
     name: Default Min Height
@@ -14005,7 +14063,7 @@ entries:
   - kind: token
     id: component.callout.note.foreground
     name: Note Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -14023,7 +14081,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.callout.note.font-size
     name: Note Font Size
@@ -14115,7 +14173,7 @@ entries:
   - kind: token
     id: component.callout.gap.foreground
     name: Gap Foreground
-    description: Component-tier alias. Resolves to `color.semantic.text-secondary` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -14133,7 +14191,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.text-secondary}"
+        alias: "{color.semantic.text-body}"
   - kind: token
     id: component.callout.gap.font-size
     name: Gap Font Size

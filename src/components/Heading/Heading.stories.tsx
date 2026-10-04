@@ -72,14 +72,14 @@ export const Behavior: Story = {
       expect(h.id).toBe('sub');
     });
 
-    await step('Geist Light, sentence case, tight tracking, at or above the 32px section floor', async () => {
+    await step('Figtree Medium, sentence case, tight tracking, at or above the 34px section floor', async () => {
       const h = canvas.getByRole('heading', { level: 3 });
       const cs = getComputedStyle(h);
-      expect(cs.fontFamily).toMatch(/^Geist\b/);
+      expect(cs.fontFamily).toMatch(/^Figtree\b/);
       expect(cs.fontFamily).not.toMatch(/Unique/);
-      expect(cs.fontWeight).toBe('300');
+      expect(cs.fontWeight).toBe('500');
       expect(cs.textTransform).toBe('none');
-      expect(parseFloat(cs.fontSize)).toBeGreaterThanOrEqual(32);
+      expect(parseFloat(cs.fontSize)).toBeGreaterThanOrEqual(34);
       expect(parseFloat(cs.letterSpacing)).toBeLessThan(0);
     });
   },

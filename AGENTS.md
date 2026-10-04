@@ -26,10 +26,10 @@ Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-siz
 
 These are floors, not defaults. Going below is a bug.
 
-- Body text: **16px minimum**; new body copy is `font-size.body` (17px)
-- Titles (card, step): **20px, Geist 500**
-- Section headings: **32px minimum**
-- Nothing, anywhere, below **13px**. Tags, pills and Mono (tokens, code) sit at the floor: 13px, never 12
+- Reading text: **18px minimum**; body is `font-size.body` (20 to 22px, line-height 1.7), in `text-body`, never grey (type lock, Elleta, 2026-10-04)
+- Titles (card, step): **24px, Figtree 500**
+- Section headings (H2): **34 to 46px**; H1 44 to 68px
+- Nothing, anywhere, below **16px**: labels and meta sit at the 16px floor, in Figtree, sentence case, no tracking
 - **Unique never below 24px** — the keycap brand lockup is the single recorded exception
 
 Fine-print, captions, and metadata live at 13–14px and should be rare. If you're reaching for 12px, rethink the layout.
@@ -91,13 +91,13 @@ Ochre is the only accent. Iris and periwinkle are retired (brand refresh, 2026-0
 
 The status ladder has **danger and success** (2026-09-22); warning and info are still open (issue #1). Supporting `steel` and `sage` are carried from the April identity for StatusPill's tints, **non-text roles only**. Do not use them as text; do not design new status UI around them, or invent warning/info values, without asking.
 
-**Typography — Geist, three cuts, plus the wordmark (the type lock, style unify 2026-09-22):**
+**Typography — Figtree, plus Geist Mono for code and the wordmark (the type lock for readability, Elleta, 2026-10-04; supersedes the 2026-09-22 Geist lock):**
 
-- **Headings** — `typography.font-family.display` is **Geist** at `font-weight.light` (300), sentence case, `line-height.heading` (1.08). Hero and page tiers track `letter-spacing.display` (-0.035em); the section tier (h2) tracks `letter-spacing.h2` (-0.03em). Through the Heading component and its contract.
-- **Titles** — Geist `font-weight.medium` (500) at 20px, `letter-spacing.title` (-0.015em).
-- **Body** — Geist 400, `font-size.body` (17px) for new body copy, `letter-spacing.body` (-0.01em). `font-size.base` stays 16px for existing consumers.
-- **Labels** — the sans label style (Elleta, 2026-10-03; supersedes the 2026-09-22 Mono label role): Geist at `font-size.tag` or `font-size.sm` (13 to 14px), regular or medium, `text-secondary`, sentence case, no tracking, no caps. Eyebrow, Tag, StatusPill, NavList group headings and counts, Stat and ScoreStrip labels, the DataTable caption and the Callout gap label use it; so do the Input, Select and SegmentedControl labels (sentence case, no uppercase, no wide tracking). **Button keeps its caps keycap label**: it is the brand keycap.
-- **Mono** — `typography.font-family.mono`, **Geist Mono**, for **tokens, code and hashes only**: Kbd keys, token names, commands, commit hashes. Diagram text (`src/patterns/Diagrams/`, SectionIndex) is sans too (Elleta, 2026-10-03). Do not add new mono labels.
+- **Headings** — `typography.font-family.display` is **Figtree** at `font-weight.medium` (500), sentence case, `line-height.heading` (1.15). H1 (hero and page) 44 to 68px, tracks `letter-spacing.display` (-0.02em); H2 (section) 34 to 46px, tracks `letter-spacing.h2` (-0.015em). Through the Heading component and its contract.
+- **Five sizes**: H1 44 to 68, H2 34 to 46, lead `font-size.lg` 21 to 24, body `font-size.body` 20 to 22, small `font-size.sm` 18. Titles use the lead size (`font-size.xl` 24px, Figtree 500, no tracking). Labels and meta 16px (`font-size.tag`).
+- **Body and captions** — Figtree 400, `line-height.normal` (1.7), no tracking, colour `color.semantic.text-body` (light `cool.825` #2b2f3d, dark = text-primary). Captions differ by size (18px), not colour. `text-secondary` is for non-reading UI only: icons, placeholders, borders-as-text. Text column 45 to 75 characters (about 696px at 22px).
+- **Labels, buttons and meta** — Figtree, sentence case, no uppercase, no letter spacing, 16px minimum. Button labels are Figtree SemiBold (`font-weight.semibold`, 600) 16px at every size, height 44px or more. Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
+- **Code** — `typography.font-family.mono`, **Geist Mono** 400 at `font-size.mono` (16px), only for real code and token names, never for labels.
 - **Wordmark** — the logo is the **BrandWordmark** component (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern or in ink. ELLETA for the site, BELLA for the system. Never below 32px tall, never recoloured, never body type or a heading. `typography.font-family.wordmark` (Unique) remains for legacy consumers only.
 
 **Icons — one set, declared (2026-07-22):** Iconoir (MIT, the portfolio's set) is BELLA's only icon source. Every glyph lives in the Icon registry (`src/components/Icon/registry.ts`) and renders through the Icon component: icon-ramp sizes, always currentColor, decorative by default. No mixing sets, no one-off inline SVGs anywhere; a meaningful icon requires a label and never stands without text unless its accessible name is proven in a Behavior story. audit:quality fails any inline `<svg>` outside the Icon component. **The one named exception (2026-09-22): diagram patterns** — FlowDiagram, ProcessSteps and case-study diagrams under `src/patterns/Diagrams/` — draw their own SVG, marked `data-bella-diagram`; 1px ink strokes and chip fills only, `role="img"` with an aria-label that tells the story. **The second named exception (brand refresh): brand art** — BrandWordmark and PatternField, marked `data-bella-brand`: a labelled image (`role="img"` + the word) or aria-hidden decoration, nothing in between.

@@ -24,11 +24,11 @@ export const Spacing: StoryObj = {
       >
         {leavesUnder(primitive, 'spacing').map((leaf) => (
           <div key={leaf.path} style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-4)' }}>
-            <span style={{ width: 220, fontSize: 'var(--typography-font-size-tag)', color: 'var(--color-semantic-text-secondary)' }}>
+            <span style={{ width: 220, fontSize: 'var(--typography-font-size-tag)', color: 'var(--color-semantic-text-body)' }}>
               {leaf.path}
             </span>
             <div style={{ width: leaf.value, height: 16, background: 'var(--color-semantic-accent)', borderRadius: 'var(--radius-sm)' }} />
-            <span style={{ fontSize: 'var(--typography-font-size-tag)', color: 'var(--color-semantic-text-secondary)' }}>{leaf.value}</span>
+            <span style={{ fontSize: 'var(--typography-font-size-tag)', color: 'var(--color-semantic-text-body)' }}>{leaf.value}</span>
           </div>
         ))}
       </div>
@@ -52,7 +52,7 @@ export const Radius: StoryObj = {
                 borderRadius: `var(${leaf.cssVar})`,
               }}
             />
-            <div style={{ fontSize: 'var(--typography-font-size-tag)', marginTop: 'var(--spacing-2)', color: 'var(--color-semantic-text-secondary)' }}>
+            <div style={{ fontSize: 'var(--typography-font-size-tag)', marginTop: 'var(--spacing-2)', color: 'var(--color-semantic-text-body)' }}>
               {leaf.path.replace('radius.', '')} · {leaf.value}
             </div>
           </div>

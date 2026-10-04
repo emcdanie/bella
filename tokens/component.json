@@ -72,8 +72,8 @@
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
         "font-size":        { "$value": "{typography.font-size.tag}",    "$type": "dimension" },
-        "font-weight":      { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
-        "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
+        "font-weight":      { "$value": "{typography.font-weight.semibold}", "$type": "fontWeight" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.normal}","$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       },
 
@@ -230,18 +230,18 @@
         "tab-padding-top": { "$value": "{spacing.2}", "$type": "dimension" },
         "tab-font-size": { "$value": "{typography.font-size.tag}", "$type": "dimension" },
         "tab-font-weight": { "$value": "{typography.font-weight.bold}", "$type": "fontWeight" },
-        "tab-letter-spacing": { "$value": "{typography.letter-spacing.wide}", "$type": "dimension" },
-        "tab-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "tab-letter-spacing": { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "tab-foreground": { "$value": "{color.semantic.text-body}", "$type": "color" },
         "body-padding": { "$value": "{spacing.5}", "$type": "dimension" },
         "title-font-size": { "$value": "{typography.font-size.xl}", "$type": "dimension", "$description": "The card-title floor. 20px, never smaller, whatever the reference implementation does." },
         "title-font-weight": { "$value": "{typography.font-weight.medium}", "$type": "fontWeight" },
         "title-letter-spacing": { "$value": "{typography.letter-spacing.title}", "$type": "dimension" },
         "title-foreground": { "$value": "{color.semantic.text-primary}", "$type": "color" },
         "description-font-size": { "$value": "{typography.font-size.base}", "$type": "dimension", "$description": "Reading text, so the 16px body floor applies. The reference sets 13px; BELLA cannot." },
-        "description-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "description-foreground": { "$value": "{color.semantic.text-body}", "$type": "color" },
         "divider-color": { "$value": "{color.semantic.border-subtle}", "$type": "color" },
         "meta-font-size": { "$value": "{typography.font-size.tag}", "$type": "dimension" },
-        "meta-foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "meta-foreground": { "$value": "{color.semantic.text-body}", "$type": "color" },
         "status-dot-size": { "$value": "{spacing.2}", "$type": "dimension" },
         "status-dot-color": { "$value": "{color.semantic.text-muted}", "$type": "color", "$description": "NEUTRAL ON PURPOSE, pending issue #1. The status ladder is unresolved, so a real semantic colour here would be invented. When the ladder lands this token gains per-state values and nothing else about the card changes." },
         "action-foreground": { "$value": "{color.semantic.text-accent}", "$type": "color" },
@@ -276,14 +276,14 @@
 
       "default": {
         "background":     { "$value": "{color.semantic.surface-inset}", "$type": "color" },
-        "foreground":     { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "foreground":     { "$value": "{color.semantic.text-body}","$type": "color" },
         "border-radius":  { "$value": "{radius.full}",                  "$type": "dimension" },
         "padding-y":      { "$value": "{spacing.1}",                    "$type": "dimension" },
         "padding-x":      { "$value": "{spacing.3}",                    "$type": "dimension" },
-        "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Geist sans: tags use the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)." },
-        "font-size":      { "$value": "{typography.font-size.tag}",      "$type": "dimension" },
-        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Regular weight: a quiet label." },
-        "letter-spacing": { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only." },
+        "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
+        "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+        "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
         "font-feature-settings": { "$value": "normal", "$type": "other" }
       },
 
@@ -321,10 +321,10 @@
       },
 
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
-      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Geist sans: a status word uses the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)." },
-      "font-size":      { "$value": "{typography.font-size.tag}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
-      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Regular weight: a quiet label." },
-      "letter-spacing": { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+      "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily", "$description": "Figtree: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only." },
+      "font-size":      { "$value": "{typography.font-size.mono}",      "$type": "dimension", "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it." },
+      "font-weight":    { "$value": "{typography.font-weight.regular}", "$type": "fontWeight", "$description": "Mono ships one cut, 400." },
+      "letter-spacing": { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
       "font-feature-settings": { "$value": "normal", "$type": "other" },
       "accent": {
         "background":   { "$value": "{color.semantic.accent}",    "$type": "color", "$description": "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill." },
@@ -368,7 +368,7 @@
       },
 
       "border":         { "$value": "{color.semantic.border-strong}",          "$type": "color" },
-      "foreground":     { "$value": "{color.semantic.text-secondary}",  "$type": "color" },
+      "foreground":     { "$value": "{color.semantic.text-body}",  "$type": "color" },
       "border-radius":  { "$value": "{radius.full}",                    "$type": "dimension" },
       "font-family":    { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
       "font-size":      { "$value": "{typography.font-size.sm}",        "$type": "dimension" },
@@ -469,7 +469,7 @@
       },
 
       "font-family":    { "$value": "{typography.font-family.display}",    "$type": "fontFamily" },
-      "font-weight":    { "$value": "{typography.font-weight.light}",      "$type": "fontWeight" },
+      "font-weight":    { "$value": "{typography.font-weight.medium}",      "$type": "fontWeight" },
       "letter-spacing": { "$value": "{typography.letter-spacing.display}", "$type": "dimension" },
       "line-height":    { "$value": "{typography.line-height.heading}",    "$type": "number" },
       "hero":    { "font-size": { "$value": "{typography.font-size.display-hero}",    "$type": "dimension" } },
@@ -534,7 +534,7 @@
       },
       "default": {
         "background": { "$value": "{color.semantic.surface-inset}", "$type": "color" },
-        "foreground": { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "foreground": { "$value": "{color.semantic.text-body}", "$type": "color" },
         "border-color": { "$value": "{color.semantic.border-subtle}", "$type": "color", "$description": "The disc always needs an edge. In dark, surface-inset resolves to the same navy as the page ground, so a fill alone makes the disc vanish on an unfilled page; this border draws the circle whatever it sits on." },
         "border-radius": { "$value": "{radius.full}", "$type": "dimension" },
         "font-family": { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
@@ -582,20 +582,20 @@
       },
 
       "muted": {
-        "foreground":            { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "foreground":            { "$value": "{color.semantic.text-body}", "$type": "color" },
         "font-family":           { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
-        "font-size":             { "$value": "{typography.font-size.sm}",      "$type": "dimension" },
+        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
         "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
-        "letter-spacing":        { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
         "font-feature-settings": { "$value": "normal",   "$type": "other" }
       },
 
       "ink": {
         "foreground":            { "$value": "{color.semantic.text-primary}", "$type": "color" },
         "font-family":           { "$value": "{typography.font-family.body}",    "$type": "fontFamily" },
-        "font-size":             { "$value": "{typography.font-size.sm}",      "$type": "dimension" },
+        "font-size":             { "$value": "{typography.font-size.mono}",      "$type": "dimension" },
         "font-weight":           { "$value": "{typography.font-weight.regular}", "$type": "fontWeight" },
-        "letter-spacing":        { "$value": "{typography.letter-spacing.normal}", "$type": "dimension" },
+        "letter-spacing":        { "$value": "{typography.letter-spacing.mono}", "$type": "dimension" },
         "font-feature-settings": { "$value": "normal",   "$type": "other" }
       }
     },
@@ -683,11 +683,11 @@
       },
 
       "default": {
-        "foreground":       { "$value": "{color.semantic.text-secondary}","$type": "color" },
+        "foreground":       { "$value": "{color.semantic.text-body}","$type": "color" },
         "foreground-hover": { "$value": "{color.semantic.text-primary}",  "$type": "color" },
         "font-family":      { "$value": "{typography.font-family.body}",  "$type": "fontFamily" },
         "font-size":        { "$value": "{typography.font-size.tag}",     "$type": "dimension" },
-        "letter-spacing":   { "$value": "{typography.letter-spacing.wide}","$type": "dimension" },
+        "letter-spacing":   { "$value": "{typography.letter-spacing.normal}","$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",         "$type": "dimension" }
       },
 
@@ -836,7 +836,7 @@
       },
 
       "note": {
-        "foreground":           { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "foreground":           { "$value": "{color.semantic.text-body}", "$type": "color" },
         "font-size":            { "$value": "{typography.font-size.mono}",     "$type": "dimension" },
         "rule-color":           { "$value": "{color.semantic.border-subtle}",  "$type": "color" },
         "rule-width":           { "$value": "{border.width.thin}",             "$type": "dimension" },
@@ -844,7 +844,7 @@
       },
 
       "gap": {
-        "foreground":        { "$value": "{color.semantic.text-secondary}", "$type": "color" },
+        "foreground":        { "$value": "{color.semantic.text-body}", "$type": "color" },
         "font-size":         { "$value": "{typography.font-size.base}",     "$type": "dimension" },
         "label-foreground":  { "$value": "{color.semantic.text-primary}",   "$type": "color" },
         "label-font-family": { "$value": "{typography.font-family.body}",   "$type": "fontFamily" },

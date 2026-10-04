@@ -36,7 +36,7 @@ export interface ButtonProps {
 
 /**
  * Keycaps with real hierarchy: two colour treatments, three tiers, one
- * primary per view. Labels are Geist caps, never Unique. One job per
+ * primary per view. Labels are Figtree SemiBold 16px, sentence case, never Unique. One job per
  * state: hover and focus-visible roll the label, active presses the
  * keycap; a button never lifts on hover (lift is for cards).
  */

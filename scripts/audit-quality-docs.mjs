@@ -2,7 +2,7 @@
 /* audit:quality, docs leg. The test-runner covers every story; this script
  * covers every docs page against a running (static) Storybook:
  *   - no em or en dashes in rendered doc content (.sbdocs-content)
- *   - nothing below the 13px hard floor
+ *   - nothing below the 16px hard floor (type lock, 2026-10-04)
  *   - Unique never below 24px
  *   - no pure-white solid fills except the page ground ([data-bella-ground])
  *   - no colour literals in inline styles (token specimens opt out with
@@ -74,7 +74,7 @@ for (const entry of docs) {
       );
       if (own && !sbChrome) {
         const size = parseFloat(cs.fontSize);
-        if (size < 13) out.push(`text below 13px (${size}px): "${own.slice(0, 40)}"`);
+        if (size < 16) out.push(`text below 16px (${size}px): "${own.slice(0, 40)}"`);
         if (/\bUnique\b/.test(cs.fontFamily) && size < 24)
           out.push(`Unique below 24px (${size}px): "${own.slice(0, 40)}"`);
       }

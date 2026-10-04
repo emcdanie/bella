@@ -39,13 +39,13 @@ export const StateMatrix: Story = {
           ['active / disabled / error', 'not a Link state'],
         ].map(([state, note]) => (
           <tr key={state}>
-            <td style={{ padding: 'var(--spacing-3) var(--spacing-5) var(--spacing-3) 0', fontFamily: 'var(--typography-font-family-mono)', fontSize: 'var(--typography-font-size-mono)', color: 'var(--color-semantic-text-secondary)' }}>
+            <td style={{ padding: 'var(--spacing-3) var(--spacing-5) var(--spacing-3) 0', fontFamily: 'var(--typography-font-family-mono)', fontSize: 'var(--typography-font-size-mono)', color: 'var(--color-semantic-text-body)' }}>
               {state}
             </td>
             <td style={{ padding: 'var(--spacing-3) var(--spacing-5) var(--spacing-3) 0' }}>
               {state.includes('/') ? 'n/a' : <Link href={`#${state}`}>Read the case</Link>}
             </td>
-            <td style={{ padding: 'var(--spacing-3) 0', color: 'var(--color-semantic-text-secondary)', fontSize: 'var(--typography-font-size-sm)' }}>
+            <td style={{ padding: 'var(--spacing-3) 0', color: 'var(--color-semantic-text-body)', fontSize: 'var(--typography-font-size-sm)' }}>
               {note}
             </td>
           </tr>

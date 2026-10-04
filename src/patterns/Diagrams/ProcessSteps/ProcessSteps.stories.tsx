@@ -42,11 +42,11 @@ export const Behavior: Story = {
       await expect(list.tagName).toBe('OL');
       await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(5);
     });
-    await step('step numbers in the sans label style at the 13px floor', async () => {
+    await step('Figtree numbers at the 16px label floor', async () => {
       const n = canvas.getByText('01');
       const cs = getComputedStyle(n);
-      await expect(cs.fontFamily).not.toMatch(/Geist Mono/);
-      await expect(parseFloat(cs.fontSize)).toBe(13);
+      await expect(cs.fontFamily).toMatch(/^Figtree\b/);
+      await expect(parseFloat(cs.fontSize)).toBe(16);
     });
     await step('no shadows', async () => {
       for (const el of canvasElement.querySelectorAll('[data-bella-pattern="process-steps"] *')) {

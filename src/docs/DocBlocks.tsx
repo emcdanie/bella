@@ -22,7 +22,7 @@ export function PageIntro({ title, children }: { title: string; children: ReactN
         style={{
           fontSize: 'var(--typography-font-size-lg)',
           lineHeight: 'var(--typography-line-height-normal)',
-          color: 'var(--color-semantic-text-secondary)',
+          color: 'var(--color-semantic-text-body)',
           maxWidth: '65ch',
           margin: 0,
         }}
@@ -44,7 +44,6 @@ const dodontLabelStyle: React.CSSProperties = {
   display: 'block',
   fontSize: 'var(--typography-font-size-sm)',
   fontWeight: 700,
-  textTransform: 'uppercase',
   letterSpacing: 'var(--typography-letter-spacing-wider)',
   marginBottom: 'var(--spacing-3)',
 };

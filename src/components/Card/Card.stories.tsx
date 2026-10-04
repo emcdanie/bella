@@ -45,9 +45,8 @@ function Kicker({ children }: { children: React.ReactNode }) {
         display: 'block',
         fontSize: 'var(--typography-font-size-sm)',
         fontWeight: 700,
-        textTransform: 'uppercase',
         letterSpacing: 'var(--typography-letter-spacing-wider)',
-        color: 'var(--color-semantic-text-secondary)',
+        color: 'var(--color-semantic-text-body)',
       }}
     >
       {children}
@@ -77,7 +76,7 @@ function Body({ children }: { children: React.ReactNode }) {
       style={{
         display: 'block',
         fontSize: 'var(--typography-font-size-base)',
-        color: 'var(--color-semantic-text-secondary)',
+        color: 'var(--color-semantic-text-body)',
         lineHeight: 'var(--typography-line-height-normal)',
       }}
     >
@@ -301,7 +300,7 @@ function BehaviorHarness() {
         <Title>Activations: {count}</Title>
         <span
           data-testid="activation-count"
-          style={{ color: 'var(--color-semantic-text-secondary)' }}
+          style={{ color: 'var(--color-semantic-text-body)' }}
         >
           {String(count)}
         </span>

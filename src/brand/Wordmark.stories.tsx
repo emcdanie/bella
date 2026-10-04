@@ -58,7 +58,7 @@ const glyphNote: React.CSSProperties = {
   fontFamily: 'var(--typography-font-family-mono)',
   fontSize: 'var(--typography-font-size-mono)',
   fontFeatureSettings: 'var(--typography-font-feature-mono)',
-  color: 'var(--color-semantic-text-secondary)',
+  color: 'var(--color-semantic-text-body)',
 };
 
 /** The five glyphs on a 100-unit cap height, each with its centre line

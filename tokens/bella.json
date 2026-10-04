@@ -997,6 +997,11 @@
           "$type": "color",
           "$description": "Dark hairline (border)."
         },
+        "825": {
+          "$value": "#2b2f3d",
+          "$type": "color",
+          "$description": "Light reading text (text-body): body and captions. 12.43:1 on the ground, 13.32:1 on the card (type lock, 2026-10-04)."
+        },
         "850": {
           "$value": "#262a35",
           "$type": "color",
@@ -2092,7 +2097,7 @@
     "typography": {
       "font-family": {
         "display": {
-          "$value": "Geist, system-ui, sans-serif",
+          "$value": "Figtree, system-ui, sans-serif",
           "$type": "fontFamily",
           "$description": "Headings: Geist, set Light 300 with tight tracking (style unify, 2026-09-22, Elleta). Unique moved to font-family.wordmark.",
           "$extensions": {
@@ -2124,7 +2129,7 @@
           }
         },
         "body": {
-          "$value": "Geist, system-ui, sans-serif",
+          "$value": "Figtree, system-ui, sans-serif",
           "$type": "fontFamily",
           "$description": "Body and UI typeface, Geist. Everything Unique doesn't carry: body, labels, eyebrows, buttons, navigation.",
           "$extensions": {
@@ -2164,7 +2169,7 @@
       },
       "font-size": {
         "tag": {
-          "$value": "13px",
+          "$value": "16px",
           "$type": "dimension",
           "$description": "Floor for tags and small labels. Never go smaller.",
           "$extensions": {
@@ -2179,7 +2184,7 @@
           }
         },
         "mono": {
-          "$value": "13px",
+          "$value": "16px",
           "$type": "dimension",
           "$description": "Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At the 13px hard floor.",
           "$extensions": {
@@ -2194,7 +2199,7 @@
           }
         },
         "sm": {
-          "$value": "14px",
+          "$value": "18px",
           "$type": "dimension",
           "$description": "Small text. Eyebrows, secondary captions, footnotes.",
           "$extensions": {
@@ -2211,7 +2216,7 @@
           }
         },
         "base": {
-          "$value": "16px",
+          "$value": "18px",
           "$type": "dimension",
           "$description": "Body text floor. Non-negotiable minimum for reading text in BELLA.",
           "$extensions": {
@@ -2228,7 +2233,7 @@
           }
         },
         "body": {
-          "$value": "17px",
+          "$value": "clamp(20px, 20px + 2 * (100vw - 390px) / 1050, 22px)",
           "$type": "dimension",
           "$description": "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift.",
           "$extensions": {
@@ -2240,7 +2245,7 @@
           }
         },
         "lg": {
-          "$value": "18px",
+          "$value": "clamp(21px, 21px + 3 * (100vw - 390px) / 1050, 24px)",
           "$type": "dimension",
           "$description": "Large body. Lead paragraphs, long-form reading comfort.",
           "$extensions": {
@@ -2253,7 +2258,7 @@
           }
         },
         "xl": {
-          "$value": "20px",
+          "$value": "24px",
           "$type": "dimension",
           "$description": "Card title floor.",
           "$extensions": {
@@ -2332,7 +2337,7 @@
           }
         },
         "display-hero": {
-          "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
+          "$value": "clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)",
           "$type": "dimension",
           "$description": "Hero and page-opening heading, Geist Light: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique).",
           "$extensions": {
@@ -2345,7 +2350,7 @@
           }
         },
         "display-page": {
-          "$value": "clamp(40px, 40px + 36 * (100vw - 390px) / 1050, 76px)",
+          "$value": "clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)",
           "$type": "dimension",
           "$description": "Page heading, Geist Light: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64).",
           "$extensions": {
@@ -2358,7 +2363,7 @@
           }
         },
         "display-section": {
-          "$value": "clamp(32px, 32px + 12 * (100vw - 390px) / 1050, 44px)",
+          "$value": "clamp(34px, 34px + 12 * (100vw - 390px) / 1050, 46px)",
           "$type": "dimension",
           "$description": "Section heading (h2), Geist Light: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor).",
           "$extensions": {
@@ -2411,6 +2416,11 @@
               ]
             }
           }
+        },
+        "semibold": {
+          "$value": "600",
+          "$type": "fontWeight",
+          "$description": "Figtree SemiBold: button labels (type lock, 2026-10-04)."
         },
         "bold": {
           "$value": "700",
@@ -2471,7 +2481,7 @@
           }
         },
         "normal": {
-          "$value": "1.6",
+          "$value": "1.7",
           "$type": "number",
           "$description": "Body line-height.",
           "$extensions": {
@@ -2495,7 +2505,7 @@
           }
         },
         "display": {
-          "$value": "1.05",
+          "$value": "1.1",
           "$type": "number",
           "$description": "Display line-height for Unique caps (display-type-scale fix, 2026-09-18). A floor: Unique leading never drops below 1, the condensed bold cut collides at 0.9.",
           "$extensions": {
@@ -2507,7 +2517,7 @@
           }
         },
         "heading": {
-          "$value": "1.08",
+          "$value": "1.15",
           "$type": "number",
           "$description": "Geist Light heading leading (style unify, 2026-09-22, Elleta).",
           "$extensions": {
@@ -2549,7 +2559,7 @@
           }
         },
         "body": {
-          "$value": "-0.01em",
+          "$value": "0",
           "$type": "dimension",
           "$description": "Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.",
           "$extensions": {
@@ -2566,7 +2576,7 @@
           }
         },
         "display": {
-          "$value": "-0.035em",
+          "$value": "-0.02em",
           "$type": "dimension",
           "$description": "Hero and page heading tracking, Geist Light (style unify, 2026-09-22, Elleta).",
           "$extensions": {
@@ -2581,7 +2591,7 @@
           }
         },
         "h2": {
-          "$value": "-0.03em",
+          "$value": "-0.015em",
           "$type": "dimension",
           "$description": "Section heading (h2) tracking, Geist Light (style unify, 2026-09-22, Elleta).",
           "$extensions": {
@@ -2596,7 +2606,7 @@
           }
         },
         "title": {
-          "$value": "-0.015em",
+          "$value": "0",
           "$type": "dimension",
           "$description": "Title tracking: Geist 500 at 20px (style unify, 2026-09-22, Elleta).",
           "$extensions": {
@@ -2620,7 +2630,7 @@
           }
         },
         "wide": {
-          "$value": "0.08em",
+          "$value": "0",
           "$type": "dimension",
           "$description": "Loose tracking. Small labels without full caps treatment.",
           "$extensions": {
@@ -2633,7 +2643,7 @@
           }
         },
         "wider": {
-          "$value": "0.15em",
+          "$value": "0",
           "$type": "dimension",
           "$description": "Very loose tracking. Uppercase eyebrows, the tracking IS the old mono look.",
           "$extensions": {
@@ -3426,6 +3436,11 @@
     }
   },
   "semantic": {
+    "text-body": {
+      "$value": "{color.cool.825}",
+      "$type": "color",
+      "$description": "Reading text: body and captions, never grey (type lock, Elleta, 2026-10-04). 12.43:1 on the ground, 13.32:1 on card, 11.47:1 on inset. AAA."
+    },
     "hover-fill": {
       "$value": "{color.cool.25}",
       "$type": "color",
@@ -4120,6 +4135,11 @@
     }
   },
   "semantic_dark_overrides": {
+    "text-body": {
+      "$value": "{color.cool.50}",
+      "$type": "color",
+      "$description": "Reading text on dark: the same value as text-primary (type lock, Elleta, 2026-10-04). 12.35:1 worst (raised). AAA."
+    },
     "hover-fill": {
       "$value": "{color.cool.975}",
       "$type": "color",
@@ -5142,11 +5162,11 @@
           "$type": "dimension"
         },
         "font-weight": {
-          "$value": "{typography.font-weight.bold}",
+          "$value": "{typography.font-weight.semibold}",
           "$type": "fontWeight"
         },
         "letter-spacing": {
-          "$value": "{typography.letter-spacing.wide}",
+          "$value": "{typography.letter-spacing.normal}",
           "$type": "dimension"
         },
         "min-height": {
@@ -5668,11 +5688,11 @@
           "$type": "fontWeight"
         },
         "tab-letter-spacing": {
-          "$value": "{typography.letter-spacing.wide}",
+          "$value": "{typography.letter-spacing.normal}",
           "$type": "dimension"
         },
         "tab-foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "body-padding": {
@@ -5702,7 +5722,7 @@
           "$description": "Reading text, so the 16px body floor applies. The reference sets 13px; BELLA cannot."
         },
         "description-foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "divider-color": {
@@ -5714,7 +5734,7 @@
           "$type": "dimension"
         },
         "meta-foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "status-dot-size": {
@@ -5798,7 +5818,7 @@
           "$type": "color"
         },
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "border-radius": {
@@ -5816,19 +5836,19 @@
         "font-family": {
           "$value": "{typography.font-family.body}",
           "$type": "fontFamily",
-          "$description": "Geist sans: tags use the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)."
+          "$description": "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
         },
         "font-size": {
-          "$value": "{typography.font-size.tag}",
+          "$value": "{typography.font-size.mono}",
           "$type": "dimension"
         },
         "font-weight": {
           "$value": "{typography.font-weight.regular}",
           "$type": "fontWeight",
-          "$description": "Regular weight: a quiet label."
+          "$description": "Mono ships one cut, 400."
         },
         "letter-spacing": {
-          "$value": "{typography.letter-spacing.normal}",
+          "$value": "{typography.letter-spacing.mono}",
           "$type": "dimension"
         },
         "font-feature-settings": {
@@ -5922,20 +5942,20 @@
       "font-family": {
         "$value": "{typography.font-family.body}",
         "$type": "fontFamily",
-        "$description": "Geist sans: a status word uses the label style; mono is for tokens, code and hashes only (Elleta, 2026-10-03)."
+        "$description": "Figtree: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
       },
       "font-size": {
-        "$value": "{typography.font-size.tag}",
+        "$value": "{typography.font-size.mono}",
         "$type": "dimension",
         "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it."
       },
       "font-weight": {
         "$value": "{typography.font-weight.regular}",
         "$type": "fontWeight",
-        "$description": "Regular weight: a quiet label."
+        "$description": "Mono ships one cut, 400."
       },
       "letter-spacing": {
-        "$value": "{typography.letter-spacing.normal}",
+        "$value": "{typography.letter-spacing.mono}",
         "$type": "dimension"
       },
       "font-feature-settings": {
@@ -6096,7 +6116,7 @@
         "$type": "color"
       },
       "foreground": {
-        "$value": "{color.semantic.text-secondary}",
+        "$value": "{color.semantic.text-body}",
         "$type": "color"
       },
       "border-radius": {
@@ -6350,7 +6370,7 @@
         "$type": "fontFamily"
       },
       "font-weight": {
-        "$value": "{typography.font-weight.light}",
+        "$value": "{typography.font-weight.medium}",
         "$type": "fontWeight"
       },
       "letter-spacing": {
@@ -6506,7 +6526,7 @@
           "$type": "color"
         },
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "border-color": {
@@ -6625,7 +6645,7 @@
       },
       "muted": {
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "font-family": {
@@ -6633,7 +6653,7 @@
           "$type": "fontFamily"
         },
         "font-size": {
-          "$value": "{typography.font-size.sm}",
+          "$value": "{typography.font-size.mono}",
           "$type": "dimension"
         },
         "font-weight": {
@@ -6641,7 +6661,7 @@
           "$type": "fontWeight"
         },
         "letter-spacing": {
-          "$value": "{typography.letter-spacing.normal}",
+          "$value": "{typography.letter-spacing.mono}",
           "$type": "dimension"
         },
         "font-feature-settings": {
@@ -6659,7 +6679,7 @@
           "$type": "fontFamily"
         },
         "font-size": {
-          "$value": "{typography.font-size.sm}",
+          "$value": "{typography.font-size.mono}",
           "$type": "dimension"
         },
         "font-weight": {
@@ -6667,7 +6687,7 @@
           "$type": "fontWeight"
         },
         "letter-spacing": {
-          "$value": "{typography.letter-spacing.normal}",
+          "$value": "{typography.letter-spacing.mono}",
           "$type": "dimension"
         },
         "font-feature-settings": {
@@ -6966,7 +6986,7 @@
       },
       "default": {
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "foreground-hover": {
@@ -6982,7 +7002,7 @@
           "$type": "dimension"
         },
         "letter-spacing": {
-          "$value": "{typography.letter-spacing.wide}",
+          "$value": "{typography.letter-spacing.normal}",
           "$type": "dimension"
         },
         "min-height": {
@@ -7298,7 +7318,7 @@
       },
       "note": {
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "font-size": {
@@ -7320,7 +7340,7 @@
       },
       "gap": {
         "foreground": {
-          "$value": "{color.semantic.text-secondary}",
+          "$value": "{color.semantic.text-body}",
           "$type": "color"
         },
         "font-size": {

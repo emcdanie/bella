@@ -26,9 +26,9 @@ Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-siz
 
 These are floors, not defaults. Going below is a bug.
 
-- Reading text: **18px minimum**; body is `font-size.body` (20 to 22px, line-height 1.7), in `text-body`, never grey (type lock, Elleta, 2026-10-04)
-- Titles (card, step): **24px, Figtree 500**
-- Section headings (H2): **34 to 46px**; H1 44 to 68px
+- Reading text: **18px minimum**; body is `font-size.body` (20px, line-height 1.7), in `text-body`, never grey (type lock, Elleta, 2026-10-04)
+- Titles (card, step): **22px, Figtree 500**
+- Section headings (H2): **34 to 40px**; H1 44 to 60px
 - Nothing, anywhere, below **16px**: labels and meta sit at the 16px floor, in Figtree, sentence case, no tracking
 - **Unique never below 24px** — the keycap brand lockup is the single recorded exception
 
@@ -93,9 +93,9 @@ The status ladder has **danger and success** (2026-09-22); warning and info are 
 
 **Typography — Figtree, plus Geist Mono for code and the wordmark (the type lock for readability, Elleta, 2026-10-04; supersedes the 2026-09-22 Geist lock):**
 
-- **Headings** — `typography.font-family.display` is **Figtree** at `font-weight.medium` (500), sentence case, `line-height.heading` (1.15). H1 (hero and page) 44 to 68px, tracks `letter-spacing.display` (-0.02em); H2 (section) 34 to 46px, tracks `letter-spacing.h2` (-0.015em). Through the Heading component and its contract.
-- **Five sizes**: H1 44 to 68, H2 34 to 46, lead `font-size.lg` 21 to 24, body `font-size.body` 20 to 22, small `font-size.sm` 18. Titles use the lead size (`font-size.xl` 24px, Figtree 500, no tracking). Labels and meta 16px (`font-size.tag`).
-- **Body and captions** — Figtree 400, `line-height.normal` (1.7), no tracking, colour `color.semantic.text-body` (light `cool.825` #2b2f3d, dark = text-primary). Captions differ by size (18px), not colour. `text-secondary` is for non-reading UI only: icons, placeholders, borders-as-text. Text column 45 to 75 characters (about 696px at 22px).
+- **Headings** — `typography.font-family.display` is **Figtree** at `font-weight.medium` (500), sentence case, `line-height.heading` (1.15). H1 (hero and page) 44 to 60px, tracks `letter-spacing.display` (-0.02em); H2 (section) 34 to 40px, tracks `letter-spacing.h2` (-0.015em). Through the Heading component and its contract.
+- **Five sizes**: H1 44 to 60, H2 34 to 40, lead `font-size.lg` 21 to 22, body `font-size.body` 20, small `font-size.sm` 18. Titles use the lead size (`font-size.xl` 22px, Figtree 500, no tracking). Labels and meta 16px (`font-size.tag`).
+- **Body and captions** — Figtree 400, `line-height.normal` (1.7), no tracking, colour `color.semantic.text-body` (light `cool.825` #2b2f3d, dark = text-primary). Captions differ by size (18px), not colour. `text-secondary` is for non-reading UI only: icons, placeholders, borders-as-text. Text column 45 to 75 characters (about 640px at 20px).
 - **Labels, buttons and meta** — Figtree, sentence case, no uppercase, no letter spacing, 16px minimum. Button labels are Figtree SemiBold (`font-weight.semibold`, 600) 16px at every size, height 44px or more. Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
 - **Code** — `typography.font-family.mono`, **Geist Mono** 400 at `font-size.mono` (16px), only for real code and token names, never for labels.
 - **Wordmark** — the logo is the **BrandWordmark** component (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern or in ink. ELLETA for the site, BELLA for the system. Never below 32px tall, never recoloured, never body type or a heading. `typography.font-family.wordmark` (Unique) remains for legacy consumers only.

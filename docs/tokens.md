@@ -173,17 +173,17 @@ value with the source reference in parentheses.
 | `typography.font-size.mono` | `16px` | dimension |
 | `typography.font-size.sm` | `18px` | dimension |
 | `typography.font-size.base` | `18px` | dimension |
-| `typography.font-size.body` | `clamp(20px, 20px + 2 * (100vw - 390px) / 1050, 22px)` | dimension |
-| `typography.font-size.lg` | `clamp(21px, 21px + 3 * (100vw - 390px) / 1050, 24px)` | dimension |
-| `typography.font-size.xl` | `24px` | dimension |
+| `typography.font-size.body` | `20px` | dimension |
+| `typography.font-size.lg` | `clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)` | dimension |
+| `typography.font-size.xl` | `22px` | dimension |
 | `typography.font-size.2xl` | `24px` | dimension |
 | `typography.font-size.3xl` | `32px` | dimension |
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.5xl` | `56px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
-| `typography.font-size.display-hero` | `clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)` | dimension |
-| `typography.font-size.display-page` | `clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)` | dimension |
-| `typography.font-size.display-section` | `clamp(34px, 34px + 12 * (100vw - 390px) / 1050, 46px)` | dimension |
+| `typography.font-size.display-hero` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
+| `typography.font-size.display-page` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
+| `typography.font-size.display-section` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` | dimension |
 | `typography.font-weight.light` | `300` | fontWeight |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
@@ -498,7 +498,7 @@ value with the source reference in parentheses.
 | `component.resource-card.default.tab-letter-spacing` | `0` (`{typography.letter-spacing.normal}`) | dimension |
 | `component.resource-card.default.tab-foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.resource-card.default.body-padding` | `20px` (`{spacing.5}`) | dimension |
-| `component.resource-card.default.title-font-size` | `24px` (`{typography.font-size.xl}`) | dimension |
+| `component.resource-card.default.title-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
 | `component.resource-card.default.title-font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.resource-card.default.title-letter-spacing` | `0` (`{typography.letter-spacing.title}`) | dimension |
 | `component.resource-card.default.title-foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
@@ -557,9 +557,9 @@ value with the source reference in parentheses.
 | `component.heading.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.heading.letter-spacing` | `-0.02em` (`{typography.letter-spacing.display}`) | dimension |
 | `component.heading.line-height` | `1.15` (`{typography.line-height.heading}`) | number |
-| `component.heading.hero.font-size` | `clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)` (`{typography.font-size.display-hero}`) | dimension |
-| `component.heading.page.font-size` | `clamp(44px, 44px + 24 * (100vw - 390px) / 1050, 68px)` (`{typography.font-size.display-page}`) | dimension |
-| `component.heading.section.font-size` | `clamp(34px, 34px + 12 * (100vw - 390px) / 1050, 46px)` (`{typography.font-size.display-section}`) | dimension |
+| `component.heading.hero.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-hero}`) | dimension |
+| `component.heading.page.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-page}`) | dimension |
+| `component.heading.section.font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.heading.section.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
 | `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |

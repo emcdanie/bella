@@ -28,7 +28,7 @@ It powers:
 - `color.brand.ochre` `#e8a83e` — the single accent, a fill with ink text; `ochre-deep` `#b97a14` is its line and focus ring on light
 - `color.pattern.*` — the brand pattern, in the wordmark and (grey) behind page openings
 
-Type is **Figtree** (500 headings and titles, 400 body at 20 to 22px, SemiBold 600 button labels; nothing read below 18px) and **Geist Mono** for code only. The logo is the BrandWordmark: custom E, L, T, A, B strokes filled with the pattern.
+Type is **Figtree** (500 headings and titles, 400 body at 20px, SemiBold 600 button labels; nothing read below 18px) and **Geist Mono** for code only. The logo is the BrandWordmark: custom E, L, T, A, B strokes filled with the pattern.
 
 ## Install
 

@@ -4,7 +4,7 @@ import styles from './Heading.module.css';
 export interface HeadingProps {
   /**
    * Visual tier: `"hero"` and `"page"` are the 40 to 76px display ramp,
-   * `"section"` the 34 to 46px h2 ramp. All Figtree 500, sentence case,
+   * `"section"` the 34 to 40px h2 ramp. All Figtree 500, sentence case,
    * tight tracking; the 32px section floor is structural.
    */
   tier?: 'hero' | 'page' | 'section';

@@ -1891,6 +1891,21 @@
       }
     }
   },
+  "size": {
+    "control": {
+      "input": {
+        "$value": "57px",
+        "$type": "dimension",
+        "$description": "Input field height: the field text (font-size.base, 18px) at line-height.normal (1.7, 30.6; code wins on line-height, Elleta, 2026-10-05) + 12px padding + 1px border each side = 56.6, rounded up to a whole 57. The queue asked for 52, which assumed 16px at 1.6 from a stale build. The error state's 2px edge (border + inset shadow) stays inside it.",
+        "$extensions": {
+          "bella": {
+            "usage": ["min-height of the Input field (component.input.min-height), code and Figma"],
+            "dont": ["Do not use for buttons, chips or selects: those are spacing.touch-target (44)"]
+          }
+        }
+      }
+    }
+  },
   "breakpoint": {
     "mobile": {
       "$value": "640px",

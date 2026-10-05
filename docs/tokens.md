@@ -152,6 +152,7 @@ value with the source reference in parentheses.
 | `spacing.20` | `80px` | dimension |
 | `spacing.touch-target` | `44px` | dimension |
 | `spacing.touch-target-comfortable` | `48px` | dimension |
+| `size.control.input` | `57px` | dimension |
 | `breakpoint.mobile` | `640px` | dimension |
 | `breakpoint.tablet` | `768px` | dimension |
 | `breakpoint.desktop` | `1024px` | dimension |
@@ -433,7 +434,7 @@ value with the source reference in parentheses.
 | `component.button.primary.foreground` | `#eceef3` (`{color.semantic.text-inverse}`) | color |
 | `component.button.primary.gloss` | `linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)` | other |
 | `component.button.primary.gloss-pressed` | `linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)` | other |
-| `component.button.primary.padding-y` | `12px` (`{spacing.3}`) | dimension |
+| `component.button.primary.padding-y` | `0px` | dimension |
 | `component.button.primary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.primary.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.button.primary.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
@@ -446,7 +447,7 @@ value with the source reference in parentheses.
 | `component.button.secondary.foreground` | `#1d2030` (`{color.semantic.text-accent}`) | color |
 | `component.button.secondary.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.button.secondary.border-hover` | `#1d2030` (`{color.semantic.border-ink}`) | color |
-| `component.button.secondary.padding-y` | `12px` (`{spacing.3}`) | dimension |
+| `component.button.secondary.padding-y` | `0px` | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
 | `component.button.secondary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.button.tertiary.background` | `transparent` | color |
@@ -605,7 +606,7 @@ value with the source reference in parentheses.
 | `component.eyebrow.ink.font-feature-settings` | `normal` | other |
 | `component.input.font-size` | `18px` (`{typography.font-size.base}`) | dimension |
 | `component.input.border-radius` | `8px` (`{radius.md}`) | dimension |
-| `component.input.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.input.min-height` | `57px` (`{size.control.input}`) | dimension |
 | `component.link.default.foreground` | `#1d2030` (`{color.semantic.link}`) | color |
 | `component.link.default.foreground-hover` | `#1d2030` (`{color.semantic.link-hover}`) | color |
 | `component.link.default.text-decoration` | `underline` | other |

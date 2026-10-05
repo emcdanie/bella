@@ -2096,6 +2096,25 @@
         }
       }
     },
+    "size": {
+      "control": {
+        "input": {
+          "$value": "57px",
+          "$type": "dimension",
+          "$description": "Input field height: the field text (font-size.base, 18px) at line-height.normal (1.7, 30.6; code wins on line-height, Elleta, 2026-10-05) + 12px padding + 1px border each side = 56.6, rounded up to a whole 57. The queue asked for 52, which assumed 16px at 1.6 from a stale build. The error state's 2px edge (border + inset shadow) stays inside it.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "min-height of the Input field (component.input.min-height), code and Figma"
+              ],
+              "dont": [
+                "Do not use for buttons, chips or selects: those are spacing.touch-target (44)"
+              ]
+            }
+          }
+        }
+      }
+    },
     "breakpoint": {
       "mobile": {
         "$value": "640px",
@@ -5405,8 +5424,9 @@
           "$type": "other"
         },
         "padding-y": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$value": "0px",
+          "$type": "dimension",
+          "$description": "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)."
         },
         "padding-x": {
           "$value": "{spacing.5}",
@@ -5461,8 +5481,9 @@
           "$description": "Hover and focus-visible: the outline goes ink."
         },
         "padding-y": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$value": "0px",
+          "$type": "dimension",
+          "$description": "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)."
         },
         "padding-x": {
           "$value": "{spacing.5}",
@@ -7115,7 +7136,7 @@
         "$type": "dimension"
       },
       "min-height": {
-        "$value": "{spacing.touch-target}",
+        "$value": "{size.control.input}",
         "$type": "dimension"
       }
     },

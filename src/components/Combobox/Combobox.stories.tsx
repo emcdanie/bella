@@ -83,6 +83,10 @@ export const Behavior: Story = {
     const box = canvas.getByRole('combobox', { name: 'Ask OBI or jump to' });
     const list = canvas.getByRole('listbox', { hidden: true });
 
+    await step('the field is a 44 box: the border sits inside', async () => {
+      expect(box.parentElement!.getBoundingClientRect().height).toBe(44);
+    });
+
     await step('typing opens a named, grouped list; focus stays in the field', async () => {
       await userEvent.click(box);
       await userEvent.type(box, 'car');

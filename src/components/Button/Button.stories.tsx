@@ -136,6 +136,52 @@ export const Shape: Story = {
   },
 };
 
+/** One height: every tier, shape and state is a 44px box (the touch
+ * target), so a tertiary "Cancel" beside a primary "Save changes" shares
+ * one row (2026-10-05: tertiary rendered 50, secondary and Combobox 46 in
+ * Figma). Contract test: rest, hover, focus and disabled, both shapes. */
+export const OneHeight: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+      {(['default', 'pill'] as const).map((shape) => (
+        <div
+          key={shape}
+          style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'flex-start', flexWrap: 'wrap' }}
+        >
+          {(['tertiary', 'secondary', 'primary'] as const).map((tier) => (
+            <React.Fragment key={tier}>
+              <Button variant={tier} shape={shape} onClick={() => {}}>
+                {tier === 'tertiary' ? 'Cancel' : 'Save changes'}
+              </Button>
+              <Button variant={tier} shape={shape} onClick={() => {}} disabled>
+                Disabled
+              </Button>
+            </React.Fragment>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    const buttons = canvas.getAllByRole('button');
+    const heights = () => buttons.map((b) => b.getBoundingClientRect().height);
+    await step('rest: every box is 44', async () => {
+      expect(buttons).toHaveLength(12);
+      for (const h of heights()) expect(h).toBe(44);
+    });
+    await step('hover and focus keep 44', async () => {
+      for (const b of buttons.filter((x) => !(x as HTMLButtonElement).disabled)) {
+        await userEvent.hover(b);
+        expect(b.getBoundingClientRect().height).toBe(44);
+        b.focus();
+        expect(b.getBoundingClientRect().height).toBe(44);
+        await userEvent.unhover(b);
+        b.blur();
+      }
+    });
+  },
+};
+
 /** Anchor rendering: one link, external opens a new tab. */
 export const AsLink: Story = {
   render: () => (

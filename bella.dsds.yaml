@@ -1968,6 +1968,58 @@ entries:
       rel: file
       role: primitive.color.alpha.ink-22
   - kind: token
+    id: color.alpha.ochre-24
+    name: Ochre 24
+    description: "Ochre at 24%: the highlight wash in light and warm (Elleta, 2026-10-05)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.highlight-wash (light)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.ochre-24
+  - kind: token
+    id: color.alpha.ochre-18
+    name: Ochre 18
+    description: "Ochre at 18%: the highlight wash in dark (Elleta, 2026-10-05)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.alpha
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: color.semantic.highlight-wash (dark)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.alpha.ochre-18
+  - kind: token
     id: color.alpha.ochre-15
     name: Ochre 15
     description: "Ochre at 15%: the accent glass wash (brand refresh, 2026-09-22, Elleta)."
@@ -8920,6 +8972,116 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.alpha.ink-22}"
+  - kind: token
+    id: color.semantic.highlight-wash
+    name: Highlight Wash
+    description: "The lit background of a highlight: a linked phrase, or the part of a picture it points at, lit on hover, focus or pin (Elleta, 2026-10-05: the highlight is ochre). Always paired with the 2px highlight-edge: never colour alone."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - date: "2026-10-05"
+          by: human:elleta
+          note: ink text 12.12:1 on the wash over the ground, 13.34 over card, 12.08 over inset (warm worst 11.31).
+      tags:
+        - semantic
+        - highlight-wash
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Background of a lit phrase or picture target (hover, focus-visible, pinned)
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Never the only signal: pair it with the 2px highlight-edge (underline for text, outline for a picture target)"
+          - level: must-not
+            statement: "Not a selected or active state: that is accent (the ochre fill)"
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.highlight-wash
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.alpha.ochre-24}"
+  - kind: token
+    id: color.semantic.highlight-edge
+    name: Highlight Edge
+    description: "The 2px underline (text) or outline (picture target) of a lit highlight. Ink in light: ochre-deep measured 2.69:1 on the wash, under the 3:1 bar (2026-10-05)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - by: human:elleta
+          note: "Checked in the gate against the wash over ground, card and inset, and against each surface beside it: 3:1 or better (WCAG 1.4.11)."
+      tags:
+        - semantic
+        - highlight-edge
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: 2px underline under a lit phrase
+          - level: may
+            statement: 2px outline around a lit picture target
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.highlight-edge
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.cool.900}"
+  - kind: token
+    id: color.semantic.highlight-text
+    name: Highlight Text
+    description: "Text on the highlight wash: the primary ink. Ochre is never text on light."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      reviewed:
+        - by: human:elleta
+          note: AAA (7:1) on the wash over ground, card and inset, checked in the gate.
+      tags:
+        - semantic
+        - highlight-text
+      group: color.semantic
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Text of a lit phrase
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.highlight-text
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.cool.900}"
   - kind: token
     id: color.semantic.focus-ring
     name: Focus Ring

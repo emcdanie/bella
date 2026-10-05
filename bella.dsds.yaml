@@ -12325,6 +12325,72 @@ entries:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{spacing.3}"
   - kind: token
+    id: component.tag.outline.foreground
+    name: Outline Foreground
+    description: "Outline Tag (Elleta, 2026-10-05; Figma Tag variant=outline, 251:37): no fill, a 1px edge, same 35px box as the wash variants."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - tag
+      group: component.tag.outline
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tag.outline.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-secondary}"
+  - kind: token
+    id: component.tag.outline.border
+    name: Outline Border
+    description: Drawn as an inset outline (offset minus its width), so the box stays the wash variants' height and it still shows in forced colours.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - tag
+      group: component.tag.outline
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tag.outline.border
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.border-strong}"
+  - kind: token
+    id: component.tag.outline.border-width
+    name: Outline Border Width
+    description: Component-tier alias. Resolves to `border.width.thin` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - tag
+      group: component.tag.outline
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.tag.outline.border-width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.thin}"
+  - kind: token
     id: component.status-pill.border-radius
     name: Status Pill Border Radius
     description: Component-tier alias. Resolves to `radius.full` in `tokens/bella.json`.
@@ -17347,6 +17413,8 @@ entries:
             statement: Project metadata rows
           - level: may
             statement: Mood and topic markers
+          - level: may
+            statement: "outline: a quieter label on a busy or tinted surface, where a wash would add a second fill"
       - kind: guidelines
         for: all
         title: Do not
@@ -17354,7 +17422,7 @@ entries:
           - level: must-not
             statement: "Do not make it clickable: narrowing a set is FilterChip's job"
           - level: must-not
-            statement: "Do not add a border: the flat wash is what separates it from interactive chips"
+            statement: "Do not put an outline Tag next to FilterChips: beside interactive chips use the flat wash, which is what tells them apart"
           - level: must-not
             statement: "Do not set the label in an accent or status colour: tints are wash-only here"
       - kind: definitions

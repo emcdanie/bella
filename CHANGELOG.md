@@ -4,6 +4,9 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Tag outline (2026-10-05)
+- **Tag `variant="outline"`**: no fill, `text-secondary` label, a 1px `border-strong` edge drawn as an inset outline, so the box stays the wash variants' 35px and the edge survives forced colours. New tokens `component.tag.outline.{foreground,border,border-width}`. Matches Figma Tag variant=outline (251:37). Contract `dont` updated: never beside FilterChips, where the wash is what tells a label from a control.
+
 ### OKLCH primitives (2026-10-05)
 - **Every colour primitive carries `$extensions.bella.oklch`** beside its hex `$value`; ramps keep one hue (`cool` 272, `stone` 85), named sets keep each colour's own hue. Max drift CIEDE2000 0.81; the build fails at 1 or more. Decision record: `docs/decisions/2026-10-05-oklch-primitives.md`.
 - **bella.css gains an OKLCH layer**: hex stays the base; `@supports (color: oklch(0 0 0))` redeclares the primitives in OKLCH and points every colour-bearing semantic and component token at its reference by name, per theme. A second `@supports` block derives the alpha tints (`oklch(from var(--base) l c h / N%)`) and the button glosses with relative colour.

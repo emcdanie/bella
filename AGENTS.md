@@ -10,6 +10,8 @@ Never hard-code a hex value, an arbitrary pixel number, or a one-off font size. 
 
 Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.
 
+**Colour is authored twice, checked once (2026-10-05).** A colour primitive is hex in `$value` and OKLCH in `$extensions.bella.oklch`; ramps hold one hue. Change both together: the build fails when they drift by ΔE2000 1 or more. Never put an OKLCH value in `$value`, and never write a hex8 tint by hand when a relative colour of its base will do. See `docs/decisions/2026-10-05-oklch-primitives.md`.
+
 ## The accessibility bar (recorded 2026-07-21, Elleta; re-verified 2026-09-22)
 
 **AAA-minded AA.** Concretely:
@@ -34,7 +36,11 @@ These are floors, not defaults. Going below is a bug.
 
 Fine-print, captions, and metadata live at 13–14px and should be rare. If you're reaching for 12px, rethink the layout.
 
-## Cool ground, white cards (colour B, Elleta, 2026-10-04; supersedes the 2026-09-22 white page)
+## Stone ground, stone cards (light ground, Elleta, 2026-10-05; supersedes the colour B cool ground and white cards)
+
+The light page ground is `color.semantic.background` = `stone.95`, oklch(95% 0.005 85) `#f0eeeb`, chosen for accessibility; 95% is the floor (92.5% would drop muted under AAA). Cards are `surface-card` = `stone.99` `#fcfcfa` with a 1px `border-subtle` edge (`cool.100`, 1.22:1 on the card). `ground` and `raised` follow (stone.95 / stone.99). The selected wash `accent-subtle` is `stone.92` `#e6e4e1` (1.10:1 on the ground, 1.24:1 on the card). Light `icon-muted` is `cool.500` (4.45:1 on the ground). `surface` and `surface-elevated` stay white; inset stays `cool.50`, decorative (1.00:1 on the ground, so the edge carries any boundary). Dark and warm are unchanged. Where the older paragraph below names cool.25 or white cards for light, this section wins.
+
+### Earlier: cool ground, white cards (colour B, 2026-10-04)
 
 The light page ground is `color.semantic.background` = `cool.25` `#f6f7f9`. Cards and raised surfaces are white (`surface-card` = `cool.0`); inset washes (tags, code) are `cool.50` `#eceef3`; the hover fill is the ground. The three-level tokens map onto it: `ground` = the page ground (`cool.25`), `raised` = the white card (`cool.0`). The selected wash (`accent-subtle`) is inset, `cool.50`, never the ground: selected must differ from hover, and it always carries a non-colour marker too (check or edge). Every grey is a step of the one cool ink-tinted ramp `color.cool.*` (OKLCH hue 272), so borders read softer and ochre pops harder. A disabled field has no fill of its own: muted text and the border mark it. Cards at rest: white fill, a 1px hairline edge and `shadow.card`, the ink-tinted two-layer shadow (theme-aware; Elleta, 2026-10-04). `shadow.ui` is for docs and floating UI. White alpha stays permitted as a translucent glass overlay.
 
@@ -61,7 +67,7 @@ The warm theme (`[data-theme="warm"]`, `tokens/semantic/warm.json`) is **not on 
 
 One style per job, so a page never mixes button looks for the same kind of action:
 
-- **Main action:** at most ONE keycap (Button `primary`, caps) per view, and only for the action the view exists for. Zero is fine. A keycap shown as a specimen (Atlas, Storybook) is content, not an action.
+- **Main action:** at most ONE keycap (Button `primary`, sentence case: "Save changes", never "SAVE CHANGES"; Elleta, 2026-10-05) per view, and only for the action the view exists for. Zero is fine. A keycap shown as a specimen (Atlas, Storybook) is content, not an action.
 - **Secondary actions:** Button `secondary`.
 - **Small inline actions** (on a tile, under an answer, in a list row, "Test", "Copy"): ActionChip, sentence case.
 - **Navigation** (going somewhere else): Link, or NavList in a sidebar. Not a Button and not an ActionChip.
@@ -103,7 +109,7 @@ The status ladder has **danger and success** (2026-09-22); warning and info are 
 - **Headings** — `typography.font-family.display` is **Figtree** at `font-weight.semibold` (600; Elleta, 2026-10-04, "pages win"), sentence case, `line-height.heading` (1.15). H1 (hero and page) 44 to 60px, tracks `letter-spacing.display` (-0.02em); H2 (section) 34 to 40px, tracks `letter-spacing.h2` (-0.015em). Through the Heading component and its contract.
 - **Five sizes**: H1 44 to 60, H2 34 to 40, lead `font-size.lg` 21 to 22, body `font-size.body` 20, small `font-size.sm` 18. Titles use the lead size (`font-size.xl` 22px, Figtree 600, no tracking). Labels and meta 16px (`font-size.tag`).
 - **Body and captions** — Figtree 400, `line-height.normal` (1.7), no tracking, colour `color.semantic.text-body` (light `cool.825` #2b2f3d, dark = text-primary). Captions differ by size (18px), not colour. `text-secondary` is for non-reading UI only: icons, placeholders, borders-as-text. Headings and titles wrap with `text-wrap: balance`, body, lead and captions with `text-wrap: pretty` (`typography.text-wrap.*`, emitted as zero-specificity base rules in bella.css). Text column 45 to 75 characters (about 640px at 20px).
-- **Labels, buttons and meta** — Figtree, sentence case, no uppercase, no letter spacing, 16px minimum. Button labels are Figtree SemiBold (`font-weight.semibold`, 600) 16px at every size, height 44px or more. Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
+- **Labels, buttons and meta** — Figtree, sentence case, no uppercase, no letter spacing, 16px minimum. Button labels are Figtree SemiBold (`font-weight.semibold`, 600) 16px at every size; every tier, shape and state is a 44px box (`spacing.touch-target`), so a tertiary beside a primary shares one height (2026-10-05). The Input field is 57 (`size.control.input`: 18px at line-height 1.7, rounded to a whole pixel). Eyebrow, Tag, StatusPill, SectionIndex and diagram labels moved off Mono.
 - **Code** — `typography.font-family.mono`, **Geist Mono** 400 at `font-size.mono` (16px), only for real code and token names, never for labels.
 - **Wordmark** — the logo is the **BrandWordmark** component (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern or in ink. ELLETA for the site, BELLA for the system. Never below 32px tall, never recoloured, never body type or a heading. `typography.font-family.wordmark` (Unique) remains for legacy consumers only.
 

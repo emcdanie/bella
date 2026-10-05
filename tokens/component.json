@@ -68,7 +68,7 @@
         "foreground":       { "$value": "{color.semantic.text-inverse}", "$type": "color" },
         "gloss":            { "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)", "$type": "other", "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill." },
         "gloss-pressed":    { "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)", "$type": "other" },
-        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
+        "padding-y":        { "$value": "0px", "$type": "dimension", "$description": "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)." },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "font-family":      { "$value": "{typography.font-family.body}", "$type": "fontFamily" },
         "font-size":        { "$value": "{typography.font-size.tag}",    "$type": "dimension" },
@@ -84,7 +84,7 @@
         "foreground":       { "$value": "{color.semantic.text-accent}",  "$type": "color" },
         "border":           { "$value": "{color.semantic.border-strong}",       "$type": "color", "$description": "The 3:1 control outline at rest (brand refresh, 2026-09-22)." },
         "border-hover":     { "$value": "{color.semantic.border-ink}",   "$type": "color", "$description": "Hover and focus-visible: the outline goes ink." },
-        "padding-y":        { "$value": "{spacing.3}",                   "$type": "dimension" },
+        "padding-y":        { "$value": "0px", "$type": "dimension", "$description": "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)." },
         "padding-x":        { "$value": "{spacing.5}",                   "$type": "dimension" },
         "min-height":       { "$value": "{spacing.touch-target}",        "$type": "dimension" }
       },
@@ -117,14 +117,14 @@
             {"key": "shadow", "title": "Hover shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-hover", "trigger": "hover", "detail": "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift"},
             {"key": "rest-shadow", "title": "Rest shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-card", "trigger": "rest", "detail": "every card but peek (re-scoped to none), Colour B, 2026-10-04"},
             {"key": "surface", "title": "Surface", "kind": "fill", "target": ":scope > div", "zone": {"inset": 12}, "token": "--color-semantic-surface-card", "trigger": "rest", "detail": "the card fill"},
-            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-faint", "trigger": "rest", "detail": "1px hairline, radius 16 (--radius-card)"},
+            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-subtle", "trigger": "rest", "detail": "1px border-subtle hairline, radius 16 (--radius-card)"},
             {"key": "padding", "title": "Padding", "kind": "box", "target": ":scope > div", "zone": {"inset": 0}, "token": "--spacing-6", "trigger": "rest", "detail": "24px all round"},
             {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -8}, "token": "--ring-focus-color", "trigger": "focus", "detail": "interactive cards only: 3px, 3px offset, focus-visible only"}
           ],
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
             "description": "The rest state is a contract (Colour B, Elleta, 2026-10-04; flat from 2026-09-19): only these layers may paint before hover/focus, and the shadow at rest is exactly shadow.card (peek re-scopes it to none and stays flat). audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
-            "atRest": ["shadow.card (peek: none)", "surface-card inner panel", "1px border-faint", "radius.card"],
+            "atRest": ["shadow.card (peek: none)", "surface-card inner panel", "1px border-subtle", "radius.card"],
             "hoverOnly": ["hover lift + shadow.hover, interactive cards only"],
             "invariants": [
               { "layer": "lift", "property": "transform", "expect": "none" },
@@ -635,7 +635,7 @@
 
       "font-size":      { "$value": "{typography.font-size.base}",      "$type": "dimension", "$description": "Form entry is body text, 16px; it also defeats iOS zoom-on-focus." },
       "border-radius":  { "$value": "{radius.md}",                      "$type": "dimension" },
-      "min-height":     { "$value": "{spacing.touch-target}",           "$type": "dimension" }
+      "min-height":     { "$value": "{size.control.input}",           "$type": "dimension" }
     },
 
     "link": {

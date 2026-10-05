@@ -2360,6 +2360,60 @@ entries:
       rel: file
       role: primitive.color.cool.975
   - kind: token
+    id: color.stone.92
+    name: "92"
+    description: "Light selected wash: oklch(92% 0.005 85), 1.10:1 on the stone ground and 1.24:1 on the stone card, so selected never disappears (light ground, Elleta, 2026-10-05; cool.50 read 1.00:1 on the new ground)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.stone
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.stone.92
+  - kind: token
+    id: color.stone.95
+    name: "95"
+    description: "Light page ground: oklch(95% 0.005 85), a warm stone off-white chosen for accessibility (light ground, Elleta, 2026-10-05; replaces cool.25 as the light ground). 95% is the floor: Ott's 92.5% would drop muted text under AAA."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.stone
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.stone.95
+  - kind: token
+    id: color.stone.99
+    name: "99"
+    description: "Light card: oklch(99% 0.002 85), the stone card on the stone ground (light ground, Elleta, 2026-10-05; replaces white cool.0 as the light card)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.stone
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.stone.99
+  - kind: token
     id: color.light.ink
     name: Light Ink
     description: "Light-mode ink: text, 1px strokes, the ink border (style unify, 2026-09-22, Elleta)."
@@ -4250,6 +4304,38 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.spacing.touch-target-comfortable
+  - kind: token
+    id: size.control.input
+    name: Input
+    description: "Input field height: the field text (font-size.base, 18px) at line-height.normal (1.7, 30.6; code wins on line-height, Elleta, 2026-10-05) + 12px padding + 1px border each side = 56.6, rounded up to a whole 57. The queue asked for 52, which assumed 16px at 1.6 from a stale build. The error state's 2px edge (border + inset shadow) stays inside it."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - size
+      group: size.control
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: min-height of the Input field (component.input.min-height), code and Figma
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: "Do not use for buttons, chips or selects: those are spacing.touch-target (44)"
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.size.control.input
   - kind: token
     id: breakpoint.mobile
     name: Mobile
@@ -7735,7 +7821,7 @@ entries:
   - kind: token
     id: color.semantic.icon-muted
     name: Icon Muted
-    description: "Colour B (2026-10-04): muted icons and non-text marks, 3:1. Never text on light."
+    description: "Muted icons and non-text marks, 3:1: cool.500, 4.45:1 on the stone ground, 4.44:1 on inset (light ground, Elleta, 2026-10-05; cool.400 read 2.93:1 on the new ground and 2.92:1 on inset). Never text on light."
     metadata:
       origin:
         method: extracted
@@ -7753,11 +7839,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.400}"
+        alias: "{color.cool.500}"
   - kind: token
     id: color.semantic.background
     name: Background
-    description: "Light page ground: cool.25 #f6f7f9 (colour B, 2026-10-04, Elleta; was pure white)."
+    description: "Light page ground: stone.95, oklch(95% 0.005 85) #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25 #f6f7f9)."
     metadata:
       origin:
         method: extracted
@@ -7791,7 +7877,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.25}"
+        alias: "{color.stone.95}"
   - kind: token
     id: color.semantic.background-inverse
     name: Background Inverse
@@ -7855,7 +7941,7 @@ entries:
   - kind: token
     id: color.semantic.surface-card
     name: Surface Card
-    description: "Card fill: white cool.0 on the cool ground, hairline edge (colour B, 2026-10-04, Elleta; was panel #f2f2f2 on white)."
+    description: "Card fill: stone.99, oklch(99% 0.002 85) #fcfcfa on the stone ground, with a 1px border-subtle edge (light ground, Elleta, 2026-10-05; was white cool.0)."
     metadata:
       origin:
         method: extracted
@@ -7885,7 +7971,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.0}"
+        alias: "{color.stone.99}"
   - kind: token
     id: color.semantic.surface-elevated
     name: Surface Elevated
@@ -7953,7 +8039,7 @@ entries:
   - kind: token
     id: color.semantic.ground
     name: Ground
-    description: "The page ground under raised cards (colour B, 2026-10-04, Elleta): the same step as background, cool.25 #f6f7f9. Raised cards are white above it; inset (cool.50) sits one step below it. Added 2026-10-03 for the portfolio layout."
+    description: "The page ground under raised cards: the same step as background, stone.95 #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25). Raised cards are white above it; inset (cool.50) sits one step below it. Added 2026-10-03 for the portfolio layout."
     metadata:
       origin:
         method: extracted
@@ -7989,11 +8075,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.25}"
+        alias: "{color.stone.95}"
   - kind: token
     id: color.semantic.raised
     name: Raised
-    description: "A raised card on the ground (colour B, 2026-10-04, Elleta): white, the same step as surface-card, so cards never read as holes. Added 2026-10-03."
+    description: "A raised card on the ground: stone.99 #fcfcfa, the same step as surface-card (light ground, Elleta, 2026-10-05; was white), so cards never read as holes. Added 2026-10-03."
     metadata:
       origin:
         method: extracted
@@ -8025,7 +8111,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.0}"
+        alias: "{color.stone.99}"
   - kind: token
     id: color.semantic.surface-inverse
     name: Surface Inverse
@@ -8571,7 +8657,7 @@ entries:
   - kind: token
     id: color.semantic.accent-subtle
     name: Accent Subtle
-    description: "Neutral selected wash = inset (colour B, 2026-10-04, Elleta). Never cool.25: that is the hover fill, and selected must differ from hover. Always paired with a non-colour marker (check or edge)."
+    description: "Neutral selected wash: stone.92 #e6e4e1, 1.10:1 on the ground, 1.24:1 on the card (light ground, Elleta, 2026-10-05; was cool.50 = inset, 1.00:1 on the new ground). Never cool.25: that is the hover fill, and selected must differ from hover. Always paired with a non-colour marker (check or edge)."
     metadata:
       origin:
         method: extracted
@@ -8597,7 +8683,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.50}"
+        alias: "{color.stone.92}"
   - kind: token
     id: color.semantic.accent-border
     name: Accent Border
@@ -8669,7 +8755,7 @@ entries:
   - kind: token
     id: color.semantic.border-subtle
     name: Border Subtle
-    description: Hairline divider, decorative only (style unify, 2026-09-22, Elleta).
+    description: "Hairline divider and the card edge, decorative only: cool.100, 1.22:1 on the stone card (light ground, Elleta, 2026-10-05; cool.50 read 1.13:1 there)."
     metadata:
       origin:
         method: extracted
@@ -8695,7 +8781,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.50}"
+        alias: "{color.cool.100}"
   - kind: token
     id: color.semantic.border-faint
     name: Border Faint
@@ -9813,12 +9899,12 @@ entries:
   - kind: token
     id: component.button.primary.padding-y
     name: Padding Y
-    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    description: "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)."
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - button
@@ -9828,10 +9914,6 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: component.button.primary.padding-y
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{spacing.3}"
   - kind: token
     id: component.button.primary.padding-x
     name: Padding X
@@ -10091,12 +10173,12 @@ entries:
   - kind: token
     id: component.button.secondary.padding-y
     name: Secondary Padding Y
-    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    description: "No block padding: the box is min-height (spacing.touch-target, 44) and the label centres in it, so every tier is one 44 box (2026-10-05; 12px padding rendered 45 with the Figtree label and the 1px edge)."
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - button
@@ -10106,10 +10188,6 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: component.button.secondary.padding-y
-    $extensions:
-      design.bella:
-        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{spacing.3}"
   - kind: token
     id: component.button.secondary.padding-x
     name: Secondary Padding X
@@ -13541,7 +13619,7 @@ entries:
   - kind: token
     id: component.input.min-height
     name: Input Min Height
-    description: Component-tier alias. Resolves to `spacing.touch-target` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `size.control.input` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -13559,7 +13637,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{spacing.touch-target}"
+        alias: "{size.control.input}"
   - kind: token
     id: component.link.default.foreground
     name: Link Default Foreground
@@ -16891,7 +16969,7 @@ entries:
             definition: "Trigger: rest. Paints at rest."
           - term: surface-card inner panel
             definition: "Trigger: rest. Paints at rest."
-          - term: 1px border-faint
+          - term: 1px border-subtle
             definition: "Trigger: rest. Paints at rest."
           - term: radius.card
             definition: "Trigger: rest. Paints at rest."
@@ -16908,7 +16986,7 @@ entries:
           - term: 3. Surface
             definition: "the card fill. Trigger: rest. Token --color-semantic-surface-card; target :scope > div."
           - term: 4. Edge
-            definition: "1px hairline, radius 16 (--radius-card). Trigger: rest. Token --color-semantic-border-faint; target :scope > div."
+            definition: "1px border-subtle hairline, radius 16 (--radius-card). Trigger: rest. Token --color-semantic-border-subtle; target :scope > div."
           - term: 5. Padding
             definition: "24px all round. Trigger: rest. Token --spacing-6; target :scope > div."
           - term: 6. Focus ring
@@ -16951,7 +17029,7 @@ entries:
           atRest:
             - "shadow.card (peek: none)"
             - surface-card inner panel
-            - 1px border-faint
+            - 1px border-subtle
             - radius.card
           hoverOnly:
             - hover lift + shadow.hover, interactive cards only

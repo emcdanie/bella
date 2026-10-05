@@ -4,6 +4,18 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### OKLCH primitives (2026-10-05)
+- **Every colour primitive carries `$extensions.bella.oklch`** beside its hex `$value`; ramps keep one hue (`cool` 272, `stone` 85), named sets keep each colour's own hue. Max drift CIEDE2000 0.81; the build fails at 1 or more. Decision record: `docs/decisions/2026-10-05-oklch-primitives.md`.
+- **bella.css gains an OKLCH layer**: hex stays the base; `@supports (color: oklch(0 0 0))` redeclares the primitives in OKLCH and points every colour-bearing semantic and component token at its reference by name, per theme. A second `@supports` block derives the alpha tints (`oklch(from var(--base) l c h / N%)`) and the button glosses with relative colour.
+- No visible change: all 468 visual baselines match without an update. Figma variables keep the hex (no OKLCH in Figma). `light-dark()` deferred (three themes, see the record).
+
+### Light ground (2026-10-05)
+- **Stone ground and stone cards** (light only; BREAKING visually): `background` and `ground` = new `color.stone.95` oklch(95% 0.005 85) #f0eeeb (was cool.25 #f6f7f9); `surface-card` and `raised` = `color.stone.99` oklch(99% 0.002 85) #fcfcfa (was white). Why: Elleta chose a warmer, softer ground for accessibility (5 Oct); 95% lightness is the floor that keeps muted text AAA (7.36:1).
+- **Card edge** reads `border-subtle` (was `border-faint`); light `border-subtle` cool.50 to cool.100, 1.22:1 on the stone card (cool.50 was 1.13:1).
+- **Selected wash** `accent-subtle` light = new `stone.92` #e6e4e1 (cool.50 was 1.00:1 on the new ground; now 1.10:1 vs page, 1.24:1 vs card).
+- **`icon-muted`** light cool.400 to cool.500: 4.45:1 on the ground (cool.400 was 2.93:1, and 2.92:1 on inset before this change).
+- Dark and warm unchanged (warm overrides every changed variable).
+
 ### Hero, quote and the keycap edge (2026-10-05)
 - **`font-size.display-hero` 48 to 82px** (BREAKING visually, the hero tier only): fluid 390 to 1440, matching the site hero words (82 at 1440, 48 floor). Was 44 to 60. Why: the type role map (Elleta, 4 Oct) gives the hero its own tier above Display/Page. `display-page` (44 to 60) and `display-section` (34 to 40) were already fluid; their descriptions now name the Figma styles.
 - **Quote style**: `font-size.quote` (24 to 32px, Figtree Regular), `line-height.quote` (1.08, as on the site) and `font-size.quote-mark` (144px, one mark size everywhere). Why: the site set quotes in raw 32 with three different mark sizes.

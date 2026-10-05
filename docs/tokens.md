@@ -70,6 +70,8 @@ value with the source reference in parentheses.
 | `color.alpha.steel-15` | `#6495C526` | color |
 | `color.alpha.steel-30` | `#6495C54D` | color |
 | `color.alpha.ink-22` | `#1A172038` | color |
+| `color.alpha.ochre-24` | `#e8a83e3d` | color |
+| `color.alpha.ochre-18` | `#e8a83e2e` | color |
 | `color.alpha.ochre-15` | `#e8a83e26` | color |
 | `color.alpha.key-20` | `#12121233` | color |
 | `color.alpha.key-24` | `#1212123D` | color |
@@ -318,6 +320,9 @@ value with the source reference in parentheses.
 | `color.semantic.border-strong` | `#686d7d` (`{color.cool.500}`) | color |
 | `color.semantic.border-ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.scrim` | `#1A172038` (`{color.alpha.ink-22}`) | color |
+| `color.semantic.highlight-wash` | `#e8a83e3d` (`{color.alpha.ochre-24}`) | color |
+| `color.semantic.highlight-edge` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.highlight-text` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
 | `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
@@ -385,6 +390,9 @@ value with the source reference in parentheses.
 | `color.semantic.border-strong` | `#858b9f` (`{color.cool.400}`) | color |
 | `color.semantic.border-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.scrim` | `#1B191699` (`{color.alpha.night-60}`) | color |
+| `color.semantic.highlight-wash` | `#e8a83e2e` (`{color.alpha.ochre-18}`) | color |
+| `color.semantic.highlight-edge` | `#e8a83e` (`{color.brand.ochre}`) | color |
+| `color.semantic.highlight-text` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
 | `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |

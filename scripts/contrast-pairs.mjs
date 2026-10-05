@@ -49,6 +49,18 @@ const ratio = (a, b) => {
   return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 };
 
+/* A background may be a translucent wash composited over a surface:
+ * '<wash var> over <surface var>' (highlight, 2026-10-05). The wash is
+ * an 8-digit hex; the composite is what the eye sees. */
+function colour(vars, spec) {
+  const [top, base] = spec.split(' over ');
+  if (!base) return resolve(vars, top);
+  const t = resolve(vars, top).replace('#', '');
+  const b = resolve(vars, base).replace('#', '').slice(0, 6);
+  const a = t.length === 8 ? parseInt(t.slice(6, 8), 16) / 255 : 1;
+  return '#' + [0, 2, 4].map((i) => Math.round(parseInt(t.slice(i, i + 2), 16) * a + parseInt(b.slice(i, i + 2), 16) * (1 - a)).toString(16).padStart(2, '0')).join('');
+}
+
 /* [label, foreground var, background var, minimum, themes] */
 const AAA = 7;
 const AA = 4.5;
@@ -117,6 +129,14 @@ const PAIRS = [
   ['success text on its wash', '--color-semantic-success-text', '--color-semantic-success-subtle', AA],
   ['ink text on the success wash', '--color-semantic-text-primary', '--color-semantic-success-subtle', AAA],
   ['success border on panel', '--color-semantic-success-border', '--color-semantic-surface-card', NON_TEXT],
+  /* highlight (2026-10-05): the lit state is the ochre wash + a 2px edge,
+   * never colour alone. Text on the wash AAA, the edge 3:1 against the
+   * wash it sits on and the surface beside it, on ground, card and inset. */
+  ...['background', 'surface-card', 'surface-inset'].flatMap((s) => [
+    [`text on the highlight wash over ${s}`, '--color-semantic-highlight-text', `--color-semantic-highlight-wash over --color-semantic-${s}`, AAA],
+    [`highlight edge on the wash over ${s}`, '--color-semantic-highlight-edge', `--color-semantic-highlight-wash over --color-semantic-${s}`, NON_TEXT],
+    [`highlight edge beside ${s}`, '--color-semantic-highlight-edge', `--color-semantic-${s}`, NON_TEXT],
+  ]),
   /* chip fills carry chip text */
   ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
   ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
@@ -225,7 +245,7 @@ const INSET_EXEMPT = {
 }
 for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
   for (const [label, fg, bg, min] of PAIRS) {
-    const r = ratio(resolve(vars, fg), resolve(vars, bg));
+    const r = ratio(colour(vars, fg), colour(vars, bg));
     lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
     if (r < min) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${min}:1 (${fg} on ${bg})`);
   }

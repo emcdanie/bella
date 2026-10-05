@@ -1,0 +1,77 @@
+/* Highlight (Elleta, 2026-10-05): a linked phrase, or the part of a
+ * picture it points at, lit on hover, focus or pin. The lit state is the
+ * ochre wash PLUS a 2px edge (underline for text, outline for a picture
+ * target), never colour alone. Tokens only. */
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--spacing-5);
+}
+
+.specimen {
+  display: grid;
+  gap: var(--spacing-3);
+  align-content: start;
+}
+
+.label {
+  margin: 0;
+  font-size: var(--typography-font-size-sm);
+  color: var(--color-semantic-text-secondary);
+}
+
+.prose {
+  margin: 0;
+  max-width: 60ch;
+  font-size: var(--typography-font-size-base);
+  line-height: var(--typography-line-height-normal);
+  color: var(--color-semantic-text-body);
+}
+
+/* the phrase: an ink link at rest (underline 1px), lit = wash + 2px edge */
+.phrase {
+  color: var(--color-semantic-link);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width-thin);
+  text-underline-offset: var(--spacing-1);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-out);
+}
+
+.phrase:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.phrase:hover,
+.phrase:focus-visible,
+.phrase[aria-pressed='true'],
+.phrase.lit {
+  background: var(--color-semantic-highlight-wash);
+  color: var(--color-semantic-highlight-text);
+  text-decoration-color: var(--color-semantic-highlight-edge);
+  text-decoration-thickness: var(--border-width-medium);
+}
+
+/* the picture and its target region */
+.picture {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border: var(--border-width-thin) solid var(--color-semantic-border);
+  border-radius: var(--radius-md);
+  background: var(--color-semantic-surface-card);
+}
+
+.target {
+  position: absolute;
+  inset: 20% 15% 35% 30%;
+  border-radius: var(--radius-sm);
+  background: var(--color-semantic-surface-inset);
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-out);
+}
+
+.target.lit {
+  background: var(--color-semantic-highlight-wash);
+  outline: var(--border-width-medium) solid var(--color-semantic-highlight-edge);
+}

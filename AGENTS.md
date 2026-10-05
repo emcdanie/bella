@@ -10,6 +10,8 @@ Never hard-code a hex value, an arbitrary pixel number, or a one-off font size. 
 
 Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.
 
+**Colour is authored twice, checked once (2026-10-05).** A colour primitive is hex in `$value` and OKLCH in `$extensions.bella.oklch`; ramps hold one hue. Change both together: the build fails when they drift by ΔE2000 1 or more. Never put an OKLCH value in `$value`, and never write a hex8 tint by hand when a relative colour of its base will do. See `docs/decisions/2026-10-05-oklch-primitives.md`.
+
 ## The accessibility bar (recorded 2026-07-21, Elleta; re-verified 2026-09-22)
 
 **AAA-minded AA.** Concretely:

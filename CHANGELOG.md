@@ -4,6 +4,11 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### OKLCH primitives (2026-10-05)
+- **Every colour primitive carries `$extensions.bella.oklch`** beside its hex `$value`; ramps keep one hue (`cool` 272, `stone` 85), named sets keep each colour's own hue. Max drift CIEDE2000 0.81; the build fails at 1 or more. Decision record: `docs/decisions/2026-10-05-oklch-primitives.md`.
+- **bella.css gains an OKLCH layer**: hex stays the base; `@supports (color: oklch(0 0 0))` redeclares the primitives in OKLCH and points every colour-bearing semantic and component token at its reference by name, per theme. A second `@supports` block derives the alpha tints (`oklch(from var(--base) l c h / N%)`) and the button glosses with relative colour.
+- No visible change: all 468 visual baselines match without an update. Figma variables keep the hex (no OKLCH in Figma). `light-dark()` deferred (three themes, see the record).
+
 ### Light ground (2026-10-05)
 - **Stone ground and stone cards** (light only; BREAKING visually): `background` and `ground` = new `color.stone.95` oklch(95% 0.005 85) #f0eeeb (was cool.25 #f6f7f9); `surface-card` and `raised` = `color.stone.99` oklch(99% 0.002 85) #fcfcfa (was white). Why: Elleta chose a warmer, softer ground for accessibility (5 Oct); 95% lightness is the floor that keeps muted text AAA (7.36:1).
 - **Card edge** reads `border-subtle` (was `border-faint`); light `border-subtle` cool.50 to cool.100, 1.22:1 on the stone card (cool.50 was 1.13:1).

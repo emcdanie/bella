@@ -17,6 +17,7 @@ Usage:
 """
 
 import json
+import math
 import re
 from pathlib import Path
 
@@ -204,6 +205,133 @@ for path, (v, t, _) in comp_flat.items():
     if lightv != warmv:
         css_lines.append(f"  {emit_css_var(path)}: {warmv};")
 css_lines += ["}", ""]
+
+# ---- OKLCH layer (Elleta, 2026-10-05; docs/decisions/2026-10-05-oklch-primitives.md) ----
+# Hex above is the base every browser and Figma reads. Primitives also carry
+# $extensions.bella.oklch; the build checks each against its hex (CIEDE2000
+# under 1, or it fails), then emits them under @supports (color: oklch(...)).
+# Inside that block semantic and component tokens point at names (var()),
+# not values, so the OKLCH primitives flow through every theme. A second
+# block uses relative colour for the alpha tints and the white gloss mixes.
+
+def _lin(c): return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+def _gam(c): return 12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055
+def _hex_rgb(h): h = h.lstrip("#"); return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+
+def _oklch_to_hex(L, C, H):
+    a, b = C * math.cos(math.radians(H)), C * math.sin(math.radians(H))
+    l_, m_, s_ = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3, (L - 0.1055613458 * a - 0.0638541728 * b) ** 3, (L - 0.0894841775 * a - 1.2914855480 * b) ** 3
+    rgb = (4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_,
+           -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_,
+           -0.0041960863 * l_ - 0.7034186147 * m_ + 1.7076147010 * s_)
+    return "#" + "".join("%02x" % max(0, min(255, round(_gam(x) * 255))) for x in rgb)
+
+def _lab(h):
+    r, g, b = [_lin(x) for x in _hex_rgb(h)]
+    X = (0.4124564 * r + 0.3575761 * g + 0.1804375 * b) / 0.95047
+    Y = 0.2126729 * r + 0.7151522 * g + 0.0721750 * b
+    Z = (0.0193339 * r + 0.1191920 * g + 0.9503041 * b) / 1.08883
+    f = lambda q: q ** (1 / 3) if q > 216 / 24389 else (24389 / 27 * q + 16) / 116
+    return 116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))
+
+def delta_e2000(h1, h2):
+    L1, a1, b1 = _lab(h1); L2, a2, b2 = _lab(h2)
+    C1, C2 = math.hypot(a1, b1), math.hypot(a2, b2); Cb = (C1 + C2) / 2
+    G = 0.5 * (1 - math.sqrt(Cb ** 7 / (Cb ** 7 + 25 ** 7)))
+    a1p, a2p = a1 * (1 + G), a2 * (1 + G); C1p, C2p = math.hypot(a1p, b1), math.hypot(a2p, b2)
+    h1p, h2p = math.degrees(math.atan2(b1, a1p)) % 360, math.degrees(math.atan2(b2, a2p)) % 360
+    dL, dC = L2 - L1, C2p - C1p
+    dh = 0 if C1p * C2p == 0 else (h2p - h1p if abs(h2p - h1p) <= 180 else (h2p - h1p - 360 if h2p > h1p else h2p - h1p + 360))
+    dH = 2 * math.sqrt(C1p * C2p) * math.sin(math.radians(dh / 2))
+    Lb, Cbp = (L1 + L2) / 2, (C1p + C2p) / 2
+    hb = h1p + h2p if C1p * C2p == 0 else ((h1p + h2p) / 2 if abs(h1p - h2p) <= 180 else ((h1p + h2p + 360) / 2 if h1p + h2p < 360 else (h1p + h2p - 360) / 2))
+    T = 1 - 0.17 * math.cos(math.radians(hb - 30)) + 0.24 * math.cos(math.radians(2 * hb)) + 0.32 * math.cos(math.radians(3 * hb + 6)) - 0.20 * math.cos(math.radians(4 * hb - 63))
+    dT = 30 * math.exp(-((hb - 275) / 25) ** 2); Rc = 2 * math.sqrt(Cbp ** 7 / (Cbp ** 7 + 25 ** 7))
+    Sl = 1 + 0.015 * (Lb - 50) ** 2 / math.sqrt(20 + (Lb - 50) ** 2); Sc = 1 + 0.045 * Cbp; Sh = 1 + 0.015 * Cbp * T
+    Rt = -math.sin(math.radians(2 * dT)) * Rc
+    return math.sqrt((dL / Sl) ** 2 + (dC / Sc) ** 2 + (dH / Sh) ** 2 + Rt * (dC / Sc) * (dH / Sh))
+
+OKLCH_RE = re.compile(r"oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)(?:\s*/\s*([\d.]+)%)?\)")
+HEX_RE = re.compile(r"#[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?\b")
+oklch_prims = {}
+oklch_fail = []
+for path, (v, t, meta) in prim_flat.items():
+    o = (meta.get("$extensions") or {}).get("bella", {}).get("oklch")
+    if not o:
+        if isinstance(v, str) and HEX_RE.fullmatch(v):
+            oklch_fail.append(f"{path}: hex primitive without $extensions.bella.oklch")
+        continue
+    m = OKLCH_RE.fullmatch(o)
+    if not m:
+        oklch_fail.append(f"{path}: unreadable oklch {o!r}"); continue
+    de = delta_e2000(v[:7], _oklch_to_hex(float(m.group(1)) / 100, float(m.group(2)), float(m.group(3))))
+    if de >= 1:
+        oklch_fail.append(f"{path}: oklch drifts from {v} by dE2000 {de:.2f} (must stay under 1)")
+    oklch_prims[path] = o
+if oklch_fail:
+    raise SystemExit("OKLCH check failed:\n  " + "\n  ".join(oklch_fail))
+
+def names(value):
+    """A token value with every {ref} as var(--ref): names, not values."""
+    return REF.sub(lambda m: "var(" + emit_css_var(m.group(1)) + ")", value) if isinstance(value, str) else value
+
+def is_colour(resolved):
+    return isinstance(resolved, str) and bool(HEX_RE.search(resolved))
+
+ok = ["/* OKLCH layer: hex above is the base; browsers with OKLCH read these. */",
+      "@supports (color: oklch(0 0 0)) {", "  :root {"]
+for path, o in oklch_prims.items():
+    ok.append(f"    {emit_css_var(path)}: {o};")
+for path, (v, t, _) in prim_flat.items():
+    if path not in oklch_prims and isinstance(v, str) and REF.search(v) and is_colour(resolve_light(v)):
+        ok.append(f"    {emit_css_var(path)}: {names(v)};")
+for path, (v, t, _) in light_flat.items():
+    if is_colour(resolve_light(v)) and REF.search(str(v)):
+        ok.append(f"    {emit_css_var(path)}: {names(v)};")
+for path, (v, t, _) in comp_flat.items():
+    if not isinstance(v, dict) and is_colour(resolve_light(v)) and REF.search(str(v)):
+        ok.append(f"    {emit_css_var(path)}: {names(v)};")
+ok.append("  }")
+# The :root rules above match the same element as [data-theme] and come later,
+# at the same specificity, so each theme block re-declares every variable the
+# layer set on :root wherever that theme differs: by name when it is a
+# reference, by value when it is a literal.
+layer_root = {l.split(":")[0].strip() for l in ok if l.startswith("    --")}
+for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm)):
+    ok.append(f"  {sel} {{")
+    for path, (v, t, _) in flat.items():
+        if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):
+            ok.append(f"    {emit_css_var(path)}: {names(v) if REF.search(str(v)) else res(v)};")
+    for path, (v, t, _) in comp_flat.items():
+        if isinstance(v, dict) or emit_css_var(path) not in layer_root:
+            continue
+        if resolve_light(v) != res(v):
+            ok.append(f"    {emit_css_var(path)}: {names(v)};")
+    ok.append("  }")
+ok += ["}", ""]
+
+# relative colour: an alpha tint is its base primitive at an alpha, and a
+# white color-mix gloss is white at an alpha (same pixels, no hand mixing)
+solid = {}
+for path, (v, t, _) in prim_flat.items():
+    if path.startswith(("color.cool.", "color.stone.")) and isinstance(v, str) and len(v) == 7:
+        solid.setdefault(v.lower(), path)
+for path, (v, t, _) in prim_flat.items():
+    if path.startswith("color.") and not path.startswith("color.alpha.") and isinstance(v, str) and len(v) == 7:
+        solid.setdefault(v.lower(), path)
+rel = []
+for path, (v, t, _) in prim_flat.items():
+    if path.startswith("color.alpha.") and isinstance(v, str) and len(v) == 9 and v[:7].lower() in solid:
+        a = int(v[7:9], 16) / 255 * 100
+        rel.append(f"    {emit_css_var(path)}: oklch(from var({emit_css_var(solid[v[:7].lower()])}) l c h / {('%.1f' % a).rstrip('0').rstrip('.')}%);")
+MIX_RE = re.compile(r"color-mix\(in srgb, (white|black) (\d+)%, transparent\)")
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, str) and MIX_RE.search(v):
+        rel.append(f"    {emit_css_var(path)}: {MIX_RE.sub(lambda m: f'oklch(from {m.group(1)} l c h / {m.group(2)}%)', v)};")
+if rel:
+    ok += ["/* Relative colour: alpha tints and glosses derived from their base. */",
+           "@supports (color: oklch(from black l c h)) {", "  :root {"] + rel + ["  }", "}", ""]
+css_lines += ok
 
 # ---- Reading flow (type lock, Elleta, 2026-10-04) ----
 # Zero-specificity element rules, so any component rule still wins. Headings

@@ -117,14 +117,14 @@
             {"key": "shadow", "title": "Hover shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-hover", "trigger": "hover", "detail": "interactive cards only: 2px lift plus shadow; reduced motion keeps the shadow, drops the lift"},
             {"key": "rest-shadow", "title": "Rest shadow", "kind": "shadow", "target": ":scope", "zone": {"edge": "bottom", "size": 12}, "token": "--shadow-card", "trigger": "rest", "detail": "every card but peek (re-scoped to none), Colour B, 2026-10-04"},
             {"key": "surface", "title": "Surface", "kind": "fill", "target": ":scope > div", "zone": {"inset": 12}, "token": "--color-semantic-surface-card", "trigger": "rest", "detail": "the card fill"},
-            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-faint", "trigger": "rest", "detail": "1px hairline, radius 16 (--radius-card)"},
+            {"key": "edge", "title": "Edge", "kind": "edge", "target": ":scope > div", "zone": {"inset": -3}, "token": "--color-semantic-border-subtle", "trigger": "rest", "detail": "1px border-subtle hairline, radius 16 (--radius-card)"},
             {"key": "padding", "title": "Padding", "kind": "box", "target": ":scope > div", "zone": {"inset": 0}, "token": "--spacing-6", "trigger": "rest", "detail": "24px all round"},
             {"key": "ring", "title": "Focus ring", "kind": "ring", "target": ":scope", "zone": {"inset": -8}, "token": "--ring-focus-color", "trigger": "focus", "detail": "interactive cards only: 3px, 3px offset, focus-visible only"}
           ],
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
           "restState": {
             "description": "The rest state is a contract (Colour B, Elleta, 2026-10-04; flat from 2026-09-19): only these layers may paint before hover/focus, and the shadow at rest is exactly shadow.card (peek re-scopes it to none and stays flat). audit:quality asserts the invariants on every story that renders the component (root carries data-bella-component=card).",
-            "atRest": ["shadow.card (peek: none)", "surface-card inner panel", "1px border-faint", "radius.card"],
+            "atRest": ["shadow.card (peek: none)", "surface-card inner panel", "1px border-subtle", "radius.card"],
             "hoverOnly": ["hover lift + shadow.hover, interactive cards only"],
             "invariants": [
               { "layer": "lift", "property": "transform", "expect": "none" },

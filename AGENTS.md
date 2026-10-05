@@ -34,7 +34,11 @@ These are floors, not defaults. Going below is a bug.
 
 Fine-print, captions, and metadata live at 13–14px and should be rare. If you're reaching for 12px, rethink the layout.
 
-## Cool ground, white cards (colour B, Elleta, 2026-10-04; supersedes the 2026-09-22 white page)
+## Stone ground, stone cards (light ground, Elleta, 2026-10-05; supersedes the colour B cool ground and white cards)
+
+The light page ground is `color.semantic.background` = `stone.95`, oklch(95% 0.005 85) `#f0eeeb`, chosen for accessibility; 95% is the floor (92.5% would drop muted under AAA). Cards are `surface-card` = `stone.99` `#fcfcfa` with a 1px `border-subtle` edge (`cool.100`, 1.22:1 on the card). `ground` and `raised` follow (stone.95 / stone.99). The selected wash `accent-subtle` is `stone.92` `#e6e4e1` (1.10:1 on the ground, 1.24:1 on the card). Light `icon-muted` is `cool.500` (4.45:1 on the ground). `surface` and `surface-elevated` stay white; inset stays `cool.50`, decorative (1.00:1 on the ground, so the edge carries any boundary). Dark and warm are unchanged. Where the older paragraph below names cool.25 or white cards for light, this section wins.
+
+### Earlier: cool ground, white cards (colour B, 2026-10-04)
 
 The light page ground is `color.semantic.background` = `cool.25` `#f6f7f9`. Cards and raised surfaces are white (`surface-card` = `cool.0`); inset washes (tags, code) are `cool.50` `#eceef3`; the hover fill is the ground. The three-level tokens map onto it: `ground` = the page ground (`cool.25`), `raised` = the white card (`cool.0`). The selected wash (`accent-subtle`) is inset, `cool.50`, never the ground: selected must differ from hover, and it always carries a non-colour marker too (check or edge). Every grey is a step of the one cool ink-tinted ramp `color.cool.*` (OKLCH hue 272), so borders read softer and ochre pops harder. A disabled field has no fill of its own: muted text and the border mark it. Cards at rest: white fill, a 1px hairline edge and `shadow.card`, the ink-tinted two-layer shadow (theme-aware; Elleta, 2026-10-04). `shadow.ui` is for docs and floating UI. White alpha stays permitted as a translucent glass overlay.
 

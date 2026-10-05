@@ -6176,7 +6176,8 @@
           "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
           "variants": [
             "default",
-            "accent"
+            "accent",
+            "outline"
           ],
           "states": [
             "default"
@@ -6190,11 +6191,12 @@
           "usage": [
             "Card category labels",
             "Project metadata rows",
-            "Mood and topic markers"
+            "Mood and topic markers",
+            "outline: a quieter label on a busy or tinted surface, where a wash would add a second fill"
           ],
           "dont": [
             "Do not make it clickable: narrowing a set is FilterChip's job",
-            "Do not add a border: the flat wash is what separates it from interactive chips",
+            "Do not put an outline Tag next to FilterChips: beside interactive chips use the flat wash, which is what tells them apart",
             "Do not set the label in an accent or status colour: tints are wash-only here"
           ],
           "a11y": "Verified 2026-07-22: default label is text-secondary, 7.74:1 on the surface-inset wash in light and 7.33:1 worst in dark, AAA both. Accent label is text-accent on the accent-subtle wash, 5.25:1 worst in light and 5.30:1 worst in dark, AA. Non-interactive: no tab stop, no pointer affordance, cursor default.",
@@ -6284,6 +6286,22 @@
         },
         "padding-x": {
           "$value": "{spacing.3}",
+          "$type": "dimension"
+        }
+      },
+      "outline": {
+        "foreground": {
+          "$value": "{color.semantic.text-secondary}",
+          "$type": "color",
+          "$description": "Outline Tag (Elleta, 2026-10-05; Figma Tag variant=outline, 251:37): no fill, a 1px edge, same 35px box as the wash variants."
+        },
+        "border": {
+          "$value": "{color.semantic.border-strong}",
+          "$type": "color",
+          "$description": "Drawn as an inset outline (offset minus its width), so the box stays the wash variants' height and it still shows in forced colours."
+        },
+        "border-width": {
+          "$value": "{border.width.thin}",
           "$type": "dimension"
         }
       }

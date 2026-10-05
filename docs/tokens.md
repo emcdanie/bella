@@ -547,6 +547,9 @@ value with the source reference in parentheses.
 | `component.tag.accent.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.tag.accent.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.accent.padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.tag.outline.foreground` | `#474c5e` (`{color.semantic.text-secondary}`) | color |
+| `component.tag.outline.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
+| `component.tag.outline.border-width` | `1px` (`{border.width.thin}`) | dimension |
 | `component.status-pill.border-radius` | `999px` (`{radius.full}`) | dimension |
 | `component.status-pill.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.status-pill.font-size` | `16px` (`{typography.font-size.mono}`) | dimension |

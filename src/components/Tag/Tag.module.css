@@ -35,3 +35,13 @@
   background: var(--component-tag-accent-background);
   color: var(--component-tag-accent-foreground);
 }
+
+/* Outline (Elleta, 2026-10-05; Figma 251:37): no fill, a 1px edge drawn as an
+ * inset outline so the box keeps the wash variants' height (Figma's inside
+ * stroke) and still shows in forced colours, where a box-shadow would not. */
+.outline {
+  background: none;
+  color: var(--component-tag-outline-foreground);
+  outline: var(--component-tag-outline-border-width) solid var(--component-tag-outline-border);
+  outline-offset: calc(-1 * var(--component-tag-outline-border-width));
+}

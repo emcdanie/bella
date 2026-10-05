@@ -50,8 +50,29 @@ export const Variants: Story = {
       <Tag>Design systems</Tag>
       <Tag>Case study</Tag>
       <Tag variant="accent">Current</Tag>
+      <Tag variant="outline">Prototype</Tag>
     </div>
   ),
+};
+
+/** The outline Tag keeps the wash variants' box: same height, edge inside. */
+export const OutlineHeight: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-2)', alignItems: 'flex-start' }}>
+      <Tag>Design systems</Tag>
+      <Tag variant="outline">Design systems</Tag>
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    await step('outline is the same height as the wash and draws its edge inside', async () => {
+      const [wash, outline] = canvas.getAllByText('Design systems');
+      expect(outline.getBoundingClientRect().height).toBe(wash.getBoundingClientRect().height);
+      const cs = getComputedStyle(outline);
+      expect(cs.backgroundColor).toBe('rgba(0, 0, 0, 0)');
+      expect(cs.outlineStyle).toBe('solid');
+      expect(parseFloat(cs.outlineOffset)).toBeLessThan(0);
+    });
+  },
 };
 
 /** A Tag is not a control: no role, no tab stop, no pointer affordance. */

@@ -4,9 +4,11 @@ import styles from './Tag.module.css';
 export interface TagProps {
   /**
    * `"default"` is the quiet neutral wash. `"accent"` is the ochre fill
-   * with ink text (brand refresh, 2026-09-22). Both set in Figtree at 16px, sentence case (type lock, 2026-10-04).
+   * with ink text (brand refresh, 2026-09-22). `"outline"` has no fill and a
+   * 1px edge, the same height (2026-10-05). All set in Figtree at 16px,
+   * sentence case (type lock, 2026-10-04).
    */
-  variant?: 'default' | 'accent';
+  variant?: 'default' | 'accent' | 'outline';
   /** Extra classes on the chip. */
   className?: string;
   style?: CSSProperties;
@@ -22,7 +24,7 @@ export default function Tag({
   style,
   children,
 }: TagProps) {
-  const cls = [styles.tag, variant === 'accent' ? styles.accent : '', className]
+  const cls = [styles.tag, variant === 'accent' ? styles.accent : variant === 'outline' ? styles.outline : '', className]
     .filter(Boolean)
     .join(' ');
   return (

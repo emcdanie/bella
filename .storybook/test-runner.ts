@@ -67,7 +67,7 @@ const REST_CONTRACTS = Object.entries(
  * above its floor at 390 and at most its ceiling at 1440. The values are
  * the contract, written out so a token edit that lowers a floor fails here. */
 const DISPLAY_RAMP: Record<string, { min: number; max: number }> = {
-  hero: { min: 40, max: 76 },
+  hero: { min: 48, max: 82 }, // Display/Hero 48 to 82 (type role map, 2026-10-04)
   page: { min: 40, max: 76 },
   section: { min: 32, max: 44 },
 };

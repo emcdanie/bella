@@ -4,7 +4,7 @@
  * (the one 3D moment per view), secondary the control outline, tertiary
  * the ink text link. No accent colour on any tier at rest: the ochre ring
  * is focus-visible only (--ring-focus-*, 3px, 3px offset). Labels are
- * Geist caps, never Unique.
+ * Figtree SemiBold on the label type tokens, never Unique.
  *
  * ONE JOB PER STATE (2026-09-18, kept exactly):
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
@@ -16,7 +16,8 @@
  * - Buttons never lift on hover: lift is reserved for cards.
  * - Reduced motion: no roll, no press; the colour shift stays.
  *
- * The locked shadow.key-* pair casts in ink.
+ * The shadow.key-* set casts in ink: a straight 2px key edge (no x offset)
+ * one step darker than the face, theme-aware (Elleta, 2026-10-04).
  */
 
 .button {
@@ -114,9 +115,9 @@
   box-shadow: var(--shadow-key-pressed);
 }
 
-/* PRIMARY FOCUS RING. The resting key edge (shadow.key-resting, 1px 3px 0)
- * makes the visible keycap 1px wider and 3px taller than the box, so a plain
- * outline sat tight against the bottom-right edge. The ring is drawn on a
+/* PRIMARY FOCUS RING. The resting key edge (shadow.key-resting, 0 2px 0)
+ * makes the visible keycap 2px taller than the box, so a plain outline sat
+ * tight against the bottom edge. The ring is drawn on a
  * pseudo-element sized to the visible keycap instead: same width, offset and
  * colour tokens, now even on all four sides. Pressed, the edge is 0 1px 0. */
 .primary {
@@ -130,8 +131,8 @@
 .primary::before {
   content: '';
   position: absolute;
-  /* -1px clears the 1px border; right and bottom add the key edge */
-  inset: -1px -2px -4px -1px;
+  /* -1px clears the 1px border; the bottom adds the 2px key edge */
+  inset: -1px -1px -3px -1px;
   border-radius: inherit;
   pointer-events: none;
 }

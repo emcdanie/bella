@@ -178,9 +178,11 @@ value with the source reference in parentheses.
 | `typography.font-size.xl` | `22px` | dimension |
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
-| `typography.font-size.display-hero` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
+| `typography.font-size.display-hero` | `clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)` | dimension |
 | `typography.font-size.display-page` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
 | `typography.font-size.display-section` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` | dimension |
+| `typography.font-size.quote` | `clamp(24px, 24px + 8 * (100vw - 390px) / 1050, 32px)` | dimension |
+| `typography.font-size.quote-mark` | `144px` | dimension |
 | `typography.font-weight.light` | `300` | fontWeight |
 | `typography.font-weight.regular` | `400` | fontWeight |
 | `typography.font-weight.medium` | `500` | fontWeight |
@@ -195,6 +197,7 @@ value with the source reference in parentheses.
 | `typography.line-height.relaxed` | `1.8` | number |
 | `typography.line-height.display` | `1.1` | number |
 | `typography.line-height.heading` | `1.15` | number |
+| `typography.line-height.quote` | `1.08` | number |
 | `typography.letter-spacing.tight` | `-0.02em` | dimension |
 | `typography.letter-spacing.normal` | `0` | dimension |
 | `typography.letter-spacing.body` | `0` | dimension |
@@ -251,9 +254,12 @@ value with the source reference in parentheses.
 | `shadow.switch-knob` | `3px 5px 8px rgba(25, 23, 32, 0.24)` | shadow |
 | `shadow.switch-knob-dark` | `3px 5px 8px rgba(0, 0, 0, 0.4)` | shadow |
 | `shadow.nav-bar` | `0 18px 48px rgba(26, 24, 20, 0.08)` | shadow |
-| `shadow.key-resting` | `1px 3px 0 #1d2030, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66` (`1px 3px 0 {color.light.ink}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
-| `shadow.key-hover` | `1px 4px 0 #1d2030, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66` (`1px 4px 0 {color.light.ink}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
-| `shadow.key-pressed` | `0 1px 0 #1d2030, 2px 3px 8px #12121233, inset 0 1px 0 #FFFFFF66` (`0 1px 0 {color.light.ink}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-resting` | `0 2px 0 #171a22, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66` (`0 2px 0 {color.cool.950}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-hover` | `0 2px 0 #171a22, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66` (`0 2px 0 {color.cool.950}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-pressed` | `0 1px 0 #171a22, 2px 3px 8px #12121233, inset 0 1px 0 #FFFFFF66` (`0 1px 0 {color.cool.950}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-resting-dark` | `0 2px 0 #e4e6ec, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66` (`0 2px 0 {color.cool.100}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-hover-dark` | `0 2px 0 #e4e6ec, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66` (`0 2px 0 {color.cool.100}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
+| `shadow.key-pressed-dark` | `0 1px 0 #e4e6ec, 2px 3px 8px #12121233, inset 0 1px 0 #FFFFFF66` (`0 1px 0 {color.cool.100}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}`) | shadow |
 | `shadow.card-rest` | `13px 26px 54px #1A172038` (`13px 26px 54px {color.alpha.ink-22}`) | shadow |
 | `shadow.card-rest-dark` | `13px 26px 54px rgba(0, 0, 0, 0.44)` | shadow |
 | `shadow.hover-dark` | `0 8px 24px rgba(0, 0, 0, 0.45)` | shadow |
@@ -399,6 +405,9 @@ value with the source reference in parentheses.
 | `color.accent-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `shadow.card` | `0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)` (`{shadow.card-ink-dark}`) | shadow |
 | `shadow.ui` | `0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)` (`{shadow.ui-ink-dark}`) | shadow |
+| `shadow.key-resting` | `0 2px 0 #e4e6ec, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66` (`{shadow.key-resting-dark}`) | shadow |
+| `shadow.key-hover` | `0 2px 0 #e4e6ec, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66` (`{shadow.key-hover-dark}`) | shadow |
+| `shadow.key-pressed` | `0 1px 0 #e4e6ec, 2px 3px 8px #12121233, inset 0 1px 0 #FFFFFF66` (`{shadow.key-pressed-dark}`) | shadow |
 | `shadow.hover` | `0 8px 24px rgba(0, 0, 0, 0.45)` (`{shadow.hover-dark}`) | shadow |
 | `opacity.pattern-field` | `0.06` | number |
 
@@ -517,7 +526,7 @@ value with the source reference in parentheses.
 | `component.tag.default.padding-y` | `4px` (`{spacing.1}`) | dimension |
 | `component.tag.default.padding-x` | `12px` (`{spacing.3}`) | dimension |
 | `component.tag.default.font-family` | `Figtree, system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
-| `component.tag.default.font-size` | `16px` (`{typography.font-size.mono}`) | dimension |
+| `component.tag.default.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
 | `component.tag.default.font-weight` | `400` (`{typography.font-weight.regular}`) | fontWeight |
 | `component.tag.default.letter-spacing` | `0` (`{typography.letter-spacing.mono}`) | dimension |
 | `component.tag.default.font-feature-settings` | `normal` | other |
@@ -556,7 +565,7 @@ value with the source reference in parentheses.
 | `component.heading.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
 | `component.heading.letter-spacing` | `-0.02em` (`{typography.letter-spacing.display}`) | dimension |
 | `component.heading.line-height` | `1.15` (`{typography.line-height.heading}`) | number |
-| `component.heading.hero.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-hero}`) | dimension |
+| `component.heading.hero.font-size` | `clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)` (`{typography.font-size.display-hero}`) | dimension |
 | `component.heading.page.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-page}`) | dimension |
 | `component.heading.section.font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.heading.section.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |

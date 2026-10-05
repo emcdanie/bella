@@ -5120,7 +5120,7 @@ entries:
   - kind: token
     id: typography.font-size.display-hero
     name: Display Hero
-    description: "Hero and page-opening heading, Figtree SemiBold: 40px at 390 to 76px at 1440 (style unify, 2026-09-22, Elleta; was 40 to 180 for Unique)."
+    description: "Hero heading (Display/Hero), Figtree SemiBold: 48px at 390, fluid to 82px at 1440 (type role map, Elleta, 2026-10-04; was 44 to 60). The phone floor matches the site hero words."
     metadata:
       origin:
         method: extracted
@@ -5148,7 +5148,7 @@ entries:
   - kind: token
     id: typography.font-size.display-page
     name: Display Page
-    description: "Page heading, Figtree SemiBold: same ramp as the hero in the study, 40 to 76px (style unify, 2026-09-22, Elleta; was 40 to 64)."
+    description: "Page heading (Display/Page), Figtree SemiBold: 44px at 390, fluid to 60px at 1440 (type role map, Elleta, 2026-10-04)."
     metadata:
       origin:
         method: extracted
@@ -5176,7 +5176,7 @@ entries:
   - kind: token
     id: typography.font-size.display-section
     name: Display Section
-    description: "Section heading (h2), Figtree SemiBold: 32px floor to 44px (style unify, 2026-09-22, Elleta; the study starts at 28px, held at the 32px section floor)."
+    description: "Section heading (Display/Section, h2), Figtree SemiBold: 34px at 390, fluid to 40px at 1440 (type role map, Elleta, 2026-10-04)."
     metadata:
       origin:
         method: extracted
@@ -5201,6 +5201,58 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.typography.font-size.display-section
+  - kind: token
+    id: typography.font-size.quote
+    name: Quote
+    description: "Quote text (Quote style), Figtree Regular: 24px at 390, fluid to 32px at 1440 (type role map, Elleta, 2026-10-04)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "Pull quotes and testimonials: the one Quote style"
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.quote
+  - kind: token
+    id: typography.font-size.quote-mark
+    name: Quote Mark
+    description: "The decorative quote mark beside a Quote: one size everywhere (type role map, Elleta, 2026-10-04)."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Quote mark glyph (decorative, aria-hidden)
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.quote-mark
   - kind: token
     id: typography.font-weight.light
     name: Light
@@ -5565,6 +5617,32 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.typography.line-height.heading
+  - kind: token
+    id: typography.line-height.quote
+    name: Line Height Quote
+    description: Quote text line height, as on the site (type role map, Elleta, 2026-10-04).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.line-height
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Quote style
+    tokenType: number
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.line-height.quote
   - kind: token
     id: typography.letter-spacing.tight
     name: Letter Spacing Tight
@@ -7093,7 +7171,7 @@ entries:
   - kind: token
     id: shadow.key-resting
     name: Key Resting
-    description: "Primary keycap at rest: thin edge plate, small soft cast, inset upper-left glass highlight. Calm extrusion (button grammar v5)."
+    description: "Primary keycap at rest: a straight key edge 2px down (no x offset, so the corners read true), in the ink one step darker than the face, a small soft cast and the inset glass highlight (Elleta, 2026-10-04; was 1px 3px 0)."
     metadata:
       origin:
         method: extracted
@@ -7119,7 +7197,7 @@ entries:
   - kind: token
     id: shadow.key-hover
     name: Key Hover
-    description: "Primary keycap hover: one step more lift."
+    description: "Primary keycap hover: the same straight edge, a deeper soft cast."
     metadata:
       origin:
         method: extracted
@@ -7145,7 +7223,7 @@ entries:
   - kind: token
     id: shadow.key-pressed
     name: Key Pressed
-    description: "Primary keycap pressed: sunk onto the reduced plate (pair with motion.transform.key-press)."
+    description: "Primary keycap pressed: the edge sinks to 1px (pair with motion.transform.key-press)."
     metadata:
       origin:
         method: extracted
@@ -7168,6 +7246,84 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.shadow.key-pressed
+  - kind: token
+    id: shadow.key-resting-dark
+    name: Key Resting Dark
+    description: "Primary keycap resting on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-resting."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - shadow
+      group: shadow
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Semantic dark shadow.key-resting
+    tokenType: shadow
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.shadow.key-resting-dark
+  - kind: token
+    id: shadow.key-hover-dark
+    name: Key Hover Dark
+    description: "Primary keycap hover on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-hover."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - shadow
+      group: shadow
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Semantic dark shadow.key-hover
+    tokenType: shadow
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.shadow.key-hover-dark
+  - kind: token
+    id: shadow.key-pressed-dark
+    name: Key Pressed Dark
+    description: "Primary keycap pressed on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-pressed."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - shadow
+      group: shadow
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Semantic dark shadow.key-pressed
+    tokenType: shadow
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.shadow.key-pressed-dark
   - kind: token
     id: shadow.card-rest
     name: Card Rest
@@ -11737,7 +11893,7 @@ entries:
   - kind: token
     id: component.tag.default.font-size
     name: Default Font Size
-    description: Component-tier alias. Resolves to `typography.font-size.mono` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `typography.font-size.tag` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -11755,7 +11911,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-size.mono}"
+        alias: "{typography.font-size.tag}"
   - kind: token
     id: component.tag.default.font-weight
     name: Default Font Weight
@@ -16496,7 +16652,7 @@ entries:
   - kind: component
     id: button
     name: Button
-    description: "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Geist caps, never Unique."
+    description: "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Figtree SemiBold on the label type token, sentence case, never Unique."
     metadata:
       origin:
         method: extracted
@@ -16576,13 +16732,13 @@ entries:
         context: anatomy
         items:
           - term: 1. Key shadow
-            definition: 1px 3px 0 ink, soft drop, inset highlight (primary). Token --shadow-key-resting; target :scope.
+            definition: 0 2px 0 key edge one step darker than the face, soft drop, inset highlight (primary). Token --shadow-key-resting; target :scope.
           - term: 2. Fill
             definition: ink plate, 1px edge, white-alpha gloss. Token --component-button-primary-fill-hi; target :scope.
           - term: 3. Box
             definition: 44px min, padding 12 / 20, radius 12. Token --component-button-primary-min-height; target :scope.
           - term: 4. Label
-            definition: Geist 13, 700, caps, 0.08em. Token --component-button-primary-font-size; target [data-bella-roll=label].
+            definition: Figtree 16, 600, sentence case (font-size.tag). Token --component-button-primary-font-size; target [data-bella-roll=label].
           - term: 5. Focus ring
             definition: 3px, 3px offset, focus-visible only. Token --ring-focus-color; target :scope.
     refs:

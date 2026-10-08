@@ -105,8 +105,8 @@ export const Behavior: Story = {
       expect(field.tagName).toBe('INPUT');
     });
 
-    await step('the field is 57 (size.control.input: 18px at line-height 1.7, whole pixel)', async () => {
-      expect(field.getBoundingClientRect().height).toBe(57);
+    await step('the field is 60 (size.control.input: 20px at line-height 1.7, whole pixel)', async () => {
+      expect(field.getBoundingClientRect().height).toBe(60);
     });
 
     await step('autoComplete and name reach the DOM (contact-form contract)', async () => {

@@ -1968,9 +1968,9 @@ entries:
       rel: file
       role: primitive.color.alpha.ink-22
   - kind: token
-    id: color.alpha.ochre-24
-    name: Ochre 24
-    description: "Ochre at 24%: the highlight wash in light and warm (Elleta, 2026-10-05)."
+    id: color.alpha.ink-wash-08
+    name: Ink Wash 08
+    description: "Ink (cool.900) at 8%: the highlight wash in light and warm (Elleta, 2026-10-08: highlight is ink, ochre is clickable only)."
     metadata:
       origin:
         method: extracted
@@ -1992,11 +1992,11 @@ entries:
     source:
       href: ./tokens/bella.json
       rel: file
-      role: primitive.color.alpha.ochre-24
+      role: primitive.color.alpha.ink-wash-08
   - kind: token
-    id: color.alpha.ochre-18
-    name: Ochre 18
-    description: "Ochre at 18%: the highlight wash in dark (Elleta, 2026-10-05)."
+    id: color.alpha.ink-wash-12
+    name: Ink Wash 12
+    description: "Ink on dark (cool.50) at 12%: the highlight wash in dark (Elleta, 2026-10-08)."
     metadata:
       origin:
         method: extracted
@@ -2018,7 +2018,7 @@ entries:
     source:
       href: ./tokens/bella.json
       rel: file
-      role: primitive.color.alpha.ochre-18
+      role: primitive.color.alpha.ink-wash-12
   - kind: token
     id: color.alpha.ochre-15
     name: Ochre 15
@@ -4359,7 +4359,7 @@ entries:
   - kind: token
     id: size.control.input
     name: Input
-    description: "Input field height: the field text (font-size.base, 18px) at line-height.normal (1.7, 30.6; code wins on line-height, Elleta, 2026-10-05) + 12px padding + 1px border each side = 56.6, rounded up to a whole 57. The queue asked for 52, which assumed 16px at 1.6 from a stale build. The error state's 2px edge (border + inset shadow) stays inside it."
+    description: "Input field height: the field text (font-size.base, 20px) at line-height.normal (1.7, 34) + 12px padding each side + 1px border each side = 60. Updated 2026-10-08 (base was 18px: 57px). The error state's 2px edge (border + inset shadow) stays inside it."
     metadata:
       origin:
         method: extracted
@@ -4838,7 +4838,7 @@ entries:
   - kind: token
     id: typography.font-family.display
     name: Display
-    description: "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta; was Geist Light 300). Unique moved to font-family.wordmark."
+    description: "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08): wordmarks are drawn SVG."
     metadata:
       origin:
         method: extracted
@@ -4861,52 +4861,16 @@ entries:
         title: How to use it
         items:
           - level: must-not
-            statement: "Not Unique: Unique is the wordmark only"
+            statement: "Never Unique: Unique is retired; wordmarks are SVG"
     tokenType: fontFamily
     source:
       href: ./tokens/bella.json
       rel: file
       role: primitive.typography.font-family.display
   - kind: token
-    id: typography.font-family.wordmark
-    name: Wordmark
-    description: "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify, 2026-09-22, Elleta)."
-    metadata:
-      origin:
-        method: extracted
-        author: machine-assisted
-        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
-      tags:
-        - primitive
-        - typography
-      group: typography.font-family
-    sections:
-      - kind: guidelines
-        for: all
-        framing: when-to-use
-        title: Where it is used
-        items:
-          - level: may
-            statement: The wordmark
-          - level: may
-            statement: The keycap brand lockup
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Never a heading, body, UI or label face
-          - level: must-not
-            statement: Never below 24px (keycap logo excepted), never negative tracking
-    tokenType: fontFamily
-    source:
-      href: ./tokens/bella.json
-      rel: file
-      role: primitive.typography.font-family.wordmark
-  - kind: token
     id: typography.font-family.body
     name: Body
-    description: "Body and UI typeface, Geist. Everything Unique doesn't carry: body, labels, eyebrows, buttons, navigation."
+    description: "Body and UI typeface, Figtree: body, labels, eyebrows, buttons, navigation."
     metadata:
       origin:
         method: extracted
@@ -5086,7 +5050,7 @@ entries:
   - kind: token
     id: typography.font-size.base
     name: Base
-    description: Body text floor. Non-negotiable minimum for reading text in BELLA.
+    description: Body text, Figma Body/Base (type lock, Elleta, 4 Oct 2026; was 18px). Non-negotiable minimum for reading text in BELLA is 16px.
     metadata:
       origin:
         method: extracted
@@ -5122,7 +5086,7 @@ entries:
   - kind: token
     id: typography.font-size.body
     name: Font Size Body
-    description: "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift."
+    description: "Body text: Figtree 400 at 20px (type lock, Elleta, 4 Oct 2026; Figma Body/Base)."
     metadata:
       origin:
         method: extracted
@@ -5530,7 +5494,7 @@ entries:
   - kind: token
     id: typography.font-weight.black
     name: Black
-    description: Extra-bold. Geist-only emphasis weight, Unique has no 800 cut.
+    description: Extra-bold. Rare emphasis weight (Figtree ExtraBold).
     metadata:
       origin:
         method: extracted
@@ -5547,13 +5511,11 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Rare Geist display emphasis
+            statement: Rare Figtree display emphasis
       - kind: guidelines
         for: all
         title: How to use it
         items:
-          - level: must-not
-            statement: Never on Unique — the face ships 700 only
           - level: must-not
             statement: Do not use for body or card titles — too heavy
     tokenType: fontWeight
@@ -5600,7 +5562,7 @@ entries:
   - kind: token
     id: typography.line-height.tight
     name: Tight
-    description: Tight line-height for the doc-site H1 and Geist display text. Heading tiers use line-height.display (1.05).
+    description: Tight line-height for the doc-site H1 and display text. Heading tiers use line-height.display (1.05).
     metadata:
       origin:
         method: extracted
@@ -5619,7 +5581,7 @@ entries:
           - level: may
             statement: Doc-site page H1s
           - level: may
-            statement: Geist display sizes
+            statement: Display sizes
     tokenType: number
     source:
       href: ./tokens/bella.json
@@ -5784,7 +5746,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.tight
     name: Letter Spacing Tight
-    description: Tightened tracking. Geist display sizes only, never Unique.
+    description: Tightened tracking. Display sizes only.
     metadata:
       origin:
         method: extracted
@@ -5801,13 +5763,7 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Geist at display sizes
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Never on Unique — condensed glyphs collide below 0 tracking; Unique display always tracks ≥ 0
+            statement: Figtree at display sizes
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -5816,7 +5772,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.normal
     name: Letter Spacing Normal
-    description: Zero tracking for UI text that sets its own (tags, avatar initials). Geist body text takes letter-spacing.body; Unique headings take letter-spacing.hero (0.04em), the display floor.
+    description: Zero tracking for UI text that sets its own (tags, avatar initials). Body text takes letter-spacing.body.
     metadata:
       origin:
         method: extracted
@@ -5844,7 +5800,7 @@ entries:
   - kind: token
     id: typography.letter-spacing.body
     name: Letter Spacing Body
-    description: Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.
+    description: Body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it.
     metadata:
       origin:
         method: extracted
@@ -5861,15 +5817,13 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Geist body text
+            statement: Body text
           - level: may
             statement: Paragraphs and card copy that inherit the body setting
       - kind: guidelines
         for: all
         title: How to use it
         items:
-          - level: must-not
-            statement: "Never on Unique: every Unique element sets letter-spacing.hero explicitly"
           - level: must-not
             statement: "Not a heading tracking: the heading locks are unchanged"
     tokenType: dimension
@@ -5898,12 +5852,6 @@ entries:
         items:
           - level: may
             statement: Heading hero and page tiers
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Never on Unique
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -5930,12 +5878,6 @@ entries:
         items:
           - level: may
             statement: Heading section tier
-      - kind: guidelines
-        for: all
-        title: How to use it
-        items:
-          - level: must-not
-            statement: Never on Unique
     tokenType: dimension
     source:
       href: ./tokens/bella.json
@@ -8975,7 +8917,7 @@ entries:
   - kind: token
     id: color.semantic.highlight-wash
     name: Highlight Wash
-    description: "The lit background of a highlight: a linked phrase, or the part of a picture it points at, lit on hover, focus or pin (Elleta, 2026-10-05: the highlight is ochre). Always paired with the 2px highlight-edge: never colour alone."
+    description: "The lit background of a highlight: a linked phrase, or the part of a picture it points at, lit on hover, focus or pin (Elleta, 2026-10-08: the highlight is ink; ochre is clickable only). Always paired with the 2px highlight-edge: never colour alone."
     metadata:
       origin:
         method: extracted
@@ -9013,11 +8955,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.alpha.ochre-24}"
+        alias: "{color.alpha.ink-wash-08}"
   - kind: token
     id: color.semantic.highlight-edge
     name: Highlight Edge
-    description: "The 2px underline (text) or outline (picture target) of a lit highlight. Ink in light: ochre-deep measured 2.69:1 on the wash, under the 3:1 bar (2026-10-05)."
+    description: The 2px underline (text) or outline (picture target) of a lit highlight. Ink in light (ochre is clickable only, 2026-10-08).
     metadata:
       origin:
         method: extracted
@@ -17789,7 +17731,7 @@ entries:
   - kind: component
     id: heading
     name: Heading
-    description: Figtree SemiBold 600 carries every heading tier, tight tracking, sentence case (heading weight, 2026-10-04, Elleta; was Geist Light 300). Unique is the wordmark only. Never inside a card.
+    description: Figtree SemiBold 600 carries every heading tier, tight tracking, sentence case (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08). Never inside a card.
     metadata:
       origin:
         method: extracted
@@ -17827,8 +17769,6 @@ entries:
             checkedBy: automated
           - level: must-not
             statement: "Never below 32px: the section tier floors at 32px"
-          - level: must-not
-            statement: "Never Unique: the wordmark is the only Unique"
       - kind: definitions
         for: all
         title: At rest

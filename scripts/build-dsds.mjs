@@ -188,6 +188,8 @@ const IMPL = {
   tabs: 'Tabs', kbd: 'Kbd', 'nav-list': 'NavList', stat: 'Stat',
   'score-strip': 'ScoreStrip', 'data-table': 'DataTable', 'drawer': 'Drawer', 'combobox': 'Combobox', 'action-chip': 'ActionChip', 'disclosure': 'Disclosure',
   'page-header': 'PageHeader', section: 'Section', 'sidebar-layout': 'SidebarLayout', columns: 'Columns', slider: 'Slider',
+  eyebrow: 'Eyebrow', link: 'Link', 'brand-wordmark': 'BrandWordmark', 'pattern-field': 'PatternField',
+  'section-header': 'SectionHeader', 'scaled-frame': 'ScaledFrame',
 };
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no
@@ -344,7 +346,7 @@ const system = {
   description: 'The design system for ctrl_alt_design: a token contract plus a React component set, editorial by stance.',
   purpose: 'Keeps the work editorial, deliberate, and recognizably not-AI-generic across elleta.design, CHIP, and everything downstream.',
   metadata: {
-    context: 'Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, tokens/component.json and the component sources. No value or rule here is new.',
+    context: 'Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, docs/agents/maintaining.md, tokens/component.json and the component sources. No value or rule here is new.',
     origin: { method: 'extracted', author: 'machine-assisted' },
     updated: { date: '2026-09-10', note: 'First DSDS pass over BELLA 0.3.0 plus the unreleased component batch.' },
     tags: ['design-system'],
@@ -383,7 +385,8 @@ const system = {
     },
   ],
   refs: [
-    { href: './AGENTS.md', rel: 'external-link', role: 'the prose rules this document is extracted from' },
+    { href: './AGENTS.md', rel: 'external-link', role: 'consumer-first usage rules: components, job map, not-yet list, floors' },
+    { href: './docs/agents/maintaining.md', rel: 'external-link', role: 'maintainer rules: tokens, contrast pairs, typography lock, relay, commit protocol' },
     { href: './CHANGELOG.md', rel: 'external-link', role: 'release history' },
     { to: 'bella-a11y', rel: 'relates-to', note: 'The accessibility bar every entry is held to.' },
   ],

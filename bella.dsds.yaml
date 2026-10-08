@@ -8,7 +8,7 @@ entries:
     description: "The design system for ctrl_alt_design: a token contract plus a React component set, editorial by stance."
     purpose: Keeps the work editorial, deliberate, and recognizably not-AI-generic across elleta.design, CHIP, and everything downstream.
     metadata:
-      context: "Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, tokens/component.json and the component sources. No value or rule here is new."
+      context: "Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, docs/agents/maintaining.md, tokens/component.json and the component sources. No value or rule here is new."
       origin:
         method: extracted
         author: machine-assisted
@@ -69,7 +69,10 @@ entries:
     refs:
       - href: ./AGENTS.md
         rel: external-link
-        role: the prose rules this document is extracted from
+        role: "consumer-first usage rules: components, job map, not-yet list, floors"
+      - href: ./docs/agents/maintaining.md
+        rel: external-link
+        role: "maintainer rules: tokens, contrast pairs, typography lock, relay, commit protocol"
       - href: ./CHANGELOG.md
         rel: external-link
         role: release history
@@ -18018,6 +18021,80 @@ entries:
               property: animation-name
               expect: none
   - kind: component
+    id: eyebrow
+    name: Eyebrow
+    description: Sans label above a heading, 14px, no tracking, no caps (label style; mono is for tokens, code and hashes only, Elleta, 2026-10-03). Signals context or category.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22."
+      tags:
+        - component
+        - eyebrow
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Above hero headlines
+          - level: may
+            statement: Above section titles
+          - level: may
+            statement: Above card groupings
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use as a heading: eyebrows complement a heading, never replace one"
+          - level: must-not
+            statement: "Never an accent colour: wayfinding is not action"
+          - level: must-not
+            statement: Never below 13px, never tracked, never uppercased
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Type only, entirely static.
+        context: anatomy
+        items:
+          - term: the label
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Eyebrow/Eyebrow.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Eyebrow/Eyebrow.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Type only, entirely static.
+          atRest:
+            - the label
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
     id: input
     name: Input
     description: Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.
@@ -18142,6 +18219,73 @@ entries:
               property: animation-name
               expect: none
   - kind: component
+    id: link
+    name: Link
+    description: "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand refresh, 2026-09-22). Ink throughout.
+      tags:
+        - component
+        - link
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Inline references inside paragraphs
+          - level: may
+            statement: Footer links
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Do not use for primary navigation, that's nav-link
+          - level: must-not
+            statement: Do not rely on color alone, always underlined or weight-shifted on hover
+      - kind: definitions
+        for: all
+        title: Anatomy
+        description: Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.
+        context: anatomy
+        items:
+          - term: 1. Text
+            definition: "ink; visited stays ink. Trigger: rest. Token --component-link-default-foreground; target :scope."
+          - term: 2. Underline
+            definition: "1px, 4px offset (--component-link-default-underline-offset). Trigger: rest. Token --component-link-default-underline-thickness; target :scope."
+          - term: 3. Hover underline
+            definition: "thickens to 2px; colour stays ink. Trigger: hover. Token --component-link-default-underline-thickness-hover; target :scope."
+          - term: 4. Focus ring
+            definition: "3px, 3px offset, radius 4, focus-visible only. Trigger: focus. Token --ring-focus-color; target :scope."
+    refs:
+      - href: ./src/components/Link/Link.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Link/Link.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - visited
+          - focus
+  - kind: component
     id: section
     name: Section
     description: "A vertical slice of a page (layout foundation, 2026-10-03): an h2 at the one section size, an optional lede and actions, then the body. The id makes it an anchor for an On this page list, and the anchor clears a sticky header. Sections are spaced by layout.section.space on every page. The default group (padding, max-width) is the portfolio's older section box; the container now comes from layout.container."
@@ -18214,6 +18358,152 @@ entries:
             - heading
             - lede
             - body
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
+    id: brand-wordmark
+    name: BrandWordmark
+    description: "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=img with the word as its accessible name; the pattern layers are aria-hidden. The ink variant is text-primary (AAA). Static: nothing moves, so reduced motion needs no change."
+      tags:
+        - component
+        - brand-wordmark
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The site nav (size nav, 40px tall)
+          - level: may
+            statement: The footer sign-off (size full-bleed)
+          - level: may
+            statement: The BELLA name on its own pages
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Never below 32px tall
+          - level: must-not
+            statement: "Never recolour the pattern: it only comes from color.pattern.*"
+          - level: must-not
+            statement: "Never as body type or a heading: it is a mark, not a typeface"
+          - level: must-not
+            statement: Never animate it
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Entirely static.
+        context: anatomy
+        items:
+          - term: the letters
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/BrandWordmark/BrandWordmark.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/BrandWordmark/BrandWordmark.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Entirely static.
+          atRest:
+            - the letters
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
+    id: pattern-field
+    name: PatternField
+    description: "The brand pattern as a hero background (brand refresh, 2026-09-22): greyscale at about 7% (inverted grey at about 6% in dark) with a radial fade. Replaces the dot grid."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "Decorative: aria-hidden, focusable=false, pointer-events none. At 7% greyscale it does not reduce text contrast measurably; axe checks the text over it."
+      tags:
+        - component
+        - pattern-field
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "Behind a page opening or hero, first child of a position: relative container"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Never behind body text at more than its token opacity
+          - level: must-not
+            statement: "Never in colour: the colour pattern belongs to the wordmark"
+          - level: must-not
+            statement: Never interactive
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Entirely static.
+        context: anatomy
+        items:
+          - term: the field
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/PatternField/PatternField.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/PatternField/PatternField.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Entirely static.
+          atRest:
+            - the field
           triggered: []
           invariants:
             - layer: static
@@ -19446,6 +19736,98 @@ entries:
             - layer: flat
               property: animation-name
               expect: none
+  - kind: component
+    id: section-header
+    name: SectionHeader
+    description: "A structured page or section opening: eyebrow, heading (H1 or H2), optional accent half-line, lead, and body. Handles the split vs. stacked layout at width."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - section-header
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Page openings (as="h1", layout="stacked")
+          - level: may
+            statement: Section openings (as="h2", layout="split" or stacked)
+          - level: may
+            statement: A glossary or definition section (heading + accent term + after)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not nest a Heading inside a SectionHeader: the heading is built in"
+          - level: must-not
+            statement: "Do not use it for card titles or inline titles: those are Heading or a plain element"
+    refs:
+      - href: ./src/components/SectionHeader/SectionHeader.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/SectionHeader/SectionHeader.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+  - kind: component
+    id: scaled-frame
+    name: ScaledFrame
+    description: Renders a live specimen or an embedded page at its intrinsic design size then scales it down to the container, with no internal scroll and no cropping. Inherits [data-theme] and BELLA tokens directly.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - scaled-frame
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Storybook and Atlas specimens that must show at full design size
+          - level: may
+            statement: Embedding a page as a preview (src prop)
+          - level: may
+            statement: Any context where a component must render at its design size and scale to fit
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it as a general iframe wrapper: interactive=false (the default) makes the frame inert"
+    refs:
+      - href: ./src/components/ScaledFrame/ScaledFrame.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ScaledFrame/ScaledFrame.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
   - kind: entry
     id: foundation-color
     name: Colour

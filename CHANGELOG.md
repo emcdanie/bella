@@ -4,6 +4,12 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Token lock-down: highlight to ink, Unique retired, base 20 (2026-10-08)
+- **Highlight is ink, ochre is clickable only** (BREAKING visually): `color.semantic.highlight-wash` light is now ink at 8% (`color.alpha.ink-wash-08`), dark is cool.50 at 12% (`color.alpha.ink-wash-12`); `highlight-edge` dark is now `color.cool.50` (was `color.brand.ochre`). Light edge was already ink. New primitives `color.alpha.ink-wash-08` and `ink-wash-12` replace the removed `ochre-24` and `ochre-18`. Contrast-pairs verified: text >= 7:1 AAA, edge >= 3:1, light/dark/warm. Why: Elleta's rule (8 Oct). Ochre signals clickable only; highlight is not a link state.
+- **Unique retired** (BREAKING: token removed): `typography.font-family.wordmark` removed from the token set. Wordmarks are drawn SVG (BrandWordmark). The Unique @font-face in the Storybook manager and the fontWordmark entry in theme-values.json are removed. Why: Elleta confirmed (8 Oct). Wordmarks are SVG; no face needed.
+- **`font-size.base` 18 → 20** (BREAKING: size shift for consumers on this token): matches Figma Body/Base (4 Oct type lock). Consumers: CaseMeta, ProcessSteps, FeaturedCase, WorkIntro, BeforeAfterFrame, DocBlocks, Highlight, Slider, docs.css, preview.tsx, and Typography/Card stories. Why: Figma is the type-size source of truth; `base` was one step behind Body/Base.
+- Stale "Geist" text in token descriptions (`primitive.json`, `component.json`), Typography.stories, and docs/typography.md corrected to Figtree.
+
 ### OKLCH primitives (2026-10-05)
 - **Every colour primitive carries `$extensions.bella.oklch`** beside its hex `$value`; ramps keep one hue (`cool` 272, `stone` 85), named sets keep each colour's own hue. Max drift CIEDE2000 0.81; the build fails at 1 or more. Decision record: `docs/decisions/2026-10-05-oklch-primitives.md`.
 - **bella.css gains an OKLCH layer**: hex stays the base; `@supports (color: oklch(0 0 0))` redeclares the primitives in OKLCH and points every colour-bearing semantic and component token at its reference by name, per theme. A second `@supports` block derives the alpha tints (`oklch(from var(--base) l c h / N%)`) and the button glosses with relative colour.

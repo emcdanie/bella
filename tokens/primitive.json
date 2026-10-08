@@ -931,26 +931,26 @@
           }
         }
       },
-      "ochre-24": {
-        "$value": "#e8a83e3d",
+      "ink-wash-08": {
+        "$value": "#1d203014",
         "$type": "color",
-        "$description": "Ochre at 24%: the highlight wash in light and warm (Elleta, 2026-10-05).",
+        "$description": "Ink (cool.900) at 8%: the highlight wash in light and warm (Elleta, 2026-10-08: highlight is ink, ochre is clickable only).",
         "$extensions": {
           "bella": {
-            "oklch": "oklch(77.43% 0.1397 76.1 / 23.9%)",
+            "oklch": "oklch(24.83% 0.0308 275.7 / 7.8%)",
             "usage": [
               "color.semantic.highlight-wash (light)"
             ]
           }
         }
       },
-      "ochre-18": {
-        "$value": "#e8a83e2e",
+      "ink-wash-12": {
+        "$value": "#eceef31f",
         "$type": "color",
-        "$description": "Ochre at 18%: the highlight wash in dark (Elleta, 2026-10-05).",
+        "$description": "Ink on dark (cool.50) at 12%: the highlight wash in dark (Elleta, 2026-10-08).",
         "$extensions": {
           "bella": {
-            "oklch": "oklch(77.43% 0.1397 76.1 / 18%)",
+            "oklch": "oklch(94.9% 0.007 272 / 12.2%)",
             "usage": [
               "color.semantic.highlight-wash (dark)"
             ]
@@ -1920,9 +1920,9 @@
   "size": {
     "control": {
       "input": {
-        "$value": "57px",
+        "$value": "60px",
         "$type": "dimension",
-        "$description": "Input field height: the field text (font-size.base, 18px) at line-height.normal (1.7, 30.6; code wins on line-height, Elleta, 2026-10-05) + 12px padding + 1px border each side = 56.6, rounded up to a whole 57. The queue asked for 52, which assumed 16px at 1.6 from a stale build. The error state's 2px edge (border + inset shadow) stays inside it.",
+        "$description": "Input field height: the field text (font-size.base, 20px) at line-height.normal (1.7, 34) + 12px padding each side + 1px border each side = 60. Updated 2026-10-08 (base was 18px: 57px). The error state's 2px edge (border + inset shadow) stays inside it.",
         "$extensions": {
           "bella": {
             "usage": ["min-height of the Input field (component.input.min-height), code and Figma"],
@@ -2154,31 +2154,14 @@
       "display": {
         "$value": "Figtree, system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta; was Geist Light 300). Unique moved to font-family.wordmark.",
+        "$description": "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08): wordmarks are drawn SVG.",
         "$extensions": {
           "bella": {
             "usage": [
               "Every heading tier"
             ],
             "dont": [
-              "Not Unique: Unique is the wordmark only"
-            ]
-          }
-        }
-      },
-      "wordmark": {
-        "$value": "Unique, 'Arial Narrow', sans-serif",
-        "$type": "fontFamily",
-        "$description": "Unique Bold 700: the ELLETA / BELLA wordmark and keycap lockup only (style unify, 2026-09-22, Elleta).",
-        "$extensions": {
-          "bella": {
-            "usage": [
-              "The wordmark",
-              "The keycap brand lockup"
-            ],
-            "dont": [
-              "Never a heading, body, UI or label face",
-              "Never below 24px (keycap logo excepted), never negative tracking"
+              "Never Unique: Unique is retired; wordmarks are SVG"
             ]
           }
         }
@@ -2186,7 +2169,7 @@
       "body": {
         "$value": "Figtree, system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Body and UI typeface, Geist. Everything Unique doesn't carry: body, labels, eyebrows, buttons, navigation.",
+        "$description": "Body and UI typeface, Figtree: body, labels, eyebrows, buttons, navigation.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2271,9 +2254,9 @@
         }
       },
       "base": {
-        "$value": "18px",
+        "$value": "20px",
         "$type": "dimension",
-        "$description": "Body text floor. Non-negotiable minimum for reading text in BELLA.",
+        "$description": "Body text, Figma Body/Base (type lock, Elleta, 4 Oct 2026; was 18px). Non-negotiable minimum for reading text in BELLA is 16px.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2290,7 +2273,7 @@
       "body": {
         "$value": "20px",
         "$type": "dimension",
-        "$description": "Body text: Geist 400 at 17px (style unify, 2026-09-22, Elleta). font-size.base stays 16px so existing consumers do not shift.",
+        "$description": "Body text: Figtree 400 at 20px (type lock, Elleta, 4 Oct 2026; Figma Body/Base).",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2474,14 +2457,13 @@
       "black": {
         "$value": "800",
         "$type": "fontWeight",
-        "$description": "Extra-bold. Geist-only emphasis weight, Unique has no 800 cut.",
+        "$description": "Extra-bold. Rare emphasis weight (Figtree ExtraBold).",
         "$extensions": {
           "bella": {
             "usage": [
-              "Rare Geist display emphasis"
+              "Rare Figtree display emphasis"
             ],
             "dont": [
-              "Never on Unique \u2014 the face ships 700 only",
               "Do not use for body or card titles \u2014 too heavy"
             ]
           }
@@ -2496,12 +2478,12 @@
       "tight": {
         "$value": "1.1",
         "$type": "number",
-        "$description": "Tight line-height for the doc-site H1 and Geist display text. Heading tiers use line-height.display (1.05).",
+        "$description": "Tight line-height for the doc-site H1 and display text. Heading tiers use line-height.display (1.05).",
         "$extensions": {
           "bella": {
             "usage": [
               "Doc-site page H1s",
-              "Geist display sizes"
+              "Display sizes"
             ]
           }
         }
@@ -2583,14 +2565,11 @@
       "tight": {
         "$value": "-0.02em",
         "$type": "dimension",
-        "$description": "Tightened tracking. Geist display sizes only, never Unique.",
+        "$description": "Tightened tracking. Display sizes only.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Geist at display sizes"
-            ],
-            "dont": [
-              "Never on Unique \u2014 condensed glyphs collide below 0 tracking; Unique display always tracks \u2265 0"
+              "Figtree at display sizes"
             ]
           }
         }
@@ -2598,7 +2577,7 @@
       "normal": {
         "$value": "0",
         "$type": "dimension",
-        "$description": "Zero tracking for UI text that sets its own (tags, avatar initials). Geist body text takes letter-spacing.body; Unique headings take letter-spacing.hero (0.04em), the display floor.",
+        "$description": "Zero tracking for UI text that sets its own (tags, avatar initials). Body text takes letter-spacing.body.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -2611,15 +2590,14 @@
       "body": {
         "$value": "0",
         "$type": "dimension",
-        "$description": "Geist body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it. Geist only.",
+        "$description": "Body tracking (Elleta, 2026-09-22 body amendment). Set once where body text is established; prose inherits it.",
         "$extensions": {
           "bella": {
             "usage": [
-              "Geist body text",
+              "Body text",
               "Paragraphs and card copy that inherit the body setting"
             ],
             "dont": [
-              "Never on Unique: every Unique element sets letter-spacing.hero explicitly",
               "Not a heading tracking: the heading locks are unchanged"
             ]
           }
@@ -2633,9 +2611,6 @@
           "bella": {
             "usage": [
               "Heading hero and page tiers"
-            ],
-            "dont": [
-              "Never on Unique"
             ]
           }
         }
@@ -2648,9 +2623,6 @@
           "bella": {
             "usage": [
               "Heading section tier"
-            ],
-            "dont": [
-              "Never on Unique"
             ]
           }
         }

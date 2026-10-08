@@ -447,7 +447,6 @@ theme_values = {
     "inkHover":    tok("color.light.ink-hover"),
     "fontBody":    tok("typography.font-family.body"),
     "fontMono":    tok("typography.font-family.mono"),
-    "fontWordmark": tok("typography.font-family.wordmark"),
     "radiusMd":    tok("radius.md"),
     "radiusLg":    tok("radius.lg"),
 }

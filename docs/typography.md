@@ -6,7 +6,7 @@ Typography is set for reading (type lock, Elleta, 4 Oct 2026; supersedes the Uni
 
 - `typography.font-family.display` and `typography.font-family.body` — **Figtree**, falling back to `system-ui, sans-serif`. Headings, body, labels, buttons, navigation and meta.
 - `typography.font-family.mono` — **Geist Mono**, for real code and token names only, at 16px. Never labels, eyebrows or meta.
-- `typography.font-family.wordmark` — Unique, legacy consumers only. The wordmarks are drawn (BrandWordmark), not set in a font.
+- Unique is retired (2026-10-08). The wordmarks are drawn SVG (BrandWordmark), not set in a font. The `typography.font-family.wordmark` token is removed.
 
 ## The five sizes, plus labels
 
@@ -23,7 +23,7 @@ Typography is set for reading (type lock, Elleta, 4 Oct 2026; supersedes the Uni
 
 Every display size is fluid from 390 to 1440 (`clamp()`), so a phone reads the 390 value and Figma's phone styles carry it. Button and Tag labels read `font-size.tag`; Avatar initials read `tag`, `base` and `xl` by size, all in Figtree.
 
-`font-size.base` (18px) is the UI text size for controls; `font-size.6xl` (88px) is cover only: the Figma file cover and doc-site covers, never reading text. The 24, 32 and 56px steps are retired.
+`font-size.base` (20px, updated 2026-10-08 to match Figma Body/Base) is the UI text size for controls; `font-size.6xl` (88px) is cover only: the Figma file cover and doc-site covers, never reading text. The 24, 32 and 56px steps are retired.
 
 ## Floors
 

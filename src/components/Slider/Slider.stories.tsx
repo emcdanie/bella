@@ -57,6 +57,15 @@ export const WithMarks: Story = {
   ),
 };
 
+/** The disabled state: the track, thumb and field are all inert. */
+export const Disabled: Story = {
+  render: () => (
+    <div style={{ maxWidth: 420 }}>
+      <Slider label="Padding" unit="px" min={8} max={32} value={20} onChange={() => {}} disabled />
+    </div>
+  ),
+};
+
 /** Behavioral suite: 44px target, arrow keys, the unit read out, the value field in sync. */
 export const Behavior: Story = {
   render: () => <Live label="Ring width" unit="px" min={1} max={6} start={3} marks={[{ value: 2, label: 'visible minimum' }]} />,

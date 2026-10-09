@@ -2,10 +2,23 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
 import Link from './Link';
+import linkCssRaw from './Link.module.css?raw';
+import componentContract from '../../../tokens/component.json';
+import { ComponentDocsPage } from '../../docs/DocBlocks';
+
+const consumedTokens = Array.from(
+  new Set((linkCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
+).sort();
+
+const linkContract = (componentContract as any).component?.link?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Link> = {
   title: 'Components/Link',
   component: Link,
+  parameters: {
+    docs: { page: ComponentDocsPage },
+    bellaDocs: { tokens: consumedTokens, a11y: linkContract.a11y },
+  },
   args: { href: '#case', children: 'Read the case' },
 };
 export default meta;

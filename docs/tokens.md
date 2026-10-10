@@ -114,6 +114,18 @@ value with the source reference in parentheses.
 | `color.warm.muted` | `#4f463d` | color |
 | `color.warm.line` | `#e3dbcf` | color |
 | `color.warm.control` | `#857a6a` | color |
+| `color.wee-dote.bg` | `#CBD5CC` | color |
+| `color.wee-dote.inset` | `#D8E1D9` | color |
+| `color.wee-dote.panel` | `#E4EDE5` | color |
+| `color.wee-dote.line` | `#B5BFB6` | color |
+| `color.wee-dote.muted` | `#3D3D3D` | color |
+| `color.wee-dote.control` | `#6A786B` | color |
+| `color.wee-dote.danger` | `#9B1A14` | color |
+| `color.wee-dote.success` | `#0E4D26` | color |
+| `color.wee-dote.lane-a` | `#EBBB03` | color |
+| `color.wee-dote.lane-b` | `#0498D0` | color |
+| `color.wee-dote.lane-c` | `#E5B3BF` | color |
+| `color.wee-dote.lane-d` | `#E32923` | color |
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |
@@ -333,6 +345,10 @@ value with the source reference in parentheses.
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |
+| `color.semantic.lane-a` | `#cfe0ef` (`{color.chip.c1}`) | color |
+| `color.semantic.lane-b` | `#f6c9a8` (`{color.chip.c2}`) | color |
+| `color.semantic.lane-c` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.lane-d` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.link` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.link-hover` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.success` | `#4A7C6F` (`{color.supporting.sage}`) | color |
@@ -403,6 +419,10 @@ value with the source reference in parentheses.
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |
+| `color.semantic.lane-a` | `#cfe0ef` (`{color.chip.c1}`) | color |
+| `color.semantic.lane-b` | `#f6c9a8` (`{color.chip.c2}`) | color |
+| `color.semantic.lane-c` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.lane-d` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.link` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.link-hover` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.success` | `#4A7C6F` (`{color.supporting.sage}`) | color |

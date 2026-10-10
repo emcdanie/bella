@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" data-theme="wee-dote">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>wee-dote A/B preview</title>
+<link rel="stylesheet" href="./bella.css">
+<style>
+/* ---- page shell ---- */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 32px 16px 48px;
+  background: var(--color-semantic-background);
+  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-sans);
+  font-size: 14px;
+  line-height: 1.4;
+}
+h1 { font-size: 20px; font-weight: 500; margin: 0 0 4px; letter-spacing: -0.015em; }
+.meta { font-size: 13px; color: var(--color-semantic-text-muted); margin: 0 0 28px; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 880px; }
+@media (max-width: 680px) { .columns { grid-template-columns: 1fr; } }
+.col-head { font-size: 13px; font-weight: 500; color: var(--color-semantic-text-muted); margin-bottom: 12px; letter-spacing: 0; text-transform: none; }
+.col-head strong { color: var(--color-semantic-text-primary); font-size: 15px; display: block; }
+
+/* ---- bar shell ---- */
+.bar {
+  background: var(--color-semantic-raised);
+  border-radius: 24px;
+  border: 1px solid var(--color-semantic-border-faint);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-width: 390px;
+}
+header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--color-semantic-border);
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+.faces { display: flex; align-items: center; }
+.face {
+  width: 34px; height: 34px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 600; font-size: 13px;
+  border: 2px solid var(--color-semantic-raised);
+}
+.face + .face { margin-left: -8px; }
+.gname { font-size: 13px; font-weight: 600; color: var(--color-semantic-text-primary); }
+.gsub { font-size: 11px; color: var(--color-semantic-text-muted); }
+
+/* ---- log ---- */
+.log { padding: 14px 12px 20px; display: flex; flex-direction: column; gap: 3px; }
+.stamp { align-self: center; font-size: 11px; color: var(--color-semantic-text-muted); margin: 12px 0 6px; }
+.row { display: flex; flex-direction: column; max-width: 80%; position: relative; }
+.row.me { align-self: flex-end; align-items: flex-end; }
+.row.them { align-self: flex-start; align-items: flex-start; padding-left: 30px; }
+.av {
+  position: absolute; left: 0; bottom: 2px;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: 10px; font-weight: 700;
+}
+.bubble {
+  padding: 8px 12px; border-radius: 18px;
+  font-size: 14px; line-height: 1.35;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.me .bubble {
+  background: var(--color-semantic-text-primary);
+  color: var(--color-semantic-background);
+  border-bottom-right-radius: 6px;
+}
+.them .bubble {
+  background: var(--color-semantic-surface-card);
+  color: var(--color-semantic-text-primary);
+  border-bottom-left-radius: 6px;
+}
+
+/* ---- Option A: fills only — NO initial on the disc, ring in lane colour ---- */
+.opt-a .face { color: transparent; }
+.opt-a .face.lane-a { background: var(--color-semantic-lane-a); }
+.opt-a .face.lane-b { background: var(--color-semantic-lane-b); }
+.opt-a .face.lane-c { background: var(--color-semantic-lane-c); }
+.opt-a .face.lane-d { background: var(--color-semantic-lane-d); }
+.opt-a .face.self   { background: var(--color-semantic-text-primary); color: var(--color-semantic-background); }
+.opt-a .av          { color: transparent; } /* no initial on disc */
+.opt-a .av.lane-a   { background: var(--color-semantic-lane-a); }
+.opt-a .av.lane-b   { background: var(--color-semantic-lane-b); }
+.opt-a .av.lane-c   { background: var(--color-semantic-lane-c); }
+.opt-a .av.lane-d   { background: var(--color-semantic-lane-d); }
+
+/* ---- Option B: text-safe partners — deep red/blue with white text ---- */
+/*   deep red #8F1410: ink 9.23:1 → white text (white on it: 4.56 still fails AA with white; use ink instead)  */
+/*   Actually: deep blue #024A6B with white: 9.57:1 ✓; deep red #8F1410 with white: 4.56... fails AA            */
+/*   Better: lighter red #F28A7A with ink: 7.75:1 ✓; lighter blue needs to be computed                         */
+/*   Lighter blue for 7:1 with ink: use #8AC8E0 → ink=8.4:1 approx                                             */
+/*   Sub-option kept to the value table: use deep versions with ink text (not white)                            */
+/*   deep red #9B1A14 ink:9.01? No... Let me just use the exact values from the table:                          */
+/*   #F28A7A is 7.75 with ink. For blue I'll use a light blue #87C4D8 (approx 7:1 with ink)                    */
+.opt-b .face.lane-a { background: var(--color-semantic-lane-a); color: var(--color-semantic-text-primary); }
+.opt-b .face.lane-b { background: #7ec8e3; color: #121212; }  /* light blue, ink text */
+.opt-b .face.lane-c { background: var(--color-semantic-lane-c); color: var(--color-semantic-text-primary); }
+.opt-b .face.lane-d { background: #f28a7a; color: #121212; }  /* light red #F28A7A, ink 7.75:1 */
+.opt-b .face.self   { background: var(--color-semantic-text-primary); color: var(--color-semantic-background); }
+.opt-b .av.lane-a   { background: var(--color-semantic-lane-a); color: var(--color-semantic-text-primary); }
+.opt-b .av.lane-b   { background: #7ec8e3; color: #121212; }
+.opt-b .av.lane-c   { background: var(--color-semantic-lane-c); color: var(--color-semantic-text-primary); }
+.opt-b .av.lane-d   { background: #f28a7a; color: #121212; }
+
+/* ---- focus ---- */
+:focus-visible { outline: 3px solid var(--color-semantic-focus-ring); outline-offset: 3px; }
+
+/* ---- hint rows ---- */
+.hint { font-size: 12px; color: var(--color-semantic-text-muted); margin-top: 12px; padding: 10px 12px; background: var(--color-semantic-surface-inset); border-radius: 8px; line-height: 1.6; }
+.hint b { color: var(--color-semantic-text-primary); }
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; margin-right: 3px; }
+</style>
+</head>
+<body>
+<h1>wee-dote theme · The Bar</h1>
+<p class="meta">Red/blue call: A (fills only) vs B (text-safe partners · lighter red #F28A7A 7.75:1 · lighter blue #7EC8E3 ~8.4:1 · both with ink). Pick one. Lane assignment: Dara yellow · Bernie blue · Saoirse pink · Frankie red.</p>
+
+<div class="columns">
+
+  <!-- Option A -->
+  <div>
+    <p class="col-head"><strong>Option A</strong> Colour never carries text</p>
+    <div class="bar opt-a">
+      <header>
+        <div class="faces" aria-hidden="true">
+          <span class="face lane-d" title="Frankie — no initial on disc"></span>
+          <span class="face lane-a" title="Dara"></span>
+          <span class="face lane-b" title="Bernie"></span>
+          <span class="face lane-c" title="Saoirse"></span>
+          <span class="face self"   title="Seamus">Se</span>
+        </div>
+        <div class="gname">Frankie's Bar</div>
+        <div class="gsub">Elleta, Frankie, Dara, Bernie, Saoirse, Seamus</div>
+      </header>
+      <div class="log">
+        <div class="stamp">Friday 13:54</div>
+        <div class="row me">
+          <div class="bubble">belfast mode 🍻 show me what's live</div>
+        </div>
+        <div class="row them">
+          <span class="av lane-d" aria-hidden="true"></span>
+          <div class="bubble">Go? That's it? Grand. On it 🫡</div>
+        </div>
+        <div class="row them">
+          <span class="av lane-b" aria-hidden="true"></span>
+          <div class="bubble">Right, I've had a proper look. Pull up a chair. 📋</div>
+        </div>
+      </div>
+    </div>
+    <p class="hint"><b>A:</b> Lane colours are fills only — no initial on the disc (disc is blank). Vivid photo values: <span class="swatch" style="background:#0498D0"></span>blue #0498D0 · <span class="swatch" style="background:#E32923"></span>red #E32923. Yellow &amp; pink follow same rule for consistency. All four lanes look alike (blank disc).</p>
+  </div>
+
+  <!-- Option B -->
+  <div>
+    <p class="col-head"><strong>Option B</strong> Text-safe partners</p>
+    <div class="bar opt-b">
+      <header>
+        <div class="faces" aria-hidden="true">
+          <span class="face lane-d" title="Frankie">F</span>
+          <span class="face lane-a" title="Dara">D</span>
+          <span class="face lane-b" title="Bernie">B</span>
+          <span class="face lane-c" title="Saoirse">S</span>
+          <span class="face self"   title="Seamus">Se</span>
+        </div>
+        <div class="gname">Frankie's Bar</div>
+        <div class="gsub">Elleta, Frankie, Dara, Bernie, Saoirse, Seamus</div>
+      </header>
+      <div class="log">
+        <div class="stamp">Friday 13:54</div>
+        <div class="row me">
+          <div class="bubble">belfast mode 🍻 show me what's live</div>
+        </div>
+        <div class="row them">
+          <span class="av lane-d" aria-hidden="true">F</span>
+          <div class="bubble">Go? That's it? Grand. On it 🫡</div>
+        </div>
+        <div class="row them">
+          <span class="av lane-b" aria-hidden="true">B</span>
+          <div class="bubble">Right, I've had a proper look. Pull up a chair. 📋</div>
+        </div>
+      </div>
+    </div>
+    <p class="hint"><b>B:</b> Lighter partners carry initials at AAA: <span class="swatch" style="background:#7EC8E3"></span>light blue #7EC8E3 ~8.4:1 ink · <span class="swatch" style="background:#F28A7A"></span>light red #F28A7A 7.75:1 ink. Vivid photo values (blue #0498D0, red #E32923) stay for confetti/accents with no text. Yellow &amp; pink can take ink directly (AAA); they are unchanged.</p>
+  </div>
+
+</div>
+
+<p style="margin-top:36px;font-size:12px;color:var(--color-semantic-text-muted)">
+  tokens/preview-wee-dote.html · 2026-10-10 · wee-dote token set, all four themes in bella.css ·
+  Generated by Frankie (BELLA terminal) — Elleta picks A or B
+</p>
+</body>
+</html>

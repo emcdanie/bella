@@ -28,6 +28,7 @@ function block(selectorRe) {
 const light = block(/:root\s*\{/);
 const dark = { ...light, ...block(/\[data-theme=["']?dark["']?\]\s*\{/) };
 const warm = { ...light, ...block(/\[data-theme=["']?warm["']?\]\s*\{/) };
+const wee_dote = { ...light, ...block(/\[data-theme=["']?wee-dote["']?\]\s*\{/) };
 
 function resolve(vars, name, seen = new Set()) {
   if (seen.has(name)) throw new Error(`cycle at ${name}`);
@@ -163,6 +164,13 @@ const FORBIDDEN_LIGHT = [
   ['muted text on ground (forbidden in light and warm: AA, not AAA; meta sits on raised)', '--color-light-muted', '--color-light-line', 7],
 ];
 
+/* wee-dote: blue (lane-b) and red (lane-d) both fail AAA in both directions.
+ * These forbidden checks prove the "fills only" rule is still needed. */
+const FORBIDDEN_WEEDOTE = [
+  ['ink on lane-b blue in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-b', AAA],
+  ['ink on lane-d red in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-d', AAA],
+];
+
 const failures = [];
 const lines = [];
 
@@ -243,24 +251,29 @@ const INSET_EXEMPT = {
     if (!seen.has(key)) failures.push(`inset: INSET_EXEMPT lists ${key}, which no longer paints the inset fill; remove the entry`);
   }
 }
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['wee-dote', wee_dote]]) {
   for (const [label, fg, bg, min] of PAIRS) {
     const r = ratio(colour(vars, fg), colour(vars, bg));
-    lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
+    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
     if (r < min) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${min}:1 (${fg} on ${bg})`);
   }
 }
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['wee-dote', wee_dote]]) {
   for (const [label, a, b] of DISTINCT) {
     const r = ratio(resolve(vars, a), resolve(vars, b));
-    lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
+    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
     if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1; ${a} vs ${b})`);
   }
 }
 for (const [label, fg, bg, under] of FORBIDDEN_LIGHT) {
   const r = ratio(resolve(light, fg), resolve(light, bg));
-  lines.push(`light ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
+  lines.push(`light    ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
   if (r >= under) failures.push(`light: ${label} now passes (${r.toFixed(2)}:1); the rule forbidding it needs review`);
+}
+for (const [label, fg, bg, under] of FORBIDDEN_WEEDOTE) {
+  const r = ratio(resolve(wee_dote, fg), resolve(wee_dote, bg));
+  lines.push(`wee-dote ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
+  if (r >= under) failures.push(`wee-dote: ${label} now passes (${r.toFixed(2)}:1); the fills-only rule needs review`);
 }
 
 if (process.argv.includes('--verbose')) console.log(lines.join('\n'));
@@ -268,4 +281,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);
+console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 4 + FORBIDDEN_LIGHT.length + FORBIDDEN_WEEDOTE.length} checked (light, dark, warm, wee-dote), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);

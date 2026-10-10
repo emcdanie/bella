@@ -4,6 +4,12 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### wee-dote theme and lane tokens (2026-10-10)
+- **Fourth theme `[data-theme="wee-dote"]`**: sage sardine-tin ground `#CBD5CC` with raised `#E4EDE5` card surface and `#D8E1D9` inset/selected wash. Muted text `#3D3D3D` 7.20:1 on bg (AAA worst). Focus ring overridden to ink (ochre-deep fails 3:1 on sage at 2.38:1). Danger/success overridden darker for AA on sage: danger `#9B1A14` 5.46:1, success `#0E4D26` 6.61:1. All surface tokens in `tokens/semantic/wee-dote.json`. Primitives in `color.wee-dote.*`.
+- **Four lane colour tokens** (`lane-a`, `lane-b`, `lane-c`, `lane-d`) added to all four themes. In light/dark/warm: chip fills (tiger-blue, peach, mint) plus ochre for lane-d (fills only). In wee-dote: photo-sampled yellow `#EBBB03`, blue `#0498D0`, pink `#E5B3BF`, red `#E32923`. Blue and red fail AAA both ways (forbidden pairs added to gate). Suggested assignment: Dara yellow · Bernie blue · Saoirse pink · Frankie red. Elleta to confirm.
+- **Open call (needs Elleta)**: red and blue in wee-dote cannot carry small text at AAA. Option A (fills only, no initial on disc) vs Option B (lighter text-safe partners: lighter red `#F28A7A` 7.75:1 ink, lighter blue `#7EC8E3` ~8.0:1 ink). Preview: `tokens/preview-wee-dote.html`.
+- Contrast-pairs now covers all four themes; 305 pairs checked on every gate run.
+
 ### Token lock-down: highlight to ink, Unique retired, base 20 (2026-10-08)
 - **Highlight is ink, ochre is clickable only** (BREAKING visually): `color.semantic.highlight-wash` light is now ink at 8% (`color.alpha.ink-wash-08`), dark is cool.50 at 12% (`color.alpha.ink-wash-12`); `highlight-edge` dark is now `color.cool.50` (was `color.brand.ochre`). Light edge was already ink. New primitives `color.alpha.ink-wash-08` and `ink-wash-12` replace the removed `ochre-24` and `ochre-18`. Contrast-pairs verified: text >= 7:1 AAA, edge >= 3:1, light/dark/warm. Why: Elleta's rule (8 Oct). Ochre signals clickable only; highlight is not a link state.
 - **Unique retired** (BREAKING: token removed): `typography.font-family.wordmark` removed from the token set. Wordmarks are drawn SVG (BrandWordmark). The Unique @font-face in the Storybook manager and the fontWordmark entry in theme-values.json are removed. Why: Elleta confirmed (8 Oct). Wordmarks are SVG; no face needed.

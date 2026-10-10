@@ -32,7 +32,8 @@ def load(name: str) -> dict:
 primitive = load("primitive.json")
 sem_light = load("semantic/light.json")
 sem_dark  = load("semantic/dark.json")
-sem_warm  = load("semantic/warm.json")  # overrides on top of light (2026-10-03)
+sem_warm     = load("semantic/warm.json")      # overrides on top of light (2026-10-03)
+sem_wee_dote = load("semantic/wee-dote.json")  # overrides on top of light (2026-10-10)
 component = load("component.json")
 
 # ---------- flatten ----------
@@ -53,11 +54,12 @@ def walk(node, path=None):
 def flatten(tree):
     return {p: (v, t, meta) for p, v, t, meta in walk(tree)}
 
-prim_flat = flatten(primitive)
-light_flat = flatten(sem_light)
-dark_flat  = flatten(sem_dark)
-warm_flat  = flatten(sem_warm)
-comp_flat  = flatten(component)
+prim_flat     = flatten(primitive)
+light_flat    = flatten(sem_light)
+dark_flat     = flatten(sem_dark)
+warm_flat     = flatten(sem_warm)
+wee_dote_flat = flatten(sem_wee_dote)
+comp_flat     = flatten(component)
 
 # ---------- resolve references ----------
 
@@ -77,13 +79,15 @@ def make_resolver(lookup):
         return value
     return resolve
 
-light_lookup = {**prim_flat, **light_flat, **comp_flat}
-dark_lookup  = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
-warm_lookup  = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
+light_lookup    = {**prim_flat, **light_flat, **comp_flat}
+dark_lookup     = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
+warm_lookup     = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
+wee_dote_lookup = {**prim_flat, **light_flat, **wee_dote_flat, **comp_flat}
 
-resolve_light = make_resolver(light_lookup)
-resolve_dark  = make_resolver(dark_lookup)
-resolve_warm  = make_resolver(warm_lookup)
+resolve_light    = make_resolver(light_lookup)
+resolve_dark     = make_resolver(dark_lookup)
+resolve_warm     = make_resolver(warm_lookup)
+resolve_wee_dote = make_resolver(wee_dote_lookup)
 
 # ---------- emit bella.css ----------
 
@@ -204,6 +208,25 @@ for path, (v, t, _) in comp_flat.items():
     lightv, warmv = resolve_light(v), resolve_warm(v)
     if lightv != warmv:
         css_lines.append(f"  {emit_css_var(path)}: {warmv};")
+css_lines += ["}", ""]
+
+# [data-theme="wee-dote"]: sage sardine-tin, a fourth theme on top of light (2026-10-10).
+# Only the semantic tokens wee-dote.json overrides, plus any component token
+# whose value lands differently under the wee-dote lookup.
+css_lines += [
+    "[data-theme=\"wee-dote\"] {",
+    "  /* ---- Semantic (wee-dote) overrides on top of light ---- */",
+]
+for path, (v, t, _) in wee_dote_flat.items():
+    css_lines.append(f"  {emit_css_var(path)}: {resolve_wee_dote(v)};")
+css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
+css_lines += ["", "  /* ---- Component (wee-dote) overrides ---- */"]
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, dict):
+        continue
+    lightv, wee_dotev = resolve_light(v), resolve_wee_dote(v)
+    if lightv != wee_dotev:
+        css_lines.append(f"  {emit_css_var(path)}: {wee_dotev};")
 css_lines += ["}", ""]
 
 # ---- OKLCH layer (Elleta, 2026-10-05; docs/decisions/2026-10-05-oklch-primitives.md) ----
@@ -415,6 +438,7 @@ rollup = {
     "semantic": sem_light["color"]["semantic"],
     "semantic_dark_overrides": sem_dark["color"]["semantic"],
     "semantic_warm_overrides": sem_warm["color"]["semantic"],
+    "semantic_wee_dote_overrides": sem_wee_dote["color"]["semantic"],
     "component": component["component"]
 }
 

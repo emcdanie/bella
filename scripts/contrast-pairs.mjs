@@ -195,6 +195,7 @@ const INSET_EXEMPT = {
   'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'active state fill: the press is the state marker',
   'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
+  'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
 };
 {
   const comp = JSON.parse(readFileSync('tokens/component.json', 'utf8')).component;

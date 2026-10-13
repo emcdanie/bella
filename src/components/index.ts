@@ -4,8 +4,17 @@ export type { ActionChipProps } from './ActionChip/ActionChip';
 export { default as Avatar } from './Avatar/Avatar';
 export type { AvatarProps } from './Avatar/Avatar';
 
+export { default as AvatarStack } from './AvatarStack/AvatarStack';
+export type { AvatarStackProps, AvatarStackMember } from './AvatarStack/AvatarStack';
+
 export { default as BrandWordmark } from './BrandWordmark/BrandWordmark';
 export type { BrandWordmarkProps } from './BrandWordmark/BrandWordmark';
+
+export { default as ChatBubble } from './ChatBubble/ChatBubble';
+export type { ChatBubbleProps } from './ChatBubble/ChatBubble';
+
+export { default as ChatThread, ChatThreadTimestamp, ChatThreadDelivered } from './ChatThread/ChatThread';
+export type { ChatThreadProps, ChatThreadTimestampProps, ChatThreadDeliveredProps } from './ChatThread/ChatThread';
 
 export { default as Button } from './Button/Button';
 export type { ButtonProps } from './Button/Button';
@@ -97,3 +106,6 @@ export type { TabsProps, TabsItem } from './Tabs/Tabs';
 
 export { default as Tag } from './Tag/Tag';
 export type { TagProps } from './Tag/Tag';
+
+export { default as TypingDots } from './TypingDots/TypingDots';
+export type { TypingDotsProps } from './TypingDots/TypingDots';

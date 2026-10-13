@@ -364,6 +364,26 @@
 <p class="meta-desc">Renders a live specimen or an embedded page at its intrinsic design size then scales it down to the container, with no internal scroll and no cropping. Inherits [data-theme] and BELLA tokens directly.</p>
 <p class='meta-usage'><strong>Use for:</strong> Storybook and Atlas specimens that must show at full design size, Embedding a page as a preview (src prop), Any context where a component must render at its design size and scale to fit</p>
 <p class='meta-dont'><strong>Don't use for:</strong> Do not use it as a general iframe wrapper: interactive=false (the default) makes the frame inert</p>
+<h3>ChatBubble</h3>
+<p class="meta-desc">A single message bubble. Sent (ink) or received (card surface). Tail marks the last bubble in a run. Kind: text, ask, image, big-emoji.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> A line of chat in The Bar replay</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not nest another bubble inside a bubble</p>
+<h3>AvatarStack</h3>
+<p class="meta-desc">Overlapping Avatars with a separating ring in the surface colour. Extends Avatar; do not make a second avatar type.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Group header in The Bar</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not use as a standalone avatar — use Avatar for that</p>
+<h3>TypingDots</h3>
+<p class="meta-desc">Three animated dots indicating a lane is typing. No animation under reduced motion.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> Typing indicator in chat replay</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not show for more than a few seconds without a message following</p>
+<h3>ChatThread</h3>
+<p class="meta-desc">Layout column for a sequence of ChatBubble rows. Manages gap, row max-width, avatar gutter, centred timestamps, and the Delivered line. Fluid from 320px, no fixed heights, no breakpoints outside BELLA's four.</p>
+<p class="meta-chips"><strong>States:</strong> <code>default</code></p>
+<p class='meta-usage'><strong>Use for:</strong> The scrollable message log in The Bar</p>
+<p class='meta-dont'><strong>Don't use for:</strong> Do not put interactive controls directly inside ChatThread rows — use ActionChips via the ChatBubble slot</p>
 
     <h3>Live examples</h3>
     <div class="demo-grid">

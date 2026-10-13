@@ -1,0 +1,128 @@
+/* ChatBubble — geometry from the-bar-source.html; tokens only. */
+
+.row {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--component-chat-thread-default-row-max-width);
+  position: relative;
+}
+
+.rowSent {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.rowReceived {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.bubble {
+  position: relative;
+  padding: var(--component-chat-bubble-default-padding-block) var(--component-chat-bubble-default-padding-inline);
+  border-radius: var(--component-chat-bubble-default-border-radius);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-body);
+  line-height: var(--typography-line-height-body);
+  /* Pop-in animation. Stopped by .no-motion media query below. */
+  animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both;
+}
+
+.sent {
+  background: var(--component-chat-bubble-sent-background);
+  color: var(--component-chat-bubble-sent-foreground);
+  transform-origin: bottom right;
+}
+
+.received {
+  background: var(--component-chat-bubble-received-background);
+  color: var(--component-chat-bubble-received-foreground);
+  transform-origin: bottom left;
+}
+
+.tailSent {
+  border-bottom-right-radius: var(--component-chat-bubble-default-tail-radius);
+}
+
+.tailReceived {
+  border-bottom-left-radius: var(--component-chat-bubble-default-tail-radius);
+}
+
+.bigEmoji {
+  font-size: var(--typography-font-size-hero);
+  background: transparent !important;
+  padding: 0 var(--spacing-1);
+  animation: bubbleSlam var(--motion-duration-slam) var(--motion-easing-slam-enter) both;
+}
+
+/* Inline <code> inside a bubble — 13px mono, small radius. */
+.bubble :global(code) {
+  font-family: var(--typography-font-family-code);
+  font-size: var(--component-chat-bubble-default-code-font-size);
+  background: rgba(127, 127, 127, 0.18); /* token-waiver: neutral glass overlay; no semantic token for code-in-bubble; works on both dark sent and light received fills */
+  padding: 1px var(--spacing-1);
+  border-radius: var(--component-chat-bubble-default-code-radius);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  margin-top: var(--spacing-2);
+}
+
+.tapback {
+  position: absolute;
+  top: calc(-1 * var(--spacing-3));
+  background: var(--color-semantic-surface);
+  border: 2px solid var(--color-semantic-background);
+  border-radius: var(--radius-full);
+  padding: 1px var(--spacing-1);
+  font-size: var(--typography-font-size-body);
+  box-shadow: var(--shadow-ui);
+  animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both;
+}
+
+.tapbackSent {
+  left: calc(-1 * var(--spacing-3));
+}
+
+.tapbackReceived {
+  right: calc(-1 * var(--spacing-3));
+}
+
+@keyframes bubblePop {
+  0% {
+    transform: scale(0.35) translateY(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@keyframes bubbleSlam {
+  0% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.92);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble,
+  .bigEmoji,
+  .tapback {
+    animation: none;
+  }
+}

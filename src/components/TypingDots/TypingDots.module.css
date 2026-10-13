@@ -1,0 +1,46 @@
+/* TypingDots — three pulsing dots. Timing from the-bar-source.html. */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--component-typing-dots-default-gap);
+  padding: var(--spacing-2) var(--spacing-3);
+  background: var(--component-chat-bubble-received-background);
+  border-radius: var(--component-chat-bubble-default-border-radius);
+}
+
+.dot {
+  width: var(--component-typing-dots-default-dot-size);
+  height: var(--component-typing-dots-default-dot-size);
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-text-secondary);
+  animation: typingPulse 1.2s infinite;
+}
+
+.dot2 {
+  animation-delay: var(--component-typing-dots-default-delay-2);
+}
+
+.dot3 {
+  animation-delay: var(--component-typing-dots-default-delay-3);
+}
+
+@keyframes typingPulse {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+    opacity: 1;
+  }
+}

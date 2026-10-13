@@ -126,6 +126,7 @@ value with the source reference in parentheses.
 | `color.wee-dote.lane-b` | `#0498D0` | color |
 | `color.wee-dote.lane-c` | `#E5B3BF` | color |
 | `color.wee-dote.lane-d` | `#E32923` | color |
+| `color.wee-dote.lane-e` | `#5B9B84` | color |
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |
@@ -180,6 +181,8 @@ value with the source reference in parentheses.
 | `radius.full` | `999px` | dimension |
 | `radius.card` | `1rem` | dimension |
 | `radius.pill` | `999px` | dimension |
+| `radius.chat-bubble` | `18px` | dimension |
+| `radius.chat-tail` | `6px` | dimension |
 | `border.width.thin` | `1px` | dimension |
 | `border.width.medium` | `2px` | dimension |
 | `border.width.thick` | `3px` | dimension |
@@ -236,12 +239,15 @@ value with the source reference in parentheses.
 | `motion.duration.slow` | `400ms` | duration |
 | `motion.duration.trace` | `3400ms` | duration |
 | `motion.duration.draw` | `900ms` | duration |
-| `motion.duration.pop` | `450ms` | duration |
+| `motion.duration.pop` | `420ms` | duration |
+| `motion.duration.slam` | `550ms` | duration |
 | `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | cubicBezier |
 | `motion.easing.emphasis` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | cubicBezier |
 | `motion.easing.out` | `cubic-bezier(0.22, 1, 0.36, 1)` | cubicBezier |
 | `motion.easing.draw` | `cubic-bezier(0.65, 0, 0.35, 1)` | cubicBezier |
 | `motion.easing.pop` | `cubic-bezier(0.34, 1.4, 0.64, 1)` | cubicBezier |
+| `motion.easing.pop-enter` | `cubic-bezier(0.2, 1.6, 0.4, 1)` | cubicBezier |
+| `motion.easing.slam-enter` | `cubic-bezier(0.2, 1.4, 0.3, 1)` | cubicBezier |
 | `motion.transform.hover-lift` | `translateY(-2px)` | other |
 | `motion.transform.key-press` | `translateY(2px)` | other |
 | `motion.stagger.min` | `120ms` | duration |
@@ -774,3 +780,29 @@ value with the source reference in parentheses.
 | `component.slider.thumb-background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
 | `component.slider.thumb-border` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.slider.mark` | `#474c5e` (`{color.semantic.text-secondary}`) | color |
+| `component.chat-bubble.sent.background` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.chat-bubble.sent.foreground` | `#ffffff` (`{color.semantic.surface}`) | color |
+| `component.chat-bubble.received.background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
+| `component.chat-bubble.received.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.chat-bubble.default.border-radius` | `18px` (`{radius.chat-bubble}`) | dimension |
+| `component.chat-bubble.default.tail-radius` | `6px` (`{radius.chat-tail}`) | dimension |
+| `component.chat-bubble.default.padding-block` | `8px` (`{spacing.2}`) | dimension |
+| `component.chat-bubble.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-bubble.default.code-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
+| `component.chat-bubble.default.code-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.avatar-stack.default.overlap` | `-8px` | dimension |
+| `component.avatar-stack.default.ring-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.avatar-stack.default.ring-color` | `#ffffff` (`{color.semantic.surface}`) | color |
+| `component.typing-dots.default.dot-size` | `8px` (`{spacing.2}`) | dimension |
+| `component.typing-dots.default.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.typing-dots.default.duration` | `400ms` (`{motion.duration.slow}`) | duration |
+| `component.typing-dots.default.delay-2` | `150ms` | duration |
+| `component.typing-dots.default.delay-3` | `300ms` | duration |
+| `component.chat-thread.default.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.chat-thread.default.row-max-width` | `80%` | dimension |
+| `component.chat-thread.default.avatar-gutter` | `30px` | dimension |
+| `component.chat-thread.default.padding-block-start` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.padding-block-end` | `20px` (`{spacing.5}`) | dimension |
+| `component.chat-thread.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.stamp-margin-top` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.stamp-margin-bottom` | `8px` (`{spacing.2}`) | dimension |

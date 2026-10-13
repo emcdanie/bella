@@ -3305,6 +3305,36 @@ entries:
       rel: file
       role: primitive.color.wee-dote.lane-d
   - kind: token
+    id: color.wee-dote.lane-e
+    name: Lane E
+    description: Teal lane fill. Ink 6.14:1 (AAA). Fills only.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.wee-dote
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: TypingDots laneColor
+          - level: may
+            statement: AvatarStack laneColor
+          - level: may
+            statement: ChatBubble border
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.wee-dote.lane-e
+  - kind: token
     id: color.dark.ink
     name: Dark Ink
     description: Dark-mode ink (style unify, 2026-09-22, Elleta).
@@ -4977,6 +5007,58 @@ entries:
       rel: file
       role: primitive.radius.pill
   - kind: token
+    id: radius.chat-bubble
+    name: Chat Bubble
+    description: Chat bubble corner radius. Between xl (16) and 2xl (20); exact match to the bar spec.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - radius
+      group: radius
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.radius.chat-bubble
+  - kind: token
+    id: radius.chat-tail
+    name: Chat Tail
+    description: Chat bubble tail corner (the one-sided flattened corner). Between sm (4) and md (8).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - radius
+      group: radius
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble tail corner
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.radius.chat-tail
+  - kind: token
     id: border.width.thin
     name: Thin
     description: Thin line width. Underline thickness where a component needs it explicit.
@@ -6555,7 +6637,7 @@ entries:
   - kind: token
     id: motion.duration.pop
     name: Pop
-    description: Pop-in of a diagram element (style unify, 2026-09-22, Elleta).
+    description: Chat bubble pop entry. From scale 0.35 + 14px down.
     metadata:
       origin:
         method: extracted
@@ -6572,12 +6654,38 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Diagram tokens, fills and nodes appearing
+            statement: ChatBubble pop animation
     tokenType: duration
     source:
       href: ./tokens/bella.json
       rel: file
       role: primitive.motion.duration.pop
+  - kind: token
+    id: motion.duration.slam
+    name: Slam
+    description: Chat bubble slam entry. From scale 2.6.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.duration
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble slam animation
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.duration.slam
   - kind: token
     id: motion.easing.standard
     name: Standard
@@ -6722,6 +6830,70 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.motion.easing.pop
+  - kind: token
+    id: motion.easing.pop-enter
+    name: Pop Enter
+    description: Explosive overshoot. Chat bubble pop enter. More aggressive than easing.pop.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.easing
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble pop animation
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: Never on hover or state changes
+    tokenType: cubicBezier
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.easing.pop-enter
+  - kind: token
+    id: motion.easing.slam-enter
+    name: Slam Enter
+    description: Slam enter. Chat bubble slam from scale 2.6.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - motion
+      group: motion.easing
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble slam animation
+      - kind: guidelines
+        for: all
+        title: How to use it
+        items:
+          - level: must-not
+            statement: Never on hover or state changes
+    tokenType: cubicBezier
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.motion.easing.slam-enter
   - kind: token
     id: motion.transform.hover-lift
     name: Hover Lift
@@ -17161,6 +17333,558 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.semantic.text-secondary}"
+  - kind: token
+    id: component.chat-bubble.sent.background
+    name: Sent Background
+    description: Component-tier alias. Resolves to `color.semantic.text-primary` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.sent
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.sent.background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-primary}"
+  - kind: token
+    id: component.chat-bubble.sent.foreground
+    name: Sent Foreground
+    description: Component-tier alias. Resolves to `color.semantic.surface` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.sent
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.sent.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface}"
+  - kind: token
+    id: component.chat-bubble.received.background
+    name: Received Background
+    description: Component-tier alias. Resolves to `color.semantic.surface-card` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.received
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.received.background
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface-card}"
+  - kind: token
+    id: component.chat-bubble.received.foreground
+    name: Received Foreground
+    description: Component-tier alias. Resolves to `color.semantic.text-body` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.received
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.received.foreground
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.text-body}"
+  - kind: token
+    id: component.chat-bubble.default.border-radius
+    name: Chat Bubble Default Border Radius
+    description: Component-tier alias. Resolves to `radius.chat-bubble` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.border-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.chat-bubble}"
+  - kind: token
+    id: component.chat-bubble.default.tail-radius
+    name: Tail Radius
+    description: Component-tier alias. Resolves to `radius.chat-tail` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.tail-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.chat-tail}"
+  - kind: token
+    id: component.chat-bubble.default.padding-block
+    name: Padding Block
+    description: Component-tier alias. Resolves to `spacing.2` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.padding-block
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.2}"
+  - kind: token
+    id: component.chat-bubble.default.padding-inline
+    name: Padding Inline
+    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.padding-inline
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.3}"
+  - kind: token
+    id: component.chat-bubble.default.code-font-size
+    name: Code Font Size
+    description: Component-tier alias. Resolves to `typography.font-size.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.code-font-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{typography.font-size.sm}"
+  - kind: token
+    id: component.chat-bubble.default.code-radius
+    name: Code Radius
+    description: Component-tier alias. Resolves to `radius.sm` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.code-radius
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{radius.sm}"
+  - kind: token
+    id: component.avatar-stack.default.overlap
+    name: Overlap
+    description: How far each disc slides under the previous one.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - avatar-stack
+      group: component.avatar-stack.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.avatar-stack.default.overlap
+  - kind: token
+    id: component.avatar-stack.default.ring-width
+    name: Default Ring Width
+    description: Component-tier alias. Resolves to `border.width.medium` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - avatar-stack
+      group: component.avatar-stack.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.avatar-stack.default.ring-width
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{border.width.medium}"
+  - kind: token
+    id: component.avatar-stack.default.ring-color
+    name: Default Ring Color
+    description: Matches the column background so the gap appears cut.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - avatar-stack
+      group: component.avatar-stack.default
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.avatar-stack.default.ring-color
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.semantic.surface}"
+  - kind: token
+    id: component.typing-dots.default.dot-size
+    name: Dot Size
+    description: Component-tier alias. Resolves to `spacing.2` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - typing-dots
+      group: component.typing-dots.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.typing-dots.default.dot-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.2}"
+  - kind: token
+    id: component.typing-dots.default.gap
+    name: Typing Dots Default Gap
+    description: Component-tier alias. Resolves to `spacing.1` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - typing-dots
+      group: component.typing-dots.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.typing-dots.default.gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.1}"
+  - kind: token
+    id: component.typing-dots.default.duration
+    name: Default Duration
+    description: 1.2s loop mapped to slow (closest existing token; 400ms * 3 = 1.2s is the full wave).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - typing-dots
+      group: component.typing-dots.default
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.typing-dots.default.duration
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{motion.duration.slow}"
+  - kind: token
+    id: component.typing-dots.default.delay-2
+    name: Delay 2
+    description: Component-tier duration, declared literally in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - typing-dots
+      group: component.typing-dots.default
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.typing-dots.default.delay-2
+  - kind: token
+    id: component.typing-dots.default.delay-3
+    name: Delay 3
+    description: Component-tier duration, declared literally in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - typing-dots
+      group: component.typing-dots.default
+    tokenType: duration
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.typing-dots.default.delay-3
+  - kind: token
+    id: component.chat-thread.default.gap
+    name: Chat Thread Default Gap
+    description: 3px between bubbles — not in the 4px ramp; kept as spacing.1 (4px, 1px over) to avoid a new token for a 1px deviation.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.gap
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.1}"
+  - kind: token
+    id: component.chat-thread.default.row-max-width
+    name: Row Max Width
+    description: Component-tier dimension, declared literally in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.row-max-width
+  - kind: token
+    id: component.chat-thread.default.avatar-gutter
+    name: Avatar Gutter
+    description: "30px: avatar 24px + gap 6px. Not in the spacing ramp; new token candidate if a second consumer appears."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.avatar-gutter
+  - kind: token
+    id: component.chat-thread.default.padding-block-start
+    name: Padding Block Start
+    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.padding-block-start
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.3}"
+  - kind: token
+    id: component.chat-thread.default.padding-block-end
+    name: Padding Block End
+    description: Component-tier alias. Resolves to `spacing.5` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.padding-block-end
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.5}"
+  - kind: token
+    id: component.chat-thread.default.padding-inline
+    name: Default Padding Inline
+    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.padding-inline
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.3}"
+  - kind: token
+    id: component.chat-thread.default.stamp-margin-top
+    name: Stamp Margin Top
+    description: Component-tier alias. Resolves to `spacing.3` in `tokens/bella.json`.
+    metadata:
+      origin:
+        method: generated
+        author: machine-generated
+        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.stamp-margin-top
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.3}"
+  - kind: token
+    id: component.chat-thread.default.stamp-margin-bottom
+    name: Stamp Margin Bottom
+    description: Timestamp bottom margin. Closest spacing to spec 6px is spacing.2 (8px).
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - chat-thread
+      group: component.chat-thread.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-thread.default.stamp-margin-bottom
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.2}"
   - kind: theme
     id: light
     name: Light

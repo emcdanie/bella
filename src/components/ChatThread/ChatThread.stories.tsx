@@ -202,7 +202,19 @@ export const TheBarFirstScreenWeeDote: Story = {
     await step('wee-dote ground is sage (#CBD5CC)', async () => {
       const wrapper = canvas.getByTestId('wee-dote-wrapper');
       const bg = getComputedStyle(wrapper).backgroundColor;
-      expect(bg).toBe('rgb(203, 213, 204)');
+      // Normalise via canvas pixel — works for oklch, rgb, hex alike.
+      const toRgb = (css: string): [number, number, number] => {
+        const cv = document.createElement('canvas');
+        cv.width = 1; cv.height = 1;
+        const ctx = cv.getContext('2d')!;
+        ctx.fillStyle = css;
+        ctx.fillRect(0, 0, 1, 1);
+        const d = ctx.getImageData(0, 0, 1, 1).data;
+        return [d[0], d[1], d[2]];
+      };
+      const [ar, ag, ab] = toRgb(bg);
+      const [er, eg, eb] = toRgb('#CBD5CC');
+      expect(Math.abs(ar - er) <= 2 && Math.abs(ag - eg) <= 2 && Math.abs(ab - eb) <= 2).toBe(true);
     });
   },
 };

@@ -320,7 +320,7 @@ ok.append("  }")
 # layer set on :root wherever that theme differs: by name when it is a
 # reference, by value when it is a literal.
 layer_root = {l.split(":")[0].strip() for l in ok if l.startswith("    --")}
-for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm)):
+for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm), ("[data-theme=\"wee-dote\"]", wee_dote_flat, resolve_wee_dote)):
     ok.append(f"  {sel} {{")
     for path, (v, t, _) in flat.items():
         if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):

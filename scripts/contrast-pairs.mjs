@@ -142,6 +142,8 @@ const PAIRS = [
   ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
   ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
   ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
+  /* chat received bubble: body text AAA on its surface in every theme */
+  ['body text on chat received surface', '--color-semantic-text-body', '--color-semantic-chat-surface-received', AAA],
 ];
 
 /* Surfaces that must stay visibly apart (2026-10-03): a selected wash the

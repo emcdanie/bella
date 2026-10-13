@@ -3233,6 +3233,32 @@ entries:
       rel: file
       role: primitive.color.wee-dote.success
   - kind: token
+    id: color.wee-dote.recv-fill
+    name: Recv Fill
+    description: Chat received bubble surface in wee-dote. Ink 16.8:1 (AAA). Surfaces only.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.wee-dote
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: ChatBubble received background (wee-dote)
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.wee-dote.recv-fill
+  - kind: token
     id: color.wee-dote.lane-a
     name: Lane A
     description: Yellow lane fill. Ink 10.39:1 (AAA). Fills only.
@@ -10213,6 +10239,28 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{color.cool.900}"
+  - kind: token
+    id: color.semantic.chat-surface-received
+    name: Chat Surface Received
+    description: "Received chat bubble surface. Ink 12.9:1 (AAA) on #eceef3. Stays on the inset ramp so bubbles are visible on any light panel."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - semantic
+        - chat-surface-received
+      group: color.semantic
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: semantic.chat-surface-received
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{color.cool.50}"
   - kind: token
     id: component.button.shape.default
     name: Default
@@ -17380,7 +17428,7 @@ entries:
   - kind: token
     id: component.chat-bubble.received.background
     name: Received Background
-    description: Component-tier alias. Resolves to `color.semantic.surface-card` in `tokens/bella.json`.
+    description: Component-tier alias. Resolves to `color.semantic.chat-surface-received` in `tokens/bella.json`.
     metadata:
       origin:
         method: generated
@@ -17398,7 +17446,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.semantic.surface-card}"
+        alias: "{color.semantic.chat-surface-received}"
   - kind: token
     id: component.chat-bubble.received.foreground
     name: Received Foreground
@@ -17553,6 +17601,28 @@ entries:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
         alias: "{radius.sm}"
+  - kind: token
+    id: component.chat-bubble.default.disc-size
+    name: Disc Size
+    description: 24px avatar disc at the last bubble in a lane run.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - component
+        - chat-bubble
+      group: component.chat-bubble.default
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: component.chat-bubble.default.disc-size
+    $extensions:
+      design.bella:
+        context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
+        alias: "{spacing.6}"
   - kind: token
     id: component.avatar-stack.default.overlap
     name: Overlap

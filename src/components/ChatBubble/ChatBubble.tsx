@@ -16,6 +16,10 @@ export interface ChatBubbleProps {
   actions?: ReactNode;
   /** For big-emoji kind: describe the emoji for assistive tech. */
   emojiLabel?: string;
+  /** Colour disc (24px) pinned to the bottom-left of a received bubble. Aria-hidden. Shows speaker identity in a multi-lane thread. */
+  disc?: string;
+  /** Speaker name label displayed above the first bubble of a received run. Uses BELLA's label size. */
+  senderName?: string;
   /** Extra classes on the root row. */
   className?: string;
 }
@@ -32,6 +36,8 @@ export default function ChatBubble({
   children,
   actions,
   emojiLabel,
+  disc,
+  senderName,
   className,
 }: ChatBubbleProps) {
   const isSent = side === 'sent';
@@ -46,13 +52,23 @@ export default function ChatBubble({
     .filter(Boolean)
     .join(' ');
 
+  const hasDisc = !isSent && !!disc;
+
   return (
     <div
-      className={[styles.row, isSent ? styles.rowSent : styles.rowReceived, className]
+      className={[
+        styles.row,
+        isSent ? styles.rowSent : styles.rowReceived,
+        hasDisc ? styles.rowReceivedWithDisc : '',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
       data-bella-component="chat-bubble"
     >
+      {senderName && !isSent && (
+        <span className={styles.senderName}>{senderName}</span>
+      )}
       <div
         className={bubbleCls}
         role={isBig && emojiLabel ? 'img' : undefined}
@@ -66,6 +82,13 @@ export default function ChatBubble({
           </span>
         )}
       </div>
+      {hasDisc && (
+        <span
+          className={styles.disc}
+          style={{ background: disc }}
+          aria-hidden="true"
+        />
+      )}
     </div>
   );
 }

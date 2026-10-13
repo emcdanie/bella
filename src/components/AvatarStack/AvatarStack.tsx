@@ -5,8 +5,10 @@ import styles from './AvatarStack.module.css';
 export interface AvatarStackMember {
   name: string;
   src?: string;
-  /** CSS colour value for the lane or role colour. Applied as background when no image and no initials needed. */
+  /** CSS colour value for the lane or role colour. Applied as background when no image. */
   laneColor?: string;
+  /** When false, the disc shows the lane colour with no initials (Option A). Default true. */
+  showInitials?: boolean;
 }
 
 export interface AvatarStackProps {
@@ -51,6 +53,7 @@ export default function AvatarStack({
           name={m.name}
           src={m.src}
           size={size}
+          showInitials={m.showInitials}
           className={styles.item}
           style={m.laneColor ? { background: m.laneColor } : undefined}
         />

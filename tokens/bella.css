@@ -119,6 +119,7 @@
   --color-wee-dote-control: #6A786B;
   --color-wee-dote-danger: #9B1A14;
   --color-wee-dote-success: #0E4D26;
+  --color-wee-dote-recv-fill: #DDE6DD;
   --color-wee-dote-lane-a: #EBBB03;
   --color-wee-dote-lane-b: #0498D0;
   --color-wee-dote-lane-c: #E5B3BF;
@@ -359,6 +360,7 @@
   --color-semantic-accent-raised-lo: #1d2030;
   --color-semantic-accent-raised-hover: #3a3f50;
   --color-semantic-accent-raised-edge: #1d2030;
+  --color-semantic-chat-surface-received: #eceef3;
   --color-accent-ink: #1d2030;
   --shadow-card: 0 1px 3px #1d20300f, 0 12px 28px #1d20301a;
   --shadow-ui: 0 1px 2px #1d20300f, 0 4px 10px #1d203014;
@@ -698,7 +700,7 @@
   --component-slider-mark: #474c5e;
   --component-chat-bubble-sent-background: #1d2030;
   --component-chat-bubble-sent-foreground: #ffffff;
-  --component-chat-bubble-received-background: #fcfcfa;
+  --component-chat-bubble-received-background: #eceef3;
   --component-chat-bubble-received-foreground: #2b2f3d;
   --component-chat-bubble-default-border-radius: 18px;
   --component-chat-bubble-default-tail-radius: 6px;
@@ -706,6 +708,7 @@
   --component-chat-bubble-default-padding-inline: 12px;
   --component-chat-bubble-default-code-font-size: 18px;
   --component-chat-bubble-default-code-radius: 4px;
+  --component-chat-bubble-default-disc-size: 24px;
   --component-avatar-stack-default-overlap: -8px;
   --component-avatar-stack-default-ring-width: 2px;
   --component-avatar-stack-default-ring-color: #ffffff;
@@ -813,6 +816,7 @@
   --color-semantic-accent-raised-lo: #eceef3;
   --color-semantic-accent-raised-hover: #c3c7d2;
   --color-semantic-accent-raised-edge: #eceef3;
+  --color-semantic-chat-surface-received: #1d2030;
   --color-accent-ink: #eceef3;
   --shadow-card: 0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44);
   --shadow-ui: 0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36);
@@ -914,7 +918,7 @@
   --component-slider-mark: #b1b7c7;
   --component-chat-bubble-sent-background: #eceef3;
   --component-chat-bubble-sent-foreground: #171a22;
-  --component-chat-bubble-received-background: #171a22;
+  --component-chat-bubble-received-background: #1d2030;
   --component-chat-bubble-received-foreground: #eceef3;
   --component-avatar-stack-default-ring-color: #171a22;
 }
@@ -940,6 +944,7 @@
   --color-semantic-lane-b: #f6c9a8;
   --color-semantic-lane-c: #cfe8dc;
   --color-semantic-lane-d: #e8a83e;
+  --color-semantic-chat-surface-received: #ebe4d6;
   --ring-focus-color: var(--color-semantic-focus-ring);
 
   /* ---- Component (warm) overrides ---- */
@@ -976,7 +981,7 @@
   --component-slider-thumb-background: #fbfaf7;
   --component-slider-mark: #4f463d;
   --component-chat-bubble-sent-foreground: #f0ede8;
-  --component-chat-bubble-received-background: #fbfaf7;
+  --component-chat-bubble-received-background: #ebe4d6;
   --component-avatar-stack-default-ring-color: #f0ede8;
 }
 
@@ -1006,6 +1011,7 @@
   --color-semantic-lane-b: #0498D0;
   --color-semantic-lane-c: #E5B3BF;
   --color-semantic-lane-d: #E32923;
+  --color-semantic-chat-surface-received: #DDE6DD;
   --ring-focus-color: var(--color-semantic-focus-ring);
 
   /* ---- Component (wee-dote) overrides ---- */
@@ -1042,7 +1048,7 @@
   --component-slider-thumb-background: #E4EDE5;
   --component-slider-mark: #3D3D3D;
   --component-chat-bubble-sent-foreground: #E4EDE5;
-  --component-chat-bubble-received-background: #E4EDE5;
+  --component-chat-bubble-received-background: #DDE6DD;
   --component-avatar-stack-default-ring-color: #E4EDE5;
 }
 
@@ -1155,6 +1161,7 @@
     --color-wee-dote-control: oklch(55.71% 0.0259 147.2);
     --color-wee-dote-danger: oklch(44.62% 0.1647 28.7);
     --color-wee-dote-success: oklch(37.13% 0.0902 151.3);
+    --color-wee-dote-recv-fill: oklch(91.5% 0.0146 142.0);
     --color-wee-dote-lane-a: oklch(81.18% 0.1655 89.9);
     --color-wee-dote-lane-b: oklch(64.04% 0.1331 233.8);
     --color-wee-dote-lane-c: oklch(81.52% 0.0599 2.5);
@@ -1271,6 +1278,7 @@
     --color-semantic-accent-raised-lo: var(--color-cool-900);
     --color-semantic-accent-raised-hover: var(--color-cool-700);
     --color-semantic-accent-raised-edge: var(--color-cool-900);
+    --color-semantic-chat-surface-received: var(--color-cool-50);
     --color-accent-ink: var(--color-cool-900);
     --shadow-card: var(--shadow-card-ink);
     --shadow-ui: var(--shadow-ui-ink);
@@ -1378,7 +1386,7 @@
     --component-slider-mark: var(--color-semantic-text-secondary);
     --component-chat-bubble-sent-background: var(--color-semantic-text-primary);
     --component-chat-bubble-sent-foreground: var(--color-semantic-surface);
-    --component-chat-bubble-received-background: var(--color-semantic-surface-card);
+    --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-chat-bubble-received-foreground: var(--color-semantic-text-body);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
   }
@@ -1445,6 +1453,7 @@
     --color-semantic-accent-raised-lo: var(--color-cool-50);
     --color-semantic-accent-raised-hover: var(--color-cool-200);
     --color-semantic-accent-raised-edge: var(--color-cool-50);
+    --color-semantic-chat-surface-received: var(--color-cool-900);
     --color-accent-ink: var(--color-cool-50);
     --shadow-card: var(--shadow-card-ink-dark);
     --shadow-ui: var(--shadow-ui-ink-dark);
@@ -1541,7 +1550,7 @@
     --component-slider-mark: var(--color-semantic-text-secondary);
     --component-chat-bubble-sent-background: var(--color-semantic-text-primary);
     --component-chat-bubble-sent-foreground: var(--color-semantic-surface);
-    --component-chat-bubble-received-background: var(--color-semantic-surface-card);
+    --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-chat-bubble-received-foreground: var(--color-semantic-text-body);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
   }
@@ -1565,6 +1574,7 @@
     --color-semantic-lane-b: var(--color-chip-c2);
     --color-semantic-lane-c: var(--color-chip-c3);
     --color-semantic-lane-d: var(--color-brand-ochre);
+    --color-semantic-chat-surface-received: var(--color-warm-inset);
     --component-button-secondary-background-active: var(--color-semantic-surface-inset);
     --component-button-secondary-border: var(--color-semantic-border-strong);
     --component-card-featured-background: var(--color-semantic-surface-elevated);
@@ -1598,7 +1608,7 @@
     --component-slider-thumb-background: var(--color-semantic-surface-card);
     --component-slider-mark: var(--color-semantic-text-secondary);
     --component-chat-bubble-sent-foreground: var(--color-semantic-surface);
-    --component-chat-bubble-received-background: var(--color-semantic-surface-card);
+    --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
   }
 }

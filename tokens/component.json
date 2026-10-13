@@ -1624,7 +1624,8 @@
             "size",
             "ring",
             "className",
-            "style"
+            "style",
+            "showInitials"
           ],
           "usage": [
             "A portrait beside a name and role",
@@ -3479,7 +3480,7 @@
             "OBI suggestions and answer actions",
             "Component chips that open Atlas",
             "Small actions on a tile (Which have none?)",
-            "quiet: an icon action beside content, such as the \u22ef visibility menu (no border at rest)"
+            "quiet: an icon action beside content, such as the ⋯ visibility menu (no border at rest)"
           ],
           "dont": [
             "Do not set it in caps: sentence case is the point",
@@ -3931,7 +3932,9 @@
             "children",
             "actions",
             "emojiLabel",
-            "className"
+            "className",
+            "disc",
+            "senderName"
           ],
           "usage": [
             "A line of chat in The Bar replay"
@@ -3939,7 +3942,7 @@
           "dont": [
             "Do not nest another bubble inside a bubble"
           ],
-          "a11y": "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation.",
+          "a11y": "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation. Disc is aria-hidden (decorative). senderName label uses label font-size.",
           "variantsNote": "Visual variants are controlled by the `side` prop (sent/received), not a `variant` prop. The contract entries `sent` and `received` define their token overrides."
         }
       },
@@ -3955,7 +3958,7 @@
       },
       "received": {
         "background": {
-          "$value": "{color.semantic.surface-card}",
+          "$value": "{color.semantic.chat-surface-received}",
           "$type": "color"
         },
         "foreground": {
@@ -3987,6 +3990,11 @@
         "code-radius": {
           "$value": "{radius.sm}",
           "$type": "dimension"
+        },
+        "disc-size": {
+          "$value": "{spacing.6}",
+          "$type": "dimension",
+          "$description": "24px avatar disc at the last bubble in a lane run."
         }
       }
     },
@@ -4011,7 +4019,7 @@
             "Group header in The Bar"
           ],
           "dont": [
-            "Do not use as a standalone avatar \u2014 use Avatar for that"
+            "Do not use as a standalone avatar — use Avatar for that"
           ],
           "a11y": "Each Avatar carries its name as aria-label (role=img). Stack root is aria-label listing all names."
         }
@@ -4099,7 +4107,7 @@
             "The scrollable message log in The Bar"
           ],
           "dont": [
-            "Do not put interactive controls directly inside ChatThread rows \u2014 use ActionChips via the ChatBubble slot"
+            "Do not put interactive controls directly inside ChatThread rows — use ActionChips via the ChatBubble slot"
           ],
           "a11y": "aria-live=polite on the log region. Timestamps are aria-hidden (they are visual aids; the message order itself is the reading order). Delivered line is aria-live=assertive on its own."
         }
@@ -4108,7 +4116,7 @@
         "gap": {
           "$value": "{spacing.1}",
           "$type": "dimension",
-          "$description": "3px between bubbles \u2014 not in the 4px ramp; kept as spacing.1 (4px, 1px over) to avoid a new token for a 1px deviation."
+          "$description": "3px between bubbles — not in the 4px ramp; kept as spacing.1 (4px, 1px over) to avoid a new token for a 1px deviation."
         },
         "row-max-width": {
           "$value": "80%",

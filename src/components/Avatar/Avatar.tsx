@@ -21,6 +21,8 @@ export interface AvatarProps {
   size?: 'sm' | 'md' | 'lg';
   /** Accent ring, separated from the disc by a gap of ground. A rest state, never a hover one. */
   ring?: boolean;
+  /** When false, the disc shows the lane colour with no initials text (Option A). Default true. */
+  showInitials?: boolean;
   /** Extra classes on the root. */
   className?: string;
   style?: CSSProperties;
@@ -46,6 +48,7 @@ export default function Avatar({
   name,
   size = 'md',
   ring = false,
+  showInitials = true,
   className,
   style,
 }: AvatarProps) {
@@ -68,7 +71,7 @@ export default function Avatar({
       {src ? (
         <img className={styles.image} src={src} alt={alt ?? ''} />
       ) : (
-        <span aria-hidden="true">{initialsOf(name)}</span>
+        <span aria-hidden="true">{showInitials ? initialsOf(name) : ''}</span>
       )}
     </span>
   );

@@ -4,6 +4,7 @@ import { expect } from 'storybook/test';
 import ChatThread, { ChatThreadTimestamp, ChatThreadDelivered } from './ChatThread';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import TypingDots from '../TypingDots/TypingDots';
+import AvatarStack, { type AvatarStackMember } from '../AvatarStack/AvatarStack';
 import threadCssRaw from './ChatThread.module.css?raw';
 import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -92,6 +93,116 @@ export const Narrow: Story = {
       </ChatThread>
     </div>
   ),
+};
+
+/* The Bar members for the first-screen story. Option A: colour-only discs
+   except Seamus and Liam who share the ink colour and need a letter to tell apart. */
+const THE_BAR_HEADER: AvatarStackMember[] = [
+  { name: 'Elleta', laneColor: 'var(--color-semantic-text-primary)', showInitials: false },
+  { name: 'Seamus', laneColor: 'var(--color-semantic-text-primary)', showInitials: true },
+  { name: 'Dara', laneColor: 'var(--color-wee-dote-lane-a)', showInitials: false },
+  { name: 'Bernie', laneColor: 'var(--color-wee-dote-lane-b)', showInitials: false },
+  { name: 'Saoirse', laneColor: 'var(--color-wee-dote-lane-c)', showInitials: false },
+  { name: 'Frankie', laneColor: 'var(--color-wee-dote-lane-d)', showInitials: false },
+  { name: 'Liam', laneColor: 'var(--color-wee-dote-lane-e)', showInitials: true },
+];
+
+const BarHeader = () => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 'var(--spacing-3)',
+      padding: 'var(--spacing-3) var(--spacing-4)',
+      borderBottom: '1px solid var(--color-semantic-border)',
+      background: 'var(--color-semantic-surface)',
+    }}
+  >
+    <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-semantic-surface)" max={6} />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-1)' }}>
+      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-body)', fontWeight: 600, color: 'var(--color-semantic-text-primary)', lineHeight: 'var(--typography-line-height-normal)' }}>
+        The Bar
+      </span>
+      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', lineHeight: 'var(--typography-line-height-normal)' }}>
+        Seamus, Dara, Bernie, Saoirse, Frankie, Liam
+      </span>
+    </div>
+  </div>
+);
+
+const FirstScreenContent = () => (
+  <ChatThread label="The Bar">
+    <ChatThreadTimestamp>Friday 13:54</ChatThreadTimestamp>
+    <ChatBubble side="sent" tail>
+      belfast mode {String.fromCodePoint(0x1F37B)} show me what is live, what needs review. The live site still has responsive and image issues, and sections aren&apos;t staying in the frame. go
+    </ChatBubble>
+    <ChatBubble side="received" senderName="Seamus">
+      Go? That&apos;s it? A dozen skills behind me and all I get is go. Grand. On it {String.fromCodePoint(0x1FAE1)}
+    </ChatBubble>
+    <ChatBubble side="received" tail disc="var(--color-semantic-text-primary)">
+      Status board&apos;s up on the right. Your live-site flags aren&apos;t measured yet, so I&apos;m not claiming anything&apos;s fixed.
+    </ChatBubble>
+    <ChatBubble side="sent" tail tapback="‼️">
+      ok I cleared all the terminals, let&apos;s go
+    </ChatBubble>
+    <ChatBubble side="received" senderName="Bernie" disc="var(--color-wee-dote-lane-b)" tail>
+      Right, I&apos;ve had a proper look at every section. Pull up a chair. {String.fromCodePoint(0x1F4CB)}
+    </ChatBubble>
+  </ChatThread>
+);
+
+/** First screen of The Bar: stamp, Elleta opens, Seamus x2, Elleta tapback, Bernie. Light theme. */
+export const TheBarFirstScreenLight: Story = {
+  render: () => (
+    <div style={{ maxWidth: 420, margin: '0 auto' }}>
+      <div
+        style={{
+          background: 'var(--color-semantic-surface)',
+          borderRadius: 'var(--radius-2xl)',
+          overflow: 'hidden',
+        }}
+      >
+        <BarHeader />
+        <FirstScreenContent />
+      </div>
+    </div>
+  ),
+};
+
+/** First screen of The Bar in wee-dote theme. Ground must be sage #CBD5CC. */
+export const TheBarFirstScreenWeeDote: Story = {
+  render: () => (
+    <div
+      data-theme="wee-dote"
+      data-testid="wee-dote-wrapper"
+      style={{
+        maxWidth: 420,
+        margin: '0 auto',
+        background: 'var(--color-semantic-background)',
+        borderRadius: 'var(--radius-2xl)',
+        overflow: 'hidden',
+        padding: 'var(--spacing-2)',
+      }}
+    >
+      <div
+        style={{
+          background: 'var(--color-semantic-surface)',
+          borderRadius: 'var(--radius-xl)',
+          overflow: 'hidden',
+        }}
+      >
+        <BarHeader />
+        <FirstScreenContent />
+      </div>
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    await step('wee-dote ground is sage (#CBD5CC)', async () => {
+      const wrapper = canvas.getByTestId('wee-dote-wrapper');
+      const bg = getComputedStyle(wrapper).backgroundColor;
+      expect(bg).toBe('rgb(203, 213, 204)');
+    });
+  },
 };
 
 export const Behavior: Story = {

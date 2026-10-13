@@ -122,6 +122,7 @@ value with the source reference in parentheses.
 | `color.wee-dote.control` | `#6A786B` | color |
 | `color.wee-dote.danger` | `#9B1A14` | color |
 | `color.wee-dote.success` | `#0E4D26` | color |
+| `color.wee-dote.recv-fill` | `#DDE6DD` | color |
 | `color.wee-dote.lane-a` | `#EBBB03` | color |
 | `color.wee-dote.lane-b` | `#0498D0` | color |
 | `color.wee-dote.lane-c` | `#E5B3BF` | color |
@@ -365,6 +366,7 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-lo` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.accent-raised-hover` | `#3a3f50` (`{color.cool.700}`) | color |
 | `color.semantic.accent-raised-edge` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.chat-surface-received` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.accent-ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `shadow.card` | `0 1px 3px #1d20300f, 0 12px 28px #1d20301a` (`{shadow.card-ink}`) | shadow |
 | `shadow.ui` | `0 1px 2px #1d20300f, 0 4px 10px #1d203014` (`{shadow.ui-ink}`) | shadow |
@@ -439,6 +441,7 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-lo` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.accent-raised-hover` | `#c3c7d2` (`{color.cool.200}`) | color |
 | `color.semantic.accent-raised-edge` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.chat-surface-received` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.accent-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `shadow.card` | `0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)` (`{shadow.card-ink-dark}`) | shadow |
 | `shadow.ui` | `0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)` (`{shadow.ui-ink-dark}`) | shadow |
@@ -782,7 +785,7 @@ value with the source reference in parentheses.
 | `component.slider.mark` | `#474c5e` (`{color.semantic.text-secondary}`) | color |
 | `component.chat-bubble.sent.background` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.chat-bubble.sent.foreground` | `#ffffff` (`{color.semantic.surface}`) | color |
-| `component.chat-bubble.received.background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
+| `component.chat-bubble.received.background` | `#eceef3` (`{color.semantic.chat-surface-received}`) | color |
 | `component.chat-bubble.received.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.chat-bubble.default.border-radius` | `18px` (`{radius.chat-bubble}`) | dimension |
 | `component.chat-bubble.default.tail-radius` | `6px` (`{radius.chat-tail}`) | dimension |
@@ -790,6 +793,7 @@ value with the source reference in parentheses.
 | `component.chat-bubble.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
 | `component.chat-bubble.default.code-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.chat-bubble.default.code-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.chat-bubble.default.disc-size` | `24px` (`{spacing.6}`) | dimension |
 | `component.avatar-stack.default.overlap` | `-8px` | dimension |
 | `component.avatar-stack.default.ring-width` | `2px` (`{border.width.medium}`) | dimension |
 | `component.avatar-stack.default.ring-color` | `#ffffff` (`{color.semantic.surface}`) | color |

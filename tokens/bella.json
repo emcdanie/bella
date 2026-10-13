@@ -1604,6 +1604,19 @@
             }
           }
         },
+        "recv-fill": {
+          "$value": "#DDE6DD",
+          "$type": "color",
+          "$description": "Chat received bubble surface in wee-dote. Ink 16.8:1 (AAA). Surfaces only.",
+          "$extensions": {
+            "bella": {
+              "usage": [
+                "ChatBubble received background (wee-dote)"
+              ],
+              "oklch": "oklch(91.5% 0.0146 142.0)"
+            }
+          }
+        },
         "lane-a": {
           "$value": "#EBBB03",
           "$type": "color",
@@ -4719,6 +4732,11 @@
           "a11y": "Verified 2026-10-04 (colour B): the button label is 13.90:1 on the ink plate, 9.01:1 light / 9.54:1 dark on the hover plate; the plate is 16.13:1 light / 14.98:1 dark against the card. AAA."
         }
       }
+    },
+    "chat-surface-received": {
+      "$value": "{color.cool.50}",
+      "$type": "color",
+      "$description": "Received chat bubble surface. Ink 12.9:1 (AAA) on #eceef3. Stays on the inset ramp so bubbles are visible on any light panel."
     }
   },
   "semantic_dark_overrides": {
@@ -5424,6 +5442,11 @@
           "a11y": "Verified 2026-10-04 (colour B): the button label is 13.90:1 on the ink plate, 9.01:1 light / 9.54:1 dark on the hover plate; the plate is 16.13:1 light / 14.98:1 dark against the card. AAA."
         }
       }
+    },
+    "chat-surface-received": {
+      "$value": "{color.cool.900}",
+      "$type": "color",
+      "$description": "Received chat bubble surface (dark). Text 14.1:1 (AAA) on #1d2030."
     }
   },
   "semantic_warm_overrides": {
@@ -5543,6 +5566,11 @@
       "$value": "{color.brand.ochre}",
       "$type": "color",
       "$description": "Lane-d fill (warm: ochre fill). Fills only. Added 2026-10-10."
+    },
+    "chat-surface-received": {
+      "$value": "{color.warm.inset}",
+      "$type": "color",
+      "$description": "Received chat bubble surface (warm). Text 12.1:1 (AAA) on #ebe4d6."
     }
   },
   "semantic_wee_dote_overrides": {
@@ -5720,6 +5748,11 @@
           ]
         }
       }
+    },
+    "chat-surface-received": {
+      "$value": "{color.wee-dote.recv-fill}",
+      "$type": "color",
+      "$description": "Received chat bubble surface (wee-dote). Ink 16.8:1 (AAA) on #DDE6DD sage tint."
     }
   },
   "component": {
@@ -7344,7 +7377,8 @@
             "size",
             "ring",
             "className",
-            "style"
+            "style",
+            "showInitials"
           ],
           "usage": [
             "A portrait beside a name and role",
@@ -9651,7 +9685,9 @@
             "children",
             "actions",
             "emojiLabel",
-            "className"
+            "className",
+            "disc",
+            "senderName"
           ],
           "usage": [
             "A line of chat in The Bar replay"
@@ -9659,7 +9695,7 @@
           "dont": [
             "Do not nest another bubble inside a bubble"
           ],
-          "a11y": "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation.",
+          "a11y": "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation. Disc is aria-hidden (decorative). senderName label uses label font-size.",
           "variantsNote": "Visual variants are controlled by the `side` prop (sent/received), not a `variant` prop. The contract entries `sent` and `received` define their token overrides."
         }
       },
@@ -9675,7 +9711,7 @@
       },
       "received": {
         "background": {
-          "$value": "{color.semantic.surface-card}",
+          "$value": "{color.semantic.chat-surface-received}",
           "$type": "color"
         },
         "foreground": {
@@ -9707,6 +9743,11 @@
         "code-radius": {
           "$value": "{radius.sm}",
           "$type": "dimension"
+        },
+        "disc-size": {
+          "$value": "{spacing.6}",
+          "$type": "dimension",
+          "$description": "24px avatar disc at the last bubble in a lane run."
         }
       }
     },

@@ -111,20 +111,22 @@ const BarHeader = () => (
   <div
     style={{
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
-      gap: 'var(--spacing-3)',
-      padding: 'var(--spacing-3) var(--spacing-4)',
+      gap: 'var(--spacing-2)',
+      padding: 'var(--spacing-3) var(--spacing-4) var(--spacing-2)',
       borderBottom: '1px solid var(--color-semantic-border)',
       background: 'var(--color-semantic-surface)',
+      textAlign: 'center',
     }}
   >
-    <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-semantic-surface)" max={6} />
+    <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-semantic-surface)" max={7} />
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-1)' }}>
       <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-body)', fontWeight: 600, color: 'var(--color-semantic-text-primary)', lineHeight: 'var(--typography-line-height-normal)' }}>
         The Bar
       </span>
       <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', lineHeight: 'var(--typography-line-height-normal)' }}>
-        Seamus, Dara, Bernie, Saoirse, Frankie, Liam
+        Elleta, Seamus, Dara, Bernie, Saoirse, Frankie, Liam
       </span>
     </div>
   </div>

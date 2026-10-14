@@ -15,6 +15,9 @@
 .rowReceived {
   align-self: flex-start;
   align-items: flex-start;
+  /* 30px gutter reserves space for the disc at the last bubble in a run. All
+     received rows in a run share this gutter so the bubbles stay visually aligned. */
+  padding-left: var(--component-chat-thread-default-avatar-gutter);
 }
 
 .bubble {
@@ -66,10 +69,9 @@
   border-radius: var(--component-chat-bubble-default-code-radius);
 }
 
-.rowReceivedWithDisc {
-  padding-left: calc(var(--component-chat-bubble-default-disc-size) + var(--spacing-1) + 2px);
-  position: relative;
-}
+/* Gutter is on .rowReceived; this class is kept as a stable hook if disc-specific
+   overrides are ever needed, but adds no styles of its own. */
+.rowReceivedWithDisc {}
 
 .disc {
   position: absolute;

@@ -3,12 +3,15 @@ import styles from './ChatThread.module.css';
 
 export interface ChatThreadTimestampProps {
   children: ReactNode;
+  /** Optional leading word rendered in bold before children. E.g. boldWord="Friday" + children "13:54" → "Friday 13:54" with Friday semibold. */
+  boldWord?: string;
 }
 
 /** Centred timestamp row between groups of messages. */
-export function ChatThreadTimestamp({ children }: ChatThreadTimestampProps) {
+export function ChatThreadTimestamp({ children, boldWord }: ChatThreadTimestampProps) {
   return (
     <div className={styles.stamp} aria-hidden="true">
+      {boldWord && <><span className={styles.stampBold}>{boldWord}</span>{' '}</>}
       {children}
     </div>
   );

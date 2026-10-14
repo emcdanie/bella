@@ -121,11 +121,11 @@ const BarHeader = () => (
     }}
   >
     <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-semantic-surface)" max={7} />
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-1)' }}>
-      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-body)', fontWeight: 600, color: 'var(--color-semantic-text-primary)', lineHeight: 'var(--typography-line-height-normal)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-1)', alignSelf: 'stretch', minWidth: 0 }}>
+      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-body)', fontWeight: 600, color: 'var(--color-semantic-text-primary)', lineHeight: 'var(--typography-line-height-normal)', textAlign: 'center' }}>
         The Bar
       </span>
-      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', lineHeight: 'var(--typography-line-height-normal)' }}>
+      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', lineHeight: 'var(--typography-line-height-normal)', textAlign: 'center', overflowWrap: 'anywhere' }}>
         Elleta, Seamus, Dara, Bernie, Saoirse, Frankie, Liam
       </span>
     </div>
@@ -134,7 +134,7 @@ const BarHeader = () => (
 
 const FirstScreenContent = () => (
   <ChatThread label="The Bar">
-    <ChatThreadTimestamp>Friday 13:54</ChatThreadTimestamp>
+    <ChatThreadTimestamp boldWord="Friday">13:54</ChatThreadTimestamp>
     <ChatBubble side="sent" tail>
       belfast mode {String.fromCodePoint(0x1F37B)} show me what is live, what needs review. The live site still has responsive and image issues, and sections aren&apos;t staying in the frame. go
     </ChatBubble>

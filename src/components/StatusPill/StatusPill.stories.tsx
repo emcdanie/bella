@@ -55,6 +55,40 @@ export const Variants: Story = {
   ),
 };
 
+/** Status-ladder: all eight variants across all four themes.
+ * Attention = waiting on you; info = working; success = done;
+ * serving = success outline; danger = failed; quiet = parked.
+ * (Elleta, 14 Oct 2026) */
+export const StatusLadder: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+      {(['light', 'dark', 'warm', 'wee-dote'] as const).map((theme) => (
+        <div
+          key={theme}
+          data-theme={theme}
+          style={{
+            padding: 'var(--spacing-4)',
+            background: 'var(--color-semantic-surface)',
+            borderRadius: 'var(--radius-lg)',
+            display: 'flex',
+            gap: 'var(--spacing-3)',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', minWidth: '5rem' }}>{theme}</span>
+          <StatusPill variant="attention">Waiting on you</StatusPill>
+          <StatusPill variant="info">Working</StatusPill>
+          <StatusPill variant="success">Done</StatusPill>
+          <StatusPill variant="serving">Serving</StatusPill>
+          <StatusPill variant="danger">Failed</StatusPill>
+          <StatusPill variant="quiet">Parked</StatusPill>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
 /** Non-interactive: no role, no tab stop; the state is readable from the
  * word alone. */
 export const Behavior: Story = {

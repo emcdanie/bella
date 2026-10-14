@@ -312,3 +312,33 @@ export const FocusedPrimaryPill: Story = {
   ),
   play: focusPrimary(),
 };
+
+/** Three tiers across all four themes: ink keycap in light/warm/wee-dote;
+ * near-white keycap in dark; secondary outline = ink in light/warm/wee-dote,
+ * near-white in dark. (Elleta, 14 Oct 2026) */
+export const AllThemes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+      {(['light', 'dark', 'warm', 'wee-dote'] as const).map((theme) => (
+        <div
+          key={theme}
+          data-theme={theme}
+          style={{
+            display: 'flex',
+            gap: 'var(--spacing-4)',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            padding: 'var(--spacing-4)',
+            background: 'var(--color-semantic-surface)',
+            borderRadius: 'var(--radius-lg)',
+          }}
+        >
+          <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', minWidth: '5rem' }}>{theme}</span>
+          <Button variant="primary" onClick={() => {}}>Primary</Button>
+          <Button variant="secondary" onClick={() => {}}>Secondary</Button>
+          <Button variant="tertiary" onClick={() => {}}>Tertiary</Button>
+        </div>
+      ))}
+    </div>
+  ),
+};

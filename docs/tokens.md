@@ -367,6 +367,14 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-hover` | `#3a3f50` (`{color.cool.700}`) | color |
 | `color.semantic.accent-raised-edge` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.chat-surface-received` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.action` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.action-on` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.attention` | `#e8a83e` (`{color.brand.ochre}`) | color |
+| `color.semantic.attention-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.success-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.danger` | `#b3261e` (`{color.light.danger}`) | color |
+| `color.semantic.quiet` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.quiet-on` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.accent-ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `shadow.card` | `0 1px 3px #1d20300f, 0 12px 28px #1d20301a` (`{shadow.card-ink}`) | shadow |
 | `shadow.ui` | `0 1px 2px #1d20300f, 0 4px 10px #1d203014` (`{shadow.ui-ink}`) | shadow |
@@ -442,6 +450,14 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-hover` | `#c3c7d2` (`{color.cool.200}`) | color |
 | `color.semantic.accent-raised-edge` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.chat-surface-received` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.action` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.action-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.attention` | `#e8a83e` (`{color.brand.ochre}`) | color |
+| `color.semantic.attention-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.success-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.danger` | `#ff8f84` (`{color.dark.danger}`) | color |
+| `color.semantic.quiet` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.quiet-on` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.accent-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `shadow.card` | `0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)` (`{shadow.card-ink-dark}`) | shadow |
 | `shadow.ui` | `0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)` (`{shadow.ui-ink-dark}`) | shadow |
@@ -462,12 +478,12 @@ value with the source reference in parentheses.
 | `component.button.motion.shift-duration` | `150ms` (`{motion.duration.fast}`) | duration |
 | `component.button.motion.shift-easing` | `cubic-bezier(0.4, 0, 0.2, 1)` (`{motion.easing.standard}`) | cubicBezier |
 | `component.button.motion.press` | `translateY(2px)` (`{motion.transform.key-press}`) | other |
-| `component.button.primary.fill-hi` | `#1d2030` (`{color.semantic.accent-raised-hi}`) | color |
-| `component.button.primary.fill-lo` | `#1d2030` (`{color.semantic.accent-raised-lo}`) | color |
+| `component.button.primary.fill-hi` | `#1d2030` (`{color.semantic.action}`) | color |
+| `component.button.primary.fill-lo` | `#1d2030` (`{color.semantic.action}`) | color |
 | `component.button.primary.fill-hi-hover` | `#3a3f50` (`{color.semantic.accent-raised-hover}`) | color |
 | `component.button.primary.fill-lo-hover` | `#3a3f50` (`{color.semantic.accent-raised-hover}`) | color |
 | `component.button.primary.edge` | `#1d2030` (`{color.semantic.accent-raised-edge}`) | color |
-| `component.button.primary.foreground` | `#eceef3` (`{color.semantic.text-inverse}`) | color |
+| `component.button.primary.foreground` | `#eceef3` (`{color.semantic.action-on}`) | color |
 | `component.button.primary.gloss` | `linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)` | other |
 | `component.button.primary.gloss-pressed` | `linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)` | other |
 | `component.button.primary.padding-y` | `0px` | dimension |
@@ -481,7 +497,7 @@ value with the source reference in parentheses.
 | `component.button.secondary.background-hover` | `transparent` | color |
 | `component.button.secondary.background-active` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
 | `component.button.secondary.foreground` | `#1d2030` (`{color.semantic.text-accent}`) | color |
-| `component.button.secondary.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
+| `component.button.secondary.border` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.border-hover` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.padding-y` | `0px` | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |

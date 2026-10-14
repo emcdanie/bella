@@ -7,6 +7,8 @@ export interface AvatarStackMember {
   src?: string;
   /** CSS colour value for the lane or role colour. Applied as background when no image. */
   laneColor?: string;
+  /** CSS colour value for the ring. Overrides --component-avatar-default-ring-color when set. */
+  ringColor?: string;
   /** When false, the disc shows the lane colour with no initials (Option A). Default true. */
   showInitials?: boolean;
 }
@@ -47,17 +49,23 @@ export default function AvatarStack({
       aria-label={members.map((m) => m.name).join(', ')}
       data-bella-component="avatar-stack"
     >
-      {shown.map((m) => (
-        <Avatar
-          key={m.name}
-          name={m.name}
-          src={m.src}
-          size={size}
-          showInitials={m.showInitials}
-          className={styles.item}
-          style={m.laneColor ? { background: m.laneColor } : undefined}
-        />
-      ))}
+      {shown.map((m) => {
+        const memberStyle: React.CSSProperties = {};
+        if (m.laneColor) memberStyle.background = m.laneColor;
+        if (m.ringColor) (memberStyle as Record<string, string>)['--component-avatar-default-ring-color'] = m.ringColor;
+        return (
+          <Avatar
+            key={m.name}
+            name={m.name}
+            src={m.src}
+            size={size}
+            ring={!!m.ringColor}
+            showInitials={m.showInitials}
+            className={styles.item}
+            style={Object.keys(memberStyle).length ? memberStyle : undefined}
+          />
+        );
+      })}
       {overflow > 0 && (
         <span className={[styles.item, styles.overflow].join(' ')} aria-label={`and ${overflow} more`}>
           +{overflow}

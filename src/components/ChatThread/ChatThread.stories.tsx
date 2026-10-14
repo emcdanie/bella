@@ -95,16 +95,16 @@ export const Narrow: Story = {
   ),
 };
 
-/* The Bar members for the first-screen story. Option A: colour-only discs
-   except Seamus and Liam who share the ink colour and need a letter to tell apart. */
+/* The Bar members for the first-screen story. Photos from /avatars/*.png.
+   Elleta has no photo; she stays as a ringed initials disc. */
 const THE_BAR_HEADER: AvatarStackMember[] = [
-  { name: 'Elleta', laneColor: 'var(--color-semantic-text-primary)', showInitials: false },
-  { name: 'Seamus', laneColor: 'var(--color-semantic-text-primary)', showInitials: true },
-  { name: 'Dara', laneColor: 'var(--color-wee-dote-lane-a)', showInitials: false },
-  { name: 'Bernie', laneColor: 'var(--color-wee-dote-lane-b)', showInitials: false },
-  { name: 'Saoirse', laneColor: 'var(--color-wee-dote-lane-c)', showInitials: false },
-  { name: 'Frankie', laneColor: 'var(--color-wee-dote-lane-d)', showInitials: false },
-  { name: 'Liam', laneColor: 'var(--color-wee-dote-lane-e)', showInitials: true },
+  { name: 'Elleta',  ringColor: 'var(--color-semantic-text-primary)', showInitials: true },
+  { name: 'Seamus',  src: '/avatars/seamus.png',  ringColor: 'var(--color-semantic-text-primary)' },
+  { name: 'Dara',    src: '/avatars/dara.png',    ringColor: 'var(--color-wee-dote-lane-a)' },
+  { name: 'Bernie',  src: '/avatars/bernie.png',  ringColor: 'var(--color-wee-dote-lane-b)' },
+  { name: 'Saoirse', src: '/avatars/saoirse.png', ringColor: 'var(--color-wee-dote-lane-c)' },
+  { name: 'Frankie', src: '/avatars/frankie.png', ringColor: 'var(--color-wee-dote-lane-d)' },
+  { name: 'Liam',    src: '/avatars/liam.png',    ringColor: 'var(--color-wee-dote-lane-e)' },
 ];
 
 const BarHeader = () => (

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { leavesUnder, primitive, semanticDark, semanticLight, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
+import { leavesUnder, primitive, semanticDark, semanticLight, semanticWarm, semanticWeeDote, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
 
 const meta: Meta = {
   title: 'Foundations/Colors',
@@ -61,6 +61,59 @@ export const Legacy: StoryObj = {
       <SwatchGrid leaves={leavesUnder(primitive, 'color.night')} />
       <SectionTitle>Status (carried, non-text only)</SectionTitle>
       <SwatchGrid leaves={leavesUnder(primitive, 'color.supporting')} />
+    </div>
+  ),
+};
+
+const ROLE_KEYS = [
+  'action', 'action-on',
+  'attention', 'attention-on',
+  'success', 'success-on',
+  'info',
+  'danger',
+  'quiet', 'quiet-on',
+];
+
+function roleLeaves(bindings: object) {
+  return walk(bindings as never, ['color', 'semantic']).filter((l) =>
+    ROLE_KEYS.some((k) => l.path === `color.semantic.${k}`)
+  );
+}
+
+/** Role tokens: action, attention, success, info, danger, quiet (+ -on pairs).
+ * These map The Bar's status semantics to fills. Info and danger are fills
+ * only, never text. See Button AllThemes and StatusPill StatusLadder for
+ * live use. (Elleta, 14 Oct 2026) */
+export const RoleTokens: StoryObj = {
+  parameters: { bella: { themeIntegrity: false } },
+  render: () => (
+    <div>
+      {(
+        [
+          { label: 'light', bindings: semanticLight },
+          { label: 'dark', bindings: semanticDark },
+          { label: 'warm', bindings: semanticWarm },
+          { label: 'wee-dote', bindings: semanticWeeDote },
+        ]
+      ).map(({ label, bindings }) => (
+        <div
+          key={label}
+          data-theme={label === 'light' ? undefined : label}
+          style={{ color: 'var(--color-semantic-text-primary)' }}
+        >
+          <SectionTitle>{label}</SectionTitle>
+          {(label === 'light') && (
+            <p style={note}>
+              info and danger are fills only. Never text in those colours (AAA fails
+              both ways). Button AllThemes and StatusPill StatusLadder show live use.
+            </p>
+          )}
+          <TokenTable
+            label={`Role tokens, ${label}`}
+            leaves={roleLeaves(bindings as never)}
+          />
+        </div>
+      ))}
     </div>
   ),
 };

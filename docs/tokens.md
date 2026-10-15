@@ -115,6 +115,7 @@ value with the source reference in parentheses.
 | `color.warm.line` | `#e3dbcf` | color |
 | `color.warm.control` | `#857a6a` | color |
 | `color.wee-dote.bg` | `#CBD5CC` | color |
+| `color.wee-dote.ink` | `#121212` | color |
 | `color.wee-dote.inset` | `#D8E1D9` | color |
 | `color.wee-dote.panel` | `#E4EDE5` | color |
 | `color.wee-dote.line` | `#B5BFB6` | color |

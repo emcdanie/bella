@@ -40,6 +40,8 @@ export interface ChatThreadProps {
 /**
  * Column layout for a sequence of ChatBubble rows.
  * Fluid from 320px, no fixed heights, no breakpoints outside BELLA's four.
+ * tabIndex=0: the log scrolls, so keyboard users must be able to focus it
+ * (Safari does not make scroll containers focusable on its own).
  * See component-contract:chat-thread.
  */
 export default function ChatThread({ children, label = 'Messages', className }: ChatThreadProps) {
@@ -47,6 +49,7 @@ export default function ChatThread({ children, label = 'Messages', className }: 
     <div
       className={[styles.thread, className].filter(Boolean).join(' ')}
       role="log"
+      tabIndex={0}
       aria-label={label}
       aria-live="polite"
       data-bella-component="chat-thread"

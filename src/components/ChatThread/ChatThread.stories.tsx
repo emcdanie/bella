@@ -236,6 +236,10 @@ export const Behavior: Story = {
       expect(log).toHaveAttribute('aria-label', 'Test log');
     });
 
+    await step('scroll region is reachable by keyboard', async () => {
+      expect(log).toHaveAttribute('tabindex', '0');
+    });
+
     await step('data-bella-component present', async () => {
       expect(log.dataset.bellaComponent).toBe('chat-thread');
     });

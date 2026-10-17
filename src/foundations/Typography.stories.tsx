@@ -44,7 +44,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
   {
     label: 'Display · 600 · 40 to 76 · -0.035em',
     sample: (
-      <Heading tier="page" as="p">
+      <Heading tier="page" as="h2">
         {specimenText}
       </Heading>
     ),
@@ -52,7 +52,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
   {
     label: 'Section h2 · 600 · 32 to 44 · -0.03em',
     sample: (
-      <Heading tier="section" as="p">
+      <Heading tier="section" as="h3">
         {specimenText}
       </Heading>
     ),
@@ -72,7 +72,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     ),
   },
   {
-    label: 'Body · 400 · 17 · -0.01em',
+    label: 'Body · 400 · 20 · -0.01em',
     sample: (
       <span style={{ fontSize: 'var(--typography-font-size-body)', letterSpacing: 'var(--typography-letter-spacing-body)' }}>
         Body copy for long reading. Muted grey for anything secondary.
@@ -136,14 +136,14 @@ export const Eyebrows: StoryObj = {
 };
 
 const bodyText =
-  'BELLA keeps the work editorial and deliberate. Tokens carry every decision, so a change lands once and every surface that reads it follows. Body copy is Geist at 17px, set for long reading.';
+  'BELLA keeps the work editorial and deliberate. Tokens carry every decision, so a change lands once and every surface that reads it follows. Body copy is Figtree at 20px, set for long reading.';
 
 const trackingColumns = [
   { label: 'Before: letter-spacing.normal (0)', tracking: 'var(--typography-letter-spacing-normal)' },
   { label: 'After: letter-spacing.body (-0.01em)', tracking: 'var(--typography-letter-spacing-body)' },
 ];
 
-/** Body amendment, 2026-09-22. Only Geist body text moves; the title above
+/** Body amendment, 2026-09-22. Only Figtree body text moves; the title above
  * it keeps letter-spacing.title. */
 export const BodyTrackingBeforeAfter: StoryObj = {
   name: 'Body tracking, before / after',
@@ -187,7 +187,7 @@ export const BodyTrackingBeforeAfter: StoryObj = {
       </div>
       <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
         Body only. Titles take letter-spacing.title, headings take the display and h2
-        tracking, and Unique (the wordmark) keeps letter-spacing.hero, never negative.
+        tracking; wordmarks are drawn SVG and unaffected.
       </p>
     </div>
   ),

@@ -237,12 +237,14 @@
       },
       "primary": {
         "fill-hi": {
-          "$value": "{color.semantic.accent-raised-hi}",
-          "$type": "color"
+          "$value": "{color.semantic.action}",
+          "$type": "color",
+          "$description": "CTA fill (action token): ink in light/warm/wee-dote, near-white in dark (Elleta, 14 Oct 2026; was accent-raised-hi)."
         },
         "fill-lo": {
-          "$value": "{color.semantic.accent-raised-lo}",
-          "$type": "color"
+          "$value": "{color.semantic.action}",
+          "$type": "color",
+          "$description": "CTA fill lo stop. Same as fill-hi since action is a flat ink (Elleta, 14 Oct 2026; was accent-raised-lo)."
         },
         "fill-hi-hover": {
           "$value": "{color.semantic.accent-raised-hover}",
@@ -258,8 +260,9 @@
           "$type": "color"
         },
         "foreground": {
-          "$value": "{color.semantic.text-inverse}",
-          "$type": "color"
+          "$value": "{color.semantic.action-on}",
+          "$type": "color",
+          "$description": "Label on the CTA fill: near-white in light/warm/dark, sage in wee-dote (Elleta, 14 Oct 2026; was text-inverse)."
         },
         "gloss": {
           "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)",
@@ -318,9 +321,9 @@
           "$type": "color"
         },
         "border": {
-          "$value": "{color.semantic.border-strong}",
+          "$value": "{color.semantic.border-ink}",
           "$type": "color",
-          "$description": "The 3:1 control outline at rest (brand refresh, 2026-09-22)."
+          "$description": "Ink outline at rest: ink in light/warm/wee-dote, near-white in dark (Elleta, 14 Oct 2026; was border-strong which gave mid-gray, mismatching the ink-outline spec)."
         },
         "border-hover": {
           "$value": "{color.semantic.border-ink}",
@@ -1031,7 +1034,11 @@
             "accent",
             "success",
             "info",
-            "neutral"
+            "neutral",
+            "attention",
+            "danger",
+            "quiet",
+            "serving"
           ],
           "states": [
             "default"
@@ -1624,7 +1631,8 @@
             "size",
             "ring",
             "className",
-            "style"
+            "style",
+            "showInitials"
           ],
           "usage": [
             "A portrait beside a name and role",
@@ -3479,7 +3487,7 @@
             "OBI suggestions and answer actions",
             "Component chips that open Atlas",
             "Small actions on a tile (Which have none?)",
-            "quiet: an icon action beside content, such as the \u22ef visibility menu (no border at rest)"
+            "quiet: an icon action beside content, such as the ⋯ visibility menu (no border at rest)"
           ],
           "dont": [
             "Do not set it in caps: sentence case is the point",
@@ -3911,6 +3919,241 @@
             "className"
           ],
           "variants": []
+        }
+      }
+    },
+    "chat-bubble": {
+      "$extensions": {
+        "bella": {
+          "name": "ChatBubble",
+          "category": "Chat",
+          "description": "A single message bubble. Sent (ink) or received (card surface). Tail marks the last bubble in a run. Kind: text, ask, image, big-emoji.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "side",
+            "tail",
+            "kind",
+            "tapback",
+            "children",
+            "actions",
+            "emojiLabel",
+            "className",
+            "disc",
+            "senderName"
+          ],
+          "usage": [
+            "A line of chat in The Bar replay"
+          ],
+          "dont": [
+            "Do not nest another bubble inside a bubble"
+          ],
+          "a11y": "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation. Disc is aria-hidden (decorative). senderName label uses label font-size.",
+          "variantsNote": "Visual variants are controlled by the `side` prop (sent/received), not a `variant` prop. The contract entries `sent` and `received` define their token overrides."
+        }
+      },
+      "sent": {
+        "background": {
+          "$value": "{color.semantic.text-primary}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.surface}",
+          "$type": "color"
+        }
+      },
+      "received": {
+        "background": {
+          "$value": "{color.semantic.chat-surface-received}",
+          "$type": "color"
+        },
+        "foreground": {
+          "$value": "{color.semantic.text-body}",
+          "$type": "color"
+        }
+      },
+      "default": {
+        "border-radius": {
+          "$value": "{radius.chat-bubble}",
+          "$type": "dimension"
+        },
+        "tail-radius": {
+          "$value": "{radius.chat-tail}",
+          "$type": "dimension"
+        },
+        "padding-block": {
+          "$value": "{spacing.2}",
+          "$type": "dimension"
+        },
+        "padding-inline": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "code-font-size": {
+          "$value": "{typography.font-size.sm}",
+          "$type": "dimension"
+        },
+        "code-radius": {
+          "$value": "{radius.sm}",
+          "$type": "dimension"
+        },
+        "disc-size": {
+          "$value": "{spacing.6}",
+          "$type": "dimension",
+          "$description": "24px avatar disc at the last bubble in a lane run."
+        }
+      }
+    },
+    "avatar-stack": {
+      "$extensions": {
+        "bella": {
+          "name": "AvatarStack",
+          "category": "Chat",
+          "description": "Overlapping Avatars with a separating ring in the surface colour. Extends Avatar; do not make a second avatar type.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "members",
+            "size",
+            "surfaceColor",
+            "max",
+            "className"
+          ],
+          "usage": [
+            "Group header in The Bar"
+          ],
+          "dont": [
+            "Do not use as a standalone avatar — use Avatar for that"
+          ],
+          "a11y": "Each Avatar carries its name as aria-label (role=img). Stack root is aria-label listing all names."
+        }
+      },
+      "default": {
+        "overlap": {
+          "$value": "-8px",
+          "$type": "dimension",
+          "$description": "How far each disc slides under the previous one."
+        },
+        "ring-width": {
+          "$value": "{border.width.medium}",
+          "$type": "dimension"
+        },
+        "ring-color": {
+          "$value": "{color.semantic.surface}",
+          "$type": "color",
+          "$description": "Matches the column background so the gap appears cut."
+        }
+      }
+    },
+    "typing-dots": {
+      "$extensions": {
+        "bella": {
+          "name": "TypingDots",
+          "category": "Chat",
+          "description": "Three animated dots indicating a lane is typing. No animation under reduced motion.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "name",
+            "className"
+          ],
+          "usage": [
+            "Typing indicator in chat replay"
+          ],
+          "dont": [
+            "Do not show for more than a few seconds without a message following"
+          ],
+          "a11y": "aria-label=\"typing\" on root. aria-live=polite on the chat log handles the message arrival; this component is decorative once the message lands."
+        }
+      },
+      "default": {
+        "dot-size": {
+          "$value": "{spacing.2}",
+          "$type": "dimension"
+        },
+        "gap": {
+          "$value": "{spacing.1}",
+          "$type": "dimension"
+        },
+        "duration": {
+          "$value": "{motion.duration.slow}",
+          "$type": "duration",
+          "$description": "1.2s loop mapped to slow (closest existing token; 400ms * 3 = 1.2s is the full wave)."
+        },
+        "delay-2": {
+          "$value": "150ms",
+          "$type": "duration"
+        },
+        "delay-3": {
+          "$value": "300ms",
+          "$type": "duration"
+        }
+      }
+    },
+    "chat-thread": {
+      "$extensions": {
+        "bella": {
+          "name": "ChatThread",
+          "category": "Chat",
+          "description": "Layout column for a sequence of ChatBubble rows. Manages gap, row max-width, avatar gutter, centred timestamps, and the Delivered line. Fluid from 320px, no fixed heights, no breakpoints outside BELLA's four.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "label",
+            "className"
+          ],
+          "usage": [
+            "The scrollable message log in The Bar"
+          ],
+          "dont": [
+            "Do not put interactive controls directly inside ChatThread rows — use ActionChips via the ChatBubble slot"
+          ],
+          "a11y": "aria-live=polite on the log region. Timestamps are aria-hidden (they are visual aids; the message order itself is the reading order). Delivered line is aria-live=assertive on its own."
+        }
+      },
+      "default": {
+        "gap": {
+          "$value": "{spacing.1}",
+          "$type": "dimension",
+          "$description": "3px between bubbles — not in the 4px ramp; kept as spacing.1 (4px, 1px over) to avoid a new token for a 1px deviation."
+        },
+        "row-max-width": {
+          "$value": "80%",
+          "$type": "dimension"
+        },
+        "avatar-gutter": {
+          "$value": "30px",
+          "$type": "dimension",
+          "$description": "30px: avatar 24px + gap 6px. Not in the spacing ramp; new token candidate if a second consumer appears."
+        },
+        "padding-block-start": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "padding-block-end": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        },
+        "padding-inline": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "stamp-margin-top": {
+          "$value": "{spacing.3}",
+          "$type": "dimension"
+        },
+        "stamp-margin-bottom": {
+          "$value": "{spacing.2}",
+          "$type": "dimension",
+          "$description": "Timestamp bottom margin. Closest spacing to spec 6px is spacing.2 (8px)."
         }
       }
     }

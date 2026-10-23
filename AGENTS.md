@@ -27,6 +27,10 @@
 | Tabular data | `DataTable` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
+| Group of people (overlapping discs) | `AvatarStack` |
+| Chat message bubble | `ChatBubble` |
+| Chat message list | `ChatThread` |
+| Someone is typing | `TypingDots` |
 | Icons | `Icon` (Iconoir only) |
 | Headings | `Heading`, `SectionHeader` |
 | Above-heading label | `Eyebrow` |

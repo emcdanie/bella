@@ -31,9 +31,10 @@ export default meta;
 
 type Story = StoryObj<typeof StatusPill>;
 
-/** One tint per state; the word carries the meaning, the tint reinforces.
- * The success/info tints are the carried pair, pending the status-ladder
- * sitting (issue #1). */
+/** Eight variants. The Bar map (TheBar.jsx b232e68):
+ * working -> info · waiting on you -> attention · done -> success ·
+ * serving -> serving · failed -> danger · parked -> quiet.
+ * Rule: info and danger are fills only. Text beside, never on. */
 export const Variants: Story = {
   render: () => (
     <div
@@ -48,9 +49,47 @@ export const Variants: Story = {
       }}
     >
       <StatusPill variant="accent">Current focus</StatusPill>
-      <StatusPill variant="success">Shipped</StatusPill>
-      <StatusPill variant="info">In review</StatusPill>
-      <StatusPill variant="neutral">Not tested</StatusPill>
+      <StatusPill variant="attention">Waiting on you</StatusPill>
+      <StatusPill variant="info">Working</StatusPill>
+      <StatusPill variant="success">Done</StatusPill>
+      <StatusPill variant="serving">Serving</StatusPill>
+      <StatusPill variant="danger">Failed</StatusPill>
+      <StatusPill variant="quiet">Parked</StatusPill>
+      <StatusPill variant="neutral">Neutral</StatusPill>
+    </div>
+  ),
+};
+
+/** Status-ladder: all eight variants across all four themes.
+ * Attention = waiting on you; info = working; success = done;
+ * serving = success outline; danger = failed; quiet = parked.
+ * (Elleta, 14 Oct 2026) */
+export const StatusLadder: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+      {(['light', 'dark', 'warm', 'wee-dote'] as const).map((theme) => (
+        <div
+          key={theme}
+          data-theme={theme}
+          style={{
+            padding: 'var(--spacing-4)',
+            background: 'var(--color-semantic-surface)',
+            borderRadius: 'var(--radius-lg)',
+            display: 'flex',
+            gap: 'var(--spacing-3)',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', minWidth: '5rem' }}>{theme}</span>
+          <StatusPill variant="attention">Waiting on you</StatusPill>
+          <StatusPill variant="info">Working</StatusPill>
+          <StatusPill variant="success">Done</StatusPill>
+          <StatusPill variant="serving">Serving</StatusPill>
+          <StatusPill variant="danger">Failed</StatusPill>
+          <StatusPill variant="quiet">Parked</StatusPill>
+        </div>
+      ))}
     </div>
   ),
 };

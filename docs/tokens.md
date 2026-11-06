@@ -129,6 +129,21 @@ value with the source reference in parentheses.
 | `color.wee-dote.lane-c` | `#E5B3BF` | color |
 | `color.wee-dote.lane-d` | `#E32923` | color |
 | `color.wee-dote.lane-e` | `#5B9B84` | color |
+| `color.chip-ui.ground` | `#F7F7F5` | color |
+| `color.chip-ui.canvas` | `#F4F5F8` | color |
+| `color.chip-ui.line` | `#1F1C1938` | color |
+| `color.chip-ui.scrim` | `#1D203052` | color |
+| `color.chip-ui.edge` | `#1D20302E` | color |
+| `color.chip-ui.action` | `#2F9BE0` | color |
+| `color.chip-ui.action-hover` | `#6DB9E9` | color |
+| `color.chip-ui.action-tint` | `#EEF7FD` | color |
+| `color.chip-ui.action-wash` | `#E2F1FB` | color |
+| `color.chip-ui.action-deep` | `#1865BB` | color |
+| `color.chip-ui.pass` | `#2B9A57` | color |
+| `color.chip-ui.fail` | `#E2473B` | color |
+| `color.chip-ui.needs` | `#E9B820` | color |
+| `color.chip-ui.note` | `#E58BBB` | color |
+| `color.chip-ui.on-note` | `#0A0C14` | color |
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |

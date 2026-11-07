@@ -366,7 +366,8 @@ for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[da
         if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):
             ok.append(f"    {emit_css_var(path)}: {names(v) if REF.search(str(v)) else res(v)};")
     for path, (v, t, _) in comp_flat.items():
-        if isinstance(v, dict) or emit_css_var(path) not in layer_root:
+        # a component token the theme sets itself was written above; don't put it back
+        if isinstance(v, dict) or emit_css_var(path) not in layer_root or path in flat:
             continue
         if resolve_light(v) != res(v):
             ok.append(f"    {emit_css_var(path)}: {names(v)};")

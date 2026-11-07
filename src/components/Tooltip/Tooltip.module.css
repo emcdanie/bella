@@ -1,0 +1,41 @@
+/* Tooltip (tool chrome, 7 Nov 2026). Tokens only. An inverse bubble under or
+ * over its trigger; it never takes a click and never hides what it labels. */
+
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.tip {
+  position: absolute;
+  left: 50%;
+  z-index: 20;
+  translate: -50% 0;
+  padding: var(--component-tooltip-padding-y) var(--component-tooltip-padding-x);
+  border-radius: var(--component-tooltip-border-radius);
+  background: var(--component-tooltip-background);
+  color: var(--component-tooltip-foreground);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-tooltip-font-size);
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.tip[hidden] {
+  display: none;
+}
+
+.bottom {
+  top: calc(100% + var(--spacing-1));
+}
+
+.top {
+  bottom: calc(100% + var(--spacing-1));
+}
+
+@media (forced-colors: active) {
+  .tip {
+    border: var(--border-width-thin) solid CanvasText;
+  }
+}

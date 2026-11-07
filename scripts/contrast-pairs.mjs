@@ -142,6 +142,23 @@ const PAIRS = [
   /* page outline: a section's line is a control mark on the card; the current one is ink */
   ['outline line on the card', '--component-page-outline-line', '--color-semantic-surface-card', NON_TEXT],
   ['current outline line on the card', '--component-page-outline-line-current', '--color-semantic-surface-card', NON_TEXT],
+  /* tooltip, and code: every syntax colour on the code ground and on the marked line */
+  ['tooltip label', '--component-tooltip-foreground', '--component-tooltip-background', AAA],
+  ['code foreground on its ground', '--component-code-block-foreground', '--component-code-block-background', AA],
+  ['code keyword on its ground', '--component-code-block-keyword', '--component-code-block-background', AA],
+  ['code string on its ground', '--component-code-block-string', '--component-code-block-background', AA],
+  ['code number on its ground', '--component-code-block-number', '--component-code-block-background', AA],
+  ['code comment on its ground', '--component-code-block-comment', '--component-code-block-background', AA],
+  ['code function on its ground', '--component-code-block-function', '--component-code-block-background', AA],
+  ['code tag on its ground', '--component-code-block-tag', '--component-code-block-background', AA],
+  ['code attr on its ground', '--component-code-block-attr', '--component-code-block-background', AA],
+  ['code punct on its ground', '--component-code-block-punct', '--component-code-block-background', AA],
+  ['code line-number on its ground', '--component-code-block-line-number', '--component-code-block-background', AA],
+  ['code foreground on the marked line', '--component-code-block-foreground', '--component-code-block-current', AA],
+  ['code comment on the marked line', '--component-code-block-comment', '--component-code-block-current', AA],
+  ['code line-number on the marked line', '--component-code-block-line-number', '--component-code-block-current', AA],
+  ['code on an added line', '--component-code-block-foreground', '--component-code-block-add', AA],
+  ['code on a removed line', '--component-code-block-foreground', '--component-code-block-del', AA],
   /* pins: the number and word sit on the card disc, never on the pop colour */
   ['pin number on its disc', '--component-pin-foreground', '--component-pin-background', AAA],
   /* list row: on the page and on a card */

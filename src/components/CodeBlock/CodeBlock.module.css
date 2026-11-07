@@ -1,0 +1,101 @@
+/* CodeBlock (tool chrome, 7 Nov 2026). Tokens only. An editor's reading of
+ * code: a numbered gutter, a marked line, wrapped long lines, syntax colour
+ * by class from the syntax tokens (each 4.5:1 or more on the code ground,
+ * checked in the gate), and one Copy icon button. */
+
+.block {
+  margin: 0;
+  min-width: 0;
+  border: var(--border-width-thin) solid var(--component-code-block-border);
+  border-radius: var(--component-code-block-border-radius);
+  background: var(--component-code-block-background);
+  color: var(--component-code-block-foreground);
+  overflow: hidden;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: 0 var(--spacing-2) 0 var(--spacing-4);
+  border-bottom: var(--border-width-thin) solid var(--component-code-block-border);
+  min-height: var(--spacing-touch-target);
+}
+
+.title {
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--component-code-block-font-size);
+  color: var(--component-code-block-line-number);
+  overflow-wrap: anywhere;
+}
+
+.copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--spacing-touch-target);
+  min-height: var(--spacing-touch-target);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--component-code-block-foreground);
+  cursor: pointer;
+}
+
+.copy:hover {
+  background: var(--component-code-block-current);
+}
+
+.copy:focus-visible,
+.pre:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: calc(-1 * var(--ring-focus-width));
+}
+
+.pre {
+  margin: 0;
+  padding: var(--spacing-3) 0;
+  font-family: var(--typography-font-family-mono);
+  font-size: var(--component-code-block-font-size);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--spacing-4);
+  padding-inline: var(--spacing-4);
+}
+
+.current { background: var(--component-code-block-current); }
+.add { background: var(--component-code-block-add); }
+.del { background: var(--component-code-block-del); }
+
+.n {
+  min-width: 2ch;
+  text-align: right;
+  color: var(--component-code-block-line-number);
+  user-select: none;
+}
+
+.keyword { color: var(--component-code-block-keyword); }
+.string { color: var(--component-code-block-string); }
+.number { color: var(--component-code-block-number); }
+.comment { color: var(--component-code-block-comment); font-style: italic; }
+.function { color: var(--component-code-block-function); }
+.tag { color: var(--component-code-block-tag); }
+.attr { color: var(--component-code-block-attr); }
+.punct { color: var(--component-code-block-punct); }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

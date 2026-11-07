@@ -110,6 +110,12 @@ export type { PageOutlineProps, PageOutlineItem } from './PageOutline/PageOutlin
 export { default as SectionNav } from './SectionNav/SectionNav';
 export type { SectionNavProps, SectionNavItem } from './SectionNav/SectionNav';
 
+export { default as CodeBlock } from './CodeBlock/CodeBlock';
+export type { CodeBlockProps } from './CodeBlock/CodeBlock';
+
+export { default as Tooltip } from './Tooltip/Tooltip';
+export type { TooltipProps } from './Tooltip/Tooltip';
+
 export { default as Pin } from './Pin/Pin';
 export type { PinProps } from './Pin/Pin';
 

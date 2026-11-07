@@ -4617,6 +4617,157 @@
         "$value": "{radius.sm}",
         "$type": "dimension"
       }
+    },
+    "tooltip": {
+      "$extensions": {
+        "bella": {
+          "name": "Tooltip",
+          "category": "Feedback",
+          "description": "A short label on hover and keyboard focus, for an icon button.",
+          "states": [
+            "hidden",
+            "shown"
+          ],
+          "props": [
+            "label",
+            "children",
+            "placement",
+            "className"
+          ],
+          "usage": [
+            "Naming an icon button in a toolbar"
+          ],
+          "dont": [
+            "Do not put anything a person must read only in a tooltip: it labels, it never explains",
+            "Do not use it on a trigger without an aria-label of the same words"
+          ],
+          "a11y": "Verified 2026-11-07: shows on hover and focus, stays while the pointer is on it, Esc hides it (WCAG 1.4.13). Visual only (aria-hidden): the trigger carries the same words as its aria-label. Label is text-inverse on surface-inverse, AAA."
+        }
+      },
+      "background": {
+        "$value": "{color.semantic.surface-inverse}",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "{color.semantic.text-inverse}",
+        "$type": "color"
+      },
+      "padding-x": {
+        "$value": "{spacing.2}",
+        "$type": "dimension"
+      },
+      "padding-y": {
+        "$value": "{spacing.1}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.sm}",
+        "$type": "dimension"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension"
+      }
+    },
+    "code-block": {
+      "$extensions": {
+        "bella": {
+          "name": "CodeBlock",
+          "category": "Data",
+          "description": "Code as an editor shows it: syntax colour by class, line numbers, a marked line, wrapped long lines and one Copy.",
+          "states": [
+            "default",
+            "copied"
+          ],
+          "props": [
+            "code",
+            "language",
+            "title",
+            "currentLine",
+            "lineNumbers",
+            "copy",
+            "className"
+          ],
+          "usage": [
+            "Copy me on component pages",
+            "Contracts and guidance files",
+            "Diffs"
+          ],
+          "dont": [
+            "Do not colour code inline: every colour is a syntax token",
+            "Do not let a diff rely on colour: + and − lead the line"
+          ],
+          "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 4.5:1 or more on the code ground and on the marked line, light and dark, checked in the gate."
+        }
+      },
+      "font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.sm}",
+        "$type": "dimension"
+      },
+      "background": {
+        "$value": "{color.semantic.syntax-background}",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "{color.semantic.syntax-foreground}",
+        "$type": "color"
+      },
+      "keyword": {
+        "$value": "{color.semantic.syntax-keyword}",
+        "$type": "color"
+      },
+      "string": {
+        "$value": "{color.semantic.syntax-string}",
+        "$type": "color"
+      },
+      "number": {
+        "$value": "{color.semantic.syntax-number}",
+        "$type": "color"
+      },
+      "comment": {
+        "$value": "{color.semantic.syntax-comment}",
+        "$type": "color"
+      },
+      "function": {
+        "$value": "{color.semantic.syntax-function}",
+        "$type": "color"
+      },
+      "tag": {
+        "$value": "{color.semantic.syntax-tag}",
+        "$type": "color"
+      },
+      "attr": {
+        "$value": "{color.semantic.syntax-attr}",
+        "$type": "color"
+      },
+      "punct": {
+        "$value": "{color.semantic.syntax-punct}",
+        "$type": "color"
+      },
+      "line-number": {
+        "$value": "{color.semantic.syntax-line-number}",
+        "$type": "color"
+      },
+      "current": {
+        "$value": "{color.semantic.syntax-current}",
+        "$type": "color"
+      },
+      "add": {
+        "$value": "{color.semantic.syntax-add}",
+        "$type": "color"
+      },
+      "del": {
+        "$value": "{color.semantic.syntax-del}",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "{color.semantic.syntax-border}",
+        "$type": "color"
+      }
     }
   }
 }

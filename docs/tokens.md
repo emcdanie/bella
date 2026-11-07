@@ -185,6 +185,36 @@ value with the source reference in parentheses.
 | `color.pattern.zebra-light` | `#e6e6ae` | color |
 | `color.pattern.ink` | `#161616` | color |
 | `color.pattern.coral` | `#e66c52` | color |
+| `color.syntax.light.background` | `#F6F7F9` | color |
+| `color.syntax.light.foreground` | `#1D2030` | color |
+| `color.syntax.light.keyword` | `#8A2D6B` | color |
+| `color.syntax.light.string` | `#1F6E3A` | color |
+| `color.syntax.light.number` | `#8F4500` | color |
+| `color.syntax.light.comment` | `#5A5F70` | color |
+| `color.syntax.light.function` | `#1D5FA8` | color |
+| `color.syntax.light.tag` | `#A3261C` | color |
+| `color.syntax.light.attr` | `#6B4E00` | color |
+| `color.syntax.light.punct` | `#474C5E` | color |
+| `color.syntax.light.line-number` | `#585D6E` | color |
+| `color.syntax.light.current` | `#E8EBF3` | color |
+| `color.syntax.light.add` | `#E3F2E7` | color |
+| `color.syntax.light.del` | `#FBE7E5` | color |
+| `color.syntax.light.border` | `#E4E6EC` | color |
+| `color.syntax.dark.background` | `#171A22` | color |
+| `color.syntax.dark.foreground` | `#ECEEF3` | color |
+| `color.syntax.dark.keyword` | `#E39BD4` | color |
+| `color.syntax.dark.string` | `#8FD49F` | color |
+| `color.syntax.dark.number` | `#F2B26B` | color |
+| `color.syntax.dark.comment` | `#A0A6B8` | color |
+| `color.syntax.dark.function` | `#8FC1F5` | color |
+| `color.syntax.dark.tag` | `#FF9C8F` | color |
+| `color.syntax.dark.attr` | `#E6CB7A` | color |
+| `color.syntax.dark.punct` | `#C3C7D2` | color |
+| `color.syntax.dark.line-number` | `#9AA0B3` | color |
+| `color.syntax.dark.current` | `#262A35` | color |
+| `color.syntax.dark.add` | `#16301F` | color |
+| `color.syntax.dark.del` | `#3A1714` | color |
+| `color.syntax.dark.border` | `#2E3240` | color |
 | `spacing.1` | `4px` | dimension |
 | `spacing.2` | `8px` | dimension |
 | `spacing.3` | `12px` | dimension |
@@ -378,6 +408,21 @@ value with the source reference in parentheses.
 | `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
 | `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
 | `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
+| `color.semantic.syntax-background` | `#F6F7F9` (`{color.syntax.light.background}`) | color |
+| `color.semantic.syntax-foreground` | `#1D2030` (`{color.syntax.light.foreground}`) | color |
+| `color.semantic.syntax-keyword` | `#8A2D6B` (`{color.syntax.light.keyword}`) | color |
+| `color.semantic.syntax-string` | `#1F6E3A` (`{color.syntax.light.string}`) | color |
+| `color.semantic.syntax-number` | `#8F4500` (`{color.syntax.light.number}`) | color |
+| `color.semantic.syntax-comment` | `#5A5F70` (`{color.syntax.light.comment}`) | color |
+| `color.semantic.syntax-function` | `#1D5FA8` (`{color.syntax.light.function}`) | color |
+| `color.semantic.syntax-tag` | `#A3261C` (`{color.syntax.light.tag}`) | color |
+| `color.semantic.syntax-attr` | `#6B4E00` (`{color.syntax.light.attr}`) | color |
+| `color.semantic.syntax-punct` | `#474C5E` (`{color.syntax.light.punct}`) | color |
+| `color.semantic.syntax-line-number` | `#585D6E` (`{color.syntax.light.line-number}`) | color |
+| `color.semantic.syntax-current` | `#E8EBF3` (`{color.syntax.light.current}`) | color |
+| `color.semantic.syntax-add` | `#E3F2E7` (`{color.syntax.light.add}`) | color |
+| `color.semantic.syntax-del` | `#FBE7E5` (`{color.syntax.light.del}`) | color |
+| `color.semantic.syntax-border` | `#E4E6EC` (`{color.syntax.light.border}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
 | `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
@@ -467,6 +512,21 @@ value with the source reference in parentheses.
 | `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
 | `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
 | `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
+| `color.semantic.syntax-background` | `#171A22` (`{color.syntax.dark.background}`) | color |
+| `color.semantic.syntax-foreground` | `#ECEEF3` (`{color.syntax.dark.foreground}`) | color |
+| `color.semantic.syntax-keyword` | `#E39BD4` (`{color.syntax.dark.keyword}`) | color |
+| `color.semantic.syntax-string` | `#8FD49F` (`{color.syntax.dark.string}`) | color |
+| `color.semantic.syntax-number` | `#F2B26B` (`{color.syntax.dark.number}`) | color |
+| `color.semantic.syntax-comment` | `#A0A6B8` (`{color.syntax.dark.comment}`) | color |
+| `color.semantic.syntax-function` | `#8FC1F5` (`{color.syntax.dark.function}`) | color |
+| `color.semantic.syntax-tag` | `#FF9C8F` (`{color.syntax.dark.tag}`) | color |
+| `color.semantic.syntax-attr` | `#E6CB7A` (`{color.syntax.dark.attr}`) | color |
+| `color.semantic.syntax-punct` | `#C3C7D2` (`{color.syntax.dark.punct}`) | color |
+| `color.semantic.syntax-line-number` | `#9AA0B3` (`{color.syntax.dark.line-number}`) | color |
+| `color.semantic.syntax-current` | `#262A35` (`{color.syntax.dark.current}`) | color |
+| `color.semantic.syntax-add` | `#16301F` (`{color.syntax.dark.add}`) | color |
+| `color.semantic.syntax-del` | `#3A1714` (`{color.syntax.dark.del}`) | color |
+| `color.semantic.syntax-border` | `#2E3240` (`{color.syntax.dark.border}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
 | `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |
@@ -938,3 +998,26 @@ value with the source reference in parentheses.
 | `component.page-outline.line` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.page-outline.line-current` | `#1d2030` (`{color.semantic.text-primary}`) | color |
 | `component.page-outline.panel-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.tooltip.background` | `#171a22` (`{color.semantic.surface-inverse}`) | color |
+| `component.tooltip.foreground` | `#eceef3` (`{color.semantic.text-inverse}`) | color |
+| `component.tooltip.padding-x` | `8px` (`{spacing.2}`) | dimension |
+| `component.tooltip.padding-y` | `4px` (`{spacing.1}`) | dimension |
+| `component.tooltip.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.tooltip.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.code-block.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.code-block.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.code-block.background` | `#F6F7F9` (`{color.semantic.syntax-background}`) | color |
+| `component.code-block.foreground` | `#1D2030` (`{color.semantic.syntax-foreground}`) | color |
+| `component.code-block.keyword` | `#8A2D6B` (`{color.semantic.syntax-keyword}`) | color |
+| `component.code-block.string` | `#1F6E3A` (`{color.semantic.syntax-string}`) | color |
+| `component.code-block.number` | `#8F4500` (`{color.semantic.syntax-number}`) | color |
+| `component.code-block.comment` | `#5A5F70` (`{color.semantic.syntax-comment}`) | color |
+| `component.code-block.function` | `#1D5FA8` (`{color.semantic.syntax-function}`) | color |
+| `component.code-block.tag` | `#A3261C` (`{color.semantic.syntax-tag}`) | color |
+| `component.code-block.attr` | `#6B4E00` (`{color.semantic.syntax-attr}`) | color |
+| `component.code-block.punct` | `#474C5E` (`{color.semantic.syntax-punct}`) | color |
+| `component.code-block.line-number` | `#585D6E` (`{color.semantic.syntax-line-number}`) | color |
+| `component.code-block.current` | `#E8EBF3` (`{color.semantic.syntax-current}`) | color |
+| `component.code-block.add` | `#E3F2E7` (`{color.semantic.syntax-add}`) | color |
+| `component.code-block.del` | `#FBE7E5` (`{color.semantic.syntax-del}`) | color |
+| `component.code-block.border` | `#E4E6EC` (`{color.semantic.syntax-border}`) | color |

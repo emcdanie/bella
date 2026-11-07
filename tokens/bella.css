@@ -827,6 +827,18 @@
   --component-list-row-column-gap: 16px;
   --component-list-row-row-gap: 4px;
   --component-list-row-min-height: 44px;
+  --component-section-nav-gap: 4px;
+  --component-section-nav-padding-x: 12px;
+  --component-section-nav-min-height: 44px;
+  --component-section-nav-font-size: 16px;
+  --component-section-nav-border-radius: 4px;
+  --component-section-nav-indicator: #1d2030;
+  --component-page-outline-min-target: 44px;
+  --component-page-outline-border-radius: 4px;
+  --component-page-outline-line-length: 24px;
+  --component-page-outline-line: #686d7d;
+  --component-page-outline-line-current: #1d2030;
+  --component-page-outline-panel-radius: 4px;
 
   /* ---- v0.1 governance tokens (see docs/RULES.md) ----
    * Fixed-context tokens: do NOT flip with [data-theme="dark"]. They name
@@ -1051,6 +1063,9 @@
   --component-list-row-title-color: #eceef3;
   --component-list-row-description-color: #eceef3;
   --component-list-row-border: #2e3240;
+  --component-section-nav-indicator: #eceef3;
+  --component-page-outline-line: #858b9f;
+  --component-page-outline-line-current: #eceef3;
 }
 
 [data-theme="warm"] {
@@ -1126,6 +1141,7 @@
   --component-avatar-stack-default-ring-color: #f0ede8;
   --component-pin-background: #fbfaf7;
   --component-list-row-border: #e3dbcf;
+  --component-page-outline-line: #857a6a;
 }
 
 [data-theme="wee-dote"] {
@@ -1269,6 +1285,9 @@
   --component-pin-foreground: #121212;
   --component-list-row-title-color: #121212;
   --component-list-row-border: #B5BFB6;
+  --component-section-nav-indicator: #121212;
+  --component-page-outline-line: #6A786B;
+  --component-page-outline-line-current: #121212;
 }
 
 [data-theme="chip"] {
@@ -1342,6 +1361,7 @@
   --component-status-pill-neutral-background: #EDEDEA;
   --component-status-pill-neutral-foreground: #3a3f50;
   --component-status-pill-neutral-border: transparent;
+  --component-section-nav-indicator: #1865BB;
   --radius-xs: 2px;
   --radius-card: 2px;
   --shadow-key-resting: none;
@@ -1468,6 +1488,7 @@
   --component-status-pill-neutral-background: #eceef3;
   --component-status-pill-neutral-foreground: #2b2f3d;
   --component-status-pill-neutral-border: #e4e6ec;
+  --component-section-nav-indicator: #1d2030;
   --radius-card: 1rem;
   --shadow-key-resting: 0 2px 0 #171a22, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66;
   --shadow-key-hover: 0 2px 0 #171a22, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66;
@@ -2004,6 +2025,9 @@
     --component-list-row-title-color: var(--color-semantic-text-primary);
     --component-list-row-description-color: var(--color-semantic-text-body);
     --component-list-row-border: var(--color-semantic-border);
+    --component-section-nav-indicator: var(--color-semantic-text-primary);
+    --component-page-outline-line: var(--color-semantic-border-strong);
+    --component-page-outline-line-current: var(--color-semantic-text-primary);
   }
   [data-theme="dark"] {
     --color-semantic-text-body: var(--color-cool-50);
@@ -2194,6 +2218,9 @@
     --component-list-row-title-color: var(--color-semantic-text-primary);
     --component-list-row-description-color: var(--color-semantic-text-body);
     --component-list-row-border: var(--color-semantic-border);
+    --component-section-nav-indicator: var(--color-semantic-text-primary);
+    --component-page-outline-line: var(--color-semantic-border-strong);
+    --component-page-outline-line-current: var(--color-semantic-text-primary);
   }
   [data-theme="warm"] {
     --color-semantic-background: var(--color-warm-bg);
@@ -2264,6 +2291,7 @@
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
     --component-pin-background: var(--color-semantic-surface-card);
     --component-list-row-border: var(--color-semantic-border);
+    --component-page-outline-line: var(--color-semantic-border-strong);
   }
   [data-theme="wee-dote"] {
     --color-semantic-background: var(--color-wee-dote-bg);
@@ -2402,6 +2430,9 @@
     --component-pin-foreground: var(--color-semantic-text-primary);
     --component-list-row-title-color: var(--color-semantic-text-primary);
     --component-list-row-border: var(--color-semantic-border);
+    --component-section-nav-indicator: var(--color-semantic-text-primary);
+    --component-page-outline-line: var(--color-semantic-border-strong);
+    --component-page-outline-line-current: var(--color-semantic-text-primary);
   }
   [data-theme="chip"] {
     --color-semantic-background: var(--color-chip-ui-ground);
@@ -2443,6 +2474,7 @@
     --component-status-pill-neutral-background: var(--color-chip-ui-wash-grey);
     --component-status-pill-neutral-foreground: var(--color-cool-700);
     --component-status-pill-neutral-border: transparent;
+    --component-section-nav-indicator: var(--color-chip-ui-action-deep);
     --shadow-key-resting: none;
     --shadow-key-hover: none;
     --shadow-key-pressed: none;
@@ -2500,6 +2532,7 @@
     --component-status-pill-neutral-background: var(--color-semantic-surface-inset);
     --component-status-pill-neutral-foreground: var(--color-semantic-text-body);
     --component-status-pill-neutral-border: var(--color-semantic-border);
+    --component-section-nav-indicator: var(--color-semantic-text-primary);
     --shadow-key-resting: 0 2px 0 var(--color-cool-950), 3px 6px 10px var(--color-alpha-key-24), inset 0 1px 0 var(--color-alpha-glass-40);
     --shadow-key-hover: 0 2px 0 var(--color-cool-950), 4px 8px 14px var(--color-alpha-key-28), inset 0 1px 0 var(--color-alpha-glass-40);
     --shadow-key-pressed: 0 1px 0 var(--color-cool-950), 2px 3px 8px var(--color-alpha-key-20), inset 0 1px 0 var(--color-alpha-glass-40);

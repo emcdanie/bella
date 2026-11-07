@@ -11033,6 +11033,112 @@
         "$value": "{spacing.touch-target}",
         "$type": "dimension"
       }
+    },
+    "section-nav": {
+      "$extensions": {
+        "bella": {
+          "name": "SectionNav",
+          "category": "Navigation",
+          "description": "The top bar's row of sections, as documentation sites draw it: plain links, the current one marked by weight and a line.",
+          "states": [
+            "default",
+            "hover",
+            "focus",
+            "current"
+          ],
+          "props": [
+            "items",
+            "label",
+            "onNavigate",
+            "className"
+          ],
+          "usage": [
+            "The sections of an app or documentation site, in its top bar"
+          ],
+          "dont": [
+            "Do not use it for the items inside a section: that is NavList in the sidebar",
+            "Do not mark the current section by colour alone: it carries weight, the line and aria-current"
+          ],
+          "a11y": "Verified 2026-11-07: a nav landmark named by label; the current link is aria-current=\"page\", ink and semibold with the indicator line; every link a 44px target; the focus ring sits inside the link."
+        }
+      },
+      "gap": {
+        "$value": "{spacing.1}",
+        "$type": "dimension"
+      },
+      "padding-x": {
+        "$value": "{spacing.3}",
+        "$type": "dimension"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.sm}",
+        "$type": "dimension"
+      },
+      "indicator": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      }
+    },
+    "page-outline": {
+      "$extensions": {
+        "bella": {
+          "name": "PageOutline",
+          "category": "Navigation",
+          "description": "\"On this page\": a small marker of lines, one per section, that shows where you are as you scroll and opens a list to jump.",
+          "states": [
+            "default",
+            "open",
+            "focus"
+          ],
+          "props": [
+            "items",
+            "label",
+            "onNavigate",
+            "className"
+          ],
+          "usage": [
+            "Pages with three or more sections"
+          ],
+          "dont": [
+            "Do not show it with fewer than three sections",
+            "Do not let the marker carry the only cue: the open list marks the current section by weight and aria-current"
+          ],
+          "a11y": "Verified 2026-11-07: a 44px button with aria-expanded and aria-controls, named \"On this page, reading <section>\"; the list marks the current section aria-current=\"location\"; Esc and a click outside close it and focus returns to the button; a jump moves focus to the section heading; reduced motion jumps without the smooth scroll."
+        }
+      },
+      "min-target": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "border-radius": {
+        "$value": "{radius.sm}",
+        "$type": "dimension"
+      },
+      "line-length": {
+        "$value": "{spacing.6}",
+        "$type": "dimension"
+      },
+      "line": {
+        "$value": "{color.semantic.border-strong}",
+        "$type": "color",
+        "$description": "A section not on screen: control border, 3:1 on the card."
+      },
+      "line-current": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "panel-radius": {
+        "$value": "{radius.sm}",
+        "$type": "dimension"
+      }
     }
   }
 }

@@ -139,6 +139,9 @@ const PAIRS = [
     [`highlight edge on the wash over ${s}`, '--color-semantic-highlight-edge', `--color-semantic-highlight-wash over --color-semantic-${s}`, NON_TEXT],
     [`highlight edge beside ${s}`, '--color-semantic-highlight-edge', `--color-semantic-${s}`, NON_TEXT],
   ]),
+  /* page outline: a section's line is a control mark on the card; the current one is ink */
+  ['outline line on the card', '--component-page-outline-line', '--color-semantic-surface-card', NON_TEXT],
+  ['current outline line on the card', '--component-page-outline-line-current', '--color-semantic-surface-card', NON_TEXT],
   /* pins: the number and word sit on the card disc, never on the pop colour */
   ['pin number on its disc', '--component-pin-foreground', '--component-pin-background', AAA],
   /* list row: on the page and on a card */

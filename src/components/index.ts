@@ -104,6 +104,12 @@ export type { StatusPillProps } from './StatusPill/StatusPill';
 export { default as ListRow, ListRowGroup } from './ListRow/ListRow';
 export type { ListRowProps, ListRowGroupProps } from './ListRow/ListRow';
 
+export { default as PageOutline } from './PageOutline/PageOutline';
+export type { PageOutlineProps, PageOutlineItem } from './PageOutline/PageOutline';
+
+export { default as SectionNav } from './SectionNav/SectionNav';
+export type { SectionNavProps, SectionNavItem } from './SectionNav/SectionNav';
+
 export { default as Pin } from './Pin/Pin';
 export type { PinProps } from './Pin/Pin';
 

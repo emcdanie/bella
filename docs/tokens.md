@@ -926,3 +926,15 @@ value with the source reference in parentheses.
 | `component.list-row.column-gap` | `16px` (`{spacing.4}`) | dimension |
 | `component.list-row.row-gap` | `4px` (`{spacing.1}`) | dimension |
 | `component.list-row.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.section-nav.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.section-nav.padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.section-nav.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.section-nav.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.section-nav.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.section-nav.indicator` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.page-outline.min-target` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.page-outline.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.page-outline.line-length` | `24px` (`{spacing.6}`) | dimension |
+| `component.page-outline.line` | `#686d7d` (`{color.semantic.border-strong}`) | color |
+| `component.page-outline.line-current` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.page-outline.panel-radius` | `4px` (`{radius.sm}`) | dimension |

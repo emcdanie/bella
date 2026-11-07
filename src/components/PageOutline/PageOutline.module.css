@@ -1,0 +1,130 @@
+/* PageOutline (7 Nov 2026, the documentation-site "On this page"). Tokens only.
+ * At rest a 44px marker of lines, one per section, the current one ink and
+ * wider; open, a list on the card with the current section marked by weight
+ * and a wash, never by colour alone. */
+
+.outline {
+  position: relative;
+  display: inline-block;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--component-page-outline-min-target);
+  min-height: var(--component-page-outline-min-target);
+  margin: 0;
+  padding: var(--spacing-2);
+  border: none;
+  border-radius: var(--component-page-outline-border-radius);
+  background: transparent;
+  font-size: var(--typography-font-size-tag);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  background: var(--color-semantic-border-subtle);
+}
+
+.toggle:focus-visible,
+.link:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+.lines {
+  display: grid;
+  justify-items: end;
+  gap: var(--spacing-1);
+}
+
+.lines i {
+  display: block;
+  width: var(--component-page-outline-line-length);
+  height: var(--border-width-medium);
+  background: var(--component-page-outline-line);
+}
+
+.lines i.sub {
+  width: calc(var(--component-page-outline-line-length) * 0.6);
+}
+
+.lines i.on {
+  background: var(--component-page-outline-line-current);
+}
+
+.panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 5;
+  min-width: calc(var(--spacing-20) * 3);
+  margin-top: var(--spacing-2);
+  padding: var(--spacing-3);
+  background: var(--color-semantic-surface-card);
+  border: var(--border-width-thin) solid var(--color-semantic-border);
+  border-radius: var(--component-page-outline-panel-radius);
+  box-shadow: var(--shadow-soft);
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.heading {
+  margin: 0 0 var(--spacing-2);
+  padding: 0 var(--spacing-3);
+  font-size: var(--typography-font-size-tag);
+  color: var(--color-semantic-text-secondary);
+}
+
+.list {
+  display: grid;
+  gap: var(--spacing-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  min-height: var(--component-page-outline-min-target);
+  padding: 0 var(--spacing-3);
+  border-radius: var(--component-page-outline-border-radius);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-tag);
+  color: var(--color-semantic-text-body);
+  text-decoration: none;
+}
+
+.link:hover {
+  background: var(--color-semantic-border-subtle);
+}
+
+.link.indent {
+  padding-left: var(--spacing-6);
+}
+
+.link[aria-current='location'] {
+  color: var(--color-semantic-text-primary);
+  font-weight: var(--typography-font-weight-semibold);
+  background: var(--color-semantic-border-subtle);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (forced-colors: active) {
+  .lines i,
+  .lines i.on {
+    background: CanvasText;
+  }
+}

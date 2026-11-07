@@ -149,6 +149,15 @@ value with the source reference in parentheses.
 | `color.chip-ui.needs` | `#E9B820` | color |
 | `color.chip-ui.note` | `#E58BBB` | color |
 | `color.chip-ui.on-note` | `#0A0C14` | color |
+| `color.chip-ui.wash-blue` | `#E6F1FB` | color |
+| `color.chip-ui.wash-blue-ink` | `#114C80` | color |
+| `color.chip-ui.wash-yellow` | `#FCF4D8` | color |
+| `color.chip-ui.wash-yellow-ink` | `#5E4800` | color |
+| `color.chip-ui.wash-red` | `#FBEAE8` | color |
+| `color.chip-ui.wash-red-ink` | `#8F2118` | color |
+| `color.chip-ui.wash-green` | `#E5F4EA` | color |
+| `color.chip-ui.wash-green-ink` | `#18502F` | color |
+| `color.chip-ui.wash-grey` | `#EDEDEA` | color |
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |
@@ -633,6 +642,28 @@ value with the source reference in parentheses.
 | `component.status-pill.font-feature-settings` | `normal` | other |
 | `component.status-pill.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.status-pill.accent.foreground` | `#1d2030` (`{color.semantic.text-on-accent}`) | color |
+| `component.status-pill.accent.border` | `transparent` | color |
+| `component.status-pill.success.background` | `color-mix(in srgb, #4A7C6F 10%, transparent)` (`color-mix(in srgb, {color.semantic.success} 10%, transparent)`) | color |
+| `component.status-pill.success.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.success.border` | `#4A7C6F` (`{color.semantic.success}`) | color |
+| `component.status-pill.info.background` | `#6495C526` (`{color.semantic.info-subtle}`) | color |
+| `component.status-pill.info.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.info.border` | `#6495C54D` (`{color.semantic.info-border}`) | color |
+| `component.status-pill.neutral.background` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
+| `component.status-pill.neutral.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.neutral.border` | `#e4e6ec` (`{color.semantic.border}`) | color |
+| `component.status-pill.attention.background` | `#e8a83e` (`{color.semantic.attention}`) | color |
+| `component.status-pill.attention.foreground` | `#1d2030` (`{color.semantic.attention-on}`) | color |
+| `component.status-pill.attention.border` | `transparent` | color |
+| `component.status-pill.danger.background` | `color-mix(in srgb, #b3261e 10%, transparent)` (`color-mix(in srgb, {color.semantic.danger} 10%, transparent)`) | color |
+| `component.status-pill.danger.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.danger.border` | `#b3261e` (`{color.semantic.danger}`) | color |
+| `component.status-pill.quiet.background` | `#cfe8dc` (`{color.semantic.quiet}`) | color |
+| `component.status-pill.quiet.foreground` | `#1d2030` (`{color.semantic.quiet-on}`) | color |
+| `component.status-pill.quiet.border` | `transparent` | color |
+| `component.status-pill.serving.background` | `transparent` | color |
+| `component.status-pill.serving.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.serving.border` | `#4A7C6F` (`{color.semantic.success}`) | color |
 | `component.filter-chip.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.filter-chip.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |

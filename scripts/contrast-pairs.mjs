@@ -186,6 +186,12 @@ const FORBIDDEN_WEEDOTE = [
  * black 6.89:1), so its label is AA. */
 const CHIP_BAR = { 'primary button label on the ink plate': AA };
 
+/* chip: status tags carry a same-hue label on a soft wash, so each label is
+ * checked on its own wash, in chip only (the drawing board, 7 Nov 2026). */
+const CHIP_PAIRS = ['info', 'attention', 'danger', 'success', 'neutral'].map((v) => [
+  `${v} status tag label on its wash`, `--component-status-pill-${v}-foreground`, `--component-status-pill-${v}-background`, AAA,
+]);
+
 const failures = [];
 const lines = [];
 
@@ -282,6 +288,11 @@ for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], [
     if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1; ${a} vs ${b})`);
   }
 }
+for (const [label, fg, bg, bar] of CHIP_PAIRS) {
+  const r = ratio(colour(chip, fg), colour(chip, bg));
+  lines.push(`chip     ${r.toFixed(2).padStart(6)}:1  >= ${bar}  ${label}`);
+  if (r < bar) failures.push(`chip: ${label} is ${r.toFixed(2)}:1, needs ${bar}:1 (${fg} on ${bg})`);
+}
 for (const [label, fg, bg, under] of FORBIDDEN_LIGHT) {
   const r = ratio(resolve(light, fg), resolve(light, bg));
   lines.push(`light    ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
@@ -298,4 +309,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 5 + FORBIDDEN_LIGHT.length + FORBIDDEN_WEEDOTE.length} checked (light, dark, warm, wee-dote, chip), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);
+console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 5 + FORBIDDEN_LIGHT.length + FORBIDDEN_WEEDOTE.length + CHIP_PAIRS.length} checked (light, dark, warm, wee-dote, chip), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);

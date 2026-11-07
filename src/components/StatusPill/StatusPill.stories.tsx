@@ -60,6 +60,30 @@ export const Variants: Story = {
   ),
 };
 
+/** The chip theme sets each variant's tokens: a soft wash, a same-hue label
+ * that holds AAA on it, no border, Geist Mono at 16px (Elleta, 7 Nov 2026). */
+export const ChipTheme: Story = {
+  render: () => (
+    <div
+      data-theme="chip"
+      style={{
+        maxWidth: 420,
+        padding: 'var(--spacing-5)',
+        background: 'var(--color-semantic-surface-card)',
+        display: 'flex',
+        gap: 'var(--spacing-3)',
+        flexWrap: 'wrap',
+      }}
+    >
+      <StatusPill variant="attention">Waiting on you</StatusPill>
+      <StatusPill variant="info">Do next</StatusPill>
+      <StatusPill variant="success">Ready to review</StatusPill>
+      <StatusPill variant="danger">Failed</StatusPill>
+      <StatusPill variant="neutral">Gap</StatusPill>
+    </div>
+  ),
+};
+
 /** Status-ladder: all eight variants across all four themes.
  * Attention = waiting on you; info = working; success = done;
  * serving = success outline; danger = failed; quiet = parked.

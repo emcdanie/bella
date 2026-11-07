@@ -1683,6 +1683,57 @@
           }
         }
       },
+      "pop": {
+        "yellow": {
+          "$value": "#E9B820",
+          "$type": "color",
+          "$description": "Pop yellow from elleta.design (--pop-yellow). Fills and lines for pins and leaders only, never text, chrome or a status.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(80.45% 0.1581 88.3)",
+              "a11y": "Ink 8.71:1 on it; 1.85:1 on white. Verified 2026-11-07. A pin carries a number on a card disc, so the colour is never the only signal."
+            }
+          }
+        },
+        "pink": {
+          "$value": "#E58BBB",
+          "$type": "color",
+          "$description": "Pop pink from elleta.design (--pop-pink). Fills and lines for pins and leaders only, never text, chrome or a status.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(74.48% 0.1237 347.3)",
+              "a11y": "Ink 6.72:1 on it; 2.40:1 on white. Verified 2026-11-07. A pin carries a number on a card disc, so the colour is never the only signal."
+            }
+          }
+        },
+        "blue": {
+          "$value": "#2F9BE0",
+          "$type": "color",
+          "$description": "Pop blue from elleta.design (--pop-blue). Fills and lines for pins and leaders only, never text, chrome or a status.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(66.14% 0.1394 242.1)",
+              "a11y": "Ink 5.29:1 on it; 3.05:1 on white. Verified 2026-11-07. A pin carries a number on a card disc, so the colour is never the only signal."
+            }
+          }
+        },
+        "red": {
+          "$value": "#E2473B",
+          "$type": "color",
+          "$description": "Pop red from elleta.design (--pop-red). Fills and lines for pins and leaders only, never text, chrome or a status.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(61.71% 0.1936 28.5)",
+              "a11y": "Ink 3.99:1 on it; 4.04:1 on white. Verified 2026-11-07. A pin carries a number on a card disc, so the colour is never the only signal."
+            }
+          }
+        }
+      },
+      "canvas-grid-line": {
+        "$value": "rgba(13, 153, 255, 0.1)",
+        "$type": "color",
+        "$description": "The faint blue line of the site's grid canvas (elleta.design --figure-grid-line). Decorative, never a boundary."
+      },
       "chip-ui": {
         "ground": {
           "$value": "#F7F7F5",
@@ -2891,6 +2942,11 @@
               ]
             }
           }
+        },
+        "subsection": {
+          "$value": "24px",
+          "$type": "dimension",
+          "$description": "Heading subsection tier: below the section ramp, above body (Elleta, 7 Nov 2026)."
         },
         "display-page": {
           "$value": "clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)",
@@ -4591,6 +4647,36 @@
         }
       }
     },
+    "pop-yellow": {
+      "$value": "{color.pop.yellow}",
+      "$type": "color",
+      "$description": "Pin and leader yellow. Same in every theme; never text or a status."
+    },
+    "pop-pink": {
+      "$value": "{color.pop.pink}",
+      "$type": "color",
+      "$description": "Pin and leader pink. Same in every theme; never text or a status."
+    },
+    "pop-blue": {
+      "$value": "{color.pop.blue}",
+      "$type": "color",
+      "$description": "Pin and leader blue. Same in every theme; never text or a status."
+    },
+    "pop-red": {
+      "$value": "{color.pop.red}",
+      "$type": "color",
+      "$description": "Pin and leader red. Same in every theme; never text or a status."
+    },
+    "canvas-grid-line": {
+      "$value": "{color.canvas-grid-line}",
+      "$type": "color",
+      "$description": "The grid canvas's line. Decorative."
+    },
+    "canvas-grid": {
+      "$value": "linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)",
+      "$type": "other",
+      "$description": "The grid canvas: a background-image, at background-size var(--spacing-6) var(--spacing-6), over any ground."
+    },
     "focus-ring": {
       "$value": "{color.brand.ochre-deep}",
       "$type": "color",
@@ -5436,6 +5522,36 @@
           "a11y": "AAA (7:1) on the wash over ground, card and inset, checked in the gate."
         }
       }
+    },
+    "pop-yellow": {
+      "$value": "{color.pop.yellow}",
+      "$type": "color",
+      "$description": "Pin and leader yellow. Same in every theme; never text or a status."
+    },
+    "pop-pink": {
+      "$value": "{color.pop.pink}",
+      "$type": "color",
+      "$description": "Pin and leader pink. Same in every theme; never text or a status."
+    },
+    "pop-blue": {
+      "$value": "{color.pop.blue}",
+      "$type": "color",
+      "$description": "Pin and leader blue. Same in every theme; never text or a status."
+    },
+    "pop-red": {
+      "$value": "{color.pop.red}",
+      "$type": "color",
+      "$description": "Pin and leader red. Same in every theme; never text or a status."
+    },
+    "canvas-grid-line": {
+      "$value": "{color.canvas-grid-line}",
+      "$type": "color",
+      "$description": "The grid canvas's line. Decorative."
+    },
+    "canvas-grid": {
+      "$value": "linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)",
+      "$type": "other",
+      "$description": "The grid canvas: a background-image, at background-size var(--spacing-6) var(--spacing-6), over any ground."
     },
     "focus-ring": {
       "$value": "{color.brand.ochre}",
@@ -7775,7 +7891,8 @@
           "variants": [
             "hero",
             "page",
-            "section"
+            "section",
+            "subsection"
           ],
           "states": [
             "default"
@@ -7798,7 +7915,7 @@
           ],
           "dont": [
             "Never inside a card: cards carry titles (Figtree 600), not headings (contract-enforced by audit:quality)",
-            "Never below 32px: the section tier floors at 32px"
+            "Never below 32px for hero, page or section: only the subsection tier (24px) sits under the section ramp"
           ],
           "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
           "restState": {
@@ -7859,6 +7976,16 @@
       "section": {
         "font-size": {
           "$value": "{typography.font-size.display-section}",
+          "$type": "dimension"
+        },
+        "letter-spacing": {
+          "$value": "{typography.letter-spacing.h2}",
+          "$type": "dimension"
+        }
+      },
+      "subsection": {
+        "font-size": {
+          "$value": "{typography.font-size.subsection}",
           "$type": "dimension"
         },
         "letter-spacing": {
@@ -10471,6 +10598,247 @@
           "$type": "dimension",
           "$description": "Timestamp bottom margin. Closest spacing to spec 6px is spacing.2 (8px)."
         }
+      }
+    },
+    "pin": {
+      "$extensions": {
+        "bella": {
+          "name": "Pin",
+          "category": "Annotation",
+          "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups.",
+          "variants": [
+            "yellow",
+            "pink",
+            "blue",
+            "red"
+          ],
+          "states": [
+            "default",
+            "hover",
+            "focus"
+          ],
+          "props": [
+            "number",
+            "variant",
+            "label",
+            "onClick",
+            "ariaLabel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Numbering the parts of a specimen or picture",
+            "Tying a note to what it explains, with Leader"
+          ],
+          "dont": [
+            "Do not use colour alone: a pin always has a number",
+            "Do not use a pop colour for a status: StatusPill carries status",
+            "Do not make a label-less pin clickable without ariaLabel"
+          ],
+          "a11y": "Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring."
+        }
+      },
+      "background": {
+        "$value": "{color.semantic.surface-card}",
+        "$type": "color"
+      },
+      "foreground": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "size": {
+        "$value": "{spacing.8}",
+        "$type": "dimension",
+        "$description": "The disc: 32px, room for two digits at the 16px floor."
+      },
+      "ring-width": {
+        "$value": "{border.width.thick}",
+        "$type": "dimension"
+      },
+      "label-padding-x": {
+        "$value": "{spacing.3}",
+        "$type": "dimension"
+      },
+      "gap": {
+        "$value": "{spacing.2}",
+        "$type": "dimension"
+      },
+      "font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension"
+      },
+      "font-weight": {
+        "$value": "{typography.font-weight.semibold}",
+        "$type": "fontWeight"
+      },
+      "border-radius": {
+        "$value": "{radius.full}",
+        "$type": "dimension"
+      },
+      "min-target": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
+      },
+      "yellow": {
+        "$value": "{color.semantic.pop-yellow}",
+        "$type": "color"
+      },
+      "pink": {
+        "$value": "{color.semantic.pop-pink}",
+        "$type": "color"
+      },
+      "blue": {
+        "$value": "{color.semantic.pop-blue}",
+        "$type": "color"
+      },
+      "red": {
+        "$value": "{color.semantic.pop-red}",
+        "$type": "color"
+      }
+    },
+    "leader": {
+      "$extensions": {
+        "bella": {
+          "name": "Leader",
+          "category": "Annotation",
+          "description": "A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.",
+          "variants": [
+            "yellow",
+            "pink",
+            "blue",
+            "red"
+          ],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "from",
+            "to",
+            "label",
+            "variant",
+            "end",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "From a Pin to the part it numbers",
+            "From a note to a specimen"
+          ],
+          "dont": [
+            "Do not leave out the label: the line is meaning too, so it says what it ties together",
+            "Do not hard-code coordinates: it measures its ends and redraws on resize"
+          ],
+          "a11y": "Verified 2026-11-07: a labelled image, role img with an aria-label that says what it ties together, per the diagram rule. No pointer events. Forced colours draw it in CanvasText."
+        }
+      },
+      "stroke-width": {
+        "$value": "{border.width.medium}",
+        "$type": "dimension"
+      },
+      "dash": {
+        "$value": "4 4",
+        "$type": "other",
+        "$description": "Dash and gap, as the site draws it."
+      },
+      "end-size": {
+        "$value": "{spacing.2}",
+        "$type": "dimension",
+        "$description": "Arrowhead length and dot diameter."
+      },
+      "yellow": {
+        "$value": "{color.semantic.pop-yellow}",
+        "$type": "color"
+      },
+      "pink": {
+        "$value": "{color.semantic.pop-pink}",
+        "$type": "color"
+      },
+      "blue": {
+        "$value": "{color.semantic.pop-blue}",
+        "$type": "color"
+      },
+      "red": {
+        "$value": "{color.semantic.pop-red}",
+        "$type": "color"
+      }
+    },
+    "list-row": {
+      "$extensions": {
+        "bella": {
+          "name": "ListRow",
+          "category": "Data",
+          "description": "One item in a work list: a status marker with a word, a title, one line of why, one action. Rows sit in a ListRowGroup, which aligns their columns and stacks them when narrow.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "description",
+            "status",
+            "action",
+            "titleAs",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Work lists: what to do next, changes, projects",
+            "Any list where each item has one action"
+          ],
+          "dont": [
+            "Do not use it for tabular data with several comparable columns: that is DataTable",
+            "Do not put more than one action in a row",
+            "Do not rely on the status colour: StatusPill carries a word"
+          ],
+          "a11y": "Verified 2026-11-07: an li in a ul. Title is text-primary, why is text-body, AAA on the ground and card in every theme. titleAs sets the heading level when the page needs one. The row holds no target of its own: its action brings its own 44px box."
+        }
+      },
+      "title-font-size": {
+        "$value": "{typography.font-size.xl}",
+        "$type": "dimension"
+      },
+      "title-font-weight": {
+        "$value": "{typography.font-weight.semibold}",
+        "$type": "fontWeight"
+      },
+      "title-color": {
+        "$value": "{color.semantic.text-primary}",
+        "$type": "color"
+      },
+      "description-font-size": {
+        "$value": "{typography.font-size.body}",
+        "$type": "dimension"
+      },
+      "description-line-height": {
+        "$value": "{typography.line-height.normal}",
+        "$type": "number"
+      },
+      "description-color": {
+        "$value": "{color.semantic.text-body}",
+        "$type": "color"
+      },
+      "border": {
+        "$value": "{color.semantic.border}",
+        "$type": "color"
+      },
+      "border-width": {
+        "$value": "{border.width.thin}",
+        "$type": "dimension"
+      },
+      "padding-y": {
+        "$value": "{spacing.3}",
+        "$type": "dimension"
+      },
+      "column-gap": {
+        "$value": "{spacing.4}",
+        "$type": "dimension"
+      },
+      "row-gap": {
+        "$value": "{spacing.1}",
+        "$type": "dimension"
+      },
+      "min-height": {
+        "$value": "{spacing.touch-target}",
+        "$type": "dimension"
       }
     }
   }

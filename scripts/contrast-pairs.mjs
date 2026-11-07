@@ -139,6 +139,13 @@ const PAIRS = [
     [`highlight edge on the wash over ${s}`, '--color-semantic-highlight-edge', `--color-semantic-highlight-wash over --color-semantic-${s}`, NON_TEXT],
     [`highlight edge beside ${s}`, '--color-semantic-highlight-edge', `--color-semantic-${s}`, NON_TEXT],
   ]),
+  /* pins: the number and word sit on the card disc, never on the pop colour */
+  ['pin number on its disc', '--component-pin-foreground', '--component-pin-background', AAA],
+  /* list row: on the page and on a card */
+  ['list row title on the page', '--component-list-row-title-color', '--color-semantic-background', AAA],
+  ['list row title on a card', '--component-list-row-title-color', '--color-semantic-surface-card', AAA],
+  ['list row why on the page', '--component-list-row-description-color', '--color-semantic-background', AAA],
+  ['list row why on a card', '--component-list-row-description-color', '--color-semantic-surface-card', AAA],
   /* chip fills carry chip text */
   ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
   ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
@@ -174,10 +181,9 @@ const FORBIDDEN_WEEDOTE = [
   ['ink on lane-d red in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-d', AAA],
 ];
 
-/* chip: a pair held to a lower bar, with the reason. No text colour reaches AAA
- * on the approved action blue (ink 5.29:1, black 6.89:1), so its label is AA.
- * Waiting on Elleta's decision, 6 Nov 2026. */
-const CHIP_BAR = { 'primary button label on the ink plate': AA };
+/* chip: a pair held to a lower bar, with the reason. None today: the main
+ * button went ink on 7 Nov 2026, so its label is AAA like every other theme. */
+const CHIP_BAR = {};
 
 const failures = [];
 const lines = [];

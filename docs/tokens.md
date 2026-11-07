@@ -129,6 +129,11 @@ value with the source reference in parentheses.
 | `color.wee-dote.lane-c` | `#E5B3BF` | color |
 | `color.wee-dote.lane-d` | `#E32923` | color |
 | `color.wee-dote.lane-e` | `#5B9B84` | color |
+| `color.pop.yellow` | `#E9B820` | color |
+| `color.pop.pink` | `#E58BBB` | color |
+| `color.pop.blue` | `#2F9BE0` | color |
+| `color.pop.red` | `#E2473B` | color |
+| `color.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` | color |
 | `color.chip-ui.ground` | `#F7F7F5` | color |
 | `color.chip-ui.canvas` | `#F4F5F8` | color |
 | `color.chip-ui.line` | `#1F1C1938` | color |
@@ -216,6 +221,7 @@ value with the source reference in parentheses.
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
 | `typography.font-size.display-hero` | `clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)` | dimension |
+| `typography.font-size.subsection` | `24px` | dimension |
 | `typography.font-size.display-page` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
 | `typography.font-size.display-section` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` | dimension |
 | `typography.font-size.quote` | `clamp(24px, 24px + 8 * (100vw - 390px) / 1050, 32px)` | dimension |
@@ -357,6 +363,12 @@ value with the source reference in parentheses.
 | `color.semantic.highlight-wash` | `#1d203014` (`{color.alpha.ink-wash-08}`) | color |
 | `color.semantic.highlight-edge` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.highlight-text` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.pop-yellow` | `#E9B820` (`{color.pop.yellow}`) | color |
+| `color.semantic.pop-pink` | `#E58BBB` (`{color.pop.pink}`) | color |
+| `color.semantic.pop-blue` | `#2F9BE0` (`{color.pop.blue}`) | color |
+| `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
+| `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
+| `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
 | `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
@@ -440,6 +452,12 @@ value with the source reference in parentheses.
 | `color.semantic.highlight-wash` | `#eceef31f` (`{color.alpha.ink-wash-12}`) | color |
 | `color.semantic.highlight-edge` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.highlight-text` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.pop-yellow` | `#E9B820` (`{color.pop.yellow}`) | color |
+| `color.semantic.pop-pink` | `#E58BBB` (`{color.pop.pink}`) | color |
+| `color.semantic.pop-blue` | `#2F9BE0` (`{color.pop.blue}`) | color |
+| `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
+| `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
+| `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
 | `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |
@@ -641,6 +659,8 @@ value with the source reference in parentheses.
 | `component.heading.page.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-page}`) | dimension |
 | `component.heading.section.font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.heading.section.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
+| `component.heading.subsection.font-size` | `24px` (`{typography.font-size.subsection}`) | dimension |
+| `component.heading.subsection.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
 | `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |
 | `component.icon.size-lg` | `24px` (`{icon.lg}`) | dimension |
@@ -842,3 +862,36 @@ value with the source reference in parentheses.
 | `component.chat-thread.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
 | `component.chat-thread.default.stamp-margin-top` | `12px` (`{spacing.3}`) | dimension |
 | `component.chat-thread.default.stamp-margin-bottom` | `8px` (`{spacing.2}`) | dimension |
+| `component.pin.background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
+| `component.pin.foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.pin.size` | `32px` (`{spacing.8}`) | dimension |
+| `component.pin.ring-width` | `3px` (`{border.width.thick}`) | dimension |
+| `component.pin.label-padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.pin.gap` | `8px` (`{spacing.2}`) | dimension |
+| `component.pin.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.pin.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
+| `component.pin.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.pin.min-target` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.pin.yellow` | `#E9B820` (`{color.semantic.pop-yellow}`) | color |
+| `component.pin.pink` | `#E58BBB` (`{color.semantic.pop-pink}`) | color |
+| `component.pin.blue` | `#2F9BE0` (`{color.semantic.pop-blue}`) | color |
+| `component.pin.red` | `#E2473B` (`{color.semantic.pop-red}`) | color |
+| `component.leader.stroke-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.leader.dash` | `4 4` | other |
+| `component.leader.end-size` | `8px` (`{spacing.2}`) | dimension |
+| `component.leader.yellow` | `#E9B820` (`{color.semantic.pop-yellow}`) | color |
+| `component.leader.pink` | `#E58BBB` (`{color.semantic.pop-pink}`) | color |
+| `component.leader.blue` | `#2F9BE0` (`{color.semantic.pop-blue}`) | color |
+| `component.leader.red` | `#E2473B` (`{color.semantic.pop-red}`) | color |
+| `component.list-row.title-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
+| `component.list-row.title-font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
+| `component.list-row.title-color` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.list-row.description-font-size` | `20px` (`{typography.font-size.body}`) | dimension |
+| `component.list-row.description-line-height` | `1.7` (`{typography.line-height.normal}`) | number |
+| `component.list-row.description-color` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.list-row.border` | `#e4e6ec` (`{color.semantic.border}`) | color |
+| `component.list-row.border-width` | `1px` (`{border.width.thin}`) | dimension |
+| `component.list-row.padding-y` | `12px` (`{spacing.3}`) | dimension |
+| `component.list-row.column-gap` | `16px` (`{spacing.4}`) | dimension |
+| `component.list-row.row-gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.list-row.min-height` | `44px` (`{spacing.touch-target}`) | dimension |

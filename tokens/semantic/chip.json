@@ -99,6 +99,34 @@
         "gloss-pressed": {
           "$value": "linear-gradient(transparent, transparent)",
           "$type": "other"
+        },
+        "fill-hi": {
+          "$value": "{color.cool.900}",
+          "$type": "color",
+          "$description": "Main button is ink, so blue can mean passing (Elleta, 7 Nov 2026)."
+        },
+        "fill-lo": {
+          "$value": "{color.cool.900}",
+          "$type": "color",
+          "$description": "Flat ink."
+        },
+        "fill-hi-hover": {
+          "$value": "{color.cool.700}",
+          "$type": "color"
+        },
+        "fill-lo-hover": {
+          "$value": "{color.cool.700}",
+          "$type": "color"
+        },
+        "edge": {
+          "$value": "{color.cool.900}",
+          "$type": "color",
+          "$description": "No key edge: the plate's own ink."
+        },
+        "foreground": {
+          "$value": "{color.cool.50}",
+          "$type": "color",
+          "$description": "Label on the ink plate, AAA."
         }
       },
       "secondary": {
@@ -278,6 +306,20 @@
         "$value": "{typography.font-size.tag}",
         "$type": "dimension"
       }
+    },
+    "heading": {
+      "font-weight": {
+        "$value": "{typography.font-weight.medium}",
+        "$type": "fontWeight",
+        "$description": "Newsreader 500."
+      }
+    },
+    "list-row": {
+      "title-font-size": {
+        "$value": "{typography.font-size.tag}",
+        "$type": "dimension",
+        "$description": "CHIP row title: 16, weight carries it."
+      }
     }
   },
   "radius": {
@@ -308,5 +350,43 @@
       "$description": "Flat button: no key edge or drop shadow (Elleta, 4 Nov 2026)."
     }
   },
-  "$description": "CHIP theme ([data-theme=\"chip\"], 6 Nov 2026, Elleta): overrides on top of semantic/light.json. CHIP's approved colours, a flat blue button, and 16px controls, and shapes: round for what you click, 2px for what holds content. Focus ring stays BELLA's ochre-deep (3.09:1 or more on every CHIP surface). Status pills stay round. border-subtle stays the light value: BELLA also uses it as a fill (nav current, chip hover, score track), so it stays opaque. Everything not listed here is the light value."
+  "$description": "CHIP theme ([data-theme=\"chip\"], 6 Nov 2026, Elleta): overrides on top of semantic/light.json. CHIP's approved colours, a flat blue button, and 16px controls, and shapes: round for what you click, 2px for what holds content. Focus ring stays BELLA's ochre-deep (3.09:1 or more on every CHIP surface). Status pills stay round. border-subtle stays the light value: BELLA also uses it as a fill (nav current, chip hover, score track), so it stays opaque. Everything not listed here is the light value.",
+  "typography": {
+    "font-family": {
+      "display": {
+        "$value": "Newsreader, Georgia, serif",
+        "$type": "fontFamily",
+        "$description": "CHIP titles (Elleta, 7 Nov 2026): the site's title face, this theme only."
+      },
+      "body": {
+        "$value": "'DM Sans', system-ui, sans-serif",
+        "$type": "fontFamily",
+        "$description": "CHIP body and controls (Elleta, 7 Nov 2026): the site's body face, this theme only."
+      }
+    },
+    "font-size": {
+      "display-page": {
+        "$value": "40px",
+        "$type": "dimension",
+        "$description": "CHIP page title: 40."
+      },
+      "display-section": {
+        "$value": "32px",
+        "$type": "dimension",
+        "$description": "CHIP section: 32."
+      },
+      "body": {
+        "$value": "16px",
+        "$type": "dimension",
+        "$description": "CHIP body: 16, BELLA's floor (the app's density, approved in the concept lock, 7 Nov 2026)."
+      }
+    },
+    "line-height": {
+      "normal": {
+        "$value": "1.5",
+        "$type": "number",
+        "$description": "CHIP body leading at 16px."
+      }
+    }
+  }
 }

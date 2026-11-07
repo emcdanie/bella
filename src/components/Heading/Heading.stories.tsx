@@ -35,7 +35,7 @@ export default meta;
 
 type Story = StoryObj<typeof Heading>;
 
-/** The three tiers on the ramp: hero 6xl, page 5xl, section 3xl. */
+/** The tiers: hero 6xl, page 5xl, section 3xl on the ramp, then subsection at a fixed 24px. */
 export const Tiers: Story = {
   parameters: { bella: { fluidType: true } },
   render: () => (
@@ -43,6 +43,7 @@ export const Tiers: Story = {
       <Heading tier="hero">Hero step</Heading>
       <Heading tier="page">Page title</Heading>
       <Heading tier="section">Section head</Heading>
+      <Heading tier="subsection">Subsection head</Heading>
     </div>
   ),
 };

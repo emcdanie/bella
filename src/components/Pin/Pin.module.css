@@ -1,0 +1,71 @@
+/* Pin (7 Nov 2026, from the site's hero pins). Tokens only. The disc and the
+ * label are the card with an ink number and word; the pop colour is the ring,
+ * so it groups pins and never has to carry contrast or meaning. */
+
+.pin {
+  --pin-pop: var(--component-pin-pink);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--component-pin-gap);
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-pin-font-size);
+  font-weight: var(--component-pin-font-weight);
+  color: var(--component-pin-foreground);
+}
+
+.yellow { --pin-pop: var(--component-pin-yellow); }
+.pink { --pin-pop: var(--component-pin-pink); }
+.blue { --pin-pop: var(--component-pin-blue); }
+.red { --pin-pop: var(--component-pin-red); }
+
+.disc,
+.label {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--component-pin-size);
+  background: var(--component-pin-background);
+  border: var(--component-pin-ring-width) solid var(--pin-pop);
+  border-radius: var(--component-pin-border-radius);
+}
+
+.disc {
+  flex: none;
+  min-width: var(--component-pin-size);
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  padding-inline: var(--component-pin-label-padding-x);
+}
+
+/* clickable: a 44px box around the same drawing */
+.action {
+  min-width: var(--component-pin-min-target);
+  min-height: var(--component-pin-min-target);
+  padding: 0;
+  border: 0;
+  background: none;
+  justify-content: center;
+  border-radius: var(--component-pin-border-radius);
+  cursor: pointer;
+}
+
+/* the ring thickens; the fill stays the card, because ink fails AA on the red */
+.action:hover .disc,
+.action:hover .label {
+  box-shadow: 0 0 0 var(--component-pin-ring-width) var(--pin-pop);
+}
+
+.action:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+@media (forced-colors: active) {
+  .disc,
+  .label {
+    border-color: CanvasText;
+  }
+}

@@ -101,6 +101,15 @@ export type { StatProps } from './Stat/Stat';
 export { default as StatusPill } from './StatusPill/StatusPill';
 export type { StatusPillProps } from './StatusPill/StatusPill';
 
+export { default as ListRow, ListRowGroup } from './ListRow/ListRow';
+export type { ListRowProps, ListRowGroupProps } from './ListRow/ListRow';
+
+export { default as Pin } from './Pin/Pin';
+export type { PinProps } from './Pin/Pin';
+
+export { default as Leader } from './Leader/Leader';
+export type { LeaderProps } from './Leader/Leader';
+
 export { default as Tabs, tabPanelProps } from './Tabs/Tabs';
 export type { TabsProps, TabsItem } from './Tabs/Tabs';
 

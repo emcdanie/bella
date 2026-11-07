@@ -1,0 +1,43 @@
+/* Leader (7 Nov 2026, from the site's hero leaders). Tokens only. Fills its
+ * positioned parent and never takes a click. */
+
+.leader {
+  --leader-pop: var(--component-leader-pink);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.yellow { --leader-pop: var(--component-leader-yellow); }
+.pink { --leader-pop: var(--component-leader-pink); }
+.blue { --leader-pop: var(--component-leader-blue); }
+.red { --leader-pop: var(--component-leader-red); }
+
+.line,
+.arrow {
+  fill: none;
+  stroke: var(--leader-pop);
+  stroke-width: var(--component-leader-stroke-width);
+}
+
+.line {
+  stroke-dasharray: var(--component-leader-dash);
+}
+
+.dot {
+  fill: var(--leader-pop);
+}
+
+@media (forced-colors: active) {
+  .line,
+  .arrow {
+    stroke: CanvasText;
+  }
+
+  .dot {
+    fill: CanvasText;
+  }
+}

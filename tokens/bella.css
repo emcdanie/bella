@@ -126,6 +126,11 @@
   --color-wee-dote-lane-c: #E5B3BF;
   --color-wee-dote-lane-d: #E32923;
   --color-wee-dote-lane-e: #5B9B84;
+  --color-pop-yellow: #E9B820;
+  --color-pop-pink: #E58BBB;
+  --color-pop-blue: #2F9BE0;
+  --color-pop-red: #E2473B;
+  --color-canvas-grid-line: rgba(13, 153, 255, 0.1);
   --color-chip-ui-ground: #F7F7F5;
   --color-chip-ui-canvas: #F4F5F8;
   --color-chip-ui-line: #1F1C1938;
@@ -213,6 +218,7 @@
   --typography-font-size-4xl: 40px;
   --typography-font-size-6xl: 88px;
   --typography-font-size-display-hero: clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px);
+  --typography-font-size-subsection: 24px;
   --typography-font-size-display-page: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
   --typography-font-size-display-section: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
   --typography-font-size-quote: clamp(24px, 24px + 8 * (100vw - 390px) / 1050, 32px);
@@ -351,6 +357,12 @@
   --color-semantic-highlight-wash: #1d203014;
   --color-semantic-highlight-edge: #1d2030;
   --color-semantic-highlight-text: #1d2030;
+  --color-semantic-pop-yellow: #E9B820;
+  --color-semantic-pop-pink: #E58BBB;
+  --color-semantic-pop-blue: #2F9BE0;
+  --color-semantic-pop-red: #E2473B;
+  --color-semantic-canvas-grid-line: rgba(13, 153, 255, 0.1);
+  --color-semantic-canvas-grid: linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px);
   --color-semantic-focus-ring: #b97a14;
   --color-semantic-danger-text: #b3261e;
   --color-semantic-danger-border: #b3261e;
@@ -548,6 +560,8 @@
   --component-heading-page-font-size: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
   --component-heading-section-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
   --component-heading-section-letter-spacing: -0.015em;
+  --component-heading-subsection-font-size: 24px;
+  --component-heading-subsection-letter-spacing: -0.015em;
   --component-icon-size-sm: 16px;
   --component-icon-size-md: 20px;
   --component-icon-size-lg: 24px;
@@ -749,6 +763,39 @@
   --component-chat-thread-default-padding-inline: 12px;
   --component-chat-thread-default-stamp-margin-top: 12px;
   --component-chat-thread-default-stamp-margin-bottom: 8px;
+  --component-pin-background: #fcfcfa;
+  --component-pin-foreground: #1d2030;
+  --component-pin-size: 32px;
+  --component-pin-ring-width: 3px;
+  --component-pin-label-padding-x: 12px;
+  --component-pin-gap: 8px;
+  --component-pin-font-size: 16px;
+  --component-pin-font-weight: 600;
+  --component-pin-border-radius: 999px;
+  --component-pin-min-target: 44px;
+  --component-pin-yellow: #E9B820;
+  --component-pin-pink: #E58BBB;
+  --component-pin-blue: #2F9BE0;
+  --component-pin-red: #E2473B;
+  --component-leader-stroke-width: 2px;
+  --component-leader-dash: 4 4;
+  --component-leader-end-size: 8px;
+  --component-leader-yellow: #E9B820;
+  --component-leader-pink: #E58BBB;
+  --component-leader-blue: #2F9BE0;
+  --component-leader-red: #E2473B;
+  --component-list-row-title-font-size: 22px;
+  --component-list-row-title-font-weight: 600;
+  --component-list-row-title-color: #1d2030;
+  --component-list-row-description-font-size: 20px;
+  --component-list-row-description-line-height: 1.7;
+  --component-list-row-description-color: #2b2f3d;
+  --component-list-row-border: #e4e6ec;
+  --component-list-row-border-width: 1px;
+  --component-list-row-padding-y: 12px;
+  --component-list-row-column-gap: 16px;
+  --component-list-row-row-gap: 4px;
+  --component-list-row-min-height: 44px;
 
   /* ---- v0.1 governance tokens (see docs/RULES.md) ----
    * Fixed-context tokens: do NOT flip with [data-theme="dark"]. They name
@@ -815,6 +862,12 @@
   --color-semantic-highlight-wash: #eceef31f;
   --color-semantic-highlight-edge: #eceef3;
   --color-semantic-highlight-text: #eceef3;
+  --color-semantic-pop-yellow: #E9B820;
+  --color-semantic-pop-pink: #E58BBB;
+  --color-semantic-pop-blue: #2F9BE0;
+  --color-semantic-pop-red: #E2473B;
+  --color-semantic-canvas-grid-line: rgba(13, 153, 255, 0.1);
+  --color-semantic-canvas-grid: linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px);
   --color-semantic-focus-ring: #e8a83e;
   --color-semantic-danger-text: #ff8f84;
   --color-semantic-danger-border: #ff8f84;
@@ -953,6 +1006,11 @@
   --component-chat-bubble-received-background: #1d2030;
   --component-chat-bubble-received-foreground: #eceef3;
   --component-avatar-stack-default-ring-color: #171a22;
+  --component-pin-background: #171a22;
+  --component-pin-foreground: #eceef3;
+  --component-list-row-title-color: #eceef3;
+  --component-list-row-description-color: #eceef3;
+  --component-list-row-border: #2e3240;
 }
 
 [data-theme="warm"] {
@@ -1024,6 +1082,8 @@
   --component-chat-bubble-sent-foreground: #f0ede8;
   --component-chat-bubble-received-background: #ebe4d6;
   --component-avatar-stack-default-ring-color: #f0ede8;
+  --component-pin-background: #fbfaf7;
+  --component-list-row-border: #e3dbcf;
 }
 
 [data-theme="wee-dote"] {
@@ -1152,6 +1212,10 @@
   --component-chat-bubble-sent-foreground: #E4EDE5;
   --component-chat-bubble-received-background: #DDE6DD;
   --component-avatar-stack-default-ring-color: #E4EDE5;
+  --component-pin-background: #E4EDE5;
+  --component-pin-foreground: #121212;
+  --component-list-row-title-color: #121212;
+  --component-list-row-border: #B5BFB6;
 }
 
 [data-theme="chip"] {
@@ -1175,6 +1239,12 @@
   --color-semantic-pin: #E58BBB;
   --component-button-primary-gloss: linear-gradient(transparent, transparent);
   --component-button-primary-gloss-pressed: linear-gradient(transparent, transparent);
+  --component-button-primary-fill-hi: #1d2030;
+  --component-button-primary-fill-lo: #1d2030;
+  --component-button-primary-fill-hi-hover: #3a3f50;
+  --component-button-primary-fill-lo-hover: #3a3f50;
+  --component-button-primary-edge: #1d2030;
+  --component-button-primary-foreground: #eceef3;
   --component-button-secondary-background: #ffffff;
   --component-button-secondary-background-hover: #EEF7FD;
   --component-button-secondary-background-active: #E2F1FB;
@@ -1206,20 +1276,45 @@
   --component-score-strip-cell-border-radius: 2px;
   --component-callout-gap-radius: 2px;
   --component-action-chip-font-size: 16px;
+  --component-heading-font-weight: 500;
+  --component-list-row-title-font-size: 16px;
   --radius-xs: 2px;
   --radius-card: 2px;
   --shadow-key-resting: none;
   --shadow-key-hover: none;
   --shadow-key-pressed: none;
+  --typography-font-family-display: Newsreader, Georgia, serif;
+  --typography-font-family-body: 'DM Sans', system-ui, sans-serif;
+  --typography-font-size-display-page: 40px;
+  --typography-font-size-display-section: 32px;
+  --typography-font-size-body: 16px;
+  --typography-line-height-normal: 1.5;
   --ring-focus-color: var(--color-semantic-focus-ring);
 
   /* ---- Component (chip) overrides ---- */
-  --component-button-primary-fill-hi: #2F9BE0;
-  --component-button-primary-fill-lo: #2F9BE0;
-  --component-button-primary-fill-hi-hover: #6DB9E9;
-  --component-button-primary-fill-lo-hover: #6DB9E9;
-  --component-button-primary-edge: #2F9BE0;
-  --component-button-primary-foreground: #1d2030;
+  --component-button-primary-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-tag-default-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-status-pill-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-filter-chip-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-segmented-control-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-select-label-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-heading-font-family: Newsreader, Georgia, serif;
+  --component-heading-page-font-size: 40px;
+  --component-heading-section-font-size: 32px;
+  --component-avatar-default-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-eyebrow-muted-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-eyebrow-ink-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-nav-link-default-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-section-heading-font-size: 32px;
+  --component-callout-gap-label-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-tabs-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-nav-list-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-nav-list-label-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-stat-label-font-family: 'DM Sans', system-ui, sans-serif;
+  --component-stat-value-font-family: Newsreader, Georgia, serif;
+  --component-stat-value-font-size: 32px;
+  --component-score-strip-score-font-size: 32px;
+  --component-score-strip-label-font-family: 'DM Sans', system-ui, sans-serif;
   --component-data-table-header-background: #ffffff;
   --component-drawer-border: #1F1C1938;
   --component-drawer-scrim: #1D203052;
@@ -1227,6 +1322,10 @@
   --component-combobox-list-background: #ffffff;
   --component-disclosure-border: #1F1C1938;
   --component-slider-thumb-background: #ffffff;
+  --component-pin-background: #ffffff;
+  --component-list-row-description-font-size: 16px;
+  --component-list-row-description-line-height: 1.5;
+  --component-list-row-border: #1F1C1938;
 }
 
 /* ---- Inside a chip root: light and dark specimens keep their own values ---- */
@@ -1249,6 +1348,12 @@
   --color-semantic-attention: #e8a83e;
   --component-button-primary-gloss: linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%);
   --component-button-primary-gloss-pressed: linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%);
+  --component-button-primary-fill-hi: #1d2030;
+  --component-button-primary-fill-lo: #1d2030;
+  --component-button-primary-fill-hi-hover: #3a3f50;
+  --component-button-primary-fill-lo-hover: #3a3f50;
+  --component-button-primary-edge: #1d2030;
+  --component-button-primary-foreground: #eceef3;
   --component-button-secondary-background: transparent;
   --component-button-secondary-background-hover: transparent;
   --component-button-secondary-background-active: #eceef3;
@@ -1280,16 +1385,41 @@
   --component-score-strip-cell-border-radius: 8px;
   --component-callout-gap-radius: 12px;
   --component-action-chip-font-size: 20px;
+  --component-heading-font-weight: 600;
+  --component-list-row-title-font-size: 22px;
   --radius-card: 1rem;
   --shadow-key-resting: 0 2px 0 #171a22, 3px 6px 10px #1212123D, inset 0 1px 0 #FFFFFF66;
   --shadow-key-hover: 0 2px 0 #171a22, 4px 8px 14px #12121247, inset 0 1px 0 #FFFFFF66;
   --shadow-key-pressed: 0 1px 0 #171a22, 2px 3px 8px #12121233, inset 0 1px 0 #FFFFFF66;
-  --component-button-primary-fill-hi: #1d2030;
-  --component-button-primary-fill-lo: #1d2030;
-  --component-button-primary-fill-hi-hover: #3a3f50;
-  --component-button-primary-fill-lo-hover: #3a3f50;
-  --component-button-primary-edge: #1d2030;
-  --component-button-primary-foreground: #eceef3;
+  --typography-font-family-display: Figtree, system-ui, sans-serif;
+  --typography-font-family-body: Figtree, system-ui, sans-serif;
+  --typography-font-size-display-page: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
+  --typography-font-size-display-section: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --typography-font-size-body: 20px;
+  --typography-line-height-normal: 1.7;
+  --component-button-primary-font-family: Figtree, system-ui, sans-serif;
+  --component-tag-default-font-family: Figtree, system-ui, sans-serif;
+  --component-status-pill-font-family: Figtree, system-ui, sans-serif;
+  --component-filter-chip-font-family: Figtree, system-ui, sans-serif;
+  --component-segmented-control-font-family: Figtree, system-ui, sans-serif;
+  --component-select-label-font-family: Figtree, system-ui, sans-serif;
+  --component-heading-font-family: Figtree, system-ui, sans-serif;
+  --component-heading-page-font-size: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
+  --component-heading-section-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-avatar-default-font-family: Figtree, system-ui, sans-serif;
+  --component-eyebrow-muted-font-family: Figtree, system-ui, sans-serif;
+  --component-eyebrow-ink-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-link-default-font-family: Figtree, system-ui, sans-serif;
+  --component-section-heading-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-callout-gap-label-font-family: Figtree, system-ui, sans-serif;
+  --component-tabs-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-list-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-list-label-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-label-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-value-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-value-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-score-strip-score-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-score-strip-label-font-family: Figtree, system-ui, sans-serif;
   --component-data-table-header-background: #fcfcfa;
   --component-drawer-border: #e4e6ec;
   --component-drawer-scrim: #1A172038;
@@ -1297,6 +1427,10 @@
   --component-combobox-list-background: #fcfcfa;
   --component-disclosure-border: #e4e6ec;
   --component-slider-thumb-background: #fcfcfa;
+  --component-pin-background: #fcfcfa;
+  --component-list-row-description-font-size: 20px;
+  --component-list-row-description-line-height: 1.7;
+  --component-list-row-border: #e4e6ec;
   --ring-focus-color: var(--color-semantic-focus-ring);
 }
 
@@ -1328,7 +1462,40 @@
   --component-score-strip-cell-border-radius: 8px;
   --component-callout-gap-radius: 12px;
   --component-action-chip-font-size: 20px;
+  --component-heading-font-weight: 600;
+  --component-list-row-title-font-size: 22px;
   --radius-card: 1rem;
+  --typography-font-family-display: Figtree, system-ui, sans-serif;
+  --typography-font-family-body: Figtree, system-ui, sans-serif;
+  --typography-font-size-display-page: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
+  --typography-font-size-display-section: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --typography-font-size-body: 20px;
+  --typography-line-height-normal: 1.7;
+  --component-button-primary-font-family: Figtree, system-ui, sans-serif;
+  --component-tag-default-font-family: Figtree, system-ui, sans-serif;
+  --component-status-pill-font-family: Figtree, system-ui, sans-serif;
+  --component-filter-chip-font-family: Figtree, system-ui, sans-serif;
+  --component-segmented-control-font-family: Figtree, system-ui, sans-serif;
+  --component-select-label-font-family: Figtree, system-ui, sans-serif;
+  --component-heading-font-family: Figtree, system-ui, sans-serif;
+  --component-heading-page-font-size: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px);
+  --component-heading-section-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-avatar-default-font-family: Figtree, system-ui, sans-serif;
+  --component-eyebrow-muted-font-family: Figtree, system-ui, sans-serif;
+  --component-eyebrow-ink-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-link-default-font-family: Figtree, system-ui, sans-serif;
+  --component-section-heading-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-callout-gap-label-font-family: Figtree, system-ui, sans-serif;
+  --component-tabs-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-list-font-family: Figtree, system-ui, sans-serif;
+  --component-nav-list-label-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-label-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-value-font-family: Figtree, system-ui, sans-serif;
+  --component-stat-value-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-score-strip-score-font-size: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px);
+  --component-score-strip-label-font-family: Figtree, system-ui, sans-serif;
+  --component-list-row-description-font-size: 20px;
+  --component-list-row-description-line-height: 1.7;
   --ring-focus-color: var(--color-semantic-focus-ring);
 }
 
@@ -1448,6 +1615,10 @@
     --color-wee-dote-lane-c: oklch(81.52% 0.0599 2.5);
     --color-wee-dote-lane-d: oklch(59.14% 0.2199 28.4);
     --color-wee-dote-lane-e: oklch(63.95% 0.0752 168.9);
+    --color-pop-yellow: oklch(80.45% 0.1581 88.3);
+    --color-pop-pink: oklch(74.48% 0.1237 347.3);
+    --color-pop-blue: oklch(66.14% 0.1394 242.1);
+    --color-pop-red: oklch(61.71% 0.1936 28.5);
     --color-chip-ui-ground: oklch(97.56% 0.0026 106.4);
     --color-chip-ui-canvas: oklch(97.02% 0.0041 271.4);
     --color-chip-ui-line: oklch(22.87% 0.0074 67.4 / 22%);
@@ -1549,6 +1720,10 @@
     --color-semantic-highlight-wash: var(--color-alpha-ink-wash-08);
     --color-semantic-highlight-edge: var(--color-cool-900);
     --color-semantic-highlight-text: var(--color-cool-900);
+    --color-semantic-pop-yellow: var(--color-pop-yellow);
+    --color-semantic-pop-pink: var(--color-pop-pink);
+    --color-semantic-pop-blue: var(--color-pop-blue);
+    --color-semantic-pop-red: var(--color-pop-red);
     --color-semantic-focus-ring: var(--color-brand-ochre-deep);
     --color-semantic-danger-text: var(--color-light-danger);
     --color-semantic-danger-border: var(--color-light-danger);
@@ -1693,6 +1868,19 @@
     --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-chat-bubble-received-foreground: var(--color-semantic-text-body);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-pin-foreground: var(--color-semantic-text-primary);
+    --component-pin-yellow: var(--color-semantic-pop-yellow);
+    --component-pin-pink: var(--color-semantic-pop-pink);
+    --component-pin-blue: var(--color-semantic-pop-blue);
+    --component-pin-red: var(--color-semantic-pop-red);
+    --component-leader-yellow: var(--color-semantic-pop-yellow);
+    --component-leader-pink: var(--color-semantic-pop-pink);
+    --component-leader-blue: var(--color-semantic-pop-blue);
+    --component-leader-red: var(--color-semantic-pop-red);
+    --component-list-row-title-color: var(--color-semantic-text-primary);
+    --component-list-row-description-color: var(--color-semantic-text-body);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="dark"] {
     --color-semantic-text-body: var(--color-cool-50);
@@ -1732,6 +1920,10 @@
     --color-semantic-highlight-wash: var(--color-alpha-ink-wash-12);
     --color-semantic-highlight-edge: var(--color-cool-50);
     --color-semantic-highlight-text: var(--color-cool-50);
+    --color-semantic-pop-yellow: var(--color-pop-yellow);
+    --color-semantic-pop-pink: var(--color-pop-pink);
+    --color-semantic-pop-blue: var(--color-pop-blue);
+    --color-semantic-pop-red: var(--color-pop-red);
     --color-semantic-focus-ring: var(--color-brand-ochre);
     --color-semantic-danger-text: var(--color-dark-danger);
     --color-semantic-danger-border: var(--color-dark-danger);
@@ -1865,6 +2057,11 @@
     --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-chat-bubble-received-foreground: var(--color-semantic-text-body);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-pin-foreground: var(--color-semantic-text-primary);
+    --component-list-row-title-color: var(--color-semantic-text-primary);
+    --component-list-row-description-color: var(--color-semantic-text-body);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="warm"] {
     --color-semantic-background: var(--color-warm-bg);
@@ -1931,6 +2128,8 @@
     --component-chat-bubble-sent-foreground: var(--color-semantic-surface);
     --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="wee-dote"] {
     --color-semantic-background: var(--color-wee-dote-bg);
@@ -2054,6 +2253,10 @@
     --component-chat-bubble-sent-foreground: var(--color-semantic-surface);
     --component-chat-bubble-received-background: var(--color-semantic-chat-surface-received);
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-pin-foreground: var(--color-semantic-text-primary);
+    --component-list-row-title-color: var(--color-semantic-text-primary);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="chip"] {
     --color-semantic-background: var(--color-chip-ui-ground);
@@ -2073,6 +2276,12 @@
     --color-semantic-danger: var(--color-chip-ui-fail);
     --color-semantic-attention: var(--color-chip-ui-needs);
     --color-semantic-pin: var(--color-chip-ui-note);
+    --component-button-primary-fill-hi: var(--color-cool-900);
+    --component-button-primary-fill-lo: var(--color-cool-900);
+    --component-button-primary-fill-hi-hover: var(--color-cool-700);
+    --component-button-primary-fill-lo-hover: var(--color-cool-700);
+    --component-button-primary-edge: var(--color-cool-900);
+    --component-button-primary-foreground: var(--color-cool-50);
     --component-button-secondary-background: var(--color-semantic-surface-card);
     --component-button-secondary-background-hover: var(--color-chip-ui-action-tint);
     --component-button-secondary-background-active: var(--color-chip-ui-action-wash);
@@ -2097,6 +2306,8 @@
     --component-combobox-list-background: var(--color-semantic-surface-card);
     --component-disclosure-border: var(--color-semantic-border);
     --component-slider-thumb-background: var(--color-semantic-surface-card);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="light"] {
     --color-semantic-background: var(--color-stone-95);
@@ -2115,6 +2326,12 @@
     --color-semantic-success: var(--color-supporting-sage);
     --color-semantic-danger: var(--color-light-danger);
     --color-semantic-attention: var(--color-brand-ochre);
+    --component-button-primary-fill-hi: var(--color-semantic-action);
+    --component-button-primary-fill-lo: var(--color-semantic-action);
+    --component-button-primary-fill-hi-hover: var(--color-semantic-accent-raised-hover);
+    --component-button-primary-fill-lo-hover: var(--color-semantic-accent-raised-hover);
+    --component-button-primary-edge: var(--color-semantic-accent-raised-edge);
+    --component-button-primary-foreground: var(--color-semantic-action-on);
     --component-button-secondary-background-active: var(--color-semantic-surface-inset);
     --component-button-secondary-border: var(--color-semantic-border-ink);
     --component-button-secondary-border-hover: var(--color-semantic-border-ink);
@@ -2124,12 +2341,6 @@
     --shadow-key-resting: 0 2px 0 var(--color-cool-950), 3px 6px 10px var(--color-alpha-key-24), inset 0 1px 0 var(--color-alpha-glass-40);
     --shadow-key-hover: 0 2px 0 var(--color-cool-950), 4px 8px 14px var(--color-alpha-key-28), inset 0 1px 0 var(--color-alpha-glass-40);
     --shadow-key-pressed: 0 1px 0 var(--color-cool-950), 2px 3px 8px var(--color-alpha-key-20), inset 0 1px 0 var(--color-alpha-glass-40);
-    --component-button-primary-fill-hi: var(--color-semantic-action);
-    --component-button-primary-fill-lo: var(--color-semantic-action);
-    --component-button-primary-fill-hi-hover: var(--color-semantic-accent-raised-hover);
-    --component-button-primary-fill-lo-hover: var(--color-semantic-accent-raised-hover);
-    --component-button-primary-edge: var(--color-semantic-accent-raised-edge);
-    --component-button-primary-foreground: var(--color-semantic-action-on);
     --component-data-table-header-background: var(--color-semantic-surface-card);
     --component-drawer-border: var(--color-semantic-border);
     --component-drawer-scrim: var(--color-semantic-scrim);
@@ -2137,6 +2348,8 @@
     --component-combobox-list-background: var(--color-semantic-surface-card);
     --component-disclosure-border: var(--color-semantic-border);
     --component-slider-thumb-background: var(--color-semantic-surface-card);
+    --component-pin-background: var(--color-semantic-surface-card);
+    --component-list-row-border: var(--color-semantic-border);
   }
   [data-theme="dark"] {
   }

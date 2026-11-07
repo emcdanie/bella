@@ -25,6 +25,8 @@
 | Content card | `Card`, `ResourceCard` |
 | Metrics / scores | `Stat`, `ScoreStrip` |
 | Tabular data | `DataTable` |
+| Work list: status, title, why, one action | `ListRow` |
+| Explain something in place: numbered marker, dashed line | `Pin`, `Leader` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
 | Group of people (overlapping discs) | `AvatarStack` |

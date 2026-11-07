@@ -29,6 +29,8 @@ export interface ButtonProps {
   linkComponent?: ElementType;
   /** Accessible name when the visible label isn't the right name. */
   ariaLabel?: string;
+  /** For a button that shows or hides content: whether that content is open (aria-expanded). */
+  ariaExpanded?: boolean;
   /** Extra classes on the control. */
   className?: string;
   children?: ReactNode;
@@ -49,6 +51,7 @@ export default function Button({
   disabled,
   linkComponent: LinkComponent = 'a',
   ariaLabel,
+  ariaExpanded,
   className,
   children,
 }: ButtonProps) {
@@ -93,7 +96,7 @@ export default function Button({
     );
   }
   return (
-    <button type={type} onClick={onClick} disabled={disabled} {...shared}>
+    <button type={type} onClick={onClick} disabled={disabled} aria-expanded={ariaExpanded} {...shared}>
       {label}
     </button>
   );

@@ -10,7 +10,7 @@ export interface PageOutlineItem {
 }
 
 export interface PageOutlineProps {
-  /** The page's sections, in order. Show the outline only with three or more. */
+  /** The page's sections, in order. It renders only with three or more. */
   items: PageOutlineItem[];
   /** The list's heading and the toggle's name. */
   label?: string;
@@ -81,7 +81,8 @@ export default function PageOutline({ items, label = 'On this page', onNavigate,
     el?.focus({ preventScroll: true });
   };
 
-  if (!items.length) return null;
+  // fewer than three sections need no outline
+  if (items.length < 3) return null;
   const now = items.find((i) => i.id === current);
   return (
     <div ref={root} className={[styles.outline, className].filter(Boolean).join(' ')} data-bella-component="page-outline">

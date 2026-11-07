@@ -181,9 +181,10 @@ const FORBIDDEN_WEEDOTE = [
   ['ink on lane-d red in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-d', AAA],
 ];
 
-/* chip: a pair held to a lower bar, with the reason. None today: the main
- * button went ink on 7 Nov 2026, so its label is AAA like every other theme. */
-const CHIP_BAR = {};
+/* chip: a pair held to a lower bar, with the reason. CTAs are blue (Elleta,
+ * 7 Nov 2026). No text colour reaches AAA on the action blue (ink 5.29:1,
+ * black 6.89:1), so its label is AA. */
+const CHIP_BAR = { 'primary button label on the ink plate': AA };
 
 const failures = [];
 const lines = [];

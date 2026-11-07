@@ -13,6 +13,11 @@ export interface StatusPillProps {
    * `"quiet"` = parked / inactive (muted fill); `"serving"` = success outline.
    */
   variant?: 'accent' | 'success' | 'info' | 'neutral' | 'attention' | 'danger' | 'quiet' | 'serving';
+  /**
+   * `"dot"` shows only a coloured mark in the state's colour; the word stays
+   * the accessible name, visually hidden (CHIP's Today, Elleta 7 Nov 2026).
+   */
+  shape?: 'pill' | 'dot';
   /** Extra classes on the pill. */
   className?: string;
   children?: ReactNode;
@@ -24,9 +29,17 @@ export interface StatusPillProps {
  */
 export default function StatusPill({
   variant = 'accent',
+  shape = 'pill',
   className,
   children,
 }: StatusPillProps) {
+  if (shape === 'dot') {
+    return (
+      <span className={[styles.dot, styles[`dot-${variant}`], className].filter(Boolean).join(' ')} data-bella-component="status-pill" data-shape="dot">
+        <span className={styles.word}>{children}</span>
+      </span>
+    );
+  }
   const cls = [styles.pill, styles[variant], className].filter(Boolean).join(' ');
   return (
     <span className={cls} data-bella-component="status-pill">

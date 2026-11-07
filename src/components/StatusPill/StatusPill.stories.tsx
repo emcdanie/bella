@@ -84,6 +84,19 @@ export const ChipTheme: Story = {
   ),
 };
 
+/** shape="dot": the state's mark only; the word is the accessible name
+ * (CHIP's Today, Elleta 7 Nov 2026). */
+export const Dot: Story = {
+  render: () => (
+    <div data-theme="chip" style={{ display: 'flex', gap: 'var(--spacing-3)', alignItems: 'center' }}>
+      <StatusPill shape="dot" variant="attention">Waiting on you</StatusPill>
+      <StatusPill shape="dot" variant="info">Do next</StatusPill>
+      <StatusPill shape="dot" variant="success">Ready to review</StatusPill>
+      <StatusPill shape="dot" variant="danger">Failed</StatusPill>
+    </div>
+  ),
+};
+
 /** Status-ladder: all eight variants across all four themes.
  * Attention = waiting on you; info = working; success = done;
  * serving = success outline; danger = failed; quiet = parked.

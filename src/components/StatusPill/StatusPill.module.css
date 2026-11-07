@@ -86,3 +86,26 @@
   background: var(--component-status-pill-serving-background);
   border-color: var(--component-status-pill-serving-border);
 }
+
+/* shape="dot" (CHIP's Today, 7 Nov 2026): the state's own mark colour, the
+   word kept as the accessible name but not drawn */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  border-radius: 50%;
+  background: var(--color-semantic-text-secondary);
+}
+.dot-attention, .dot-accent { background: var(--color-semantic-attention); }
+.dot-danger { background: var(--color-semantic-danger); }
+.dot-success, .dot-serving { background: var(--color-semantic-success); }
+.dot-info { background: var(--color-semantic-info); }
+.word {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

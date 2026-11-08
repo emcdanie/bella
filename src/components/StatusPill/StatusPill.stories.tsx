@@ -104,7 +104,7 @@ export const Dot: Story = {
 export const StatusLadder: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
-      {(['light', 'dark', 'warm', 'wee-dote'] as const).map((theme) => (
+      {(['light', 'dark', 'warm'] as const).map((theme) => (
         <div
           key={theme}
           data-theme={theme}

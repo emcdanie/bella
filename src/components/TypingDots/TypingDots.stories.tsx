@@ -27,7 +27,7 @@ type Story = StoryObj<typeof TypingDots>;
 
 export const Default: Story = {};
 
-/** All four wee-dote lanes. */
+/** All four lanes. */
 export const AllLanes: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
@@ -35,16 +35,6 @@ export const AllLanes: Story = {
       <TypingDots name="Bernie" />
       <TypingDots name="Saoirse" />
       <TypingDots name="Frankie" />
-    </div>
-  ),
-};
-
-/** wee-dote theme. */
-export const WeeDote: Story = {
-  parameters: { backgrounds: { default: 'wee-dote' } },
-  render: () => (
-    <div style={{ padding: 'var(--spacing-4)', background: 'var(--color-semantic-background)' }}>
-      <TypingDots name="Seamus" />
     </div>
   ),
 };

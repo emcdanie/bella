@@ -59,30 +59,6 @@ export const WithTyping: Story = {
   ),
 };
 
-/** wee-dote theme with the sage background. */
-export const WeeDote: Story = {
-  parameters: { backgrounds: { default: 'wee-dote' } },
-  render: () => (
-    <div
-      style={{
-        maxWidth: 420,
-        margin: '0 auto',
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-2xl)',
-        overflow: 'hidden',
-      }}
-    >
-      <ChatThread label="The Bar wee-dote">
-        <ChatThreadTimestamp>Today 21:14</ChatThreadTimestamp>
-        <ChatBubble side="received">First round on me.</ChatBubble>
-        <ChatBubble side="received" tail>Lager for everyone.</ChatBubble>
-        <ChatBubble side="sent" tail>Legend.</ChatBubble>
-        <ChatThreadDelivered />
-      </ChatThread>
-    </div>
-  ),
-};
-
 /** Fluid to 320px. The smallest supported width. */
 export const Narrow: Story = {
   render: () => (
@@ -100,11 +76,11 @@ export const Narrow: Story = {
 const THE_BAR_HEADER: AvatarStackMember[] = [
   { name: 'Elleta',  ringColor: 'var(--color-semantic-text-primary)', showInitials: true },
   { name: 'Seamus',  src: '/avatars/seamus.png',  ringColor: 'var(--color-semantic-text-primary)' },
-  { name: 'Dara',    src: '/avatars/dara.png',    ringColor: 'var(--color-wee-dote-lane-a)' },
-  { name: 'Bernie',  src: '/avatars/bernie.png',  ringColor: 'var(--color-wee-dote-lane-b)' },
-  { name: 'Saoirse', src: '/avatars/saoirse.png', ringColor: 'var(--color-wee-dote-lane-c)' },
-  { name: 'Frankie', src: '/avatars/frankie.png', ringColor: 'var(--color-wee-dote-lane-d)' },
-  { name: 'Liam',    src: '/avatars/liam.png',    ringColor: 'var(--color-wee-dote-lane-e)' },
+  { name: 'Dara',    src: '/avatars/dara.png',    ringColor: 'var(--color-semantic-lane-a)' },
+  { name: 'Bernie',  src: '/avatars/bernie.png',  ringColor: 'var(--color-semantic-lane-b)' },
+  { name: 'Saoirse', src: '/avatars/saoirse.png', ringColor: 'var(--color-semantic-lane-c)' },
+  { name: 'Frankie', src: '/avatars/frankie.png', ringColor: 'var(--color-semantic-lane-d)' },
+  { name: 'Liam',    src: '/avatars/liam.png',    ringColor: 'var(--color-semantic-success)' },
 ];
 
 const BarHeader = () => (
@@ -147,7 +123,7 @@ const FirstScreenContent = () => (
     <ChatBubble side="sent" tail tapback="‼️">
       ok I cleared all the terminals, let&apos;s go
     </ChatBubble>
-    <ChatBubble side="received" senderName="Bernie" disc="var(--color-wee-dote-lane-b)" tail>
+    <ChatBubble side="received" senderName="Bernie" disc="var(--color-semantic-lane-b)" tail>
       Right, I&apos;ve had a proper look at every section. Pull up a chair. {String.fromCodePoint(0x1F4CB)}
     </ChatBubble>
   </ChatThread>
@@ -169,54 +145,6 @@ export const TheBarFirstScreenLight: Story = {
       </div>
     </div>
   ),
-};
-
-/** First screen of The Bar in wee-dote theme. Ground must be sage #CBD5CC. */
-export const TheBarFirstScreenWeeDote: Story = {
-  render: () => (
-    <div
-      data-theme="wee-dote"
-      data-testid="wee-dote-wrapper"
-      style={{
-        maxWidth: 420,
-        margin: '0 auto',
-        background: 'var(--color-semantic-background)',
-        borderRadius: 'var(--radius-2xl)',
-        overflow: 'hidden',
-        padding: 'var(--spacing-2)',
-      }}
-    >
-      <div
-        style={{
-          background: 'var(--color-semantic-surface)',
-          borderRadius: 'var(--radius-xl)',
-          overflow: 'hidden',
-        }}
-      >
-        <BarHeader />
-        <FirstScreenContent />
-      </div>
-    </div>
-  ),
-  play: async ({ canvas, step }) => {
-    await step('wee-dote ground is sage (#CBD5CC)', async () => {
-      const wrapper = canvas.getByTestId('wee-dote-wrapper');
-      const bg = getComputedStyle(wrapper).backgroundColor;
-      // Normalise via canvas pixel — works for oklch, rgb, hex alike.
-      const toRgb = (css: string): [number, number, number] => {
-        const cv = document.createElement('canvas');
-        cv.width = 1; cv.height = 1;
-        const ctx = cv.getContext('2d')!;
-        ctx.fillStyle = css;
-        ctx.fillRect(0, 0, 1, 1);
-        const d = ctx.getImageData(0, 0, 1, 1).data;
-        return [d[0], d[1], d[2]];
-      };
-      const [ar, ag, ab] = toRgb(bg);
-      const [er, eg, eb] = toRgb('#CBD5CC');
-      expect(Math.abs(ar - er) <= 2 && Math.abs(ag - eg) <= 2 && Math.abs(ab - eb) <= 2).toBe(true);
-    });
-  },
 };
 
 export const Behavior: Story = {

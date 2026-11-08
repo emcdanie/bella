@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { leavesUnder, primitive, semanticDark, semanticLight, semanticWarm, semanticWeeDote, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
+import { leavesUnder, primitive, semanticDark, semanticLight, semanticWarm, walk, SectionTitle, SwatchGrid, TokenTable } from './TokenSheet';
 
 const meta: Meta = {
   title: 'Foundations/Colors',
@@ -93,7 +93,6 @@ export const RoleTokens: StoryObj = {
           { label: 'light', bindings: semanticLight },
           { label: 'dark', bindings: semanticDark },
           { label: 'warm', bindings: semanticWarm },
-          { label: 'wee-dote', bindings: semanticWeeDote },
         ]
       ).map(({ label, bindings }) => (
         <div

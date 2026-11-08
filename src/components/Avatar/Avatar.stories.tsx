@@ -61,12 +61,10 @@ export const Ring: Story = {
  * The Bar pattern (chip-2.0 b232e68):
  * - src="/avatars/<name>.png" (160x160 circular, transparent bg)
  * - ring={true}
- * - style={{ '--component-avatar-default-ring-color': 'var(--color-wee-dote-lane-a)' }} */
+ * - style={{ '--component-avatar-default-ring-color': 'var(--color-semantic-lane-a)' }} */
 export const RingColor: Story = {
-  parameters: { backgrounds: { default: 'wee-dote' } },
   render: () => (
     <div
-      data-theme="wee-dote"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -77,11 +75,11 @@ export const RingColor: Story = {
     >
       {(
         [
-          { name: 'Dara',    color: 'var(--color-wee-dote-lane-a)' },
-          { name: 'Bernie',  color: 'var(--color-wee-dote-lane-b)' },
-          { name: 'Saoirse', color: 'var(--color-wee-dote-lane-c)' },
-          { name: 'Frankie', color: 'var(--color-wee-dote-lane-d)' },
-          { name: 'Liam',    color: 'var(--color-wee-dote-lane-e)' },
+          { name: 'Dara',    color: 'var(--color-semantic-lane-a)' },
+          { name: 'Bernie',  color: 'var(--color-semantic-lane-b)' },
+          { name: 'Saoirse', color: 'var(--color-semantic-lane-c)' },
+          { name: 'Frankie', color: 'var(--color-semantic-lane-d)' },
+          { name: 'Liam',    color: 'var(--color-semantic-success)' },
           { name: 'Seamus',  color: 'var(--color-semantic-text-primary)' },
         ]
       ).map(({ name, color }) => (

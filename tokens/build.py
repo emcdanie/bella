@@ -33,7 +33,6 @@ primitive = load("primitive.json")
 sem_light = load("semantic/light.json")
 sem_dark  = load("semantic/dark.json")
 sem_warm     = load("semantic/warm.json")      # overrides on top of light (2026-10-03)
-sem_wee_dote = load("semantic/wee-dote.json")  # overrides on top of light (2026-10-10)
 sem_chip     = load("semantic/chip.json")      # overrides on top of light (2026-11-06)
 component = load("component.json")
 
@@ -59,7 +58,6 @@ prim_flat     = flatten(primitive)
 light_flat    = flatten(sem_light)
 dark_flat     = flatten(sem_dark)
 warm_flat     = flatten(sem_warm)
-wee_dote_flat = flatten(sem_wee_dote)
 chip_flat     = flatten(sem_chip)
 comp_flat     = flatten(component)
 
@@ -84,13 +82,11 @@ def make_resolver(lookup):
 light_lookup    = {**prim_flat, **light_flat, **comp_flat}
 dark_lookup     = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
 warm_lookup     = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
-wee_dote_lookup = {**prim_flat, **light_flat, **wee_dote_flat, **comp_flat}
 chip_lookup     = {**prim_flat, **light_flat, **chip_flat, **comp_flat}
 
 resolve_light    = make_resolver(light_lookup)
 resolve_dark     = make_resolver(dark_lookup)
 resolve_warm     = make_resolver(warm_lookup)
-resolve_wee_dote = make_resolver(wee_dote_lookup)
 resolve_chip     = make_resolver(chip_lookup)
 
 # ---------- emit bella.css ----------
@@ -212,25 +208,6 @@ for path, (v, t, _) in comp_flat.items():
     lightv, warmv = resolve_light(v), resolve_warm(v)
     if lightv != warmv:
         css_lines.append(f"  {emit_css_var(path)}: {warmv};")
-css_lines += ["}", ""]
-
-# [data-theme="wee-dote"]: sage sardine-tin, a fourth theme on top of light (2026-10-10).
-# Only the semantic tokens wee-dote.json overrides, plus any component token
-# whose value lands differently under the wee-dote lookup.
-css_lines += [
-    "[data-theme=\"wee-dote\"] {",
-    "  /* ---- Semantic (wee-dote) overrides on top of light ---- */",
-]
-for path, (v, t, _) in wee_dote_flat.items():
-    css_lines.append(f"  {emit_css_var(path)}: {resolve_wee_dote(v)};")
-css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
-css_lines += ["", "  /* ---- Component (wee-dote) overrides ---- */"]
-for path, (v, t, _) in comp_flat.items():
-    if isinstance(v, dict):
-        continue
-    lightv, wee_dotev = resolve_light(v), resolve_wee_dote(v)
-    if lightv != wee_dotev:
-        css_lines.append(f"  {emit_css_var(path)}: {wee_dotev};")
 css_lines += ["}", ""]
 
 # [data-theme="chip"]: the local app (CHIP), a fifth theme on top of light (2026-11-06).
@@ -360,7 +337,7 @@ ok.append("  }")
 # layer set on :root wherever that theme differs: by name when it is a
 # reference, by value when it is a literal.
 layer_root = {l.split(":")[0].strip() for l in ok if l.startswith("    --")}
-for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm), ("[data-theme=\"wee-dote\"]", wee_dote_flat, resolve_wee_dote), ("[data-theme=\"chip\"]", chip_flat, resolve_chip)):
+for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm), ("[data-theme=\"chip\"]", chip_flat, resolve_chip)):
     ok.append(f"  {sel} {{")
     for path, (v, t, _) in flat.items():
         if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):
@@ -490,7 +467,6 @@ rollup = {
     "semantic": sem_light["color"]["semantic"],
     "semantic_dark_overrides": sem_dark["color"]["semantic"],
     "semantic_warm_overrides": sem_warm["color"]["semantic"],
-    "semantic_wee_dote_overrides": sem_wee_dote["color"]["semantic"],
     "semantic_chip_overrides": sem_chip["color"]["semantic"],
     "component": component["component"]
 }

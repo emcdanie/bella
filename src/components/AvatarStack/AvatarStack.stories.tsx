@@ -12,15 +12,15 @@ const consumedTokens = Array.from(
 
 const stackContract = (componentContract as any).component?.['avatar-stack']?.$extensions?.bella ?? {};
 
-/* The Bar cast — wee-dote lane colours via tokens. */
+/* The Bar cast: lane colours via tokens. */
 const THE_BAR = [
   { name: 'Elleta' },
   { name: 'Seamus', laneColor: 'var(--color-semantic-text-primary)' },
-  { name: 'Dara', laneColor: 'var(--color-wee-dote-lane-a)' },
-  { name: 'Bernie', laneColor: 'var(--color-wee-dote-lane-b)' },
-  { name: 'Saoirse', laneColor: 'var(--color-wee-dote-lane-c)' },
-  { name: 'Frankie', laneColor: 'var(--color-wee-dote-lane-d)' },
-  { name: 'Liam', laneColor: 'var(--color-wee-dote-lane-e)' },
+  { name: 'Dara', laneColor: 'var(--color-semantic-lane-a)' },
+  { name: 'Bernie', laneColor: 'var(--color-semantic-lane-b)' },
+  { name: 'Saoirse', laneColor: 'var(--color-semantic-lane-c)' },
+  { name: 'Frankie', laneColor: 'var(--color-semantic-lane-d)' },
+  { name: 'Liam', laneColor: 'var(--color-semantic-success)' },
 ];
 
 const meta: Meta<typeof AvatarStack> = {
@@ -56,21 +56,6 @@ export const WithOverflow: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
       <AvatarStack members={THE_BAR} max={4} size="sm" />
       <AvatarStack members={THE_BAR} max={3} size="md" />
-    </div>
-  ),
-};
-
-/** wee-dote theme. Pass surfaceColor to match the column background. */
-export const WeeDote: Story = {
-  parameters: { backgrounds: { default: 'wee-dote' } },
-  render: () => (
-    <div
-      style={{
-        padding: 'var(--spacing-4)',
-        background: 'var(--color-semantic-background)',
-      }}
-    >
-      <AvatarStack members={THE_BAR} size="sm" surfaceColor="var(--color-semantic-surface)" />
     </div>
   ),
 };

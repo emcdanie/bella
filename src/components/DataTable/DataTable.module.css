@@ -2,9 +2,10 @@
  *
  * Paint: hairline row rules, a header on the panel surface that sticks to
  * the top of the wrapper, figures right-aligned in tabular numerals.
- * Selection is the ochre fill with ink text on the whole row: highlight,
- * never dim, so every other row keeps its normal paint. Ochre-deep stays
- * the focus ring only.
+ * Selection is the pink fill (#E58BBB) with a near-black label on the whole
+ * row, 8.13:1 (shared look, 8 Nov 2026): highlight, never dim, so every
+ * other row keeps its normal paint. The focus ring is ink or near-white,
+ * never the selection colour.
  *
  * Sticky needs a scrolling ancestor: with maxHeight the wrapper scrolls
  * (and becomes a focusable named region so keyboards can scroll it);
@@ -127,13 +128,18 @@
   transform: rotate(180deg);
 }
 
+/* a focus ring inside a selected row sits on the fill, so it takes the fill's text colour */
+tr[data-selected] {
+  --ring-focus-color: var(--component-data-table-selected-foreground);
+}
+
 tr[data-selected] > * {
   background: var(--component-data-table-selected-background);
   color: var(--component-data-table-selected-foreground);
 }
 
-/* every text on the ochre fill goes ink, nested components included: a
-   muted label on ochre is 3.51:1 (caught by axe on a StatusPill) */
+/* every text on the selected fill goes near-black, nested components
+   included: a muted label fails contrast there (caught by axe on a StatusPill) */
 tr[data-selected] > * * {
   color: var(--component-data-table-selected-foreground);
 }

@@ -82,18 +82,17 @@
         "ochre": {
           "$value": "#e8a83e",
           "$type": "color",
-          "$description": "The accent (brand refresh, 2026-09-22, Elleta): a fill. On light surfaces always with ink #121212 text (9.01:1). The dark-theme focus ring.",
+          "$description": "The Needs you state: a fill with ink text (9.01:1). Selection is pink since 8 Nov 2026.",
           "$extensions": {
             "bella": {
               "oklch": "oklch(77.43% 0.1397 76.1)",
               "usage": [
-                "Accent fills with ink text",
-                "Dark-theme focus ring (8.70:1 on the dark surface)",
-                "Chip and marker fills"
+                "Needs you fills with ink text",
+                "Lane D and the glass accent"
               ],
               "dont": [
                 "Never text or hairlines on light surfaces: 2.08:1 on white, 1.86:1 on panel",
-                "Never a focus ring on light: use ochre-deep"
+                "Never selection: selection is pink"
               ],
               "a11y": "Verified 2026-09-22: ink on ochre 9.01:1 (AAA). Ochre on dark: 9.35:1 bg, 8.70:1 surface, 7.93:1 inset, 7.28:1 raised."
             }
@@ -114,6 +113,36 @@
                 "Not body text: 3.59:1 on white is non-text AA only"
               ],
               "a11y": "Verified 2026-09-22: 3.59:1 on white, 3.20:1 on panel (non-text AA); 5.42:1 on the dark bg."
+            }
+          }
+        },
+        "pink": {
+          "$value": "#E58BBB",
+          "$type": "color",
+          "$description": "Selection fill (Elleta, 8 Nov 2026). Text on it is on-pink, 8.13:1.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(74.48% 0.1237 347.3)"
+            }
+          }
+        },
+        "pink-deep": {
+          "$value": "#CF5A95",
+          "$type": "color",
+          "$description": "The selection mark where a line, not a fill, carries it. 3.78:1 on white.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(63.15% 0.1609 351.3)"
+            }
+          }
+        },
+        "on-pink": {
+          "$value": "#0A0C14",
+          "$type": "color",
+          "$description": "Text on the pink selection fill: 8.13:1. Ink is 6.72:1 and misses AAA.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(15.64% 0.0174 273.4)"
             }
           }
         }
@@ -1235,6 +1264,16 @@
           "$extensions": {
             "bella": {
               "oklch": "oklch(99% 0.002 85)"
+            }
+          }
+        },
+        "97": {
+          "$value": "#F7F7F5",
+          "$type": "color",
+          "$description": "The page ground (shared look, Elleta, 8 Nov 2026), the same as elleta.design.",
+          "$extensions": {
+            "bella": {
+              "oklch": "oklch(97.56% 0.0026 106.4)"
             }
           }
         }
@@ -3155,9 +3194,9 @@
     "typography": {
       "font-family": {
         "display": {
-          "$value": "Figtree, system-ui, sans-serif",
+          "$value": "Newsreader, Georgia, serif",
           "$type": "fontFamily",
-          "$description": "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08): wordmarks are drawn SVG.",
+          "$description": "Headings and titles: Newsreader 500 (shared look, Elleta, 8 Nov 2026), the same face as elleta.design.",
           "$extensions": {
             "bella": {
               "usage": [
@@ -3170,9 +3209,9 @@
           }
         },
         "body": {
-          "$value": "Figtree, system-ui, sans-serif",
+          "$value": "'DM Sans', system-ui, sans-serif",
           "$type": "fontFamily",
-          "$description": "Body and UI typeface, Figtree: body, labels, eyebrows, buttons, navigation.",
+          "$description": "Body, labels and buttons: DM Sans (shared look, Elleta, 8 Nov 2026), the same face as elleta.design.",
           "$extensions": {
             "bella": {
               "usage": [
@@ -4331,9 +4370,9 @@
         }
       },
       "key-resting": {
-        "$value": "0 2px 0 {color.cool.950}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap at rest: a straight key edge 2px down (no x offset, so the corners read true), in the ink one step darker than the face, a small soft cast and the inset glass highlight (Elleta, 2026-10-04; was 1px 3px 0).",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4343,9 +4382,9 @@
         }
       },
       "key-hover": {
-        "$value": "0 2px 0 {color.cool.950}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap hover: the same straight edge, a deeper soft cast.",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4355,9 +4394,9 @@
         }
       },
       "key-pressed": {
-        "$value": "0 1px 0 {color.cool.950}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap pressed: the edge sinks to 1px (pair with motion.transform.key-press).",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4367,9 +4406,9 @@
         }
       },
       "key-resting-dark": {
-        "$value": "0 2px 0 {color.cool.100}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap resting on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-resting.",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4379,9 +4418,9 @@
         }
       },
       "key-hover-dark": {
-        "$value": "0 2px 0 {color.cool.100}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap hover on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-hover.",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4391,9 +4430,9 @@
         }
       },
       "key-pressed-dark": {
-        "$value": "0 1px 0 {color.cool.100}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+        "$value": "none",
         "$type": "shadow",
-        "$description": "Primary keycap pressed on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-pressed.",
+        "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4572,9 +4611,9 @@
       "$description": "Muted icons and non-text marks, 3:1: cool.500, 4.45:1 on the stone ground, 4.44:1 on inset (light ground, Elleta, 2026-10-05; cool.400 read 2.93:1 on the new ground and 2.92:1 on inset). Never text on light."
     },
     "background": {
-      "$value": "{color.stone.95}",
+      "$value": "{color.stone.97}",
       "$type": "color",
-      "$description": "Light page ground: stone.95, oklch(95% 0.005 85) #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25 #f6f7f9).",
+      "$description": "The page ground: the same as elleta.design (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4612,9 +4651,9 @@
       }
     },
     "surface-card": {
-      "$value": "{color.stone.99}",
+      "$value": "{color.cool.0}",
       "$type": "color",
-      "$description": "Card fill: stone.99, oklch(99% 0.002 85) #fcfcfa on the stone ground, with a 1px border-subtle edge (light ground, Elleta, 2026-10-05; was white cool.0).",
+      "$description": "Card: white (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4651,9 +4690,9 @@
       }
     },
     "ground": {
-      "$value": "{color.stone.95}",
+      "$value": "{color.stone.97}",
       "$type": "color",
-      "$description": "The page ground under raised cards: the same step as background, stone.95 #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25). Raised cards are white above it; inset (cool.50) sits one step below it. Added 2026-10-03 for the portfolio layout.",
+      "$description": "The page ground: the same as elleta.design (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4668,9 +4707,9 @@
       }
     },
     "raised": {
-      "$value": "{color.stone.99}",
+      "$value": "{color.cool.0}",
       "$type": "color",
-      "$description": "A raised card on the ground: stone.99 #fcfcfa, the same step as surface-card (light ground, Elleta, 2026-10-05; was white), so cards never read as holes. Added 2026-10-03.",
+      "$description": "Card: white (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4855,9 +4894,9 @@
       }
     },
     "accent": {
-      "$value": "{color.brand.ochre}",
+      "$value": "{color.brand.pink}",
       "$type": "color",
-      "$description": "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent).",
+      "$description": "Selection fill: pink across BELLA (Elleta, 8 Nov 2026). Highlight, never dim. Label is text-on-accent.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4873,9 +4912,9 @@
       }
     },
     "accent-hover": {
-      "$value": "{color.brand.ochre-deep}",
+      "$value": "{color.brand.pink-deep}",
       "$type": "color",
-      "$description": "Accent line/hover step (brand refresh, 2026-09-22, Elleta).",
+      "$description": "The selection mark as a line.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4889,9 +4928,9 @@
       }
     },
     "text-on-accent": {
-      "$value": "{color.cool.900}",
+      "$value": "{color.brand.on-pink}",
       "$type": "color",
-      "$description": "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta).",
+      "$description": "Text on the selection fill: 8.13:1.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -5159,9 +5198,9 @@
       "$description": "Code border."
     },
     "focus-ring": {
-      "$value": "{color.brand.ochre-deep}",
+      "$value": "{color.cool.900}",
       "$type": "color",
-      "$description": "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre-deep in light. Means focus only, never decoration at rest.",
+      "$description": "Focus ring: ink, flips with the mode (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -5807,9 +5846,9 @@
       }
     },
     "accent": {
-      "$value": "{color.brand.ochre}",
+      "$value": "{color.brand.pink}",
       "$type": "color",
-      "$description": "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent).",
+      "$description": "Selection fill: pink across BELLA (Elleta, 8 Nov 2026). Highlight, never dim. Label is text-on-accent.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -5825,9 +5864,9 @@
       }
     },
     "accent-hover": {
-      "$value": "{color.brand.ochre}",
+      "$value": "{color.brand.pink}",
       "$type": "color",
-      "$description": "Accent line/hover step (brand refresh, 2026-09-22, Elleta).",
+      "$description": "The selection mark as a line on dark.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -5841,9 +5880,9 @@
       }
     },
     "text-on-accent": {
-      "$value": "{color.cool.900}",
+      "$value": "{color.brand.on-pink}",
       "$type": "color",
-      "$description": "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta).",
+      "$description": "Text on the selection fill: 8.13:1.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -6110,9 +6149,9 @@
       "$description": "Code border."
     },
     "focus-ring": {
-      "$value": "{color.brand.ochre}",
+      "$value": "{color.cool.50}",
       "$type": "color",
-      "$description": "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre in dark. Means focus only, never decoration at rest.",
+      "$description": "Focus ring: flips to near-white on dark (shared look, Elleta, 8 Nov 2026).",
       "$extensions": {
         "bella": {
           "usage": [
@@ -7006,7 +7045,7 @@
             "pill"
           ],
           "rendersAs": "a button, or one anchor with href",
-          "description": "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Figtree SemiBold on the label type token, sentence case, never Unique.",
+          "description": "Buttons with real hierarchy: a flat ink primary plate (12px radius, no gloss, no key edge, no shadow, never lifts; near-white in dark), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are DM Sans on the label type token, sentence case, never Unique.",
           "variants": [
             "primary",
             "secondary",
@@ -7041,18 +7080,18 @@
             "The primary contact CTA reads \"Let's talk\" (brand refresh, 2026-09-22)"
           ],
           "dont": [
-            "Do not render more than one primary per view: the keycap is the single 3D moment",
+            "Do not render more than one primary per view: the flat ink plate is the single main action",
             "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory",
             "Do not set labels in Unique at any size",
-            "Do not build a neutral keycap: that tier is retired",
+            "Do not build a neutral tier: it is retired",
             "Do not lift a button on hover: lift is reserved for cards; hover is the label roll",
             "Do not add the trace ring to a button: the trace is Card's affordance"
           ],
-          "a11y": "Verified 2026-09-22: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.",
+          "a11y": "Verified 8 Nov 2026 (shared look): primary label 13.90:1 on the plate in both modes, and 9.01:1 light / 9.54:1 dark on the hover plate (AAA). Secondary label 16.13:1 light / 14.98:1 dark on the card. Control border 5.16:1 light / 5.13:1 dark on the card. Focus ring 3px, 3px offset, ink in light and near-white in dark: 15.04:1 and 16.26:1 on the page. Focus-visible only.",
           "anatomy": [
             {
               "key": "shadow",
-              "title": "Key shadow",
+              "title": "Shadow",
               "kind": "shadow",
               "target": ":scope",
               "zone": {
@@ -7060,7 +7099,7 @@
                 "size": 12
               },
               "token": "--shadow-key-resting",
-              "detail": "0 2px 0 key edge one step darker than the face, soft drop, inset highlight (primary)"
+              "detail": "none on the primary: no key edge, no drop, no highlight (shared look, 8 Nov 2026)"
             },
             {
               "key": "fill",
@@ -7071,7 +7110,7 @@
                 "inset": 6
               },
               "token": "--component-button-primary-fill-hi",
-              "detail": "ink plate, 1px edge, white-alpha gloss"
+              "detail": "flat ink plate, no gloss (near-white in dark)"
             },
             {
               "key": "box",
@@ -7093,7 +7132,7 @@
                 "inset": -4
               },
               "token": "--component-button-primary-font-size",
-              "detail": "Figtree 16, 600, sentence case (font-size.tag)"
+              "detail": "DM Sans 16, sentence case (font-size.tag)"
             },
             {
               "key": "ring",
@@ -7108,11 +7147,11 @@
             }
           ],
           "restState": {
-            "description": "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
+            "description": "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": [
-              "plate gradient + gloss",
-              "1px accent-raised-edge border",
-              "shadow.key-resting",
+              "flat ink plate",
+              "no gloss, no key edge",
+              "no shadow",
               "label"
             ],
             "triggered": [
@@ -7149,7 +7188,7 @@
                 "asserted": false
               },
               {
-                "layer": "keycap press (primary)",
+                "layer": "press (primary)",
                 "on": [
                   "active"
                 ],
@@ -7196,7 +7235,7 @@
         "default": {
           "$value": "{radius.lg}",
           "$type": "dimension",
-          "$description": "Every tier shares the keycap radius (lg): the keycap is the signature, and one radius makes the tiers read as one family."
+          "$description": "Every tier shares one radius (lg, 12px since the shared look, 8 Nov 2026), so the tiers read as one family."
         },
         "pill": {
           "$value": "{radius.full}",
@@ -7217,7 +7256,7 @@
         "shift-duration": {
           "$value": "{motion.duration.fast}",
           "$type": "duration",
-          "$description": "Colour shift and keycap press."
+          "$description": "Colour shift and primary press."
         },
         "shift-easing": {
           "$value": "{motion.easing.standard}",
@@ -7226,7 +7265,7 @@
         "press": {
           "$value": "{motion.transform.key-press}",
           "$type": "other",
-          "$description": "Primary :active sinks onto the reduced plate. Down only, never up."
+          "$description": "Primary :active moves a small step down. Down only, never up."
         }
       },
       "primary": {
@@ -7259,12 +7298,12 @@
           "$description": "Label on the CTA fill: near-white in light/warm/dark, sage in wee-dote (Elleta, 14 Oct 2026; was text-inverse)."
         },
         "gloss": {
-          "$value": "linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)",
+          "$value": "linear-gradient(transparent, transparent)",
           "$type": "other",
-          "$description": "Resting sheen. White alpha, the permitted translucent overlay; never a solid fill."
+          "$description": "Flat button: no gloss (shared look, Elleta, 8 Nov 2026)."
         },
         "gloss-pressed": {
-          "$value": "linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)",
+          "$value": "linear-gradient(transparent, transparent)",
           "$type": "other"
         },
         "padding-y": {
@@ -7974,7 +8013,7 @@
         "font-family": {
           "$value": "{typography.font-family.body}",
           "$type": "fontFamily",
-          "$description": "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
+          "$description": "DM Sans: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
         },
         "font-size": {
           "$value": "{typography.font-size.tag}",
@@ -7998,7 +8037,7 @@
         "background": {
           "$value": "{color.semantic.accent}",
           "$type": "color",
-          "$description": "Ochre fill with ink text (brand refresh, 2026-09-22): the accent is a fill."
+          "$description": "Pink fill #E58BBB with a near-black label, 8.13:1 (shared look, 8 Nov 2026; was ochre, brand refresh, 2026-09-22): the accent is a fill."
         },
         "foreground": {
           "$value": "{color.semantic.text-on-accent}",
@@ -8087,7 +8126,7 @@
       "font-family": {
         "$value": "{typography.font-family.body}",
         "$type": "fontFamily",
-        "$description": "Figtree: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
+        "$description": "DM Sans: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
       },
       "font-size": {
         "$value": "{typography.font-size.mono}",
@@ -8111,7 +8150,7 @@
         "background": {
           "$value": "{color.semantic.accent}",
           "$type": "color",
-          "$description": "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill."
+          "$description": "Pink fill #E58BBB with a near-black label, 8.13:1, no ring (shared look, 8 Nov 2026; was ochre, brand refresh, 2026-09-22): the accent is a fill."
         },
         "foreground": {
           "$value": "{color.semantic.text-on-accent}",
@@ -8250,7 +8289,7 @@
           ],
           "dont": [
             "Do not use for mutually exclusive views: that is SegmentedControl",
-            "Do not raise it: the keycap is reserved for true actions",
+            "Do not make it a Button: a Button is reserved for true actions",
             "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"
           ],
           "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
@@ -8554,7 +8593,7 @@
         "bella": {
           "name": "Heading",
           "category": "Layout",
-          "description": "Figtree SemiBold 600 carries every heading tier, tight tracking, sentence case (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08). Never inside a card.",
+          "description": "Newsreader 500 carries every heading tier, tight tracking, sentence case (shared look, 8 Nov 2026; was Figtree 600, heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08). Never inside a card.",
           "variants": [
             "hero",
             "page",
@@ -8581,10 +8620,10 @@
             "The hero headline"
           ],
           "dont": [
-            "Never inside a card: cards carry titles (Figtree 600), not headings (contract-enforced by audit:quality)",
+            "Never inside a card: cards carry titles (DM Sans), not headings (contract-enforced by audit:quality)",
             "Never below 32px for hero, page or section: only the subsection tier (24px) sits under the section ramp"
           ],
-          "a11y": "Verified 2026-09-22: text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
+          "a11y": "Verified 8 Nov 2026 (shared look): text-primary 15.04:1 light / 16.26:1 dark on the page, AAA. The accent segment is the muted half-line, text-secondary, 7.95:1 light / 9.41:1 dark (AAA). Semantic level decouples from the visual tier via the as prop, so the outline stays honest.",
           "restState": {
             "description": "Type only, entirely static; and a Heading may never sit inside a Card. audit:quality asserts both (root carries data-bella-component=heading).",
             "atRest": [
@@ -8617,8 +8656,9 @@
         "$type": "fontFamily"
       },
       "font-weight": {
-        "$value": "{typography.font-weight.semibold}",
-        "$type": "fontWeight"
+        "$value": "{typography.font-weight.medium}",
+        "$type": "fontWeight",
+        "$description": "Newsreader 500."
       },
       "letter-spacing": {
         "$value": "{typography.letter-spacing.display}",
@@ -9110,7 +9150,7 @@
           "name": "Link",
           "category": "Actions",
           "rendersAs": "an anchor; external opens a new tab",
-          "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink.",
+          "description": "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared focus ring, ink in light and near-white in dark (shared look, 8 Nov 2026). Visited stays ink.",
           "variants": [],
           "states": [
             "default",
@@ -9220,7 +9260,7 @@
       "$extensions": {
         "bella": {
           "name": "Nav Link",
-          "description": "Top-level navigation item. Figtree, sentence case. Active state reads as text-primary with a 2px accent underline, the accent is decoration, the text carries the letters.",
+          "description": "Top-level navigation item. DM Sans, sentence case. Active state reads as text-primary with a 2px accent underline, the accent is decoration, the text carries the letters.",
           "variants": [
             "default",
             "active"
@@ -9360,8 +9400,9 @@
           "$type": "dimension"
         },
         "font-weight": {
-          "$value": "{typography.font-weight.semibold}",
-          "$type": "fontWeight"
+          "$value": "{typography.font-weight.medium}",
+          "$type": "fontWeight",
+          "$description": "Newsreader 500."
         },
         "letter-spacing": {
           "$value": "{typography.letter-spacing.h2}",
@@ -9803,7 +9844,7 @@
           ],
           "dont": [
             "Do not make it clickable: a pressable keycap is Button",
-            "Do not raise or animate it: the raised keycap is Button's, Kbd is recessed and flat",
+            "Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button",
             "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
           ],
           "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.",
@@ -10192,7 +10233,7 @@
         "bella": {
           "name": "DataTable",
           "category": "Data",
-          "description": "Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row ochre without dimming any other row.",
+          "description": "Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row pink without dimming any other row.",
           "variants": [],
           "states": [
             "default",
@@ -10222,13 +10263,13 @@
             "Any comparison of the same facts across many items"
           ],
           "dont": [
-            "Do not dim unselected rows: selection is the ochre fill, everything else keeps its paint",
-            "Do not use ochre-deep for selection: it is the focus ring only",
+            "Do not dim unselected rows: selection is the pink fill, everything else keeps its paint",
+            "Do not use the focus ring colour for selection: the ring means focus only",
             "Do not left-align figures: numeric columns are right-aligned and tabular",
             "Do not drop the caption: it names the table",
             "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"
           ],
-          "a11y": "Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is ochre fill with ink text, 9.01:1 (AAA), nested components included (a muted StatusPill label on ochre would be 3.51:1), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.",
+          "a11y": "Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.",
           "restState": {
             "description": "Flat: rules, the sticky header and the cell text. audit:quality asserts no elevation or animation (root carries data-bella-component=data-table).",
             "atRest": [
@@ -10286,7 +10327,7 @@
       "selected-background": {
         "$value": "{color.semantic.accent}",
         "$type": "color",
-        "$description": "Selection is the ochre fill (highlight, never dim)."
+        "$description": "Selection is the pink fill (highlight, never dim)."
       },
       "selected-foreground": {
         "$value": "{color.semantic.text-on-accent}",
@@ -10385,7 +10426,7 @@
         "bella": {
           "name": "Combobox",
           "category": "Inputs",
-          "description": "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the ochre fill.",
+          "description": "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the pink fill.",
           "variants": [],
           "states": [
             "default",
@@ -10418,10 +10459,10 @@
           ],
           "dont": [
             "Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant",
-            "Do not dim the other options: the active one gets the ochre fill, nothing else changes",
+            "Do not dim the other options: the active one gets the pink fill, nothing else changes",
             "Do not use it for a fixed short list without typing: that is Select"
           ],
-          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on ochre 9.01:1 (AAA). Options and field are 44px. Focus ring on the field.",
+          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option near-black on the pink fill 8.13:1 (AAA; shared look, 8 Nov 2026). Options and field are 44px. Focus ring on the field.",
           "restState": {
             "description": "Closed: the field alone. Open: the list floats with the large shadow.",
             "atRest": [
@@ -10477,7 +10518,7 @@
       "active-background": {
         "$value": "{color.semantic.accent}",
         "$type": "color",
-        "$description": "The active option is the ochre fill (highlight, never dim)."
+        "$description": "The active option is the pink fill (highlight, never dim)."
       },
       "active-foreground": {
         "$value": "{color.semantic.text-on-accent}",
@@ -10690,7 +10731,7 @@
           ],
           "dont": [
             "Do not use a display Heading tier for an app page title: display is for editorial heroes",
-            "Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips",
+            "Do not put more than one primary Button in actions: the main action only; the rest are secondary Buttons or ActionChips",
             "Do not use it twice on a page: one h1"
           ],
           "a11y": "Verified 2026-10-03: one h1; the title is text-primary (AAA); meta and lede are text-secondary (AAA on the page ground in light, warm and dark); the lede holds to 70ch; the title balances its lines.",

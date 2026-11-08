@@ -75,18 +75,17 @@
       "ochre": {
         "$value": "#e8a83e",
         "$type": "color",
-        "$description": "The accent (brand refresh, 2026-09-22, Elleta): a fill. On light surfaces always with ink #121212 text (9.01:1). The dark-theme focus ring.",
+        "$description": "The Needs you state: a fill with ink text (9.01:1). Selection is pink since 8 Nov 2026.",
         "$extensions": {
           "bella": {
             "oklch": "oklch(77.43% 0.1397 76.1)",
             "usage": [
-              "Accent fills with ink text",
-              "Dark-theme focus ring (8.70:1 on the dark surface)",
-              "Chip and marker fills"
+              "Needs you fills with ink text",
+              "Lane D and the glass accent"
             ],
             "dont": [
               "Never text or hairlines on light surfaces: 2.08:1 on white, 1.86:1 on panel",
-              "Never a focus ring on light: use ochre-deep"
+              "Never selection: selection is pink"
             ],
             "a11y": "Verified 2026-09-22: ink on ochre 9.01:1 (AAA). Ochre on dark: 9.35:1 bg, 8.70:1 surface, 7.93:1 inset, 7.28:1 raised."
           }
@@ -107,6 +106,36 @@
               "Not body text: 3.59:1 on white is non-text AA only"
             ],
             "a11y": "Verified 2026-09-22: 3.59:1 on white, 3.20:1 on panel (non-text AA); 5.42:1 on the dark bg."
+          }
+        }
+      },
+      "pink": {
+        "$value": "#E58BBB",
+        "$type": "color",
+        "$description": "Selection fill (Elleta, 8 Nov 2026). Text on it is on-pink, 8.13:1.",
+        "$extensions": {
+          "bella": {
+            "oklch": "oklch(74.48% 0.1237 347.3)"
+          }
+        }
+      },
+      "pink-deep": {
+        "$value": "#CF5A95",
+        "$type": "color",
+        "$description": "The selection mark where a line, not a fill, carries it. 3.78:1 on white.",
+        "$extensions": {
+          "bella": {
+            "oklch": "oklch(63.15% 0.1609 351.3)"
+          }
+        }
+      },
+      "on-pink": {
+        "$value": "#0A0C14",
+        "$type": "color",
+        "$description": "Text on the pink selection fill: 8.13:1. Ink is 6.72:1 and misses AAA.",
+        "$extensions": {
+          "bella": {
+            "oklch": "oklch(15.64% 0.0174 273.4)"
           }
         }
       }
@@ -1228,6 +1257,16 @@
         "$extensions": {
           "bella": {
             "oklch": "oklch(99% 0.002 85)"
+          }
+        }
+      },
+      "97": {
+        "$value": "#F7F7F5",
+        "$type": "color",
+        "$description": "The page ground (shared look, Elleta, 8 Nov 2026), the same as elleta.design.",
+        "$extensions": {
+          "bella": {
+            "oklch": "oklch(97.56% 0.0026 106.4)"
           }
         }
       }
@@ -3148,9 +3187,9 @@
   "typography": {
     "font-family": {
       "display": {
-        "$value": "Figtree, system-ui, sans-serif",
+        "$value": "Newsreader, Georgia, serif",
         "$type": "fontFamily",
-        "$description": "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08): wordmarks are drawn SVG.",
+        "$description": "Headings and titles: Newsreader 500 (shared look, Elleta, 8 Nov 2026), the same face as elleta.design.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -3163,9 +3202,9 @@
         }
       },
       "body": {
-        "$value": "Figtree, system-ui, sans-serif",
+        "$value": "'DM Sans', system-ui, sans-serif",
         "$type": "fontFamily",
-        "$description": "Body and UI typeface, Figtree: body, labels, eyebrows, buttons, navigation.",
+        "$description": "Body, labels and buttons: DM Sans (shared look, Elleta, 8 Nov 2026), the same face as elleta.design.",
         "$extensions": {
           "bella": {
             "usage": [
@@ -4324,9 +4363,9 @@
       }
     },
     "key-resting": {
-      "$value": "0 2px 0 {color.cool.950}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap at rest: a straight key edge 2px down (no x offset, so the corners read true), in the ink one step darker than the face, a small soft cast and the inset glass highlight (Elleta, 2026-10-04; was 1px 3px 0).",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4336,9 +4375,9 @@
       }
     },
     "key-hover": {
-      "$value": "0 2px 0 {color.cool.950}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap hover: the same straight edge, a deeper soft cast.",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4348,9 +4387,9 @@
       }
     },
     "key-pressed": {
-      "$value": "0 1px 0 {color.cool.950}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap pressed: the edge sinks to 1px (pair with motion.transform.key-press).",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4360,9 +4399,9 @@
       }
     },
     "key-resting-dark": {
-      "$value": "0 2px 0 {color.cool.100}, 3px 6px 10px {color.alpha.key-24}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap resting on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-resting.",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4372,9 +4411,9 @@
       }
     },
     "key-hover-dark": {
-      "$value": "0 2px 0 {color.cool.100}, 4px 8px 14px {color.alpha.key-28}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap hover on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-hover.",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [
@@ -4384,9 +4423,9 @@
       }
     },
     "key-pressed-dark": {
-      "$value": "0 1px 0 {color.cool.100}, 2px 3px 8px {color.alpha.key-20}, inset 0 1px 0 {color.alpha.glass-40}",
+      "$value": "none",
       "$type": "shadow",
-      "$description": "Primary keycap pressed on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-pressed.",
+      "$description": "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks.",
       "$extensions": {
         "bella": {
           "usage": [

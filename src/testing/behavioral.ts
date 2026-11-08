@@ -46,7 +46,10 @@ export async function expectVisibleFocus(el: HTMLElement): Promise<void> {
   const style = getComputedStyle(el);
   const hasOutline = style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) > 0;
   const hasRing = style.boxShadow !== 'none' && style.boxShadow !== '';
-  expect(hasOutline || hasRing).toBe(true);
+  /* Button draws its ring on ::before, so the outline there counts too */
+  const before = getComputedStyle(el, '::before');
+  const hasPseudoRing = before.outlineStyle !== 'none' && parseFloat(before.outlineWidth) > 0;
+  expect(hasOutline || hasRing || hasPseudoRing).toBe(true);
 }
 
 /** Declarative ARIA state assertions — the state must be in the accessibility

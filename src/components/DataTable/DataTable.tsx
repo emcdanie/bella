@@ -26,7 +26,7 @@ export interface DataTableProps<Row extends Record<string, any>> {
   caption: string;
   /** Initial sort; sorting is then held by the table. */
   defaultSort?: DataTableSort;
-  /** Selection, single. The first column renders as a toggle button; the selected row fills ochre. */
+  /** Selection, single. The first column renders as a toggle button; the selected row fills pink. */
   selectedKey?: string | null;
   onSelect?: (key: string | null) => void;
   /** Caps the height (a token, e.g. `calc(var(--spacing-20) * 5)`) so the sticky header has something to stick in. */
@@ -46,7 +46,7 @@ function compare(a: unknown, b: unknown, numeric?: boolean) {
 /**
  * Rows of facts in columns. Sortable headers are buttons with aria-sort,
  * the header sticks, and an optional single selection fills the chosen row
- * ochre without dimming any other row.
+ * pink without dimming any other row.
  */
 export default function DataTable<Row extends Record<string, any>>({
   columns,

@@ -48,8 +48,8 @@ export const Behavior: Story = {
   play: async ({ canvas, step }) => {
     const el = canvas.getByText('01 · The problem, framed');
     const cs = getComputedStyle(el);
-    await step('Figtree at the 16px label floor, no tracking, no caps', async () => {
-      await expect(cs.fontFamily).toMatch(/^Figtree\b/);
+    await step('DM Sans at the 16px label floor, no tracking, no caps', async () => {
+      await expect(cs.fontFamily).toMatch(/^"?DM Sans\b/);
       await expect(parseFloat(cs.fontSize)).toBe(16);
       await expect(parseFloat(cs.letterSpacing) || 0).toBe(0);
       await expect(cs.textTransform).toBe('none');

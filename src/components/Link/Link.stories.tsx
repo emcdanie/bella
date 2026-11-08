@@ -48,7 +48,7 @@ export const StateMatrix: Story = {
           ['default', 'ink, 1px underline'],
           ['hover', 'ink, 2px underline'],
           ['visited', 'ink (no colour change)'],
-          ['focus', '3px ochre ring, 3px offset'],
+          ['focus', '3px focus ring, 3px offset'],
           ['active / disabled / error', 'not a Link state'],
         ].map(([state, note]) => (
           <tr key={state}>

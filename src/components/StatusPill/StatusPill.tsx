@@ -3,8 +3,8 @@ import styles from './StatusPill.module.css';
 
 export interface StatusPillProps {
   /**
-   * The state tint. `"accent"` is the quiet accent ring (the portfolio's
-   * "Current focus"). `"success"` and `"info"` wear the carried sage and
+   * The state tint. `"accent"` is the pink fill with a near-black label (the
+   * portfolio's "Current focus"; shared look, 8 Nov 2026). `"success"` and `"info"` wear the carried sage and
    * steel tints, non-text roles only per the recorded decision. `"neutral"`
    * has no tint: the inset fill and a hairline.
    *

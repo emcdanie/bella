@@ -36,7 +36,7 @@ export const WithActions: Story = {
   args: {
     meta: 'Specimen No. 002 · Actions',
     title: 'Button',
-    lede: 'Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view.',
+    lede: 'Buttons with real hierarchy: two colour treatments, three tiers, one primary per view.',
     actions: (
       <>
         <ActionChip onClick={() => {}}>Copy import</ActionChip>

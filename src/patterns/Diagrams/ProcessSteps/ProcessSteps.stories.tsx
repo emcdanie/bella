@@ -42,10 +42,10 @@ export const Behavior: Story = {
       await expect(list.tagName).toBe('OL');
       await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(5);
     });
-    await step('Figtree numbers at the 16px label floor', async () => {
+    await step('DM Sans numbers at the 16px label floor', async () => {
       const n = canvas.getByText('01');
       const cs = getComputedStyle(n);
-      await expect(cs.fontFamily).toMatch(/^Figtree\b/);
+      await expect(cs.fontFamily).toMatch(/^"?DM Sans\b/);
       await expect(parseFloat(cs.fontSize)).toBe(16);
     });
     await step('no shadows', async () => {

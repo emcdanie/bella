@@ -38,7 +38,7 @@ const row: React.CSSProperties = {
   borderTop: '1px solid var(--color-semantic-border-subtle)',
 };
 
-/* The ramp (type lock, 2026-10-08): Figtree in two weights plus Geist Mono.
+/* The ramp (type lock, 2026-10-08): (type lock, then shared look 8 Nov 2026) Newsreader titles, DM Sans text, Geist Mono.
  * Unique is retired; wordmarks are drawn SVG. Every sample reads its tokens. */
 const ramp: { label: string; sample: React.ReactNode }[] = [
   {
@@ -84,7 +84,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     sample: <span style={{ fontSize: 'var(--typography-font-size-base)' }}>Body text sits at 20px.</span>,
   },
   {
-    label: 'Label · Figtree 400 · 14 · muted',
+    label: 'Label · DM Sans 400 · 14 · muted',
     sample: <span style={meta13}>2024 to 2026 · B2B travel platform</span>,
   },
   {
@@ -107,7 +107,7 @@ export const Ramp: StoryObj = {
         ))}
       </div>
       <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
-        Figtree SemiBold (600) for headings, titles and button labels; 400 for body and
+        Newsreader 500 for headings and titles. DM Sans 600 for button labels and 400 for body and
         labels. Geist Mono for code only. Unique is retired (2026-10-08); wordmarks are
         drawn SVG. Faces ship vendored in this Storybook as woff2, the same files consumers load.
       </p>

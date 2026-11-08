@@ -99,7 +99,7 @@ export const RoleTokens: StoryObj = {
         <div
           key={label}
           data-theme={label === 'light' ? undefined : label}
-          style={{ color: 'var(--color-semantic-text-primary)' }}
+          style={{ color: 'var(--color-semantic-text-primary)', background: 'var(--color-semantic-background)', padding: 'var(--spacing-5)' }}
         >
           <SectionTitle>{label}</SectionTitle>
           {(label === 'light') && (

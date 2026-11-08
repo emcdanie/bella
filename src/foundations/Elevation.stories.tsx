@@ -40,7 +40,7 @@ export const Shadows: StoryObj = {
           <Chip key={n} name={n} />
         ))}
       </div>
-      <SectionTitle>The elevation lock (orb / keycap / nav)</SectionTitle>
+      <SectionTitle>The elevation lock (orb / nav)</SectionTitle>
       <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-body)' }}>
         Token lock 2026-07-17: one light source, upper-left. The depth IS the
         system, do not flatten.

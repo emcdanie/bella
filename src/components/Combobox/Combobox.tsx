@@ -55,7 +55,7 @@ export interface ComboboxProps {
  * One field that filters a grouped list: the ARIA combobox pattern. Typing
  * opens the list; Up and Down move the active option (aria-activedescendant,
  * focus stays in the field); Enter chooses it; Esc closes the list. The
- * active option is the ochre fill; nothing else dims.
+ * active option is the pink fill; nothing else dims.
  */
 export default function Combobox({
   label,

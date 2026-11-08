@@ -1,23 +1,24 @@
 /* Button (component 2, extracted from the portfolio keycap system,
  * 2026-07-22; motion reworked 2026-09-18; recoloured by the brand refresh,
- * 2026-09-22). Tokens only. Three tiers: primary is the raised INK keycap
- * (the one 3D moment per view), secondary the control outline, tertiary
- * the ink text link. No accent colour on any tier at rest: the ochre ring
- * is focus-visible only (--ring-focus-*, 3px, 3px offset). Labels are
- * Figtree SemiBold on the label type tokens, never Unique.
+ * 2026-09-22; flattened by the shared look, 8 Nov 2026). Tokens only. Three
+ * tiers: primary is the flat INK plate (one per view), secondary the control
+ * outline, tertiary the ink text link. No accent colour on any tier at rest:
+ * the focus ring is focus-visible only (--ring-focus-*, 3px, 3px offset,
+ * ink in light, near-white in dark). Labels are DM Sans on the label type
+ * tokens, never Unique.
  *
  * ONE JOB PER STATE (2026-09-18, kept exactly):
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
  *   from below, motion.duration.normal on motion.easing.out), plus a shift
  *   on every tier: primary plate to ink-hover, secondary outline to ink,
  *   tertiary underline to 2px (motion.duration.fast).
- * - active: the keycap press (motion.transform.key-press, tighter shadow),
- *   primary only; secondary settles onto the inset fill. Down, never up.
+ * - active: a small press down (motion.transform.key-press), primary only;
+ *   secondary settles onto the inset fill. Down, never up.
  * - Buttons never lift on hover: lift is reserved for cards.
  * - Reduced motion: no roll, no press; the colour shift stays.
  *
- * The shadow.key-* set casts in ink: a straight 2px key edge (no x offset)
- * one step darker than the face, theme-aware (Elleta, 2026-10-04).
+ * The primary has no key edge, no gloss and no shadow now (shared look,
+ * 8 Nov 2026). The shadow.key-* tokens keep their names.
  */
 
 .button {
@@ -84,10 +85,9 @@
   transform: translateY(0);
 }
 
-/* PRIMARY: the raised keycap. Gloss (white alpha, the permitted translucent
- * overlay) over the plate gradient; the locked shadow.key pair carries the
- * elevation. Hover rolls the label and deepens the plate. Active: press onto
- * the reduced plate. */
+/* PRIMARY: the flat ink plate (shared look, 8 Nov 2026). No gloss, no key
+ * edge, no shadow. Hover rolls the label and eases the plate one step
+ * lighter. Active: a small move down. */
 .primary {
   color: var(--component-button-primary-foreground);
   border: 1px solid var(--component-button-primary-edge);
@@ -117,11 +117,9 @@
   box-shadow: var(--shadow-key-pressed);
 }
 
-/* PRIMARY FOCUS RING. The resting key edge (shadow.key-resting, 0 2px 0)
- * makes the visible keycap 2px taller than the box, so a plain outline sat
- * tight against the bottom edge. The ring is drawn on a
- * pseudo-element sized to the visible keycap instead: same width, offset and
- * colour tokens, now even on all four sides. Pressed, the edge is 0 1px 0. */
+/* PRIMARY FOCUS RING. Drawn on a pseudo-element sized to the plate: same
+ * width, offset and colour tokens, even on all four sides. (It was added
+ * for the old key edge, which made the plate taller than its box.) */
 .primary {
   position: relative;
 }
@@ -133,8 +131,8 @@
 .primary::before {
   content: '';
   position: absolute;
-  /* -1px clears the 1px border; the bottom adds the 2px key edge */
-  inset: -1px -1px -3px -1px;
+  /* -1px clears the 1px border, so the ring sits even on all four sides */
+  inset: -1px;
   border-radius: inherit;
   pointer-events: none;
 }
@@ -142,10 +140,6 @@
 .primary:focus-visible::before {
   outline: var(--ring-focus-width) solid var(--ring-focus-color);
   outline-offset: var(--ring-focus-offset);
-}
-
-.primary:active:not(:disabled)::before {
-  inset: -1px -1px -2px -1px;
 }
 
 /* SECONDARY: the control outline, ink label, no elevation. Hover and

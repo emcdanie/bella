@@ -12,7 +12,7 @@ export interface LinkProps {
 /**
  * Link (brand refresh, 2026-09-22): the inline text link. Ink with an
  * underline at rest; hover thickens the underline to 2px; focus-visible is
- * the shared ochre ring (3px, 3px offset). Visited stays ink. Never colour
+ * the shared focus ring (3px, 3px offset, ink in light, near-white in dark). Visited stays ink. Never colour
  * alone: the underline is the affordance.
  */
 export default function Link({ href, external = false, className, children }: LinkProps) {

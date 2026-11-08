@@ -68,7 +68,7 @@ export const Default: Story = {
   render: () => <Harness />,
 };
 
-/** Open: "Jump to" then "Ask OBI". The active option is the ochre fill. */
+/** Open: "Jump to" then "Ask OBI". The active option is the pink fill. */
 export const Open: Story = {
   render: () => <Harness start="card" />,
   play: async ({ canvas }) => {

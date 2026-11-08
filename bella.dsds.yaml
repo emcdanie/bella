@@ -222,7 +222,7 @@ entries:
   - kind: token
     id: color.brand.ochre
     name: Ochre
-    description: "The accent (brand refresh, 2026-09-22, Elleta): a fill. On light surfaces always with ink #121212 text (9.01:1). The dark-theme focus ring."
+    description: "The Needs you state: a fill with ink text (9.01:1). Selection is pink since 8 Nov 2026."
     metadata:
       origin:
         method: extracted
@@ -243,11 +243,9 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: Accent fills with ink text
+            statement: Needs you fills with ink text
           - level: may
-            statement: Dark-theme focus ring (8.70:1 on the dark surface)
-          - level: may
-            statement: Chip and marker fills
+            statement: Lane D and the glass accent
       - kind: guidelines
         for: all
         title: How to use it
@@ -255,7 +253,7 @@ entries:
           - level: must-not
             statement: "Never text or hairlines on light surfaces: 2.08:1 on white, 1.86:1 on panel"
           - level: must-not
-            statement: "Never a focus ring on light: use ochre-deep"
+            statement: "Never selection: selection is pink"
     tokenType: color
     source:
       href: ./tokens/bella.json
@@ -299,6 +297,60 @@ entries:
       href: ./tokens/bella.json
       rel: file
       role: primitive.color.brand.ochre-deep
+  - kind: token
+    id: color.brand.pink
+    name: Pink
+    description: Selection fill (Elleta, 8 Nov 2026). Text on it is on-pink, 8.13:1.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.brand
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.brand.pink
+  - kind: token
+    id: color.brand.pink-deep
+    name: Pink Deep
+    description: The selection mark where a line, not a fill, carries it. 3.78:1 on white.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.brand
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.brand.pink-deep
+  - kind: token
+    id: color.brand.on-pink
+    name: On Pink
+    description: "Text on the pink selection fill: 8.13:1. Ink is 6.72:1 and misses AAA."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.brand
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.brand.on-pink
   - kind: token
     id: color.neutral.cream
     name: Cream
@@ -2451,6 +2503,24 @@ entries:
       rel: file
       role: primitive.color.stone.95
   - kind: token
+    id: color.stone.97
+    name: "97"
+    description: The page ground (shared look, Elleta, 8 Nov 2026), the same as elleta.design.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - color
+      group: color.stone
+    tokenType: color
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.color.stone.97
+  - kind: token
     id: color.stone.99
     name: "99"
     description: "Light card: oklch(99% 0.002 85), the stone card on the stone ground (light ground, Elleta, 2026-10-05; replaces white cool.0 as the light card)."
@@ -3401,7 +3471,7 @@ entries:
       role: primitive.color.pop.yellow
   - kind: token
     id: color.pop.pink
-    name: Pink
+    name: Pop Pink
     description: Pop pink from elleta.design (--pop-pink). Fills and lines for pins and leaders only, never text, chrome or a status.
     metadata:
       origin:
@@ -6275,7 +6345,7 @@ entries:
   - kind: token
     id: typography.font-family.display
     name: Display
-    description: "Headings and titles: Figtree SemiBold 600 (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08): wordmarks are drawn SVG."
+    description: "Headings and titles: Newsreader 500 (shared look, Elleta, 8 Nov 2026), the same face as elleta.design."
     metadata:
       origin:
         method: extracted
@@ -6307,7 +6377,7 @@ entries:
   - kind: token
     id: typography.font-family.body
     name: Body
-    description: "Body and UI typeface, Figtree: body, labels, eyebrows, buttons, navigation."
+    description: "Body, labels and buttons: DM Sans (shared look, Elleta, 8 Nov 2026), the same face as elleta.design."
     metadata:
       origin:
         method: extracted
@@ -8796,7 +8866,7 @@ entries:
   - kind: token
     id: shadow.key-resting
     name: Key Resting
-    description: "Primary keycap at rest: a straight key edge 2px down (no x offset, so the corners read true), in the ink one step darker than the face, a small soft cast and the inset glass highlight (Elleta, 2026-10-04; was 1px 3px 0)."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -8822,7 +8892,7 @@ entries:
   - kind: token
     id: shadow.key-hover
     name: Key Hover
-    description: "Primary keycap hover: the same straight edge, a deeper soft cast."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -8848,7 +8918,7 @@ entries:
   - kind: token
     id: shadow.key-pressed
     name: Key Pressed
-    description: "Primary keycap pressed: the edge sinks to 1px (pair with motion.transform.key-press)."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -8874,7 +8944,7 @@ entries:
   - kind: token
     id: shadow.key-resting-dark
     name: Key Resting Dark
-    description: "Primary keycap resting on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-resting."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -8900,7 +8970,7 @@ entries:
   - kind: token
     id: shadow.key-hover-dark
     name: Key Hover Dark
-    description: "Primary keycap hover on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-hover."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -8926,7 +8996,7 @@ entries:
   - kind: token
     id: shadow.key-pressed-dark
     name: Key Pressed Dark
-    description: "Primary keycap pressed on dark: the face is cool.50, so the key edge is cool.100, one step darker (Elleta, 2026-10-04). Read through the semantic dark shadow.key-pressed."
+    description: "Flat button: no key edge or cast (shared look, Elleta, 8 Nov 2026). The name stays so nothing that reads it breaks."
     metadata:
       origin:
         method: extracted
@@ -9382,7 +9452,7 @@ entries:
   - kind: token
     id: color.semantic.background
     name: Background
-    description: "Light page ground: stone.95, oklch(95% 0.005 85) #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25 #f6f7f9)."
+    description: "The page ground: the same as elleta.design (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -9416,7 +9486,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.stone.95}"
+        alias: "{color.stone.97}"
   - kind: token
     id: color.semantic.background-inverse
     name: Background Inverse
@@ -9480,7 +9550,7 @@ entries:
   - kind: token
     id: color.semantic.surface-card
     name: Surface Card
-    description: "Card fill: stone.99, oklch(99% 0.002 85) #fcfcfa on the stone ground, with a 1px border-subtle edge (light ground, Elleta, 2026-10-05; was white cool.0)."
+    description: "Card: white (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -9510,7 +9580,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.stone.99}"
+        alias: "{color.cool.0}"
   - kind: token
     id: color.semantic.surface-elevated
     name: Surface Elevated
@@ -9578,7 +9648,7 @@ entries:
   - kind: token
     id: color.semantic.ground
     name: Ground
-    description: "The page ground under raised cards: the same step as background, stone.95 #f0eeeb (light ground, Elleta, 2026-10-05; was cool.25). Raised cards are white above it; inset (cool.50) sits one step below it. Added 2026-10-03 for the portfolio layout."
+    description: "The page ground: the same as elleta.design (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -9614,11 +9684,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.stone.95}"
+        alias: "{color.stone.97}"
   - kind: token
     id: color.semantic.raised
     name: Raised
-    description: "A raised card on the ground: stone.99 #fcfcfa, the same step as surface-card (light ground, Elleta, 2026-10-05; was white), so cards never read as holes. Added 2026-10-03."
+    description: "Card: white (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -9650,7 +9720,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.stone.99}"
+        alias: "{color.cool.0}"
   - kind: token
     id: color.semantic.surface-inverse
     name: Surface Inverse
@@ -10078,7 +10148,7 @@ entries:
   - kind: token
     id: color.semantic.accent
     name: Accent
-    description: "The accent (brand refresh, 2026-09-22, Elleta): ochre, a fill, always with ink text (text-on-accent)."
+    description: "Selection fill: pink across BELLA (Elleta, 8 Nov 2026). Highlight, never dim. Label is text-on-accent."
     metadata:
       origin:
         method: extracted
@@ -10118,11 +10188,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.ochre}"
+        alias: "{color.brand.pink}"
   - kind: token
     id: color.semantic.accent-hover
     name: Accent Hover
-    description: Accent line/hover step (brand refresh, 2026-09-22, Elleta).
+    description: The selection mark as a line.
     metadata:
       origin:
         method: extracted
@@ -10158,11 +10228,11 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.ochre-deep}"
+        alias: "{color.brand.pink-deep}"
   - kind: token
     id: color.semantic.text-on-accent
     name: Text On Accent
-    description: "Text on ochre fills, both themes: #121212 (brand refresh, 2026-09-22, Elleta)."
+    description: "Text on the selection fill: 8.13:1."
     metadata:
       origin:
         method: extracted
@@ -10192,7 +10262,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.cool.900}"
+        alias: "{color.brand.on-pink}"
   - kind: token
     id: color.semantic.accent-subtle
     name: Accent Subtle
@@ -11030,7 +11100,7 @@ entries:
   - kind: token
     id: color.semantic.focus-ring
     name: Focus Ring
-    description: "Focus ring (brand refresh, 2026-09-22, Elleta): 3px, 3px offset. ochre-deep in light. Means focus only, never decoration at rest."
+    description: "Focus ring: ink, flips with the mode (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -11066,7 +11136,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{color.brand.ochre-deep}"
+        alias: "{color.cool.900}"
   - kind: token
     id: color.semantic.danger-text
     name: Danger Text
@@ -12033,7 +12103,7 @@ entries:
   - kind: token
     id: component.button.shape.default
     name: Default
-    description: "Every tier shares the keycap radius (lg): the keycap is the signature, and one radius makes the tiers read as one family."
+    description: Every tier shares one radius (lg, 12px since the shared look, 8 Nov 2026), so the tiers read as one family.
     metadata:
       origin:
         method: extracted
@@ -12121,7 +12191,7 @@ entries:
   - kind: token
     id: component.button.motion.shift-duration
     name: Shift Duration
-    description: Colour shift and keycap press.
+    description: Colour shift and primary press.
     metadata:
       origin:
         method: extracted
@@ -12165,7 +12235,7 @@ entries:
   - kind: token
     id: component.button.motion.press
     name: Press
-    description: Primary :active sinks onto the reduced plate. Down only, never up.
+    description: Primary :active moves a small step down. Down only, never up.
     metadata:
       origin:
         method: extracted
@@ -12319,7 +12389,7 @@ entries:
   - kind: token
     id: component.button.primary.gloss
     name: Gloss
-    description: Resting sheen. White alpha, the permitted translucent overlay; never a solid fill.
+    description: "Flat button: no gloss (shared look, Elleta, 8 Nov 2026)."
     metadata:
       origin:
         method: extracted
@@ -14405,7 +14475,7 @@ entries:
   - kind: token
     id: component.tag.default.font-family
     name: Default Font Family
-    description: "Figtree: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
+    description: "DM Sans: tags use the label style, 16px, sentence case (type lock, 2026-10-04); mono is for code and token names only."
     metadata:
       origin:
         method: extracted
@@ -14511,7 +14581,7 @@ entries:
   - kind: token
     id: component.tag.accent.background
     name: Accent Background
-    description: "Ochre fill with ink text (brand refresh, 2026-09-22): the accent is a fill."
+    description: "Pink fill #E58BBB with a near-black label, 8.13:1 (shared look, 8 Nov 2026; was ochre, brand refresh, 2026-09-22): the accent is a fill."
     metadata:
       origin:
         method: extracted
@@ -14643,7 +14713,7 @@ entries:
   - kind: token
     id: component.status-pill.font-family
     name: Status Pill Font Family
-    description: "Figtree: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
+    description: "DM Sans: a status word uses the label style (type lock, 2026-10-04); mono is for code and token names only."
     metadata:
       origin:
         method: extracted
@@ -14749,7 +14819,7 @@ entries:
   - kind: token
     id: component.status-pill.accent.background
     name: Status Pill Accent Background
-    description: "Ochre fill with ink text, no ring (brand refresh, 2026-09-22): the accent is a fill."
+    description: "Pink fill #E58BBB with a near-black label, 8.13:1, no ring (shared look, 8 Nov 2026; was ochre, brand refresh, 2026-09-22): the accent is a fill."
     metadata:
       origin:
         method: extracted
@@ -15671,12 +15741,12 @@ entries:
   - kind: token
     id: component.heading.font-weight
     name: Heading Font Weight
-    description: Component-tier alias. Resolves to `typography.font-weight.semibold` in `tokens/bella.json`.
+    description: Newsreader 500.
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - heading
@@ -15689,7 +15759,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.semibold}"
+        alias: "{typography.font-weight.medium}"
   - kind: token
     id: component.heading.letter-spacing
     name: Heading Letter Spacing
@@ -17029,12 +17099,12 @@ entries:
   - kind: token
     id: component.section.heading.font-weight
     name: Section Heading Font Weight
-    description: Component-tier alias. Resolves to `typography.font-weight.semibold` in `tokens/bella.json`.
+    description: Newsreader 500.
     metadata:
       origin:
-        method: generated
-        author: machine-generated
-        note: bella.json carries no $description for this token. This line is derived from its layer and its $value, not authored by BELLA.
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
       tags:
         - component
         - section
@@ -17047,7 +17117,7 @@ entries:
     $extensions:
       design.bella:
         context: The DTCG alias target. DSDS token entries deliberately hold no value, so the alias itself has no typed field.
-        alias: "{typography.font-weight.semibold}"
+        alias: "{typography.font-weight.medium}"
   - kind: token
     id: component.section.heading.letter-spacing
     name: Section Heading Letter Spacing
@@ -18495,7 +18565,7 @@ entries:
   - kind: token
     id: component.data-table.selected-background
     name: Selected Background
-    description: Selection is the ochre fill (highlight, never dim).
+    description: Selection is the pink fill (highlight, never dim).
     metadata:
       origin:
         method: extracted
@@ -18887,7 +18957,7 @@ entries:
   - kind: token
     id: component.combobox.active-background
     name: Active Background
-    description: The active option is the ochre fill (highlight, never dim).
+    description: The active option is the pink fill (highlight, never dim).
     metadata:
       origin:
         method: extracted
@@ -21756,16 +21826,15 @@ entries:
   - kind: component
     id: button
     name: Button
-    description: "Keycaps with real hierarchy: an ink primary keycap, an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons, the ochre ring means focus only). Labels are Figtree SemiBold on the label type token, sentence case, never Unique."
+    description: "Buttons with real hierarchy: a flat ink primary plate (12px radius, no gloss, no key edge, no shadow, never lifts; near-white in dark), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are DM Sans on the label type token, sentence case, never Unique."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
-        - date: "2026-09-22"
-          by: human:elleta
-          note: primary label (text-inverse) 16.0:1 on the ink plate, 10.6:1 light / 11.8:1 dark on the hover plate (AAA). Secondary and tertiary labels are ink, 16.7:1 on panel. Secondary outline border-strong 3.00:1 worst (non-text AA). Focus ring 3px ochre-deep (3.20:1 on panel) / ochre (8.70:1 on the dark surface), 3px offset, focus-visible only.
+        - by: human:elleta
+          note: "Verified 8 Nov 2026 (shared look): primary label 13.90:1 on the plate in both modes, and 9.01:1 light / 9.54:1 dark on the hover plate (AAA). Secondary label 16.13:1 light / 14.98:1 dark on the card. Control border 5.16:1 light / 5.13:1 dark on the card. Focus ring 3px, 3px offset, ink in light and near-white in dark: 15.04:1 and 16.26:1 on the page. Focus-visible only."
       tags:
         - component
         - button
@@ -21792,13 +21861,13 @@ entries:
         title: Do not
         items:
           - level: must-not
-            statement: "Do not render more than one primary per view: the keycap is the single 3D moment"
+            statement: "Do not render more than one primary per view: the flat ink plate is the single main action"
           - level: must-not
             statement: "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory"
           - level: must-not
             statement: Do not set labels in Unique at any size
           - level: must-not
-            statement: "Do not build a neutral keycap: that tier is retired"
+            statement: "Do not build a neutral tier: it is retired"
           - level: must-not
             statement: "Do not lift a button on hover: lift is reserved for cards; hover is the label roll"
           - level: must-not
@@ -21806,14 +21875,14 @@ entries:
       - kind: definitions
         for: all
         title: At rest
-        description: "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
+        description: "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
         context: anatomy
         items:
-          - term: plate gradient + gloss
+          - term: flat ink plate
             definition: "Trigger: rest. Paints at rest."
-          - term: 1px accent-raised-edge border
+          - term: no gloss, no key edge
             definition: "Trigger: rest. Paints at rest."
-          - term: shadow.key-resting
+          - term: no shadow
             definition: "Trigger: rest. Paints at rest."
           - term: label
             definition: "Trigger: rest. Paints at rest."
@@ -21825,7 +21894,7 @@ entries:
             definition: "Trigger: hover, focus. Inert at rest."
           - term: tertiary colour shift
             definition: "Trigger: hover, focus. Inert at rest."
-          - term: keycap press (primary)
+          - term: press (primary)
             definition: "Trigger: active. Inert at rest; audit:quality asserts it."
           - term: secondary fill deepen
             definition: "Trigger: active. Inert at rest."
@@ -21835,14 +21904,14 @@ entries:
         description: Numbered parts, bottom layer first. Each names its DOM target inside the component root, so a viewer can measure where it sits.
         context: anatomy
         items:
-          - term: 1. Key shadow
-            definition: 0 2px 0 key edge one step darker than the face, soft drop, inset highlight (primary). Token --shadow-key-resting; target :scope.
+          - term: 1. Shadow
+            definition: "none on the primary: no key edge, no drop, no highlight (shared look, 8 Nov 2026). Token --shadow-key-resting; target :scope."
           - term: 2. Fill
-            definition: ink plate, 1px edge, white-alpha gloss. Token --component-button-primary-fill-hi; target :scope.
+            definition: flat ink plate, no gloss (near-white in dark). Token --component-button-primary-fill-hi; target :scope.
           - term: 3. Box
             definition: 44px min, padding 12 / 20, radius 12. Token --component-button-primary-min-height; target :scope.
           - term: 4. Label
-            definition: Figtree 16, 600, sentence case (font-size.tag). Token --component-button-primary-font-size; target [data-bella-roll=label].
+            definition: DM Sans 16, sentence case (font-size.tag). Token --component-button-primary-font-size; target [data-bella-roll=label].
           - term: 5. Focus ring
             definition: 3px, 3px offset, focus-visible only. Token --ring-focus-color; target :scope.
     refs:
@@ -21892,11 +21961,11 @@ entries:
           - focus
           - disabled
         restState:
-          description: "One job per state. At rest the keycap is calm: plate, gloss, edge, resting key shadow, label. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is the keycap press, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
+          description: "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
           atRest:
-            - plate gradient + gloss
-            - 1px accent-raised-edge border
-            - shadow.key-resting
+            - flat ink plate
+            - no gloss, no key edge
+            - no shadow
             - label
           triggered:
             - layer: label roll
@@ -21919,7 +21988,7 @@ entries:
                 - hover
                 - focus
               asserted: false
-            - layer: keycap press (primary)
+            - layer: press (primary)
               "on":
                 - active
               asserted: true
@@ -22407,7 +22476,7 @@ entries:
           - level: must-not
             statement: "Do not use for mutually exclusive views: that is SegmentedControl"
           - level: must-not
-            statement: "Do not raise it: the keycap is reserved for true actions"
+            statement: "Do not make it a Button: a Button is reserved for true actions"
           - level: must-not
             statement: "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"
       - kind: definitions
@@ -22657,16 +22726,15 @@ entries:
   - kind: component
     id: heading
     name: Heading
-    description: Figtree SemiBold 600 carries every heading tier, tight tracking, sentence case (heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08). Never inside a card.
+    description: Newsreader 500 carries every heading tier, tight tracking, sentence case (shared look, 8 Nov 2026; was Figtree 600, heading weight, 2026-10-04, Elleta). Unique is retired (2026-10-08). Never inside a card.
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
-        - date: "2026-09-22"
-          by: human:elleta
-          note: "text-primary 18.73:1 light (bg) / 16.60:1 dark (bg), AAA. The accent segment is the muted half-line, text-secondary, 7.09:1 light / 7.06:1 dark (AAA): ochre is a fill, never text. Semantic level decouples from the visual tier via the as prop, so the outline stays honest."
+        - by: human:elleta
+          note: "Verified 8 Nov 2026 (shared look): text-primary 15.04:1 light / 16.26:1 dark on the page, AAA. The accent segment is the muted half-line, text-secondary, 7.95:1 light / 9.41:1 dark (AAA). Semantic level decouples from the visual tier via the as prop, so the outline stays honest."
       tags:
         - component
         - heading
@@ -22687,7 +22755,7 @@ entries:
         title: Do not
         items:
           - level: must-not
-            statement: "Never inside a card: cards carry titles (Figtree 600), not headings (contract-enforced by audit:quality)"
+            statement: "Never inside a card: cards carry titles (DM Sans), not headings (contract-enforced by audit:quality)"
             checks:
               - href: ./scripts/audit-quality-docs.mjs
                 rel: lint-rule
@@ -23144,7 +23212,7 @@ entries:
   - kind: component
     id: link
     name: Link
-    description: "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared ochre ring (brand refresh, 2026-09-22). Visited stays ink."
+    description: "Inline text link inside body copy: ink with an underline; hover thickens the underline; focus is the shared focus ring, ink in light and near-white in dark (shared look, 8 Nov 2026). Visited stays ink."
     metadata:
       origin:
         method: extracted
@@ -23579,7 +23647,7 @@ entries:
           - level: must-not
             statement: "Do not make it clickable: a pressable keycap is Button"
           - level: must-not
-            statement: "Do not raise or animate it: the raised keycap is Button's, Kbd is recessed and flat"
+            statement: "Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button"
           - level: must-not
             statement: "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
       - kind: definitions
@@ -23903,7 +23971,7 @@ entries:
   - kind: component
     id: data-table
     name: DataTable
-    description: Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row ochre without dimming any other row.
+    description: Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row pink without dimming any other row.
     metadata:
       origin:
         method: extracted
@@ -23912,7 +23980,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is ochre fill with ink text, 9.01:1 (AAA), nested components included (a muted StatusPill label on ochre would be 3.51:1), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.
+          note: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.
       tags:
         - component
         - data-table
@@ -23931,9 +23999,9 @@ entries:
         title: Do not
         items:
           - level: must-not
-            statement: "Do not dim unselected rows: selection is the ochre fill, everything else keeps its paint"
+            statement: "Do not dim unselected rows: selection is the pink fill, everything else keeps its paint"
           - level: must-not
-            statement: "Do not use ochre-deep for selection: it is the focus ring only"
+            statement: "Do not use the focus ring colour for selection: the ring means focus only"
           - level: must-not
             statement: "Do not left-align figures: numeric columns are right-aligned and tabular"
           - level: must-not
@@ -24075,7 +24143,7 @@ entries:
   - kind: component
     id: combobox
     name: Combobox
-    description: "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the ochre fill."
+    description: "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the pink fill."
     metadata:
       origin:
         method: extracted
@@ -24084,7 +24152,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on ochre 9.01:1 (AAA). Options and field are 44px. Focus ring on the field.
+          note: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option near-black on the pink fill 8.13:1 (AAA; shared look, 8 Nov 2026). Options and field are 44px. Focus ring on the field.
       tags:
         - component
         - combobox
@@ -24105,7 +24173,7 @@ entries:
           - level: must-not
             statement: "Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant"
           - level: must-not
-            statement: "Do not dim the other options: the active one gets the ochre fill, nothing else changes"
+            statement: "Do not dim the other options: the active one gets the pink fill, nothing else changes"
           - level: must-not
             statement: "Do not use it for a fixed short list without typing: that is Select"
       - kind: definitions
@@ -24372,7 +24440,7 @@ entries:
           - level: must-not
             statement: "Do not use a display Heading tier for an app page title: display is for editorial heroes"
           - level: must-not
-            statement: "Do not put more than one keycap Button in actions: the main action only; the rest are secondary Buttons or ActionChips"
+            statement: "Do not put more than one primary Button in actions: the main action only; the rest are secondary Buttons or ActionChips"
           - level: must-not
             statement: "Do not use it twice on a page: one h1"
       - kind: definitions

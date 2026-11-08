@@ -3,14 +3,14 @@ import styles from './Button.module.css';
 
 export interface ButtonProps {
   /**
-   * Tier. `"primary"` is the raised keycap, the one 3D moment in a view;
+   * Tier. `"primary"` is the flat ink plate, no shadow, never lifts;
    * render at most ONE per view. `"secondary"` is the flat accent outline.
    * `"tertiary"` is the text tier: accent and underlined, nothing else.
-   * The neutral keycap is retired; there is no fourth tier.
+   * The neutral tier is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
   /**
-   * Outline shape. `"default"` is the keycap radius every tier shares;
+   * Outline shape. `"default"` is the 12px radius every tier shares;
    * `"pill"` rounds the ends fully (e.g. a nav call to action).
    */
   shape?: 'default' | 'pill';
@@ -37,10 +37,10 @@ export interface ButtonProps {
 }
 
 /**
- * Keycaps with real hierarchy: two colour treatments, three tiers, one
- * primary per view. Labels are Figtree SemiBold 16px, sentence case, never Unique. One job per
+ * Buttons with real hierarchy: two colour treatments, three tiers, one
+ * primary per view. Labels are DM Sans 16px, sentence case, never Unique. One job per
  * state: hover and focus-visible roll the label, active presses the
- * keycap; a button never lifts on hover (lift is for cards).
+ * primary down a little; a button never lifts on hover (lift is for cards).
  */
 export default function Button({
   variant = 'secondary',

@@ -4,43 +4,46 @@ import { PageIntro, DoDont, TokenChip } from './DocBlocks';
 <Meta title="Identity" />
 
 <PageIntro title="Identity">
-  Two inks, one accent, one pattern, Figtree. The identity is a small set of
+  Two inks, one accent, one pattern, two faces. The identity is a small set of
   locked decisions; everything else in BELLA is derived from them.
 </PageIntro>
 
 ## Two inks, one accent
 
-Light mode sets ink <TokenChip token="color.light.ink" /> on a white page
-<TokenChip token="color.light.bg" /> with neutral panels
-<TokenChip token="color.light.panel" />. Dark mode is neutral near-black
+Light mode sets ink <TokenChip token="color.light.ink" /> on a #F7F7F5 page
+ground <TokenChip token="color.light.bg" /> with white cards (shared look,
+8 Nov 2026). Dark mode is neutral near-black
 <TokenChip token="color.dark.bg" /> and climbs lighter.
 
-The one accent is ochre <TokenChip token="color.brand.ochre" /> (brand
+The brand accent is ochre <TokenChip token="color.brand.ochre" /> (brand
 refresh, 2026-09-22), and it is a fill: always with ink text (9.01:1), never
-text or a hairline on light. On light, ochre lines and the focus ring are
-ochre-deep <TokenChip token="color.brand.ochre-deep" />. Links and buttons
-are ink; the ochre ring means focus, and only that. Iris and periwinkle are
-retired.
+text or a hairline on light. It marks the "Needs you" state. On light, ochre
+lines are ochre-deep <TokenChip token="color.brand.ochre-deep" />. Links and
+buttons are ink. The focus ring is ink in light and near-white in dark, and
+means focus, only that (shared look, 8 Nov 2026). Selection is the pink fill
+#E58BBB with a near-black label, 8.13:1. Iris and periwinkle are retired.
 
 The brand pattern (an animal-print collage on ochre) lives in the wordmark
 and, in quiet grey, behind page openings. See Brand.
 
-## Figtree, set for reading, and a wordmark
+## Newsreader and DM Sans, set for reading, and a wordmark
 
-Type is Figtree (type lock for readability, Elleta, 2026-10-04), in five sizes:
+Headings are Newsreader and everything else is DM Sans (shared look, 8 Nov
+2026). The sizes stay as the type lock for readability set them (Elleta,
+2026-10-04), in five sizes:
 
-- **Headings** are Figtree 500, sentence case, through the Heading component:
+- **Headings** are Newsreader 500, sentence case, through the Heading component:
   H1 44 to 60px, H2 34 to 40px, with only slight negative tracking.
 - **Lead** is 21 to 22px, **body** 20px at line height 1.7, **small** 18px.
   Body and captions are `text-body`, a near-black ink, never grey.
-- **Labels, buttons and meta** are Figtree at 16px or more, sentence case, no
-  caps and no tracking. Button labels are Figtree SemiBold 16px.
+- **Labels, buttons and meta** are DM Sans at 16px or more, sentence case, no
+  caps and no tracking. Button labels are DM Sans 16px.
 - **Geist Mono** is for real code and token names only, at 16px.
 - **Unique** is the wordmark and nothing else.
 
 <DoDont
   doItems={[
-    'Set every heading in Figtree 500 through Heading',
+    'Set every heading in Newsreader 500 through Heading',
     'Set body and captions in text-body, 18px or more',
     'Set labels and buttons in sentence case, 16px or more',
   ]}
@@ -53,16 +56,18 @@ Type is Figtree (type lock for readability, Elleta, 2026-10-04), in five sizes:
 
 ## Surfaces: flat cards, lift means clickable
 
-The light page is pure white, and that is the only place white is allowed.
-Cards and panels are one step down <TokenChip token="color.semantic.surface-card" />
-with a 1px hairline <TokenChip token="color.semantic.border-faint" /> and no
+The light page ground is #F7F7F5 and cards are white (shared look, 8 Nov
+2026). Cards <TokenChip token="color.semantic.surface-card" />
+carry a 1px hairline <TokenChip token="color.semantic.border-faint" /> and no
 shadow at rest. Colour lives in fills, never in strokes or body text, except
 focus and status (danger, success). Only an interactive card lifts, 2px with a soft shadow, on
 hover and focus; a static card never moves. Dark elevation climbs lighter
 on neutral greys: the page, then surface <TokenChip token="color.dark.surface" />,
 inset <TokenChip token="color.dark.inset" />, and raised <TokenChip token="color.dark.raised" />. One light source,
-upper-left: highlights top-left, shadows down-right. The orb and keycap
-elevation tokens are a lock; that depth IS the system.
+upper-left: highlights top-left, shadows down-right. The orb
+elevation tokens are a lock. The primary Button is flat and never lifts
+(shared look, 8 Nov 2026), so the key shadow tokens keep their names but no
+longer dress it.
 
 ## The stance
 

@@ -60,7 +60,7 @@ export default meta;
 
 type Story = StoryObj<typeof Button>;
 
-/** The three tiers, one row: primary keycap, secondary outline, tertiary text. */
+/** The three tiers, one row: primary plate, secondary outline, tertiary text. */
 export const Tiers: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -78,7 +78,7 @@ export const Tiers: Story = {
 };
 
 /** Every tier in default and disabled. Hover and focus-visible roll the
- * label (never lift); active presses the primary keycap; reduced motion is
+ * label (never lift); active presses the primary down a little; reduced motion is
  * colour only. Live states, exercised by the Behavior story and the
  * rest-state assertions. */
 export const States: Story = {
@@ -101,7 +101,7 @@ export const States: Story = {
   ),
 };
 
-/** Shape: every tier shares the keycap radius by default; `shape="pill"`
+/** Shape: every tier shares the 12px radius by default; `shape="pill"`
  * rounds the ends fully. The label still reads once: the rolling copy is
  * aria-hidden. */
 export const Shape: Story = {
@@ -263,7 +263,7 @@ export const RingAndHover: Story = {
     });
     await step('keyboard focus: 3px ring, 3px offset', async () => {
       await userEvent.tab();
-      /* primary draws its ring on ::before, sized to the visible keycap */
+      /* primary draws its ring on ::before, sized to the plate */
       const cs = getComputedStyle(primary, '::before');
       await expect(cs.outlineStyle).toBe('solid');
       await expect(parseFloat(cs.outlineWidth)).toBe(3);
@@ -277,7 +277,7 @@ export const RingAndHover: Story = {
 };
 
 /* Visual baselines for the keyboard-focused primary (3 Oct 2026). The ring
- * draws on ::before, sized to the visible keycap, so only a capture of the
+ * draws on ::before, sized to the plate, so only a capture of the
  * focused state shows whether it sits even on all four sides. */
 function focusPrimary(): Story['play'] {
   return async ({ canvas }) => {
@@ -285,7 +285,7 @@ function focusPrimary(): Story['play'] {
     await userEvent.tab();
     await expect(button).toHaveFocus();
     await expect(button.matches(':focus-visible')).toBe(true);
-    /* the ring draws on ::before, sized to the visible keycap */
+    /* the ring draws on ::before, sized to the plate */
     const cs = getComputedStyle(button, '::before');
     await expect(cs.outlineStyle).toBe('solid');
     await expect(parseFloat(cs.outlineWidth)).toBe(3);
@@ -313,8 +313,8 @@ export const FocusedPrimaryPill: Story = {
   play: focusPrimary(),
 };
 
-/** Three tiers across all four themes: ink keycap in light/warm/wee-dote;
- * near-white keycap in dark; secondary outline = ink in light/warm/wee-dote,
+/** Three tiers across all four themes: flat ink plate in light/warm/wee-dote;
+ * flat near-white plate in dark; secondary outline = ink in light/warm/wee-dote,
  * near-white in dark. (Elleta, 14 Oct 2026) */
 export const AllThemes: Story = {
   render: () => (

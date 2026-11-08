@@ -28,7 +28,7 @@ export interface HeadingProps {
 }
 
 /**
- * Figtree SemiBold 600 carries every heading tier (heading weight, 2026-10-04); Unique is the wordmark only.
+ * Newsreader 500 carries every heading tier (shared look, 8 Nov 2026; was Figtree 600, 2026-10-04); Unique is the wordmark only.
  * 32px floor, never inside a card.
  */
 export default function Heading({

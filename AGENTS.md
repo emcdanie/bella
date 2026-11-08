@@ -50,7 +50,7 @@ Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert/Toast, Textarea, Pagination,
 
 ## Floors (always)
 
-Body ≥ 18px · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · ochre only on clickable things · AAA for body text.
+Body ≥ 18px (the `chip` theme's app density is 16px) · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
 
 ## Working on BELLA itself
 

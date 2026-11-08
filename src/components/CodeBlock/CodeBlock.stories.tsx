@@ -50,7 +50,7 @@ export const LongLine: Story = {
     title: 'Narrow frame',
     language: 'json',
     currentLine: undefined,
-    code: '{ "description": "Keycaps with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are 16px, sentence case." }',
+    code: '{ "description": "Buttons with real hierarchy: two colour treatments, three tiers, one primary per view. Labels are 16px, sentence case." }',
   },
   render: (args) => (
     <div style={{ maxWidth: 'calc(var(--spacing-20) * 4)' }}>

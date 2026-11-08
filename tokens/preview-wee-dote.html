@@ -1,0 +1,209 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&display=swap" rel="stylesheet"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px 'Figtree',system-ui,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Bar</title>
+<style>
+/* wee-dote theme: Figtree, sage ground, ink sent bubbles, four lane colours */
+:root{
+  --bg:#CBD5CC; --phone:#ffffff; --fg:#121212; --muted:#3d3d3d; --line:#b8c2b9;
+  --sent:#121212; --sent-fg:#ffffff; --recv:#dde6dd; --recv-fg:#121212;
+  --chip:#ffffff; --shadow:0 18px 50px rgba(20,40,24,.16);
+  --font:'Figtree',-apple-system,BlinkMacSystemFont,sans-serif;
+  --dara:#EBBB03; --bernie:#0498D0; --saoirse:#E5B3BF; --seamus:#121212; --frankie:#E32923; --liam:#5B9B84;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1a2018; --phone:#111a10; --fg:#eceef3; --muted:#8a9488; --line:#2c3a2a;
+  --recv:#2a362a; --recv-fg:#eceef3; --chip:#2c3a2a; --shadow:0 18px 50px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a2018; --phone:#111a10; --fg:#eceef3; --muted:#8a9488; --line:#2c3a2a;
+  --recv:#2a362a; --recv-fg:#eceef3; --chip:#2c3a2a; --shadow:0 18px 50px rgba(0,0,0,.6); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.35 var(--font);padding-inline:16px;padding-block:24px 40px}
+.phone{max-width:420px;margin:0 auto;background:var(--phone);border-radius:34px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;height:min(860px,calc(100dvh - 64px));min-height:520px}
+header{padding:14px 16px 10px;border-bottom:1px solid var(--line);text-align:center;display:grid;gap:6px;justify-items:center}
+.faces{display:flex}
+.face{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:600;font-size:13px;border:2px solid var(--phone);margin-left:-8px}
+.faces .face:first-child{margin-left:0}
+.face.ink{color:#fff}
+.gname{font-size:13px;font-weight:600}
+.gsub{font-size:11px;color:var(--muted);margin-top:-4px}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.controls button{font:600 12px var(--font);border:0;border-radius:999px;padding:6px 12px;background:var(--recv);color:var(--fg);cursor:pointer}
+.controls button:focus-visible{outline:3px solid var(--dara);outline-offset:2px}
+.controls button[aria-pressed="true"]{background:var(--sent);color:var(--sent-fg)}
+#log{flex:1;overflow-y:auto;padding:14px 12px 20px;display:flex;flex-direction:column;gap:3px;scroll-behavior:smooth}
+.stamp{align-self:center;font-size:11px;color:var(--muted);margin:12px 0 6px}
+.stamp b{font-weight:600}
+.row{display:flex;flex-direction:column;max-width:80%;position:relative}
+.row.me{align-self:flex-end;align-items:flex-end}
+.row.them{align-self:flex-start;align-items:flex-start;padding-left:30px}
+.who{font-size:11px;color:var(--muted);margin:8px 0 2px 12px}
+.av{position:absolute;left:0;bottom:2px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:700}
+.bubble{position:relative;padding:8px 12px;border-radius:18px;white-space:pre-wrap;overflow-wrap:anywhere;transform-origin:bottom left}
+.me .bubble{background:var(--sent);color:var(--sent-fg);transform-origin:bottom right}
+.them .bubble{background:var(--recv);color:var(--recv-fg)}
+.bubble.tail.me-t{border-bottom-right-radius:6px}
+.bubble.tail.them-t{border-bottom-left-radius:6px}
+.bubble code{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;background:rgba(127,127,127,.18);padding:1px 5px;border-radius:5px}
+.big{font-size:44px;background:transparent!important;padding:0 4px}
+.pop{animation:pop .42s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes pop{0%{transform:scale(.35) translateY(14px);opacity:0}100%{transform:none;opacity:1}}
+.slam{animation:slam .55s cubic-bezier(.2,1.4,.3,1) both}
+@keyframes slam{0%{transform:scale(2.6);opacity:0}60%{transform:scale(.92);opacity:1}100%{transform:none}}
+.tap{position:absolute;top:-14px;background:var(--chip);border:2px solid var(--phone);border-radius:999px;padding:1px 6px;font-size:14px;box-shadow:0 2px 6px rgba(0,0,0,.15);animation:pop .4s cubic-bezier(.2,1.8,.4,1) both}
+.me .tap{left:-14px}.them .tap{right:-14px}
+.typing{align-self:flex-start;margin-left:30px;background:var(--recv);border-radius:18px;padding:10px 14px;display:flex;gap:4px;position:relative}
+.typing .av{left:-30px;bottom:0}
+.typing i{width:8px;height:8px;border-radius:50%;background:var(--muted);animation:dot 1.2s infinite}
+.typing i:nth-child(3){animation-delay:.15s}.typing i:nth-child(4){animation-delay:.3s}
+@keyframes dot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.delivered{align-self:flex-end;font-size:11px;color:var(--muted);margin-top:2px}
+.note{align-self:center;font-size:11px;color:var(--muted);text-align:center;max-width:85%;margin:6px 0}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:5}
+footer{max-width:420px;margin:14px auto 0;font-size:12px;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){.pop,.slam,.tap{animation:none}.typing i{animation:none}#log{scroll-behavior:auto}}
+</style>
+
+<div class="phone" role="region" aria-label="Chat replay">
+  <header>
+    <div class="faces" aria-hidden="true">
+      <span class="face" style="background:var(--sent)"></span>
+      <span class="face" style="background:var(--seamus)"></span>
+      <span class="face" style="background:var(--dara)"></span>
+      <span class="face" style="background:var(--bernie)"></span>
+      <span class="face" style="background:var(--saoirse)"></span>
+      <span class="face" style="background:var(--frankie)"></span>
+      <span class="face" style="background:var(--liam)"></span>
+    </div>
+    <div class="gname">The Bar</div>
+    <div class="gsub">Elleta, Seamus, Dara, Bernie, Saoirse, Frankie, Liam</div>
+    <div class="controls">
+      <button id="play" type="button" aria-pressed="true">⏸ Pause</button>
+      <button id="restart" type="button">↺ Replay</button>
+      <button id="speed" type="button">1×</button>
+      <button id="all" type="button">Show all</button>
+    </div>
+  </header>
+  <div id="log" aria-live="polite"></div>
+</div>
+<footer>Based on a real working session, 9 Oct 2026. Elleta's and Frankie's lines are from the session, lightly trimmed; some lane banter is dramatised.</footer>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<script>
+const P={
+  E:{n:'Elleta',me:true},
+  Se:{n:'Seamus',c:'var(--seamus)',i:'Se'},
+  D:{n:'Dara',c:'var(--dara)',i:'D'},
+  B:{n:'Bernie',c:'var(--bernie)',i:'B'},
+  S:{n:'Saoirse',c:'var(--saoirse)',i:'S'},
+  F:{n:'Frankie',c:'var(--frankie)',i:'F'},
+  L:{n:'Liam',c:'var(--liam)',i:'L'}
+};
+// [who, text, opts]  opts: tap, fx ('confetti'|'slam'|'big'), stamp
+const SCRIPT=[
+ ['stamp','<b>Friday</b> 13:54'],
+ ['E','belfast mode 🍻 show me what\'s live, what needs review. The live site still has responsive and image issues, and sections aren\'t staying in the frame. go'],
+ ['Se','Go? That\'s it? A dozen skills behind me and all I get is go. Grand. On it 🫡'],
+ ['Se','Status board\'s up on the right. Your live-site flags aren\'t measured yet, so I\'m not claiming anything\'s fixed.'],
+ ['E','ok I cleared all the terminals, let\'s go',{tap:'‼️'}],
+ ['Se','Measured 8 pages at 390, 768, 1024 and 1440 📏'],
+ ['Se','The /work cover pictures are cropped to a thin strip on everything bigger than a phone. And sections run 1.5–4 screens tall. You weren\'t imagining it.'],
+ ['B','Right, I\'ve had a proper look at every section. Pull up a chair. 📋'],
+ ['stamp','14:09'],
+ ['E','what about figma'],
+ ['Se','Polished beats 04 and 06 myself. Three calls for you: the yellow swatch, a stray button label, and a line that claims the gate runs in parallel. It doesn\'t yet.'],
+ ['E','no yellow button.. and ok to the other'],
+ ['Se','Done. The yellow\'s gone. Honest in Figma and fibbing on the site would be a quare look 😏',{tap:'😂'}],
+ ['stamp','14:20'],
+ ['E','it\'s all super messy and not following any of the rules we made. revise them and see what\'s breaking our workflow. this is taking so long 😩'],
+ ['Se','You\'re right, and part of it\'s on me. The rules live in 8 places and contradict each other, and nobody checks before saying "done". Me included.'],
+ ['Se','The fix: one rules file every lane reads first, a Figma lint before any "done", and nothing shown to you without the page already open.'],
+ ['E','ok fix',{fx:'slam'}],
+ ['Se','Fixed ✅ The Figma section\'s tidied, the lint is clean, and the new rules are in the repo.'],
+ ['B','Docs PR open. Contrast is AAA always now. Tuts. 🫖'],
+ ['stamp','15:41'],
+ ['E','now what'],
+ ['Se','Opened the lanes\' own screenshots before passing them on 👀 Two /work covers are empty boxes, and the /about sheet is cut off halfway. Neither is done.'],
+ ['D','Dara here. Lazy loading, not a rendering bug. Fixed the screenshotter.'],
+ ['D','All 4 covers visible at every width. CI green. Ready for OK #157. 😎',{tap:'❤️'}],
+ ['E','OK #157',{fx:'confetti'}],
+ ['Se','Dara says she\'s done, and for once she\'s actually right. Don\'t tell her I said so.'],
+ ['stamp','16:16'],
+ ['E','I accidentally closed Saoirse 🙈 and I still don\'t have the polished System page'],
+ ['S','I\'m back. Beats 01 to 09, phone and dark versions next to the desktop one. Honestly? A moment. ✨'],
+ ['Se','In my day we polished one page a week, and we were glad of it. 👴'],
+ ['stamp','16:22'],
+ ['E','I think you could be a bit funnier really'],
+ ['Se','Funnier? I\'ve been running three lanes all day. Bernie\'s cut off at 700 pixels, Dara\'s taking credit for lazy loading, and Saoirse\'s been off having a moment since lunch.',{tap:'😂'}],
+ ['Se','#157\'s about to go live. Tell me you\'re not still in your pyjamas 🛌'],
+ ['E','can you add emojis'],
+ ['Se','🍺',{fx:'big'}],
+];
+
+const log=document.getElementById('log');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let i=0,timer=null,playing=true,speed=1,lastWho=null;
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/`([^`]+)`/g,'<code>$1</code>')}
+function scroll(){log.scrollTop=log.scrollHeight}
+function clearTyping(){const t=log.querySelector('.typing');if(t)t.remove()}
+
+function render(item,animate){
+  const [w,text,o={}]=item;
+  if(w==='stamp'){const d=document.createElement('div');d.className='stamp';d.innerHTML=text;log.appendChild(d);lastWho=null;return}
+  const p=P[w];
+  log.querySelectorAll('.delivered').forEach(e=>e.remove());
+  const row=document.createElement('div');row.className='row '+(p.me?'me':'them');
+  if(!p.me&&lastWho!==w){const n=document.createElement('div');n.className='who';n.textContent=p.n;row.appendChild(n)}
+  const b=document.createElement('div');b.className='bubble tail '+(p.me?'me-t':'them-t');
+  if(o.fx==='big')b.classList.add('big');
+  b.innerHTML=esc(text);
+  if(animate&&!reduce)b.classList.add(o.fx==='slam'?'slam':'pop');
+  row.appendChild(b);
+  if(!p.me){const a=document.createElement('span');a.className='av';a.style.background=p.c;a.setAttribute('aria-hidden','true');row.appendChild(a)}
+  log.appendChild(row);
+  if(p.me){const d=document.createElement('div');d.className='delivered';d.textContent='Delivered';log.appendChild(d)}
+  if(o.tap){const t=document.createElement('span');t.className='tap';t.textContent=o.tap;
+    if(animate&&!reduce){setTimeout(()=>b.appendChild(t),650/speed)}else b.appendChild(t)}
+  if(o.fx==='confetti'&&animate&&!reduce)confetti();
+  lastWho=w;scroll();
+}
+
+function step(){
+  if(!playing)return;
+  if(i>=SCRIPT.length){setPlay(false);return}
+  const item=SCRIPT[i];const [w,text]=item;
+  if(w!=='stamp'&&!P[w].me&&!reduce){
+    const t=document.createElement('div');t.className='typing';
+    t.innerHTML='<span class="av" style="background:'+P[w].c+'" aria-hidden="true"></span><i></i><i></i><i></i>';
+    log.appendChild(t);scroll();
+    timer=setTimeout(()=>{clearTyping();render(item,true);i++;timer=setTimeout(step,500/speed)},Math.min(1900,500+text.length*14)/speed);
+  }else{
+    render(item,true);i++;timer=setTimeout(step,(w==='stamp'?400:900)/speed);
+  }
+}
+function setPlay(v){playing=v;const b=document.getElementById('play');b.setAttribute('aria-pressed',v);b.textContent=v?'⏸ Pause':'▶ Play';if(v){clearTimeout(timer);step()}else{clearTimeout(timer);clearTyping()}}
+function restart(){clearTimeout(timer);log.innerHTML='';i=0;lastWho=null;
+  // first two lines at rest so the opening frame is never empty
+  render(SCRIPT[0],false);render(SCRIPT[1],false);i=2;setPlay(true)}
+function showAll(){clearTimeout(timer);clearTyping();while(i<SCRIPT.length){render(SCRIPT[i],false);i++}setPlay(false)}
+
+document.getElementById('play').onclick=()=>{if(i>=SCRIPT.length)restart();else setPlay(!playing)};
+document.getElementById('restart').onclick=restart;
+document.getElementById('all').onclick=showAll;
+document.getElementById('speed').onclick=e=>{speed=speed===1?2:speed===2?0.5:1;e.target.textContent=(speed===0.5?'½':speed)+'×'};
+
+// confetti — wee-dote four lane colours
+const cv=document.getElementById('fx'),cx=cv.getContext('2d');let parts=[],raf=null;
+function size(){cv.width=innerWidth*devicePixelRatio;cv.height=innerHeight*devicePixelRatio;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px'}
+addEventListener('resize',size);size();
+function confetti(){const cols=['#EBBB03','#0498D0','#E5B3BF','#E32923'];
+  for(let k=0;k<160;k++)parts.push({x:innerWidth/2,y:innerHeight*0.35,vx:(Math.random()-.5)*14,vy:-Math.random()*12-4,r:Math.random()*Math.PI,s:5+Math.random()*6,c:cols[k%cols.length],l:0});
+  if(!raf)tick()}
+function tick(){const d=devicePixelRatio;cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.vy+=.35;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=.2;p.l++;cx.save();cx.translate(p.x*d,p.y*d);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s*d/2,-p.s*d/4,p.s*d,p.s*d/2);cx.restore()});
+  parts=parts.filter(p=>p.y<innerHeight+40&&p.l<240);
+  raf=parts.length?requestAnimationFrame(tick):null;if(!raf)cx.clearRect(0,0,cv.width,cv.height)}
+
+if(reduce){render(SCRIPT[0],false);i=1;showAll()}else restart();
+</script>
+
+</body></html>

@@ -17,7 +17,7 @@
 | Main action (at most one per view) | `Button variant="primary"` |
 | Other actions | `Button variant="secondary"` |
 | Small inline actions (on a tile, under a card, "Test", "Copy") | `ActionChip` |
-| Go somewhere | `Link` · sidebar nav: `NavList` |
+| Go somewhere | `Link` · sidebar nav: `NavList` · top bar sections: `SectionNav` · on this page: `PageOutline` |
 | Filter / toggle / sort / pick a view | `FilterChip`, `SegmentedControl`, `Select`, `Tabs` |
 | Text input | `Input` |
 | Search / pick from list | `Combobox` |
@@ -25,8 +25,16 @@
 | Content card | `Card`, `ResourceCard` |
 | Metrics / scores | `Stat`, `ScoreStrip` |
 | Tabular data | `DataTable` |
+| Code, contracts, diffs | `CodeBlock` |
+| Name an icon button | `Tooltip` |
+| Work list: status, title, why, one action | `ListRow` |
+| Explain something in place: numbered marker, dashed line | `Pin`, `Leader` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
+| Group of people (overlapping discs) | `AvatarStack` |
+| Chat message bubble | `ChatBubble` |
+| Chat message list | `ChatThread` |
+| Someone is typing | `TypingDots` |
 | Icons | `Icon` (Iconoir only) |
 | Headings | `Heading`, `SectionHeader` |
 | Above-heading label | `Eyebrow` |

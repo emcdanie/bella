@@ -63,6 +63,16 @@ export const semanticDark = mergeTokens(
   rollup.semantic_dark_overrides as unknown as TokenNode
 );
 
+export const semanticWarm = mergeTokens(
+  semanticLight,
+  rollup.semantic_warm_overrides as unknown as TokenNode
+);
+
+export const semanticWeeDote = mergeTokens(
+  semanticLight,
+  rollup.semantic_wee_dote_overrides as unknown as TokenNode
+);
+
 export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
   const node = dotted.split('.').reduce<TokenNode | undefined>(
     (n, k) => (n ? (n[k] as TokenNode) : undefined),

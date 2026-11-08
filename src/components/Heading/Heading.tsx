@@ -4,10 +4,11 @@ import styles from './Heading.module.css';
 export interface HeadingProps {
   /**
    * Visual tier: `"hero"` and `"page"` are the 40 to 76px display ramp,
-   * `"section"` the 34 to 40px h2 ramp. All Figtree 600, sentence case,
-   * tight tracking; the 32px section floor is structural.
+   * `"section"` the 34 to 40px h2 ramp, `"subsection"` a fixed 24px h3.
+   * All in the display face, sentence case, tight tracking; the 32px section
+   * floor is structural and subsection is the one step under it.
    */
-  tier?: 'hero' | 'page' | 'section';
+  tier?: 'hero' | 'page' | 'section' | 'subsection';
   /** Semantic element, decoupled from the visual tier; defaults h1 for hero/page, h2 otherwise. */
   as?: 'h1' | 'h2' | 'h3';
   /** Optional accent segment after the text: the muted half-line. An interactive accent (a term button) colours itself. */
@@ -41,7 +42,7 @@ export default function Heading({
   style,
   children,
 }: HeadingProps) {
-  const Tag: ElementType = as ?? (tier === 'hero' || tier === 'page' ? 'h1' : 'h2');
+  const Tag: ElementType = as ?? (tier === 'subsection' ? 'h3' : tier === 'hero' || tier === 'page' ? 'h1' : 'h2');
   return (
     <Tag
       id={id}

@@ -114,6 +114,51 @@ value with the source reference in parentheses.
 | `color.warm.muted` | `#4f463d` | color |
 | `color.warm.line` | `#e3dbcf` | color |
 | `color.warm.control` | `#857a6a` | color |
+| `color.wee-dote.bg` | `#CBD5CC` | color |
+| `color.wee-dote.ink` | `#121212` | color |
+| `color.wee-dote.inset` | `#D8E1D9` | color |
+| `color.wee-dote.panel` | `#E4EDE5` | color |
+| `color.wee-dote.line` | `#B5BFB6` | color |
+| `color.wee-dote.muted` | `#3D3D3D` | color |
+| `color.wee-dote.control` | `#6A786B` | color |
+| `color.wee-dote.danger` | `#9B1A14` | color |
+| `color.wee-dote.success` | `#0E4D26` | color |
+| `color.wee-dote.recv-fill` | `#DDE6DD` | color |
+| `color.wee-dote.lane-a` | `#EBBB03` | color |
+| `color.wee-dote.lane-b` | `#0498D0` | color |
+| `color.wee-dote.lane-c` | `#E5B3BF` | color |
+| `color.wee-dote.lane-d` | `#E32923` | color |
+| `color.wee-dote.lane-e` | `#5B9B84` | color |
+| `color.pop.yellow` | `#E9B820` | color |
+| `color.pop.pink` | `#E58BBB` | color |
+| `color.pop.blue` | `#2F9BE0` | color |
+| `color.pop.red` | `#E2473B` | color |
+| `color.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` | color |
+| `color.chip-ui.ground` | `#F7F7F5` | color |
+| `color.chip-ui.canvas` | `#F4F5F8` | color |
+| `color.chip-ui.line` | `#1F1C1938` | color |
+| `color.chip-ui.scrim` | `#1D203052` | color |
+| `color.chip-ui.edge` | `#1D20302E` | color |
+| `color.chip-ui.action` | `#2F9BE0` | color |
+| `color.chip-ui.action-hover` | `#6DB9E9` | color |
+| `color.chip-ui.action-tint` | `#EEF7FD` | color |
+| `color.chip-ui.action-wash` | `#E2F1FB` | color |
+| `color.chip-ui.action-deep` | `#1865BB` | color |
+| `color.chip-ui.pass` | `#2B9A57` | color |
+| `color.chip-ui.fail` | `#E2473B` | color |
+| `color.chip-ui.needs` | `#E9B820` | color |
+| `color.chip-ui.note` | `#E58BBB` | color |
+| `color.chip-ui.focus` | `#CF5A95` | color |
+| `color.chip-ui.on-note` | `#0A0C14` | color |
+| `color.chip-ui.wash-blue` | `#E6F1FB` | color |
+| `color.chip-ui.wash-blue-ink` | `#114C80` | color |
+| `color.chip-ui.wash-yellow` | `#FCF4D8` | color |
+| `color.chip-ui.wash-yellow-ink` | `#5E4800` | color |
+| `color.chip-ui.wash-red` | `#FBEAE8` | color |
+| `color.chip-ui.wash-red-ink` | `#8F2118` | color |
+| `color.chip-ui.wash-green` | `#E5F4EA` | color |
+| `color.chip-ui.wash-green-ink` | `#18502F` | color |
+| `color.chip-ui.wash-grey` | `#EDEDEA` | color |
 | `color.dark.ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.dark.muted` | `#b1b7c7` (`{color.cool.300}`) | color |
 | `color.dark.line` | `#2e3240` (`{color.cool.800}`) | color |
@@ -141,6 +186,36 @@ value with the source reference in parentheses.
 | `color.pattern.zebra-light` | `#e6e6ae` | color |
 | `color.pattern.ink` | `#161616` | color |
 | `color.pattern.coral` | `#e66c52` | color |
+| `color.syntax.light.background` | `#F6F7F9` | color |
+| `color.syntax.light.foreground` | `#1D2030` | color |
+| `color.syntax.light.keyword` | `#8A2D6B` | color |
+| `color.syntax.light.string` | `#1F6E3A` | color |
+| `color.syntax.light.number` | `#8F4500` | color |
+| `color.syntax.light.comment` | `#5A5F70` | color |
+| `color.syntax.light.function` | `#1D5FA8` | color |
+| `color.syntax.light.tag` | `#A3261C` | color |
+| `color.syntax.light.attr` | `#6B4E00` | color |
+| `color.syntax.light.punct` | `#474C5E` | color |
+| `color.syntax.light.line-number` | `#585D6E` | color |
+| `color.syntax.light.current` | `#E8EBF3` | color |
+| `color.syntax.light.add` | `#E3F2E7` | color |
+| `color.syntax.light.del` | `#FBE7E5` | color |
+| `color.syntax.light.border` | `#E4E6EC` | color |
+| `color.syntax.dark.background` | `#171A22` | color |
+| `color.syntax.dark.foreground` | `#ECEEF3` | color |
+| `color.syntax.dark.keyword` | `#E39BD4` | color |
+| `color.syntax.dark.string` | `#8FD49F` | color |
+| `color.syntax.dark.number` | `#F2B26B` | color |
+| `color.syntax.dark.comment` | `#A0A6B8` | color |
+| `color.syntax.dark.function` | `#8FC1F5` | color |
+| `color.syntax.dark.tag` | `#FF9C8F` | color |
+| `color.syntax.dark.attr` | `#E6CB7A` | color |
+| `color.syntax.dark.punct` | `#C3C7D2` | color |
+| `color.syntax.dark.line-number` | `#9AA0B3` | color |
+| `color.syntax.dark.current` | `#262A35` | color |
+| `color.syntax.dark.add` | `#16301F` | color |
+| `color.syntax.dark.del` | `#3A1714` | color |
+| `color.syntax.dark.border` | `#2E3240` | color |
 | `spacing.1` | `4px` | dimension |
 | `spacing.2` | `8px` | dimension |
 | `spacing.3` | `12px` | dimension |
@@ -168,6 +243,8 @@ value with the source reference in parentheses.
 | `radius.full` | `999px` | dimension |
 | `radius.card` | `1rem` | dimension |
 | `radius.pill` | `999px` | dimension |
+| `radius.chat-bubble` | `18px` | dimension |
+| `radius.chat-tail` | `6px` | dimension |
 | `border.width.thin` | `1px` | dimension |
 | `border.width.medium` | `2px` | dimension |
 | `border.width.thick` | `3px` | dimension |
@@ -184,6 +261,7 @@ value with the source reference in parentheses.
 | `typography.font-size.4xl` | `40px` | dimension |
 | `typography.font-size.6xl` | `88px` | dimension |
 | `typography.font-size.display-hero` | `clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)` | dimension |
+| `typography.font-size.subsection` | `24px` | dimension |
 | `typography.font-size.display-page` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` | dimension |
 | `typography.font-size.display-section` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` | dimension |
 | `typography.font-size.quote` | `clamp(24px, 24px + 8 * (100vw - 390px) / 1050, 32px)` | dimension |
@@ -224,12 +302,15 @@ value with the source reference in parentheses.
 | `motion.duration.slow` | `400ms` | duration |
 | `motion.duration.trace` | `3400ms` | duration |
 | `motion.duration.draw` | `900ms` | duration |
-| `motion.duration.pop` | `450ms` | duration |
+| `motion.duration.pop` | `420ms` | duration |
+| `motion.duration.slam` | `550ms` | duration |
 | `motion.easing.standard` | `cubic-bezier(0.4, 0, 0.2, 1)` | cubicBezier |
 | `motion.easing.emphasis` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | cubicBezier |
 | `motion.easing.out` | `cubic-bezier(0.22, 1, 0.36, 1)` | cubicBezier |
 | `motion.easing.draw` | `cubic-bezier(0.65, 0, 0.35, 1)` | cubicBezier |
 | `motion.easing.pop` | `cubic-bezier(0.34, 1.4, 0.64, 1)` | cubicBezier |
+| `motion.easing.pop-enter` | `cubic-bezier(0.2, 1.6, 0.4, 1)` | cubicBezier |
+| `motion.easing.slam-enter` | `cubic-bezier(0.2, 1.4, 0.3, 1)` | cubicBezier |
 | `motion.transform.hover-lift` | `translateY(-2px)` | other |
 | `motion.transform.key-press` | `translateY(2px)` | other |
 | `motion.stagger.min` | `120ms` | duration |
@@ -322,6 +403,27 @@ value with the source reference in parentheses.
 | `color.semantic.highlight-wash` | `#1d203014` (`{color.alpha.ink-wash-08}`) | color |
 | `color.semantic.highlight-edge` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.highlight-text` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.pop-yellow` | `#E9B820` (`{color.pop.yellow}`) | color |
+| `color.semantic.pop-pink` | `#E58BBB` (`{color.pop.pink}`) | color |
+| `color.semantic.pop-blue` | `#2F9BE0` (`{color.pop.blue}`) | color |
+| `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
+| `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
+| `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
+| `color.semantic.syntax-background` | `#F6F7F9` (`{color.syntax.light.background}`) | color |
+| `color.semantic.syntax-foreground` | `#1D2030` (`{color.syntax.light.foreground}`) | color |
+| `color.semantic.syntax-keyword` | `#8A2D6B` (`{color.syntax.light.keyword}`) | color |
+| `color.semantic.syntax-string` | `#1F6E3A` (`{color.syntax.light.string}`) | color |
+| `color.semantic.syntax-number` | `#8F4500` (`{color.syntax.light.number}`) | color |
+| `color.semantic.syntax-comment` | `#5A5F70` (`{color.syntax.light.comment}`) | color |
+| `color.semantic.syntax-function` | `#1D5FA8` (`{color.syntax.light.function}`) | color |
+| `color.semantic.syntax-tag` | `#A3261C` (`{color.syntax.light.tag}`) | color |
+| `color.semantic.syntax-attr` | `#6B4E00` (`{color.syntax.light.attr}`) | color |
+| `color.semantic.syntax-punct` | `#474C5E` (`{color.syntax.light.punct}`) | color |
+| `color.semantic.syntax-line-number` | `#585D6E` (`{color.syntax.light.line-number}`) | color |
+| `color.semantic.syntax-current` | `#E8EBF3` (`{color.syntax.light.current}`) | color |
+| `color.semantic.syntax-add` | `#E3F2E7` (`{color.syntax.light.add}`) | color |
+| `color.semantic.syntax-del` | `#FBE7E5` (`{color.syntax.light.del}`) | color |
+| `color.semantic.syntax-border` | `#E4E6EC` (`{color.syntax.light.border}`) | color |
 | `color.semantic.focus-ring` | `#b97a14` (`{color.brand.ochre-deep}`) | color |
 | `color.semantic.danger-text` | `#b3261e` (`{color.light.danger}`) | color |
 | `color.semantic.danger-border` | `#b3261e` (`{color.light.danger}`) | color |
@@ -333,6 +435,10 @@ value with the source reference in parentheses.
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |
+| `color.semantic.lane-a` | `#cfe0ef` (`{color.chip.c1}`) | color |
+| `color.semantic.lane-b` | `#f6c9a8` (`{color.chip.c2}`) | color |
+| `color.semantic.lane-c` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.lane-d` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.link` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.link-hover` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.success` | `#4A7C6F` (`{color.supporting.sage}`) | color |
@@ -343,6 +449,15 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-lo` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.semantic.accent-raised-hover` | `#3a3f50` (`{color.cool.700}`) | color |
 | `color.semantic.accent-raised-edge` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.chat-surface-received` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.action` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.action-on` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.attention` | `#e8a83e` (`{color.brand.ochre}`) | color |
+| `color.semantic.attention-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.success-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.danger` | `#b3261e` (`{color.light.danger}`) | color |
+| `color.semantic.quiet` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.quiet-on` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.accent-ink` | `#1d2030` (`{color.cool.900}`) | color |
 | `shadow.card` | `0 1px 3px #1d20300f, 0 12px 28px #1d20301a` (`{shadow.card-ink}`) | shadow |
 | `shadow.ui` | `0 1px 2px #1d20300f, 0 4px 10px #1d203014` (`{shadow.ui-ink}`) | shadow |
@@ -392,6 +507,27 @@ value with the source reference in parentheses.
 | `color.semantic.highlight-wash` | `#eceef31f` (`{color.alpha.ink-wash-12}`) | color |
 | `color.semantic.highlight-edge` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.highlight-text` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.pop-yellow` | `#E9B820` (`{color.pop.yellow}`) | color |
+| `color.semantic.pop-pink` | `#E58BBB` (`{color.pop.pink}`) | color |
+| `color.semantic.pop-blue` | `#2F9BE0` (`{color.pop.blue}`) | color |
+| `color.semantic.pop-red` | `#E2473B` (`{color.pop.red}`) | color |
+| `color.semantic.canvas-grid-line` | `rgba(13, 153, 255, 0.1)` (`{color.canvas-grid-line}`) | color |
+| `color.semantic.canvas-grid` | `linear-gradient(90deg, rgba(13, 153, 255, 0.1) 1px, transparent 1px), linear-gradient(rgba(13, 153, 255, 0.1) 1px, transparent 1px)` (`linear-gradient(90deg, {color.canvas-grid-line} 1px, transparent 1px), linear-gradient({color.canvas-grid-line} 1px, transparent 1px)`) | other |
+| `color.semantic.syntax-background` | `#171A22` (`{color.syntax.dark.background}`) | color |
+| `color.semantic.syntax-foreground` | `#ECEEF3` (`{color.syntax.dark.foreground}`) | color |
+| `color.semantic.syntax-keyword` | `#E39BD4` (`{color.syntax.dark.keyword}`) | color |
+| `color.semantic.syntax-string` | `#8FD49F` (`{color.syntax.dark.string}`) | color |
+| `color.semantic.syntax-number` | `#F2B26B` (`{color.syntax.dark.number}`) | color |
+| `color.semantic.syntax-comment` | `#A0A6B8` (`{color.syntax.dark.comment}`) | color |
+| `color.semantic.syntax-function` | `#8FC1F5` (`{color.syntax.dark.function}`) | color |
+| `color.semantic.syntax-tag` | `#FF9C8F` (`{color.syntax.dark.tag}`) | color |
+| `color.semantic.syntax-attr` | `#E6CB7A` (`{color.syntax.dark.attr}`) | color |
+| `color.semantic.syntax-punct` | `#C3C7D2` (`{color.syntax.dark.punct}`) | color |
+| `color.semantic.syntax-line-number` | `#9AA0B3` (`{color.syntax.dark.line-number}`) | color |
+| `color.semantic.syntax-current` | `#262A35` (`{color.syntax.dark.current}`) | color |
+| `color.semantic.syntax-add` | `#16301F` (`{color.syntax.dark.add}`) | color |
+| `color.semantic.syntax-del` | `#3A1714` (`{color.syntax.dark.del}`) | color |
+| `color.semantic.syntax-border` | `#2E3240` (`{color.syntax.dark.border}`) | color |
 | `color.semantic.focus-ring` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.danger-text` | `#ff8f84` (`{color.dark.danger}`) | color |
 | `color.semantic.danger-border` | `#ff8f84` (`{color.dark.danger}`) | color |
@@ -403,6 +539,10 @@ value with the source reference in parentheses.
 | `color.semantic.chip-2` | `#f6c9a8` (`{color.chip.c2}`) | color |
 | `color.semantic.chip-3` | `#cfe8dc` (`{color.chip.c3}`) | color |
 | `color.semantic.chip-text` | `#17191a` (`{color.chip.text}`) | color |
+| `color.semantic.lane-a` | `#cfe0ef` (`{color.chip.c1}`) | color |
+| `color.semantic.lane-b` | `#f6c9a8` (`{color.chip.c2}`) | color |
+| `color.semantic.lane-c` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.lane-d` | `#e8a83e` (`{color.brand.ochre}`) | color |
 | `color.semantic.link` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.link-hover` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.success` | `#4A7C6F` (`{color.supporting.sage}`) | color |
@@ -413,6 +553,15 @@ value with the source reference in parentheses.
 | `color.semantic.accent-raised-lo` | `#eceef3` (`{color.cool.50}`) | color |
 | `color.semantic.accent-raised-hover` | `#c3c7d2` (`{color.cool.200}`) | color |
 | `color.semantic.accent-raised-edge` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.chat-surface-received` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.action` | `#eceef3` (`{color.cool.50}`) | color |
+| `color.semantic.action-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.attention` | `#e8a83e` (`{color.brand.ochre}`) | color |
+| `color.semantic.attention-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.success-on` | `#1d2030` (`{color.cool.900}`) | color |
+| `color.semantic.danger` | `#ff8f84` (`{color.dark.danger}`) | color |
+| `color.semantic.quiet` | `#cfe8dc` (`{color.chip.c3}`) | color |
+| `color.semantic.quiet-on` | `#1d2030` (`{color.cool.900}`) | color |
 | `color.accent-ink` | `#eceef3` (`{color.cool.50}`) | color |
 | `shadow.card` | `0 1px 3px rgba(4, 5, 10, 0.32), 0 12px 28px rgba(4, 5, 10, 0.44)` (`{shadow.card-ink-dark}`) | shadow |
 | `shadow.ui` | `0 1px 2px rgba(4, 5, 10, 0.30), 0 4px 10px rgba(4, 5, 10, 0.36)` (`{shadow.ui-ink-dark}`) | shadow |
@@ -433,12 +582,12 @@ value with the source reference in parentheses.
 | `component.button.motion.shift-duration` | `150ms` (`{motion.duration.fast}`) | duration |
 | `component.button.motion.shift-easing` | `cubic-bezier(0.4, 0, 0.2, 1)` (`{motion.easing.standard}`) | cubicBezier |
 | `component.button.motion.press` | `translateY(2px)` (`{motion.transform.key-press}`) | other |
-| `component.button.primary.fill-hi` | `#1d2030` (`{color.semantic.accent-raised-hi}`) | color |
-| `component.button.primary.fill-lo` | `#1d2030` (`{color.semantic.accent-raised-lo}`) | color |
+| `component.button.primary.fill-hi` | `#1d2030` (`{color.semantic.action}`) | color |
+| `component.button.primary.fill-lo` | `#1d2030` (`{color.semantic.action}`) | color |
 | `component.button.primary.fill-hi-hover` | `#3a3f50` (`{color.semantic.accent-raised-hover}`) | color |
 | `component.button.primary.fill-lo-hover` | `#3a3f50` (`{color.semantic.accent-raised-hover}`) | color |
 | `component.button.primary.edge` | `#1d2030` (`{color.semantic.accent-raised-edge}`) | color |
-| `component.button.primary.foreground` | `#eceef3` (`{color.semantic.text-inverse}`) | color |
+| `component.button.primary.foreground` | `#eceef3` (`{color.semantic.action-on}`) | color |
 | `component.button.primary.gloss` | `linear-gradient(color-mix(in srgb, white 18%, transparent), transparent 46%)` | other |
 | `component.button.primary.gloss-pressed` | `linear-gradient(transparent 0 10%, color-mix(in srgb, white 12%, transparent) 10%, transparent 50%)` | other |
 | `component.button.primary.padding-y` | `0px` | dimension |
@@ -452,7 +601,7 @@ value with the source reference in parentheses.
 | `component.button.secondary.background-hover` | `transparent` | color |
 | `component.button.secondary.background-active` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
 | `component.button.secondary.foreground` | `#1d2030` (`{color.semantic.text-accent}`) | color |
-| `component.button.secondary.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
+| `component.button.secondary.border` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.border-hover` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.button.secondary.padding-y` | `0px` | dimension |
 | `component.button.secondary.padding-x` | `20px` (`{spacing.5}`) | dimension |
@@ -554,6 +703,28 @@ value with the source reference in parentheses.
 | `component.status-pill.font-feature-settings` | `normal` | other |
 | `component.status-pill.accent.background` | `#e8a83e` (`{color.semantic.accent}`) | color |
 | `component.status-pill.accent.foreground` | `#1d2030` (`{color.semantic.text-on-accent}`) | color |
+| `component.status-pill.accent.border` | `transparent` | color |
+| `component.status-pill.success.background` | `color-mix(in srgb, #4A7C6F 10%, transparent)` (`color-mix(in srgb, {color.semantic.success} 10%, transparent)`) | color |
+| `component.status-pill.success.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.success.border` | `#4A7C6F` (`{color.semantic.success}`) | color |
+| `component.status-pill.info.background` | `#6495C526` (`{color.semantic.info-subtle}`) | color |
+| `component.status-pill.info.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.info.border` | `#6495C54D` (`{color.semantic.info-border}`) | color |
+| `component.status-pill.neutral.background` | `#eceef3` (`{color.semantic.surface-inset}`) | color |
+| `component.status-pill.neutral.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.neutral.border` | `#e4e6ec` (`{color.semantic.border}`) | color |
+| `component.status-pill.attention.background` | `#e8a83e` (`{color.semantic.attention}`) | color |
+| `component.status-pill.attention.foreground` | `#1d2030` (`{color.semantic.attention-on}`) | color |
+| `component.status-pill.attention.border` | `transparent` | color |
+| `component.status-pill.danger.background` | `color-mix(in srgb, #b3261e 10%, transparent)` (`color-mix(in srgb, {color.semantic.danger} 10%, transparent)`) | color |
+| `component.status-pill.danger.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.danger.border` | `#b3261e` (`{color.semantic.danger}`) | color |
+| `component.status-pill.quiet.background` | `#cfe8dc` (`{color.semantic.quiet}`) | color |
+| `component.status-pill.quiet.foreground` | `#1d2030` (`{color.semantic.quiet-on}`) | color |
+| `component.status-pill.quiet.border` | `transparent` | color |
+| `component.status-pill.serving.background` | `transparent` | color |
+| `component.status-pill.serving.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.status-pill.serving.border` | `#4A7C6F` (`{color.semantic.success}`) | color |
 | `component.filter-chip.border` | `#686d7d` (`{color.semantic.border-strong}`) | color |
 | `component.filter-chip.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
 | `component.filter-chip.border-radius` | `999px` (`{radius.full}`) | dimension |
@@ -580,6 +751,8 @@ value with the source reference in parentheses.
 | `component.heading.page.font-size` | `clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)` (`{typography.font-size.display-page}`) | dimension |
 | `component.heading.section.font-size` | `clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)` (`{typography.font-size.display-section}`) | dimension |
 | `component.heading.section.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
+| `component.heading.subsection.font-size` | `24px` (`{typography.font-size.subsection}`) | dimension |
+| `component.heading.subsection.letter-spacing` | `-0.015em` (`{typography.letter-spacing.h2}`) | dimension |
 | `component.icon.size-sm` | `16px` (`{icon.sm}`) | dimension |
 | `component.icon.size-md` | `20px` (`{icon.md}`) | dimension |
 | `component.icon.size-lg` | `24px` (`{icon.lg}`) | dimension |
@@ -754,3 +927,98 @@ value with the source reference in parentheses.
 | `component.slider.thumb-background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
 | `component.slider.thumb-border` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.slider.mark` | `#474c5e` (`{color.semantic.text-secondary}`) | color |
+| `component.chat-bubble.sent.background` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.chat-bubble.sent.foreground` | `#ffffff` (`{color.semantic.surface}`) | color |
+| `component.chat-bubble.received.background` | `#eceef3` (`{color.semantic.chat-surface-received}`) | color |
+| `component.chat-bubble.received.foreground` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.chat-bubble.default.border-radius` | `18px` (`{radius.chat-bubble}`) | dimension |
+| `component.chat-bubble.default.tail-radius` | `6px` (`{radius.chat-tail}`) | dimension |
+| `component.chat-bubble.default.padding-block` | `8px` (`{spacing.2}`) | dimension |
+| `component.chat-bubble.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-bubble.default.code-font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
+| `component.chat-bubble.default.code-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.chat-bubble.default.disc-size` | `24px` (`{spacing.6}`) | dimension |
+| `component.avatar-stack.default.overlap` | `-8px` | dimension |
+| `component.avatar-stack.default.ring-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.avatar-stack.default.ring-color` | `#ffffff` (`{color.semantic.surface}`) | color |
+| `component.typing-dots.default.dot-size` | `8px` (`{spacing.2}`) | dimension |
+| `component.typing-dots.default.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.typing-dots.default.duration` | `400ms` (`{motion.duration.slow}`) | duration |
+| `component.typing-dots.default.delay-2` | `150ms` | duration |
+| `component.typing-dots.default.delay-3` | `300ms` | duration |
+| `component.chat-thread.default.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.chat-thread.default.row-max-width` | `80%` | dimension |
+| `component.chat-thread.default.avatar-gutter` | `30px` | dimension |
+| `component.chat-thread.default.padding-block-start` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.padding-block-end` | `20px` (`{spacing.5}`) | dimension |
+| `component.chat-thread.default.padding-inline` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.stamp-margin-top` | `12px` (`{spacing.3}`) | dimension |
+| `component.chat-thread.default.stamp-margin-bottom` | `8px` (`{spacing.2}`) | dimension |
+| `component.pin.background` | `#fcfcfa` (`{color.semantic.surface-card}`) | color |
+| `component.pin.foreground` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.pin.size` | `32px` (`{spacing.8}`) | dimension |
+| `component.pin.ring-width` | `3px` (`{border.width.thick}`) | dimension |
+| `component.pin.label-padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.pin.gap` | `8px` (`{spacing.2}`) | dimension |
+| `component.pin.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.pin.font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
+| `component.pin.border-radius` | `999px` (`{radius.full}`) | dimension |
+| `component.pin.min-target` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.pin.yellow` | `#E9B820` (`{color.semantic.pop-yellow}`) | color |
+| `component.pin.pink` | `#E58BBB` (`{color.semantic.pop-pink}`) | color |
+| `component.pin.blue` | `#2F9BE0` (`{color.semantic.pop-blue}`) | color |
+| `component.pin.red` | `#E2473B` (`{color.semantic.pop-red}`) | color |
+| `component.leader.stroke-width` | `2px` (`{border.width.medium}`) | dimension |
+| `component.leader.dash` | `4 4` | other |
+| `component.leader.end-size` | `8px` (`{spacing.2}`) | dimension |
+| `component.leader.yellow` | `#E9B820` (`{color.semantic.pop-yellow}`) | color |
+| `component.leader.pink` | `#E58BBB` (`{color.semantic.pop-pink}`) | color |
+| `component.leader.blue` | `#2F9BE0` (`{color.semantic.pop-blue}`) | color |
+| `component.leader.red` | `#E2473B` (`{color.semantic.pop-red}`) | color |
+| `component.list-row.title-font-size` | `22px` (`{typography.font-size.xl}`) | dimension |
+| `component.list-row.title-font-weight` | `600` (`{typography.font-weight.semibold}`) | fontWeight |
+| `component.list-row.title-color` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.list-row.description-font-size` | `20px` (`{typography.font-size.body}`) | dimension |
+| `component.list-row.description-line-height` | `1.7` (`{typography.line-height.normal}`) | number |
+| `component.list-row.description-color` | `#2b2f3d` (`{color.semantic.text-body}`) | color |
+| `component.list-row.border` | `#e4e6ec` (`{color.semantic.border}`) | color |
+| `component.list-row.border-width` | `1px` (`{border.width.thin}`) | dimension |
+| `component.list-row.padding-y` | `12px` (`{spacing.3}`) | dimension |
+| `component.list-row.column-gap` | `16px` (`{spacing.4}`) | dimension |
+| `component.list-row.row-gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.list-row.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.section-nav.gap` | `4px` (`{spacing.1}`) | dimension |
+| `component.section-nav.padding-x` | `12px` (`{spacing.3}`) | dimension |
+| `component.section-nav.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.section-nav.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.section-nav.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.section-nav.indicator` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.page-outline.min-target` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.page-outline.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.page-outline.line-length` | `24px` (`{spacing.6}`) | dimension |
+| `component.page-outline.line` | `#686d7d` (`{color.semantic.border-strong}`) | color |
+| `component.page-outline.line-current` | `#1d2030` (`{color.semantic.text-primary}`) | color |
+| `component.page-outline.panel-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.tooltip.background` | `#171a22` (`{color.semantic.surface-inverse}`) | color |
+| `component.tooltip.foreground` | `#eceef3` (`{color.semantic.text-inverse}`) | color |
+| `component.tooltip.padding-x` | `8px` (`{spacing.2}`) | dimension |
+| `component.tooltip.padding-y` | `4px` (`{spacing.1}`) | dimension |
+| `component.tooltip.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.tooltip.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.code-block.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
+| `component.code-block.border-radius` | `4px` (`{radius.sm}`) | dimension |
+| `component.code-block.background` | `#F6F7F9` (`{color.semantic.syntax-background}`) | color |
+| `component.code-block.foreground` | `#1D2030` (`{color.semantic.syntax-foreground}`) | color |
+| `component.code-block.keyword` | `#8A2D6B` (`{color.semantic.syntax-keyword}`) | color |
+| `component.code-block.string` | `#1F6E3A` (`{color.semantic.syntax-string}`) | color |
+| `component.code-block.number` | `#8F4500` (`{color.semantic.syntax-number}`) | color |
+| `component.code-block.comment` | `#5A5F70` (`{color.semantic.syntax-comment}`) | color |
+| `component.code-block.function` | `#1D5FA8` (`{color.semantic.syntax-function}`) | color |
+| `component.code-block.tag` | `#A3261C` (`{color.semantic.syntax-tag}`) | color |
+| `component.code-block.attr` | `#6B4E00` (`{color.semantic.syntax-attr}`) | color |
+| `component.code-block.punct` | `#474C5E` (`{color.semantic.syntax-punct}`) | color |
+| `component.code-block.line-number` | `#585D6E` (`{color.semantic.syntax-line-number}`) | color |
+| `component.code-block.current` | `#E8EBF3` (`{color.semantic.syntax-current}`) | color |
+| `component.code-block.add` | `#E3F2E7` (`{color.semantic.syntax-add}`) | color |
+| `component.code-block.del` | `#FBE7E5` (`{color.semantic.syntax-del}`) | color |
+| `component.code-block.border` | `#E4E6EC` (`{color.semantic.syntax-border}`) | color |

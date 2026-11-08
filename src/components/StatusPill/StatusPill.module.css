@@ -37,22 +37,75 @@
   border: 1px solid transparent;
 }
 
+/* every variant reads its own background, label and border tokens, so a theme
+   restyles each state without touching this file (chip, 7 Nov 2026) */
 .accent {
   color: var(--component-status-pill-accent-foreground);
   background: var(--component-status-pill-accent-background);
+  border-color: var(--component-status-pill-accent-border);
 }
 
 .success {
-  border-color: var(--color-semantic-success);
-  background: color-mix(in srgb, var(--color-semantic-success) 10%, transparent);
+  color: var(--component-status-pill-success-foreground);
+  background: var(--component-status-pill-success-background);
+  border-color: var(--component-status-pill-success-border);
 }
 
 .info {
-  border-color: var(--color-semantic-info-border);
-  background: var(--color-semantic-info-subtle);
+  color: var(--component-status-pill-info-foreground);
+  background: var(--component-status-pill-info-background);
+  border-color: var(--component-status-pill-info-border);
 }
 
 .neutral {
-  border-color: var(--color-semantic-border);
-  background: var(--color-semantic-surface-inset);
+  color: var(--component-status-pill-neutral-foreground);
+  background: var(--component-status-pill-neutral-background);
+  border-color: var(--component-status-pill-neutral-border);
+}
+
+.attention {
+  color: var(--component-status-pill-attention-foreground);
+  background: var(--component-status-pill-attention-background);
+  border-color: var(--component-status-pill-attention-border);
+}
+
+.danger {
+  color: var(--component-status-pill-danger-foreground);
+  background: var(--component-status-pill-danger-background);
+  border-color: var(--component-status-pill-danger-border);
+}
+
+.quiet {
+  color: var(--component-status-pill-quiet-foreground);
+  background: var(--component-status-pill-quiet-background);
+  border-color: var(--component-status-pill-quiet-border);
+}
+
+.serving {
+  color: var(--component-status-pill-serving-foreground);
+  background: var(--component-status-pill-serving-background);
+  border-color: var(--component-status-pill-serving-border);
+}
+
+/* shape="dot" (CHIP's Today, 7 Nov 2026): the state's own mark colour, the
+   word kept as the accessible name but not drawn */
+.dot {
+  display: inline-block;
+  flex: none;
+  width: var(--spacing-3);
+  height: var(--spacing-3);
+  border-radius: 50%;
+  background: var(--color-semantic-text-secondary);
+}
+.dot-attention, .dot-accent { background: var(--color-semantic-attention); }
+.dot-danger { background: var(--color-semantic-danger); }
+.dot-success, .dot-serving { background: var(--color-semantic-success); }
+.dot-info { background: var(--color-semantic-info); }
+.word {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

@@ -32,7 +32,9 @@ def load(name: str) -> dict:
 primitive = load("primitive.json")
 sem_light = load("semantic/light.json")
 sem_dark  = load("semantic/dark.json")
-sem_warm  = load("semantic/warm.json")  # overrides on top of light (2026-10-03)
+sem_warm     = load("semantic/warm.json")      # overrides on top of light (2026-10-03)
+sem_wee_dote = load("semantic/wee-dote.json")  # overrides on top of light (2026-10-10)
+sem_chip     = load("semantic/chip.json")      # overrides on top of light (2026-11-06)
 component = load("component.json")
 
 # ---------- flatten ----------
@@ -53,11 +55,13 @@ def walk(node, path=None):
 def flatten(tree):
     return {p: (v, t, meta) for p, v, t, meta in walk(tree)}
 
-prim_flat = flatten(primitive)
-light_flat = flatten(sem_light)
-dark_flat  = flatten(sem_dark)
-warm_flat  = flatten(sem_warm)
-comp_flat  = flatten(component)
+prim_flat     = flatten(primitive)
+light_flat    = flatten(sem_light)
+dark_flat     = flatten(sem_dark)
+warm_flat     = flatten(sem_warm)
+wee_dote_flat = flatten(sem_wee_dote)
+chip_flat     = flatten(sem_chip)
+comp_flat     = flatten(component)
 
 # ---------- resolve references ----------
 
@@ -77,13 +81,17 @@ def make_resolver(lookup):
         return value
     return resolve
 
-light_lookup = {**prim_flat, **light_flat, **comp_flat}
-dark_lookup  = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
-warm_lookup  = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
+light_lookup    = {**prim_flat, **light_flat, **comp_flat}
+dark_lookup     = {**prim_flat, **light_flat, **dark_flat, **comp_flat}
+warm_lookup     = {**prim_flat, **light_flat, **warm_flat, **comp_flat}
+wee_dote_lookup = {**prim_flat, **light_flat, **wee_dote_flat, **comp_flat}
+chip_lookup     = {**prim_flat, **light_flat, **chip_flat, **comp_flat}
 
-resolve_light = make_resolver(light_lookup)
-resolve_dark  = make_resolver(dark_lookup)
-resolve_warm  = make_resolver(warm_lookup)
+resolve_light    = make_resolver(light_lookup)
+resolve_dark     = make_resolver(dark_lookup)
+resolve_warm     = make_resolver(warm_lookup)
+resolve_wee_dote = make_resolver(wee_dote_lookup)
+resolve_chip     = make_resolver(chip_lookup)
 
 # ---------- emit bella.css ----------
 
@@ -206,6 +214,61 @@ for path, (v, t, _) in comp_flat.items():
         css_lines.append(f"  {emit_css_var(path)}: {warmv};")
 css_lines += ["}", ""]
 
+# [data-theme="wee-dote"]: sage sardine-tin, a fourth theme on top of light (2026-10-10).
+# Only the semantic tokens wee-dote.json overrides, plus any component token
+# whose value lands differently under the wee-dote lookup.
+css_lines += [
+    "[data-theme=\"wee-dote\"] {",
+    "  /* ---- Semantic (wee-dote) overrides on top of light ---- */",
+]
+for path, (v, t, _) in wee_dote_flat.items():
+    css_lines.append(f"  {emit_css_var(path)}: {resolve_wee_dote(v)};")
+css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
+css_lines += ["", "  /* ---- Component (wee-dote) overrides ---- */"]
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, dict):
+        continue
+    lightv, wee_dotev = resolve_light(v), resolve_wee_dote(v)
+    if lightv != wee_dotev:
+        css_lines.append(f"  {emit_css_var(path)}: {wee_dotev};")
+css_lines += ["}", ""]
+
+# [data-theme="chip"]: the local app (CHIP), a fifth theme on top of light (2026-11-06).
+# Unlike the other themes it also sets radii, shadows and component tokens, so
+# the override file is flattened whole: any token path in chip.json is emitted.
+css_lines += [
+    "[data-theme=\"chip\"] {",
+    "  /* ---- Semantic (chip) overrides on top of light ---- */",
+]
+for path, (v, t, _) in chip_flat.items():
+    css_lines.append(f"  {emit_css_var(path)}: {resolve_chip(v)};")
+css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
+css_lines += ["", "  /* ---- Component (chip) overrides ---- */"]
+chip_comp_diff = {}
+for path, (v, t, _) in comp_flat.items():
+    if isinstance(v, dict) or path in chip_flat:
+        continue
+    lightv, chipv = resolve_light(v), resolve_chip(v)
+    if lightv != chipv:
+        chip_comp_diff[path] = (v, t, _)
+        css_lines.append(f"  {emit_css_var(path)}: {chipv};")
+css_lines += ["}", ""]
+
+# chip sits on <html> and CHIP shows BELLA's own components inside it, so a
+# nested [data-theme="light"] or "dark" has to put back whatever chip changed:
+# :root's values are not inherited past the chip root. Light takes every chip
+# token; dark only the ones its own block does not already declare.
+chip_keys = {**chip_flat, **chip_comp_diff}
+dark_declared = set(dark_flat) | {p for p, (v, t, _) in comp_flat.items() if not isinstance(v, dict) and resolve_light(v) != resolve_dark(v)}
+nested_light = {p: light_lookup[p] for p in chip_keys if p in light_lookup}
+nested_dark = {p: dark_lookup[p] for p in chip_keys if p in dark_lookup and p not in dark_declared}
+css_lines += ["/* ---- Inside a chip root: light and dark specimens keep their own values ---- */"]
+for sel, flat, res in (("[data-theme=\"light\"]", nested_light, resolve_light), ("[data-theme=\"dark\"]", nested_dark, resolve_dark)):
+    css_lines.append(sel + " {")
+    css_lines += [f"  {emit_css_var(p)}: {res(v)};" for p, (v, t, _) in flat.items()]
+    css_lines.append("  --ring-focus-color: var(--color-semantic-focus-ring);")
+    css_lines += ["}", ""]
+
 # ---- OKLCH layer (Elleta, 2026-10-05; docs/decisions/2026-10-05-oklch-primitives.md) ----
 # Hex above is the base every browser and Figma reads. Primitives also carry
 # $extensions.bella.oklch; the build checks each against its hex (CIEDE2000
@@ -297,16 +360,23 @@ ok.append("  }")
 # layer set on :root wherever that theme differs: by name when it is a
 # reference, by value when it is a literal.
 layer_root = {l.split(":")[0].strip() for l in ok if l.startswith("    --")}
-for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm)):
+for sel, flat, res in (("[data-theme=\"dark\"]", dark_flat, resolve_dark), ("[data-theme=\"warm\"]", warm_flat, resolve_warm), ("[data-theme=\"wee-dote\"]", wee_dote_flat, resolve_wee_dote), ("[data-theme=\"chip\"]", chip_flat, resolve_chip)):
     ok.append(f"  {sel} {{")
     for path, (v, t, _) in flat.items():
         if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):
             ok.append(f"    {emit_css_var(path)}: {names(v) if REF.search(str(v)) else res(v)};")
     for path, (v, t, _) in comp_flat.items():
-        if isinstance(v, dict) or emit_css_var(path) not in layer_root:
+        # a component token the theme sets itself was written above; don't put it back
+        if isinstance(v, dict) or emit_css_var(path) not in layer_root or path in flat:
             continue
         if resolve_light(v) != res(v):
             ok.append(f"    {emit_css_var(path)}: {names(v)};")
+    ok.append("  }")
+for sel, flat, res in (("[data-theme=\"light\"]", nested_light, resolve_light), ("[data-theme=\"dark\"]", nested_dark, resolve_dark)):
+    ok.append(f"  {sel} {{")
+    for path, (v, t, _) in flat.items():
+        if emit_css_var(path) in layer_root or (is_colour(res(v)) and REF.search(str(v))):
+            ok.append(f"    {emit_css_var(path)}: {names(v) if REF.search(str(v)) else res(v)};")
     ok.append("  }")
 ok += ["}", ""]
 
@@ -330,7 +400,12 @@ for path, (v, t, _) in comp_flat.items():
         rel.append(f"    {emit_css_var(path)}: {MIX_RE.sub(lambda m: f'oklch(from {m.group(1)} l c h / {m.group(2)}%)', v)};")
 if rel:
     ok += ["/* Relative colour: alpha tints and glosses derived from their base. */",
-           "@supports (color: oklch(from black l c h)) {", "  :root {"] + rel + ["  }", "}", ""]
+           "@supports (color: oklch(from black l c h)) {", "  :root {"] + rel + ["  }"]
+    # same reason as above: :root comes later, so chip's own values go after it,
+    # and a nested light gets the relative form back
+    rel_names = {l.split(":")[0].strip(): l for l in rel}
+    ok += ["  [data-theme=\"chip\"] {"] + [f"    {emit_css_var(p)}: {resolve_chip(v)};" for p, (v, t, _) in chip_flat.items() if emit_css_var(p) in rel_names] + ["  }"]
+    ok += ["  [data-theme=\"light\"] {"] + [rel_names[emit_css_var(p)] for p in nested_light if emit_css_var(p) in rel_names] + ["  }", "}", ""]
 css_lines += ok
 
 # ---- Reading flow (type lock, Elleta, 2026-10-04) ----
@@ -415,6 +490,8 @@ rollup = {
     "semantic": sem_light["color"]["semantic"],
     "semantic_dark_overrides": sem_dark["color"]["semantic"],
     "semantic_warm_overrides": sem_warm["color"]["semantic"],
+    "semantic_wee_dote_overrides": sem_wee_dote["color"]["semantic"],
+    "semantic_chip_overrides": sem_chip["color"]["semantic"],
     "component": component["component"]
 }
 

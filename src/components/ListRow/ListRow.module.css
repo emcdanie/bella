@@ -1,0 +1,87 @@
+/* ListRow (7 Nov 2026). Tokens only. Rows share the group's columns through
+ * subgrid, so statuses and actions line up down the list; under 560px of its
+ * own width the group stacks each row, with no sideways scroll. */
+
+.frame {
+  container: list-row / inline-size;
+}
+
+.group {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  column-gap: var(--component-list-row-column-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+  row-gap: var(--component-list-row-row-gap);
+  min-height: var(--component-list-row-min-height);
+  padding-block: var(--component-list-row-padding-y);
+}
+
+.row + .row {
+  border-top: var(--component-list-row-border-width) solid var(--component-list-row-border);
+}
+
+.status {
+  grid-column: 1;
+}
+
+.text {
+  grid-column: 2;
+  display: grid;
+  gap: var(--component-list-row-row-gap);
+  min-width: 0;
+}
+
+/* no status: the text takes its column too */
+.text:first-child {
+  grid-column: 1 / span 2;
+}
+
+.action {
+  grid-column: 3;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-list-row-title-font-size);
+  font-weight: var(--component-list-row-title-font-weight);
+  color: var(--component-list-row-title-color);
+  overflow-wrap: anywhere;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-list-row-description-font-size);
+  line-height: var(--component-list-row-description-line-height);
+  color: var(--component-list-row-description-color);
+  overflow-wrap: anywhere;
+}
+
+@container list-row (max-width: 560px) {
+  .group,
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .status,
+  .text,
+  .text:first-child,
+  .action {
+    grid-column: 1;
+  }
+
+  .status,
+  .action {
+    justify-self: start;
+  }
+}

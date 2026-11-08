@@ -28,6 +28,8 @@ function block(selectorRe) {
 const light = block(/:root\s*\{/);
 const dark = { ...light, ...block(/\[data-theme=["']?dark["']?\]\s*\{/) };
 const warm = { ...light, ...block(/\[data-theme=["']?warm["']?\]\s*\{/) };
+const wee_dote = { ...light, ...block(/\[data-theme=["']?wee-dote["']?\]\s*\{/) };
+const chip = { ...light, ...block(/\[data-theme=["']?chip["']?\]\s*\{/) };
 
 function resolve(vars, name, seen = new Set()) {
   if (seen.has(name)) throw new Error(`cycle at ${name}`);
@@ -137,10 +139,46 @@ const PAIRS = [
     [`highlight edge on the wash over ${s}`, '--color-semantic-highlight-edge', `--color-semantic-highlight-wash over --color-semantic-${s}`, NON_TEXT],
     [`highlight edge beside ${s}`, '--color-semantic-highlight-edge', `--color-semantic-${s}`, NON_TEXT],
   ]),
+  /* page outline: a section's line is a control mark on the card; the current one is ink */
+  ['outline line on the card', '--component-page-outline-line', '--color-semantic-surface-card', NON_TEXT],
+  ['current outline line on the card', '--component-page-outline-line-current', '--color-semantic-surface-card', NON_TEXT],
+  /* tooltip, and code: every syntax colour on the code ground and on the marked line */
+  ['tooltip label', '--component-tooltip-foreground', '--component-tooltip-background', AAA],
+  ['code foreground on its ground', '--component-code-block-foreground', '--component-code-block-background', AA],
+  ['code keyword on its ground', '--component-code-block-keyword', '--component-code-block-background', AA],
+  ['code string on its ground', '--component-code-block-string', '--component-code-block-background', AA],
+  ['code number on its ground', '--component-code-block-number', '--component-code-block-background', AA],
+  ['code comment on its ground', '--component-code-block-comment', '--component-code-block-background', AA],
+  ['code function on its ground', '--component-code-block-function', '--component-code-block-background', AA],
+  ['code tag on its ground', '--component-code-block-tag', '--component-code-block-background', AA],
+  ['code attr on its ground', '--component-code-block-attr', '--component-code-block-background', AA],
+  ['code punct on its ground', '--component-code-block-punct', '--component-code-block-background', AA],
+  ['code line-number on its ground', '--component-code-block-line-number', '--component-code-block-background', AA],
+  ['code foreground on the marked line', '--component-code-block-foreground', '--component-code-block-current', AA],
+  ['code comment on the marked line', '--component-code-block-comment', '--component-code-block-current', AA],
+  ['code line-number on the marked line', '--component-code-block-line-number', '--component-code-block-current', AA],
+  ['code keyword on the marked line', '--component-code-block-keyword', '--component-code-block-current', AA],
+  ['code string on the marked line', '--component-code-block-string', '--component-code-block-current', AA],
+  ['code number on the marked line', '--component-code-block-number', '--component-code-block-current', AA],
+  ['code function on the marked line', '--component-code-block-function', '--component-code-block-current', AA],
+  ['code tag on the marked line', '--component-code-block-tag', '--component-code-block-current', AA],
+  ['code attr on the marked line', '--component-code-block-attr', '--component-code-block-current', AA],
+  ['code punct on the marked line', '--component-code-block-punct', '--component-code-block-current', AA],
+  ['code on an added line', '--component-code-block-foreground', '--component-code-block-add', AA],
+  ['code on a removed line', '--component-code-block-foreground', '--component-code-block-del', AA],
+  /* pins: the number and word sit on the card disc, never on the pop colour */
+  ['pin number on its disc', '--component-pin-foreground', '--component-pin-background', AAA],
+  /* list row: on the page and on a card */
+  ['list row title on the page', '--component-list-row-title-color', '--color-semantic-background', AAA],
+  ['list row title on a card', '--component-list-row-title-color', '--color-semantic-surface-card', AAA],
+  ['list row why on the page', '--component-list-row-description-color', '--color-semantic-background', AAA],
+  ['list row why on a card', '--component-list-row-description-color', '--color-semantic-surface-card', AAA],
   /* chip fills carry chip text */
   ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
   ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
   ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
+  /* chat received bubble: body text AAA on its surface in every theme */
+  ['body text on chat received surface', '--color-semantic-text-body', '--color-semantic-chat-surface-received', AAA],
 ];
 
 /* Surfaces that must stay visibly apart (2026-10-03): a selected wash the
@@ -162,6 +200,24 @@ const FORBIDDEN_LIGHT = [
   ['ochre as a line on panel (forbidden, use ochre-deep)', '--color-brand-ochre', '--color-light-panel', NON_TEXT],
   ['muted text on ground (forbidden in light and warm: AA, not AAA; meta sits on raised)', '--color-light-muted', '--color-light-line', 7],
 ];
+
+/* wee-dote: blue (lane-b) and red (lane-d) both fail AAA in both directions.
+ * These forbidden checks prove the "fills only" rule is still needed. */
+const FORBIDDEN_WEEDOTE = [
+  ['ink on lane-b blue in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-b', AAA],
+  ['ink on lane-d red in wee-dote (forbidden AAA: fills only)', '--color-light-ink', '--color-wee-dote-lane-d', AAA],
+];
+
+/* chip: a pair held to a lower bar, with the reason. CTAs are blue (Elleta,
+ * 7 Nov 2026). No text colour reaches AAA on the action blue (ink 5.29:1,
+ * black 6.89:1), so its label is AA. */
+const CHIP_BAR = { 'primary button label on the ink plate': AA };
+
+/* chip: status tags carry a same-hue label on a soft wash, so each label is
+ * checked on its own wash, in chip only (the drawing board, 7 Nov 2026). */
+const CHIP_PAIRS = ['info', 'attention', 'danger', 'success', 'neutral'].map((v) => [
+  `${v} status tag label on its wash`, `--component-status-pill-${v}-foreground`, `--component-status-pill-${v}-background`, AAA,
+]);
 
 const failures = [];
 const lines = [];
@@ -187,6 +243,7 @@ const INSET_EXEMPT = {
   'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'active state fill: the press is the state marker',
   'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
+  'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
 };
 {
   const comp = JSON.parse(readFileSync('tokens/component.json', 'utf8')).component;
@@ -243,24 +300,35 @@ const INSET_EXEMPT = {
     if (!seen.has(key)) failures.push(`inset: INSET_EXEMPT lists ${key}, which no longer paints the inset fill; remove the entry`);
   }
 }
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
-  for (const [label, fg, bg, min] of PAIRS) {
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['wee-dote', wee_dote], ['chip', chip]]) {
+  for (const [label, fg, bg, bar] of PAIRS) {
+    const min = (theme === 'chip' && CHIP_BAR[label]) || bar;
     const r = ratio(colour(vars, fg), colour(vars, bg));
-    lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
+    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
     if (r < min) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${min}:1 (${fg} on ${bg})`);
   }
 }
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm]]) {
+for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['wee-dote', wee_dote], ['chip', chip]]) {
   for (const [label, a, b] of DISTINCT) {
     const r = ratio(resolve(vars, a), resolve(vars, b));
-    lines.push(`${theme.padEnd(5)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
+    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
     if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1; ${a} vs ${b})`);
   }
 }
+for (const [label, fg, bg, bar] of CHIP_PAIRS) {
+  const r = ratio(colour(chip, fg), colour(chip, bg));
+  lines.push(`chip     ${r.toFixed(2).padStart(6)}:1  >= ${bar}  ${label}`);
+  if (r < bar) failures.push(`chip: ${label} is ${r.toFixed(2)}:1, needs ${bar}:1 (${fg} on ${bg})`);
+}
 for (const [label, fg, bg, under] of FORBIDDEN_LIGHT) {
   const r = ratio(resolve(light, fg), resolve(light, bg));
-  lines.push(`light ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
+  lines.push(`light    ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
   if (r >= under) failures.push(`light: ${label} now passes (${r.toFixed(2)}:1); the rule forbidding it needs review`);
+}
+for (const [label, fg, bg, under] of FORBIDDEN_WEEDOTE) {
+  const r = ratio(resolve(wee_dote, fg), resolve(wee_dote, bg));
+  lines.push(`wee-dote ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
+  if (r >= under) failures.push(`wee-dote: ${label} now passes (${r.toFixed(2)}:1); the fills-only rule needs review`);
 }
 
 if (process.argv.includes('--verbose')) console.log(lines.join('\n'));
@@ -268,4 +336,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 3 + FORBIDDEN_LIGHT.length} checked (light, dark, warm), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);
+console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 5 + FORBIDDEN_LIGHT.length + FORBIDDEN_WEEDOTE.length + CHIP_PAIRS.length} checked (light, dark, warm, wee-dote, chip), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);

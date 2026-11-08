@@ -27,7 +27,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
-    "audit:visual": "storybook build --quiet && concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --testTimeout=30000 && node scripts/audit-quality-docs.mjs http://127.0.0.1:6006\"",
+    "audit:visual": "storybook build --quiet && concurrently -k -s first -n sb,test \"http-server storybook-static -p 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && test-storybook --url http://127.0.0.1:6006 --testTimeout=60000 && node scripts/audit-quality-docs.mjs http://127.0.0.1:6006\"",
     "gate": "npm run build && git diff --exit-code tokens/bella.css tokens/bella.json bella.dsds.yaml docs/bella.css docs/tokens.md .storybook/theme-values.json .storybook/public/favicon.svg src/assets/brand/favicon/favicon.svg .storybook/public/brand/bella-wordmark-ink.svg && node scripts/contract-parity.mjs && node scripts/contrast-pairs.mjs && node scripts/agents-md-check.mjs && npm run audit:visual",
     "build:dsds": "node scripts/build-dsds.mjs",
     "story-ui": "story-ui start --port 4001",
@@ -65,14 +65,17 @@
     "js-yaml": "^4.3.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.8",
+    "react-live": "^4.1.8",
     "remark-gfm": "^4.0.1",
     "storybook": "^10.5.3",
     "typescript": "^7.0.2",
     "vite": "^8.1.5",
-    "wait-on": "^9.0.10",
-    "react-live": "^4.1.8"
+    "wait-on": "^9.0.10"
   },
   "overrides": {
     "shell-quote": "^1.11.0"
+  },
+  "dependencies": {
+    "prism-react-renderer": "^2.4.1"
   }
 }

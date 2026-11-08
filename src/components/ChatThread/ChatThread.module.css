@@ -1,0 +1,42 @@
+/* ChatThread — column layout for message sequences. No fixed heights. */
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--component-chat-thread-default-gap);
+  padding: var(--component-chat-thread-default-padding-block-start)
+    var(--component-chat-thread-default-padding-inline)
+    var(--component-chat-thread-default-padding-block-end);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Focusable scroll region: same ring as every BELLA control, focus-visible only. */
+.thread:focus-visible {
+  outline: var(--ring-focus-width) solid var(--ring-focus-color);
+  outline-offset: var(--ring-focus-offset);
+}
+
+/* Timestamp row — centred, meta style. */
+.stamp {
+  align-self: center;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-label);
+  color: var(--color-semantic-text-secondary);
+  margin-top: var(--component-chat-thread-default-stamp-margin-top);
+  margin-bottom: var(--component-chat-thread-default-stamp-margin-bottom);
+}
+
+/* Bold word in a timestamp (e.g. the day name "Friday"). */
+.stampBold {
+  font-weight: var(--typography-font-weight-semibold);
+}
+
+/* "Delivered" confirmation — right-aligned, meta style. */
+.delivered {
+  align-self: flex-end;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--typography-font-size-label);
+  color: var(--color-semantic-text-secondary);
+  padding-right: var(--spacing-1);
+}

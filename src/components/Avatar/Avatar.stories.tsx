@@ -53,6 +53,50 @@ export const Ring: Story = {
   ),
 };
 
+/** Identity is the face; colour is the ring. Pass `src` for a photo and
+ * override `--component-avatar-default-ring-color` via the `style` prop to
+ * assign a lane colour. The gap between disc and ring is painted in the
+ * page ground, so it reads correctly on any surface without extra code.
+ *
+ * The Bar pattern (chip-2.0 b232e68):
+ * - src="/avatars/<name>.png" (160x160 circular, transparent bg)
+ * - ring={true}
+ * - style={{ '--component-avatar-default-ring-color': 'var(--color-wee-dote-lane-a)' }} */
+export const RingColor: Story = {
+  parameters: { backgrounds: { default: 'wee-dote' } },
+  render: () => (
+    <div
+      data-theme="wee-dote"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--spacing-4)',
+        padding: 'var(--spacing-5)',
+        background: 'var(--color-semantic-background)',
+      }}
+    >
+      {(
+        [
+          { name: 'Dara',    color: 'var(--color-wee-dote-lane-a)' },
+          { name: 'Bernie',  color: 'var(--color-wee-dote-lane-b)' },
+          { name: 'Saoirse', color: 'var(--color-wee-dote-lane-c)' },
+          { name: 'Frankie', color: 'var(--color-wee-dote-lane-d)' },
+          { name: 'Liam',    color: 'var(--color-wee-dote-lane-e)' },
+          { name: 'Seamus',  color: 'var(--color-semantic-text-primary)' },
+        ]
+      ).map(({ name, color }) => (
+        <Avatar
+          key={name}
+          name={name}
+          size="md"
+          ring
+          style={{ '--component-avatar-default-ring-color': color } as React.CSSProperties}
+        />
+      ))}
+    </div>
+  ),
+};
+
 /** The common case: an avatar beside the name it belongs to, on the raised
  * surface a Card provides. The image is decorative here because the name is
  * already written next to it. */

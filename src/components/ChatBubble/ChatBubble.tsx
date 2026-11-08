@@ -42,12 +42,14 @@ export default function ChatBubble({
 }: ChatBubbleProps) {
   const isSent = side === 'sent';
   const isBig = kind === 'big-emoji';
+  const isImage = kind === 'image';
 
   const bubbleCls = [
     styles.bubble,
     isSent ? styles.sent : styles.received,
     tail ? (isSent ? styles.tailSent : styles.tailReceived) : '',
     isBig ? styles.bigEmoji : '',
+    isImage ? styles.image : '',
   ]
     .filter(Boolean)
     .join(' ');

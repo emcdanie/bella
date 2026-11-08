@@ -60,6 +60,19 @@
   animation: bubbleSlam var(--motion-duration-slam) var(--motion-easing-slam-enter) both;
 }
 
+/* kind="image": the picture fills the bubble and takes its corners; no clipping, so a tapback can sit outside. */
+.image {
+  padding: 0;
+  white-space: normal;
+}
+
+.image :global(img) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+
 /* Inline <code> inside a bubble — 13px mono, small radius. */
 .bubble :global(code) {
   font-family: var(--typography-font-family-code);

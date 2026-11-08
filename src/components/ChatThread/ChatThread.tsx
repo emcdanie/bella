@@ -10,7 +10,7 @@ export interface ChatThreadTimestampProps {
 /** Centred timestamp row between groups of messages. */
 export function ChatThreadTimestamp({ children, boldWord }: ChatThreadTimestampProps) {
   return (
-    <div className={styles.stamp} aria-hidden="true">
+    <div className={styles.stamp}>
       {boldWord && <><span className={styles.stampBold}>{boldWord}</span>{' '}</>}
       {children}
     </div>
@@ -24,7 +24,7 @@ export interface ChatThreadDeliveredProps {
 /** The "Delivered" confirmation line beneath the final sent bubble. */
 export function ChatThreadDelivered({ children = 'Delivered' }: ChatThreadDeliveredProps) {
   return (
-    <div className={styles.delivered} aria-live="assertive" aria-atomic="true">
+    <div className={styles.delivered} aria-live="polite" aria-atomic="true">
       {children}
     </div>
   );

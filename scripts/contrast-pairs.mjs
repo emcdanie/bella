@@ -157,6 +157,13 @@ const PAIRS = [
   ['code foreground on the marked line', '--component-code-block-foreground', '--component-code-block-current', AA],
   ['code comment on the marked line', '--component-code-block-comment', '--component-code-block-current', AA],
   ['code line-number on the marked line', '--component-code-block-line-number', '--component-code-block-current', AA],
+  ['code keyword on the marked line', '--component-code-block-keyword', '--component-code-block-current', AA],
+  ['code string on the marked line', '--component-code-block-string', '--component-code-block-current', AA],
+  ['code number on the marked line', '--component-code-block-number', '--component-code-block-current', AA],
+  ['code function on the marked line', '--component-code-block-function', '--component-code-block-current', AA],
+  ['code tag on the marked line', '--component-code-block-tag', '--component-code-block-current', AA],
+  ['code attr on the marked line', '--component-code-block-attr', '--component-code-block-current', AA],
+  ['code punct on the marked line', '--component-code-block-punct', '--component-code-block-current', AA],
   ['code on an added line', '--component-code-block-foreground', '--component-code-block-add', AA],
   ['code on a removed line', '--component-code-block-foreground', '--component-code-block-del', AA],
   /* pins: the number and word sit on the card disc, never on the pop colour */

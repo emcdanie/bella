@@ -68,6 +68,15 @@ export const BigEmoji: Story = {
   ),
 };
 
+/** kind="image": the picture fills the bubble and never overflows it. */
+export const ImageBubble: Story = {
+  render: () => (
+    <ChatBubble side="received" kind="image">
+      <img src="/avatars/seamus.png" alt="Seamus behind the bar" width={160} height={160} />
+    </ChatBubble>
+  ),
+};
+
 /** Tapback sits above the bubble corner. */
 export const Tapback: Story = {
   render: () => (

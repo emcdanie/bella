@@ -39,6 +39,7 @@ const kindOf = (types: string[]) => {
  */
 export default function CodeBlock({ code, language = 'jsx', title, currentLine, lineNumbers = true, copy = true, className }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
+  const [copyFailed, setCopyFailed] = useState(false);
   const lines = useMemo(() => {
     const text = code.replace(/\n$/, '');
     if (language === 'diff' || language === 'plain' || !Prism.languages[language]) {
@@ -50,10 +51,13 @@ export default function CodeBlock({ code, language = 'jsx', title, currentLine, 
   const doCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
+      setCopyFailed(false);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+      setCopyFailed(true);
+      setTimeout(() => setCopyFailed(false), 2000);
     }
   };
   return (
@@ -62,7 +66,7 @@ export default function CodeBlock({ code, language = 'jsx', title, currentLine, 
         <figcaption className={styles.bar}>
           <span className={styles.title}>{title}</span>
           {copy ? (
-            <Tooltip label={copied ? 'Copied' : 'Copy'}>
+            <Tooltip label={copied ? 'Copied' : copyFailed ? 'Copy failed' : 'Copy'}>
               <button type="button" className={styles.copy} aria-label={title ? `Copy ${title}` : 'Copy'} onClick={doCopy}>
                 <Icon name="Copy" size="sm" />
               </button>
@@ -96,7 +100,7 @@ export default function CodeBlock({ code, language = 'jsx', title, currentLine, 
         </code>
       </pre>
       <span className={styles.srOnly} aria-live="polite">
-        {copied ? 'Copied' : ''}
+        {copied ? 'Copied' : copyFailed ? 'Copy failed' : ''}
       </span>
     </figure>
   );

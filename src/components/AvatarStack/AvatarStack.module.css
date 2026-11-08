@@ -13,6 +13,15 @@
       var(--avatar-stack-ring, var(--component-avatar-stack-default-ring-color));
 }
 
+.stack .itemRinged {
+  /* A member with an accent ring keeps both: the stack's separator as the gap, the accent outside it. */
+  box-shadow:
+    0 0 0 var(--component-avatar-default-ring-gap)
+      var(--avatar-stack-ring, var(--component-avatar-stack-default-ring-color)),
+    0 0 0 calc(var(--component-avatar-default-ring-gap) + var(--component-avatar-default-ring-width))
+      var(--component-avatar-default-ring-color);
+}
+
 .stack .item:first-child {
   margin-left: 0;
 }
@@ -27,7 +36,17 @@
   font-family: var(--typography-font-family-body);
   font-weight: var(--typography-font-weight-bold);
   font-size: var(--typography-font-size-label);
-  /* Size matches whatever Avatar size the stack uses; fallback to sm. */
+  /* The disc matches the stack's Avatar size; sm is the default. */
   width: var(--component-avatar-sm-size);
   height: var(--component-avatar-sm-size);
+}
+
+.overflow[data-size='md'] {
+  width: var(--component-avatar-md-size);
+  height: var(--component-avatar-md-size);
+}
+
+.overflow[data-size='lg'] {
+  width: var(--component-avatar-lg-size);
+  height: var(--component-avatar-lg-size);
 }

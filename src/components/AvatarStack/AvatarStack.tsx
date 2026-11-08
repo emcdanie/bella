@@ -61,13 +61,13 @@ export default function AvatarStack({
             size={size}
             ring={!!m.ringColor}
             showInitials={m.showInitials}
-            className={styles.item}
+            className={[styles.item, m.ringColor ? styles.itemRinged : ''].filter(Boolean).join(' ')}
             style={Object.keys(memberStyle).length ? memberStyle : undefined}
           />
         );
       })}
       {overflow > 0 && (
-        <span className={[styles.item, styles.overflow].join(' ')} aria-label={`and ${overflow} more`}>
+        <span className={[styles.item, styles.overflow].join(' ')} data-size={size} aria-label={`and ${overflow} more`}>
           +{overflow}
         </span>
       )}

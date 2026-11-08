@@ -87,27 +87,6 @@ export const Tapback: Story = {
   ),
 };
 
-/** Full conversation showing all four wee-dote lane colours. */
-export const WeeDote: Story = {
-  parameters: { backgrounds: { default: 'wee-dote' } },
-  render: () => (
-    <div
-      style={{
-        background: 'var(--color-semantic-background)',
-        padding: 'var(--spacing-4)',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 'var(--spacing-2)',
-        maxWidth: 320,
-      }}
-    >
-      <ChatBubble side="received">First round on me.</ChatBubble>
-      <ChatBubble side="sent" tail>You sure about that?</ChatBubble>
-      <ChatBubble side="received" tail>100%.</ChatBubble>
-    </div>
-  ),
-};
-
 /** AAA on both fills. */
 export const Behavior: Story = {
   render: () => (

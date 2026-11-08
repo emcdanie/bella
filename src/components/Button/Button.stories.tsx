@@ -313,13 +313,13 @@ export const FocusedPrimaryPill: Story = {
   play: focusPrimary(),
 };
 
-/** Three tiers across all four themes: flat ink plate in light/warm/wee-dote;
- * flat near-white plate in dark; secondary outline = ink in light/warm/wee-dote,
+/** Three tiers across all three themes: flat ink plate in light/warm;
+ * flat near-white plate in dark; secondary outline = ink in light/warm,
  * near-white in dark. (Elleta, 14 Oct 2026) */
 export const AllThemes: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
-      {(['light', 'dark', 'warm', 'wee-dote'] as const).map((theme) => (
+      {(['light', 'dark', 'warm'] as const).map((theme) => (
         <div
           key={theme}
           data-theme={theme}

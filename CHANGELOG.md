@@ -4,6 +4,9 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Wee Dote theme removed (2026-11-08)
+- **BREAKING: `[data-theme="wee-dote"]` is gone** (Elleta, 8 Nov 2026), with `tokens/semantic/wee-dote.json`, `tokens/preview-wee-dote.html` and the `color.wee-dote.*` primitives. The chat components stay and work in light, dark, warm and chip. Stories that borrowed the lane colours now use `color.semantic.lane-a` to `lane-d`.
+
 ### wee-dote theme and lane tokens (2026-10-10)
 - **Fourth theme `[data-theme="wee-dote"]`**: sage sardine-tin ground `#CBD5CC` with raised `#E4EDE5` card surface and `#D8E1D9` inset/selected wash. Muted text `#3D3D3D` 7.20:1 on bg (AAA worst). Focus ring overridden to ink (ochre-deep fails 3:1 on sage at 2.38:1). Danger/success overridden darker for AA on sage: danger `#9B1A14` 5.46:1, success `#0E4D26` 6.61:1. All surface tokens in `tokens/semantic/wee-dote.json`. Primitives in `color.wee-dote.*`.
 - **Four lane colour tokens** (`lane-a`, `lane-b`, `lane-c`, `lane-d`) added to all four themes. In light/dark/warm: chip fills (tiger-blue, peach, mint) plus ochre for lane-d (fills only). In wee-dote: photo-sampled yellow `#EBBB03`, blue `#0498D0`, pink `#E5B3BF`, red `#E32923`. Blue and red fail AAA both ways (forbidden pairs added to gate). Suggested assignment: Dara yellow · Bernie blue · Saoirse pink · Frankie red. Elleta to confirm.

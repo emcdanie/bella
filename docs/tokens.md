@@ -148,6 +148,7 @@ value with the source reference in parentheses.
 | `color.chip-ui.fail` | `#E2473B` | color |
 | `color.chip-ui.needs` | `#E9B820` | color |
 | `color.chip-ui.note` | `#E58BBB` | color |
+| `color.chip-ui.focus` | `#CF5A95` | color |
 | `color.chip-ui.on-note` | `#0A0C14` | color |
 | `color.chip-ui.wash-blue` | `#E6F1FB` | color |
 | `color.chip-ui.wash-blue-ink` | `#114C80` | color |

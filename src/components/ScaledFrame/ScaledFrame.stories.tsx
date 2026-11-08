@@ -3,10 +3,23 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor } from 'storybook/test';
 import ScaledFrame from './ScaledFrame';
 import { LiveSpecimen } from '../../patterns/fixtures';
+import scaledFrameCssRaw from './ScaledFrame.module.css?raw';
+import componentContract from '../../../tokens/component.json';
+import { ComponentDocsPage } from '../../docs/DocBlocks';
+
+const consumedTokens = Array.from(
+  new Set((scaledFrameCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
+).sort();
+
+const scaledFrameContract = (componentContract as any).component?.['scaled-frame']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ScaledFrame> = {
   title: 'Components/ScaledFrame',
   component: ScaledFrame,
+  parameters: {
+    docs: { page: ComponentDocsPage },
+    bellaDocs: { tokens: consumedTokens, a11y: scaledFrameContract.a11y },
+  },
   argTypes: {
     children: { control: false },
     onLoad: { control: false },

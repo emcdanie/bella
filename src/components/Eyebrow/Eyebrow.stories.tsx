@@ -3,10 +3,23 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Eyebrow from './Eyebrow';
 import Heading from '../Heading/Heading';
+import eyebrowCssRaw from './Eyebrow.module.css?raw';
+import componentContract from '../../../tokens/component.json';
+import { ComponentDocsPage } from '../../docs/DocBlocks';
+
+const consumedTokens = Array.from(
+  new Set((eyebrowCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
+).sort();
+
+const eyebrowContract = (componentContract as any).component?.eyebrow?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Eyebrow> = {
   title: 'Components/Eyebrow',
   component: Eyebrow,
+  parameters: {
+    docs: { page: ComponentDocsPage },
+    bellaDocs: { tokens: consumedTokens, a11y: eyebrowContract.a11y },
+  },
   args: { children: '01 · The problem, framed' },
   argTypes: { variant: { control: 'inline-radio' }, as: { control: 'inline-radio' } },
 };

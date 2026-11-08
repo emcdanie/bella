@@ -2,10 +2,23 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import SectionHeader from './SectionHeader';
+import sectionHeaderCssRaw from './SectionHeader.module.css?raw';
+import componentContract from '../../../tokens/component.json';
+import { ComponentDocsPage } from '../../docs/DocBlocks';
+
+const consumedTokens = Array.from(
+  new Set((sectionHeaderCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
+).sort();
+
+const sectionHeaderContract = (componentContract as any).component?.['section-header']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof SectionHeader> = {
   title: 'Components/SectionHeader',
   component: SectionHeader,
+  parameters: {
+    docs: { page: ComponentDocsPage },
+    bellaDocs: { tokens: consumedTokens, a11y: sectionHeaderContract.a11y },
+  },
   argTypes: {
     layout: { control: 'inline-radio' },
     as: { control: 'inline-radio' },

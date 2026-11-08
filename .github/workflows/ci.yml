@@ -60,6 +60,20 @@ jobs:
       - name: Contract parity (Tier 3 contracts ↔ shipped component APIs)
         run: node scripts/contract-parity.mjs
 
+      - name: AGENTS.md check (consumer-first, component map ↔ src/components)
+        run: node scripts/agents-md-check.mjs
+
+      - name: Contrast pairs (declared foreground/background pairs, all themes)
+        run: node scripts/contrast-pairs.mjs
+
+      - name: Fail if bella.dsds.yaml drifted from token sources
+        run: |
+          node scripts/build-dsds.mjs
+          if ! git diff --exit-code bella.dsds.yaml; then
+            echo "::error::bella.dsds.yaml does not match token sources. Run 'node scripts/build-dsds.mjs' and commit the output."
+            exit 1
+          fi
+
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 

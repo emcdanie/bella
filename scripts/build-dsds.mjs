@@ -181,16 +181,12 @@ function tokenEntry(t) {
 // ---------- components ----------
 // Only the contracts in tokens/component.json that have a real implementation
 // in src/components/ - the same test scripts/contract-parity.mjs applies.
-const IMPL = {
-  avatar: 'Avatar', button: 'Button', card: 'Card', 'filter-chip': 'FilterChip',
-  heading: 'Heading', icon: 'Icon', input: 'Input', 'resource-card': 'ResourceCard',
-  'segmented-control': 'SegmentedControl', select: 'Select', 'status-pill': 'StatusPill', tag: 'Tag',
-  tabs: 'Tabs', kbd: 'Kbd', 'nav-list': 'NavList', stat: 'Stat',
-  'score-strip': 'ScoreStrip', 'data-table': 'DataTable', 'drawer': 'Drawer', 'combobox': 'Combobox', 'action-chip': 'ActionChip', 'disclosure': 'Disclosure',
-  'page-header': 'PageHeader', section: 'Section', 'sidebar-layout': 'SidebarLayout', columns: 'Columns', slider: 'Slider',
-  eyebrow: 'Eyebrow', link: 'Link', 'brand-wordmark': 'BrandWordmark', 'pattern-field': 'PatternField',
-  'section-header': 'SectionHeader', 'scaled-frame': 'ScaledFrame',
-};
+const pascalOf = (key) => key.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join('');
+const IMPL = Object.fromEntries(
+  Object.keys(componentJson)
+    .map((key) => [key, pascalOf(key)])
+    .filter(([, name]) => fs.existsSync(path.join(BELLA, `src/components/${name}/${name}.tsx`))),
+);
 
 // Variant descriptions, quoted from the component's own TSDoc. A variant with no
 // sentence about it in the source is left out rather than described from guesswork.

@@ -24551,6 +24551,556 @@ entries:
     $extensions:
       design.bella:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+  - kind: component
+    id: chat-bubble
+    name: ChatBubble
+    description: "A single message bubble. Sent (ink) or received (card surface). Tail marks the last bubble in a run. Kind: text, ask, image, big-emoji."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on bubble. Reduced motion: no pop or slam animation. Disc is aria-hidden (decorative). senderName label uses label font-size."
+      tags:
+        - component
+        - chat-bubble
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: A line of chat in The Bar replay
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Do not nest another bubble inside a bubble
+    refs:
+      - href: ./src/components/ChatBubble/ChatBubble.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ChatBubble/ChatBubble.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: avatar-stack
+    name: AvatarStack
+    description: Overlapping Avatars with a separating ring in the surface colour. Extends Avatar; do not make a second avatar type.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Each Avatar carries its name as aria-label (role=img). Stack root is aria-label listing all names.
+      tags:
+        - component
+        - avatar-stack
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Group header in The Bar
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Do not use as a standalone avatar — use Avatar for that
+    refs:
+      - href: ./src/components/AvatarStack/AvatarStack.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/AvatarStack/AvatarStack.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: typing-dots
+    name: TypingDots
+    description: Three animated dots indicating a lane is typing. No animation under reduced motion.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: aria-label="typing" on root. aria-live=polite on the chat log handles the message arrival; this component is decorative once the message lands.
+      tags:
+        - component
+        - typing-dots
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Typing indicator in chat replay
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Do not show for more than a few seconds without a message following
+    refs:
+      - href: ./src/components/TypingDots/TypingDots.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/TypingDots/TypingDots.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: chat-thread
+    name: ChatThread
+    description: Layout column for a sequence of ChatBubble rows. Manages gap, row max-width, avatar gutter, centred timestamps, and the Delivered line. Fluid from 320px, no fixed heights, no breakpoints outside BELLA's four.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: aria-live=polite on the log region. Timestamps are read in order with the messages. Delivered line is aria-live=polite on its own, so a routine update never interrupts.
+      tags:
+        - component
+        - chat-thread
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The scrollable message log in The Bar
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Do not put interactive controls directly inside ChatThread rows — use ActionChips via the ChatBubble slot
+    refs:
+      - href: ./src/components/ChatThread/ChatThread.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ChatThread/ChatThread.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: pin
+    name: Pin
+    description: A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring.
+      tags:
+        - component
+        - pin
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Numbering the parts of a specimen or picture
+          - level: may
+            statement: Tying a note to what it explains, with Leader
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use colour alone: a pin always has a number"
+          - level: must-not
+            statement: "Do not use a pop colour for a status: StatusPill carries status"
+          - level: must-not
+            statement: Do not make a label-less pin clickable without ariaLabel
+    refs:
+      - href: ./src/components/Pin/Pin.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Pin/Pin.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - focus
+  - kind: component
+    id: leader
+    name: Leader
+    description: A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: a labelled image, role img with an aria-label that says what it ties together, per the diagram rule. No pointer events. Forced colours draw it in CanvasText.
+      tags:
+        - component
+        - leader
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: From a Pin to the part it numbers
+          - level: may
+            statement: From a note to a specimen
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not leave out the label: the line is meaning too, so it says what it ties together"
+          - level: must-not
+            statement: "Do not hard-code coordinates: it measures its ends and redraws on resize"
+    refs:
+      - href: ./src/components/Leader/Leader.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Leader/Leader.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: list-row
+    name: ListRow
+    description: "One item in a work list: a status marker with a word, a title, one line of why, one action. Rows sit in a ListRowGroup, which aligns their columns and stacks them when narrow."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: "an li in a ul. Title is text-primary, why is text-body, AAA on the ground and card in every theme. titleAs sets the heading level when the page needs one. The row holds no target of its own: its action brings its own 44px box."
+      tags:
+        - component
+        - list-row
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "Work lists: what to do next, changes, projects"
+          - level: may
+            statement: Any list where each item has one action
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it for tabular data with several comparable columns: that is DataTable"
+          - level: must-not
+            statement: Do not put more than one action in a row
+          - level: must-not
+            statement: "Do not rely on the status colour: StatusPill carries a word"
+    refs:
+      - href: ./src/components/ListRow/ListRow.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ListRow/ListRow.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: section-nav
+    name: SectionNav
+    description: "The top bar's row of sections, as documentation sites draw it: plain links, the current one marked by weight and a line."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: a nav landmark named by label; the current link is aria-current="page", ink and semibold with the indicator line; every link a 44px target; the focus ring sits inside the link.
+      tags:
+        - component
+        - section-nav
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The sections of an app or documentation site, in its top bar
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it for the items inside a section: that is NavList in the sidebar"
+          - level: must-not
+            statement: "Do not mark the current section by colour alone: it carries weight, the line and aria-current"
+    refs:
+      - href: ./src/components/SectionNav/SectionNav.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/SectionNav/SectionNav.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - focus
+          - current
+  - kind: component
+    id: page-outline
+    name: PageOutline
+    description: "\"On this page\": a small marker of lines, one per section, that shows where you are as you scroll and opens a list to jump."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: a 44px button with aria-expanded and aria-controls, named "On this page, reading <section>"; the list marks the current section aria-current="location"; Esc closes it and returns focus to the button, a click outside closes it where the click lands; a jump moves focus to the section heading; reduced motion jumps without the smooth scroll. It renders nothing with fewer than three sections.
+      tags:
+        - component
+        - page-outline
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Pages with three or more sections
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not pass fewer than three sections: it renders nothing then"
+          - level: must-not
+            statement: "Do not let the marker carry the only cue: the open list marks the current section by weight and aria-current"
+    refs:
+      - href: ./src/components/PageOutline/PageOutline.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/PageOutline/PageOutline.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - open
+          - focus
+  - kind: component
+    id: tooltip
+    name: Tooltip
+    description: A short label on hover and keyboard focus, for an icon button.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: "shows on hover and focus, stays while the pointer is on it, Esc hides it (WCAG 1.4.13). Visual only (aria-hidden): the trigger carries the same words as its aria-label. Label is text-inverse on surface-inverse, AAA."
+      tags:
+        - component
+        - tooltip
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Naming an icon button in a toolbar
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not put anything a person must read only in a tooltip: it labels, it never explains"
+          - level: must-not
+            statement: Do not use it on a trigger without an aria-label of the same words
+    refs:
+      - href: ./src/components/Tooltip/Tooltip.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Tooltip/Tooltip.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - hidden
+          - shown
+  - kind: component
+    id: code-block
+    name: CodeBlock
+    description: "Code as an editor shows it: syntax colour by class, line numbers, a marked line, wrapped long lines and one Copy."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-07"
+          by: human:elleta
+          note: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named "Copy <title>" with a tooltip, and Copied is announced. Every syntax colour is 4.5:1 or more on the code ground and on the marked line, light and dark, checked in the gate.
+      tags:
+        - component
+        - code-block
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Copy me on component pages
+          - level: may
+            statement: Contracts and guidance files
+          - level: may
+            statement: Diffs
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not colour code inline: every colour is a syntax token"
+          - level: must-not
+            statement: "Do not let a diff rely on colour: + and − lead the line"
+    refs:
+      - href: ./src/components/CodeBlock/CodeBlock.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/CodeBlock/CodeBlock.tsx
+    specs:
+      - href: ./tokens/component.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - copied
   - kind: entry
     id: foundation-color
     name: Colour

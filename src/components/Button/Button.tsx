@@ -31,6 +31,8 @@ export interface ButtonProps {
   ariaLabel?: string;
   /** For a button that shows or hides content: whether that content is open (aria-expanded). */
   ariaExpanded?: boolean;
+  /** For a button that opens a dialog (aria-haspopup). */
+  ariaHaspopup?: 'dialog';
   /** Extra classes on the control. */
   className?: string;
   children?: ReactNode;
@@ -52,6 +54,7 @@ export default function Button({
   linkComponent: LinkComponent = 'a',
   ariaLabel,
   ariaExpanded,
+  ariaHaspopup,
   className,
   children,
 }: ButtonProps) {
@@ -96,7 +99,7 @@ export default function Button({
     );
   }
   return (
-    <button type={type} onClick={onClick} disabled={disabled} aria-expanded={ariaExpanded} {...shared}>
+    <button type={type} onClick={onClick} disabled={disabled} aria-expanded={ariaExpanded} aria-haspopup={ariaHaspopup} {...shared}>
       {label}
     </button>
   );

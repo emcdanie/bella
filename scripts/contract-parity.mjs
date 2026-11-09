@@ -67,6 +67,12 @@ for (const key of Object.keys(contracts)) {
   checked.push(key);
 }
 
+// DSDS is generated from the same test, so agents reading it see every component
+const dsdsComponents = (readFileSync("bella.dsds.yaml", "utf8").match(/kind: component$/gm) ?? []).length;
+if (dsdsComponents !== checked.length) {
+  failures.push(`bella.dsds.yaml has ${dsdsComponents} components, code has ${checked.length}: run npm run build`);
+}
+
 console.log(`contract parity: checked ${checked.length ? checked.join(", ") : "none"}`);
 console.log(
   `unimplemented contracts (exempt): ${exempt.length ? exempt.join(", ") : "none"}`

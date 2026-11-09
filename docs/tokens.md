@@ -723,6 +723,7 @@ value with the source reference in parentheses.
 | `component.filter-chip.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |
 | `component.filter-chip.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
 | `component.segmented-control.border-radius` | `12px` (`{radius.lg}`) | dimension |
+| `component.segmented-control.divider-color` | `#e4e6ec` (`{color.semantic.border}`) | color |
 | `component.segmented-control.font-family` | `'DM Sans', system-ui, sans-serif` (`{typography.font-family.body}`) | fontFamily |
 | `component.segmented-control.font-size` | `18px` (`{typography.font-size.sm}`) | dimension |
 | `component.segmented-control.font-weight` | `500` (`{typography.font-weight.medium}`) | fontWeight |

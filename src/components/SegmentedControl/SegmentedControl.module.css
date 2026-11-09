@@ -59,9 +59,11 @@
 }
 
 /* hairline divider between segments; the seam dies against the selected
-   fill on both sides (the fill's own ring replaces it) */
+   fill on both sides (the fill's own ring replaces it). A theme with fully
+   round segments sets the colour transparent: the seam follows the button's
+   corner, so it would draw an arc */
 .control li + li button {
-  box-shadow: -1px 0 0 0 var(--color-semantic-border);
+  box-shadow: -1px 0 0 0 var(--component-segmented-control-divider-color);
 }
 
 .control li:has(button[aria-current='true']) + li button {

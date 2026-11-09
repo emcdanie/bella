@@ -3,6 +3,8 @@ import Icon from '../Icon/Icon';
 import styles from './Disclosure.module.css';
 
 export interface DisclosureProps {
+  /** Sits inside a row that already has its own rule: no hairline, the row's type size. */
+  flush?: boolean;
   /** The section's name, always visible ("Checks"). */
   title: ReactNode;
   /** A short summary beside the title, so a closed section still says something ("5 of 5 pass"). */
@@ -25,7 +27,7 @@ export interface DisclosureProps {
  * motion). Stack several for a card that fits the screen. Not a tab set and
  * not navigation.
  */
-export default function Disclosure({ title, summary, defaultOpen, open, onToggle, children, id, className }: DisclosureProps) {
+export default function Disclosure({ flush, title, summary, defaultOpen, open, onToggle, children, id, className }: DisclosureProps) {
   const controlled = open !== undefined;
   // uncontrolled: report real changes only (a details that starts open fires
   // a toggle on mount, which is not the person's choice)
@@ -41,7 +43,7 @@ export default function Disclosure({ title, summary, defaultOpen, open, onToggle
   return (
     <details
       id={id}
-      className={[styles.disclosure, className].filter(Boolean).join(' ')}
+      className={[styles.disclosure, flush ? styles.flush : '', className].filter(Boolean).join(' ')}
       open={controlled ? open : defaultOpen}
       onToggle={
         controlled

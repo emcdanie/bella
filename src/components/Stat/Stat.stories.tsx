@@ -134,3 +134,24 @@ export const TrendBehavior: Story = {
     });
   },
 };
+
+/** icon and measure (BellaComponents, 11 Nov 2026): a round icon well above
+ * the label and an ink bar under the figure. The bar is named by measureLabel. */
+export const IconAndMeasure: Story = {
+  args: { icon: 'Activity', label: 'Coverage', value: '52%', delta: '4 since last sync', trend: 'up', measure: 0.52, measureLabel: 'Coverage: 52 of 100 stories' },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('img', { name: 'Coverage: 52 of 100 stories' })).toBeVisible();
+  },
+};
+
+/** measured=false: no figure yet. The value says "Not measured"; no bar, no
+ * sparkline, no arrow, so nothing implies a number that does not exist. */
+export const NotMeasured: Story = {
+  args: { icon: 'Activity', label: 'Trust', value: 18, delta: 'Waiting for the first sync', trend: 'up', series: [1, 2, 3], measure: 0.5, measured: false },
+  play: async ({ canvas, canvasElement }) => {
+    await expect(canvas.getByText('Not measured')).toBeVisible();
+    await expect(canvas.queryByText('18')).toBeNull();
+    await expect(canvasElement.querySelector('[role="img"]')).toBeNull();
+    await expect(canvas.queryByText('Up')).toBeNull();
+  },
+};

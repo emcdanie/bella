@@ -76,7 +76,7 @@ export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
   return node ? walk(node, dotted.split('.')) : [];
 }
 
-/* token names and values are meta: Geist Mono, 13px, ss09, no tracking */
+/* token names and values are meta: Geist Mono, 16px, ss09, no tracking */
 const mono: React.CSSProperties = {
   fontFamily: 'var(--typography-font-family-mono)',
   fontSize: 'var(--typography-font-size-mono)',

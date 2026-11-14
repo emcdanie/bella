@@ -47,3 +47,30 @@ export const OnAnIconButton: Story = {
     await waitFor(() => expect(tip.hidden).toBe(true));
   },
 };
+
+/** kind="rich" (BellaComponents, 11 Nov 2026): a small hover card, the label
+ * as its title plus rows. It describes the trigger (aria-describedby). */
+export const Rich: Story = {
+  args: { kind: 'rich', label: 'Saoirse · Figma librarian', rows: ['Doing: quiet since 14 Oct', 'Trust: Not measured'] },
+  render: (args) => (
+    <div style={{ padding: 'var(--spacing-12)', minHeight: 'calc(var(--spacing-20) * 2)' }}>
+      <Tooltip {...args}>
+        <button
+          type="button"
+          aria-label="Saoirse"
+          style={{ minWidth: 'var(--spacing-touch-target)', minHeight: 'var(--spacing-touch-target)', display: 'inline-grid', placeItems: 'center', border: 'var(--border-width-thin) solid var(--color-semantic-border-strong)', borderRadius: 'var(--radius-full)', background: 'var(--color-semantic-surface-card)', color: 'var(--color-semantic-text-primary)' }}
+        >
+          <Icon name="Group" size="sm" />
+        </button>
+      </Tooltip>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const b = c.getByRole('button', { name: 'Saoirse' });
+    b.focus();
+    await expect(b).toHaveAccessibleDescription(/^Saoirse · Figma librarian\s+Doing: quiet since 14 Oct\s+Trust: Not measured$/);
+    const card = document.getElementById(b.getAttribute('aria-describedby') as string) as HTMLElement;
+    await waitFor(() => expect(card.hidden).toBe(false));
+  },
+};

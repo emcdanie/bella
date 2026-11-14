@@ -7,6 +7,7 @@ import {
   expectTouchTarget,
 } from '../../testing/behavioral';
 import Button from './Button';
+import Icon from '../Icon/Icon';
 import buttonCssRaw from './Button.module.css?raw';
 import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -341,4 +342,96 @@ export const AllThemes: Story = {
       ))}
     </div>
   ),
+};
+
+/** iconOnly (BellaComponents, 11 Nov 2026): a 44px circle holding one Icon,
+ * named by ariaLabel, the focus ring round. Pair it with a Tooltip. */
+export const IconOnly: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-4)', alignItems: 'center' }}>
+      <Button variant="secondary" iconOnly ariaLabel="Read everything again" onClick={() => {}}>
+        <Icon name="RefreshDouble" />
+      </Button>
+      <Button variant="secondary" iconOnly ariaLabel="Close" onClick={() => {}}>
+        <Icon name="Xmark" />
+      </Button>
+      <Button variant="secondary" iconOnly ariaLabel="Send" disabled>
+        <Icon name="SendDiagonal" />
+      </Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const b = canvas.getByRole('button', { name: 'Read everything again' });
+    const r = b.getBoundingClientRect();
+    await expect(Math.round(r.width)).toBe(44);
+    await expect(Math.round(r.height)).toBe(44);
+    await expect(getComputedStyle(b).borderTopLeftRadius).toBe(getComputedStyle(b).borderBottomRightRadius);
+    await expect(parseFloat(getComputedStyle(b).borderTopLeftRadius)).toBeGreaterThanOrEqual(22);
+  },
+};
+
+/** iconOnly focused: the 3px ring follows the circle. */
+export const IconOnlyFocused: Story = {
+  parameters: { bella: { snapshotClip: 'focused' } },
+  render: () => (
+    <Button variant="secondary" iconOnly ariaLabel="Read everything again" onClick={() => {}}>
+      <Icon name="RefreshDouble" />
+    </Button>
+  ),
+  play: async ({ canvas }) => {
+    await userEvent.tab();
+    const b = canvas.getByRole('button', { name: 'Read everything again' });
+    await expect(b).toHaveFocus();
+    const cs = getComputedStyle(b);
+    await expect(cs.outlineStyle).toBe('solid');
+    await expect(parseFloat(cs.outlineWidth)).toBe(3);
+  },
+};
+
+/** size="sm" (Elleta, 11 Nov 2026): a 36 box with 14px sides for dense rows
+ * and tool bars, every tier, plus a 36 icon circle. The label stays 16px and
+ * the tap area stays 44: an invisible extension around the box. */
+export const Small: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-4)', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Button variant="primary" size="sm" onClick={() => {}}>
+        Read the case
+      </Button>
+      <Button variant="secondary" size="sm" onClick={() => {}}>
+        See the system
+      </Button>
+      <Button variant="tertiary" size="sm" onClick={() => {}}>
+        All work
+      </Button>
+      <Button variant="secondary" size="sm" iconOnly ariaLabel="Read everything again" onClick={() => {}}>
+        <Icon name="RefreshDouble" />
+      </Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for (const name of ['Read the case', 'See the system', 'All work', 'Read everything again']) {
+      const b = canvas.getByRole('button', { name });
+      await expect(Math.round(b.getBoundingClientRect().height)).toBe(36);
+      await expect(parseFloat(getComputedStyle(b).fontSize)).toBeGreaterThanOrEqual(16);
+      // the tap area: the invisible ::after reaches 44 both ways
+      await expect(parseFloat(getComputedStyle(b, '::after').height)).toBeGreaterThanOrEqual(44);
+      await expect(parseFloat(getComputedStyle(b, '::after').width)).toBeGreaterThanOrEqual(36);
+    }
+  },
+};
+
+/** size="sm" focused: the same 3px ring, 3px offset. */
+export const SmallFocused: Story = {
+  parameters: { bella: { snapshotClip: 'focused' } },
+  render: () => (
+    <Button variant="secondary" size="sm" onClick={() => {}}>
+      See the system
+    </Button>
+  ),
+  play: async ({ canvas }) => {
+    await userEvent.tab();
+    const b = canvas.getByRole('button', { name: 'See the system' });
+    await expect(b).toHaveFocus();
+    await expect(parseFloat(getComputedStyle(b).outlineWidth)).toBe(3);
+  },
 };

@@ -1,4 +1,5 @@
 import React, { type ReactNode } from 'react';
+import StatusPill from '../StatusPill/StatusPill';
 import styles from './ChatBubble.module.css';
 
 export interface ChatBubbleProps {
@@ -6,8 +7,15 @@ export interface ChatBubbleProps {
   side: 'sent' | 'received';
   /** Round the tail corner (bottom-right for sent, bottom-left for received). True on the last bubble in a run. */
   tail?: boolean;
-  /** text: normal; ask: question-style (same visual, different semantics); big-emoji: oversized, transparent fill; image: constrained image slot. */
-  kind?: 'text' | 'ask' | 'big-emoji' | 'image';
+  /**
+   * text: normal; ask: a question waiting on the reader, headed by an
+   * attention StatusPill; draft: an unsent reply, a dashed outline on the
+   * surface with a quiet label (ask and draft per BellaComponents, 11 Nov
+   * 2026); big-emoji: oversized, transparent fill; image: constrained image slot.
+   */
+  kind?: 'text' | 'ask' | 'draft' | 'big-emoji' | 'image';
+  /** The words heading an ask or draft bubble. Defaults: "Waiting on you" (ask), "Draft" (draft). */
+  kindLabel?: string;
   /** Tapback emoji, rendered above the bubble corner. */
   tapback?: string;
   /** Children: the bubble's content. */
@@ -38,11 +46,14 @@ export default function ChatBubble({
   emojiLabel,
   disc,
   senderName,
+  kindLabel,
   className,
 }: ChatBubbleProps) {
   const isSent = side === 'sent';
   const isBig = kind === 'big-emoji';
   const isImage = kind === 'image';
+  const isAsk = kind === 'ask';
+  const isDraft = kind === 'draft';
 
   const bubbleCls = [
     styles.bubble,
@@ -50,6 +61,7 @@ export default function ChatBubble({
     tail ? (isSent ? styles.tailSent : styles.tailReceived) : '',
     isBig ? styles.bigEmoji : '',
     isImage ? styles.image : '',
+    isDraft ? styles.draft : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -76,6 +88,12 @@ export default function ChatBubble({
         role={isBig && emojiLabel ? 'img' : undefined}
         aria-label={isBig && emojiLabel ? emojiLabel : undefined}
       >
+        {isAsk ? (
+          <span className={styles.kindHead}>
+            <StatusPill variant="attention">{kindLabel ?? 'Waiting on you'}</StatusPill>
+          </span>
+        ) : null}
+        {isDraft ? <span className={styles.draftLabel}>{kindLabel ?? 'Draft'}</span> : null}
         {isBig ? <span aria-hidden="true">{children}</span> : children}
         {actions && <div className={styles.actions}>{actions}</div>}
         {tapback && (

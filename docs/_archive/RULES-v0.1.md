@@ -1,3 +1,5 @@
+> Superseded 12 Nov 2026 by AGENTS.md
+
 # BELLA Rules — v0.1
 
 Governance rules for any consumer of BELLA (apps that import `tokens/bella.css` or install BELLA as a dependency). These are mandatory. A consuming repo cannot relax them — see `AGENTS.md` "Tiered inheritance."

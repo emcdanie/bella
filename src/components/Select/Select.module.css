@@ -53,6 +53,29 @@
   outline-offset: var(--ring-focus-offset);
 }
 
+.leading {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  pointer-events: none;
+  color: var(--color-semantic-text-primary);
+}
+
+/* a logo image is held to the md glyph box */
+.leading :global(img) {
+  inline-size: var(--icon-md);
+  block-size: var(--icon-md);
+  object-fit: contain;
+}
+
+/* room for the leading slot: its left inset, the md glyph, a spacing-2 gap */
+.field[data-leading] select {
+  padding-inline-start: calc(var(--spacing-3) + var(--icon-md) + var(--spacing-2));
+}
+
 /* The Iconoir chevron via the Icon component (the interim CSS caret is
    retired with the Icon extraction); text-secondary ink via color */
 .chevron {

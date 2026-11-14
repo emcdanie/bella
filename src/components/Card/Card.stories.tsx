@@ -266,7 +266,7 @@ export const Peek: Story = {
   ),
 };
 
-/** Equal-height grid per RULES.md rule 2: stretch + flex, no pixel floors. */
+/** Equal-height grid per docs/agents/maintaining.md (sibling cards share one height): stretch + flex, no pixel floors. */
 export const Grid: Story = {
   render: (args) => (
     <div

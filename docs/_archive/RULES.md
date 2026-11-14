@@ -1,8 +1,10 @@
+> Superseded 12 Nov 2026 by AGENTS.md
+
 # BELLA Rules — v0.2
 
 Governance rules for any consumer of BELLA (apps that import `tokens/bella.css` or install BELLA as a dependency). These are mandatory. A consuming repo cannot relax them — see `AGENTS.md` "Tiered inheritance."
 
-v0.2 updates v0.1 for the 2026-07 identity (2026-07-21): new palette bindings in rules 1 and 8, and a new rule 9 recording the accessibility bar. No rule was relaxed. The v0.1 set is archived at `docs/RULES-v0.1.md`.
+v0.2 updates v0.1 for the 2026-07 identity (2026-07-21): new palette bindings in rules 1 and 8, and a new rule 9 recording the accessibility bar. No rule was relaxed. The v0.1 set is archived at `docs/_archive/RULES-v0.1.md`.
 
 Where a rule references a token, that token is defined in `tokens/bella.css`. Consumers that don't currently expose a referenced token (e.g. `--header-height`) must define it locally; consumers must never fork the rule to use a different name.
 
@@ -102,4 +104,4 @@ Rationale: the bar is a recorded decision, not a vibe. Ratios are computed, writ
 
 ## Versioning
 
-This is the **v0.2** rule set (v0.1 archived at `docs/RULES-v0.1.md`). Future versions may add rules; they may not relax existing ones.
+This is the **v0.2** rule set (v0.1 archived at `docs/_archive/RULES-v0.1.md`). Future versions may add rules; they may not relax existing ones.

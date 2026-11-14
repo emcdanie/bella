@@ -566,6 +566,8 @@ value with the source reference in parentheses.
 |---|---|---|
 | `component.button.shape.default` | `12px` (`{radius.lg}`) | dimension |
 | `component.button.shape.pill` | `999px` (`{radius.full}`) | dimension |
+| `component.button.sm.min-height` | `36px` | dimension |
+| `component.button.sm.padding-x` | `14px` | dimension |
 | `component.button.motion.roll-duration` | `250ms` (`{motion.duration.normal}`) | duration |
 | `component.button.motion.roll-easing` | `cubic-bezier(0.22, 1, 0.36, 1)` (`{motion.easing.out}`) | cubicBezier |
 | `component.button.motion.shift-duration` | `150ms` (`{motion.duration.fast}`) | duration |
@@ -602,6 +604,12 @@ value with the source reference in parentheses.
 | `component.button.tertiary.foreground-hover` | `#1d2030` (`{color.semantic.link-hover}`) | color |
 | `component.button.tertiary.underline-thickness-hover` | `2px` (`{border.width.medium}`) | dimension |
 | `component.button.tertiary.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.card.shadow-1.y` | `1px` | dimension |
+| `component.card.shadow-1.blur` | `3px` | dimension |
+| `component.card.shadow-1.color` | `rgba(29, 32, 48, 0.06)` | color |
+| `component.card.shadow-2.y` | `12px` | dimension |
+| `component.card.shadow-2.blur` | `28px` | dimension |
+| `component.card.shadow-2.color` | `rgba(29, 32, 48, 0.10)` | color |
 | `component.card.trace.width` | `3px` (`{border.width.thick}`) | dimension |
 | `component.card.trace.duration` | `3400ms` (`{motion.duration.trace}`) | duration |
 | `component.card.default.background` | `linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%)` (`{color.semantic.surface-glass-light}`) | other |
@@ -759,6 +767,8 @@ value with the source reference in parentheses.
 | `component.avatar.default.ring-color` | `#1d2030` (`{color.semantic.border-ink}`) | color |
 | `component.avatar.default.ring-width` | `2px` | dimension |
 | `component.avatar.default.ring-gap` | `2px` | dimension |
+| `component.avatar.xs.size` | `32px` (`{spacing.8}`) | dimension |
+| `component.avatar.xs.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
 | `component.avatar.sm.size` | `40px` (`{spacing.10}`) | dimension |
 | `component.avatar.sm.font-size` | `16px` (`{typography.font-size.tag}`) | dimension |
 | `component.avatar.md.size` | `48px` (`{spacing.12}`) | dimension |
@@ -981,6 +991,7 @@ value with the source reference in parentheses.
 | `component.list-row.column-gap` | `16px` (`{spacing.4}`) | dimension |
 | `component.list-row.row-gap` | `4px` (`{spacing.1}`) | dimension |
 | `component.list-row.min-height` | `44px` (`{spacing.touch-target}`) | dimension |
+| `component.list-row.hover-background` | `color-mix(in srgb, #1d2030 5%, #ffffff)` (`color-mix(in srgb, {color.semantic.action} 5%, {color.semantic.surface-card})`) | color |
 | `component.section-nav.gap` | `4px` (`{spacing.1}`) | dimension |
 | `component.section-nav.padding-x` | `12px` (`{spacing.3}`) | dimension |
 | `component.section-nav.min-height` | `44px` (`{spacing.touch-target}`) | dimension |

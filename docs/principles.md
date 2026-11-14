@@ -39,7 +39,7 @@ The one accent is ochre (`color.brand.ochre`), and it is a fill with ink text, n
 
 ## Accessible on purpose, at a recorded bar
 
-The bar is **AAA-minded AA** (recorded 2026-07-21, `docs/RULES.md` rule 9): AAA for ink and body text, AA where the accent speaks, the accent always theme-flips and never touches its failing ground, worst-ground-wins for every text token. Every ratio is computed and written into the token metadata, dated — not asserted, verified.
+The bar is **AAA-minded AA** (recorded 2026-07-21, `docs/agents/maintaining.md`, The accessibility bar): AAA for ink and body text, AA where the accent speaks, the accent always theme-flips and never touches its failing ground, worst-ground-wins for every text token. Every ratio is computed and written into the token metadata, dated — not asserted, verified.
 
 ## Token-first because humans and agents share the file
 

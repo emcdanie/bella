@@ -236,6 +236,10 @@ const INSET_EXEMPT = {
   'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
+  'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'decorative icon well, aria-hidden; the title names the page (11 Nov 2026)',
+  'src/components/Stat/Stat.module.css :: .iconWell': 'decorative icon well, aria-hidden; the label names the figure (11 Nov 2026)',
+  'src/components/Stat/Stat.module.css :: .bar': 'measure track: the ink fill carries the amount and the accessible name says it (11 Nov 2026)',
+  'src/components/Tabs/Tabs.module.css :: .count': 'identified by its count text, not the fill (11 Nov 2026)',
 };
 {
   const comp = JSON.parse(readFileSync('tokens/component.json', 'utf8')).component;

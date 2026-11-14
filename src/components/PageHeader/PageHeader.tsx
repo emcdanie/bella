@@ -1,4 +1,5 @@
 import React, { type ReactNode } from 'react';
+import Icon, { type IconName } from '../Icon/Icon';
 import styles from './PageHeader.module.css';
 
 export interface PageHeaderProps {
@@ -8,6 +9,8 @@ export interface PageHeaderProps {
   title: ReactNode;
   /** One or two sentences under the title, held to the body measure. */
   lede?: ReactNode;
+  /** An Iconoir glyph in a quiet well before the title (BellaComponents, 11 Nov 2026). Decorative: the title names the page. */
+  icon?: IconName;
   /** Something that belongs to the title, beside it but outside the h1 (a quiet ⋯ menu), so the heading's name stays the title alone. */
   titleAside?: ReactNode;
   /** The page's actions: at most one primary Button, the rest secondary or ActionChip. */
@@ -23,12 +26,17 @@ export interface PageHeaderProps {
  * for the page, not a hero. The title balances; the lede wraps pretty and
  * stops at 70ch. Actions sit beside the title when there is room.
  */
-export default function PageHeader({ meta, title, titleAside, lede, actions, id, className }: PageHeaderProps) {
+export default function PageHeader({ meta, icon, title, titleAside, lede, actions, id, className }: PageHeaderProps) {
   return (
     <header className={[styles.header, className].filter(Boolean).join(' ')} data-bella-component="page-header">
       {meta != null ? <p className={styles.meta}>{meta}</p> : null}
       <div className={styles.row}>
         <div className={styles.titleGroup}>
+          {icon ? (
+            <span className={styles.iconWell} aria-hidden="true">
+              <Icon name={icon} size="lg" />
+            </span>
+          ) : null}
           <h1 id={id} className={styles.title}>
             {title}
           </h1>

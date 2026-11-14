@@ -14,6 +14,18 @@ export interface ButtonProps {
    * `"pill"` rounds the ends fully (e.g. a nav call to action).
    */
   shape?: 'default' | 'pill';
+  /**
+   * `"sm"` is a 36px box with 14px sides (Elleta, 11 Nov 2026) for dense
+   * rows and tool bars. The label stays 16px and the 44px tap area stays,
+   * extended invisibly around the box. With `iconOnly` it is a 36 circle.
+   */
+  size?: 'default' | 'sm';
+  /**
+   * A 44px circle holding one Icon, with a round focus ring (BellaComponents,
+   * 11 Nov 2026). Secondary or primary only (the text tier is its underline).
+   * Needs `ariaLabel`, and a Tooltip with the same words.
+   */
+  iconOnly?: boolean;
   /** Renders the button as ONE anchor. External (http...) hrefs open in a new tab. */
   href?: string;
   /** Renders a real button. Ignored when `href` is set. */
@@ -47,6 +59,8 @@ export interface ButtonProps {
 export default function Button({
   variant = 'secondary',
   shape = 'default',
+  size = 'default',
+  iconOnly = false,
   href,
   onClick,
   type = 'button',
@@ -58,7 +72,7 @@ export default function Button({
   className,
   children,
 }: ButtonProps) {
-  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', className]
+  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', className]
     .filter(Boolean)
     .join(' ');
   /* The label roll: the real label slides up and out while an identical
@@ -80,6 +94,7 @@ export default function Button({
     className: cls,
     'data-bella-component': 'button',
     'data-bella-variant': variant,
+    'data-bella-size': size === 'sm' ? 'sm' : undefined,
     'aria-label': ariaLabel,
   } as const;
 

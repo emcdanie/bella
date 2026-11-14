@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import Select from './Select';
+import Icon from '../Icon/Icon';
 import selectCssRaw from './Select.module.css?raw';
 import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -81,5 +82,16 @@ export const Behavior: Story = {
     await step('touch target: 44px minimum', async () => {
       expectTouchTarget(select);
     });
+  },
+};
+
+/** leading (BellaComponents, 11 Nov 2026): an Icon or small logo at the
+ * start of the field. Decorative; the option text names the choice. */
+export const WithLeading: Story = {
+  render: () => (
+    <Select label="Sort" value="recent" onChange={() => {}} options={SORTS} leading={<Icon name="Folder" />} />
+  ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('combobox', { name: 'Sort' })).toBeVisible();
   },
 };

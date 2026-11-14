@@ -13,7 +13,7 @@ Named for the Italian and Spanish word for *beautiful*. That's the bar: not "cle
 
 *Architecture inspired by Brad Frost's [bfw-process](https://github.com/Brad-Frost-Web/bfw-process).*
 
-BELLA is token-first, accessibility-first, and AI-ready. Every color, space, and type ramp is a named token in `tokens/bella.json`, which means humans and agents build against the same source of truth. Every contrast ratio is computed and recorded in the token metadata, dated, against a recorded bar (AAA-minded AA — `docs/RULES.md` rule 9). Rules for AI collaborators live in [`AGENTS.md`](./AGENTS.md) and are enforced by any repo that installs BELLA as a `devDependency`.
+BELLA is token-first, accessibility-first, and AI-ready. Every color, space, and type ramp is a named token in `tokens/bella.json`, which means humans and agents build against the same source of truth. Every contrast ratio is computed and recorded in the token metadata, dated, against a recorded bar (AAA-minded AA — `docs/agents/maintaining.md`, The accessibility bar). Rules for AI collaborators live in [`AGENTS.md`](./AGENTS.md) and are enforced by any repo that installs BELLA as a `devDependency`.
 
 It powers:
 
@@ -83,7 +83,7 @@ Full token listing: [`docs/tokens.md`](./docs/tokens.md) (generated).
 - [`docs/principles.md`](./docs/principles.md) — why BELLA looks the way it looks
 - [`docs/typography.md`](./docs/typography.md) — the type system in detail
 - [`docs/motion-system.md`](./docs/motion-system.md) — motion tokens and rules (buttons roll, cards lift)
-- [`docs/RULES.md`](./docs/RULES.md) — mandatory governance rules for consumers (v0.2; v0.1 archived)
+- [`docs/agents/maintaining.md`](./docs/agents/maintaining.md) — maintainer rules and the consumer layout rules (RULES.md v0.1 and v0.2 are archived in `docs/_archive/`)
 - [`docs/tokens.md`](./docs/tokens.md) — generated token reference
 - [`AGENTS.md`](./AGENTS.md) — rules for AI agents touching BELLA
 
@@ -98,7 +98,6 @@ bella/
 ├── CODE_OF_CONDUCT.md         Contributor Covenant
 ├── SECURITY.md
 ├── LICENSE                    MIT
-├── REPO-AUDIT.md              Professionalisation audit, 2026-07-21
 ├── bella.dsds.yaml            Generated — the system in Design System Docs Spec
 ├── package.json
 ├── .npm-audit-allowlist.json  The gate's one opt-out: dated, capped
@@ -136,8 +135,7 @@ bella/
     ├── principles.md          Why BELLA looks the way it looks
     ├── typography.md          The type system in detail
     ├── motion-system.md       Hover, elevation, and duration
-    ├── RULES.md               Governance rules for consumers (v0.2)
-    └── RULES-v0.1.md          Archived v0.1 rule set
+    └── _archive/              Superseded: RULES.md, RULES-v0.1.md, REPO-AUDIT.md
 ```
 
 ## Build

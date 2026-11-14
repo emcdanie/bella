@@ -95,3 +95,18 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** icon (BellaComponents, 11 Nov 2026): a glyph in a quiet well before the
+ * title. Decorative: the h1 still reads as the title alone. */
+export const WithIcon: Story = {
+  args: {
+    meta: 'BELLA 0.3.0 · checked 7 Nov, 10:53',
+    icon: 'SunLight',
+    title: 'Today',
+    lede: 'Every item says why it matters and offers one next step.',
+    actions: <Button variant="secondary" onClick={() => {}}>Read everything</Button>,
+  },
+  play: async ({ canvas }) => {
+    expect(canvas.getByRole('heading', { level: 1 }).textContent).toBe('Today');
+  },
+};

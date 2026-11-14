@@ -131,15 +131,15 @@ for path, (v, t, _) in comp_flat.items():
         continue
     css_lines.append(f"  {emit_css_var(path)}: {resolve_light(v)};")
 
-# v0.1 governance tokens (docs/RULES.md). Fixed-context: they do NOT flip with
+# v0.1 governance tokens (docs/agents/maintaining.md, layout rules for consumers). Fixed-context: they do NOT flip with
 # [data-theme="dark"] — they name "text on a dark surface" and "focus ring"
 # regardless of page mode, because dark surfaces appear inside light pages.
 # Pending a proper home in the token JSON tiers (naming/tiering is a design
 # decision — Elleta's call); until then they are emitted here so the generated
-# CSS keeps the contract RULES.md mandates.
+# CSS keeps the contract those rules mandate.
 css_lines += [
     "",
-    "  /* ---- v0.1 governance tokens (see docs/RULES.md) ----",
+    "  /* ---- v0.1 governance tokens (see docs/agents/maintaining.md) ----",
     "   * Fixed-context tokens: do NOT flip with [data-theme=\"dark\"]. They name",
     "   * \"text on a dark surface\" and \"focus ring\" regardless of the page mode,",
     "   * because dark surfaces appear inside light pages (and vice-versa). */",

@@ -34,6 +34,31 @@
   bottom: calc(100% + var(--spacing-1));
 }
 
+/* kind="rich" (BellaComponents, 11 Nov 2026): a small hover card, not an
+   inverse bubble. Raised surface, hairline edge, the floating-UI shadow;
+   a SemiBold title and quiet rows, all at the 16px floor. */
+.rich {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding: var(--spacing-3);
+  border: var(--border-width-thin) solid var(--color-semantic-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-semantic-surface-elevated);
+  color: var(--color-semantic-text-body);
+  box-shadow: var(--shadow-ui);
+  line-height: var(--typography-line-height-snug);
+}
+
+.rich[hidden] {
+  display: none;
+}
+
+.title {
+  font-weight: var(--typography-font-weight-semibold);
+  color: var(--color-semantic-text-primary);
+}
+
 @media (forced-colors: active) {
   .tip {
     border: var(--border-width-thin) solid CanvasText;

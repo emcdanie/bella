@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import { expectTouchTarget } from '../../testing/behavioral';
-import Tabs, { tabPanelProps } from './Tabs';
+import Tabs, { tabPanelProps, type TabsItem } from './Tabs';
 import tabsCssRaw from './Tabs.module.css?raw';
 import componentContract from '../../../tokens/component.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -45,7 +45,7 @@ const TERMINALS = [
   { id: 'site', label: 'Portfolio', status: 'idle' as const },
 ];
 
-function Harness({ tabs, idBase, label }: { tabs: typeof WORKSPACES; idBase: string; label: string }) {
+function Harness({ tabs, idBase, label }: { tabs: TabsItem[]; idBase: string; label: string }) {
   const [value, setValue] = useState(tabs[0].id);
   return (
     <div style={{ display: 'grid', gap: 'var(--spacing-4)', maxWidth: 560 }}>
@@ -118,5 +118,20 @@ export const Behavior: Story = {
     await step('touch target: 44px minimum per tab', async () => {
       expectTouchTarget(bella);
     });
+  },
+};
+
+const COUNTED = [
+  { id: 'needs', label: 'Needs you', count: 4, icon: 'Clock' as const },
+  { id: 'running', label: 'Running', count: 2, icon: 'Play' as const },
+  { id: 'done', label: 'Done', count: 12, icon: 'CheckCircle' as const },
+];
+
+/** count and icon (BellaComponents, 11 Nov 2026): a quiet pill after the
+ * label, spoken after it ("Needs you, 4"); the glyph is decorative. */
+export const WithCount: Story = {
+  render: () => <Harness tabs={COUNTED} idBase="counted" label="Work" />,
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('tab', { name: /^Needs you\s*,\s*4$/ })).toHaveAttribute('aria-selected', 'true');
   },
 };

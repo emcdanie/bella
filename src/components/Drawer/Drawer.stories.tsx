@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import Drawer from './Drawer';
 import Button from '../Button/Button';
 import NavList from '../NavList/NavList';
@@ -37,7 +37,7 @@ const GROUPS = [
   },
 ];
 
-function Harness({ startOpen = false, side }: { startOpen?: boolean; side?: 'left' | 'right' }) {
+function Harness({ startOpen = false, side, withFooter = false }: { startOpen?: boolean; side?: 'left' | 'right'; withFooter?: boolean }) {
   const [open, setOpen] = useState(startOpen);
   const [closes, setCloses] = useState(0);
   return (
@@ -54,6 +54,18 @@ function Harness({ startOpen = false, side }: { startOpen?: boolean; side?: 'lef
         }}
         label="CHIP"
         side={side}
+        footer={
+          withFooter ? (
+            <>
+              <Button variant="secondary" onClick={() => setOpen(false)}>
+                Reset
+              </Button>
+              <Button variant="primary" onClick={() => setOpen(false)}>
+                Apply
+              </Button>
+            </>
+          ) : undefined
+        }
       >
         <NavList label="Sections" groups={GROUPS} />
       </Drawer>
@@ -120,5 +132,15 @@ export const Behavior: Story = {
       dialog().dispatchEvent(new MouseEvent('click', { bubbles: true }));
       await waitFor(() => expect(dialog().open).toBe(false));
     });
+  },
+};
+
+/** footer (BellaComponents, 11 Nov 2026): actions pinned under the body,
+ * above a hairline. At most one primary. */
+export const WithFooter: Story = {
+  render: () => <Harness startOpen withFooter />,
+  play: async () => {
+    const dialog = document.querySelector('dialog[open]') as HTMLElement;
+    await expect(within(dialog).getByRole('button', { name: 'Apply' })).toBeVisible();
   },
 };

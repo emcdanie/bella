@@ -1,4 +1,5 @@
 import React, { useRef, type KeyboardEvent } from 'react';
+import Icon, { type IconName } from '../Icon/Icon';
 import styles from './Tabs.module.css';
 
 export interface TabsItem {
@@ -6,6 +7,10 @@ export interface TabsItem {
   label: string;
   /** Optional run state, drawn as a dot and spoken as text: filled ink for running, a hollow ring for idle. */
   status?: 'running' | 'idle';
+  /** How many items the panel holds, in a quiet pill after the label; spoken after the label (BellaComponents, 11 Nov 2026). */
+  count?: number;
+  /** An Iconoir glyph before the label (sm). Decorative: the label names the tab. */
+  icon?: IconName;
 }
 
 export interface TabsProps {
@@ -82,15 +87,16 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
             className={styles.tab}
             onClick={() => onChange(t.id)}
           >
-            {t.status ? (
+            {t.status ? <span className={styles.dot} data-status={t.status} aria-hidden="true" /> : null}
+            {t.icon ? <Icon name={t.icon} size="sm" /> : null}
+            {t.label}
+            {t.count != null ? (
               <>
-                <span className={styles.dot} data-status={t.status} aria-hidden="true" />
-                {t.label}
-                <span className={styles.srOnly}>, {t.status}</span>
+                <span className={styles.count} aria-hidden="true">{t.count}</span>
+                <span className={styles.srOnly}>, {t.count}</span>
               </>
-            ) : (
-              t.label
-            )}
+            ) : null}
+            {t.status ? <span className={styles.srOnly}>, {t.status}</span> : null}
           </button>
         );
       })}

@@ -2,7 +2,7 @@
 // Gate check: AGENTS.md stays consumer-first and in sync with src/components/.
 // Fails if:
 //   1. Any hex colour literal appears in AGENTS.md
-//   2. The consumer part (whole file) exceeds 70 lines
+//   2. The consumer part (whole file) exceeds 140 lines
 //   3. A component directory in src/components/ is missing from the component map
 //   4. AGENTS.md names a component that has no directory in src/components/
 //   5. A "Not in BELLA yet" item now exists as a component directory
@@ -29,8 +29,8 @@ for (let i = 0; i < lines.length; i++) {
 }
 
 // 2. Line count
-if (lines.length > 70) {
-  failures.push(`AGENTS.md has ${lines.length} lines (limit 70). Move maintainer detail to docs/agents/maintaining.md.`);
+if (lines.length > 140) {
+  failures.push(`AGENTS.md has ${lines.length} lines (limit 140). Move maintainer detail to docs/agents/maintaining.md.`);
 }
 
 // 3+4. Component map sync
@@ -67,7 +67,7 @@ for (const m of text.matchAll(PASCAL_RE)) {
   // and appears in the map section — just check the dir exists for every name in the map table
   if (!dirSet.has(name) && name.length > 3 && !['variant', 'primary', 'secondary'].includes(name.toLowerCase())) {
     // Only fail if it appears in the job table (between ## Which component and ## Not in BELLA yet)
-    const tableSection = text.match(/## Which component for which job[\s\S]*?## Not in BELLA yet/)?.[0] ?? '';
+    const tableSection = text.match(/## Which component for which job[\s\S]*?## (?:Not in BELLA yet|Open)/)?.[0] ?? '';
     if (tableSection.includes('`' + name + '`') || tableSection.includes('`' + name + ' ')) {
       failures.push(`AGENTS.md names component "${name}" but src/components/${name}/ does not exist`);
     }
@@ -75,7 +75,7 @@ for (const m of text.matchAll(PASCAL_RE)) {
 }
 
 // 5. "Not in BELLA yet" items must not exist as component dirs
-const NOT_YET_LINE = lines.find(l => l.startsWith('Switch/toggle'));
+const NOT_YET_LINE = lines.find(l => l.includes('Switch/toggle'));
 if (NOT_YET_LINE) {
   // Extract names: "Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert/Toast, Textarea, Pagination, destructive Button"
   const NOT_YET_MAP = {

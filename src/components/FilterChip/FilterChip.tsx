@@ -7,7 +7,7 @@ export interface FilterChipProps {
   onClick: () => void;
   /** Accessible name when the visible label isn't the right name. */
   ariaLabel?: string;
-  /** `"compact"`: tighter padding and the 13px label for a long wrapping row of filters; the 44px target stays. */
+  /** `"compact"`: tighter padding and the 16px label for a long wrapping row of filters; the 44px target stays. */
   size?: 'default' | 'compact';
   /** Extra classes on the chip. */
   className?: string;

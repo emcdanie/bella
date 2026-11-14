@@ -452,6 +452,8 @@
   /* ---- Component ---- */
   --component-button-shape-default: 12px;
   --component-button-shape-pill: 999px;
+  --component-button-sm-min-height: 36px;
+  --component-button-sm-padding-x: 14px;
   --component-button-motion-roll-duration: 250ms;
   --component-button-motion-roll-easing: cubic-bezier(0.22, 1, 0.36, 1);
   --component-button-motion-shift-duration: 150ms;
@@ -488,6 +490,12 @@
   --component-button-tertiary-foreground-hover: #1d2030;
   --component-button-tertiary-underline-thickness-hover: 2px;
   --component-button-tertiary-min-height: 44px;
+  --component-card-shadow-1-y: 1px;
+  --component-card-shadow-1-blur: 3px;
+  --component-card-shadow-1-color: rgba(29, 32, 48, 0.06);
+  --component-card-shadow-2-y: 12px;
+  --component-card-shadow-2-blur: 28px;
+  --component-card-shadow-2-color: rgba(29, 32, 48, 0.10);
   --component-card-trace-width: 3px;
   --component-card-trace-duration: 3400ms;
   --component-card-default-background: linear-gradient(180deg, #FFFFFF7A 0%, #FFFFFF47 100%);
@@ -645,6 +653,8 @@
   --component-avatar-default-ring-color: #1d2030;
   --component-avatar-default-ring-width: 2px;
   --component-avatar-default-ring-gap: 2px;
+  --component-avatar-xs-size: 32px;
+  --component-avatar-xs-font-size: 16px;
   --component-avatar-sm-size: 40px;
   --component-avatar-sm-font-size: 16px;
   --component-avatar-md-size: 48px;
@@ -867,6 +877,7 @@
   --component-list-row-column-gap: 16px;
   --component-list-row-row-gap: 4px;
   --component-list-row-min-height: 44px;
+  --component-list-row-hover-background: color-mix(in srgb, #1d2030 5%, #ffffff);
   --component-section-nav-gap: 4px;
   --component-section-nav-padding-x: 12px;
   --component-section-nav-min-height: 44px;
@@ -903,7 +914,7 @@
   --component-code-block-del: #FBE7E5;
   --component-code-block-border: #E4E6EC;
 
-  /* ---- v0.1 governance tokens (see docs/RULES.md) ----
+  /* ---- v0.1 governance tokens (see docs/agents/maintaining.md) ----
    * Fixed-context tokens: do NOT flip with [data-theme="dark"]. They name
    * "text on a dark surface" and "focus ring" regardless of the page mode,
    * because dark surfaces appear inside light pages (and vice-versa). */
@@ -1145,6 +1156,7 @@
   --component-list-row-title-color: #eceef3;
   --component-list-row-description-color: #eceef3;
   --component-list-row-border: #2e3240;
+  --component-list-row-hover-background: color-mix(in srgb, #eceef3 5%, #171a22);
   --component-section-nav-indicator: #eceef3;
   --component-page-outline-line: #858b9f;
   --component-page-outline-line-current: #eceef3;
@@ -1241,6 +1253,7 @@
   --component-avatar-stack-default-ring-color: #f0ede8;
   --component-pin-background: #fbfaf7;
   --component-list-row-border: #e3dbcf;
+  --component-list-row-hover-background: color-mix(in srgb, #1d2030 5%, #fbfaf7);
   --component-page-outline-line: #857a6a;
 }
 
@@ -1359,6 +1372,7 @@
   --component-list-row-description-font-size: 16px;
   --component-list-row-description-line-height: 1.5;
   --component-list-row-border: #1F1C1938;
+  --component-list-row-hover-background: color-mix(in srgb, #2F9BE0 5%, #ffffff);
 }
 
 /* ---- Inside a chip root: light and dark specimens keep their own values ---- */
@@ -1471,6 +1485,7 @@
   --component-list-row-description-font-size: 20px;
   --component-list-row-description-line-height: 1.7;
   --component-list-row-border: #e4e6ec;
+  --component-list-row-hover-background: color-mix(in srgb, #1d2030 5%, #ffffff);
   --ring-focus-color: var(--color-semantic-focus-ring);
 }
 
@@ -1978,6 +1993,7 @@
     --component-list-row-title-color: var(--color-semantic-text-primary);
     --component-list-row-description-color: var(--color-semantic-text-body);
     --component-list-row-border: var(--color-semantic-border);
+    --component-list-row-hover-background: color-mix(in srgb, var(--color-semantic-action) 5%, var(--color-semantic-surface-card));
     --component-section-nav-indicator: var(--color-semantic-text-primary);
     --component-page-outline-line: var(--color-semantic-border-strong);
     --component-page-outline-line-current: var(--color-semantic-text-primary);
@@ -2204,6 +2220,7 @@
     --component-list-row-title-color: var(--color-semantic-text-primary);
     --component-list-row-description-color: var(--color-semantic-text-body);
     --component-list-row-border: var(--color-semantic-border);
+    --component-list-row-hover-background: color-mix(in srgb, var(--color-semantic-action) 5%, var(--color-semantic-surface-card));
     --component-section-nav-indicator: var(--color-semantic-text-primary);
     --component-page-outline-line: var(--color-semantic-border-strong);
     --component-page-outline-line-current: var(--color-semantic-text-primary);
@@ -2295,6 +2312,7 @@
     --component-avatar-stack-default-ring-color: var(--color-semantic-surface);
     --component-pin-background: var(--color-semantic-surface-card);
     --component-list-row-border: var(--color-semantic-border);
+    --component-list-row-hover-background: color-mix(in srgb, var(--color-semantic-action) 5%, var(--color-semantic-surface-card));
     --component-page-outline-line: var(--color-semantic-border-strong);
   }
   [data-theme="chip"] {
@@ -2355,6 +2373,7 @@
     --component-drawer-scrim: var(--color-semantic-scrim);
     --component-disclosure-border: var(--color-semantic-border);
     --component-list-row-border: var(--color-semantic-border);
+    --component-list-row-hover-background: color-mix(in srgb, var(--color-semantic-action) 5%, var(--color-semantic-surface-card));
   }
   [data-theme="light"] {
     --color-semantic-background: var(--color-stone-97);
@@ -2411,6 +2430,7 @@
     --component-drawer-scrim: var(--color-semantic-scrim);
     --component-disclosure-border: var(--color-semantic-border);
     --component-list-row-border: var(--color-semantic-border);
+    --component-list-row-hover-background: color-mix(in srgb, var(--color-semantic-action) 5%, var(--color-semantic-surface-card));
   }
   [data-theme="dark"] {
     --component-status-pill-info-background: var(--color-semantic-info-subtle);

@@ -9,7 +9,7 @@ labels: bug
 
 ## Expected
 
-<!-- If it's a value bug, cite the source of truth: AGENTS.md rule, docs/RULES.md
+<!-- If it's a value bug, cite the source of truth: AGENTS.md rule, docs/agents/maintaining.md
      rule, or the token JSON. If it's a contrast bug, include the measured ratio. -->
 
 ## Where

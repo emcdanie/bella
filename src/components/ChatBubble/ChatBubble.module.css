@@ -73,6 +73,28 @@
   border-radius: inherit;
 }
 
+/* kind="draft" (BellaComponents, 11 Nov 2026): an unsent reply. The surface
+   with a 1px dashed control border, ink text: the dash, not a colour, says
+   it has not gone yet. Same side and corners as any bubble. */
+.draft {
+  background: var(--color-semantic-surface);
+  color: var(--color-semantic-text-body);
+  border: var(--border-width-thin) dashed var(--color-semantic-border-strong);
+}
+
+.draftLabel,
+.kindHead {
+  display: flex;
+  margin-block-end: var(--spacing-1);
+  white-space: normal;
+}
+
+.draftLabel {
+  font-size: var(--typography-font-size-tag);
+  line-height: var(--typography-line-height-snug);
+  color: var(--color-semantic-text-secondary);
+}
+
 /* Inline <code> inside a bubble — 13px mono, small radius. */
 .bubble :global(code) {
   font-family: var(--typography-font-family-code);

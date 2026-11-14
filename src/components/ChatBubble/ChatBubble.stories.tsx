@@ -22,7 +22,7 @@ const meta: Meta<typeof ChatBubble> = {
   argTypes: {
     side: { control: 'inline-radio', options: ['sent', 'received'] },
     tail: { control: 'boolean' },
-    kind: { control: 'inline-radio', options: ['text', 'ask', 'big-emoji', 'image'] },
+    kind: { control: 'inline-radio', options: ['text', 'ask', 'draft', 'big-emoji', 'image'] },
   },
   args: { side: 'sent', tail: false, kind: 'text', children: 'Hello, how are you doing today?' },
 };
@@ -111,5 +111,25 @@ export const Behavior: Story = {
       expect(sent.closest('[data-bella-component="chat-bubble"]')).not.toBeNull();
       expect(recv.closest('[data-bella-component="chat-bubble"]')).not.toBeNull();
     });
+  },
+};
+
+/** ask and draft (BellaComponents, 11 Nov 2026). ask: a question waiting on
+ * the reader, headed by an attention StatusPill. draft: an unsent reply, a
+ * dashed outline on the surface with a quiet label. kindLabel sets the words. */
+export const AskAndDraft: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', maxWidth: 420 }}>
+      <ChatBubble side="received" kind="ask" tail>Gate is green. Merge it?</ChatBubble>
+      <ChatBubble side="sent" kind="draft" kindLabel="Claude's draft · edit before sending" tail>
+        Yes, merge it.
+      </ChatBubble>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    // the pop-in starts at opacity 0, so presence, not visibility
+    await expect(c.getByText('Waiting on you')).toBeInTheDocument();
+    await expect(c.getByText("Claude's draft · edit before sending")).toBeInTheDocument();
   },
 };

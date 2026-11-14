@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 import styles from './Select.module.css';
 import Icon from '../Icon/Icon';
 
@@ -8,6 +8,8 @@ export interface SelectProps {
   value: string;
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
+  /** An Icon or a small logo at the start of the field (BellaComponents, 11 Nov 2026). Decorative: the option text names the choice. */
+  leading?: ReactNode;
   /** Extra classes on the control. */
   className?: string;
 }
@@ -21,6 +23,7 @@ export default function Select({
   value,
   onChange,
   options,
+  leading,
   className,
 }: SelectProps) {
   return (
@@ -29,7 +32,12 @@ export default function Select({
       data-bella-component="select"
     >
       <span>{label}</span>
-      <span className={styles.field}>
+      <span className={styles.field} data-leading={leading != null ? '' : undefined}>
+        {leading != null ? (
+          <span className={styles.leading} aria-hidden="true">
+            {leading}
+          </span>
+        ) : null}
         <select value={value} onChange={(e) => onChange(e.target.value)}>
           {options.map((o) => (
             <option key={o.value} value={o.value}>

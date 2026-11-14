@@ -1,3 +1,5 @@
+> Superseded 12 Nov 2026 by AGENTS.md
+
 # REPO-AUDIT — BELLA professionalisation pass
 
 2026-07-21. Reference bar: Primer, Carbon, Shoelace. Scored before any changes.

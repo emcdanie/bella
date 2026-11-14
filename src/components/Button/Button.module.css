@@ -51,6 +51,21 @@
   outline-offset: var(--ring-focus-offset);
 }
 
+/* ICON ONLY (BellaComponents, 11 Nov 2026): a 44 circle, one glyph, no
+ * padding. The ring follows the circle because outline follows the radius. */
+.iconOnly {
+  inline-size: var(--spacing-touch-target);
+  min-inline-size: var(--spacing-touch-target);
+  block-size: var(--spacing-touch-target);
+  min-height: var(--spacing-touch-target);
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.iconOnly.secondary {
+  padding: 0;
+}
+
 /* THE LABEL ROLL. The window clips to one line; the label and its copy
  * stack in it. The copy is aria-hidden (see Button.tsx). */
 .roll {
@@ -224,6 +239,39 @@
 
 .tertiary:disabled .roll::after {
   content: none;
+}
+
+/* SIZE SM (Elleta, 11 Nov 2026, option B): a 36 box, 14 sides, the same
+ * 16px label. The 44 tap area stays: an invisible ::after reaches 4px past
+ * the top and bottom edges (narrower than 44 only with iconOnly, below). */
+.button.sm {
+  position: relative;
+  min-height: var(--component-button-sm-min-height);
+  padding-inline: var(--component-button-sm-padding-x);
+}
+
+.button.sm::after {
+  content: '';
+  position: absolute;
+  /* sized, not inset: the padding box shrinks by the border, the target must not */
+  inset-inline: 0;
+  inset-block-start: 50%;
+  block-size: var(--spacing-touch-target);
+  translate: 0 -50%;
+}
+
+.button.sm.iconOnly {
+  inline-size: var(--component-button-sm-min-height);
+  min-inline-size: var(--component-button-sm-min-height);
+  block-size: var(--component-button-sm-min-height);
+  padding: 0;
+}
+
+.button.sm.iconOnly::after {
+  inset-inline: auto;
+  inset-inline-start: 50%;
+  inline-size: var(--spacing-touch-target);
+  translate: -50% -50%;
 }
 
 @media (prefers-reduced-motion: reduce) {

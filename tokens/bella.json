@@ -3068,7 +3068,7 @@
         "mono": {
           "$value": "'Geist Mono', ui-monospace, monospace",
           "$type": "fontFamily",
-          "$description": "Geist Mono 400: eyebrows, labels, meta and diagram text, at 13px, ss09, no tracking. The only use of Mono (style unify, 2026-09-22, Elleta; reverses the 2026-09-21 retirement).",
+          "$description": "Geist Mono 400: eyebrows, labels, meta and diagram text, at 16px (font-size.mono), ss09, no tracking. The only use of Mono (style unify, 2026-09-22, Elleta; reverses the 2026-09-21 retirement).",
           "$extensions": {
             "bella": {
               "usage": [
@@ -3105,7 +3105,7 @@
         "mono": {
           "$value": "16px",
           "$type": "dimension",
-          "$description": "Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At the 13px hard floor.",
+          "$description": "Mono labels, eyebrows, meta and diagram text (style unify, 2026-09-22, Elleta). At 16px; 13px is the hard limit.",
           "$extensions": {
             "bella": {
               "usage": [
@@ -3124,7 +3124,7 @@
           "$extensions": {
             "bella": {
               "usage": [
-                "Eyebrows (one ramp step up from tag \u2014 13px read too quiet under display heads)",
+                "Eyebrows (one ramp step up from tag \u2014 16px read too quiet under display heads)",
                 "Caption text",
                 "Footnote text"
               ],
@@ -6555,6 +6555,7 @@
           "props": [
             "variant",
             "shape",
+            "size",
             "href",
             "onClick",
             "type",
@@ -6564,7 +6565,8 @@
             "ariaExpanded",
             "ariaHaspopup",
             "className",
-            "children"
+            "children",
+            "iconOnly"
           ],
           "usage": [
             "Hero CTA",
@@ -6736,6 +6738,18 @@
           "$value": "{radius.full}",
           "$type": "dimension",
           "$description": "shape=\"pill\": fully rounded ends, e.g. the nav call to action."
+        }
+      },
+      "sm": {
+        "min-height": {
+          "$value": "36px",
+          "$type": "dimension",
+          "$description": "size=\"sm\" (Elleta, 11 Nov 2026, option B): the visible box. A component-tier literal: no primitive step is 36. The 44 tap area (spacing.touch-target) stays, extended invisibly around the box."
+        },
+        "padding-x": {
+          "$value": "14px",
+          "$type": "dimension",
+          "$description": "size=\"sm\" side padding, as approved in the option sheet (11 Nov 2026). Component-tier literal: no primitive step is 14."
         }
       },
       "motion": {
@@ -7059,6 +7073,40 @@
           }
         }
       },
+      "shadow-1": {
+        "y": {
+          "$value": "1px",
+          "$type": "dimension",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: 2px."
+        },
+        "blur": {
+          "$value": "3px",
+          "$type": "dimension",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: 12px."
+        },
+        "color": {
+          "$value": "rgba(29, 32, 48, 0.06)",
+          "$type": "color",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: #1C1F30 at 6%."
+        }
+      },
+      "shadow-2": {
+        "y": {
+          "$value": "12px",
+          "$type": "dimension",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: 0."
+        },
+        "blur": {
+          "$value": "28px",
+          "$type": "dimension",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: 0."
+        },
+        "color": {
+          "$value": "rgba(29, 32, 48, 0.10)",
+          "$type": "color",
+          "$description": "Card shadow, per mode; Chip from approved Today B (Elleta 13 Nov, approved look, floors kept). Chip: transparent."
+        }
+      },
       "trace": {
         "width": {
           "$value": "{border.width.thick}",
@@ -7272,7 +7320,7 @@
             "Do not write the description longer than two lines: it clamps, and a clamped third line reads as a bug",
             "Do not colour the status dot yet: the ladder is unresolved (issue #1) and the neutral dot is the honest placeholder"
           ],
-          "a11y": "Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 13px metadata tier, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop.",
+          "a11y": "Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 16px tag size (font-size.tag), text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop.",
           "restState": {
             "description": "At rest the card is the cover, the sheet, the tab and the notch, under Card's rest shadow (shadow.card, 2026-10-04); the lift and shadow.hover are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card.",
             "atRest": [
@@ -7626,7 +7674,7 @@
       "font-size": {
         "$value": "{typography.font-size.mono}",
         "$type": "dimension",
-        "$description": "The 13px floor. The portfolio's 11px is its own recorded exception; BELLA does not carry it."
+        "$description": "The 16px floor (font-size.tag); 13px is the hard limit. The portfolio's 11px is its own recorded exception; BELLA does not carry it."
       },
       "font-weight": {
         "$value": "{typography.font-weight.regular}",
@@ -8043,7 +8091,8 @@
             "value",
             "onChange",
             "options",
-            "className"
+            "className",
+            "leading"
           ],
           "usage": [
             "Sort order",
@@ -8370,6 +8419,17 @@
           "$description": "Gap between the disc edge and the ring, painted in the surrounding ground so the ring reads as separate."
         }
       },
+      "xs": {
+        "size": {
+          "$value": "{spacing.8}",
+          "$type": "dimension",
+          "$description": "32px, for dense rows (BellaComponents, 11 Nov 2026). Initials stay at the 16px floor."
+        },
+        "font-size": {
+          "$value": "{typography.font-size.tag}",
+          "$type": "dimension"
+        }
+      },
       "sm": {
         "size": {
           "$value": "{spacing.10}",
@@ -8430,7 +8490,7 @@
             "Never an accent colour: wayfinding is not action",
             "Never below 13px, never tracked, never uppercased"
           ],
-          "a11y": "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
+          "a11y": "16px floor (13px hard limit). muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
           "restState": {
             "description": "Type only, entirely static.",
             "atRest": [
@@ -9079,7 +9139,7 @@
       "$extensions": {
         "bella": {
           "name": "Callout",
-          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a sans label, marking words the author still owes. Static: no interaction, no motion.",
+          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 16px muted text. gap: a dashed muted frame with a sans label, marking words the author still owes. Static: no interaction, no motion.",
           "variants": [
             "note",
             "gap"
@@ -9358,7 +9418,7 @@
             "Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button",
             "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
           ],
-          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.",
+          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at 16px.",
           "restState": {
             "description": "Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).",
             "atRest": [
@@ -9524,7 +9584,11 @@
             "trend",
             "series",
             "seriesLabel",
-            "className"
+            "className",
+            "icon",
+            "measure",
+            "measureLabel",
+            "measured"
           ],
           "usage": [
             "CHIP health figures (components, failures, indexed chunks, last sync)",
@@ -9868,7 +9932,8 @@
             "label",
             "side",
             "children",
-            "className"
+            "className",
+            "footer"
           ],
           "usage": [
             "CHIP sidebar below 720px",
@@ -10239,7 +10304,8 @@
             "lede",
             "actions",
             "id",
-            "className"
+            "className",
+            "icon"
           ],
           "usage": [
             "The first block of every page template: Overview, Object page, Library and Settings",
@@ -10608,7 +10674,8 @@
             "emojiLabel",
             "className",
             "disc",
-            "senderName"
+            "senderName",
+            "kindLabel"
           ],
           "usage": [
             "A line of chat in The Bar replay"
@@ -11063,6 +11130,10 @@
       "min-height": {
         "$value": "{spacing.touch-target}",
         "$type": "dimension"
+      },
+      "hover-background": {
+        "$value": "color-mix(in srgb, {color.semantic.action} 5%, {color.semantic.surface-card})",
+        "$type": "color"
       }
     },
     "section-nav": {
@@ -11185,7 +11256,9 @@
             "label",
             "children",
             "placement",
-            "className"
+            "className",
+            "kind",
+            "rows"
           ],
           "usage": [
             "Naming an icon button in a toolbar"

@@ -70,6 +70,60 @@
   fill: var(--component-stat-trend-stroke);
 }
 
+.iconWell {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 36: the md glyph plus a spacing-2 margin all round */
+  inline-size: calc(var(--icon-md) + 2 * var(--spacing-2));
+  block-size: calc(var(--icon-md) + 2 * var(--spacing-2));
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-surface-inset);
+  color: var(--color-semantic-text-primary);
+}
+
+/* measured=false: no figure to show, so the value cell says so at the
+   label size in text-secondary; nothing is drawn that would imply a number */
+.notMeasured {
+  margin: 0;
+  font-family: var(--typography-font-family-body);
+  font-size: var(--component-stat-delta-font-size);
+  line-height: var(--typography-line-height-normal);
+  color: var(--color-semantic-text-secondary);
+}
+
+.measure {
+  margin: 0;
+}
+
+/* the measure bar: an ink fill on the inset track, 6px (spacing-1 plus the
+   medium border) with round ends. Its accessible name carries the figure */
+.bar {
+  display: block;
+  inline-size: 100%;
+  block-size: calc(var(--spacing-1) + var(--border-width-medium));
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-surface-inset);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  block-size: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-text-primary);
+}
+
+@media (forced-colors: active) {
+  .bar {
+    border: var(--border-width-thin) solid CanvasText;
+  }
+
+  .barFill {
+    background: CanvasText;
+  }
+}
+
 .srOnly {
   position: absolute;
   width: 1px;

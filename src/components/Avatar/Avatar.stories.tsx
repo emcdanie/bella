@@ -163,3 +163,20 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** xs (BellaComponents, 11 Nov 2026): 32px for dense rows; initials stay at
+ * the 16px floor. */
+export const ExtraSmall: Story = {
+  render: () => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-4)' }}>
+      <Avatar name="Elleta McDaniel" size="xs" />
+      <Avatar name="Saoirse Figma" size="xs" ring />
+      <Avatar name="Elleta McDaniel" size="sm" />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const [xs] = canvas.getAllByRole('img', { name: 'Elleta McDaniel' });
+    await expect(Math.round(xs.getBoundingClientRect().width)).toBe(32);
+    await expect(parseFloat(getComputedStyle(xs).fontSize)).toBeGreaterThanOrEqual(16);
+  },
+};

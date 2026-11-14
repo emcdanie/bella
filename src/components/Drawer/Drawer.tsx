@@ -13,6 +13,8 @@ export interface DrawerProps {
   side?: 'left' | 'right';
   /** The drawer's content (a NavList, filters, settings). */
   children?: ReactNode;
+  /** Actions pinned under the body, above a hairline (BellaComponents, 11 Nov 2026): at most one primary Button, the rest secondary. */
+  footer?: ReactNode;
   /** Extra classes on the dialog. */
   className?: string;
 }
@@ -23,7 +25,7 @@ export interface DrawerProps {
  * it is open, so focus stays inside; Esc closes it; focus goes back to
  * whatever opened it.
  */
-export default function Drawer({ open, onClose, label, side = 'left', children, className }: DrawerProps) {
+export default function Drawer({ open, onClose, label, side = 'left', children, footer, className }: DrawerProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
@@ -98,6 +100,7 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
             </Button>
           </div>
           <div className={styles.body}>{children}</div>
+          {footer != null ? <div className={styles.footer}>{footer}</div> : null}
         </>
       ) : null}
     </dialog>

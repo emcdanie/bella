@@ -1,6 +1,6 @@
 # Accessibility — the BELLA bar
 
-BELLA's accessibility bar is **AAA-minded AA** (recorded 2026-07-21, Elleta; `docs/RULES.md` rule 9):
+BELLA's accessibility bar is **AAA-minded AA** (recorded 2026-07-21, Elleta; `docs/agents/maintaining.md`, The accessibility bar):
 
 - **AAA for ink and body text** — both ink ladders are verified AAA on every surface they sit on.
 - **Ochre is a fill, never text on light** (brand refresh, 2026-09-22) — ochre carries ink text (9.01:1) in both themes; on light it is never text, a hairline or a ring (2.08:1 on white). Lines and the ring on light are ochre-deep.

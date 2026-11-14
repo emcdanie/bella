@@ -1,6 +1,6 @@
 # Surfaces — glass, shadow, and when to use which
 
-BELLA ships three glass tiers plus a handful of solid surfaces. The Card component is none of them: it is flat (`surface-card`, 1px `border-faint`, `radius.card`, no shadow at rest; only interactive cards lift on hover and focus, per the surface rules of 2026-09-19). The glass tiers below are the `.bella-card-*` utility classes. This file governs when each one is right, why the pure-white-alpha exception exists, and how dark mode changes the rules.
+BELLA ships three glass tiers plus a handful of solid surfaces. The Card component is none of them: `surface-card`, 1px `border-faint`, `radius.card`, and `shadow.card` at rest (Peek stays flat); only interactive cards lift on hover and focus. The contract, `tokens/component.json` → `component.card`, wins where this file differs. The glass tiers below are the `.bella-card-*` utility classes. This file governs when each one is right, why the pure-white-alpha exception exists, and how dark mode changes the rules.
 
 Consumer projects inherit this file. Downstream microagents may tighten these rules; they do not get to relax them.
 

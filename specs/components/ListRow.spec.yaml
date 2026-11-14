@@ -107,6 +107,26 @@ anatomy:
       - field: paddingBottom
         variable: spacing/3
     children:
+      - name: Icon well
+        type: FRAME
+        hidden: true
+        size: 36x36
+        tokens:
+          - field: topLeftRadius
+            variable: radius/full
+          - field: topRightRadius
+            variable: radius/full
+          - field: bottomLeftRadius
+            variable: radius/full
+          - field: bottomRightRadius
+            variable: radius/full
+          - field: fills
+            variable: component/stat/icon-well/background-attention
+        children:
+          - name: Icon
+            type: INSTANCE
+            instanceOf: Icon
+            size: 20x20
       - name: Status
         type: INSTANCE
         instanceOf: StatusPill
@@ -448,6 +468,15 @@ figma:
     action#436:12:
       type: BOOLEAN
       default: true
+    Show icon#796:0:
+      type: BOOLEAN
+      default: false
+    Icon#796:3:
+      type: INSTANCE_SWAP
+      default: '432:1423'
+    Action button#796:6:
+      type: INSTANCE_SWAP
+      default: '172:279'
     state:
       type: VARIANT
       default: default
@@ -504,6 +533,12 @@ mismatch:
       - '--component-list-row-padding-y'
     figma: spacing/3
     sameValueInChip: true
+  - field: tokens.Icon well.fills
+    code:
+      - '--component-list-row-title-color'
+      - '--component-list-row-description-color'
+    figma: component/stat/icon-well/background-attention
+    sameValueInChip: false
   - field: tokens.Status.itemSpacing
     code:
       - '--component-list-row-row-gap'

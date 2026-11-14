@@ -150,7 +150,7 @@ anatomy:
           - field: fills
             variable: color/semantic/surface-card
           - field: strokes
-            variable: color/semantic/border-faint
+            variable: color/semantic/border-subtle
         children: []
       - name: Media
         type: FRAME
@@ -161,9 +161,7 @@ anatomy:
           - field: topRightRadius
             variable: radius/card
           - field: fills
-            variable:
-              - color/semantic/surface-inset
-              - color/alpha/ink-6
+            variable: color/semantic/surface-card
         children: []
       - name: Body
         type: FRAME
@@ -193,7 +191,7 @@ anatomy:
                 variable: typography/font-family/body
               - field: fontWeight
                 variable: typography/font-weight/bold
-          - name: (text content)
+          - name: Text
             type: TEXT
             text: One or two lines of supporting text on the card surface.
             size: 272x102
@@ -672,6 +670,9 @@ figma:
       values:
         - default
         - peek
+        - tinted
+        - success
+        - inverse
     state:
       type: VARIANT
       default: resting
@@ -764,6 +765,18 @@ figma:
     - name: variant=peek, state=focus, padding=flush, Clip content=false
       width: 320
       height: 371
+    - name: variant=tinted, state=resting, padding=default, Clip content=true
+      width: 320
+      height: 379
+    - name: variant=tinted, state=resting, padding=default, Clip content=false
+      width: 320
+      height: 379
+    - name: variant=success, state=resting, padding=default, Clip content=false
+      width: 320
+      height: 379
+    - name: variant=inverse, state=resting, padding=default, Clip content=false
+      width: 320
+      height: 379
   defaultVariant: variant=default, state=resting, padding=default, Clip content=true
   annotations:
     - label: >-
@@ -773,8 +786,9 @@ figma:
         Reduced motion: shadow only.
       category: '123:4'
     - label: >-
-        <Card href media> · src/components/Card/Card.tsx. Surface surface-card, edge border-faint, radius radius/card (2 in Chip, via
-        radius/xs), padding spacing/6.
+        Dev · <Card href media> · src/components/Card/Card.tsx. Surface surface-card, edge border-subtle (peek border-faint), radius
+        radius/card (2 in Chip, via radius/xs), body padding spacing/6 (code: --layout-card-padding, 24; bind layout/card-padding after the
+        Foundations publish). Media fill surface-card. padding and Clip content are Figma only.
       category: '123:0'
     - label: >-
         One tab stop: an interactive card is ONE anchor or button; never nest interactives. Focus ring 3px color/semantic/focus-ring (pink
@@ -783,6 +797,16 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-card--docs
 mismatch:
+  - field: props.variant.values
+    code:
+      - default
+      - peek
+    figma:
+      - default
+      - peek
+      - tinted
+      - success
+      - inverse
   - field: props.padding
     code: no such prop
     figma:
@@ -796,20 +820,6 @@ mismatch:
   - field: props.mediaScrim
     code: boolean prop
     figma: not in the set
-  - field: tokens.Media.fills
-    code:
-      - '--color-semantic-surface-card'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-    figma: color/semantic/surface-inset
-    sameValueInChip: false
-  - field: tokens.Media.fills
-    code:
-      - '--color-semantic-surface-card'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-    figma: color/alpha/ink-6
-    sameValueInChip: false
   - field: tokens.Body.paddingLeft
     code:
       - '--layout-card-padding'
@@ -837,7 +847,7 @@ mismatch:
       - '--color-brand-ink'
     figma: color/semantic/text-primary
     sameValueInChip: false
-  - field: tokens.(text content).fills
+  - field: tokens.Text.fills
     code:
       - '--color-semantic-surface-card'
       - '--color-neutral-paper'

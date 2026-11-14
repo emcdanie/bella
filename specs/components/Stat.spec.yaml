@@ -101,23 +101,27 @@ anatomy:
       name: Label
       type: GUIDANCE
       layer: Label
-      at: centre
+      at: top
+      side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
     - 'n': 3
       name: Value
       type: GUIDANCE
       layer: Value
       at: centre
+      side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
     - 'n': 4
       name: Bar
       type: GUIDANCE
       layer: Bar
-      at: bottom
+      at: centre
+      side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
     - 'n': 5
       name: Sparkline
       type: GUIDANCE
+      layer: Line
       at: bottom
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
@@ -131,7 +135,7 @@ anatomy:
   figma:
     name: trend=none, series=off, measured=true, layout=stacked, tone=neutral
     type: COMPONENT
-    size: 138x116
+    size: 138x118
     tokens:
       - field: itemSpacing
         variable: spacing/1
@@ -150,7 +154,7 @@ anatomy:
           - field: bottomRightRadius
             variable: radius/full
           - field: fills
-            variable: color/semantic/surface-inset
+            variable: component/stat/icon-well/background-neutral
         children:
           - name: Icon
             type: INSTANCE
@@ -159,16 +163,16 @@ anatomy:
       - name: Label
         type: TEXT
         text: Components
-        size: 109x31
+        size: 109x32
         tokens:
           - field: fills
             variable: color/semantic/text-secondary
-          - field: fontSize
-            variable: typography/font-size/sm
           - field: fontFamily
             variable: typography/font-family/body
           - field: fontWeight
             variable: typography/font-weight/regular
+          - field: fontSize
+            variable: typography/font-size/sm
       - name: Value
         type: TEXT
         text: '18'
@@ -192,7 +196,7 @@ anatomy:
             variable: color/semantic/surface-inset
       - name: Delta row
         type: FRAME
-        size: 138x31
+        size: 138x32
         tokens:
           - field: itemSpacing
             variable: spacing/2
@@ -200,16 +204,16 @@ anatomy:
           - name: Delta
             type: TEXT
             text: 2 since last sync
-            size: 138x31
+            size: 138x32
             tokens:
               - field: fills
                 variable: color/semantic/text-secondary
-              - field: fontSize
-                variable: typography/font-size/sm
               - field: fontFamily
                 variable: typography/font-family/body
               - field: fontWeight
                 variable: typography/font-weight/regular
+              - field: fontSize
+                variable: typography/font-size/sm
   code:
     - key: label
       title: Label
@@ -723,6 +727,7 @@ figma:
       values:
         - stacked
         - inline
+        - tile
     tone:
       type: VARIANT
       default: neutral
@@ -734,37 +739,49 @@ figma:
   variants:
     - name: trend=none, series=off, measured=true, layout=stacked, tone=neutral
       width: 138
-      height: 116
+      height: 118
     - name: trend=none, series=on, measured=true, layout=stacked, tone=neutral
       width: 138
-      height: 144
+      height: 146
     - name: trend=up, series=off, measured=true, layout=stacked, tone=neutral
       width: 162
-      height: 116
+      height: 118
     - name: trend=up, series=on, measured=true, layout=stacked, tone=neutral
       width: 138
-      height: 151
+      height: 154
     - name: trend=down, series=off, measured=true, layout=stacked, tone=neutral
       width: 162
-      height: 116
+      height: 118
     - name: trend=down, series=on, measured=true, layout=stacked, tone=neutral
       width: 138
-      height: 151
+      height: 154
     - name: trend=none, series=off, measured=false, layout=stacked, tone=neutral
       width: 138
-      height: 111
+      height: 114
     - name: trend=none, series=off, measured=true, layout=inline, tone=neutral
       width: 288
-      height: 31
+      height: 32
     - name: trend=none, series=off, measured=true, layout=inline, tone=attention
       width: 288
-      height: 31
+      height: 32
     - name: trend=none, series=off, measured=true, layout=inline, tone=success
       width: 288
-      height: 31
+      height: 32
     - name: trend=none, series=off, measured=true, layout=inline, tone=info
       width: 288
-      height: 31
+      height: 32
+    - name: trend=none, series=off, measured=true, layout=tile, tone=neutral
+      width: 138
+      height: 118
+    - name: trend=none, series=off, measured=true, layout=tile, tone=attention
+      width: 138
+      height: 118
+    - name: trend=none, series=off, measured=true, layout=tile, tone=success
+      width: 138
+      height: 118
+    - name: trend=none, series=off, measured=true, layout=tile, tone=info
+      width: 138
+      height: 118
   defaultVariant: trend=none, series=off, measured=true, layout=stacked, tone=neutral
   annotations:
     - label: >-
@@ -786,16 +803,12 @@ mismatch:
       - none
       - up
       - down
-  - field: props.series
-    code: no such prop
-    figma:
-      - 'off'
-      - 'on'
   - field: props.layout
     code: no such prop
     figma:
       - stacked
       - inline
+      - tile
   - field: props.tone
     code: no such prop
     figma:
@@ -803,6 +816,13 @@ mismatch:
       - attention
       - success
       - info
+  - field: tokens.Icon well.fills
+    code:
+      - '--color-semantic-text-secondary'
+      - '--color-semantic-text-primary'
+      - '--color-semantic-surface-inset'
+    figma: component/stat/icon-well/background-neutral
+    sameValueInChip: false
   - field: tokens.Label.fontSize
     code:
       - '--component-stat-label-font-size'

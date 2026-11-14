@@ -26,7 +26,63 @@ const read = (p) => readFileSync(p, 'utf8');
 const kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const tsxPath = `${ROOT}/src/components/${name}/${name}.tsx`;
 const cssPath = `${ROOT}/src/components/${name}/${name}.module.css`;
-if (!existsSync(tsxPath)) { console.error(`spec-build: ${rel(tsxPath)} not found`); process.exit(2); }
+// 14 Nov (Elleta: "it has to be machine readbles"): a part drawn in Figma before its code exists gets a Figma-only spec,
+// built from the figma-spec-read JSON alone. status: figma-only tells the code build what it still has to make.
+if (!existsSync(tsxPath) && opt('--figma')) { figmaOnlySpec(); process.exit(0); }
+if (!existsSync(tsxPath)) { console.error(`spec-build: ${rel(tsxPath)} not found (pass --figma <json> for a part with no code yet)`); process.exit(2); }
+
+function figmaOnlySpec() {
+  const fig = JSON.parse(readFileSync(resolve(opt('--figma')), 'utf8'));
+  const norm = (n) => n.replace(/#\d+:\d+$/, '');
+  const camel = (s) => s.replace(/[^A-Za-z0-9]+(.)?/g, (m, c) => (c ? c.toUpperCase() : '')).replace(/^./, (c) => c.toLowerCase());
+  const css = (v) => (v === 'RAW' ? 'RAW' : '--' + v.replace(/\//g, '-'));
+  const TYPE = { VARIANT: 'enum', BOOLEAN: 'boolean', TEXT: 'string', INSTANCE_SWAP: 'component', SLOT: 'slot' };
+  const props = Object.entries(fig.props || {}).map(([k, d]) => ({
+    name: camel(norm(k)), figmaName: norm(k), type: TYPE[d.type] || d.type,
+    ...(d.values ? { values: d.values } : {}),
+    ...(d.default !== undefined && d.type !== 'INSTANCE_SWAP' && d.type !== 'SLOT' ? { default: d.default } : {}),
+  }));
+  const tokens = new Map(); const raw = [];
+  const tree = (n) => {
+    const out = { name: n.name, type: n.type };
+    if (n.instanceOf) out.instanceOf = n.instanceOf; if (n.hidden) out.hidden = true; if (n.text !== undefined) out.text = n.text;
+    if (n.width !== undefined) out.size = `${n.width}x${n.height}`;
+    if (n.propRefs) out.boundToProps = Object.fromEntries(Object.entries(n.propRefs).map(([f, p]) => [f, camel(norm(p))]));
+    if (n.bound) {
+      out.tokens = Object.entries(n.bound).map(([field, v]) => ({ field, token: [].concat(v).map(css).join(' ') }));
+      for (const [field, v] of Object.entries(n.bound)) for (const x of [].concat(v)) { if (x === 'RAW') raw.push(`${n.name}.${field}`); else { const c = css(x); if (!tokens.has(c)) tokens.set(c, new Set()); tokens.get(c).add(field); } }
+    }
+    if (n.children) out.children = n.children.map(tree);
+    return out;
+  };
+  const anatomy = tree(fig.layers);
+  const parts = []; (function walk(n, d) { if (d > 0 && !n.hidden && ['TEXT', 'RECTANGLE', 'ELLIPSE', 'VECTOR', 'INSTANCE', 'SLOT'].includes(n.type)) parts.push({ n: parts.length + 1, name: n.type === 'TEXT' && n.name === n.text ? 'Text' : n.name, type: n.type, ...(n.instanceOf ? { instanceOf: n.instanceOf } : {}) }); (n.children || []).forEach((c) => walk(c, d + 1)); })(fig.layers, 0);
+  const instancesOf = [...new Set(parts.filter((p) => p.instanceOf).map((p) => p.instanceOf))];
+  const outPath = resolve(opt('--out') || `${ROOT}/specs/components/${name}.spec.yaml`);
+  let guidance = { lead: null, whenToUse: [], doDont: [], anatomyParts: [], inContext: [] };
+  if (existsSync(outPath)) { try { const old = yaml.load(readFileSync(outPath, 'utf8')); if (old?.guidance) guidance = { ...guidance, ...old.guidance }; } catch (e) { console.error(`spec-build: ${rel(outPath)} does not parse; fix it first`); process.exit(4); } }
+  const spec = {
+    name,
+    status: 'figma-only',
+    statusNote: 'Drawn in BellaComponents; no code yet. Build src/components/' + name + '/' + name + '.tsx from this spec, then rerun spec-build to replace this file with the code spec.',
+    lead: fig.description ? { text: fig.description.split(/(?<=\.)\s/)[0], source: 'Figma component description' } : null,
+    links: { figma: { fileKey: fig.fileKey, nodeId: fig.nodeId }, storybook: null, github: null },
+    props,
+    variants: { count: (fig.variants || []).length, default: fig.defaultVariant, names: (fig.variants || []).map((v) => v.name),
+      ...(fig.variantTokens ? { addTokens: Object.fromEntries(Object.entries(fig.variantTokens).map(([v, l]) => [v, l.map(css)])) } : {}) }, // tokens a variant uses that the default does not (read from Figma, 14 Nov)
+    composedOf: instancesOf,
+    anatomy: { parts, figma: anatomy },
+    tokens: (() => { const codeCss = readFileSync(`${ROOT}/tokens/bella.css`, 'utf8'); const all = new Set([...tokens.keys(), ...Object.values(fig.variantTokens || {}).flat().map(css)]); const used = [...all].sort().map((token) => ({ token, fields: [...(tokens.get(token) || ['variant'])], inCode: new RegExp(`${token.replace(/[-]/g, '\\-')}\\s*:`).test(codeCss) })); return { used, missingInCode: used.filter((u) => !u.inCode).map((u) => u.token), raw }; })(),
+    description: fig.description || null,
+    notApplicable: [{ section: 'Code, states from CSS, motion, contrast pairs', why: 'no code yet (status: figma-only)' }],
+    guidance,
+  };
+  const text = '# SCHEMA: best-effort, in the style of specs-cli; verify against specs-cli docs\n# Generated by scripts/spec-build.mjs (figma-only). Do not edit by hand except the `guidance:` block.\n' + yaml.dump(spec, { lineWidth: 140, noRefs: true, skipInvalid: true });
+  const ndaPath = `${homedir()}/.claude/nda-terms.txt`;
+  if (existsSync(ndaPath)) for (const t of readFileSync(ndaPath, 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'))) if (new RegExp(`\\b${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(text)) { console.error(`spec-build: NDA term "${t}" matched; not saved`); process.exit(3); }
+  if (args.includes('--stdout')) process.stdout.write(text);
+  else { mkdirSync(dirname(outPath), { recursive: true }); writeFileSync(outPath, text); console.log(`${outPath} (${text.split('\n').length} lines, figma-only, ${tokens.size} tokens, ${raw.length} raw)`); }
+}
 const tsx = read(tsxPath);
 const css = existsSync(cssPath) ? read(cssPath) : '';
 const lineOf = (src, index) => src.slice(0, index).split('\n').length;

@@ -12,6 +12,8 @@ Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-siz
 
 **Colour is authored twice, checked once (2026-10-05).** A colour primitive is hex in `$value` and OKLCH in `$extensions.bella.oklch`; ramps hold one hue. Change both together: the build fails when they drift by ΔE2000 1 or more. Never put an OKLCH value in `$value`, and never write a hex8 tint by hand when a relative colour of its base will do. See `docs/decisions/2026-10-05-oklch-primitives.md`.
 
+**No component token that only repeats a semantic one (Elleta, 15 Nov 2026: "why are we making new ones for compoenents dont the tokens just work for semantic etc... brad doesnt do taht", then "Yes, CodeBlock first").** A part binds the semantic token directly (CodeBlock uses `color.semantic.syntax-*`). A component token is made only when one part must look different in the Chip theme and no semantic token can carry that difference; a Chip-only colour goes on the semantic token's Chip mode instead. Run `ds-token-architecture` before adding any token. Unused tokens are set aside (renamed `Set aside · <date>/…`, hidden from publishing), never deleted.
+
 ## The accessibility bar (recorded 2026-07-21, Elleta; re-verified 2026-09-22)
 
 **AAA-minded AA.** Concretely:

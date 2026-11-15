@@ -125,7 +125,7 @@ anatomy:
           - field: paddingBottom
             variable: component/drawer/padding
           - field: strokes
-            variable: component/drawer/border
+            variable: component/drawer/head-border
         children:
           - name: Title
             type: TEXT
@@ -137,7 +137,7 @@ anatomy:
               - field: fontSize
                 variable: typography/font-size/xl
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: component/drawer/title/font-family
               - field: fontWeight
                 variable: typography/font-weight/medium
           - name: Close
@@ -155,6 +155,8 @@ anatomy:
                 variable: component/button/primary/padding-x
               - field: paddingBottom
                 variable: component/button/primary/padding-y
+              - field: visible
+                variable: component/drawer/close-text
               - field: topLeftRadius
                 variable: component/button/shape/default
               - field: topRightRadius
@@ -165,6 +167,30 @@ anatomy:
                 variable: component/button/shape/default
               - field: minHeight
                 variable: component/button/tertiary/min-height
+          - name: Close icon
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: visible
+                variable: component/drawer/close-icon-only
+              - field: topLeftRadius
+                variable: radius/full
+              - field: topRightRadius
+                variable: radius/full
+              - field: bottomLeftRadius
+                variable: radius/full
+              - field: bottomRightRadius
+                variable: radius/full
+              - field: minHeight
+                variable: spacing/touch-target
+              - field: fills
+                variable: component/button/secondary/background
+              - field: strokes
+                variable: component/button/secondary/border
       - name: Body
         type: FRAME
         size: 319x635
@@ -178,13 +204,17 @@ anatomy:
           - field: paddingBottom
             variable: component/drawer/padding
         children:
-          - name: NavList
-            type: INSTANCE
-            instanceOf: NavList
-            size: 279x442
-            tokens:
-              - field: itemSpacing
-                variable: spacing/2
+          - name: Body
+            type: SLOT
+            size: 279x595
+            children:
+              - name: NavList
+                type: INSTANCE
+                instanceOf: NavList
+                size: 279x442
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/2
       - name: Footer
         type: FRAME
         hidden: true
@@ -231,7 +261,7 @@ anatomy:
               - field: fills
                 variable: component/button/secondary/background
               - field: strokes
-                variable: color/semantic/border-strong
+                variable: component/button/secondary/border
           - name: Button
             type: INSTANCE
             instanceOf: Button
@@ -582,6 +612,8 @@ figma:
     Show footer#434:42:
       type: BOOLEAN
       default: false
+    Body#790:35:
+      type: SLOT
     side:
       type: VARIANT
       default: left
@@ -630,6 +662,13 @@ mismatch:
   - field: props.open
     code: boolean prop
     figma: not in the set
+  - field: tokens.Head.strokes
+    code:
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-shadow'
+    figma: component/drawer/head-border
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Drawer/Drawer.tsx

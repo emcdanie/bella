@@ -320,12 +320,20 @@ figma:
       values:
         - default
         - accent
+        - count
+        - inverse
   variants:
     - name: variant=default
       width: 140
       height: 35
     - name: variant=accent
       width: 140
+      height: 35
+    - name: variant=count
+      width: 139
+      height: 26
+    - name: variant=inverse
+      width: 132
       height: 35
   defaultVariant: variant=default
   annotations:
@@ -342,7 +350,16 @@ figma:
       category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-tag--docs
-mismatch: []
+mismatch:
+  - field: props.variant.values
+    code:
+      - default
+      - accent
+    figma:
+      - default
+      - accent
+      - count
+      - inverse
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tag/Tag.tsx

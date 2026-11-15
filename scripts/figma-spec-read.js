@@ -63,12 +63,21 @@ async function figmaSpecRead(o) {
 
   const variants = set.type === 'COMPONENT_SET' ? set.children.filter((c) => c.type === 'COMPONENT').map((c) => ({ name: c.name, width: Math.round(c.width), height: Math.round(c.height) })) : [];
   const annotations = (set.annotations || []).map((a) => ({ label: a.label || null, category: a.categoryId || null }));
+  // Tokens a variant uses that the default variant does not (14 Nov): the layer walk covers the default only.
+  const tokensOf = async (root) => { const s = new Set(); for (const n of [root, ...root.findAll(() => true)]) { const b = await resolveBound(n); for (const v of Object.values(b)) (Array.isArray(v) ? v : [v]).forEach((x) => s.add(x)); for (const key of ['fills', 'strokes']) if (Array.isArray(n[key])) for (const p of n[key]) { const id = p.boundVariables && p.boundVariables.color && p.boundVariables.color.id; if (id) s.add(await varName(id)); } for (const e of (Array.isArray(n.effects) ? n.effects : [])) for (const a of Object.values(e.boundVariables || {})) if (a && a.id) s.add(await varName(a.id)); } return s; };
+  let variantTokens = null;
+  if (set.type === 'COMPONENT_SET' && !o.skipVariantTokens) {
+    const base = await tokensOf(first); variantTokens = {};
+    for (const c of set.children) { if (c === first || c.type !== 'COMPONENT') continue; const extra = [...(await tokensOf(c))].filter((t) => !base.has(t)).sort(); if (extra.length) variantTokens[c.name] = extra; }
+    if (!Object.keys(variantTokens).length) variantTokens = null;
+  }
   return {
     fileKey: o.fileKey, nodeId: set.id, name: set.name, type: set.type,
     description: set.description || '',
     documentationLinks: (set.documentationLinks || []).map((l) => l.uri),
     props, variants, defaultVariant: first.name,
     layers: await walk(first, 0),
+    ...(variantTokens ? { variantTokens } : {}),
     annotations,
   };
 }

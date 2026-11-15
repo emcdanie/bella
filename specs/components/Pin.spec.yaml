@@ -91,7 +91,7 @@ anatomy:
       side: bottom
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: variant=yellow, label=off, state=default
+    name: variant=pink, label=off, state=default
     type: COMPONENT
     size: 32x32
     tokens:
@@ -115,7 +115,7 @@ anatomy:
           - field: bottomRightRadius
             variable: radius/full
           - field: fills
-            variable: color/semantic/pop-yellow
+            variable: color/semantic/pop-pink
           - field: strokes
             variable: color/semantic/surface
           - field: effects
@@ -465,12 +465,13 @@ figma:
       default: Focus ring
     variant:
       type: VARIANT
-      default: yellow
+      default: pink
       values:
         - yellow
         - pink
         - blue
         - red
+        - green
     label:
       type: VARIANT
       default: 'off'
@@ -483,64 +484,112 @@ figma:
       values:
         - default
         - focus
+    style:
+      type: VARIANT
+      default: solid
+      values:
+        - solid
+        - dot
   variants:
-    - name: variant=yellow, label=off, state=default
+    - name: variant=pink, label=off, state=default, style=solid
       width: 32
       height: 32
-    - name: variant=yellow, label=off, state=focus
+    - name: variant=pink, label=off, state=focus, style=solid
       width: 32
       height: 32
-    - name: variant=yellow, label=on, state=default
+    - name: variant=pink, label=on, state=default, style=solid
       width: 152
       height: 40
-    - name: variant=yellow, label=on, state=focus
+    - name: variant=pink, label=on, state=focus, style=solid
       width: 152
       height: 40
-    - name: variant=pink, label=off, state=default
+    - name: variant=yellow, label=off, state=default, style=solid
       width: 32
       height: 32
-    - name: variant=pink, label=off, state=focus
+    - name: variant=yellow, label=off, state=focus, style=solid
       width: 32
       height: 32
-    - name: variant=pink, label=on, state=default
+    - name: variant=yellow, label=on, state=default, style=solid
       width: 152
       height: 40
-    - name: variant=pink, label=on, state=focus
+    - name: variant=yellow, label=on, state=focus, style=solid
       width: 152
       height: 40
-    - name: variant=blue, label=off, state=default
+    - name: variant=blue, label=off, state=default, style=solid
       width: 32
       height: 32
-    - name: variant=blue, label=off, state=focus
+    - name: variant=blue, label=off, state=focus, style=solid
       width: 32
       height: 32
-    - name: variant=blue, label=on, state=default
+    - name: variant=blue, label=on, state=default, style=solid
       width: 152
       height: 40
-    - name: variant=blue, label=on, state=focus
+    - name: variant=blue, label=on, state=focus, style=solid
       width: 152
       height: 40
-    - name: variant=red, label=off, state=default
+    - name: variant=red, label=off, state=default, style=solid
       width: 32
       height: 32
-    - name: variant=red, label=off, state=focus
+    - name: variant=red, label=off, state=focus, style=solid
       width: 32
       height: 32
-    - name: variant=red, label=on, state=default
+    - name: variant=red, label=on, state=default, style=solid
       width: 152
       height: 40
-    - name: variant=red, label=on, state=focus
+    - name: variant=red, label=on, state=focus, style=solid
       width: 152
       height: 40
-  defaultVariant: variant=yellow, label=off, state=default
+    - name: variant=green, label=off, state=default, style=solid
+      width: 32
+      height: 32
+    - name: variant=green, label=off, state=focus, style=solid
+      width: 32
+      height: 32
+    - name: variant=green, label=on, state=default, style=solid
+      width: 152
+      height: 40
+    - name: variant=green, label=on, state=focus, style=solid
+      width: 152
+      height: 40
+    - name: variant=yellow, label=off, state=default, style=dot
+      width: 32
+      height: 32
+    - name: variant=green, label=off, state=default, style=dot
+      width: 32
+      height: 32
+  defaultVariant: variant=pink, label=off, state=default, style=solid
   annotations:
     - label: >-
         Build note: focus ring: stroke ring/focus-width, sits ring/focus-offset outside the control (placed by hand; Figma cannot bind
         position).
       category: '123:2'
+    - label: >-
+        Dev · <Pin number variant label onClick> · src/components/Pin/Pin.tsx:27, Pin.module.css:12-56. Disc 32 (spacing/8 =
+        --component-pin-size), radius/full, number font-size/mono in text-primary, gap spacing/2, 44px Target. Filled-disc look is
+        Figma-approved; code draws the ring disc (module.css:29) and is behind. Not bound yet: Label weight (code 600, Figma medium), edge
+        2px, hover state.
+      category: '123:0'
+    - label: >-
+        With onClick it is a button: one tab stop, 44px target, visible focus ring (pink in Chip). The number and label carry the meaning;
+        the pop colour only groups pins. Ink on red is 4.04:1 (below 4.5:1 for the 16px number): see the Size tag note.
+      category: '123:2'
+    - label: 'None: hover thickens the ring in code (Pin.module.css:56); no other motion.'
+      category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-pin--docs
 mismatch:
+  - field: props.variant.values
+    code:
+      - yellow
+      - pink
+      - blue
+      - red
+    figma:
+      - yellow
+      - pink
+      - blue
+      - red
+      - green
   - field: states
     code:
       contract:
@@ -553,7 +602,12 @@ mismatch:
     figma:
       - default
       - focus
-  - field: tokens.variant=yellow, label=off, state=default.itemSpacing
+  - field: props.style
+    code: no such prop
+    figma:
+      - solid
+      - dot
+  - field: tokens.variant=pink, label=off, state=default.itemSpacing
     code:
       - '--component-pin-gap'
     figma: spacing/2
@@ -607,7 +661,7 @@ mismatch:
     code:
       - '--component-pin-foreground'
       - '--component-pin-background'
-    figma: color/semantic/pop-yellow
+    figma: color/semantic/pop-pink
     sameValueInChip: false
   - field: tokens.Disc.strokes
     code:

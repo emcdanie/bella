@@ -109,13 +109,6 @@ variants:
     - value=100, tone=info, target=90
     - value=100, tone=pass, target=40
     - value=100, tone=short, target=40
-  addTokens:
-    tone=pass (value>0):
-      - '--component-meter-fill-pass'
-    tone=short (value>0):
-      - '--component-meter-fill-short'
-    tone=info (value>0):
-      - '--color-semantic-info'
 composedOf: []
 anatomy:
   parts:
@@ -123,9 +116,6 @@ anatomy:
       name: Track
       type: RECTANGLE
     - 'n': 2
-      name: Fill
-      type: RECTANGLE
-    - 'n': 3
       name: Target
       type: RECTANGLE
   figma:
@@ -137,6 +127,8 @@ anatomy:
         type: RECTANGLE
         size: 300x8
         tokens:
+          - field: height
+            token: '--component-meter-height'
           - field: topLeftRadius
             token: '--component-meter-radius'
           - field: topRightRadius
@@ -147,17 +139,6 @@ anatomy:
             token: '--component-meter-radius'
           - field: fills
             token: '--component-meter-track'
-      - name: Fill
-        type: RECTANGLE
-        tokens:
-          - field: topLeftRadius
-            token: '--component-meter-radius'
-          - field: topRightRadius
-            token: '--component-meter-radius'
-          - field: bottomLeftRadius
-            token: '--component-meter-radius'
-          - field: bottomRightRadius
-            token: '--component-meter-radius'
       - name: Target
         type: RECTANGLE
         size: 2x16
@@ -168,17 +149,9 @@ anatomy:
             token: '--component-meter-target'
 tokens:
   used:
-    - token: '--color-semantic-info'
+    - token: '--component-meter-height'
       fields:
-        - variant
-      inCode: true
-    - token: '--component-meter-fill-pass'
-      fields:
-        - variant
-      inCode: false
-    - token: '--component-meter-fill-short'
-      fields:
-        - variant
+        - height
       inCode: false
     - token: '--component-meter-radius'
       fields:
@@ -196,8 +169,7 @@ tokens:
         - fills
       inCode: false
   missingInCode:
-    - '--component-meter-fill-pass'
-    - '--component-meter-fill-short'
+    - '--component-meter-height'
     - '--component-meter-radius'
     - '--component-meter-target'
     - '--component-meter-track'

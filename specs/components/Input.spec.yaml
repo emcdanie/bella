@@ -126,7 +126,7 @@ anatomy:
       name: Value
       type: GUIDANCE
       at: centre
-      side: right
+      side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
     - 'n': 4
       name: Hint or error
@@ -136,7 +136,7 @@ anatomy:
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default, disabled=false, error=false, multiline=false
+    name: state=default, disabled=false, error=false, multiline=false, shape=default
     type: COMPONENT
     size: 320x134
     tokens:
@@ -174,6 +174,8 @@ anatomy:
         type: FRAME
         size: 320x60
         tokens:
+          - field: itemSpacing
+            variable: spacing/2
           - field: paddingLeft
             variable: spacing/4
           - field: paddingTop
@@ -185,20 +187,33 @@ anatomy:
           - field: height
             variable: size/control/input
           - field: topLeftRadius
-            variable: radius/md
+            variable: component/input/border-radius
           - field: topRightRadius
-            variable: radius/md
+            variable: component/input/border-radius
           - field: bottomLeftRadius
-            variable: radius/md
+            variable: component/input/border-radius
           - field: bottomRightRadius
-            variable: radius/md
+            variable: component/input/border-radius
+          - field: strokeTopWeight
+            variable: border/width/thin
+          - field: strokeBottomWeight
+            variable: border/width/thin
+          - field: strokeLeftWeight
+            variable: border/width/thin
+          - field: strokeRightWeight
+            variable: border/width/thin
           - field: minHeight
-            variable: spacing/touch-target
+            variable: component/input/min-height
           - field: fills
             variable: color/semantic/surface
           - field: strokes
             variable: color/semantic/border-strong
         children:
+          - name: Leading icon
+            type: INSTANCE
+            instanceOf: Icon
+            hidden: true
+            size: 20x20
           - name: Value
             type: TEXT
             text: you@studio.com
@@ -207,11 +222,33 @@ anatomy:
               - field: fills
                 variable: color/semantic/text-muted
               - field: fontSize
-                variable: typography/font-size/base
+                variable: component/input/font-size
               - field: fontFamily
                 variable: typography/font-family/body
               - field: fontWeight
                 variable: typography/font-weight/regular
+          - name: Send button
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: topLeftRadius
+                variable: radius/full
+              - field: topRightRadius
+                variable: radius/full
+              - field: bottomLeftRadius
+                variable: radius/full
+              - field: bottomRightRadius
+                variable: radius/full
+              - field: minHeight
+                variable: spacing/touch-target
+              - field: fills
+                variable: component/button/primary/fill-hi
+              - field: strokes
+                variable: component/button/primary/edge
       - name: HelperText
         type: INSTANCE
         instanceOf: HelperText
@@ -263,193 +300,193 @@ tokens:
       property: gap
       token: '--spacing-2'
       selector: .wrapper
-      at: src/components/Input/Input.module.css:20
+      at: src/components/Input/Input.module.css:19
     - part: label
       state: rest
       property: font-family
       token: '--typography-font-family-body'
       selector: .label
-      at: src/components/Input/Input.module.css:25
+      at: src/components/Input/Input.module.css:24
     - part: label
       state: rest
       property: font-size
       token: '--typography-font-size-tag'
       selector: .label
-      at: src/components/Input/Input.module.css:26
+      at: src/components/Input/Input.module.css:25
     - part: label
       state: rest
       property: font-weight
       token: '--typography-font-weight-bold'
       selector: .label
-      at: src/components/Input/Input.module.css:27
+      at: src/components/Input/Input.module.css:26
     - part: label
       state: rest
       property: letter-spacing
       token: '--typography-letter-spacing-normal'
       selector: .label
-      at: src/components/Input/Input.module.css:28
+      at: src/components/Input/Input.module.css:27
     - part: label
       state: rest
       property: color
       token: '--color-semantic-text-body'
       selector: .label
-      at: src/components/Input/Input.module.css:29
+      at: src/components/Input/Input.module.css:28
     - part: field
       state: rest
       property: font-family
       token: '--typography-font-family-body'
       selector: .field
-      at: src/components/Input/Input.module.css:36
+      at: src/components/Input/Input.module.css:35
     - part: field
       state: rest
       property: font-size
       token: '--component-input-font-size'
       selector: .field
-      at: src/components/Input/Input.module.css:37
+      at: src/components/Input/Input.module.css:36
     - part: field
       state: rest
       property: line-height
       token: '--typography-line-height-normal'
       selector: .field
-      at: src/components/Input/Input.module.css:38
+      at: src/components/Input/Input.module.css:37
     - part: field
       state: rest
       property: color
       token: '--color-semantic-text-primary'
       selector: .field
-      at: src/components/Input/Input.module.css:39
+      at: src/components/Input/Input.module.css:38
     - part: field
       state: rest
       property: background
       token: '--color-semantic-surface'
       selector: .field
-      at: src/components/Input/Input.module.css:40
+      at: src/components/Input/Input.module.css:39
     - part: field
       state: rest
       property: border
       token: '--color-semantic-border-strong'
       selector: .field
-      at: src/components/Input/Input.module.css:41
+      at: src/components/Input/Input.module.css:40
     - part: field
       state: rest
       property: border-radius
       token: '--component-input-border-radius'
       selector: .field
-      at: src/components/Input/Input.module.css:42
+      at: src/components/Input/Input.module.css:41
     - part: field
       state: rest
       property: padding
       token: '--spacing-3'
       selector: .field
-      at: src/components/Input/Input.module.css:43
+      at: src/components/Input/Input.module.css:42
     - part: field
       state: rest
       property: padding
       token: '--spacing-4'
       selector: .field
-      at: src/components/Input/Input.module.css:43
+      at: src/components/Input/Input.module.css:42
     - part: field
       state: rest
       property: min-height
       token: '--component-input-min-height'
       selector: .field
-      at: src/components/Input/Input.module.css:44
+      at: src/components/Input/Input.module.css:43
     - part: field
       state: rest
       property: color
       token: '--color-semantic-text-muted'
       selector: .field::placeholder
-      at: src/components/Input/Input.module.css:52
+      at: src/components/Input/Input.module.css:51
     - part: field
       state: focus-visible
       property: outline
       token: '--ring-focus-width'
       selector: .field:focus-visible, .field:focus
-      at: src/components/Input/Input.module.css:60
+      at: src/components/Input/Input.module.css:59
     - part: field
       state: focus-visible
       property: outline
       token: '--ring-focus-color'
       selector: .field:focus-visible, .field:focus
-      at: src/components/Input/Input.module.css:60
+      at: src/components/Input/Input.module.css:59
     - part: field
       state: focus-visible
       property: outline-offset
       token: '--ring-focus-offset'
       selector: .field:focus-visible, .field:focus
-      at: src/components/Input/Input.module.css:61
+      at: src/components/Input/Input.module.css:60
     - part: field
       state: focus-visible
       property: border-color
       token: '--color-semantic-border-ink'
       selector: .field:focus-visible, .field:focus
-      at: src/components/Input/Input.module.css:62
+      at: src/components/Input/Input.module.css:61
     - part: field
       state: disabled
       property: color
       token: '--color-semantic-text-muted'
       selector: .field:disabled
-      at: src/components/Input/Input.module.css:66
+      at: src/components/Input/Input.module.css:65
     - part: field
       state: disabled
       property: background
       token: '--color-semantic-surface-inset'
       selector: .field:disabled
-      at: src/components/Input/Input.module.css:67
+      at: src/components/Input/Input.module.css:66
     - part: field
       state: rest
       property: border-color
       token: '--color-semantic-danger-border'
       selector: .invalid .field
-      at: src/components/Input/Input.module.css:72
+      at: src/components/Input/Input.module.css:71
     - part: field
       state: rest
       property: box-shadow
       token: '--color-semantic-danger-border'
       selector: .invalid .field
-      at: src/components/Input/Input.module.css:73
+      at: src/components/Input/Input.module.css:72
     - part: hint
       state: rest
       property: font-size
       token: '--typography-font-size-sm'
       selector: .hint
-      at: src/components/Input/Input.module.css:78
+      at: src/components/Input/Input.module.css:77
     - part: hint
       state: rest
       property: color
       token: '--color-semantic-text-body'
       selector: .hint
-      at: src/components/Input/Input.module.css:79
+      at: src/components/Input/Input.module.css:78
     - part: error
       state: rest
       property: gap
       token: '--spacing-2'
       selector: .error
-      at: src/components/Input/Input.module.css:85
+      at: src/components/Input/Input.module.css:84
     - part: error
       state: rest
       property: font-size
       token: '--typography-font-size-sm'
       selector: .error
-      at: src/components/Input/Input.module.css:87
+      at: src/components/Input/Input.module.css:86
     - part: error
       state: rest
       property: font-weight
       token: '--typography-font-weight-medium'
       selector: .error
-      at: src/components/Input/Input.module.css:88
+      at: src/components/Input/Input.module.css:87
     - part: error
       state: rest
       property: color
       token: '--color-semantic-danger-text'
       selector: .error
-      at: src/components/Input/Input.module.css:89
+      at: src/components/Input/Input.module.css:88
     - part: errorIcon
       state: rest
       property: margin-top
       token: '--component-icon-size-sm'
       selector: .errorIcon
-      at: src/components/Input/Input.module.css:95
+      at: src/components/Input/Input.module.css:94
   values:
     '--color-semantic-border-ink':
       light: '#1d2030'
@@ -557,13 +594,13 @@ a11y:
           value: 3px
         - token: '--ring-focus-color'
           value: '#CF5A95'
-      at: src/components/Input/Input.module.css:60
+      at: src/components/Input/Input.module.css:59
     - property: outline-offset
       value: var(--ring-focus-offset)
       tokens:
         - token: '--ring-focus-offset'
           value: 3px
-      at: src/components/Input/Input.module.css:61
+      at: src/components/Input/Input.module.css:60
   disabled:
     prop: disabled
     at: src/components/Input/Input.tsx:24
@@ -812,6 +849,12 @@ figma:
     required#728:0:
       type: BOOLEAN
       default: false
+    Leading icon#810:858:
+      type: BOOLEAN
+      default: false
+    Send button#810:871:
+      type: BOOLEAN
+      default: false
     state:
       type: VARIANT
       default: default
@@ -836,12 +879,68 @@ figma:
       values:
         - 'false'
         - 'true'
-  variants: []
-  defaultVariant: state=default, disabled=false, error=false, multiline=false
-  annotations: []
+    shape:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - pill
+  variants:
+    - name: state=default, disabled=false, error=false, multiline=false, shape=default
+      width: 320
+      height: 134
+    - name: state=focus, disabled=false, error=false, multiline=false, shape=default
+      width: 320
+      height: 134
+    - name: state=default, disabled=true, error=false, multiline=false, shape=default
+      width: 320
+      height: 134
+    - name: state=default, disabled=false, error=true, multiline=false, shape=default
+      width: 320
+      height: 165
+    - name: state=default, disabled=false, error=false, multiline=true, shape=default
+      width: 320
+      height: 270
+    - name: state=focus, disabled=false, error=false, multiline=true, shape=default
+      width: 320
+      height: 270
+    - name: state=default, disabled=true, error=false, multiline=true, shape=default
+      width: 320
+      height: 270
+    - name: state=default, disabled=false, error=true, multiline=true, shape=default
+      width: 320
+      height: 301
+    - name: state=default, disabled=false, error=false, multiline=false, shape=pill
+      width: 320
+      height: 118
+    - name: state=focus, disabled=false, error=false, multiline=false, shape=pill
+      width: 320
+      height: 120
+    - name: state=default, disabled=true, error=false, multiline=false, shape=pill
+      width: 320
+      height: 120
+    - name: state=default, disabled=false, error=true, multiline=false, shape=pill
+      width: 320
+      height: 151
+  defaultVariant: state=default, disabled=false, error=false, multiline=false, shape=default
+  annotations:
+    - label: >-
+        Dev · <Input label value onChange hint error disabled required multiline />. Field: component/input/min-height 60
+        (size/control/input), border-strong 1px; focus adds border-ink under the 3px ring; error is a 2px danger-border (inset shadow);
+        multiline is a 196px textarea (5 rows).
+      category: '123:0'
+    - label: >-
+        A11y · Real <label for>. Errors: aria-invalid + role=alert via aria-describedby, plus the WarningCircle icon. Placeholder opacity
+        reset so 8.53:1 holds in Firefox. 60px min height.
+      category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-input--docs
 mismatch:
+  - field: props.shape
+    code: no such prop
+    figma:
+      - default
+      - pill
   - field: props.type
     code:
       - text
@@ -873,23 +972,32 @@ mismatch:
       - '--component-icon-size-sm'
     figma: size/control/input
     sameValueInChip: true
-  - field: tokens.Field.radius
+  - field: tokens.Send button.radius
     code:
       - '--component-input-border-radius'
-    figma: radius/md
+    figma: radius/full
     sameValueInChip: false
-  - field: tokens.Field.minHeight
+  - field: tokens.Send button.minHeight
     code:
       - '--component-input-min-height'
     figma: spacing/touch-target
     sameValueInChip: false
-  - field: tokens.Value.fontSize
+  - field: tokens.Send button.fills
     code:
-      - '--typography-font-size-tag'
-      - '--component-input-font-size'
-      - '--typography-font-size-sm'
-    figma: typography/font-size/base
-    sameValueInChip: true
+      - '--color-semantic-text-body'
+      - '--color-semantic-text-primary'
+      - '--color-semantic-surface'
+      - '--color-semantic-text-muted'
+      - '--color-semantic-danger-text'
+    figma: component/button/primary/fill-hi
+    sameValueInChip: false
+  - field: tokens.Send button.strokes
+    code:
+      - '--color-semantic-border-strong'
+      - '--component-input-border-radius'
+      - '--color-semantic-danger-border'
+    figma: component/button/primary/edge
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Input/Input.tsx

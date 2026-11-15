@@ -192,7 +192,100 @@ anatomy:
       layer: Icon
       at: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma: null
+  figma:
+    name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+    type: COMPONENT
+    size: 93x44
+    tokens:
+      - field: itemSpacing
+        variable: spacing/2
+      - field: paddingLeft
+        variable: component/button/secondary/padding-x
+      - field: paddingTop
+        variable: component/button/secondary/padding-y
+      - field: paddingRight
+        variable: component/button/secondary/padding-x
+      - field: paddingBottom
+        variable: component/button/secondary/padding-y
+      - field: topLeftRadius
+        variable: component/button/shape/default
+      - field: topRightRadius
+        variable: component/button/shape/default
+      - field: bottomLeftRadius
+        variable: component/button/shape/default
+      - field: bottomRightRadius
+        variable: component/button/shape/default
+      - field: minHeight
+        variable: component/button/secondary/min-height
+      - field: fills
+        variable: component/button/secondary/background
+      - field: strokes
+        variable: component/button/secondary/border
+    children:
+      - name: Roll
+        type: FRAME
+        size: 53x22
+        children:
+          - name: Label row
+            type: FRAME
+            size: 53x22
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+            children:
+              - name: Leading icon
+                type: INSTANCE
+                instanceOf: Icon
+                hidden: true
+                size: 20x20
+              - name: Label
+                type: TEXT
+                text: Button
+                size: 53x22
+                tokens:
+                  - field: fills
+                    variable: component/button/secondary/foreground
+                  - field: fontSize
+                    variable: component/button/primary/font-size
+                  - field: fontFamily
+                    variable: component/button/primary/font-family
+                  - field: fontWeight
+                    variable: component/button/primary/font-weight
+              - name: Icon
+                type: INSTANCE
+                instanceOf: Icon
+                hidden: true
+                size: 20x20
+          - name: Copy row
+            type: FRAME
+            size: 53x22
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+            children:
+              - name: Leading icon
+                type: INSTANCE
+                instanceOf: Icon
+                hidden: true
+                size: 20x20
+              - name: Copy
+                type: TEXT
+                text: Button
+                size: 53x22
+                tokens:
+                  - field: fills
+                    variable: color/semantic/text-accent
+                  - field: fontSize
+                    variable: typography/font-size/tag
+                  - field: fontFamily
+                    variable: typography/font-family/body
+                  - field: fontWeight
+                    variable: typography/font-weight/semibold
+              - name: Icon
+                type: INSTANCE
+                instanceOf: Icon
+                hidden: true
+                size: 20x20
   code:
     - key: shadow
       title: Shadow
@@ -1094,11 +1187,428 @@ usage:
     - 'Do not lift a button on hover: lift is reserved for cards; hover is the label roll'
     - 'Do not add the trace ring to a button: the trace is Card''s affordance'
   source: tokens/component.json
-figma: null
+figma:
+  nodeId: '26:320'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#26:0:
+      type: TEXT
+      default: Button
+    Icon#433:5:
+      type: INSTANCE_SWAP
+      default: '796:9513'
+    Show icon#439:26:
+      type: BOOLEAN
+      default: false
+    Leading icon#804:2:
+      type: BOOLEAN
+      default: false
+    variant:
+      type: VARIANT
+      default: secondary
+      values:
+        - primary
+        - secondary
+        - tertiary
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - hover
+        - active
+        - focus
+    iconOnly:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    shape:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - pill
+    size:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - sm
+    disabled:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=active, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=primary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=active, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=default, iconOnly=false, shape=default, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=active, iconOnly=false, shape=default, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=hover, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=focus, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=active, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=default, disabled=true
+      width: 44
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
+      width: 93
+      height: 44
+    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
+      width: 93
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=hover, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=focus, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=active, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=default, disabled=true
+      width: 44
+      height: 44
+    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=primary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=hover, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=focus, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=active, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=sm, disabled=true
+      width: 36
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
+      width: 81
+      height: 36
+    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
+      width: 81
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=hover, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=focus, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=active, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=sm, disabled=true
+      width: 36
+      height: 36
+    - name: variant=primary, state=default, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=hover, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=focus, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=active, iconOnly=true, shape=default, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=default, iconOnly=true, shape=default, size=default, disabled=true
+      width: 44
+      height: 44
+    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=hover, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=focus, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=active, iconOnly=true, shape=pill, size=default, disabled=false
+      width: 44
+      height: 44
+    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=default, disabled=true
+      width: 44
+      height: 44
+    - name: variant=primary, state=default, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=hover, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=focus, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=active, iconOnly=true, shape=default, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=default, iconOnly=true, shape=default, size=sm, disabled=true
+      width: 36
+      height: 36
+    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=hover, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=focus, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=active, iconOnly=true, shape=pill, size=sm, disabled=false
+      width: 36
+      height: 36
+    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=sm, disabled=true
+      width: 36
+      height: 36
+  defaultVariant: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+  annotations:
+    - label: >-
+        Hover + focus-visible: the label rolls up and an aria-hidden copy rolls in, motion/duration/normal (250ms) on motion/easing/out. The
+        colour shifts on every tier over motion/duration/fast (150ms) on motion/easing/standard: primary plate one step lighter, secondary
+        fill and border, tertiary colour and a 2px underline. Never lifts. Disabled buttons don't roll.
+
+        Reduced motion: no roll; the colour shift stays (instant on primary).
+      category: '123:4'
+    - label: >-
+        Active, primary only: presses down 2px (motion/transform/key-press) over motion/duration/fast on motion/easing/standard. No shadow:
+        shadow/key-pressed is none. Secondary settles onto its active fill and does not move.
+
+        Reduced motion: no press.
+      category: '123:4'
+    - label: >-
+        <Button variant size shape iconOnly href onClick type disabled ariaLabel ariaExpanded ariaHaspopup> ·
+        src/components/Button/Button.tsx. Defaults: variant secondary, type button. Min height 44 (spacing/touch-target); size="sm" is a 36
+        box that keeps a 44 tap area; iconOnly is a 44 circle. Corners: 12 in every theme (radius/lg via component/button/shape/default);
+        Chip stays 12, not a pill (Elleta, 13 Nov: "Keep 12").
+      category: '123:0'
+    - label: >-
+        Role and name: a native <button> (type button), or one <a> when href is set; external links open in a new tab with rel="noopener
+        noreferrer". The name is the visible label (the rolling copy is aria-hidden), or ariaLabel when set; icon-only buttons need
+        ariaLabel. aria-expanded and aria-haspopup="dialog" apply to buttons only.
+
+        Keyboard: native: Tab to reach, Enter or Space on a button, Enter on a link.
+
+        Focus: focus-visible only, 3px ring (ring/focus-width) at 3px offset (ring/focus-offset) in color/semantic/focus-ring, pink in Chip
+        (#CF5A95), even on all four sides of the primary.
+
+        Disabled: native disabled, buttons only (links ignore it): not-allowed cursor, text-muted on surface-inset, no roll, no press.
+
+        Target: 44px; size="sm" keeps 44 with an invisible hit area.
+
+        Build note: focus ring: stroke ring/focus-width, sits ring/focus-offset outside the control (placed by hand; Figma cannot bind
+        position).
+      category: '123:2'
+  documentationLinks:
+    - https://emcdanie.github.io/bella/?path=/docs/components-button--docs
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.type
+    code:
+      - button
+      - submit
+    figma: no such variant property
+  - field: props.ariaExpanded
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Copy.fills
+    code:
+      - '--component-button-primary-foreground'
+      - '--component-button-primary-gloss'
+      - '--component-button-primary-fill-hi'
+      - '--component-button-primary-fill-lo'
+      - '--component-button-secondary-foreground'
+      - '--component-button-secondary-background'
+      - '--component-button-tertiary-foreground'
+      - '--component-button-tertiary-background'
+    figma: color/semantic/text-accent
+    sameValueInChip: true
+  - field: tokens.Copy.fontSize
+    code:
+      - '--component-button-primary-font-size'
+    figma: typography/font-size/tag
+    sameValueInChip: true
 notApplicable: []
 guidance:
   lead: Starts an action. Three tiers, one primary per view.

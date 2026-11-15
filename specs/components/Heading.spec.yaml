@@ -104,7 +104,7 @@ anatomy:
     children:
       - name: Heading
         type: TEXT
-        text: Design systems that ship
+        text: Clear
         size: 880x46
         tokens:
           - field: fills
@@ -364,16 +364,16 @@ figma:
       height: 46
     - name: tier=hero, accent=off
       width: 880
-      height: 188
+      height: 94
     - name: tier=hero, accent=on
       width: 880
-      height: 282
+      height: 94
     - name: tier=page, accent=off
       width: 880
       height: 69
     - name: tier=page, accent=on
       width: 880
-      height: 138
+      height: 69
     - name: tier=subsection, accent=off
       width: 880
       height: 28
@@ -382,9 +382,14 @@ figma:
       height: 28
   defaultVariant: tier=section, accent=off
   annotations:
-    - label: Dev · <Heading tier as accent after />. Newsreader 500.
+    - label: >-
+        Dev · <Heading tier as accent after />. Newsreader 500 (component/heading/font-family, weight 500); letter-spacing and line-height
+        1.15 from component/heading/*; sizes come from the text styles (Chip: hero fluid, page 40, section 32, subsection 24). Default tier
+        is section (Heading.tsx:5).
       category: '123:0'
-    - label: A11y · Level comes from as (h1-h3), not from tier. Accent run is text-body.
+    - label: >-
+        A11y · Level comes from as (h1-h3), not from tier. Accent run is text-body, 12.42:1 on the page, 13.32:1 on a card (Chip). Never
+        below 32px.
       category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-heading--docs

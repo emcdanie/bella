@@ -31,22 +31,25 @@ props:
       - git
       - claude
     default: inverse
+  - name: size
+    figmaName: size
+    type: enum
+    values:
+      - md
+      - sm
+    default: md
 variants:
-  count: 4
-  default: tone=inverse
+  count: 8
+  default: tone=inverse, size=md
   names:
-    - tone=inverse
-    - tone=outline
-    - tone=git
-    - tone=claude
-  addTokens:
-    tone=outline:
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-    tone=git:
-      - '--color-semantic-brand-git'
-    tone=claude:
-      - '--color-semantic-brand-claude'
+    - tone=inverse, size=md
+    - tone=outline, size=md
+    - tone=git, size=md
+    - tone=claude, size=md
+    - tone=inverse, size=sm
+    - tone=outline, size=sm
+    - tone=git, size=sm
+    - tone=claude, size=sm
 composedOf:
   - Icon
 anatomy:
@@ -56,18 +59,18 @@ anatomy:
       type: INSTANCE
       instanceOf: Icon
   figma:
-    name: tone=inverse
+    name: tone=inverse, size=md
     type: COMPONENT
     size: 44x44
     tokens:
       - field: topLeftRadius
-        token: '--radius-sm'
+        token: '--component-app-tile-radius'
       - field: topRightRadius
-        token: '--radius-sm'
+        token: '--component-app-tile-radius'
       - field: bottomLeftRadius
-        token: '--radius-sm'
+        token: '--component-app-tile-radius'
       - field: bottomRightRadius
-        token: '--radius-sm'
+        token: '--component-app-tile-radius'
       - field: fills
         token: '--color-semantic-surface-inverse'
     children:
@@ -81,40 +84,65 @@ anatomy:
         type: INSTANCE
         instanceOf: Tag
         hidden: true
+        size: 139x26
         boundToProps:
           visible: showBadge
+        tokens:
+          - field: paddingLeft
+            token: '--component-tag-count-padding-x'
+          - field: paddingRight
+            token: '--component-tag-count-padding-x'
+          - field: topLeftRadius
+            token: '--component-tag-count-border-radius'
+          - field: topRightRadius
+            token: '--component-tag-count-border-radius'
+          - field: bottomLeftRadius
+            token: '--component-tag-count-border-radius'
+          - field: bottomRightRadius
+            token: '--component-tag-count-border-radius'
+          - field: fills
+            token: '--component-tag-count-background'
+          - field: strokes
+            token: '--component-tag-count-border'
 tokens:
   used:
-    - token: '--color-semantic-border-subtle'
-      fields:
-        - variant
-      inCode: true
-    - token: '--color-semantic-brand-claude'
-      fields:
-        - variant
-      inCode: false
-    - token: '--color-semantic-brand-git'
-      fields:
-        - variant
-      inCode: false
-    - token: '--color-semantic-surface-card'
-      fields:
-        - variant
-      inCode: true
     - token: '--color-semantic-surface-inverse'
       fields:
         - fills
       inCode: true
-    - token: '--radius-sm'
+    - token: '--component-app-tile-radius'
       fields:
         - topLeftRadius
         - topRightRadius
         - bottomLeftRadius
         - bottomRightRadius
-      inCode: true
+      inCode: false
+    - token: '--component-tag-count-background'
+      fields:
+        - fills
+      inCode: false
+    - token: '--component-tag-count-border'
+      fields:
+        - strokes
+      inCode: false
+    - token: '--component-tag-count-border-radius'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: false
+    - token: '--component-tag-count-padding-x'
+      fields:
+        - paddingLeft
+        - paddingRight
+      inCode: false
   missingInCode:
-    - '--color-semantic-brand-claude'
-    - '--color-semantic-brand-git'
+    - '--component-app-tile-radius'
+    - '--component-tag-count-background'
+    - '--component-tag-count-border'
+    - '--component-tag-count-border-radius'
+    - '--component-tag-count-padding-x'
   raw: []
 description: >-
   A connected app or service on CHIP Connectors: its icon on a 44px tile, with an optional badge (CLI, API, KEY). Inverse, git and claude

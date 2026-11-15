@@ -134,19 +134,28 @@ anatomy:
     name: variant=default, state=resting, padding=default, Clip content=true
     type: COMPONENT
     size: 320x387
+    tokens:
+      - field: effects
+        variable:
+          - component/card/shadow-2/blur
+          - component/card/shadow-1/color
+          - component/card/shadow-1/blur
+          - component/card/shadow-2/y
+          - component/card/shadow-1/y
+          - component/card/shadow-2/color
     children:
       - name: Surface
         type: FRAME
         size: 320x387
         tokens:
           - field: topLeftRadius
-            variable: radius/card
+            variable: component/card/radius
           - field: topRightRadius
-            variable: radius/card
+            variable: component/card/radius
           - field: bottomLeftRadius
-            variable: radius/card
+            variable: component/card/radius
           - field: bottomRightRadius
-            variable: radius/card
+            variable: component/card/radius
           - field: fills
             variable: color/semantic/surface-card
           - field: strokes
@@ -186,11 +195,11 @@ anatomy:
               - field: fills
                 variable: color/semantic/text-primary
               - field: fontSize
-                variable: typography/font-size/xl
+                variable: component/card/title/font-size
               - field: fontFamily
                 variable: typography/font-family/body
               - field: fontWeight
-                variable: typography/font-weight/bold
+                variable: component/card/title/font-weight
           - name: Text
             type: TEXT
             text: One or two lines of supporting text on the card surface.
@@ -198,8 +207,12 @@ anatomy:
             tokens:
               - field: fills
                 variable: color/semantic/text-secondary
+              - field: fontSize
+                variable: component/card/description/font-size
               - field: fontFamily
                 variable: typography/font-family/body
+              - field: lineHeight
+                variable: component/card/description/line-height
               - field: fontWeight
                 variable: typography/font-weight/regular
           - name: Content
@@ -686,6 +699,7 @@ figma:
       values:
         - default
         - flush
+        - compact
     Clip content:
       type: VARIANT
       default: 'true'
@@ -777,6 +791,42 @@ figma:
     - name: variant=inverse, state=resting, padding=default, Clip content=false
       width: 320
       height: 379
+    - name: variant=default, state=resting, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=default, state=hover, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=default, state=focus, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=peek, state=resting, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=peek, state=hover, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=peek, state=focus, padding=compact, Clip content=true
+      width: 320
+      height: 337
+    - name: variant=default, state=resting, padding=compact, Clip content=false
+      width: 320
+      height: 337
+    - name: variant=default, state=hover, padding=compact, Clip content=false
+      width: 320
+      height: 337
+    - name: variant=default, state=focus, padding=compact, Clip content=false
+      width: 320
+      height: 337
+    - name: variant=peek, state=resting, padding=compact, Clip content=false
+      width: 320
+      height: 337
+    - name: variant=peek, state=hover, padding=compact, Clip content=false
+      width: 320
+      height: 337
+    - name: variant=peek, state=focus, padding=compact, Clip content=false
+      width: 320
+      height: 337
   defaultVariant: variant=default, state=resting, padding=default, Clip content=true
   annotations:
     - label: >-
@@ -812,6 +862,7 @@ mismatch:
     figma:
       - default
       - flush
+      - compact
   - field: props.Clip content
     code: no such prop
     figma:
@@ -820,6 +871,149 @@ mismatch:
   - field: props.mediaScrim
     code: boolean prop
     figma: not in the set
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-2/blur
+    sameValueInChip: false
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-1/color
+    sameValueInChip: false
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-1/blur
+    sameValueInChip: true
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-2/y
+    sameValueInChip: false
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-1/y
+    sameValueInChip: false
+  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
+    code:
+      - '--radius-card'
+      - '--shadow-card'
+      - '--component-card-trace-width'
+      - '--color-semantic-surface-card'
+      - '--color-semantic-border-subtle'
+      - '--layout-card-padding'
+      - '--color-neutral-paper'
+      - '--color-brand-ink'
+      - '--color-neutral-ink-muted'
+      - '--color-neutral-ink-soft'
+      - '--color-neutral-ink-faint'
+      - '--color-neutral-border'
+      - '--color-alpha-ink-6'
+      - '--color-alpha-ink-10'
+      - '--color-neutral-surface'
+      - '--color-semantic-border-faint'
+      - '--motion-duration-lift'
+      - '--motion-easing-standard'
+      - '--spacing-2'
+    figma: component/card/shadow-2/color
+    sameValueInChip: false
+  - field: tokens.Surface.radius
+    code:
+      - '--radius-card'
+    figma: component/card/radius
+    sameValueInChip: false
   - field: tokens.Body.paddingLeft
     code:
       - '--layout-card-padding'

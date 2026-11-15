@@ -63,6 +63,8 @@ anatomy:
         token: '--component-toast-radius'
       - field: fills
         token: '--component-toast-background'
+      - field: effects
+        token: '--component-toast-shadow-y --component-toast-shadow-blur --component-toast-shadow-color'
     children:
       - name: Message
         type: TEXT
@@ -83,8 +85,55 @@ anatomy:
         size: 81x44
         boundToProps:
           visible: showAction
+        tokens:
+          - field: itemSpacing
+            token: '--spacing-2'
+          - field: paddingLeft
+            token: '--component-button-secondary-padding-x'
+          - field: paddingTop
+            token: '--component-button-secondary-padding-y'
+          - field: paddingRight
+            token: '--component-button-secondary-padding-x'
+          - field: paddingBottom
+            token: '--component-button-secondary-padding-y'
+          - field: topLeftRadius
+            token: '--radius-full'
+          - field: topRightRadius
+            token: '--radius-full'
+          - field: bottomLeftRadius
+            token: '--radius-full'
+          - field: bottomRightRadius
+            token: '--radius-full'
+          - field: minHeight
+            token: '--component-button-secondary-min-height'
+          - field: fills
+            token: '--component-toast-action-background'
+          - field: strokes
+            token: '--component-toast-action-border'
 tokens:
   used:
+    - token: '--component-button-secondary-min-height'
+      fields:
+        - minHeight
+      inCode: true
+    - token: '--component-button-secondary-padding-x'
+      fields:
+        - paddingLeft
+        - paddingRight
+      inCode: true
+    - token: '--component-button-secondary-padding-y'
+      fields:
+        - paddingTop
+        - paddingBottom
+      inCode: true
+    - token: '--component-toast-action-background'
+      fields:
+        - fills
+      inCode: false
+    - token: '--component-toast-action-border'
+      fields:
+        - strokes
+      inCode: false
     - token: '--component-toast-background'
       fields:
         - fills
@@ -114,6 +163,29 @@ tokens:
         - bottomLeftRadius
         - bottomRightRadius
       inCode: false
+    - token: '--component-toast-shadow-blur'
+      fields:
+        - effects
+      inCode: false
+    - token: '--component-toast-shadow-color'
+      fields:
+        - effects
+      inCode: false
+    - token: '--component-toast-shadow-y'
+      fields:
+        - effects
+      inCode: false
+    - token: '--radius-full'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--spacing-2'
+      fields:
+        - itemSpacing
+      inCode: true
     - token: '--typography-font-size-body'
       fields:
         - fontSize
@@ -123,12 +195,17 @@ tokens:
         - fontWeight
       inCode: true
   missingInCode:
+    - '--component-toast-action-background'
+    - '--component-toast-action-border'
     - '--component-toast-background'
     - '--component-toast-foreground'
     - '--component-toast-gap'
     - '--component-toast-padding-x'
     - '--component-toast-padding-y'
     - '--component-toast-radius'
+    - '--component-toast-shadow-blur'
+    - '--component-toast-shadow-color'
+    - '--component-toast-shadow-y'
   raw: []
 description: >-
   Toast: a short confirmation at the bottom of the work area after an action, with at most one action (Undo or Stop). role="status". Never

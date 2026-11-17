@@ -3,10 +3,12 @@ import { patternShapesWith, GLYPHS, LOCK, wordPaths, type Shape, type PatternCol
 
 /* The brand pattern for the components (brand refresh, 2026-09-22). The
  * generator lives in pattern-core.mjs, shared with scripts/build-favicons.mjs;
- * this module feeds it the color.pattern.* tokens, never literals. */
+ * this module feeds it the color.background.pattern.* tokens, never literals. */
 
 type Tok = { $value: string };
-const P = (tokens as unknown as { primitive: { color: { pattern: Record<string, Tok> } } }).primitive.color.pattern;
+/* the brand pattern is Tier 2 in Figma (color/background/pattern); BELLA light values */
+const T = (tokens as unknown as { themes: Record<string, Record<string, Tok>> }).themes['bella-light'];
+const P = new Proxy({} as Record<string, Tok>, { get: (_, k) => T[`color.background.pattern.${String(k)}`] });
 
 export const PATTERN_COLORS: PatternColors = {
   ochre: P.ground.$value,

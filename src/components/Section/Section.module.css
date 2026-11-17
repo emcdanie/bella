@@ -7,11 +7,11 @@
   gap: var(--layout-stack-sm);
   min-width: 0;
   /* an anchored section clears a sticky header */
-  scroll-margin-block-start: calc(var(--header-height) + var(--layout-stack-lg));
+  scroll-margin-block-start: calc(var(--spacing-64) + var(--layout-stack-lg));
 }
 
 .section + .section {
-  margin-block-start: var(--component-section-space);
+  margin-block-start: var(--layout-section-space);
 }
 
 .head {
@@ -25,12 +25,12 @@
 .heading {
   margin: 0;
   min-width: 0;
-  font-family: var(--typography-font-family-display);
-  font-size: var(--component-section-heading-font-size);
-  font-weight: var(--component-section-heading-font-weight);
-  line-height: var(--typography-line-height-heading);
-  letter-spacing: var(--component-section-heading-letter-spacing);
-  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-newsreader);
+  font-size: var(--typography-font-size-display-section);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-115);
+  letter-spacing: var(--typography-letter-spacing-minus-1-half);
+  color: var(--color-content-default);
   text-wrap: balance;
 }
 
@@ -44,14 +44,14 @@
 .lede {
   margin: 0;
   max-width: var(--layout-measure-body);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-body);
-  line-height: var(--typography-line-height-normal);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
   text-wrap: pretty;
 }
 
 .body {
-  margin-block-start: calc(var(--component-section-body-gap) - var(--layout-stack-sm));
+  margin-block-start: calc(var(--layout-stack-lg) - var(--layout-stack-sm));
   min-width: 0;
 }

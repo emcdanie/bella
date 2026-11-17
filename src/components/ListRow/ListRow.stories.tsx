@@ -5,7 +5,7 @@ import ListRow, { ListRowGroup } from './ListRow';
 import Button from '../Button/Button';
 import StatusPill from '../StatusPill/StatusPill';
 import cssRaw from './ListRow.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -69,7 +69,7 @@ export const WorkList: Story = {
 /** In a narrow frame the same rows stack, with no sideways scroll. */
 export const Narrow: Story = {
   render: () => (
-    <div style={{ maxWidth: 'calc(var(--spacing-20) * 4)' }}>
+    <div style={{ maxWidth: 'calc(var(--spacing-80) * 4)' }}>
       <ListRowGroup ariaLabel="What to do next, narrow">{rows}</ListRowGroup>
     </div>
   ),

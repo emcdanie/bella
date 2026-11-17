@@ -32,13 +32,13 @@
 }
 
 .cover {
-  height: var(--component-resource-card-default-cover-height);
+  height: calc(2.5 * var(--spacing-80));
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
   /* Fixed-context dark surface in BOTH themes, like Card's peek in reverse.
      Navy, never black. */
-  background: var(--component-resource-card-default-cover-background);
+  background: var(--color-background-knockout);
 }
 
 .cover > :global(img),
@@ -54,7 +54,7 @@
 .body {
   position: relative;
   z-index: 1;
-  margin-top: calc(-1 * var(--component-resource-card-default-sheet-overlap));
+  margin-top: calc(-1 * var(--spacing-48));
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -70,20 +70,20 @@
 .tab {
   display: flex;
   align-items: center;
-  background: var(--color-semantic-surface);
-  border-radius: var(--component-resource-card-default-tab-radius)
-    var(--component-resource-card-default-tab-radius) 0 0;
-  padding: var(--component-resource-card-default-tab-padding-top)
-    var(--component-resource-card-default-tab-padding-x) 0;
+  background: var(--color-background-surface);
+  border-radius: var(--border-radius-16)
+    var(--border-radius-16) 0 0;
+  padding: var(--spacing-8)
+    var(--spacing-12) 0;
 }
 
 .tabLabel {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-resource-card-default-tab-font-size);
-  font-weight: var(--component-resource-card-default-tab-font-weight);
-  letter-spacing: var(--component-resource-card-default-tab-letter-spacing);
-  line-height: var(--typography-line-height-normal);
-  color: var(--component-resource-card-default-tab-foreground);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-700);
+  letter-spacing: var(--typography-letter-spacing-0);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-body);
   white-space: nowrap;
 }
 
@@ -99,14 +99,14 @@
  * The 1px inset and 0.5px overlap on the stops are anti-aliasing, not design
  * values: they keep the arc from fringing against the cover. */
 .notch {
-  width: var(--component-resource-card-default-notch-size);
-  height: var(--component-resource-card-default-notch-size);
+  width: var(--border-radius-16);
+  height: var(--border-radius-16);
   flex-shrink: 0;
   align-self: flex-end;
   background: radial-gradient(
     circle at 100% 0,
-    transparent calc(var(--component-resource-card-default-notch-size) - 1px),
-    var(--color-semantic-surface) calc(var(--component-resource-card-default-notch-size) + 0.5px)
+    transparent calc(var(--border-radius-16) - 1px),
+    var(--color-background-surface) calc(var(--border-radius-16) + 0.5px)
   );
 }
 
@@ -118,30 +118,30 @@
 /* Top-RIGHT corner only: it completes the curve on the far side of the
    notch, so the fold reads as one continuous edge. */
 .content {
-  background: var(--color-semantic-surface);
-  border-top-right-radius: var(--component-resource-card-default-tab-radius);
-  padding: var(--component-resource-card-default-body-padding);
+  background: var(--color-background-surface);
+  border-top-right-radius: var(--border-radius-16);
+  padding: var(--spacing-20);
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .title {
-  margin: 0 0 var(--spacing-2);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-resource-card-default-title-font-size);
-  font-weight: var(--component-resource-card-default-title-font-weight);
-  letter-spacing: var(--component-resource-card-default-title-letter-spacing);
-  line-height: var(--typography-line-height-snug);
-  color: var(--component-resource-card-default-title-foreground);
+  margin: 0 0 var(--spacing-8);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-22);
+  font-weight: var(--typography-font-weight-600);
+  letter-spacing: var(--typography-letter-spacing-0);
+  line-height: var(--typography-line-height-130);
+  color: var(--color-content-default);
 }
 
 .description {
   margin: 0;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-resource-card-default-description-font-size);
-  line-height: var(--typography-line-height-normal);
-  color: var(--component-resource-card-default-description-foreground);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-body);
   /* Two lines, then it stops. Write to two. */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -151,41 +151,41 @@
 
 .footer {
   margin-top: auto;
-  padding-top: var(--spacing-4);
-  border-top: 1px solid var(--component-resource-card-default-divider-color);
+  padding-top: var(--spacing-16);
+  border-top: 1px solid var(--color-border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
+  gap: var(--spacing-12);
   flex-wrap: wrap;
 }
 
 .status {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-resource-card-default-meta-font-size);
-  color: var(--component-resource-card-default-meta-foreground);
+  gap: var(--spacing-8);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  color: var(--color-content-body);
 }
 
 /* Neutral pending issue #1. When the status ladder lands, this token gains
    per-state values and nothing else about the card changes. */
 .dot {
-  width: var(--component-resource-card-default-status-dot-size);
-  height: var(--component-resource-card-default-status-dot-size);
-  border-radius: var(--radius-full);
-  background: var(--component-resource-card-default-status-dot-color);
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-content-subtle);
   flex-shrink: 0;
 }
 
 .action {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-1);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-resource-card-default-action-font-size);
-  font-weight: var(--component-resource-card-default-action-font-weight);
-  color: var(--component-resource-card-default-action-foreground);
+  gap: var(--spacing-4);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-accent);
   white-space: nowrap;
 }

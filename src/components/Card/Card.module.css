@@ -19,9 +19,9 @@
 
 .card {
   position: relative;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  --trace-w: var(--component-card-trace-width); /* reserved ring thickness; keeps hover layout-stable */
+  border-radius: var(--border-radius-card);
+  box-shadow: var(--shadow-card-ink);
+  --trace-w: var(--border-width-4); /* reserved ring thickness; keeps hover layout-stable */
 }
 
 /* Inner panel, THEME-AWARE by default: surface-card flips with the theme,
@@ -35,9 +35,9 @@
      card's bottom/right corner). The component must not depend on a
      consumer's global reset. */
   box-sizing: border-box;
-  background: var(--color-semantic-surface-card);
-  border: 1px solid var(--color-semantic-border-subtle);
-  border-radius: var(--radius-card);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
   padding: var(--layout-card-padding);
 }
 
@@ -48,24 +48,23 @@
  * light panel. Custom properties resolve at the element they are declared
  * on, so this covers all descendants. */
 .innerPeek {
-  background: var(--color-neutral-paper);
-  color: var(--color-brand-ink);
-  --color-semantic-text-primary: var(--color-brand-ink);
-  --color-semantic-text-secondary: var(--color-neutral-ink-muted);
-  --color-semantic-text-body: var(--color-neutral-ink-soft);
-  --color-semantic-text-muted: var(--color-neutral-ink-faint);
-  --color-semantic-border: var(--color-neutral-border);
-  --color-semantic-border-subtle: var(--color-alpha-ink-6);
-  --color-semantic-border-faint: var(--color-alpha-ink-10);
-  --color-semantic-surface-inset: var(--color-neutral-surface);
-  border-color: var(--color-semantic-border-faint);
+  /* the BELLA light values of each re-scoped token (Figma Foundations) */
+  background: var(--color-brand-stone-100);
+  color: var(--color-neutral-900);
+  --color-content-default: var(--color-neutral-900);
+  --color-content-subtle: var(--color-neutral-700);
+  --color-content-body: var(--color-neutral-800);
+  --color-border-default: var(--color-neutral-100);
+  --color-border-subtle: var(--color-neutral-100);
+  --color-background-subtle: var(--color-neutral-100);
+  border-color: var(--color-border-subtle);
 }
 
 /* Peek stays flat at rest: the rest shadow is re-scoped to none on its
  * outer element, the same way the inner panel re-scopes its inks. Hover
  * and focus on an interactive peek still bring shadow.hover. */
 .peek {
-  --shadow-card: none;
+  --shadow-card-ink: none;
 }
 
 /* Interactive cards: single anchor/button, unmistakably clickable */
@@ -83,19 +82,19 @@
   margin: 0;
   font: inherit;
   transition:
-    transform var(--motion-duration-lift) var(--motion-easing-standard),
-    box-shadow var(--motion-duration-lift) var(--motion-easing-standard);
+    transform var(--motion-duration-200) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-200) var(--motion-easing-standard);
 }
 
 .interactive:hover,
 .interactive:focus-visible {
-  transform: var(--motion-transform-hover-lift);
+  transform: translateY(calc(-1 * var(--border-width-2)));
   box-shadow: var(--shadow-hover);
 }
 
 .interactive:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Media variant: full-bleed cover above the padded body. The cover slot
@@ -114,7 +113,7 @@
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: var(--color-semantic-surface-card);
+  background: var(--color-background-surface);
 }
 
 .media > :global(img),
@@ -129,7 +128,7 @@
   padding: var(--layout-card-padding);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
 }
 
 /* Reduced motion: no lift; the hover shadow still marks the state */

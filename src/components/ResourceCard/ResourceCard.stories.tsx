@@ -7,7 +7,7 @@ import ResourceCard from './ResourceCard';
    transparent background instead of the tab's */
 import styles from './ResourceCard.module.css';
 import resourceCardCssRaw from './ResourceCard.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -26,17 +26,17 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
-      padding: 'var(--spacing-4)',
-      gap: 'var(--spacing-3)',
+      padding: 'var(--spacing-16)',
+      gap: 'var(--spacing-12)',
     }}
   >
-    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-2)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-8)' }}>
       <span
         style={{
-          fontFamily: 'var(--typography-font-family-mono)',
-          fontSize: 'var(--typography-font-size-mono)',
-          fontFeatureSettings: 'var(--typography-font-feature-mono)',
-          color: 'var(--color-dark-muted)',
+          fontFamily: 'var(--typography-font-family-geist-mono)',
+          fontSize: 'var(--typography-font-size-16)',
+          fontFeatureSettings: 'var(--typography-font-feature-ss09)',
+          color: 'var(--color-neutral-300)',
         }}
       >
         {filename}
@@ -45,13 +45,13 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
     <div
       style={{
         flex: 1,
-        borderRadius: 'var(--radius-md)',
-        background: 'var(--color-dark-surface)',
-        border: '1px solid var(--color-dark-line)',
-        padding: 'var(--spacing-4)',
+        borderRadius: 'var(--border-radius-8)',
+        background: 'var(--color-neutral-900)',
+        border: '1px solid var(--color-neutral-800)',
+        padding: 'var(--spacing-16)',
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--spacing-3)',
+        gap: 'var(--spacing-12)',
       }}
     >
       {[92, 74, 60].map((w) => (
@@ -59,20 +59,20 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
           key={w}
           style={{
             display: 'block',
-            height: 'var(--spacing-2)',
+            height: 'var(--spacing-8)',
             width: `${w}%`,
-            borderRadius: 'var(--radius-full)',
-            background: 'var(--color-dark-raised)',
+            borderRadius: 'var(--border-radius-round)',
+            background: 'var(--color-neutral-800)',
           }}
         />
       ))}
       <span
         style={{
           display: 'block',
-          height: 'var(--spacing-2)',
+          height: 'var(--spacing-8)',
           width: '40%',
-          borderRadius: 'var(--radius-full)',
-          background: 'var(--color-chip-c1)',
+          borderRadius: 'var(--border-radius-round)',
+          background: 'var(--color-background-utility-info)',
         }}
       />
     </div>
@@ -122,7 +122,7 @@ export const Gallery: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: 'var(--spacing-6)',
+        gap: 'var(--spacing-24)',
         maxWidth: 1000,
       }}
     >
@@ -214,7 +214,7 @@ export const Behavior: Story = {
 
     await step('at rest the card wears shadow.card and does not lift', async () => {
       const probe = document.createElement('span');
-      probe.style.boxShadow = 'var(--shadow-card)';
+      probe.style.boxShadow = 'var(--shadow-card-ink)';
       links[0].appendChild(probe);
       const restShadow = getComputedStyle(probe).boxShadow;
       probe.remove();

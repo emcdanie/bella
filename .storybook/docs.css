@@ -11,39 +11,39 @@
  * the page tier, H2 the section tier (32px floor per AGENTS.md), both Geist
  * Light with tight tracking. H3 is a title: Geist 500, one step down. */
 #storybook-docs .sbdocs-content h1 {
-  font-family: var(--component-heading-font-family);
+  font-family: var(--typography-font-family-newsreader);
   /* !important: addon-docs injects its own heading sizes after this sheet;
      the ramp sizes must win or the hierarchy inverts */
-  font-size: var(--component-heading-page-font-size) !important;
-  font-weight: var(--component-heading-font-weight);
-  line-height: var(--component-heading-line-height) !important;
-  letter-spacing: var(--component-heading-letter-spacing);
-  color: var(--color-semantic-text-primary);
+  font-size: var(--typography-font-size-display-page) !important;
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-115) !important;
+  letter-spacing: var(--typography-letter-spacing-minus-2);
+  color: var(--color-content-default);
 }
 
 #storybook-docs .sbdocs-content h2 {
-  font-family: var(--component-heading-font-family);
-  font-size: var(--component-heading-section-font-size) !important;
-  font-weight: var(--component-heading-font-weight);
-  line-height: var(--component-heading-line-height);
-  letter-spacing: var(--component-heading-section-letter-spacing);
-  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-newsreader);
+  font-size: var(--typography-font-size-display-section) !important;
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-115);
+  letter-spacing: var(--typography-letter-spacing-minus-1-half);
+  color: var(--color-content-default);
 }
 
 #storybook-docs .sbdocs-content h3 {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-xl) !important;
-  font-weight: var(--typography-font-weight-medium);
-  letter-spacing: var(--typography-letter-spacing-title);
-  line-height: var(--typography-line-height-snug);
-  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-22) !important;
+  font-weight: var(--typography-font-weight-500);
+  letter-spacing: var(--typography-letter-spacing-0);
+  line-height: var(--typography-line-height-130);
+  color: var(--color-content-default);
 }
 
 #storybook-docs .sbdocs-content p,
 #storybook-docs .sbdocs-content li {
-  font-size: var(--typography-font-size-base);
-  line-height: var(--typography-line-height-normal);
-  letter-spacing: var(--typography-letter-spacing-body);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  letter-spacing: var(--typography-letter-spacing-0);
 }
 
 /* Inline body links are ink with an underline; hover thickens the
@@ -52,30 +52,30 @@
  * component classes, which turned Button href's label into link ink on the
  * ink keycap. */
 #storybook-docs .sbdocs-content a:not(.docs-story a) {
-  color: var(--color-semantic-link);
+  color: var(--color-content-link);
   text-decoration: underline;
-  text-decoration-thickness: var(--border-width-thin);
-  text-underline-offset: var(--spacing-1);
+  text-decoration-thickness: var(--border-width-1);
+  text-underline-offset: var(--spacing-4);
 }
 
 #storybook-docs .sbdocs-content a:not(.docs-story a):hover {
-  color: var(--color-semantic-link-hover);
-  text-decoration-thickness: var(--border-width-medium);
+  color: var(--color-content-link);
+  text-decoration-thickness: var(--border-width-2);
 }
 
 #storybook-docs .sbdocs-content a:not(.docs-story a):focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Inline code chips: inset surface, primary ink. */
 #storybook-docs .sbdocs-content code {
-  background: var(--color-semantic-surface-inset);
-  border: 1px solid var(--color-semantic-border-subtle);
-  border-radius: var(--radius-sm);
-  color: var(--color-semantic-text-primary);
-  font-family: var(--typography-font-family-mono);
-  font-size: var(--typography-font-size-mono);
+  background: var(--color-background-subtle);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-4);
+  color: var(--color-content-default);
+  font-family: var(--typography-font-family-geist-mono);
+  font-size: var(--typography-font-size-16);
 }
 
 /* Code blocks hold the 16px floor too (type lock, 2026-10-04). */
@@ -83,14 +83,14 @@
 #storybook-docs .sbdocs-content pre code,
 #storybook-docs .docblock-source,
 #storybook-docs .docblock-source code {
-  font-size: var(--typography-font-size-mono) !important;
+  font-size: var(--typography-font-size-16) !important;
 }
 
 #storybook-docs .sbdocs-content blockquote {
-  margin: var(--spacing-5) 0;
-  padding: var(--spacing-2) var(--spacing-5);
-  border-left: 2px solid var(--color-semantic-border-strong);
-  color: var(--color-semantic-text-secondary);
+  margin: var(--spacing-20) 0;
+  padding: var(--spacing-8) var(--spacing-20);
+  border-left: 2px solid var(--color-border-strong);
+  color: var(--color-content-subtle);
 }
 
 /* Docs-container tables, restyled with BELLA tokens in both themes.
@@ -100,25 +100,25 @@
 #storybook-docs .sbdocs-content table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--color-semantic-surface);
-  border: 1px solid var(--color-semantic-border-subtle);
-  border-radius: var(--radius-lg);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-12);
   overflow: hidden;
 }
 
 #storybook-docs .sbdocs-content table th,
 #storybook-docs .sbdocs-content table td {
-  padding: var(--spacing-2) var(--spacing-3);
+  padding: var(--spacing-8) var(--spacing-12);
   border: 0;
-  border-bottom: 1px solid var(--color-semantic-border-subtle);
-  color: var(--color-semantic-text-primary);
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-content-default);
   background: transparent;
-  font-size: var(--typography-font-size-sm);
+  font-size: var(--typography-font-size-18);
   text-align: left;
 }
 
 #storybook-docs .sbdocs-content table thead th {
-  color: var(--color-semantic-text-secondary);
+  color: var(--color-content-subtle);
 }
 
 /* Kill the default zebra in both themes. */

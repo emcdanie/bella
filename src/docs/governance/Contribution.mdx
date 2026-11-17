@@ -36,7 +36,7 @@ When a value is none of those, that is a design question, not a naming one, so
 it stops and gets asked rather than guessed.
 
 **A value with no tier is a bug, not a shortcut.** Anything hard-coded in
-`tokens/build.py` rather than declared in a token source is invisible to every
+`tokens/build.mjs` rather than declared in Figma is invisible to every
 consumer that reads `bella.json`, which is all of them, including any machine.
 There are known instances of exactly this and they are tracked, not tolerated.
 
@@ -101,7 +101,7 @@ first. Done means all of it:
 2. The behaviour suite green: keyboard, focus, roles, states.
 3. Both-theme snapshot baselines committed and reviewed by eye.
 4. The component description written by Elleta, not by an agent.
-5. A matching contract entry in `tokens/component.json`, including its
+5. A matching contract entry in `tokens/contracts.json`, including its
    `restState` invariants.
 6. The consumer swaps its import and deletes its local copy in the same
    commit.

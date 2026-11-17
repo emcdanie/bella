@@ -14,7 +14,7 @@
 .nav {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   min-width: 0;
 }
 
@@ -23,30 +23,30 @@
   align-items: center;
   justify-content: center;
   align-self: flex-start;
-  min-width: var(--component-nav-list-min-height);
-  min-height: var(--component-nav-list-min-height);
+  min-width: var(--spacing-44);
+  min-height: var(--spacing-44);
   margin: 0;
   padding: 0;
   border: none;
-  border-radius: var(--component-nav-list-border-radius);
+  border-radius: var(--border-radius-8);
   background: transparent;
-  color: var(--color-semantic-text-secondary);
-  font-size: var(--component-nav-list-font-size); /* not the UA 13.33px: the hidden label clears the 16px floor */
+  color: var(--color-content-subtle);
+  font-size: var(--typography-body-default-font-size); /* not the UA 13.33px: the hidden label clears the 16px floor */
   cursor: pointer;
   transition:
-    background var(--motion-duration-fast) var(--motion-easing-standard),
-    color var(--motion-duration-fast) var(--motion-easing-standard);
+    background var(--motion-duration-150) var(--motion-easing-standard),
+    color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .toggle:hover {
-  color: var(--color-semantic-text-primary);
-  background: var(--color-semantic-border-subtle);
+  color: var(--color-content-default);
+  background: var(--color-border-subtle);
 }
 
 .body {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-6);
+  gap: var(--spacing-24);
 }
 
 .body[hidden] {
@@ -56,21 +56,21 @@
 .group {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
 }
 
 .groupLabel {
   margin: 0;
-  padding: 0 var(--spacing-3);
-  font-family: var(--component-nav-list-label-font-family);
-  font-size: var(--component-nav-list-label-font-size);
-  color: var(--color-semantic-text-secondary);
+  padding: 0 var(--spacing-12);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-subtle);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -79,36 +79,36 @@
 .item {
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
-  min-height: var(--component-nav-list-min-height);
-  padding: 0 var(--spacing-3);
-  border-radius: var(--component-nav-list-border-radius);
-  font-family: var(--component-nav-list-font-family);
-  font-size: var(--component-nav-list-font-size);
-  font-weight: var(--typography-font-weight-regular);
-  letter-spacing: var(--typography-letter-spacing-body);
-  color: var(--color-semantic-text-secondary);
+  gap: var(--spacing-12);
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-12);
+  border-radius: var(--border-radius-8);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-font-weight-400);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-subtle);
   text-decoration: none;
   transition:
-    background var(--motion-duration-fast) var(--motion-easing-standard),
-    color var(--motion-duration-fast) var(--motion-easing-standard);
+    background var(--motion-duration-150) var(--motion-easing-standard),
+    color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .item:hover {
-  color: var(--color-semantic-text-primary);
-  background: var(--color-semantic-surface-inset);
+  color: var(--color-content-default);
+  background: var(--color-background-subtle);
 }
 
 .item[aria-current='page'] {
-  color: var(--color-semantic-text-primary);
-  background: var(--component-nav-list-current-background);
-  font-weight: var(--typography-font-weight-medium);
+  color: var(--color-content-default);
+  background: var(--color-border-subtle);
+  font-weight: var(--typography-font-weight-500);
 }
 
 .item:focus-visible,
 .toggle:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: calc(-1 * var(--ring-focus-width));
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(-1 * var(--focus-ring-width));
 }
 
 .itemLabel {
@@ -119,16 +119,16 @@
 
 .badge {
   flex: none;
-  font-family: var(--component-nav-list-label-font-family);
-  font-size: var(--component-nav-list-label-font-size);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--typography-font-weight-regular);
-  color: var(--color-semantic-text-secondary);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
 }
 
 .footer {
-  padding: var(--spacing-3);
-  border-top: var(--border-width-thin) solid var(--color-semantic-border);
+  padding: var(--spacing-12);
+  border-top: var(--border-width-1) solid var(--color-border-default);
 }
 
 .srOnly {

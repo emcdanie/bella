@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
 import Link from './Link';
 import linkCssRaw from './Link.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -30,7 +30,7 @@ export const Default: Story = {};
 /** Inside body copy, where it lives. */
 export const InBody: Story = {
   render: () => (
-    <p style={{ maxWidth: '60ch', fontSize: 'var(--typography-font-size-body)' }}>
+    <p style={{ maxWidth: '60ch', fontSize: 'var(--typography-body-default-font-size)' }}>
       The system started as <Link href="#drift">a side project</Link>, then moved to every product
       team. The <Link href="https://github.com/emcdanie/bella" external>source is on GitHub</Link>.
     </p>
@@ -48,17 +48,17 @@ export const StateMatrix: Story = {
           ['default', 'ink, 1px underline'],
           ['hover', 'ink, 2px underline'],
           ['visited', 'ink (no colour change)'],
-          ['focus', '3px focus ring, 3px offset'],
+          ['focus', '4px focus ring, 4px offset'],
           ['active / disabled / error', 'not a Link state'],
         ].map(([state, note]) => (
           <tr key={state}>
-            <td style={{ padding: 'var(--spacing-3) var(--spacing-5) var(--spacing-3) 0', fontFamily: 'var(--typography-font-family-mono)', fontSize: 'var(--typography-font-size-mono)', color: 'var(--color-semantic-text-body)' }}>
+            <td style={{ padding: 'var(--spacing-12) var(--spacing-20) var(--spacing-12) 0', fontFamily: 'var(--typography-font-family-geist-mono)', fontSize: 'var(--typography-font-size-16)', color: 'var(--color-content-body)' }}>
               {state}
             </td>
-            <td style={{ padding: 'var(--spacing-3) var(--spacing-5) var(--spacing-3) 0' }}>
+            <td style={{ padding: 'var(--spacing-12) var(--spacing-20) var(--spacing-12) 0' }}>
               {state.includes('/') ? 'n/a' : <Link href={`#${state}`}>Read the case</Link>}
             </td>
-            <td style={{ padding: 'var(--spacing-3) 0', color: 'var(--color-semantic-text-body)', fontSize: 'var(--typography-font-size-sm)' }}>
+            <td style={{ padding: 'var(--spacing-12) 0', color: 'var(--color-content-body)', fontSize: 'var(--typography-font-size-18)' }}>
               {note}
             </td>
           </tr>
@@ -79,12 +79,12 @@ export const Behavior: Story = {
     /* hover is verified with a real pointer outside the play function:
        userEvent.hover dispatches synthetic events, which never trigger CSS
        :hover, so an assertion here could not fail honestly */
-    await step('keyboard focus draws the 3px ring with a 3px offset', async () => {
+    await step('keyboard focus draws the focus-ring token (4px, 4px offset)', async () => {
       await userEvent.tab();
       const cs = getComputedStyle(link);
       await expect(cs.outlineStyle).toBe('solid');
-      await expect(parseFloat(cs.outlineWidth)).toBe(3);
-      await expect(parseFloat(cs.outlineOffset)).toBe(3);
+      await expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
+      await expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
     });
   },
 };

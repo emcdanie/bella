@@ -11,63 +11,63 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
   margin: 0;
   min-width: 0;
 }
 
 .label {
-  font-family: var(--component-stat-label-font-family);
-  font-size: var(--component-stat-label-font-size);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-subtle);
 }
 
 .value {
   margin: 0;
-  font-family: var(--component-stat-value-font-family);
-  font-size: var(--component-stat-value-font-size);
-  font-weight: var(--component-stat-value-font-weight);
-  line-height: var(--typography-line-height-heading);
-  letter-spacing: var(--typography-letter-spacing-h2);
+  font-family: var(--typography-font-family-newsreader);
+  font-size: var(--typography-font-size-display-section);
+  font-weight: var(--typography-font-weight-300);
+  line-height: var(--typography-line-height-115);
+  letter-spacing: var(--typography-letter-spacing-minus-1-half);
   font-variant-numeric: tabular-nums;
-  color: var(--color-semantic-text-primary);
+  color: var(--color-content-default);
 }
 
 .delta {
   margin: 0;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-stat-delta-font-size);
-  letter-spacing: var(--typography-letter-spacing-body);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-subtle);
 }
 
 .delta:has(.spark) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
 }
 
 /* the sparkline: a 1px ink line and an end dot. Its shape and the arrow plus
    spoken word carry the direction; colour carries nothing */
 .spark {
-  inline-size: var(--component-stat-trend-width);
-  block-size: var(--component-stat-trend-height);
+  inline-size: var(--spacing-80);
+  block-size: var(--spacing-24);
   flex: none;
   overflow: visible;
 }
 
 .spark polyline {
   fill: none;
-  stroke: var(--component-stat-trend-stroke);
-  stroke-width: var(--border-width-thin);
+  stroke: var(--color-content-default);
+  stroke-width: var(--border-width-1);
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
 .spark circle {
-  fill: var(--component-stat-trend-stroke);
+  fill: var(--color-content-default);
 }
 
 .srOnly {

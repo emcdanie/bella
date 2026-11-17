@@ -5,7 +5,7 @@ import PageHeader from './PageHeader';
 import Button from '../Button/Button';
 import ActionChip from '../ActionChip/ActionChip';
 import cssRaw from './PageHeader.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))).sort();

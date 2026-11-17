@@ -27,19 +27,19 @@ function TemplateControl() {
       }}
       data-activations={count.current}
       style={{
-        minHeight: 'var(--spacing-touch-target)',
-        padding: 'var(--spacing-3) var(--spacing-5)',
+        minHeight: 'var(--spacing-44)',
+        padding: 'var(--spacing-12) var(--spacing-20)',
         /* semantic accent pair: the component-button-primary-background /
            -border / -border-radius vars this used were renamed by the keycap
            Button (d8aa3a8) and resolved to nothing (fixed 2026-09-22) */
-        background: 'var(--color-semantic-accent)',
-        color: 'var(--color-semantic-text-on-accent)',
-        border: '1px solid var(--color-semantic-accent)',
-        borderRadius: 'var(--radius-lg)',
-        fontFamily: 'var(--typography-font-family-body)',
-        fontSize: 'var(--typography-font-size-tag)',
+        background: 'var(--color-background-accent-1)',
+        color: 'var(--color-content-on-accent-1)',
+        border: '1px solid var(--color-background-accent-1)',
+        borderRadius: 'var(--border-radius-12)',
+        fontFamily: 'var(--typography-font-family-dm-sans)',
+        fontSize: 'var(--typography-label-default-font-size)',
         fontWeight: 700,
-        letterSpacing: 'var(--typography-letter-spacing-wide)',
+        letterSpacing: 'var(--typography-letter-spacing-0)',
         cursor: 'pointer',
       }}
     >

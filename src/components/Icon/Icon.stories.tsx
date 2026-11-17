@@ -2,7 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Icon from './Icon';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const iconContract =
@@ -14,7 +14,7 @@ const meta: Meta<typeof Icon> = {
   parameters: {
     docs: { page: ComponentDocsPage },
     bellaDocs: {
-      tokens: ['--icon-sm', '--icon-md', '--icon-lg', '--icon-stroke'],
+      tokens: ['--size-16', '--size-20', '--size-24'],
       a11y: iconContract.a11y,
     },
   },
@@ -34,9 +34,9 @@ type Story = StoryObj<typeof Icon>;
 /** The registry at the three token sizes, in the context ink. */
 export const Registry: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
       {(['sm', 'md', 'lg'] as const).map((size) => (
-        <div key={size} style={{ display: 'flex', gap: 'var(--spacing-4)', alignItems: 'center' }}>
+        <div key={size} style={{ display: 'flex', gap: 'var(--spacing-16)', alignItems: 'center' }}>
           <Icon name="ViewGrid" size={size} />
           <Icon name="Map" size={size} />
           <Icon name="Table" size={size} />
@@ -50,7 +50,7 @@ export const Registry: Story = {
 /** Decorative by default; a label makes it meaningful. Always currentColor. */
 export const Behavior: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-4)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-16)', alignItems: 'center' }}>
       <Icon name="Map" size="md" />
       <Icon name="Map" size="md" label="Map view" />
     </div>

@@ -10,7 +10,7 @@ import ScaledFrame from '../ScaledFrame/ScaledFrame';
 import { LiveSpecimen } from '../../patterns/fixtures';
 import Card from './Card';
 import cardCssRaw from './Card.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 /* Tokens consumed: extracted live from the committed stylesheet, so the
@@ -43,10 +43,10 @@ function Kicker({ children }: { children: React.ReactNode }) {
     <span
       style={{
         display: 'block',
-        fontSize: 'var(--typography-font-size-sm)',
+        fontSize: 'var(--typography-font-size-18)',
         fontWeight: 700,
-        letterSpacing: 'var(--typography-letter-spacing-wider)',
-        color: 'var(--color-semantic-text-body)',
+        letterSpacing: 'var(--typography-letter-spacing-0)',
+        color: 'var(--color-content-body)',
       }}
     >
       {children}
@@ -59,10 +59,10 @@ function Title({ children }: { children: React.ReactNode }) {
     <span
       style={{
         display: 'block',
-        fontSize: 'var(--typography-font-size-xl)',
+        fontSize: 'var(--typography-font-size-22)',
         fontWeight: 700,
-        color: 'var(--color-semantic-text-primary)',
-        lineHeight: 'var(--typography-line-height-snug)',
+        color: 'var(--color-content-default)',
+        lineHeight: 'var(--typography-line-height-130)',
       }}
     >
       {children}
@@ -75,9 +75,9 @@ function Body({ children }: { children: React.ReactNode }) {
     <span
       style={{
         display: 'block',
-        fontSize: 'var(--typography-font-size-base)',
-        color: 'var(--color-semantic-text-body)',
-        lineHeight: 'var(--typography-line-height-normal)',
+        fontSize: 'var(--typography-body-default-font-size)',
+        color: 'var(--color-content-body)',
+        lineHeight: 'var(--typography-line-height-150)',
       }}
     >
       {children}
@@ -95,7 +95,7 @@ const meta: Meta<typeof Card> = {
   component: Card,
   parameters: {
     docs: { page: ComponentDocsPage },
-    /* a11y notes come from the component contract in tokens/component.json;
+    /* a11y notes come from the component contract in tokens/contracts.json;
        the docs page renders whatever is committed there */
     bellaDocs: {
       tokens: consumedTokens,
@@ -183,7 +183,7 @@ export const Cover: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: 'var(--spacing-6)',
+        gap: 'var(--spacing-24)',
         alignItems: 'stretch',
       }}
     >
@@ -218,9 +218,9 @@ export const Cover: Story = {
               display: 'grid',
               placeItems: 'center',
               height: '100%',
-              fontSize: 'var(--typography-font-size-xl)',
-              fontWeight: 'var(--typography-font-weight-bold)',
-              color: 'var(--color-semantic-text-muted)',
+              fontSize: 'var(--typography-font-size-22)',
+              fontWeight: 'var(--typography-font-weight-700)',
+              color: 'var(--color-content-subtle)',
             }}
           >
             Design Lab
@@ -273,7 +273,7 @@ export const Grid: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: 'var(--spacing-6)',
+        gap: 'var(--spacing-24)',
         alignItems: 'stretch',
       }}
     >
@@ -300,7 +300,7 @@ function BehaviorHarness() {
         <Title>Activations: {count}</Title>
         <span
           data-testid="activation-count"
-          style={{ color: 'var(--color-semantic-text-body)' }}
+          style={{ color: 'var(--color-content-body)' }}
         >
           {String(count)}
         </span>

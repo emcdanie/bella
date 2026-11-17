@@ -5,7 +5,7 @@
  * (component.section.default.max-width); container queries cannot read
  * var(), so the values are written here.
  *
- * The aside sticks under the sticky header (--header-height, the app sets
+ * The aside sticks under the sticky header (--spacing-64, the app sets
  * it) and scrolls on its own when it is taller than the screen less the
  * header and the OBI dock (--dock-height, 0 when there is none). */
 
@@ -17,7 +17,7 @@
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--component-sidebar-layout-gap);
+  gap: var(--layout-gutter);
   align-items: start;
 }
 
@@ -28,8 +28,8 @@
 }
 
 .aside:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 @container sidebar-layout (min-width: 768px) {
@@ -41,8 +41,8 @@
     grid-column: 1 / span 3;
     grid-row: 1 / span 2;
     position: sticky;
-    inset-block-start: calc(var(--header-height) + var(--layout-stack-lg));
-    max-block-size: calc(100dvh - var(--header-height) - var(--dock-height, 0px) - 2 * var(--layout-stack-lg));
+    inset-block-start: calc(var(--spacing-64) + var(--layout-stack-lg));
+    max-block-size: calc(100dvh - var(--spacing-64) - var(--dock-height, 0px) - 2 * var(--layout-stack-lg));
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -55,7 +55,7 @@
 
 @container sidebar-layout (min-width: 1200px) {
   .grid {
-    grid-template-columns: repeat(var(--component-sidebar-layout-columns), minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   .aside {

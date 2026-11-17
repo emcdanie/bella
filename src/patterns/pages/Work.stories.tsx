@@ -14,10 +14,10 @@ import { featured, filterCaption, filterStudy, grid, intro } from '../fixtures';
  * own landmarks and the vertical rhythm between patterns. */
 function WorkPage() {
   return (
-    <main style={{ display: 'grid', rowGap: 'var(--spacing-20)' }}>
+    <main style={{ display: 'grid', rowGap: 'var(--spacing-80)' }}>
       <WorkIntro {...intro} />
-      <section aria-labelledby="work-featured" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+      <section aria-labelledby="work-featured" style={{ display: 'grid', rowGap: 'var(--spacing-32)' }}>
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
           <SectionIndex index="01" label="Featured" />
           <Heading tier="section" as="h2" id="work-featured">
             Featured
@@ -25,8 +25,8 @@ function WorkPage() {
         </div>
         <FeaturedCase {...featured} />
       </section>
-      <section aria-labelledby="work-selected" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+      <section aria-labelledby="work-selected" style={{ display: 'grid', rowGap: 'var(--spacing-32)' }}>
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
           <SectionIndex index="02" label="Selected work" />
           <Heading tier="section" as="h2" id="work-selected">
             Selected work
@@ -34,8 +34,8 @@ function WorkPage() {
         </div>
         <CaseGrid items={grid} label="Selected work" />
       </section>
-      <section aria-labelledby="work-studies" style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-        <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+      <section aria-labelledby="work-studies" style={{ display: 'grid', rowGap: 'var(--spacing-32)' }}>
+        <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
           <SectionIndex index="03" label="Pattern studies" />
           <Heading tier="section" as="h2" id="work-studies">
             Pattern studies

@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import Tooltip from './Tooltip';
 import Icon from '../Icon/Icon';
 import cssRaw from './Tooltip.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))).sort();
@@ -24,12 +24,12 @@ type Story = StoryObj<typeof Tooltip>;
 /** On an icon button: the button's aria-label and the bubble say the same words. Esc hides it. */
 export const OnAnIconButton: Story = {
   render: (args) => (
-    <div style={{ padding: 'var(--spacing-12)' }}>
+    <div style={{ padding: 'var(--spacing-48)' }}>
       <Tooltip {...args}>
         <button
           type="button"
           aria-label={args.label}
-          style={{ minWidth: 'var(--spacing-touch-target)', minHeight: 'var(--spacing-touch-target)', display: 'inline-grid', placeItems: 'center', border: 'var(--border-width-thin) solid var(--color-semantic-border-strong)', borderRadius: 'var(--radius-full)', background: 'var(--color-semantic-surface-card)', color: 'var(--color-semantic-text-primary)' }}
+          style={{ minWidth: 'var(--spacing-44)', minHeight: 'var(--spacing-44)', display: 'inline-grid', placeItems: 'center', border: 'var(--border-width-1) solid var(--color-border-strong)', borderRadius: 'var(--border-radius-round)', background: 'var(--color-background-surface)', color: 'var(--color-content-default)' }}
         >
           <Icon name="RefreshDouble" size="sm" />
         </button>

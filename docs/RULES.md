@@ -4,7 +4,7 @@ Governance rules for any consumer of BELLA (apps that import `tokens/bella.css` 
 
 v0.2 updates v0.1 for the 2026-07 identity (2026-07-21): new palette bindings in rules 1 and 8, and a new rule 9 recording the accessibility bar. No rule was relaxed. The v0.1 set is archived at `docs/RULES-v0.1.md`.
 
-Where a rule references a token, that token is defined in `tokens/bella.css`. Consumers that don't currently expose a referenced token (e.g. `--header-height`) must define it locally; consumers must never fork the rule to use a different name.
+Where a rule references a token, that token is defined in `tokens/bella.css`. Consumers that don't currently expose a referenced token (e.g. `--spacing-64`) must define it locally; consumers must never fork the rule to use a different name.
 
 ## 1. Text on dark surfaces uses `--ink-on-dark-*` tokens
 
@@ -36,15 +36,15 @@ Rationale: a fixed minimum punishes short cards (excess whitespace) and lies abo
 
 Rationale: truncation hides information the writer chose to include. If the design needs short copy, shorten the copy; don't clip it. `Card--truncate` exists for genuine listing UIs (file pickers, autocomplete) where the title is a label, not prose.
 
-## 4. Sticky-header pages set `--header-height` and use `scroll-padding-top`
+## 4. Sticky-header pages set `--spacing-64` and use `scroll-padding-top`
 
 Any consumer that has a fixed/sticky header must:
 
-1. Define `--header-height` at `:root` (BELLA ships a default of `64px`; consumer overrides per their actual measured header).
-2. Apply `scroll-padding-top: calc(var(--header-height) + var(--spacing-4))` to the document scroll container (`html`) **and** the page content wrapper.
-3. Apply `scroll-margin-top: calc(var(--header-height) + var(--spacing-4))` to anchor targets (`section[id]`, `[id]` headings).
+1. Define `--spacing-64` at `:root` (BELLA ships a default of `64px`; consumer overrides per their actual measured header).
+2. Apply `scroll-padding-top: calc(var(--spacing-64) + var(--spacing-16))` to the document scroll container (`html`) **and** the page content wrapper.
+3. Apply `scroll-margin-top: calc(var(--spacing-64) + var(--spacing-16))` to anchor targets (`section[id]`, `[id]` headings).
 
-Rationale: anchor jumps under a fixed nav land *behind* the nav by default. Both `scroll-padding-top` (on the scroll container) and `scroll-margin-top` (on the target) are needed because browsers honor whichever one applies; tokenising `--header-height` is the only way the offset stays correct when the header is restyled.
+Rationale: anchor jumps under a fixed nav land *behind* the nav by default. Both `scroll-padding-top` (on the scroll container) and `scroll-margin-top` (on the target) are needed because browsers honor whichever one applies; tokenising `--spacing-64` is the only way the offset stays correct when the header is restyled.
 
 ## 5. Grids use `auto-fill, minmax(var(--card-min), 1fr)` — not `repeat(3, 1fr)`
 
@@ -60,8 +60,8 @@ Rationale: a fixed 3-column grid leaves a single dangling card whenever the data
 
 ```css
 .focusable:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 ```
 
@@ -73,13 +73,13 @@ Rationale: the only acceptable reason to remove the default outline is that BELL
 
 ## 7. Body text ≥ 16px; line-height ≥ 1.5 body, ≥ 1.2 display
 
-Body text below `--typography-font-size-base` (16px) is forbidden. Caption-style 13–14px text is allowed only for genuine metadata (`tag`, `eyebrow`, table footnote). Line height is `--typography-line-height-normal` (1.6) or higher for body, `--typography-line-height-tight` (1.1) or `--typography-line-height-snug` (1.3) for display headings.
+Body text below `--typography-body-default-font-size` (16px) is forbidden. Caption-style 13–14px text is allowed only for genuine metadata (`tag`, `eyebrow`, table footnote). Line height is `--typography-line-height-150` (1.6) or higher for body, `--typography-line-height-110` (1.1) or `--typography-line-height-130` (1.3) for display headings.
 
 Rationale: 14–15px body looks tighter on a Figma export than it reads on a real device; the floor is conservative on purpose. Generous leading is the editorial default.
 
 ## 8. No pure `#FFFFFF` or `#000000` — use `--color-semantic-surface-*` and `--color-semantic-text-*`
 
-Pure white reads as unstyled. Pure black is colder than BELLA's warm ink; it disrupts the warm-neutral cascade. The default canvas is `--color-semantic-background` (`#F5F4EF` light / `#1B1B40` dark); raised surfaces are `--color-semantic-surface` (`#FAFAF8` / `#232350`); text is `--color-semantic-text-primary` (`#1A1720` / `#F4EFE6`). Hex `#fff` and `#000` should never appear in consumer CSS as solid fills — white alpha is permitted only as a translucent glass overlay.
+Pure white reads as unstyled. Pure black is colder than BELLA's warm ink; it disrupts the warm-neutral cascade. The default canvas is `--color-background-default` (`#F5F4EF` light / `#1B1B40` dark); raised surfaces are `--color-background-surface` (`#FAFAF8` / `#232350`); text is `--color-content-default` (`#1A1720` / `#F4EFE6`). Hex `#fff` and `#000` should never appear in consumer CSS as solid fills — white alpha is permitted only as a translucent glass overlay.
 
 Rationale: stated in `AGENTS.md` and `docs/principles.md` — repeated here because it's the most-frequently-violated rule in practice.
 

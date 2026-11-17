@@ -4,7 +4,7 @@ import { expect, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import SegmentedControl from './SegmentedControl';
 import segCssRaw from './SegmentedControl.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 import Icon from '../Icon/Icon';
 
@@ -74,7 +74,7 @@ export const TextOnly: Story = {
 function SwitcherHarness() {
   const [view, setView] = useState('cards');
   return (
-    <div style={{ display: 'grid', gap: 'var(--spacing-4)', justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start' }}>
       <SegmentedControl options={VIEWS} value={view} onChange={setView} label="Library view" />
       <span data-testid="active-view">{view}</span>
     </div>

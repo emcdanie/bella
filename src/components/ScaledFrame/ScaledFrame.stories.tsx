@@ -4,7 +4,7 @@ import { expect, waitFor } from 'storybook/test';
 import ScaledFrame from './ScaledFrame';
 import { LiveSpecimen } from '../../patterns/fixtures';
 import scaledFrameCssRaw from './ScaledFrame.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Avatar from './Avatar';
 import avatarCssRaw from './Avatar.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -34,7 +34,7 @@ type Story = StoryObj<typeof Avatar>;
 /** The three ramp steps, initials only, so the type scale inside the disc is visible. */
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-16)' }}>
       <Avatar name="Elleta McDaniel" size="sm" />
       <Avatar name="Elleta McDaniel" size="md" />
       <Avatar name="Elleta McDaniel" size="lg" />
@@ -46,7 +46,7 @@ export const Sizes: Story = {
  * separates the accent from the disc on whatever surface the avatar sits on. */
 export const Ring: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-6)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-24)' }}>
       <Avatar name="Elleta McDaniel" size="lg" />
       <Avatar name="Elleta McDaniel" size="lg" ring />
     </div>
@@ -54,33 +54,33 @@ export const Ring: Story = {
 };
 
 /** Identity is the face; colour is the ring. Pass `src` for a photo and
- * override `--component-avatar-default-ring-color` via the `style` prop to
+ * override `--color-border-ink` via the `style` prop to
  * assign a lane colour. The gap between disc and ring is painted in the
  * page ground, so it reads correctly on any surface without extra code.
  *
  * The Bar pattern (chip-2.0 b232e68):
  * - src="/avatars/<name>.png" (160x160 circular, transparent bg)
  * - ring={true}
- * - style={{ '--component-avatar-default-ring-color': 'var(--color-semantic-lane-a)' }} */
+ * - style={{ '--color-border-ink': 'var(--color-background-accent-3)' }} */
 export const RingColor: Story = {
   render: () => (
     <div
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--spacing-4)',
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-background)',
+        gap: 'var(--spacing-16)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-default)',
       }}
     >
       {(
         [
-          { name: 'Dara',    color: 'var(--color-semantic-lane-a)' },
-          { name: 'Bernie',  color: 'var(--color-semantic-lane-b)' },
-          { name: 'Saoirse', color: 'var(--color-semantic-lane-c)' },
-          { name: 'Frankie', color: 'var(--color-semantic-lane-d)' },
-          { name: 'Liam',    color: 'var(--color-semantic-success)' },
-          { name: 'Seamus',  color: 'var(--color-semantic-text-primary)' },
+          { name: 'Dara',    color: 'var(--color-background-accent-3)' },
+          { name: 'Bernie',  color: 'var(--color-background-accent-1)' },
+          { name: 'Saoirse', color: 'var(--color-background-utility-success)' },
+          { name: 'Frankie', color: 'var(--color-background-accent-2)' },
+          { name: 'Liam',    color: 'var(--color-border-utility-success)' },
+          { name: 'Seamus',  color: 'var(--color-content-default)' },
         ]
       ).map(({ name, color }) => (
         <Avatar
@@ -88,7 +88,7 @@ export const RingColor: Story = {
           name={name}
           size="md"
           ring
-          style={{ '--component-avatar-default-ring-color': color } as React.CSSProperties}
+          style={{ '--color-border-ink': color } as React.CSSProperties}
         />
       ))}
     </div>
@@ -104,23 +104,23 @@ export const WithName: Story = {
       style={{
         display: 'flex',
         alignItems: 'center',
-        gap: 'var(--spacing-3)',
+        gap: 'var(--spacing-12)',
         maxWidth: 360,
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
       }}
     >
       <Avatar name="Elleta McDaniel" size="md" />
       <span>
-        <span style={{ display: 'block', fontWeight: 'var(--typography-font-weight-bold)' }}>
+        <span style={{ display: 'block', fontWeight: 'var(--typography-font-weight-700)' }}>
           Elleta McDaniel
         </span>
         <span
           style={{
             display: 'block',
-            fontSize: 'var(--typography-font-size-tag)',
-            color: 'var(--color-semantic-text-body)',
+            fontSize: 'var(--typography-label-default-font-size)',
+            color: 'var(--color-content-body)',
           }}
         >
           Design systems

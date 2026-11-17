@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
 import ChatBubble from './ChatBubble';
 import bubbleCssRaw from './ChatBubble.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -33,7 +33,7 @@ type Story = StoryObj<typeof ChatBubble>;
 /** Side-by-side: sent (ink) and received (card surface). */
 export const SideBySide: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)', maxWidth: 320 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
       <ChatBubble side="sent">Hey, you free tomorrow?</ChatBubble>
       <ChatBubble side="received">Yeah! What time?</ChatBubble>
       <ChatBubble side="sent" tail>Around 3pm works for me.</ChatBubble>
@@ -45,7 +45,7 @@ export const SideBySide: Story = {
 /** The tail corner flattens on the last bubble in a run. */
 export const Tails: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)', maxWidth: 320 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
       <ChatBubble side="sent">Consecutive bubble, no tail.</ChatBubble>
       <ChatBubble side="sent" tail>Last in run. Tail on.</ChatBubble>
       <ChatBubble side="received">Consecutive bubble, no tail.</ChatBubble>
@@ -57,7 +57,7 @@ export const Tails: Story = {
 /** big-emoji uses the slam animation and a transparent fill. */
 export const BigEmoji: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
       <ChatBubble side="sent" kind="big-emoji" emojiLabel="Waving hand">
         👋
       </ChatBubble>
@@ -80,7 +80,7 @@ export const ImageBubble: Story = {
 /** Tapback sits above the bubble corner. */
 export const Tapback: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)', padding: 'var(--spacing-6)', maxWidth: 320 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', maxWidth: 320 }}>
       <ChatBubble side="sent" tapback="❤️">Nice work!</ChatBubble>
       <ChatBubble side="received" tapback="😂">That is hilarious.</ChatBubble>
     </div>
@@ -90,7 +90,7 @@ export const Tapback: Story = {
 /** AAA on both fills. */
 export const Behavior: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-2)', maxWidth: 320 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
       <ChatBubble side="sent" tail>Sent message</ChatBubble>
       <ChatBubble side="received" tail>Received message</ChatBubble>
     </div>

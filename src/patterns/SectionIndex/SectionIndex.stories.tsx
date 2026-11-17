@@ -17,7 +17,7 @@ export const Featured: Story = {};
 /** The Work page's three indexes, stacked as they read down the page. */
 export const Sequence: Story = {
   render: () => (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-10)' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-40)' }}>
       <SectionIndex index="01" label="Featured" />
       <SectionIndex index="02" label="Selected work" />
       <SectionIndex index="03" label="Pattern studies" />

@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import Eyebrow from './Eyebrow';
 import Heading from '../Heading/Heading';
 import eyebrowCssRaw from './Eyebrow.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -35,7 +35,7 @@ export const Ink: Story = { args: { variant: 'ink', children: 'Part A · the wor
 /** In place: eyebrow, then the h2 it labels. */
 export const AboveAHeading: Story = {
   render: (args) => (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
       <Eyebrow {...args} />
       <Heading tier="section" as="h2">
         It felt complicated. The numbers said why.

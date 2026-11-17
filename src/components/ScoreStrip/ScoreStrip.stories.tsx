@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import ScoreStrip, { ScoreLegend, scoreBand, type ScoreCell } from './ScoreStrip';
 import stripCssRaw from './ScoreStrip.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -51,11 +51,11 @@ const cells = (values: (number | null)[]): ScoreCell[] =>
 
 const panel = {
   display: 'grid',
-  gap: 'var(--spacing-8)',
+  gap: 'var(--spacing-32)',
   maxWidth: 880,
-  padding: 'var(--spacing-6)',
-  background: 'var(--color-semantic-surface-card)',
-  borderRadius: 'var(--radius-lg)',
+  padding: 'var(--spacing-24)',
+  background: 'var(--color-background-surface)',
+  borderRadius: 'var(--border-radius-12)',
 };
 
 /** One measured system, every band present. */

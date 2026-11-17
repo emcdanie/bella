@@ -7,22 +7,20 @@ const meta: Meta = {
 };
 export default meta;
 
-const chips = [
-  'soft', 'layered', 'card-default', 'card-elevated', 'sm', 'md', 'lg', 'hover',
-];
-const lock = ['orb', 'orb-raised', 'orb-selected', 'nav-bar', 'key-resting', 'key-hover', 'key-pressed'];
+/* the Figma effect styles (tokens/figma/shadow.json), in Figma's order */
+const chips = ['sm', 'md', 'lg', 'hover', 'soft', 'card-rest', 'card-ink', 'ui-ink', 'key-resting', 'key-pressed', 'card-rest-dark', 'card-ink-dark', 'ui-ink-dark'];
 
 function Chip({ name }: { name: string }) {
   return (
     <div
       style={{
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 'var(--spacing-6) var(--spacing-4)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
+        padding: 'var(--spacing-24) var(--spacing-16)',
         textAlign: 'center',
-        fontSize: 'var(--typography-font-size-tag)',
-        letterSpacing: 'var(--typography-letter-spacing-wide)',
-        color: 'var(--color-semantic-text-body)',
+        fontSize: 'var(--typography-label-default-font-size)',
+        letterSpacing: 'var(--typography-letter-spacing-0)',
+        color: 'var(--color-content-body)',
         boxShadow: `var(--shadow-${name})`,
       }}
     >
@@ -35,18 +33,8 @@ export const Shadows: StoryObj = {
   render: () => (
     <div>
       <SectionTitle>Shadow specimens</SectionTitle>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--spacing-5)' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--spacing-20)' }}>
         {chips.map((n) => (
-          <Chip key={n} name={n} />
-        ))}
-      </div>
-      <SectionTitle>The elevation lock (orb / nav)</SectionTitle>
-      <p style={{ maxWidth: '60ch', color: 'var(--color-semantic-text-body)' }}>
-        Token lock 2026-07-17: one light source, upper-left. The depth IS the
-        system, do not flatten.
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 'var(--spacing-5)', marginTop: 'var(--spacing-5)' }}>
-        {lock.map((n) => (
           <Chip key={n} name={n} />
         ))}
       </div>

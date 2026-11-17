@@ -13,29 +13,29 @@ const specimenText = 'Clean and easy to read';
 
 /* the sans label style (2026-10-03): muted, sentence case, untracked */
 const meta13: React.CSSProperties = {
-  fontFamily: 'var(--typography-font-family-body)',
-  fontSize: 'var(--typography-font-size-sm)',
-  color: 'var(--color-semantic-text-secondary)',
+  fontFamily: 'var(--typography-font-family-dm-sans)',
+  fontSize: 'var(--typography-font-size-18)',
+  color: 'var(--color-content-subtle)',
 };
 
 /* mono: tokens, code and hashes only */
 const mono13: React.CSSProperties = {
-  fontFamily: 'var(--typography-font-family-mono)',
-  fontSize: 'var(--typography-font-size-mono)',
-  letterSpacing: 'var(--typography-letter-spacing-mono)',
-  fontFeatureSettings: 'var(--typography-font-feature-mono)',
-  color: 'var(--color-semantic-text-body)',
+  fontFamily: 'var(--typography-font-family-geist-mono)',
+  fontSize: 'var(--typography-font-size-16)',
+  letterSpacing: 'var(--typography-letter-spacing-0)',
+  fontFeatureSettings: 'var(--typography-font-feature-ss09)',
+  color: 'var(--color-content-body)',
 };
 
 /* a fixed label column that wraps above the sample at narrow widths */
 const row: React.CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
-  columnGap: 'var(--spacing-6)',
-  rowGap: 'var(--spacing-2)',
+  columnGap: 'var(--spacing-24)',
+  rowGap: 'var(--spacing-8)',
   alignItems: 'baseline',
-  padding: 'var(--spacing-5) 0',
-  borderTop: '1px solid var(--color-semantic-border-subtle)',
+  padding: 'var(--spacing-20) 0',
+  borderTop: '1px solid var(--color-border-subtle)',
 };
 
 /* The ramp (type lock, 2026-10-08): (type lock, then shared look 8 Nov 2026) Newsreader titles, DM Sans text, Geist Mono.
@@ -62,9 +62,9 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
     sample: (
       <span
         style={{
-          fontSize: 'var(--typography-font-size-xl)',
-          fontWeight: 'var(--typography-font-weight-semibold)',
-          letterSpacing: 'var(--typography-letter-spacing-title)',
+          fontSize: 'var(--typography-font-size-22)',
+          fontWeight: 'var(--typography-font-weight-600)',
+          letterSpacing: 'var(--typography-letter-spacing-0)',
         }}
       >
         Structure and systems
@@ -74,14 +74,14 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
   {
     label: 'Body · 400 · 17 · -0.01em',
     sample: (
-      <span style={{ fontSize: 'var(--typography-font-size-body)', letterSpacing: 'var(--typography-letter-spacing-body)' }}>
+      <span style={{ fontSize: 'var(--typography-body-default-font-size)', letterSpacing: 'var(--typography-letter-spacing-0)' }}>
         Body copy for long reading. Muted grey for anything secondary.
       </span>
     ),
   },
   {
     label: 'Base · 400 · 20',
-    sample: <span style={{ fontSize: 'var(--typography-font-size-base)' }}>Body text sits at 20px.</span>,
+    sample: <span style={{ fontSize: 'var(--typography-body-default-font-size)' }}>Body text sits at 20px.</span>,
   },
   {
     label: 'Label · DM Sans 400 · 14 · muted',
@@ -89,7 +89,7 @@ const ramp: { label: string; sample: React.ReactNode }[] = [
   },
   {
     label: 'Mono · Geist Mono 400 · 16 · tokens, code',
-    sample: <span style={mono13}>--color-semantic-accent · 3127923</span>,
+    sample: <span style={mono13}>--color-background-accent-1 · 3127923</span>,
   },
 ];
 
@@ -98,7 +98,7 @@ export const Ramp: StoryObj = {
     <div>
       <Eyebrow>Foundations · type</Eyebrow>
       <SectionTitle>Two weights do the work</SectionTitle>
-      <div style={{ borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
+      <div style={{ borderBottom: '1px solid var(--color-border-subtle)' }}>
         {ramp.map(({ label, sample }) => (
           <div key={label} style={row}>
             <span style={{ ...meta13, flex: '0 0 34ch', maxWidth: '100%' }}>{label}</span>
@@ -106,7 +106,7 @@ export const Ramp: StoryObj = {
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-20)', color: 'var(--color-content-body)' }}>
         Newsreader 500 for headings and titles. DM Sans 600 for button labels and 400 for body and
         labels. Geist Mono for code only. Unique is retired (2026-10-08); wordmarks are
         drawn SVG. Faces ship vendored in this Storybook as woff2, the same files consumers load.
@@ -118,14 +118,14 @@ export const Ramp: StoryObj = {
 /** The eyebrow: the sans label style, never tracked caps (mono is for tokens, code and hashes). */
 export const Eyebrows: StoryObj = {
   render: () => (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-8)' }}>
-      <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-32)' }}>
+      <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
         <Eyebrow>02 · Decisions</Eyebrow>
         <Heading tier="section" as="h2">
           Decide once, and let it travel.
         </Heading>
       </div>
-      <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+      <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
         <Eyebrow variant="ink">Part B · case study page</Eyebrow>
         <Heading tier="section" as="h2">
           The system is the agreements, not the library.
@@ -139,8 +139,8 @@ const bodyText =
   'BELLA keeps the work editorial and deliberate. Tokens carry every decision, so a change lands once and every surface that reads it follows. Body copy is Geist at 17px, set for long reading.';
 
 const trackingColumns = [
-  { label: 'Before: letter-spacing.normal (0)', tracking: 'var(--typography-letter-spacing-normal)' },
-  { label: 'After: letter-spacing.body (-0.01em)', tracking: 'var(--typography-letter-spacing-body)' },
+  { label: 'Before: letter-spacing.normal (0)', tracking: 'var(--typography-letter-spacing-0)' },
+  { label: 'After: letter-spacing.body (-0.01em)', tracking: 'var(--typography-letter-spacing-0)' },
 ];
 
 /** Body amendment, 2026-09-22. Only Geist body text moves; the title above
@@ -154,38 +154,38 @@ export const BodyTrackingBeforeAfter: StoryObj = {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 32ch), 1fr))',
-          gap: 'var(--spacing-5)',
+          gap: 'var(--spacing-20)',
         }}
       >
         {trackingColumns.map(({ label, tracking }) => (
           <div
             key={label}
             style={{
-              background: 'var(--color-semantic-surface-card)',
-              border: '1px solid var(--color-semantic-border-faint)',
-              borderRadius: 'var(--radius-card)',
-              padding: 'var(--spacing-6)',
+              background: 'var(--color-background-surface)',
+              border: '1px solid var(--color-border-subtle)',
+              borderRadius: 'var(--border-radius-card)',
+              padding: 'var(--spacing-24)',
             }}
           >
-            <p style={{ ...meta13, margin: '0 0 var(--spacing-4)' }}>{label}</p>
+            <p style={{ ...meta13, margin: '0 0 var(--spacing-16)' }}>{label}</p>
             <p
               style={{
-                margin: '0 0 var(--spacing-3)',
-                fontSize: 'var(--typography-font-size-xl)',
-                fontWeight: 'var(--typography-font-weight-semibold)',
-                lineHeight: 'var(--typography-line-height-snug)',
-                letterSpacing: 'var(--typography-letter-spacing-title)',
+                margin: '0 0 var(--spacing-12)',
+                fontSize: 'var(--typography-font-size-22)',
+                fontWeight: 'var(--typography-font-weight-600)',
+                lineHeight: 'var(--typography-line-height-130)',
+                letterSpacing: 'var(--typography-letter-spacing-0)',
               }}
             >
               Design systems, made on purpose
             </p>
-            <p style={{ margin: 0, maxWidth: '60ch', fontSize: 'var(--typography-font-size-body)', letterSpacing: tracking }}>
+            <p style={{ margin: 0, maxWidth: '60ch', fontSize: 'var(--typography-body-default-font-size)', letterSpacing: tracking }}>
               {bodyText}
             </p>
           </div>
         ))}
       </div>
-      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-5)', color: 'var(--color-semantic-text-body)' }}>
+      <p style={{ maxWidth: '60ch', marginTop: 'var(--spacing-20)', color: 'var(--color-content-body)' }}>
         Body only. Titles take letter-spacing.title, headings take the display and h2
         tracking, and Unique (the wordmark) keeps letter-spacing.hero, never negative.
       </p>

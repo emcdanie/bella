@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import PageOutline from './PageOutline';
 import cssRaw from './PageOutline.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -34,11 +34,11 @@ export default meta;
 type Story = StoryObj<typeof PageOutline>;
 
 const Page = (args: any) => (
-  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 'var(--spacing-6)', alignItems: 'start' }}>
-    <div style={{ display: 'grid', gap: 'var(--spacing-4)', color: 'var(--color-semantic-text-body)' }}>
+  <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) auto', gap: 'var(--spacing-24)', alignItems: 'start' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', color: 'var(--color-content-body)' }}>
       {items.map((it) => (
         <section key={it.id} aria-labelledby={it.id}>
-          <h2 id={it.id} style={{ margin: 0, fontSize: 'var(--typography-font-size-lg)', color: 'var(--color-semantic-text-primary)' }}>
+          <h2 id={it.id} style={{ margin: 0, fontSize: 'var(--typography-font-size-22)', color: 'var(--color-content-default)' }}>
             {it.label}
           </h2>
           <p style={{ margin: 0 }}>A section of the page.</p>

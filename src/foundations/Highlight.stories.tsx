@@ -50,7 +50,7 @@ export const States: Story = {
       for (const p of lit) {
         const cs = getComputedStyle(p);
         expect(cs.backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
-        expect(cs.textDecorationThickness).toBe(root.getPropertyValue('--border-width-medium').trim());
+        expect(cs.textDecorationThickness).toBe(root.getPropertyValue('--border-width-2').trim());
       }
     });
   },

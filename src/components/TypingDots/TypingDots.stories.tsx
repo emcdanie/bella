@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import TypingDots from './TypingDots';
 import dotsCssRaw from './TypingDots.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -30,7 +30,7 @@ export const Default: Story = {};
 /** All four lanes. */
 export const AllLanes: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
       <TypingDots name="Dara" />
       <TypingDots name="Bernie" />
       <TypingDots name="Saoirse" />

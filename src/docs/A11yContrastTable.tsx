@@ -1,111 +1,72 @@
 import React from 'react';
 import tokens from '../../tokens/bella.json';
 
-/* Renders the verified contrast record straight from $extensions.bella.a11y
- * in tokens/bella.json. The ratios on this page are never written by hand:
- * the table walks the generated rollup, so a token edit plus a build is the
- * only way the numbers change. */
+/* The main text and mark pairs, computed from tokens/bella.json in all four
+ * themes. Nothing here is hand-written: a Figma change plus a build is the only
+ * way a ratio changes. The full list is checked by scripts/contrast-pairs.mjs
+ * in the gate (text 7:1, marks 3:1). */
 
-interface Row {
-  path: string;
-  value: string;
-  note: string;
+type Entry = { $value: string };
+const themes = (tokens as unknown as { themes: Record<string, Record<string, Entry>>; $metadata: { themes: Record<string, string> } });
+
+const PAIRS: [string, string, string, number][] = [
+  ['Text on the page', 'color.content.default', 'color.background.default', 7],
+  ['Text on a card', 'color.content.default', 'color.background.surface', 7],
+  ['Body text on a card', 'color.content.body', 'color.background.surface', 7],
+  ['Muted text on the page', 'color.content.subtle', 'color.background.default', 7],
+  ['Muted text on the subtle fill', 'color.content.subtle', 'color.background.subtle', 7],
+  ['Label on the primary button', 'color.content.brand-knockout', 'color.background.brand', 7],
+  ['Control edge on a card', 'color.border.strong', 'color.background.surface', 3],
+  ['Focus ring on the page', 'color.border.focus', 'color.background.default', 3],
+];
+
+function lum(hex: string) {
+  const h = hex.replace('#', '').slice(0, 6);
+  const c = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
+  const l = c.map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2];
 }
-
-function walk(node: unknown, path: string[], rows: Row[]): void {
-  if (node === null || typeof node !== 'object') return;
-  const obj = node as Record<string, unknown>;
-  if ('$value' in obj) {
-    const ext = (obj.$extensions as Record<string, any> | undefined)?.bella;
-    const a11y = ext?.a11y;
-    if (typeof a11y === 'string') {
-      rows.push({
-        path: path.join('.'),
-        value: typeof obj.$value === 'string' ? obj.$value : '',
-        note: a11y,
-      });
-    }
-    return;
-  }
-  for (const [k, v] of Object.entries(obj)) {
-    if (k.startsWith('$')) continue;
-    walk(v, [...path, k], rows);
-  }
-}
-
-function collect(root: unknown, prefix: string[]): Row[] {
-  const rows: Row[] = [];
-  walk(root, prefix, rows);
-  return rows;
+function ratio(a: string, b: string) {
+  const [x, y] = [lum(a), lum(b)];
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 }
 
 const cellStyle: React.CSSProperties = {
-  padding: 'var(--spacing-2) var(--spacing-3)',
-  borderBottom: '1px solid var(--color-semantic-border-subtle)',
-  fontSize: 'var(--typography-font-size-sm)',
+  padding: 'var(--spacing-8) var(--spacing-12)',
+  borderBottom: 'var(--border-width-1) solid var(--color-border-subtle)',
+  fontSize: 'var(--typography-font-size-18)',
   verticalAlign: 'top',
   textAlign: 'left',
 };
 
-function Section({ title, rows }: { title: string; rows: Row[] }) {
-  if (rows.length === 0) return null;
-  return (
-    <>
-      <tr>
-        <th colSpan={3} style={{ ...cellStyle, paddingTop: 'var(--spacing-5)' }}>
-          {title}
-        </th>
-      </tr>
-      {rows.map((r) => (
-        <tr key={r.path}>
-          <td style={{ ...cellStyle, whiteSpace: 'nowrap', fontFamily: 'var(--typography-font-family-body)' }}>
-            {r.path}
-          </td>
-          <td style={cellStyle}>
-            {/^#/.test(r.value) ? (
-              <span
-                aria-hidden="true"
-                /* token specimen: renders the token's literal value on
-                   purpose; audit:quality's no-literal lint skips it */
-                data-bella-specimen=""
-                style={{
-                  display: 'inline-block',
-                  width: 14,
-                  height: 14,
-                  borderRadius: 'var(--radius-sm)',
-                  background: r.value,
-                  border: '1px solid var(--color-semantic-border)',
-                  verticalAlign: 'middle',
-                  marginRight: 'var(--spacing-2)',
-                }}
-              />
-            ) : null}
-            <code style={{ fontFamily: 'var(--typography-font-family-body)' }}>{r.value}</code>
-          </td>
-          <td style={cellStyle}>{r.note}</td>
-        </tr>
-      ))}
-    </>
-  );
-}
-
 export default function A11yContrastTable() {
-  const primitive = collect(tokens.primitive, []);
-  const semanticLight = collect(tokens.semantic, ['semantic']);
-  const semanticDark = collect(tokens.semantic_dark_overrides, ['semantic']);
+  const ids = Object.keys(themes.themes);
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
       <thead>
         <tr>
-          <th style={cellStyle}>Token</th>
-          <th style={cellStyle}>Value</th>
-          <th style={cellStyle}>Verified record</th>
+          <th style={cellStyle}>Pair</th>
+          <th style={cellStyle}>Needs</th>
+          {ids.map((id) => (
+            <th key={id} style={cellStyle}>{themes.$metadata.themes[id]}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
-        <Section title="Primitives" rows={primitive} />
-        <Section title="Semantic (light)" rows={semanticLight} />
-        <Section title="Semantic (dark overrides)" rows={semanticDark} />
+        {PAIRS.map(([label, fg, bg, bar]) => (
+          <tr key={label}>
+            <td style={cellStyle}>{label}</td>
+            <td style={cellStyle}>{bar}:1</td>
+            {ids.map((id) => {
+              const r = ratio(themes.themes[id][fg].$value, themes.themes[id][bg].$value);
+              return (
+                <td key={id} style={cellStyle}>
+                  {r.toFixed(2)}:1 {r >= bar ? 'pass' : 'fails'}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
       </tbody>
     </table>
   );

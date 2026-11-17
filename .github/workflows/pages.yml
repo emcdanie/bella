@@ -26,26 +26,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-node@v7
         with:
-          python-version: "3.12"
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
 
       - name: Build tokens
-        run: python3 tokens/build.py
+        run: node tokens/build.mjs
 
       - name: Fail if generated artifacts drifted from sources
         run: |
           if ! git diff --exit-code; then
-            echo "::error::Generated artifacts do not match token sources. Run 'python3 tokens/build.py' and commit the output."
+            echo "::error::Generated artifacts do not match token sources. Run 'npm run build' and commit the output."
             exit 1
           fi
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 20
-          cache: npm
-
-      - run: npm ci
 
       - name: npm audit gate (fail on high/critical; allowlist in .npm-audit-allowlist.json)
         run: node scripts/npm-audit-gate.mjs
@@ -70,7 +66,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci

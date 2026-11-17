@@ -21,6 +21,9 @@ export interface IconProps {
  * icon requires the label prop and never stands without text unless its
  * accessible name is proven in a Behavior story.
  */
+/* sm / md / lg on the Figma size scale: 16, 20, 24 */
+const ICON_SIZE = { sm: 'var(--size-16)', md: 'var(--size-20)', lg: 'var(--size-24)' } as const;
+
 export default function Icon({ name, size = 'md', label, className, style }: IconProps) {
   return (
     <svg
@@ -35,9 +38,9 @@ export default function Icon({ name, size = 'md', label, className, style }: Ico
       /* size/stroke ride on style, not SVG attributes: attributes do not
          evaluate CSS custom properties, the style property does */
       style={{
-        width: `var(--icon-${size})`,
-        height: `var(--icon-${size})`,
-        strokeWidth: 'var(--icon-stroke)',
+        width: ICON_SIZE[size],
+        height: ICON_SIZE[size],
+        strokeWidth: '1.5',
         flexShrink: 0,
         ...style,
       }}

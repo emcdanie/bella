@@ -3,7 +3,7 @@
 .row {
   display: flex;
   flex-direction: column;
-  max-width: var(--component-chat-thread-default-row-max-width);
+  max-width: 80%;
   position: relative;
 }
 
@@ -17,47 +17,47 @@
   align-items: flex-start;
   /* 30px gutter reserves space for the disc at the last bubble in a run. All
      received rows in a run share this gutter so the bubbles stay visually aligned. */
-  padding-left: var(--component-chat-thread-default-avatar-gutter);
+  padding-left: var(--spacing-32);
 }
 
 .bubble {
   position: relative;
-  padding: var(--component-chat-bubble-default-padding-block) var(--component-chat-bubble-default-padding-inline);
-  border-radius: var(--component-chat-bubble-default-border-radius);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--border-radius-20);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-body);
-  line-height: var(--typography-line-height-body);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
   /* Pop-in animation. Stopped by .no-motion media query below. */
-  animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both;
+  animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both;
 }
 
 .sent {
-  background: var(--component-chat-bubble-sent-background);
-  color: var(--component-chat-bubble-sent-foreground);
+  background: var(--color-content-default);
+  color: var(--color-background-surface);
   transform-origin: bottom right;
 }
 
 .received {
-  background: var(--component-chat-bubble-received-background);
-  color: var(--component-chat-bubble-received-foreground);
+  background: var(--color-background-subtle);
+  color: var(--color-content-body);
   transform-origin: bottom left;
 }
 
 .tailSent {
-  border-bottom-right-radius: var(--component-chat-bubble-default-tail-radius);
+  border-bottom-right-radius: var(--border-radius-8);
 }
 
 .tailReceived {
-  border-bottom-left-radius: var(--component-chat-bubble-default-tail-radius);
+  border-bottom-left-radius: var(--border-radius-8);
 }
 
 .bigEmoji {
-  font-size: var(--typography-font-size-hero);
+  font-size: var(--typography-font-size-display-hero);
   background: transparent !important;
-  padding: 0 var(--spacing-1);
-  animation: bubbleSlam var(--motion-duration-slam) var(--motion-easing-slam-enter) both;
+  padding: 0 var(--spacing-4);
+  animation: bubbleSlam var(--motion-duration-450) var(--motion-easing-pop) both;
 }
 
 /* kind="image": the picture fills the bubble and takes its corners; no clipping, so a tapback can sit outside. */
@@ -75,11 +75,11 @@
 
 /* Inline <code> inside a bubble — 13px mono, small radius. */
 .bubble :global(code) {
-  font-family: var(--typography-font-family-code);
-  font-size: var(--component-chat-bubble-default-code-font-size);
+  font-family: var(--typography-font-family-geist-mono);
+  font-size: var(--typography-font-size-18);
   background: rgba(127, 127, 127, 0.18); /* token-waiver: neutral glass overlay; no semantic token for code-in-bubble; works on both dark sent and light received fills */
-  padding: 1px var(--spacing-1);
-  border-radius: var(--component-chat-bubble-default-code-radius);
+  padding: 1px var(--spacing-4);
+  border-radius: var(--border-radius-4);
 }
 
 /* Gutter is on .rowReceived; this class is kept as a stable hook if disc-specific
@@ -90,44 +90,44 @@
   position: absolute;
   left: 0;
   bottom: 2px;
-  width: var(--component-chat-bubble-default-disc-size);
-  height: var(--component-chat-bubble-default-disc-size);
-  border-radius: var(--radius-full);
+  width: var(--spacing-24);
+  height: var(--spacing-24);
+  border-radius: var(--border-radius-round);
 }
 
 .senderName {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-label);
-  color: var(--color-semantic-text-secondary);
-  padding-inline: var(--spacing-1);
-  padding-bottom: var(--spacing-1);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  color: var(--color-content-subtle);
+  padding-inline: var(--spacing-4);
+  padding-bottom: var(--spacing-4);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--spacing-1);
-  margin-top: var(--spacing-2);
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-8);
 }
 
 .tapback {
   position: absolute;
-  top: calc(-1 * var(--spacing-3));
-  background: var(--color-semantic-surface);
-  border: 2px solid var(--color-semantic-background);
-  border-radius: var(--radius-full);
-  padding: 1px var(--spacing-1);
-  font-size: var(--typography-font-size-body);
-  box-shadow: var(--shadow-ui);
-  animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both;
+  top: calc(-1 * var(--spacing-12));
+  background: var(--color-background-surface);
+  border: 2px solid var(--color-background-default);
+  border-radius: var(--border-radius-round);
+  padding: 1px var(--spacing-4);
+  font-size: var(--typography-body-default-font-size);
+  box-shadow: var(--shadow-ui-ink);
+  animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both;
 }
 
 .tapbackSent {
-  left: calc(-1 * var(--spacing-3));
+  left: calc(-1 * var(--spacing-12));
 }
 
 .tapbackReceived {
-  right: calc(-1 * var(--spacing-3));
+  right: calc(-1 * var(--spacing-12));
 }
 
 @keyframes bubblePop {

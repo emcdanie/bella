@@ -21,10 +21,10 @@ export function LiveSpecimen() {
       data-bella-specimen
       style={{
         display: 'block',
-        height: 'var(--spacing-20)',
-        borderRadius: 'var(--radius-lg)',
+        height: 'var(--spacing-80)',
+        borderRadius: 'var(--border-radius-12)',
         background: `var(${token})`,
-        border: '1px solid var(--color-semantic-border-faint)',
+        border: '1px solid var(--color-border-subtle)',
       }}
     />
   );
@@ -34,16 +34,16 @@ export function LiveSpecimen() {
       style={{
         height: '100%',
         boxSizing: 'border-box',
-        padding: 'var(--spacing-20)',
+        padding: 'var(--spacing-80)',
         display: 'grid',
         gridTemplateRows: 'auto auto 1fr',
-        rowGap: 'var(--spacing-10)',
+        rowGap: 'var(--spacing-40)',
         /* the page ground, so the specimen reads as a cover, not as body */
-        background: 'var(--color-semantic-background)',
-        color: 'var(--color-semantic-text-primary)',
+        background: 'var(--color-background-default)',
+        color: 'var(--color-content-default)',
       }}
     >
-      <div style={{ display: 'flex', gap: 'var(--spacing-3)', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: 'var(--spacing-12)', flexWrap: 'wrap' }}>
         <StatusPill variant="accent">On system</StatusPill>
         <StatusPill variant="success">Gate green</StatusPill>
         <StatusPill variant="info">Synced</StatusPill>
@@ -51,22 +51,22 @@ export function LiveSpecimen() {
       <p
         style={{
           margin: 0,
-          fontSize: 'var(--typography-font-size-6xl)',
-          fontWeight: 'var(--typography-font-weight-bold)',
-          lineHeight: 'var(--typography-line-height-tight)',
+          fontSize: 'var(--typography-font-size-88)',
+          fontWeight: 'var(--typography-font-weight-700)',
+          lineHeight: 'var(--typography-line-height-110)',
         }}
       >
         Tokens, components, governance.
       </p>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 'var(--spacing-4)', alignContent: 'end' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 'var(--spacing-16)', alignContent: 'end' }}>
         {[
-          '--color-semantic-background',
-          '--color-semantic-surface-card',
-          '--color-semantic-surface-inset',
-          '--color-semantic-accent',
-          '--color-semantic-text-primary',
+          '--color-background-default',
+          '--color-background-surface',
+          '--color-background-subtle',
+          '--color-background-accent-1',
+          '--color-content-default',
         ].map(swatch)}
-        <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 'var(--spacing-2)', flexWrap: 'wrap' }}>
+        <div style={{ gridColumn: '1 / -1', display: 'flex', gap: 'var(--spacing-8)', flexWrap: 'wrap' }}>
           {['color.semantic', 'spacing', 'radius.card', 'motion.lift'].map((t) => (
             <Tag key={t} variant="accent">{t}</Tag>
           ))}

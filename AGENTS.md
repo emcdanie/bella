@@ -8,7 +8,7 @@
    ```
 2. Never restyle a component from outside, never copy its colours, never write a local `<button>`, toggle, or card.
 3. If no component fits, compose existing ones. If that still doesn't fit, STOP and say which component is missing. Don't invent one.
-4. For layout glue between components only, use tokens as CSS variables: `var(--color-semantic-*)`, `var(--spacing-*)`, `var(--radius-*)`. Never hex, never raw px, never `var(--x, fallback)`.
+4. For layout glue between components only, use tokens as CSS variables: `var(--color-background-*)`, `var(--color-content-*)`, `var(--color-border-*)`, `var(--spacing-*)`, `var(--border-radius-*)`. Never hex, never raw px, never `var(--x, fallback)`.
 
 ## Which component for which job
 
@@ -50,7 +50,7 @@ Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert/Toast, Textarea, Pagination,
 
 ## Floors (always)
 
-Body ≥ 18px (the `chip` theme's app density is 16px) · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
+Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body text 16", "1, yes") · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
 
 ## Working on BELLA itself
 

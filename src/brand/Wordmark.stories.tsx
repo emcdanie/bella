@@ -30,7 +30,7 @@ export const Ink: Story = { args: { variant: 'ink' } };
 /** Nav size: 40px tall, both words, both variants. */
 export const NavSize: Story = {
   render: () => (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-6)', justifyItems: 'start' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-24)', justifyItems: 'start' }}>
       <BrandWordmark word="ELLETA" size="nav" />
       <BrandWordmark word="BELLA" size="nav" />
       <BrandWordmark word="ELLETA" size="nav" variant="ink" />
@@ -55,18 +55,18 @@ function RerollDemo() {
 export const Reroll: Story = { render: () => <RerollDemo /> };
 
 const glyphNote: React.CSSProperties = {
-  fontFamily: 'var(--typography-font-family-mono)',
-  fontSize: 'var(--typography-font-size-mono)',
-  fontFeatureSettings: 'var(--typography-font-feature-mono)',
-  color: 'var(--color-semantic-text-body)',
+  fontFamily: 'var(--typography-font-family-geist-mono)',
+  fontSize: 'var(--typography-font-size-16)',
+  fontFeatureSettings: 'var(--typography-font-feature-ss09)',
+  color: 'var(--color-content-body)',
 };
 
 /** The five glyphs on a 100-unit cap height, each with its centre line
  * (the path the stroke follows) drawn in ochre-deep over the stroke. */
 export const GlyphSheet: Story = {
   render: () => (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
-      <ul style={{ ...glyphNote, margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
+      <ul style={{ ...glyphNote, margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)' }}>
         <li>weight {LOCK.weight}</li>
         <li>width {LOCK.width}</li>
         <li>height {LOCK.height}</li>
@@ -78,10 +78,10 @@ export const GlyphSheet: Story = {
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 'var(--spacing-5)',
-          padding: 'var(--spacing-6)',
-          background: 'var(--color-semantic-surface-card)',
-          borderRadius: 'var(--radius-card)',
+          gap: 'var(--spacing-20)',
+          padding: 'var(--spacing-24)',
+          background: 'var(--color-background-surface)',
+          borderRadius: 'var(--border-radius-card)',
         }}
       >
         {(Object.keys(GLYPHS) as Glyph[]).map((k) => {
@@ -93,11 +93,11 @@ export const GlyphSheet: Story = {
               role="img"
               aria-label={`Glyph ${k} with its centre line`}
               data-bella-brand
-              style={{ height: 'var(--spacing-20)', width: 'auto', color: 'var(--color-semantic-text-primary)' }}
+              style={{ height: 'var(--spacing-80)', width: 'auto', color: 'var(--color-content-default)' }}
             >
               <path d={g.d} fill="none" stroke="currentColor" strokeWidth={LOCK.weight} strokeLinejoin="round" />
-              <path d={g.d} fill="none" style={{ stroke: 'var(--color-brand-ochre-deep)' }} strokeWidth={2} />
-              <line x1={-12} x2={g.w + 12} y1={66} y2={66} style={{ stroke: 'var(--color-semantic-border)' }} strokeWidth={0.5} />
+              <path d={g.d} fill="none" style={{ stroke: 'var(--color-brand-ochre-500)' }} strokeWidth={2} />
+              <line x1={-12} x2={g.w + 12} y1={66} y2={66} style={{ stroke: 'var(--color-border-default)' }} strokeWidth={0.5} />
             </svg>
           );
         })}

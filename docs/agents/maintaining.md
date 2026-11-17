@@ -6,9 +6,11 @@ BELLA is the design system for **ctrl_alt_design** (Elleta McDaniel's design eng
 
 ## Token-first, always
 
+**The token pipeline (Elleta, 17 Nov 2026).** Figma Foundations exports DTCG JSON to `tokens/figma/`; Style Dictionary (`tokens/build.mjs`) builds everything else. Never hand-edit a built file or a value in `tokens/figma/`; change Figma and re-export. Old CSS names are renamed in place in the parts that read them, with no alias layer (17 Nov: "B, rename in place").
+
 Never hard-code a hex value, an arbitrary pixel number, or a one-off font size. If the design calls for a color, spacing, radius, or type style, it resolves through a BELLA token. If the token you need doesn't exist yet, stop and ask — do not invent one inline and move on.
 
-Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-size.base`). Consuming apps read `tokens/bella.json` as the source of truth.
+Reference tokens by their Figma path (`color.content.default`, `spacing.16`, `typography.body.default-font-size`); the CSS name is the path joined with `-`. Consuming apps read `tokens/bella.json` as the source of truth.
 
 **Colour is authored twice, checked once (2026-10-05).** A colour primitive is hex in `$value` and OKLCH in `$extensions.bella.oklch`; ramps hold one hue. Change both together: the build fails when they drift by ΔE2000 1 or more. Never put an OKLCH value in `$value`, and never write a hex8 tint by hand when a relative colour of its base will do. See `docs/decisions/2026-10-05-oklch-primitives.md`.
 
@@ -28,7 +30,7 @@ Reference tokens by path (`color.brand.ochre`, `spacing.4`, `typography.font-siz
 
 These are floors, not defaults. Going below is a bug.
 
-- Reading text: **18px minimum**; body is `font-size.body` (20px, line-height 1.7), in `text-body`, never grey (type lock, Elleta, 2026-10-04)
+- Reading text: **16px minimum**; body is `typography.body.default-font-size` (16px, Figma), in `color.content.body`, never grey (Elleta, 17 Nov 2026: "one size per token … body text 16", "1, yes"; replaces the 18px/20px type lock of 2026-10-04)
 - Titles (card, step): **22px, Figtree SemiBold 600**
 - Section headings (H2): **34 to 40px**; H1 44 to 60px; the hero tier 48 to 82px (`display-hero`); quotes 24 to 32px (`font-size.quote`)
 - Nothing, anywhere, below **16px**: labels and meta sit at the 16px floor, in Figtree, sentence case, no tracking

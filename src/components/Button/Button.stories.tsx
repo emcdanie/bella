@@ -8,7 +8,7 @@ import {
 } from '../../testing/behavioral';
 import Button from './Button';
 import buttonCssRaw from './Button.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 /* Tokens consumed: extracted live from the committed stylesheet, so the
@@ -63,7 +63,7 @@ type Story = StoryObj<typeof Button>;
 /** The three tiers, one row: primary plate, secondary outline, tertiary text. */
 export const Tiers: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap' }}>
       <Button variant="primary" onClick={() => {}}>
         Read the case
       </Button>
@@ -83,11 +83,11 @@ export const Tiers: Story = {
  * rest-state assertions. */
 export const States: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-20)' }}>
       {(['primary', 'secondary', 'tertiary'] as const).map((tier) => (
         <div
           key={tier}
-          style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap' }}
         >
           <Button variant={tier} onClick={() => {}}>
             {tier}
@@ -106,11 +106,11 @@ export const States: Story = {
  * aria-hidden. */
 export const Shape: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-20)' }}>
       {(['default', 'pill'] as const).map((shape) => (
         <div
           key={shape}
-          style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap' }}
         >
           <Button variant="primary" shape={shape} onClick={() => {}}>
             Let's talk
@@ -142,11 +142,11 @@ export const Shape: Story = {
  * Figma). Contract test: rest, hover, focus and disabled, both shapes. */
 export const OneHeight: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-20)' }}>
       {(['default', 'pill'] as const).map((shape) => (
         <div
           key={shape}
-          style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'flex-start', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'flex-start', flexWrap: 'wrap' }}
         >
           {(['tertiary', 'secondary', 'primary'] as const).map((tier) => (
             <React.Fragment key={tier}>
@@ -185,7 +185,7 @@ export const OneHeight: Story = {
 /** Anchor rendering: one link, external opens a new tab. */
 export const AsLink: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center' }}>
       <Button variant="primary" href="#work">
         Internal link
       </Button>
@@ -199,7 +199,7 @@ export const AsLink: Story = {
 function BehaviorHarness() {
   const [count, setCount] = useState(0);
   return (
-    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center' }}>
       <Button variant="primary" onClick={() => setCount((c) => c + 1)} ariaLabel="Send message">
         Send
       </Button>
@@ -247,7 +247,7 @@ export const Behavior: Story = {
  * small shift per tier, and there is no accent colour at rest. */
 export const RingAndHover: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-5)', alignItems: 'center', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap' }}>
       <Button variant="primary" onClick={() => {}}>Let's talk</Button>
       <Button variant="secondary" onClick={() => {}}>See the work</Button>
       <Button variant="tertiary" onClick={() => {}}>Read the case</Button>
@@ -261,13 +261,13 @@ export const RingAndHover: Story = {
       }
       await expect(getComputedStyle(primary, '::before').outlineStyle).toBe('none');
     });
-    await step('keyboard focus: 3px ring, 3px offset', async () => {
+    await step('keyboard focus: the focus-ring token (4px, 4px offset)', async () => {
       await userEvent.tab();
       /* primary draws its ring on ::before, sized to the plate */
       const cs = getComputedStyle(primary, '::before');
       await expect(cs.outlineStyle).toBe('solid');
-      await expect(parseFloat(cs.outlineWidth)).toBe(3);
-      await expect(parseFloat(cs.outlineOffset)).toBe(3);
+      await expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
+      await expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
       primary.blur();
     });
     /* hover (secondary outline to ink, tertiary underline to 2px) is
@@ -288,8 +288,8 @@ function focusPrimary(): Story['play'] {
     /* the ring draws on ::before, sized to the plate */
     const cs = getComputedStyle(button, '::before');
     await expect(cs.outlineStyle).toBe('solid');
-    await expect(parseFloat(cs.outlineWidth)).toBe(3);
-    await expect(parseFloat(cs.outlineOffset)).toBe(3);
+    await expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
+    await expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
   };
 }
 
@@ -318,22 +318,22 @@ export const FocusedPrimaryPill: Story = {
  * near-white in dark. (Elleta, 14 Oct 2026) */
 export const AllThemes: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
-      {(['light', 'dark', 'warm'] as const).map((theme) => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-20)' }}>
+      {(['bella-light', 'bella-dark', 'chip-light', 'chip-dark'] as const).map((theme) => (
         <div
           key={theme}
           data-theme={theme}
           style={{
             display: 'flex',
-            gap: 'var(--spacing-4)',
+            gap: 'var(--spacing-16)',
             alignItems: 'center',
             flexWrap: 'wrap',
-            padding: 'var(--spacing-4)',
-            background: 'var(--color-semantic-surface)',
-            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--spacing-16)',
+            background: 'var(--color-background-surface)',
+            borderRadius: 'var(--border-radius-12)',
           }}
         >
-          <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', minWidth: '5rem' }}>{theme}</span>
+          <span style={{ fontFamily: 'var(--typography-font-family-dm-sans)', fontSize: 'var(--typography-label-default-font-size)', color: 'var(--color-content-subtle)', minWidth: '5rem' }}>{theme}</span>
           <Button variant="primary" onClick={() => {}}>Primary</Button>
           <Button variant="secondary" onClick={() => {}}>Secondary</Button>
           <Button variant="tertiary" onClick={() => {}}>Tertiary</Button>

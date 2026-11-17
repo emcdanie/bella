@@ -23,29 +23,13 @@ import { PageIntro } from './DocBlocks';
    any other change.
 
 Consumers reference tokens by CSS custom property only
-(`var(--color-semantic-accent)`, `var(--spacing-4)`), never by resolved value.
-Dark mode activates via `data-theme="dark"` on `<html>` or `<body>`; every
-semantic token flips on its own.
+(`var(--color-background-accent-1)`, `var(--spacing-16)`), never by resolved value.
+Themes switch with `data-theme` on `<html>` or any wrapper: `"bella-light"`
+(the default, also with no attribute), `"bella-dark"`, `"chip-light"`,
+`"chip-dark"`. Every Tier 2 token flips on its own.
 
 Rules travel with the tokens: `AGENTS.md` and `docs/RULES.md` bind consumers
 too. Downstream rules may tighten BELLA's, never relax them.
-
-## Legacy alias table
-
-`bella.css` carries aliases for pre-0.3 consumer names so the portfolio swap
-is drop-in. They resolve via `var()` to the current tokens and will be removed
-once the Phase 3 component swaps migrate the references. Do not use them in
-new code.
-
-| Legacy name (pre-0.3)          | Resolves to                    |
-| ------------------------------ | ------------------------------ |
-| `--color-alpha-parchment-6`    | `--color-alpha-dark-ink-6`     |
-| `--color-alpha-shadow-warm-03` | `--color-alpha-shadow-cool-03` |
-| `--color-alpha-shadow-warm-04` | `--color-alpha-shadow-cool-04` |
-| `--color-alpha-shadow-warm-05` | `--color-alpha-shadow-cool-05` |
-| `--color-alpha-shadow-warm-06` | `--color-alpha-shadow-cool-06` |
-| `--color-alpha-shadow-warm-08` | `--color-alpha-shadow-cool-08` |
-| `--color-supporting-linen`     | `--color-neutral-border`       |
 
 ## Agent access
 
@@ -69,5 +53,5 @@ anything an agent infers from a story.
 
 No npm publication, no React package export, no Figma library sync. Components
 are extracted one at a time behind the gate; until a component ships here, the
-contract in `tokens/component.json` is the spec and the consumer keeps its
+contract in `tokens/contracts.json` is the spec and the consumer keeps its
 local implementation.

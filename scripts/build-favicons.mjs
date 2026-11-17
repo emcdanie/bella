@@ -23,14 +23,16 @@ export const SEED = 189; /* 2026-09-22: best of 1-200, no cream and all strong u
 export const OFFSET = { x: 0, y: 0 };
 const STROKE = LOCK.weight * 2; /* 2x the wordmark weight: ~2.5px at 16, still clears the low-line counter (2026-09-22) */
 const tokens = JSON.parse(readFileSync('tokens/bella.json', 'utf8'));
-const P = tokens.primitive.color.pattern;
+/* the brand pattern lives in Tier 2 (color/background/pattern in Figma); read the BELLA light values */
+const T = tokens.themes['bella-light'];
+const P = new Proxy({}, { get: (_, k) => T[`color.background.pattern.${k}`] });
 const val = (t) => t.$value;
 const COLORS = {
   ochre: val(P.ground), blue: val(P.tiger), cream: val(P.cream), pale: val(P.rosette), pink: val(P.pink),
   leaf: val(P.leopard), lime: val(P.zebra), limeL: val(P['zebra-light']), ink: val(P.ink), coral: val(P.coral),
 };
-const EDGE = val(tokens.primitive.color.brand['ochre-deep']);
-const INK = val(tokens.primitive.color.light.ink);
+const EDGE = val(T['color.brand.ochre.500']);
+const INK = val(T['color.content.default']);
 
 const shapesSvg = (shapes) =>
   shapes

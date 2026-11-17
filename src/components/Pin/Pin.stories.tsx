@@ -4,7 +4,7 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import Pin from './Pin';
 import Leader from '../Leader/Leader';
 import cssRaw from './Pin.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -37,7 +37,7 @@ type Story = StoryObj<typeof Pin>;
 /** The four pops. The number and word say it; the colour only groups. */
 export const Variants: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-3)' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-12)' }}>
       <Pin number="1" variant="yellow" label="Key shadow" />
       <Pin number="2" variant="pink" label="Fill" />
       <Pin number="3" variant="blue" label="Box" />
@@ -65,20 +65,20 @@ export const WithLeader: Story = {
       style={{
         position: 'relative',
         display: 'grid',
-        gap: 'var(--spacing-8)',
+        gap: 'var(--spacing-32)',
         justifyItems: 'start',
-        padding: 'var(--spacing-8)',
-        backgroundColor: 'var(--color-semantic-background)',
-        backgroundImage: 'var(--color-semantic-canvas-grid)',
-        backgroundSize: 'var(--spacing-6) var(--spacing-6)',
+        padding: 'var(--spacing-32)',
+        backgroundColor: 'var(--color-background-default)',
+        backgroundImage: 'none',
+        backgroundSize: 'var(--spacing-24) var(--spacing-24)',
       }}
     >
       <span
         id="pin-story-part"
         style={{
-          padding: 'var(--spacing-3) var(--spacing-4)',
-          border: 'var(--border-width-thin) solid var(--color-semantic-border-strong)',
-          color: 'var(--color-semantic-text-primary)',
+          padding: 'var(--spacing-12) var(--spacing-16)',
+          border: 'var(--border-width-1) solid var(--color-border-strong)',
+          color: 'var(--color-content-default)',
         }}
       >
         The part it explains

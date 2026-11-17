@@ -17,43 +17,43 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   cursor: pointer;
-  min-height: var(--component-filter-chip-min-height);
-  padding: var(--spacing-1) var(--spacing-4);
-  border-radius: var(--component-filter-chip-border-radius);
-  border: 1px solid var(--component-filter-chip-border);
+  min-height: var(--spacing-44);
+  padding: var(--spacing-4) var(--spacing-16);
+  border-radius: var(--border-radius-round);
+  border: 1px solid var(--color-border-strong);
   background: transparent;
-  font-family: var(--component-filter-chip-font-family);
-  font-size: var(--component-filter-chip-font-size);
-  font-weight: var(--component-filter-chip-font-weight);
-  color: var(--component-filter-chip-foreground);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-body);
   margin: 0;
   transition:
-    background var(--motion-duration-fast) var(--motion-easing-standard),
-    color var(--motion-duration-fast) var(--motion-easing-standard);
+    background var(--motion-duration-150) var(--motion-easing-standard),
+    color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .compact {
-  gap: var(--spacing-1);
-  padding: var(--spacing-1) var(--spacing-3);
-  font-size: var(--component-filter-chip-compact-font-size);
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-12);
+  font-size: var(--typography-label-default-font-size);
 }
 
 .chip:hover {
-  border-color: var(--color-semantic-border-ink);
-  background: var(--color-semantic-border-subtle);
+  border-color: var(--color-border-ink);
+  background: var(--color-border-subtle);
 }
 
 .chip[aria-pressed='true'] {
-  background: var(--color-semantic-background-inverse);
-  border-color: var(--color-semantic-background-inverse);
-  color: var(--color-semantic-text-inverse);
+  background: var(--color-background-knockout);
+  border-color: var(--color-background-knockout);
+  color: var(--color-content-knockout);
 }
 
 .chip:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 @media (prefers-reduced-motion: reduce) {

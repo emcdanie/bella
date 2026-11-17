@@ -11,7 +11,7 @@ const lockup = (_ink: string, muted: string) =>
   `<span style="display:block;font-family:${values.fontMono};font-size:11px;color:${muted}">design system · v${pkg.version.split('.').slice(0, 2).join('.')}</span></span>`;
 
 /* The branded manager theme. Every colour, font, and radius here comes from
- * .storybook/theme-values.json, which tokens/build.py generates from the
+ * .storybook/theme-values.json, which tokens/build.mjs generates from the
  * token sources and the gate diff-checks. Never write a hex in this file. */
 
 export const bellaTheme = create({

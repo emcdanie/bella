@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import SectionHeader from './SectionHeader';
 import sectionHeaderCssRaw from './SectionHeader.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -77,7 +77,7 @@ export const TermAccent: Story = {
         style={{
           font: 'inherit',
           /* interactive, so it wears the accent */
-          color: 'var(--color-semantic-text-accent)',
+          color: 'var(--color-content-accent)',
           letterSpacing: 'inherit',
           textTransform: 'inherit',
           background: 'none',

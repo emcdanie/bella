@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Heading from './Heading';
 import headingCssRaw from './Heading.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -39,7 +39,7 @@ type Story = StoryObj<typeof Heading>;
 export const Tiers: Story = {
   parameters: { bella: { fluidType: true } },
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-6)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)' }}>
       <Heading tier="hero">Hero step</Heading>
       <Heading tier="page">Page title</Heading>
       <Heading tier="section">Section head</Heading>
@@ -61,7 +61,7 @@ export const WithAccent: Story = {
  * drops below the display floor. */
 export const Behavior: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-6)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)' }}>
       <Heading tier="section" as="h3" id="sub">
         Section look, h3 outline
       </Heading>

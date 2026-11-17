@@ -21,17 +21,17 @@ export const HeroField: Story = {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        padding: 'var(--spacing-20) var(--spacing-6)',
-        borderBottom: '1px solid var(--color-semantic-border)',
+        padding: 'var(--spacing-80) var(--spacing-24)',
+        borderBottom: '1px solid var(--color-border-default)',
       }}
     >
       <PatternField {...args} />
-      <div style={{ position: 'relative', display: 'grid', rowGap: 'var(--spacing-4)' }}>
+      <div style={{ position: 'relative', display: 'grid', rowGap: 'var(--spacing-16)' }}>
         <Eyebrow>Elleta McDaniel · near Barcelona</Eyebrow>
         <Heading tier="page" as="h1" accent="systems." after={undefined}>
           AI-enabled design
         </Heading>
-        <p style={{ margin: 0, maxWidth: '40ch', fontSize: 'var(--typography-font-size-xl)', color: 'var(--color-semantic-text-body)' }}>
+        <p style={{ margin: 0, maxWidth: '40ch', fontSize: 'var(--typography-font-size-22)', color: 'var(--color-content-body)' }}>
           Tokens, components and the governance that keeps them honest.
         </p>
       </div>

@@ -24,68 +24,68 @@
 .pill {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-1);
-  padding: 2px var(--spacing-2);
-  border-radius: var(--component-status-pill-border-radius);
-  font-family: var(--component-status-pill-font-family);
-  font-size: var(--component-status-pill-font-size);
-  font-weight: var(--component-status-pill-font-weight);
-  letter-spacing: var(--component-status-pill-letter-spacing);
-  font-feature-settings: var(--component-status-pill-font-feature-settings);
+  gap: var(--spacing-4);
+  padding: 2px var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  letter-spacing: var(--typography-letter-spacing-0);
+  font-feature-settings: normal;
   white-space: nowrap;
   cursor: default;
-  color: var(--color-semantic-text-body);
+  color: var(--color-content-body);
   border: 1px solid transparent;
 }
 
 /* every variant reads its own background, label and border tokens, so a theme
    restyles each state without touching this file (chip, 7 Nov 2026) */
 .accent {
-  color: var(--component-status-pill-accent-foreground);
-  background: var(--component-status-pill-accent-background);
-  border-color: var(--component-status-pill-accent-border);
+  color: var(--color-content-on-accent-1);
+  background: var(--color-background-accent-1);
+  border-color: transparent;
 }
 
 .success {
-  color: var(--component-status-pill-success-foreground);
-  background: var(--component-status-pill-success-background);
-  border-color: var(--component-status-pill-success-border);
+  color: var(--color-content-body);
+  background: color-mix(in srgb, var(--color-border-utility-success) 10%, transparent);
+  border-color: var(--color-border-utility-success);
 }
 
 .info {
-  color: var(--component-status-pill-info-foreground);
-  background: var(--component-status-pill-info-background);
-  border-color: var(--component-status-pill-info-border);
+  color: var(--color-content-body);
+  background: var(--color-background-utility-info);
+  border-color: var(--color-border-utility-info);
 }
 
 .neutral {
-  color: var(--component-status-pill-neutral-foreground);
-  background: var(--component-status-pill-neutral-background);
-  border-color: var(--component-status-pill-neutral-border);
+  color: var(--color-content-body);
+  background: var(--color-background-subtle);
+  border-color: var(--color-border-default);
 }
 
 .attention {
-  color: var(--component-status-pill-attention-foreground);
-  background: var(--component-status-pill-attention-background);
-  border-color: var(--component-status-pill-attention-border);
+  color: var(--color-content-utility-on-status);
+  background: var(--color-background-utility-warning-knockout);
+  border-color: transparent;
 }
 
 .danger {
-  color: var(--component-status-pill-danger-foreground);
-  background: var(--component-status-pill-danger-background);
-  border-color: var(--component-status-pill-danger-border);
+  color: var(--color-content-body);
+  background: color-mix(in srgb, var(--color-border-utility-error) 10%, transparent);
+  border-color: var(--color-border-utility-error);
 }
 
 .quiet {
-  color: var(--component-status-pill-quiet-foreground);
-  background: var(--component-status-pill-quiet-background);
-  border-color: var(--component-status-pill-quiet-border);
+  color: var(--color-content-utility-neutral);
+  background: var(--color-background-utility-neutral);
+  border-color: transparent;
 }
 
 .serving {
-  color: var(--component-status-pill-serving-foreground);
-  background: var(--component-status-pill-serving-background);
-  border-color: var(--component-status-pill-serving-border);
+  color: var(--color-content-body);
+  background: transparent;
+  border-color: var(--color-border-utility-success);
 }
 
 /* shape="dot" (CHIP's Today, 7 Nov 2026): the state's own mark colour, the
@@ -93,15 +93,15 @@
 .dot {
   display: inline-block;
   flex: none;
-  width: var(--spacing-3);
-  height: var(--spacing-3);
+  width: var(--spacing-12);
+  height: var(--spacing-12);
   border-radius: 50%;
-  background: var(--color-semantic-text-secondary);
+  background: var(--color-content-subtle);
 }
-.dot-attention, .dot-accent { background: var(--color-semantic-attention); }
-.dot-danger { background: var(--color-semantic-danger); }
-.dot-success, .dot-serving { background: var(--color-semantic-success); }
-.dot-info { background: var(--color-semantic-info); }
+.dot-attention, .dot-accent { background: var(--color-background-utility-warning-knockout); }
+.dot-danger { background: var(--color-border-utility-error); }
+.dot-success, .dot-serving { background: var(--color-border-utility-success); }
+.dot-info { background: var(--color-border-utility-info); }
 .word {
   position: absolute;
   width: 1px;

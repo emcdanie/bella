@@ -7,7 +7,7 @@ export interface AvatarStackMember {
   src?: string;
   /** CSS colour value for the lane or role colour. Applied as background when no image. */
   laneColor?: string;
-  /** CSS colour value for the ring. Overrides --component-avatar-default-ring-color when set. */
+  /** CSS colour value for the ring. Overrides --color-border-ink when set. */
   ringColor?: string;
   /** When false, the disc shows the lane colour with no initials (Option A). Default true. */
   showInitials?: boolean;
@@ -18,7 +18,7 @@ export interface AvatarStackProps {
   members: AvatarStackMember[];
   /** Avatar size step. */
   size?: AvatarProps['size'];
-  /** Background colour of the surface the stack sits on. Used for the separating ring. Defaults to --color-semantic-surface. */
+  /** Background colour of the surface the stack sits on. Used for the separating ring. Defaults to --color-background-surface. */
   surfaceColor?: string;
   /** Max members to render before showing a +N overflow disc. */
   max?: number;
@@ -52,7 +52,7 @@ export default function AvatarStack({
       {shown.map((m) => {
         const memberStyle: React.CSSProperties = {};
         if (m.laneColor) memberStyle.background = m.laneColor;
-        if (m.ringColor) (memberStyle as Record<string, string>)['--component-avatar-default-ring-color'] = m.ringColor;
+        if (m.ringColor) (memberStyle as Record<string, string>)['--color-border-ink'] = m.ringColor;
         return (
           <Avatar
             key={m.name}

@@ -4,7 +4,7 @@ import { expect, waitFor } from 'storybook/test';
 import Leader from './Leader';
 import Pin from '../Pin/Pin';
 import cssRaw from './Leader.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -35,9 +35,9 @@ type Story = StoryObj<typeof Leader>;
 /** Measured from one element to the other, in their positioned parent. */
 export const SideBySide: Story = {
   render: (args) => (
-    <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 'var(--spacing-16)', paddingBlock: 'var(--spacing-8)' }}>
+    <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 'var(--spacing-64)', paddingBlock: 'var(--spacing-32)' }}>
       <span id="leader-a"><Pin number="3" variant={args.variant} label="Box" /></span>
-      <span id="leader-b" style={{ marginTop: 'var(--spacing-12)', color: 'var(--color-semantic-text-primary)' }}>What it explains</span>
+      <span id="leader-b" style={{ marginTop: 'var(--spacing-48)', color: 'var(--color-content-default)' }}>What it explains</span>
       <Leader {...args} />
     </div>
   ),

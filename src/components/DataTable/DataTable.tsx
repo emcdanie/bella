@@ -29,7 +29,7 @@ export interface DataTableProps<Row extends Record<string, any>> {
   /** Selection, single. The first column renders as a toggle button; the selected row fills pink. */
   selectedKey?: string | null;
   onSelect?: (key: string | null) => void;
-  /** Caps the height (a token, e.g. `calc(var(--spacing-20) * 5)`) so the sticky header has something to stick in. */
+  /** Caps the height (a token, e.g. `calc(var(--spacing-80) * 5)`) so the sticky header has something to stick in. */
   maxHeight?: string;
   /** Row height. compact is for display-only tables (answers, read-only lists): rows under 44px.
    *  It is ignored on a sortable or selectable table, whose rows keep the 44px target. */

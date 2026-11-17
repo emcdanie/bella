@@ -13,40 +13,40 @@
 
 .wrap {
   overflow: auto;
-  border: var(--border-width-thin) solid var(--color-semantic-border);
-  border-radius: var(--component-data-table-border-radius);
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-12);
 }
 
 .wrap:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .table {
   inline-size: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-data-table-font-size);
-  letter-spacing: var(--typography-letter-spacing-body);
-  color: var(--color-semantic-text-primary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-default);
 }
 
 .caption {
   caption-side: top;
   text-align: start;
-  padding: var(--spacing-3) var(--spacing-4);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-sm);
-  color: var(--color-semantic-text-secondary);
+  padding: var(--spacing-12) var(--spacing-16);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-subtle);
 }
 
 .table th,
 .table td {
-  padding: var(--spacing-2) var(--spacing-4);
-  min-block-size: var(--component-data-table-row-min-height);
-  block-size: var(--component-data-table-row-min-height);
-  border-bottom: var(--border-width-thin) solid var(--color-semantic-border);
+  padding: var(--spacing-8) var(--spacing-16);
+  min-block-size: var(--spacing-44);
+  block-size: var(--spacing-44);
+  border-bottom: var(--border-width-1) solid var(--color-border-default);
   text-align: start;
   vertical-align: middle;
 }
@@ -54,9 +54,9 @@
 /* density="compact": display-only tables, rows under the 44px target */
 .wrap[data-density='compact'] .table th,
 .wrap[data-density='compact'] .table td {
-  padding: var(--spacing-1) var(--spacing-3);
-  min-block-size: var(--component-data-table-compact-row-min-height);
-  block-size: var(--component-data-table-compact-row-min-height);
+  padding: var(--spacing-4) var(--spacing-12);
+  min-block-size: var(--spacing-32);
+  block-size: var(--spacing-32);
 }
 
 .table tbody tr:last-child > * {
@@ -67,14 +67,14 @@
   position: sticky;
   inset-block-start: 0;
   z-index: 1;
-  background: var(--component-data-table-header-background);
-  font-weight: var(--typography-font-weight-medium);
-  color: var(--color-semantic-text-secondary);
+  background: var(--color-background-surface);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-subtle);
   white-space: nowrap;
 }
 
 .table tbody th {
-  font-weight: var(--typography-font-weight-medium);
+  font-weight: var(--typography-font-weight-500);
 }
 
 .table .numeric {
@@ -88,10 +88,10 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-1);
-  min-block-size: var(--spacing-touch-target);
+  gap: var(--spacing-4);
+  min-block-size: var(--spacing-44);
   cursor: pointer;
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-4);
 }
 
 .table .numeric .sort {
@@ -99,19 +99,19 @@
 }
 
 .sort:hover {
-  color: var(--color-semantic-text-primary);
+  color: var(--color-content-default);
 }
 
 .sort:focus-visible,
 .select:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .select:hover {
   text-decoration: underline;
-  text-decoration-thickness: var(--border-width-thin);
-  text-underline-offset: var(--spacing-1);
+  text-decoration-thickness: var(--border-width-1);
+  text-underline-offset: var(--spacing-4);
 }
 
 .arrow {
@@ -130,16 +130,16 @@
 
 /* a focus ring inside a selected row sits on the fill, so it takes the fill's text colour */
 tr[data-selected] {
-  --ring-focus-color: var(--component-data-table-selected-foreground);
+  --color-border-focus: var(--color-content-on-accent-1);
 }
 
 tr[data-selected] > * {
-  background: var(--component-data-table-selected-background);
-  color: var(--component-data-table-selected-foreground);
+  background: var(--color-background-accent-1);
+  color: var(--color-content-on-accent-1);
 }
 
 /* every text on the selected fill goes near-black, nested components
    included: a muted label fails contrast there (caught by axe on a StatusPill) */
 tr[data-selected] > * * {
-  color: var(--component-data-table-selected-foreground);
+  color: var(--color-content-on-accent-1);
 }

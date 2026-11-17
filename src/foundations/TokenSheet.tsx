@@ -19,18 +19,18 @@ export type TokenLeaf = {
 type TokenNode = { [key: string]: TokenNode } & {
   $value?: unknown;
   $description?: string;
+  alias?: string;
 };
 
 export function walk(node: TokenNode, prefix: string[] = []): TokenLeaf[] {
   if (node === null || typeof node !== 'object') return [];
   if ('$value' in node) {
     const path = prefix.join('.');
-    const cssPrefix = path.startsWith('blur.') ? '--bella-' : '--';
     return [
       {
         path,
-        cssVar: cssPrefix + path.replace(/\./g, '-'),
-        value: String(node.$value),
+        cssVar: '--' + path.replace(/\./g, '-'),
+        value: node.alias ? `${node.alias} ${String(node.$value)}` : String(node.$value),
         description: node.$description,
       },
     ];
@@ -40,33 +40,25 @@ export function walk(node: TokenNode, prefix: string[] = []): TokenLeaf[] {
     .flatMap(([k, v]) => walk(v as TokenNode, [...prefix, k]));
 }
 
-export const primitive = rollup.primitive as unknown as TokenNode;
-export const semanticLight = rollup.semantic as unknown as TokenNode;
-
-/* Dark bindings = light shape with the dark overrides merged on top —
- * the same cascade bella.css emits under [data-theme="dark"]. */
-function mergeTokens(base: TokenNode, override: TokenNode): TokenNode {
-  const out: TokenNode = { ...base };
-  for (const [k, v] of Object.entries(override)) {
-    const b = out[k];
-    if (v && typeof v === 'object' && !('$value' in (v as TokenNode)) && b && typeof b === 'object') {
-      out[k] = mergeTokens(b as TokenNode, v as TokenNode);
-    } else {
-      out[k] = v as TokenNode;
-    }
+/* bella.json holds every token per theme as a flat map (path -> entry);
+ * rebuild the tree for one theme and one tier. */
+type Entry = { $value: unknown; $description?: string; alias?: string; tier: string };
+const themes = (rollup as unknown as { themes: Record<string, Record<string, Entry>> }).themes;
+export const THEME_IDS = Object.keys(themes);
+export function tree(theme: string, tier: string): TokenNode {
+  const root = {} as TokenNode;
+  for (const [path, e] of Object.entries(themes[theme])) {
+    if (e.tier !== tier) continue;
+    const segs = path.split('.');
+    let n = root;
+    for (const k of segs.slice(0, -1)) n = (n[k] ??= {} as TokenNode);
+    n[segs[segs.length - 1]] = { $value: e.$value, $description: e.$description, alias: e.alias } as TokenNode;
   }
-  return out;
+  return root;
 }
 
-export const semanticDark = mergeTokens(
-  semanticLight,
-  rollup.semantic_dark_overrides as unknown as TokenNode
-);
-
-export const semanticWarm = mergeTokens(
-  semanticLight,
-  rollup.semantic_warm_overrides as unknown as TokenNode
-);
+export const primitive = tree('bella-light', 'primitive');
+export const semanticByTheme = Object.fromEntries(THEME_IDS.map((t) => [t, tree(t, 'semantic')]));
 
 export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
   const node = dotted.split('.').reduce<TokenNode | undefined>(
@@ -78,16 +70,16 @@ export function leavesUnder(root: TokenNode, dotted: string): TokenLeaf[] {
 
 /* token names and values are meta: Geist Mono, 13px, ss09, no tracking */
 const mono: React.CSSProperties = {
-  fontFamily: 'var(--typography-font-family-mono)',
-  fontSize: 'var(--typography-font-size-mono)',
-  letterSpacing: 'var(--typography-letter-spacing-mono)',
-  fontFeatureSettings: 'var(--typography-font-feature-mono)',
+  fontFamily: 'var(--typography-font-family-geist-mono)',
+  fontSize: 'var(--typography-font-size-16)',
+  letterSpacing: 'var(--typography-letter-spacing-0)',
+  fontFeatureSettings: 'var(--typography-font-feature-ss09)',
 };
 
 /* A real section heading: the Heading section tier, h2, Newsreader 500. */
 export function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <Heading tier="section" as="h2" style={{ margin: 'var(--spacing-10) 0 var(--spacing-5)' }}>
+    <Heading tier="section" as="h2" style={{ margin: 'var(--spacing-40) 0 var(--spacing-20)' }}>
       {children}
     </Heading>
   );
@@ -99,23 +91,23 @@ export function SwatchGrid({ leaves }: { leaves: TokenLeaf[] }) {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: 'var(--spacing-3)',
+        gap: 'var(--spacing-12)',
       }}
     >
       {leaves.map((leaf) => (
         <div
           key={leaf.path}
           style={{
-            background: 'var(--color-semantic-surface)',
-            border: '1px solid var(--color-semantic-border)',
-            borderRadius: 'var(--radius-lg)',
+            background: 'var(--color-background-surface)',
+            border: '1px solid var(--color-border-default)',
+            borderRadius: 'var(--border-radius-12)',
             overflow: 'hidden',
           }}
         >
           <div data-bella-specimen style={{ height: 64, background: `var(${leaf.cssVar})` }} />
-          <div style={{ padding: 'var(--spacing-3)' }}>
+          <div style={{ padding: 'var(--spacing-12)' }}>
             <div style={{ ...mono, fontWeight: 500 }}>{leaf.path}</div>
-            <div style={{ ...mono, color: 'var(--color-semantic-text-body)' }}>
+            <div style={{ ...mono, color: 'var(--color-content-body)' }}>
               {leaf.value}
             </div>
           </div>
@@ -136,15 +128,15 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
       style={{
         maxWidth: '100%',
         overflowX: 'auto',
-        background: 'var(--color-semantic-surface)',
-        border: '1px solid var(--color-semantic-border)',
-        borderRadius: 'var(--radius-lg)',
+        background: 'var(--color-background-surface)',
+        border: '1px solid var(--color-border-default)',
+        borderRadius: 'var(--border-radius-12)',
       }}
     >
     <table
       style={{
         width: '100%',
-        minWidth: 'calc(var(--spacing-20) * 9)',
+        minWidth: 'calc(var(--spacing-80) * 9)',
         borderCollapse: 'collapse',
       }}
     >
@@ -156,9 +148,9 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
               style={{
                 ...mono,
                 textAlign: 'left',
-                color: 'var(--color-semantic-text-body)',
-                padding: 'var(--spacing-3) var(--spacing-4)',
-                borderBottom: '1px solid var(--color-semantic-border-subtle)',
+                color: 'var(--color-content-body)',
+                padding: 'var(--spacing-12) var(--spacing-16)',
+                borderBottom: '1px solid var(--color-border-subtle)',
               }}
             >
               {h}
@@ -169,13 +161,13 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
       <tbody>
         {leaves.map((leaf) => (
           <tr key={leaf.path}>
-            <td style={{ ...mono, padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
+            <td style={{ ...mono, padding: 'var(--spacing-12) var(--spacing-16)', borderBottom: '1px solid var(--color-border-subtle)' }}>
               {leaf.path}
             </td>
-            <td style={{ ...mono, padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-body)' }}>
+            <td style={{ ...mono, padding: 'var(--spacing-12) var(--spacing-16)', borderBottom: '1px solid var(--color-border-subtle)', color: 'var(--color-content-body)' }}>
               {leaf.value}
             </td>
-            <td style={{ padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)' }}>
+            <td style={{ padding: 'var(--spacing-12) var(--spacing-16)', borderBottom: '1px solid var(--color-border-subtle)' }}>
               {/^(#|rgb|hsl|\{color\.)/.test(leaf.value) ? (
               <span
                 data-bella-specimen
@@ -183,15 +175,15 @@ export function TokenTable({ leaves, label = 'Token table' }: { leaves: TokenLea
                   display: 'inline-block',
                   width: 20,
                   height: 20,
-                  borderRadius: 'var(--radius-sm)',
+                  borderRadius: 'var(--border-radius-4)',
                   background: `var(${leaf.cssVar})`,
-                  border: '1px solid var(--color-semantic-border)',
+                  border: '1px solid var(--color-border-default)',
                   verticalAlign: 'middle',
                 }}
               />
               ) : null}
             </td>
-            <td style={{ fontSize: 'var(--typography-font-size-sm)', padding: 'var(--spacing-3) var(--spacing-4)', borderBottom: '1px solid var(--color-semantic-border-subtle)', color: 'var(--color-semantic-text-body)' }}>
+            <td style={{ fontSize: 'var(--typography-font-size-18)', padding: 'var(--spacing-12) var(--spacing-16)', borderBottom: '1px solid var(--color-border-subtle)', color: 'var(--color-content-body)' }}>
               {leaf.description ?? ''}
             </td>
           </tr>

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Contract parity: every Tier 3 contract in tokens/component.json that has a
+// Contract parity: every Tier 3 contract in tokens/contracts.json that has a
 // shipped component in src/components/ must match that component's exported
 // API — the `variants` and `props` arrays in $extensions.bella against the
 // component's exported Props interface. Contracts without an implementation
@@ -13,7 +13,7 @@ import { readFileSync, existsSync } from "node:fs";
 const kebabToPascal = (s) =>
   s.split("-").map((w) => w[0].toUpperCase() + w.slice(1)).join("");
 
-const contracts = JSON.parse(readFileSync("tokens/component.json", "utf8")).component;
+const contracts = JSON.parse(readFileSync("tokens/contracts.json", "utf8")).component;
 
 const failures = [];
 const checked = [];
@@ -75,7 +75,7 @@ if (failures.length) {
   console.error("\nContract parity FAILED:");
   for (const f of failures) console.error(`  ${f}`);
   console.error(
-    "\nSync tokens/component.json $extensions.bella (variants/props) with the shipped component, or vice versa."
+    "\nSync tokens/contracts.json $extensions.bella (variants/props) with the shipped component, or vice versa."
   );
   process.exit(1);
 }

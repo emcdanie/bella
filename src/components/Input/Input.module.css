@@ -16,31 +16,31 @@
 
 .wrapper {
   display: grid;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   min-width: 0;
 }
 
 .label {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-tag);
-  font-weight: var(--typography-font-weight-bold);
-  letter-spacing: var(--typography-letter-spacing-normal);
-  color: var(--color-semantic-text-body);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-700);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-body);
 }
 
 .field {
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-input-font-size);
-  line-height: var(--typography-line-height-normal);
-  color: var(--color-semantic-text-primary);
-  background: var(--color-semantic-surface);
-  border: 1px solid var(--color-semantic-border-strong); /* 3:1 control border; the hairline is decorative only */
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-strong); /* 3:1 control border; the hairline is decorative only */
   border-radius: var(--component-input-border-radius);
-  padding: var(--spacing-3) var(--spacing-4);
-  min-height: var(--component-input-min-height);
+  padding: var(--spacing-12) var(--spacing-16);
+  min-height: var(--size-60);
 }
 
 textarea.field {
@@ -48,7 +48,7 @@ textarea.field {
 }
 
 .field::placeholder {
-  color: var(--color-semantic-text-muted);
+  color: var(--color-content-subtle);
   opacity: 1; /* Firefox lowers placeholder opacity; reset so the AA ratio holds */
 }
 
@@ -56,40 +56,40 @@ textarea.field {
    ink in light, near-white in dark, 3px offset, and the edge goes ink */
 .field:focus-visible,
 .field:focus {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
-  border-color: var(--color-semantic-border-ink);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-color: var(--color-border-ink);
 }
 
 .field:disabled {
-  color: var(--color-semantic-text-muted);
-  background: var(--color-semantic-surface-inset);
+  color: var(--color-content-subtle);
+  background: var(--color-background-subtle);
   cursor: not-allowed;
 }
 
 .invalid .field {
-  border-color: var(--color-semantic-danger-border);
-  box-shadow: inset 0 0 0 1px var(--color-semantic-danger-border);
+  border-color: var(--color-border-utility-error);
+  box-shadow: inset 0 0 0 1px var(--color-border-utility-error);
 }
 
 .hint {
   margin: 0;
-  font-size: var(--typography-font-size-sm);
-  color: var(--color-semantic-text-body);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-body);
 }
 
 .error {
   display: flex;
   align-items: flex-start;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   margin: 0;
-  font-size: var(--typography-font-size-sm);
-  font-weight: var(--typography-font-weight-medium);
-  color: var(--color-semantic-danger-text);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-utility-error);
 }
 
 /* optically on the first line of the message */
 .errorIcon {
   flex: none;
-  margin-top: calc((1lh - var(--component-icon-size-sm)) / 2);
+  margin-top: calc((1lh - var(--size-16)) / 2);
 }

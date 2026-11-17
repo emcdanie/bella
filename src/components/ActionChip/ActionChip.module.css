@@ -6,42 +6,42 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
-  min-height: var(--component-action-chip-min-height);
+  gap: var(--spacing-8);
+  min-height: var(--spacing-44);
   box-sizing: border-box;
   max-width: 100%;
-  padding: var(--spacing-2) var(--spacing-4);
-  border: var(--border-width-thin) solid var(--component-action-chip-border);
-  border-radius: var(--component-action-chip-border-radius);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: var(--border-width-1) solid var(--color-border-strong);
+  border-radius: var(--border-radius-round);
   background: transparent;
-  color: var(--component-action-chip-foreground);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-action-chip-font-size);
-  font-weight: var(--typography-font-weight-regular);
-  letter-spacing: var(--typography-letter-spacing-body);
-  line-height: var(--typography-line-height-snug);
+  color: var(--color-content-default);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-font-weight-400);
+  letter-spacing: var(--typography-letter-spacing-0);
+  line-height: var(--typography-line-height-130);
   text-align: start;
   text-decoration: none;
   text-transform: none;
   cursor: pointer;
   margin: 0;
-  transition: background var(--motion-duration-fast) var(--motion-easing-standard);
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .chip:hover {
-  border-color: var(--color-semantic-border-ink);
-  background: var(--component-action-chip-hover-background);
+  border-color: var(--color-border-ink);
+  background: var(--color-border-subtle);
 }
 
 .chip:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 .chip:disabled {
   cursor: not-allowed;
-  color: var(--color-semantic-text-muted);
-  border-color: var(--color-semantic-border);
+  color: var(--color-content-subtle);
+  border-color: var(--color-border-default);
 }
 
 /* quiet (Atlas v4 review, 2026-10-03): for an icon action beside content
@@ -49,17 +49,17 @@
    the 44px target, square when it holds one glyph. */
 .quiet {
   justify-content: center;
-  min-width: var(--component-action-chip-min-height);
-  padding-inline: var(--spacing-3);
+  min-width: var(--spacing-44);
+  padding-inline: var(--spacing-12);
   border-color: transparent;
-  color: var(--color-semantic-text-secondary);
+  color: var(--color-content-subtle);
 }
 
 .quiet:hover,
 .quiet:focus-visible {
   border-color: transparent;
-  background: var(--component-action-chip-quiet-hover-background);
-  color: var(--component-action-chip-foreground);
+  background: var(--color-background-subtle);
+  color: var(--color-content-default);
 }
 
 @media (prefers-reduced-motion: reduce) {

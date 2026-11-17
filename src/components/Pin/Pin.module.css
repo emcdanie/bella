@@ -3,20 +3,20 @@
  * so it groups pins and never has to carry contrast or meaning. */
 
 .pin {
-  --pin-pop: var(--component-pin-pink);
+  --pin-pop: var(--color-background-accent-1);
   display: inline-flex;
   align-items: center;
-  gap: var(--component-pin-gap);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--component-pin-font-size);
-  font-weight: var(--component-pin-font-weight);
-  color: var(--component-pin-foreground);
+  gap: var(--spacing-8);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
 }
 
-.yellow { --pin-pop: var(--component-pin-yellow); }
-.pink { --pin-pop: var(--component-pin-pink); }
-.blue { --pin-pop: var(--component-pin-blue); }
-.red { --pin-pop: var(--component-pin-red); }
+.yellow { --pin-pop: var(--color-background-accent-2); }
+.pink { --pin-pop: var(--color-background-accent-1); }
+.blue { --pin-pop: var(--color-background-accent-3); }
+.red { --pin-pop: var(--color-background-accent-4); }
 
 .disc,
 .label {
@@ -24,43 +24,43 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: var(--component-pin-size);
-  background: var(--component-pin-background);
-  border: var(--component-pin-ring-width) solid var(--pin-pop);
-  border-radius: var(--component-pin-border-radius);
+  min-height: var(--spacing-32);
+  background: var(--color-background-surface);
+  border: var(--border-width-4) solid var(--pin-pop);
+  border-radius: var(--border-radius-round);
 }
 
 .disc {
   flex: none;
-  min-width: var(--component-pin-size);
+  min-width: var(--spacing-32);
   font-variant-numeric: tabular-nums;
 }
 
 .label {
-  padding-inline: var(--component-pin-label-padding-x);
+  padding-inline: var(--spacing-12);
 }
 
 /* clickable: a 44px box around the same drawing */
 .action {
-  min-width: var(--component-pin-min-target);
-  min-height: var(--component-pin-min-target);
+  min-width: var(--spacing-44);
+  min-height: var(--spacing-44);
   padding: 0;
   border: 0;
   background: none;
   justify-content: center;
-  border-radius: var(--component-pin-border-radius);
+  border-radius: var(--border-radius-round);
   cursor: pointer;
 }
 
 /* the ring thickens; the fill stays the card, because ink fails AA on the red */
 .action:hover .disc,
 .action:hover .label {
-  box-shadow: 0 0 0 var(--component-pin-ring-width) var(--pin-pop);
+  box-shadow: 0 0 0 var(--border-width-4) var(--pin-pop);
 }
 
 .action:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 @media (forced-colors: active) {

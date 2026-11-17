@@ -6,19 +6,19 @@
 .figure {
   margin: 0;
   display: grid;
-  row-gap: var(--spacing-4);
+  row-gap: var(--spacing-16);
 }
 
 .panel {
   position: relative;
-  background: var(--color-semantic-surface-card);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-10) 0 var(--spacing-6);
+  background: var(--color-background-surface);
+  border-radius: var(--border-radius-card);
+  padding: var(--spacing-40) 0 var(--spacing-24);
   /* timeline, from the motion tokens */
-  --d: var(--motion-duration-draw);
-  --p: var(--motion-duration-pop);
-  --s: var(--motion-stagger-min);
-  --S: var(--motion-stagger-max);
+  --d: var(--motion-duration-900);
+  --p: var(--motion-duration-400);
+  --s: var(--motion-stagger-120);
+  --S: var(--motion-stagger-200);
 }
 
 .flow {
@@ -32,24 +32,24 @@
 .btnLine,
 .card {
   fill: none;
-  stroke: var(--color-semantic-border-ink);
+  stroke: var(--color-border-ink);
   stroke-width: 1;
   /* no vector-effect: non-scaling-stroke would move the dash into screen
      units and break the pathLength-normalised draw */
 }
 
 .bar {
-  fill: var(--color-semantic-border);
+  fill: var(--color-border-default);
 }
 
-.c1 { fill: var(--color-semantic-chip-1); }
-.c2 { fill: var(--color-semantic-chip-2); }
-.c3 { fill: var(--color-semantic-chip-3); }
+.c1 { fill: var(--color-background-utility-info); }
+.c2 { fill: var(--color-background-accent-1); }
+.c3 { fill: var(--color-background-utility-success); }
 
 .btnText {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-tag);
-  fill: var(--color-semantic-chip-text);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  fill: var(--color-content-default);
   text-anchor: middle;
   dominant-baseline: middle;
 }
@@ -71,12 +71,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 6.667%;
   padding: 0 6.667%;
-  margin-top: var(--spacing-1);
+  margin-top: var(--spacing-4);
   text-align: center;
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-tag);
-  letter-spacing: var(--typography-letter-spacing-mono);
-  color: var(--color-semantic-text-body);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-body);
 }
 
 /* Replay sits under the labels in a narrow panel and moves to the top
@@ -89,7 +89,7 @@
 .replay {
   display: flex;
   justify-content: flex-end;
-  padding: var(--spacing-4) var(--spacing-4) 0;
+  padding: var(--spacing-16) var(--spacing-16) 0;
 }
 
 /* 768px = breakpoint.tablet; container queries cannot read var(). */
@@ -97,20 +97,20 @@
   /* room above the drawing for the corner Replay (44px touch target plus
      its inset), so it never meets the frames at the narrow end of this range */
   .panel {
-    padding-top: var(--spacing-16);
+    padding-top: var(--spacing-64);
   }
   .replay {
     position: absolute;
-    top: var(--spacing-2);
-    right: var(--spacing-2);
+    top: var(--spacing-8);
+    right: var(--spacing-8);
     padding: 0;
   }
 }
 
 .caption {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-tag);
-  color: var(--color-semantic-text-body);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  color: var(--color-content-body);
   text-align: center;
 }
 

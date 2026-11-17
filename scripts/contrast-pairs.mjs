@@ -141,6 +141,7 @@ const INSET_EXEMPT = {
   'src/patterns/BeforeAfterFrame/BeforeAfterFrame.module.css :: .stage': 'decorative container around a screen, not a control',
   'src/components/StatusPill/StatusPill.module.css :: .neutral': 'identified by its text, not the fill',
   'src/components/Kbd/Kbd.module.css :: .key': 'identified by its key label, not the fill',
+  'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'active state fill: the press is the state marker',
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',

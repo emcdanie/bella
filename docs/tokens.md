@@ -352,26 +352,14 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 
 | CSS name | BELLA light | BELLA dark | Chip light | Chip dark |
 |---|---|---|---|---|
-| `--component-button-secondary-background-hover` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-secondary-background-active` | → `button.color.background.active` `#eceef3` | → `button.color.background.active` `#000000` | → `button.color.background.active` `#c8e5f7` | → `button.color.background.active` `#0f3550` |
-| `--component-button-secondary-foreground-active` | → `button.color.content.active` `#1d2030` | → `button.color.content.active` `#eceef3` | → `button.color.content.active` `#0a2236` | → `button.color.content.active` `#eaf5fc` |
 | `--component-button-sm-min-height` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` |
 | `--component-button-icon-size` | → `size.20` `20px` | → `size.20` `20px` | → `size.20` `20px` | → `size.20` `20px` |
-| `--component-button-tertiary-background-hover` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-tertiary-background-active` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-tertiary-foreground-active` | → `button.color.content.active` `#1d2030` | → `button.color.content.active` `#eceef3` | → `button.color.content.active` `#0a2236` | → `button.color.content.active` `#eaf5fc` |
-| `--component-input-border-radius` | → `border.radius.form` `8px` | → `border.radius.form` `8px` | → `border.radius.form` `16px` | → `border.radius.form` `16px` |
 | `--component-status-dot-size` | → `spacing.12` `12px` | → `spacing.12` `12px` | → `spacing.12` `12px` | → `spacing.12` `12px` |
-| `--component-leader-pink` | → `color.border.accent-1` `#cf5a95` | → `color.border.accent-1` `#e58bbb` | → `color.border.accent-1` `#cf5a95` | → `color.border.accent-1` `#e58bbb` |
-| `--component-select-border-radius` | → `border.radius.form` `8px` | → `border.radius.form` `8px` | → `border.radius.form` `16px` | → `border.radius.form` `16px` |
-| `--component-kbd-border-radius` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` |
 | `--component-page-title-font-weight` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` |
 | `--component-meter-height` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` |
 | `--component-stat-icon-well-size` | → `spacing.32` `32px` | → `spacing.32` `32px` | → `spacing.32` `32px` | → `spacing.32` `32px` |
 | `--component-toast-action-border` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.neutral.white-alpha.30` `#ffffff4d` | → `color.neutral.white-alpha.30` `#ffffff4d` |
-| `--component-drawer-title-font-family` | → `typography.title-default.font-family` `"DM Sans", sans-serif` | → `typography.title-default.font-family` `"DM Sans", sans-serif` | → `typography.title-default.font-family` `"Newsreader", serif` | → `typography.title-default.font-family` `"Newsreader", serif` |
 | `--component-drawer-head-border` | → `color.border.default` `#eceef3` | → `color.border.default` `#474c5e` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.alpha.0` `#1d203000` |
-| `--component-heading-subsection-font-family` | → `typography.headline-sm.font-family` `"Newsreader", serif` | → `typography.headline-sm.font-family` `"Newsreader", serif` | → `typography.headline-sm.font-family` `"DM Sans", sans-serif` | → `typography.headline-sm.font-family` `"DM Sans", sans-serif` |
 | `--component-card-content-min-height` | → `size.0` `0px` | → `size.0` `0px` | → `size.0` `0px` | → `size.0` `0px` |
 | `--component-spacing-step-bar-width-1` | → `spacing.4` `4px` | → `spacing.4` `4px` | → `spacing.4` `4px` | → `spacing.4` `4px` |
 | `--component-spacing-step-bar-width-2` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` |
@@ -385,7 +373,6 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--component-spacing-step-bar-width-16` | → `spacing.64` `64px` | → `spacing.64` `64px` | → `spacing.64` `64px` | → `spacing.64` `64px` |
 | `--component-spacing-step-bar-width-20` | → `spacing.80` `80px` | → `spacing.80` `80px` | → `spacing.80` `80px` | → `spacing.80` `80px` |
 | `--component-spacing-step-bar-width-touch` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` |
-| `--component-spacing-step-bar-radius` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` |
 | `--button-color-background-default` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.brand-subtle` `#eaf5fc` | → `color.background.brand-subtle` `#0a2236` |
 | `--button-color-background-hover` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#0f3550` |
 | `--button-color-background-active` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#0f3550` |

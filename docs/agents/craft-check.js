@@ -149,6 +149,17 @@ for (const id of ROOTS) {
       if (rows.length >= 2 && rows.some(r => r.length >= 2)) checkRows(g, rows);
     }
   }
+  // R20 one text edge beside a leading icon: in a block whose row starts with an icon, every text in that block
+  // shares one left edge, within 1px; the icon sits in its own column (Elleta, 18 Nov: "the subtitle should be the
+  // same indent as the title").
+  for (const blk of all.filter(x => x.layoutMode === 'VERTICAL' && 'children' in x)) {
+    const lead = blk.children.find(r => r.visible && r.layoutMode === 'HORIZONTAL' && 'children' in r && r.children.length > 1 && r.children[0].visible && /icon|glyph|well|avatar|dot/i.test(r.children[0].name) && r.children.slice(1).some(c => c.type === 'TEXT'));
+    if (!lead) continue;
+    const after = blk.children.slice(blk.children.indexOf(lead)).filter(c => c.visible); // the icon row and what stacks under it, not a label above
+    const texts = after.flatMap(c => c.type === 'TEXT' ? [c] : ('findAll' in c && c.type !== 'INSTANCE' ? c.findAll(t => t.type === 'TEXT' && t.visible) : [])).filter(t => t.characters.trim() && !(() => { for (let x = t.parent; x && x !== blk; x = x.parent) if (x.type === 'INSTANCE') return true; return false; })());
+    const xs = texts.map(t => t.absoluteBoundingBox && t.absoluteBoundingBox.x).filter(num);
+    if (xs.length > 1 && Math.max(...xs) - Math.min(...xs) > 1) add(20, blk, `texts start at ${[...new Set(xs.map(Math.round))].join('/')} beside a leading icon: icon in its own column, texts in one column`);
+  }
   // R15 cards in a row: same height, filled
   for (const row of all.filter(x => x.layoutMode === 'HORIZONTAL' && 'children' in x)) {
     const cards = row.children.filter(c => c.visible && (c.type === 'INSTANCE' || c.type === 'FRAME') && c.width >= 120 && c.height >= 80 && c.layoutPositioning !== 'ABSOLUTE');

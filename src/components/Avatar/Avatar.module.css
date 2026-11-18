@@ -21,43 +21,43 @@
   /* border-box is load-bearing: the ramp sizes are the OUTER size, so adding
      the edge must not grow the disc past its step. */
   box-sizing: border-box;
-  background: var(--component-avatar-default-background);
-  color: var(--component-avatar-default-foreground);
+  background: var(--color-background-subtle);
+  color: var(--color-content-body);
   /* The disc always carries an edge. In dark, surface-inset resolves to the
      same navy as the page ground, so a fill alone leaves the initials
      floating with no disc at all (caught at GATE 2, not by the snapshot,
      which had no earlier baseline to differ from). */
-  border: 1px solid var(--component-avatar-default-border-color);
-  border-radius: var(--component-avatar-default-border-radius);
-  font-family: var(--component-avatar-default-font-family);
-  font-weight: var(--component-avatar-default-font-weight);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-round);
+  font-family: var(--typography-font-family-dm-sans);
+  font-weight: var(--typography-font-weight-700);
   line-height: 1;
-  letter-spacing: var(--typography-letter-spacing-normal);
+  letter-spacing: var(--typography-letter-spacing-0);
   user-select: none;
 }
 
 .xs {
-  width: var(--component-avatar-xs-size);
-  height: var(--component-avatar-xs-size);
-  font-size: var(--component-avatar-xs-font-size);
+  width: var(--spacing-32);
+  height: var(--spacing-32);
+  font-size: var(--typography-label-default-font-size);
 }
 
 .sm {
-  width: var(--component-avatar-sm-size);
-  height: var(--component-avatar-sm-size);
-  font-size: var(--component-avatar-sm-font-size);
+  width: var(--spacing-40);
+  height: var(--spacing-40);
+  font-size: var(--typography-label-default-font-size);
 }
 
 .md {
-  width: var(--component-avatar-md-size);
-  height: var(--component-avatar-md-size);
-  font-size: var(--component-avatar-md-font-size);
+  width: var(--spacing-48);
+  height: var(--spacing-48);
+  font-size: var(--typography-body-default-font-size);
 }
 
 .lg {
-  width: var(--component-avatar-lg-size);
-  height: var(--component-avatar-lg-size);
-  font-size: var(--component-avatar-lg-font-size);
+  width: var(--spacing-80);
+  height: var(--spacing-80);
+  font-size: var(--typography-font-size-22);
 }
 
 /* Two rings, painted outward: the first is the gap, filled with the
@@ -66,9 +66,9 @@
    is a ring and not a shadow. */
 .ring {
   box-shadow:
-    0 0 0 var(--component-avatar-default-ring-gap) var(--color-semantic-background),
-    0 0 0 calc(var(--component-avatar-default-ring-gap) + var(--component-avatar-default-ring-width))
-      var(--component-avatar-default-ring-color);
+    0 0 0 var(--border-width-2) var(--color-background-default),
+    0 0 0 calc(var(--border-width-2) + var(--border-width-2))
+      var(--color-border-ink);
 }
 
 .image {

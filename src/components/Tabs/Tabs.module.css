@@ -15,8 +15,8 @@
 
 .list {
   display: flex;
-  gap: var(--spacing-1);
-  border-bottom: var(--border-width-thin) solid var(--color-semantic-border);
+  gap: var(--spacing-4);
+  border-bottom: var(--border-width-1) solid var(--color-border-default);
   overflow-x: auto;
 }
 
@@ -24,70 +24,70 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   flex: none;
-  min-height: var(--component-tabs-min-height);
-  padding: 0 var(--spacing-4);
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-16);
   margin: 0;
   border: none;
-  border-radius: var(--component-tabs-border-radius) var(--component-tabs-border-radius) 0 0;
+  border-radius: var(--border-radius-8) var(--border-radius-8) 0 0;
   background: transparent;
   cursor: pointer;
-  font-family: var(--component-tabs-font-family);
-  font-size: var(--component-tabs-font-size);
-  font-weight: var(--component-tabs-font-weight);
-  letter-spacing: var(--typography-letter-spacing-body);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-subtle);
   white-space: nowrap;
   transition:
-    background var(--motion-duration-fast) var(--motion-easing-standard),
-    color var(--motion-duration-fast) var(--motion-easing-standard);
+    background var(--motion-duration-150) var(--motion-easing-standard),
+    color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .tab:hover {
-  color: var(--color-semantic-text-primary);
-  background: var(--color-semantic-border-subtle);
+  color: var(--color-content-default);
+  background: var(--color-border-subtle);
 }
 
 .tab[aria-selected='true'] {
-  color: var(--color-semantic-text-primary);
+  color: var(--color-content-default);
 }
 
 .tab[aria-selected='true']::after {
   content: '';
   position: absolute;
   inset: auto 0 0 0;
-  height: var(--component-tabs-indicator-width);
-  background: var(--component-tabs-indicator);
+  height: var(--border-width-2);
+  background: var(--color-border-ink);
 }
 
 .tab:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: calc(-1 * var(--ring-focus-width));
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(-1 * var(--focus-ring-width));
 }
 
 .dot {
-  width: var(--spacing-2);
-  height: var(--spacing-2);
-  border-radius: var(--radius-full);
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--border-radius-round);
   flex: none;
 }
 
 .dot[data-status='running'] {
-  background: var(--color-semantic-border-ink);
+  background: var(--color-border-ink);
 }
 
 .dot[data-status='idle'] {
-  box-shadow: inset 0 0 0 var(--border-width-thin) var(--color-semantic-border-strong);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-strong);
 }
 
 .count {
   display: inline-flex;
   align-items: center;
-  padding-inline: var(--spacing-2);
-  border-radius: var(--radius-full);
-  background: var(--color-semantic-surface-inset);
-  color: var(--color-semantic-text-primary);
+  padding-inline: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-subtle);
+  color: var(--color-content-default);
   font-variant-numeric: tabular-nums;
 }
 

@@ -5,26 +5,26 @@ BELLA is small on purpose. Before adding anything, read [`AGENTS.md`](./AGENTS.m
 ## Ground rules
 
 - **Token-first.** No hard-coded hex values, arbitrary pixel numbers, or one-off font sizes anywhere. If the token you need doesn't exist, open an issue proposing it — don't invent one inline.
-- **Sources vs. generated.** Edit only `tokens/primitive.json`, `tokens/semantic/{light,dark}.json`, `tokens/component.json`, `tokens/build.py`, and prose docs. `tokens/bella.css`, `tokens/bella.json`, `tokens/preview.html`, `docs/bella.css`, and `docs/tokens.md` are generated — never edit them by hand.
+- **Sources vs. generated.** Token values come from Figma Foundations, exported as DTCG JSON into `tokens/figma/`; never edit those by hand. Hand-written: `tokens/build.mjs` (the Style Dictionary build), `tokens/contracts.json` (part contracts) and prose docs. `tokens/bella.css`, `tokens/bella.json`, `docs/bella.css`, `docs/tokens.md` and `.storybook/theme-values.json` are generated — never edit them by hand.
 - **References flow downward only.** Primitives reference nothing. Semantic references primitives. Component references semantic (or primitives). Never upward.
 - **Non-negotiables** (from `AGENTS.md`): typography floors (16px body, nothing below 13px), the page ground is never pure white (white is the card), ochre is the only accent, Geist + Geist Mono.
 
 ## Workflow
 
 1. Branch from `main`.
-2. Edit the source JSON (or `build.py` / docs).
+2. Change the token in Figma and re-export to `tokens/figma/` (or edit `build.mjs`, `contracts.json`, docs).
 3. Run the build and commit its output **in the same commit** as the source change:
 
    ```sh
-   python3 tokens/build.py
+   npm run build
    ```
 
    CI fails any PR where regenerating produces a diff.
 
-4. Check the result visually: `open tokens/preview.html` (toggle dark mode; check contrast on new colors — BELLA targets AAA).
+4. Check the result in Storybook (`npm run storybook`) in all four themes, and run `node scripts/contrast-pairs.mjs` (text 7:1, marks 3:1).
 5. Open a PR using the template.
 
-No dependencies to install — the build is stdlib Python 3.9+.
+Run `npm ci` first; the build needs Node 22 or later (Style Dictionary).
 
 ## Commit style
 

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Kbd from './Kbd';
 import kbdCssRaw from './Kbd.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -40,13 +40,13 @@ export const Legend: Story = {
       style={{
         display: 'grid',
         gridTemplateColumns: 'auto 1fr',
-        gap: 'var(--spacing-3) var(--spacing-5)',
+        gap: 'var(--spacing-12) var(--spacing-20)',
         alignItems: 'center',
         margin: 0,
         maxWidth: 420,
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-surface-card)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
       }}
     >
       {[

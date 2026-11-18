@@ -9,7 +9,7 @@ import {
 } from '../../testing/behavioral';
 import FilterChip from './FilterChip';
 import chipCssRaw from './FilterChip.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -42,7 +42,7 @@ type Story = StoryObj<typeof FilterChip>;
 /** Rest and pressed side by side: the pressed fill is the state's paint. */
 export const States: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-2)', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-8)', flexWrap: 'wrap' }}>
       <FilterChip pressed={false} onClick={() => {}}>
         Design systems
       </FilterChip>
@@ -59,7 +59,7 @@ export const States: Story = {
 /** Compact: a long wrapping row of tag filters; the 44px target stays. */
 export const Compact: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-1) var(--spacing-2)', flexWrap: 'wrap', maxWidth: 320 }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-4) var(--spacing-8)', flexWrap: 'wrap', maxWidth: 320 }}>
       {['answer', 'decision', 'handoff', 'loop', 'note', 'plan'].map((t, i) => (
         <FilterChip key={t} size="compact" pressed={i === 1} onClick={() => {}}>
           {t}
@@ -79,7 +79,7 @@ function FilterRowHarness() {
   const [on, setOn] = useState(false);
   const [activations, setActivations] = useState(0);
   return (
-    <div style={{ display: 'flex', gap: 'var(--spacing-2)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
       <FilterChip
         pressed={on}
         onClick={() => {

@@ -1,13 +1,11 @@
 /* Tag (component 3, extracted from the portfolio, 2026-07-22). Tokens only.
- * Non-interactive metadata: a flat wash, NO border, cursor default, so it
- * never reads clickable next to FilterChip. DM Sans on the tag type token
+ * Non-interactive metadata: the neutral wash with its own edge (Figma:
+ * background, border and content utility/neutral), cursor default. DM Sans on the tag type token
  * (16px, the label floor), no tracking (type role map, 2026-10-04). The accent
  * variant is the pink fill with a near-black label (shared look, 8 Nov 2026;
  * it was the ochre fill, brand refresh, 2026-09-22).
  *
  * Recorded divergences from the portfolio original:
- * - background is the semantic surface-inset (theme-aware) instead of the
- *   legacy linen alias; same recessed-wash read, flips to navy raised
  * - letter-spacing normal: the portfolio's 0.02em literal has no token,
  *   and inventing one for a chip is not worth a ramp step
  * - the per-case identity tint stays in the portfolio; BELLA carries the
@@ -17,22 +15,23 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: var(--component-tag-default-padding-y) var(--component-tag-default-padding-x);
-  border-radius: var(--component-tag-default-border-radius);
-  border: none;
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--border-radius-round);
+  border: var(--border-width-1) solid var(--color-border-utility-neutral);
   cursor: default;
-  background: var(--component-tag-default-background);
-  font-family: var(--component-tag-default-font-family);
-  font-size: var(--component-tag-default-font-size);
-  font-weight: var(--component-tag-default-font-weight);
-  line-height: var(--typography-line-height-normal);
-  letter-spacing: var(--component-tag-default-letter-spacing);
-  font-feature-settings: var(--component-tag-default-font-feature-settings);
-  color: var(--component-tag-default-foreground);
+  background: var(--color-background-utility-neutral);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  letter-spacing: var(--typography-letter-spacing-0);
+  font-feature-settings: normal;
+  color: var(--color-content-utility-neutral);
   white-space: nowrap;
 }
 
 .accent {
-  background: var(--component-tag-accent-background);
-  color: var(--component-tag-accent-foreground);
+  border-color: var(--color-background-accent-1);
+  background: var(--color-background-accent-1);
+  color: var(--color-content-on-accent-1);
 }

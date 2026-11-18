@@ -3,59 +3,59 @@
 
 .specimens {
   display: grid;
-  gap: var(--spacing-6);
+  gap: var(--spacing-24);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 32ch), 1fr));
 }
 
 .specimen {
   display: grid;
-  row-gap: var(--spacing-4);
+  row-gap: var(--spacing-16);
   align-content: start;
-  padding: var(--spacing-6);
-  background: var(--color-semantic-surface-card);
-  border-radius: var(--radius-card);
+  padding: var(--spacing-24);
+  background: var(--color-background-surface);
+  border-radius: var(--border-radius-card);
 }
 
 .stage {
-  height: var(--spacing-16);
+  height: var(--spacing-64);
   display: flex;
   align-items: center;
-  gap: var(--spacing-3);
+  gap: var(--spacing-12);
 }
 
 .line {
   flex: 1;
   height: 1px;
-  background: var(--color-semantic-border-ink);
+  background: var(--color-border-ink);
   transform-origin: left center;
 }
 
 .chip {
-  width: var(--spacing-10);
-  height: var(--spacing-6);
-  border-radius: var(--radius-md);
+  width: var(--spacing-40);
+  height: var(--spacing-24);
+  border-radius: var(--border-radius-8);
 }
 
-.c1 { background: var(--color-semantic-chip-1); }
-.c2 { background: var(--color-semantic-chip-2); }
-.c3 { background: var(--color-semantic-chip-3); }
+.c1 { background: var(--color-background-utility-info); }
+.c2 { background: var(--color-background-accent-1); }
+.c3 { background: var(--color-background-utility-success); }
 
 .label {
   margin: 0;
-  font-family: var(--typography-font-family-mono);
-  font-size: var(--typography-font-size-mono);
-  font-feature-settings: var(--typography-font-feature-mono);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-geist-mono);
+  font-size: var(--typography-font-size-16);
+  font-feature-settings: var(--typography-font-feature-ss09);
+  color: var(--color-content-subtle);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .armed .line { transform: scaleX(0); }
   .armed .chip { opacity: 0; }
-  .play .line { animation: draw var(--motion-duration-draw) var(--motion-easing-draw) both; }
-  .play .pop { animation: pop var(--motion-duration-pop) var(--motion-easing-pop) both; }
-  .play .stagger .chip { animation: pop var(--motion-duration-pop) var(--motion-easing-pop) both; }
-  .play .stagger .chip:nth-child(2) { animation-delay: var(--motion-stagger-max); }
-  .play .stagger .chip:nth-child(3) { animation-delay: calc(var(--motion-stagger-max) * 2); }
+  .play .line { animation: draw var(--motion-duration-900) var(--motion-easing-draw) both; }
+  .play .pop { animation: pop var(--motion-duration-400) var(--motion-easing-pop) both; }
+  .play .stagger .chip { animation: pop var(--motion-duration-400) var(--motion-easing-pop) both; }
+  .play .stagger .chip:nth-child(2) { animation-delay: var(--motion-stagger-200); }
+  .play .stagger .chip:nth-child(3) { animation-delay: calc(var(--motion-stagger-200) * 2); }
 }
 
 @keyframes draw {

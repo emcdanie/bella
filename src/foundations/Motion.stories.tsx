@@ -11,13 +11,13 @@ const meta: Meta = {
 };
 export default meta;
 
-const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-semantic-text-body)' };
+const note: React.CSSProperties = { maxWidth: '60ch', color: 'var(--color-content-body)' };
 
 function Specimens() {
   const { ref, armed, playing, run, replay } = usePlayOnce<HTMLDivElement>();
   const cls = [styles.specimens, armed ? styles.armed : '', playing ? styles.play : ''].filter(Boolean).join(' ');
   return (
-    <div style={{ display: 'grid', rowGap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
       <div ref={ref} key={run} className={cls} data-bella-reveal>
         <div className={styles.specimen}>
           <div className={styles.stage}>

@@ -5,7 +5,7 @@ import Drawer from './Drawer';
 import Button from '../Button/Button';
 import NavList from '../NavList/NavList';
 import drawerCssRaw from './Drawer.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -41,7 +41,7 @@ function Harness({ startOpen = false, side, withFooter = false }: { startOpen?: 
   const [open, setOpen] = useState(startOpen);
   const [closes, setCloses] = useState(0);
   return (
-    <div style={{ display: 'grid', gap: 'var(--spacing-3)', justifyItems: 'start', minHeight: 'calc(var(--spacing-20) * 5)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-12)', justifyItems: 'start', minHeight: 'calc(var(--spacing-80) * 5)' }}>
       <Button variant="secondary" onClick={() => setOpen(true)}>
         Open menu
       </Button>

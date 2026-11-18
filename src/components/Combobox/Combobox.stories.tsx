@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import Combobox, { type ComboboxGroup } from './Combobox';
 import Kbd from '../Kbd/Kbd';
 import comboCssRaw from './Combobox.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -46,7 +46,7 @@ function Harness({ start = '' }: { start?: string }) {
   const groups = groupsFor(q);
   const exact = COMPONENTS.find((c) => c.toLowerCase() === q.trim().toLowerCase());
   return (
-    <div style={{ display: 'grid', gap: 'var(--spacing-3)', maxWidth: 560, minHeight: 'calc(var(--spacing-20) * 4)' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-12)', maxWidth: 560, minHeight: 'calc(var(--spacing-80) * 4)' }}>
       <Combobox
         label="Ask OBI or jump to"
         hideLabel

@@ -1,15 +1,15 @@
 /* CodeBlock (tool chrome, 7 Nov 2026). Tokens only. An editor's reading of
- * code: a numbered gutter, a marked line, wrapped long lines, syntax colour
+ * code: a numbered gutter, wrapped long lines, syntax colour
  * by class from the syntax tokens (each 4.5:1 or more on the code ground,
  * checked in the gate), and one Copy icon button. */
 
 .block {
   margin: 0;
   min-width: 0;
-  border: var(--border-width-thin) solid var(--component-code-block-border);
-  border-radius: var(--component-code-block-border-radius);
-  background: var(--component-code-block-background);
-  color: var(--component-code-block-foreground);
+  border: var(--border-width-1) solid var(--color-border-syntax);
+  border-radius: var(--border-radius-4);
+  background: var(--color-background-syntax-background);
+  color: var(--color-content-syntax-foreground);
   overflow: hidden;
 }
 
@@ -17,16 +17,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
-  padding: 0 var(--spacing-2) 0 var(--spacing-4);
-  border-bottom: var(--border-width-thin) solid var(--component-code-block-border);
-  min-height: var(--spacing-touch-target);
+  gap: var(--spacing-12);
+  padding: 0 var(--spacing-8) 0 var(--spacing-16);
+  border-bottom: var(--border-width-1) solid var(--color-border-syntax);
+  min-height: var(--spacing-44);
 }
 
 .title {
-  font-family: var(--typography-font-family-mono);
-  font-size: var(--component-code-block-font-size);
-  color: var(--component-code-block-line-number);
+  font-family: var(--typography-font-family-geist-mono);
+  font-size: var(--typography-label-default-font-size);
+  color: var(--color-content-syntax-line-number);
   overflow-wrap: anywhere;
 }
 
@@ -34,31 +34,31 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: var(--spacing-touch-target);
-  min-height: var(--spacing-touch-target);
+  min-width: var(--spacing-44);
+  min-height: var(--spacing-44);
   padding: 0;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: var(--border-radius-4);
   background: transparent;
-  color: var(--component-code-block-foreground);
+  color: var(--color-content-syntax-foreground);
   cursor: pointer;
 }
 
 .copy:hover {
-  background: var(--component-code-block-current);
+  background: var(--color-background-highlight);
 }
 
 .copy:focus-visible,
 .pre:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: calc(-1 * var(--ring-focus-width));
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(-1 * var(--focus-ring-width));
 }
 
 .pre {
   margin: 0;
-  padding: var(--spacing-3) 0;
-  font-family: var(--typography-font-family-mono);
-  font-size: var(--component-code-block-font-size);
+  padding: var(--spacing-12) 0;
+  font-family: var(--typography-font-family-geist-mono);
+  font-size: var(--typography-label-default-font-size);
   line-height: 1.6;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -67,29 +67,28 @@
 .line {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  column-gap: var(--spacing-4);
-  padding-inline: var(--spacing-4);
+  column-gap: var(--spacing-16);
+  padding-inline: var(--spacing-16);
 }
 
-.current { background: var(--component-code-block-current); }
-.add { background: var(--component-code-block-add); }
-.del { background: var(--component-code-block-del); }
+.add { background: var(--color-background-syntax-add); }
+.del { background: var(--color-background-syntax-del); }
 
 .n {
   min-width: 2ch;
   text-align: right;
-  color: var(--component-code-block-line-number);
+  color: var(--color-content-syntax-line-number);
   user-select: none;
 }
 
-.keyword { color: var(--component-code-block-keyword); }
-.string { color: var(--component-code-block-string); }
-.number { color: var(--component-code-block-number); }
-.comment { color: var(--component-code-block-comment); font-style: italic; }
-.function { color: var(--component-code-block-function); }
-.tag { color: var(--component-code-block-tag); }
-.attr { color: var(--component-code-block-attr); }
-.punct { color: var(--component-code-block-punct); }
+.keyword { color: var(--color-content-syntax-keyword); }
+.string { color: var(--color-content-syntax-string); }
+.number { color: var(--color-content-syntax-number); }
+.comment { color: var(--color-content-syntax-comment); font-style: italic; }
+.function { color: var(--color-content-syntax-function); }
+.tag { color: var(--color-content-syntax-tag); }
+.attr { color: var(--color-content-syntax-attr); }
+.punct { color: var(--color-content-syntax-punct); }
 
 .srOnly {
   position: absolute;

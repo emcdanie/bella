@@ -11,36 +11,34 @@ import { PageIntro } from './DocBlocks';
 
 ## Tiers
 
-Three tiers, referencing downward only:
+Token values come from Figma Foundations, exported as DTCG JSON into
+`tokens/figma/`. Four modes: BELLA light, BELLA dark, Chip light, Chip dark.
 
-1. **Primitive** (`tokens/primitive.json`): the raw scale. Brand and neutral
-   colour (light, dark, chip, pattern, the legacy ramps), spacing, radius, type, shadow,
-   motion, blur, icon sizes.
-2. **Semantic** (`tokens/semantic/light.json`, `tokens/semantic/dark.json`):
-   meaning mapped onto primitives. `background`, `text-primary`, `accent`,
-   `surface-glass`, and the rest. Dark mode is a semantic override set, so a
-   consumer that references semantic tokens gets dark mode for free.
-3. **Component** (`tokens/component.json`): per-component contracts (card,
-   button, tag, input). Component tokens resolve through semantic, so any
-   value that lands differently under the dark set flips with the mode
-   automatically.
+1. **Tier 1** (`tokens/figma/primitive.json`): ramps and scales, named by hue
+   and step or by value. The same in every mode. Parts never read these.
+2. **Tier 2** (`tokens/figma/semantic/<mode>.json`): shared meaning, in
+   groups: `color/background`, `color/border`, `color/content` and their
+   utility groups, plus type and focus ring. A theme is a remap of Tier 2.
+3. **Tier 3** (`tokens/figma/component/<mode>.json`): a part's own token,
+   only where a part must differ between modes.
 
-Token metadata rides along: `$description` for intent,
-`$extensions.bella.a11y` for the verified contrast record, and usage
-constraints AI tools can read.
+Screen sizes live in `tokens/figma/breakpoints/` (large, small, chip). Part
+contracts (props, variants, a11y notes) live in `tokens/contracts.json`.
 
 ## Build pipeline
 
-`python3 tokens/build.py` reads the four sources and emits everything else:
+`npm run build` runs `tokens/build.mjs` (Style Dictionary), which reads the
+export and emits everything else:
 
 | Artifact                          | Job                                              |
 | --------------------------------- | ------------------------------------------------ |
-| `tokens/bella.css`                | CSS custom properties, light default plus `[data-theme="dark"]` overrides |
-| `tokens/bella.json`               | Flat rollup for style-dictionary and other tools |
-| `tokens/preview.html`             | Standalone visual preview of every token         |
-| `docs/bella.css`, `docs/tokens.md`| Copies for the GH Pages site                     |
+| `tokens/bella.css`                | CSS custom properties: `:root` is BELLA light; `[data-theme="bella-dark"]`, `"chip-light"`, `"chip-dark"`; small-screen sizes under one media query |
+| `tokens/bella.json`               | Every token per theme: value, alias, type, description, CSS name |
+| `docs/bella.css`, `docs/tokens.md`| Copies and reference table for the GH Pages site |
 | `.storybook/theme-values.json`    | This Storybook's manager theme values            |
-| `.storybook/public/favicon.svg`   | This Storybook's favicon                         |
+
+The CSS name of a token is its Figma code syntax (WEB): the path joined with
+`-`. The build fails if Figma's field ever disagrees.
 
 Generated files are never edited by hand. That includes this Storybook's own
 branding: the manager chrome reads `theme-values.json`, so the doc site cannot

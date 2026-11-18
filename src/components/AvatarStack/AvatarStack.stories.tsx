@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import AvatarStack from './AvatarStack';
 import stackCssRaw from './AvatarStack.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -15,12 +15,12 @@ const stackContract = (componentContract as any).component?.['avatar-stack']?.$e
 /* The Bar cast: lane colours via tokens. */
 const THE_BAR = [
   { name: 'Elleta' },
-  { name: 'Seamus', laneColor: 'var(--color-semantic-text-primary)' },
-  { name: 'Dara', laneColor: 'var(--color-semantic-lane-a)' },
-  { name: 'Bernie', laneColor: 'var(--color-semantic-lane-b)' },
-  { name: 'Saoirse', laneColor: 'var(--color-semantic-lane-c)' },
-  { name: 'Frankie', laneColor: 'var(--color-semantic-lane-d)' },
-  { name: 'Liam', laneColor: 'var(--color-semantic-success)' },
+  { name: 'Seamus', laneColor: 'var(--color-content-default)' },
+  { name: 'Dara', laneColor: 'var(--color-background-accent-3)' },
+  { name: 'Bernie', laneColor: 'var(--color-background-accent-1)' },
+  { name: 'Saoirse', laneColor: 'var(--color-background-utility-success)' },
+  { name: 'Frankie', laneColor: 'var(--color-background-accent-2)' },
+  { name: 'Liam', laneColor: 'var(--color-border-utility-success)' },
 ];
 
 const meta: Meta<typeof AvatarStack> = {
@@ -44,7 +44,7 @@ type Story = StoryObj<typeof AvatarStack>;
 /** Full seven-person group for The Bar header. */
 export const TheBarCast: Story = {
   render: () => (
-    <div style={{ padding: 'var(--spacing-4)', background: 'var(--color-semantic-surface)' }}>
+    <div style={{ padding: 'var(--spacing-16)', background: 'var(--color-background-surface)' }}>
       <AvatarStack members={THE_BAR} size="sm" />
     </div>
   ),
@@ -53,7 +53,7 @@ export const TheBarCast: Story = {
 /** Overflow cap: shows the first N and a +N badge. */
 export const WithOverflow: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
       <AvatarStack members={THE_BAR} max={4} size="sm" />
       <AvatarStack members={THE_BAR} max={3} size="md" />
     </div>

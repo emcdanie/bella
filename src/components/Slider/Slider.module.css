@@ -7,42 +7,42 @@
 
 .slider {
   display: grid;
-  gap: var(--spacing-2);
+  gap: var(--spacing-8);
   min-width: 0;
-  --thumb: var(--component-slider-thumb-size);
+  --thumb: var(--spacing-24);
 }
 
 .head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-3);
+  gap: var(--spacing-12);
 }
 
 .label {
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-sm);
-  font-weight: var(--typography-font-weight-medium);
-  color: var(--color-semantic-text-secondary);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-subtle);
 }
 
 .valueBox {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
 }
 
 .value {
-  inline-size: calc(var(--spacing-16) + var(--spacing-2));
-  min-height: var(--component-slider-min-height);
+  inline-size: calc(var(--spacing-64) + var(--spacing-8));
+  min-height: var(--spacing-44);
   box-sizing: border-box;
-  padding: 0 var(--spacing-2);
-  border: 1px solid var(--color-semantic-border-strong);
-  border-radius: var(--radius-md);
-  background: var(--color-semantic-surface);
-  color: var(--color-semantic-text-primary);
-  font-family: var(--typography-font-family-body);
-  font-size: var(--typography-font-size-base);
+  padding: 0 var(--spacing-8);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--border-radius-8);
+  background: var(--color-background-surface);
+  color: var(--color-content-default);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-body-default-font-size);
   font-variant-numeric: tabular-nums;
   text-align: end;
 }
@@ -60,14 +60,14 @@
 }
 
 .value:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
-  border-color: var(--color-semantic-border-ink);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-color: var(--color-border-ink);
 }
 
 .unit {
-  font-size: var(--typography-font-size-sm);
-  color: var(--color-semantic-text-secondary);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-subtle);
 }
 
 .track {
@@ -79,53 +79,53 @@
   -webkit-appearance: none;
   display: block;
   inline-size: 100%;
-  min-height: var(--component-slider-min-height);
+  min-height: var(--spacing-44);
   margin: 0;
   background: transparent;
   cursor: pointer;
 }
 
 .range:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
-  border-radius: var(--radius-md);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--border-radius-8);
 }
 
 .range::-webkit-slider-runnable-track {
-  block-size: var(--component-slider-track-height);
-  border-radius: var(--radius-full);
-  background: linear-gradient(to right, var(--component-slider-fill) var(--slider-pct), var(--component-slider-track) var(--slider-pct));
+  block-size: var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: linear-gradient(to right, var(--color-content-default) var(--slider-pct), var(--color-border-strong) var(--slider-pct));
 }
 
 .range::-moz-range-track {
-  block-size: var(--component-slider-track-height);
-  border-radius: var(--radius-full);
-  background: var(--component-slider-track);
+  block-size: var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-strong);
 }
 
 .range::-moz-range-progress {
-  block-size: var(--component-slider-track-height);
-  border-radius: var(--radius-full);
-  background: var(--component-slider-fill);
+  block-size: var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: var(--color-content-default);
 }
 
 .range::-webkit-slider-thumb {
   -webkit-appearance: none;
   inline-size: var(--thumb);
   block-size: var(--thumb);
-  margin-block-start: calc((var(--component-slider-track-height) - var(--thumb)) / 2);
-  border-radius: var(--radius-full);
-  background: var(--component-slider-thumb-background);
-  border: var(--border-width-medium) solid var(--component-slider-thumb-border);
+  margin-block-start: calc((var(--spacing-4) - var(--thumb)) / 2);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-surface);
+  border: var(--border-width-2) solid var(--color-border-ink);
   box-sizing: border-box;
 }
 
 .range::-moz-range-thumb {
   inline-size: var(--thumb);
   block-size: var(--thumb);
-  border-radius: var(--radius-full);
-  background: var(--component-slider-thumb-background);
-  border: var(--border-width-medium) solid var(--component-slider-thumb-border);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-surface);
+  border: var(--border-width-2) solid var(--color-border-ink);
   box-sizing: border-box;
 }
 
@@ -138,7 +138,7 @@
   margin: 0;
   padding: 0;
   position: relative;
-  min-block-size: calc(var(--spacing-6) + var(--spacing-1));
+  min-block-size: calc(var(--spacing-24) + var(--spacing-4));
 }
 
 /* a mark sits under the thumb's centre at that value */
@@ -148,30 +148,30 @@
   inset-inline-start: calc(var(--thumb) / 2 + (100% - var(--thumb)) * var(--mark-f));
   display: grid;
   justify-items: center;
-  gap: var(--spacing-1);
+  gap: var(--spacing-4);
   transform: translateX(-50%);
 }
 
 .tick {
-  inline-size: var(--border-width-medium);
-  block-size: var(--spacing-2);
-  background: var(--component-slider-mark);
+  inline-size: var(--border-width-2);
+  block-size: var(--spacing-8);
+  background: var(--color-content-subtle);
 }
 
 .markLabel {
   white-space: nowrap;
-  font-size: var(--typography-font-size-tag);
-  color: var(--color-semantic-text-secondary);
+  font-size: var(--typography-label-default-font-size);
+  color: var(--color-content-subtle);
 }
 
 .markLabel b {
-  font-weight: var(--typography-font-weight-medium);
-  color: var(--color-semantic-text-primary);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-default);
 }
 
 .hint {
   margin: 0;
-  font-size: var(--typography-font-size-sm);
-  color: var(--color-semantic-text-secondary);
+  font-size: var(--typography-font-size-18);
+  color: var(--color-content-subtle);
 }
 

@@ -16,7 +16,7 @@ const BellaDocsContainer = ({
   context,
 }: React.PropsWithChildren<DocsContainerProps>) => {
   const [theme, setTheme] = useState<string>(
-    () => ((context as any).store?.userGlobals?.globals?.theme as string) ?? 'light'
+    () => ((context as any).store?.userGlobals?.globals?.theme as string) ?? 'bella-light'
   );
   useEffect(() => {
     const channel = (context as any).channel;
@@ -30,7 +30,7 @@ const BellaDocsContainer = ({
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
   return (
-    <DocsContainer context={context} theme={theme === 'dark' ? bellaThemeDark : bellaTheme}>
+    <DocsContainer context={context} theme={theme.endsWith('-dark') ? bellaThemeDark : bellaTheme}>
       {children}
     </DocsContainer>
   );
@@ -44,7 +44,7 @@ const BellaDocsContainer = ({
  * asserts the stage's effective background luminance matches the active
  * theme (the About-cards class of bug: dark surfaces on a light page). */
 const withBellaTheme: Decorator = (Story, context) => {
-  const theme = (context.globals.theme as string) ?? 'light';
+  const theme = (context.globals.theme as string) ?? 'bella-light';
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -56,13 +56,13 @@ const withBellaTheme: Decorator = (Story, context) => {
            ground); in docs the stage hugs its content so the embedded
            preview does not leave a tall empty canvas above the props table. */
         minHeight: context.viewMode === 'docs' ? undefined : '100vh',
-        padding: 'var(--spacing-8)',
-        background: 'var(--color-semantic-background)',
-        color: 'var(--color-semantic-text-primary)',
-        fontFamily: 'var(--typography-font-family-body)',
-        fontSize: 'var(--typography-font-size-base)',
-        lineHeight: 'var(--typography-line-height-normal)',
-        letterSpacing: 'var(--typography-letter-spacing-body)',
+        padding: 'var(--spacing-32)',
+        background: 'var(--color-background-default)',
+        color: 'var(--color-content-default)',
+        fontFamily: 'var(--typography-font-family-dm-sans)',
+        fontSize: 'var(--typography-body-default-font-size)',
+        lineHeight: 'var(--typography-line-height-150)',
+        letterSpacing: 'var(--typography-letter-spacing-0)',
       }}
     >
       <Story />
@@ -78,15 +78,17 @@ const preview: Preview = {
         title: 'Theme',
         icon: 'mirror',
         items: [
-          { value: 'light', title: 'Light (ground)' },
-          { value: 'dark', title: 'Dark (warm ground)' },
+          { value: 'bella-light', title: 'BELLA light' },
+          { value: 'bella-dark', title: 'BELLA dark' },
+          { value: 'chip-light', title: 'Chip light' },
+          { value: 'chip-dark', title: 'Chip dark' },
         ],
         dynamicTitle: true,
       },
     },
   },
   initialGlobals: {
-    theme: 'light',
+    theme: 'bella-light',
   },
   decorators: [withBellaTheme],
   parameters: {

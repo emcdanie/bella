@@ -8,7 +8,7 @@ import { join } from 'node:path';
 /* fs, not import: the test-runner's ESM loader requires import attributes
  * for JSON, which the TS transform here does not emit */
 const componentContract = JSON.parse(
-  readFileSync(join(process.cwd(), 'tokens/component.json'), 'utf8')
+  readFileSync(join(process.cwd(), 'tokens/contracts.json'), 'utf8')
 );
 
 /* audit:quality — the correctness layer. Baselines verify sameness; these
@@ -109,8 +109,9 @@ async function runFluidTypeChecks(
   }
 }
 
-// warm (2026-10-03): a light-family theme, held to the light integrity bands
-const THEMES = ['light', 'dark', 'warm'] as const;
+// the four Figma modes; *-light themes are held to the light integrity bands, *-dark to the dark
+const THEMES = ['bella-light', 'bella-dark', 'chip-light', 'chip-dark'] as const;
+const isLight = (t: string) => t.endsWith('-light');
 
 function relativeLuminance(rgb: [number, number, number]): number {
   const lin = rgb.map((c) => {
@@ -196,7 +197,7 @@ async function runMidRollChecks(
       b.addEventListener(
         'pointerenter',
         () => {
-          const dur = parseFloat(getComputedStyle(b).getPropertyValue('--component-button-motion-roll-duration')) || 250;
+          const dur = parseFloat(getComputedStyle(b).getPropertyValue('--motion-duration-250')) || 250;
           const label = b.querySelector('[data-bella-roll=label]') as HTMLElement;
           const fails = new Set<string>();
           let frames = 0;
@@ -271,18 +272,9 @@ async function runQualityChecks(
           const snippet = own.slice(0, 40);
           if (size < 16) {
             fails.push(`text below the 16px hard floor (${size}px): "${snippet}"`);
-          } else if (
-            size < 18 &&
-            own.length > 40 &&
-            (el.tagName === 'P' || el.tagName === 'LI')
-          ) {
-            /* the recorded audit:type heuristic: long-form reading text
-               (P/LI past ~40 own chars) holds the 18px floor; labels and
-               meta are the 16px tier (type lock, 2026-10-04) */
-            fails.push(
-              `long-form text below 18px (${size}px, ${own.length} chars): "${snippet}"`
-            );
           }
+          /* reading text and labels share the 16px floor: Figma body is 16
+             (Elleta, 17 Nov 2026: "one size per token … body text 16") */
           if (/\bUnique\b/.test(cs.fontFamily) && size < 24) {
             fails.push(`Unique below 24px (${size}px): "${snippet}"`);
           }
@@ -431,7 +423,7 @@ async function runQualityChecks(
 
       return fails;
     },
-    { restContracts: REST_CONTRACTS, textLint: theme === 'light' }
+    { restContracts: REST_CONTRACTS, textLint: theme === 'bella-light' }
   );
 
   if (failures.length > 0) {
@@ -477,14 +469,14 @@ const config: TestRunnerConfig = {
         });
         if (bg) {
           const lum = relativeLuminance(bg as [number, number, number]);
-          if ((theme === 'light' || theme === 'warm') && lum < 0.4) {
+          if (isLight(theme) && lum < 0.4) {
             throw new Error(
               `[audit:visual] ${context.id}: ${theme} theme renders a dark stage ` +
                 `(background rgb(${bg.join(',')}), luminance ${lum.toFixed(3)}). ` +
                 `A light-mode story must sit on the light ground.`
             );
           }
-          if (theme === 'dark' && lum > 0.2) {
+          if (!isLight(theme) && lum > 0.2) {
             throw new Error(
               `[audit:visual] ${context.id}: dark theme renders a light stage ` +
                 `(background rgb(${bg.join(',')}), luminance ${lum.toFixed(3)}). ` +
@@ -512,14 +504,43 @@ const config: TestRunnerConfig = {
         // stage element; the About-cards class of bug paints dark surfaces
         // INSIDE a light stage. Mean rendered luminance catches it — measured
         // bands on the current suite: light stories 0.86-0.96, dark 0.12-0.22.
+        //
+        // The check measures the THEME, not the content (17 Nov 2026): content
+        // images (img, picture, video, and any element with role="img") are
+        // masked out before averaging, the same way in every story and theme.
+        // The limits stay 0.6 (light) and 0.4 (dark). If masking leaves less
+        // than a quarter of the frame, the story fails: the check would be
+        // measuring next to nothing, so it does not pass by default.
         const png = PNG.sync.read(image as Buffer);
+        const masks = await page.evaluate(() =>
+          Array.from(document.querySelectorAll('img, picture, video, [role="img"]')).map((el) => {
+            const r = el.getBoundingClientRect();
+            return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height };
+          }).filter((r) => r.w > 0 && r.h > 0)
+        );
+        const scale = png.width / (await page.evaluate(() => document.documentElement.scrollWidth || window.innerWidth));
+        const masked = new Uint8Array(png.width * png.height);
+        for (const m of masks) {
+          const x0 = Math.max(0, Math.floor(m.x * scale)), y0 = Math.max(0, Math.floor(m.y * scale));
+          const x1 = Math.min(png.width, Math.ceil((m.x + m.w) * scale)), y1 = Math.min(png.height, Math.ceil((m.y + m.h) * scale));
+          for (let y = y0; y < y1; y++) masked.fill(1, y * png.width + x0, y * png.width + x1);
+        }
         let sum = 0;
-        const n = png.width * png.height;
-        for (let i = 0; i < png.data.length; i += 4) {
+        let n = 0;
+        for (let p = 0, i = 0; p < masked.length; p++, i += 4) {
+          if (masked[p]) continue;
           sum += (0.2126 * png.data[i] + 0.7152 * png.data[i + 1] + 0.0722 * png.data[i + 2]) / 255;
+          n++;
+        }
+        if (n < masked.length / 4) {
+          throw new Error(
+            `[audit:visual] ${context.id}: content images cover ${(100 - (100 * n) / masked.length).toFixed(0)}% of the ` +
+              `frame in ${theme}, so the theme check would measure next to nothing. Give the story more ` +
+              `themed surface around its images.`
+          );
         }
         const mean = sum / n;
-        if ((theme === 'light' || theme === 'warm') && mean < 0.6) {
+        if (isLight(theme) && mean < 0.6) {
           throw new Error(
             `[audit:visual] ${context.id}: ${theme} theme renders predominantly dark ` +
               `(mean luminance ${mean.toFixed(3)}, expected ≥ 0.6). Dark surfaces are ` +
@@ -527,7 +548,7 @@ const config: TestRunnerConfig = {
               `stories via parameters.bella.themeIntegrity = false.`
           );
         }
-        if (theme === 'dark' && mean > 0.4) {
+        if (!isLight(theme) && mean > 0.4) {
           throw new Error(
             `[audit:visual] ${context.id}: dark theme renders predominantly light ` +
               `(mean luminance ${mean.toFixed(3)}, expected ≤ 0.4). Light surfaces are ` +
@@ -563,7 +584,7 @@ const config: TestRunnerConfig = {
     // restore the story's own theme so subsequent test-runner assertions
     // (a11y runs in postVisit order) see the globals-driven state
     await page.evaluate(() => {
-      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.setAttribute('data-theme', 'bella-light');
     });
   },
 };

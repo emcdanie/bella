@@ -28,7 +28,7 @@ the specific failure it now prevents.
 | Check | What it asserts | Why it exists |
 | --- | --- | --- |
 | **Source validity** | Every token JSON source parses. | A malformed token file used to fail late, inside the build, with a stack trace instead of a filename. |
-| **Build** | `tokens/build.py` regenerates every artifact from the four sources. | The generated files are downstream of the JSON, always. |
+| **Build** | `tokens/build.mjs` (Style Dictionary) regenerates every artifact from the Figma export in `tokens/figma/`. | The generated files are downstream of the JSON, always. |
 | **Drift diff** | `bella.css`, `bella.json`, the docs copies, this Storybook's theme values and its favicon all match what is committed. | A hand-edit to a generated file used to survive until the next rebuild silently reverted it. The doc site's own branding is included, so the chrome cannot carry a hex the tokens do not. |
 | **Contract parity** | Every Tier 3 contract with a shipped component matches that component's real exported API: variants and props, both directions. | The card contract described props the Card had not had for weeks. A contract that lies is worse than no contract. |
 | **Interaction tests** | Each component's Behavior story passes: keyboard, focus, roles, states. | Behaviour regressions do not show up in a screenshot. |

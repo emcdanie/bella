@@ -6,7 +6,7 @@ import ChatBubble from '../ChatBubble/ChatBubble';
 import TypingDots from '../TypingDots/TypingDots';
 import AvatarStack, { type AvatarStackMember } from '../AvatarStack/AvatarStack';
 import threadCssRaw from './ChatThread.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -74,13 +74,13 @@ export const Narrow: Story = {
 /* The Bar members for the first-screen story. Photos from /avatars/*.png.
    Elleta has no photo; she stays as a ringed initials disc. */
 const THE_BAR_HEADER: AvatarStackMember[] = [
-  { name: 'Elleta',  ringColor: 'var(--color-semantic-text-primary)', showInitials: true },
-  { name: 'Seamus',  src: '/avatars/seamus.png',  ringColor: 'var(--color-semantic-text-primary)' },
-  { name: 'Dara',    src: '/avatars/dara.png',    ringColor: 'var(--color-semantic-lane-a)' },
-  { name: 'Bernie',  src: '/avatars/bernie.png',  ringColor: 'var(--color-semantic-lane-b)' },
-  { name: 'Saoirse', src: '/avatars/saoirse.png', ringColor: 'var(--color-semantic-lane-c)' },
-  { name: 'Frankie', src: '/avatars/frankie.png', ringColor: 'var(--color-semantic-lane-d)' },
-  { name: 'Liam',    src: '/avatars/liam.png',    ringColor: 'var(--color-semantic-success)' },
+  { name: 'Elleta',  ringColor: 'var(--color-content-default)', showInitials: true },
+  { name: 'Seamus',  src: '/avatars/seamus.png',  ringColor: 'var(--color-content-default)' },
+  { name: 'Dara',    src: '/avatars/dara.png',    ringColor: 'var(--color-background-accent-3)' },
+  { name: 'Bernie',  src: '/avatars/bernie.png',  ringColor: 'var(--color-background-accent-1)' },
+  { name: 'Saoirse', src: '/avatars/saoirse.png', ringColor: 'var(--color-background-utility-success)' },
+  { name: 'Frankie', src: '/avatars/frankie.png', ringColor: 'var(--color-background-accent-2)' },
+  { name: 'Liam',    src: '/avatars/liam.png',    ringColor: 'var(--color-border-utility-success)' },
 ];
 
 const BarHeader = () => (
@@ -89,19 +89,19 @@ const BarHeader = () => (
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      gap: 'var(--spacing-2)',
-      padding: 'var(--spacing-3) var(--spacing-4) var(--spacing-2)',
-      borderBottom: '1px solid var(--color-semantic-border)',
-      background: 'var(--color-semantic-surface)',
+      gap: 'var(--spacing-8)',
+      padding: 'var(--spacing-12) var(--spacing-16) var(--spacing-8)',
+      borderBottom: '1px solid var(--color-border-default)',
+      background: 'var(--color-background-surface)',
       textAlign: 'center',
     }}
   >
-    <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-semantic-surface)" max={7} />
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-1)', alignSelf: 'stretch', minWidth: 0 }}>
-      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-body)', fontWeight: 600, color: 'var(--color-semantic-text-primary)', lineHeight: 'var(--typography-line-height-normal)', textAlign: 'center' }}>
+    <AvatarStack members={THE_BAR_HEADER} size="sm" surfaceColor="var(--color-background-surface)" max={7} />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', alignSelf: 'stretch', minWidth: 0 }}>
+      <span style={{ fontFamily: 'var(--typography-font-family-dm-sans)', fontSize: 'var(--typography-body-default-font-size)', fontWeight: 600, color: 'var(--color-content-default)', lineHeight: 'var(--typography-line-height-150)', textAlign: 'center' }}>
         The Bar
       </span>
-      <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', lineHeight: 'var(--typography-line-height-normal)', textAlign: 'center', overflowWrap: 'anywhere' }}>
+      <span style={{ fontFamily: 'var(--typography-font-family-dm-sans)', fontSize: 'var(--typography-label-default-font-size)', color: 'var(--color-content-subtle)', lineHeight: 'var(--typography-line-height-150)', textAlign: 'center', overflowWrap: 'anywhere' }}>
         Elleta, Seamus, Dara, Bernie, Saoirse, Frankie, Liam
       </span>
     </div>
@@ -117,13 +117,13 @@ const FirstScreenContent = () => (
     <ChatBubble side="received" senderName="Seamus">
       Go? That&apos;s it? A dozen skills behind me and all I get is go. Grand. On it {String.fromCodePoint(0x1FAE1)}
     </ChatBubble>
-    <ChatBubble side="received" tail disc="var(--color-semantic-text-primary)">
+    <ChatBubble side="received" tail disc="var(--color-content-default)">
       Status board&apos;s up on the right. Your live-site flags aren&apos;t measured yet, so I&apos;m not claiming anything&apos;s fixed.
     </ChatBubble>
     <ChatBubble side="sent" tail tapback="‼️">
       ok I cleared all the terminals, let&apos;s go
     </ChatBubble>
-    <ChatBubble side="received" senderName="Bernie" disc="var(--color-semantic-lane-b)" tail>
+    <ChatBubble side="received" senderName="Bernie" disc="var(--color-background-accent-1)" tail>
       Right, I&apos;ve had a proper look at every section. Pull up a chair. {String.fromCodePoint(0x1F4CB)}
     </ChatBubble>
   </ChatThread>
@@ -135,8 +135,8 @@ export const TheBarFirstScreenLight: Story = {
     <div style={{ maxWidth: 420, margin: '0 auto' }}>
       <div
         style={{
-          background: 'var(--color-semantic-surface)',
-          borderRadius: 'var(--radius-2xl)',
+          background: 'var(--color-background-surface)',
+          borderRadius: 'var(--border-radius-20)',
           overflow: 'hidden',
         }}
       >

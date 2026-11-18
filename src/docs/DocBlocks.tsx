@@ -16,13 +16,13 @@ import {
 /** H1 + one-paragraph standfirst. Every doc page opens with this. */
 export function PageIntro({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <header style={{ marginBottom: 'var(--spacing-8)' }}>
+    <header style={{ marginBottom: 'var(--spacing-32)' }}>
       <h1>{title}</h1>
       <p
         style={{
-          fontSize: 'var(--typography-font-size-lg)',
-          lineHeight: 'var(--typography-line-height-normal)',
-          color: 'var(--color-semantic-text-body)',
+          fontSize: 'var(--typography-font-size-22)',
+          lineHeight: 'var(--typography-line-height-150)',
+          color: 'var(--color-content-body)',
           maxWidth: '65ch',
           margin: 0,
         }}
@@ -34,31 +34,31 @@ export function PageIntro({ title, children }: { title: string; children: ReactN
 }
 
 const panelStyle: React.CSSProperties = {
-  background: 'var(--color-semantic-surface)',
-  border: '1px solid var(--color-semantic-border)',
-  borderRadius: 'var(--radius-lg)',
-  padding: 'var(--spacing-4) var(--spacing-5)',
+  background: 'var(--color-background-surface)',
+  border: '1px solid var(--color-border-default)',
+  borderRadius: 'var(--border-radius-12)',
+  padding: 'var(--spacing-16) var(--spacing-20)',
 };
 
 const dodontLabelStyle: React.CSSProperties = {
   display: 'block',
-  fontSize: 'var(--typography-font-size-sm)',
+  fontSize: 'var(--typography-font-size-18)',
   fontWeight: 700,
-  letterSpacing: 'var(--typography-letter-spacing-wider)',
-  marginBottom: 'var(--spacing-3)',
+  letterSpacing: 'var(--typography-letter-spacing-0)',
+  marginBottom: 'var(--spacing-12)',
 };
 
 function DoDontList({ items }: { items: string[] }) {
   return (
-    <ul style={{ margin: 0, paddingLeft: 'var(--spacing-5)' }}>
+    <ul style={{ margin: 0, paddingLeft: 'var(--spacing-20)' }}>
       {items.map((item) => (
         <li
           key={item}
           style={{
-            fontSize: 'var(--typography-font-size-base)',
-            lineHeight: 'var(--typography-line-height-normal)',
-            color: 'var(--color-semantic-text-primary)',
-            marginBottom: 'var(--spacing-2)',
+            fontSize: 'var(--typography-body-default-font-size)',
+            lineHeight: 'var(--typography-line-height-150)',
+            color: 'var(--color-content-default)',
+            marginBottom: 'var(--spacing-8)',
           }}
         >
           {item}
@@ -77,16 +77,16 @@ export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: s
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: 'var(--spacing-5)',
-        margin: 'var(--spacing-6) 0',
+        gap: 'var(--spacing-20)',
+        margin: 'var(--spacing-24) 0',
       }}
     >
       <div style={panelStyle}>
-        <span style={{ ...dodontLabelStyle, color: 'var(--color-semantic-text-primary)' }}>Do</span>
+        <span style={{ ...dodontLabelStyle, color: 'var(--color-content-default)' }}>Do</span>
         <DoDontList items={doItems} />
       </div>
       <div style={{ ...panelStyle, borderStyle: 'dashed' }}>
-        <span style={{ ...dodontLabelStyle, color: 'var(--color-semantic-text-muted)' }}>
+        <span style={{ ...dodontLabelStyle, color: 'var(--color-content-subtle)' }}>
           Don&apos;t
         </span>
         <DoDontList items={dontItems} />
@@ -96,7 +96,7 @@ export function DoDont({ doItems, dontItems }: { doItems: string[]; dontItems: s
 }
 
 /** Inline token reference. Accepts a dotted token path (color.brand.ochre)
- * or a CSS custom property (--color-brand-ochre). Colour tokens get a live
+ * or a CSS custom property (--color-brand-ochre-300). Colour tokens get a live
  * swatch driven by the token's own custom property, so it flips with the
  * theme. */
 export function TokenChip({ token }: { token: string }) {
@@ -107,14 +107,14 @@ export function TokenChip({ token }: { token: string }) {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
-        gap: 'var(--spacing-1)',
-        background: 'var(--color-semantic-surface-inset)',
-        border: '1px solid var(--color-semantic-border-subtle)',
-        borderRadius: 'var(--radius-sm)',
-        padding: '1px var(--spacing-2)',
-        fontFamily: 'var(--typography-font-family-body)',
-        fontSize: 'var(--typography-font-size-sm)',
-        color: 'var(--color-semantic-text-primary)',
+        gap: 'var(--spacing-4)',
+        background: 'var(--color-background-subtle)',
+        border: '1px solid var(--color-border-subtle)',
+        borderRadius: 'var(--border-radius-4)',
+        padding: '1px var(--spacing-8)',
+        fontFamily: 'var(--typography-font-family-dm-sans)',
+        fontSize: 'var(--typography-font-size-18)',
+        color: 'var(--color-content-default)',
         whiteSpace: 'nowrap',
       }}
     >
@@ -126,9 +126,9 @@ export function TokenChip({ token }: { token: string }) {
             display: 'inline-block',
             width: 12,
             height: 12,
-            borderRadius: 'var(--radius-sm)',
+            borderRadius: 'var(--border-radius-4)',
             background: `var(${cssVar})`,
-            border: '1px solid var(--color-semantic-border-strong)',
+            border: '1px solid var(--color-border-strong)',
             flexShrink: 0,
           }}
         />
@@ -139,9 +139,9 @@ export function TokenChip({ token }: { token: string }) {
 }
 
 const sectionHeadStyle: React.CSSProperties = {
-  fontSize: 'var(--typography-font-size-xl)',
+  fontSize: 'var(--typography-font-size-22)',
   fontWeight: 700,
-  margin: 'var(--spacing-8) 0 var(--spacing-4)',
+  margin: 'var(--spacing-32) 0 var(--spacing-16)',
 };
 
 /** The component autodocs template (page anatomy, Governance page):
@@ -162,7 +162,7 @@ export function ComponentDocsPage() {
       {bellaDocs.tokens && bellaDocs.tokens.length > 0 && (
         <>
           <h3 style={sectionHeadStyle}>Tokens consumed</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-2)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-8)' }}>
             {bellaDocs.tokens.map((t) => (
               <TokenChip key={t} token={t} />
             ))}
@@ -174,8 +174,8 @@ export function ComponentDocsPage() {
           <h3 style={sectionHeadStyle}>Accessibility</h3>
           <p
             style={{
-              fontSize: 'var(--typography-font-size-base)',
-              lineHeight: 'var(--typography-line-height-normal)',
+              fontSize: 'var(--typography-body-default-font-size)',
+              lineHeight: 'var(--typography-line-height-150)',
               maxWidth: '70ch',
             }}
           >

@@ -10,9 +10,9 @@ type Ground = 'light' | 'panel' | 'dark';
 
 const stageBg: Record<Ground, string> = {
   /* colour B (2026-10-04): the light ground is cool.25; white is the card */
-  light: 'var(--color-light-panel)',
-  panel: 'var(--color-cool-50)',
-  dark: 'var(--color-dark-bg)',
+  light: 'var(--color-background-default)',
+  panel: 'var(--color-neutral-100)',
+  dark: 'var(--color-neutral-black)',
 };
 
 export function AssetGrid({ columns = 3, children }: { columns?: number; children: ReactNode }) {
@@ -21,8 +21,8 @@ export function AssetGrid({ columns = 3, children }: { columns?: number; childre
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(auto-fit, minmax(min(100%, ${columns === 2 ? 320 : 220}px), 1fr))`,
-        gap: 'var(--spacing-4)',
-        margin: 'var(--spacing-5) 0 var(--spacing-8)',
+        gap: 'var(--spacing-16)',
+        margin: 'var(--spacing-20) 0 var(--spacing-32)',
       }}
     >
       {children}
@@ -53,10 +53,10 @@ export function AssetTile({
     <figure
       style={{
         margin: 0,
-        borderRadius: 'var(--radius-lg)',
-        border: '1px solid var(--color-semantic-border)',
+        borderRadius: 'var(--border-radius-12)',
+        border: '1px solid var(--color-border-default)',
         overflow: 'hidden',
-        background: 'var(--color-semantic-surface)',
+        background: 'var(--color-background-surface)',
       }}
     >
       <div
@@ -67,8 +67,8 @@ export function AssetTile({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 'var(--spacing-6)',
-          color: ground === 'dark' ? 'var(--color-dark-ink)' : 'var(--color-light-ink)',
+          padding: 'var(--spacing-24)',
+          color: ground === 'dark' ? 'var(--color-neutral-100)' : 'var(--color-content-default)',
         }}
       >
         {children ?? <img src={src} alt={alt} style={{ height, maxWidth: '100%', display: 'block' }} />}
@@ -78,16 +78,16 @@ export function AssetTile({
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: 'var(--spacing-3)',
-          padding: 'var(--spacing-3) var(--spacing-4)',
-          borderTop: '1px solid var(--color-semantic-border)',
-          fontSize: 'var(--typography-font-size-sm)',
-          color: 'var(--color-semantic-text-body)',
+          gap: 'var(--spacing-12)',
+          padding: 'var(--spacing-12) var(--spacing-16)',
+          borderTop: '1px solid var(--color-border-default)',
+          fontSize: 'var(--typography-font-size-18)',
+          color: 'var(--color-content-body)',
         }}
       >
         <span>{label}</span>
         {src && download ? (
-          <a href={src} download={download} style={{ color: 'var(--color-semantic-link)', fontWeight: 500 }}>
+          <a href={src} download={download} style={{ color: 'var(--color-content-link)', fontWeight: 500 }}>
             {format} ↓
           </a>
         ) : null}

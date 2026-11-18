@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { expectTouchTarget } from '../../testing/behavioral';
 import NavList, { type NavListGroup } from './NavList';
 import navCssRaw from './NavList.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -53,9 +53,9 @@ const GROUPS: NavListGroup[] = [
 
 const frame = {
   width: 260,
-  padding: 'var(--spacing-3)',
-  background: 'var(--color-semantic-surface-card)',
-  borderRadius: 'var(--radius-lg)',
+  padding: 'var(--spacing-12)',
+  background: 'var(--color-background-surface)',
+  borderRadius: 'var(--border-radius-12)',
 };
 
 /** Grouped links on the panel surface: the current view is the wash, ink and medium weight. */
@@ -135,14 +135,14 @@ export const Behavior: Story = {
       await userEvent.click(canvas.getByRole('button', { name: 'Show Workspace' }));
     });
 
-    await step('keyboard focus draws the 3px ring; rows hit 44px', async () => {
+    await step('keyboard focus draws the focus-ring token (4px); rows hit 44px', async () => {
       const link = canvas.getByRole('link', { name: 'Health' });
       link.focus();
       await userEvent.tab({ shift: true });
       await userEvent.tab();
       const cs = getComputedStyle(document.activeElement as HTMLElement);
       expect(cs.outlineStyle).toBe('solid');
-      expect(parseFloat(cs.outlineWidth)).toBe(3);
+      expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
       expectTouchTarget(link);
     });
   },

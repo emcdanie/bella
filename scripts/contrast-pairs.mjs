@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// Contrast pairs (brand refresh, 2026-09-22): the declared foreground /
-// background pairs, computed from the generated tokens/bella.css in BOTH
-// themes, each held to its bar. The a11y notes in the token metadata are
-// the record; this is the check that the record is still true. Part of
-// `npm run gate`.
+// Contrast pairs, computed from the built tokens/bella.css in all four themes
+// (BELLA light, BELLA dark, Chip light, Chip dark). Part of `npm run gate`.
+// The bar (Elleta, 17 Nov 2026): all text 7:1, status words, labels, code and
+// disabled text included; non-text marks 3:1. No pair has a lower bar.
+// `--verbose` prints every ratio.
 
 import { readFileSync, readdirSync } from 'node:fs';
 
@@ -25,10 +25,13 @@ function block(selectorRe) {
   return vars;
 }
 
-const light = block(/:root\s*\{/);
-const dark = { ...light, ...block(/\[data-theme=["']?dark["']?\]\s*\{/) };
-const warm = { ...light, ...block(/\[data-theme=["']?warm["']?\]\s*\{/) };
-const chip = { ...light, ...block(/\[data-theme=["']?chip["']?\]\s*\{/) };
+const base = block(/:root,\s*\[data-theme="bella-light"\]\s*\{/);
+const THEMES = {
+  'bella-light': base,
+  'bella-dark': { ...base, ...block(/\[data-theme="bella-dark"\]\s*\{/) },
+  'chip-light': { ...base, ...block(/\[data-theme="chip-light"\]\s*\{/) },
+  'chip-dark': { ...base, ...block(/\[data-theme="chip-dark"\]\s*\{/) },
+};
 
 function resolve(vars, name, seen = new Set()) {
   if (seen.has(name)) throw new Error(`cycle at ${name}`);
@@ -50,220 +53,123 @@ const ratio = (a, b) => {
   return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 };
 
-/* A background may be a translucent wash composited over a surface:
- * '<wash var> over <surface var>' (highlight, 2026-10-05). The wash is
- * an 8-digit hex; the composite is what the eye sees. */
+/* A translucent fill is composited over what it sits on: '<fill> over <surface>'. */
 function colour(vars, spec) {
-  const [top, base] = spec.split(' over ');
-  if (!base) return resolve(vars, top);
+  const [top, under] = spec.split(' over ');
   const t = resolve(vars, top).replace('#', '');
-  const b = resolve(vars, base).replace('#', '').slice(0, 6);
+  if (!under) {
+    if (t.length === 8 && t.slice(6) !== 'ff') throw new Error(`contrast-pairs: ${top} is translucent; say what it sits over`);
+    return '#' + t.slice(0, 6);
+  }
+  const b = colour(vars, under).replace('#', '');
   const a = t.length === 8 ? parseInt(t.slice(6, 8), 16) / 255 : 1;
   return '#' + [0, 2, 4].map((i) => Math.round(parseInt(t.slice(i, i + 2), 16) * a + parseInt(b.slice(i, i + 2), 16) * (1 - a)).toString(16).padStart(2, '0')).join('');
 }
 
-/* [label, foreground var, background var, minimum, themes] */
-const AAA = 7;
-const AA = 4.5;
-const NON_TEXT = 3;
+const TEXT = 7;
+const MARK = 3;
+const c = (n) => `--color-${n}`;
+const PAGES = ['background-default', 'background-surface', 'background-subtle'];
+
+/* [label, foreground, background, bar] */
 const PAIRS = [
-  ['ink text on the page', '--color-semantic-text-primary', '--color-semantic-background', AAA],
-  ['ink text on panel', '--color-semantic-text-primary', '--color-semantic-surface-card', AAA],
-  ['body text on the page', '--color-semantic-text-body', '--color-semantic-background', AAA],
-  ['body text on the card', '--color-semantic-text-body', '--color-semantic-surface-card', AAA],
-  ['body text on inset', '--color-semantic-text-body', '--color-semantic-surface-inset', AAA],
-  ['body text on raised', '--color-semantic-text-body', '--color-semantic-surface-elevated', AAA],
-  ['muted text on the page', '--color-semantic-text-secondary', '--color-semantic-background', AAA],
-  ['muted text on panel', '--color-semantic-text-secondary', '--color-semantic-surface-card', AAA],
-  ['muted text on inset', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],
-  ['muted text on raised', '--color-semantic-text-secondary', '--color-semantic-surface-elevated', AAA],
-  /* three surface levels (2026-10-03): body text stays AAA on ground and raised in every theme */
-  ['ink text on ground', '--color-semantic-text-primary', '--color-semantic-ground', AAA],
-  ['ink text on the raised surface', '--color-semantic-text-primary', '--color-semantic-raised', AAA],
-  ['muted text on the raised surface', '--color-semantic-text-secondary', '--color-semantic-raised', AAA],
-  ['text on the selection fill', '--color-semantic-text-on-accent', '--color-semantic-accent', AAA],
-  ['link on the page', '--color-semantic-link', '--color-semantic-background', AAA],
-  ['primary button label on the ink plate', '--component-button-primary-foreground', '--component-button-primary-fill-hi', AAA],
-  ['primary button label on the hover plate', '--component-button-primary-foreground', '--component-button-primary-fill-hi-hover', AAA],
-  ['secondary button label on panel', '--component-button-secondary-foreground', '--color-semantic-surface-card', AAA],
-  ['focus ring on the page', '--color-semantic-focus-ring', '--color-semantic-background', NON_TEXT],
-  ['focus ring on panel', '--color-semantic-focus-ring', '--color-semantic-surface-card', NON_TEXT],
-  ['control border on the page', '--color-semantic-border-strong', '--color-semantic-background', NON_TEXT],
-  ['control border on panel', '--color-semantic-border-strong', '--color-semantic-surface-card', NON_TEXT],
-  ['control border on inset', '--color-semantic-border-strong', '--color-semantic-surface-inset', NON_TEXT],
-  ['control border on raised', '--color-semantic-border-strong', '--color-semantic-surface-elevated', NON_TEXT],
-  ['ink plate against panel', '--component-button-primary-fill-hi', '--color-semantic-surface-card', NON_TEXT],
-  ['selected tab bar (ink) on the page', '--component-tabs-indicator', '--color-semantic-background', NON_TEXT],
-  ['current nav item: ink on its wash', '--color-semantic-text-primary', '--component-nav-list-current-background', AAA],
-  ['score bar (ink) on its track', '--component-score-strip-track-fill', '--component-score-strip-track', NON_TEXT],
-  ['ink text on inset', '--color-semantic-text-primary', '--color-semantic-surface-inset', AAA],
-  ['selected table row: text on the fill', '--component-data-table-selected-foreground', '--component-data-table-selected-background', AAA],
-  ['table header label on its panel', '--color-semantic-text-secondary', '--component-data-table-header-background', AAA],
-  ['drawer text on its panel', '--component-drawer-foreground', '--component-drawer-background', AAA],
-  ['stat sparkline (ink) on panel', '--component-stat-trend-stroke', '--color-semantic-surface-card', NON_TEXT],
-  ['combobox option text on its list', '--component-combobox-foreground', '--component-combobox-list-background', AAA],
-  ['combobox group heading on its list', '--component-combobox-group-foreground', '--component-combobox-list-background', AAA],
-  ['combobox active option: text on the fill', '--component-combobox-active-foreground', '--component-combobox-active-background', AAA],
-  ['combobox field border on the page', '--component-combobox-border', '--color-semantic-background', NON_TEXT],
-  ['action chip label on the page', '--component-action-chip-foreground', '--color-semantic-background', AAA],
-  ['action chip label on its hover wash', '--component-action-chip-foreground', '--component-action-chip-hover-background', AAA],
-  ['action chip border on panel', '--component-action-chip-border', '--color-semantic-surface-card', NON_TEXT],
-  ['quiet action chip label on its hover fill', '--component-action-chip-foreground', '--component-action-chip-quiet-hover-background', AAA],
-  ['disclosure title on panel', '--component-disclosure-foreground', '--color-semantic-surface-card', AAA],
-  ['disclosure summary on panel', '--component-disclosure-meta-foreground', '--color-semantic-surface-card', AA],
-  ['neutral status pill label on its inset fill', '--color-semantic-text-secondary', '--color-semantic-surface-inset', AAA],
-  ['slider track on panel', '--component-slider-track', '--color-semantic-surface-card', NON_TEXT],
-  ['slider fill on panel', '--component-slider-fill', '--color-semantic-surface-card', NON_TEXT],
-  ['slider thumb edge on panel', '--component-slider-thumb-border', '--color-semantic-surface-card', NON_TEXT],
-  ['page title on the page', '--component-page-header-foreground', '--color-semantic-background', AAA],
-  ['page meta and lede on the page', '--component-page-header-meta-foreground', '--color-semantic-background', AAA],
-  /* status (2026-09-22): text AA, borders 3:1, on every surface they sit on */
-  ['danger text on the page', '--color-semantic-danger-text', '--color-semantic-background', AA],
-  ['danger text on panel', '--color-semantic-danger-text', '--color-semantic-surface-card', AA],
-  ['danger text on raised', '--color-semantic-danger-text', '--color-semantic-surface-elevated', AA],
-  ['danger text on its wash', '--color-semantic-danger-text', '--color-semantic-danger-subtle', AA],
-  ['ink text on the danger wash', '--color-semantic-text-primary', '--color-semantic-danger-subtle', AAA],
-  ['danger border on panel', '--color-semantic-danger-border', '--color-semantic-surface-card', NON_TEXT],
-  ['success text on the page', '--color-semantic-success-text', '--color-semantic-background', AA],
-  ['success text on panel', '--color-semantic-success-text', '--color-semantic-surface-card', AA],
-  ['success text on raised', '--color-semantic-success-text', '--color-semantic-surface-elevated', AA],
-  ['success text on its wash', '--color-semantic-success-text', '--color-semantic-success-subtle', AA],
-  ['ink text on the success wash', '--color-semantic-text-primary', '--color-semantic-success-subtle', AAA],
-  ['success border on panel', '--color-semantic-success-border', '--color-semantic-surface-card', NON_TEXT],
-  /* highlight (2026-10-05): the lit state is the ochre wash + a 2px edge,
-   * never colour alone. Text on the wash AAA, the edge 3:1 against the
-   * wash it sits on and the surface beside it, on ground, card and inset. */
-  ...['background', 'surface-card', 'surface-inset'].flatMap((s) => [
-    [`text on the highlight wash over ${s}`, '--color-semantic-highlight-text', `--color-semantic-highlight-wash over --color-semantic-${s}`, AAA],
-    [`highlight edge on the wash over ${s}`, '--color-semantic-highlight-edge', `--color-semantic-highlight-wash over --color-semantic-${s}`, NON_TEXT],
-    [`highlight edge beside ${s}`, '--color-semantic-highlight-edge', `--color-semantic-${s}`, NON_TEXT],
+  // reading and UI text on every surface it may sit on
+  ...['content-default', 'content-body', 'content-subtle', 'content-accent', 'content-link', 'content-brand', 'content-highlight'].flatMap((fg) =>
+    PAGES.map((bg) => [`${fg} on ${bg}`, c(fg), c(bg), TEXT])),
+  ['content-default on background-default-hover', c('content-default'), c('background-default-hover'), TEXT],
+  ['content-default on the highlight over background-default', c('content-default'), `${c('background-highlight')} over ${c('background-default')}`, TEXT],
+  ['content-highlight on the highlight over background-surface', c('content-highlight'), `${c('background-highlight')} over ${c('background-surface')}`, TEXT],
+  ['content-disabled on background-disabled', c('content-disabled'), c('background-disabled'), TEXT],
+  ['content-disabled on background-surface', c('content-disabled'), c('background-surface'), TEXT],
+  ['content-lane-subtle on background-lane', c('content-lane-subtle'), c('background-lane'), TEXT],
+  ['content-default on background-lane', c('content-default'), c('background-lane'), TEXT],
+  // text on filled parts
+  ['content-knockout on background-knockout', c('content-knockout'), c('background-knockout'), TEXT],
+  ['content-brand-knockout on background-brand', c('content-brand-knockout'), c('background-brand'), TEXT],
+  ['content-brand-knockout on background-brand-hover', c('content-brand-knockout'), c('background-brand-hover'), TEXT],
+  ['content-brand on background-brand-subtle', c('content-brand'), c('background-brand-subtle'), TEXT],
+  ['content-brand on background-brand-subtle-hover', c('content-brand'), c('background-brand-subtle-hover'), TEXT],
+  ['content-on-accent-1 on background-accent-1', c('content-on-accent-1'), c('background-accent-1'), TEXT],
+  ['content-on-accent-1 on background-accent-1-hover', c('content-on-accent-1'), c('background-accent-1-hover'), TEXT],
+  ['content-default on background-accent-subtle', c('content-default'), c('background-accent-subtle'), TEXT],
+  // status words on their washes, on the page and on cards; ink on the strong fills
+  ...['error', 'success', 'info', 'warning', 'neutral'].flatMap((s) => [
+    ...['background-surface', 'background-default'].map((g) =>
+      [`content-utility-${s} on its wash over ${g}`, c(`content-utility-${s}`), `${c(`background-utility-${s}`)} over ${c(g)}`, TEXT]),
+    ...(s === 'neutral' ? [] : [[`content-utility-${s} on background-surface`, c(`content-utility-${s}`), c('background-surface'), TEXT]]),
   ]),
-  /* page outline: a section's line is a control mark on the card; the current one is ink */
-  ['outline line on the card', '--component-page-outline-line', '--color-semantic-surface-card', NON_TEXT],
-  ['current outline line on the card', '--component-page-outline-line-current', '--color-semantic-surface-card', NON_TEXT],
-  /* tooltip, and code: every syntax colour on the code ground and on the marked line */
-  ['tooltip label', '--component-tooltip-foreground', '--component-tooltip-background', AAA],
-  ['code foreground on its ground', '--component-code-block-foreground', '--component-code-block-background', AA],
-  ['code keyword on its ground', '--component-code-block-keyword', '--component-code-block-background', AA],
-  ['code string on its ground', '--component-code-block-string', '--component-code-block-background', AA],
-  ['code number on its ground', '--component-code-block-number', '--component-code-block-background', AA],
-  ['code comment on its ground', '--component-code-block-comment', '--component-code-block-background', AA],
-  ['code function on its ground', '--component-code-block-function', '--component-code-block-background', AA],
-  ['code tag on its ground', '--component-code-block-tag', '--component-code-block-background', AA],
-  ['code attr on its ground', '--component-code-block-attr', '--component-code-block-background', AA],
-  ['code punct on its ground', '--component-code-block-punct', '--component-code-block-background', AA],
-  ['code line-number on its ground', '--component-code-block-line-number', '--component-code-block-background', AA],
-  ['code foreground on the marked line', '--component-code-block-foreground', '--component-code-block-current', AA],
-  ['code comment on the marked line', '--component-code-block-comment', '--component-code-block-current', AA],
-  ['code line-number on the marked line', '--component-code-block-line-number', '--component-code-block-current', AA],
-  ['code keyword on the marked line', '--component-code-block-keyword', '--component-code-block-current', AA],
-  ['code string on the marked line', '--component-code-block-string', '--component-code-block-current', AA],
-  ['code number on the marked line', '--component-code-block-number', '--component-code-block-current', AA],
-  ['code function on the marked line', '--component-code-block-function', '--component-code-block-current', AA],
-  ['code tag on the marked line', '--component-code-block-tag', '--component-code-block-current', AA],
-  ['code attr on the marked line', '--component-code-block-attr', '--component-code-block-current', AA],
-  ['code punct on the marked line', '--component-code-block-punct', '--component-code-block-current', AA],
-  ['code on an added line', '--component-code-block-foreground', '--component-code-block-add', AA],
-  ['code on a removed line', '--component-code-block-foreground', '--component-code-block-del', AA],
-  /* pins: the number and word sit on the card disc, never on the pop colour */
-  ['pin number on its disc', '--component-pin-foreground', '--component-pin-background', AAA],
-  /* list row: on the page and on a card */
-  ['list row title on the page', '--component-list-row-title-color', '--color-semantic-background', AAA],
-  ['list row title on a card', '--component-list-row-title-color', '--color-semantic-surface-card', AAA],
-  ['list row why on the page', '--component-list-row-description-color', '--color-semantic-background', AAA],
-  ['list row why on a card', '--component-list-row-description-color', '--color-semantic-surface-card', AAA],
-  /* chip fills carry chip text */
-  ['chip text on c1', '--color-chip-text', '--color-chip-c1', AAA],
-  ['chip text on c2', '--color-chip-text', '--color-chip-c2', AAA],
-  ['chip text on c3', '--color-chip-text', '--color-chip-c3', AAA],
-  /* chat received bubble: body text AAA on its surface in every theme */
-  ['body text on chat received surface', '--color-semantic-text-body', '--color-semantic-chat-surface-received', AAA],
+  ...['error', 'success', 'info', 'warning'].map((s) =>
+    [`content-utility-on-status on background-utility-${s}-knockout`, c('content-utility-on-status'), c(`background-utility-${s}-knockout`), TEXT]),
+  // code
+  ...['foreground', 'keyword', 'string', 'number', 'comment', 'function', 'tag', 'attr', 'punct', 'line-number'].map((s) =>
+    [`syntax ${s} on the code ground`, c(`content-syntax-${s}`), c('background-syntax-background'), TEXT]),
+  ['code on an added line', c('content-syntax-foreground'), c('background-syntax-add'), TEXT],
+  ['code on a removed line', c('content-syntax-foreground'), c('background-syntax-del'), TEXT],
+  // marks: control edges, focus ring, status edges, icons, filled plates
+  ...['border-strong', 'border-focus', 'border-ink', 'border-brand', 'content-icon-subtle'].flatMap((fg) =>
+    PAGES.map((bg) => [`${fg} on ${bg}`, c(fg), c(bg), MARK])),
+  ['border-focus on background-lane', c('border-focus'), c('background-lane'), MARK],
+  ['border-strong on background-lane', c('border-strong'), c('background-lane'), MARK],
+  ...['error', 'success', 'info', 'warning', 'neutral'].map((s) =>
+    [`border-utility-${s} on background-surface`, c(`border-utility-${s}`), c('background-surface'), MARK]),
+  // the primary button's boundary is its border-brand edge (checked above with the marks), not the fill
+  ['primary edge on background-lane', c('border-brand'), c('background-lane'), MARK],
+  ['secondary button edge on background-surface', '--button-color-border-default', c('background-surface'), MARK],
+  ['secondary button edge on background-default', '--button-color-border-default', c('background-default'), MARK],
 ];
 
-/* Surfaces that must stay visibly apart (2026-10-03): a selected wash the
- * eye cannot find breaks "highlight, never dim". A low floor, not a text
- * bar: these are fills, not marks. The inset fill left this list on
- * 2026-10-04 (Elleta): it is decorative, and where it bounds a field the
- * edge carries the boundary (border-strong, 3:1 on inset and on the card,
- * the pairs above). See the inset rule below. */
+/* Fills that must stay visibly apart (lanes off the page, selection off the card). */
 const APART = 1.08;
 const DISTINCT = [
-  ['selected wash vs panel', '--color-semantic-accent-subtle', '--color-semantic-surface-card'],
-  ['selected wash vs the page', '--color-semantic-accent-subtle', '--color-semantic-background'],
+  ['lane vs the page', c('background-lane'), c('background-default')],
+  ['selected wash vs the card', c('background-accent-subtle'), c('background-surface')],
 ];
 
-/* Pairs that must stay BELOW a bar: the rule forbids them, and the check
- * proves the rule is still needed (ochre as text or a hairline on light). */
+/* Pairs that must stay BELOW a bar in BELLA light: proof the rule is still needed. */
 const FORBIDDEN_LIGHT = [
-  ['ochre as text on white (forbidden)', '--color-brand-ochre', '--color-light-bg', 4.5],
-  ['ochre as a line on panel (forbidden, use ochre-deep)', '--color-brand-ochre', '--color-light-panel', NON_TEXT],
-  ['muted text on ground (forbidden in light and warm: AA, not AAA; meta sits on raised)', '--color-light-muted', '--color-light-line', 7],
+  ['ochre as text on white (forbidden)', '--color-brand-ochre-300', '--color-neutral-white', 4.5],
 ];
-
-/* chip: a pair held to a lower bar, with the reason. CTAs are blue (Elleta,
- * 7 Nov 2026). No text colour reaches AAA on the action blue (ink 5.29:1,
- * black 6.89:1), so its label is AA. */
-const CHIP_BAR = { 'primary button label on the ink plate': AA };
-
-/* chip: status tags carry a same-hue label on a soft wash, so each label is
- * checked on its own wash, in chip only (the drawing board, 7 Nov 2026). */
-const CHIP_PAIRS = ['info', 'attention', 'danger', 'success', 'neutral'].map((v) => [
-  `${v} status tag label on its wash`, `--component-status-pill-${v}-foreground`, `--component-status-pill-${v}-background`, AAA,
-]);
 
 const failures = [];
 const lines = [];
 
-/* The inset rule (Elleta, 2026-10-04). The inset fill is decorative; the
- * edge carries the boundary. Every rule in src/components and src/patterns
- * that paints a background from surface-inset (directly or through a
- * component token that is surface-inset) is classified here:
- * - a field you type or choose in (Input, Select, Combobox, Textarea) on
- *   inset must carry border-strong in the same rule, or the gate fails;
- * - INSET_EXEMPT lists every other consumer with its reason;
- * - anything else is unclassified and fails until it is added to one list.
- * src/docs (Storybook docs chrome) is out of scope. */
+/* The inset rule (Elleta, 2026-10-04): the subtle fill is decorative and the
+ * edge carries the boundary. A field you type or choose in on the subtle fill
+ * carries border-strong in the same rule; every other consumer is listed. */
 const INSET_FIELDS = /^src\/components\/(Input|Select|Combobox|Textarea)\//;
 const INSET_EXEMPT = {
   'src/patterns/BeforeAfterFrame/BeforeAfterFrame.module.css :: .stage': 'decorative container around a screen, not a control',
-  'src/components/Tag/Tag.module.css :: .tag': 'identified by its text, not the fill',
   'src/components/StatusPill/StatusPill.module.css :: .neutral': 'identified by its text, not the fill',
   'src/components/Kbd/Kbd.module.css :: .key': 'identified by its key label, not the fill',
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
-  'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'active state fill: the press is the state marker',
   'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
-  'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'decorative icon well, aria-hidden; the title names the page (11 Nov 2026)',
-  'src/components/Stat/Stat.module.css :: .iconWell': 'decorative icon well, aria-hidden; the label names the figure (11 Nov 2026)',
-  'src/components/Stat/Stat.module.css :: .bar': 'measure track: the ink fill carries the amount and the accessible name says it (11 Nov 2026)',
-  'src/components/Tabs/Tabs.module.css :: .count': 'identified by its count text, not the fill (11 Nov 2026)',
+  'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text, not a control',
+  'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',
+  'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
+  'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
+  'src/components/Tabs/Tabs.module.css :: .count': 'a count, identified by its number, not the fill',
 };
 {
-  const comp = JSON.parse(readFileSync('tokens/component.json', 'utf8')).component;
-  const varsOf = (target) => {
-    const out = [];
-    const walk = (o, p) => {
-      if (!o || typeof o !== 'object') return;
-      if ('$value' in o) { if (o.$value === target) out.push(`--component-${p.join('-')}`); return; }
-      for (const [k, v] of Object.entries(o)) if (k !== '$extensions') walk(v, [...p, k]);
-    };
-    walk(comp, []);
-    return out;
-  };
-  const insetVars = ['--color-semantic-surface-inset', ...varsOf('{color.semantic.surface-inset}')];
-  const strongVars = ['--color-semantic-border-strong', ...varsOf('{color.semantic.border-strong}')];
-  const insetBg = new RegExp(`background(-color)?\\s*:[^;]*var\\((${insetVars.join('|')})\\)`);
-  const insetInline = new RegExp(`background(Color)?\\s*:\\s*['"\`][^'"\`]*var\\((${insetVars.join('|')})\\)`);
-  const strongEdge = new RegExp(`(border|box-shadow|outline)[a-z-]*\\s*:[^;]*var\\((${strongVars.join('|')})\\)`);
-  const cssRules = (css) => {
-    css = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  // part tokens that point at the subtle fill or the strong edge count as those tokens
+  const all = JSON.parse(readFileSync('tokens/bella.json', 'utf8')).themes;
+  const pointsAt = (target) => [`--${target.replaceAll('.', '-')}`, ...new Set(Object.values(all).flatMap((t) =>
+    Object.values(t).filter((e) => e.tier === 'component' && e.alias === `{${target}}`).map((e) => e.css)))];
+  const alt = (names) => names.map((n) => n.replace(/[-]/g, '\\-')).join('|');
+  const insetVars = alt(pointsAt('color.background.subtle'));
+  const strongVars = alt(pointsAt('color.border.strong'));
+  const insetBg = new RegExp(`background(-color)?\\s*:[^;]*var\\((${insetVars})\\)`);
+  const insetInline = new RegExp(`background(Color)?\\s*:\\s*['"\`][^'"\`]*var\\((${insetVars})\\)`);
+  const strongEdge = new RegExp(`(border|box-shadow|outline)[a-z-]*\\s*:[^;]*var\\((${strongVars})\\)`);
+  const cssRules = (src) => {
+    src = src.replace(/\/\*[\s\S]*?\*\//g, '');
     const out = [];
     const stack = [];
     let buf = '';
-    for (const ch of css) {
+    for (const ch of src) {
       if (ch === '{') { stack.push(buf.trim()); buf = ''; }
       else if (ch === '}') { const sel = stack.pop(); if (buf.trim()) out.push([sel.replace(/\s+/g, ' '), buf]); buf = ''; }
       else buf += ch;
@@ -282,44 +188,41 @@ const INSET_EXEMPT = {
           if (INSET_EXEMPT[key]) { lines.push(`inset  exempt  ${key} (${INSET_EXEMPT[key]})`); continue; }
           if (INSET_FIELDS.test(file)) {
             if (strongEdge.test(body)) lines.push(`inset  field   ${key} carries border-strong`);
-            else failures.push(`inset: ${key} is a field on the inset fill without border-strong in the same rule (the edge carries the boundary)`);
+            else failures.push(`inset: ${key} is a field on the subtle fill without border-strong in the same rule (the edge carries the boundary)`);
             continue;
           }
-          failures.push(`inset: ${key} paints the inset fill and is unclassified: add border-strong as a field, or list it in INSET_EXEMPT with a reason`);
+          failures.push(`inset: ${key} paints the subtle fill and is unclassified: add border-strong as a field, or list it in INSET_EXEMPT with a reason`);
         }
       } else if (file.endsWith('.tsx') && !file.endsWith('.stories.tsx') && insetInline.test(readFileSync(file, 'utf8'))) {
-        failures.push(`inset: ${file} paints the inset fill in an inline style; move it to CSS and classify it`);
+        failures.push(`inset: ${file} paints the subtle fill in an inline style; move it to CSS and classify it`);
       }
     }
   }
   for (const key of Object.keys(INSET_EXEMPT)) {
-    if (!seen.has(key)) failures.push(`inset: INSET_EXEMPT lists ${key}, which no longer paints the inset fill; remove the entry`);
+    if (!seen.has(key)) failures.push(`inset: INSET_EXEMPT lists ${key}, which no longer paints the subtle fill; remove the entry`);
   }
 }
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['chip', chip]]) {
+
+let checked = 0;
+for (const [theme, vars] of Object.entries(THEMES)) {
   for (const [label, fg, bg, bar] of PAIRS) {
-    const min = (theme === 'chip' && CHIP_BAR[label]) || bar;
     const r = ratio(colour(vars, fg), colour(vars, bg));
-    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${min}  ${label}`);
-    if (r < min) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${min}:1 (${fg} on ${bg})`);
+    checked++;
+    lines.push(`${theme.padEnd(12)} ${r.toFixed(2).padStart(6)}:1  >= ${bar}  ${label}`);
+    if (r < bar) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, needs ${bar}:1 (${fg} on ${bg})`);
   }
-}
-for (const [theme, vars] of [['light', light], ['dark', dark], ['warm', warm], ['chip', chip]]) {
   for (const [label, a, b] of DISTINCT) {
-    const r = ratio(resolve(vars, a), resolve(vars, b));
-    lines.push(`${theme.padEnd(8)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
-    if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1; ${a} vs ${b})`);
+    const r = ratio(colour(vars, a), colour(vars, b));
+    checked++;
+    lines.push(`${theme.padEnd(12)} ${r.toFixed(2).padStart(6)}:1  >= ${APART}  ${label}`);
+    if (r < APART) failures.push(`${theme}: ${label} is ${r.toFixed(2)}:1, the eye cannot find it (needs ${APART}:1)`);
   }
-}
-for (const [label, fg, bg, bar] of CHIP_PAIRS) {
-  const r = ratio(colour(chip, fg), colour(chip, bg));
-  lines.push(`chip     ${r.toFixed(2).padStart(6)}:1  >= ${bar}  ${label}`);
-  if (r < bar) failures.push(`chip: ${label} is ${r.toFixed(2)}:1, needs ${bar}:1 (${fg} on ${bg})`);
 }
 for (const [label, fg, bg, under] of FORBIDDEN_LIGHT) {
-  const r = ratio(resolve(light, fg), resolve(light, bg));
-  lines.push(`light    ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
-  if (r >= under) failures.push(`light: ${label} now passes (${r.toFixed(2)}:1); the rule forbidding it needs review`);
+  const r = ratio(colour(base, fg), colour(base, bg));
+  checked++;
+  lines.push(`bella-light  ${r.toFixed(2).padStart(6)}:1  <  ${under}  ${label}`);
+  if (r >= under) failures.push(`bella-light: ${label} now passes (${r.toFixed(2)}:1); the rule forbidding it needs review`);
 }
 
 if (process.argv.includes('--verbose')) console.log(lines.join('\n'));
@@ -327,4 +230,4 @@ if (failures.length) {
   console.error(`contrast pairs: ${failures.length} failing\n  - ${failures.join('\n  - ')}`);
   process.exit(1);
 }
-console.log(`contrast pairs: ${(PAIRS.length + DISTINCT.length) * 4 + FORBIDDEN_LIGHT.length + CHIP_PAIRS.length} checked (light, dark, warm, chip), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);
+console.log(`contrast pairs: ${checked} checked across ${Object.keys(THEMES).length} themes (text 7:1, marks 3:1), OK; inset rule: ${Object.keys(INSET_EXEMPT).length} exempt, every consumer classified`);

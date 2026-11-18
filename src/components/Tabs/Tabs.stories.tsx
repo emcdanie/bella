@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import { expectTouchTarget } from '../../testing/behavioral';
 import Tabs, { tabPanelProps, type TabsItem } from './Tabs';
 import tabsCssRaw from './Tabs.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -48,7 +48,7 @@ const TERMINALS = [
 function Harness({ tabs, idBase, label }: { tabs: TabsItem[]; idBase: string; label: string }) {
   const [value, setValue] = useState(tabs[0].id);
   return (
-    <div style={{ display: 'grid', gap: 'var(--spacing-4)', maxWidth: 560 }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', maxWidth: 560 }}>
       <Tabs tabs={tabs} value={value} onChange={setValue} label={label} idBase={idBase} />
       {tabs.map((t) => (
         <div key={t.id} {...tabPanelProps(idBase, t.id, t.id === value)}>
@@ -109,10 +109,10 @@ export const Behavior: Story = {
       await waitFor(() => expect(bella).toHaveAttribute('aria-selected', 'true'));
     });
 
-    await step('keyboard focus draws the 3px ring', async () => {
+    await step('keyboard focus draws the focus-ring token (4px)', async () => {
       const cs = getComputedStyle(bella);
       expect(cs.outlineStyle).toBe('solid');
-      expect(parseFloat(cs.outlineWidth)).toBe(3);
+      expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
     });
 
     await step('touch target: 44px minimum per tab', async () => {

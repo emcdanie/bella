@@ -3,26 +3,26 @@
 .root {
   display: inline-flex;
   align-items: center;
-  gap: var(--component-typing-dots-default-gap);
-  padding: var(--spacing-2) var(--spacing-3);
-  background: var(--component-chat-bubble-received-background);
-  border-radius: var(--component-chat-bubble-default-border-radius);
+  gap: var(--spacing-4);
+  padding: var(--spacing-8) var(--spacing-12);
+  background: var(--color-background-subtle);
+  border-radius: var(--border-radius-20);
 }
 
 .dot {
-  width: var(--component-typing-dots-default-dot-size);
-  height: var(--component-typing-dots-default-dot-size);
-  border-radius: var(--radius-full);
-  background: var(--color-semantic-text-secondary);
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-content-subtle);
   animation: typingPulse 1.2s infinite;
 }
 
 .dot2 {
-  animation-delay: var(--component-typing-dots-default-delay-2);
+  animation-delay: var(--motion-duration-150);
 }
 
 .dot3 {
-  animation-delay: var(--component-typing-dots-default-delay-3);
+  animation-delay: calc(2 * var(--motion-duration-150));
 }
 
 @keyframes typingPulse {

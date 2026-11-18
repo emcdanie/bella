@@ -36,7 +36,7 @@ export const Behavior: Story = {
       const cs = getComputedStyle(frame);
       await expect(cs.fill).toBe('none');
       const ink = getComputedStyle(canvasElement.ownerDocument.documentElement)
-        .getPropertyValue('--color-semantic-border-ink')
+        .getPropertyValue('--color-border-ink')
         .trim();
       await expect(ink.length).toBeGreaterThan(0);
     });

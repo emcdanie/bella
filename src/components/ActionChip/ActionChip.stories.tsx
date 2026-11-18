@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
 import ActionChip from './ActionChip';
 import chipCssRaw from './ActionChip.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -31,7 +31,7 @@ export const Default: Story = {};
 /** The row under an OBI answer, and suggestions that wrap. */
 export const Row: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-2)', maxWidth: 520 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-8)', maxWidth: 520 }}>
       <ActionChip onClick={() => {}}>Try in sandbox</ActionChip>
       <ActionChip onClick={() => {}}>Copy as proposal</ActionChip>
       <ActionChip onClick={() => {}}>Save to Card notes</ActionChip>
@@ -45,7 +45,7 @@ export const Row: Story = {
 function Counter() {
   const [n, setN] = useState(0);
   return (
-    <div style={{ display: 'flex', gap: 'var(--spacing-3)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center' }}>
       <ActionChip onClick={() => setN((x) => x + 1)}>Copy as proposal</ActionChip>
       <span data-testid="n">{n}</span>
     </div>
@@ -56,7 +56,7 @@ function Counter() {
 /** Quiet: an icon action beside content (the ⋯ menu): no border at rest. */
 export const Quiet: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 'var(--spacing-3)', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center' }}>
       <span>Checks</span>
       <ActionChip variant="quiet" ariaLabel="Checks: visibility and status" onClick={() => {}}>
         ⋯

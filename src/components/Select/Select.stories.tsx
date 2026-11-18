@@ -5,7 +5,7 @@ import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral'
 import Select from './Select';
 import Icon from '../Icon/Icon';
 import selectCssRaw from './Select.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -48,7 +48,7 @@ export const Default: Story = {
 function SortHarness() {
   const [sort, setSort] = useState('recent');
   return (
-    <div style={{ display: 'grid', gap: 'var(--spacing-4)', justifyItems: 'start' }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start' }}>
       <Select label="Sort" value={sort} onChange={setSort} options={SORTS} />
       <span data-testid="active-sort">{sort}</span>
     </div>

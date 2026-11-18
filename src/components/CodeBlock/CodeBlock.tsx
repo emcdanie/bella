@@ -11,8 +11,6 @@ export interface CodeBlockProps {
   language?: 'jsx' | 'tsx' | 'javascript' | 'json' | 'css' | 'markup' | 'diff' | 'plain';
   /** A title over the code, such as its file path. */
   title?: string;
-  /** A line to mark, counted from 1, or several lines. */
-  currentLine?: number | number[];
   /** Shows line numbers. */
   lineNumbers?: boolean;
   /** Shows the Copy icon button. */
@@ -33,11 +31,11 @@ const kindOf = (types: string[]) => {
 };
 
 /**
- * Code as an editor shows it: syntax colour by class, line numbers, a marked
+ * Code as an editor shows it: syntax colour by class, line numbers,
  * line, long lines wrapped, and one Copy. Diffs mark added and removed lines
  * with + and − as well as a wash, so colour is never the only signal.
  */
-export default function CodeBlock({ code, language = 'jsx', title, currentLine, lineNumbers = true, copy = true, className }: CodeBlockProps) {
+export default function CodeBlock({ code, language = 'jsx', title, lineNumbers = true, copy = true, className }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
   const lines = useMemo(() => {
@@ -47,7 +45,6 @@ export default function CodeBlock({ code, language = 'jsx', title, currentLine, 
     }
     return normalizeTokens(Prism.tokenize(text, Prism.languages[language]) as never);
   }, [code, language]);
-  const marked = new Set(currentLine == null ? [] : ([] as number[]).concat(currentLine));
   const doCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
@@ -80,7 +77,7 @@ export default function CodeBlock({ code, language = 'jsx', title, currentLine, 
             const first = line.map((t) => t.content).join('').charAt(0);
             const mark = language === 'diff' ? (first === '+' ? styles.add : first === '-' ? styles.del : '') : '';
             return (
-              <span key={i} className={[styles.line, marked.has(i + 1) ? styles.current : '', mark].filter(Boolean).join(' ')}>
+              <span key={i} className={[styles.line, mark].filter(Boolean).join(' ')}>
                 {lineNumbers ? (
                   <span className={styles.n} aria-hidden="true">
                     {i + 1}

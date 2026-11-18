@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import StatusPill from './StatusPill';
 import pillCssRaw from './StatusPill.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -40,11 +40,11 @@ export const Variants: Story = {
     <div
       style={{
         maxWidth: 420,
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
         display: 'flex',
-        gap: 'var(--spacing-3)',
+        gap: 'var(--spacing-12)',
         flexWrap: 'wrap',
       }}
     >
@@ -65,13 +65,13 @@ export const Variants: Story = {
 export const ChipTheme: Story = {
   render: () => (
     <div
-      data-theme="chip"
+      data-theme="chip-light"
       style={{
         maxWidth: 420,
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-surface-card)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-surface)',
         display: 'flex',
-        gap: 'var(--spacing-3)',
+        gap: 'var(--spacing-12)',
         flexWrap: 'wrap',
       }}
     >
@@ -88,7 +88,7 @@ export const ChipTheme: Story = {
  * (CHIP's Today, Elleta 7 Nov 2026). */
 export const Dot: Story = {
   render: () => (
-    <div data-theme="chip" style={{ display: 'flex', gap: 'var(--spacing-3)', alignItems: 'center' }}>
+    <div data-theme="chip-light" style={{ display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center' }}>
       <StatusPill shape="dot" variant="attention">Waiting on you</StatusPill>
       <StatusPill shape="dot" variant="info">Do next</StatusPill>
       <StatusPill shape="dot" variant="success">Ready to review</StatusPill>
@@ -103,22 +103,22 @@ export const Dot: Story = {
  * (Elleta, 14 Oct 2026) */
 export const StatusLadder: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-5)' }}>
-      {(['light', 'dark', 'warm'] as const).map((theme) => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-20)' }}>
+      {(['bella-light', 'bella-dark', 'chip-light', 'chip-dark'] as const).map((theme) => (
         <div
           key={theme}
           data-theme={theme}
           style={{
-            padding: 'var(--spacing-4)',
-            background: 'var(--color-semantic-surface)',
-            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--spacing-16)',
+            background: 'var(--color-background-surface)',
+            borderRadius: 'var(--border-radius-12)',
             display: 'flex',
-            gap: 'var(--spacing-3)',
+            gap: 'var(--spacing-12)',
             flexWrap: 'wrap',
             alignItems: 'center',
           }}
         >
-          <span style={{ fontFamily: 'var(--typography-font-family-body)', fontSize: 'var(--typography-font-size-label)', color: 'var(--color-semantic-text-secondary)', minWidth: '5rem' }}>{theme}</span>
+          <span style={{ fontFamily: 'var(--typography-font-family-dm-sans)', fontSize: 'var(--typography-label-default-font-size)', color: 'var(--color-content-subtle)', minWidth: '5rem' }}>{theme}</span>
           <StatusPill variant="attention">Waiting on you</StatusPill>
           <StatusPill variant="info">Working</StatusPill>
           <StatusPill variant="success">Done</StatusPill>

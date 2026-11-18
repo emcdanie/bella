@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Tag from './Tag';
 import tagCssRaw from './Tag.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -39,11 +39,11 @@ export const Variants: Story = {
     <div
       style={{
         maxWidth: 420,
-        padding: 'var(--spacing-5)',
-        background: 'var(--color-semantic-surface)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-20)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
         display: 'flex',
-        gap: 'var(--spacing-2)',
+        gap: 'var(--spacing-8)',
         flexWrap: 'wrap',
       }}
     >

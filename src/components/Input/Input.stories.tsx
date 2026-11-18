@@ -4,7 +4,7 @@ import { expect, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import Input from './Input';
 import inputCssRaw from './Input.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -45,7 +45,7 @@ type Story = StoryObj<typeof Input>;
  * until then the state is ink and structure, recorded. */
 export const StateMatrix: Story = {
   render: () => (
-    <div style={{ display: 'grid', gap: 'var(--spacing-6)', maxWidth: 420 }}>
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', maxWidth: 420 }}>
       <Input label="Name" value="" onChange={() => {}} placeholder="Elleta McDaniel" />
       <Input
         label="Email"
@@ -126,14 +126,18 @@ export const Behavior: Story = {
     });
 
     await step('error is not colour alone: danger edge, icon and danger message', async () => {
-      const probe = document.createElement('span');
-      probe.style.color = 'var(--color-semantic-danger-border)';
-      document.body.append(probe);
-      const danger = getComputedStyle(probe).color;
-      probe.remove();
+      // Figma splits the error colour: the edge is border/utility/error, the words content/utility/error (7:1)
+      const colourOf = (v: string) => {
+        const probe = document.createElement('span');
+        probe.style.color = `var(${v})`;
+        document.body.append(probe);
+        const c = getComputedStyle(probe).color;
+        probe.remove();
+        return c;
+      };
       const alert = canvas.getByRole('alert');
-      expect(getComputedStyle(field).borderTopColor).toBe(danger);
-      expect(getComputedStyle(alert).color).toBe(danger);
+      expect(getComputedStyle(field).borderTopColor).toBe(colourOf('--color-border-utility-error'));
+      expect(getComputedStyle(alert).color).toBe(colourOf('--color-content-utility-error'));
       const icon = alert.querySelector('svg');
       expect(icon).not.toBeNull();
       expect(icon).toHaveAttribute('aria-hidden', 'true');
@@ -154,12 +158,12 @@ export const Behavior: Story = {
       });
     });
 
-    await step('focus: the shared 3px ring with a 3px offset (brand refresh)', async () => {
+    await step('focus: the shared focus-ring token (4px, 4px offset)', async () => {
       field.focus();
       const cs = getComputedStyle(field);
       expect(cs.outlineStyle).toBe('solid');
-      expect(parseFloat(cs.outlineWidth)).toBe(3);
-      expect(parseFloat(cs.outlineOffset)).toBe(3);
+      expect(parseFloat(cs.outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
+      expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
     });
 
     await step('focus: visible ring; touch target holds', async () => {

@@ -4,7 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import DataTable, { type DataTableColumn } from './DataTable';
 import StatusPill from '../StatusPill/StatusPill';
 import tableCssRaw from './DataTable.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -62,7 +62,7 @@ export const Default: Story = {
 function SelectHarness() {
   const [selected, setSelected] = useState<string | null>('Tabs');
   return (
-    <div style={{ maxWidth: 640, display: 'grid', gap: 'var(--spacing-3)' }}>
+    <div style={{ maxWidth: 640, display: 'grid', gap: 'var(--spacing-12)' }}>
       <DataTable
         columns={COLUMNS}
         rows={ROWS}
@@ -70,7 +70,7 @@ function SelectHarness() {
         caption="Component health"
         selectedKey={selected}
         onSelect={setSelected}
-        maxHeight="calc(var(--spacing-20) * 4)"
+        maxHeight="calc(var(--spacing-80) * 4)"
       />
       <span data-testid="selected">{selected ?? 'none'}</span>
     </div>

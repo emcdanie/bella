@@ -29,37 +29,37 @@
   box-sizing: border-box;
   /* one 44 box for every tier, shape and state: min-height is the box,
    * padding-y is 0 and the label centres (2026-10-05) */
-  min-height: var(--component-button-primary-min-height);
-  padding: var(--component-button-primary-padding-y) var(--component-button-primary-padding-x);
-  font-family: var(--component-button-primary-font-family);
-  font-size: var(--component-button-primary-font-size);
-  font-weight: var(--component-button-primary-font-weight);
-  letter-spacing: var(--component-button-primary-letter-spacing);
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-20);
+  font-family: var(--typography-font-family-dm-sans);
+  font-size: var(--typography-label-default-font-size);
+  font-weight: var(--typography-font-weight-600);
+  letter-spacing: var(--typography-letter-spacing-0);
   text-decoration: none;
   border: 0;
-  border-radius: var(--component-button-shape-default);
+  border-radius: var(--border-radius-12);
   background: none;
   margin: 0;
 }
 
 .pill {
-  border-radius: var(--component-button-shape-pill);
+  border-radius: var(--border-radius-round);
 }
 
 .button:focus-visible {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* ICON ONLY (BellaComponents, 11 Nov 2026): a 44 circle, one glyph, no
  * padding. The ring follows the circle because outline follows the radius. */
 .iconOnly {
-  inline-size: var(--spacing-touch-target);
-  min-inline-size: var(--spacing-touch-target);
-  block-size: var(--spacing-touch-target);
-  min-height: var(--spacing-touch-target);
+  inline-size: var(--spacing-44);
+  min-inline-size: var(--spacing-44);
+  block-size: var(--spacing-44);
+  min-height: var(--spacing-44);
   padding: 0;
-  border-radius: var(--radius-full);
+  border-radius: var(--border-radius-round);
 }
 
 .iconOnly.secondary {
@@ -78,8 +78,8 @@
 .rollCopy {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-2);
-  transition: transform var(--component-button-motion-roll-duration) var(--component-button-motion-roll-easing);
+  gap: var(--spacing-8);
+  transition: transform var(--motion-duration-250) var(--motion-easing-out);
 }
 
 .rollCopy {
@@ -104,15 +104,15 @@
  * edge, no shadow. Hover rolls the label and eases the plate one step
  * lighter. Active: a small move down. */
 .primary {
-  color: var(--component-button-primary-foreground);
-  border: 1px solid var(--component-button-primary-edge);
+  color: var(--color-content-brand-knockout);
+  border: var(--border-width-1) solid var(--color-border-action-raised);
   background:
-    var(--component-button-primary-gloss),
-    linear-gradient(var(--component-button-primary-fill-hi), var(--component-button-primary-fill-lo));
+    linear-gradient(transparent, transparent),
+    linear-gradient(var(--color-background-brand), var(--color-background-brand));
   box-shadow: var(--shadow-key-resting);
   transition:
-    transform var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing),
-    box-shadow var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
+    transform var(--motion-duration-150) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 /* Hover and focus-visible: the plate settles onto its deep stop. Colour
@@ -120,15 +120,15 @@
 .primary:hover:not(:disabled),
 .primary:focus-visible {
   background:
-    var(--component-button-primary-gloss),
-    linear-gradient(var(--component-button-primary-fill-hi-hover), var(--component-button-primary-fill-lo-hover));
+    linear-gradient(transparent, transparent),
+    linear-gradient(var(--color-background-brand-hover), var(--color-background-brand-hover));
 }
 
 .primary:active:not(:disabled) {
-  transform: var(--component-button-motion-press);
+  transform: translateY(var(--border-width-2));
   background:
-    var(--component-button-primary-gloss-pressed),
-    linear-gradient(var(--component-button-primary-fill-hi), var(--component-button-primary-fill-lo));
+    linear-gradient(transparent, transparent),
+    linear-gradient(var(--color-background-brand), var(--color-background-brand));
   box-shadow: var(--shadow-key-pressed);
 }
 
@@ -153,25 +153,25 @@
 }
 
 .primary:focus-visible::before {
-  outline: var(--ring-focus-width) solid var(--ring-focus-color);
-  outline-offset: var(--ring-focus-offset);
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* SECONDARY: the control outline, ink label, no elevation. Hover and
  * focus-visible take the outline to ink; active settles onto the inset. */
 .secondary {
-  min-height: var(--component-button-secondary-min-height);
-  padding: var(--component-button-secondary-padding-y) var(--component-button-secondary-padding-x);
-  color: var(--component-button-secondary-foreground);
-  border: 1px solid var(--component-button-secondary-border);
-  background: var(--component-button-secondary-background);
-  transition: background-color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-20);
+  color: var(--color-content-accent);
+  border: 1px solid var(--button-color-border-default);
+  background: var(--button-color-background-default);
+  transition: background-color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .secondary:hover:not(:disabled),
 .secondary:focus-visible {
   background: var(--component-button-secondary-background-hover);
-  border-color: var(--component-button-secondary-border-hover);
+  border-color: var(--color-border-ink);
 }
 
 .secondary:active:not(:disabled) {
@@ -184,18 +184,18 @@
  * line ever travels through the window edge. It is currentColor, so it
  * takes the hover colour shift. */
 .tertiary {
-  min-height: var(--component-button-tertiary-min-height);
-  color: var(--component-button-tertiary-foreground);
-  background: var(--component-button-tertiary-background);
-  transition: color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing);
+  min-height: var(--spacing-44);
+  color: var(--color-content-link);
+  background: transparent;
+  transition: color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 /* room under the text for the window's line: offset + thickness */
 .tertiary .rollLabel,
 .tertiary .rollCopy {
-  padding-block-start: var(--spacing-1);
+  padding-block-start: var(--spacing-4);
   padding-block-end: calc(
-    var(--component-button-tertiary-underline-offset) + var(--component-button-tertiary-underline-thickness)
+    var(--spacing-4) + var(--border-width-1)
   );
 }
 
@@ -206,18 +206,18 @@
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  height: var(--component-button-tertiary-underline-thickness);
+  height: var(--border-width-1);
   background: currentColor;
 }
 
 .tertiary:hover:not(:disabled),
 .tertiary:focus-visible {
-  color: var(--component-button-tertiary-foreground-hover);
+  color: var(--color-content-link);
 }
 
 .tertiary:hover:not(:disabled) .roll::after,
 .tertiary:focus-visible .roll::after {
-  height: var(--component-button-tertiary-underline-thickness-hover);
+  height: var(--border-width-2);
 }
 
 /* DISABLED (buttons only): no roll, no press, no affordances. Primary and
@@ -225,9 +225,9 @@
  * (muted, no box). */
 .button:disabled {
   cursor: not-allowed;
-  color: var(--color-semantic-text-muted);
-  background: var(--color-semantic-surface-inset);
-  border: 1px solid var(--color-semantic-border);
+  color: var(--color-content-subtle);
+  background: var(--color-background-subtle);
+  border: 1px solid var(--color-border-default);
   box-shadow: none;
   transform: none;
 }
@@ -247,7 +247,7 @@
 .button.sm {
   position: relative;
   min-height: var(--component-button-sm-min-height);
-  padding-inline: var(--component-button-sm-padding-x);
+  padding-inline: var(--spacing-20);
 }
 
 .button.sm::after {
@@ -256,7 +256,7 @@
   /* sized, not inset: the padding box shrinks by the border, the target must not */
   inset-inline: 0;
   inset-block-start: 50%;
-  block-size: var(--spacing-touch-target);
+  block-size: var(--spacing-44);
   translate: 0 -50%;
 }
 
@@ -270,7 +270,7 @@
 .button.sm.iconOnly::after {
   inset-inline: auto;
   inset-inline-start: 50%;
-  inline-size: var(--spacing-touch-target);
+  inline-size: var(--spacing-44);
   translate: -50% -50%;
 }
 

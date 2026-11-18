@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import Stat from './Stat';
 import statCssRaw from './Stat.module.css?raw';
-import componentContract from '../../../tokens/component.json';
+import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
 
 const consumedTokens = Array.from(
@@ -43,12 +43,12 @@ export const Row: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(calc(var(--spacing-20) * 2), 1fr))',
-        gap: 'var(--spacing-6)',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(calc(var(--spacing-80) * 2), 1fr))',
+        gap: 'var(--spacing-24)',
         maxWidth: 720,
-        padding: 'var(--spacing-6)',
-        background: 'var(--color-semantic-surface-card)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-24)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
       }}
     >
       <Stat label="Components" value={18} delta="2 since last sync" trend="up" />
@@ -66,12 +66,12 @@ export const Trend: Story = {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(calc(var(--spacing-20) * 2.5), 1fr))',
-        gap: 'var(--spacing-6)',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(calc(var(--spacing-80) * 2.5), 1fr))',
+        gap: 'var(--spacing-24)',
         maxWidth: 720,
-        padding: 'var(--spacing-6)',
-        background: 'var(--color-semantic-surface-card)',
-        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-24)',
+        background: 'var(--color-background-surface)',
+        borderRadius: 'var(--border-radius-12)',
       }}
     >
       <Stat label="Components" value={24} delta="3 since last sync" trend="up" series={[18, 19, 19, 21, 21, 24]} seriesLabel="Components over 6 syncs: 18 to 24" />

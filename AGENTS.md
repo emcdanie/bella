@@ -12,7 +12,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
    ```
 2. Never restyle a component from outside, never copy its colours, never write a local `<button>`, toggle, or card.
 3. If no component fits, compose existing ones. If that still doesn't fit, STOP and say which component is missing. Don't invent one.
-4. For layout glue between components only, use tokens as CSS variables: `var(--color-semantic-*)`, `var(--spacing-*)`, `var(--radius-*)`. Never hex, never raw px, never `var(--x, fallback)`.
+4. For layout glue between components only, use tokens as CSS variables: `var(--color-background-*)`, `var(--color-content-*)`, `var(--color-border-*)`, `var(--spacing-*)`, `var(--border-radius-*)`. Never hex, never raw px, never `var(--x, fallback)`.
 
 ## Which component for which job
 
@@ -57,7 +57,7 @@ Props, variants and examples: each component's `.tsx` types and Storybook storie
 
 ## Floors (always)
 
-Reading text `font-size.body` (the `chip` theme sets it to 16px) · nothing below `font-size.tag` (16px; the tokens' only exception is a hard limit of 13px, with no token between, so 13 to 14px is off-system) · targets ≥ 44px · focus ring = the theme's `color.semantic.focus-ring` (never removed; pink in the chip theme, Elleta 12 Nov) · pink for selection and Chip focus, ochre for Needs you · AAA for body text.
+Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body text 16", "1, yes") · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
 
 ## Rules with examples
 
@@ -72,18 +72,18 @@ Reading text `font-size.body` (the `chip` theme sets it to 16px) · nothing belo
 - WHY: a local control skips BELLA's focus ring, 44px target and contrast checks.
 
 **tokens.only** — layout glue uses tokens, never raw values or fallbacks.
-- BAD: `.panel { padding: 14px; color: rgb(29 32 48); gap: var(--spacing-3, 12px); }`
-- GOOD: `.panel { padding: var(--spacing-4); color: var(--color-semantic-text-body); gap: var(--spacing-3); }`
+- BAD: `.panel { padding: 14px; color: rgb(29 32 48); gap: var(--spacing-12, 12px); }`
+- GOOD: `.panel { padding: var(--spacing-16); color: var(--color-content-body); gap: var(--spacing-12); }`
 - WHY: a raw value never follows a theme or a token change, and a fallback hides a missing token.
 
-**type.floor** — no font size below `font-size.tag`.
+**type.floor** — no font size below `typography.label.default-font-size`.
 - BAD: `.meta { font-size: 13px; }`
-- GOOD: `.meta { font-size: var(--typography-font-size-tag); }`
-- WHY: `font-size.tag` is the floor ("Never go smaller"); no token exists under it.
+- GOOD: `.meta { font-size: var(--typography-label-default-font-size); }`
+- WHY: `typography.label.default-font-size` is the floor (16px, "Never go smaller"); no token exists under it.
 
 **colour.ochre-is-a-fill** — ochre is the Needs you fill with ink text, never text, a line or selection.
-- BAD: `.due { color: var(--color-brand-ochre); }` · `.row[aria-selected] { background: var(--color-brand-ochre); }`
-- GOOD: `<StatusPill variant="attention">Needs you</StatusPill>` · selection uses `var(--color-semantic-accent)`
+- BAD: `.due { color: var(--color-brand-ochre-300); }` · `.row[aria-selected] { background: var(--color-brand-ochre-300); }`
+- GOOD: `<Tag tone="attention">Needs you</Tag>` · selection uses `var(--color-background-accent-1)`
 - WHY: ochre fails contrast as text or a line on light, and selection is pink.
 
 ## Working on BELLA itself

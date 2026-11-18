@@ -9,44 +9,19 @@ const STAGE = Number(process.env.STAGE || 3);
 const OUT = process.env.OUT || path.join(BELLA, 'bella.dsds.yaml');
 
 const bella = JSON.parse(fs.readFileSync(path.join(BELLA, 'tokens/bella.json'), 'utf8'));
-const componentJson = JSON.parse(fs.readFileSync(path.join(BELLA, 'tokens/component.json'), 'utf8')).component;
+const componentJson = JSON.parse(fs.readFileSync(path.join(BELLA, 'tokens/contracts.json'), 'utf8')).component;
 
-// ---------- token flattening ----------
-const LAYERS = { primitive: 'primitive', semantic: 'semantic', component: 'component' };
-function flatten(node, segs, out) {
-  if (node && typeof node === 'object') {
-    if ('$value' in node) {
-      out.push({
-        segs: [...segs],
-        value: node.$value,
-        type: node.$type ?? null,
-        desc: node.$description ?? null,
-        ext: node.$extensions?.bella ?? null,
-      });
-      return;
-    }
-    for (const [k, v] of Object.entries(node)) {
-      if (k.startsWith('$')) continue;
-      flatten(v, [...segs, k], out);
-    }
-  }
-}
-
-const raw = [];
-for (const layer of ['primitive', 'semantic', 'component']) {
-  flatten(bella[layer], [layer], raw);
-}
-
-// DSDS id from bella.json's own addressing scheme:
-//   primitive.color.brand.ochre -> color.brand.ochre    (the alias form bella.json itself uses)
-//   semantic.accent            -> color.semantic.accent (ditto, see component token $values)
-//   component.button.primary.* -> component.button.primary.*
-function idFor(segs) {
-  const [layer, ...rest] = segs;
-  if (layer === 'primitive') return rest.join('.');
-  if (layer === 'semantic') return ['color', 'semantic', ...rest].join('.');
-  return segs.join('.');
-}
+// ---------- tokens ----------
+// bella.json holds every token per theme, flat by path (built from the Figma export).
+// The entries describe BELLA light; the other themes are listed under `themes` below.
+const raw = Object.entries(bella.themes['bella-light']).map(([p, t]) => ({
+  segs: [t.tier === 'breakpoint' ? 'primitive' : t.tier, ...p.split('.')],
+  value: t.alias ?? t.$value,
+  type: t.$type ?? null,
+  desc: t.$description ?? null,
+  ext: null,
+}));
+const idFor = (segs) => segs.slice(1).join('.');
 const ID_RE = /^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)*$/;
 
 const tokens = raw.map((t) => ({ ...t, id: idFor(t.segs), layer: t.segs[0] }));
@@ -99,8 +74,7 @@ function relatedRefs(ext) {
 
 function groupFor(t) {
   const segs = t.segs.slice(1);
-  if (t.layer === 'semantic') return 'color.semantic';
-  return segs.length > 1 ? (t.layer === 'component' ? ['component', ...segs.slice(0, -1)].join('.') : segs.slice(0, -1).join('.')) : t.layer;
+  return segs.length > 1 ? segs.slice(0, -1).join('.') : t.layer;
 }
 
 function tokenTypeFor(t) {
@@ -179,7 +153,7 @@ function tokenEntry(t) {
 }
 
 // ---------- components ----------
-// Only the contracts in tokens/component.json that have a real implementation
+// Only the contracts in tokens/contracts.json that have a real implementation
 // in src/components/ - the same test scripts/contract-parity.mjs applies.
 const pascalOf = (key) => key.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join('');
 const IMPL = Object.fromEntries(
@@ -256,7 +230,7 @@ function componentEntry(key) {
   const e = { kind: 'component', id: key, name: c.name, description: c.description };
 
   const md = {
-    origin: { method: 'extracted', author: 'machine-assisted', note: 'Extracted from the BELLA contract in tokens/component.json and the component’s own TSDoc. Not hand-written for this document.' },
+    origin: { method: 'extracted', author: 'machine-assisted', note: 'Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.' },
   };
   const reviewed = reviewedFrom(c.a11y);
   if (reviewed) md.reviewed = reviewed;
@@ -308,7 +282,7 @@ function componentEntry(key) {
 
   e.refs = [{ href: `./src/components/${Pascal}/${Pascal}.stories.tsx`, rel: 'storybook', role: 'CSF story source' }];
   e.sourceFiles = [{ platform: 'react', file: `./src/components/${Pascal}/${Pascal}.tsx` }];
-  e.specs = [{ href: './tokens/component.json', rel: 'contract', role: 'BELLA component contract ($extensions.bella)', note: 'Checked against the exported Props interface by scripts/contract-parity.mjs.' }];
+  e.specs = [{ href: './tokens/contracts.json', rel: 'contract', role: 'BELLA component contract ($extensions.bella)', note: 'Checked against the exported Props interface by scripts/contract-parity.mjs.' }];
 
   const traits = [];
   if (c.variants?.length && VARIANT_DESC[key]) {
@@ -342,7 +316,7 @@ const system = {
   description: 'The design system for ctrl_alt_design: a token contract plus a React component set, editorial by stance.',
   purpose: 'Keeps the work editorial, deliberate, and recognizably not-AI-generic across elleta.design, CHIP, and everything downstream.',
   metadata: {
-    context: 'Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, docs/agents/maintaining.md, tokens/component.json and the component sources. No value or rule here is new.',
+    context: 'Documented in DSDS from the files that already govern BELLA: tokens/bella.json, AGENTS.md, docs/agents/maintaining.md, tokens/contracts.json and the component sources. No value or rule here is new.',
     origin: { method: 'extracted', author: 'machine-assisted' },
     updated: { date: '2026-09-10', note: 'First DSDS pass over BELLA 0.3.0 plus the unreleased component batch.' },
     tags: ['design-system'],
@@ -388,23 +362,14 @@ const system = {
   ],
 };
 
-const themes = [
-  {
-    kind: 'theme', id: 'light', name: 'Light',
-    description: 'The default theme. A white page, neutral panels, near-black ink, ochre as the single accent (a fill, with ink text).',
-    metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['theme'] },
-    colorScheme: 'light',
-    source: { href: './tokens/semantic/light.json', rel: 'file', role: 'DTCG source for this theme’s semantic values.' },
-  },
-  {
-    kind: 'theme', id: 'dark', name: 'Dark',
-    description: 'Neutral near-black. Elevation climbs lighter (surface, inset, raised); ochre stays the accent and becomes the focus ring.',
-    metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['theme'] },
-    extends: [{ to: 'light', rel: 'extends' }],
-    colorScheme: 'dark',
-    source: { href: './tokens/semantic/dark.json', rel: 'file', role: 'DTCG source for the tokens dark redeclares; anything it does not redeclare falls back to light.' },
-  },
-];
+const themes = Object.entries(bella.$metadata.themes).map(([id, name]) => ({
+  kind: 'theme', id, name,
+  description: `${name}: a Figma Foundations mode. Tier 1 is shared; Tier 2 and Tier 3 are set per mode.`,
+  metadata: { origin: { method: 'extracted', author: 'machine-assisted' }, tags: ['theme'] },
+  ...(id === bella.$metadata.default ? {} : { extends: [{ to: bella.$metadata.default, rel: 'extends' }] }),
+  colorScheme: id.endsWith('-dark') ? 'dark' : 'light',
+  source: { href: `./tokens/figma/semantic/${id}.json`, rel: 'file', role: 'DTCG export of this mode’s Tier 2 values, from Figma.' },
+}));
 
 const foundations = [
   {

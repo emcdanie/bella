@@ -52,6 +52,29 @@ variants:
     - step=16
     - step=20
     - step=touch
+  addTokens:
+    step=2:
+      - '--component-spacing-step-bar-width-2'
+    step=3:
+      - '--component-spacing-step-bar-width-3'
+    step=4:
+      - '--component-spacing-step-bar-width-4'
+    step=5:
+      - '--component-spacing-step-bar-width-5'
+    step=6:
+      - '--component-spacing-step-bar-width-6'
+    step=8:
+      - '--component-spacing-step-bar-width-8'
+    step=10:
+      - '--component-spacing-step-bar-width-10'
+    step=12:
+      - '--component-spacing-step-bar-width-12'
+    step=16:
+      - '--component-spacing-step-bar-width-16'
+    step=20:
+      - '--component-spacing-step-bar-width-20'
+    step=touch:
+      - '--component-spacing-step-bar-width-touch'
 composedOf: []
 anatomy:
   parts:
@@ -90,15 +113,15 @@ anatomy:
         size: 4x12
         tokens:
           - field: width
-            token: '--spacing-1'
+            token: '--component-spacing-step-bar-width-1'
           - field: topLeftRadius
-            token: '--radius-xs'
+            token: '--component-spacing-step-bar-radius'
           - field: topRightRadius
-            token: '--radius-xs'
+            token: '--component-spacing-step-bar-radius'
           - field: bottomLeftRadius
-            token: '--radius-xs'
+            token: '--component-spacing-step-bar-radius'
           - field: bottomRightRadius
-            token: '--radius-xs'
+            token: '--component-spacing-step-bar-radius'
           - field: fills
             token: '--color-semantic-text-primary'
       - name: Value
@@ -126,17 +149,61 @@ tokens:
       fields:
         - fills
       inCode: true
-    - token: '--radius-xs'
+    - token: '--component-spacing-step-bar-radius'
       fields:
         - topLeftRadius
         - topRightRadius
         - bottomLeftRadius
         - bottomRightRadius
-      inCode: true
-    - token: '--spacing-1'
+      inCode: false
+    - token: '--component-spacing-step-bar-width-1'
       fields:
         - width
-      inCode: true
+      inCode: false
+    - token: '--component-spacing-step-bar-width-10'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-12'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-16'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-2'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-20'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-3'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-4'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-5'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-6'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-8'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-spacing-step-bar-width-touch'
+      fields:
+        - variant
+      inCode: false
     - token: '--spacing-4'
       fields:
         - itemSpacing
@@ -153,7 +220,20 @@ tokens:
       fields:
         - fontWeight
       inCode: true
-  missingInCode: []
+  missingInCode:
+    - '--component-spacing-step-bar-radius'
+    - '--component-spacing-step-bar-width-1'
+    - '--component-spacing-step-bar-width-10'
+    - '--component-spacing-step-bar-width-12'
+    - '--component-spacing-step-bar-width-16'
+    - '--component-spacing-step-bar-width-2'
+    - '--component-spacing-step-bar-width-20'
+    - '--component-spacing-step-bar-width-3'
+    - '--component-spacing-step-bar-width-4'
+    - '--component-spacing-step-bar-width-5'
+    - '--component-spacing-step-bar-width-6'
+    - '--component-spacing-step-bar-width-8'
+    - '--component-spacing-step-bar-width-touch'
   raw: []
 description: One spacing step drawn at its real size (the bar is the token). Used on CHIP Foundations.
 notApplicable:

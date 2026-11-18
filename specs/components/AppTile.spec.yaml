@@ -6,7 +6,9 @@ statusNote: >-
   Drawn in BellaComponents; no code yet. Build src/components/AppTile/AppTile.tsx from this spec, then rerun spec-build to replace this file
   with the code spec.
 lead:
-  text: 'A connected app or service on CHIP Connectors: its icon on a 44px tile, with an optional badge (CLI, API, KEY).'
+  text: >-
+    A connected app or service on CHIP Connectors: its icon on a 44px tile (size md; sm 32, lg 48 radius 12, 16 Nov 2026), with an optional
+    badge (CLI, API, KEY).
   source: Figma component description
 links:
   figma:
@@ -30,6 +32,7 @@ props:
       - outline
       - git
       - claude
+      - info
     default: inverse
   - name: size
     figmaName: size
@@ -37,19 +40,61 @@ props:
     values:
       - md
       - sm
+      - lg
     default: md
 variants:
-  count: 8
+  count: 15
   default: tone=inverse, size=md
   names:
     - tone=inverse, size=md
     - tone=outline, size=md
     - tone=git, size=md
     - tone=claude, size=md
+    - tone=info, size=md
     - tone=inverse, size=sm
     - tone=outline, size=sm
     - tone=git, size=sm
     - tone=claude, size=sm
+    - tone=info, size=sm
+    - tone=inverse, size=lg
+    - tone=outline, size=lg
+    - tone=git, size=lg
+    - tone=claude, size=lg
+    - tone=info, size=lg
+  addTokens:
+    tone=outline, size=md:
+      - '--color-semantic-border-subtle'
+      - '--color-semantic-surface-card'
+    tone=git, size=md:
+      - '--color-semantic-brand-git'
+    tone=claude, size=md:
+      - '--color-semantic-brand-claude'
+    tone=info, size=md:
+      - '--color-chip-ui-action-tint'
+    tone=outline, size=sm:
+      - '--color-semantic-border-subtle'
+      - '--color-semantic-surface-card'
+    tone=git, size=sm:
+      - '--color-semantic-brand-git'
+    tone=claude, size=sm:
+      - '--color-semantic-brand-claude'
+    tone=info, size=sm:
+      - '--color-chip-ui-action-tint'
+    tone=inverse, size=lg:
+      - '--radius-lg'
+    tone=outline, size=lg:
+      - '--color-semantic-border-subtle'
+      - '--color-semantic-surface-card'
+      - '--radius-lg'
+    tone=git, size=lg:
+      - '--color-semantic-brand-git'
+      - '--radius-lg'
+    tone=claude, size=lg:
+      - '--color-semantic-brand-claude'
+      - '--radius-lg'
+    tone=info, size=lg:
+      - '--color-chip-ui-action-tint'
+      - '--radius-lg'
 composedOf:
   - Icon
 anatomy:
@@ -106,6 +151,26 @@ anatomy:
             token: '--component-tag-count-border'
 tokens:
   used:
+    - token: '--color-chip-ui-action-tint'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-border-subtle'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-brand-claude'
+      fields:
+        - variant
+      inCode: false
+    - token: '--color-semantic-brand-git'
+      fields:
+        - variant
+      inCode: false
+    - token: '--color-semantic-surface-card'
+      fields:
+        - variant
+      inCode: true
     - token: '--color-semantic-surface-inverse'
       fields:
         - fills
@@ -137,7 +202,13 @@ tokens:
         - paddingLeft
         - paddingRight
       inCode: false
+    - token: '--radius-lg'
+      fields:
+        - variant
+      inCode: true
   missingInCode:
+    - '--color-semantic-brand-claude'
+    - '--color-semantic-brand-git'
     - '--component-app-tile-radius'
     - '--component-tag-count-background'
     - '--component-tag-count-border'
@@ -145,8 +216,9 @@ tokens:
     - '--component-tag-count-padding-x'
   raw: []
 description: >-
-  A connected app or service on CHIP Connectors: its icon on a 44px tile, with an optional badge (CLI, API, KEY). Inverse, git and claude
-  take an Icon with tone=inverse; outline takes tone=primary.
+  A connected app or service on CHIP Connectors: its icon on a 44px tile (size md; sm 32, lg 48 radius 12, 16 Nov 2026), with an optional
+  badge (CLI, API, KEY). Inverse, git and claude take an Icon with tone=inverse; outline takes tone=primary. Tone info (16 Nov 2026): light
+  blue tint, color/chip-ui/action-tint, Icon tone=primary.
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

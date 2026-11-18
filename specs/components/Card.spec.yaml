@@ -223,7 +223,7 @@ anatomy:
               - field: itemSpacing
                 variable: spacing/2
               - field: minHeight
-                variable: spacing/20
+                variable: component/card/content-min-height
             children: []
   code:
     - key: shadow
@@ -686,6 +686,7 @@ figma:
         - tinted
         - success
         - inverse
+        - inset
     state:
       type: VARIANT
       default: resting
@@ -827,6 +828,12 @@ figma:
     - name: variant=peek, state=focus, padding=compact, Clip content=false
       width: 320
       height: 337
+    - name: variant=inset, state=resting, padding=compact, Clip content=true
+      width: 320
+      height: 329
+    - name: variant=inset, state=resting, padding=compact, Clip content=false
+      width: 320
+      height: 329
   defaultVariant: variant=default, state=resting, padding=default, Clip content=true
   annotations:
     - label: >-
@@ -857,6 +864,7 @@ mismatch:
       - tinted
       - success
       - inverse
+      - inset
   - field: props.padding
     code: no such prop
     figma:

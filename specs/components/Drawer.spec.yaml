@@ -105,10 +105,19 @@ anatomy:
     type: COMPONENT
     size: 320x720
     tokens:
+      - field: topRightRadius
+        variable: component/drawer/radius
+      - field: bottomRightRadius
+        variable: component/drawer/radius
       - field: fills
         variable: component/drawer/background
       - field: strokes
         variable: component/drawer/border
+      - field: effects
+        variable:
+          - component/drawer/shadow/color
+          - component/drawer/shadow/blur
+          - component/drawer/shadow/y
     children:
       - name: Head
         type: FRAME
@@ -127,19 +136,40 @@ anatomy:
           - field: strokes
             variable: component/drawer/head-border
         children:
-          - name: Title
-            type: TEXT
-            text: Navigation
-            size: 110x29
+          - name: Heading
+            type: FRAME
+            size: 195x29
             tokens:
-              - field: fills
-                variable: component/drawer/foreground
-              - field: fontSize
-                variable: typography/font-size/xl
-              - field: fontFamily
-                variable: component/drawer/title/font-family
-              - field: fontWeight
-                variable: typography/font-weight/medium
+              - field: itemSpacing
+                variable: spacing/2
+            children:
+              - name: Title
+                type: TEXT
+                text: Navigation
+                size: 195x29
+                tokens:
+                  - field: fills
+                    variable: component/drawer/foreground
+                  - field: fontSize
+                    variable: component/drawer/title/font-size
+                  - field: fontFamily
+                    variable: component/drawer/title/font-family
+                  - field: fontWeight
+                    variable: component/drawer/title/font-weight
+              - name: Status
+                type: TEXT
+                hidden: true
+                text: Checks ran 2 min ago
+                size: 195x52
+                tokens:
+                  - field: fills
+                    variable: color/semantic/text-secondary
+                  - field: fontSize
+                    variable: typography/font-size/body
+                  - field: fontFamily
+                    variable: typography/font-family/body
+                  - field: fontWeight
+                    variable: typography/font-weight/regular
           - name: Close
             type: INSTANCE
             instanceOf: Button
@@ -614,6 +644,12 @@ figma:
       default: false
     Body#790:35:
       type: SLOT
+    status#823:977:
+      type: TEXT
+      default: Checks ran 2 min ago
+    Show status#823:984:
+      type: BOOLEAN
+      default: false
     side:
       type: VARIANT
       default: left
@@ -662,12 +698,98 @@ mismatch:
   - field: props.open
     code: boolean prop
     figma: not in the set
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/color
+    sameValueInChip: false
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/blur
+    sameValueInChip: false
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/y
+    sameValueInChip: false
   - field: tokens.Head.strokes
     code:
       - '--border-width-thin'
       - '--component-drawer-border'
       - '--component-drawer-shadow'
     figma: component/drawer/head-border
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-xl'
+    figma: component/drawer/title/font-size
+    sameValueInChip: false
+  - field: tokens.Status.fills
+    code:
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-scrim'
+    figma: color/semantic/text-secondary
+    sameValueInChip: false
+  - field: tokens.Status.fontSize
+    code:
+      - '--typography-font-size-xl'
+    figma: typography/font-size/body
     sameValueInChip: false
 notApplicable:
   - section: Sizes

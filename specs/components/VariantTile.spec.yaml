@@ -41,14 +41,23 @@ variants:
   names:
     - selected=false
     - selected=true
+  addTokens:
+    selected=true:
+      - '--color-semantic-action'
+      - '--color-semantic-surface'
+      - '--color-semantic-text-primary'
+      - '--typography-font-weight-semibold'
 composedOf:
   - Icon
 anatomy:
   parts:
     - 'n': 1
+      name: Preview
+      type: SLOT
+    - 'n': 2
       name: Label
       type: TEXT
-    - 'n': 2
+    - 'n': 3
       name: Icon
       type: INSTANCE
       instanceOf: Icon
@@ -61,7 +70,7 @@ anatomy:
         token: '--spacing-2'
     children:
       - name: Preview
-        type: FRAME
+        type: SLOT
         size: 120x72
         boundToProps:
           slotContentId: preview
@@ -118,6 +127,10 @@ anatomy:
             size: 12x12
 tokens:
   used:
+    - token: '--color-semantic-action'
+      fields:
+        - variant
+      inCode: true
     - token: '--color-semantic-border-subtle'
       fields:
         - strokes
@@ -129,6 +142,14 @@ tokens:
     - token: '--color-semantic-success'
       fields:
         - fills
+      inCode: true
+    - token: '--color-semantic-surface'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-text-primary'
+      fields:
+        - variant
       inCode: true
     - token: '--color-semantic-text-secondary'
       fields:
@@ -164,9 +185,15 @@ tokens:
       fields:
         - fontWeight
       inCode: true
+    - token: '--typography-font-weight-semibold'
+      fields:
+        - variant
+      inCode: true
   missingInCode: []
   raw: []
-description: 'Variant thumbnail: a mini preview (slot) with its label under; selected draws a blue border, the check badge marks a copied or done state.'
+description: >-
+  Variant thumbnail: a mini preview (slot) with its label under; selected draws a blue border, the check badge marks a copied or done state.
+  The badge is pinned 6px from the top-right corner at any tile width (15 Nov).
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

@@ -109,6 +109,107 @@ variants:
     - value=100, tone=info, target=90
     - value=100, tone=pass, target=40
     - value=100, tone=short, target=40
+  addTokens:
+    value=10, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=20, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=30, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=40, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=50, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=60, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=70, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=80, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=90, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=100, tone=pass, target=90:
+      - '--component-meter-fill-pass'
+    value=10, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=20, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=30, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=40, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=50, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=60, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=70, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=80, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=90, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=100, tone=short, target=90:
+      - '--component-meter-fill-short'
+    value=10, tone=info, target=90:
+      - '--color-semantic-info'
+    value=10, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=10, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=20, tone=info, target=90:
+      - '--color-semantic-info'
+    value=20, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=20, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=30, tone=info, target=90:
+      - '--color-semantic-info'
+    value=30, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=30, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=40, tone=info, target=90:
+      - '--color-semantic-info'
+    value=40, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=40, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=50, tone=info, target=90:
+      - '--color-semantic-info'
+    value=50, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=50, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=60, tone=info, target=90:
+      - '--color-semantic-info'
+    value=60, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=60, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=70, tone=info, target=90:
+      - '--color-semantic-info'
+    value=70, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=70, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=80, tone=info, target=90:
+      - '--color-semantic-info'
+    value=80, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=80, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=90, tone=info, target=90:
+      - '--color-semantic-info'
+    value=90, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=90, tone=short, target=40:
+      - '--component-meter-fill-short'
+    value=100, tone=info, target=90:
+      - '--color-semantic-info'
+    value=100, tone=pass, target=40:
+      - '--component-meter-fill-pass'
+    value=100, tone=short, target=40:
+      - '--component-meter-fill-short'
 composedOf: []
 anatomy:
   parts:
@@ -116,7 +217,7 @@ anatomy:
       name: Track
       type: RECTANGLE
     - 'n': 2
-      name: Target
+      name: Mark
       type: RECTANGLE
   figma:
     name: value=0, tone=pass, target=90
@@ -140,15 +241,31 @@ anatomy:
           - field: fills
             token: '--component-meter-track'
       - name: Target
-        type: RECTANGLE
+        type: FRAME
         size: 2x16
-        boundToProps:
-          visible: showTarget
-        tokens:
-          - field: fills
-            token: '--component-meter-target'
+        children:
+          - name: Mark
+            type: RECTANGLE
+            size: 2x16
+            boundToProps:
+              visible: showTarget
+            tokens:
+              - field: fills
+                token: '--component-meter-target'
 tokens:
   used:
+    - token: '--color-semantic-info'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-meter-fill-pass'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-meter-fill-short'
+      fields:
+        - variant
+      inCode: false
     - token: '--component-meter-height'
       fields:
         - height
@@ -169,6 +286,8 @@ tokens:
         - fills
       inCode: false
   missingInCode:
+    - '--component-meter-fill-pass'
+    - '--component-meter-fill-short'
     - '--component-meter-height'
     - '--component-meter-radius'
     - '--component-meter-target'
@@ -177,7 +296,8 @@ tokens:
 description: >-
   Meter: how much of a set passes, against a target mark. tone pass = at or over target, short = under, info = no target set (neutral).
   target 90 or 40 (the mark position, %). Always with the count beside it ("42/44"). value in steps of 10. Code: role="meter" aria-valuenow
-  aria-valuemax, target in the label.
+  aria-valuemax, target in the label. Layout: set the instance to Fill (or a fixed width) in its container; Track stretches, Fill scales,
+  the Target mark stays 2px wide and keeps its % position at any width (15 Nov).
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

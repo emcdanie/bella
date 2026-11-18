@@ -11,7 +11,8 @@ async function figmaSpecRead(o) {
   const page = figma.root.children.find((p) => p.name === o.pageName);
   if (!page) throw new Error(`page ${o.pageName} not found`);
   await page.loadAsync();
-  const set = page.findOne((n) => (n.type === 'COMPONENT_SET' || n.type === 'COMPONENT') && n.name === o.setName && n.parent === page) || page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === o.setName);
+  const set = page.findOne((n) => (n.type === 'COMPONENT_SET' || n.type === 'COMPONENT') && n.name === o.setName && n.parent === page) || page.findOne((n) => n.type === 'COMPONENT_SET' && n.name === o.setName)
+    || page.findOne((n) => n.type === 'COMPONENT' && n.name === o.setName && n.parent.type !== 'COMPONENT_SET'); // 16 Nov: single components now sit in sections
   if (!set) throw new Error(`component ${o.setName} not found on ${o.pageName}`);
 
   const varCache = new Map();

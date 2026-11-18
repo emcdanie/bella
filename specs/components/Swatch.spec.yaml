@@ -23,6 +23,10 @@ props:
     figmaName: Ratio
     type: string
     default: 11.76:1
+  - name: hex
+    figmaName: Hex
+    type: string
+    default: '#6495C5'
   - name: pair
     figmaName: pair
     type: enum
@@ -30,17 +34,67 @@ props:
       - 'yes'
       - 'no'
     default: 'yes'
+  - name: size
+    figmaName: size
+    type: enum
+    values:
+      - sm
+      - lg
+    default: sm
 variants:
-  count: 2
-  default: pair=yes
+  count: 4
+  default: pair=yes, size=sm
   names:
-    - pair=yes
-    - pair=no
+    - pair=yes, size=sm
+    - pair=no, size=sm
+    - pair=yes, size=lg
+    - pair=no, size=lg
   addTokens:
-    pair=no:
-      - '--component-status-dot-size'
+    pair=no, size=sm:
       - '--color-semantic-attention-border'
+      - '--component-status-dot-font-size'
+      - '--component-status-dot-font-weight'
       - '--component-status-dot-label-color'
+      - '--component-status-dot-line-height'
+      - '--component-status-dot-size'
+    pair=yes, size=lg:
+      - '--color-semantic-info'
+      - '--color-semantic-text-accent'
+      - '--color-semantic-text-inverse'
+      - '--component-button-icon-size'
+      - '--component-button-primary-font-family'
+      - '--component-button-primary-font-weight'
+      - '--component-button-secondary-background'
+      - '--component-button-secondary-foreground'
+      - '--component-button-sm-border'
+      - '--component-button-sm-min-height'
+      - '--radius-full'
+      - '--radius-lg'
+      - '--spacing-3'
+      - '--typography-font-size-tag'
+      - '--typography-font-weight-semibold'
+    pair=no, size=lg:
+      - '--color-semantic-attention-border'
+      - '--color-semantic-info'
+      - '--color-semantic-text-accent'
+      - '--color-semantic-text-inverse'
+      - '--component-button-icon-size'
+      - '--component-button-primary-font-family'
+      - '--component-button-primary-font-weight'
+      - '--component-button-secondary-background'
+      - '--component-button-secondary-foreground'
+      - '--component-button-sm-border'
+      - '--component-button-sm-min-height'
+      - '--component-status-dot-font-size'
+      - '--component-status-dot-font-weight'
+      - '--component-status-dot-label-color'
+      - '--component-status-dot-line-height'
+      - '--component-status-dot-size'
+      - '--radius-full'
+      - '--radius-lg'
+      - '--spacing-3'
+      - '--typography-font-size-tag'
+      - '--typography-font-weight-semibold'
 composedOf: []
 anatomy:
   parts:
@@ -51,7 +105,7 @@ anatomy:
       name: Ratio
       type: TEXT
   figma:
-    name: pair=yes
+    name: pair=yes, size=sm
     type: COMPONENT
     size: 140x150
     tokens:
@@ -115,6 +169,18 @@ tokens:
       fields:
         - strokes
       inCode: true
+    - token: '--color-semantic-info'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-text-accent'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-text-inverse'
+      fields:
+        - variant
+      inCode: true
     - token: '--color-semantic-text-primary'
       fields:
         - fills
@@ -123,7 +189,47 @@ tokens:
       fields:
         - fills
       inCode: true
+    - token: '--component-button-icon-size'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-button-primary-font-family'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-button-primary-font-weight'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-button-secondary-background'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-button-secondary-foreground'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-button-sm-border'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-button-sm-min-height'
+      fields:
+        - variant
+      inCode: true
+    - token: '--component-status-dot-font-size'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-status-dot-font-weight'
+      fields:
+        - variant
+      inCode: false
     - token: '--component-status-dot-label-color'
+      fields:
+        - variant
+      inCode: false
+    - token: '--component-status-dot-line-height'
       fields:
         - variant
       inCode: false
@@ -131,6 +237,14 @@ tokens:
       fields:
         - variant
       inCode: false
+    - token: '--radius-full'
+      fields:
+        - variant
+      inCode: true
+    - token: '--radius-lg'
+      fields:
+        - variant
+      inCode: true
     - token: '--radius-sm'
       fields:
         - topLeftRadius
@@ -141,6 +255,10 @@ tokens:
     - token: '--spacing-2'
       fields:
         - itemSpacing
+      inCode: true
+    - token: '--spacing-3'
+      fields:
+        - variant
       inCode: true
     - token: '--typography-font-family-body'
       fields:
@@ -154,16 +272,35 @@ tokens:
       fields:
         - fontSize
       inCode: true
+    - token: '--typography-font-size-tag'
+      fields:
+        - variant
+      inCode: true
     - token: '--typography-font-weight-regular'
       fields:
         - fontWeight
       inCode: true
+    - token: '--typography-font-weight-semibold'
+      fields:
+        - variant
+      inCode: true
   missingInCode:
     - '--color-semantic-attention-border'
+    - '--component-button-icon-size'
+    - '--component-button-sm-border'
+    - '--component-status-dot-font-size'
+    - '--component-status-dot-font-weight'
     - '--component-status-dot-label-color'
+    - '--component-status-dot-line-height'
     - '--component-status-dot-size'
   raw: []
-description: 'A colour role: its colour, token name and contrast pair, or "No pair". Set the colour on the Colour layer. Used on CHIP Foundations.'
+description: >-
+  A colour role: its colour, token name and contrast pair, or "No pair". Set the colour on the Colour layer. Used on CHIP Foundations.
+
+
+  size sm (default): colour chip, token name and pair. size lg (16 Nov 2026): the colour hover popover, a 264x96 swatch with the Hex text
+  bottom left and a Copy icon button (Button iconOnly pill sm, Icon Copy) bottom right. pair no shows StatusDot plain attention with Show
+  dot off.
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

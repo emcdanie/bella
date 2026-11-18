@@ -23,6 +23,17 @@ props:
     figmaName: Show label
     type: boolean
     default: true
+  - name: showDot
+    figmaName: Show dot
+    type: boolean
+    default: true
+  - name: style
+    figmaName: style
+    type: enum
+    values:
+      - plain
+      - pill
+    default: plain
   - name: tone
     figmaName: tone
     type: enum
@@ -34,14 +45,53 @@ props:
       - neutral
     default: success
 variants:
-  count: 5
-  default: tone=success
+  count: 10
+  default: style=plain, tone=success
   names:
-    - tone=success
-    - tone=info
-    - tone=attention
-    - tone=danger
-    - tone=neutral
+    - style=plain, tone=success
+    - style=plain, tone=info
+    - style=plain, tone=attention
+    - style=plain, tone=danger
+    - style=plain, tone=neutral
+    - style=pill, tone=success
+    - style=pill, tone=info
+    - style=pill, tone=attention
+    - style=pill, tone=danger
+    - style=pill, tone=neutral
+  addTokens:
+    style=plain, tone=info:
+      - '--color-semantic-info'
+    style=plain, tone=attention:
+      - '--color-chip-ui-wash-yellow-ink'
+      - '--color-semantic-attention-border'
+    style=plain, tone=danger:
+      - '--color-semantic-danger'
+    style=plain, tone=neutral:
+      - '--color-semantic-text-secondary'
+    style=pill, tone=success:
+      - '--color-semantic-success-subtle'
+      - '--color-semantic-success-text'
+      - '--radius-full'
+    style=pill, tone=info:
+      - '--color-semantic-info'
+      - '--color-semantic-info-subtle'
+      - '--color-semantic-text-primary'
+      - '--radius-full'
+    style=pill, tone=attention:
+      - '--color-chip-ui-wash-yellow-ink'
+      - '--color-semantic-attention-border'
+      - '--color-semantic-highlight-wash'
+      - '--radius-full'
+    style=pill, tone=danger:
+      - '--color-semantic-danger'
+      - '--color-semantic-danger-subtle'
+      - '--color-semantic-text-primary'
+      - '--radius-full'
+    style=pill, tone=neutral:
+      - '--color-semantic-surface-inset'
+      - '--color-semantic-text-primary'
+      - '--color-semantic-text-secondary'
+      - '--radius-full'
 composedOf: []
 anatomy:
   parts:
@@ -52,7 +102,7 @@ anatomy:
       name: Label
       type: TEXT
   figma:
-    name: tone=success
+    name: style=plain, tone=success
     type: COMPONENT
     size: 64x32
     tokens:
@@ -62,6 +112,8 @@ anatomy:
       - name: Dot slot
         type: FRAME
         size: 12x12
+        boundToProps:
+          visible: showDot
         tokens:
           - field: width
             token: '--component-status-dot-size'
@@ -98,9 +150,57 @@ anatomy:
             token: '--component-status-dot-font-weight'
 tokens:
   used:
+    - token: '--color-chip-ui-wash-yellow-ink'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-attention-border'
+      fields:
+        - variant
+      inCode: false
+    - token: '--color-semantic-danger'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-danger-subtle'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-highlight-wash'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-info'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-info-subtle'
+      fields:
+        - variant
+      inCode: true
     - token: '--color-semantic-success'
       fields:
         - fills
+      inCode: true
+    - token: '--color-semantic-success-subtle'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-success-text'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-surface-inset'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-text-primary'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-semantic-text-secondary'
+      fields:
+        - variant
       inCode: true
     - token: '--component-status-dot-font-size'
       fields:
@@ -123,6 +223,10 @@ tokens:
         - width
         - height
       inCode: false
+    - token: '--radius-full'
+      fields:
+        - variant
+      inCode: true
     - token: '--spacing-2'
       fields:
         - itemSpacing
@@ -132,6 +236,7 @@ tokens:
         - fontFamily
       inCode: true
   missingInCode:
+    - '--color-semantic-attention-border'
     - '--component-status-dot-font-size'
     - '--component-status-dot-font-weight'
     - '--component-status-dot-label-color'
@@ -157,6 +262,15 @@ description: >-
   attention, danger; neutral is text-secondary), the word is text-body in Body/Small.
 
 
+  style plain (default): dot and word only. style pill (15 Nov 2026): a full-round tinted pill, padding 0 / spacing-2, fill the tone's wash
+  (success-subtle, info-subtle, highlight-wash, danger-subtle, surface-inset), word success-text on success (5.1:1, AA) and text-primary on
+  the others. Use pill for a live or published state beside a heading.
+
+
+
+  Show dot (BOOLEAN, default true, 16 Nov 2026): off hides the dot so the word stands alone as plain text (Swatch "No pair").
+
+
 
   Parts Dot slot (Dot, 12px, centred on the first text line) · Label.
 
@@ -166,8 +280,11 @@ description: >-
   variant (success, info, attention, danger; neutral is the dot's default colour) · Label → children. Code draws only the dot and keeps the
   word as the accessible name; accent and serving have no Figma tone. Tokens: --component-status-dot-size, --color-semantic-success,
   --color-semantic-info, --color-semantic-attention, --color-semantic-danger, --color-semantic-text-secondary, --color-semantic-text-body,
-  --spacing-2. A11y: the word carries the meaning, colour is never the only signal; the dot is decorative. Dot against the card measured 11
-  Nov: attention 2.08:1 Light and 1.85:1 Chip, below the 3:1 non-text bar (decision with Elleta). Word text-body 13.32:1 (AAA).
+  --spacing-2, --radius-full, --color-semantic-success-subtle, --color-semantic-success-text, --color-semantic-info-subtle,
+  --color-semantic-highlight-wash, --color-semantic-danger-subtle, --color-semantic-surface-inset, --color-semantic-text-primary. Code:
+  style has no prop yet (Figma first, 15 Nov). A11y: the word carries the meaning, colour is never the only signal; the dot is decorative.
+  Dot against the card measured 11 Nov: attention 2.08:1 Light and 1.85:1 Chip, below the 3:1 non-text bar (decision with Elleta). Word
+  text-body 13.32:1 (AAA).
 
 
 

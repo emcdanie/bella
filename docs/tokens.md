@@ -11,8 +11,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--shadow-lg` | `0px 12px 32px 0px #1d20301a` | Shadow lg, from the Figma effect style shadow/lg; the same in every theme. |
 | `--shadow-hover` | `0px 8px 24px 0px #1d20301a` | Shadow hover, from the Figma effect style shadow/hover; the same in every theme. |
 | `--shadow-soft` | `0px 1px 2px 0px #1d20300d, 0px 10px 30px 0px #1d20300d, 0px 24px 60px 0px #1d20300d` | Shadow soft, from the Figma effect style shadow/soft; the same in every theme. |
-| `--shadow-key-resting` | `0px 0px 0px 0px #00000000` | Flat button: no key edge or cast (shared look, 8 Nov). The name stays so nothing that reads it breaks. |
-| `--shadow-key-pressed` | `0px 0px 0px 0px #00000000` | Flat button: no key edge or cast (shared look, 8 Nov). The name stays so nothing that reads it breaks. |
+| `--shadow-key-resting` | `0px 0px 0px 0px #00000000` | Flat button: no key edge or cast (shared look, 8 Nov 2026). The name stays so nothing that reads it breaks. |
+| `--shadow-key-pressed` | `0px 0px 0px 0px #00000000` | Flat button: no key edge or cast (shared look, 8 Nov 2026). The name stays so nothing that reads it breaks. |
 | `--shadow-card-rest` | `13px 26px 54px 0px #1d203033` | Shadow card-rest, from the Figma effect style shadow/card-rest; the same in every theme. |
 | `--shadow-card-rest-dark` | `13px 26px 54px 0px #1d20304d` | Shadow card-rest-dark, from the Figma effect style shadow/card-rest-dark; the same in every theme; the dark-theme twin of shadow/card-rest. |
 | `--shadow-card-ink` | `0px 1px 3px 0px #1d20300d, 0px 12px 28px 0px #1d20301a` | Shadow card-ink, from the Figma effect style shadow/card-ink; the same in every theme. |
@@ -79,15 +79,6 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-blue-900` | `#031e37` | utility blue ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-blue-alpha-15` | `#6495c526` | utility blue at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes). |
 | `--color-utility-blue-alpha-30` | `#6495c54d` | utility blue at 30% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes). |
-| `--color-utility-red-100` | `#fbeae8` | Red ramp, step 100 = Chip wash red #fbeae8 (brand anchor). |
-| `--color-utility-red-200` | `#febdb6` | Utility red ramp, step 200. Dark error word and dark code tags (7:1). |
-| `--color-utility-red-300` | `#ff8f84` | Utility red ramp, step 300. Error strong fill and dark error edge. |
-| `--color-utility-red-400` | `#f16d60` | utility red ramp, step 400. Global scale: parts use a Tier 2 token, not this. |
-| `--color-utility-red-500` | `#e2473b` | Value: #e2473b in every mode. |
-| `--color-utility-red-600` | `#b3261e` | Value: #b3261e in every mode. |
-| `--color-utility-red-700` | `#8f2118` | Utility red ramp, step 700. Light error word on its wash, 7:1. |
-| `--color-utility-red-800` | `#641e18` | utility red ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
-| `--color-utility-red-900` | `#3a1714` | Danger wash, dark |
 | `--color-utility-green-100` | `#e5f4ea` | Green ramp, step 100 = Chip wash green #e5f4ea (brand anchor). |
 | `--color-utility-green-200` | `#abe2ba` | Utility green ramp, step 200. Dark success word (7:1). |
 | `--color-utility-green-300` | `#72d08b` | Utility green ramp, step 300. Success strong fill and dark success edge. |
@@ -97,6 +88,16 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-green-700` | `#18502f` | Utility green ramp, step 700. Light success word on its wash, 7:1. |
 | `--color-utility-green-800` | `#12301d` | Success wash, dark |
 | `--color-utility-green-900` | `#071b0e` | utility green ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
+| `--color-utility-green-alpha-20` | `#72d08b33` | green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;. |
+| `--color-utility-red-100` | `#fbeae8` | Red ramp, step 100 = Chip wash red #fbeae8 (brand anchor). |
+| `--color-utility-red-200` | `#febdb6` | Utility red ramp, step 200. Dark error word and dark code tags (7:1). |
+| `--color-utility-red-300` | `#ff8f84` | Utility red ramp, step 300. Error strong fill and dark error edge. |
+| `--color-utility-red-400` | `#f16d60` | utility red ramp, step 400. Global scale: parts use a Tier 2 token, not this. |
+| `--color-utility-red-500` | `#e2473b` | Value: #e2473b in every mode. |
+| `--color-utility-red-600` | `#b3261e` | Value: #b3261e in every mode. |
+| `--color-utility-red-700` | `#8f2118` | Utility red ramp, step 700. Light error word on its wash, 7:1. |
+| `--color-utility-red-800` | `#641e18` | utility red ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
+| `--color-utility-red-900` | `#3a1714` | Danger wash, dark |
 | `--color-utility-yellow-100` | `#fcf4d8` | Utility yellow ramp, step 100 = Chip wash yellow #fcf4d8 (brand anchor). Light warning wash; dark warning word (her “A, cream is fine”). |
 | `--color-utility-yellow-200` | `#f1d68a` | utility yellow ramp, step 200. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-yellow-300` | `#e9b820` | Value: #e9b820 in every mode. |
@@ -127,6 +128,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-neutral-white-alpha-70` | `#ffffffb2` | White at 70% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes). |
 | `--color-neutral-white` | `#ffffff` | Neutral ramp, white. Light card, surface and raised fills. |
 | `--color-neutral-black` | `#000000` | neutral ramp, step black. Global scale: parts use a Tier 2 token, not this. |
+| `--color-neutral-black-alpha-60` | `#00000099` | Black at 60% opacity. Global; used through Tier 2 (the scrim in the dark themes, 17 Nov 2026). |
 | `--color-third-party-git` | `#f05133` | Another company’s logo colour, exact, logos only. |
 | `--color-third-party-claude` | `#d97757` | Another company’s logo colour, exact, logos only. |
 | `--spacing-4` | `4px` | Value: 4 in every mode. |
@@ -158,7 +160,9 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--border-width-4` | `4px` | Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3. |
 | `--typography-font-family-newsreader` | `"Newsreader", serif` | Typeface Newsreader (display). Global scale; parts use a Tier 2 type token. |
 | `--typography-font-family-dm-sans` | `"DM Sans", sans-serif` | Typeface DM Sans (body and UI). Global scale; parts use a Tier 2 type token. |
-| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token. |
+| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;) |
+| `--typography-font-family-geist` | `"Geist", sans-serif` | Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;). |
+| `--typography-font-family-lexend` | `"Lexend", sans-serif` | Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;) |
 | `--typography-font-size-16` | `16px` | Value: 16 in every mode. |
 | `--typography-font-size-18` | `18px` | Value: 18 in every mode. |
 | `--typography-font-size-20` | `20px` | Value: 20 in every mode. |
@@ -241,7 +245,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-default` | → `color.brand.stone.100` `#f7f7f5` | → `color.neutral.900` `#1d2030` | → `color.brand.stone.100` `#f7f7f5` | → `color.neutral.900` `#1d2030` |
 | `--color-background-knockout` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` |
 | `--color-background-surface` | → `color.neutral.white` `#ffffff` | → `color.neutral.800` `#2e3240` | → `color.neutral.white` `#ffffff` | → `color.neutral.800` `#2e3240` |
-| `--color-background-subtle` | → `color.neutral.100` `#eceef3` | → `color.neutral.black` `#000000` | → `color.neutral.100` `#eceef3` | → `color.neutral.black` `#000000` |
+| `--color-background-subtle` | → `color.neutral.100` `#eceef3` | → `color.neutral.black` `#000000` | → `color.neutral.100` `#eceef3` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-background-accent-1` | → `color.brand.pink.300` `#e58bbb` | → `color.brand.pink.300` `#e58bbb` | → `color.brand.pink.300` `#e58bbb` | → `color.brand.pink.300` `#e58bbb` |
 | `--color-background-accent-1-hover` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.300` `#e58bbb` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.300` `#e58bbb` |
 | `--color-background-accent-subtle` | → `color.brand.stone.200` `#e6e4e1` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.200` `#e6e4e1` | → `color.brand.stone.900` `#110f0d` |
@@ -249,17 +253,18 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-utility-info-knockout` | → `color.utility.blue.300` `#8fc4ee` | → `color.utility.blue.300` `#8fc4ee` | → `color.utility.blue.300` `#8fc4ee` | → `color.utility.blue.300` `#8fc4ee` |
 | `--color-background-utility-info` | → `color.utility.blue.100` `#e6f1fb` | → `color.utility.blue.alpha.15` `#6495c526` | → `color.utility.blue.100` `#e6f1fb` | → `color.utility.blue.alpha.15` `#6495c526` |
 | `--color-background-utility-error` | → `color.utility.red.100` `#fbeae8` | → `color.utility.red.900` `#3a1714` | → `color.utility.red.100` `#fbeae8` | → `color.utility.red.900` `#3a1714` |
-| `--color-background-utility-success` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.800` `#12301d` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.800` `#12301d` |
+| `--color-background-utility-success` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.800` `#12301d` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.alpha.20` `#72d08b33` |
 | `--color-background-utility-warning-knockout` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` |
 | `--color-background-utility-error-knockout` | → `color.utility.red.300` `#ff8f84` | → `color.utility.red.300` `#ff8f84` | → `color.utility.red.300` `#ff8f84` | → `color.utility.red.300` `#ff8f84` |
 | `--color-background-utility-warning` | → `color.utility.yellow.100` `#fcf4d8` | → `color.brand.ochre.alpha.15` `#e8a83e26` | → `color.utility.yellow.100` `#fcf4d8` | → `color.brand.ochre.alpha.15` `#e8a83e26` |
 | `--color-background-utility-neutral` | → `color.brand.wash.grey` `#ededea` | → `color.neutral.800` `#2e3240` | → `color.brand.wash.grey` `#ededea` | → `color.neutral.800` `#2e3240` |
+| `--color-background-utility-warning-mark` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` |
 | `--color-background-brand-hover` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.200` `#c8e5f7` |
 | `--color-background-transparent` | → `color.neutral.alpha.20` `#1d203033` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.alpha.30` `#1d20304d` | → `color.neutral.alpha.60` `#1d203099` |
 | `--color-background-default-hover` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` |
 | `--color-background-highlight` | → `color.neutral.alpha.10` `#1d20301a` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.alpha.10` `#1d20301a` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-background-brand` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.300` `#63b4e8` | → `color.brand.blue.300` `#63b4e8` |
-| `--color-background-lane` | → `color.brand.stone.200` `#e6e4e1` | → `color.neutral.black` `#000000` | → `color.brand.stone.200` `#e6e4e1` | → `color.neutral.black` `#000000` |
+| `--color-background-lane` | → `color.brand.stone.200` `#e6e4e1` | → `color.neutral.black` `#000000` | → `color.brand.stone.200` `#e6e4e1` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-background-syntax-background` | → `color.brand.stone.100` `#f7f7f5` | → `color.neutral.900` `#1d2030` | → `color.brand.stone.100` `#f7f7f5` | → `color.neutral.900` `#1d2030` |
 | `--color-background-syntax-add` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.800` `#12301d` | → `color.utility.green.100` `#e5f4ea` | → `color.utility.green.800` `#12301d` |
 | `--color-background-syntax-del` | → `color.utility.red.100` `#fbeae8` | → `color.utility.red.900` `#3a1714` | → `color.utility.red.100` `#fbeae8` | → `color.utility.red.900` `#3a1714` |
@@ -268,8 +273,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-accent-4` | → `color.utility.red.500` `#e2473b` | → `color.utility.red.500` `#e2473b` | → `color.utility.red.500` `#e2473b` | → `color.utility.red.500` `#e2473b` |
 | `--color-background-logo-git` | → `color.third-party.git` `#f05133` | → `color.third-party.git` `#f05133` | → `color.third-party.git` `#f05133` | → `color.third-party.git` `#f05133` |
 | `--color-background-logo-claude` | → `color.third-party.claude` `#d97757` | → `color.third-party.claude` `#d97757` | → `color.third-party.claude` `#d97757` | → `color.third-party.claude` `#d97757` |
-| `--color-background-brand-subtle` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.brand.blue.100` `#eaf5fc` | → `color.brand.blue.900` `#0a2236` |
-| `--color-background-brand-subtle-hover` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.800` `#0f3550` |
+| `--color-background-brand-subtle` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.brand.blue.100` `#eaf5fc` | → `color.utility.blue.alpha.15` `#6495c526` |
+| `--color-background-brand-subtle-hover` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.brand.blue.200` `#c8e5f7` | → `color.utility.blue.alpha.30` `#6495c54d` |
 | `--color-background-transparent-none` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.alpha.0` `#1d203000` |
 | `--color-background-disabled` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` |
 | `--color-background-pattern-ground` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` | → `color.brand.ochre.300` `#e8a83e` |
@@ -282,12 +287,13 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-pattern-zebra-light` | → `color.utility.yellow.200` `#f1d68a` | → `color.utility.yellow.200` `#f1d68a` | → `color.utility.yellow.200` `#f1d68a` | → `color.utility.yellow.200` `#f1d68a` |
 | `--color-background-pattern-ink` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` |
 | `--color-background-pattern-coral` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` |
+| `--color-background-scrim` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` |
 | `--color-border-glass-top` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-border-glass-edge` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-border-accent` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` |
 | `--color-border-default` | → `color.neutral.100` `#eceef3` | → `color.neutral.700` `#474c5e` | → `color.neutral.alpha.20` `#1d203033` | → `color.neutral.700` `#474c5e` |
 | `--color-border-subtle` | → `color.neutral.100` `#eceef3` | → `color.neutral.700` `#474c5e` | → `color.neutral.100` `#eceef3` | → `color.neutral.700` `#474c5e` |
-| `--color-border-strong` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` |
+| `--color-border-strong` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.300` `#b1b7c7` |
 | `--color-border-utility-info` | → `color.utility.blue.500` `#4a7cae` | → `color.utility.blue.300` `#8fc4ee` | → `color.utility.blue.500` `#4a7cae` | → `color.utility.blue.300` `#8fc4ee` |
 | `--color-border-utility-error` | → `color.utility.red.500` `#e2473b` | → `color.utility.red.300` `#ff8f84` | → `color.utility.red.500` `#e2473b` | → `color.utility.red.300` `#ff8f84` |
 | `--color-border-utility-success` | → `color.utility.green.600` `#1a7439` | → `color.utility.green.300` `#72d08b` | → `color.utility.green.600` `#1a7439` | → `color.utility.green.300` `#72d08b` |
@@ -301,18 +307,18 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-border-disabled` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` |
 | `--color-border-accent-1` | → `color.brand.pink.500` `#cf5a95` | → `color.brand.pink.300` `#e58bbb` | → `color.brand.pink.500` `#cf5a95` | → `color.brand.pink.300` `#e58bbb` |
 | `--color-content-default` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` |
-| `--color-content-subtle` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` |
+| `--color-content-subtle` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.neutral.100` `#eceef3` |
 | `--color-content-knockout` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` |
 | `--color-content-accent` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` |
 | `--color-content-on-accent-1` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` |
 | `--color-content-link` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` |
 | `--color-content-utility-error` | → `color.utility.red.700` `#8f2118` | → `color.utility.red.200` `#febdb6` | → `color.utility.red.700` `#8f2118` | → `color.utility.red.200` `#febdb6` |
-| `--color-content-utility-success` | → `color.utility.green.700` `#18502f` | → `color.utility.green.200` `#abe2ba` | → `color.utility.green.700` `#18502f` | → `color.utility.green.200` `#abe2ba` |
+| `--color-content-utility-success` | → `color.utility.green.700` `#18502f` | → `color.utility.green.200` `#abe2ba` | → `color.utility.green.700` `#18502f` | → `color.utility.green.100` `#e5f4ea` |
 | `--color-content-utility-on-status` | → `color.neutral.900` `#1d2030` | → `color.neutral.900` `#1d2030` | → `color.neutral.900` `#1d2030` | → `color.neutral.900` `#1d2030` |
 | `--color-content-utility-info` | → `color.utility.blue.700` `#114c80` | → `color.utility.blue.200` `#b9daf5` | → `color.utility.blue.700` `#114c80` | → `color.utility.blue.200` `#b9daf5` |
 | `--color-content-utility-warning` | → `color.utility.yellow.700` `#5e4800` | → `color.utility.yellow.100` `#fcf4d8` | → `color.utility.yellow.700` `#5e4800` | → `color.utility.yellow.100` `#fcf4d8` |
 | `--color-content-utility-neutral` | → `color.brand.wash.grey-ink` `#3a3f50` | → `color.neutral.200` `#c3c7d2` | → `color.brand.wash.grey-ink` `#3a3f50` | → `color.neutral.200` `#c3c7d2` |
-| `--color-content-icon-subtle` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` |
+| `--color-content-icon-subtle` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.300` `#b1b7c7` |
 | `--color-content-body` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` |
 | `--color-content-highlight` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` |
 | `--color-content-brand-knockout` | → `color.neutral.100` `#eceef3` | → `color.neutral.900` `#1d2030` | → `color.brand.blue.900` `#0a2236` | → `color.brand.blue.900` `#0a2236` |
@@ -326,16 +332,20 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-content-syntax-attr` | → `color.brand.ochre.800` `#4e3104` | → `color.utility.yellow.200` `#f1d68a` | → `color.brand.ochre.800` `#4e3104` | → `color.utility.yellow.200` `#f1d68a` |
 | `--color-content-syntax-punct` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` |
 | `--color-content-syntax-line-number` | → `color.brand.stone.700` `#403e3b` | → `color.brand.navy.200` `#c6c2d4` | → `color.brand.stone.700` `#403e3b` | → `color.brand.navy.200` `#c6c2d4` |
-| `--color-content-brand` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.700` `#16496b` | → `color.brand.blue.200` `#c8e5f7` |
+| `--color-content-brand` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.700` `#16496b` | → `color.brand.blue.100` `#eaf5fc` |
 | `--color-content-brand-hover` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.800` `#0f3550` | → `color.brand.blue.100` `#eaf5fc` |
 | `--color-content-disabled` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` |
-| `--color-content-lane-subtle` | → `color.neutral.800` `#2e3240` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.800` `#2e3240` | → `color.neutral.200` `#c3c7d2` |
-| `--border-radius-md` | → `border.radius.8` `8px` | → `border.radius.8` `8px` | → `border.radius.round` `999px` | → `border.radius.round` `999px` |
-| `--border-radius-lg` | → `border.radius.round` `999px` | → `border.radius.round` `999px` | → `border.radius.round` `999px` | → `border.radius.round` `999px` |
+| `--color-content-lane-subtle` | → `color.neutral.800` `#2e3240` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` |
+| `--color-data-viz-positive-1` | → `color.utility.green.500` `#2b9a57` | → `color.utility.green.300` `#72d08b` | → `color.utility.green.500` `#2b9a57` | → `color.utility.green.300` `#72d08b` |
+| `--color-data-viz-positive-2` | → `color.utility.green.600` `#1a7439` | → `color.utility.green.400` `#50b470` | → `color.utility.green.600` `#1a7439` | → `color.utility.green.400` `#50b470` |
+| `--color-data-viz-positive-3` | → `color.utility.green.700` `#18502f` | → `color.utility.green.500` `#2b9a57` | → `color.utility.green.700` `#18502f` | → `color.utility.green.500` `#2b9a57` |
+| `--border-radius-md` | → `border.radius.8` `8px` | → `border.radius.8` `8px` | → `border.radius.8` `8px` | → `border.radius.8` `8px` |
+| `--border-radius-lg` | → `border.radius.round` `999px` | → `border.radius.round` `999px` | → `border.radius.8` `8px` | → `border.radius.8` `8px` |
 | `--border-radius-card` | → `border.radius.16` `16px` | → `border.radius.16` `16px` | → `border.radius.20` `20px` | → `border.radius.20` `20px` |
 | `--border-radius-form` | → `border.radius.8` `8px` | → `border.radius.8` `8px` | → `border.radius.16` `16px` | → `border.radius.16` `16px` |
 | `--border-radius-sm` | → `border.radius.4` `4px` | → `border.radius.4` `4px` | → `border.radius.4` `4px` | → `border.radius.4` `4px` |
-| `--typography-body-default-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` |
+| `--border-radius-lg-focus` | → `border.radius.round` `999px` | → `border.radius.round` `999px` | → `border.radius.12` `12px` | → `border.radius.12` `12px` |
+| `--typography-body-default-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` |
 | `--typography-body-default-font-size` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` |
 | `--typography-body-default-font-weight` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` |
 | `--typography-label-default-font-size` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` |
@@ -343,8 +353,10 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--typography-button-default-font-weight` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` |
 | `--typography-primary-nav-default-font-weight` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` |
 | `--typography-title-default-font-weight` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` |
-| `--typography-title-default-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.newsreader` `"Newsreader", serif` | → `typography.font-family.newsreader` `"Newsreader", serif` |
-| `--typography-headline-sm-font-family` | → `typography.font-family.newsreader` `"Newsreader", serif` | → `typography.font-family.newsreader` `"Newsreader", serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` |
+| `--typography-title-default-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` |
+| `--typography-headline-sm-font-family` | → `typography.font-family.newsreader` `"Newsreader", serif` | → `typography.font-family.newsreader` `"Newsreader", serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` |
+| `--typography-subtext-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.geist-mono` `"Geist Mono", monospace` | → `typography.font-family.geist-mono` `"Geist Mono", monospace` |
+| `--typography-number-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.geist-mono` `"Geist Mono", monospace` | → `typography.font-family.geist-mono` `"Geist Mono", monospace` |
 | `--focus-ring-width` | → `border.width.4` `4px` | → `border.width.4` `4px` | → `border.width.4` `4px` | → `border.width.4` `4px` |
 | `--focus-ring-offset` | → `size.4` `4px` | → `size.4` `4px` | → `size.4` `4px` | → `size.4` `4px` |
 
@@ -352,26 +364,14 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 
 | CSS name | BELLA light | BELLA dark | Chip light | Chip dark |
 |---|---|---|---|---|
-| `--component-button-secondary-background-hover` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-secondary-background-active` | → `button.color.background.active` `#eceef3` | → `button.color.background.active` `#000000` | → `button.color.background.active` `#c8e5f7` | → `button.color.background.active` `#0f3550` |
-| `--component-button-secondary-foreground-active` | → `button.color.content.active` `#1d2030` | → `button.color.content.active` `#eceef3` | → `button.color.content.active` `#0a2236` | → `button.color.content.active` `#eaf5fc` |
 | `--component-button-sm-min-height` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` |
 | `--component-button-icon-size` | → `size.20` `20px` | → `size.20` `20px` | → `size.20` `20px` | → `size.20` `20px` |
-| `--component-button-tertiary-background-hover` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-tertiary-background-active` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#1d203000` | → `button.color.background.hover` `#c8e5f7` | → `button.color.background.hover` `#0f3550` |
-| `--component-button-tertiary-foreground-active` | → `button.color.content.active` `#1d2030` | → `button.color.content.active` `#eceef3` | → `button.color.content.active` `#0a2236` | → `button.color.content.active` `#eaf5fc` |
-| `--component-input-border-radius` | → `border.radius.form` `8px` | → `border.radius.form` `8px` | → `border.radius.form` `16px` | → `border.radius.form` `16px` |
 | `--component-status-dot-size` | → `spacing.12` `12px` | → `spacing.12` `12px` | → `spacing.12` `12px` | → `spacing.12` `12px` |
-| `--component-leader-pink` | → `color.border.accent-1` `#cf5a95` | → `color.border.accent-1` `#e58bbb` | → `color.border.accent-1` `#cf5a95` | → `color.border.accent-1` `#e58bbb` |
-| `--component-select-border-radius` | → `border.radius.form` `8px` | → `border.radius.form` `8px` | → `border.radius.form` `16px` | → `border.radius.form` `16px` |
-| `--component-kbd-border-radius` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` |
 | `--component-page-title-font-weight` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` | → `typography.font-weight.400` `400` |
 | `--component-meter-height` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` |
 | `--component-stat-icon-well-size` | → `spacing.32` `32px` | → `spacing.32` `32px` | → `spacing.32` `32px` | → `spacing.32` `32px` |
 | `--component-toast-action-border` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.neutral.white-alpha.30` `#ffffff4d` | → `color.neutral.white-alpha.30` `#ffffff4d` |
-| `--component-drawer-title-font-family` | → `typography.title-default.font-family` `"DM Sans", sans-serif` | → `typography.title-default.font-family` `"DM Sans", sans-serif` | → `typography.title-default.font-family` `"Newsreader", serif` | → `typography.title-default.font-family` `"Newsreader", serif` |
 | `--component-drawer-head-border` | → `color.border.default` `#eceef3` | → `color.border.default` `#474c5e` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.alpha.0` `#1d203000` |
-| `--component-heading-subsection-font-family` | → `typography.headline-sm.font-family` `"Newsreader", serif` | → `typography.headline-sm.font-family` `"Newsreader", serif` | → `typography.headline-sm.font-family` `"DM Sans", sans-serif` | → `typography.headline-sm.font-family` `"DM Sans", sans-serif` |
 | `--component-card-content-min-height` | → `size.0` `0px` | → `size.0` `0px` | → `size.0` `0px` | → `size.0` `0px` |
 | `--component-spacing-step-bar-width-1` | → `spacing.4` `4px` | → `spacing.4` `4px` | → `spacing.4` `4px` | → `spacing.4` `4px` |
 | `--component-spacing-step-bar-width-2` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` | → `spacing.8` `8px` |
@@ -385,9 +385,13 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--component-spacing-step-bar-width-16` | → `spacing.64` `64px` | → `spacing.64` `64px` | → `spacing.64` `64px` | → `spacing.64` `64px` |
 | `--component-spacing-step-bar-width-20` | → `spacing.80` `80px` | → `spacing.80` `80px` | → `spacing.80` `80px` | → `spacing.80` `80px` |
 | `--component-spacing-step-bar-width-touch` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` | → `spacing.44` `44px` |
-| `--component-spacing-step-bar-radius` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` | → `border.radius.sm` `4px` |
-| `--button-color-background-default` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.brand-subtle` `#eaf5fc` | → `color.background.brand-subtle` `#0a2236` |
-| `--button-color-background-hover` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#0f3550` |
-| `--button-color-background-active` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#0f3550` |
-| `--button-color-border-default` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.border.brand` `#1865bb` | → `color.border.brand` `#63b4e8` |
-| `--button-color-content-active` | → `color.content.brand` `#1d2030` | → `color.content.brand` `#eceef3` | → `color.content.brand-knockout` `#0a2236` | → `color.content.brand-hover` `#eaf5fc` |
+| `--button-color-background-default` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.surface` `#ffffff` | → `color.background.surface` `#2e3240` |
+| `--button-color-background-hover` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` | → `color.background.subtle` `#eceef3` | → `color.background.highlight` `#ffffff1a` |
+| `--button-color-background-active` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.subtle` `#eceef3` | → `color.background.highlight` `#ffffff1a` |
+| `--button-color-background-disabled` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.subtle` `#eceef3` | → `color.background.surface` `#2e3240` |
+| `--button-color-border-default` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#b1b7c7` |
+| `--button-color-border-disabled` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.border.strong` `#686d7d` | → `color.border.default` `#474c5e` |
+| `--button-color-content-active` | → `color.content.brand` `#1d2030` | → `color.content.brand` `#eceef3` | → `color.content.default` `#1d2030` | → `color.content.default` `#eceef3` |
+| `--nav-list-current-background` | → `color.background.brand` `#1d2030` | → `color.background.brand` `#eceef3` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#6495c54d` |
+| `--nav-list-label-color` | → `color.content.brand-knockout` `#eceef3` | → `color.content.brand-knockout` `#1d2030` | → `color.content.default` `#1d2030` | → `color.content.default` `#eceef3` |
+| `--nav-list-hover-background` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.brand-subtle` `#eaf5fc` | → `color.background.brand-subtle` `#6495c526` |

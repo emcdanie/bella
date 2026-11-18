@@ -27,7 +27,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Search / pick from list | `Combobox` |
 | Range slider | `Slider` |
 | Content card | `Card`, `ResourceCard` |
-| Metrics / scores | `Stat`, `ScoreStrip` |
+| Metrics / scores | `Stat` |
 | Tabular data | `DataTable` |
 | Code, contracts, diffs | `CodeBlock` |
 | Name an icon button | `Tooltip` |

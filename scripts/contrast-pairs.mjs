@@ -53,9 +53,14 @@ const ratio = (a, b) => {
   return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
 };
 
-/* A translucent fill is composited over what it sits on: '<fill> over <surface>'. */
+/* A translucent fill is composited over what it sits on: '<fill> over <surface>'.
+ * Fills that are a tint in some themes (Chip dark: subtle and lane are white at 10%,
+ * Elleta, 18 Nov: "A for the dark grey") sit where the parts put them: subtle on a
+ * card (the lighter, so the harder case for light text), lane on the page. */
+const SITS_ON = { '--color-background-brand-subtle-hover': '--color-background-surface', '--color-background-brand-subtle': '--color-background-surface', '--color-background-subtle': '--color-background-surface', '--color-background-lane': '--color-background-default' };
 function colour(vars, spec) {
-  const [top, under] = spec.split(' over ');
+  let [top, under] = spec.split(' over ');
+  if (!under && SITS_ON[top] && resolve(vars, top).replace('#', '').length === 8) under = SITS_ON[top];
   const t = resolve(vars, top).replace('#', '');
   if (!under) {
     if (t.length === 8 && t.slice(6) !== 'ff') throw new Error(`contrast-pairs: ${top} is translucent; say what it sits over`);
@@ -152,6 +157,8 @@ const INSET_EXEMPT = {
   'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/Tabs/Tabs.module.css :: .count': 'a count, identified by its number, not the fill',
+  'src/components/Button/Button.module.css :: .secondary:hover:not(:disabled), .secondary:focus-visible': 'hover and focus state fill: transient, the label and focus ring carry it',
+  'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'pressed state fill: transient, the label carries it',
 };
 {
   // part tokens that point at the subtle fill or the strong edge count as those tokens

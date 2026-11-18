@@ -74,8 +74,6 @@ export type { ResourceCardProps } from './ResourceCard/ResourceCard';
 export { default as ScaledFrame } from './ScaledFrame/ScaledFrame';
 export type { ScaledFrameProps } from './ScaledFrame/ScaledFrame';
 
-export { default as ScoreStrip, ScoreLegend, scoreBand, SCORE_BANDS } from './ScoreStrip/ScoreStrip';
-export type { ScoreStripProps } from './ScoreStrip/ScoreStrip';
 
 export { default as Section } from './Section/Section';
 export type { SectionProps } from './Section/Section';

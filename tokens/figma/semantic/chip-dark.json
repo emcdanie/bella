@@ -47,9 +47,9 @@
         }
       },
       "subtle": {
-        "$value": "{color.neutral.black}",
+        "$value": "{color.neutral.white-alpha.10}",
         "$type": "color",
-        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black.",
+        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-background-subtle)",
@@ -168,7 +168,7 @@
           }
         },
         "success": {
-          "$value": "{color.utility.green.800}",
+          "$value": "{color.utility.green.alpha.20}",
           "$type": "color",
           "$description": "Status fill: success (pale tint behind status text). BELLA light utility/green/100 · BELLA dark utility/green/800 · Chip light utility/green/100 · Chip dark utility/green/800.",
           "$extensions": {
@@ -241,12 +241,27 @@
               "key": "dbb03749cff3910a11cb920f7e2d661bb39e2c06"
             }
           }
+        },
+        "warning-mark": {
+          "$value": "{color.utility.yellow.300}",
+          "$type": "color",
+          "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. Elleta 18 Nov 2026: &quot;B, bright with edge&quot;; &quot;i wasnt asking to change the notifications&quot;.",
+          "$extensions": {
+            "figma": {
+              "codeSyntax": "var(--color-background-utility-warning-mark)",
+              "scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ],
+              "key": "3b532107b63cbca8e01474a7f91c90cd957c3009"
+            }
+          }
         }
       },
       "brand-hover": {
         "$value": "{color.brand.blue.200}",
         "$type": "color",
-        "$description": "Fill: brand-hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
+        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-background-brand-hover)",
@@ -319,9 +334,9 @@
         }
       },
       "lane": {
-        "$value": "{color.neutral.black}",
+        "$value": "{color.neutral.white-alpha.10}",
         "$type": "color",
-        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black.",
+        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-background-lane)",
@@ -458,9 +473,9 @@
         }
       },
       "brand-subtle": {
-        "$value": "{color.brand.blue.900}",
+        "$value": "{color.utility.blue.alpha.15}",
         "$type": "color",
-        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900.",
+        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-background-brand-subtle)",
@@ -473,9 +488,9 @@
         }
       },
       "brand-subtle-hover": {
-        "$value": "{color.brand.blue.800}",
+        "$value": "{color.utility.blue.alpha.30}",
         "$type": "color",
-        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800.",
+        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-background-brand-subtle-hover)",
@@ -668,6 +683,21 @@
             }
           }
         }
+      },
+      "scrim": {
+        "$value": "{color.neutral.black-alpha.60}",
+        "$type": "color",
+        "$description": "Fill: scrim, the shade behind a drawer or dialog (17 Nov 2026, Elleta: &quot;A, add the scrim token&quot;). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--color-background-scrim)",
+            "scopes": [
+              "FRAME_FILL",
+              "SHAPE_FILL"
+            ],
+            "key": "f953a45fdeb6660a3bbceda5baf9eca9a2629a0f"
+          }
+        }
       }
     },
     "border": {
@@ -742,7 +772,7 @@
         }
       },
       "strong": {
-        "$value": "{color.neutral.400}",
+        "$value": "{color.neutral.300}",
         "$type": "color",
         "$description": "Edge: strong. BELLA light neutral/600 · BELLA dark neutral/400 · Chip light neutral/600 · Chip dark neutral/400.",
         "$extensions": {
@@ -858,7 +888,7 @@
       "action-raised": {
         "$value": "{color.brand.blue.300}",
         "$type": "color",
-        "$description": "Edge: action-raised. BELLA light neutral/900 · BELLA dark neutral/100 · Chip light brand/blue/300 · Chip dark brand/blue/300.",
+        "$description": "Edge: primary button plate. BELLA light neutral/900 · BELLA dark neutral/100 · Chip light brand/blue/300 · Chip dark brand/blue/300.",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--color-border-action-raised)",
@@ -943,7 +973,7 @@
         }
       },
       "subtle": {
-        "$value": "{color.neutral.200}",
+        "$value": "{color.neutral.100}",
         "$type": "color",
         "$description": "Text and icons: subtle, 7:1 on the page, surface and card. Not on brand-subtle-hover or highlight; on a lane or the selected wash use content/lane-subtle (her pick A, 17 Nov). BELLA light neutral/700 · BELLA dark neutral/200 · Chip light neutral/700 · Chip dark neutral/200.",
         "$extensions": {
@@ -1034,7 +1064,7 @@
           }
         },
         "success": {
-          "$value": "{color.utility.green.200}",
+          "$value": "{color.utility.green.100}",
           "$type": "color",
           "$description": "Status text and icon: success, 7:1 on its wash, the page and the card in every theme. Not straight on a lane; on a lane, status words sit on their wash. BELLA light utility/green/700 · BELLA dark utility/green/200 · Chip light utility/green/700 · Chip dark utility/green/200.",
           "$extensions": {
@@ -1110,7 +1140,7 @@
         }
       },
       "icon-subtle": {
-        "$value": "{color.neutral.400}",
+        "$value": "{color.neutral.300}",
         "$type": "color",
         "$description": "Text and icons: icon-subtle. BELLA light neutral/600 · BELLA dark neutral/400 · Chip light neutral/600 · Chip dark neutral/400.",
         "$extensions": {
@@ -1312,7 +1342,7 @@
         }
       },
       "brand": {
-        "$value": "{color.brand.blue.200}",
+        "$value": "{color.brand.blue.100}",
         "$type": "color",
         "$description": "Text and icons: brand. BELLA light neutral/900 · BELLA dark neutral/100 · Chip light brand/blue/700 · Chip dark brand/blue/200.",
         "$extensions": {
@@ -1357,7 +1387,7 @@
         }
       },
       "lane-subtle": {
-        "$value": "{color.neutral.200}",
+        "$value": "{color.neutral.100}",
         "$type": "color",
         "$description": "Text and icons: secondary text on a board lane or the selected wash (7:1 on both). BELLA light neutral/800 · BELLA dark neutral/200 · Chip light neutral/800 · Chip dark neutral/200.",
         "$extensions": {
@@ -1371,14 +1401,61 @@
           }
         }
       }
+    },
+    "data-viz": {
+      "positive-1": {
+        "$value": "{color.utility.green.300}",
+        "$type": "color",
+        "$description": "Positive data marks, light to dark, for charts like the System health arc. Each step passes 3:1 on the card.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--color-data-viz-positive-1)",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ],
+            "key": "fe601d5736490e10b20c098fbb07a149971e48bf"
+          }
+        }
+      },
+      "positive-2": {
+        "$value": "{color.utility.green.400}",
+        "$type": "color",
+        "$description": "Positive data marks, light to dark, for charts like the System health arc. Each step passes 3:1 on the card.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--color-data-viz-positive-2)",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ],
+            "key": "04e0cc24294b760af1cfbf461786cde85b1c5c32"
+          }
+        }
+      },
+      "positive-3": {
+        "$value": "{color.utility.green.500}",
+        "$type": "color",
+        "$description": "Positive data marks, light to dark, for charts like the System health arc. Each step passes 3:1 on the card.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--color-data-viz-positive-3)",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ],
+            "key": "c50898c062ecbeb48770f6b8e35c6faf3c62780b"
+          }
+        }
+      }
     }
   },
   "border": {
     "radius": {
       "md": {
-        "$value": "{border.radius.round}",
+        "$value": "{border.radius.8}",
         "$type": "dimension",
-        "$description": "Corner radius: md. BELLA light border/radius/8 · BELLA dark border/radius/8 · Chip light border/radius/round · Chip dark border/radius/round.",
+        "$description": "Corner radius: md. Clickable rows and fields: nav items, tabs (top corners), segments, menu items, inputs, select, combobox, link focus plate. BELLA 8 · Chip 8 (one clickable corner, 17 Nov).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--border-radius-md)",
@@ -1390,9 +1467,9 @@
         }
       },
       "lg": {
-        "$value": "{border.radius.round}",
+        "$value": "{border.radius.8}",
         "$type": "dimension",
-        "$description": "Corner radius: lg. BELLA light border/radius/round · BELLA dark border/radius/round · Chip light border/radius/round · Chip dark border/radius/round.",
+        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: &quot;all the clickable items have the same&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--border-radius-lg)",
@@ -1444,15 +1521,29 @@
             "key": "bc2b6584acc5657e3934fb557f95148dfd81dba3"
           }
         }
+      },
+      "lg-focus": {
+        "$value": "{border.radius.12}",
+        "$type": "dimension",
+        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (Elleta 17 Nov: &quot;a&quot;).",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--border-radius-lg-focus)",
+            "scopes": [
+              "CORNER_RADIUS"
+            ],
+            "key": "627c641c9d0b00546dd32ff6f01fa607aae3e35f"
+          }
+        }
       }
     }
   },
   "typography": {
     "body-default": {
       "font-family": {
-        "$value": "{typography.font-family.dm-sans}",
+        "$value": "{typography.font-family.lexend}",
         "$type": "string",
-        "$description": "Type: body-default font-family. BELLA light typography/font-family/dm-sans · BELLA dark typography/font-family/dm-sans · Chip light typography/font-family/dm-sans · Chip dark typography/font-family/dm-sans.",
+        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (18 Nov, picked &quot;c&quot;; replaces Geist of 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--typography-body-default-font-family)",
@@ -1570,9 +1661,9 @@
         }
       },
       "font-family": {
-        "$value": "{typography.font-family.newsreader}",
+        "$value": "{typography.font-family.lexend}",
         "$type": "string",
-        "$description": "Type: title-default font-family (drawer titles). BELLA DM Sans, Chip Newsreader.",
+        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--typography-title-default-font-family)",
@@ -1586,9 +1677,9 @@
     },
     "headline-sm": {
       "font-family": {
-        "$value": "{typography.font-family.dm-sans}",
+        "$value": "{typography.font-family.lexend}",
         "$type": "string",
-        "$description": "Type: headline-sm font-family (subsection headings). BELLA Newsreader, Chip DM Sans.",
+        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
         "$extensions": {
           "figma": {
             "codeSyntax": "var(--typography-headline-sm-font-family)",
@@ -1596,6 +1687,38 @@
               "FONT_FAMILY"
             ],
             "key": "9667632abfa8f0501bf85fec991ee2e2d671ca9f"
+          }
+        }
+      }
+    },
+    "subtext": {
+      "font-family": {
+        "$value": "{typography.font-family.geist-mono}",
+        "$type": "string",
+        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, &quot;B&quot;, then &quot;ok add both tokens&quot;). Sentences and ledes stay on body-default.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--typography-subtext-font-family)",
+            "scopes": [
+              "FONT_FAMILY"
+            ],
+            "key": "47b9b74246213a1dbf291821fbeea9d905fae45b"
+          }
+        }
+      }
+    },
+    "number": {
+      "font-family": {
+        "$value": "{typography.font-family.geist-mono}",
+        "$type": "string",
+        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (Elleta, 18 Nov: &quot;B&quot;, then &quot;ok add both tokens&quot;). A number inside a sentence stays on body-default.",
+        "$extensions": {
+          "figma": {
+            "codeSyntax": "var(--typography-number-font-family)",
+            "scopes": [
+              "FONT_FAMILY"
+            ],
+            "key": "033bb6bd4bc73608e001ee75cd9b839528aadf2b"
           }
         }
       }

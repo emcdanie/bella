@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const scaledFrameContract = (componentContract as any).component?.['scaled-frame']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ScaledFrame> = {
-  title: 'Components/ScaledFrame',
+  title: 'Components/Layout/ScaledFrame',
   component: ScaledFrame,
   parameters: {
     docs: { page: ComponentDocsPage },

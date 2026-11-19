@@ -17,7 +17,7 @@ const contract = (componentContract as any).component?.['top-bar']?.$extensions?
 const THEMES = ['chip-light', 'chip-dark'] as const;
 
 const meta: Meta<typeof TopBar> = {
-  title: 'Components/TopBar',
+  title: 'Components/Layout/TopBar',
   component: TopBar,
   parameters: {
     layout: 'fullscreen',

@@ -32,7 +32,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof StatCard> = {
-  title: 'Components/StatCard',
+  title: 'Components/Data/StatCard',
   component: StatCard,
   parameters: {
     docs: { page: ComponentDocsPage },

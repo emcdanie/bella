@@ -9,7 +9,7 @@ const iconContract =
   (componentContract as any).component?.icon?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Icon> = {
-  title: 'Components/Icon',
+  title: 'Components/Data/Icon',
   component: Icon,
   parameters: {
     docs: { page: ComponentDocsPage },

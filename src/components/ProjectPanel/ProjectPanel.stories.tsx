@@ -15,7 +15,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.['project-panel']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ProjectPanel> = {
-  title: 'Components/ProjectPanel',
+  title: 'Components/Layout/ProjectPanel',
   component: ProjectPanel,
   parameters: {
     layout: 'fullscreen',

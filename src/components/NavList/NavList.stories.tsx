@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const navContract = (componentContract as any).component?.['nav-list']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof NavList> = {
-  title: 'Components/NavList',
+  title: 'Components/Layout/NavList',
   component: NavList,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -10,7 +10,7 @@ const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) 
 const contract = (componentContract as any).component?.disclosure?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Disclosure> = {
-  title: 'Components/Disclosure',
+  title: 'Components/Layout/Disclosure',
   component: Disclosure,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -20,7 +20,7 @@ const chipContract =
   (componentContract as any).component?.['filter-chip']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof FilterChip> = {
-  title: 'Components/FilterChip',
+  title: 'Components/Actions/FilterChip',
   component: FilterChip,
   parameters: {
     docs: { page: ComponentDocsPage },

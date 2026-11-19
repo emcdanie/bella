@@ -11,7 +11,7 @@ const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) 
 const contract = (componentContract as any).component?.tooltip?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Tooltip> = {
-  title: 'Components/Tooltip',
+  title: 'Components/Actions/Tooltip',
   component: Tooltip,
   parameters: { docs: { page: ComponentDocsPage }, bellaDocs: { tokens: consumedTokens, a11y: contract.a11y } },
   argTypes: { children: { control: false }, className: { control: false } },

@@ -38,7 +38,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof StatusDot> = {
-  title: 'Components/StatusDot',
+  title: 'Components/Data/StatusDot',
   component: StatusDot,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -31,7 +31,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof Progress> = {
-  title: 'Components/Progress',
+  title: 'Components/Data/Progress',
   component: Progress,
   parameters: {
     docs: { page: ComponentDocsPage },

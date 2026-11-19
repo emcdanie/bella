@@ -38,7 +38,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof NavItem> = {
-  title: 'Components/NavItem',
+  title: 'Components/Layout/NavItem',
   component: NavItem,
   parameters: {
     docs: { page: ComponentDocsPage },

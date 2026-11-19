@@ -24,7 +24,7 @@ const Cards = ({ children, width = 720 }: { children: React.ReactNode; width?: n
 );
 
 const meta: Meta<typeof SectionHead> = {
-  title: 'Components/SectionHead',
+  title: 'Components/Layout/SectionHead',
   component: SectionHead,
   parameters: {
     docs: { page: ComponentDocsPage },

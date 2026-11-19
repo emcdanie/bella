@@ -15,7 +15,7 @@ const inputContract =
   (componentContract as any).component?.input?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Input',
+  title: 'Components/Inputs/Input',
   component: Input,
   parameters: {
     docs: { page: ComponentDocsPage },

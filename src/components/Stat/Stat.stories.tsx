@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const statContract = (componentContract as any).component?.stat?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Stat> = {
-  title: 'Components/Stat',
+  title: 'Components/Data/Stat',
   component: Stat,
   parameters: {
     docs: { page: ComponentDocsPage },

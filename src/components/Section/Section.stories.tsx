@@ -12,7 +12,7 @@ const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) 
 const contract = (componentContract as any).component?.section?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Section> = {
-  title: 'Components/Section',
+  title: 'Components/Layout/Section',
   component: Section,
   parameters: {
     docs: { page: ComponentDocsPage },

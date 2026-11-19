@@ -12,7 +12,7 @@ const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) 
 const contract = (componentContract as any).component?.['page-header']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof PageHeader> = {
-  title: 'Components/PageHeader',
+  title: 'Components/Layout/PageHeader',
   component: PageHeader,
   parameters: {
     docs: { page: ComponentDocsPage },

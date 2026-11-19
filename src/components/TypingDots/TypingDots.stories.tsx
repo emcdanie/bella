@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const dotsContract = (componentContract as any).component?.['typing-dots']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof TypingDots> = {
-  title: 'Components/Chat/TypingDots',
+  title: 'Components/Data/TypingDots',
   component: TypingDots,
   parameters: {
     docs: { page: ComponentDocsPage },

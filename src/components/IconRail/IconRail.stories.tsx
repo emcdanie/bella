@@ -15,7 +15,7 @@ const contract = (componentContract as any).component?.['icon-rail']?.$extension
 
 
 const meta: Meta<typeof IconRail> = {
-  title: 'Components/IconRail',
+  title: 'Components/Layout/IconRail',
   component: IconRail,
   parameters: {
     layout: 'fullscreen',

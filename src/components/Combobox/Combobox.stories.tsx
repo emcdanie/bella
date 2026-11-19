@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const comboContract = (componentContract as any).component?.combobox?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Components/Combobox',
+  title: 'Components/Inputs/Combobox',
   component: Combobox,
   parameters: {
     docs: { page: ComponentDocsPage },

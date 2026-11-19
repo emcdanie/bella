@@ -47,7 +47,7 @@ const Pipeline = ({ states }: { states: StepState[] }) => (
 );
 
 const meta: Meta<typeof Step> = {
-  title: 'Components/Step',
+  title: 'Components/Data/Step',
   component: Step,
   parameters: {
     docs: { page: ComponentDocsPage },

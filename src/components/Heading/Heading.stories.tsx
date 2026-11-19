@@ -14,7 +14,7 @@ const headingContract =
   (componentContract as any).component?.heading?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Heading> = {
-  title: 'Components/Heading',
+  title: 'Components/Layout/Heading',
   component: Heading,
   parameters: {
     docs: { page: ComponentDocsPage },

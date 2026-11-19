@@ -10,7 +10,7 @@ const consumedTokens = Array.from(new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) 
 const contract = (componentContract as any).component?.['code-block']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof CodeBlock> = {
-  title: 'Components/CodeBlock',
+  title: 'Components/Data/CodeBlock',
   component: CodeBlock,
   parameters: { docs: { page: ComponentDocsPage }, bellaDocs: { tokens: consumedTokens, a11y: contract.a11y } },
   argTypes: { className: { control: false } },

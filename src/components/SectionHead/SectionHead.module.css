@@ -12,6 +12,9 @@
 
 .root {
   display: flex;
+  /* narrow cards: the action drops under the text before a word would break
+   * (guideline: titles never break mid-word; nothing squished) */
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-16);
   min-inline-size: 0;
@@ -19,6 +22,7 @@
 
 .column {
   flex: 1 1 0;
+  min-inline-size: min-content;
 }
 
 .titleRow {

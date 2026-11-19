@@ -31,7 +31,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof TreeItem> = {
-  title: 'Components/TreeItem',
+  title: 'Components/Layout/TreeItem',
   component: TreeItem,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -38,7 +38,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof Trailing> = {
-  title: 'Components/Trailing',
+  title: 'Components/Data/Trailing',
   component: Trailing,
   parameters: {
     docs: { page: ComponentDocsPage },

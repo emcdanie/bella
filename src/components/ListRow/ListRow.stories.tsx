@@ -19,7 +19,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.['list-row']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ListRow> = {
-  title: 'Components/ListRow',
+  title: 'Components/Data/ListRow',
   component: ListRow,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -80,7 +80,7 @@ const FileWindow = ({ filename = 'SKILL.md' }: { filename?: string }) => (
 );
 
 const meta: Meta<typeof ResourceCard> = {
-  title: 'Components/ResourceCard',
+  title: 'Components/Layout/ResourceCard',
   component: ResourceCard,
   parameters: {
     docs: { page: ComponentDocsPage },

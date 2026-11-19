@@ -15,7 +15,7 @@ const consumedTokens = Array.from(
 const drawerContract = (componentContract as any).component?.drawer?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Components/Drawer',
+  title: 'Components/Layout/Drawer',
   component: Drawer,
   parameters: {
     docs: { page: ComponentDocsPage },

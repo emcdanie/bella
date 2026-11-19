@@ -38,7 +38,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof IconWell> = {
-  title: 'Components/IconWell',
+  title: 'Components/Data/IconWell',
   component: IconWell,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -32,7 +32,7 @@ const Themed = ({ children, width }: { children: React.ReactNode; width?: number
 );
 
 const meta: Meta<typeof Notification> = {
-  title: 'Components/Notification',
+  title: 'Components/Layout/Notification',
   component: Notification,
   parameters: {
     docs: { page: ComponentDocsPage },

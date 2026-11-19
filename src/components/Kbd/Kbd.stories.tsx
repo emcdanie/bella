@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const kbdContract = (componentContract as any).component?.kbd?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Kbd> = {
-  title: 'Components/Kbd',
+  title: 'Components/Data/Kbd',
   component: Kbd,
   parameters: {
     docs: { page: ComponentDocsPage },

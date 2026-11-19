@@ -35,7 +35,7 @@ const Cell = ({ children, label }: { children: React.ReactNode; label: string })
 );
 
 const meta: Meta<typeof MapLine> = {
-  title: 'Components/MapLine',
+  title: 'Components/Data/MapLine',
   component: MapLine,
   parameters: {
     docs: { page: ComponentDocsPage },

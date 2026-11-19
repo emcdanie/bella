@@ -20,7 +20,7 @@ const items = [
 ];
 
 const meta: Meta<typeof PageOutline> = {
-  title: 'Components/PageOutline',
+  title: 'Components/Layout/PageOutline',
   component: PageOutline,
   parameters: {
     docs: { page: ComponentDocsPage },

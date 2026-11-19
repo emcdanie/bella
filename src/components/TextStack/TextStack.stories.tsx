@@ -38,7 +38,7 @@ const Themed = ({ children }: { children: React.ReactNode }) => (
 );
 
 const meta: Meta<typeof TextStack> = {
-  title: 'Components/TextStack',
+  title: 'Components/Layout/TextStack',
   component: TextStack,
   parameters: {
     docs: { page: ComponentDocsPage },

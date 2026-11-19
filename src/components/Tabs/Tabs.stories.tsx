@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const tabsContract = (componentContract as any).component?.tabs?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: 'Components/Actions/Tabs',
   component: Tabs,
   parameters: {
     docs: { page: ComponentDocsPage },

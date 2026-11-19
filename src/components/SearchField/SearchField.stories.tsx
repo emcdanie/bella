@@ -16,7 +16,7 @@ const contract = (componentContract as any).component?.['search-field']?.$extens
 const THEMES = ['chip-light', 'chip-dark'] as const;
 
 const meta: Meta<typeof SearchField> = {
-  title: 'Components/SearchField',
+  title: 'Components/Inputs/SearchField',
   component: SearchField,
   parameters: {
     docs: { page: ComponentDocsPage },

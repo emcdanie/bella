@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const chipContract = (componentContract as any).component?.['action-chip']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ActionChip> = {
-  title: 'Components/ActionChip',
+  title: 'Components/Actions/ActionChip',
   component: ActionChip,
   parameters: {
     docs: { page: ComponentDocsPage },

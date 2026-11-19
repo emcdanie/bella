@@ -14,7 +14,7 @@ const pillContract =
   (componentContract as any).component?.['status-pill']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof StatusPill> = {
-  title: 'Components/StatusPill',
+  title: 'Components/Data/StatusPill',
   component: StatusPill,
   parameters: {
     docs: { page: ComponentDocsPage },

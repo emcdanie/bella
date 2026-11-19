@@ -30,7 +30,7 @@ const buttonContract = (componentContract as any).component?.button?.$extensions
  * the committed TSDoc via docgen, curated controls, tokens consumed and
  * a11y notes from the contract. */
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Components/Actions/Button',
   component: Button,
   parameters: {
     docs: { page: ComponentDocsPage },

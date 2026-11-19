@@ -15,7 +15,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.['client-switcher']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ClientSwitcher> = {
-  title: 'Components/ClientSwitcher',
+  title: 'Components/Layout/ClientSwitcher',
   component: ClientSwitcher,
   parameters: {
     docs: { page: ComponentDocsPage },

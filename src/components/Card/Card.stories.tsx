@@ -91,7 +91,7 @@ function Body({ children }: { children: React.ReactNode }) {
  * comes from the CardProps TSDoc, and controls are curated: token-valued
  * props offer token choices, wiring/slot props stay out of the panel. */
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Components/Layout/Card',
   component: Card,
   parameters: {
     docs: { page: ComponentDocsPage },

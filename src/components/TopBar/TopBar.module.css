@@ -1,0 +1,33 @@
+/* TopBar (Figma "Top bar", read 19 Nov 2026). Tokens only.
+ * A row: padding 12 x 32, gap 16, ends apart, centred; surface fill and a
+ * 1px line below (border/default) that separates it from the page header.
+ * 68 tall = 12 + the 44 search field + 12. Right side: items 12 apart.
+ *
+ * The search slot fills the room left of the right side; the field itself
+ * stops at layout/search/max-width (420, published 19 Nov 2026). */
+
+.bar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  padding: var(--spacing-12) var(--spacing-32);
+  background: var(--color-background-surface);
+  /* the line is drawn inside (inset shadow, as Figma's inside stroke), so the bar stays 68 */
+  box-shadow: inset 0 calc(-1 * var(--border-width-1)) 0 var(--color-border-default);
+}
+
+.search {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.right {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-12);
+}

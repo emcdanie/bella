@@ -1,18 +1,36 @@
 /* PageHeader (layout foundation, 2026-10-03, Elleta: "one size for every
- * page, not display"). Tokens only. Meta, title, lede, actions; the space
- * to the first section is the section space, the same on every page. */
+ * page, not display"; re-synced to Figma "PageHeader", CHIP Dashboard,
+ * read 19 Nov 2026). Tokens only. Meta, the row, the lede, 8 apart
+ * (layout/stack/sm). Meta: the subtext face, 16 at 150%, content/subtle.
+ * Row: the title column and the actions, ends apart, centred, 16 apart.
+ * Title column: the title group, story link and health line, 8 apart.
+ * Title group: the 48 icon well (corner 12, background/subtle, icon 24),
+ * the title and the aside, 16 apart. Title: the title face 600, 40 at
+ * 115%. Actions 8 apart. Lede: body face 16 at 150%, content/subtle.
+ *
+ * Kept from code, not in Figma: the space below the header
+ * (layout/section-space) and the row wrapping when narrow.
+ *
+ * Retired by this re-sync (looks, not props): meta 18 and lede 22 (both 16
+ * now); the headline-sm face on the title (title-default now); the row
+ * aligned to the bottom (centred now); the 12 icon well (48 now). Not
+ * built: Figma's "Show dot" (guideline 13: a page title has no brand dot)
+ * and the health line's Progress meter (no Progress part in code yet). */
 
 .header {
   display: grid;
   gap: var(--layout-stack-sm);
-  margin-block-end: var(--layout-section-space);
+  /* no outer margin: the published PageHeader (405:17148) has none; the
+   * page or template spaces what follows (CHIP / Screen: 24 to the tabs) */
+  margin: 0;
   color: var(--color-content-default);
 }
 
 .meta {
   margin: 0;
   font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
 }
@@ -20,21 +38,23 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: var(--layout-stack-md);
+  gap: var(--spacing-16);
+}
+
+.titleColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-width: 0;
 }
 
 .titleGroup {
   display: flex;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-16);
   min-width: 0;
-}
-
-/* the icon well sits a step further from the title than the aside */
-.titleGroup:has(.iconWell) {
-  gap: var(--spacing-4);
 }
 
 .iconWell {
@@ -42,8 +62,8 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  inline-size: var(--spacing-12);
-  block-size: var(--spacing-12);
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
   border-radius: var(--border-radius-12);
   background: var(--color-background-subtle);
   color: var(--color-content-default);
@@ -58,27 +78,50 @@
 .title {
   margin: 0;
   min-width: 0;
-  font-family: var(--typography-headline-sm-font-family);
-  font-size: var(--typography-font-size-40);
+  font-family: var(--typography-title-default-font-family);
+  /* Tier 2, not a Tier 1 step: 40 on desktop, 34 below 768. Her pick, 19 Nov,
+     phone fit Q1: "A · use display-section". */
+  font-size: var(--typography-font-size-display-section);
   font-weight: var(--typography-font-weight-600);
   line-height: var(--typography-line-height-115);
   letter-spacing: var(--typography-letter-spacing-minus-2);
   text-wrap: balance;
-  overflow-wrap: anywhere;
+  /* titles never break mid-word (her rule); wrap only between words */
+  overflow-wrap: normal;
+  hyphens: manual;
+}
+
+.storyLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+}
+
+.health {
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
 }
 
 .actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--layout-stack-sm);
+  gap: var(--spacing-8);
 }
 
 .lede {
   margin: 0;
   max-width: var(--layout-measure-body);
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-22);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
   text-wrap: pretty;

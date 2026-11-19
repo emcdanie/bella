@@ -1,0 +1,64 @@
+/* SearchField (Figma "Search field", read 19 Nov 2026). Tokens only.
+ * A row 44 tall (min-height spacing/44), padding 0 x 12, gap 12, corner
+ * border/radius/md, color/background/highlight wash, no border. Search
+ * icon 20 in content/subtle; the text body 16 on a 24 line, the
+ * placeholder and typed text in content/default (7:1); the ⌘K
+ * Kbd at the right. Focus: the standard ring on the whole field, 4 wide
+ * with a 4 gap, outside, following the corner.
+ *
+ * No token: Figma's 420 width ("up to 420"). The field fills the space
+ * its container gives it. */
+
+.field {
+  /* layout/search/max-width (420), published 19 Nov 2026: Figma's field is
+   * 420; it may shrink below that on narrow screens, never grow past it */
+  inline-size: 100%;
+  max-inline-size: var(--layout-search-max-width);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  min-block-size: var(--spacing-44);
+  padding: 0 var(--spacing-12);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-highlight);
+  cursor: text;
+}
+
+.field:has(.input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.icon {
+  color: var(--color-content-subtle);
+}
+
+.input {
+  flex: 1;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-px-24);
+  letter-spacing: var(--typography-letter-spacing-0);
+}
+
+.input::placeholder {
+  /* content/default: 13.2:1 Chip light, 8.0:1 Chip dark on the highlight
+   * wash; content/subtle was 6.98:1 (all text 7:1) */
+  color: var(--color-content-default);
+  opacity: 1;
+}
+
+/* the browser's own clear cross is not a BELLA control */
+.input::-webkit-search-cancel-button {
+  appearance: none;
+}

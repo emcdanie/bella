@@ -34,7 +34,7 @@ const body = (
 );
 
 const meta: Meta<typeof SidebarLayout> = {
-  title: 'Components/SidebarLayout',
+  title: 'Components/Layout/SidebarLayout',
   component: SidebarLayout,
   parameters: {
     docs: { page: ComponentDocsPage },

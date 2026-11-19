@@ -4,6 +4,8 @@ import styles from './ActionChip.module.css';
 export interface ActionChipProps {
   /** What happens, in sentence case ("Try in sandbox"). */
   children?: ReactNode;
+  /** Figma "Label". Same as children; children win when both are set. */
+  label?: ReactNode;
   /** The action. Use href instead when the chip goes somewhere. */
   onClick?: () => void;
   /** Renders a link instead of a button. */
@@ -24,7 +26,8 @@ export interface ActionChipProps {
  * (that is FilterChip) and never the page's main action (that is Button).
  */
 export default function ActionChip({
-  children,
+  children: childrenProp,
+  label,
   onClick,
   href,
   linkComponent: LinkComponent = 'a',
@@ -33,6 +36,7 @@ export default function ActionChip({
   variant = 'default',
   className,
 }: ActionChipProps) {
+  const children = childrenProp ?? label;
   const cls = [styles.chip, variant === 'quiet' ? styles.quiet : '', className].filter(Boolean).join(' ');
   if (href && !disabled) {
     return (

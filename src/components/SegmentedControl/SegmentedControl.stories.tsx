@@ -32,7 +32,7 @@ const VIEWS_WITH_ICONS = [
 
 
 const meta: Meta<typeof SegmentedControl> = {
-  title: 'Components/SegmentedControl',
+  title: 'Components/Actions/SegmentedControl',
   component: SegmentedControl,
   parameters: {
     docs: { page: ComponentDocsPage },

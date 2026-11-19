@@ -1,0 +1,30 @@
+/* StatusSquare (Figma CHIP Dashboard "Status square", read 19 Nov 2026).
+ * Tokens only. 24 square, small corner, filled with the status mark colour;
+ * a 16 glyph in content/knockout. Waiting is the warning mark with a 1px
+ * inside edge in border/utility/warning (Elleta 18 Nov: "B, bright with edge"). */
+
+.square {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-content-knockout);
+  cursor: default;
+}
+
+.failed {
+  background: var(--color-border-utility-error);
+}
+.waiting {
+  background: var(--color-background-utility-warning-mark);
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+}
+.working {
+  background: var(--color-border-utility-info);
+}
+.passed {
+  background: var(--color-border-utility-success);
+}

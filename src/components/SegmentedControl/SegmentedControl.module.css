@@ -69,13 +69,17 @@
 }
 
 .control button[aria-current='true'] {
-  background: var(--color-background-accent-subtle);
-  color: var(--color-content-accent);
-  box-shadow: inset 0 0 0 1px var(--color-border-accent);
+  /* Published Figma (selected=true): brand-subtle-hover fill, no edge; the
+     decided Chip selected look (18 Nov): light blue with a bold ink label. */
+  background: var(--color-background-brand-subtle-hover);
+  color: var(--color-content-default);
+  font-weight: var(--typography-font-weight-600);
+  box-shadow: none; /* no seam on the selected segment */
 }
 
 .control button:hover:not([aria-current='true']) {
-  background: var(--color-border-subtle);
+  /* Published Figma hover: brand-subtle, the one light-blue hover (18 Nov). */
+  background: var(--color-background-brand-subtle);
 }
 
 .control button:focus-visible {

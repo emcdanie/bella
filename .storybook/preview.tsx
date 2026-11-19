@@ -111,6 +111,18 @@ const preview: Preview = {
           'Foundations',
           ['Tokens', 'Accessibility', 'Colors', 'Typography', 'Spacing & Radius', 'Responsiveness', 'Elevation', 'Motion', 'Icons'],
           'Components',
+          // by type, as the BellaComponents Figma library groups its pages
+          // (Elleta, 19 Nov 2026: "oranize the compoents please.. by type"); A to Z in each
+          [
+            'Actions',
+            ['ActionChip', 'Button', 'FilterChip', 'Link', 'SegmentedControl', 'Tabs', 'Tooltip'],
+            'Inputs',
+            ['Combobox', 'Input', 'SearchField', 'Select', 'Slider'],
+            'Data',
+            ['Avatar', 'AvatarStack', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'Progress', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
+            'Layout',
+            ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
+          ],
           'Patterns',
           'Pages',
           'Testing',

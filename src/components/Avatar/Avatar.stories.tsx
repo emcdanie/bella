@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const avatarContract = (componentContract as any).component?.avatar?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Avatar> = {
-  title: 'Components/Avatar',
+  title: 'Components/Data/Avatar',
   component: Avatar,
   parameters: {
     docs: { page: ComponentDocsPage },

@@ -1,0 +1,158 @@
+/* TreeItem (Figma "Tree item", read 19 Nov 2026). Tokens only.
+ * Every row: min-height spacing/44, gap 12, corner border/radius/md, label
+ * body 16 on a 24 line. group and item pad 16 at the sides; folder and
+ * status 12 (as the Project panel instances). Current:
+ * nav-list/current-background with the label 600 in nav-list/label-color.
+ * Hover: nav-list/hover-background, the lighter blue; current keeps its
+ * fill. Focus: the standard ring, 4 wide with a 4 gap, outside.
+ *
+ * branch: Leader (the spine and a 12 tick, border-width/2 in
+ * border/default; the spine is the one overlay, absolute as Figma names it)
+ * then the Row: Status square 24, label, padding 8/12, gap 8.
+ *
+ * Recorded divergences from Figma:
+ * - Leader 38 wide (spine at spacing/20, 2 + tick 12, 4 to the row) where
+ *   Figma draws 39: no token for 39 or 21.
+ * - Needs work is the StatusDot part (12 dot, no wash) where Figma draws an
+ *   8 dot: "never redraw a dot".
+ * - Counts take the number face (typography/number-font-family): group
+ *   counts 400 subtle, status totals 600 ink (Figma: body / title face).
+ * - FolderOpen and NavArrowUp are not in the icon registry: an open folder
+ *   keeps the Folder glyph, and its chevron is NavArrowDown turned 180. */
+
+.root {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-4);
+}
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: none;
+  border-radius: var(--border-radius-md);
+  background: transparent;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  letter-spacing: var(--typography-letter-spacing-0);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.folder,
+.status {
+  padding-inline: var(--spacing-12);
+}
+
+.branch {
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+}
+
+.group .label {
+  font-weight: var(--typography-font-weight-600);
+}
+
+.label {
+  flex: 1;
+  min-inline-size: 0;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
+}
+
+.subtle {
+  color: var(--color-content-subtle);
+}
+
+.flip {
+  rotate: 180deg;
+}
+
+.count {
+  flex: none;
+  color: var(--color-content-subtle);
+  font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
+}
+
+.total {
+  flex: none;
+  color: var(--color-content-default);
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.row:hover {
+  background: var(--nav-list-hover-background);
+}
+
+.row:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.row[aria-current='page'] {
+  background: var(--nav-list-current-background);
+}
+
+.row[aria-current='page'] .label {
+  color: var(--nav-list-label-color);
+  font-weight: var(--typography-font-weight-600);
+}
+
+/* the leader: spine down from the top, a tick at the middle */
+.leader {
+  position: relative;
+  flex: none;
+  inline-size: calc(var(--spacing-20) + var(--border-width-2) + var(--spacing-12));
+}
+
+.leader::before {
+  content: '';
+  position: absolute;
+  inset-block: 0 50%;
+  inset-inline-start: var(--spacing-20);
+  inline-size: var(--border-width-2);
+  background: var(--color-border-default);
+}
+
+.lineBelow .leader::before {
+  inset-block-end: 0;
+}
+
+.leader::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: var(--spacing-20);
+  inline-size: calc(var(--border-width-2) + var(--spacing-12));
+  block-size: var(--border-width-2);
+  translate: 0 -50%;
+  background: var(--color-border-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .row[aria-current='page'] {
+    outline: var(--border-width-2) solid CanvasText;
+  }
+}

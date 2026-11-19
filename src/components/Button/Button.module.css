@@ -2,7 +2,7 @@
  * 2026-07-22; motion reworked 2026-09-18; recoloured by the brand refresh,
  * 2026-09-22; flattened by the shared look, 8 Nov 2026). Tokens only. Three
  * tiers: primary is the flat INK plate (one per view), secondary the control
- * outline, tertiary the ink text link. No accent colour on any tier at rest:
+ * outline, tertiary the ink label with a hover fill. No accent colour on any tier at rest:
  * the focus ring is focus-visible only (--ring-focus-*, 3px, 3px offset,
  * ink in light, near-white in dark). Labels are DM Sans on the label type
  * tokens, never Unique.
@@ -11,7 +11,6 @@
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
  *   from below, motion.duration.normal on motion.easing.out), plus a shift
  *   on every tier: primary plate to ink-hover, secondary outline to ink,
- *   tertiary underline to 2px (motion.duration.fast).
  * - active: a small press down (motion.transform.key-press), primary only;
  *   secondary settles onto the inset fill. Down, never up.
  * - Buttons never lift on hover: lift is reserved for cards.
@@ -34,10 +33,16 @@
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-label-default-font-size);
   font-weight: var(--typography-font-weight-600);
+  /* Figma Button 26:320: a one-line label, 16 on a 22 line
+   * (typography/button/default/line-height, published 19 Nov 2026). */
+  line-height: var(--typography-button-default-line-height);
   letter-spacing: var(--typography-letter-spacing-0);
   text-decoration: none;
   border: 0;
-  border-radius: var(--border-radius-12);
+  /* Figma binds border/radius/lg (re-sync 19 Nov 2026): 8 in Chip, the
+   * pill in BELLA ("buttons and chips are pills"; "one Chip corner of 8
+   * for every clickable part"). Was the Tier 1 radius 12 in every theme. */
+  border-radius: var(--border-radius-lg);
   background: none;
   margin: 0;
 }
@@ -59,7 +64,8 @@
   block-size: var(--spacing-44);
   min-height: var(--spacing-44);
   padding: 0;
-  border-radius: var(--border-radius-round);
+  /* border/radius/lg as Figma binds it: the circle in BELLA, 8 in Chip */
+  border-radius: var(--border-radius-lg);
 }
 
 .iconOnly.secondary {
@@ -115,10 +121,10 @@
     box-shadow var(--motion-duration-150) var(--motion-easing-standard);
 }
 
-/* Hover and focus-visible: the plate settles onto its deep stop. Colour
- * only, so it stays under reduced motion. */
-.primary:hover:not(:disabled),
-.primary:focus-visible {
+/* Hover: the plate takes background/brand-hover (Figma Button 26:320; focus
+ * keeps the rest colour and adds the ring). Colour only, so it stays under
+ * reduced motion. */
+.primary:hover:not(:disabled) {
   background:
     linear-gradient(transparent, transparent),
     linear-gradient(var(--color-background-brand-hover), var(--color-background-brand-hover));
@@ -128,7 +134,7 @@
   transform: translateY(var(--border-width-2));
   background:
     linear-gradient(transparent, transparent),
-    linear-gradient(var(--color-background-brand), var(--color-background-brand));
+    linear-gradient(var(--color-background-brand-active), var(--color-background-brand-active));
   box-shadow: var(--shadow-key-pressed);
 }
 
@@ -178,46 +184,21 @@
   background: var(--button-color-background-active);
 }
 
-/* TERTIARY: the text tier. Ink AND underlined: the underline is the
- * affordance, and it thickens on hover and focus-visible. ONE
- * static underline sits on the roll window; only the text rolls, so no
- * line ever travels through the window edge. It is currentColor, so it
- * takes the hover colour shift. */
+/* TERTIARY (Figma Button 26:320, read 19 Nov 2026): the text tier, an ink
+ * label on no plate and no border, no underline. Hover and pressed lay the
+ * secondary hover fill (button/color/background/hover) under it, the same
+ * box and corner as every tier, so it reads as a button, not a link. */
 .tertiary {
   min-height: var(--spacing-44);
-  color: var(--color-content-link);
+  color: var(--color-content-default);
   background: transparent;
-  transition: color var(--motion-duration-150) var(--motion-easing-standard);
-}
-
-/* room under the text for the window's line: offset + thickness */
-.tertiary .rollLabel,
-.tertiary .rollCopy {
-  padding-block-start: var(--spacing-4);
-  padding-block-end: calc(
-    var(--spacing-4) + var(--border-width-1)
-  );
-}
-
-/* the one underline, static on the window. audit:quality asserts it is
- * the only underline, at rest and mid-roll (single-underline). */
-.tertiary .roll::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: var(--border-width-1);
-  background: currentColor;
+  transition: background-color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .tertiary:hover:not(:disabled),
+.tertiary:active:not(:disabled),
 .tertiary:focus-visible {
-  color: var(--color-content-link);
-}
-
-.tertiary:hover:not(:disabled) .roll::after,
-.tertiary:focus-visible .roll::after {
-  height: var(--border-width-2);
+  background: var(--button-color-background-hover);
 }
 
 /* DISABLED (buttons only): no roll, no press, no affordances. Primary and
@@ -237,17 +218,13 @@
   border: 0;
 }
 
-.tertiary:disabled .roll::after {
-  content: none;
-}
-
-/* SIZE SM (Elleta, 11 Nov 2026, option B): a 36 box, 14 sides, the same
- * 16px label. The 44 tap area stays: an invisible ::after reaches 4px past
- * the top and bottom edges (narrower than 44 only with iconOnly, below). */
+/* SIZE SM (Figma Button 26:320, read 19 Nov 2026): a 32 plate (size/32),
+ * 12 sides, the same 16px label. The 44 tap area stays: an invisible ::after
+ * reaches 6px past the top and bottom edges, as Figma's Hit area at y -6. */
 .button.sm {
   position: relative;
-  min-height: var(--component-button-sm-min-height);
-  padding-inline: var(--spacing-20);
+  min-height: var(--size-32);
+  padding-inline: var(--spacing-12);
 }
 
 .button.sm::after {
@@ -261,9 +238,9 @@
 }
 
 .button.sm.iconOnly {
-  inline-size: var(--component-button-sm-min-height);
-  min-inline-size: var(--component-button-sm-min-height);
-  block-size: var(--component-button-sm-min-height);
+  inline-size: var(--size-32);
+  min-inline-size: var(--size-32);
+  block-size: var(--size-32);
   padding: 0;
 }
 

@@ -1,0 +1,125 @@
+/* Stat card (Figma CHIP Dashboard "Stat card", read 19 Nov 2026). Tokens only.
+ * Card: background/surface, card corner, the two-layer card shadow
+ * (shadow-card-ink = neutral alpha 5 + 10, as Figma), padding 20 / 24.
+ * Header: the 44 row; Icon well 36, title (reading face 600), and the
+ * Trailing part (rule 12; Figma has a loose 20 Icon there) when it opens.
+ * The whole header is the target: light-blue hover, 4 + 4 focus ring.
+ * Body: number + unit, chart, context, 12 apart, centred between header and
+ * footer when the card is taller than its content (cards in a row share a
+ * height). Number and unit: number face (never Geist Mono directly), value
+ * 40 / 600, unit 18 / 500 in content/subtle. Context: reading face,
+ * content/body. Footer: caption left (content/subtle), action right.
+ * Groups (header, body, footer) sit 24 apart (guideline 10); Figma draws 8. */
+
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--spacing-20);
+  padding-inline: var(--spacing-24);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.header {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-block-size: var(--spacing-44);
+  /* the hover plate reaches 8 past the content on each side; the row keeps
+     its place on the card's content edge */
+  margin-inline: calc(var(--spacing-8) * -1);
+  padding-inline: var(--spacing-8);
+  border-radius: var(--border-radius-lg);
+}
+
+.opens {
+  cursor: pointer;
+}
+
+.opens:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.opens:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-12);
+  flex: 1 1 auto;
+}
+
+.number {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  margin: 0;
+}
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-40);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-110);
+  color: var(--color-content-default);
+}
+
+.unit {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+/* Figma "Meter": 4 above and below, so the target mark (4 beyond the bar)
+   sits inside the chart's own box */
+.meter {
+  padding-block: var(--size-4);
+}
+
+.context,
+.caption {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+}
+
+.context {
+  color: var(--color-content-body);
+}
+
+.caption {
+  color: var(--color-content-subtle);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+}

@@ -15,7 +15,7 @@ const inputContract =
   (componentContract as any).component?.input?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Input',
+  title: 'Components/Inputs/Input',
   component: Input,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -169,6 +169,45 @@ export const Behavior: Story = {
     await step('focus: visible ring; touch target holds', async () => {
       await expectVisibleFocus(field);
       expectTouchTarget(field);
+    });
+  },
+};
+
+/** Figma "Leading icon" and "Send button" (19 Nov 2026): the Team page's
+ * composer. The Send button is the 44 primary icon-only Button inside the
+ * field; Enter sends too. Without these props the field is unchanged. */
+function Composer() {
+  const [value, setValue] = useState('');
+  const [sent, setSent] = useState<string[]>([]);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', maxWidth: '40rem' }}>
+      <Input
+        label="Reply"
+        value={value}
+        onChange={setValue}
+        placeholder="Write a reply"
+        leadingIcon="ChatBubbleEmpty"
+        onSend={() => {
+          if (value.trim()) setSent((s) => [...s, value]);
+          setValue('');
+        }}
+        sendLabel="Send reply"
+      />
+      <p data-testid="sent">{sent.length}</p>
+    </div>
+  );
+}
+
+export const WithSend: Story = {
+  render: () => <Composer />,
+  play: async ({ canvas, userEvent, step }) => {
+    await step('the Send button is named and 44', async () => {
+      const send = canvas.getByRole('button', { name: 'Send reply' });
+      await expectTouchTarget(send);
+    });
+    await step('Enter sends', async () => {
+      await userEvent.type(canvas.getByLabelText('Reply'), 'Looks right{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('1');
     });
   },
 };

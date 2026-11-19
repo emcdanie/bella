@@ -87,7 +87,21 @@ const PAIRS = [
   ['content-disabled on background-disabled', c('content-disabled'), c('background-disabled'), TEXT],
   ['content-disabled on background-surface', c('content-disabled'), c('background-surface'), TEXT],
   ['content-lane-subtle on background-lane', c('content-lane-subtle'), c('background-lane'), TEXT],
+  // EmptyState (19 Nov 2026): its line on the card and the title on each wash's
+  // strongest stop. The line (content/lane-subtle, as Figma) on a wash is 5.3 to
+  // 5.5:1 in BELLA dark: reported to the library, not patched in code.
+  ['content-lane-subtle on background-surface', c('content-lane-subtle'), c('background-surface'), TEXT],
+  ['content-default on the pink wash over background-surface', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the blue wash over background-surface', c('content-default'), `${c('background-wash-blue-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the ochre wash over background-surface', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the navy wash over background-surface', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
   ['content-default on background-lane', c('content-default'), c('background-lane'), TEXT],
+  // BoardLane needs-you (19 Nov 2026): name and order on the warm wash, its edge off the page
+  ['content-default on the needs-you wash over background-default', c('content-default'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the needs-you wash over background-default', c('content-lane-subtle'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['border-utility-warning on background-default', c('border-utility-warning'), c('background-default'), MARK],
+  // BoardLane drop space (19 Nov 2026): label and dashed edge on the lane
+  ['content-brand on background-lane', c('content-brand'), c('background-lane'), TEXT],
   // text on filled parts
   ['content-knockout on background-knockout', c('content-knockout'), c('background-knockout'), TEXT],
   ['content-brand-knockout on background-brand', c('content-brand-knockout'), c('background-brand'), TEXT],
@@ -156,9 +170,13 @@ const INSET_EXEMPT = {
   'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',
   'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
-  'src/components/Tabs/Tabs.module.css :: .count': 'a count, identified by its number, not the fill',
   'src/components/Button/Button.module.css :: .secondary:hover:not(:disabled), .secondary:focus-visible': 'hover and focus state fill: transient, the label and focus ring carry it',
   'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'pressed state fill: transient, the label carries it',
+  'src/components/Button/Button.module.css :: .tertiary:hover:not(:disabled), .tertiary:active:not(:disabled), .tertiary:focus-visible': 'tertiary hover, pressed and focus fill (Figma Button 26:320): transient, the ink label and the focus ring carry it',
+  'src/components/NavItem/NavItem.module.css :: .item:hover': 'hover state fill (light blue in Chip): transient, the item label and icon carry it',
+  'src/components/TreeItem/TreeItem.module.css :: .row:hover': 'hover state fill (light blue in Chip): transient, the row label carries it',
+  'src/components/ClientSwitcher/ClientSwitcher.module.css :: .switcher:hover': 'hover state fill (light blue in Chip): transient, the name and logo carry it',
+  'src/components/ListRow/ListRow.module.css :: .interactive:active': 'pressed state fill: transient, the row text carries it',
 };
 {
   // part tokens that point at the subtle fill or the strong edge count as those tokens

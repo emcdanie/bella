@@ -1,0 +1,70 @@
+/* SectionHead (Figma CHIP Dashboard "Section head", read 19 Nov 2026;
+ * Elleta picked B 18 Nov: "B with the info on the right and the nuber in
+ * bold"). Tokens only. A row, 16 between zones: Icon well (36) · Title
+ * column (TextStack: the title line, then the description as its subtitle,
+ * 4 apart) · Action (hugs, right end). The title line holds Title (20, 600,
+ * reading face) and Info (Number 600 in the number face + Words in subtext,
+ * 4 apart), 16 apart, on one baseline. Not a card: the section card around
+ * it is the consumer's.
+ *
+ * Recorded divergence: Figma sets the 20px title at 140%; there is no 140
+ * token, so it takes line-height 150 (the 1.5 floor). */
+
+.root {
+  display: flex;
+  /* narrow cards: the action drops under the text before a word would break
+   * (guideline: titles never break mid-word; nothing squished) */
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  min-inline-size: 0;
+}
+
+.column {
+  flex: 1 1 0;
+  min-inline-size: min-content;
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--spacing-16);
+  row-gap: var(--spacing-4);
+}
+
+.title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.info {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.number {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.words {
+  font-family: var(--typography-subtext-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+.action {
+  display: flex;
+  flex-shrink: 0;
+}

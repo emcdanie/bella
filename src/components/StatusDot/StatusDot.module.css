@@ -1,0 +1,97 @@
+/* StatusDot (Figma BellaComponents StatusDot, read 19 Nov 2026). Tokens only.
+ * Dot slot 24 with the status wash as a halo, a 12 dot in the status mark
+ * colour, the word in subtle ink. The attention dot is the warning mark with
+ * a 1px inside edge in the warning border, so the mark reaches 3:1
+ * (Elleta 18 Nov: "B, bright with edge"). Dark comes from the theme. */
+
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  cursor: default;
+}
+
+.slot {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+  border-radius: var(--border-radius-round);
+}
+
+.dot {
+  box-sizing: border-box;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-round);
+}
+
+.label {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+  white-space: nowrap;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* tone: wash = background/utility, mark = border/utility (warning-mark for
+ * attention), check ink = content/utility */
+.success .wash {
+  background: var(--color-background-utility-success);
+}
+.success .dot {
+  background: var(--color-border-utility-success);
+}
+.success .check {
+  color: var(--color-content-utility-success);
+}
+.info .wash {
+  background: var(--color-background-utility-info);
+}
+.info .dot {
+  background: var(--color-border-utility-info);
+}
+.info .check {
+  color: var(--color-content-utility-info);
+}
+.attention .wash {
+  background: var(--color-background-utility-warning);
+}
+.attention .dot {
+  background: var(--color-background-utility-warning-mark);
+}
+.attention .check {
+  color: var(--color-content-utility-warning);
+}
+.danger .wash {
+  background: var(--color-background-utility-error);
+}
+.danger .dot {
+  background: var(--color-border-utility-error);
+}
+.danger .check {
+  color: var(--color-content-utility-error);
+}
+.neutral .wash {
+  background: var(--color-background-utility-neutral);
+}
+.neutral .dot {
+  background: var(--color-border-utility-neutral);
+}
+.neutral .check {
+  color: var(--color-content-utility-neutral);
+}
+.attention .dot {
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+}

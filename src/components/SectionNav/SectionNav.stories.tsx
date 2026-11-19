@@ -23,7 +23,7 @@ const items = [
 ];
 
 const meta: Meta<typeof SectionNav> = {
-  title: 'Components/SectionNav',
+  title: 'Components/Layout/SectionNav',
   component: SectionNav,
   parameters: {
     docs: { page: ComponentDocsPage },

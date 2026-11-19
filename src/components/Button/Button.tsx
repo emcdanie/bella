@@ -1,28 +1,37 @@
 import React, { type ElementType, type ReactNode } from 'react';
+import Icon, { type IconName } from '../Icon/Icon';
 import styles from './Button.module.css';
 
 export interface ButtonProps {
   /**
    * Tier. `"primary"` is the flat ink plate, no shadow, never lifts;
    * render at most ONE per view. `"secondary"` is the flat accent outline.
-   * `"tertiary"` is the text tier: accent and underlined, nothing else.
+   * `"tertiary"` is the text tier: an ink label, no plate, no underline; hover lays a fill under it (Figma 26:320).
    * The neutral tier is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
   /**
-   * Outline shape. `"default"` is the 12px radius every tier shares;
+   * Outline shape. `"default"` is border/radius/lg every tier shares (8 in Chip, the pill in BELLA);
    * `"pill"` rounds the ends fully (e.g. a nav call to action).
    */
   shape?: 'default' | 'pill';
   /**
-   * `"sm"` is a 36px box with 14px sides (Elleta, 11 Nov 2026) for dense
+   * `"sm"` is a 32 plate with 12px sides (Figma Button 26:320) for dense
    * rows and tool bars. The label stays 16px and the 44px tap area stays,
-   * extended invisibly around the box. With `iconOnly` it is a 36 circle.
+   * extended invisibly around the plate. With `iconOnly` it is a 32 square.
    */
-  size?: 'default' | 'sm';
+  size?: 'default' | 'md' | 'sm';
+  /** Figma "Label". The words on the button; `children` still works and wins when both are set. */
+  label?: ReactNode;
+  /** Figma "icon" (instance swap). An Icon registry name, drawn 20 in the label's ink. */
+  icon?: IconName;
+  /** Figma "Show icon". Shows `icon` after the label (or alone with `iconOnly`). Defaults to on when `icon` is set. */
+  showIcon?: boolean;
+  /** Figma "Leading icon". Puts the icon before the label instead of after it. */
+  leadingIcon?: boolean;
   /**
-   * A 44px circle holding one Icon, with a round focus ring (BellaComponents,
-   * 11 Nov 2026). Secondary or primary only (the text tier is its underline).
+   * A 44 square (32 at sm) holding one Icon, corner border/radius/lg, ring
+   * following the corner (Figma Button 26:320).
    * Needs `ariaLabel`, and a Tooltip with the same words.
    */
   iconOnly?: boolean;
@@ -60,6 +69,10 @@ export default function Button({
   variant = 'secondary',
   shape = 'default',
   size = 'default',
+  label: labelProp,
+  icon,
+  showIcon,
+  leadingIcon = false,
   iconOnly = false,
   href,
   onClick,
@@ -70,8 +83,28 @@ export default function Button({
   ariaExpanded,
   ariaHaspopup,
   className,
-  children,
+  children: childrenProp,
 }: ButtonProps) {
+  /* Figma Label + icon zones, additive (19 Nov re-sync): children still win */
+  const glyph = icon && (showIcon ?? true) ? <Icon name={icon} size="md" /> : null;
+  const words = childrenProp ?? labelProp;
+  const children = glyph ? (
+    iconOnly ? (
+      glyph
+    ) : leadingIcon ? (
+      <>
+        {glyph}
+        {words}
+      </>
+    ) : (
+      <>
+        {words}
+        {glyph}
+      </>
+    )
+  ) : (
+    words
+  );
   const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', className]
     .filter(Boolean)
     .join(' ');

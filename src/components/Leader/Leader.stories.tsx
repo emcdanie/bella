@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.leader?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Leader> = {
-  title: 'Components/Leader',
+  title: 'Components/Layout/Leader',
   component: Leader,
   parameters: {
     docs: { page: ComponentDocsPage },

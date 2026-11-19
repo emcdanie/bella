@@ -3,15 +3,29 @@
  * so one rule set covers both modes. Selectors are scoped to the docs
  * root; story canvases are untouched.
  *
- * Type (type lock, 2026-10-04): Figtree throughout; H1 and H2 through the
- * heading contract; body 20 to 22px, nothing below 16px, code in Geist Mono
- * 16px. Colours come from the semantic ladders; white is the card. */
+ * Type: the theme's ROLE font tokens, never a named face, so the docs page
+ * switches with the toolbar like the stories do (Elleta, 19 Nov 2026: "how
+ * come the font doesnt change on the docs when i swtich fron bella to
+ * chip"). BELLA: Newsreader headings, DM Sans text (unchanged); Chip:
+ * Lexend. Code stays Geist Mono in every theme (decided 18 Nov). Nothing
+ * below 16px. Colours come from the semantic ladders; white is the card. */
+
+/* The page itself: Storybook's docs theme sets one fixed face and ground;
+ * the theme tokens take over here. */
+#storybook-docs .sbdocs-wrapper {
+  background: var(--color-background-default);
+}
+
+#storybook-docs .sbdocs-content {
+  font-family: var(--typography-body-default-font-family);
+  color: var(--color-content-body);
+}
 
 /* Heading scale from the heading contract (style unify, 2026-09-22): H1 is
  * the page tier, H2 the section tier (32px floor per AGENTS.md), both Geist
  * Light with tight tracking. H3 is a title: Geist 500, one step down. */
 #storybook-docs .sbdocs-content h1 {
-  font-family: var(--typography-font-family-newsreader);
+  font-family: var(--typography-headline-sm-font-family);
   /* !important: addon-docs injects its own heading sizes after this sheet;
      the ramp sizes must win or the hierarchy inverts */
   font-size: var(--typography-font-size-display-page) !important;
@@ -22,7 +36,7 @@
 }
 
 #storybook-docs .sbdocs-content h2 {
-  font-family: var(--typography-font-family-newsreader);
+  font-family: var(--typography-headline-sm-font-family);
   font-size: var(--typography-font-size-display-section) !important;
   font-weight: var(--typography-font-weight-500);
   line-height: var(--typography-line-height-115);
@@ -31,12 +45,19 @@
 }
 
 #storybook-docs .sbdocs-content h3 {
-  font-family: var(--typography-font-family-dm-sans);
+  font-family: var(--typography-title-default-font-family);
   font-size: var(--typography-font-size-22) !important;
   font-weight: var(--typography-font-weight-500);
   letter-spacing: var(--typography-letter-spacing-0);
   line-height: var(--typography-line-height-130);
   color: var(--color-content-default);
+}
+
+#storybook-docs .sbdocs-content p,
+#storybook-docs .sbdocs-content li,
+#storybook-docs .sbdocs-content table th,
+#storybook-docs .sbdocs-content table td {
+  font-family: var(--typography-body-default-font-family);
 }
 
 #storybook-docs .sbdocs-content p,

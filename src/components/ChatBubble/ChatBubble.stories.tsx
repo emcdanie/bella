@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const bubbleContract = (componentContract as any).component?.['chat-bubble']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ChatBubble> = {
-  title: 'Components/Chat/ChatBubble',
+  title: 'Components/Data/ChatBubble',
   component: ChatBubble,
   parameters: {
     docs: { page: ComponentDocsPage },

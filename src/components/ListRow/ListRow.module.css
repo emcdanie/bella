@@ -47,6 +47,7 @@
 
 .action {
   grid-column: 3;
+  white-space: nowrap; /* a button label stays on one line (19 Nov audit: "See check") */
 }
 
 .title {
@@ -55,16 +56,21 @@
   font-size: var(--typography-font-size-22);
   font-weight: var(--typography-font-weight-600);
   color: var(--color-content-default);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
 }
 
 .description {
   margin: 0;
-  font-family: var(--typography-subtext-font-family);
+  /* Row descriptions are sentences: the reading face (Lexend in Chip). Her
+     y23 answer, 19 Nov: "Lexend, as Figma draws it (subtext rule covers
+     labels and meta only)". The library part still binds subtext; amend due. */
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-body-default-font-size);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-body);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
 }
 
 @container list-row (max-width: 560px) {
@@ -84,4 +90,172 @@
   .action {
     justify-self: start;
   }
+}
+
+/* ZONED LIST ITEM (Figma CHIP Dashboard "ListRow", re-sync 19 Nov 2026).
+ * Everything above is the original work-list row, unchanged. Flexbox as
+ * Figma's auto layout: row 16 between zones, 12 padding, corner
+ * border/radius/sm. Body = Content row (Middle fills, Right hugs, Trailing)
+ * + Below (Progress, Helper, Divider), 12 apart, so the bar sits under the
+ * text column, never under the icon. stacked: zones sit on the title line
+ * (top); inline: every zone centred. Hover light blue, pressed grey,
+ * selected the darker light blue, focus the 4/4 ring at corner + 4. */
+
+.zoned {
+  grid-column: 1 / -1;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: var(--spacing-12);
+  border-radius: var(--border-radius-sm);
+  list-style: none;
+}
+
+.inline {
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+}
+
+.inline .content {
+  align-items: center;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.inline .middle {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.stack {
+  align-self: stretch;
+}
+
+.inline .stack {
+  flex: 1 1 0;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-4);
+  flex-shrink: 0;
+}
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.subValue {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-body);
+}
+
+.below {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.helper {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+.divider {
+  block-size: var(--border-width-1);
+  margin: 0;
+  border: 0;
+  background: var(--color-border-subtle);
+}
+
+/* The whole row is the target: the title's link or button stretches over
+ * the row; slotted controls sit above it and stay their own targets. */
+.target {
+  all: unset;
+  cursor: pointer;
+}
+
+.target::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.lift,
+.tag,
+.textButton {
+  position: relative;
+  z-index: 1;
+}
+
+/* Figma's Text button instance has no side padding, so its words sit on
+ * the text column's left edge (rule 20). */
+.textButton.textButton > [data-bella-component='button'] {
+  padding-inline: 0;
+}
+
+.interactive:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.interactive:active {
+  background: var(--color-background-subtle);
+}
+
+.selected,
+.selected.interactive:hover {
+  background: var(--color-background-brand-subtle-hover);
+}
+
+.interactive:has(.target:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.target:focus-visible {
+  outline: none;
 }

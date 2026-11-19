@@ -16,7 +16,7 @@ const consumedTokens = Array.from(
 const threadContract = (componentContract as any).component?.['chat-thread']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ChatThread> = {
-  title: 'Components/Chat/ChatThread',
+  title: 'Components/Data/ChatThread',
   component: ChatThread,
   parameters: {
     docs: { page: ComponentDocsPage },

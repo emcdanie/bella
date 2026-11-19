@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const tagContract = (componentContract as any).component?.tag?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Tag> = {
-  title: 'Components/Tag',
+  title: 'Components/Data/Tag',
   component: Tag,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -66,4 +66,41 @@ export const Behavior: Story = {
       expect(getComputedStyle(el).cursor).toBe('default');
     });
   },
+};
+
+const FIGMA_TONES = ['default', 'count', 'success', 'info', 'attention', 'danger'] as const;
+
+/** Figma's tone x style x Show dot, in Chip light and Chip dark (re-sync,
+ * 19 Nov 2026). outline every tone, with and without the dot; index for the
+ * lane pins (count, attention); flat for missing items (18 Nov, "B, flat"). */
+export const ChipTones: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {(['chip-light', 'chip-dark'] as const).map((theme) => (
+        <div
+          key={theme}
+          data-theme={theme}
+          style={{
+            padding: 'var(--spacing-20)',
+            background: 'var(--color-background-surface)',
+            borderRadius: 'var(--border-radius-12)',
+            display: 'flex',
+            gap: 'var(--spacing-8)',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          {FIGMA_TONES.map((tone) => (
+            <Tag key={tone} tone={tone}>{tone === 'count' ? '42' : tone}</Tag>
+          ))}
+          {FIGMA_TONES.map((tone) => (
+            <Tag key={`dot-${tone}`} tone={tone} showDot>{tone === 'count' ? '42' : tone}</Tag>
+          ))}
+          <Tag variant="index" tone="count">01</Tag>
+          <Tag variant="index" tone="attention">02</Tag>
+          <Tag variant="flat">No dark story</Tag>
+        </div>
+      ))}
+    </div>
+  ),
 };

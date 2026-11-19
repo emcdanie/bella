@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const chipContract = (componentContract as any).component?.['action-chip']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ActionChip> = {
-  title: 'Components/ActionChip',
+  title: 'Components/Actions/ActionChip',
   component: ActionChip,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -83,4 +83,21 @@ export const Behavior: Story = {
       expect(canvas.getByTestId('n').textContent).toBe('1');
     });
   },
+};
+
+/* Figma re-sync (19 Nov 2026): variant x state in Chip light and Chip dark;
+ * corner border/radius/lg (8 in Chip), label 600. Hover and focus are live. */
+export const ChipThemes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {(['chip-light', 'chip-dark'] as const).map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', display: 'flex', gap: 'var(--spacing-16)', flexWrap: 'wrap' }}>
+          <ActionChip label="Run" onClick={() => {}} />
+          <ActionChip onClick={() => {}}>Try in sandbox</ActionChip>
+          <ActionChip variant="quiet" onClick={() => {}}>Try in sandbox</ActionChip>
+          <ActionChip disabled>Unavailable</ActionChip>
+        </div>
+      ))}
+    </div>
+  ),
 };

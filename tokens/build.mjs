@@ -24,7 +24,9 @@ const THEMES = JSON.parse(fs.readFileSync(rel('$themes.json'), 'utf8')).map((t) 
   sets: ['shadow', ...Object.keys(t.selectedTokenSets)], // shadow.json: effect styles, not in $themes.json
 }));
 const DEFAULT_THEME = 'bella-light';
-// BELLA themes swap to the small-screen sizes below this width (breakpoint/768 in Figma).
+// Every theme swaps to the small-screen sizes below this width (breakpoint/768 in
+// Figma). Chip was left out by mistake until 19 Nov (library l11): its own mode
+// equals large, so phones kept 32 page padding and the 60 page title.
 const SMALL_SCREEN = '(max-width: 767px)';
 
 // ---- transforms ----
@@ -134,9 +136,9 @@ for (const theme of THEMES.filter((t) => t.id !== DEFAULT_THEME)) {
   }
   blocks.push('}\n');
 }
-blocks.push(`/* Small screens, BELLA themes only (Chip keeps its own sizes) */`);
+blocks.push(`/* Small screens, every theme */`);
 blocks.push(`@media ${SMALL_SCREEN} {`);
-blocks.push(`  :root:not([data-theme^="chip"]),\n  [data-theme^="bella"] {`);
+blocks.push(`  :root:not([data-theme^="chip"]),\n  [data-theme^="bella"],\n  [data-theme^="chip"] {`);
 blocks.push(declare(small.filter((t) => tierOf(t) === 'breakpoint'), '    '));
 blocks.push('  }\n}');
 const css = blocks.join('\n') + '\n';
@@ -159,7 +161,7 @@ const json = {
     source: 'Figma Foundations, exported as DTCG to tokens/figma/; built by tokens/build.mjs (Style Dictionary).',
     themes: Object.fromEntries(THEMES.map((t) => [t.id, t.name])),
     default: DEFAULT_THEME,
-    smallScreen: { media: SMALL_SCREEN, appliesTo: THEMES.filter((t) => t.id.startsWith('bella')).map((t) => t.id) },
+    smallScreen: { media: SMALL_SCREEN, appliesTo: THEMES.map((t) => t.id) },
   },
   themes: Object.fromEntries(THEMES.map((t) => [t.id, Object.fromEntries(byTheme[t.id].map((tk) => [tk.path.join('.'), entry(tk)]))])),
   smallScreen: Object.fromEntries(small.filter((t) => tierOf(t) === 'breakpoint').map((tk) => [tk.path.join('.'), entry(tk)])),

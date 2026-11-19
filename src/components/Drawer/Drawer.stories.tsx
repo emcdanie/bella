@@ -15,7 +15,7 @@ const consumedTokens = Array.from(
 const drawerContract = (componentContract as any).component?.drawer?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Components/Drawer',
+  title: 'Components/Layout/Drawer',
   component: Drawer,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -37,7 +37,7 @@ const GROUPS = [
   },
 ];
 
-function Harness({ startOpen = false, side, withFooter = false }: { startOpen?: boolean; side?: 'left' | 'right'; withFooter?: boolean }) {
+function Harness({ startOpen = false, side, withFooter = false, status }: { startOpen?: boolean; side?: 'left' | 'right'; withFooter?: boolean; status?: string }) {
   const [open, setOpen] = useState(startOpen);
   const [closes, setCloses] = useState(0);
   return (
@@ -54,6 +54,7 @@ function Harness({ startOpen = false, side, withFooter = false }: { startOpen?: 
         }}
         label="CHIP"
         side={side}
+        status={status}
         footer={
           withFooter ? (
             <>
@@ -138,7 +139,7 @@ export const Behavior: Story = {
 /** footer (BellaComponents, 11 Nov 2026): actions pinned under the body,
  * above a hairline. At most one primary. */
 export const WithFooter: Story = {
-  render: () => <Harness startOpen withFooter />,
+  render: () => <Harness startOpen withFooter status="Checks ran 2 min ago" />,
   play: async () => {
     const dialog = document.querySelector('dialog[open]') as HTMLElement;
     await expect(within(dialog).getByRole('button', { name: 'Apply' })).toBeVisible();

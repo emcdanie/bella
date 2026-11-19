@@ -140,3 +140,42 @@
     transform: none;
   }
 }
+
+/* Footer zone (Figma _Card footer 1307:4092, read 19 Nov 2026). Only when
+ * footerText or footerAction is set; other cards are unchanged. The panel
+ * becomes a column; the footer is its last zone, pushed to the bottom, 24
+ * below the content (groups inside a card, guideline 10). Row, 12 apart,
+ * centred: text (subtext face 16/24, content/subtle) fills and wraps; the
+ * action hugs at the right. */
+.innerWithFooter {
+  display: flex;
+  flex-direction: column;
+}
+
+.innerWithFooter > .body {
+  flex: 1 1 auto;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-24);
+}
+
+.footerText {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.footerAction {
+  flex: none;
+  margin-inline-start: auto;
+}

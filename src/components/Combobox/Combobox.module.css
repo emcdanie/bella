@@ -7,6 +7,9 @@
 .combobox {
   display: grid;
   align-content: start; /* the field keeps its own height in a taller box */
+  /* One column that may shrink below the input's own width, so the field
+     never slides under its neighbour in a narrow row (19 Nov). */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-8);
   min-width: 0;
 }

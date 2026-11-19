@@ -12,14 +12,16 @@
   max-width: 100%;
   padding: var(--spacing-8) var(--spacing-16);
   border: var(--border-width-1) solid var(--color-border-strong);
-  border-radius: var(--border-radius-round);
+  /* Figma re-sync 19 Nov 2026: border/radius/lg (pill in BELLA, 8 in Chip,
+   * one corner for every clickable part), label 600 at 150% */
+  border-radius: var(--border-radius-lg);
   background: transparent;
   color: var(--color-content-default);
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-body-default-font-size);
-  font-weight: var(--typography-font-weight-400);
+  font-weight: var(--typography-font-weight-600);
   letter-spacing: var(--typography-letter-spacing-0);
-  line-height: var(--typography-line-height-130);
+  line-height: var(--typography-line-height-150);
   text-align: start;
   text-decoration: none;
   text-transform: none;
@@ -34,6 +36,9 @@
 }
 
 .chip:focus-visible {
+  /* Figma Action chip (172:320): focus takes the hover fill and ink edge too */
+  border-color: var(--color-border-ink);
+  background: var(--color-border-subtle);
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: var(--focus-ring-offset);
 }

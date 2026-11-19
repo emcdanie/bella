@@ -15,7 +15,7 @@ const tableContract =
   (componentContract as any).component?.['data-table']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof DataTable> = {
-  title: 'Components/DataTable',
+  title: 'Components/Data/DataTable',
   component: DataTable,
   parameters: {
     docs: { page: ComponentDocsPage },

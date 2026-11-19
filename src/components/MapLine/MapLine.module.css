@@ -1,0 +1,127 @@
+/* Map line (Figma BellaComponents "Map line", read 19 Nov 2026). Tokens only.
+ * horizontal: a 16 tall box that stretches; the path is a 2px line on its
+ * centre (border/width/2). vertical: the same, 16 wide. The arrow is a 16
+ * Icon at the end; the path runs under it to 4 short of the end, as Figma's
+ * 116-in-120 path. turn: a 24 box holding a 16-radius quarter curve (a CSS border corner),
+ * joined at 8 so it meets straight pieces on their centre line.
+ * tone default = border/strong; accent = border/accent-1. Arrow ink:
+ * content/subtle, accent = content/accent. dashed: 6 on, 6 off, as Figma
+ * (CSS dashed borders, straight pieces and turn).
+ * Butt ends: connectors are not data marks. Named exception (craft-check R12):
+ * the arrow is the connector's arrowhead, not a row › cue. */
+
+.root {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-border-strong);
+}
+
+.horizontal {
+  flex: 1 1 auto;
+  min-inline-size: var(--size-16);
+  block-size: var(--size-16);
+}
+
+.vertical {
+  flex-direction: column;
+  flex: 1 1 auto;
+  inline-size: var(--size-16);
+  min-block-size: var(--spacing-12);
+}
+
+.path {
+  flex: 1 1 auto;
+  border: 0 solid currentColor;
+}
+
+.horizontal .path {
+  border-block-start-width: var(--border-width-2);
+}
+
+.vertical .path {
+  border-inline-start-width: var(--border-width-2);
+}
+
+.dashed .path {
+  border-style: dashed;
+}
+
+.arrow {
+  flex-shrink: 0;
+  color: var(--color-content-subtle);
+}
+
+.horizontal .arrow {
+  margin-inline-start: calc(var(--spacing-12) * -1);
+}
+
+.vertical .arrow {
+  margin-block-start: calc(var(--spacing-12) * -1);
+}
+
+.accent {
+  /* border/accent-1: 3.78:1 Chip light, 5.31:1 Chip dark (marks 3:1);
+   * background/accent-1 was 2.40:1 */
+  color: var(--color-border-accent-1);
+}
+
+.accent .arrow {
+  color: var(--color-content-accent);
+}
+
+.turn {
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+}
+
+/* The arc is the rounded corner of a box with two borders. Its stroke is
+ * centred on the Figma path: the box starts half a stroke outside the 8
+ * line and its radius is 16 plus half a stroke. The open ends run to the
+ * box edge, where the straight pieces meet them on their centre line. */
+.turn {
+  display: grid;
+}
+
+.arc {
+  inline-size: calc(var(--size-16) + var(--border-width-2) / 2);
+  block-size: calc(var(--size-16) + var(--border-width-2) / 2);
+  box-sizing: border-box;
+  border: 0 solid currentColor;
+}
+
+.turn.dashed .arc {
+  border-style: dashed;
+}
+
+.arcTopLeft {
+  justify-self: end;
+  align-self: end;
+  border-top-width: var(--border-width-2);
+  border-left-width: var(--border-width-2);
+  border-top-left-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcTopRight {
+  justify-self: start;
+  align-self: end;
+  border-top-width: var(--border-width-2);
+  border-right-width: var(--border-width-2);
+  border-top-right-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcBottomLeft {
+  justify-self: end;
+  align-self: start;
+  border-bottom-width: var(--border-width-2);
+  border-left-width: var(--border-width-2);
+  border-bottom-left-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcBottomRight {
+  justify-self: start;
+  align-self: start;
+  border-bottom-width: var(--border-width-2);
+  border-right-width: var(--border-width-2);
+  border-bottom-right-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}

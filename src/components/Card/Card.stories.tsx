@@ -9,6 +9,7 @@ import {
 import ScaledFrame from '../ScaledFrame/ScaledFrame';
 import { LiveSpecimen } from '../../patterns/fixtures';
 import Card from './Card';
+import Button from '../Button/Button';
 import cardCssRaw from './Card.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -91,7 +92,7 @@ function Body({ children }: { children: React.ReactNode }) {
  * comes from the CardProps TSDoc, and controls are curated: token-valued
  * props offer token choices, wiring/slot props stay out of the panel. */
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Components/Layout/Card',
   component: Card,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -331,4 +332,19 @@ export const Behavior: Story = {
       expect(canvas.queryAllByRole('link')).toHaveLength(0);
     });
   },
+};
+
+/** Figma "Show footer" (_Card footer, 19 Nov 2026): footer text left, a small
+ * secondary action right, pinned to the bottom, so a row of cards lines up. */
+export const WithFooter: StoryObj<typeof Card> = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(16rem, 1fr))', gap: 'var(--spacing-24)', alignItems: 'stretch' }}>
+      <Card footerText="Checked 10:29" footerAction={<Button variant="secondary" size="sm">Check again</Button>}>
+        <p style={{ margin: 0 }}>Agent went quiet 2 hours ago.</p>
+      </Card>
+      <Card footerText="Sent 09:12">
+        <p style={{ margin: 0 }}>Draft reply ready. Two lines of supporting text so this card is taller than its neighbour.</p>
+      </Card>
+    </div>
+  ),
 };

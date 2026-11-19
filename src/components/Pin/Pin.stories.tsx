@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.pin?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Pin> = {
-  title: 'Components/Pin',
+  title: 'Components/Layout/Pin',
   component: Pin,
   parameters: {
     docs: { page: ComponentDocsPage },

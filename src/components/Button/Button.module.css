@@ -2,7 +2,7 @@
  * 2026-07-22; motion reworked 2026-09-18; recoloured by the brand refresh,
  * 2026-09-22; flattened by the shared look, 8 Nov 2026). Tokens only. Three
  * tiers: primary is the flat INK plate (one per view), secondary the control
- * outline, tertiary the ink text link. No accent colour on any tier at rest:
+ * outline, tertiary the ink label with a hover fill. No accent colour on any tier at rest:
  * the focus ring is focus-visible only (--ring-focus-*, 3px, 3px offset,
  * ink in light, near-white in dark). Labels are DM Sans on the label type
  * tokens, never Unique.
@@ -11,7 +11,6 @@
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
  *   from below, motion.duration.normal on motion.easing.out), plus a shift
  *   on every tier: primary plate to ink-hover, secondary outline to ink,
- *   tertiary underline to 2px (motion.duration.fast).
  * - active: a small press down (motion.transform.key-press), primary only;
  *   secondary settles onto the inset fill. Down, never up.
  * - Buttons never lift on hover: lift is reserved for cards.
@@ -73,23 +72,6 @@
 
 .iconOnly.secondary {
   padding: 0;
-}
-
-/* TERTIARY ICON ONLY (Figma, 19 Nov 2026: Notification Close, toolbar
- * icon actions): no underline, the hover fill Figma draws on the tertiary
- * hover and pressed. The ring and the 44 still come from .button / .sm. */
-.iconOnly.tertiary .roll::after {
-  content: none;
-}
-
-.iconOnly.tertiary .rollLabel,
-.iconOnly.tertiary .rollCopy {
-  padding-block: 0;
-}
-
-.iconOnly.tertiary:hover:not(:disabled),
-.iconOnly.tertiary:active:not(:disabled) {
-  background: var(--button-color-background-hover);
 }
 
 /* THE LABEL ROLL. The window clips to one line; the label and its copy
@@ -204,46 +186,21 @@
   background: var(--button-color-background-active);
 }
 
-/* TERTIARY: the text tier. Ink AND underlined: the underline is the
- * affordance, and it thickens on hover and focus-visible. ONE
- * static underline sits on the roll window; only the text rolls, so no
- * line ever travels through the window edge. It is currentColor, so it
- * takes the hover colour shift. */
+/* TERTIARY (Figma Button 26:320, read 19 Nov 2026): the text tier, an ink
+ * label on no plate and no border, no underline. Hover and pressed lay the
+ * secondary hover fill (button/color/background/hover) under it, the same
+ * box and corner as every tier, so it reads as a button, not a link. */
 .tertiary {
   min-height: var(--spacing-44);
-  color: var(--color-content-link);
+  color: var(--color-content-default);
   background: transparent;
-  transition: color var(--motion-duration-150) var(--motion-easing-standard);
-}
-
-/* room under the text for the window's line: offset + thickness */
-.tertiary .rollLabel,
-.tertiary .rollCopy {
-  padding-block-start: var(--spacing-4);
-  padding-block-end: calc(
-    var(--spacing-4) + var(--border-width-1)
-  );
-}
-
-/* the one underline, static on the window. audit:quality asserts it is
- * the only underline, at rest and mid-roll (single-underline). */
-.tertiary .roll::after {
-  content: '';
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  height: var(--border-width-1);
-  background: currentColor;
+  transition: background-color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .tertiary:hover:not(:disabled),
+.tertiary:active:not(:disabled),
 .tertiary:focus-visible {
-  color: var(--color-content-link);
-}
-
-.tertiary:hover:not(:disabled) .roll::after,
-.tertiary:focus-visible .roll::after {
-  height: var(--border-width-2);
+  background: var(--button-color-background-hover);
 }
 
 /* DISABLED (buttons only): no roll, no press, no affordances. Primary and
@@ -261,10 +218,6 @@
 .tertiary:disabled {
   background: transparent;
   border: 0;
-}
-
-.tertiary:disabled .roll::after {
-  content: none;
 }
 
 /* SIZE SM (Figma Button 26:320, read 19 Nov 2026): a 32 plate (size/32),

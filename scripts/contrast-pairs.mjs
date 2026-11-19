@@ -158,7 +158,7 @@ const INSET_EXEMPT = {
   'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/Button/Button.module.css :: .secondary:hover:not(:disabled), .secondary:focus-visible': 'hover and focus state fill: transient, the label and focus ring carry it',
   'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'pressed state fill: transient, the label carries it',
-  'src/components/Button/Button.module.css :: .iconOnly.tertiary:hover:not(:disabled), .iconOnly.tertiary:active:not(:disabled)': 'hover and pressed state fill: transient, the icon and focus ring carry it',
+  'src/components/Button/Button.module.css :: .tertiary:hover:not(:disabled), .tertiary:active:not(:disabled), .tertiary:focus-visible': 'tertiary hover, pressed and focus fill (Figma Button 26:320): transient, the ink label and the focus ring carry it',
   'src/components/NavItem/NavItem.module.css :: .item:hover': 'hover state fill (light blue in Chip): transient, the item label and icon carry it',
   'src/components/TreeItem/TreeItem.module.css :: .row:hover': 'hover state fill (light blue in Chip): transient, the row label carries it',
   'src/components/ClientSwitcher/ClientSwitcher.module.css :: .switcher:hover': 'hover state fill (light blue in Chip): transient, the name and logo carry it',

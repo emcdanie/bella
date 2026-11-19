@@ -6,7 +6,7 @@ export interface ButtonProps {
   /**
    * Tier. `"primary"` is the flat ink plate, no shadow, never lifts;
    * render at most ONE per view. `"secondary"` is the flat accent outline.
-   * `"tertiary"` is the text tier: accent and underlined, nothing else.
+   * `"tertiary"` is the text tier: an ink label, no plate, no underline; hover lays a fill under it (Figma 26:320).
    * The neutral tier is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
@@ -31,7 +31,7 @@ export interface ButtonProps {
   leadingIcon?: boolean;
   /**
    * A 44 square (32 at sm) holding one Icon, corner border/radius/lg, ring
-   * following the corner (Figma Button 26:320). Tertiary icon-only (Figma 26:320) has no underline and a hover fill.
+   * following the corner (Figma Button 26:320).
    * Needs `ariaLabel`, and a Tooltip with the same words.
    */
   iconOnly?: boolean;
@@ -128,8 +128,6 @@ export default function Button({
     'data-bella-component': 'button',
     'data-bella-variant': variant,
     'data-bella-size': size === 'sm' ? 'sm' : undefined,
-    /* the underline contract skips icon-only: Figma 26:320 draws tertiary icon-only with no underline */
-    'data-bella-icon-only': iconOnly ? '' : undefined,
     'aria-label': ariaLabel,
   } as const;
 

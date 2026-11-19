@@ -277,7 +277,7 @@ export const RingAndHover: Story = {
       await expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
       primary.blur();
     });
-    /* hover (secondary outline to ink, tertiary underline to 2px) is
+    /* hover (secondary outline to ink, tertiary fill) is
        verified with a real pointer outside the play function: synthetic
        userEvent.hover never triggers CSS :hover */
   },

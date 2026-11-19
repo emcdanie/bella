@@ -33,11 +33,9 @@
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-label-default-font-size);
   font-weight: var(--typography-font-weight-600);
-  /* Figma Button 26:320: a one-line label, 16 at 137.5% (22). No 137.5 token
-   * yet (asked of the library, 19 Nov 2026); 130% is the nearest line-height
-   * token. The 1.5 floor is for reading text, not one-line labels (Elleta,
-   * 19 Nov 2026). */
-  line-height: var(--typography-line-height-130);
+  /* Figma Button 26:320: a one-line label, 16 on a 22 line
+   * (typography/button/default/line-height, published 19 Nov 2026). */
+  line-height: var(--typography-button-default-line-height);
   letter-spacing: var(--typography-letter-spacing-0);
   text-decoration: none;
   border: 0;
@@ -123,10 +121,10 @@
     box-shadow var(--motion-duration-150) var(--motion-easing-standard);
 }
 
-/* Hover and focus-visible: the plate settles onto its deep stop. Colour
- * only, so it stays under reduced motion. */
-.primary:hover:not(:disabled),
-.primary:focus-visible {
+/* Hover: the plate takes background/brand-hover (Figma Button 26:320; focus
+ * keeps the rest colour and adds the ring). Colour only, so it stays under
+ * reduced motion. */
+.primary:hover:not(:disabled) {
   background:
     linear-gradient(transparent, transparent),
     linear-gradient(var(--color-background-brand-hover), var(--color-background-brand-hover));
@@ -136,7 +134,7 @@
   transform: translateY(var(--border-width-2));
   background:
     linear-gradient(transparent, transparent),
-    linear-gradient(var(--color-background-brand), var(--color-background-brand));
+    linear-gradient(var(--color-background-brand-active), var(--color-background-brand-active));
   box-shadow: var(--shadow-key-pressed);
 }
 

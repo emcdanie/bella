@@ -4,12 +4,13 @@
  * stroke) that separates it from the page. Headings: body face 600, 16 on
  * a 24 line, content/default, padding 24 top, 12 sides, 4 below.
  *
- * No token (Figma values left unbound, so not built; listed in the report):
- * - the panel's 264 width: the screen layout gives the column its width
- * - rows 2 apart: rows here sit 0 apart (no 2 on the spacing scale)
- * - the first heading's 28 top: both headings take 24 */
+ * Width layout/panel/width (264) and the first heading's top
+ * layout/panel/heading-padding-top (28), both published 19 Nov 2026.
+ * Still no token: rows 2 apart in Figma; rows here sit 0 apart (no 2 on the
+ * spacing scale), reported to the library. */
 
 .panel {
+  inline-size: var(--layout-panel-width);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -33,4 +34,9 @@
   font-weight: var(--typography-font-weight-600);
   line-height: var(--typography-line-height-px-24);
   color: var(--color-content-default);
+}
+
+/* the first heading (Projects) sits 28 under the switcher, as Figma */
+.group:first-of-type .heading {
+  padding-block-start: var(--layout-panel-heading-padding-top);
 }

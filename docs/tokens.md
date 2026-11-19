@@ -29,6 +29,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-navy-700` | `#444370` | brand navy ramp, step 700. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-navy-800` | `#2b2b5c` | Brand navy ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-navy-900` | `#1b1b40` | Brand navy ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
+| `--color-brand-navy-alpha-8` | `#9994b114` | brand navy/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
+| `--color-brand-navy-alpha-22` | `#9994b138` | brand navy/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-ochre-100` | `#fcf0e0` | Ochre ramp, step 100. Rebuilt on the ochre hue (was #fdefe5, the old peach chip fill). |
 | `--color-brand-ochre-200` | `#efcda0` | Brand ochre ramp, step 200. Dark code numbers (7:1 on code rows). |
 | `--color-brand-ochre-300` | `#e8a83e` | The accent (brand refresh, 2026-09-22): a fill |
@@ -38,7 +40,9 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-ochre-700` | `#6f4808` | brand ochre ramp, step 700. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-ochre-800` | `#4e3104` | Brand ochre ramp, step 800. Light code numbers and attributes (7:1 on code rows). |
 | `--color-brand-ochre-900` | `#2f1c01` | brand ochre ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
+| `--color-brand-ochre-alpha-8` | `#d0902a14` | brand ochre/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-ochre-alpha-15` | `#e8a83e26` | brand ochre at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes). |
+| `--color-brand-ochre-alpha-22` | `#d0902a38` | brand ochre/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-stone-100` | `#f7f7f5` | The page ground (shared look, Elleta, 8 Nov 2026), the same as elleta.design. |
 | `--color-brand-stone-200` | `#e6e4e1` | oklch(92% 0.005 85). Light selected wash (light ground, 2026-10-05). Figma mirrors the hex; OKLCH lives in the token source. |
 | `--color-brand-stone-300` | `#c3c1be` | brand stone ramp, step 300. Global scale: parts use a Tier 2 token, not this. |
@@ -59,8 +63,12 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-pink-700` | `#7d3359` | brand pink ramp, step 700. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-pink-800` | `#59223e` | brand pink ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-pink-900` | `#361224` | brand pink ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
+| `--color-brand-pink-alpha-8` | `#da73a814` | brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
+| `--color-brand-pink-alpha-22` | `#da73a838` | brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-blue-100` | `#eaf5fc` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
 | `--color-brand-blue-200` | `#c8e5f7` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
+| `--color-brand-blue-280` | `#75bdeb` | CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1. |
+| `--color-brand-blue-290` | `#6cb9ea` | CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1. |
 | `--color-brand-blue-300` | `#63b4e8` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
 | `--color-brand-blue-400` | `#48a1dc` | brand blue ramp, step 400. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-blue-500` | `#2b8fd0` | Brand blue ramp, step 500. Accent-3 fill. Global scale: parts use a Tier 2 token, not this. |
@@ -68,6 +76,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-blue-700` | `#16496b` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
 | `--color-brand-blue-800` | `#0f3550` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
 | `--color-brand-blue-900` | `#0a2236` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
+| `--color-brand-blue-alpha-8` | `#48a1dc14` | brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
+| `--color-brand-blue-alpha-22` | `#48a1dc38` | brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-utility-blue-100` | `#e6f1fb` | Blue ramp, step 100 = Chip wash blue #e6f1fb (brand anchor). |
 | `--color-utility-blue-200` | `#b9daf5` | Utility blue ramp, step 200. Dark info word (7:1 on page, card and its wash). |
 | `--color-utility-blue-300` | `#8fc4ee` | Utility blue ramp, step 300. Info strong fill and dark info edge. |
@@ -88,7 +98,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-green-700` | `#18502f` | Utility green ramp, step 700. Light success word on its wash, 7:1. |
 | `--color-utility-green-800` | `#12301d` | Success wash, dark |
 | `--color-utility-green-900` | `#071b0e` | utility green ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
-| `--color-utility-green-alpha-20` | `#72d08b33` | green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;. |
+| `--color-utility-green-alpha-20` | `#72d08b33` | green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: “Yes, add it”. |
 | `--color-utility-red-100` | `#fbeae8` | Red ramp, step 100 = Chip wash red #fbeae8 (brand anchor). |
 | `--color-utility-red-200` | `#febdb6` | Utility red ramp, step 200. Dark error word and dark code tags (7:1). |
 | `--color-utility-red-300` | `#ff8f84` | Utility red ramp, step 300. Error strong fill and dark error edge. |
@@ -160,9 +170,9 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--border-width-4` | `4px` | Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3. |
 | `--typography-font-family-newsreader` | `"Newsreader", serif` | Typeface Newsreader (display). Global scale; parts use a Tier 2 type token. |
 | `--typography-font-family-dm-sans` | `"DM Sans", sans-serif` | Typeface DM Sans (body and UI). Global scale; parts use a Tier 2 type token. |
-| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;) |
-| `--typography-font-family-geist` | `"Geist", sans-serif` | Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;). |
-| `--typography-font-family-lexend` | `"Lexend", sans-serif` | Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;) |
+| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: “lets make sure we have guidelines for how we use the new font and geist”) |
+| `--typography-font-family-geist` | `"Geist", sans-serif` | Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: “C, Geist”). |
+| `--typography-font-family-lexend` | `"Lexend", sans-serif` | Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked “c”).  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: “lets make sure we have guidelines for how we use the new font and geist”) |
 | `--typography-font-size-16` | `16px` | Value: 16 in every mode. |
 | `--typography-font-size-18` | `18px` | Value: 18 in every mode. |
 | `--typography-font-size-20` | `20px` | Value: 20 in every mode. |
@@ -188,6 +198,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--typography-letter-spacing-minus-2` | `-0.02em` | Tightened tracking |
 | `--typography-letter-spacing-minus-1-half` | `-0.015em` | Value: -0.015em in every mode. |
 | `--typography-font-feature-ss09` | `"ss09" 1` | Font feature “ss09” 1 for Geist Mono. Global scale. |
+| `--typography-line-height-px-22` | `22px` | 22px line height. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot; |
 | `--typography-line-height-px-24` | `24px` | Line height 24px, fixed (px group; the % group holds ratios). Global scale; use through Tier 2. |
 | `--typography-line-height-px-40` | `40px` | Line height 40px, fixed (px group; the % group holds ratios). Global scale; use through Tier 2. |
 | `--size-0` | `0px` | Global value 0. Added 17 Nov so part tokens alias instead of typing values. |
@@ -237,6 +248,10 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--layout-gutter` | → `spacing.24` `24px` | → `spacing.24` `24px` | → `spacing.24` `24px` | → `spacing.24` `24px` |
 | `--layout-card-padding` | → `spacing.24` `24px` | → `spacing.24` `24px` | → `spacing.24` `24px` | → `spacing.24` `24px` |
 | `--layout-measure-body` | `680px` | `680px` | `680px` | `680px` |
+| `--layout-rail-width` | `72px` | `72px` | `72px` | `72px` |
+| `--layout-panel-width` | `264px` | `264px` | `264px` | `264px` |
+| `--layout-panel-heading-padding-top` | → `size.28` `28px` | → `size.28` `28px` | → `size.28` `28px` | → `size.28` `28px` |
+| `--layout-search-max-width` | `420px` | `420px` | `420px` | `420px` |
 
 ## Tier 2: shared meaning
 
@@ -259,7 +274,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-utility-warning` | → `color.utility.yellow.100` `#fcf4d8` | → `color.brand.ochre.alpha.15` `#e8a83e26` | → `color.utility.yellow.100` `#fcf4d8` | → `color.brand.ochre.alpha.15` `#e8a83e26` |
 | `--color-background-utility-neutral` | → `color.brand.wash.grey` `#ededea` | → `color.neutral.800` `#2e3240` | → `color.brand.wash.grey` `#ededea` | → `color.neutral.800` `#2e3240` |
 | `--color-background-utility-warning-mark` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` | → `color.utility.yellow.300` `#e9b820` |
-| `--color-background-brand-hover` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.200` `#c8e5f7` |
+| `--color-background-brand-hover` | → `color.neutral.700` `#474c5e` | → `color.neutral.200` `#c3c7d2` | → `color.brand.blue.290` `#6cb9ea` | → `color.brand.blue.290` `#6cb9ea` |
 | `--color-background-transparent` | → `color.neutral.alpha.20` `#1d203033` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.alpha.30` `#1d20304d` | → `color.neutral.alpha.60` `#1d203099` |
 | `--color-background-default-hover` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` | → `color.neutral.100` `#eceef3` | → `color.neutral.800` `#2e3240` |
 | `--color-background-highlight` | → `color.neutral.alpha.10` `#1d20301a` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.alpha.10` `#1d20301a` | → `color.neutral.white-alpha.10` `#ffffff1a` |
@@ -288,6 +303,16 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-pattern-ink` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` | → `color.brand.stone.900` `#110f0d` |
 | `--color-background-pattern-coral` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` | → `color.utility.red.400` `#f16d60` |
 | `--color-background-scrim` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` |
+| `--color-background-wash-pink` | → `color.brand.pink.100` `#fbeef5` | → `color.brand.pink.alpha.8` `#da73a814` | → `color.brand.pink.100` `#fbeef5` | → `color.brand.pink.alpha.8` `#da73a814` |
+| `--color-background-wash-pink-strong` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.alpha.22` `#da73a838` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.alpha.22` `#da73a838` |
+| `--color-background-wash-blue` | → `color.brand.blue.100` `#eaf5fc` | → `color.brand.blue.alpha.8` `#48a1dc14` | → `color.brand.blue.100` `#eaf5fc` | → `color.brand.blue.alpha.8` `#48a1dc14` |
+| `--color-background-wash-blue-strong` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.alpha.22` `#48a1dc38` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.alpha.22` `#48a1dc38` |
+| `--color-background-wash-ochre` | → `color.brand.ochre.100` `#fcf0e0` | → `color.brand.ochre.alpha.8` `#d0902a14` | → `color.brand.ochre.100` `#fcf0e0` | → `color.brand.ochre.alpha.8` `#d0902a14` |
+| `--color-background-wash-ochre-strong` | → `color.brand.ochre.200` `#efcda0` | → `color.brand.ochre.alpha.22` `#d0902a38` | → `color.brand.ochre.200` `#efcda0` | → `color.brand.ochre.alpha.22` `#d0902a38` |
+| `--color-background-wash-navy` | → `color.brand.navy.100` `#edecf2` | → `color.brand.navy.alpha.8` `#9994b114` | → `color.brand.navy.100` `#edecf2` | → `color.brand.navy.alpha.8` `#9994b114` |
+| `--color-background-wash-navy-strong` | → `color.brand.navy.200` `#c6c2d4` | → `color.brand.navy.alpha.22` `#9994b138` | → `color.brand.navy.200` `#c6c2d4` | → `color.brand.navy.alpha.22` `#9994b138` |
+| `--color-background-wash-fade` | → `color.neutral.white` `#ffffff` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.white` `#ffffff` | → `color.neutral.alpha.0` `#1d203000` |
+| `--color-background-brand-active` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.280` `#75bdeb` | → `color.brand.blue.280` `#75bdeb` |
 | `--color-border-glass-top` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-border-glass-edge` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-border-accent` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` | → `color.neutral.400` `#858b9f` | → `color.neutral.600` `#686d7d` |
@@ -351,6 +376,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--typography-label-default-font-size` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` |
 | `--typography-button-default-font-size` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` | → `typography.font-size.16` `16px` |
 | `--typography-button-default-font-weight` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` | → `typography.font-weight.500` `500` |
+| `--typography-button-default-line-height` | → `typography.line-height-px.22` `22px` | → `typography.line-height-px.22` `22px` | → `typography.line-height-px.22` `22px` | → `typography.line-height-px.22` `22px` |
 | `--typography-primary-nav-default-font-weight` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` |
 | `--typography-title-default-font-weight` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` | → `typography.font-weight.600` `600` |
 | `--typography-title-default-font-family` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.dm-sans` `"DM Sans", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` | → `typography.font-family.lexend` `"Lexend", sans-serif` |

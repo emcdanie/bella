@@ -58,6 +58,19 @@ export const BelowTarget: Story = {
   ),
 };
 
+/** One column (a window under about 700): the card runs wide, the gauge stops at 320 and centres. */
+export const OneColumn: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: '42rem', boxSizing: 'border-box' }}>
+      <SystemHealth value={95} status="Healthy" passed="251 of 264 pass" why="Healthy means 90% or more pass (the blue tick). 13 checks still fail:" failing={FAILING} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const gauge = canvasElement.querySelector('[role="meter"]')?.parentElement?.getBoundingClientRect();
+    await expect(gauge && gauge.width).toBeLessThanOrEqual(320);
+  },
+};
+
 /** The gauge reads as a meter: value, range and words. */
 export const Behavior: Story = {
   render: () => (

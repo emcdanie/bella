@@ -2602,7 +2602,7 @@
         "bella": {
           "name": "Pin",
           "category": "Annotation",
-          "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups.",
+          "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups. With no number it is the dot pin of her On the stage view: a status dot on a haloed disc (green pass, yellow finding).",
           "variants": [
             "yellow",
             "pink",
@@ -2632,7 +2632,8 @@
           "dont": [
             "Do not use colour alone: a pin always has a number",
             "Do not use a pop colour for a status: StatusPill carries status",
-            "Do not make a label-less pin clickable without ariaLabel"
+            "Do not make a label-less pin clickable without ariaLabel",
+            "Do not leave a number-less dot pin unexplained: name it in ariaLabel or a chip beside it"
           ],
           "a11y": "Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring."
         }
@@ -2643,7 +2644,7 @@
         "bella": {
           "name": "PinLabel",
           "category": "Annotation",
-          "description": "A pill that names a pin: kind label is a solid Pin with the token or part name; kind part is the stage chip, a status dot with the part name.",
+          "description": "A pill that names a pin: kind label is a Pin with the token or part name (Show pin off: the name alone, the stage's name chips); kind part is a status dot with the part name.",
           "states": [
             "default",
             "selected"
@@ -2652,6 +2653,7 @@
             "kind",
             "children",
             "number",
+            "showPin",
             "tone",
             "status",
             "selected",
@@ -3664,7 +3666,7 @@
           "figmaProps": {
             "grid": "grid",
             "Content (slot)": "children",
-            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma: the Playground frame, on her decision card (19 Nov); built from SegmentedControl and Pin. Markers with a part draw the published Pin label (629:1116) and a solid Leader"
+            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma as props: the Playground frame, on her decision card (19 Nov). Markers follow her CHIP Components design (690:492657, 20 Nov): dot Pins, Pin label chips without the pin, a dashed pink Leader for the part in focus; on a plain stage they measure from the centre"
           }
         }
       }

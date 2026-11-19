@@ -99,7 +99,16 @@
   display: inline-flex;
 }
 
-/* the part chip, its left edge at chipX, centred on chipY */
+/* plain stage: markers measure from the centre, where the specimen stands */
+.origin {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  inline-size: 0;
+  block-size: 0;
+}
+
+/* the part chip, its near edge at chipX, centred on chipY */
 .chip {
   position: absolute;
   translate: 0 -50%;
@@ -110,4 +119,8 @@
   position: absolute;
   inset: 0;
   cursor: crosshair;
+}
+
+.chipBefore {
+  translate: -100% -50%;
 }

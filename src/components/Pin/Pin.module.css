@@ -85,3 +85,26 @@
     border-color: CanvasText;
   }
 }
+
+/* label=false (published Figma Pin, style=dot, read 20 Nov 2026 from her CHIP
+   Components design): a 28 surface disc with a soft shadow and a surface halo at
+   70%, a dot in the tone's status colour (yellow = warning, green = success).
+   Figma draws the dot 10 and the halo 6 with no token; code takes the nearest
+   tokens, StatusDot's 12 dot and a 4 halo, until the library binds them. */
+.bare { --pin-dot: var(--color-border-accent-1); }
+.bare.yellow { --pin-dot: var(--color-border-utility-warning); }
+.bare.green { --pin-dot: var(--color-border-utility-success); }
+.bare.blue { --pin-dot: var(--color-border-utility-info); }
+.bare.red { --pin-dot: var(--color-border-utility-error); }
+.bare .disc {
+  min-width: var(--size-28);
+  min-height: var(--size-28);
+  border: 0;
+  box-shadow: var(--shadow-ui-ink), 0 0 0 var(--spacing-4) color-mix(in srgb, var(--color-background-surface) 70%, transparent);
+}
+.dot {
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-round);
+  background: var(--pin-dot);
+}

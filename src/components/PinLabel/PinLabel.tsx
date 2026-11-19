@@ -10,6 +10,8 @@ export interface PinLabelProps {
   children: ReactNode;
   /** kind="label": the Pin's number. */
   number?: ReactNode;
+  /** Figma "Show pin" (kind="label"). Off: the name alone, as the stage's name chips. */
+  showPin?: boolean;
   /** kind="label": the Pin's tone (matches its Leader). */
   tone?: 'yellow' | 'pink' | 'blue' | 'red';
   /** kind="part" + "Show status": pass (a success check) or finding (an attention dot): they differ by shape, not only colour. */
@@ -25,14 +27,14 @@ export interface PinLabelProps {
  * read 20 Nov 2026): the Pin's number and the token or part name, or, as the
  * stage chip (kind="part"), a status and the part name.
  */
-export default function PinLabel({ kind = 'label', children, number, tone = 'pink', status, selected = false, className, style }: PinLabelProps) {
+export default function PinLabel({ kind = 'label', children, number, showPin = true, tone = 'pink', status, selected = false, className, style }: PinLabelProps) {
   return (
     <span
       className={[styles.label, kind === 'part' ? styles.part : '', selected ? styles.selected : '', className].filter(Boolean).join(' ')}
       style={style}
       data-bella-component="pin-label"
     >
-      {kind === 'label' && number != null ? <Pin number={number} variant={tone} pinStyle="solid" /> : null}
+      {kind === 'label' && showPin && number != null ? <Pin number={number} variant={tone} pinStyle="solid" /> : null}
       {kind === 'part' && status ? (
         <StatusDot tone={status === 'pass' ? 'success' : 'attention'} mark={status === 'pass' ? 'check' : 'dot'} showLabel={false} />
       ) : null}

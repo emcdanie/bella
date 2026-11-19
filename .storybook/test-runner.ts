@@ -385,8 +385,11 @@ async function runQualityChecks(
               for (const part of el.querySelectorAll<HTMLElement>(inv.selector)) {
                 const t = getComputedStyle(part).transform;
                 const m = new DOMMatrixReadOnly(t === 'none' ? undefined : t);
-                /* fractional height: offsetHeight rounds, the translate does not */
-                const h = part.getBoundingClientRect().height;
+                /* fractional height: offsetHeight rounds, the translate does not.
+                   The box is in screen pixels and the matrix in the part's own, so
+                   undo any ancestor scale or zoom (a specimen shown at 2x on a stage). */
+                const shown = el.getBoundingClientRect().width / (parseFloat(getComputedStyle(el).width) || el.getBoundingClientRect().width);
+                const h = part.getBoundingClientRect().height / (shown || 1);
                 const pct = h ? Math.round((m.f / h) * 100) : 0;
                 if (`${pct}%` !== inv.expect) {
                   fails.push(

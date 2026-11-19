@@ -11131,7 +11131,7 @@ entries:
   - kind: component
     id: pin
     name: Pin
-    description: A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups.
+    description: "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups. With no number it is the dot pin of her On the stage view: a status dot on a haloed disc (green pass, yellow finding)."
     metadata:
       origin:
         method: extracted
@@ -11164,6 +11164,8 @@ entries:
             statement: "Do not use a pop colour for a status: StatusPill carries status"
           - level: must-not
             statement: Do not make a label-less pin clickable without ariaLabel
+          - level: must-not
+            statement: "Do not leave a number-less dot pin unexplained: name it in ariaLabel or a chip beside it"
     refs:
       - href: ./src/components/Pin/Pin.stories.tsx
         rel: storybook
@@ -11186,7 +11188,7 @@ entries:
   - kind: component
     id: pin-label
     name: PinLabel
-    description: "A pill that names a pin: kind label is a solid Pin with the token or part name; kind part is the stage chip, a status dot with the part name."
+    description: "A pill that names a pin: kind label is a Pin with the token or part name (Show pin off: the name alone, the stage's name chips); kind part is a status dot with the part name."
     metadata:
       origin:
         method: extracted

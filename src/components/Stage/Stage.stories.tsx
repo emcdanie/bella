@@ -136,22 +136,28 @@ export const FrameBehavior: Story = {
   },
 };
 
-/** Her "On the stage" look: numbered pins on the part, each tied by a solid pink leader to a part chip (pass or finding); one selected. */
+/** Her "On the stage" look (CHIP Components, 690:492657): dot pins on its parts
+ * (green passes, ochre is a finding), the part names in a column of chips, and a dashed pink leader
+ * for the part in focus. Marker positions are pixels from the stage's centre. The specimen is
+ * shown at 2x, as on her page. */
 export const Anatomy: Story = {
   render: () => (
-    <div style={{ maxInlineSize: '40rem' }}>
-      <Stage
-        grid="dots"
-        label="Button on the stage"
-        markers={[
-          { id: 'label', x: 320, y: 122, label: '1', tone: 'yellow', part: 'Label', status: 'pass', chipX: 440, chipY: 56 },
-          { id: 'edge', x: 240, y: 165, label: '2', tone: 'yellow', part: 'Edge', status: 'finding', chipX: 440, chipY: 216, selected: true },
-        ]}
-      >
-        <div style={{ blockSize: 'calc(var(--spacing-80) * 3)', display: 'grid', placeItems: 'center' }}>
-          <Button variant="secondary">Open the story</Button>
+    <Stage
+      grid="dots"
+      label="Button on the stage"
+      markers={[
+        { id: 'plate', x: 41, y: -44, part: 'Plate', status: 'finding', chipX: -136, chipY: -80 },
+        { id: 'label', x: 0, y: -22, part: 'Label', status: 'pass', chipX: -136, chipY: -40 },
+        { id: 'edge', x: -82, y: 0, part: 'Edge', status: 'finding', chipX: -136, chipY: 0, leader: true },
+        { id: 'focus', x: -96, y: 30, part: 'Focus ring', status: 'pass', chipX: -136, chipY: 40 },
+        { id: 'box', x: 0, y: 44, part: 'Box', status: 'pass', chipX: -136, chipY: 80 },
+      ]}
+    >
+      <div style={{ blockSize: 'calc(var(--spacing-80) * 5)', display: 'grid', placeItems: 'center' }}>
+        <div style={{ scale: '2' }}>
+          <Button variant="primary">Send</Button>
         </div>
-      </Stage>
-    </div>
+      </div>
+    </Stage>
   ),
 };

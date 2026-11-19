@@ -7,21 +7,25 @@ import styles from './Stage.module.css';
 
 export interface StageMarker {
   id: string;
-  /** Position in the frame's own pixels (design size), not the shown size. */
+  /** Where the pin sits. With frameWidth: frame pixels (design size). Without: pixels from the
+   * stage's centre, so the marks stay on a centred specimen at any width. */
   x: number;
   y: number;
-  /** The Pin's number. */
-  label: ReactNode;
-  /** The Pin's tone (default pink; anatomy pins are yellow). */
+  /** The Pin's number. Missing = the dot pin (her "On the stage" look). */
+  label?: ReactNode;
+  /** The Pin's tone. Missing: from status (pass green, finding yellow), else pink. */
   tone?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
-  /** Her "On the stage" look: the part's name in a Pin label part chip, tied to the pin by a solid Leader. Missing = the pin alone. */
+  /** The part's name in a Pin label chip (no pin). Missing = the pin alone. */
   part?: ReactNode;
-  /** The chip's status: pass (a check) or finding (a dot). */
+  /** pass (green dot) or finding (ochre dot). */
   status?: 'pass' | 'finding';
-  /** Where the chip sits, in the same pixels as x / y (its left edge, middle). */
+  /** The chip's edge nearest the pin, in the same pixels as x / y (its middle for chipY).
+   * Left of the pin, the chip ends there; right of it, it starts there. */
   chipX?: number;
   chipY?: number;
-  /** The part whose card is open: an ink chip edge and a 2px ink leader. */
+  /** A dashed pink leader from the chip to the pin (the part in focus). */
+  leader?: boolean;
+  /** The part whose card is open: a 2px ink edge on its chip. */
   selected?: boolean;
 }
 
@@ -65,29 +69,51 @@ const ZOOM_OPTIONS = [
  * content slot. Doc stages and diagrams. With frameWidth it also holds a
  * page at its design width, scaled to fit or at 100%, for the Playground.
  */
-/* Pins on the stage, each with an optional part chip tied by a solid pink
-   leader (her rule "pink for leaders", 19 Nov; Pin, Pin label kind=part and
-   Leader as published). Positioned in the parent's own pixels. */
+/* Pins on the stage (her CHIP Components design, 690:492657, read 20 Nov 2026):
+   dot pins, the part names in Pin label chips (no pin), and a dashed pink
+   Leader with a dot end for the part in focus ("pink for leaders", 19 Nov). */
+/* An SVG with no size draws nothing, so leaders live on the full stage (or frame), not the centre origin. */
+function Leaders({ markers }: { markers: StageMarker[] }) {
+  return (
+    <>
+      {markers
+        .filter((m) => m.leader && m.part != null && m.chipX != null && m.chipY != null)
+        .map((m) => (
+          <Leader
+            key={m.id}
+            from={`[data-stage-chip="${m.id}"]`}
+            to={`[data-stage-pin="${m.id}"]`}
+            label={`${typeof m.part === 'string' ? m.part : 'The part'} is marked on the stage`}
+            variant="pink"
+            end="dot"
+          />
+        ))}
+    </>
+  );
+}
+
 function Markers({ markers, offsetY = 0 }: { markers: StageMarker[]; offsetY?: number }) {
   return (
     <>
       {markers.map((m) => {
-        const pinSel = `[data-stage-pin="${m.id}"]`;
-        const chipSel = `[data-stage-chip="${m.id}"]`;
+        const tone = m.tone ?? (m.status === 'pass' ? 'green' : m.status === 'finding' ? 'yellow' : 'pink');
+        const name = typeof m.part === 'string' ? m.part : undefined;
+        const hasChip = m.part != null && m.chipX != null && m.chipY != null;
         return (
           <React.Fragment key={m.id}>
             <span data-stage-pin={m.id} className={styles.marker} style={{ insetInlineStart: m.x, insetBlockStart: m.y - offsetY }}>
-              <Pin number={m.label} variant={m.tone ?? 'pink'} pinStyle="solid" />
+              <Pin number={m.label} variant={tone} ariaLabel={m.label == null ? [name, m.status].filter(Boolean).join(', ') || undefined : undefined} />
             </span>
-            {m.part != null && m.chipX != null && m.chipY != null ? (
-              <>
-                <span data-stage-chip={m.id} className={styles.chip} style={{ insetInlineStart: m.chipX, insetBlockStart: m.chipY - offsetY }}>
-                  <PinLabel kind="part" status={m.status} selected={m.selected}>
-                    {m.part}
-                  </PinLabel>
-                </span>
-                <Leader from={pinSel} to={chipSel} label={`Pin ${String(m.label)} points to ${typeof m.part === 'string' ? m.part : 'its part'}`} variant="pink" lineStyle="solid" end="dot" selected={m.selected} />
-              </>
+            {hasChip ? (
+              <span
+                data-stage-chip={m.id}
+                className={[styles.chip, m.chipX! < m.x ? styles.chipBefore : ''].filter(Boolean).join(' ')}
+                style={{ insetInlineStart: m.chipX, insetBlockStart: m.chipY! - offsetY }}
+              >
+                <PinLabel showPin={false} selected={m.selected}>
+                  {m.part}
+                </PinLabel>
+              </span>
             ) : null}
           </React.Fragment>
         );
@@ -134,7 +160,14 @@ export default function Stage({
       <div className={cls} style={style} role={label ? 'group' : undefined} aria-label={label} data-bella-component="stage">
         <div className={styles.content}>
           {children}
-          {markers?.length ? <Markers markers={markers} /> : null}
+          {markers?.length ? (
+            <>
+              <div className={styles.origin}>
+                <Markers markers={markers} />
+              </div>
+              <Leaders markers={markers} />
+            </>
+          ) : null}
         </div>
       </div>
     );
@@ -166,7 +199,12 @@ export default function Stage({
             <div className={styles.page} style={offsetY ? { transform: `translateY(${-offsetY}px)` } : undefined}>
               {children}
             </div>
-            {markers?.length ? <Markers markers={markers} offsetY={offsetY} /> : null}
+            {markers?.length ? (
+              <>
+                <Markers markers={markers} offsetY={offsetY} />
+                <Leaders markers={markers} />
+              </>
+            ) : null}
             {picking ? <div className={styles.picker} onClick={pick} aria-hidden="true" /> : null}
           </div>
         </div>

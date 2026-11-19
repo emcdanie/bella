@@ -1,4 +1,4 @@
-import React, { useRef, type KeyboardEvent } from 'react';
+import React, { useEffect, useRef, type KeyboardEvent } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
 import StatusDot from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
@@ -50,6 +50,20 @@ export function tabPanelProps(idBase: string, id: string, selected: boolean) {
  */
 export default function Tabs({ tabs, value, onChange, label, idBase, className }: TabsProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  /* When the tabs are wider than their space the list scrolls sideways
+   * inside itself (Material, Carbon); the selected tab is always brought
+   * into view there, never cut off, and the page itself never moves. */
+  useEffect(() => {
+    const list = listRef.current;
+    const tab = refs.current[tabs.findIndex((t) => t.id === value)];
+    if (!list || !tab || list.scrollWidth <= list.clientWidth) return;
+    const start = tab.getBoundingClientRect().left - list.getBoundingClientRect().left + list.scrollLeft;
+    const end = start + tab.offsetWidth;
+    if (start < list.scrollLeft) list.scrollLeft = start;
+    else if (end > list.scrollLeft + list.clientWidth) list.scrollLeft = end - list.clientWidth;
+  }, [value, tabs]);
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     const i = tabs.findIndex((t) => t.id === value);
@@ -68,7 +82,7 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
 
   return (
     <div className={[styles.tabs, className].filter(Boolean).join(' ')} data-bella-component="tabs">
-      <div role="tablist" aria-label={label} className={styles.list} onKeyDown={onKeyDown}>
+      <div role="tablist" aria-label={label} className={styles.list} onKeyDown={onKeyDown} ref={listRef}>
         {tabs.map((t, i) => {
           const selected = t.id === value;
           return (

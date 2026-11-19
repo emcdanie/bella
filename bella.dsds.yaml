@@ -12615,6 +12615,59 @@ entries:
           - sm
           - lg
   - kind: component
+    id: variant-tile
+    name: VariantTile
+    description: "A variant thumbnail: a mini preview with its label under. Selected draws a 2px brand edge; the check badge marks a copied or done state."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: With onClick the tile is one button named by its label, aria-pressed for selected, BELLA's focus ring. The preview is inert and hidden from the accessibility tree. The check badge is an image named Done. Labels are content-subtle (7:1) or content-default on surface and default-hover.
+      tags:
+        - component
+        - variant-tile
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The states strip under the stage on CHIP Components
+          - level: may
+            statement: Picking a variant from thumbnails
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not put live controls in the preview: it is a picture (inert)"
+          - level: must-not
+            statement: "Do not use it for navigation: it picks a state in place"
+    refs:
+      - href: ./src/components/VariantTile/VariantTile.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/VariantTile/VariantTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - selected
+          - hover
+          - focus
+  - kind: component
     id: tour-step
     name: TourStep
     description: "One step of \"Help me understand\": a Pin, the text, Close; the count, Back, and Next or Done on the right."

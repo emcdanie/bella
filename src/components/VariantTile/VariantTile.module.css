@@ -1,0 +1,93 @@
+/* VariantTile (Figma, read 20 Nov 2026 from her CHIP Components design). Tokens only.
+ * A column 8 apart: the preview (72 tall, corner 12, content centred) and the
+ * label under it (reading face 16). Resting: background/default-hover with a
+ * 1px border/subtle edge, label 400 content/subtle. Selected: background/surface
+ * with a 2px background/brand edge, label 600 content/default. The check badge:
+ * 20 round, success-knockout, a 16 check, pinned to the top-right corner
+ * (Figma 6 from the corner, no token; code takes spacing-4). */
+
+.tile {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+  font: inherit;
+  text-align: center;
+}
+
+.preview {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: calc(var(--spacing-24) * 3);
+  padding: var(--spacing-8);
+  overflow: hidden;
+  border: var(--border-width-1) solid var(--color-border-subtle);
+  border-radius: var(--border-radius-12);
+  background: var(--color-background-default-hover);
+}
+
+.specimen {
+  display: inline-flex;
+  pointer-events: none;
+}
+
+.label {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.selected .preview {
+  border: var(--border-width-2) solid var(--color-background-brand);
+  background: var(--color-background-surface);
+}
+
+.selected .label {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.badge {
+  position: absolute;
+  inset-block-start: var(--spacing-4);
+  inset-inline-end: var(--spacing-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-utility-success-knockout);
+  color: var(--color-content-utility-on-status);
+}
+
+/* clickable: the whole tile is the button */
+.action {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: var(--border-radius-12);
+}
+
+.action:hover .preview {
+  border-color: var(--color-border-strong);
+}
+
+.action:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (forced-colors: active) {
+  .preview { border-color: CanvasText; }
+  .selected .preview { border-color: Highlight; }
+}

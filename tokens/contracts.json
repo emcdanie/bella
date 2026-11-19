@@ -3721,6 +3721,46 @@
         }
       }
     },
+    "variant-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "VariantTile",
+          "category": "Data",
+          "description": "A variant thumbnail: a mini preview with its label under. Selected draws a 2px brand edge; the check badge marks a copied or done state.",
+          "states": [
+            "default",
+            "selected",
+            "hover",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "children",
+            "selected",
+            "checked",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The states strip under the stage on CHIP Components",
+            "Picking a variant from thumbnails"
+          ],
+          "dont": [
+            "Do not put live controls in the preview: it is a picture (inert)",
+            "Do not use it for navigation: it picks a state in place"
+          ],
+          "a11y": "With onClick the tile is one button named by its label, aria-pressed for selected, BELLA's focus ring. The preview is inert and hidden from the accessibility tree. The check badge is an image named Done. Labels are content-subtle (7:1) or content-default on surface and default-hover.",
+          "figma": "Matches the published VariantTile (read 20 Nov 2026 from her CHIP Components design, Screen 1 612:57719): preview 72 tall, corner 12, label 16 under, 8 apart. The badge sits 6 from the corner in Figma (no token); code takes spacing-4.",
+          "figmaProps": {
+            "Label": "label",
+            "Preview (slot)": "children",
+            "selected": "selected",
+            "Show check badge": "checked"
+          }
+        }
+      }
+    },
     "tour-step": {
       "$extensions": {
         "bella": {

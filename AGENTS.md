@@ -56,6 +56,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | One step of the type ramp, set in its own size (Foundations) | `TypeSpecimen` |
 | One spacing step drawn at its real size (Foundations) | `SpacingStep` |
 | One colour role as a Pantone-style chip: colour, name, hex, contrast | `Swatch` |
+| A variant or state thumbnail with its label; a row picks one | `VariantTile` |
 | One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |
 | A connected app or service: its icon on a coloured tile, optional badge | `AppTile` |
 | A short message after an action that comes and goes (Notification stays) | `Toast` |

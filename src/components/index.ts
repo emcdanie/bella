@@ -213,6 +213,9 @@ export { default as SpacingStep } from './SpacingStep/SpacingStep';
 export type { SpacingStepProps, SpacingStepStep } from './SpacingStep/SpacingStep';
 export { default as Swatch } from './Swatch/Swatch';
 export type { SwatchProps } from './Swatch/Swatch';
+
+export { default as VariantTile } from './VariantTile/VariantTile';
+export type { VariantTileProps } from './VariantTile/VariantTile';
 export { default as TourStep } from './TourStep/TourStep';
 export type { TourStepProps } from './TourStep/TourStep';
 export { default as AppTile } from './AppTile/AppTile';

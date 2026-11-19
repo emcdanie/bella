@@ -1,0 +1,66 @@
+/* Swatch (Figma BellaComponents 794:169044, published 19 Nov 2026). Tokens
+ * only. A chip with a 1px border/default edge all round and the md corner,
+ * clipped: the colour block on top (64 sm, 96 lg) and the label strip on
+ * background/surface (padding 12, gap 4). Name: reading face 600, 16/24,
+ * content/default. Meta: hex left, ratio or "No pair" right, subtext face
+ * 16/24, content/subtle, wraps when narrow. lg: the meta row ends in the
+ * secondary sm icon-only Copy button. */
+
+.swatch {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-surface);
+}
+
+.colour {
+  display: block;
+  block-size: var(--spacing-64);
+}
+
+.lg .colour {
+  block-size: calc(var(--spacing-48) * 2); /* 96: no 96 step; two of the 48 step */
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-12);
+}
+
+.name {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0 var(--spacing-8);
+  min-inline-size: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.metaRow .meta {
+  flex: 1 1 auto;
+}

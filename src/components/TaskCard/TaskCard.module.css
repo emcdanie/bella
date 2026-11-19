@@ -2,17 +2,17 @@
  * Card: column, 12 between Head and Status row, 16 padding inside a 1px
  * edge (Figma lays the edge inside the box and its content starts at 17, so
  * border + padding matches), border/radius/card, background/surface,
- * edge border/subtle.
+ * edge border/subtle, resting shadow/card-ink (published 19 Nov, 18:11).
  * Head: row, 4 apart: Text column fills (Title, Line, Branch, 4 apart),
  * Move to… hugs at its right end, one title line tall (24) so the handle
  * centres on the first line; its 44 hit area is a ::after, as Figma's
  * absolute Hit area.
- * Title: reading face 600, 16/24, content/default. Line: subtext face 400,
- * 16/24, content/subtle.
+ * Title: reading face 600, 16/24, content/default. Line: reading face 400,
+ * 16/24, content/subtle (published 19 Nov, 18:11: Lexend, her y23).
  * Status row: StatusDot fills, the › (Trailing) at the end, 8 apart, centred.
  * States (Figma variants): hover = edge border/strong; focus = 4 ring, 4 gap,
  * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
- * corner here); dragging = shadow/lg. Only dragging lifts. */
+ * corner here); dragging = shadow/lg. Only dragging lifts above the rest. */
 
 .card {
   position: relative;
@@ -26,6 +26,7 @@
   border: var(--border-width-1) solid var(--color-border-subtle);
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
 }
 
 .opens {
@@ -90,7 +91,7 @@
 
 .line {
   margin: 0;
-  font-family: var(--typography-subtext-font-family);
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-px-24);

@@ -1,0 +1,53 @@
+/* Tour step (Figma BellaComponents 1455:40714, published 19 Nov 2026). Tokens
+ * only. A card: background/surface, 1px border/default edge, border/radius/16,
+ * shadow/soft, padding 16, 12 between Body and Footer. Body: the red Pin,
+ * the text (reading face 16, content/default) filling, the 44 tertiary Close,
+ * 12 apart, top-aligned. Footer: the count (reading face 16, content/subtle)
+ * filling, then Back (tertiary) and Next or Done (secondary), 8 apart,
+ * buttons on the right, primary last. */
+
+.step {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  max-inline-size: calc(var(--spacing-80) * 4 + var(--spacing-40));
+  padding: var(--spacing-16);
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-16);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+}
+
+.text {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+}
+
+.count {
+  flex: 1 1 auto;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}

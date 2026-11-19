@@ -53,6 +53,10 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Bar, segments or ring, with a target | `Progress` |
 | One number with its chart, context and caption | `StatCard` |
 | How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |
+| One step of the type ramp, set in its own size (Foundations) | `TypeSpecimen` |
+| One spacing step drawn at its real size (Foundations) | `SpacingStep` |
+| One colour role as a Pantone-style chip: colour, name, hex, contrast | `Swatch` |
+| One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
 | The actions on one thing, from a "…" button | `Menu` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |

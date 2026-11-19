@@ -51,6 +51,16 @@ type Story = StoryObj<typeof SectionHead>;
 
 export const Playground: Story = {};
 
+/** size="card": 16, the Stat card title, for a head inside a card that sits in a row of Stat cards (Health). */
+export const CardSize: Story = {
+  render: () => (
+    <Cards>
+      <SectionHead icon="WarningCircle" iconTone="warning" title="Drift from BELLA" number="3" words="tokens" size="card" />
+      <SectionHead icon="WarningCircle" iconTone="warning" title="Drift from BELLA" number="3" words="tokens" />
+    </Cards>
+  ),
+};
+
 /** The Not again page: suggested (action), your call (no action), library (info). */
 export const OnTheNotAgainPage: Story = {
   render: () => (

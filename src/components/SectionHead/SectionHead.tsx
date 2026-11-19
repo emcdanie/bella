@@ -27,6 +27,8 @@ export interface SectionHeadProps {
   action?: ReactNode;
   /** The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text. */
   titleLevel?: 0 | 2 | 3 | 4;
+  /** The title size. "section" (default): 20. "card": 16 on a 24 line, the Stat card title, for a head inside a card in a row of Stat cards. Her pick, 19 Nov: "A · card size". */
+  size?: 'section' | 'card';
   /** Extra classes on the row. */
   className?: string;
   style?: CSSProperties;
@@ -50,6 +52,7 @@ export default function SectionHead({
   iconTone = 'warning',
   action,
   titleLevel = 2,
+  size = 'section',
   className,
   style,
 }: SectionHeadProps) {
@@ -57,7 +60,7 @@ export default function SectionHead({
   const infoOn = (showInfo ?? (number != null || words != null)) && (numberOn || words != null);
   const descriptionOn = (showDescription ?? description != null) && description != null;
   return (
-    <div className={[styles.root, className].filter(Boolean).join(' ')} style={style} data-bella-component="section-head">
+    <div className={[styles.root, size === 'card' ? styles.card : '', className].filter(Boolean).join(' ')} style={style} data-bella-component="section-head">
       {icon ? <IconWell icon={icon} tone={iconTone} /> : null}
       <TextStack
         className={styles.column}

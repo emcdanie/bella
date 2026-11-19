@@ -1,0 +1,38 @@
+/* Pin label (Figma BellaComponents 629:1116, read 20 Nov 2026). Tokens only.
+ * A pill on background/surface, border/radius/round, 8 apart.
+ * kind label: padding 4 / 12 / 4 / 4, the solid Pin, the name in the subtext
+ * face 16 (content/default). kind part (the stage chip): padding 4 / 12 / 4 / 8,
+ * 32 tall, the StatusDot, the name in the reading face 16 / 500. selected: a 2px
+ * ink edge. */
+
+.label {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-4) var(--spacing-12) var(--spacing-4) var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-surface);
+  white-space: nowrap;
+}
+
+.text {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+.part {
+  min-block-size: var(--spacing-32);
+  padding-inline-start: var(--spacing-8);
+}
+
+.part .text {
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-500);
+}
+
+.selected {
+  box-shadow: 0 0 0 var(--border-width-2) var(--color-border-ink);
+}

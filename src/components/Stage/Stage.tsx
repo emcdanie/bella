@@ -1,6 +1,8 @@
 import React, { useLayoutEffect, useRef, useState, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 import SegmentedControl from '../SegmentedControl/SegmentedControl';
 import Pin from '../Pin/Pin';
+import PinLabel from '../PinLabel/PinLabel';
+import Leader from '../Leader/Leader';
 import styles from './Stage.module.css';
 
 export interface StageMarker {
@@ -10,6 +12,17 @@ export interface StageMarker {
   y: number;
   /** The Pin's number. */
   label: ReactNode;
+  /** The Pin's tone (default pink; anatomy pins are yellow). */
+  tone?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
+  /** Her "On the stage" look: the part's name in a Pin label part chip, tied to the pin by a solid Leader. Missing = the pin alone. */
+  part?: ReactNode;
+  /** The chip's status: pass (a check) or finding (a dot). */
+  status?: 'pass' | 'finding';
+  /** Where the chip sits, in the same pixels as x / y (its left edge, middle). */
+  chipX?: number;
+  chipY?: number;
+  /** The part whose card is open: an ink chip edge and a 2px ink leader. */
+  selected?: boolean;
 }
 
 export interface StageProps {
@@ -52,6 +65,37 @@ const ZOOM_OPTIONS = [
  * content slot. Doc stages and diagrams. With frameWidth it also holds a
  * page at its design width, scaled to fit or at 100%, for the Playground.
  */
+/* Pins on the stage, each with an optional part chip tied by a solid pink
+   leader (her rule "pink for leaders", 19 Nov; Pin, Pin label kind=part and
+   Leader as published). Positioned in the parent's own pixels. */
+function Markers({ markers, offsetY = 0 }: { markers: StageMarker[]; offsetY?: number }) {
+  return (
+    <>
+      {markers.map((m) => {
+        const pinSel = `[data-stage-pin="${m.id}"]`;
+        const chipSel = `[data-stage-chip="${m.id}"]`;
+        return (
+          <React.Fragment key={m.id}>
+            <span data-stage-pin={m.id} className={styles.marker} style={{ insetInlineStart: m.x, insetBlockStart: m.y - offsetY }}>
+              <Pin number={m.label} variant={m.tone ?? 'pink'} pinStyle="solid" />
+            </span>
+            {m.part != null && m.chipX != null && m.chipY != null ? (
+              <>
+                <span data-stage-chip={m.id} className={styles.chip} style={{ insetInlineStart: m.chipX, insetBlockStart: m.chipY - offsetY }}>
+                  <PinLabel kind="part" status={m.status} selected={m.selected}>
+                    {m.part}
+                  </PinLabel>
+                </span>
+                <Leader from={pinSel} to={chipSel} label={`Pin ${String(m.label)} points to ${typeof m.part === 'string' ? m.part : 'its part'}`} variant="pink" lineStyle="solid" end="dot" selected={m.selected} />
+              </>
+            ) : null}
+          </React.Fragment>
+        );
+      })}
+    </>
+  );
+}
+
 export default function Stage({
   grid = 'dots',
   children,
@@ -88,7 +132,10 @@ export default function Stage({
   if (frameWidth == null) {
     return (
       <div className={cls} style={style} role={label ? 'group' : undefined} aria-label={label} data-bella-component="stage">
-        <div className={styles.content}>{children}</div>
+        <div className={styles.content}>
+          {children}
+          {markers?.length ? <Markers markers={markers} /> : null}
+        </div>
       </div>
     );
   }
@@ -119,15 +166,7 @@ export default function Stage({
             <div className={styles.page} style={offsetY ? { transform: `translateY(${-offsetY}px)` } : undefined}>
               {children}
             </div>
-            {markers?.map((m) => (
-              <Pin
-                key={m.id}
-                number={m.label}
-                variant="pink"
-                className={styles.marker}
-                style={{ insetInlineStart: m.x, insetBlockStart: m.y - offsetY }}
-              />
-            ))}
+            {markers?.length ? <Markers markers={markers} offsetY={offsetY} /> : null}
             {picking ? <div className={styles.picker} onClick={pick} aria-hidden="true" /> : null}
           </div>
         </div>

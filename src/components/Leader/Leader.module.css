@@ -15,6 +15,7 @@
 .pink { --leader-pop: var(--color-border-accent-1); }
 .blue { --leader-pop: var(--color-background-accent-3); }
 .red { --leader-pop: var(--color-background-accent-4); }
+.neutral { --leader-pop: var(--color-border-strong); }
 
 .line,
 .arrow {
@@ -29,6 +30,20 @@
 
 .dot {
   fill: var(--leader-pop);
+}
+
+/* lineStyle="solid" (the stage, published Leader style=solid): 1px, no dash */
+.solid .line {
+  stroke-width: var(--border-width-1);
+  stroke-dasharray: none;
+}
+
+/* selected: a 2px ink line, to the part whose card is open */
+.selected {
+  --leader-pop: var(--color-border-ink);
+}
+.selected .line {
+  stroke-width: var(--border-width-2);
 }
 
 @media (forced-colors: active) {

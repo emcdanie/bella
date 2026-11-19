@@ -27,6 +27,7 @@
 }
 
 .content {
+  position: relative; /* markers and leaders are placed in its pixels */
   box-sizing: border-box;
   display: flex;
   flex: 1 1 auto;
@@ -95,6 +96,14 @@
 .marker {
   position: absolute;
   translate: -50% -50%;
+  display: inline-flex;
+}
+
+/* the part chip, its left edge at chipX, centred on chipY */
+.chip {
+  position: absolute;
+  translate: 0 -50%;
+  display: inline-flex;
 }
 
 .picker {

@@ -32,7 +32,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Code, contracts, diffs | `CodeBlock` |
 | Name an icon button | `Tooltip` |
 | Work list: status, title, why, one action | `ListRow` |
-| Explain something in place: numbered marker, dashed line | `Pin`, `Leader` |
+| Explain something in place: numbered marker, dashed or solid line, pin with its name | `Pin`, `Leader`, `PinLabel` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
 | Group of people (overlapping discs) | `AvatarStack` |

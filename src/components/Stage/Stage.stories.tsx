@@ -135,3 +135,23 @@ export const FrameBehavior: Story = {
     });
   },
 };
+
+/** Her "On the stage" look: numbered pins on the part, each tied by a solid pink leader to a part chip (pass or finding); one selected. */
+export const Anatomy: Story = {
+  render: () => (
+    <div style={{ maxInlineSize: '40rem' }}>
+      <Stage
+        grid="dots"
+        label="Button on the stage"
+        markers={[
+          { id: 'label', x: 320, y: 122, label: '1', tone: 'yellow', part: 'Label', status: 'pass', chipX: 440, chipY: 56 },
+          { id: 'edge', x: 240, y: 165, label: '2', tone: 'yellow', part: 'Edge', status: 'finding', chipX: 440, chipY: 216, selected: true },
+        ]}
+      >
+        <div style={{ blockSize: 'calc(var(--spacing-80) * 3)', display: 'grid', placeItems: 'center' }}>
+          <Button variant="secondary">Open the story</Button>
+        </div>
+      </Stage>
+    </div>
+  ),
+};

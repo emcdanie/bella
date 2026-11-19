@@ -117,6 +117,9 @@ export type { TooltipProps } from './Tooltip/Tooltip';
 export { default as Pin } from './Pin/Pin';
 export type { PinProps } from './Pin/Pin';
 
+export { default as PinLabel } from './PinLabel/PinLabel';
+export type { PinLabelProps } from './PinLabel/PinLabel';
+
 export { default as Leader } from './Leader/Leader';
 export type { LeaderProps } from './Leader/Leader';
 

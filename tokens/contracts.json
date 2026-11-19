@@ -2638,20 +2638,55 @@
         }
       }
     },
+    "pin-label": {
+      "$extensions": {
+        "bella": {
+          "name": "PinLabel",
+          "category": "Annotation",
+          "description": "A pill that names a pin: kind label is a solid Pin with the token or part name; kind part is the stage chip, a status dot with the part name.",
+          "states": [
+            "default",
+            "selected"
+          ],
+          "props": [
+            "kind",
+            "children",
+            "number",
+            "tone",
+            "status",
+            "selected",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Naming a numbered part on the stage, tied to its pin by a solid Leader",
+            "Listing a token or part beside its pin"
+          ],
+          "dont": [
+            "Do not use it as a button: it is a label",
+            "Do not show status by colour alone: pass shows a check mark"
+          ],
+          "a11y": "Text is text-primary on surface, AAA in every theme. The status dot carries a check mark for pass, so colour is never alone. Selected adds a 2px ink ring.",
+          "figma": "Matches the published BellaComponents Pin label (629:1116), read 20 Nov 2026."
+        }
+      }
+    },
     "leader": {
       "$extensions": {
         "bella": {
           "name": "Leader",
           "category": "Annotation",
-          "description": "A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.",
+          "description": "A line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains. Dashed by default; solid with one rounded bend for stage markers.",
           "variants": [
             "yellow",
             "pink",
             "blue",
-            "red"
+            "red",
+            "neutral"
           ],
           "states": [
-            "default"
+            "default",
+            "selected"
           ],
           "props": [
             "from",
@@ -2659,6 +2694,8 @@
             "label",
             "variant",
             "end",
+            "lineStyle",
+            "selected",
             "className",
             "style"
           ],
@@ -3627,7 +3664,7 @@
           "figmaProps": {
             "grid": "grid",
             "Content (slot)": "children",
-            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma: the Playground frame, on her decision card (19 Nov); built from SegmentedControl and Pin"
+            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma: the Playground frame, on her decision card (19 Nov); built from SegmentedControl and Pin. Markers with a part draw the published Pin label (629:1116) and a solid Leader"
           }
         }
       }

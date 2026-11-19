@@ -9,7 +9,11 @@ export interface LeaderProps {
   /** What the line ties together, for assistive tech: "Pin 1 points to the focus ring". */
   label: string;
   /** The pop colour of the line: match its Pin. */
-  variant?: 'yellow' | 'pink' | 'blue' | 'red';
+  variant?: 'yellow' | 'pink' | 'blue' | 'red' | 'neutral';
+  /** Figma "style". dashed (default; doc pages) or solid (the stage, 1px, rounded 8 bends). */
+  lineStyle?: 'dashed' | 'solid';
+  /** Figma "selected": a 2px ink line, to the part whose card is open. */
+  selected?: boolean;
   /** How the line lands: a solid arrowhead or a dot. */
   end?: 'arrow' | 'dot';
   /** Extra classes on the SVG. */
@@ -18,6 +22,23 @@ export interface LeaderProps {
 }
 
 const NS = 'http://www.w3.org/2000/svg';
+
+/* An elbow through points with each bend rounded 8 (Figma: "one rounded 8
+   bend", guideline 17), never more than half of either segment. */
+function rounded(pts: [number, number][]): string {
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [px, py] = pts[i - 1], [cx, cy] = pts[i], [nx, ny] = pts[i + 1];
+    const l1 = Math.hypot(cx - px, cy - py), l2 = Math.hypot(nx - cx, ny - cy);
+    const r = Math.min(8, l1 / 2, l2 / 2);
+    if (r < 0.5) { d += ` L${cx} ${cy}`; continue; }
+    const ax = cx - ((cx - px) / l1) * r, ay = cy - ((cy - py) / l1) * r;
+    const bx = cx + ((nx - cx) / l2) * r, by = cy + ((ny - cy) / l2) * r;
+    d += ` L${ax} ${ay} Q${cx} ${cy} ${bx} ${by}`;
+  }
+  const last = pts[pts.length - 1];
+  return d + ` L${last[0]} ${last[1]}`;
+}
 
 /**
  * A dashed elbow line, measured from one element to another, from the site's
@@ -31,6 +52,8 @@ export default function Leader({
   label,
   variant = 'pink',
   end = 'arrow',
+  lineStyle = 'dashed',
+  selected = false,
   className,
   style,
 }: LeaderProps) {
@@ -60,14 +83,29 @@ export default function Leader({
         parts.push(el);
       };
       const sideways = b.left >= a.right || a.left >= b.right;
-      if (sideways) {
+      if (lineStyle === 'solid' && sideways) {
+        /* the stage: one rounded bend (Figma route bend up / bend down): out of
+           the pin's top or bottom, then across into the label's near side */
+        const dir = b.left >= a.right ? 1 : -1;
+        const by = b.top + b.height / 2 - h.top;
+        const ax = a.left + a.width / 2 - h.left;
+        const up = by < a.top + a.height / 2 - h.top;
+        const ay = (up ? a.top : a.bottom) - h.top;
+        const bx = (dir > 0 ? b.left : b.right) - h.left;
+        add('path', styles.line, { d: rounded([[ax, ay], [ax, by], [bx, by]]) });
+        if (end === 'arrow') {
+          add('path', styles.arrow, { d: `M${bx - dir * size} ${by - size / 2} L${bx} ${by} L${bx - dir * size} ${by + size / 2}` });
+        } else {
+          add('circle', styles.dot, { cx: bx, cy: by, r: size / 2 });
+        }
+      } else if (sideways) {
         const dir = b.left >= a.right ? 1 : -1;
         const x1 = (dir > 0 ? a.right : a.left) - h.left;
         const x2 = (dir > 0 ? b.left : b.right) - h.left;
         const y1 = a.top + a.height / 2 - h.top;
         const y2 = b.top + b.height / 2 - h.top;
         const mx = (x1 + x2) / 2;
-        add('path', styles.line, { d: `M${x1} ${y1} H${mx} V${y2} H${x2}` });
+        add('path', styles.line, { d: lineStyle === 'solid' ? rounded([[x1, y1], [mx, y1], [mx, y2], [x2, y2]]) : `M${x1} ${y1} H${mx} V${y2} H${x2}` });
         if (end === 'arrow') {
           add('path', styles.arrow, { d: `M${x2 - dir * size} ${y2 - size / 2} L${x2} ${y2} L${x2 - dir * size} ${y2 + size / 2}` });
         } else {
@@ -80,7 +118,7 @@ export default function Leader({
         const x1 = a.left + a.width / 2 - h.left;
         const x2 = b.left + b.width / 2 - h.left;
         const my = (y1 + y2) / 2;
-        add('path', styles.line, { d: `M${x1} ${y1} V${my} H${x2} V${y2}` });
+        add('path', styles.line, { d: lineStyle === 'solid' ? rounded([[x1, y1], [x1, my], [x2, my], [x2, y2]]) : `M${x1} ${y1} V${my} H${x2} V${y2}` });
         if (end === 'arrow') {
           add('path', styles.arrow, { d: `M${x2 - size / 2} ${y2 - dir * size} L${x2} ${y2} L${x2 + size / 2} ${y2 - dir * size}` });
         } else {
@@ -107,12 +145,12 @@ export default function Leader({
       window.removeEventListener('resize', queue);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [from, to, end]);
+  }, [from, to, end, lineStyle]);
 
   return (
     <svg
       ref={ref}
-      className={[styles.leader, styles[variant], className].filter(Boolean).join(' ')}
+      className={[styles.leader, styles[variant], lineStyle === 'solid' ? styles.solid : '', selected ? styles.selected : '', className].filter(Boolean).join(' ')}
       style={style}
       role="img"
       aria-label={label}

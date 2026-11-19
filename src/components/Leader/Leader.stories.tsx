@@ -36,7 +36,7 @@ type Story = StoryObj<typeof Leader>;
 export const SideBySide: Story = {
   render: (args) => (
     <div style={{ position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'start', gap: 'var(--spacing-64)', paddingBlock: 'var(--spacing-32)' }}>
-      <span id="leader-a"><Pin number="3" variant={args.variant} label="Box" /></span>
+      <span id="leader-a"><Pin number="3" variant={args.variant === "neutral" ? undefined : args.variant} label="Box" /></span>
       <span id="leader-b" style={{ marginTop: 'var(--spacing-48)', color: 'var(--color-content-default)' }}>What it explains</span>
       <Leader {...args} />
     </div>

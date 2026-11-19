@@ -11184,9 +11184,60 @@ entries:
           - hover
           - focus
   - kind: component
+    id: pin-label
+    name: PinLabel
+    description: "A pill that names a pin: kind label is a solid Pin with the token or part name; kind part is the stage chip, a status dot with the part name."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Text is text-primary on surface, AAA in every theme. The status dot carries a check mark for pass, so colour is never alone. Selected adds a 2px ink ring.
+      tags:
+        - component
+        - pin-label
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Naming a numbered part on the stage, tied to its pin by a solid Leader
+          - level: may
+            statement: Listing a token or part beside its pin
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it as a button: it is a label"
+          - level: must-not
+            statement: "Do not show status by colour alone: pass shows a check mark"
+    refs:
+      - href: ./src/components/PinLabel/PinLabel.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/PinLabel/PinLabel.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - selected
+  - kind: component
     id: leader
     name: Leader
-    description: A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.
+    description: A line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains. Dashed by default; solid with one rounded bend for stage markers.
     metadata:
       origin:
         method: extracted
@@ -11234,6 +11285,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+          - selected
   - kind: component
     id: list-row
     name: ListRow

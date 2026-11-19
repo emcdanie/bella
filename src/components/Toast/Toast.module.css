@@ -1,0 +1,61 @@
+/* Toast (Figma BellaComponents 956:56, read 20 Nov 2026). Tokens only.
+ * Body: a row, 12 apart, centred, padding 8 / 8 / 8 / 16, 480 at most,
+ * background/surface, a 2px edge in the tone's border/utility colour,
+ * border/radius/card, one shadow because it floats (0 4 16 in
+ * background/transparent, bound as Figma binds it). The 24 icon in the tone's
+ * content/utility ink; the message reading face 16/24, content/default,
+ * filling; one secondary action; the 44 tertiary Close. */
+
+.toast {
+  box-sizing: border-box;
+  container-type: inline-size;
+  inline-size: 100%;
+  max-inline-size: calc(var(--spacing-80) * 6);
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-8) var(--spacing-16);
+  border: var(--border-width-2) solid var(--toast-edge);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: 0 var(--spacing-4) var(--spacing-16) 0 var(--color-background-transparent);
+}
+
+.body {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-areas: 'icon message action close';
+  align-items: center;
+  column-gap: var(--spacing-12);
+  row-gap: var(--spacing-8);
+}
+
+.action { grid-area: action; display: inline-flex; }
+.close { grid-area: close; display: inline-flex; }
+
+/* A phone: the action goes under the message, Close stays top right. */
+@container (max-width: 22rem) {
+  .body {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'icon message close' '. action .';
+  }
+  .action { justify-self: start; }
+}
+
+.info { --toast-edge: var(--color-border-utility-info); --toast-ink: var(--color-content-utility-info); }
+.success { --toast-edge: var(--color-border-utility-success); --toast-ink: var(--color-content-utility-success); }
+.attention { --toast-edge: var(--color-border-utility-warning); --toast-ink: var(--color-content-utility-warning); }
+.danger { --toast-edge: var(--color-border-utility-error); --toast-ink: var(--color-content-utility-error); }
+
+.icon {
+  grid-area: icon;
+  display: inline-flex;
+  color: var(--toast-ink);
+}
+
+.message {
+  grid-area: message;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}

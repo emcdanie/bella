@@ -58,6 +58,8 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | One colour role as a Pantone-style chip: colour, name, hex, contrast | `Swatch` |
 | One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |
 | A connected app or service: its icon on a coloured tile, optional badge | `AppTile` |
+| A short message after an action that comes and goes (Notification stays) | `Toast` |
+| One connected service on Connectors: app tile, status, name, value, one action | `ConnectorTile` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
 | The actions on one thing, from a "…" button | `Menu` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |
@@ -71,7 +73,7 @@ Props, variants and examples: each component's `.tsx` types and Storybook storie
 
 ## Open
 
-- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert/Toast, Textarea, Pagination, destructive Button. Stopping to name the gap is intended (Elleta, 12 Nov: "Keep it, build parts"). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination.
+- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button. Stopping to name the gap is intended (Elleta, 12 Nov: "Keep it, build parts"). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination.
 - Warning and info status tones: undecided (issue #1); don't invent values or new status UI.
 - Warm theme (`[data-theme="warm"]`): deferred; don't rebuild or retire it until Elleta decides.
 - Open foundation and component choices: the [Figma Decide board](https://www.figma.com/design/4VWkwaMTKZWoGvH6PRbud8/?node-id=244-2).

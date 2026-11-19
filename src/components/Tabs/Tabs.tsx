@@ -55,7 +55,10 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
 
   /* When the tabs are wider than their space the list scrolls sideways
    * inside itself (Material, Carbon); the selected tab is always brought
-   * into view there, never cut off, and the page itself never moves. */
+   * into view there, clear of the chevrons, never cut off, and the page
+   * itself never moves. It runs again once the chevrons appear, since they
+   * narrow the list. */
+  const [more, setMore] = useState({ start: false, end: false });
   useEffect(() => {
     const list = listRef.current;
     const tab = refs.current[tabs.findIndex((t) => t.id === value)];
@@ -64,12 +67,11 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
     const end = start + tab.offsetWidth;
     if (start < list.scrollLeft) list.scrollLeft = start;
     else if (end > list.scrollLeft + list.clientWidth) list.scrollLeft = end - list.clientWidth;
-  }, [value, tabs]);
+  }, [value, tabs, more.start, more.end]);
 
   /* Her pick, 20 Nov ("B · chevron button", as Carbon): when the tabs are
    * wider than their space, a 44 tertiary chevron sits at each end that has
    * more, and scrolls the row that way. Swipe still works; tabs never wrap. */
-  const [more, setMore] = useState({ start: false, end: false });
   useEffect(() => {
     const list = listRef.current;
     if (!list) return;

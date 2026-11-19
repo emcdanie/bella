@@ -77,7 +77,7 @@ for (const m of text.matchAll(PASCAL_RE)) {
 // 5. "Not in BELLA yet" items must not exist as component dirs
 const NOT_YET_LINE = lines.find(l => l.includes('Switch/toggle'));
 if (NOT_YET_LINE) {
-  // Extract names: "Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert/Toast, Textarea, Pagination, destructive Button"
+  // Extract names: "Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button" (Toast built 20 Nov from the published part)
   const NOT_YET_MAP = {
     'Switch': 'Switch',
     'Checkbox': 'Checkbox',
@@ -85,7 +85,6 @@ if (NOT_YET_LINE) {
     'Dialog': 'Dialog',
     'Modal': 'Modal',
     'Alert': 'Alert',
-    'Toast': 'Toast',
     'Textarea': 'Textarea',
     'Pagination': 'Pagination',
   };

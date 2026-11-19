@@ -12699,6 +12699,67 @@ entries:
           - git
           - claude
           - info
+  - kind: component
+    id: toast
+    name: Toast
+    description: "A short message after an action that comes and goes: icon, message, at most one action, Close. A polite live region."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - toast
+    refs:
+      - href: ./src/components/Toast/Toast.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Toast/Toast.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - info
+          - success
+          - attention
+          - danger
+  - kind: component
+    id: connector-tile
+    name: ConnectorTile
+    description: "One connected service on CHIP Connectors: its app tile and live status, its name, what it says now, and the one action it offers."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - connector-tile
+    refs:
+      - href: ./src/components/ConnectorTile/ConnectorTile.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ConnectorTile/ConnectorTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
   - kind: entry
     id: foundation-color
     name: Colour

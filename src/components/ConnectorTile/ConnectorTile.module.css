@@ -1,0 +1,76 @@
+/* Connector tile (Figma BellaComponents 1330:51190, read 20 Nov 2026). Tokens
+ * only. A card: background/surface, 1px border/subtle edge, border/radius/card,
+ * shadow/card-ink, padding 24; Main and Footer spread top to bottom, 24 apart.
+ * Top: the App tile left, the status right. Text, 4 apart: name reading face
+ * 16 / 600, value reading face 20 / 600 (content/default), detail subtext face
+ * 16 (content/subtle). Footer: 24 above, the one action on the right. */
+
+.tile {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+  block-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--spacing-24);
+  border: var(--border-width-1) solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.name,
+.value,
+.detail {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+.name {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+.value {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-130);
+  color: var(--color-content-default);
+}
+
+.detail {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

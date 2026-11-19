@@ -214,3 +214,7 @@ export { default as TourStep } from './TourStep/TourStep';
 export type { TourStepProps } from './TourStep/TourStep';
 export { default as AppTile } from './AppTile/AppTile';
 export type { AppTileProps } from './AppTile/AppTile';
+export { default as Toast } from './Toast/Toast';
+export type { ToastProps, ToastTone } from './Toast/Toast';
+export { default as ConnectorTile } from './ConnectorTile/ConnectorTile';
+export type { ConnectorTileProps } from './ConnectorTile/ConnectorTile';

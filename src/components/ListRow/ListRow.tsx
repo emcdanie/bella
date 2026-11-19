@@ -21,6 +21,8 @@ export interface ListRowProps {
   iconWell?: ReactNode;
   /** Figma "Left" › "↳ Pin" (published 19 Nov). A Pin on the title line (anatomy lists). */
   pin?: ReactNode;
+  /** Figma "Middle" › Subtitle in the subtext face (Geist Mono in Chip): short meta, a code or a date ("OK #184 · 15 Oct"). Sentences go in `description` (Lexend, her y23 answer). */
+  meta?: ReactNode;
   /** Figma "Left" › "↳ Status dot". A StatusDot. */
   statusDot?: ReactNode;
   /** Figma "Left" › "↳ Avatar". An Avatar. */
@@ -112,7 +114,7 @@ export default function ListRow(props: ListRowProps) {
 }
 
 const ZONE_KEYS = [
-  'layout', 'selected', 'iconWell', 'pin', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
+  'layout', 'selected', 'iconWell', 'pin', 'meta', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
   'value', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
   'href', 'onClick', 'as',
 ] as const;
@@ -132,6 +134,7 @@ function ZonedRow({
   selected = false,
   iconWell,
   pin,
+  meta,
   statusDot,
   avatar,
   overline,
@@ -203,7 +206,14 @@ function ZonedRow({
                   </span>
                 )
               }
-              subtitle={description != null ? <span className={styles.description}>{description}</span> : undefined}
+              subtitle={
+                description != null || meta != null ? (
+                  <>
+                    {description != null ? <span className={styles.description}>{description}</span> : null}
+                    {meta != null ? <span className={styles.meta}>{meta}</span> : null}
+                  </>
+                ) : undefined
+              }
               body={body}
             />
             {tag != null ? <div className={styles.tag}>{tag}</div> : null}

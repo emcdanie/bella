@@ -183,3 +183,13 @@ export const ZonedNarrow: Story = {
     </Card>
   ),
 };
+
+/** Meta in the subtext face: a sentence in `description` (Lexend), a code and a date in `meta` (Geist Mono), as Team's trust rows. */
+export const ZonedMeta: Story = {
+  render: () => (
+    <Card label="Meta" width={560}>
+      <ListRow layout="stacked" title="Ships after review" description="Merges only on her typed OK." meta="OK #184 · 15 Oct" />
+      <ListRow layout="stacked" title="Picks up the brief" meta="#212 · 19 Nov" />
+    </Card>
+  ),
+};

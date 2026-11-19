@@ -212,3 +212,5 @@ export { default as Swatch } from './Swatch/Swatch';
 export type { SwatchProps } from './Swatch/Swatch';
 export { default as TourStep } from './TourStep/TourStep';
 export type { TourStepProps } from './TourStep/TourStep';
+export { default as AppTile } from './AppTile/AppTile';
+export type { AppTileProps } from './AppTile/AppTile';

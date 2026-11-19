@@ -12666,6 +12666,39 @@ entries:
           - "16"
           - "20"
           - touch
+  - kind: component
+    id: app-tile
+    name: AppTile
+    description: "A connected app or service on CHIP Connectors: its icon on a coloured tile, with an optional badge."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - app-tile
+    refs:
+      - href: ./src/components/AppTile/AppTile.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/AppTile/AppTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - inverse
+          - outline
+          - git
+          - claude
+          - info
   - kind: entry
     id: foundation-color
     name: Colour

@@ -57,6 +57,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | One spacing step drawn at its real size (Foundations) | `SpacingStep` |
 | One colour role as a Pantone-style chip: colour, name, hex, contrast | `Swatch` |
 | One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |
+| A connected app or service: its icon on a coloured tile, optional badge | `AppTile` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
 | The actions on one thing, from a "…" button | `Menu` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |

@@ -120,6 +120,15 @@ export type { PinProps } from './Pin/Pin';
 export { default as PinLabel } from './PinLabel/PinLabel';
 export type { PinLabelProps } from './PinLabel/PinLabel';
 
+export { default as SizeTag } from './SizeTag/SizeTag';
+export type { SizeTagProps } from './SizeTag/SizeTag';
+
+export { default as PartRow } from './PartRow/PartRow';
+export type { PartRowProps } from './PartRow/PartRow';
+
+export { default as AnatomyHighlight, AnatomyTag } from './AnatomyHighlight/AnatomyHighlight';
+export type { AnatomyHighlightProps, AnatomyTagProps } from './AnatomyHighlight/AnatomyHighlight';
+
 export { default as Leader } from './Leader/Leader';
 export type { LeaderProps } from './Leader/Leader';
 

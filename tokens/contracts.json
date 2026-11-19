@@ -2673,6 +2673,104 @@
         }
       }
     },
+    "size-tag": {
+      "$extensions": {
+        "bella": {
+          "name": "SizeTag",
+          "category": "Annotation",
+          "description": "A measured size beside a bracket, in the colour of its annotation. A filled rectangle with small corners, never a pill.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "tone",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "On doc stages, beside a bracket"
+          ],
+          "dont": [
+            "Do not make it a pill: that is a Tag",
+            "Do not use it for a status"
+          ],
+          "a11y": "Text: content/on-accent-1 on the pop fills, AA or better in every theme (the pops are light). Plain text, no role.",
+          "figma": "Matches the published BellaComponents Size tag (634:1152), read 20 Nov 2026: padding 4, radius sm, Geist Mono 16 bold."
+        }
+      }
+    },
+    "part-row": {
+      "$extensions": {
+        "bella": {
+          "name": "PartRow",
+          "category": "Annotation",
+          "description": "One numbered part in an anatomy list: pin, part name, what it does, and its tokens.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "number",
+            "tone",
+            "title",
+            "description",
+            "detail",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Beside a component render whose parts carry the same numbered Pins"
+          ],
+          "dont": [
+            "Do not use it for navigation or actions: it is a caption, not a control"
+          ],
+          "a11y": "Plain text: title content/default, lines content/subtle (7:1+). The pin's number is text.",
+          "figma": "Matches the published BellaComponents Part row (841:124467), read 20 Nov 2026: solid blue Pin, 12 apart, title Lexend 18 / 600, description and detail Lexend 16 subtle.",
+          "figmaProps": {
+            "Title": "title",
+            "Description": "description",
+            "Detail": "detail",
+            "Show detail": "detail present"
+          }
+        }
+      }
+    },
+    "anatomy-highlight": {
+      "$extensions": {
+        "bella": {
+          "name": "AnatomyHighlight",
+          "category": "Annotation",
+          "description": "Marks one piece of a part on a doc page: a 2px outline round the piece, outside so it never covers it, and a tag naming it on the outline's edge. No numbers. AnatomyTag is the tag alone, for the margin.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "shape",
+            "tag",
+            "showTag",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Doc-page anatomy, placed absolute over the specimen and sized to the piece",
+            "AnatomyTag alone in the margin, level with its piece, when the edge would cover the part"
+          ],
+          "dont": [
+            "Do not number the pieces: it replaces numbered Pins and Leaders on doc-page anatomy",
+            "Do not use it for flow locator dots: those stay Pins"
+          ],
+          "a11y": "The tag is text, content/on-accent-1 on accent-2 (AAA). The outline is decoration over the piece; with Show tag off the name stays for screen readers. No pointer events.",
+          "figma": "Matches the published BellaComponents Anatomy highlight (1309:233) and _Anatomy tag (1311:5454), read 20 Nov 2026.",
+          "figmaProps": {
+            "shape": "shape",
+            "tag": "tag",
+            "Show tag": "showTag",
+            "Label (on _Anatomy tag)": "label"
+          }
+        }
+      }
+    },
     "leader": {
       "$extensions": {
         "bella": {

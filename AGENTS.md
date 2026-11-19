@@ -33,6 +33,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Name an icon button | `Tooltip` |
 | Work list: status, title, why, one action | `ListRow` |
 | Explain something in place: numbered marker, dashed or solid line, pin with its name | `Pin`, `Leader`, `PinLabel` |
+| Doc-page anatomy: outline and name on a piece; numbered part list; a measured size | `AnatomyHighlight`, `PartRow`, `SizeTag` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
 | Group of people (overlapping discs) | `AvatarStack` |

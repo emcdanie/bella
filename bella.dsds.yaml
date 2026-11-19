@@ -11237,6 +11237,150 @@ entries:
           - default
           - selected
   - kind: component
+    id: size-tag
+    name: SizeTag
+    description: A measured size beside a bracket, in the colour of its annotation. A filled rectangle with small corners, never a pill.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "Text: content/on-accent-1 on the pop fills, AA or better in every theme (the pops are light). Plain text, no role."
+      tags:
+        - component
+        - size-tag
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: On doc stages, beside a bracket
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not make it a pill: that is a Tag"
+          - level: must-not
+            statement: Do not use it for a status
+    refs:
+      - href: ./src/components/SizeTag/SizeTag.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/SizeTag/SizeTag.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: part-row
+    name: PartRow
+    description: "One numbered part in an anatomy list: pin, part name, what it does, and its tokens."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "Plain text: title content/default, lines content/subtle (7:1+). The pin's number is text."
+      tags:
+        - component
+        - part-row
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Beside a component render whose parts carry the same numbered Pins
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it for navigation or actions: it is a caption, not a control"
+    refs:
+      - href: ./src/components/PartRow/PartRow.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/PartRow/PartRow.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: anatomy-highlight
+    name: AnatomyHighlight
+    description: "Marks one piece of a part on a doc page: a 2px outline round the piece, outside so it never covers it, and a tag naming it on the outline's edge. No numbers. AnatomyTag is the tag alone, for the margin."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: The tag is text, content/on-accent-1 on accent-2 (AAA). The outline is decoration over the piece; with Show tag off the name stays for screen readers. No pointer events.
+      tags:
+        - component
+        - anatomy-highlight
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Doc-page anatomy, placed absolute over the specimen and sized to the piece
+          - level: may
+            statement: AnatomyTag alone in the margin, level with its piece, when the edge would cover the part
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not number the pieces: it replaces numbered Pins and Leaders on doc-page anatomy"
+          - level: must-not
+            statement: "Do not use it for flow locator dots: those stay Pins"
+    refs:
+      - href: ./src/components/AnatomyHighlight/AnatomyHighlight.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/AnatomyHighlight/AnatomyHighlight.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
     id: leader
     name: Leader
     description: A line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains. Dashed by default; solid with one rounded bend for stage markers.

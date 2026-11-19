@@ -52,6 +52,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | The › on anything that opens something | `Trailing` |
 | Bar, segments or ring, with a target | `Progress` |
 | One number with its chart, context and caption | `StatCard` |
+| How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
 | The actions on one thing, from a "…" button | `Menu` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |

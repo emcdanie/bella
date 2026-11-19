@@ -151,6 +151,8 @@ export type { ProgressProps } from './Progress/Progress';
 
 export { default as StatCard } from './StatCard/StatCard';
 export type { StatCardProps } from './StatCard/StatCard';
+export { default as SystemHealth } from './SystemHealth/SystemHealth';
+export type { SystemHealthProps, SystemHealthFail } from './SystemHealth/SystemHealth';
 
 export { default as Step } from './Step/Step';
 export type { StepProps } from './Step/Step';

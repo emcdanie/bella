@@ -1,11 +1,60 @@
 import React, { type CSSProperties, type ElementType, type ReactNode } from 'react';
+import TextStack from '../TextStack/TextStack';
+import Trailing, { type TrailingIcon } from '../Trailing/Trailing';
 import styles from './ListRow.module.css';
 
 export interface ListRowProps {
-  /** What the item is. */
+  /** What the item is. Figma Text stack "Title". */
   title: ReactNode;
-  /** One line of why it matters. */
+  /** One line of why it matters. Figma Text stack "Subtitle" in the zoned row. */
   description?: ReactNode;
+
+  /* Figma zones (List item, re-sync 19 Nov 2026). Passing `layout` or any
+   * zone prop renders the zoned row; without them the row is the original
+   * work-list row below, unchanged. A missing slot = the zone off. */
+
+  /** Figma "layout". stacked: zones sit on the title line, text column stacks. inline: one line, every zone centred. */
+  layout?: 'stacked' | 'inline';
+  /** Figma state=selected. Light blue, never pink. Hover, pressed and focus come from the row being a target (`href` / `onClick`). */
+  selected?: boolean;
+  /** Figma "Left" › "↳ Icon well". An IconWell. */
+  iconWell?: ReactNode;
+  /** Figma "Left" › "↳ Status dot". A StatusDot. */
+  statusDot?: ReactNode;
+  /** Figma "Left" › "↳ Avatar". An Avatar. */
+  avatar?: ReactNode;
+  /** Figma Text stack "Overline". */
+  overline?: ReactNode;
+  /** Figma Text stack "Body". */
+  body?: ReactNode;
+  /** Figma "Middle" › "↳ Tag". A Tag. */
+  tag?: ReactNode;
+  /** Figma "Middle" › "↳ Text button". A Button tertiary sm. */
+  textButton?: ReactNode;
+  /** Figma "Right" › "↳ Value" + "↳↳ Value text". Number face, 600. */
+  value?: ReactNode;
+  /** Figma "Right" › "↳ Sub value" + "↳↳ Sub value text". Subtext face. */
+  subValue?: ReactNode;
+  /** Figma "Right" › "↳ Action button". An ActionChip or Button; same zone as `action`, wins when both are set. */
+  actionButton?: ReactNode;
+  /** Figma "Right" › "↳ Switch". A Switch. */
+  switch?: ReactNode;
+  /** Figma "Trailing". The › (or ↗) Trailing part; the whole row is the target, so pass `href` or `onClick`. */
+  trailing?: boolean | TrailingIcon;
+  /** Figma "Below" › "↳ Progress". A slot (the Progress part). */
+  progress?: ReactNode;
+  /** Figma "Below" › "↳ Helper text". A HelperText or a short line. */
+  helperText?: ReactNode;
+  /** Figma "Below" › "↳ Divider". A 1px line under the row's content. */
+  divider?: boolean;
+  /** Makes the whole row the target (44+ tall): it opens this. */
+  href?: string;
+  /** Makes the whole row the target: it does this. */
+  onClick?: () => void;
+  /** Router link component for `href`; defaults to a plain anchor. */
+  linkComponent?: ElementType;
+  /** The row's element. `li` (default) inside a list, `div` elsewhere. */
+  as?: 'li' | 'div';
   /** The status marker, with a word: a StatusPill. */
   status?: ReactNode;
   /** The one thing to do next: a Button, ActionChip or Link. */
@@ -44,15 +93,9 @@ export function ListRowGroup({ ariaLabel, className, style, children }: ListRowG
  * One item in a work list: a status with a word, a title, one line of why and
  * one action. The action brings its own 44px box.
  */
-export default function ListRow({
-  title,
-  description,
-  status,
-  action,
-  titleAs = 'span',
-  className,
-  style,
-}: ListRowProps) {
+export default function ListRow(props: ListRowProps) {
+  const { title, description, status, action, titleAs = 'span', className, style } = props;
+  if (isZoned(props)) return <ZonedRow {...props} />;
   const Title: ElementType = titleAs;
   return (
     <li className={[styles.row, className].filter(Boolean).join(' ')} style={style} data-bella-component="list-row">
@@ -63,5 +106,123 @@ export default function ListRow({
       </div>
       {action != null ? <div className={styles.action}>{action}</div> : null}
     </li>
+  );
+}
+
+const ZONE_KEYS = [
+  'layout', 'selected', 'iconWell', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
+  'value', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
+  'href', 'onClick', 'as',
+] as const;
+
+function isZoned(p: ListRowProps) {
+  return ZONE_KEYS.some((k) => p[k] !== undefined);
+}
+
+/** The zoned List item (Figma, 18 Nov): Left · Middle · Right · Trailing on
+ * one row, Below under the text column. Only the zones passed render. */
+function ZonedRow({
+  title,
+  description,
+  action,
+  titleAs = 'span',
+  layout = 'stacked',
+  selected = false,
+  iconWell,
+  statusDot,
+  avatar,
+  overline,
+  body,
+  tag,
+  textButton,
+  value,
+  subValue,
+  actionButton,
+  switch: switchSlot,
+  trailing,
+  progress,
+  helperText,
+  divider = false,
+  href,
+  onClick,
+  linkComponent: LinkComponent = 'a',
+  as: Root = 'li',
+  className,
+  style,
+}: ListRowProps) {
+  const right = actionButton ?? action;
+  const hasLeft = iconWell != null || statusDot != null || avatar != null;
+  const hasRight = value != null || subValue != null || right != null || switchSlot != null;
+  const hasBelow = progress != null || helperText != null || divider;
+  const interactive = href != null || onClick != null;
+  /* The whole row is the target: the title carries the link or button and
+   * its ::after stretches over the row, so actions inside stay their own
+   * targets (no nested interactive elements). */
+  const titleNode = href != null ? (
+    <LinkComponent href={href} className={styles.target}>{title}</LinkComponent>
+  ) : onClick != null ? (
+    <button type="button" onClick={onClick} className={styles.target}>{title}</button>
+  ) : (
+    title
+  );
+  const cls = [
+    styles.zoned,
+    styles[layout],
+    interactive ? styles.interactive : '',
+    selected ? styles.selected : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+  return (
+    <Root className={cls} style={style} data-bella-component="list-row" data-bella-layout={layout} aria-current={selected ? 'true' : undefined}>
+      {hasLeft ? (
+        <div className={styles.left}>
+          {iconWell}
+          {statusDot}
+          {avatar}
+        </div>
+      ) : null}
+      <div className={styles.body}>
+        <div className={styles.content}>
+          <div className={styles.middle}>
+            <TextStack
+              className={styles.stack}
+              overline={overline}
+              title={
+                titleAs === 'span' ? (
+                  titleNode
+                ) : (
+                  /* TextStack's title is inline, so the level rides on role heading */
+                  <span role="heading" aria-level={Number(titleAs.slice(1))}>
+                    {titleNode}
+                  </span>
+                )
+              }
+              subtitle={description}
+              body={body}
+            />
+            {tag != null ? <div className={styles.tag}>{tag}</div> : null}
+            {textButton != null ? <div className={styles.textButton}>{textButton}</div> : null}
+          </div>
+          {hasRight ? (
+            <div className={styles.right}>
+              {value != null ? <span className={styles.value}>{value}</span> : null}
+              {subValue != null ? <span className={styles.subValue}>{subValue}</span> : null}
+              {right != null ? <div className={styles.lift}>{right}</div> : null}
+              {switchSlot != null ? <div className={styles.lift}>{switchSlot}</div> : null}
+            </div>
+          ) : null}
+          {trailing ? <Trailing icon={trailing === true ? undefined : trailing} /> : null}
+        </div>
+        {hasBelow ? (
+          <div className={styles.below}>
+            {progress != null ? <div className={styles.lift}>{progress}</div> : null}
+            {helperText != null ? <div className={styles.helper}>{helperText}</div> : null}
+            {divider ? <hr className={styles.divider} /> : null}
+          </div>
+        ) : null}
+      </div>
+    </Root>
   );
 }

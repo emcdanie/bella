@@ -1,0 +1,165 @@
+/* Notification (Figma CHIP Dashboard "Notification", read 19 Nov 2026).
+ * Tokens only. One row, auto layout as flexbox: Icon column hugs, Text column
+ * fills, Actions hug and centre on the text, Close hugs at the top right, 12
+ * apart, inside 12 top and bottom and 16 at the sides. Soft status fill, no
+ * border (Polaris, 17 Nov), card corner. Title 16/24 600 ink, message 16/24
+ * 400 subtle, both the reading face. Figma's root and Body frames are one
+ * element here: the root carries Body's fill, padding and corner. */
+
+.root {
+  box-sizing: border-box;
+  container: notification / inline-size;
+  inline-size: 100%;
+  border-radius: var(--border-radius-card);
+}
+
+/* Figma's Body row. Grid areas so the actions can drop under the text at
+ * narrow widths; at rest it lays out exactly as the Figma row. */
+.row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  grid-template-areas: 'icon text actions close';
+  align-items: start;
+  column-gap: var(--spacing-12);
+  row-gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-16);
+}
+
+.noIcon {
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: 'text actions close';
+}
+
+.info {
+  background: var(--color-background-utility-info);
+  --notification-ink: var(--color-content-utility-info);
+  --notification-edge: var(--color-border-utility-info);
+}
+.success {
+  background: var(--color-background-utility-success);
+  --notification-ink: var(--color-content-utility-success);
+  --notification-edge: var(--color-border-utility-success);
+}
+.attention {
+  background: var(--color-background-utility-warning);
+  --notification-ink: var(--color-content-utility-warning);
+  --notification-edge: var(--color-border-utility-warning);
+}
+.danger {
+  background: var(--color-background-utility-error);
+  --notification-ink: var(--color-content-utility-error);
+  --notification-edge: var(--color-border-utility-error);
+}
+
+/* 4 on top and a 24 slot, so the 20 glyph centres on the 24 title line */
+.iconColumn {
+  grid-area: icon;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding-block-start: var(--spacing-4);
+  color: var(--notification-ink);
+}
+
+.iconSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-24);
+}
+
+/* Beside a leading icon, the texts share one left edge (rule 20) */
+.text {
+  grid-area: text;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+  padding-block-start: var(--spacing-4);
+}
+
+.title,
+.message {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: break-word;
+}
+
+.title {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.message {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+/* Actions on the right, vertically centred on the text block (18 Nov) */
+.actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--spacing-8);
+}
+
+/* The one place an action is not blue: wash fill, status edge, status ink
+ * (17 Nov, "Yes, use A"). Doubled class so it outranks Button's tiers. */
+.actions .act.act {
+  background-color: transparent;
+  border-color: var(--notification-edge);
+  color: var(--notification-ink);
+}
+
+.actions .act.act:hover:not(:disabled),
+.actions .act.act:focus-visible {
+  border-color: var(--notification-ink);
+  background-color: transparent;
+}
+
+.close {
+  grid-area: close;
+  align-self: start;
+}
+
+/* Figma Notification (951:4124): Close is the tertiary icon-only sm Button
+ * with its glyph in the tone's ink (the same override Figma makes), at the
+ * top of the row, not centred. Doubled class beats Button's own tier colour,
+ * as .act does above. */
+.close.close {
+  color: var(--notification-ink);
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Narrow: the actions drop under the text column, on its left edge, 8
+ * above them (the 17 Nov compact spacing) */
+@container notification (max-width: 560px) {
+  .row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'icon text close'
+      '. actions .';
+  }
+
+  .noIcon {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'text close'
+      'actions .';
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+}

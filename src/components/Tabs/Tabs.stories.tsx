@@ -59,12 +59,12 @@ function Harness({ tabs, idBase, label }: { tabs: TabsItem[]; idBase: string; la
   );
 }
 
-/** Plain tabs: the selected tab is ink text over a 2px ink bar. */
+/** Plain tabs: the selected tab is the light-blue fill, a bold ink label and the 2px ink bar. */
 export const Default: Story = {
   render: () => <Harness tabs={WORKSPACES} idBase="ws" label="Workspaces" />,
 };
 
-/** With run state: the dot is a fill or a ring, and the state is also spoken. */
+/** With run state: the StatusDot part (running info, idle neutral), and the state is also spoken. */
 export const WithStatus: Story = {
   render: () => <Harness tabs={TERMINALS} idBase="term" label="Terminals" />,
 };
@@ -134,4 +134,26 @@ export const WithCount: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('tab', { name: /^Needs you\s*,\s*4$/ })).toHaveAttribute('aria-selected', 'true');
   },
+};
+
+const THEMES = ['chip-light', 'chip-dark'] as const;
+
+const SHELL = [
+  { id: 'work', label: 'Work', count: 4 },
+  { id: 'runs', label: 'Runs', status: 'running' as const },
+  { id: 'branches', label: 'Branches', status: 'idle' as const },
+  { id: 'library', label: 'Library', icon: 'Book' as const },
+];
+
+/** Figma's Tab variants in Chip light and Chip dark: selected, status running and idle, count, icon. Hover and focus are CSS. */
+export const ChipThemes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {THEMES.map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24) var(--spacing-32)', background: 'var(--color-background-surface)', color: 'var(--color-content-default)' }}>
+          <Harness tabs={SHELL} idBase={`shell-${theme}`} label="Project views" />
+        </div>
+      ))}
+    </div>
+  ),
 };

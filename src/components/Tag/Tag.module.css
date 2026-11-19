@@ -35,3 +35,107 @@
   background: var(--color-background-accent-1);
   color: var(--color-content-on-accent-1);
 }
+
+/* Figma re-sync (BellaComponents Tag, read 19 Nov 2026): tone x style x
+ * Show dot. 32 tall (min-height spacing/32), padding 4 x 12, gap 8, label 16
+ * at 150% in the reading face, an edge on every outline tone drawn inside
+ * (inset shadow, as Figma's inside stroke, so it adds no height). count and
+ * index labels are the number face at 600 (numbers that stand alone are
+ * Geist Mono in Chip). The legacy .tag / .accent above are untouched. */
+
+.pill {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-block-size: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--border-radius-round);
+  cursor: default;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  letter-spacing: var(--typography-letter-spacing-0);
+  white-space: nowrap;
+}
+
+.dot {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-round);
+}
+
+/* outline + index: wash, edge and ink per tone */
+.outline.tone-default {
+  background: var(--color-background-utility-neutral);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-neutral);
+  color: var(--color-content-utility-neutral);
+}
+.tone-default .dot {
+  background: var(--color-border-utility-neutral);
+}
+
+.tone-count {
+  background: var(--color-background-surface);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-strong);
+  color: var(--color-content-default);
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+.tone-count .dot {
+  background: var(--color-content-subtle);
+}
+
+.tone-success {
+  background: var(--color-background-utility-success);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-success);
+  color: var(--color-content-utility-success);
+}
+.tone-success .dot {
+  background: var(--color-border-utility-success);
+}
+
+.tone-info {
+  background: var(--color-background-utility-info);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-info);
+  color: var(--color-content-utility-info);
+}
+.tone-info .dot {
+  background: var(--color-border-utility-info);
+}
+
+.tone-attention {
+  background: var(--color-background-utility-warning);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-warning);
+  color: var(--color-content-utility-warning);
+}
+.tone-attention .dot {
+  background: var(--color-background-utility-warning-mark);
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+}
+
+.tone-danger {
+  background: var(--color-background-utility-error);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-error);
+  color: var(--color-content-utility-error);
+}
+.tone-danger .dot {
+  background: var(--color-border-utility-error);
+}
+
+/* index: the numbered lane pin, number face 600 on any tone */
+.index {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+
+/* flat (18 Nov, "B, flat"): grey fill, no edge, small corner, ink label.
+ * Tone default only. */
+.flat {
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background-highlight);
+  color: var(--color-content-default);
+}

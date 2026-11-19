@@ -102,7 +102,7 @@ export const States: Story = {
   ),
 };
 
-/** Shape: every tier shares the 12px radius by default; `shape="pill"`
+/** Shape: every tier shares border/radius/lg by default (8 in Chip, the pill in BELLA); `shape="pill"`
  * rounds the ends fully. The label still reads once: the rolling copy is
  * aria-hidden. */
 export const Shape: Story = {
@@ -127,12 +127,18 @@ export const Shape: Story = {
     </div>
   ),
   play: async ({ canvas, step }) => {
-    await step('pill: fully rounded, name read once', async () => {
+    await step('pill: fully rounded; default: border/radius/lg; name read once', async () => {
       const [square, pill] = canvas.getAllByRole('button', { name: "Let's talk" });
       expect(pill).toHaveAccessibleName("Let's talk");
-      expect(getComputedStyle(pill).borderTopLeftRadius).not.toBe(
-        getComputedStyle(square).borderTopLeftRadius
-      );
+      // Figma Button 26:320 binds border/radius/lg: 8 in Chip, the pill in
+      // BELLA (where the two shapes therefore look the same)
+      const probe = document.createElement('div');
+      probe.style.borderRadius = 'var(--border-radius-lg)';
+      square.parentElement!.append(probe);
+      const lg = getComputedStyle(probe).borderTopLeftRadius;
+      probe.remove();
+      expect(getComputedStyle(square).borderTopLeftRadius).toBe(lg);
+      expect(parseFloat(getComputedStyle(pill).borderTopLeftRadius)).toBeGreaterThanOrEqual(pill.getBoundingClientRect().height / 2);
     });
   },
 };
@@ -412,7 +418,7 @@ export const Small: Story = {
   play: async ({ canvas }) => {
     for (const name of ['Read the case', 'See the system', 'All work', 'Read everything again']) {
       const b = canvas.getByRole('button', { name });
-      const box = parseFloat(getComputedStyle(b).getPropertyValue('--component-button-sm-min-height'));
+      const box = parseFloat(getComputedStyle(b).getPropertyValue('--size-32'));
       await expect(Math.round(b.getBoundingClientRect().height)).toBe(box);
       await expect(parseFloat(getComputedStyle(b).fontSize)).toBeGreaterThanOrEqual(16);
       // the tap area: the invisible ::after reaches 44 both ways
@@ -436,4 +442,31 @@ export const SmallFocused: Story = {
     await expect(b).toHaveFocus();
     await expect(parseFloat(getComputedStyle(b).outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
   },
+};
+
+/* Figma re-sync (19 Nov 2026): every variant x size x iconOnly x disabled in
+ * Chip light and Chip dark, with the new Label / icon / Leading icon props. */
+const CHIP_THEMES = ['chip-light', 'chip-dark'] as const;
+
+export const ChipMatrix: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {CHIP_THEMES.map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', display: 'grid', gap: 'var(--spacing-16)' }}>
+          {(['md', 'sm'] as const).map((size) => (
+            <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)', alignItems: 'center' }}>
+              {(['primary', 'secondary', 'tertiary'] as const).map((variant) => (
+                <React.Fragment key={variant}>
+                  <Button variant={variant} size={size} label="Accept" onClick={() => {}} />
+                  <Button variant={variant} size={size} label="Refresh" icon="RefreshDouble" leadingIcon onClick={() => {}} />
+                  <Button variant={variant} size={size} iconOnly icon="Xmark" ariaLabel="Close" onClick={() => {}} />
+                  <Button variant={variant} size={size} label="Disabled" disabled />
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
 };

@@ -34,10 +34,18 @@
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-label-default-font-size);
   font-weight: var(--typography-font-weight-600);
+  /* Figma Button 26:320: a one-line label, 16 at 137.5% (22). No 137.5 token
+   * yet (asked of the library, 19 Nov 2026); 130% is the nearest line-height
+   * token. The 1.5 floor is for reading text, not one-line labels (Elleta,
+   * 19 Nov 2026). */
+  line-height: var(--typography-line-height-130);
   letter-spacing: var(--typography-letter-spacing-0);
   text-decoration: none;
   border: 0;
-  border-radius: var(--border-radius-12);
+  /* Figma binds border/radius/lg (re-sync 19 Nov 2026): 8 in Chip, the
+   * pill in BELLA ("buttons and chips are pills"; "one Chip corner of 8
+   * for every clickable part"). Was the Tier 1 radius 12 in every theme. */
+  border-radius: var(--border-radius-lg);
   background: none;
   margin: 0;
 }
@@ -59,11 +67,29 @@
   block-size: var(--spacing-44);
   min-height: var(--spacing-44);
   padding: 0;
-  border-radius: var(--border-radius-round);
+  /* border/radius/lg as Figma binds it: the circle in BELLA, 8 in Chip */
+  border-radius: var(--border-radius-lg);
 }
 
 .iconOnly.secondary {
   padding: 0;
+}
+
+/* TERTIARY ICON ONLY (Figma, 19 Nov 2026: Notification Close, toolbar
+ * icon actions): no underline, the hover fill Figma draws on the tertiary
+ * hover and pressed. The ring and the 44 still come from .button / .sm. */
+.iconOnly.tertiary .roll::after {
+  content: none;
+}
+
+.iconOnly.tertiary .rollLabel,
+.iconOnly.tertiary .rollCopy {
+  padding-block: 0;
+}
+
+.iconOnly.tertiary:hover:not(:disabled),
+.iconOnly.tertiary:active:not(:disabled) {
+  background: var(--button-color-background-hover);
 }
 
 /* THE LABEL ROLL. The window clips to one line; the label and its copy
@@ -241,13 +267,13 @@
   content: none;
 }
 
-/* SIZE SM (Elleta, 11 Nov 2026, option B): a 36 box, 14 sides, the same
- * 16px label. The 44 tap area stays: an invisible ::after reaches 4px past
- * the top and bottom edges (narrower than 44 only with iconOnly, below). */
+/* SIZE SM (Figma Button 26:320, read 19 Nov 2026): a 32 plate (size/32),
+ * 12 sides, the same 16px label. The 44 tap area stays: an invisible ::after
+ * reaches 6px past the top and bottom edges, as Figma's Hit area at y -6. */
 .button.sm {
   position: relative;
-  min-height: var(--component-button-sm-min-height);
-  padding-inline: var(--spacing-20);
+  min-height: var(--size-32);
+  padding-inline: var(--spacing-12);
 }
 
 .button.sm::after {
@@ -261,9 +287,9 @@
 }
 
 .button.sm.iconOnly {
-  inline-size: var(--component-button-sm-min-height);
-  min-inline-size: var(--component-button-sm-min-height);
-  block-size: var(--component-button-sm-min-height);
+  inline-size: var(--size-32);
+  min-inline-size: var(--size-32);
+  block-size: var(--size-32);
   padding: 0;
 }
 

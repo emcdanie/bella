@@ -1,0 +1,42 @@
+/* TextStack (Figma CHIP Dashboard "Text stack", read 19 Nov 2026). Tokens only.
+ * Vertical, 4 apart, one left edge, fills its column, wraps. All 16 at 150%.
+ * Overline and Subtitle: subtext face (Geist Mono in Chip, DM Sans in BELLA),
+ * content/body. Title: reading face 600, content/default. Body: reading face
+ * 400, content/default. */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.overline,
+.title,
+.subtitle,
+.body {
+  margin: 0;
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  overflow-wrap: break-word;
+}
+
+.overline,
+.subtitle {
+  font-family: var(--typography-subtext-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-body);
+}
+
+.title {
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.body {
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-default);
+}

@@ -1,0 +1,187 @@
+/* Progress (Figma BellaComponents Progress + Progress fill, Progress segment,
+ * Progress target, _Target mark; read 19 Nov 2026). Tokens only.
+ * Head: label (subtext face, content/subtle) and value (number face 600,
+ * content/default), 12 apart; 8 from head to the mark.
+ * Bar: track in border/strong (the empty part, 3:1+), round ends; the fill
+ * is width = value %, round ends, in the tone's mark colour. At 0 no fill is
+ * drawn, so the track reads empty (fixes the library gap where 0 read full).
+ * Track height is the meter token (8): Figma draws 10, which has no token
+ * and is off the 4 scale.
+ * Target: the one named overlay, absolute as Figma's, 4 beyond the track
+ * above and below; the mark is 4 wide (border/width/4), round ends,
+ * border/brand, centred on target %.
+ * Segments: equal pills 8 apart, done = tone mark, not done = track.
+ * Ring: 64 box, an 8 band, round caps, track the same shape in border/strong.
+ * Attention marks: warning-mark fill with a 1px inside edge in
+ * border/utility/warning, so the mark reaches 3:1 (18 Nov "B, bright with edge"). */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-12);
+}
+
+.label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.value {
+  flex-shrink: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+/* ---- bar ---- */
+.track {
+  position: relative;
+  display: flex;
+  block-size: var(--component-meter-height);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-strong);
+}
+
+.fill {
+  box-sizing: border-box;
+  inline-size: var(--progress-fill);
+  min-inline-size: var(--component-meter-height);
+  block-size: 100%;
+  border-radius: var(--border-radius-round);
+}
+
+/* ---- target (named overlay) ---- */
+.target {
+  position: absolute;
+  inset-inline: 0;
+  inset-block: calc(var(--size-4) * -1);
+  pointer-events: none;
+}
+
+.targetPlaced {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: clamp(
+    0%,
+    calc(var(--progress-target) - var(--border-width-4) / 2),
+    calc(100% - var(--border-width-4))
+  );
+}
+
+.targetMark {
+  display: inline-block;
+  inline-size: var(--border-width-4);
+  min-block-size: var(--spacing-16);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-brand);
+}
+
+/* ---- segments ---- */
+.segments {
+  display: flex;
+  gap: var(--spacing-8);
+}
+
+.segment {
+  box-sizing: border-box;
+  flex: 1 1 0;
+  block-size: var(--component-meter-height);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-strong);
+}
+
+/* ---- ring ---- */
+.ringRoot {
+  align-items: center;
+  inline-size: max-content;
+}
+
+.ring {
+  display: grid;
+  place-items: center;
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
+}
+
+.ring > * {
+  grid-area: 1 / 1;
+}
+
+/* Drawn in CSS, no inline SVG (one-set rule): the track and the arc are
+ * the same 8-wide band, cut from a disc by a radial mask; the arc is a
+ * conic sweep from 12 o'clock. Round ends: an 8 disc at the start and one
+ * turned to the end, on the band's centre line (18 Nov, round caps). */
+.ringTrack,
+.ringFill {
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--border-radius-round);
+  mask: radial-gradient(
+    closest-side,
+    transparent calc(100% - var(--spacing-8)),
+    currentColor calc(100% - var(--spacing-8) + var(--border-width-1))
+  );
+}
+
+.ringTrack {
+  background: var(--color-border-strong);
+}
+
+.ring > .ringFill,
+.ring > .ringCap {
+  border: 0;
+}
+
+.ringCap {
+  /* masked layers paint as their own stacking layer; the caps join that
+   * layer so they sit over the track in source order */
+  position: relative;
+  align-self: start;
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: currentColor;
+  transform-origin: 50% var(--spacing-32);
+}
+
+/* ---- tones (fill, done segment, ring arc) ---- */
+.info {
+  background: var(--color-border-utility-info);
+  color: var(--color-border-utility-info);
+}
+.success {
+  background: var(--color-border-utility-success);
+  color: var(--color-border-utility-success);
+}
+.danger {
+  background: var(--color-border-utility-error);
+  color: var(--color-border-utility-error);
+}
+.attention {
+  background: var(--color-background-utility-warning-mark);
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+  color: var(--color-background-utility-warning-mark);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -5,8 +5,8 @@ export type { IconName };
 
 export interface IconProps {
   name: IconName;
-  /** Size step from the icon ramp: sm 16, md 20, lg 24. */
-  size?: 'sm' | 'md' | 'lg';
+  /** Size step from the icon ramp: sm 16, md 20, lg 24, xl 32 (Figma Icon 156:98). */
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   /** Decorative by default (aria-hidden). Pass a label to make it meaningful (role=img). */
   label?: string;
   /** Extra classes on the svg. */
@@ -21,8 +21,13 @@ export interface IconProps {
  * icon requires the label prop and never stands without text unless its
  * accessible name is proven in a Behavior story.
  */
-/* sm / md / lg on the Figma size scale: 16, 20, 24 */
-const ICON_SIZE = { sm: 'var(--size-16)', md: 'var(--size-20)', lg: 'var(--size-24)' } as const;
+/* sm / md / lg / xl on the Figma size scale: 16, 20, 24, 32 */
+const ICON_SIZE = { sm: 'var(--size-16)', md: 'var(--size-20)', lg: 'var(--size-24)', xl: 'var(--size-32)' } as const;
+
+/* Figma's Icon set (156:98, read 19 Nov 2026) draws Iconoir's line at 1.8 on
+ * the 24 grid and scales it with the box: 1.2 at 16, 1.5 at 20, 1.8 at 24,
+ * 2.4 at 32, round caps and joins. In the 24 viewBox that is one number. */
+const STROKE = '1.8';
 
 export default function Icon({ name, size = 'md', label, className, style }: IconProps) {
   return (
@@ -31,6 +36,8 @@ export default function Icon({ name, size = 'md', label, className, style }: Ico
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
       role={label ? 'img' : undefined}
       aria-label={label}
@@ -40,7 +47,7 @@ export default function Icon({ name, size = 'md', label, className, style }: Ico
       style={{
         width: ICON_SIZE[size],
         height: ICON_SIZE[size],
-        strokeWidth: '1.5',
+        strokeWidth: STROKE,
         flexShrink: 0,
         ...style,
       }}

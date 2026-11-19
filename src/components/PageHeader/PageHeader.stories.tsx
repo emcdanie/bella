@@ -110,3 +110,23 @@ export const WithIcon: Story = {
     expect(canvas.getByRole('heading', { level: 1 }).textContent).toBe('Today');
   },
 };
+
+/** Figma's CHIP shell use (pick Chip light or Chip dark in the toolbar): meta, a plain title
+ * (no dot, no icon), the health line, the story link, the one main action top right, the lede. */
+export const ChipShell: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24) var(--spacing-32)', background: 'var(--color-background-surface)' }}>
+      <PageHeader
+        meta="CHIP · checked 19 Nov, 10:53"
+        title="Not again"
+        health="95% healthy · 13 checks to fix"
+        storyLink={{ label: 'Read the story', href: '#story' }}
+        lede="Mistakes we fixed once, written down so the next session does not repeat them."
+        actions={<Button variant="primary" size="sm" onClick={() => {}}>New entry</Button>}
+      />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    for (const h of canvas.getAllByRole('heading', { level: 1 })) expect(h.textContent).toBe('Not again');
+  },
+};

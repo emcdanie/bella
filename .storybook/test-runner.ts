@@ -142,7 +142,11 @@ function underlineCheck(el: Element, inv: any): string[] {
   const drawn = !!after && after.content !== 'none' && parseFloat(after.height) > 0;
   if (drawn) count++;
   const want =
-    el.getAttribute('data-bella-variant') === inv.underlinedVariant && !(el as HTMLButtonElement).disabled ? 1 : 0;
+    el.getAttribute('data-bella-variant') === inv.underlinedVariant &&
+    !(el as HTMLButtonElement).disabled &&
+    !(inv.notUnderlined && el.matches(inv.notUnderlined))
+      ? 1
+      : 0;
   if (count !== want || (want === 1 && !drawn))
     out.push(`${count} underline(s), expected ${want}${want ? ' on the roll window' : ''}`);
   return out;
@@ -166,7 +170,7 @@ async function runMidRollChecks(
   );
   if (!inv) return;
   const targets = page.locator(
-    `#storybook-root [data-bella-component="button"][data-bella-variant="${inv.underlinedVariant}"]:not(:disabled)`
+    `#storybook-root [data-bella-component="button"][data-bella-variant="${inv.underlinedVariant}"]:not(:disabled)${inv.notUnderlined ? `:not(${inv.notUnderlined})` : ''}`
   );
   const n = await targets.count();
   if (!n) return;

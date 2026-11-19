@@ -6,8 +6,8 @@ export interface TooltipProps {
   label: string;
   /** The trigger: an icon button carrying aria-label. */
   children: ReactElement<{ 'aria-describedby'?: string }>;
-  /** Where the bubble sits. */
-  placement?: 'top' | 'bottom';
+  /** Where the bubble sits. `right` is for the CHIP icon rail. */
+  placement?: 'top' | 'bottom' | 'right';
   /**
    * `"plain"` names an icon button (visual only). `"rich"` is a small hover
    * card (BellaComponents, 11 Nov 2026): the label as a title plus `rows`,

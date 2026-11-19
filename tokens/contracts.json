@@ -27,6 +27,12 @@
           "props": [
             "variant",
             "shape",
+            "size",
+            "label",
+            "icon",
+            "showIcon",
+            "leadingIcon",
+            "iconOnly",
             "href",
             "onClick",
             "type",
@@ -34,9 +40,10 @@
             "linkComponent",
             "ariaLabel",
             "ariaExpanded",
+            "ariaHaspopup",
             "className",
             "children"
-          , "size", "iconOnly", "ariaHaspopup"],
+          ],
           "usage": [
             "Hero CTA",
             "Card 'Read more' action",
@@ -191,7 +198,9 @@
                 "type": "single-underline",
                 "window": "[data-bella-roll=window]",
                 "selector": "[data-bella-roll=label], [data-bella-roll=copy]",
-                "underlinedVariant": "tertiary"
+                "underlinedVariant": "tertiary",
+                "notUnderlined": "[data-bella-icon-only]",
+                "notUnderlinedWhy": "Figma Button 26:320 (read 19 Nov 2026): tertiary icon-only (Notification Close) is a glyph with a hover fill and no underline"
               }
             ]
           }
@@ -440,13 +449,18 @@
           "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
           "variants": [
             "default",
-            "accent"
+            "accent",
+            "outline",
+            "flat",
+            "index"
           ],
           "states": [
             "default"
           ],
           "props": [
             "variant",
+            "tone",
+            "showDot",
             "className",
             "style",
             "children"
@@ -766,8 +780,9 @@
             "value",
             "onChange",
             "options",
-            "className"
-          , "leading"],
+            "className",
+            "leading"
+          ],
           "usage": [
             "Sort order",
             "Long single-choice lists"
@@ -1355,7 +1370,8 @@
           "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink.",
           "variants": [
             "pattern",
-            "ink"
+            "ink",
+            "mark"
           ],
           "states": [
             "default"
@@ -1747,8 +1763,12 @@
             "trend",
             "series",
             "seriesLabel",
-            "className"
-          , "icon", "measure", "measureLabel", "measured"],
+            "className",
+            "icon",
+            "measure",
+            "measureLabel",
+            "measured"
+          ],
           "usage": [
             "CHIP health figures (components, failures, indexed chunks, last sync)",
             "Any small row of headline figures on a Card or panel"
@@ -1931,8 +1951,9 @@
             "label",
             "side",
             "children",
-            "className"
-          , "footer"],
+            "className",
+            "footer"
+          ],
           "usage": [
             "CHIP sidebar below 720px",
             "Any navigation or filter panel that cannot stay on screen at phone width"
@@ -2047,8 +2068,9 @@
             "onToggle",
             "children",
             "id",
-            "className"
-          , "flush"],
+            "className",
+            "flush"
+          ],
           "usage": [
             "Facts, Checks, Tokens and Notes on the Atlas Facts card",
             "Any long card that should fit the screen closed"
@@ -2106,6 +2128,7 @@
           ],
           "props": [
             "children",
+            "label",
             "onClick",
             "href",
             "linkComponent",
@@ -2171,12 +2194,15 @@
           "props": [
             "meta",
             "title",
-            "titleAside",
             "lede",
+            "icon",
+            "titleAside",
+            "storyLink",
+            "health",
             "actions",
             "id",
             "className"
-          , "icon"],
+          ],
           "usage": [
             "The first block of every page template: Overview, Object page, Library and Settings",
             "Atlas: the component name, its category and number as meta"
@@ -2454,9 +2480,9 @@
             "emojiLabel",
             "className",
             "disc",
-            "senderName"
-          ,
-"kindLabel"],
+            "senderName",
+            "kindLabel"
+          ],
           "usage": [
             "A line of chat in The Bar replay"
           ],
@@ -2631,6 +2657,27 @@
           "props": [
             "title",
             "description",
+            "layout",
+            "selected",
+            "iconWell",
+            "statusDot",
+            "avatar",
+            "overline",
+            "body",
+            "tag",
+            "textButton",
+            "value",
+            "subValue",
+            "actionButton",
+            "switch",
+            "trailing",
+            "progress",
+            "helperText",
+            "divider",
+            "href",
+            "onClick",
+            "linkComponent",
+            "as",
             "status",
             "action",
             "titleAs",
@@ -2721,10 +2768,10 @@
             "label",
             "children",
             "placement",
-            "className"
-          ,
-"kind",
-"rows"],
+            "className",
+            "kind",
+            "rows"
+          ],
           "usage": [
             "Naming an icon button in a toolbar"
           ],
@@ -2764,6 +2811,487 @@
             "Do not let a diff rely on colour: + and − lead the line"
           ],
           "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it)."
+        }
+      }
+    },
+    "status-dot": {
+      "$extensions": {
+        "bella": {
+          "name": "StatusDot",
+          "category": "Data",
+          "description": "Figma \"Label\". The word that carries the meaning. */ label?: ReactNode; /** Figma \"Show label\". Off hides the word visually; it stays the accessible name. */ showLabel?: boolean; /** Figma \"Show dot\". Off drops the mark and its halo. */ showDot?: boolean; /** Figma \"Show wash\". Off gives a bare dot with no halo. */ showWash?: boolean; /** Figma \"tone\". The status colour of the halo and the mark. */ tone?: 'success' | 'info' | 'attention' | 'danger' | 'neutral'; /** Figma \"mark\". `check` shows a Check 16 in the tone's ink instead of the dot (Figma draws it for success only). */ mark?: 'dot' | 'check'; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } /** A status beside a title: the dot carries the tone, the word carries the meaning. The only dot in CHIP, and it means status. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "showLabel",
+            "showDot",
+            "showWash",
+            "tone",
+            "mark",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "icon-well": {
+      "$extensions": {
+        "bella": {
+          "name": "IconWell",
+          "category": "Data",
+          "description": "Figma \"Icon\" (instance swap). Any name from the Icon registry. */ icon: IconName; /** Figma \"tone\". The wash of the circle and the ink of the glyph. */ tone?: 'success' | 'warning' | 'info' | 'neutral'; /** Decorative by default. Pass a label only when the icon carries meaning the text beside it does not. */ label?: string; /** Extra classes on the well. */ className?: string; style?: CSSProperties; } /** A 36 circle in the tone's wash with a 24 icon in the tone's ink. Card and section headers, Stat cards, the Step marker. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "icon",
+            "tone",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "text-stack": {
+      "$extensions": {
+        "bella": {
+          "name": "TextStack",
+          "category": "Layout",
+          "description": "Figma \"Overline\" + \"↳ Overline text\". Missing = off. Subtext face. */ overline?: ReactNode; /** Figma \"Title\" + \"↳ Title text\". Missing = off. Semibold ink. */ title?: ReactNode; /** Figma \"Subtitle\" + \"↳ Subtitle text\". Missing = off. Subtext face. */ subtitle?: ReactNode; /** Figma \"Body\" + \"↳ Body text\". Missing = off. Reading face, wraps. */ body?: ReactNode; /** Extra classes on the stack. */ className?: string; style?: CSSProperties; } /** The text column every row, card and header reuses: overline, title, subtitle, body, 4 apart on one left edge, fill width, wrap.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "overline",
+            "title",
+            "subtitle",
+            "body",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "trailing": {
+      "$extensions": {
+        "bella": {
+          "name": "Trailing",
+          "category": "Actions",
+          "description": "Figma \"Icon\" choices: › opens, ↗ leaves, ⇅ switches (the client switcher). */ export type TrailingIcon = 'NavArrowRight' | 'ArrowUpRight' | 'NavArrowUpDown'; export interface TrailingProps { /** Figma \"Icon\" (instance swap). Default › = \"open where you see more\". */ icon?: TrailingIcon; /** Decorative by default (the row names the target). Pass a label to make the glyph meaningful. */ label?: string; /** Extra classes on the frame. */ className?: string; style?: CSSProperties; } /** The end-of-row mark: a 24 frame that fills the row height with the glyph centred, and a 44 hit area. The whole row is the target; this only marks it.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "icon",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "status-square": {
+      "$extensions": {
+        "bella": {
+          "name": "StatusSquare",
+          "category": "Data",
+          "description": "Figma \"status\". Shape of the glyph and the fill both change, so colour is never the only cue. */ status?: 'failed' | 'waiting' | 'working' | 'passed'; /** Accessible name. Defaults to the status word. */ label?: string; /** Extra classes on the square. */ className?: string; style?: CSSProperties; } const GLYPH: Record<NonNullable<StatusSquareProps['status']>, IconName> = { failed: 'WarningCircle', waiting: 'Clock', working: 'Sparks', passed: 'Check', }; /** A branch or run status: a 24 filled square with a 16 glyph. Starts a branch row in the project tree. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "status",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "progress": {
+      "$extensions": {
+        "bella": {
+          "name": "Progress",
+          "category": "Data",
+          "description": "Clamp to 0–100 so a bad number never draws outside the track. */ const pct = (n: number) => Math.min(100, Math.max(0, n)); /* --------------------------------------------------------------------------- The pieces. Each is its own part in Figma; here they live in the Progress folder and are exported so a legend or a chart can reuse the same mark. ------------------------------------------------------------------------- */ export interface TargetMarkProps { className?: string; style?: CSSProperties; } /** Figma \"_Target mark\" (private): the one target mark. 4 wide, round ends, border/brand, as tall as its frame. Also the key in a \"Target N%\" legend. */ export function TargetMark({ className, style }: TargetMarkProps) { return ( <span className={[styles.targetMark, className].filter(Boolean).join(' ')} style={style} aria-hidden=\"true\" data-bella-component=\"target-mark\" /> ); } export interface ProgressFillProps { /** Figma \"value\", 0–100. At 0 nothing is drawn: the track reads empty. */ value: number; tone?: ProgressTone; } /** Figma \"Progress fill\": the filled part of a bar, width = value %. */ export function ProgressFill({ value, tone = 'info' }: ProgressFillProps) { const v = pct(value); if (v === 0) return null; return ( <span className={[styles.fill, styles[tone]].join(' ')} style={{ '--progress-fill': `${v}%` } as CSSProperties} data-bella-component=\"progress-fill\" /> ); } export interface ProgressSegmentProps { /** Figma \"tone\". */ tone?: ProgressTone; /** Figma \"done\". true takes the tone's mark, false the track. */ done?: boolean; } /** Figma \"Progress segment\": one step of shape=segments. */ export function ProgressSegment({ tone = 'info', done = true }: ProgressSegmentProps) { return ( <span className={[styles.segment, done ? styles[tone] : ''].filter(Boolean).join(' ')} data-bella-component=\"progress-segment\" /> ); } export interface ProgressTargetProps { /** Figma \"target\", 0–100. */ target: number; } /** Figma \"Progress target\": the named overlay over the track (absolute, as code positions it), holding the Target mark at left: target %. */ export function ProgressTarget({ target }: ProgressTargetProps) { return ( <span className={styles.target} style={{ '--progress-target': `${pct(target)}%` } as CSSProperties} data-bella-component=\"progress-target\" > <TargetMark className={styles.targetPlaced} /> </span> ); } /* --------------------------------------------------------------------------- Progress ------------------------------------------------------------------------- */ export interface ProgressProps { /** Figma \"Label\". What is measured. Stays the accessible name when hidden. */ label: ReactNode; /** Figma \"Value\". The amount in words (\"60%\", \"4 of 6\"). */ value?: ReactNode; /** Figma \"Show label\". Off hides the Head (label and value) visually. */ showLabel?: boolean; /** Figma \"Show target\". Bar only: draws the Target mark at `target`. */ showTarget?: boolean; /** Figma \"shape\". */ shape?: 'bar' | 'segments' | 'ring'; /** Figma \"tone\". Status colours for status only. */ tone?: ProgressTone; /** Figma \"Fill · value\" (bar, ring): 0–100. */ fill?: number; /** Figma \"Target · target\" (bar): 0–100. */ target?: number; /** Segments only: how many steps (Figma draws 6; the gate uses 5). */ segments?: number; /** Segments only: how many are done. */ done?: number; className?: string; style?: CSSProperties; } /** How far something has got, as a bar, a row of segments or a ring. Always shown with words. Not interactive. role=\"progressbar\" with the amount.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "value",
+            "showLabel",
+            "showTarget",
+            "shape",
+            "tone",
+            "fill",
+            "target",
+            "segments",
+            "done",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "stat-card": {
+      "$extensions": {
+        "bella": {
+          "name": "StatCard",
+          "category": "Data",
+          "description": "Bar: Progress \"Fill · value\", 0–100. */ fill?: number; /** Bar: Progress \"Target · target\", 0–100. Drawn when set. */ target?: number; /** Segments: how many. */ segments?: number; /** Segments: how many are done. */ done?: number; /** Accessible amount in words (\"1 of 2\"). Defaults to value + unit. */ valueText?: string; } export interface StatCardProps { /** Figma \"Title\". The card title, and the chart's accessible name. */ title: ReactNode; /** Figma \"Value\". The big number. */ value: ReactNode; /** Figma \"Unit\". Small, beside the number (\"%\", \"of 2\"). Missing = off. */ unit?: ReactNode; /** Figma \"Context\". One line worked out from real numbers: what the number means and which way. */ context?: ReactNode; /** Figma \"Caption\". Footer left: the target or where it came from. */ caption?: ReactNode; /** Figma \"Show button\". Footer right: a secondary Button only when it acts (\"Set target\"), never to navigate. Missing = off. */ button?: ReactNode; /** Figma \"chart\". */ chart?: 'bar' | 'segments'; /** Figma \"tone\". Icon well, chart marks. warning maps to Progress attention. */ tone?: StatCardTone; /** Figma Icon well icon swap. */ icon: IconName; /** The chart's numbers. Missing = no chart (as the \"Runs this week\" instance). */ meter?: StatCardMeter; /** Header opens the detail: a link. The whole 44 header row is the target and carries the ›. */ href?: string; /** Header opens the detail: a button. Ignored when `href` is set. */ onOpen?: () => void; className?: string; style?: CSSProperties; } /** A number with its meaning: header (icon well, title, ›), body (number and unit, chart, context), footer (caption, optional action). Cards in a row share a height; the body centres between header and footer.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "value",
+            "unit",
+            "context",
+            "caption",
+            "button",
+            "chart",
+            "tone",
+            "icon",
+            "meter",
+            "href",
+            "onOpen",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "step": {
+      "$extensions": {
+        "bella": {
+          "name": "Step",
+          "category": "Data",
+          "description": "Figma \"Title\". */ title: ReactNode; /** Figma \"Detail\" + \"Show detail\". Missing = off. Subtext face; says the state in words. */ detail?: ReactNode; /** Figma \"Show connector\". The line to the next marker; off on the last step. */ showConnector?: boolean; /** Figma \"Show tag\". A Tag under the title (vertical). Missing = off. */ tag?: ReactNode; /** Figma \"Time\" + \"Show time\". Right column, subtext face (vertical). Missing = off. */ time?: ReactNode; /** Figma \"Show line above\". Vertical: the line into this marker; off on the first row. */ showLineAbove?: boolean; /** Figma \"state\". done = check in a soft success circle; current = info; pending = neutral. */ state?: StepState; /** Figma \"layout\". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */ layout?: 'horizontal' | 'vertical'; /** Figma \"selected\". Vertical rows that open a record (History): light-blue row. */ selected?: boolean; /** Figma \"Marker\" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */ icon?: IconName; /** Makes the row a button that opens its record (vertical, History). The whole row is the target. */ onSelect?: () => void; className?: string; style?: CSSProperties; } /** One step in a short ordered process, or one event in an activity list. Renders an <li>: put Steps in an <ol>. aria-current=\"step\" on the current one.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "detail",
+            "showConnector",
+            "tag",
+            "time",
+            "showLineAbove",
+            "state",
+            "layout",
+            "selected",
+            "icon",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "map-line": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLine",
+          "category": "Data",
+          "description": "Figma \"direction\". horizontal and vertical stretch to their box; turn is a 24 box with a 16-radius quarter curve. */ direction?: 'horizontal' | 'vertical' | 'turn'; /** Figma \"end\". Arrow on the last piece only (straight pieces; Figma draws turns with none). */ end?: 'arrow' | 'none'; /** Figma \"style\" (code cannot use `style`, the CSS prop; same move as Tag's variant). dashed = an optional path, or a step not yet done. */ variant?: 'solid' | 'dashed'; /** Figma \"tone\". default = border/strong; accent = the open node. */ tone?: 'default' | 'accent'; /** Figma \"corner\". Turn only: which corner the curve bends round. */ corner?: MapLineCorner; className?: string; style?: CSSProperties; } /* Turn paths in a 24 box, measured from the Figma vectors (16 x 16 at x/y 0 or 8): every bend is a curve, never a square elbow (guideline 17). */ const TURN: Record<Exclude<MapLineCorner, 'none'>, string> = { 'top-left': 'M24 8A16 16 0 0 0 8 24', 'top-right': 'M0 8A16 16 0 0 1 16 24', 'bottom-left': 'M8 0A16 16 0 0 0 24 16', 'bottom-right': 'M16 0A16 16 0 0 1 0 16', }; /** A line between two nodes (Map, Step row, pipeline). 2px in its tone. Decorative: the words beside it carry the meaning, so it is aria-hidden.",
+          "variants": [
+            "solid",
+            "dashed"
+          ],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "direction",
+            "end",
+            "variant",
+            "tone",
+            "corner",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "notification": {
+      "$extensions": {
+        "bella": {
+          "name": "Notification",
+          "category": "Layout",
+          "description": "The button's words. */ label: ReactNode; onClick?: () => void; href?: string; } export interface NotificationProps { /** Figma \"Message\". The line under the title; wraps. */ message?: ReactNode; /** Figma \"Show icon\". Off drops the icon column. */ showIcon?: boolean; /** Figma \"Show action\". The first action, a soft button in the tone's own colours. Missing = off. */ action?: NotificationAction; /** Figma \"Title\". */ title?: ReactNode; /** Figma \"Show second action\". Missing = off. */ secondAction?: NotificationAction; /** Figma \"Show close\". Missing = off. Close is Button tertiary, sm, icon only, top right in the flow. */ onClose?: () => void; /** Accessible name of the close button. */ closeLabel?: string; /** Figma \"tone\". */ tone?: NotificationTone; /** Figma \"Icon\" (nested swap). Defaults per tone to the registry glyph Figma uses: info InfoCircle, success CheckCircle, attention WarningCircle, danger XmarkCircle. / icon?: IconName; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } const DEFAULT_ICON: Record<NotificationTone, IconName> = { info: \"InfoCircle\", success: \"CheckCircle\", attention: \"WarningCircle\", danger: \"XmarkCircle\", }; const TONE_WORD: Record<NotificationTone, string> = { info: \"Information\", success: \"Success\", attention: \"Needs attention\", danger: \"Error\", }; /** A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border; icon in its own column; title and message on one left edge; actions on the right, centred on the text; close top right, in the flow.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "message",
+            "showIcon",
+            "action",
+            "title",
+            "secondAction",
+            "onClose",
+            "closeLabel",
+            "tone",
+            "icon",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "section-head": {
+      "$extensions": {
+        "bella": {
+          "name": "SectionHead",
+          "category": "Layout",
+          "description": "Figma \"Title\". The section's name, top left inside its card. */ title: ReactNode; /** Figma \"Number\". The count in the info, bold in the number face. */ number?: ReactNode; /** Figma \"Words\". What the number counts, in subtext (\"waiting on you\"). */ words?: ReactNode; /** Figma \"Show number\". Defaults to on when `number` is set. */ showNumber?: boolean; /** Figma \"Show info\". The number and words on the right of the title line. Defaults to on when either is set. */ showInfo?: boolean; /** Figma \"Description\". One line under the title, in subtext. */ description?: ReactNode; /** Figma \"Show description\". Defaults to on when `description` is set. */ showDescription?: boolean; /** Figma \"Show icon\" + the exposed Icon well's icon. Missing = no icon well. */ icon?: IconName; /** The exposed Icon well's tone. Warning for sections that wait on you. */ iconTone?: IconWellProps['tone']; /** Figma \"Show action\". A Button secondary sm at the right end. Missing = off. */ action?: ReactNode; /** The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text. */ titleLevel?: 0 | 2 | 3 | 4; /** Extra classes on the row. */ className?: string; style?: CSSProperties; } /** The first row inside a section card: icon well, title with its count on the right of the same line (number bold, no count circle), one line of description under it, and an optional action at the right end. Not a page opening (PageHeader) or an editorial header (SectionHeader).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "number",
+            "words",
+            "showNumber",
+            "showInfo",
+            "description",
+            "showDescription",
+            "icon",
+            "iconTone",
+            "action",
+            "titleLevel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "nav-item": {
+      "$extensions": {
+        "bella": {
+          "name": "NavItem",
+          "category": "Layout",
+          "description": "Figma \"Label\". The place's name; with `iconOnly` it is the accessible name and the tooltip. */ label: string; /** Figma \"Badge\". A count after the label (not drawn when `iconOnly`). */ badge?: string | number; /** Figma \"Show badge\". */ showBadge?: boolean; /** Figma \"Show icon\". */ showIcon?: boolean; /** Figma \"icon\" (instance swap). */ icon?: IconName; /** Figma \"iconOnly\". A 44 square with the icon alone; the label becomes its name and its tooltip. */ iconOnly?: boolean; /** Figma \"current\". The page you are on: light-blue fill, bold ink label and ink icon (aria-current=\"page\"). */ current?: boolean; /** Renders a link. Without it the item is a button. */ href?: string; onClick?: () => void; /** Extra classes on the control. */ className?: string; style?: CSSProperties; } /** One place in the app navigation (Figma \"Nav item\", CHIP Dashboard, read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. The whole row is the 44 target.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "badge",
+            "showBadge",
+            "showIcon",
+            "icon",
+            "iconOnly",
+            "current",
+            "href",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "icon-rail": {
+      "$extensions": {
+        "bella": {
+          "name": "IconRail",
+          "category": "Layout",
+          "description": "The places, as NavItem iconOnly: Home, Projects, Not again, Team, System map. */ children?: ReactNode; /** The item pinned to the bottom (Settings, as NavItem iconOnly). */ end?: ReactNode; /** Accessible name for the navigation landmark. */ label?: string; /** Extra classes on the rail. */ className?: string; style?: CSSProperties; } /** The app's first column (Figma \"Icon rail\", read 19 Nov 2026; no Figma props). The CHIP mark once, at the top (the only place it appears), the places under it, and the end item at the bottom. The rail fills the height and width its layout gives it; it sets neither.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "end",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "tree-item": {
+      "$extensions": {
+        "bella": {
+          "name": "TreeItem",
+          "category": "Layout",
+          "description": "Figma \"Label\". */ label: string; /** Figma \"Count\". A number after the label (group and status rows). */ count?: string | number; /** Figma \"Show count\". */ showCount?: boolean; /** Figma \"Needs work\". The attention dot at the end of a group or item row (StatusDot, spoken \"needs work\"). */ needsWork?: boolean; /** Figma \"Line below\". Branch rows: the tree's spine runs on to the next row. Off on the last branch. */ lineBelow?: boolean; /** Figma \"kind\". group: a chevron, a bold label and a count. item: a nested row with its icon. folder: a project (Folder icon, chevron at the end). branch: a branch under an open folder (spine and tick, then a Status square and the label). status: a run status (StatusDot, label, count). / kind?: TreeItemKind; /** Figma \"open\". group and folder: whether its rows show (aria-expanded). */ open?: boolean; /** Figma \"current\". The row you are on: light-blue fill, bold ink label (aria-current=\"page\"). */ current?: boolean; /** branch: the Status square's status (Figma exposes the nested Status square). */ status?: StatusSquareProps['status']; /** status: the StatusDot tone (Figma exposes the nested StatusDot). */ tone?: StatusDotProps['tone']; /** item: its icon (Figma draws ViewGrid). */ icon?: IconName; /** Renders a link. Without it the row is a button. */ href?: string; onClick?: () => void; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } /** One row of the project tree (Figma \"Tree item\", read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. Every row is 44 tall and the whole row is the target.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "count",
+            "showCount",
+            "needsWork",
+            "lineBelow",
+            "kind",
+            "open",
+            "current",
+            "status",
+            "tone",
+            "icon",
+            "href",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "project-panel": {
+      "$extensions": {
+        "bella": {
+          "name": "ProjectPanel",
+          "category": "Layout",
+          "description": "The top: the ClientSwitcher. */ switcher?: ReactNode; /** Under \"Projects\": TreeItem folders, each open one followed by its branch rows. */ projects?: ReactNode; /** Under \"Status\": TreeItem status rows (Needs you, Claude, Gate, Ready). */ status?: ReactNode; /** Extra classes on the panel. */ className?: string; style?: CSSProperties; } /** The CHIP side panel between the Icon rail and the page (Figma \"Project panel\", read 19 Nov 2026; no Figma props): which client, its projects and branches, and the run status counts. Not page navigation (the rail has the pages). It fills the height and width its layout gives it.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "switcher",
+            "projects",
+            "status",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "client-switcher": {
+      "$extensions": {
+        "bella": {
+          "name": "ClientSwitcher",
+          "category": "Layout",
+          "description": "Figma \"Name\". The client, Lexend 700. No dot: the red dot lives only inside the drawn logo. */ name: string; /** Figma \"Caption\". What the client is. */ caption?: string; /** The client's mark in the tile (Figma: swap Tile › Mark). Default: the BELLA mark. */ mark?: ReactNode; /** Opens the client list. */ onClick?: () => void; /** Whether the client list is open (aria-expanded). */ expanded?: boolean; /** Extra classes on the button. */ className?: string; style?: CSSProperties; } /** Which client the CHIP panel shows (Figma \"Client switcher\", read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. The whole block is one button, named \"Switch client\" plus what it shows; the ⇅ is the Trailing part.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "name",
+            "caption",
+            "mark",
+            "onClick",
+            "expanded",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "top-bar": {
+      "$extensions": {
+        "bella": {
+          "name": "TopBar",
+          "category": "Layout",
+          "description": "The left side: the SearchField. */ search?: ReactNode; /** The right side, 12 apart: the person's Avatar (size sm, image). */ right?: ReactNode; /** Extra classes on the bar. */ className?: string; style?: CSSProperties; } /** The bar across the top of the page column (Figma \"Top bar\", read 19 Nov 2026; no Figma props): search on the left, the person on the right.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "search",
+            "right",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "search-field": {
+      "$extensions": {
+        "bella": {
+          "name": "SearchField",
+          "category": "Inputs",
+          "description": "Figma \"Placeholder\". */ placeholder?: string; /** Figma \"Show shortcut\". The ⌘K legend at the right; ⌘K (or Ctrl K) then focuses the field. */ showShortcut?: boolean; /** Accessible name. Defaults to the placeholder. */ label?: string; value?: string; defaultValue?: string; onChange?: (value: string) => void; /** Called with the query when Enter is pressed. */ onSubmit?: (value: string) => void; /** Extra classes on the field. */ className?: string; style?: CSSProperties; } /** The app search in the top bar (Figma \"Search field\", read 19 Nov 2026). Not a form Input: no label row, no border. The whole field is the target (it is a label, so a click anywhere focuses the input).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "placeholder",
+            "showShortcut",
+            "label",
+            "value",
+            "defaultValue",
+            "onChange",
+            "onSubmit",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
         }
       }
     }

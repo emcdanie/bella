@@ -44,6 +44,17 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Above-heading label | `Eyebrow` |
 | Page chrome | `PageHeader`, `Section` |
 | Layout | `Columns`, `SidebarLayout`, `ScaledFrame` |
+| Status beside a name: a dot and one word | `StatusDot` |
+| Branch or run status mark | `StatusSquare` |
+| Icon in a tinted circle (section heads, rows) | `IconWell` |
+| Title, subtitle and body as one text column | `TextStack` |
+| The › on anything that opens something | `Trailing` |
+| Bar, segments or ring, with a target | `Progress` |
+| One number with its chart, context and caption | `StatCard` |
+| One step in a short ordered process, and its connector | `Step`, `MapLine` |
+| A message that stays, with its actions | `Notification` |
+| The head of a section card: icon, title, info, description | `SectionHead` |
+| CHIP app shell | `IconRail`, `NavItem`, `ProjectPanel`, `TreeItem`, `ClientSwitcher`, `TopBar`, `SearchField` |
 | Brand art (not for product UI) | `BrandWordmark`, `PatternField` |
 
 Props, variants and examples: each component's `.tsx` types and Storybook stories. Machine-readable contracts: `bella.dsds.yaml`.

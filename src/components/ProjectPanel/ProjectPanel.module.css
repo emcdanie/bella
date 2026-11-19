@@ -1,0 +1,36 @@
+/* ProjectPanel (Figma "Project panel", read 19 Nov 2026). Tokens only.
+ * A column: padding 24 x 16, page-tone fill (color/background/default)
+ * and a 1px line on its right (border/default, drawn inside as Figma's
+ * stroke) that separates it from the page. Headings: body face 600, 16 on
+ * a 24 line, content/default, padding 24 top, 12 sides, 4 below.
+ *
+ * No token (Figma values left unbound, so not built; listed in the report):
+ * - the panel's 264 width: the screen layout gives the column its width
+ * - rows 2 apart: rows here sit 0 apart (no 2 on the spacing scale)
+ * - the first heading's 28 top: both headings take 24 */
+
+.panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  padding: var(--spacing-24) var(--spacing-16);
+  background: var(--color-background-default);
+  box-shadow: inset calc(-1 * var(--border-width-1)) 0 0 var(--color-border-default);
+  overflow-y: auto;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  margin: 0;
+  padding: var(--spacing-24) var(--spacing-12) var(--spacing-4);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}

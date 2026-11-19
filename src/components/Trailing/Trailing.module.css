@@ -1,0 +1,29 @@
+/* Trailing (Figma CHIP Dashboard "Trailing", read 19 Nov 2026). Tokens only.
+ * A flex item 24 wide that stretches to the row height, glyph centred both
+ * ways. The glyph box is 32 (Icon xl, set in Trailing.tsx) so Iconoir's chevron draws 8 x 16 at 1.5px,
+ * measured from her reference chevron (18 Nov). content/subtle ink. The 44
+ * hit area is the named overlay, absolute and centred (Figma "Hit area"). */
+
+.trailing {
+  position: relative;
+  /* flex, not grid: the 32 glyph box is wider than the 24 frame and flex
+     centring overflows it evenly on both sides, as Figma's x = -4 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  inline-size: var(--size-24);
+  min-block-size: var(--size-24);
+  color: var(--color-content-subtle);
+}
+
+.trailing::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: var(--spacing-44);
+  block-size: var(--spacing-44);
+  translate: -50% -50%;
+}

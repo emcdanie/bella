@@ -12197,6 +12197,310 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+  - kind: component
+    id: task-card
+    name: TaskCard
+    description: "One task on the Work board: what it is and its status; the whole card opens it. Move to… is the keyboard way to move it between lanes."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title content-default and line content-subtle on background-surface, 8.53:1 lowest (Chip light). Edge on hover border-strong 3.76:1 lowest. Focus ring 4 + 4, border-focus."
+      tags:
+        - component
+        - task-card
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: A task in a BoardLane on CHIP Work
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a grid item that opens a page (Card)
+          - level: must-not
+            statement: Not a message (Notification)
+          - level: must-not
+            statement: Never several buttons on one card
+    refs:
+      - href: ./src/components/TaskCard/TaskCard.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/TaskCard/TaskCard.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - focus
+          - dragging
+  - kind: component
+    id: board-lane
+    name: BoardLane
+    description: "One lane of the Work board: name, count, order, then its cards. Exports BoardLaneDropSpace, where a dragged card lands or left."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 lowest on the needs-you wash; on the lane grey checked by the gate. Needs-you edge border-utility-warning 3.56:1 on the page. Drop label content-brand 7.52:1 on the lane (Chip light)."
+      tags:
+        - component
+        - board-lane
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: A status column on the CHIP Work board
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a list of links (NavList)
+          - level: must-not
+            statement: Not a table (DataTable)
+          - level: must-not
+            statement: Never a blue lane
+    refs:
+      - href: ./src/components/BoardLane/BoardLane.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/BoardLane/BoardLane.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - drop-target
+  - kind: component
+    id: group-head
+    name: GroupHead
+    description: "The name of a group in an order: an index Tag and the group's name, for board lanes and System map stages."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Not a control. A heading when given as=h2 to h4. Name content-default on any surface, 7:1.
+      tags:
+        - component
+        - group-head
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Lane titles and pipeline stages in CHIP
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a card section title (SectionHead)
+          - level: must-not
+            statement: Not a page heading (PageHeader, SectionHeader)
+          - level: must-not
+            statement: No index where the groups have no order (guideline 11)
+    refs:
+      - href: ./src/components/GroupHead/GroupHead.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/GroupHead/GroupHead.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: menu
+    name: Menu
+    description: "A short list of actions that opens from a \"…\" button: the actions on one thing. Exports MenuItem and MenuDivider."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=menu named by label; items role=menuitem, roving focus: arrows, Home, End; Enter or Space acts; Esc and Tab close (the opener takes focus back). Focus ring 4px inside the item. Text 7:1: label content-default on the highlight hover 7.99:1 lowest (dark); danger content-utility-error 7.52:1 lowest on its wash."
+      tags:
+        - component
+        - menu
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The actions on one thing (TaskCard "…")
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not navigation (NavList)
+          - level: must-not
+            statement: "Not choosing a value: the model choice (Auto, local model, Claude) is a Select"
+          - level: must-not
+            statement: Not more than about seven items
+    refs:
+      - href: ./src/components/Menu/Menu.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Menu/Menu.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: check-row
+    name: CheckRow
+    description: "One health check across all components: a configuration of ListRow (Icon well, title, what is missing, the action underneath when it fails, the count, the bar with its target). Exports CheckListHeader."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: A list item; the bar is a progressbar named by the check with the count as its value text; the action is a Button (44 target). Text and marks inherit ListRow, IconWell, Progress and Tag, each checked by the gate.
+      tags:
+        - component
+        - check-row
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "CHIP Health: component checks"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Never its own drawing: change ListRow, not CheckRow"
+          - level: must-not
+            statement: No left status stripe (guideline 9)
+    refs:
+      - href: ./src/components/CheckRow/CheckRow.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/CheckRow/CheckRow.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - pass
+          - fail
+  - kind: component
+    id: stage
+    name: Stage
+    description: "A stage for specimens: a tinted surface with an optional dot grid and a content slot."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Not interactive. A group when given a label. The dots are decoration (background), no contrast bar.
+      tags:
+        - component
+        - stage
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Doc stages and diagrams
+          - level: may
+            statement: CHIP Components "On the stage" and the Playground canvas
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a card (Card)
+          - level: must-not
+            statement: Not a whole screen at design size (ScaledFrame)
+    refs:
+      - href: ./src/components/Stage/Stage.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Stage/Stage.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - dots
+          - none
   - kind: entry
     id: foundation-color
     name: Colour

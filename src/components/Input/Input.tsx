@@ -1,5 +1,6 @@
 import React, { useId, type ReactNode } from 'react';
-import Icon from '../Icon/Icon';
+import Icon, { type IconName } from '../Icon/Icon';
+import Button from '../Button/Button';
 import styles from './Input.module.css';
 
 export interface InputProps {
@@ -23,6 +24,12 @@ export interface InputProps {
   required?: boolean;
   disabled?: boolean;
   id?: string;
+  /** Figma "Leading icon" (+ the icon swap): a 20 icon at the start of the field, subtle ink. Missing = off. */
+  leadingIcon?: IconName;
+  /** Figma "Send button": the 44 primary icon-only Button inside the field at its end. Missing = off. Enter in a single-line field sends too. */
+  onSend?: () => void;
+  /** The Send button's name (and its tooltip words). */
+  sendLabel?: string;
   /** Extra classes on the field wrapper. */
   className?: string;
 }
@@ -45,6 +52,9 @@ export default function Input({
   required,
   disabled,
   id,
+  leadingIcon,
+  onSend,
+  sendLabel = 'Send',
   className,
 }: InputProps) {
   const autoId = useId();
@@ -81,7 +91,36 @@ export default function Input({
         {label}
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
-      {multiline ? <textarea {...shared} rows={5} /> : <input {...shared} type={type} />}
+      {leadingIcon || onSend ? (
+        /* Figma Field with zones: Leading icon, Value, Send button, 8 apart.
+           The box carries the edge, corner and focus ring; the native control
+           inside is bare. Without these props the field renders as before. */
+        <div className={[styles.box, disabled ? styles.boxDisabled : ''].filter(Boolean).join(' ')}>
+          {leadingIcon ? <Icon name={leadingIcon} size="md" className={styles.leading} /> : null}
+          {multiline ? (
+            <textarea {...shared} className={styles.bare} rows={5} />
+          ) : (
+            <input
+              {...shared}
+              className={styles.bare}
+              type={type}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && onSend) {
+                  e.preventDefault();
+                  onSend();
+                }
+              }}
+            />
+          )}
+          {onSend ? (
+            <Button variant="primary" size="md" iconOnly icon="SendDiagonal" ariaLabel={sendLabel} onClick={onSend} disabled={disabled} />
+          ) : null}
+        </div>
+      ) : multiline ? (
+        <textarea {...shared} rows={5} />
+      ) : (
+        <input {...shared} type={type} />
+      )}
       {hint && !error ? (
         <p id={hintId} className={styles.hint}>
           {hint}

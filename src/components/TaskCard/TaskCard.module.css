@@ -1,0 +1,148 @@
+/* TaskCard (Figma BellaComponents TaskCard 799:177248, read 19 Nov 2026). Tokens only.
+ * Card: column, 12 between Head and Status row, 16 padding inside a 1px
+ * edge (Figma lays the edge inside the box and its content starts at 17, so
+ * border + padding matches), border/radius/card, background/surface,
+ * edge border/subtle.
+ * Head: row, 4 apart: Text column fills (Title, Line, Branch, 4 apart),
+ * Move to… hugs at its right end, one title line tall (24) so the handle
+ * centres on the first line; its 44 hit area is a ::after, as Figma's
+ * absolute Hit area.
+ * Title: reading face 600, 16/24, content/default. Line: subtext face 400,
+ * 16/24, content/subtle.
+ * Status row: StatusDot fills, the › (Trailing) at the end, 8 apart, centred.
+ * States (Figma variants): hover = edge border/strong; focus = 4 ring, 4 gap,
+ * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
+ * corner here); dragging = shadow/lg. Only dragging lifts. */
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: var(--border-width-1) solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+}
+
+.opens {
+  cursor: pointer;
+}
+
+.opens:hover {
+  border-color: var(--color-border-strong);
+}
+
+.card:has(.open:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.dragging {
+  box-shadow: var(--shadow-lg);
+}
+
+.head {
+  display: flex;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: anywhere;
+}
+
+/* The open target: the title link, stretched over the whole card. */
+.open {
+  all: unset;
+  cursor: pointer;
+}
+
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.open:focus-visible {
+  outline: none;
+}
+
+.line {
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+  overflow-wrap: anywhere;
+}
+
+.branch {
+  max-inline-size: 100%;
+}
+
+/* Move to…: 20 wide, one title line tall, glyph centred, 44 hit area. Sits
+   above the stretched open target. */
+.move {
+  all: unset;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-20);
+  block-size: var(--size-24);
+  color: var(--color-content-subtle);
+}
+
+button.move {
+  cursor: grab;
+  border-radius: var(--border-radius-lg);
+}
+
+button.move::after {
+  content: '';
+  position: absolute;
+  inset-block: calc((var(--spacing-44) - var(--size-24)) / -2);
+  inset-inline: calc((var(--spacing-44) - var(--size-20)) / -2);
+}
+
+button.move:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.statusDot {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}

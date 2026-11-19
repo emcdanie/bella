@@ -96,6 +96,12 @@ const PAIRS = [
   ['content-default on the ochre wash over background-surface', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
   ['content-default on the navy wash over background-surface', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
   ['content-default on background-lane', c('content-default'), c('background-lane'), TEXT],
+  // BoardLane needs-you (19 Nov 2026): name and order on the warm wash, its edge off the page
+  ['content-default on the needs-you wash over background-default', c('content-default'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the needs-you wash over background-default', c('content-lane-subtle'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['border-utility-warning on background-default', c('border-utility-warning'), c('background-default'), MARK],
+  // BoardLane drop space (19 Nov 2026): label and dashed edge on the lane
+  ['content-brand on background-lane', c('content-brand'), c('background-lane'), TEXT],
   // text on filled parts
   ['content-knockout on background-knockout', c('content-knockout'), c('background-knockout'), TEXT],
   ['content-brand-knockout on background-brand', c('content-brand-knockout'), c('background-brand'), TEXT],

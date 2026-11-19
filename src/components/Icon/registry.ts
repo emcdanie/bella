@@ -165,6 +165,14 @@ export const GLYPHS = {
   NavArrowUp: ['M6 15L12 9L18 15'],
   InfoCircle: ['M12 11.5V16.5', 'M12 7.51L12.01 7.49889', 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z'],
   XmarkCircle: ['M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284', 'M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z'],
+  /* Added 19 Nov 2026 for TaskCard (Work page): Figma Icon name=DragHandle, six dots
+   * 3.2 across centred on 9/15 x 6/12/18. Drawn as r 0.7 rings under the 1.8 line,
+   * which fills them to Figma's 3.2 dot. */
+  DragHandle: ['M9 5.3A0.7 0.7 0 1 1 9 6.7A0.7 0.7 0 1 1 9 5.3Z', 'M15 5.3A0.7 0.7 0 1 1 15 6.7A0.7 0.7 0 1 1 15 5.3Z', 'M9 11.3A0.7 0.7 0 1 1 9 12.7A0.7 0.7 0 1 1 9 11.3Z', 'M15 11.3A0.7 0.7 0 1 1 15 12.7A0.7 0.7 0 1 1 15 11.3Z', 'M9 17.3A0.7 0.7 0 1 1 9 18.7A0.7 0.7 0 1 1 9 17.3Z', 'M15 17.3A0.7 0.7 0 1 1 15 18.7A0.7 0.7 0 1 1 15 17.3Z'],
+  /* Added 19 Nov 2026 for the Not again stat card and the Team page: Figma Icon
+   * name=ShieldCheck and name=ChatBubbleEmpty (Iconoir regular), read from the 24 glyphs. */
+  ShieldCheck: ['M5 18L3.13 4.913C3.056 4.395 3.394 3.913 3.904 3.799L11.566 2.097C11.852 2.033 12.148 2.033 12.434 2.097L20.096 3.799C20.606 3.913 20.943 4.395 20.869 4.913L19 18C18.929 18.495 18.5 21.5 12 21.5C5.5 21.5 5.07 18.495 5 18Z', 'M8.5 11.5L11.5 14.5L16.5 9.5'],
+  ChatBubbleEmpty: ['M12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2C6.477 2 2 6.477 2 12C2 13.821 2.487 15.529 3.338 17L2.5 21.5L7 20.662C8.471 21.513 10.179 22 12 22Z'],
 } as const;
 
 export type IconName = keyof typeof GLYPHS;

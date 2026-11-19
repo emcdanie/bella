@@ -43,7 +43,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Headings | `Heading`, `SectionHeader` |
 | Above-heading label | `Eyebrow` |
 | Page chrome | `PageHeader`, `Section` |
-| Layout | `Columns`, `SidebarLayout`, `ScaledFrame` |
+| Layout | `Columns`, `SidebarLayout`, `ScaledFrame`, `Stage` |
 | Status beside a name: a dot and one word | `StatusDot` |
 | Branch or run status mark | `StatusSquare` |
 | A space with nothing in it yet (lane or page) | `EmptyState` |
@@ -52,6 +52,9 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | The › on anything that opens something | `Trailing` |
 | Bar, segments or ring, with a target | `Progress` |
 | One number with its chart, context and caption | `StatCard` |
+| Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
+| The actions on one thing, from a "…" button | `Menu` |
+| One health check row (a ListRow set-up) and its list header | `CheckRow` |
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |
 | A message that stays, with its actions | `Notification` |
 | The head of a section card: icon, title, info, description | `SectionHead` |

@@ -184,3 +184,21 @@ export type { TopBarProps } from './TopBar/TopBar';
 
 export { default as SearchField } from './SearchField/SearchField';
 export type { SearchFieldProps } from './SearchField/SearchField';
+
+export { default as TaskCard } from './TaskCard/TaskCard';
+export type { TaskCardProps } from './TaskCard/TaskCard';
+
+export { default as BoardLane, BoardLaneDropSpace } from './BoardLane/BoardLane';
+export type { BoardLaneProps, BoardLaneDropSpaceProps } from './BoardLane/BoardLane';
+
+export { default as GroupHead } from './GroupHead/GroupHead';
+export type { GroupHeadProps } from './GroupHead/GroupHead';
+
+export { default as Menu, MenuItem, MenuDivider } from './Menu/Menu';
+export type { MenuProps, MenuItemProps } from './Menu/Menu';
+
+export { default as CheckRow, CheckListHeader } from './CheckRow/CheckRow';
+export type { CheckRowProps, CheckListHeaderProps } from './CheckRow/CheckRow';
+
+export { default as Stage } from './Stage/Stage';
+export type { StageProps } from './Stage/Stage';

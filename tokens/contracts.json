@@ -231,6 +231,8 @@
             "onClick",
             "ariaLabel",
             "linkComponent",
+            "footerText",
+            "footerAction",
             "className",
             "innerClassName",
             "style",
@@ -1061,6 +1063,9 @@
             "required",
             "disabled",
             "id",
+            "leadingIcon",
+            "onSend",
+            "sendLabel",
             "className"
           ],
           "usage": [
@@ -1167,6 +1172,18 @@
                 "expect": "none"
               }
             ]
+          },
+          "figmaProps": {
+            "Label": "label",
+            "Value": "value",
+            "Show hint": "hint",
+            "required": "required",
+            "disabled": "disabled",
+            "error": "error",
+            "multiline": "multiline",
+            "Leading icon (+ icon)": "leadingIcon (missing = off)",
+            "Send button": "onSend + sendLabel (missing = off)",
+            "state hover / focus": "CSS"
           }
         }
       }
@@ -1950,6 +1967,7 @@
             "label",
             "side",
             "children",
+            "status",
             "className",
             "footer"
           ],
@@ -1978,6 +1996,16 @@
               }
             ],
             "invariants": []
+          },
+          "figma": "Matched to the published BellaComponents Drawer (172:622) on 19 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft. Edge (one side) waits on her pick.",
+          "figmaProps": {
+            "Label": "label",
+            "side": "side",
+            "open": "open",
+            "Body (slot)": "children",
+            "Show status + Status": "status (missing = off)",
+            "Show footer + Footer": "footer (missing = off)",
+            "state=focus": "CSS :focus-visible on its controls"
           }
         }
       }
@@ -3318,6 +3346,262 @@
             "CHIP \"Not again\" stat cards with no data (19 Nov 2026)"
           ],
           "figma": "Matches the published BellaComponents \"Empty state\" (1014:2670), 19 Nov 2026; mark shown in lane as the set's Show mark says (the lane node lacks it, reported)"
+        }
+      }
+    },
+    "task-card": {
+      "$extensions": {
+        "bella": {
+          "name": "TaskCard",
+          "category": "Data",
+          "description": "One task on the Work board: what it is and its status; the whole card opens it. Move to… is the keyboard way to move it between lanes.",
+          "states": [
+            "default",
+            "hover",
+            "focus",
+            "dragging"
+          ],
+          "props": [
+            "title",
+            "line",
+            "branch",
+            "status",
+            "statusTone",
+            "dragging",
+            "href",
+            "onOpen",
+            "onMoveTo",
+            "draggable",
+            "onDragStart",
+            "onDragEnd",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A task in a BoardLane on CHIP Work"
+          ],
+          "dont": [
+            "Not a grid item that opens a page (Card)",
+            "Not a message (Notification)",
+            "Never several buttons on one card"
+          ],
+          "a11y": "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title content-default and line content-subtle on background-surface, 8.53:1 lowest (Chip light). Edge on hover border-strong 3.76:1 lowest. Focus ring 4 + 4, border-focus.",
+          "figma": "Matches the published BellaComponents TaskCard (799:177248), read 19 Nov 2026. hover, focus are CSS states; dragging is a prop.",
+          "figmaProps": {
+            "Title": "title",
+            "Line": "line",
+            "Show branch + Branch label": "branch (missing = off)",
+            "Status label / tone (StatusDot)": "status / statusTone",
+            "state=dragging": "dragging",
+            "state=hover, state=focus": "CSS :hover, :focus-visible",
+            "Move to… (Drag handle)": "onMoveTo",
+            "Open arrow (Trailing)": "drawn when href or onOpen"
+          }
+        }
+      }
+    },
+    "board-lane": {
+      "$extensions": {
+        "bella": {
+          "name": "BoardLane",
+          "category": "Data",
+          "description": "One lane of the Work board: name, count, order, then its cards. Exports BoardLaneDropSpace, where a dragged card lands or left.",
+          "states": [
+            "default",
+            "drop-target"
+          ],
+          "props": [
+            "name",
+            "order",
+            "index",
+            "lane",
+            "dropTarget",
+            "statusTone",
+            "count",
+            "children",
+            "headingLevel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A status column on the CHIP Work board"
+          ],
+          "dont": [
+            "Not a list of links (NavList)",
+            "Not a table (DataTable)",
+            "Never a blue lane"
+          ],
+          "a11y": "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 lowest on the needs-you wash; on the lane grey checked by the gate. Needs-you edge border-utility-warning 3.56:1 on the page. Drop label content-brand 7.52:1 on the lane (Chip light).",
+          "figma": "Matches the published BellaComponents BoardLane (783:496472) and BoardLane drop space (783:496703), read 19 Nov 2026. Figma draws drop-target the same as default; the drop space marks the landing.",
+          "figmaProps": {
+            "Name": "name",
+            "Order": "order",
+            "Show index + Index label": "index (missing = off)",
+            "lane": "lane",
+            "state=drop-target": "dropTarget",
+            "Status (StatusDot) tone": "statusTone",
+            "Count (Tag) label": "count (defaults to the number of cards)",
+            "Card 1 to 4 / Show card 1 to 4": "children",
+            "drop space kind / Label": "BoardLaneDropSpace kind / label"
+          }
+        }
+      }
+    },
+    "group-head": {
+      "$extensions": {
+        "bella": {
+          "name": "GroupHead",
+          "category": "Data",
+          "description": "The name of a group in an order: an index Tag and the group's name, for board lanes and System map stages.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "name",
+            "index",
+            "as",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Lane titles and pipeline stages in CHIP"
+          ],
+          "dont": [
+            "Not a card section title (SectionHead)",
+            "Not a page heading (PageHeader, SectionHeader)",
+            "No index where the groups have no order (guideline 11)"
+          ],
+          "a11y": "Not a control. A heading when given as=h2 to h4. Name content-default on any surface, 7:1.",
+          "figma": "Matches the published BellaComponents Group head (1330:51325), read 19 Nov 2026.",
+          "figmaProps": {
+            "Name": "name",
+            "Show index + Index label": "index (missing = off)"
+          }
+        }
+      }
+    },
+    "menu": {
+      "$extensions": {
+        "bella": {
+          "name": "Menu",
+          "category": "Actions",
+          "description": "A short list of actions that opens from a \"…\" button: the actions on one thing. Exports MenuItem and MenuDivider.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "children",
+            "onClose",
+            "autoFocus",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The actions on one thing (TaskCard \"…\")"
+          ],
+          "dont": [
+            "Not navigation (NavList)",
+            "Not choosing a value: the model choice (Auto, local model, Claude) is a Select",
+            "Not more than about seven items"
+          ],
+          "a11y": "role=menu named by label; items role=menuitem, roving focus: arrows, Home, End; Enter or Space acts; Esc and Tab close (the opener takes focus back). Focus ring 4px inside the item. Text 7:1: label content-default on the highlight hover 7.99:1 lowest (dark); danger content-utility-error 7.52:1 lowest on its wash.",
+          "figma": "Matches the published BellaComponents Menu (1014:89), Menu item (1014:84) and Menu divider (1014:87), read 19 Nov 2026.",
+          "figmaProps": {
+            "Items (slot)": "children",
+            "Menu item Label": "MenuItem label",
+            "Menu item Show icon + icon": "MenuItem icon (missing = off)",
+            "Menu item tone": "MenuItem tone",
+            "Menu item state hover / focus / pressed": "CSS :hover, :focus-visible, :active"
+          }
+        }
+      }
+    },
+    "check-row": {
+      "$extensions": {
+        "bella": {
+          "name": "CheckRow",
+          "category": "Data",
+          "description": "One health check across all components: a configuration of ListRow (Icon well, title, what is missing, the action underneath when it fails, the count, the bar with its target). Exports CheckListHeader.",
+          "states": [
+            "pass",
+            "fail"
+          ],
+          "props": [
+            "status",
+            "title",
+            "subtitle",
+            "value",
+            "fill",
+            "target",
+            "actionLabel",
+            "onAction",
+            "as",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Health: component checks"
+          ],
+          "dont": [
+            "Never its own drawing: change ListRow, not CheckRow",
+            "No left status stripe (guideline 9)"
+          ],
+          "a11y": "A list item; the bar is a progressbar named by the check with the count as its value text; the action is a Button (44 target). Text and marks inherit ListRow, IconWell, Progress and Tag, each checked by the gate.",
+          "figma": "Matches the published BellaComponents Check row (793:31331) and Check list header (1168:67724), read 19 Nov 2026. The legend's target mark is 18 in Figma, off the 4 scale: snapped to 20.",
+          "figmaProps": {
+            "status": "status",
+            "List item Title text": "title",
+            "List item Subtitle text": "subtitle",
+            "List item Value text": "value",
+            "Progress fill value": "fill",
+            "Progress target": "target (missing = off)",
+            "List item Text button Label": "actionLabel + onAction (fail only)",
+            "Check list header Title / Count / Legend": "CheckListHeader title / count / legend"
+          }
+        }
+      }
+    },
+    "stage": {
+      "$extensions": {
+        "bella": {
+          "name": "Stage",
+          "category": "Layout",
+          "description": "A stage for specimens: a tinted surface with an optional dot grid and a content slot.",
+          "states": [
+            "dots",
+            "none"
+          ],
+          "props": [
+            "grid",
+            "children",
+            "label",
+            "frameWidth",
+            "frameHeight",
+            "zoom",
+            "onZoomChange",
+            "markers",
+            "offsetY",
+            "picking",
+            "onPick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Doc stages and diagrams",
+            "CHIP Components \"On the stage\" and the Playground canvas"
+          ],
+          "dont": [
+            "Not a card (Card)",
+            "Not a whole screen at design size (ScaledFrame)"
+          ],
+          "a11y": "Not interactive. A group when given a label. The dots are decoration (background), no contrast bar.",
+          "figma": "Matches the published BellaComponents Stage (809:186284), read 19 Nov 2026: dots 2px every 24, first centred at 16, background/highlight on background/default, corner 16, content 24 padding, 16 apart, centred.",
+          "figmaProps": {
+            "grid": "grid",
+            "Content (slot)": "children",
+            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma: the Playground frame, on her decision card (19 Nov); built from SegmentedControl and Pin"
+          }
         }
       }
     }

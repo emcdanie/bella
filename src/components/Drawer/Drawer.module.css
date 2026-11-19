@@ -1,4 +1,10 @@
-/* Drawer (CHIP components, 2026-10-03). Tokens only. Slides from the left
+/* Drawer (CHIP components, 2026-10-03; matched to published BellaComponents
+ * Drawer 172:622 on 19 Nov 2026: Head 24 padding, Title row 8 apart (Title
+ * reading face 600, 18 / 1.3; Status 16/24 content/subtle), Close the 44
+ * secondary icon-only Button, no rule under the head; Body 24 padding;
+ * Footer 24 padding, hairline above, actions right; shadow/soft. The
+ * one-side edge stays as it was: Figma draws it too, and full edge or none
+ * is her open pick, 19 Nov part findings). Tokens only. Slides from the left
  * (navigation) or the right (side="right", a tool panel). A native modal
  * <dialog>: the top layer stacks it (no z-index), ::backdrop is the scrim,
  * and the page behind is inert while it is open.
@@ -20,9 +26,12 @@
   padding: 0;
   border: 0;
   border-inline-end: var(--border-width-1) solid var(--color-border-default);
+  /* Figma: the two corners away from the edge take the card corner */
+  border-start-end-radius: var(--border-radius-card);
+  border-end-end-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   color: var(--color-content-default);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-soft);
 }
 
 .drawer[open] {
@@ -49,6 +58,10 @@
   inset-inline-end: 0;
   border-inline-end: 0;
   border-inline-start: var(--border-width-1) solid var(--color-border-default);
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-start-start-radius: var(--border-radius-card);
+  border-end-start-radius: var(--border-radius-card);
 }
 
 .drawer:focus {
@@ -64,24 +77,40 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-12);
-  padding: var(--spacing-20);
-  border-block-end: var(--border-width-1) solid var(--color-border-default);
+  padding: var(--spacing-24);
+}
+
+.titleRow {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
 }
 
 .title {
   margin: 0;
-  font-family: var(--typography-title-default-font-family);
-  font-size: var(--typography-font-size-22);
-  font-weight: var(--typography-font-weight-500);
-  letter-spacing: var(--typography-letter-spacing-0);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-600);
   line-height: var(--typography-line-height-130);
+  color: var(--color-content-default);
+}
+
+.status {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
 }
 
 .body {
   flex: 1;
   min-block-size: 0;
   overflow: auto;
-  padding: var(--spacing-20);
+  padding: var(--spacing-24);
 }
 
 .footer {
@@ -90,7 +119,7 @@
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-8);
-  padding: var(--spacing-4) var(--spacing-24);
+  padding: var(--spacing-24);
   border-block-start: var(--border-width-1) solid var(--color-border-default);
 }
 

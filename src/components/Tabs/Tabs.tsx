@@ -113,7 +113,15 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
           <Button variant="tertiary" iconOnly icon="NavArrowLeft" ariaLabel="Earlier tabs" onClick={() => scrollBy(-1)} />
         </span>
       ) : null}
-      <div role="tablist" aria-label={label} className={styles.list} onKeyDown={onKeyDown} ref={listRef}>
+      <div
+        role="tablist"
+        aria-label={label}
+        className={styles.list}
+        onKeyDown={onKeyDown}
+        ref={listRef}
+        data-more-start={more.start || undefined}
+        data-more-end={more.end || undefined}
+      >
         {tabs.map((t, i) => {
           const selected = t.id === value;
           return (

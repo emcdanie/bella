@@ -47,6 +47,21 @@
   overflow-x: auto;
 }
 
+/* A short fade where the row goes on, under the chevron (as Carbon). A mask,
+   so it works on any ground behind the tabs. */
+.list[data-more-end] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--spacing-24)), transparent);
+}
+.list[data-more-start] {
+  -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-24)), transparent);
+}
+.list[data-more-start][data-more-end] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--spacing-24), #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--spacing-24), #000 calc(100% - var(--spacing-24)), transparent);
+}
+
 /* the chevron at an end that has more tabs (her pick B, 20 Nov) */
 .more {
   flex: none;

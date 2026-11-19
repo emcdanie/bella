@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, type KeyboardEvent } from 'react';
+import React, { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import Button from '../Button/Button';
 import Icon, { type IconName } from '../Icon/Icon';
 import StatusDot from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
@@ -65,6 +66,31 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
     else if (end > list.scrollLeft + list.clientWidth) list.scrollLeft = end - list.clientWidth;
   }, [value, tabs]);
 
+  /* Her pick, 20 Nov ("B · chevron button", as Carbon): when the tabs are
+   * wider than their space, a 44 tertiary chevron sits at each end that has
+   * more, and scrolls the row that way. Swipe still works; tabs never wrap. */
+  const [more, setMore] = useState({ start: false, end: false });
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const update = () => {
+      const max = list.scrollWidth - list.clientWidth;
+      setMore({ start: list.scrollLeft > 1, end: list.scrollLeft < max - 1 });
+    };
+    update();
+    list.addEventListener('scroll', update, { passive: true });
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null;
+    ro?.observe(list);
+    return () => {
+      list.removeEventListener('scroll', update);
+      ro?.disconnect();
+    };
+  }, [tabs]);
+  const scrollBy = (dir: 1 | -1) => {
+    const list = listRef.current;
+    if (list) list.scrollBy({ left: dir * list.clientWidth * 0.8, behavior: 'smooth' });
+  };
+
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     const i = tabs.findIndex((t) => t.id === value);
     const last = tabs.length - 1;
@@ -82,6 +108,11 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
 
   return (
     <div className={[styles.tabs, className].filter(Boolean).join(' ')} data-bella-component="tabs">
+      {more.start ? (
+        <span className={styles.more}>
+          <Button variant="tertiary" iconOnly icon="NavArrowLeft" ariaLabel="Earlier tabs" onClick={() => scrollBy(-1)} />
+        </span>
+      ) : null}
       <div role="tablist" aria-label={label} className={styles.list} onKeyDown={onKeyDown} ref={listRef}>
         {tabs.map((t, i) => {
           const selected = t.id === value;
@@ -114,6 +145,11 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
           );
         })}
       </div>
+      {more.end ? (
+        <span className={styles.more}>
+          <Button variant="tertiary" iconOnly icon="NavArrowRight" ariaLabel="More tabs" onClick={() => scrollBy(1)} />
+        </span>
+      ) : null}
     </div>
   );
 }

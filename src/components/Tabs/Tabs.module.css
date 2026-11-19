@@ -30,17 +30,27 @@
 
 .tabs {
   /* never wider than its space: the list scrolls inside instead */
+  display: flex;
+  align-items: center;
   min-inline-size: 0;
   max-inline-size: 100%;
   box-shadow: inset 0 calc(-1 * var(--border-width-1)) 0 var(--color-border-default);
 }
 
 .list {
+  flex: 1 1 auto;
+  min-inline-size: 0;
   display: flex;
   gap: var(--spacing-4);
   margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
   padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
   overflow-x: auto;
+}
+
+/* the chevron at an end that has more tabs (her pick B, 20 Nov) */
+.more {
+  flex: none;
+  display: inline-flex;
 }
 
 .tab {

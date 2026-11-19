@@ -105,8 +105,8 @@ export const Behavior: Story = {
       expect(field.tagName).toBe('INPUT');
     });
 
-    await step('the field is 60 (size.control.input: 20px at line-height 1.7, whole pixel)', async () => {
-      expect(field.getBoundingClientRect().height).toBe(60);
+    await step('the single-line field is 44 (Figma 20 Nov: min spacing/44)', async () => {
+      expect(field.getBoundingClientRect().height).toBe(44);
     });
 
     await step('autoComplete and name reach the DOM (contact-form contract)', async () => {
@@ -174,7 +174,8 @@ export const Behavior: Story = {
 };
 
 /** Figma "Leading icon" and "Send button" (19 Nov 2026): the Team page's
- * composer. The Send button is the 44 primary icon-only Button inside the
+ * composer. The Send button is the small primary icon-only Button (32 plate,
+ * 44 hit area, Figma 20 Nov) inside the
  * field; Enter sends too. Without these props the field is unchanged. */
 function Composer() {
   const [value, setValue] = useState('');
@@ -201,9 +202,10 @@ function Composer() {
 export const WithSend: Story = {
   render: () => <Composer />,
   play: async ({ canvas, userEvent, step }) => {
-    await step('the Send button is named and 44', async () => {
+    await step('the Send button is named: a 32 plate with a 44 hit area', async () => {
       const send = canvas.getByRole('button', { name: 'Send reply' });
-      await expectTouchTarget(send);
+      expect(send.getBoundingClientRect().height).toBe(32);
+      expect(parseFloat(getComputedStyle(send, '::after').height)).toBeGreaterThanOrEqual(44);
     });
     await step('Enter sends', async () => {
       await userEvent.type(canvas.getByLabelText('Reply'), 'Looks right{Enter}');

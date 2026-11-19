@@ -66,8 +66,83 @@
   flex-shrink: 0;
 }
 
-.lineAbove {
+/* Marker column (20 Nov): at least the height of a title plus its tag
+   (24 + 4 + 32 + 12 + 12 = 84; named exception, no 84 token), so a hidden
+   tag keeps the row height. */
+.vertical .markerColumn {
+  min-block-size: calc(var(--typography-line-height-px-24) + var(--spacing-4) + var(--spacing-32) + var(--spacing-12) * 2);
+}
+
+.above {
+  display: flex;
+  justify-content: center;
   flex: 0 0 var(--spacing-12);
+}
+
+.below {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 var(--size-36);
+}
+
+.fill {
+  flex: 1 1 auto;
+  align-self: stretch;
+}
+
+/* _Step number: 36 circle, number face 600 */
+.number {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: var(--size-36);
+  block-size: var(--size-36);
+  border-radius: var(--border-radius-round);
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.number-done {
+  background: var(--color-background-utility-success);
+  color: var(--color-content-utility-success);
+}
+
+.number-current {
+  background: var(--color-background-utility-info);
+  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-utility-info);
+  color: var(--color-content-utility-info);
+}
+
+.number-pending {
+  background: var(--color-background-utility-neutral);
+  color: var(--color-content-utility-neutral);
+}
+
+/* Step day: the line runs through the day heading */
+.day {
+  display: flex;
+  gap: var(--spacing-12);
+  margin: 0;
+  padding-inline: var(--spacing-12);
+  list-style: none;
+}
+
+.dayLine {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 var(--size-36);
+}
+
+.dayText {
+  flex: 1 1 auto;
+  padding-block: var(--spacing-8);
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
 }
 
 .text {
@@ -144,6 +219,24 @@
      (also over the current edge: selection wins) */
   background: var(--color-background-brand-subtle-hover);
   box-shadow: none;
+}
+
+/* Selected keeps its 12 of extra room inside the columns (Above 24, text 24
+   above and below), not as row padding, so the line runs to the row edge. */
+.step.selected .above {
+  flex-basis: var(--spacing-24);
+}
+
+.vertical.selected .markerColumn {
+  min-block-size: calc(var(--typography-line-height-px-24) + var(--spacing-4) + var(--spacing-32) + var(--spacing-24) * 2);
+}
+
+.vertical.selected .text {
+  padding-block: var(--spacing-24);
+}
+
+.vertical.selected .timeSide {
+  padding-block-start: var(--spacing-24);
 }
 
 .selected .detail,

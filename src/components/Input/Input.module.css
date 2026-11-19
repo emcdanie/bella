@@ -39,12 +39,16 @@
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-strong); /* 3:1 control border; the hairline is decorative only */
   border-radius: var(--border-radius-form);
-  padding: var(--spacing-12) var(--spacing-16);
-  min-height: var(--size-60);
+  /* Figma 20 Nov: the single-line field is 44 (min spacing/44, no top or
+     bottom padding); multiline keeps 12 above and below and its 60. */
+  padding: 0 var(--spacing-16);
+  min-height: var(--spacing-44);
 }
 
 textarea.field {
   resize: vertical;
+  padding-block: var(--spacing-12);
+  min-height: var(--size-60);
 }
 
 .field::placeholder {
@@ -96,8 +100,9 @@ textarea.field {
 
 /* ---- Field with zones (Figma Input "Leading icon", "Send button"; 19 Nov
  * 2026). Only when those props are set; the plain field above is unchanged.
- * Box: row, 8 apart, padding 12 / 8 / 12 / 16 (Figma: the Send button sits
- * 8 from the end), 60 tall at least, same edge, corner and fill as .field;
+ * Box: row, 8 apart, padding 0 / 8 / 0 / 16 (Figma 20 Nov: the small Send
+ * button sits 8 from the end), 44 tall at least (multiline: 12 above and
+ * below, 60), same edge, corner and fill as .field;
  * focus ring on the box when the control inside has focus. */
 .box {
   display: flex;
@@ -105,8 +110,8 @@ textarea.field {
   gap: var(--spacing-8);
   min-width: 0;
   box-sizing: border-box;
-  min-height: var(--size-60);
-  padding: var(--spacing-12) var(--spacing-8) var(--spacing-12) var(--spacing-16);
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-8) 0 var(--spacing-16);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: var(--border-radius-form);
@@ -154,6 +159,11 @@ textarea.field {
 .bare:disabled {
   color: var(--color-content-subtle);
   cursor: not-allowed;
+}
+
+.box:has(textarea.bare) {
+  min-height: var(--size-60);
+  padding-block: var(--spacing-12);
 }
 
 textarea.bare {

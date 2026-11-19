@@ -119,7 +119,7 @@ export const CompactIgnoredWhenSortable: Story = {
   },
 };
 
-/** Single selection fills the row pink; nothing else dims. The header sticks inside a capped height. */
+/** Single selection marks the row light blue with bold ink text; nothing else dims. The header sticks inside a capped height. */
 export const Selectable: Story = {
   render: () => <SelectHarness />,
 };

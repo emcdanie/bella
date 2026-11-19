@@ -161,12 +161,35 @@
 }
 
 .stack {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* Figma "Lead" (20 Nov): the Status bar beside the Text stack, 12 apart; the
+   bar fills the text's height. */
+.lead {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-12);
   align-self: stretch;
 }
 
-.inline .stack {
+.inline .lead {
   flex: 1 1 0;
 }
+
+/* Figma "Status bar" 1512:249842: 4 wide, round, the Tag's own edge token so
+   it reaches 3:1. Its own shape, not a row edge (rule 9). */
+.statusBar {
+  flex: 0 0 var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-utility-neutral);
+}
+.statusBar[data-tone='strong'] { background: var(--color-border-strong); }
+.statusBar[data-tone='success'] { background: var(--color-border-utility-success); }
+.statusBar[data-tone='info'] { background: var(--color-border-utility-info); }
+.statusBar[data-tone='attention'] { background: var(--color-border-utility-warning); }
+.statusBar[data-tone='danger'] { background: var(--color-border-utility-error); }
 
 .right {
   display: flex;
@@ -174,6 +197,30 @@
   align-items: flex-end;
   gap: var(--spacing-4);
   flex-shrink: 0;
+  min-block-size: var(--spacing-44); /* Figma Right min 44: an action alone keeps the row's height */
+}
+
+/* inline rows centre every zone, the value inside its 44 column too */
+.inline .right {
+  justify-content: center;
+}
+
+/* Figma "Action line" (20 Nov): the action sits on a 24 text line, its 44 box
+   reaching 10 above and below, so its label reads on the line it belongs to. */
+.actionLine {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  block-size: var(--typography-line-height-px-24);
+}
+
+/* Figma "Value label": a word, in the body face, 500. */
+.valueLabel {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
 }
 
 .value {

@@ -7,25 +7,23 @@ import styles from './Stage.module.css';
 
 export interface StageMarker {
   id: string;
-  /** Where the pin sits. With frameWidth: frame pixels (design size). Without: pixels from the
-   * stage's centre, so the marks stay on a centred specimen at any width. */
+  /** The point on the part the annotation explains, on the part's nearest edge (the leader's dot
+   * lands here). With frameWidth: frame pixels (design size). Without: the specimen's own pixels
+   * from the stage's centre, multiplied by `scale`, so the marks stay on a centred specimen. */
   x: number;
   y: number;
-  /** The Pin's number. Missing = the dot pin (her "On the stage" look). */
+  /** The number, in her light red pin (Pin tone red, solid, ink number). */
   label?: ReactNode;
-  /** The Pin's tone. Missing: from status (pass green, finding yellow), else pink. */
-  tone?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
-  /** The part's name in a Pin label chip (no pin). Missing = the pin alone. */
+  /** "part · value" in the Pin label chip ("Plate · #63b4e8"). With it, a neutral solid Leader runs
+   * from the chip to x / y: straight when level, else one curved bend. Missing = a numbered pin at
+   * x / y (Mark up). */
   part?: ReactNode;
-  /** pass (green dot) or finding (ochre dot). */
-  status?: 'pass' | 'finding';
-  /** The chip's edge nearest the pin, in the same pixels as x / y (its middle for chipY).
-   * Left of the pin, the chip ends there; right of it, it starts there. */
+  /** The chip's edge nearest the part (its middle for chipY). With frameWidth: frame pixels. Without:
+   * stage pixels from the centre, not scaled (chips stay at reading size).
+   * Left of the point, the chip ends there; right of it, it starts there. */
   chipX?: number;
   chipY?: number;
-  /** A dashed pink leader from the chip to the pin (the part in focus). */
-  leader?: boolean;
-  /** The part whose card is open: a 2px ink edge on its chip. */
+  /** The part whose card is open: a 2px ink edge on its chip and a 2px ink leader. */
   selected?: boolean;
 }
 
@@ -36,6 +34,9 @@ export interface StageProps {
   children?: ReactNode;
   /** Names the stage when its content needs a group name ("Button on the stage"). */
   label?: string;
+  /** Plain stage: shows the content at this size (2 = her "Shown at 2x"). The content takes its
+   * scaled room, pins follow it; chips stay at reading size. */
+  scale?: number;
 
   /* ---- Playground frame (beyond published Figma; waits on her decision card, 19 Nov) ---- */
   /** Design width of a page shown on the stage (1440, 1024, 768, 375). Turns on the frame, its size row and zoom. */
@@ -69,48 +70,60 @@ const ZOOM_OPTIONS = [
  * content slot. Doc stages and diagrams. With frameWidth it also holds a
  * page at its design width, scaled to fit or at 100%, for the Playground.
  */
-/* Pins on the stage (her CHIP Components design, 690:492657, read 20 Nov 2026):
-   dot pins, the part names in Pin label chips (no pin), and a dashed pink
-   Leader with a dot end for the part in focus ("pink for leaders", 19 Nov). */
+/* Annotations on the stage (Elleta, 20 Nov: "these annotations are not correct .."; CHIP
+   Components, read 21 Nov): each part gets a Pin label chip in her light red with its numbered
+   pin ("part · value"), right-aligned in a column beside the part, and a neutral solid Leader
+   from the chip to a dot on the part's nearest edge, straight when level, else one curved bend.
+   Never status-coloured dots: pass or finding lives in the part card. */
+/* Plain stage: tall enough that every pin and chip, measured from the centre, sits inside with
+   a 32 margin (the chip column often runs taller than the part). */
+function markerRoom(markers: StageMarker[], scale: number) {
+  const reach = Math.max(...markers.map((m) => Math.max(Math.abs(m.y * scale), m.chipY != null ? Math.abs(m.chipY) : 0)));
+  return `calc(${2 * reach}px + var(--spacing-32) * 2)`;
+}
+
 /* An SVG with no size draws nothing, so leaders live on the full stage (or frame), not the centre origin. */
 function Leaders({ markers }: { markers: StageMarker[] }) {
   return (
     <>
-      {markers
-        .filter((m) => m.leader && m.part != null && m.chipX != null && m.chipY != null)
-        .map((m) => (
-          <Leader
-            key={m.id}
-            from={`[data-stage-chip="${m.id}"]`}
-            to={`[data-stage-pin="${m.id}"]`}
-            label={`${typeof m.part === 'string' ? m.part : 'The part'} is marked on the stage`}
-            variant="pink"
-            end="dot"
-          />
-        ))}
+      {markers.filter(hasChip).map((m) => (
+        <Leader
+          key={m.id}
+          from={`[data-stage-chip="${m.id}"]`}
+          to={`[data-stage-pin="${m.id}"]`}
+          label={`${m.label != null ? `Pin ${m.label}` : 'The label'} points to ${typeof m.part === 'string' ? m.part : 'the part'}`}
+          variant="neutral"
+          lineStyle="solid"
+          end="dot"
+          selected={m.selected}
+        />
+      ))}
     </>
   );
 }
 
-function Markers({ markers, offsetY = 0 }: { markers: StageMarker[]; offsetY?: number }) {
+function hasChip(m: StageMarker) {
+  return m.part != null && m.chipX != null && m.chipY != null;
+}
+
+function Markers({ markers, offsetY = 0, scale = 1 }: { markers: StageMarker[]; offsetY?: number; scale?: number }) {
   return (
     <>
       {markers.map((m) => {
-        const tone = m.tone ?? (m.status === 'pass' ? 'green' : m.status === 'finding' ? 'yellow' : 'pink');
-        const name = typeof m.part === 'string' ? m.part : undefined;
-        const hasChip = m.part != null && m.chipX != null && m.chipY != null;
+        const chip = hasChip(m);
         return (
           <React.Fragment key={m.id}>
-            <span data-stage-pin={m.id} className={styles.marker} style={{ insetInlineStart: m.x, insetBlockStart: m.y - offsetY }}>
-              <Pin number={m.label} variant={tone} ariaLabel={m.label == null ? [name, m.status].filter(Boolean).join(', ') || undefined : undefined} />
+            {/* with a chip, the point is where the leader's dot lands; without, the numbered pin */}
+            <span data-stage-pin={m.id} className={styles.marker} style={{ insetInlineStart: m.x * scale, insetBlockStart: m.y * scale - offsetY }}>
+              {chip ? null : <Pin number={m.label} variant="red" pinStyle="solid" />}
             </span>
-            {hasChip ? (
+            {chip ? (
               <span
                 data-stage-chip={m.id}
-                className={[styles.chip, m.chipX! < m.x ? styles.chipBefore : ''].filter(Boolean).join(' ')}
+                className={[styles.chip, m.chipX! < m.x * scale ? styles.chipBefore : ''].filter(Boolean).join(' ')}
                 style={{ insetInlineStart: m.chipX, insetBlockStart: m.chipY! - offsetY }}
               >
-                <PinLabel showPin={false} selected={m.selected}>
+                <PinLabel tone="red" number={m.label} selected={m.selected}>
                   {m.part}
                 </PinLabel>
               </span>
@@ -126,6 +139,7 @@ export default function Stage({
   grid = 'dots',
   children,
   label,
+  scale: contentScale = 1,
   frameWidth,
   frameHeight,
   zoom = 'fit',
@@ -158,12 +172,19 @@ export default function Stage({
   if (frameWidth == null) {
     return (
       <div className={cls} style={style} role={label ? 'group' : undefined} aria-label={label} data-bella-component="stage">
-        <div className={styles.content}>
-          {children}
+        <div className={styles.content} style={markers?.length ? { minBlockSize: markerRoom(markers, contentScale) } : undefined}>
+          {contentScale !== 1 ? (
+            /* zoom (not transform) so the scaled content takes its scaled room */
+            <div className={styles.scaled} style={{ zoom: contentScale }}>
+              {children}
+            </div>
+          ) : (
+            children
+          )}
           {markers?.length ? (
             <>
               <div className={styles.origin}>
-                <Markers markers={markers} />
+                <Markers markers={markers} scale={contentScale} />
               </div>
               <Leaders markers={markers} />
             </>

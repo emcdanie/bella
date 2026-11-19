@@ -1,5 +1,6 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
+import Icon from '../Icon/Icon';
 import MapLine from '../MapLine/MapLine';
 import type { IconName } from '../Icon/Icon';
 import styles from './Step.module.css';
@@ -33,6 +34,8 @@ export interface StepProps {
   selected?: boolean;
   /** Figma "Marker" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */
   icon?: IconName;
+  /** Figma "Show number" (Show icon off): the step's number for a real sequence (rule 11). done draws a check, current the number in a 2px ring, pending the plain number. */
+  number?: number;
   /** Makes the row a button that opens its record (vertical, History). The whole row is the target. */
   onSelect?: () => void;
   className?: string;
@@ -54,6 +57,7 @@ export default function Step({
   layout = 'vertical',
   selected = false,
   icon,
+  number,
   onSelect,
   className,
   style,
@@ -63,7 +67,12 @@ export default function Step({
   /* Figma: vertical connectors are solid when done, dashed when current or
    * pending; the horizontal variants are drawn solid in every state. */
   const lineStyle = !horizontal && state !== 'done' ? 'dashed' : 'solid';
-  const marker = <IconWell icon={icon ?? m.icon} tone={m.tone} className={styles.marker} />;
+  const marker =
+    number != null ? (
+      <StepNumber state={state} number={number} />
+    ) : (
+      <IconWell icon={icon ?? m.icon} tone={m.tone} className={styles.marker} />
+    );
 
   const text = (
     <span className={styles.text}>
@@ -84,10 +93,17 @@ export default function Step({
     </>
   ) : (
     <>
+      {/* Figma 20 Nov: Above (always there; the boolean hides only its line)
+          · Marker · Below (fills the row; the boolean hides only its line), so
+          the line meets the next row's line at every height. */}
       <span className={styles.markerColumn}>
-        {showLineAbove ? <MapLine direction="vertical" end="none" variant={lineStyle} className={styles.lineAbove} /> : null}
+        <span className={styles.above}>
+          {showLineAbove ? <MapLine direction="vertical" end="none" variant={lineStyle} className={styles.fill} /> : null}
+        </span>
         {marker}
-        {showConnector ? <MapLine direction="vertical" end="none" variant={lineStyle} /> : null}
+        <span className={styles.below}>
+          {showConnector ? <MapLine direction="vertical" end="none" variant={lineStyle} className={styles.fill} /> : null}
+        </span>
       </span>
       {text}
       {time != null ? <span className={[styles.time, styles.timeSide].join(' ')}>{time}</span> : null}
@@ -114,6 +130,39 @@ export default function Step({
       ) : (
         <span className={styles.row}>{body}</span>
       )}
+    </li>
+  );
+}
+
+/** Figma "_Step number" 1510:348034 (private): done = a check, current = the
+ * number in a 2px info ring, pending = the plain number. */
+function StepNumber({ state, number }: { state: StepState; number: number }) {
+  return (
+    /* the <ol> already says the order; the number is drawn, not read twice */
+    <span className={[styles.number, styles[`number-${state}`]].join(' ')} aria-hidden="true">
+      {state === 'done' ? <Icon name="Check" size="md" /> : number}
+    </span>
+  );
+}
+
+export interface StepDayProps {
+  /** Figma "Day": the date heading ("14 Nov"). */
+  children: ReactNode;
+  className?: string;
+}
+
+/**
+ * Figma "Step day" 1510:347998 (20 Nov): a day heading inside a vertical
+ * Step list, with the list's line running straight through it (as Primer's
+ * Timeline break). Renders an <li> for the Steps' <ol>.
+ */
+export function StepDay({ children, className }: StepDayProps) {
+  return (
+    <li className={[styles.day, className].filter(Boolean).join(' ')} data-bella-component="step-day">
+      <span className={styles.dayLine} aria-hidden="true">
+        <MapLine direction="vertical" end="none" variant="solid" className={styles.fill} />
+      </span>
+      <span className={styles.dayText}>{children}</span>
     </li>
   );
 }

@@ -35,8 +35,14 @@ export interface ListRowProps {
   tag?: ReactNode;
   /** Figma "Middle" › "↳ Text button". A Button tertiary sm. */
   textButton?: ReactNode;
+  /** Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it instead of the icon well, not with it. */
+  statusBar?: 'neutral' | 'strong' | 'success' | 'info' | 'attention' | 'danger';
   /** Figma "Right" › "↳ Value" + "↳↳ Value text". Number face, 600. */
   value?: ReactNode;
+  /** Figma "Right" › "↳ Value label" (20 Nov): a word in the right column ("Open stories"), body face, 500. Value stays for numbers. */
+  valueLabel?: ReactNode;
+  /** Figma "Right" › "↳ Right tag" (20 Nov): an outlined Tag under the action, right-aligned. */
+  rightTag?: ReactNode;
   /** Figma "Right" › "↳ Sub value" + "↳↳ Sub value text". Subtext face. */
   subValue?: ReactNode;
   /** Figma "Right" › "↳ Action button". An ActionChip or Button; same zone as `action`, wins when both are set. */
@@ -115,7 +121,7 @@ export default function ListRow(props: ListRowProps) {
 
 const ZONE_KEYS = [
   'layout', 'selected', 'iconWell', 'pin', 'meta', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
-  'value', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
+  'statusBar', 'value', 'valueLabel', 'rightTag', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
   'href', 'onClick', 'as',
 ] as const;
 
@@ -141,7 +147,10 @@ function ZonedRow({
   body,
   tag,
   textButton,
+  statusBar,
   value,
+  valueLabel,
+  rightTag,
   subValue,
   actionButton,
   switch: switchSlot,
@@ -158,7 +167,7 @@ function ZonedRow({
 }: ListRowProps) {
   const right = actionButton ?? action;
   const hasLeft = iconWell != null || pin != null || statusDot != null || avatar != null;
-  const hasRight = value != null || subValue != null || right != null || switchSlot != null;
+  const hasRight = value != null || valueLabel != null || subValue != null || right != null || rightTag != null || switchSlot != null;
   const hasBelow = progress != null || helperText != null || divider;
   const interactive = href != null || onClick != null;
   /* The whole row is the target: the title carries the link or button and
@@ -193,6 +202,8 @@ function ZonedRow({
       <div className={styles.body}>
         <div className={styles.content}>
           <div className={styles.middle}>
+            <div className={styles.lead}>
+            {statusBar != null ? <span className={styles.statusBar} data-tone={statusBar} aria-hidden="true" /> : null}
             <TextStack
               className={styles.stack}
               overline={overline}
@@ -216,14 +227,17 @@ function ZonedRow({
               }
               body={body}
             />
+            </div>
             {tag != null ? <div className={styles.tag}>{tag}</div> : null}
             {textButton != null ? <div className={styles.textButton}>{textButton}</div> : null}
           </div>
           {hasRight ? (
             <div className={styles.right}>
               {value != null ? <span className={styles.value}>{value}</span> : null}
+              {valueLabel != null ? <span className={styles.valueLabel}>{valueLabel}</span> : null}
               {subValue != null ? <span className={styles.subValue}>{subValue}</span> : null}
-              {right != null ? <div className={styles.lift}>{right}</div> : null}
+              {right != null ? <div className={[styles.lift, styles.actionLine].join(' ')}>{right}</div> : null}
+              {rightTag != null ? <div className={styles.lift}>{rightTag}</div> : null}
               {switchSlot != null ? <div className={styles.lift}>{switchSlot}</div> : null}
             </div>
           ) : null}

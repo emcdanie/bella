@@ -145,7 +145,7 @@ export const ZonedEveryZone: Story = {
         textButton={<Button variant="tertiary" size="sm">Add key</Button>}
         value="42/44"
         subValue="pass"
-        actionButton={<ActionChip>Run</ActionChip>}
+        actionButton={<ActionChip variant="quiet">Run</ActionChip>}
         progress={<div style={{ blockSize: 'var(--spacing-8)', borderRadius: 'var(--border-radius-round)', background: 'var(--color-border-strong)' }} aria-hidden="true" />}
         helperText="Progress is a slot: the Progress part goes here."
         divider
@@ -190,6 +190,28 @@ export const ZonedMeta: Story = {
     <Card label="Meta" width={560}>
       <ListRow layout="stacked" title="Ships after review" description="Merges only on her typed OK." meta="OK #184 · 15 Oct" />
       <ListRow layout="stacked" title="Picks up the brief" meta="#212 · 19 Nov" />
+    </Card>
+  ),
+};
+
+/** Status bar (Figma 20 Nov, her reference 3): the bar the height of the text, Label / Title / Sub title, a text button over an outlined Tag on the right, then ›. Value label is a word in the body face. */
+export const ZonedStatusBar: Story = {
+  render: () => (
+    <Card label="Status bar" width={560}>
+      <ListRow
+        layout="stacked"
+        statusBar="neutral"
+        overline="Label"
+        title="Title"
+        meta="Sub title"
+        actionButton={<Button variant="tertiary" size="sm">button</Button>}
+        rightTag={<Tag variant="outline">Label</Tag>}
+        trailing
+        href="#status-bar"
+        divider
+      />
+      <ListRow layout="stacked" statusBar="attention" title="Contrast pairs" description="9 of 44 fail" valueLabel="Open stories" actionButton={<ActionChip variant="quiet">Fix</ActionChip>} />
+      <ListRow layout="inline" statusBar="success" title="Focus ring" value="44/44" />
     </Card>
   ),
 };

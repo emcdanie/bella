@@ -26,7 +26,7 @@ export interface InputProps {
   id?: string;
   /** Figma "Leading icon" (+ the icon swap): a 20 icon at the start of the field, subtle ink. Missing = off. */
   leadingIcon?: IconName;
-  /** Figma "Send button": the 44 primary icon-only Button inside the field at its end. Missing = off. Enter in a single-line field sends too. */
+  /** Figma "Send button": the small primary icon-only Button (32 plate, 44 hit area) inside the field at its end. Missing = off. Enter in a single-line field sends too. */
   onSend?: () => void;
   /** The Send button's name (and its tooltip words). */
   sendLabel?: string;
@@ -113,7 +113,7 @@ export default function Input({
             />
           )}
           {onSend ? (
-            <Button variant="primary" size="md" iconOnly icon="SendDiagonal" ariaLabel={sendLabel} onClick={onSend} disabled={disabled} />
+            <Button variant="primary" size="sm" iconOnly icon="SendDiagonal" ariaLabel={sendLabel} onClick={onSend} disabled={disabled} />
           ) : null}
         </div>
       ) : multiline ? (

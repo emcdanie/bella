@@ -1,11 +1,9 @@
-/* DataTable (CHIP components, 2026-10-03). Tokens only.
+/* DataTable (CHIP components, 2026-10-03; Figma 161:426, 20 Nov). Tokens only.
  *
- * Paint: hairline row rules, a header on the panel surface that sticks to
- * the top of the wrapper, figures right-aligned in tabular numerals.
- * Selection is the pink fill (#E58BBB) with a near-black label on the whole
- * row, 8.13:1 (shared look, 8 Nov 2026): highlight, never dim, so every
- * other row keeps its normal paint. The focus ring is ink or near-white,
- * never the selection colour.
+ * Built from Table row and Table cell: the cells carry the padding, the
+ * bottom edge and the selected weight; the rows carry hover and selected
+ * light blue. The caption sits above the bordered table with no side
+ * padding, so it starts on the table's edge (as Primer's DataTable title).
  *
  * Sticky needs a scrolling ancestor: with maxHeight the wrapper scrolls
  * (and becomes a focusable named region so keyboards can scroll it);
@@ -13,8 +11,6 @@
 
 .wrap {
   overflow: auto;
-  border: var(--border-width-1) solid var(--color-border-default);
-  border-radius: var(--border-radius-12);
 }
 
 .wrap:focus-visible {
@@ -24,38 +20,28 @@
 
 .table {
   inline-size: 100%;
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-12);
   border-collapse: separate;
   border-spacing: 0;
-  font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-body-default-font-size);
   letter-spacing: var(--typography-letter-spacing-0);
-  color: var(--color-content-default);
 }
 
+/* Figma Caption: Lexend 16 subtle, 12 above and below, no side padding */
 .caption {
   caption-side: top;
   text-align: start;
-  padding: var(--spacing-12) var(--spacing-16);
-  font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-font-size-18);
+  padding-block: var(--spacing-12);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
-}
-
-.table th,
-.table td {
-  padding: var(--spacing-8) var(--spacing-16);
-  min-block-size: var(--spacing-44);
-  block-size: var(--spacing-44);
-  border-bottom: var(--border-width-1) solid var(--color-border-default);
-  text-align: start;
-  vertical-align: middle;
 }
 
 /* density="compact": display-only tables, rows under the 44px target */
 .wrap[data-density='compact'] .table th,
 .wrap[data-density='compact'] .table td {
-  padding: var(--spacing-4) var(--spacing-12);
-  min-block-size: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-16);
   block-size: var(--spacing-32);
 }
 
@@ -68,18 +54,16 @@
   inset-block-start: 0;
   z-index: 1;
   background: var(--color-background-surface);
-  font-weight: var(--typography-font-weight-500);
-  color: var(--color-content-subtle);
-  white-space: nowrap;
 }
 
-.table tbody th {
-  font-weight: var(--typography-font-weight-500);
+/* Figma Row label: the row's name, 600 ink */
+.rowLabel {
+  font-weight: var(--typography-font-weight-600);
 }
 
-.table .numeric {
-  text-align: end;
-  font-variant-numeric: tabular-nums;
+/* the whole header cell is the 44 sort target */
+.sortable {
+  position: relative;
 }
 
 .sort,
@@ -88,58 +72,40 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-4);
   min-block-size: var(--spacing-44);
   cursor: pointer;
-  border-radius: var(--border-radius-4);
 }
 
-.table .numeric .sort {
-  flex-direction: row-reverse;
+.sort::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .sort:hover {
   color: var(--color-content-default);
 }
 
-.sort:focus-visible,
+/* Figma: the focus ring sits inside the header cell, 4 in, corner 8, so the
+   table edge never clips it (named exception, as Menu items). */
+.sort:focus-visible {
+  outline: none;
+}
+
+.sortable:has(.sort:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--spacing-4) * -1 - var(--focus-ring-width));
+  border-radius: var(--border-radius-8);
+}
+
 .select:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: var(--focus-ring-offset);
+  border-radius: var(--border-radius-4);
 }
 
 .select:hover {
   text-decoration: underline;
   text-decoration-thickness: var(--border-width-1);
   text-underline-offset: var(--spacing-4);
-}
-
-.arrow {
-  display: inline-flex;
-  opacity: 0;
-}
-
-.sort:hover .arrow,
-.arrow[data-direction] {
-  opacity: 1;
-}
-
-.arrow[data-direction='ascending'] {
-  transform: rotate(180deg);
-}
-
-/* a focus ring inside a selected row sits on the fill, so it takes the fill's text colour */
-tr[data-selected] {
-  --color-border-focus: var(--color-content-on-accent-1);
-}
-
-tr[data-selected] > * {
-  background: var(--color-background-accent-1);
-  color: var(--color-content-on-accent-1);
-}
-
-/* every text on the selected fill goes near-black, nested components
-   included: a muted label fails contrast there (caught by axe on a StatusPill) */
-tr[data-selected] > * * {
-  color: var(--color-content-on-accent-1);
 }

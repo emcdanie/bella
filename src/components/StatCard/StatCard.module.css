@@ -1,8 +1,10 @@
 /* Stat card (Figma CHIP Dashboard "Stat card", read 19 Nov 2026). Tokens only.
  * Card: background/surface, card corner, the two-layer card shadow
  * (shadow-card-ink = neutral alpha 5 + 10, as Figma), padding 20 / 24.
- * Header: the 44 row; Icon well 36, title (reading face 600), and the
- * Trailing part (rule 12; Figma has a loose 20 Icon there) when it opens.
+ * Two columns (Figma 20 Nov, rule 20), 12 apart: Lead (the 36 Icon well,
+ * centred on the 44 header row) and Content (header, body, footer).
+ * Header: the 44 row; title (reading face 600) and the Trailing part
+ * (rule 12) when it opens.
  * The whole header is the target: light-blue hover, 4 + 4 focus ring.
  * Body: number + unit, chart, context, 12 apart, centred between header and
  * footer when the card is taller than its content (cards in a row share a
@@ -14,8 +16,7 @@
 .card {
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-24);
+  gap: var(--spacing-12);
   min-inline-size: 0;
   margin: 0;
   padding-block: var(--spacing-20);
@@ -23,6 +24,21 @@
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-card-ink);
+}
+
+.lead {
+  display: flex;
+  align-items: center;
+  flex: none;
+  block-size: var(--spacing-44);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  flex: 1 1 auto;
+  min-inline-size: 0;
 }
 
 .header {

@@ -136,28 +136,25 @@ export const FrameBehavior: Story = {
   },
 };
 
-/** Her "On the stage" look (CHIP Components, 690:492657): dot pins on its parts
- * (green passes, ochre is a finding), the part names in a column of chips, and a dashed pink leader
- * for the part in focus. Marker positions are pixels from the stage's centre. The specimen is
- * shown at 2x, as on her page. */
+/** Her "On the stage" look, as redone 20 Nov ("these annotations are not correct .."): numbered pins
+ * in her light red inside "part · value" chips, right-aligned 48 left of the part, and a neutral solid
+ * leader to a dot on the part's nearest edge, straight when level, else one curved bend. scale={2}
+ * shows the part at 2x; x / y are the part's own pixels from the centre. Edge is selected. */
 export const Anatomy: Story = {
   render: () => (
     <Stage
       grid="dots"
       label="Button on the stage"
+      scale={2}
       markers={[
-        { id: 'plate', x: 41, y: -44, part: 'Plate', status: 'finding', chipX: -136, chipY: -80 },
-        { id: 'label', x: 0, y: -22, part: 'Label', status: 'pass', chipX: -136, chipY: -40 },
-        { id: 'edge', x: -82, y: 0, part: 'Edge', status: 'finding', chipX: -136, chipY: 0, leader: true },
-        { id: 'focus', x: -96, y: 30, part: 'Focus ring', status: 'pass', chipX: -136, chipY: 40 },
-        { id: 'box', x: 0, y: 44, part: 'Box', status: 'pass', chipX: -136, chipY: 80 },
+        { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate · #63b4e8', chipX: -136, chipY: -96 },
+        { id: 'label', x: -6, y: -8, label: 2, part: 'Label · 16px', chipX: -136, chipY: -48 },
+        { id: 'edge', x: -41, y: 0, label: 3, part: 'Edge · none', chipX: -136, chipY: 0, selected: true },
+        { id: 'focus', x: -41, y: 10, label: 4, part: 'Focus ring · #2b8fd0', chipX: -136, chipY: 48 },
+        { id: 'box', x: 0, y: 22, label: 5, part: 'Box · 44px', chipX: -136, chipY: 96 },
       ]}
     >
-      <div style={{ blockSize: 'calc(var(--spacing-80) * 5)', display: 'grid', placeItems: 'center' }}>
-        <div style={{ scale: '2' }}>
-          <Button variant="primary">Send</Button>
-        </div>
-      </div>
+      <Button variant="primary">Send</Button>
     </Stage>
   ),
 };

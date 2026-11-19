@@ -5,7 +5,7 @@ import styles from './ChatBubble.module.css';
 export interface ChatBubbleProps {
   /** Which side the bubble sits on. Sent = right, received = left. */
   side: 'sent' | 'received';
-  /** Round the tail corner (bottom-right for sent, bottom-left for received). True on the last bubble in a run. */
+  /** Figma "Show tail": the iMessage tail at the bottom corner on the speaker's side (bottom-right sent, bottom-left received). True on the last bubble in a run. */
   tail?: boolean;
   /**
    * text: normal; ask: a question waiting on the reader, headed by an

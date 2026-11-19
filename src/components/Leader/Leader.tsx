@@ -86,17 +86,24 @@ export default function Leader({
       };
       const sideways = b.left >= a.right || a.left >= b.right;
       if (lineStyle === 'solid' && sideways) {
-        /* the stage: one rounded bend (Figma route bend up / bend down): out of
-           the pin's top or bottom, then across into the label's near side */
-        const dir = b.left >= a.right ? 1 : -1;
+        /* the stage (Elleta, 20 Nov: "these annotations are not correct .."): out of the
+           label's near side, across, then at most one rounded bend onto the point on the
+           part's edge (Figma route straight / bend up / bend down). The end mark sits on
+           the part. Level within a pixel: one straight line. */
+        const bx = b.left + b.width / 2 - h.left;
         const by = b.top + b.height / 2 - h.top;
-        const ax = a.left + a.width / 2 - h.left;
-        const up = by < a.top + a.height / 2 - h.top;
-        const ay = (up ? a.top : a.bottom) - h.top;
-        const bx = (dir > 0 ? b.left : b.right) - h.left;
-        add('path', styles.line, { d: rounded([[ax, ay], [ax, by], [bx, by]]) });
+        const dir = bx >= a.right - h.left ? 1 : -1;
+        const ax = (dir > 0 ? a.right : a.left) - h.left;
+        const ay = a.top + a.height / 2 - h.top;
+        const level = Math.abs(by - ay) < 1;
+        add('path', styles.line, { d: rounded(level ? [[ax, by], [bx, by]] : [[ax, ay], [bx, ay], [bx, by]]) });
         if (end === 'arrow') {
-          add('path', styles.arrow, { d: `M${bx - dir * size} ${by - size / 2} L${bx} ${by} L${bx - dir * size} ${by + size / 2}` });
+          const v = level ? 0 : by > ay ? 1 : -1;
+          add('path', styles.arrow, {
+            d: level
+              ? `M${bx - dir * size} ${by - size / 2} L${bx} ${by} L${bx - dir * size} ${by + size / 2}`
+              : `M${bx - size / 2} ${by - v * size} L${bx} ${by} L${bx + size / 2} ${by - v * size}`,
+          });
         } else {
           add('circle', styles.dot, { cx: bx, cy: by, r: size / 2 });
         }

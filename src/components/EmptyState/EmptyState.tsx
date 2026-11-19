@@ -22,8 +22,9 @@ export interface EmptyStateProps {
 
 /**
  * Says a space is empty, kindly, and what fills it (BellaComponents
- * "Empty state" 1014:2670, read 19 Nov 2026). Centred column: the mark, the
- * title, the line and the actions, 12 apart. Not interactive itself.
+ * "Empty state" 1014:2670, 20 Nov publish). lane: a centred column; page:
+ * left edge, mark and text on top, actions pinned to the bottom. Not
+ * interactive itself.
  */
 export default function EmptyState({
   size = 'lane',
@@ -39,13 +40,17 @@ export default function EmptyState({
   const cls = [styles.root, styles[size], wash !== 'none' ? styles[wash] : '', className].filter(Boolean).join(' ');
   return (
     <div className={cls} style={style} data-bella-component="empty-state">
-      {showMark && mark ? (
-        <span className={styles.mark} aria-hidden="true">
-          <span className={styles.emoji}>{mark}</span>
-        </span>
-      ) : null}
-      <p className={styles.title}>{title}</p>
-      {line != null ? <p className={styles.line}>{line}</p> : null}
+      <div className={styles.content}>
+        {showMark && mark ? (
+          <span className={styles.mark} aria-hidden="true">
+            <span className={styles.emoji}>{mark}</span>
+          </span>
+        ) : null}
+        <div className={styles.text}>
+          <p className={styles.title}>{title}</p>
+          {line != null ? <p className={styles.line}>{line}</p> : null}
+        </div>
+      </div>
       {actions != null ? <div className={styles.actions}>{actions}</div> : null}
     </div>
   );

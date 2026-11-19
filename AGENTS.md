@@ -28,7 +28,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Range slider | `Slider` |
 | Content card | `Card`, `ResourceCard` |
 | Metrics / scores | `Stat` |
-| Tabular data | `DataTable` |
+| Tabular data | `DataTable` · a table built from parts: `TableRow`, `TableCell` |
 | Code, contracts, diffs | `CodeBlock` |
 | Name an icon button | `Tooltip` |
 | Work list: status, title, why, one action | `ListRow` |

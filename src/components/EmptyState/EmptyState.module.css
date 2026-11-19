@@ -1,55 +1,111 @@
-/* EmptyState (BellaComponents "Empty state" 1014:2670, read 19 Nov 2026).
- * Tokens only. A centred column, 12 apart; lane padding 24 x 16. Title the
- * reading face 600, 16 on 24, content/default; Line 400, content/lane-subtle.
- * Actions a wrapping row, 8 apart. Mark: a white circle (background/surface,
- * shadow/card-ink) holding the emoji at 32 on 40.
+/* EmptyState (BellaComponents "Empty state" 1014:2670, read 21 Nov 2026 from
+ * the 20 Nov publish, matched to her 19 Nov mock). Tokens only.
  *
- * Wash: one radial layer from the top-left corner (90% x 70%):
- * wash/<hue>-strong, wash/<hue> at 40%, wash/fade at 85%.
+ * lane: a centred column, 12 apart, padding 24 x 16; mark 48 with the emoji
+ * at 24; title 16 600; line 16 ink; small buttons, 8 apart.
+ * page: left edge, padding 32 / 24 / 24; Content (mark 72 with the emoji at
+ * 32, 16 to the text; title 20 600 and line 16 subtle, 12 apart; 20 under)
+ * and the actions pinned to the bottom; at least 300 tall (the mock's
+ * min-height).
  *
- * Recorded divergences (reported to the library, 19 Nov 2026):
- * - the published lane variant has no Mark node, though the set has "Show
- *   mark" (default on) and the description draws it; code shows it when a
- *   mark is given, at the page variant's size;
- * - the mark's 72 has no token: 2 x size/36;
- * - page title: the description says 20; lane title 16 as the nodes. */
+ * Wash: two radial layers from the top-left corner (90% x 70%) on wash/fade.
+ * Under: wash/<hue> to 40%, wash/fade at 85%. Over, at 40% paint opacity
+ * (named exception, not a token): wash/<hue>-strong at 0, wash/<hue> at 40%,
+ * wash/fade at 85%.
+ *
+ * Exceptions as Figma: the 72 mark has no token (2 x size/36); title line
+ * height 150%. */
 
 .root {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--spacing-12);
   inline-size: 100%;
-  text-align: center;
 }
 
 .lane {
+  align-items: center;
+  gap: var(--spacing-12);
   padding: var(--spacing-24) var(--spacing-16);
+  text-align: center;
 }
 
 .page {
-  padding: var(--spacing-48) var(--spacing-24);
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  min-block-size: calc(var(--spacing-48) * 6 + var(--spacing-12)); /* 300: the mock's min-height */
+  padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
+  text-align: start;
 }
 
-.pink { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-pink-strong) 0%, var(--color-background-wash-pink) 40%, var(--color-background-wash-fade) 85%); }
-.blue { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-blue-strong) 0%, var(--color-background-wash-blue) 40%, var(--color-background-wash-fade) 85%); }
-.ochre { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-ochre-strong) 0%, var(--color-background-wash-ochre) 40%, var(--color-background-wash-fade) 85%); }
-.navy { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-navy-strong) 0%, var(--color-background-wash-navy) 40%, var(--color-background-wash-fade) 85%); }
+.content {
+  display: contents;
+}
+
+.page .content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  padding-block-end: var(--spacing-20);
+}
+
+.text {
+  display: contents;
+}
+
+.page .text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.pink,
+.blue,
+.ochre,
+.navy {
+  background-color: var(--color-background-wash-fade);
+}
+
+.pink { --wash: var(--color-background-wash-pink); --wash-strong: var(--color-background-wash-pink-strong); }
+.blue { --wash: var(--color-background-wash-blue); --wash-strong: var(--color-background-wash-blue-strong); }
+.ochre { --wash: var(--color-background-wash-ochre); --wash-strong: var(--color-background-wash-ochre-strong); }
+.navy { --wash: var(--color-background-wash-navy); --wash-strong: var(--color-background-wash-navy-strong); }
+
+.pink,
+.blue,
+.ochre,
+.navy {
+  background-image:
+    radial-gradient(90% 70% at 0 0,
+      color-mix(in srgb, var(--wash-strong) 40%, transparent) 0%,
+      color-mix(in srgb, var(--wash) 40%, transparent) 40%,
+      color-mix(in srgb, var(--color-background-wash-fade) 40%, transparent) 85%),
+    radial-gradient(90% 70% at 0 0, var(--wash) 40%, var(--color-background-wash-fade) 85%);
+}
 
 .mark {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: none;
-  inline-size: calc(var(--size-36) * 2);
-  block-size: calc(var(--size-36) * 2);
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
   border-radius: var(--border-radius-round);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-card-ink);
 }
 
+.page .mark {
+  inline-size: calc(var(--size-36) * 2);
+  block-size: calc(var(--size-36) * 2);
+}
+
 .emoji {
+  font-size: var(--typography-font-size-24);
+  line-height: var(--size-32);
+}
+
+.page .emoji {
   font-size: var(--typography-font-size-32);
   line-height: var(--typography-line-height-px-40);
 }
@@ -70,11 +126,16 @@
 
 .page .title {
   font-size: var(--typography-font-size-20);
+  line-height: var(--typography-line-height-150);
 }
 
 .line {
   font-weight: var(--typography-font-weight-400);
-  color: var(--color-content-lane-subtle);
+  color: var(--color-content-default);
+}
+
+.page .line {
+  color: var(--color-content-subtle);
 }
 
 .actions {
@@ -82,4 +143,8 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-8);
+}
+
+.page .actions {
+  justify-content: flex-start;
 }

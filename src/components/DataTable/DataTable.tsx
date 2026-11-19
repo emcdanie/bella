@@ -1,5 +1,6 @@
 import React, { useMemo, useState, type ReactNode } from 'react';
-import Icon from '../Icon/Icon';
+import TableRow from '../TableRow/TableRow';
+import TableCell from '../TableCell/TableCell';
 import styles from './DataTable.module.css';
 
 export interface DataTableColumn<Row> {
@@ -26,7 +27,7 @@ export interface DataTableProps<Row extends Record<string, any>> {
   caption: string;
   /** Initial sort; sorting is then held by the table. */
   defaultSort?: DataTableSort;
-  /** Selection, single. The first column renders as a toggle button; the selected row fills pink. */
+  /** Selection, single. The first column renders as a toggle button; the selected row is the shared light blue with bold ink text (Figma 20 Nov). */
   selectedKey?: string | null;
   onSelect?: (key: string | null) => void;
   /** Caps the height (a token, e.g. `calc(var(--spacing-80) * 5)`) so the sticky header has something to stick in. */
@@ -44,9 +45,10 @@ function compare(a: unknown, b: unknown, numeric?: boolean) {
 }
 
 /**
- * Rows of facts in columns. Sortable headers are buttons with aria-sort,
- * the header sticks, and an optional single selection fills the chosen row
- * pink without dimming any other row.
+ * Rows of facts in columns, built from Table row and Table cell (Figma 20
+ * Nov). Sortable headers are buttons with aria-sort, the header sticks, and
+ * an optional single selection marks the chosen row light blue with bold ink
+ * text, without dimming any other row.
  */
 export default function DataTable<Row extends Record<string, any>>({
   columns,
@@ -96,47 +98,41 @@ export default function DataTable<Row extends Record<string, any>>({
       <table className={styles.table}>
         <caption className={styles.caption}>{caption}</caption>
         <thead>
-          <tr>
+          <TableRow hover={false}>
             {columns.map((c) => {
               const active = sort?.key === c.key;
               return (
-                <th
+                <TableCell
                   key={c.key}
-                  scope="col"
-                  className={c.numeric ? styles.numeric : undefined}
-                  aria-sort={c.sortable ? (active ? sort!.direction : 'none') : undefined}
+                  kind="header"
+                  align={c.numeric ? 'end' : 'start'}
+                  sort={c.sortable ? (active ? sort!.direction : 'none') : undefined}
+                  className={c.sortable ? styles.sortable : undefined}
                 >
                   {c.sortable ? (
                     <button type="button" className={styles.sort} onClick={() => toggle(c.key)}>
                       {c.label}
-                      <span
-                        className={styles.arrow}
-                        data-direction={active ? sort!.direction : undefined}
-                        aria-hidden="true"
-                      >
-                        <Icon name="NavArrowDown" size="sm" />
-                      </span>
                     </button>
                   ) : (
                     c.label
                   )}
-                </th>
+                </TableCell>
               );
             })}
-          </tr>
+          </TableRow>
         </thead>
         <tbody>
           {sorted.map((r) => {
             const key = String(r[rowKey]);
             const selected = selectable && selectedKey === key;
             return (
-              <tr key={key} data-selected={selected || undefined}>
+              <TableRow key={key} selected={selected}>
                 {columns.map((c, i) => {
                   const content = c.render ? c.render(r) : r[c.key];
-                  const cls = c.numeric ? styles.numeric : undefined;
+                  const align = c.numeric ? 'end' : 'start';
                   if (i === 0) {
                     return (
-                      <th key={c.key} scope="row" className={cls}>
+                      <TableCell key={c.key} rowHeader align={align} selected={selected} className={styles.rowLabel}>
                         {selectable ? (
                           <button
                             type="button"
@@ -149,16 +145,16 @@ export default function DataTable<Row extends Record<string, any>>({
                         ) : (
                           content
                         )}
-                      </th>
+                      </TableCell>
                     );
                   }
                   return (
-                    <td key={c.key} className={cls}>
+                    <TableCell key={c.key} align={align} selected={selected}>
                       {content}
-                    </td>
+                    </TableCell>
                   );
                 })}
-              </tr>
+              </TableRow>
             );
           })}
         </tbody>

@@ -30,6 +30,10 @@ export type { ComboboxProps, ComboboxOption, ComboboxGroup } from './Combobox/Co
 
 export { default as DataTable } from './DataTable/DataTable';
 export type { DataTableProps, DataTableColumn } from './DataTable/DataTable';
+export { default as TableRow } from './TableRow/TableRow';
+export type { TableRowProps } from './TableRow/TableRow';
+export { default as TableCell } from './TableCell/TableCell';
+export type { TableCellProps } from './TableCell/TableCell';
 
 export { default as Disclosure } from './Disclosure/Disclosure';
 export type { DisclosureProps } from './Disclosure/Disclosure';

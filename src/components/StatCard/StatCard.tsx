@@ -75,7 +75,6 @@ export default function StatCard({
   const opens = href != null || onOpen != null;
   const headInner = (
     <>
-      <IconWell icon={icon} tone={tone} />
       <span className={styles.title}>{title}</span>
       {opens ? <Trailing /> : null}
     </>
@@ -100,6 +99,12 @@ export default function StatCard({
       style={style}
       data-bella-component="stat-card"
     >
+      {/* Figma 20 Nov (rule 20): the icon well in its own Lead column, centred
+          on the 44 header row; every text in Content shares one left edge. */}
+      <div className={styles.lead}>
+        <IconWell icon={icon} tone={tone} />
+      </div>
+      <div className={styles.content}>
       {header}
       <div className={styles.body}>
         <p className={styles.number}>
@@ -129,6 +134,7 @@ export default function StatCard({
           {button}
         </div>
       ) : null}
+      </div>
     </section>
   );
 }

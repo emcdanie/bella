@@ -30,7 +30,7 @@ export default meta;
 
 type Story = StoryObj<typeof ChatBubble>;
 
-/** Side-by-side: sent (ink) and received (card surface). */
+/** Side-by-side: sent (her pink) and received. */
 export const SideBySide: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
@@ -42,7 +42,7 @@ export const SideBySide: Story = {
   ),
 };
 
-/** The tail corner flattens on the last bubble in a run. */
+/** The tail sits on the last bubble in a run, on the speaker's side. */
 export const Tails: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>

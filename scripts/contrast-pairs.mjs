@@ -82,6 +82,7 @@ const PAIRS = [
   ...['content-default', 'content-body', 'content-subtle', 'content-accent', 'content-link', 'content-brand', 'content-highlight'].flatMap((fg) =>
     PAGES.map((bg) => [`${fg} on ${bg}`, c(fg), c(bg), TEXT])),
   ['content-default on background-default-hover', c('content-default'), c('background-default-hover'), TEXT],
+  ['content-body on background-default-hover', c('content-body'), c('background-default-hover'), TEXT],
   ['content-default on the highlight over background-default', c('content-default'), `${c('background-highlight')} over ${c('background-default')}`, TEXT],
   ['content-highlight on the highlight over background-surface', c('content-highlight'), `${c('background-highlight')} over ${c('background-surface')}`, TEXT],
   ['content-disabled on background-disabled', c('content-disabled'), c('background-disabled'), TEXT],
@@ -166,7 +167,6 @@ const INSET_EXEMPT = {
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
-  'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text, not a control',
   'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',
   'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
-import Step, { type StepState } from './Step';
+import Step, { StepDay, type StepState } from './Step';
 import Tag from '../Tag/Tag';
 import cssRaw from './Step.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -125,4 +125,18 @@ export const Behavior: Story = {
       expect(btn).toHaveAttribute('aria-pressed', 'true');
     });
   },
+};
+
+/** Figma 20 Nov: Show number (Not again's four steps): done = check, current = the number in a ring, pending = the number. Step day heads a day with the line running through; a hidden tag keeps the row height. */
+export const NumbersAndDays: Story = {
+  render: () => (
+    <ol style={{ margin: 0, padding: 0, inlineSize: 'calc(var(--spacing-48) * 8)', background: 'var(--color-background-surface)' }}>
+      <StepDay>14 Nov</StepDay>
+      <Step number={1} state="done" title="Name the gap" showLineAbove time="09:40" />
+      <Step number={2} state="done" title="Draw the part" tag={<Tag tone="success">Merged</Tag>} showLineAbove time="09:58" />
+      <StepDay>15 Nov</StepDay>
+      <Step number={3} state="current" title="Check it on the stage" detail="Working now." showLineAbove time="10:02" />
+      <Step number={4} state="pending" title="Ship it" showLineAbove showConnector={false} />
+    </ol>
+  ),
 };

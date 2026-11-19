@@ -22,8 +22,8 @@
 
 .bubble {
   position: relative;
-  padding: var(--spacing-8) var(--spacing-12);
-  border-radius: var(--border-radius-20);
+  padding: var(--spacing-8) var(--spacing-16);
+  border-radius: var(--border-radius-card);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   font-family: var(--typography-body-default-font-family);
@@ -33,24 +33,49 @@
   animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both;
 }
 
+/* Figma 326:47 (19 Nov, Elleta: "dont use the blue for my chat please use
+   pink"): her own bubbles are pink with on-accent ink, 7.96:1. */
 .sent {
-  background: var(--color-content-default);
-  color: var(--color-background-surface);
+  background: var(--color-background-accent-1);
+  color: var(--color-content-on-accent-1);
   transform-origin: bottom right;
 }
 
 .received {
-  background: var(--color-background-subtle);
+  background: var(--color-background-default-hover);
   color: var(--color-content-body);
   transform-origin: bottom left;
 }
 
-.tailSent {
-  border-bottom-right-radius: var(--border-radius-8);
+/* Tail (Figma 20 Nov, iMessage, from the approved chat sheet): a 20 x 20
+   drawing in the bubble's own fill at the bottom corner on the speaker's
+   side, 7 outside the bubble. The shape is Figma's Tail vector. Corners stay
+   20 all round. */
+.tailSent::after,
+.tailReceived::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+  background: inherit;
 }
 
-.tailReceived {
-  border-bottom-left-radius: var(--border-radius-8);
+.tailSent::after {
+  inset-inline-end: calc(var(--spacing-8) * -1 + var(--border-width-1));
+  clip-path: path('M13 0L13 10C13 14.36 15.84 18.23 20 19.54L16 20C7.16 20 0 13.73 0 6L0 0Z');
+}
+
+.tailReceived::after {
+  inset-inline-start: calc(var(--spacing-8) * -1 + var(--border-width-1));
+  clip-path: path('M7 0L7 10C7 14.36 4.16 18.23 0 19.54L4 20C12.84 20 20 13.73 20 6L20 0Z');
+}
+
+/* drafts keep their dashed edge and no tail */
+.draft::after,
+.bigEmoji::after,
+.image::after {
+  content: none;
 }
 
 .bigEmoji {

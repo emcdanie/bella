@@ -163,7 +163,6 @@ const INSET_EXEMPT = {
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
-  'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
   'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text, not a control',

@@ -26,13 +26,21 @@ export default meta;
 
 type Story = StoryObj<typeof Drawer>;
 
+/* The published Drawer's sample content (Figma 172:622): the NavList with two groups and a footer. */
 const GROUPS = [
   {
     label: 'Workspace',
     items: [
-      { href: '#health', label: 'Health', current: true },
-      { href: '#ask', label: 'Ask' },
-      { href: '#specimen', label: 'Specimen' },
+      { href: '#overview', label: 'Overview', icon: 'ViewGrid' as const },
+      { href: '#components', label: 'Components', icon: 'Table' as const, badge: 18, current: true },
+      { href: '#map', label: 'Map', icon: 'Map' as const },
+    ],
+  },
+  {
+    label: 'Library',
+    items: [
+      { href: '#search', label: 'Search', icon: 'Search' as const },
+      { href: '#resources', label: 'Resources', icon: 'ArrowUpRight' as const, badge: 6 },
     ],
   },
 ];
@@ -52,7 +60,7 @@ function Harness({ startOpen = false, side, withFooter = false, status }: { star
           setOpen(false);
           setCloses((n) => n + 1);
         }}
-        label="CHIP"
+        label="Navigation"
         side={side}
         status={status}
         footer={
@@ -68,7 +76,7 @@ function Harness({ startOpen = false, side, withFooter = false, status }: { star
           ) : undefined
         }
       >
-        <NavList label="Sections" groups={GROUPS} />
+        <NavList label="Sections" groups={GROUPS} onToggle={() => {}} footer="BELLA v0.4.0" />
       </Drawer>
     </div>
   );
@@ -101,7 +109,7 @@ export const Behavior: Story = {
       await userEvent.click(trigger);
       await waitFor(() => expect(dialog().open).toBe(true));
       expect(dialog().matches(':modal')).toBe(true);
-      expect(dialog()).toHaveAccessibleName('CHIP');
+      expect(dialog()).toHaveAccessibleName('Navigation');
       expect(dialog().contains(document.activeElement)).toBe(true);
     });
 

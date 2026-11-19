@@ -1,4 +1,4 @@
-import React, { type CSSProperties } from 'react';
+import React, { type CSSProperties, type MouseEvent } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
 import styles from './NavItem.module.css';
@@ -20,7 +20,8 @@ export interface NavItemProps {
   current?: boolean;
   /** Renders a link. Without it the item is a button. */
   href?: string;
-  onClick?: () => void;
+  /** Called on click with the event (a NavList passes it on so the app can route in place). */
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
   /** Extra classes on the control. */
   className?: string;
   style?: CSSProperties;

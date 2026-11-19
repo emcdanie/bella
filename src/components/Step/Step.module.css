@@ -9,7 +9,7 @@
  * above and below, 4 apart; time 12 from the top.
  * current: background/utility/info with a 1px inside edge border/utility/info,
  * detail and time in content/utility/info. selected (vertical): background/
- * brand-subtle-hover with the same edge and ink text (content/default). Interactive rows: one light-blue
+ * brand-subtle-hover, no edge, ink text (content/default), title 600. Interactive rows: one light-blue
  * hover (background/brand-subtle) and the 4 + 4 focus ring on the 12 corner.
  * The inside edge is an inset shadow, so it adds no size (Figma INSIDE). */
 
@@ -130,9 +130,11 @@
   color: var(--color-content-utility-info);
 }
 
-.selected .row {
+.step.selected .row {
+  /* the decided selected look: light-blue wash, bold ink label, no edge
+     (also over the current edge: selection wins) */
   background: var(--color-background-brand-subtle-hover);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-info);
+  box-shadow: none;
 }
 
 .selected .detail,

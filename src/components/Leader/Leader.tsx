@@ -74,7 +74,9 @@ export default function Leader({
         return;
       }
       const h = host.getBoundingClientRect();
-      const size = parseFloat(getComputedStyle(svg).getPropertyValue('--component-leader-end-size'));
+      /* the end mark: spacing-8 (its own --component-leader-end-size was lost in the
+         17 Nov token pipeline, so every arrow and dot drew nothing; Figma draws the dot 10, no token) */
+      const size = parseFloat(getComputedStyle(svg).getPropertyValue('--spacing-8'));
       const parts: SVGElement[] = [];
       const add = (name: string, cls: string, attrs: Record<string, string | number>) => {
         const el = document.createElementNS(NS, name);

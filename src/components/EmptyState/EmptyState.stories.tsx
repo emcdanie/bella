@@ -93,12 +93,19 @@ export const LaneWashes: Story = {
   ),
 };
 
-/** The page size: a whole view with nothing in it yet. */
+/** The page size as published (Figma size=page, Wash=blue): left edge, mark on top, one primary action pinned to the bottom, at least 300 tall. */
 export const Page: Story = {
   render: () => (
     <Surface>
       <Card>
-        <EmptyState size="page" mark="✅" title="Nothing kept yet" line="Accept a fix and it lands here." />
+        <EmptyState
+          size="page"
+          wash="blue"
+          mark="🤷"
+          title="Nothing here yet"
+          line="Say what fills this space."
+          actions={<Button variant="primary">Primary action</Button>}
+        />
       </Card>
     </Surface>
   ),

@@ -2,11 +2,8 @@
  * space 783:496703, read 19 Nov 2026). Tokens only.
  * Lane: column, 16 apart (Head, Order, Cards); padding 16 top, 32 sides, 40
  * bottom (20 Nov, so card shadows are never cut), border/radius/card.
- * needs-you: background/utility/warning with a full 2px edge in
- * border/utility/warning, drawn inside as Figma's inside stroke (an inset
- * shadow, so it takes no room: cards are 232 in both lanes in Figma);
- * other: background/lane, no edge (her pick C, 18 Nov; guideline 9: full
- * edge, never one side).
+ * Both lanes: background/lane, no edge; needs-you differs only by its
+ * coloured count and index (attention tone).
  * Head: row, 8 apart, centred: Index (Tag index), Status (StatusDot, no
  * word), Name (reading face 600, 18 / 1.3, content/default), Count (Tag
  * outline; attention tone in needs-you, count tone in other).
@@ -28,11 +25,10 @@
   border-radius: var(--border-radius-card);
 }
 
-.needsYou {
-  background: var(--color-background-utility-warning);
-  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-utility-warning);
-}
-
+/* Board lanes are all neutral grey, one step darker than the page; only the
+   Needs you count is coloured (READ FIRST, and the published BoardLane:
+   "board lanes all neutral grey, the Needs you count coloured"). */
+.needsYou,
 .other {
   background: var(--color-background-lane);
 }

@@ -69,7 +69,7 @@ export const Grids: Story = {
 
 const page = (
   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 'var(--spacing-24)', padding: 'var(--spacing-32)' }}>
-    {['Needs you', 'Claude', 'Gate', 'Ready'].map((name, i) => (
+    {['Needs you', 'Agent', 'Gate', 'Ready'].map((name, i) => (
       <BoardLane key={name} name={name} index={`0${i + 1}`} lane={i === 0 ? 'needs-you' : 'other'} order="Oldest first.">
         <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" href="#t" />
       </BoardLane>
@@ -138,20 +138,20 @@ export const FrameBehavior: Story = {
 
 /** Her "On the stage" look, as redone 20 Nov ("these annotations are not correct .."): numbered pins
  * in her light red inside "part · value" chips, right-aligned 48 left of the part, and a neutral solid
- * leader to a dot on the part's nearest edge, straight when level, else one curved bend. scale={2}
- * shows the part at 2x; x / y are the part's own pixels from the centre. Edge is selected. */
+ * leader to a dot on the part's nearest edge, straight when level, else one curved bend. scale={3}
+ * shows the part at 3x, as her stage ("Shown at 3×"); x / y are the part's own pixels from the centre. */
 export const Anatomy: Story = {
   render: () => (
     <Stage
       grid="dots"
       label="Button on the stage"
-      scale={2}
+      scale={3}
       markers={[
-        { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate · #63b4e8', chipX: -136, chipY: -96 },
-        { id: 'label', x: -6, y: -8, label: 2, part: 'Label · 16px', chipX: -136, chipY: -48 },
-        { id: 'edge', x: -41, y: 0, label: 3, part: 'Edge · none', chipX: -136, chipY: 0, selected: true },
-        { id: 'focus', x: -41, y: 10, label: 4, part: 'Focus ring · #2b8fd0', chipX: -136, chipY: 48 },
-        { id: 'box', x: 0, y: 22, label: 5, part: 'Box · 44px', chipX: -136, chipY: 96 },
+        { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate · #63b4e8', chipX: -184, chipY: -96 },
+        { id: 'label', x: -6, y: -8, label: 2, part: 'Label · 16px', chipX: -184, chipY: -48 },
+        { id: 'edge', x: -41, y: 0, label: 3, part: 'Edge · none', chipX: -184, chipY: 0 },
+        { id: 'focus', x: -41, y: 10, label: 4, part: 'Focus ring · #2b8fd0', chipX: -184, chipY: 48 },
+        { id: 'box', x: 0, y: 22, label: 5, part: 'Box · 44px', chipX: -184, chipY: 96 },
       ]}
     >
       <Button variant="primary">Send</Button>

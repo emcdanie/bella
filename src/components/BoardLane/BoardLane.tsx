@@ -43,7 +43,7 @@ export interface BoardLaneProps {
   order?: ReactNode;
   /** Figma "Show index" + the Index Tag label ("01"): the lane's place in the sequence. Missing = off. Only where the lanes are a sequence (guideline 11). */
   index?: ReactNode;
-  /** Figma "lane". needs-you takes the warm wash and a 2px edge, and its count and index in the attention tone; other stays the neutral lane grey. */
+  /** Figma "lane". Both lanes are the neutral lane grey; needs-you colours only its count and index (attention tone). */
   lane?: 'needs-you' | 'other';
   /** Figma "state=drop-target": a card is over this lane. Figma draws it the same as default; the drop space inside marks where it lands. */
   dropTarget?: boolean;

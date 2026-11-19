@@ -194,7 +194,8 @@ function Composer() {
         }}
         sendLabel="Send reply"
       />
-      <p data-testid="sent">{sent.length}</p>
+      {/* the play test reads this count; it is not part of the composer */}
+      <p data-testid="sent" hidden>{sent.length}</p>
     </div>
   );
 }

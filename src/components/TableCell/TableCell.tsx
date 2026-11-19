@@ -13,6 +13,8 @@ export interface TableCellProps {
   sort?: 'none' | 'ascending' | 'descending';
   /** kind=swatch: the colour the chip shows, as a token (`var(--color-background-accent-1)`). */
   swatch?: string;
+  /** kind=swatch: the theme the colour resolves in ("chip-light" for a Light column, "chip-dark" for a Dark column), as Figma sets the Colour block's mode. Missing = the page's theme. */
+  swatchTheme?: string;
   /** Renders a body cell as th scope=row (the row's name). */
   rowHeader?: boolean;
   /** Extra classes on the cell. */
@@ -33,6 +35,7 @@ export default function TableCell({
   selected = false,
   sort,
   swatch,
+  swatchTheme,
   rowHeader = false,
   className,
   children,
@@ -52,7 +55,7 @@ export default function TableCell({
       <span className={styles.inner}>
         {kind === 'swatch' ? (
           <span className={styles.chip} aria-hidden="true">
-            <span className={styles.colour} style={{ background: swatch }} />
+            <span className={styles.colour} data-theme={swatchTheme} style={{ background: swatch }} />
           </span>
         ) : null}
         <span className={styles.text}>{children}</span>

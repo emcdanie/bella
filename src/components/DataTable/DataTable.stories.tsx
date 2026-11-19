@@ -59,7 +59,9 @@ export const Default: Story = {
   ),
 };
 
-function SelectHarness() {
+/* `testHook` shows the selected key for the play test only; `capped` caps the
+   height so the sticky header has something to stick in. */
+function SelectHarness({ testHook = false, capped = false }: { testHook?: boolean; capped?: boolean }) {
   const [selected, setSelected] = useState<string | null>('Tabs');
   return (
     <div style={{ maxWidth: 640, display: 'grid', gap: 'var(--spacing-12)' }}>
@@ -70,9 +72,9 @@ function SelectHarness() {
         caption="Component health"
         selectedKey={selected}
         onSelect={setSelected}
-        maxHeight="calc(var(--spacing-80) * 4)"
+        maxHeight={capped ? 'calc(var(--spacing-80) * 4)' : undefined}
       />
-      <span data-testid="selected">{selected ?? 'none'}</span>
+      {testHook ? <span data-testid="selected">{selected ?? 'none'}</span> : null}
     </div>
   );
 }
@@ -119,7 +121,7 @@ export const CompactIgnoredWhenSortable: Story = {
   },
 };
 
-/** Single selection marks the row light blue with bold ink text; nothing else dims. The header sticks inside a capped height. */
+/** Single selection marks the row light blue with bold ink text; nothing else dims. */
 export const Selectable: Story = {
   render: () => <SelectHarness />,
 };
@@ -127,7 +129,7 @@ export const Selectable: Story = {
 /** Behavioral suite: aria-sort follows the sort, headers are keyboard
  * buttons, numbers sort as numbers, selection is aria-pressed. */
 export const Behavior: Story = {
-  render: () => <SelectHarness />,
+  render: () => <SelectHarness testHook capped />,
   play: async ({ canvas, step }) => {
     const table = canvas.getByRole('table', { name: 'Component health' });
     const tokensHeader = canvas.getByRole('columnheader', { name: /Tokens/ });

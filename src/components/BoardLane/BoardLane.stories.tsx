@@ -72,7 +72,7 @@ export const WorkBoard: Story = {
         {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
         {card('Hero at 390', 'Wraps under the photo', 'Waiting on you', 'attention')}
       </BoardLane>
-      <BoardLane name="Claude" index="02" statusTone="info" order="Oldest first.">
+      <BoardLane name="Agent" index="02" statusTone="info" order="Oldest first.">
         {card('Contrast pairs', '9 to go', 'Working', 'info')}
       </BoardLane>
       <BoardLane name="Gate" index="03" statusTone="info" order="In the order they were sent.">
@@ -92,7 +92,7 @@ export const Dragging: Story = {
       <BoardLane name="Needs you" lane="needs-you" statusTone="attention" order="Failures first, then what blocks a push." count={1}>
         <BoardLaneDropSpace kind="origin" />
       </BoardLane>
-      <BoardLane name="Claude" statusTone="info" order="Oldest first." dropTarget count={0}>
+      <BoardLane name="Agent" statusTone="info" order="Oldest first." dropTarget count={0}>
         <BoardLaneDropSpace kind="target" />
       </BoardLane>
     </Board>
@@ -105,7 +105,7 @@ export const FigmaSet: Story = {
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, calc(var(--spacing-80) * 3 + var(--spacing-24)))', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
       {(['needs-you', 'needs-you', 'other', 'other'] as const).map((lane, i) => (
         /* Figma repeats "Needs you"; a page never has two lanes with one name (each is a landmark) */
-        <BoardLane key={i} name={['Needs you', 'Needs you · drop target', 'Claude', 'Claude · drop target'][i]} lane={lane} dropTarget={i % 2 === 1} count={4} order="Failures first, then what blocks a push.">
+        <BoardLane key={i} name={['Needs you', 'Needs you · drop target', 'Agent', 'Agent · drop target'][i]} lane={lane} dropTarget={i % 2 === 1} count={4} order="Failures first, then what blocks a push.">
           {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
         </BoardLane>
       ))}

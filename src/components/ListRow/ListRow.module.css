@@ -102,6 +102,7 @@
  * selected the darker light blue, focus the 4/4 ring at corner + 4. */
 
 .zoned {
+  container: list-row-zoned / inline-size;
   grid-column: 1 / -1;
   position: relative;
   box-sizing: border-box;
@@ -266,4 +267,22 @@
   display: block;
   font-family: var(--typography-subtext-font-family);
   color: var(--color-content-subtle);
+}
+
+/* Her phone-fit pick, 20 Nov ("B · Row reflows"): in a narrow row the right
+   zone (value, action, switch) moves under the text, so the title and
+   description get the row's width. */
+@container list-row-zoned (max-width: 25rem) {
+  .zoned:not(.inline) .content {
+    flex-wrap: wrap;
+    row-gap: var(--spacing-8);
+  }
+  .zoned:not(.inline) .right {
+    flex-basis: 100%;
+    align-items: flex-start;
+  }
+  /* an inline row keeps value and › together; its title keeps whole words */
+  .inline .middle {
+    min-inline-size: min-content;
+  }
 }

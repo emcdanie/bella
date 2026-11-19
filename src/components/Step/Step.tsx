@@ -70,6 +70,7 @@ export default function Step({
       <span className={styles.title}>{title}</span>
       {!horizontal && tag != null ? <span className={styles.tag}>{tag}</span> : null}
       {detail != null ? <span className={styles.detail}>{detail}</span> : null}
+      {!horizontal && time != null ? <span className={[styles.time, styles.timeUnder].join(' ')}>{time}</span> : null}
     </span>
   );
 
@@ -89,7 +90,7 @@ export default function Step({
         {showConnector ? <MapLine direction="vertical" end="none" variant={lineStyle} /> : null}
       </span>
       {text}
-      {time != null ? <span className={styles.time}>{time}</span> : null}
+      {time != null ? <span className={[styles.time, styles.timeSide].join(' ')}>{time}</span> : null}
     </>
   );
 

@@ -165,3 +165,13 @@
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: var(--focus-ring-offset);
 }
+
+/* Her phone-fit pick, 20 Nov ("B · Row reflows"): below 768 the time moves
+   under the title, so the title gets the row's width. One of the two copies
+   shows at a time; the hidden one is display: none, so it is read once. */
+.timeUnder { display: none; }
+
+@media (max-width: 767px) {
+  .timeSide { display: none; }
+  .timeUnder { display: block; }
+}

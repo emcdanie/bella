@@ -12160,6 +12160,43 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+  - kind: component
+    id: empty-state
+    name: EmptyState
+    description: "Says a space is empty, kindly, and what fills it: an optional emoji mark in a white circle, a title, one line and optional actions, centred, 12 apart. lane (compact) or page; one brand wash per page, or none."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - empty-state
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP "Not again" stat cards with no data (19 Nov 2026)
+    refs:
+      - href: ./src/components/EmptyState/EmptyState.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/EmptyState/EmptyState.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
   - kind: entry
     id: foundation-color
     name: Colour

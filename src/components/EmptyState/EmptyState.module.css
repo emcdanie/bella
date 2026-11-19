@@ -1,0 +1,85 @@
+/* EmptyState (BellaComponents "Empty state" 1014:2670, read 19 Nov 2026).
+ * Tokens only. A centred column, 12 apart; lane padding 24 x 16. Title the
+ * reading face 600, 16 on 24, content/default; Line 400, content/lane-subtle.
+ * Actions a wrapping row, 8 apart. Mark: a white circle (background/surface,
+ * shadow/card-ink) holding the emoji at 32 on 40.
+ *
+ * Wash: one radial layer from the top-left corner (90% x 70%):
+ * wash/<hue>-strong, wash/<hue> at 40%, wash/fade at 85%.
+ *
+ * Recorded divergences (reported to the library, 19 Nov 2026):
+ * - the published lane variant has no Mark node, though the set has "Show
+ *   mark" (default on) and the description draws it; code shows it when a
+ *   mark is given, at the page variant's size;
+ * - the mark's 72 has no token: 2 x size/36;
+ * - page title: the description says 20; lane title 16 as the nodes. */
+
+.root {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-12);
+  inline-size: 100%;
+  text-align: center;
+}
+
+.lane {
+  padding: var(--spacing-24) var(--spacing-16);
+}
+
+.page {
+  padding: var(--spacing-48) var(--spacing-24);
+}
+
+.pink { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-pink-strong) 0%, var(--color-background-wash-pink) 40%, var(--color-background-wash-fade) 85%); }
+.blue { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-blue-strong) 0%, var(--color-background-wash-blue) 40%, var(--color-background-wash-fade) 85%); }
+.ochre { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-ochre-strong) 0%, var(--color-background-wash-ochre) 40%, var(--color-background-wash-fade) 85%); }
+.navy { background: radial-gradient(90% 70% at 0 0, var(--color-background-wash-navy-strong) 0%, var(--color-background-wash-navy) 40%, var(--color-background-wash-fade) 85%); }
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: calc(var(--size-36) * 2);
+  block-size: calc(var(--size-36) * 2);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.emoji {
+  font-size: var(--typography-font-size-32);
+  line-height: var(--typography-line-height-px-40);
+}
+
+.title,
+.line {
+  margin: 0;
+  max-inline-size: 100%;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.title {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.page .title {
+  font-size: var(--typography-font-size-20);
+}
+
+.line {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-lane-subtle);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-8);
+}

@@ -134,6 +134,8 @@ export type { StatusDotProps } from './StatusDot/StatusDot';
 
 export { default as StatusSquare } from './StatusSquare/StatusSquare';
 export type { StatusSquareProps } from './StatusSquare/StatusSquare';
+export { default as EmptyState } from './EmptyState/EmptyState';
+export type { EmptyStateProps } from './EmptyState/EmptyState';
 
 export { default as IconWell } from './IconWell/IconWell';
 export type { IconWellProps } from './IconWell/IconWell';

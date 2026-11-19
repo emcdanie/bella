@@ -87,6 +87,14 @@ const PAIRS = [
   ['content-disabled on background-disabled', c('content-disabled'), c('background-disabled'), TEXT],
   ['content-disabled on background-surface', c('content-disabled'), c('background-surface'), TEXT],
   ['content-lane-subtle on background-lane', c('content-lane-subtle'), c('background-lane'), TEXT],
+  // EmptyState (19 Nov 2026): its line on the card and the title on each wash's
+  // strongest stop. The line (content/lane-subtle, as Figma) on a wash is 5.3 to
+  // 5.5:1 in BELLA dark: reported to the library, not patched in code.
+  ['content-lane-subtle on background-surface', c('content-lane-subtle'), c('background-surface'), TEXT],
+  ['content-default on the pink wash over background-surface', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the blue wash over background-surface', c('content-default'), `${c('background-wash-blue-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the ochre wash over background-surface', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the navy wash over background-surface', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
   ['content-default on background-lane', c('content-default'), c('background-lane'), TEXT],
   // text on filled parts
   ['content-knockout on background-knockout', c('content-knockout'), c('background-knockout'), TEXT],

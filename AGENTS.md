@@ -46,6 +46,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Layout | `Columns`, `SidebarLayout`, `ScaledFrame` |
 | Status beside a name: a dot and one word | `StatusDot` |
 | Branch or run status mark | `StatusSquare` |
+| A space with nothing in it yet (lane or page) | `EmptyState` |
 | Icon in a tinted circle (section heads, rows) | `IconWell` |
 | Title, subtitle and body as one text column | `TextStack` |
 | The › on anything that opens something | `Trailing` |

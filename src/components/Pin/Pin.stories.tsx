@@ -95,3 +95,14 @@ export const WithLeader: Story = {
     await waitFor(() => expect(svg?.querySelectorAll('path').length).toBeGreaterThan(0));
   },
 };
+
+/** style="solid": the disc filled in its tone with an ink number (anatomy pins, the Tour step), all five tones. */
+export const Solid: StoryObj<typeof Pin> = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      {(['yellow', 'pink', 'blue', 'red', 'green'] as const).map((v, i) => (
+        <Pin key={v} number={`0${i + 1}`} variant={v} pinStyle="solid" />
+      ))}
+    </div>
+  ),
+};

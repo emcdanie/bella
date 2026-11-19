@@ -2607,7 +2607,8 @@
             "yellow",
             "pink",
             "blue",
-            "red"
+            "red",
+            "green"
           ],
           "states": [
             "default",
@@ -2617,6 +2618,7 @@
           "props": [
             "number",
             "variant",
+            "pinStyle",
             "label",
             "onClick",
             "ariaLabel",
@@ -2687,6 +2689,7 @@
             "layout",
             "selected",
             "iconWell",
+            "pin",
             "statusDot",
             "avatar",
             "overline",
@@ -2837,7 +2840,29 @@
             "Do not colour code inline: every colour is a syntax token",
             "Do not let a diff rely on colour: + and − lead the line"
           ],
-          "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it)."
+          "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it).",
+          "parts": [
+            {
+              "number": 1,
+              "name": "Title bar",
+              "does": "File name of the snippet"
+            },
+            {
+              "number": 2,
+              "name": "Copy button",
+              "does": "Copies the code; says so when it fails"
+            },
+            {
+              "number": 3,
+              "name": "Line numbers",
+              "does": "One per line"
+            },
+            {
+              "number": 4,
+              "name": "Code line",
+              "does": "Syntax colours from tokens"
+            }
+          ]
         }
       }
     },

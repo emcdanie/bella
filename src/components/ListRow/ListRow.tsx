@@ -19,6 +19,8 @@ export interface ListRowProps {
   selected?: boolean;
   /** Figma "Left" › "↳ Icon well". An IconWell. */
   iconWell?: ReactNode;
+  /** Figma "Left" › "↳ Pin" (published 19 Nov). A Pin on the title line (anatomy lists). */
+  pin?: ReactNode;
   /** Figma "Left" › "↳ Status dot". A StatusDot. */
   statusDot?: ReactNode;
   /** Figma "Left" › "↳ Avatar". An Avatar. */
@@ -110,7 +112,7 @@ export default function ListRow(props: ListRowProps) {
 }
 
 const ZONE_KEYS = [
-  'layout', 'selected', 'iconWell', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
+  'layout', 'selected', 'iconWell', 'pin', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
   'value', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
   'href', 'onClick', 'as',
 ] as const;
@@ -129,6 +131,7 @@ function ZonedRow({
   layout = 'stacked',
   selected = false,
   iconWell,
+  pin,
   statusDot,
   avatar,
   overline,
@@ -151,7 +154,7 @@ function ZonedRow({
   style,
 }: ListRowProps) {
   const right = actionButton ?? action;
-  const hasLeft = iconWell != null || statusDot != null || avatar != null;
+  const hasLeft = iconWell != null || pin != null || statusDot != null || avatar != null;
   const hasRight = value != null || subValue != null || right != null || switchSlot != null;
   const hasBelow = progress != null || helperText != null || divider;
   const interactive = href != null || onClick != null;
@@ -179,6 +182,7 @@ function ZonedRow({
       {hasLeft ? (
         <div className={styles.left}>
           {iconWell}
+          {pin}
           {statusDot}
           {avatar}
         </div>

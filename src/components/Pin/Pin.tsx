@@ -5,7 +5,9 @@ export interface PinProps {
   /** The number on the disc. Required: colour is never the only signal. */
   number: ReactNode;
   /** The pop colour of the ring. It groups pins; it never means a status. */
-  variant?: 'yellow' | 'pink' | 'blue' | 'red';
+  variant?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
+  /** Figma "style". dot (default): the card disc with a pop-colour ring. solid: the disc filled in the tone with an ink number and a 2px surface edge (anatomy pins, the Tour step). */
+  pinStyle?: 'dot' | 'solid';
   /** The word beside the number. Without one, say what the pin means nearby. */
   label?: ReactNode;
   /** Makes the pin a button with a 44px box. */
@@ -25,13 +27,14 @@ export interface PinProps {
 export default function Pin({
   number,
   variant = 'pink',
+  pinStyle = 'dot',
   label,
   onClick,
   ariaLabel,
   className,
   style,
 }: PinProps) {
-  const cls = [styles.pin, styles[variant], onClick ? styles.action : '', className]
+  const cls = [styles.pin, styles[variant], pinStyle === 'solid' ? styles.solid : '', onClick ? styles.action : '', className]
     .filter(Boolean)
     .join(' ');
   const body = (

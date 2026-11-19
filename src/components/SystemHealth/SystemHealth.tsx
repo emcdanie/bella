@@ -136,7 +136,7 @@ export default function SystemHealth({
               {failing.map((f, i) => {
                 const inner = (
                   <>
-                    <StatusDot tone="attention" showLabel={false} showWash={false} />
+                    <StatusDot tone="attention" showLabel={false} />
                     <span className={styles.name}>{f.name}</span>
                     <span className={styles.count}>
                       <span className={styles.countNumber}>{f.count}</span> <span className={styles.ofTotal}>{f.ofTotal}</span>

@@ -17,6 +17,22 @@
 .pink { --pin-pop: var(--color-background-accent-1); }
 .blue { --pin-pop: var(--color-background-accent-3); }
 .red { --pin-pop: var(--color-background-accent-4); }
+.green { --pin-pop: var(--color-background-utility-success-knockout); }
+
+/* style="solid" (published Figma Pin, style=solid, read 20 Nov 2026): the disc
+   filled in the tone, a 2px surface edge, the number in ink on it. */
+.solid.pink { --pin-fill: var(--color-background-accent-1); }
+.solid.yellow { --pin-fill: var(--color-background-accent-2); }
+.solid.blue { --pin-fill: var(--color-background-utility-info-knockout); }
+.solid.red { --pin-fill: var(--color-background-utility-error-knockout); }
+.solid.green { --pin-fill: var(--color-background-utility-success-knockout); --pin-ink: var(--color-content-utility-on-status); }
+
+.solid .disc {
+  background: var(--pin-fill);
+  border: var(--border-width-2) solid var(--color-background-surface);
+  color: var(--pin-ink, var(--color-content-on-accent-1));
+  font-weight: var(--typography-font-weight-700);
+}
 
 .disc,
 .label {

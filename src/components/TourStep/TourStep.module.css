@@ -8,9 +8,11 @@
 
 .step {
   box-sizing: border-box;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-12);
+  inline-size: 100%; /* fills a narrow space; 360 at most, as Figma */
   max-inline-size: calc(var(--spacing-80) * 4 + var(--spacing-40));
   padding: var(--spacing-16);
   border: var(--border-width-1) solid var(--color-border-default);
@@ -50,4 +52,18 @@
   font-size: var(--typography-font-size-16);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
+}
+
+/* Narrow (a phone): the text takes the full width under the pin and Close,
+   so it reads in lines, not one word per line. */
+@container (max-width: 18rem) {
+  .body {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'pin . close' 'text text text';
+    row-gap: var(--spacing-8);
+  }
+  .body > :first-child { grid-area: pin; }
+  .text { grid-area: text; }
+  .body > :last-child { grid-area: close; }
 }

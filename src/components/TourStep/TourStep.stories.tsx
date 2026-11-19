@@ -19,7 +19,7 @@ const noop = () => {};
 /** Both Figma variants: a middle step (Next) and the last step (Done). */
 export const Steps: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 22.5rem), 1fr))', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
       <TourStep number="01" count="4 of 4 steps" onBack={noop} onNext={noop} onClose={noop}>
         true means yes, false means no. So the contrast check passed.
       </TourStep>

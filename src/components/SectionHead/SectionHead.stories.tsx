@@ -18,7 +18,7 @@ const contract = (componentContract as any).component?.['section-head']?.$extens
 const Cards = ({ children, width = 720 }: { children: React.ReactNode; width?: number }) => (
   <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-default)', display: 'grid', gap: 'var(--spacing-24)' }}>
     {React.Children.map(children, (c) => (
-      <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', borderRadius: 'var(--border-radius-card)', maxWidth: width }}>{c}</div>
+      <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', borderRadius: 'var(--border-radius-card)', boxShadow: 'var(--shadow-card-ink)', maxWidth: width }}>{c}</div>
     ))}
   </div>
 );

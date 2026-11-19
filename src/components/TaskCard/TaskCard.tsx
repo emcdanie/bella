@@ -5,6 +5,12 @@ import Tag from '../Tag/Tag';
 import Trailing from '../Trailing/Trailing';
 import styles from './TaskCard.module.css';
 
+/** A path wraps after each "/", never mid-name: <wbr> marks where it may break. */
+function pathBreaks(node: ReactNode): ReactNode {
+  if (typeof node !== 'string' || !node.includes('/')) return node;
+  return node.split('/').flatMap((part, i, all) => (i < all.length - 1 ? [part, '/', <wbr key={i} />] : [part]));
+}
+
 export interface TaskCardProps {
   /** Figma "Title". What the task is. Names the card and its open link. */
   title: ReactNode;
@@ -86,10 +92,12 @@ export default function TaskCard({
       <div className={styles.head}>
         <div className={styles.text}>
           <h3 className={styles.title}>{titleInner}</h3>
-          {line != null ? <p className={styles.line}>{line}</p> : null}
+          {line != null ? <p className={styles.line}>{pathBreaks(line)}</p> : null}
           {branch != null ? (
             <Tag variant="outline" tone="count" className={styles.branch}>
-              {branch}
+              <span className={styles.branchText} title={typeof branch === 'string' ? branch : undefined}>
+                {branch}
+              </span>
             </Tag>
           ) : null}
         </div>

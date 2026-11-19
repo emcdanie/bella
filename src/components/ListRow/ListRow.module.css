@@ -47,6 +47,7 @@
 
 .action {
   grid-column: 3;
+  white-space: nowrap; /* a button label stays on one line (19 Nov audit: "See check") */
 }
 
 .title {
@@ -61,7 +62,10 @@
 
 .description {
   margin: 0;
-  font-family: var(--typography-subtext-font-family);
+  /* Row descriptions are sentences: the reading face (Lexend in Chip). Her
+     y23 answer, 19 Nov: "Lexend, as Figma draws it (subtext rule covers
+     labels and meta only)". The library part still binds subtext; amend due. */
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-body-default-font-size);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-body);

@@ -95,11 +95,22 @@
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-px-24);
   color: var(--color-content-subtle);
-  overflow-wrap: anywhere; /* paths and branch names break anywhere, so the card never spills (19 Nov) */
+  overflow-wrap: break-word; /* paths wrap after a "/" (TaskCard.tsx adds the breaks); a name longer than the line breaks last (19 Nov) */
+  hyphens: manual;
 }
 
 .branch {
   max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* A branch name longer than the card ends in an ellipsis inside its pill;
+   the full name is its tooltip (19 Nov: it ran out of the pill). */
+.branchText {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Move to…: 20 wide, one title line tall, glyph centred, 44 hit area. Sits

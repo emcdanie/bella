@@ -74,7 +74,7 @@ export default function SectionHead({
             ) : null}
           </span>
         }
-        subtitle={descriptionOn ? description : undefined}
+        subtitle={descriptionOn ? <span className={styles.description}>{description}</span> : undefined}
       />
       {action != null ? <div className={styles.action}>{action}</div> : null}
     </div>

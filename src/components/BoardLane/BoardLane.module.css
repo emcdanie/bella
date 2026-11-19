@@ -70,11 +70,17 @@
 }
 
 .cards {
+  /* when the page gives the lane a height, the cards scroll on their own and
+     the head stays put (Elleta's board, 20 Nov) */
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-16);
-  margin: 0;
-  padding: 0;
+  /* room for the cards' shadow and 4 + 4 focus ring inside the scroll box */
+  margin: calc(var(--spacing-8) * -1);
+  padding: var(--spacing-8);
   list-style: none;
 }
 

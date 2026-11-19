@@ -199,7 +199,7 @@ function ZonedRow({
                   </span>
                 )
               }
-              subtitle={description}
+              subtitle={description != null ? <span className={styles.description}>{description}</span> : undefined}
               body={body}
             />
             {tag != null ? <div className={styles.tag}>{tag}</div> : null}

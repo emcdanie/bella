@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { EASING_POINTS } from '../EasingCurve/EasingCurve';
 
 /* Numbers move to the new value and show the difference once (rule "Motion
@@ -77,4 +77,21 @@ export default function useCountTo(target: number): CountTo {
 export function formatDiff(diff: number, unit = '') {
   const decimals = (String(Math.abs(diff)).split('.')[1] ?? '').length;
   return `${diff > 0 ? '+' : '−'}${Math.abs(diff).toFixed(Math.min(decimals, 1))}${unit}`;
+}
+
+/**
+ * "Changed values glow once" (rule "Motion that shows what happened", item 1):
+ * returns 0 on first paint and a new number each time a word or number value
+ * changes; key the value on it with the glow class so the glow plays once per
+ * change. Other nodes never glow.
+ */
+export function useChangeKey(value: ReactNode): number {
+  const last = useRef(value);
+  const [n, setN] = useState(0);
+  useEffect(() => {
+    const plain = typeof value === 'string' || typeof value === 'number';
+    if (plain && value !== last.current && last.current !== undefined) setN((k) => k + 1);
+    last.current = value;
+  }, [value]);
+  return n;
 }

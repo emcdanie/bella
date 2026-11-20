@@ -1,5 +1,6 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
+import { useChangeKey } from '../shared/useCountTo';
 import styles from './ConnectorTile.module.css';
 
 export interface ConnectorTileProps {
@@ -27,6 +28,7 @@ export interface ConnectorTileProps {
  * Connector tile 1330:51190, read 20 Nov 2026). Tiles in a grid share a height.
  */
 export default function ConnectorTile({ appTile, status, statusTone = 'success', name, value, detail, action, className, style }: ConnectorTileProps) {
+  const valueKey = useChangeKey(value);
   return (
     <section className={[styles.tile, className].filter(Boolean).join(' ')} style={style} data-bella-component="connector-tile">
       <div className={styles.main}>
@@ -36,7 +38,11 @@ export default function ConnectorTile({ appTile, status, statusTone = 'success',
         </div>
         <div className={styles.text}>
           <h3 className={styles.name}>{name}</h3>
-          <p className={styles.value}>{value}</p>
+          <p className={styles.value}>
+            <span key={valueKey} className={valueKey ? styles.glow : undefined}>
+              {value}
+            </span>
+          </p>
           {detail != null ? <p className={styles.detail}>{detail}</p> : null}
         </div>
       </div>

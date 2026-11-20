@@ -372,3 +372,20 @@
     min-inline-size: min-content;
   }
 }
+
+/* A changed value glows once (rule "Motion that shows what happened", item 1,
+   21 Nov): the brand-subtle wash fades out over motion/duration/900; never on
+   first paint; reduced motion: no glow. */
+.glow {
+  border-radius: var(--border-radius-sm);
+  animation: valueGlow var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+@keyframes valueGlow {
+  0%, 40% { background-color: var(--color-background-brand-subtle); }
+  100% { background-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow { animation: none; }
+}

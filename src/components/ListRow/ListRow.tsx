@@ -1,6 +1,7 @@
 import React, { type CSSProperties, type ElementType, type ReactNode } from 'react';
 import TextStack from '../TextStack/TextStack';
 import Trailing, { type TrailingIcon } from '../Trailing/Trailing';
+import { useChangeKey } from '../shared/useCountTo';
 import styles from './ListRow.module.css';
 
 export interface ListRowProps {
@@ -166,6 +167,7 @@ function ZonedRow({
   style,
 }: ListRowProps) {
   const right = actionButton ?? action;
+  const valueKey = useChangeKey(value);
   const hasLeft = iconWell != null || pin != null || statusDot != null || avatar != null;
   const hasRight = value != null || valueLabel != null || subValue != null || right != null || rightTag != null || switchSlot != null;
   const hasBelow = progress != null || helperText != null || divider;
@@ -240,7 +242,11 @@ function ZonedRow({
           </div>
           {hasRight ? (
             <div className={styles.right}>
-              {value != null ? <span className={styles.value}>{value}</span> : null}
+              {value != null ? (
+                <span key={valueKey} className={[styles.value, valueKey ? styles.glow : ''].filter(Boolean).join(' ')}>
+                  {value}
+                </span>
+              ) : null}
               {valueLabel != null ? <span className={styles.valueLabel}>{valueLabel}</span> : null}
               {subValue != null ? <span className={styles.subValue}>{subValue}</span> : null}
               {right != null ? <div className={[styles.lift, styles.actionLine].join(' ')}>{right}</div> : null}

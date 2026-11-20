@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import ListRow, { ListRowGroup } from './ListRow';
 import Button from '../Button/Button';
 import StatusPill from '../StatusPill/StatusPill';
@@ -230,4 +230,32 @@ export const ZonedStatusBar: Story = {
       <ListRow layout="inline" statusBar="success" title="Focus ring" value="44/44" />
     </Card>
   ),
+};
+
+function GlowDemo() {
+  const [n, setN] = React.useState(42);
+  return (
+    <ListRowGroup ariaLabel="Checks">
+      <ListRow layout="inline" title="Story" description="Every component has one" value={`${n}/44`} actionButton={<ActionChip onClick={() => setN((x) => Math.min(44, x + 1))}>Test</ActionChip>} />
+    </ListRowGroup>
+  );
+}
+
+/** A changed value glows once (rule "Motion that shows what happened", item 1): Test runs the check
+ * again and the new count glows, once. Nothing glows on first paint; reduced motion: none. */
+export const ValueGlow: Story = {
+  render: () => <GlowDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await step('first paint: no glow', async () => {
+      await expect(canvasElement.querySelector('[class*="glow"]')).toBeNull();
+    });
+    await step(reduced ? 'a new value: no glow under reduced motion' : 'a new value glows once', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Test' }));
+      const glow = canvasElement.querySelector('[class*="glow"]') as HTMLElement;
+      await expect(glow).not.toBeNull();
+      await expect(getComputedStyle(glow).animationName).toMatch(reduced ? /^none$/ : /valueGlow/);
+      if (!reduced) await expect(getComputedStyle(glow).animationIterationCount).toBe('1');
+    });
+  },
 };

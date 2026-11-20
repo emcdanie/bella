@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, userEvent } from 'storybook/test';
 import ConnectorTile from './ConnectorTile';
 import AppTile from '../AppTile/AppTile';
 import Button from '../Button/Button';
@@ -26,4 +27,37 @@ export const Row: Story = {
       <ConnectorTile appTile={<AppTile tone="info" icon="Key" />} status="Off" statusTone="neutral" name="Local model" value="Not running" detail="Start it in a terminal" />
     </div>
   ),
+};
+
+function GlowDemo() {
+  const [n, setN] = React.useState(4);
+  return (
+    <ConnectorTile
+      appTile={<AppTile tone="inverse" brand="github" />}
+      status="Live"
+      name="GitHub CI"
+      value={`${n} to push`}
+      detail="CI hasn't run"
+      action={<Button variant="secondary" size="sm" onClick={() => setN((x) => x - 1)}>Test</Button>}
+    />
+  );
+}
+
+/** A changed value glows once (rule "Motion that shows what happened", item 1): Test reads the
+ * service again and its new value glows, once. Nothing glows on first paint; reduced motion: none. */
+export const ValueGlow: Story = {
+  render: () => <GlowDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await step('first paint: no glow', async () => {
+      await expect(canvasElement.querySelector('[class*="glow"]')).toBeNull();
+    });
+    await step(reduced ? 'a new value: no glow under reduced motion' : 'a new value glows once', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Test' }));
+      const glow = canvasElement.querySelector('[class*="glow"]') as HTMLElement;
+      await expect(glow).not.toBeNull();
+      await expect(getComputedStyle(glow).animationName).toMatch(reduced ? /^none$/ : /valueGlow/);
+      if (!reduced) await expect(getComputedStyle(glow).animationIterationCount).toBe('1');
+    });
+  },
 };

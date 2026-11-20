@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import useCountTo, { formatDiff } from '../shared/useCountTo';
 import Icon, { type IconName } from '../Icon/Icon';
 import styles from './Stat.module.css';
 
@@ -68,6 +69,14 @@ export default function Stat({
   measured = true,
   className,
 }: StatProps) {
+  /* A new figure (rule "Motion that shows what happened", items 1 and 5): a
+   * number counts from the old value to the new one and its difference shows
+   * once beside it; a word glows once in the change wash. Nothing moves on
+   * first paint; reduced motion shows the new value at once. */
+  const numeric = typeof value === 'number' ? value : NaN;
+  const count = useCountTo(Number.isNaN(numeric) ? 0 : numeric);
+  const firstWords = useRef(value);
+  const wordsChanged = typeof value === 'string' && value !== firstWords.current;
   const spark = measured && series && series.length >= 2 ? series : null;
   const fill = measured && typeof measure === 'number' ? Math.min(1, Math.max(0, measure)) : null;
   return (
@@ -82,7 +91,26 @@ export default function Stat({
         </span>
       ) : null}
       <dt className={styles.label}>{label}</dt>
-      <dd className={measured ? styles.value : styles.notMeasured}>{measured ? value : 'Not measured'}</dd>
+      <dd className={measured ? styles.value : styles.notMeasured}>
+        {!measured ? (
+          'Not measured'
+        ) : typeof value === 'number' ? (
+          <>
+            {count.shown}
+            {count.diff ? (
+              <span key={count.changeKey} className={styles.diff} aria-hidden="true">
+                {formatDiff(count.diff)}
+              </span>
+            ) : null}
+          </>
+        ) : wordsChanged ? (
+          <span key={value} className={styles.glow}>
+            {value}
+          </span>
+        ) : (
+          value
+        )}
+      </dd>
       {fill !== null ? (
         <dd className={styles.measure}>
           <span

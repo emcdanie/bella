@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import Stat from './Stat';
 import statCssRaw from './Stat.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -153,5 +154,49 @@ export const NotMeasured: Story = {
     await expect(canvas.queryByText('18')).toBeNull();
     await expect(canvasElement.querySelector('[role="img"]')).toBeNull();
     await expect(canvas.queryByText('Up')).toBeNull();
+  },
+};
+
+function ChangeDemo() {
+  const [run, setRun] = React.useState(0);
+  const fixed = [38, 41][run % 2];
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', padding: 'var(--spacing-24)' }}>
+      <Stat label="Parts passing" value={fixed} measure={fixed / 44} measureLabel={`${fixed} of 44 parts pass`} delta="of 44" />
+      <Stat label="Gate" value={run % 2 ? 'Passing' : 'Failing'} />
+      <Button variant="secondary" size="sm" onClick={() => setRun((r) => r + 1)}>
+        Check again
+      </Button>
+    </div>
+  );
+}
+
+/** A new figure (rule "Motion that shows what happened", items 1 and 5): the number counts from 38
+ * to 41 and "+3" shows once beside it; the bar moves with it; a changed word glows once. Nothing
+ * moves on first paint. Reduced motion: the new value at once, no difference mark. */
+export const NewValue: Story = {
+  render: () => <ChangeDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const value = () => canvasElement.querySelector('[data-bella-component="stat"] dd') as HTMLElement;
+    await step('first paint: 38, no difference mark', async () => {
+      await expect(value()).toHaveTextContent(/^38$/);
+    });
+    await step('a new value counts up and lands on 41', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Check again' }));
+      await waitFor(() => expect(value().firstChild?.textContent).toBe('41'), { timeout: 3000 });
+    });
+    await step(reduced ? 'reduced motion: no difference mark' : 'the difference shows once', async () => {
+      const diff = value().querySelector('[aria-hidden="true"]') as HTMLElement | null;
+      if (reduced) {
+        await expect(diff === null || getComputedStyle(diff).display === 'none').toBe(true);
+        return;
+      }
+      await expect(diff).toHaveTextContent('+3');
+      await expect(getComputedStyle(diff!).animationIterationCount).toBe('1');
+    });
+    await step('a changed word glows once', async () => {
+      await expect(canvas.getByText('Passing')).toBeInTheDocument();
+    });
   },
 };

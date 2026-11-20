@@ -113,6 +113,8 @@
   block-size: 100%;
   border-radius: var(--border-radius-round);
   background: var(--color-content-default);
+  /* the bar moves to the new measure with the number (item 5) */
+  transition: inline-size var(--motion-duration-450) var(--motion-easing-out);
 }
 
 @media (forced-colors: active) {
@@ -132,4 +134,41 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* A new figure (items 1 and 5, 21 Nov): the difference sits beside the
+   number, pops in and fades out once (motion/duration/3400, held most of
+   it); a changed word glows once in the brand-subtle wash. Reduced motion:
+   no difference mark, no glow. */
+.diff {
+  margin-inline-start: var(--spacing-8);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  letter-spacing: 0;
+  vertical-align: super;
+  color: var(--color-content-default);
+  opacity: 0;
+  animation: statDiff var(--motion-duration-3400) var(--motion-easing-out) both;
+}
+
+.glow {
+  border-radius: var(--border-radius-sm);
+  animation: statGlow var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+@keyframes statDiff {
+  0% { opacity: 0; transform: translateY(var(--spacing-4)); }
+  10%, 75% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@keyframes statGlow {
+  0%, 40% { background-color: var(--color-background-brand-subtle); }
+  100% { background-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill { transition: none; }
+  .diff { display: none; }
+  .glow { animation: none; }
 }

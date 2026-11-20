@@ -7,7 +7,10 @@
  * Duration: a row, 16 apart, centred: name column (token, use) filling the
  * row; the track (160 x 8, background/subtle, border/radius/sm) with the fill
  * (content/default) to scale against 3400ms; the value (reading face,
- * content/subtle). */
+ * content/subtle).
+ * Narrow (audit 10, 21 Nov): when the row has no room for the name column
+ * beside the track, the track and value wrap onto their own line under the
+ * name, so the token never runs through the bar or pushes the page sideways. */
 
 .row,
 .duration {
@@ -17,6 +20,8 @@
 }
 
 .duration {
+  flex-wrap: wrap;
+  row-gap: var(--spacing-8);
   min-block-size: var(--spacing-48); /* Figma: every duration row is 48, with or without a use line */
 }
 
@@ -50,8 +55,8 @@
 .name {
   display: flex;
   flex-direction: column;
-  flex: 1 1 0;
-  min-inline-size: 0;
+  flex: 1 1 calc(var(--spacing-80) * 2); /* wraps the track under it before the token would shrink */
+  max-inline-size: 100%;
 }
 
 .token {
@@ -60,6 +65,7 @@
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-default);
+  overflow-wrap: anywhere;
 }
 
 .value,

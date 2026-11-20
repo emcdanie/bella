@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import SpacingStep from './SpacingStep';
 import cssRaw from './SpacingStep.module.css?raw';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -14,6 +15,10 @@ const meta: Meta<typeof SpacingStep> = {
 export default meta;
 type Story = StoryObj<typeof SpacingStep>;
 
+/* every number in Geist Mono: the element's face is the number token's first family */
+const numberFace = (el: Element) => getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
+const faceOf = (el: Element) => getComputedStyle(el).fontFamily.split(',')[0].trim().replace(/['"]/g, '');
+
 /** The whole ramp, as on CHIP Foundations: each bar is its spacing token. */
 export const Ramp: Story = {
   render: () => (
@@ -23,4 +28,8 @@ export const Ramp: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const value = canvasElement.querySelector('[data-bella-component="spacing-step"] span:last-child')!;
+    await expect(faceOf(value)).toBe(numberFace(value));
+  },
 };

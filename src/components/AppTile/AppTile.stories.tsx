@@ -31,7 +31,7 @@ export const Connectors: Story = {
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
       <AppTile tone="inverse" brand="github" badge="2 failing" />
       <AppTile tone="git" icon="GitBranch" />
-      <AppTile tone="claude" icon="Brain" />
+      <AppTile tone="claude" brand="claude" />
       <AppTile tone="info" icon="Key" />
       <AppTile tone="outline" brand="figma" />
     </div>

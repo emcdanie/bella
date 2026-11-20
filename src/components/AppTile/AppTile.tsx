@@ -1,7 +1,7 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
 import Tag from '../Tag/Tag';
-import { BRAND_MARKS, type BrandMark } from './brandMarks';
+import { BRAND_MARKS, FILLED_MARKS, type BrandMark } from './brandMarks';
 import styles from './AppTile.module.css';
 
 export interface AppTileProps {
@@ -11,7 +11,7 @@ export interface AppTileProps {
   size?: 'sm' | 'md' | 'lg';
   /** Figma "icon" swap: a glyph from the Icon set (Brain for the agent, GitBranch for git…). */
   icon?: IconName;
-  /** A service's brand mark, in place of an icon (GitHub, Figma). */
+  /** A service's brand mark, in place of an icon (GitHub, Figma, Claude). */
   brand?: BrandMark;
   /** Figma "Show badge": a count Tag beside the tile. */
   badge?: ReactNode;
@@ -28,7 +28,13 @@ export default function AppTile({ tone = 'inverse', size = 'md', icon = 'ViewGri
   return (
     <span className={[styles.wrap, className].filter(Boolean).join(' ')} style={style} data-bella-component="app-tile">
       <span className={[styles.tile, styles[tone], styles[size]].join(' ')} aria-hidden="true">
-        {brand ? (
+        {brand && FILLED_MARKS[brand] ? (
+          <svg viewBox={FILLED_MARKS[brand]} width="24" height="24" fill="currentColor" data-bella-brand aria-hidden="true">
+            {BRAND_MARKS[brand].map((d, i) => (
+              <path key={i} d={d} />
+            ))}
+          </svg>
+        ) : brand ? (
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" data-bella-brand aria-hidden="true">
             {BRAND_MARKS[brand].map((d, i) => (
               <path key={i} d={d} />

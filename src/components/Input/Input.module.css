@@ -188,6 +188,39 @@ textarea.bare {
   align-self: stretch;
 }
 
+/* A single-line value or suggestion that runs past the field ends in an ellipsis,
+ * never cut mid-letter (Figma Value: truncation ENDING, one line). */
+input.bare {
+  text-overflow: ellipsis;
+}
+
+/* The single-line control and its ghost suggestion share one slot. */
+.slot {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.slot > .bare {
+  width: 100%;
+}
+
+.ghost {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
 /* state=suggestion (Input 1608:3716): the ghost text is the placeholder in
  * content/subtle (above); the one-cap Kbd sits 8 before Send, after the
  * text area's own 8 (Figma Text area padding-right 8, field gap 8). */

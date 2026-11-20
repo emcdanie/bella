@@ -80,7 +80,8 @@ export default function Input({
     id: fieldId,
     className: styles.field,
     value,
-    placeholder: suggesting ? suggestion : placeholder,
+    placeholder: suggesting ? undefined : placeholder,
+    'aria-placeholder': suggesting ? suggestion : undefined,
     autoComplete,
     name,
     required,
@@ -118,17 +119,26 @@ export default function Input({
           {multiline ? (
             <textarea {...shared} className={styles.bare} rows={5} />
           ) : (
-            <input
-              {...shared}
-              className={styles.bare}
-              type={type}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && onSend) {
-                  e.preventDefault();
-                  onSend(suggesting ? (suggestion as string) : value);
-                }
-              }}
-            />
+            <span className={styles.slot}>
+              <input
+                {...shared}
+                className={styles.bare}
+                type={type}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && onSend) {
+                    e.preventDefault();
+                    onSend(suggesting ? (suggestion as string) : value);
+                  }
+                }}
+              />
+              {/* The ghost text is drawn over the empty field so a long suggestion ends in an
+                  ellipsis (a native placeholder cannot); the field carries it as aria-placeholder. */}
+              {suggesting ? (
+                <span className={styles.ghost} aria-hidden="true">
+                  {suggestion}
+                </span>
+              ) : null}
+            </span>
           )}
           {suggesting ? (
             <>

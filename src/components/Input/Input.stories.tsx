@@ -302,7 +302,7 @@ export const Suggestion: Story = {
     const input = canvas.getByRole('textbox', { name: 'Ask BELLA' });
     const keycap = () => canvasElement.querySelector('[class*="enterHint"]');
     await step('the suggestion is ghost text with the ↵ keycap, and the field says Enter asks it', async () => {
-      await expect(input).toHaveAttribute('placeholder', 'Which parts still fail contrast?');
+      await expect(input).toHaveAttribute('aria-placeholder', 'Which parts still fail contrast?');
       await expect(keycap()).not.toBeNull();
       await expect(keycap()).toHaveAttribute('aria-hidden', 'true');
       await expect(input).toHaveAccessibleDescription('Press Enter to ask');

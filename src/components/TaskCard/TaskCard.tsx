@@ -1,6 +1,6 @@
 import React, { useEffect, type CSSProperties, type DragEventHandler, type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
-import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
+import { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
 import Trailing from '../Trailing/Trailing';
 import styles from './TaskCard.module.css';
@@ -18,9 +18,9 @@ export interface TaskCardProps {
   line?: ReactNode;
   /** Figma "Show branch" + the Branch Tag label: the branch name, for the board's branch filter. Missing = off. */
   branch?: ReactNode;
-  /** Figma Status (StatusDot) label: the status in words. */
-  status: ReactNode;
-  /** Figma Status (StatusDot) tone. */
+  /** Figma Status (Tag, style=line): the status in words. Default "To do". */
+  status?: ReactNode;
+  /** The status tone: the Tag's tone and the status bar down the card's left edge (21 Nov publish). neutral is Figma's default. */
   statusTone?: StatusDotProps['tone'];
   /** Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states. */
   dragging?: boolean;
@@ -60,11 +60,14 @@ export interface TaskCardProps {
  * default, hover (edge goes strong), focus (4 + 4 ring round the card),
  * dragging (only dragging lifts).
  */
+/* the status tone on the line Tag and the bar (StatusDot's names, Tag's tones) */
+const TONE = { success: 'success', info: 'info', attention: 'attention', danger: 'danger', neutral: 'default' } as const;
+
 export default function TaskCard({
   title,
   line,
   branch,
-  status,
+  status = 'To do',
   statusTone = 'neutral',
   dragging = false,
   href,
@@ -113,6 +116,9 @@ export default function TaskCard({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >
+      {/* Figma Status bar: 4 wide, the full height, in the status tone */}
+      <span className={styles.bar} data-tone={TONE[statusTone]} aria-hidden="true" />
+      <div className={styles.content}>
       <div className={styles.head}>
         <div className={styles.text}>
           <h3 className={styles.title}>{titleInner}</h3>
@@ -136,8 +142,11 @@ export default function TaskCard({
         )}
       </div>
       <div className={styles.status}>
-        <StatusDot label={status} tone={statusTone} showWash showDot showLabel className={styles.statusDot} />
+        <Tag variant="line" tone={TONE[statusTone]}>
+          {status}
+        </Tag>
         {opens ? <Trailing /> : null}
+      </div>
       </div>
     </article>
   );

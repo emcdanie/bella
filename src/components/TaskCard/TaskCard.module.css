@@ -9,7 +9,7 @@
  * absolute Hit area.
  * Title: reading face 600, 16/24, content/default. Line: reading face 400,
  * 16/24, content/subtle (published 19 Nov, 18:11: Lexend, her y23).
- * Status row: StatusDot fills, the › (Trailing) at the end, 8 apart, centred.
+ * Status row: the status Tag (style line, its tone; default "To do"), the › (Trailing) at the end, 8 apart, centred; a status bar in the same tone runs down the left edge (21 Nov publish, 778:495606).
  * States (Figma variants): hover = edge border/strong; focus = 4 ring, 4 gap,
  * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
  * corner here); dragging = shadow/lg. Only dragging lifts above the rest. */
@@ -18,7 +18,8 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  /* 21 Nov publish: the status bar, then the content, 12 apart */
+  flex-direction: row;
   gap: var(--spacing-12);
   min-inline-size: 0;
   margin: 0;
@@ -202,13 +203,24 @@ button.move:focus-visible {
   min-inline-size: 0;
 }
 
-.statusDot {
+/* Figma Content: head over the status row, 12 apart, fills beside the bar */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
   flex: 1 1 auto;
   min-inline-size: 0;
 }
 
-/* a narrow card: the status words wrap at spaces instead of running under
-   the › (CHIP audit, 20 Nov: "Waiting on you" at 320) */
-.statusDot span {
-  white-space: normal;
+/* Figma Status bar (1512:249842): 4 wide, round, the full height, the
+   tone's edge colour (as ListRow's, so it reaches 3:1) */
+.bar {
+  flex: 0 0 var(--spacing-4);
+  align-self: stretch;
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-utility-neutral);
 }
+.bar[data-tone='success'] { background: var(--color-border-utility-success); }
+.bar[data-tone='info'] { background: var(--color-border-utility-info); }
+.bar[data-tone='attention'] { background: var(--color-border-utility-warning); }
+.bar[data-tone='danger'] { background: var(--color-border-utility-error); }

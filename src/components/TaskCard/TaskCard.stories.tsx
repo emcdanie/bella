@@ -237,3 +237,21 @@ export const AcceptAndUndo: Story = {
     });
   },
 };
+
+/** The published default (TaskCard 778:495606, 21 Nov): the status bar down the left and a line Tag,
+ * neutral "To do" when no status is given; any tone colours both. */
+export const StatusBarAndTag: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+      <TaskCard title="Figma check" line="main · 10:19" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} />
+      <TaskCard title="Contrast pair for the new wash" line="Waiting on you" status="Needs you" statusTone="attention" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="task-card"]');
+    await expect(cards[0].querySelector('[data-bella-component="tag"]')).toHaveTextContent('To do');
+    const bar = cards[1].querySelector('[data-tone]') as HTMLElement;
+    await expect(bar).toHaveAttribute('data-tone', 'attention');
+    await expect(Math.round(bar.getBoundingClientRect().width)).toBe(4);
+  },
+};

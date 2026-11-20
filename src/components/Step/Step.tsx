@@ -50,7 +50,7 @@ export interface StepProps {
   selected?: boolean;
   /** Figma "Marker" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */
   icon?: IconName;
-  /** The record's kind (History): its marker takes the kind's wash and an ink glyph, and wins over `state` for the marker only. docs Page on the yellow wash, tooling Settings on grey, tokens Palette on navy, code Code on blue, visual Eye on ochre, fix EditPencil on pink; decision a dark ink circle with a knockout glyph; merged Check on the success wash (green only for Merged). Pass `icon` to swap a glyph. Missing = the state's marker. */
+  /** The record's kind (History): its marker takes the kind's wash and an ink glyph, and wins over `state` for the marker only. docs Page on the yellow wash, tooling Settings on grey, tokens Palette on navy, code Code on blue, visual Eye on ochre, fix EditPencil on the red wash; decision a dark ink circle with a knockout glyph; merged Check on the success wash (green only for Merged). Pass `icon` to swap a glyph. Missing = the state's marker. */
   kind?: StepKind;
   /** Figma "Show number" (Show icon off): the step's number for a real sequence (rule 11). done draws a check, current the number in a 2px ring, pending the plain number. */
   number?: number;

@@ -97,6 +97,7 @@ const PAIRS = [
   ['content-default on the ochre wash over background-surface', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
   ['content-default on the navy wash over background-surface', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
   // History kinds (21 Nov): ink glyphs on the grey and yellow washes; decisions knockout on ink
+  ['content-default on the red wash over background-surface (History kind fix)', c('content-default'), `${c('background-wash-red-strong')} over ${c('background-surface')}`, MARK],
   ['content-default on the grey wash over background-surface', c('content-default'), `${c('background-wash-grey-strong')} over ${c('background-surface')}`, MARK],
   ['content-default on the yellow wash over background-surface', c('content-default'), `${c('background-wash-yellow-strong')} over ${c('background-surface')}`, MARK],
   ['content-knockout on content-default', c('content-knockout'), c('content-default'), MARK],

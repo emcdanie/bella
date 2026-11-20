@@ -108,6 +108,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-red-700` | `#8f2118` | Utility red ramp, step 700. Light error word on its wash, 7:1. |
 | `--color-utility-red-800` | `#641e18` | utility red ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-red-900` | `#3a1714` | Danger wash, dark |
+| `--color-utility-red-alpha-22` | `#e2473b38` | utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, Elleta "B, red wash"). |
 | `--color-utility-yellow-100` | `#fcf4d8` | Utility yellow ramp, step 100 = Chip wash yellow #fcf4d8 (brand anchor). Light warning wash; dark warning word (her “A, cream is fine”). |
 | `--color-utility-yellow-200` | `#f1d68a` | utility yellow ramp, step 200. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-yellow-300` | `#e9b820` | Value: #e9b820 in every mode. |
@@ -306,6 +307,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-scrim` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` | → `color.neutral.alpha.60` `#1d203099` | → `color.neutral.black-alpha.60` `#00000099` |
 | `--color-background-wash-pink` | → `color.brand.pink.100` `#fbeef5` | → `color.brand.pink.alpha.8` `#da73a814` | → `color.brand.pink.100` `#fbeef5` | → `color.brand.pink.alpha.8` `#da73a814` |
 | `--color-background-wash-pink-strong` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.alpha.22` `#da73a838` | → `color.brand.pink.200` `#f1bbd8` | → `color.brand.pink.alpha.22` `#da73a838` |
+| `--color-background-wash-red-strong` | → `color.utility.red.200` `#febdb6` | → `color.utility.red.alpha.22` `#e2473b38` | → `color.utility.red.200` `#febdb6` | → `color.utility.red.alpha.22` `#e2473b38` |
 | `--color-background-wash-blue` | → `color.brand.blue.100` `#eaf5fc` | → `color.brand.blue.alpha.8` `#48a1dc14` | → `color.brand.blue.100` `#eaf5fc` | → `color.brand.blue.alpha.8` `#48a1dc14` |
 | `--color-background-wash-blue-strong` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.alpha.22` `#48a1dc38` | → `color.brand.blue.200` `#c8e5f7` | → `color.brand.blue.alpha.22` `#48a1dc38` |
 | `--color-background-wash-ochre` | → `color.brand.ochre.100` `#fcf0e0` | → `color.brand.ochre.alpha.8` `#d0902a14` | → `color.brand.ochre.100` `#fcf0e0` | → `color.brand.ochre.alpha.8` `#d0902a14` |

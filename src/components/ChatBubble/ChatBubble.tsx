@@ -102,8 +102,13 @@ export interface ChatBubbleProps {
   actions?: ReactNode;
   /** For big-emoji kind: describe the emoji for assistive tech. */
   emojiLabel?: string;
-  /** Colour disc (24px) pinned to the bottom-left of a received bubble. Aria-hidden. Shows speaker identity in a multi-lane thread. */
-  disc?: string;
+  /**
+   * Who is speaking, pinned to the bottom-left of a received bubble (aria-hidden; senderName or
+   * the thread says it in words). One or two letters ("B" for BELLA) draw an initial disc that
+   * reads in every theme; an Avatar (or any node) is placed as is; any other string is a plain
+   * colour disc (older use).
+   */
+  disc?: ReactNode;
   /** Speaker name label displayed above the first bubble of a received run. Uses BELLA's label size. */
   senderName?: string;
   /** Extra classes on the root row. */
@@ -190,13 +195,19 @@ export default function ChatBubble({
           </span>
         )}
       </div>
-      {hasDisc && (
-        <span
-          className={styles.disc}
-          style={{ background: disc }}
-          aria-hidden="true"
-        />
-      )}
+      {hasDisc ? (
+        typeof disc === 'string' && /^[A-Za-z]{1,2}$/.test(disc) ? (
+          <span className={[styles.disc, styles.initial].join(' ')} aria-hidden="true">
+            {disc}
+          </span>
+        ) : typeof disc === 'string' ? (
+          <span className={styles.disc} style={{ background: disc }} aria-hidden="true" />
+        ) : (
+          <span className={[styles.disc, styles.node].join(' ')} aria-hidden="true">
+            {disc}
+          </span>
+        )
+      ) : null}
     </div>
   );
 }

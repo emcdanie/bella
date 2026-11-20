@@ -3,7 +3,8 @@
 .row {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
+  /* Figma ChatBubble maxWidth 296 (21 Nov publish), never wider than the thread */
+  max-width: min(80%, calc(var(--spacing-80) * 3 + var(--spacing-40) + var(--spacing-16)));
   position: relative;
 }
 
@@ -42,7 +43,9 @@
 }
 
 .received {
-  background: var(--color-background-default-hover);
+  /* Figma received fill background/subtle (library round 6): default-hover
+     was the panel colour in Chip dark, so bubble and tail vanished */
+  background: var(--color-background-subtle);
   color: var(--color-content-body);
   transform-origin: bottom left;
 }
@@ -140,6 +143,27 @@
   width: var(--spacing-24);
   height: var(--spacing-24);
   border-radius: var(--border-radius-round);
+}
+
+/* an initial ("B" for BELLA): the brand-subtle disc with an ink letter,
+   readable in every theme (it was a bare colour that vanished in Chip dark) */
+.initial {
+  display: grid;
+  place-items: center;
+  background: var(--color-background-brand-subtle-hover);
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-700);
+  line-height: 1;
+}
+
+/* an Avatar or other node: centred in the disc's place, its own size */
+.node {
+  display: grid;
+  place-items: center;
+  width: auto;
+  height: auto;
 }
 
 .senderName {

@@ -173,6 +173,7 @@ const INSET_EXEMPT = {
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
   'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',
+  'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text and tail, not a control (as TypingDots beside it)',
   'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
   'src/components/RadiusTile/RadiusTile.module.css :: .shape': 'a corner specimen, not a control: its border-strong edge (inset shadow) shows the corner',
   'src/components/EasingCurve/EasingCurve.module.css :: .well': 'the backdrop of a curve specimen, identified by its ink curve, not a control',

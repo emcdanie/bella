@@ -206,3 +206,31 @@ export const Reactions: Story = {
     });
   },
 };
+
+/** Received in Chip dark (library round 6): the bubble takes background/subtle, so it and its tail
+ * stand off the panel; the speaker is an initial disc ("B" for BELLA) readable in every theme. */
+export const ReceivedOnPanel: Story = {
+  render: () => (
+    <div data-panel="" style={{ display: 'grid', gap: 'var(--spacing-8)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: 'calc(var(--spacing-80) * 6)' }}>
+      <ChatBubble side="received" tail disc="B" senderName="BELLA">
+        2 of 43 components have no a11y notes.
+      </ChatBubble>
+      <ChatBubble side="sent" tail>
+        Why?
+      </ChatBubble>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const panel = canvasElement.querySelector('[data-panel]') as HTMLElement;
+    const bubble = canvasElement.querySelector('[class*="received"]') as HTMLElement;
+    await step('the received bubble is not the panel colour', async () => {
+      await expect(getComputedStyle(bubble).backgroundColor).not.toBe(getComputedStyle(panel).backgroundColor);
+    });
+    await step('the initial disc shows its letter', async () => {
+      await expect(canvasElement.querySelector('[class*="initial"]')).toHaveTextContent('B');
+    });
+    await step('a bubble is at most 296 wide', async () => {
+      for (const row of canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="chat-bubble"]')) await expect(row.querySelector<HTMLElement>(':scope > [class*="bubble"]')!.getBoundingClientRect().width).toBeLessThanOrEqual(296);
+    });
+  },
+};

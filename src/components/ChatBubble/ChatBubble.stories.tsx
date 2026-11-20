@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
-import ChatBubble from './ChatBubble';
+import { expect, userEvent, within } from 'storybook/test';
+import ChatBubble, { ReactionBar, type ReactionName } from './ChatBubble';
 import bubbleCssRaw from './ChatBubble.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -161,6 +161,48 @@ export const ReactionBurst: Story = {
       await expect(getComputedStyle(sparks[0]).animationIterationCount).toBe('1');
       await Promise.all(sparks.flatMap((s) => s.getAnimations().map((a) => a.finished)));
       for (const s of sparks) await expect(Number(getComputedStyle(s).opacity)).toBe(0);
+    });
+  },
+};
+
+function ReactDemo() {
+  const [picked, setPicked] = React.useState<ReactionName[]>([]);
+  const toggle = (n: ReactionName) => setPicked((p) => (p.includes(n) ? p.filter((x) => x !== n) : [...p, n]));
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', justifyItems: 'start', padding: 'var(--spacing-32) var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 6)' }}>
+      <ReactionBar label="React to BELLA's answer" selected={picked} onReact={toggle} />
+      <ChatBubble side="received" tail reactions={picked}>
+        2 of 43 components have no a11y notes: ScaledFrame and SectionHeader.
+      </ChatBubble>
+    </div>
+  );
+}
+
+/** Reactions, coloured like iMessage (Figma _Reaction, Reaction bar and Reaction badge, 21 Nov; her
+ * 19 Nov rule): pick from the bar (44 targets, aria-pressed), and the coloured badge pops onto the
+ * bubble with a small burst. Reduced motion: it is simply there. */
+export const Reactions: Story = {
+  render: () => <ReactDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const bar = canvas.getByRole('group', { name: "React to BELLA's answer" });
+    await step('six reactions, each a 44 target', async () => {
+      const buttons = within(bar).getAllByRole('button');
+      await expect(buttons.length).toBe(6);
+      for (const b of buttons) await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+    });
+    await step('picking two leaves both on the bubble, in their colours', async () => {
+      await userEvent.click(within(bar).getByRole('button', { name: 'Love' }));
+      await userEvent.click(within(bar).getByRole('button', { name: 'Like' }));
+      await expect(within(bar).getByRole('button', { name: 'Love' })).toHaveAttribute('aria-pressed', 'true');
+      const badge = canvas.getByRole('img', { name: /Reactions: Love, Like/ });
+      const glyphs = badge.querySelectorAll<HTMLElement>('[data-reaction]');
+      await expect(glyphs.length).toBe(2);
+      await expect(getComputedStyle(glyphs[0]).color).not.toBe(getComputedStyle(glyphs[1]).color);
+    });
+    await step('taking one back removes it', async () => {
+      await userEvent.click(within(bar).getByRole('button', { name: 'Love' }));
+      await expect(canvas.getByRole('img', { name: 'Reactions: Like' })).toBeInTheDocument();
+      await expect(canvasElement.querySelectorAll('[role="img"] [data-reaction]').length).toBe(1);
     });
   },
 };

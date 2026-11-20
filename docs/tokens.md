@@ -205,6 +205,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--typography-line-height-px-40` | `40px` | Line height 40px, fixed (px group; the % group holds ratios). Global scale; use through Tier 2. |
 | `--size-0` | `0px` | Global value 0. Added 17 Nov so part tokens alias instead of typing values. |
 | `--size-4` | `4px` | size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”). |
+| `--size-8` | `8px` | Global value 8. Added 22 Nov for the Progress track and its target mark (Elleta, "A · 8"). |
 | `--size-12` | `12px` | size 12. Global scale value; use it through Tier 2. |
 | `--size-16` | `16px` | Value: 16 in every mode. |
 | `--size-20` | `20px` | Value: 20 in every mode. |

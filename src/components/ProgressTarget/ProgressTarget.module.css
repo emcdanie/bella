@@ -1,14 +1,15 @@
 /* Progress target (Figma BellaComponents 1168:72541, 21 Nov 2026 publish).
- * The overlay is the bar's own height (8: the meter token
- * component/meter/height = spacing/8, because size/8 is not made in
- * Foundations yet) and sits on the track, no overhang. The private
+ * The overlay is the bar's own height (size/8, published in Foundations
+ * 22 Nov) and sits on the track, no overhang. The private
  * _Target mark: 4 wide, round ends, color/border/brand, with a 1px edge in
  * color/background/surface outside it (Figma stroke OUTSIDE), so it reads
  * on a fill of any tone. Centred on target %, kept inside the track. */
 
 .target {
   position: absolute;
-  inset: 0;
+  inset-inline: 0;
+  inset-block-start: 0;
+  block-size: var(--size-8);
   pointer-events: none;
 }
 

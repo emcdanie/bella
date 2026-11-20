@@ -55,3 +55,27 @@ export const Motion: Story = {
     }
   },
 };
+
+/** A 320 phone: each DurationBar keeps its ms on the bar's line, and names break only after a slash. */
+export const Phone: Story = {
+  render: () => (
+    <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 4)', boxSizing: 'border-box', padding: 'var(--spacing-16)', display: 'grid', gap: 'var(--spacing-16)', background: 'var(--color-background-surface)' }}>
+      <DurationBar duration={450} use="pop-in" />
+      <DurationBar duration={3400} />
+      <EasingCurve easing="emphasis" />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('the ms sits on the bar line', async () => {
+      await document.fonts.ready; /* measured in the real faces, not the fallback */
+      for (const row of canvasElement.querySelectorAll('[data-bella-component="duration-bar"]')) {
+        const [track, ms] = ['[class*="track"]', '[class*="ms"]'].map((q) => row.querySelector(q)!.getBoundingClientRect());
+        await expect(Math.abs(track.top + track.height / 2 - (ms.top + ms.height / 2))).toBeLessThan(2);
+      }
+    });
+    await step('"pop-in" stays one word', async () => {
+      const use = canvasElement.querySelector('[data-bella-component="duration-bar"] [class*="value"]') as HTMLElement;
+      await expect(Math.round(use.getBoundingClientRect().height)).toBe(24);
+    });
+  },
+};

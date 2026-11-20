@@ -50,8 +50,10 @@ export default function EasingCurve({ easing, className, style }: EasingCurvePro
         </svg>
       </span>
       <span className={styles.text}>
-        <span className={styles.token}>motion/easing/{easing}</span>
-        <span className={styles.value}>cubic-bezier({[x1, y1, x2, y2].join(', ')})</span>
+        <span className={styles.token}>motion/<wbr />easing/<wbr />{easing}</span>
+        <span className={styles.value}>
+          <span className={styles.nowrap}>cubic-bezier({x1},</span> {y1}, {x2}, {y2})
+        </span>
       </span>
     </div>
   );
@@ -71,13 +73,16 @@ export function DurationBar({ duration, use, className, style }: DurationBarProp
   return (
     <div className={[styles.duration, className].filter(Boolean).join(' ')} style={style} data-bella-component="duration-bar">
       <span className={styles.name}>
-        <span className={styles.token}>motion/duration/{duration}</span>
-        {use != null ? <span className={styles.value}>{use}</span> : null}
+        <span className={styles.token}>motion/<wbr />duration/<wbr />{duration}</span>
+        {use != null ? <span className={styles.value}>{typeof use === 'string' ? use.split(' ').map((w, i) => <React.Fragment key={i}>{i ? ' ' : null}<span className={styles.nowrap}>{w}</span></React.Fragment>) : use}</span> : null}
       </span>
-      <span className={styles.track} aria-hidden="true">
-        <span className={styles.fill} style={{ inlineSize: `${(duration / 3400) * 100}%` }} />
+      {/* the bar and its ms wrap together, never apart */}
+      <span className={styles.bar}>
+        <span className={styles.track} aria-hidden="true">
+          <span className={styles.fill} style={{ inlineSize: `${(duration / 3400) * 100}%` }} />
+        </span>
+        <span className={styles.ms}>{duration}ms</span>
       </span>
-      <span className={styles.ms}>{duration}ms</span>
     </div>
   );
 }

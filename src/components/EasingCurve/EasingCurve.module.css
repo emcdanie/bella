@@ -10,7 +10,10 @@
  * content/subtle).
  * Narrow (audit 10, 21 Nov): when the row has no room for the name column
  * beside the track, the track and value wrap onto their own line under the
- * name, so the token never runs through the bar or pushes the page sideways. */
+ * name, so the token never runs through the bar or pushes the page sideways.
+ * There the track gives up width (64 at least) so the ms stays on its line,
+ * at 320 too; the fill stays to scale, a share of the track. Words break
+ * only at spaces: "pop-in" and "cubic-bezier(" never split at a hyphen. */
 
 .row,
 .duration {
@@ -65,7 +68,7 @@
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-default);
-  overflow-wrap: anywhere;
+  overflow-wrap: normal; /* breaks only after a slash (<wbr>), never inside a word or number */
 }
 
 .value,
@@ -77,15 +80,30 @@
   color: var(--color-content-subtle);
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .ms {
   flex: none;
   inline-size: var(--spacing-64);
 }
 
-.track {
-  flex: none;
+.bar {
+  /* track + ms, one unit: it takes free width first (track up to 160) and
+     wraps under the name as a whole */
+  flex: 1000 1 calc(var(--spacing-64) * 2 + var(--spacing-16));
   display: flex;
-  inline-size: calc(var(--spacing-80) * 2); /* Figma 160 */
+  align-items: center;
+  gap: var(--spacing-16);
+  max-inline-size: calc(var(--spacing-80) * 2 + var(--spacing-16) + var(--spacing-64));
+}
+
+.track {
+  flex: 1 1 auto; /* Figma 160, down to 64 on a narrow row */
+  display: flex;
+  min-inline-size: var(--spacing-64);
+  max-inline-size: calc(var(--spacing-80) * 2);
   block-size: var(--spacing-8);
   overflow: hidden;
   border-radius: var(--border-radius-sm);

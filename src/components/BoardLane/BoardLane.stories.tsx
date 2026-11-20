@@ -142,6 +142,51 @@ export const Empty: Story = {
   },
 };
 
+/** A full lane at a fixed height (CHIP Work at 1024–1440): the cards scroll on their own. Rule 16, never clip a
+ * shadow or a ring: the foot fades out while there is more to scroll, and a focused "Move to…" scrolls into the
+ * clear area with its whole ring in view (CHIP wiring sweep, 22 Nov). */
+export const FullLane: Story = {
+  render: () => (
+    <Board>
+      <BoardLane name="Needs you" lane="needs-you" order="Failures first." style={{ blockSize: 'calc(var(--spacing-80) * 6)' }}>
+        {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
+        {card('Push chip/parts-dev?', 'CI hasn\'t run them', 'Waiting on you', 'attention')}
+        {card('Hero at 390', 'Wraps under the photo', 'Waiting on you', 'attention')}
+        {card('Contrast pairs', '9 to go', 'Failed', 'danger')}
+      </BoardLane>
+    </Board>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const list = canvasElement.querySelector('[data-bella-component="board-lane"] ul') as HTMLElement;
+    const lane = list.closest('section') as HTMLElement;
+    const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await step('the lane scrolls, and its foot fades while there is more below', async () => {
+      await expect(list.scrollHeight).toBeGreaterThan(list.clientHeight);
+      await frame();
+      await expect(getComputedStyle(list).getPropertyValue('--board-lane-fade').trim()).toBe('24px');
+    });
+    await step('a Move to… sitting in the faded foot scrolls up with its whole ring when focused', async () => {
+      const moves = list.querySelectorAll<HTMLElement>('button[aria-label="Move to…"]');
+      const move = moves[moves.length - 1];
+      (document.activeElement as HTMLElement | null)?.blur();
+      /* park the button in the foot: inside the scroll box, 12 above its edge, below the lane's foot */
+      list.scrollTop += move.getBoundingClientRect().bottom - (list.getBoundingClientRect().bottom - 12);
+      await frame();
+      await expect(move.getBoundingClientRect().bottom).toBeGreaterThan(lane.getBoundingClientRect().bottom);
+      move.focus();
+      await frame();
+      const ring = 8; /* 4 wide, 4 gap */
+      await expect(move.getBoundingClientRect().bottom + ring).toBeLessThanOrEqual(lane.getBoundingClientRect().bottom + 1);
+      await expect(move.getBoundingClientRect().top - ring).toBeGreaterThanOrEqual(list.getBoundingClientRect().top);
+    });
+    await step('at the end of the scroll the fade lifts', async () => {
+      list.scrollTop = list.scrollHeight;
+      await frame();
+      await expect(getComputedStyle(list).getPropertyValue('--board-lane-fade').trim()).toBe('0px');
+    });
+  },
+};
+
 /** Drop space kinds on their own. */
 export const DropSpace: Story = {
   render: () => (

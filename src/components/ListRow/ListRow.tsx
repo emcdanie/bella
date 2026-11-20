@@ -40,7 +40,7 @@ export interface ListRowProps {
   swatch?: string;
   /** Figma "Middle" › "↳ Text button". A Button tertiary sm. */
   textButton?: ReactNode;
-  /** Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it instead of the icon well, not with it. It also sets her 20 Nov hierarchy: overline 16 subtle, title 20 regular ink, description 16 subtle, all in the reading face (meta stays in the subtext face for times and numbers); the right stack centred, its text button flush right over a `Tag variant="line"`. */
+  /** Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it instead of the icon well, not with it. It also sets her 20 Nov hierarchy: overline 16 subtle, title 20 regular ink, description 16 subtle, all in the reading face (meta stays in the subtext face for times and numbers); the right stack centred, its text button (with its own padding) over a `Tag variant="line"`, both plates on the row's right padding edge. */
   statusBar?: 'neutral' | 'strong' | 'success' | 'info' | 'attention' | 'danger';
   /** The status bar's text hierarchy and centred zones without the bar itself (Figma Check row, 21 Nov publish: bar and Tag off, the nested List item keeps Title 20 regular, Subtitle subtle, Content centred). Status-bar rows have it already. */
   barHierarchy?: boolean;

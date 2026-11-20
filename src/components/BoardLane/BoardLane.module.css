@@ -97,6 +97,12 @@
      instead, the way Tabs fades its edge; the fade lifts over the last 4 of
      the scroll, and when nothing scrolls (the timeline is inactive) there is
      none, so a lane that fits looks as published. */
+  /* Keyboard focus never lands in the faded foot or under the head: a
+     focused control scrolls into the lane's clear area with room for its
+     4 + 4 ring (CHIP wiring sweep, 22 Nov: "Move to…" ring cut 4 at 1100).
+     Bottom: the 24 of fade past the foot plus the 8 of ring; top: the 16 of
+     room above the cards already holds the ring. */
+  scroll-padding-block: var(--spacing-16) var(--spacing-32);
   -webkit-mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
   mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
   animation: laneFade linear both;

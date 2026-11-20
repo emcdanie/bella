@@ -182,9 +182,9 @@
    hierachy is all off.."; CHIP Dashboard 612:88931 Text stack, read 21 Nov):
    Label 16 subtle, Title 20 regular ink (the biggest thing in the row), Sub
    title 16 subtle, all in the reading face; meta keeps the subtext face for
-   times and numbers. The right stack is centred on the text and its text
-   button ends flush on the row's right edge, over the line Tag. Library
-   publish pending: re-check against BellaComponents ListRow after it. */
+   times and numbers. The right stack is centred on the text; its text
+   button keeps its own padding, its plate on the row's padding edge, over
+   the line Tag. */
 .barLabel,
 .barTitle {
   display: block;
@@ -205,13 +205,9 @@
 .hasBar .content {
   align-items: center;
 }
-/* A tertiary text button ends flush with the row's right edge (Figma Right:
-   the text action over the Tag, both flush right). A secondary or primary
-   Button is a plate and keeps its own padding on both sides (audit 3, 21 Nov:
-   "Send" had 12 on the left and 0 on the right). */
-.hasBar .actionLine > [data-bella-component='button'][data-bella-variant='tertiary'] {
-  padding-inline-end: 0;
-}
+/* The action keeps Button's own padding: its plate ends on the row's
+   padding edge, as Figma's List item and Check row draw it (Action plate 12
+   from the row edge, label 24; read 22 Nov). ListRow never restyles Button. */
 
 /* Figma "Status bar" 1512:249842: 4 wide, round, the Tag's own edge token so
    it reaches 3:1. Its own shape, not a row edge (rule 9). */

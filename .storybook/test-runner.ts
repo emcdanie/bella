@@ -1,7 +1,6 @@
 import type { TestRunnerConfig } from '@storybook/test-runner';
 import { getStoryContext } from '@storybook/test-runner';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
-import { PNG } from 'pngjs';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -514,30 +513,37 @@ const config: TestRunnerConfig = {
         // The limits stay 0.6 (light) and 0.4 (dark). If masking leaves less
         // than a quarter of the frame, the story fails: the check would be
         // measuring next to nothing, so it does not pass by default.
-        const png = PNG.sync.read(image as Buffer);
-        const masks = await page.evaluate(() =>
-          Array.from(document.querySelectorAll('img, picture, video, [role="img"]')).map((el) => {
+        // Decoded in the page, not with pngjs: PNG.sync.read inside the test
+        // runner took about 3s per theme on a tall page (Pages/Work 16s, past
+        // the gate's 60s under load, 21 Nov). Same masks, same sums.
+        const { sum, n, total } = await page.evaluate(async (b64: string) => {
+          const bmp = await createImageBitmap(await (await fetch(`data:image/png;base64,${b64}`)).blob());
+          const canvas = new OffscreenCanvas(bmp.width, bmp.height);
+          const ctx = canvas.getContext('2d')!;
+          ctx.drawImage(bmp, 0, 0);
+          const data = ctx.getImageData(0, 0, bmp.width, bmp.height).data;
+          const scale = bmp.width / (document.documentElement.scrollWidth || window.innerWidth);
+          const masked = new Uint8Array(bmp.width * bmp.height);
+          for (const el of document.querySelectorAll('img, picture, video, [role="img"]')) {
             const r = el.getBoundingClientRect();
-            return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width, h: r.height };
-          }).filter((r) => r.w > 0 && r.h > 0)
-        );
-        const scale = png.width / (await page.evaluate(() => document.documentElement.scrollWidth || window.innerWidth));
-        const masked = new Uint8Array(png.width * png.height);
-        for (const m of masks) {
-          const x0 = Math.max(0, Math.floor(m.x * scale)), y0 = Math.max(0, Math.floor(m.y * scale));
-          const x1 = Math.min(png.width, Math.ceil((m.x + m.w) * scale)), y1 = Math.min(png.height, Math.ceil((m.y + m.h) * scale));
-          for (let y = y0; y < y1; y++) masked.fill(1, y * png.width + x0, y * png.width + x1);
-        }
-        let sum = 0;
-        let n = 0;
-        for (let p = 0, i = 0; p < masked.length; p++, i += 4) {
-          if (masked[p]) continue;
-          sum += (0.2126 * png.data[i] + 0.7152 * png.data[i + 1] + 0.0722 * png.data[i + 2]) / 255;
-          n++;
-        }
-        if (n < masked.length / 4) {
+            if (!(r.width > 0 && r.height > 0)) continue;
+            const mx = r.left + window.scrollX, my = r.top + window.scrollY;
+            const x0 = Math.max(0, Math.floor(mx * scale)), y0 = Math.max(0, Math.floor(my * scale));
+            const x1 = Math.min(bmp.width, Math.ceil((mx + r.width) * scale)), y1 = Math.min(bmp.height, Math.ceil((my + r.height) * scale));
+            for (let y = y0; y < y1; y++) masked.fill(1, y * bmp.width + x0, y * bmp.width + x1);
+          }
+          let sum = 0;
+          let n = 0;
+          for (let p = 0, i = 0; p < masked.length; p++, i += 4) {
+            if (masked[p]) continue;
+            sum += (0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2]) / 255;
+            n++;
+          }
+          return { sum, n, total: masked.length };
+        }, (image as Buffer).toString('base64'));
+        if (n < total / 4) {
           throw new Error(
-            `[audit:visual] ${context.id}: content images cover ${(100 - (100 * n) / masked.length).toFixed(0)}% of the ` +
+            `[audit:visual] ${context.id}: content images cover ${(100 - (100 * n) / total).toFixed(0)}% of the ` +
               `frame in ${theme}, so the theme check would measure next to nothing. Give the story more ` +
               `themed surface around its images.`
           );

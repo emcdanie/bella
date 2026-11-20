@@ -47,7 +47,7 @@ export function CheckListHeader({ title, count, legend, headingLevel = 2, classN
  * ------------------------------------------------------------------------- */
 
 export interface CheckRowProps {
-  /** Figma "status". pass: success status bar and bar fill. fail: attention status bar and fill, and the text button. */
+  /** Figma "status". pass: success status bar and bar fill. fail: attention status bar and fill, and the action at the right end. */
   status?: 'pass' | 'fail';
   /** List item Text stack "Title": the check. */
   title: ReactNode;
@@ -59,9 +59,9 @@ export interface CheckRowProps {
   fill: number;
   /** Progress "Target · target", 0 to 100. Missing = no target mark. */
   target?: number;
-  /** List item "Text button" label (fail only): "Add stories". */
+  /** The action's label (fail only): "Add stories". It sits at the row's right end, under the count. */
   actionLabel?: string;
-  /** What the text button does. */
+  /** What the action does. */
   onAction?: () => void;
   /** The row's element: li inside a ListRowGroup (default), div elsewhere. */
   as?: 'li' | 'div';
@@ -73,8 +73,8 @@ export interface CheckRowProps {
  * One health check across all components. A configuration of List item
  * (ListRow), never its own drawing: Lead = status bar (no icon well, 20 Nov
  * rule "status bar at the left, not an icon"), Middle = title 20 regular and
- * what is missing, then the text button underneath (fail), Right = the
- * count, Below = the Progress bar with its target.
+ * what is missing, Right = the count with the action under it (fail;
+ * buttons on the right), Below = the Progress bar with its target.
  */
 export default function CheckRow({
   status = 'pass',
@@ -100,7 +100,9 @@ export default function CheckRow({
       statusBar={pass ? 'success' : 'attention'}
       title={title}
       description={subtitle}
-      textButton={
+      actionButton={
+        /* buttons on the right, everywhere (her rule): the action ends the row,
+           under the count; on a narrow row it stays right-aligned */
         !pass && onAction ? (
           <Button variant="tertiary" size="sm" onClick={onAction}>
             {actionLabel}

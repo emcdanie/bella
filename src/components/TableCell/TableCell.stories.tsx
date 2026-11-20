@@ -67,3 +67,25 @@ export const RolesTable: Story = {
     });
   }
 };
+
+/** kind="tag" (21 Nov publish, Table cell kind=tag): a line Tag in the cell, its tone from tagTone. */
+export const TagCell: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      <table aria-label="Records" style={{ borderCollapse: 'separate', borderSpacing: 0 }}>
+        <tbody>
+          <TableRow>
+            <TableCell rowHeader>Button</TableCell>
+            <TableCell kind="tag">Design systems</TableCell>
+            <TableCell kind="tag" tagTone="success">Merged</TableCell>
+          </TableRow>
+        </tbody>
+      </table>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const tags = canvasElement.querySelectorAll('td [data-bella-component="tag"]');
+    await expect(tags.length).toBe(2);
+    await expect(tags[1]).toHaveTextContent('Merged');
+  },
+};

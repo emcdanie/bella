@@ -1,10 +1,13 @@
 import React, { type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
+import BellaTag, { type TagTone } from '../Tag/Tag';
 import styles from './TableCell.module.css';
 
 export interface TableCellProps {
   /** Figma "kind". header: the column label (th scope=col), 600 subtle · text: body face · mono: number face (role names, numbers, ratios) · swatch: a 20 square of the colour plus the hex in mono · link: pass a Link as children. */
-  kind?: 'header' | 'text' | 'mono' | 'swatch' | 'link';
+  kind?: 'header' | 'text' | 'mono' | 'swatch' | 'link' | 'tag';
+  /** kind=tag: the Tag's tone (style line, as the 21 Nov publish draws it). */
+  tagTone?: TagTone;
   /** Figma "align". end for a column that reads from the right (counts, links). */
   align?: 'start' | 'end';
   /** Figma "selected": the text goes 600 in ink, so a selected row is never colour alone. Set on every cell of a selected TableRow. */
@@ -36,6 +39,7 @@ export default function TableCell({
   sort,
   swatch,
   swatchTheme,
+  tagTone = 'default',
   rowHeader = false,
   className,
   children,
@@ -58,7 +62,13 @@ export default function TableCell({
             <span className={styles.colour} data-theme={swatchTheme} style={{ background: swatch }} />
           </span>
         ) : null}
-        <span className={styles.text}>{children}</span>
+        {kind === 'tag' ? (
+          <BellaTag variant="line" tone={tagTone}>
+            {children}
+          </BellaTag>
+        ) : (
+          <span className={styles.text}>{children}</span>
+        )}
         {header && sort ? (
           <span className={styles.sortMark} aria-hidden="true">
             <Icon name={SORT_ICON[sort]} size="sm" />

@@ -205,7 +205,11 @@
 .hasBar .content {
   align-items: center;
 }
-.hasBar .actionLine > [data-bella-component='button'] {
+/* A tertiary text button ends flush with the row's right edge (Figma Right:
+   the text action over the Tag, both flush right). A secondary or primary
+   Button is a plate and keeps its own padding on both sides (audit 3, 21 Nov:
+   "Send" had 12 on the left and 0 on the right). */
+.hasBar .actionLine > [data-bella-component='button'][data-bella-variant='tertiary'] {
   padding-inline-end: 0;
 }
 

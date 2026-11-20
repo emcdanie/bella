@@ -282,3 +282,37 @@ export const PublishedZones: Story = {
     await expect(Math.round(sw.getBoundingClientRect().width)).toBe(24);
   },
 };
+
+/** A small Button as the row's action, beside the ↗ Trailing (CHIP Foundations · Token problems): the button keeps
+ * its own padding on both sides; the row never squeezes it (audit 3, 21 Nov: "12 px on the left and about 1 px on
+ * the right"). */
+export const SmallButtonAction: Story = {
+  render: () => (
+    <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 9)' }}>
+      <ListRowGroup>
+        <ListRow
+          layout="stacked"
+          statusBar="attention"
+          title="12 colour values aren’t tokens"
+          description="Button, Card, ChatBubble, DataTable and 3 more"
+          actionButton={<Button variant="secondary" size="sm">Send</Button>}
+          trailing
+          href="#/components/button"
+        />
+      </ListRowGroup>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const send = canvas.getByRole('button', { name: 'Send' });
+    const r = send.getBoundingClientRect();
+    const label = send.querySelector('[data-bella-roll=label]') ?? send;
+    const range = document.createRange();
+    range.selectNodeContents(label);
+    const t = range.getBoundingClientRect();
+    const left = t.left - r.left;
+    const right = r.right - t.right;
+    // the label sits centred, with the button's own padding on each side
+    await expect(Math.abs(left - right)).toBeLessThanOrEqual(1);
+    await expect(right).toBeGreaterThanOrEqual(12);
+  },
+};

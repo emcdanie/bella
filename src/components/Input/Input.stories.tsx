@@ -321,3 +321,30 @@ export const Suggestion: Story = {
     });
   },
 };
+
+/** labelPosition=inline (Figma Input 149:135, 21 Nov publish): label, field and hint on one line,
+ * 8 apart, all centred on the 44 field; the error takes the hint's place. */
+export const LabelInline: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 9)' }}>
+      <Input label="Email" labelPosition="inline" value="" placeholder="you@studio.com" hint="We reply within two days." onChange={() => {}} />
+      <Input label="Email" labelPosition="inline" value="you@studio" error="Enter an email like name@domain.com" onChange={() => {}} />
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    await step('label 8 left of the field, both centred on it', async () => {
+      const field = canvas.getAllByLabelText('Email')[0];
+      const label = field.parentElement!.querySelector('label')!;
+      const f = field.getBoundingClientRect();
+      const l = label.getBoundingClientRect();
+      await expect(Math.round(f.left - l.right)).toBe(8);
+      await expect(Math.abs((f.top + f.bottom) / 2 - (l.top + l.bottom) / 2)).toBeLessThanOrEqual(1);
+      await expect(f.height).toBe(44);
+    });
+    await step('the hint sits 8 right of the field, on its line', async () => {
+      const field = canvas.getAllByLabelText('Email')[0];
+      const hint = canvas.getByText('We reply within two days.');
+      await expect(Math.round(hint.getBoundingClientRect().left - field.getBoundingClientRect().right)).toBe(8);
+    });
+  },
+};

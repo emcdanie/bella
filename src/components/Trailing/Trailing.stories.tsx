@@ -50,7 +50,7 @@ const meta: Meta<typeof Trailing> = {
     className: { control: false },
     style: { control: false },
   },
-  args: { icon: 'NavArrowRight' },
+  args: { icon: 'ArrowUpRight' },
 };
 export default meta;
 
@@ -58,11 +58,11 @@ type Story = StoryObj<typeof Trailing>;
 
 export const Playground: Story = {};
 
-/** › opens, ↗ leaves, each at the end of a 44 row, in Chip light and Chip dark. */
+/** ↗ opens (the default, 21 Nov publish: "I prefer the up arrow thing", "Everywhere"); › is kept for older rows. Each at the end of a 44 row, in Chip light and Chip dark. */
 export const AllIcons: Story = {
   render: () => (
     <Themed>
-      {(['NavArrowRight', 'ArrowUpRight'] as const).map((icon) => (
+      {(['ArrowUpRight', 'NavArrowRight'] as const).map((icon) => (
         <div
           key={icon}
           style={{
@@ -76,7 +76,7 @@ export const AllIcons: Story = {
             color: 'var(--color-content-default)',
           }}
         >
-          <span style={{ flex: 1 }}>{icon === 'NavArrowRight' ? 'Open the row' : 'Leaves the app'}</span>
+          <span style={{ flex: 1 }}>{icon === 'NavArrowRight' ? 'Older rows (›)' : 'Open the row'}</span>
           <Trailing icon={icon} />
         </div>
       ))}

@@ -81,8 +81,8 @@ export default function TreeItem({
       {kind === 'item' ? <Icon name={icon} size="md" /> : null}
       {kind === 'folder' ? <Icon name="Folder" size="md" /> : null}
       {kind === 'branch' ? <IconWell size="sm" tone={BRANCH[status].tone} icon={BRANCH[status].icon} label={BRANCH[status].word} /> : null}
-      {/* Project panel as published (21 Nov): only the row that needs you carries the wash */}
-      {kind === 'status' ? <StatusDot tone={tone} showWash={tone === 'attention'} /> : null}
+      {/* every status dot shows its halo (Project panel, 21 Nov publish: "status dots have a halo") */}
+      {kind === 'status' ? <StatusDot tone={tone} /> : null}
       <span className={styles.label}>{label}</span>
       {counted ? <span className={kind === 'status' ? styles.total : styles.count}>{count}</span> : null}
       {needsWork && (kind === 'group' || kind === 'item') ? (

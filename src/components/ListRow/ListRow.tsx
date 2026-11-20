@@ -42,6 +42,8 @@ export interface ListRowProps {
   textButton?: ReactNode;
   /** Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it instead of the icon well, not with it. It also sets her 20 Nov hierarchy: overline 16 subtle, title 20 regular ink, description 16 subtle, all in the reading face (meta stays in the subtext face for times and numbers); the right stack centred, its text button flush right over a `Tag variant="line"`. */
   statusBar?: 'neutral' | 'strong' | 'success' | 'info' | 'attention' | 'danger';
+  /** The status bar's text hierarchy and centred zones without the bar itself (Figma Check row, 21 Nov publish: bar and Tag off, the nested List item keeps Title 20 regular, Subtitle subtle, Content centred). Status-bar rows have it already. */
+  barHierarchy?: boolean;
   /** Figma "Right" › "↳ Value" + "↳↳ Value text". Number face, 600. */
   value?: ReactNode;
   /** Figma "Right" › "↳ Value label" (20 Nov): a word in the right column ("Open stories"), body face, 500. Value stays for numbers. */
@@ -126,7 +128,7 @@ export default function ListRow(props: ListRowProps) {
 
 const ZONE_KEYS = [
   'layout', 'selected', 'iconWell', 'pin', 'meta', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'indent', 'swatch', 'textButton',
-  'statusBar', 'value', 'valueLabel', 'rightTag', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
+  'statusBar', 'barHierarchy', 'value', 'valueLabel', 'rightTag', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
   'href', 'onClick', 'as',
 ] as const;
 
@@ -155,6 +157,7 @@ function ZonedRow({
   swatch,
   textButton,
   statusBar,
+  barHierarchy = false,
   value,
   valueLabel,
   rightTag,
@@ -189,14 +192,14 @@ function ZonedRow({
     title
   );
   /* Status-bar rows carry her 20 Nov hierarchy on their own spans. */
-  const bar = statusBar != null;
+  const bar = statusBar != null || barHierarchy;
   const line = (node: ReactNode, cls: string, on = bar) => (on && node != null ? <span className={cls}>{node}</span> : node);
   const cls = [
     styles.zoned,
     styles[layout],
     interactive ? styles.interactive : '',
     selected ? styles.selected : '',
-    statusBar != null ? styles.hasBar : '',
+    bar ? styles.hasBar : '',
     className,
   ]
     .filter(Boolean)

@@ -34,6 +34,10 @@ export interface StatCardProps {
   unit?: ReactNode;
   /** Figma "Context". One line worked out from real numbers: what the number means and which way. */
   context?: ReactNode;
+  /** Figma "Empty count" (21 Nov publish): the number on chart=empty, 0 by default. */
+  emptyCount?: ReactNode;
+  /** Figma "Empty total" (21 Nov publish): the unit on chart=empty ("of 44"); missing = `unit`. */
+  emptyTotal?: ReactNode;
   /** Figma "Caption". Footer left: the target or where it came from. */
   caption?: ReactNode;
   /** Figma "Show button". Footer right: a secondary Button only when it acts ("Set target"), never to navigate. Missing = off. */
@@ -70,6 +74,8 @@ export default function StatCard({
   title,
   value,
   unit,
+  emptyCount = 0,
+  emptyTotal,
   context,
   caption,
   button,
@@ -104,7 +110,12 @@ export default function StatCard({
     <div className={styles.header}>{headInner}</div>
   );
 
+  /* Figma chart=empty binds Value and Unit to Empty count and Empty total */
+  const empty = chart === 'empty';
+  const shownValue = empty ? emptyCount : value;
+  const shownUnit = empty ? (emptyTotal ?? unit) : unit;
   const words = meter?.valueText ?? [value, unit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
+  const emptyWords = [shownValue, shownUnit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
 
   return (
     <section
@@ -115,14 +126,14 @@ export default function StatCard({
       {header}
       <div className={styles.body}>
         <p className={styles.number}>
-          <span className={styles.value}>{value}</span>
-          {unit != null && unit !== '' ? <span className={styles.unit}>{unit}</span> : null}
+          <span className={styles.value}>{shownValue}</span>
+          {shownUnit != null && shownUnit !== '' ? <span className={styles.unit}>{shownUnit}</span> : null}
         </p>
         {chart === 'empty' ? (
           <Progress
             className={styles.meter}
             label={typeof title === 'string' ? title : 'Progress'}
-            value={words || undefined}
+            value={emptyWords || undefined}
             showLabel={false}
             shape="bar"
             fill={0}

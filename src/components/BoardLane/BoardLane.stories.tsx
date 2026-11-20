@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor } from 'storybook/test';
 import Button from '../Button/Button';
 import BoardLane, { BoardLaneDropSpace } from './BoardLane';
+import EmptyState from '../EmptyState/EmptyState';
 import TaskCard from '../TaskCard/TaskCard';
 import cssRaw from './BoardLane.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -64,21 +65,22 @@ type Story = StoryObj<typeof BoardLane>;
 
 export const Playground: Story = {};
 
-/** The Work board's four lanes, numbered because they are a sequence (guideline 11). Needs you takes the wash and edge. */
+/** The Work board's four lanes as published 21 Nov ("A, light tints"): a light tint per lane, the count plate
+ * filled in the lane's tone (gate outlined), no lane numbers. */
 export const WorkBoard: Story = {
   render: () => (
     <Board>
-      <BoardLane name="Needs you" index="01" lane="needs-you" order="Failures first, then what blocks a push.">
+      <BoardLane name="Needs you" lane="needs-you" order="Failures first, then what blocks a push.">
         {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
         {card('Hero at 390', 'Wraps under the photo', 'Waiting on you', 'attention')}
       </BoardLane>
-      <BoardLane name="Agent" index="02" order="Oldest first.">
+      <BoardLane name="Agent" lane="agent" order="Oldest first.">
         {card('Contrast pairs', '9 to go', 'Working', 'info')}
       </BoardLane>
-      <BoardLane name="Gate" index="03" order="In the order they were sent.">
+      <BoardLane name="Gate" lane="gate" order="In the order they were sent.">
         {card('Button pressed', 'Checks 4 of 5', 'Gate checking', 'info')}
       </BoardLane>
-      <BoardLane name="Ready" index="04" order="Ready to push.">
+      <BoardLane name="Ready" lane="ready" order="Ready to push.">
         {card('Tabs count', 'All checks pass', 'Passed', 'success')}
       </BoardLane>
     </Board>
@@ -92,25 +94,52 @@ export const Dragging: Story = {
       <BoardLane name="Needs you" lane="needs-you" order="Failures first, then what blocks a push." count={1}>
         <BoardLaneDropSpace kind="origin" />
       </BoardLane>
-      <BoardLane name="Agent" order="Oldest first." dropTarget count={0}>
+      <BoardLane name="Agent" lane="agent" order="Oldest first." dropTarget count={0}>
         <BoardLaneDropSpace kind="target" />
       </BoardLane>
     </Board>
   ),
 };
 
-/** Figma's set, same content and order: needs-you default and drop-target, other default and drop-target. */
+/** Figma's set: each lane default and drop-target (needs-you, agent, gate, ready). */
 export const FigmaSet: Story = {
   render: () => (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, calc(var(--spacing-80) * 3 + var(--spacing-24)))', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
-      {(['needs-you', 'needs-you', 'other', 'other'] as const).map((lane, i) => (
+      {(['needs-you', 'needs-you', 'agent', 'agent', 'gate', 'gate', 'ready', 'ready'] as const).map((lane, i) => (
         /* Figma repeats "Needs you"; a page never has two lanes with one name (each is a landmark) */
-        <BoardLane key={i} name={['Needs you', 'Needs you · drop target', 'Agent', 'Agent · drop target'][i]} lane={lane} dropTarget={i % 2 === 1} count={4} order="Failures first, then what blocks a push.">
+        <BoardLane key={i} name={`${['Needs you', 'Agent', 'Gate', 'Ready'][i >> 1]}${i % 2 ? ' · drop target' : ''}`} lane={lane} dropTarget={i % 2 === 1} count={4} order="Failures first, then what blocks a push.">
           {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
         </BoardLane>
       ))}
     </div>
   ),
+};
+
+/** Figma "Show empty" (21 Nov publish): a lane with no cards shows the Empty state (size=lane), centred
+ * under the head, in the lane's tint. */
+export const Empty: Story = {
+  render: () => (
+    <Board>
+      <BoardLane
+        name="Ready"
+        lane="ready"
+        order="Ready to push."
+        count={0}
+        style={{ blockSize: 'calc(var(--spacing-80) * 5)' }}
+        empty={<EmptyState mark="🤷" title="Nothing here yet" line="Say what fills this space." />}
+      />
+    </Board>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('the empty state is centred in the room under the head', async () => {
+      const lane = canvasElement.querySelector('[data-bella-component="board-lane"]') as HTMLElement;
+      const state = lane.querySelector('[data-bella-component="empty-state"]') as HTMLElement;
+      const box = state.parentElement!.getBoundingClientRect();
+      const s = state.getBoundingClientRect();
+      await expect(Math.abs(s.top - box.top - (box.bottom - s.bottom))).toBeLessThanOrEqual(1);
+      await expect(lane.querySelector('ul')).toBeNull();
+    });
+  },
 };
 
 /** Drop space kinds on their own. */

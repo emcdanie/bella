@@ -159,6 +159,13 @@ export const Contrast: Story = {
           <div>
             <Tag variant="flat">flat default</Tag>
           </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-8)' }}>
+            {(['success', 'info', 'attention'] as const).map((tone) => (
+              <Tag key={tone} variant="solid" tone={tone}>
+                12
+              </Tag>
+            ))}
+          </div>
         </div>
         </div>
       ))}

@@ -164,6 +164,8 @@ export type { TrailingProps } from './Trailing/Trailing';
 
 export { default as Progress } from './Progress/Progress';
 export type { ProgressProps } from './Progress/Progress';
+export { default as ProgressTarget } from './ProgressTarget/ProgressTarget';
+export type { ProgressTargetProps } from './ProgressTarget/ProgressTarget';
 
 export { default as StatCard } from './StatCard/StatCard';
 export type { StatCardProps } from './StatCard/StatCard';

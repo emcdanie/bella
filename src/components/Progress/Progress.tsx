@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import styles from './Progress.module.css';
+import ProgressTarget, { TargetMark } from '../ProgressTarget/ProgressTarget';
+
+/* Progress target and the private _Target mark are their own parts (Figma
+ * 1168:72541); re-exported here so older imports keep working. */
+export { ProgressTarget, TargetMark };
+export type { ProgressTargetProps, TargetMarkProps } from '../ProgressTarget/ProgressTarget';
 
 export type ProgressTone = 'info' | 'success' | 'attention' | 'danger';
 
@@ -10,24 +16,6 @@ const pct = (n: number) => Math.min(100, Math.max(0, n));
  * The pieces. Each is its own part in Figma; here they live in the Progress
  * folder and are exported so a legend or a chart can reuse the same mark.
  * ------------------------------------------------------------------------- */
-
-export interface TargetMarkProps {
-  className?: string;
-  style?: CSSProperties;
-}
-
-/** Figma "_Target mark" (private): the one target mark. 4 wide, round ends,
- * border/brand, as tall as its frame. Also the key in a "Target N%" legend. */
-export function TargetMark({ className, style }: TargetMarkProps) {
-  return (
-    <span
-      className={[styles.targetMark, className].filter(Boolean).join(' ')}
-      style={style}
-      aria-hidden="true"
-      data-bella-component="target-mark"
-    />
-  );
-}
 
 export interface ProgressFillProps {
   /** Figma "value", 0 to 100. At 0 nothing is drawn: the track reads empty. */
@@ -62,25 +50,6 @@ export function ProgressSegment({ tone = 'info', done = true }: ProgressSegmentP
       className={[styles.segment, done ? styles[tone] : ''].filter(Boolean).join(' ')}
       data-bella-component="progress-segment"
     />
-  );
-}
-
-export interface ProgressTargetProps {
-  /** Figma "target", 0 to 100. */
-  target: number;
-}
-
-/** Figma "Progress target": the named overlay over the track (absolute, as
- * code positions it), holding the Target mark at left: target %. */
-export function ProgressTarget({ target }: ProgressTargetProps) {
-  return (
-    <span
-      className={styles.target}
-      style={{ '--progress-target': `${pct(target)}%` } as CSSProperties}
-      data-bella-component="progress-target"
-    >
-      <TargetMark className={styles.targetPlaced} />
-    </span>
   );
 }
 
@@ -131,7 +100,7 @@ export default function Progress({
   tone = 'info',
   fill = 0,
   target = 0,
-  segments = 6,
+  segments = 5,
   done = 0,
   drawIn = false,
   className,

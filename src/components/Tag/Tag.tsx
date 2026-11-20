@@ -15,11 +15,13 @@ export interface TagProps {
    *   edge per tone; flat = grey fill, no edge (18 Nov "B,
    *   flat"); index = the numbered lane pin, number face 600; line = the
    *   surface with the tone's edge and ink (Figma style=line, every tone,
-   *   re-read 21 Nov).
+   *   re-read 21 Nov); solid = the tone's knockout fill, no edge, the
+   *   knockout ink, number face 600 (Figma style=solid, 21 Nov publish:
+   *   success, info and attention only; neutral has no solid yet).
    * Every style has the small corner, none is round (21 Nov, "A, small corner").
    * Passing `tone` or `showDot` with `"default"` gives Figma's outline.
    */
-  variant?: 'default' | 'accent' | 'outline' | 'flat' | 'index' | 'line';
+  variant?: 'default' | 'accent' | 'outline' | 'flat' | 'index' | 'line' | 'solid';
   /** Figma "tone". Status ladder: attention waiting, info working, success done, danger failed; default neutral; count for numbers. */
   tone?: TagTone;
   /** Figma "Show dot". A 12 dot in the tone before the label. */
@@ -48,7 +50,7 @@ export default function Tag({
   style,
   children,
 }: TagProps) {
-  const figma = tone !== undefined || showDot || count != null || variant === 'outline' || variant === 'flat' || variant === 'index' || variant === 'line';
+  const figma = tone !== undefined || showDot || count != null || variant === 'outline' || variant === 'flat' || variant === 'index' || variant === 'line' || variant === 'solid';
   if (!figma) {
     const cls = [styles.tag, variant === 'accent' ? styles.accent : '', className]
       .filter(Boolean)
@@ -59,7 +61,7 @@ export default function Tag({
       </span>
     );
   }
-  const look = variant === 'flat' || variant === 'index' || variant === 'line' ? variant : 'outline';
+  const look = variant === 'flat' || variant === 'index' || variant === 'line' || variant === 'solid' ? variant : 'outline';
   const t: TagTone = look === 'flat' ? 'default' : tone ?? 'default';
   const cls = [styles.plate, styles[look], styles[`tone-${t}`], className].filter(Boolean).join(' ');
   return (

@@ -32,7 +32,8 @@
 .label {
   flex: 1 1 auto;
   min-inline-size: 0;
-  font-family: var(--typography-subtext-font-family);
+  /* words, not numbers: the reading face (Lexend in Chip; 21 Nov publish) */
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-px-24);
@@ -81,32 +82,7 @@
   border-radius: var(--border-radius-round);
 }
 
-/* ---- target (named overlay) ---- */
-.target {
-  position: absolute;
-  inset-inline: 0;
-  inset-block: calc(var(--size-4) * -1);
-  pointer-events: none;
-}
-
-.targetPlaced {
-  position: absolute;
-  inset-block: 0;
-  inset-inline-start: clamp(
-    0%,
-    calc(var(--progress-target) - var(--border-width-4) / 2),
-    calc(100% - var(--border-width-4))
-  );
-}
-
-.targetMark {
-  display: inline-block;
-  inline-size: var(--border-width-4);
-  min-block-size: var(--spacing-16);
-  border-radius: var(--border-radius-round);
-  background: var(--color-border-brand);
-}
-
+/* ---- target: its own part, src/components/ProgressTarget ---- */
 /* ---- segments ---- */
 .segments {
   display: flex;

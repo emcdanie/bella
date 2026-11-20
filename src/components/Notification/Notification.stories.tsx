@@ -141,3 +141,25 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** At 320 (a 288 card on a phone, CHIP audit 3 finding 15): the close ends on the right edge of the content,
+ * in line with the padding, with or without the icon and with actions under the text. */
+export const PhoneCloseEdge: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', inlineSize: 'calc(var(--spacing-80) * 3.6)' }}>
+      <Notification tone="info" title="Brief · from CHIP's checks" message="3 things need you; the top one is Add stories." onClose={() => {}} />
+      <Notification tone="info" showIcon={false} title="Brief · from CHIP's checks" message="3 things need you; the top one is Add stories." onClose={() => {}} />
+      <Notification tone="attention" title="Push waits on you" message="CI hasn't run them." action={{ label: 'Review' }} onClose={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('every close ends 16 in from the card edge, on the content edge', async () => {
+      for (const n of canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="notification"]')) {
+        const close = n.querySelector('button[aria-label]') as HTMLElement;
+        const pad = parseFloat(getComputedStyle(n.firstElementChild as HTMLElement).paddingRight);
+        await expect(n.getBoundingClientRect().width).toBe(288);
+        await expect(Math.round(n.getBoundingClientRect().right - close.getBoundingClientRect().right)).toBe(pad);
+      }
+    });
+  },
+};

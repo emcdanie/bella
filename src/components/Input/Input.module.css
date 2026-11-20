@@ -20,6 +20,30 @@
   min-width: 0;
 }
 
+/* labelPosition=inline (Figma Input 149:135, 21 Nov publish): one row, 8
+   apart (spacing/8), centred on the 44 field: Label (reading face 16, 400,
+   content/body), Field, then the hint or error at 16 (HelperText). The row
+   wraps on a narrow screen so nothing is squeezed. */
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+.inline > :is(input, .box) {
+  flex: 1 1 0;
+}
+.inline .label {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+}
+.inline :is(.hint, .error) {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+}
+
 .label {
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-label-default-font-size);

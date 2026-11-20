@@ -12467,7 +12467,7 @@ entries:
   - kind: component
     id: empty-state
     name: EmptyState
-    description: "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash (cleared 21 Nov); the wash prop draws nothing and goes when Figma deletes its Wash property."
+    description: "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash."
     metadata:
       origin:
         method: extracted
@@ -12557,7 +12557,7 @@ entries:
   - kind: component
     id: board-lane
     name: BoardLane
-    description: "One lane of the Work board: name, count, order, then its cards. Exports BoardLaneDropSpace, where a dragged card lands or left."
+    description: "One lane of the Work board: the name and its count plate, the order line, then the cards (or the empty state, centred). A light tint per lane (needs-you warning, agent info, gate the lane grey, ready success); the count is Tag style=solid in the lane's tone, gate outlined. No lane number, no status dot."
     metadata:
       origin:
         method: extracted
@@ -12603,8 +12603,12 @@ entries:
       design.bella:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
-          - default
+          - needs-you
+          - agent
+          - gate
+          - ready
           - drop-target
+          - empty
   - kind: component
     id: group-head
     name: GroupHead
@@ -12708,7 +12712,7 @@ entries:
   - kind: component
     id: check-row
     name: CheckRow
-    description: "One health check across all components: a configuration of ListRow (status bar, title 20 regular, what is missing, the count with the action under it when it fails, the bar with its target). Exports CheckListHeader."
+    description: "One health check across all components: a configuration of ListRow with no status bar and no status Tag (the progress bar is enough), title 20 regular, what is missing, the count once at the right end in the number face at title size with the action under it when it fails, the bar with its target. Exports CheckListHeader."
     metadata:
       origin:
         method: extracted
@@ -12735,7 +12739,7 @@ entries:
           - level: must-not
             statement: "Never its own drawing: change ListRow, not CheckRow"
           - level: must-not
-            statement: No left status stripe (guideline 9)
+            statement: "No status bar and no status Tag (21 Nov: \"the progress bar is fine\")"
     refs:
       - href: ./src/components/CheckRow/CheckRow.stories.tsx
         rel: storybook
@@ -13176,6 +13180,56 @@ entries:
     sourceFiles:
       - platform: react
         file: ./src/components/ConnectorTile/ConnectorTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: progress-target
+    name: ProgressTarget
+    description: "The target drawn into a meter: an overlay the bar's own height holding the private _Target mark (4 wide, round ends, border/brand, 1px background/surface edge outside it), centred on target % and kept inside the track. Also exports TargetMark, the key in a \"Target N%\" legend."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Decorative (aria-hidden); the target is said in words beside the bar ("Target 90%").
+      tags:
+        - component
+        - progress-target
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Progress bar with a target (Stat card, Check row)
+          - level: may
+            statement: Check list header legend (TargetMark)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Never a second target colour: blue (border/brand) only"
+          - level: must-not
+            statement: No overhang past the bar (21 Nov publish)
+    refs:
+      - href: ./src/components/ProgressTarget/ProgressTarget.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ProgressTarget/ProgressTarget.tsx
     specs:
       - href: ./tokens/contracts.json
         rel: contract

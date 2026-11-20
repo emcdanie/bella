@@ -61,7 +61,7 @@ export const ComponentChecks: Story = {
     <Card>
       <CheckListHeader title="Component checks" count={3} legend="Target 90%" />
       <ListRowGroup ariaLabel="Component checks">
-        <CheckRow status="pass" title="Story" subtitle="Every component has one" value="44/44" fill={100} target={90} />
+        <CheckRow status="pass" title="Story" subtitle="Above the 90% target" value="44/44" fill={100} target={90} />
         <CheckRow status="fail" title="Contrast pairs" subtitle="Missing: BrandWordmark, PatternField" value="35/44" fill={80} target={90} onAction={() => {}} actionLabel="Add pairs" />
         <CheckRow status="fail" title="Docs" subtitle="Missing: Menu, TaskCard" value="40/44" fill={91} target={95} onAction={() => {}} actionLabel="Add docs" />
       </ListRowGroup>

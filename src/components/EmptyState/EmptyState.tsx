@@ -4,8 +4,6 @@ import styles from './EmptyState.module.css';
 export interface EmptyStateProps {
   /** Figma "size". lane: the compact one, for a card or lane; page: a whole view. */
   size?: 'lane' | 'page';
-  /** Figma "Wash". Cleared in the 21 Nov publish: every value draws no wash. Kept until Figma deletes the property. */
-  wash?: 'none' | 'pink' | 'blue' | 'ochre' | 'navy';
   /** Figma "Title". Short, says what is missing. */
   title: ReactNode;
   /** Figma "Line". One line on what fills this space (Belfast mode allowed). */

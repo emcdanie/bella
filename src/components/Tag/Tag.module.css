@@ -143,6 +143,26 @@
   --tag-wash: transparent;
 }
 
+/* solid (Figma style=solid, 21 Nov publish): the tone's knockout fill
+ * (background/utility/{tone}-knockout), no edge, content/brand-knockout
+ * ink, number face 600 (the lane counts, 7.8 to 8.7:1). Success, info and
+ * attention only; neutral has no solid yet. */
+.solid {
+  box-shadow: none;
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  --tag-ink: var(--color-content-brand-knockout);
+}
+.solid.tone-success {
+  --tag-wash: var(--color-background-utility-success-knockout);
+}
+.solid.tone-info {
+  --tag-wash: var(--color-background-utility-info-knockout);
+}
+.solid.tone-attention {
+  --tag-wash: var(--color-background-utility-warning-knockout);
+}
+
 /* flat (18 Nov, "B, flat"): the highlight fill (over the surface, like
  * every Tag), no edge, ink label. Tone default only. */
 .flat {

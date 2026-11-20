@@ -1,9 +1,9 @@
 /* NavList (Figma BellaComponents NavList 167:226, read 19 Nov 2026). Tokens
  * only. Toggle: a 44 box with SidebarCollapse in ink, light-blue hover.
  * Body: groups 24 apart; each group a label (reading face 16, content/subtle,
- * 0 12 padding) over Nav item rows 4 apart (the NavItem part draws the rows:
+ * 0 12 0 16 padding) over Nav item rows 4 apart (the NavItem part draws the rows:
  * icon, label, count, light-blue current with a bold ink label). Footer: 12
- * padding under a hairline, content/subtle.
+ * padding (16 at the left) under a hairline, content/subtle.
  *
  * Recorded divergence: the toggle's focus ring sits inside (negative offset),
  * because a sidebar scrolls and an outset ring would be clipped.
@@ -19,12 +19,14 @@
 .toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  /* Figma Toggle (21 Nov publish): the icon 16 in (spacing/16, MIN), on the
+     rows' and labels' left edge, not centred in the 44 box */
+  justify-content: flex-start;
   align-self: flex-start;
   min-width: var(--spacing-44);
   min-height: var(--spacing-44);
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 var(--spacing-16);
   border: none;
   border-radius: var(--border-radius-8);
   background: transparent;
@@ -58,7 +60,7 @@
 
 .groupLabel {
   margin: 0;
-  padding: 0 var(--spacing-12);
+  padding: 0 var(--spacing-12) 0 var(--spacing-16); /* 16 in, on the rows' edge (21 Nov publish) */
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
   line-height: var(--typography-line-height-150);
@@ -80,7 +82,7 @@
 }
 
 .footer {
-  padding: var(--spacing-12);
+  padding: var(--spacing-12) var(--spacing-12) var(--spacing-12) var(--spacing-16); /* 16 in, one left edge (21 Nov publish) */
   border-top: var(--border-width-1) solid var(--color-border-default);
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);

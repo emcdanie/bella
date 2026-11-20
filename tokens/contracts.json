@@ -455,7 +455,8 @@
             "outline",
             "flat",
             "index",
-            "line"
+            "line",
+            "solid"
           ],
           "states": [
             "default"
@@ -499,7 +500,8 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "figma": " style=solid (21 Nov 2026 publish): success, info, attention on the knockout fills, content/brand-knockout, no edge."
         }
       }
     },
@@ -1059,6 +1061,7 @@
             "value",
             "onChange",
             "multiline",
+            "labelPosition",
             "error",
             "hint",
             "type",
@@ -1190,7 +1193,8 @@
             "multiline": "multiline",
             "Leading icon (+ icon)": "leadingIcon (missing = off)",
             "Send button": "onSend + sendLabel (missing = off)",
-            "state hover / focus": "CSS"
+            "state hover / focus": "CSS",
+            "labelPosition": "labelPosition (top | inline; inline single-line only)"
           }
         }
       }
@@ -2863,6 +2867,7 @@
             "swatch",
             "textButton",
             "statusBar",
+            "barHierarchy",
             "value",
             "valueLabel",
             "rightTag",
@@ -3185,7 +3190,7 @@
           "usage": [
             "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents Progress, 21 Nov 2026: track border/subtle. Figma draws the track 10 tall with no token; code keeps the meter token (8)."
+          "figma": "Matches the published BellaComponents Progress, 21 Nov 2026: track border/subtle. Figma draws the track 10 tall with no token; code keeps the meter token (8). 21 Nov 2026 publish: track 8 (meter token; size/8 not in Foundations yet), labels in the reading face, segments 5 by default (3 of 5 = 60%), target is Progress target."
         }
       }
     },
@@ -3202,6 +3207,8 @@
             "title",
             "value",
             "unit",
+            "emptyCount",
+            "emptyTotal",
             "context",
             "caption",
             "button",
@@ -3218,7 +3225,11 @@
           "usage": [
             "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents Stat card (1168:56015), 21 Nov 2026: one pattern, 14 variants (bar, segments, none × tones; empty neutral). Geist Mono Bold is synthesized until the Bold file is added (only Regular is loaded)."
+          "figma": "Matches the published BellaComponents Stat card (1168:56015), 21 Nov 2026: one pattern, 14 variants (bar, segments, none × tones; empty neutral). Geist Mono Bold is synthesized until the Bold file is added (only Regular is loaded).",
+          "figmaProps": {
+            "Empty count": "emptyCount (chart=empty, default 0)",
+            "Empty total": "emptyTotal (chart=empty; missing = unit)"
+          }
         }
       }
     },
@@ -3540,13 +3551,12 @@
         "bella": {
           "name": "EmptyState",
           "category": "Layout",
-          "description": "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash (cleared 21 Nov); the wash prop draws nothing and goes when Figma deletes its Wash property.",
+          "description": "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash.",
           "states": [
             "default"
           ],
           "props": [
             "size",
-            "wash",
             "title",
             "line",
             "mark",
@@ -3558,7 +3568,7 @@
           "usage": [
             "CHIP \"Not again\" stat cards with no data (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents \"Empty state\" (1014:2670), 21 Nov 2026: washes cleared (Wash property redundant in Figma, to delete after CHIP copies move to none)."
+          "figma": "Matches the published BellaComponents \"Empty state\" (1014:2670), 21 Nov 2026: the Wash property and its variants deleted, size=lane|page only; the wash prop deleted from code with it."
         }
       }
     },
@@ -3621,10 +3631,14 @@
         "bella": {
           "name": "BoardLane",
           "category": "Data",
-          "description": "One lane of the Work board: name, count, order, then its cards. Exports BoardLaneDropSpace, where a dragged card lands or left.",
+          "description": "One lane of the Work board: the name and its count plate, the order line, then the cards (or the empty state, centred). A light tint per lane (needs-you warning, agent info, gate the lane grey, ready success); the count is Tag style=solid in the lane's tone, gate outlined. No lane number, no status dot.",
           "states": [
-            "default",
-            "drop-target"
+            "needs-you",
+            "agent",
+            "gate",
+            "ready",
+            "drop-target",
+            "empty"
           ],
           "props": [
             "name",
@@ -3633,6 +3647,7 @@
             "lane",
             "dropTarget",
             "count",
+            "empty",
             "children",
             "headingLevel",
             "className",
@@ -3647,7 +3662,7 @@
             "Never a blue lane"
           ],
           "a11y": "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 on the lane grey, checked by the gate. Drop label content-brand 7.52:1 on the lane (Chip light).",
-          "figma": "Matches the published BellaComponents BoardLane (783:496472) and BoardLane drop space (783:496703), read 19 Nov 2026. Figma draws drop-target the same as default; the drop space marks the landing.",
+          "figma": "Matches the published BellaComponents BoardLane (783:496472), 21 Nov 2026: lane = needs-you | agent | gate | ready tints, Index and Status deleted, Count Tag style=solid (gate tone=count outline until a neutral fill is decided), Name 18/24, Show empty with Empty state size=lane. index is kept but ignored and lane=\"other\" maps to gate until removing them is approved.",
           "figmaProps": {
             "Name": "name",
             "Order": "order",
@@ -3656,7 +3671,8 @@
             "state=drop-target": "dropTarget",
             "Count (Tag) label": "count (defaults to the number of cards)",
             "Card 1 to 4 / Show card 1 to 4": "children",
-            "drop space kind / Label": "BoardLaneDropSpace kind / label"
+            "drop space kind / Label": "BoardLaneDropSpace kind / label",
+            "Show empty": "empty (an EmptyState, shown when there are no cards)"
           }
         }
       }
@@ -3736,7 +3752,7 @@
         "bella": {
           "name": "CheckRow",
           "category": "Data",
-          "description": "One health check across all components: a configuration of ListRow (status bar, title 20 regular, what is missing, the count with the action under it when it fails, the bar with its target). Exports CheckListHeader.",
+          "description": "One health check across all components: a configuration of ListRow with no status bar and no status Tag (the progress bar is enough), title 20 regular, what is missing, the count once at the right end in the number face at title size with the action under it when it fails, the bar with its target. Exports CheckListHeader.",
           "states": [
             "pass",
             "fail"
@@ -3760,10 +3776,10 @@
           ],
           "dont": [
             "Never its own drawing: change ListRow, not CheckRow",
-            "No left status stripe (guideline 9)"
+            "No status bar and no status Tag (21 Nov: \"the progress bar is fine\")"
           ],
           "a11y": "A list item; the bar is a progressbar named by the check with the count as its value text; the action is a Button (44 target). Text and marks inherit ListRow, Progress and Tag, each checked by the gate.",
-          "figma": "Matches the published BellaComponents Check row (793:31331) and Check list header (1168:67724), read 19 Nov 2026; no icon well, the status bar instead (rule of 20 Nov, library Check row still draws the well: amend due). The legend's target mark is 18 in Figma, off the 4 scale: snapped to 20.",
+          "figma": "Matches the published BellaComponents Check row (793:31331, 21 Nov 2026 publish: status bar and Tag off, count Geist Mono Bold 20) and Check list header (1168:67724). statusLabel is kept but ignored until removing it is approved. The legend's target mark is 18 in Figma, off the 4 scale: snapped to 20.",
           "figmaProps": {
             "status": "status",
             "List item Title text": "title",
@@ -4117,6 +4133,34 @@
             "style"
           ],
           "figma": "Matches the published BellaComponents Connector tile (1330:51190), read 20 Nov 2026."
+        }
+      }
+    },
+    "progress-target": {
+      "$extensions": {
+        "bella": {
+          "name": "ProgressTarget",
+          "category": "Data",
+          "description": "The target drawn into a meter: an overlay the bar's own height holding the private _Target mark (4 wide, round ends, border/brand, 1px background/surface edge outside it), centred on target % and kept inside the track. Also exports TargetMark, the key in a \"Target N%\" legend.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "target"
+          ],
+          "usage": [
+            "Progress bar with a target (Stat card, Check row)",
+            "Check list header legend (TargetMark)"
+          ],
+          "dont": [
+            "Never a second target colour: blue (border/brand) only",
+            "No overhang past the bar (21 Nov publish)"
+          ],
+          "a11y": "Decorative (aria-hidden); the target is said in words beside the bar (\"Target 90%\").",
+          "figma": "Matches the published BellaComponents Progress target (1168:72541) and _Target mark, 21 Nov 2026: 8 tall, 1px outside edge color/background/surface. Height is the meter token (component/meter/height = spacing/8) until size/8 exists in Foundations.",
+          "figmaProps": {
+            "target": "target (0 to 100 in 5s)"
+          }
         }
       }
     }

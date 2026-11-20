@@ -42,7 +42,6 @@ const meta: Meta<typeof EmptyState> = {
   },
   argTypes: {
     size: { control: 'inline-radio' },
-    wash: { control: 'inline-radio' },
     title: { control: 'text' },
     line: { control: 'text' },
     mark: { control: 'text' },
@@ -51,7 +50,7 @@ const meta: Meta<typeof EmptyState> = {
     className: { control: false },
     style: { control: false },
   },
-  args: { size: 'lane', wash: 'none', title: 'Nothing here yet', line: 'Say what fills this space.', mark: '🤷' },
+  args: { size: 'lane', title: 'Nothing here yet', line: 'Say what fills this space.', mark: '🤷' },
 };
 export default meta;
 
@@ -67,28 +66,23 @@ export const Playground: Story = {
   ),
 };
 
-/** The lane size for every Wash value: all draw no wash since the 21 Nov publish (Figma 1014:2670). */
-export const LaneWashes: Story = {
+/** The lane size (Figma size=lane): centred, the emoji alone, two small actions, primary last. */
+export const Lane: Story = {
   render: () => (
     <Surface>
-      {(['none', 'pink', 'blue', 'ochre', 'navy'] as const).map((wash) => (
-        <Card key={wash}>
-          <EmptyState
-            wash={wash}
-            mark="🔁"
-            title="Nothing counted yet"
-            line="Not a single run this week. Start one and I'll keep score."
-            actions={
-              wash === 'none' ? (
-                <>
-                  <Button variant="secondary" size="sm">Learn more</Button>
-                  <Button variant="primary" size="sm">Start a run</Button>
-                </>
-              ) : undefined
-            }
-          />
-        </Card>
-      ))}
+      <Card>
+        <EmptyState
+          mark="🔁"
+          title="Nothing counted yet"
+          line="Not a single run this week. Start one and I'll keep score."
+          actions={
+            <>
+              <Button variant="secondary" size="sm">Learn more</Button>
+              <Button variant="primary" size="sm">Start a run</Button>
+            </>
+          }
+        />
+      </Card>
     </Surface>
   ),
 };

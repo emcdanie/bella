@@ -11,6 +11,8 @@ export interface InputProps {
   onChange: (value: string) => void;
   /** Renders a textarea instead of a single-line input. */
   multiline?: boolean;
+  /** Figma "labelPosition" (21 Nov publish). top (default): label above the field. inline: one line, the label 8 to the field's left and the hint or error 8 to its right, all centred on the 44 field; single-line fields only (multiline keeps the label on top). */
+  labelPosition?: 'top' | 'inline';
   /** Honest error: danger border, an error icon and a danger message (role=alert), wired via aria-invalid and aria-describedby. */
   error?: string;
   /** Supporting hint below the field, wired via aria-describedby. */
@@ -46,6 +48,7 @@ export interface InputProps {
  */
 export default function Input({
   label,
+  labelPosition = 'top',
   value,
   onChange,
   multiline,
@@ -95,7 +98,7 @@ export default function Input({
 
   return (
     <div
-      className={[styles.wrapper, error ? styles.invalid : '', className]
+      className={[styles.wrapper, labelPosition === 'inline' && !multiline ? styles.inline : '', error ? styles.invalid : '', className]
         .filter(Boolean)
         .join(' ')}
       data-bella-component="input"

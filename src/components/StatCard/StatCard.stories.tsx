@@ -118,10 +118,10 @@ export const ChartsAndTones: Story = {
 export const OnePattern: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 'var(--spacing-16)', padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" tone="success" icon="ShieldCheck" meter={{ fill: 80, target: 90 }} href="#a" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="segments" tone="danger" icon="Brain" meter={{ segments: 5, done: 5 }} href="#b" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="none" tone="info" icon="ShieldCheck" href="#c" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" tone="success" icon="ShieldCheck" meter={{ fill: 80, target: 90 }} href="#a" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="segments" tone="danger" icon="Brain" meter={{ segments: 5, done: 4 }} href="#b" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="none" tone="info" icon="ShieldCheck" href="#c" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" emptyTotal="of 44" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
     </div>
   ),
   play: async ({ canvasElement }) => {

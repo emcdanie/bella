@@ -47,15 +47,15 @@ export function CheckListHeader({ title, count, legend, headingLevel = 2, classN
  * ------------------------------------------------------------------------- */
 
 export interface CheckRowProps {
-  /** Figma "status". pass: success status bar and bar fill. fail: attention status bar and fill, and the action at the right end. */
+  /** Figma "status". pass: success bar fill and the count alone at the right end. fail: attention fill, the count with the action under it. */
   status?: 'pass' | 'fail';
   /** List item Text stack "Title": the check. */
   title: ReactNode;
-  /** List item Text stack "Subtitle": what is missing. Missing = off. */
+  /** List item Text stack "Subtitle": what is missing, or "Above the 90% target". Missing = off. */
   subtitle?: ReactNode;
-  /** The count ("42/44"). Figma's published Check row hides the Value; it is the bar's spoken value. */
+  /** The count ("42/44"), once, at the row's right end in the number face at title size (21 Nov publish). The bar reads it too. */
   value: ReactNode;
-  /** The status Tag's words (21 Nov publish): "Passes" (pass) or "Finding" (fail) by default. */
+  /** @deprecated The status Tag left the published Check row (21 Nov, "yes take it off"); ignored. Removing the prop is a public API change and waits for Elleta. */
   statusLabel?: ReactNode;
   /** Progress "Fill · value", 0 to 100. */
   fill: number;
@@ -73,10 +73,13 @@ export interface CheckRowProps {
 
 /**
  * One health check across all components. A configuration of List item
- * (ListRow), never its own drawing: Lead = status bar (no icon well, 20 Nov
- * rule "status bar at the left, not an icon"), Middle = title 20 regular and
- * what is missing, Right = the count with the action under it (fail;
- * buttons on the right), Below = the Progress bar with its target.
+ * (ListRow), never its own drawing. Figma Check row 793:31331 (published
+ * 21 Nov): no status bar and no status Tag, the progress bar is enough
+ * (Elleta: "I don't want the status bar on this, it's too much; the
+ * progress bar is fine", "yes take it off"). Middle = title 20 regular and
+ * what is missing, on the bar's left edge; Right = the count once, Geist
+ * Mono bold 20 ("the numbers are too small now"), with the action under it
+ * on fail; Below = the Progress bar with its target.
  */
 export default function CheckRow({
   status = 'pass',
@@ -86,7 +89,6 @@ export default function CheckRow({
   fill,
   target,
   actionLabel = 'Add stories',
-  statusLabel,
   onAction,
   as = 'li',
   className,
@@ -100,23 +102,17 @@ export default function CheckRow({
       layout="stacked"
       className={className}
       style={style}
-      statusBar={pass ? 'success' : 'attention'}
+      barHierarchy
       title={title}
       description={subtitle}
+      value={<span className={styles.count}>{value}</span>}
       actionButton={
-        /* buttons on the right, everywhere (her rule): the action ends the row,
-           under the count; on a narrow row it stays right-aligned */
+        /* buttons on the right, everywhere (her rule): the action ends the row, under the count */
         !pass && onAction ? (
           <Button variant="tertiary" size="sm" onClick={onAction}>
             {actionLabel}
           </Button>
         ) : undefined
-      }
-      /* Figma Text frame: the status Tag under the text, beside the bar */
-      tag={
-        <Tag variant="line" tone={pass ? 'success' : 'attention'}>
-          {statusLabel ?? (pass ? 'Passes' : 'Finding')}
-        </Tag>
       }
       progress={
         <Progress

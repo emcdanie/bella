@@ -46,7 +46,7 @@ const meta: Meta<typeof Progress> = {
     className: { control: false },
     style: { control: false },
   },
-  args: { label: 'Coverage', value: '60%', shape: 'bar', tone: 'info', fill: 60, target: 80, showTarget: true, showLabel: true, segments: 6, done: 4 },
+  args: { label: 'Coverage', value: '60%', shape: 'bar', tone: 'info', fill: 60, target: 80, showTarget: true, showLabel: true, segments: 5, done: 3 },
 };
 export default meta;
 
@@ -76,7 +76,7 @@ export const Segments: Story = {
   render: () => (
     <Themed>
       {TONES.map((tone) => (
-        <Progress key={tone} shape="segments" label={`Segments · ${tone}`} value="4 of 6" tone={tone} segments={6} done={4} />
+        <Progress key={tone} shape="segments" label={`Segments · ${tone}`} value="3 of 5" tone={tone} segments={5} done={3} />
       ))}
       <Progress shape="segments" label="The gate" value="5 of 5" tone="success" segments={5} done={5} />
       <Progress shape="segments" label="None yet" value="0 of 5" tone="info" segments={5} done={0} />

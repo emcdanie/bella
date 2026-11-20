@@ -141,3 +141,16 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** Show tag (21 Nov publish): a line Tag under the message, in its tone. */
+export const WithTag: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: 'calc(var(--spacing-80) * 8)' }}>
+      <Notification tone="info" title="Needs you" message="Figma can't see CodeBlock: no file key." tag={{ label: 'Working', tone: 'info' }} action={{ label: 'Add key', onClick: () => {} }} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const tag = canvasElement.querySelector('[data-bella-component="notification"] [data-bella-component="tag"]');
+    await expect(tag).toHaveTextContent('Working');
+  },
+};

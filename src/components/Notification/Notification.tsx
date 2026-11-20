@@ -1,6 +1,7 @@
 import React, { type CSSProperties, type ReactNode } from "react";
 import Icon, { type IconName } from "../Icon/Icon";
 import Button from "../Button/Button";
+import Tag, { type TagTone } from "../Tag/Tag";
 import styles from "./Notification.module.css";
 
 export type NotificationTone = "info" | "success" | "attention" | "danger";
@@ -15,6 +16,8 @@ export interface NotificationAction {
 export interface NotificationProps {
   /** Figma "Message". The line under the title; wraps. */
   message?: ReactNode;
+  /** Figma "Show tag" (21 Nov publish): a line Tag under the message ("Working"), in its tone. */
+  tag?: { label: ReactNode; tone?: TagTone };
   /** Figma "Show icon". Off drops the icon column. */
   showIcon?: boolean;
   /** Figma "Show action". The first action, the small secondary Button (white, grey edge, ink label; 32 plate, 44 hit; as Figma draws it). Missing = off. */
@@ -56,13 +59,15 @@ const TONE_WORD: Record<NotificationTone, string> = {
 
 /**
  * A message that stays on the page until it is resolved or closed (Toast is
- * for ones that come and go). Soft status fill, no border; icon in its own
- * column; title and message on one left edge; actions on the right, centred
- * on the text; close top right, in the flow.
+ * for ones that come and go). As published 21 Nov (951:4124): soft status
+ * fill, no border; the status bar at the left (showIcon brings back the
+ * older icon column); title 20 regular, message subtle, an optional line
+ * Tag, on one left edge; actions on the right; close top right, in the flow.
  */
 export default function Notification({
   message,
-  showIcon = true,
+  tag,
+  showIcon = false,
   action,
   title,
   secondAction,
@@ -96,7 +101,11 @@ export default function Notification({
               <Icon name={icon ?? DEFAULT_ICON[tone]} size="md" />
             </span>
           </span>
-        ) : null}
+        ) : (
+          /* Figma Status bar (21 Nov publish; her 20 Nov rule: status as a
+             short rounded bar at the left, not an icon) */
+          <span className={styles.bar} aria-hidden="true" />
+        )}
         <div className={styles.text}>
           {title != null ? (
             <p className={styles.title}>
@@ -105,6 +114,13 @@ export default function Notification({
             </p>
           ) : null}
           {message != null ? <p className={styles.message}>{message}</p> : null}
+          {tag != null ? (
+            <span className={styles.tag}>
+              <Tag variant="line" tone={tag.tone ?? 'default'}>
+                {tag.label}
+              </Tag>
+            </span>
+          ) : null}
         </div>
         {actions.length ? (
           <div className={styles.actions}>

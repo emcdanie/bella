@@ -26,25 +26,38 @@
 }
 
 .noIcon {
-  grid-template-columns: minmax(0, 1fr) auto auto;
-  grid-template-areas: 'text actions close';
+  grid-template-columns: var(--spacing-4) minmax(0, 1fr) auto auto;
+  grid-template-areas: 'icon text actions close';
+}
+
+/* Figma Status bar: 4 wide, round, the full height of the text, in the
+   tone's edge colour */
+.bar {
+  grid-area: icon;
+  align-self: stretch;
+  border-radius: var(--border-radius-round);
+  background: var(--notification-edge);
 }
 
 .info {
   background: var(--color-background-utility-info);
   --notification-ink: var(--color-content-utility-info);
+  --notification-edge: var(--color-border-utility-info);
 }
 .success {
   background: var(--color-background-utility-success);
   --notification-ink: var(--color-content-utility-success);
+  --notification-edge: var(--color-border-utility-success);
 }
 .attention {
   background: var(--color-background-utility-warning);
   --notification-ink: var(--color-content-utility-warning);
+  --notification-edge: var(--color-border-utility-warning);
 }
 .danger {
   background: var(--color-background-utility-error);
   --notification-ink: var(--color-content-utility-error);
+  --notification-edge: var(--color-border-utility-error);
 }
 
 /* 4 on top and a 24 slot, so the 20 glyph centres on the 24 title line */
@@ -71,6 +84,10 @@
   flex-direction: column;
   gap: var(--spacing-4);
   min-inline-size: 0;
+}
+
+/* the older icon column lines its glyph up with a 4 lower text block */
+.row:not(.noIcon) .text {
   padding-block-start: var(--spacing-4);
 }
 
@@ -84,7 +101,10 @@
 }
 
 .title {
-  font-weight: var(--typography-font-weight-600);
+  /* 21 Nov publish: Title 20 regular, on a 30 line */
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
   color: var(--color-content-default);
 }
 
@@ -143,4 +163,10 @@
   .actions {
     flex-wrap: wrap;
   }
+}
+
+/* Show tag (21 Nov publish): a line Tag under the message, 4 below it, on
+   the text column's left edge */
+.tag {
+  display: flex;
 }

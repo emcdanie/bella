@@ -65,9 +65,15 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
     if (!list || !tab || list.scrollWidth <= list.clientWidth) return;
     const start = tab.getBoundingClientRect().left - list.getBoundingClientRect().left + list.scrollLeft;
     const end = start + tab.offsetWidth;
-    if (start < list.scrollLeft) list.scrollLeft = start;
-    else if (end > list.scrollLeft + list.clientWidth) list.scrollLeft = end - list.clientWidth;
-  }, [value, tabs, more.start, more.end]);
+    /* clear of the fades too: the list's scroll padding at each end */
+    const cs = getComputedStyle(list);
+    const padStart = parseFloat(cs.scrollPaddingInlineStart) || 0;
+    const padEnd = parseFloat(cs.scrollPaddingInlineEnd) || 0;
+    if (start < list.scrollLeft + padStart) list.scrollLeft = start - padStart;
+    else if (end > list.scrollLeft + list.clientWidth - padEnd) list.scrollLeft = end - list.clientWidth + padEnd;
+    /* again once the chevrons appear at all (they narrow the list), not each time one end's chevron comes
+       or goes: that pulled the row back to the selected tab on the first "More tabs" (21 Nov) */
+  }, [value, tabs, more.start || more.end]);
 
   /* Her pick, 20 Nov ("B · chevron button", as Carbon): when the tabs are
    * wider than their space, a 44 tertiary chevron sits at each end that has

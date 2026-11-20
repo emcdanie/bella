@@ -45,6 +45,13 @@
   margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
   padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
   overflow-x: auto;
+  /* a tab comes to rest whole at the start: it sits where the first tab sits
+     (the ring's room), the one before shows at most its own empty side, and
+     the start fade (16) covers only empty sides, never a label or a count (a
+     count Tag read as a clipped box at 375, 21 Nov). The end keeps its 24 fade
+     as the cue. */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: calc(var(--focus-ring-width) + var(--focus-ring-offset)) var(--spacing-24);
 }
 
 /* A short fade where the row goes on, under the chevron (as Carbon). A mask,
@@ -54,12 +61,12 @@
   mask-image: linear-gradient(to right, #000 calc(100% - var(--spacing-24)), transparent);
 }
 .list[data-more-start] {
-  -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-24)), transparent);
-  mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-24)), transparent);
+  -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-16)), transparent);
+  mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-16)), transparent);
 }
 .list[data-more-start][data-more-end] {
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--spacing-24), #000 calc(100% - var(--spacing-24)), transparent);
-  mask-image: linear-gradient(to right, transparent, #000 var(--spacing-24), #000 calc(100% - var(--spacing-24)), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--spacing-16), #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--spacing-16), #000 calc(100% - var(--spacing-24)), transparent);
 }
 
 /* the chevron at an end that has more tabs (her pick B, 20 Nov) */
@@ -70,6 +77,7 @@
 
 .tab {
   position: relative;
+  scroll-snap-align: start;
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);

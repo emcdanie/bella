@@ -157,3 +157,50 @@ export const ChipThemes: Story = {
     </div>
   ),
 };
+
+const WORK_PANEL = [
+  { id: 'chat', label: 'Chat', count: 3 },
+  { id: 'sessions', label: 'Sessions', count: 6 },
+  { id: 'changes', label: 'Changes', count: 12 },
+  { id: 'checks', label: 'Checks', count: 5 },
+  { id: 'notes', label: 'Notes', count: 2 },
+];
+
+/** At 375 (the Work panel's tab row, 21 Nov): the row scrolls and snaps, so a tab comes to rest whole at the
+ * start edge; the start fade covers only that tab's empty side, never a label or a count Tag. */
+export const NarrowWithCounts: Story = {
+  render: () => (
+    <div style={{ inlineSize: 'calc(var(--spacing-80) * 4 + var(--spacing-48) + var(--spacing-8) - var(--spacing-32))' }}>
+      <Harness tabs={WORK_PANEL} idBase="narrow" label="Work panel" />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    const list = canvasElement.querySelector('[role="tablist"]') as HTMLElement;
+    /* a tab that crosses the start edge may show only its own empty side (16), never its label or count */
+    const side = parseFloat(getComputedStyle(list.querySelector('[role="tab"]')!).paddingInlineEnd);
+    const clearOfFade = () => {
+      const l = list.getBoundingClientRect();
+      for (const tab of list.querySelectorAll<HTMLElement>('[role="tab"]')) {
+        const r = tab.getBoundingClientRect();
+        if (r.left < l.left - 0.5 && r.right - l.left > side + 0.5) return `${tab.textContent} rests cut at the start edge`;
+      }
+      return null;
+    };
+    await step('the row scrolls at this width', async () => {
+      await expect(list.scrollWidth).toBeGreaterThan(list.clientWidth);
+    });
+    await step('More tabs: the row rests with no tab half under the fade', async () => {
+      await userEvent.click(await waitFor(() => canvas.getByRole('button', { name: 'More tabs' })));
+      await waitFor(() => expect(list.scrollLeft).toBeGreaterThan(0), { timeout: 2000 });
+      await new Promise((r) => setTimeout(r, 600));
+      await expect(list.scrollLeft).toBeGreaterThan(0);
+      await expect(clearOfFade()).toBeNull();
+    });
+    await step('a swipe that stops mid-tab snaps to a whole tab', async () => {
+      list.scrollTo({ left: 150, behavior: 'instant' as ScrollBehavior });
+      await new Promise((r) => setTimeout(r, 600));
+      await expect(list.scrollLeft).toBeGreaterThan(0);
+      await expect(clearOfFade()).toBeNull();
+    });
+  },
+};

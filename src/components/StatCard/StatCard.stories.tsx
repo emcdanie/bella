@@ -136,6 +136,27 @@ export const OnePattern: Story = {
   },
 };
 
+/** A caption too long to share the footer line with its button, 330 wide: the caption takes the line and the button moves under it, at the right edge. */
+export const LongCaption: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Lowest contrast" value="0" unit="of 44" context="No pairs measured yet" caption="Runs after the next gate on main" chart="empty" tone="neutral" icon="Activity" href="#e" button={<Button variant="secondary" size="sm">Compare</Button>} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = canvasElement.querySelector<HTMLElement>('[data-bella-component="stat-card"]')!;
+    const caption = card.querySelector<HTMLElement>('[class*="caption"]')!;
+    const button = card.querySelector<HTMLElement>('button')!;
+    const c = caption.getBoundingClientRect();
+    const b = button.getBoundingClientRect();
+    const k = card.getBoundingClientRect();
+    // caption on one line, button under it at the right edge (24 padding)
+    await expect(Math.round(c.height)).toBe(24);
+    await expect(b.top).toBeGreaterThanOrEqual(c.bottom);
+    await expect(Math.round(k.right - b.right)).toBe(24);
+  },
+};
+
 /** The header row is one link with the ↗; nothing else is a target. */
 export const Behavior: Story = {
   play: async ({ canvas, step }) => {

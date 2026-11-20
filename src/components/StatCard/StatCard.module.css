@@ -125,4 +125,14 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-12);
+  /* A caption too long to sit beside the button takes the whole line and
+     the button moves under it, still at the right edge (buttons sit on the
+     right), instead of the caption wrapping in a narrow column beside it
+     (about 330 wide, 21 Nov). Figma's caption hugs one line, so a caption
+     that fits looks as published. */
+  flex-wrap: wrap;
+}
+
+.footer > :last-child:not(:first-child) {
+  margin-inline-start: auto;
 }

@@ -84,6 +84,32 @@
   border-end-start-radius: var(--border-radius-card);
   border-end-end-radius: var(--border-radius-card);
   list-style: none;
+  /* A full lane scrolls, and then the box's foot cuts the shadow of the
+     last card in view (Chip dark, 1024+: 1.7% ink, 34 under card 2). While
+     there is more to scroll, the 24 of room past the lane's foot fades out
+     instead, the way Tabs fades its edge; the fade lifts over the last 4 of
+     the scroll, and when nothing scrolls (the timeline is inactive) there is
+     none, so a lane that fits looks as published. */
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
+  mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
+  animation: laneFade linear both;
+  animation-timeline: scroll(self block);
+  animation-range: calc(100% - var(--spacing-4)) 100%;
+}
+
+@property --board-lane-fade {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes laneFade {
+  from {
+    --board-lane-fade: var(--spacing-24);
+  }
+  to {
+    --board-lane-fade: 0px;
+  }
 }
 
 .item {

@@ -12,6 +12,7 @@
 }
 
 .slot {
+  position: relative;
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -22,6 +23,7 @@
 
 .dot {
   box-sizing: border-box;
+  transition: background-color var(--motion-duration-250) var(--motion-easing-standard);
   inline-size: var(--spacing-12);
   block-size: var(--spacing-12);
   border-radius: var(--border-radius-round);
@@ -94,4 +96,41 @@
 }
 .attention .dot {
   border: var(--border-width-1) solid var(--color-border-utility-warning);
+}
+
+/* A status change (item 7, 21 Nov): the wash and the mark fade to the new
+   tone, and a ring in the new wash grows out from the halo once and fades.
+   Reduced motion: the new colour at once, no ring. */
+.wash {
+  transition: background-color var(--motion-duration-250) var(--motion-easing-standard);
+}
+
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-round);
+  background: inherit;
+  pointer-events: none;
+  animation: haloGrow var(--motion-duration-450) var(--motion-easing-out) both;
+}
+
+@keyframes haloGrow {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .wash {
+    transition: none;
+  }
+  .pulse {
+    display: none;
+  }
 }

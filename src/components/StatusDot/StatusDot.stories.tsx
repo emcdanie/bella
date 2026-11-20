@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import StatusDot from './StatusDot';
 import cssRaw from './StatusDot.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -90,6 +91,41 @@ export const Behavior: Story = {
     await step('non-interactive, word still readable by assistive tech', async () => {
       expect(canvas.queryAllByRole('button')).toHaveLength(0);
       expect(canvas.getByText('Broken')).toBeInTheDocument();
+    });
+  },
+};
+
+function ChangeDemo() {
+  const [passing, setPassing] = React.useState(false);
+  return (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <StatusDot tone={passing ? 'success' : 'danger'} label={passing ? 'Passing' : 'Failing'} />
+      <Button variant="secondary" size="sm" onClick={() => setPassing((p) => !p)}>
+        Change status
+      </Button>
+    </div>
+  );
+}
+
+/** A status change (rule "Motion that shows what happened", item 7): the colour fades to the new tone
+ * and the halo grows out once. Nothing moves on first paint. Reduced motion: the new colour at once. */
+export const StatusChange: Story = {
+  render: () => <ChangeDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pulse = () => canvasElement.querySelector('[data-bella-pulse]') as HTMLElement | null;
+    await step('first paint: no ring', async () => {
+      await expect(pulse()).toBeNull();
+    });
+    await step(reduced ? 'reduced motion: the new word and colour, no ring' : 'a change grows the halo once', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Change status' }));
+      await expect(canvas.getByText('Passing')).toBeInTheDocument();
+      if (reduced) return;
+      const p = pulse()!;
+      await expect(getComputedStyle(p).animationName).toMatch(/haloGrow/);
+      await expect(getComputedStyle(p).animationIterationCount).toBe('1');
+      await Promise.all(p.getAnimations().map((a) => a.finished));
+      await waitFor(() => expect(Number(getComputedStyle(p).opacity)).toBe(0));
     });
   },
 };

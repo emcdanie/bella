@@ -1,4 +1,4 @@
-import React, { type CSSProperties, type ReactNode } from 'react';
+import React, { useRef, type CSSProperties, type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
 import styles from './StatusDot.module.css';
 
@@ -35,10 +35,16 @@ export default function StatusDot({
   style,
 }: StatusDotProps) {
   const cls = [styles.root, styles[tone], className].filter(Boolean).join(' ');
+  /* A status change (rule "Motion that shows what happened", item 7): the
+   * colour fades to the new tone and the halo grows out once. A pulse keyed
+   * on the tone plays once per change, never on first paint. */
+  const firstTone = useRef(tone);
+  const changed = tone !== firstTone.current;
   return (
     <span className={cls} style={style} data-bella-component="status-dot">
       {showDot ? (
         <span className={[styles.slot, showWash ? styles.wash : ''].filter(Boolean).join(' ')} aria-hidden="true">
+          {changed && showWash ? <span key={tone} className={styles.pulse} data-bella-pulse="" /> : null}
           {mark === 'check' ? <Icon name="Check" size="sm" className={styles.check} /> : <span className={styles.dot} />}
         </span>
       ) : null}

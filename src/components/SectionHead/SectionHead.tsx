@@ -63,7 +63,7 @@ export default function SectionHead({
     <div className={[styles.root, size === 'card' ? styles.card : '', className].filter(Boolean).join(' ')} style={style} data-bella-component="section-head">
       {icon ? <IconWell icon={icon} tone={iconTone} /> : null}
       <TextStack
-        className={styles.column}
+        className={[styles.column, descriptionOn ? '' : styles.titleOnly].filter(Boolean).join(' ')}
         title={
           <span className={styles.titleRow}>
             <span className={styles.title} role={titleLevel ? 'heading' : undefined} aria-level={titleLevel || undefined}>

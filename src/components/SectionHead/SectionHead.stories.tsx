@@ -106,3 +106,31 @@ export const Behavior: Story = {
     expect(canvas.getByRole('heading', { level: 2, name: 'Library' })).toBeInTheDocument();
   },
 };
+
+/** No description: the action stays on the title line while both fit (Components' History card, 336 wide
+ * with 24 sides, 21 Nov); with a description the text keeps its 12rem so it is never squeezed thin. */
+export const ActionStaysBeside: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-32)', padding: 'var(--spacing-24)' }}>
+      <div data-case="title-only" style={{ inlineSize: 'calc(var(--spacing-80) * 3 + var(--spacing-48))' }}>
+        <SectionHead title="History" action={<Button variant="tertiary" size="sm" icon="NavArrowRight">See all 36</Button>} />
+      </div>
+      <div data-case="with-description" style={{ inlineSize: 'calc(var(--spacing-80) * 3 + var(--spacing-48))' }}>
+        <SectionHead title="History" description="Every merged change to this part, newest first." action={<Button variant="tertiary" size="sm" icon="NavArrowRight">See all 36</Button>} />
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const box = (c: string) => {
+      const root = canvasElement.querySelector(`[data-case="${c}"]`)!;
+      const title = root.querySelector('[class*="title"]')!.getBoundingClientRect();
+      const action = root.querySelector('[data-bella-component="button"]')!.getBoundingClientRect();
+      return { title, action };
+    };
+    const t = box('title-only');
+    await expect(t.action.top).toBeLessThan(t.title.bottom);
+    await expect(t.action.left).toBeGreaterThanOrEqual(t.title.right);
+    const d = box('with-description');
+    await expect(d.action.top).toBeGreaterThanOrEqual(d.title.top);
+  },
+};

@@ -133,3 +133,34 @@ export const AskAndDraft: Story = {
     await expect(c.getByText("Claude's draft · edit before sending")).toBeInTheDocument();
   },
 };
+
+/** A reaction lands like iMessage (rules/ask-bella-and-chat.md, 19 Nov): the tapback pops onto the
+ * corner and six dots in the reaction colours burst out once and fade. Reduced motion: no burst, the
+ * reaction is simply there. No Replay. */
+export const ReactionBurst: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', maxWidth: 320 }}>
+      <ChatBubble side="received" tail tapback="👍">
+        Gate passed, all 44 parts.
+      </ChatBubble>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const tapback = canvasElement.querySelector('[class*="tapback"]') as HTMLElement;
+    const sparks = [...tapback.querySelectorAll('[class*="spark"]')] as HTMLElement[];
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await step('six dots, hidden from assistive tech with the tapback', async () => {
+      await expect(sparks.length).toBe(6);
+      await expect(tapback).toHaveAttribute('aria-hidden', 'true');
+    });
+    await step(reduced ? 'reduced motion: no burst' : 'the burst plays once and is gone', async () => {
+      if (reduced) {
+        await expect(getComputedStyle(sparks[0].parentElement!).display).toBe('none');
+        return;
+      }
+      await expect(getComputedStyle(sparks[0]).animationIterationCount).toBe('1');
+      await Promise.all(sparks.flatMap((s) => s.getAnimations().map((a) => a.finished)));
+      for (const s of sparks) await expect(Number(getComputedStyle(s).opacity)).toBe(0);
+    });
+  },
+};

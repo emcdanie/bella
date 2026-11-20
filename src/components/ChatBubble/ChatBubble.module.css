@@ -177,6 +177,46 @@
   right: calc(-1 * var(--spacing-12));
 }
 
+/* Reaction burst (rules/ask-bella-and-chat.md, 19 Nov: "reactions ... pop
+   onto the bubble with a small burst"): six dots in the reaction colours fly
+   out from the tapback's centre and fade, once, as it lands. No pink (pink
+   is her bubbles and annotation). Reduced motion: no burst at all; the
+   reaction is simply there. */
+.burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  margin: calc(var(--spacing-4) / -2);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-utility-info);
+  opacity: 0;
+  rotate: calc(var(--i) * 60deg);
+  animation: spark var(--motion-duration-450) var(--motion-easing-out) var(--motion-duration-150) forwards; /* hidden until the tapback lands */
+}
+
+.spark:nth-child(3n + 2) { background: var(--color-border-utility-warning); }
+.spark:nth-child(3n + 3) { background: var(--color-border-utility-success); }
+
+@keyframes spark {
+  /* from the tapback's edge, never over the emoji, out to twice that */
+  0% {
+    transform: translateY(calc(var(--spacing-16) * -1)) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(calc(var(--spacing-32) * -1)) scale(0.5);
+    opacity: 0;
+  }
+}
+
 @keyframes bubblePop {
   0% {
     transform: scale(0.35) translateY(14px);
@@ -208,5 +248,8 @@
   .bigEmoji,
   .tapback {
     animation: none;
+  }
+  .burst {
+    display: none;
   }
 }

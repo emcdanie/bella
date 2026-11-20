@@ -99,6 +99,12 @@ export default function ChatBubble({
         {tapback && (
           <span className={[styles.tapback, isSent ? styles.tapbackSent : styles.tapbackReceived].join(' ')} aria-hidden="true">
             {tapback}
+            {/* the small burst as the reaction lands (iMessage, 19 Nov): six dots fly out once */}
+            <span className={styles.burst}>
+              {[0, 1, 2, 3, 4, 5].map((i) => (
+                <span key={i} className={styles.spark} style={{ '--i': i } as React.CSSProperties} />
+              ))}
+            </span>
           </span>
         )}
       </div>

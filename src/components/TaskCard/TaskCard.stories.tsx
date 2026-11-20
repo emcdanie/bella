@@ -186,3 +186,54 @@ export const Lift: Story = {
     });
   },
 };
+
+function AcceptUndoDemo() {
+  const [phase, setPhase] = React.useState<'here' | 'leaving' | 'gone' | 'back'>('here');
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', alignContent: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)', minBlockSize: 'calc(var(--spacing-80) * 3)' }}>
+      {phase !== 'gone' ? (
+        <TaskCard
+          title="Figma check"
+          line="No file key in server/.env"
+          status="Ready"
+          statusTone="success"
+          entering={phase === 'back'}
+          leaving={phase === 'leaving'}
+          onLeft={() => setPhase('gone')}
+          style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }}
+        />
+      ) : null}
+      {phase === 'gone' ? (
+        <Button variant="secondary" size="sm" onClick={() => setPhase('back')}>
+          Undo
+        </Button>
+      ) : (
+        <Button variant="primary" size="sm" onClick={() => setPhase('leaving')}>
+          Accept
+        </Button>
+      )}
+    </div>
+  );
+}
+
+/** Accept and Undo (rule "Motion that shows what happened", items 4 and 6): Accept slides the card
+ * out to the right and it is removed when it has left; Undo brings it back with the pop-in a new card
+ * uses. Reduced motion: it goes and comes back at once. */
+export const AcceptAndUndo: Story = {
+  render: () => <AcceptUndoDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const card = () => canvasElement.querySelector('[data-bella-component="task-card"]') as HTMLElement | null;
+    await step(reduced ? 'Accept: gone at once' : 'Accept: it slides out, then it is gone', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Accept' }));
+      if (!reduced && card()) await expect(getComputedStyle(card()!).animationName).toMatch(/taskLeave/);
+      await waitFor(() => expect(card()).toBeNull());
+    });
+    await step(reduced ? 'Undo: back at once' : 'Undo: it pops back in, once', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Undo' }));
+      await waitFor(() => expect(card()).not.toBeNull());
+      await expect(getComputedStyle(card()!).animationName).toMatch(reduced ? /^none$/ : /taskEnter/);
+      if (!reduced) await expect(getComputedStyle(card()!).animationIterationCount).toBe('1');
+    });
+  },
+};

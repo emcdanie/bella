@@ -57,9 +57,39 @@
   scale: 1.02;
 }
 
+/* Arrives and leaves (items 4 and 6, 21 Nov): a new or restored card pops
+   in once; an accepted card slides out to the right and fades. Reduced
+   motion: no movement (the page removes a leaving card at once). */
+.entering {
+  animation: taskEnter var(--motion-duration-250) var(--motion-easing-pop) backwards;
+}
+
+.leaving {
+  animation: taskLeave var(--motion-duration-250) var(--motion-easing-standard) forwards;
+  pointer-events: none;
+}
+
+@keyframes taskEnter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-8)) scale(0.96);
+  }
+}
+
+@keyframes taskLeave {
+  to {
+    opacity: 0;
+    transform: translateX(var(--spacing-24));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card {
     transition: none;
+  }
+  .entering,
+  .leaving {
+    animation: none;
   }
 }
 

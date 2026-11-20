@@ -1,4 +1,4 @@
-import React, { type CSSProperties, type DragEventHandler, type ReactNode } from 'react';
+import React, { useEffect, type CSSProperties, type DragEventHandler, type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
 import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
@@ -34,6 +34,21 @@ export interface TaskCardProps {
   draggable?: boolean;
   onDragStart?: DragEventHandler<HTMLElement>;
   onDragEnd?: DragEventHandler<HTMLElement>;
+  /**
+   * Arrives (rule "Motion that shows what happened", items 4 and 6): a new
+   * card in Needs you, or one Undo brings back, pops in once on
+   * motion/duration/250 and motion/easing/pop. Set it only on the card that
+   * is new, never on first load. Reduced motion: it is simply there.
+   */
+  entering?: boolean;
+  /**
+   * Leaves (item 6, Accept): the card slides out to the right and fades on
+   * motion/duration/250, then onLeft runs so the page removes it. Reduced
+   * motion: onLeft runs at once.
+   */
+  leaving?: boolean;
+  /** Called once the card has left. Remove it then. */
+  onLeft?: () => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -58,11 +73,17 @@ export default function TaskCard({
   draggable,
   onDragStart,
   onDragEnd,
+  entering = false,
+  leaving = false,
+  onLeft,
   className,
   style,
 }: TaskCardProps) {
   const opens = href != null || onOpen != null;
-  const cls = [styles.card, opens ? styles.opens : '', dragging ? styles.dragging : '', className]
+  useEffect(() => {
+    if (leaving && window.matchMedia('(prefers-reduced-motion: reduce)').matches) onLeft?.();
+  }, [leaving, onLeft]);
+  const cls = [styles.card, opens ? styles.opens : '', dragging ? styles.dragging : '', entering ? styles.entering : '', leaving ? styles.leaving : '', className]
     .filter(Boolean)
     .join(' ');
 
@@ -85,6 +106,9 @@ export default function TaskCard({
       style={style}
       data-bella-component="task-card"
       data-state={dragging ? 'dragging' : 'default'}
+      onAnimationEnd={(e) => {
+        if (leaving && e.target === e.currentTarget) onLeft?.();
+      }}
       draggable={draggable}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}

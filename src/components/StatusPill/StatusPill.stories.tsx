@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import StatusPill from './StatusPill';
 import pillCssRaw from './StatusPill.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -142,6 +143,38 @@ export const Behavior: Story = {
       const el = canvas.getByText('Current focus');
       expect(el).not.toHaveAttribute('tabindex');
       expect(getComputedStyle(el).cursor).toBe('default');
+    });
+  },
+};
+
+function ChangeDemo() {
+  const [merged, setMerged] = React.useState(false);
+  return (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <StatusPill variant={merged ? 'success' : 'attention'}>{merged ? 'Merged' : 'In review'}</StatusPill>
+      <Button variant="secondary" size="sm" onClick={() => setMerged((m) => !m)}>
+        Change status
+      </Button>
+    </div>
+  );
+}
+
+/** A status change (rule "Motion that shows what happened", item 7): the pill fades to its new tone,
+ * once, on motion/duration/250. Reduced motion: the new tone at once. */
+export const StatusChange: Story = {
+  render: () => <ChangeDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pill = () => canvasElement.querySelector('[data-bella-component="status-pill"]') as HTMLElement;
+    await step(reduced ? 'reduced motion: no fade' : 'the colour fades on the motion token', async () => {
+      const ms = parseFloat(getComputedStyle(pill()).transitionDuration) * (getComputedStyle(pill()).transitionDuration.endsWith('ms') ? 1 : 1000);
+      await expect(ms).toBe(reduced ? 0 : 250);
+    });
+    await step('a change shows the new word and tone', async () => {
+      const before = getComputedStyle(pill()).borderColor;
+      await userEvent.click(canvas.getByRole('button', { name: 'Change status' }));
+      await expect(pill()).toHaveTextContent('Merged');
+      await waitFor(() => expect(getComputedStyle(pill()).borderColor).not.toBe(before), { timeout: 2000 });
     });
   },
 };

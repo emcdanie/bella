@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import Input from './Input';
+import Button from '../Button/Button';
 import inputCssRaw from './Input.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -227,5 +228,46 @@ export const FieldCorners: Story = {
     const probe = canvasElement.querySelector('[data-probe]') as HTMLElement;
     const field = canvasElement.querySelector('input')!.closest('[class*="field"]') as HTMLElement ?? canvasElement.querySelector('input')!;
     await expect(getComputedStyle(field).borderTopLeftRadius).toBe(getComputedStyle(probe).borderTopLeftRadius);
+  },
+};
+
+/** Menu slot (Figma Input 149:107): a control at the start of the field, the model picker here, then a
+ * 1×24 divider in border/strong before the text; Send at the end. */
+export const WithMenu: Story = {
+  render: () => {
+    const [v, setV] = useState('');
+    return (
+      <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 7)' }}>
+        <Input
+          label="Message"
+          value={v}
+          onChange={setV}
+          placeholder="Ask about BELLA"
+          menu={<Button variant="tertiary" size="sm" label="Sonnet" icon="NavArrowDown" ariaLabel="Model: Sonnet" />}
+          onSend={() => {}}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement, canvas, step }) => {
+    const input = canvas.getByRole('textbox', { name: 'Message' });
+    const model = canvas.getByRole('button', { name: 'Model: Sonnet' });
+    const divider = canvasElement.querySelector('[class*="divider"]') as HTMLElement;
+    await step('menu, then divider, then the text', async () => {
+      await expect(model.getBoundingClientRect().right).toBeLessThanOrEqual(divider.getBoundingClientRect().left);
+      await expect(divider.getBoundingClientRect().right).toBeLessThanOrEqual(input.getBoundingClientRect().left);
+    });
+    await step('the divider is 1×24', async () => {
+      await expect(Math.round(divider.getBoundingClientRect().width)).toBe(1);
+      await expect(Math.round(divider.getBoundingClientRect().height)).toBe(24);
+    });
+    await step('the menu control keeps its 44 target (the sm plate is 32; its target is the 44 around it)', async () => {
+      const r = model.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      for (const [dx, dy] of [[-21, 0], [21, 0], [0, -21], [0, 21]]) {
+        await expect(model.contains(document.elementFromPoint(cx + dx, cy + dy))).toBe(true);
+      }
+    });
   },
 };

@@ -26,6 +26,9 @@ export interface InputProps {
   id?: string;
   /** Figma "Leading icon" (+ the icon swap): a 20 icon at the start of the field, subtle ink. Missing = off. */
   leadingIcon?: IconName;
+  /** Figma "Menu" (Input 149:107): a control at the start of the field, such as the model picker (a Menu
+   * trigger Button). A 1×24 border/strong divider follows it, before the text. Missing = off. */
+  menu?: ReactNode;
   /** Figma "Send button": the small primary icon-only Button (32 plate, 44 hit area) inside the field at its end. Missing = off. Enter in a single-line field sends too. */
   onSend?: () => void;
   /** The Send button's name (and its tooltip words). */
@@ -55,6 +58,7 @@ export default function Input({
   leadingIcon,
   onSend,
   sendLabel = 'Send',
+  menu,
   className,
 }: InputProps) {
   const autoId = useId();
@@ -91,11 +95,17 @@ export default function Input({
         {label}
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
-      {leadingIcon || onSend ? (
+      {leadingIcon || onSend || menu ? (
         /* Figma Field with zones: Leading icon, Value, Send button, 8 apart.
            The box carries the edge, corner and focus ring; the native control
            inside is bare. Without these props the field renders as before. */
-        <div className={[styles.box, disabled ? styles.boxDisabled : ''].filter(Boolean).join(' ')}>
+        <div className={[styles.box, menu ? styles.boxMenu : '', disabled ? styles.boxDisabled : ''].filter(Boolean).join(' ')}>
+          {menu ? (
+            <>
+              <span className={styles.menu}>{menu}</span>
+              <span className={styles.divider} aria-hidden="true" />
+            </>
+          ) : null}
           {leadingIcon ? <Icon name={leadingIcon} size="md" className={styles.leading} /> : null}
           {multiline ? (
             <textarea {...shared} className={styles.bare} rows={5} />

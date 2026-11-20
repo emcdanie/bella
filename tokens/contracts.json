@@ -1968,6 +1968,7 @@
             "onClose",
             "label",
             "side",
+            "size",
             "children",
             "status",
             "className",
@@ -1982,7 +1983,7 @@
             "Do not open it without a visible trigger: focus has to return somewhere",
             "Do not dim content inside the panel: the scrim covers the page, never the drawer"
           ],
-          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion.",
+          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it.",
           "restState": {
             "description": "Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.",
             "atRest": [
@@ -1999,7 +2000,7 @@
             ],
             "invariants": []
           },
-          "figma": "Matched to the published BellaComponents Drawer (172:622) on 19 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft. Edge (one side) waits on her pick.",
+          "figma": "Matched to the published BellaComponents Drawer (172:622) on 19 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft. Edge (one side) waits on her pick. size lg (640 from 768, full width on a phone) follows CHIP · Dashboard Flow 12 (791:264033, 791:264846); the library Drawer has 320 only: a size variant is due there.",
           "figmaProps": {
             "Label": "label",
             "side": "side",

@@ -143,6 +143,34 @@
   padding: var(--spacing-24);
 }
 
+/* A scrolling body takes focus (Chrome makes it a tab stop): BELLA's ring,
+   4 wide, drawn 4 inside the body so the panel edge never clips it. */
+.body:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc((var(--focus-ring-width) + var(--focus-ring-offset)) * -1);
+}
+
+/* size lg (CHIP · Dashboard Flow 12): the full width on a phone, 640 from a
+   768 window. 640 is eight of the 80 step; no drawer-width token yet. */
+.drawer[data-size='lg'] {
+  inline-size: 100vw;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .drawer[data-size='lg'] {
+    inline-size: min(100vw, calc(var(--spacing-80) * 8));
+    border-start-end-radius: var(--border-radius-card);
+    border-end-end-radius: var(--border-radius-card);
+  }
+  .drawer[data-size='lg'][data-side='right'] {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-start-start-radius: var(--border-radius-card);
+    border-end-start-radius: var(--border-radius-card);
+  }
+}
+
 .footer {
   display: flex;
   flex-wrap: wrap;

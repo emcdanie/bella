@@ -45,7 +45,7 @@ const GROUPS = [
   },
 ];
 
-function Harness({ startOpen = false, side, withFooter = false, status }: { startOpen?: boolean; side?: 'left' | 'right'; withFooter?: boolean; status?: string }) {
+function Harness({ startOpen = false, side, size, withFooter = false, status, tall = false }: { startOpen?: boolean; side?: 'left' | 'right'; size?: 'sm' | 'lg'; withFooter?: boolean; status?: string; tall?: boolean }) {
   const [open, setOpen] = useState(startOpen);
   const [closes, setCloses] = useState(0);
   return (
@@ -62,6 +62,7 @@ function Harness({ startOpen = false, side, withFooter = false, status }: { star
         }}
         label="Navigation"
         side={side}
+        size={size}
         status={status}
         footer={
           withFooter ? (
@@ -77,6 +78,7 @@ function Harness({ startOpen = false, side, withFooter = false, status }: { star
         }
       >
         <NavList label="Sections" groups={GROUPS} onToggle={() => {}} footer="BELLA v0.4.0" />
+        {tall ? <div aria-hidden="true" style={{ blockSize: 'calc(var(--spacing-80) * 20)' }} /> : null}
       </Drawer>
     </div>
   );
@@ -175,6 +177,37 @@ export const SlidesOut: Story = {
       await waitFor(() => expect(dialog().open).toBe(false));
       await expect(dialog().dataset.closing).toBeUndefined();
       await expect(document.activeElement).toBe(trigger);
+    });
+  },
+};
+
+/** size="lg" (CHIP · Dashboard Flow 12, a session's run and the terminal): 640 from a 768 window, the
+ * full width on a phone. A body that scrolls is a named region: Tab reaches it, it shows BELLA's ring
+ * (4 wide, drawn inside so the panel never clips it) and the arrow keys scroll it. */
+export const Large: Story = {
+  render: () => <Harness size="lg" withFooter tall />,
+  play: async ({ canvas, step }) => {
+    const dialog = () => document.querySelector('dialog[data-bella-component="drawer"]') as HTMLDialogElement;
+    await userEvent.click(canvas.getByRole('button', { name: 'Open menu' }));
+    await waitFor(() => expect(dialog().open).toBe(true));
+    await step('640 from a 768 window, else the full width', async () => {
+      const w = dialog().getBoundingClientRect().width;
+      const vw = document.documentElement.clientWidth;
+      await expect(Math.round(w)).toBe(window.innerWidth >= 768 ? Math.min(640, vw) : Math.round(window.innerWidth));
+    });
+    await step('the scrolling body is a named region with BELLA\'s ring', async () => {
+      const body = within(dialog()).getByRole('region', { name: 'Navigation: content' });
+      await expect(body.scrollHeight).toBeGreaterThan(body.clientHeight);
+      body.focus();
+      const cs = getComputedStyle(body);
+      await expect(parseFloat(cs.outlineWidth)).toBe(4);
+      await expect(parseFloat(cs.outlineOffset)).toBe(-8);
+    });
+    await step('Tab reaches the scrolling body, so the keyboard can scroll it', async () => {
+      const body = within(dialog()).getByRole('region', { name: 'Navigation: content' });
+      within(dialog()).getByRole('button', { name: 'Close' }).focus();
+      for (let i = 0; i < 12 && document.activeElement !== body; i++) await userEvent.tab();
+      await expect(document.activeElement).toBe(body);
     });
   },
 };

@@ -11,6 +11,12 @@ export interface DrawerProps {
   label: string;
   /** The edge it slides from: left for navigation (default), right for a tool panel. */
   side?: 'left' | 'right';
+  /**
+   * Width. sm (default): 320, for navigation and filters (BellaComponents Drawer).
+   * lg: 640 from a 768 window, the full width on a phone, for a session's run
+   * or the terminal (CHIP · Dashboard Flow 12, 791:264033 and 791:264846).
+   */
+  size?: 'sm' | 'lg';
   /** The drawer's content (a NavList, filters, settings). */
   children?: ReactNode;
   /** Figma "Show status" + "Status": one line under the title ("Checks ran 2 min ago"). Missing = off. */
@@ -27,12 +33,15 @@ export interface DrawerProps {
  * it is open, so focus stays inside; Esc closes it; focus goes back to
  * whatever opened it.
  */
-export default function Drawer({ open, onClose, label, side = 'left', children, status, footer, className }: DrawerProps) {
+export default function Drawer({ open, onClose, label, side = 'left', size = 'sm', children, status, footer, className }: DrawerProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
   const titleId = useId();
+  /* the body is a tab stop only while it scrolls, in every browser */
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const [scrolls, setScrolls] = useState(false);
   // content renders only while open: a closed drawer holds no hidden controls
   const [shown, setShown] = useState(false);
 
@@ -79,6 +88,17 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
     return () => dialog.removeEventListener('close', closed);
   }, []);
 
+  useLayoutEffect(() => {
+    const body = bodyRef.current;
+    if (!shown || !body) return;
+    const measure = () => setScrolls(body.scrollHeight > body.clientHeight + 1);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(body);
+    Array.from(body.children).forEach((c) => ro.observe(c));
+    return () => ro.disconnect();
+  }, [shown, children]);
+
   // the scrim is the dialog's own box outside the panel's content
   function onClick(e: MouseEvent<HTMLDialogElement>) {
     if (e.target === ref.current) shut();
@@ -104,6 +124,7 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
       aria-labelledby={titleId}
       tabIndex={-1}
       data-side={side}
+      data-size={size}
       onClick={onClick}
       onCancel={(e) => {
         e.preventDefault();
@@ -125,7 +146,11 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
             </div>
             <Button variant="secondary" size="md" iconOnly icon="Xmark" ariaLabel="Close" onClick={shut} />
           </div>
-          <div className={styles.body}>{children}</div>
+          {/* the body scrolls; Chrome makes a scrolling box a tab stop, so it is a
+              named region with BELLA's ring, and the keyboard can scroll it */}
+          <div ref={bodyRef} className={styles.body} role="region" aria-label={`${label}: content`} tabIndex={scrolls ? 0 : undefined}>
+            {children}
+          </div>
           {footer != null ? <div className={styles.footer}>{footer}</div> : null}
         </>
       ) : null}

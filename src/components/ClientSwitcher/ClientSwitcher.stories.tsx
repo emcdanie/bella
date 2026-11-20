@@ -54,3 +54,24 @@ export const Behavior: Story = {
     expectTouchTarget(b);
   },
 };
+
+/** variant="plain" (her 21 Nov pick "A, one plain line", CHIP Screen template 601:112027): the client's
+ * name alone with a small ⌄, for the phone Projects drawer and the panel top. No tile, no caption. */
+export const Plain: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', maxInlineSize: 'calc(var(--spacing-80) * 3)' }}>
+      <ClientSwitcher variant="plain" name="BELLA" caption="Design system" onClick={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const b = canvasElement.querySelector('[data-bella-component="client-switcher"]') as HTMLElement;
+    await step('the name and a ⌄ only: no tile, no caption', async () => {
+      await expect(b).toHaveTextContent(/BELLA$/);
+      await expect(b.textContent).not.toMatch(/Design system/);
+      await expect(b.querySelectorAll('svg').length).toBe(1);
+    });
+    await step('the row keeps its 64 height and the 44 target', async () => {
+      await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(64);
+    });
+  },
+};

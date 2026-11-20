@@ -12940,6 +12940,75 @@ entries:
           - tag
           - mono
   - kind: component
+    id: radius-tile
+    name: RadiusTile
+    description: One corner token drawn on a 72 tile, with its token name and the Chip semantic names that use it.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - radius-tile
+    refs:
+      - href: ./src/components/RadiusTile/RadiusTile.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/RadiusTile/RadiusTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - "0"
+          - "4"
+          - "8"
+          - "12"
+          - "16"
+          - "20"
+          - "24"
+          - round
+  - kind: component
+    id: easing-curve
+    name: EasingCurve
+    description: "One easing token drawn as its cubic-bezier curve with its name and value. Exports DurationBar: one duration token as a bar to scale against 3400ms."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      tags:
+        - component
+        - easing-curve
+    refs:
+      - href: ./src/components/EasingCurve/EasingCurve.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/EasingCurve/EasingCurve.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - standard
+          - emphasis
+          - out
+          - draw
+          - pop
+  - kind: component
     id: spacing-step
     name: SpacingStep
     description: "One spacing step drawn at its real size: the bar is the spacing token."

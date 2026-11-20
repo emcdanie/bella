@@ -1,0 +1,92 @@
+/* Easing curve and Duration bar (CHIP Dashboard "Foundations · Motion"
+ * 810:82446, read 21 Nov 2026). Tokens only.
+ * Easing: a row, 16 apart, centred: the well (64, background/subtle,
+ * border/radius/sm) holding the 48 curve at 2px content/default; the text
+ * column, 8 apart: token (number face 16, content/default) and value
+ * (reading face 16/24, content/subtle).
+ * Duration: a row, 16 apart, centred: name column (token, use) filling the
+ * row; the track (160 x 8, background/subtle, border/radius/sm) with the fill
+ * (content/default) to scale against 3400ms; the value (reading face,
+ * content/subtle). */
+
+.row,
+.duration {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+
+.duration {
+  min-block-size: var(--spacing-48); /* Figma: every duration row is 48, with or without a use line */
+}
+
+.well {
+  flex: none;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background-subtle);
+}
+
+.curve {
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+  fill: none;
+  stroke: var(--color-content-default);
+  stroke-width: var(--border-width-2);
+  stroke-linecap: round;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.token {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.value,
+.ms {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.ms {
+  flex: none;
+  inline-size: var(--spacing-64);
+}
+
+.track {
+  flex: none;
+  display: flex;
+  inline-size: calc(var(--spacing-80) * 2); /* Figma 160 */
+  block-size: var(--spacing-8);
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background-subtle);
+}
+
+.fill {
+  display: block;
+  background: var(--color-content-default);
+}

@@ -56,6 +56,8 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |
 | One step of the type ramp, set in its own size (Foundations) | `TypeSpecimen` |
 | One spacing step drawn at its real size (Foundations) | `SpacingStep` |
+| One corner token on a tile with its names (Foundations) | `RadiusTile` |
+| One easing token as its curve; one duration as a to-scale bar, its DurationBar (Foundations) | `EasingCurve` |
 | One colour role as a Pantone-style chip: colour, name, hex, contrast | `Swatch` |
 | A variant or state thumbnail with its label; a row picks one | `VariantTile` |
 | One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |

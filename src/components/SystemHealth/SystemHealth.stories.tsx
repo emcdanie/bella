@@ -22,6 +22,10 @@ export default meta;
 
 type Story = StoryObj<typeof SystemHealth>;
 
+/* every number in Geist Mono: the element's face is the number token's first family */
+const numberFace = (el: Element) => getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
+const faceOf = (el: Element) => getComputedStyle(el).fontFamily.split(',')[0].trim().replace(/['"]/g, '');
+
 /* Cards sit on the page ground, at the width Figma draws the card (331). */
 const Ground = ({ children }: { children: React.ReactNode }) => (
   <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: 'calc(331px + var(--spacing-48))', boxSizing: 'border-box' }}>
@@ -48,6 +52,10 @@ export const Healthy: Story = {
       />
     </Ground>
   ),
+  play: async ({ canvasElement }) => {
+    const count = canvasElement.querySelector('[class*="countNumber"]') as HTMLElement;
+    await expect(faceOf(count)).toBe(numberFace(count));
+  },
 };
 
 /** Under the target: fewer ticks lit, the target tick still marks 90%. */

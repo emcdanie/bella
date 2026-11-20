@@ -132,3 +132,24 @@ export const NewScore: Story = {
     });
   },
 };
+
+/** A long check name in a narrow card (Health's gauge card at 1100, 21 Nov): "Parts that need work" keeps
+ * word groups and its count sits beside it, or under it when there is no room; never one word a line. */
+export const LongName: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+      {[3, 4, 5].map((n) => (
+        <div key={n} data-width={n} style={{ inlineSize: `calc(var(--spacing-80) * ${n})` }}>
+          <SystemHealth value={72} status="Needs work" passed="190 of 264 pass" failing={[{ name: 'Parts that need work', count: 36, ofTotal: 'of 83 parts', href: '#parts' }, ...FAILING.slice(0, 1)]} />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const name of canvasElement.querySelectorAll<HTMLElement>('[class*="name"]')) {
+      if (!name.textContent?.startsWith('Parts')) continue;
+      const lh = parseFloat(getComputedStyle(name).lineHeight);
+      await expect(Math.round(name.getBoundingClientRect().height / lh)).toBeLessThanOrEqual(2);
+    }
+  },
+};

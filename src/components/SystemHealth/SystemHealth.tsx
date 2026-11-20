@@ -150,9 +150,13 @@ export default function SystemHealth({
                 const inner = (
                   <>
                     <StatusDot tone="attention" showLabel={false} />
-                    <span className={styles.name}>{f.name}</span>
-                    <span className={styles.count}>
-                      <span className={styles.countNumber}>{f.count}</span> <span className={styles.ofTotal}>{f.ofTotal}</span>
+                    {/* name and count wrap as one group: the count sits beside the name, or under it when
+                        both do not fit, so a long name keeps its word groups (Health at 1100, 21 Nov) */}
+                    <span className={styles.label}>
+                      <span className={styles.name}>{f.name}</span>
+                      <span className={styles.count}>
+                        <span className={styles.countNumber}>{f.count}</span> <span className={styles.ofTotal}>{f.ofTotal}</span>
+                      </span>
                     </span>
                     {f.href != null || f.onOpen != null ? (
                       <span className={styles.arrow} aria-hidden="true">

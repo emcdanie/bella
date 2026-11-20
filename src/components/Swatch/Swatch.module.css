@@ -3,7 +3,8 @@
  * clipped: the colour block on top (64 sm, 96 lg) and the label strip on
  * background/surface (padding 12, gap 4). Name: reading face 600, 16/24,
  * content/default. Meta: hex left, ratio or "No pair" right, subtext face
- * 16/24, content/subtle, wraps when narrow. lg: the meta row ends in the
+ * 16/24, content/subtle, 4 apart, wraps when narrow. The edge is an
+ * inside outline, as Figma's inside stroke, so it takes no room. lg: the meta row ends in the
  * secondary sm icon-only Copy button. */
 
 .swatch {
@@ -12,7 +13,11 @@
   flex-direction: column;
   min-inline-size: 0;
   overflow: hidden;
-  border: var(--border-width-1) solid var(--color-border-default);
+  /* Figma's stroke sits inside and takes no room, so the edge is an inside
+     outline, drawn over the colour block: the label keeps its full width and
+     the meta stays on one line at 156 (audit 10) */
+  outline: var(--border-width-1) solid var(--color-border-default);
+  outline-offset: calc(var(--border-width-1) * -1);
   border-radius: var(--border-radius-md);
   background: var(--color-background-surface);
 }
@@ -47,7 +52,9 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 0 var(--spacing-8);
+  /* hex and ratio are one group: 4 apart (rule 10; Figma draws 8), so
+     "#1D2030" and "16.1:1" share one line at 156 wide (audit 10) */
+  gap: 0 var(--spacing-4);
   min-inline-size: 0;
   font-family: var(--typography-subtext-font-family);
   font-size: var(--typography-font-size-16);

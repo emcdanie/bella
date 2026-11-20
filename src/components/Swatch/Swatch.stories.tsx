@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect } from 'storybook/test';
 import Swatch from './Swatch';
 import cssRaw from './Swatch.module.css?raw';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -24,4 +25,30 @@ export const Variants: Story = {
       <Swatch color="var(--color-content-default)" name="text-primary" hex="#1D2030" pair={false} size="lg" onCopy={() => {}} />
     </div>
   ),
+};
+
+/** CHIP Foundations pairs: swatches 156 wide (calc of the 12 step) keep hex and ratio on one line. */
+export const Narrow: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)', alignItems: 'start' }}>
+      {[
+        ['text-primary', 'var(--color-content-default)', '#1D2030', '16.1:1'],
+        ['text-subtle', 'var(--color-content-subtle)', '#4A4F63', '8.2:1'],
+        ['action', 'var(--color-background-brand)', '#63B4E8', '10.9:1'],
+      ].map(([name, color, hex, ratio]) => (
+        <Swatch key={name} style={{ inlineSize: 'calc(var(--spacing-12) * 13)' }} color={color} name={name} hex={hex} ratio={ratio} />
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('every meta row is one 24 line at 156 wide', async () => {
+      const swatches = canvasElement.querySelectorAll('[data-bella-component="swatch"]');
+      await expect(swatches.length).toBe(3);
+      for (const sw of swatches) {
+        await expect(Math.round(sw.getBoundingClientRect().width)).toBe(156);
+        const meta = sw.querySelector('[class*="meta"]') as HTMLElement;
+        await expect(Math.round(meta.getBoundingClientRect().height)).toBe(24);
+      }
+    });
+  },
 };

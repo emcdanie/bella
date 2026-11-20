@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import Stage from './Stage';
 import Button from '../Button/Button';
 import BoardLane from '../BoardLane/BoardLane';
 import TaskCard from '../TaskCard/TaskCard';
+import PartRow from '../PartRow/PartRow';
 import cssRaw from './Stage.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -157,4 +158,84 @@ export const Anatomy: Story = {
       <Button variant="primary">Send</Button>
     </Stage>
   ),
+};
+
+const ANATOMY = [
+  { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate · #63b4e8', chipX: -184, chipY: -96, title: 'Plate', description: 'The light blue fill that says this commits.' },
+  { id: 'label', x: -6, y: -8, label: 2, part: 'Label · 16px', chipX: -184, chipY: -48, title: 'Label', description: 'Lexend 16 on a 22 line, navy on the plate.' },
+  { id: 'edge', x: -41, y: 0, label: 3, part: 'Edge · none', chipX: -184, chipY: 0, title: 'Edge', description: 'No edge: the fill carries the shape.' },
+  { id: 'focus', x: -41, y: 10, label: 4, part: 'Focus ring · #2b8fd0', chipX: -184, chipY: 48, title: 'Focus ring', description: '4 wide with a 4 gap, outside.' },
+  { id: 'box', x: 0, y: 22, label: 5, part: 'Box · 44px', chipX: -184, chipY: 96, title: 'Box', description: 'The 44 target round the 32 plate.' },
+];
+
+function AnatomyHoverDemo() {
+  const [active, setActive] = useState<string | null>(null);
+  const [selected, setSelected] = useState('plate');
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, calc(var(--spacing-80) * 9)), 1fr))', gap: 'var(--spacing-24)', alignItems: 'start' }}>
+      <Stage
+        grid="dots"
+        label="Button on the stage"
+        scale={3}
+        markers={ANATOMY.map(({ title, description, ...m }) => ({ ...m, selected: m.id === selected }))}
+        activeId={active}
+        onActiveChange={setActive}
+        onSelect={setSelected}
+      >
+        <Button variant="primary">Send</Button>
+      </Stage>
+      <div role="list" aria-label="Button parts" style={{ display: 'grid', gap: 'var(--spacing-4)' }}>
+        {ANATOMY.map((m) => (
+          <div role="listitem" key={m.id}>
+            <PartRow
+              number={m.label}
+              tone="red"
+              title={m.title}
+              description={m.description}
+              active={active === m.id}
+              selected={selected === m.id}
+              onActiveChange={(on) => setActive(on ? m.id : null)}
+              onClick={() => setSelected(m.id)}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Anatomy hover (her website's interaction and side list, 18 Nov: "i just wanted the animation and
+ * the side part"): hovering or focusing a chip lights its row in the numbered list, and a row lights
+ * its chip, both popping on the motion tokens; a click on either opens that part. Reduced motion: the
+ * lit look at once, no movement. */
+export const AnatomyHover: Story = {
+  render: () => <AnatomyHoverDemo />,
+  play: async ({ canvasElement, step }) => {
+    const chip = (n: number) => canvasElement.querySelectorAll('[data-bella-component="pin-label"]')[n - 1] as HTMLElement;
+    const row = (n: number) => canvasElement.querySelectorAll('[data-bella-component="part-row"]')[n - 1] as HTMLElement;
+    await step('hovering chip 2 lights row 2', async () => {
+      await userEvent.hover(chip(2));
+      await expect(row(2)).toHaveAttribute('data-active', 'true');
+      await expect(row(1)).not.toHaveAttribute('data-active');
+    });
+    await step('hovering row 4 lights chip 4, and back again', async () => {
+      await userEvent.hover(row(4));
+      await expect(chip(4)).toHaveAttribute('data-active', 'true');
+      await expect(chip(2)).not.toHaveAttribute('data-active');
+      await userEvent.unhover(row(4));
+      await expect(chip(4)).not.toHaveAttribute('data-active');
+    });
+    await step('a click on chip 3 opens part 3, row and chip both selected', async () => {
+      await userEvent.click(chip(3));
+      await expect(chip(3)).toHaveAttribute('aria-pressed', 'true');
+      await expect(row(3)).toHaveAttribute('aria-pressed', 'true');
+      await expect(row(1)).toHaveAttribute('aria-pressed', 'false');
+    });
+    await step('keyboard: focus on a row lights its chip', async () => {
+      row(5).focus();
+      await waitFor(() => expect(chip(5)).toHaveAttribute('data-active', 'true'));
+      row(5).blur();
+      await waitFor(() => expect(chip(5)).not.toHaveAttribute('data-active'));
+    });
+  },
 };

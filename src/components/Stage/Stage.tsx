@@ -56,6 +56,13 @@ export interface StageProps {
   /** Called with the picked point, in frame pixels. */
   onPick?: (x: number, y: number) => void;
 
+  /** A click on a marker's pin or chip: opens that part (its card). Makes pins and chips buttons. */
+  onSelect?: (id: string) => void;
+  /** The marker lit from outside (its row in the anatomy list is hovered or focused). */
+  activeId?: string | null;
+  /** Hover or focus on a pin or chip starts (its id) or ends (null): light its row in the list. */
+  onActiveChange?: (id: string | null) => void;
+
   className?: string;
   style?: CSSProperties;
 }
@@ -83,6 +90,12 @@ function markerRoom(markers: StageMarker[], scale: number) {
 }
 
 /* An SVG with no size draws nothing, so leaders live on the full stage (or frame), not the centre origin. */
+interface MarkerEvents {
+  onSelect?: (id: string) => void;
+  activeId?: string | null;
+  onActiveChange?: (id: string | null) => void;
+}
+
 function Leaders({ markers }: { markers: StageMarker[] }) {
   return (
     <>
@@ -106,16 +119,37 @@ function hasChip(m: StageMarker) {
   return m.part != null && m.chipX != null && m.chipY != null;
 }
 
-function Markers({ markers, offsetY = 0, scale = 1 }: { markers: StageMarker[]; offsetY?: number; scale?: number }) {
+function Markers({ markers, offsetY = 0, scale = 1, onSelect, activeId, onActiveChange }: { markers: StageMarker[]; offsetY?: number; scale?: number } & MarkerEvents) {
   return (
     <>
       {markers.map((m) => {
         const chip = hasChip(m);
+        const active = activeId === m.id;
+        const name = typeof m.part === 'string' ? m.part : m.label != null ? `part ${m.label}` : 'the part';
+        const hover = onActiveChange
+          ? {
+              onPointerEnter: () => onActiveChange(m.id),
+              onPointerLeave: () => onActiveChange(null),
+              onFocus: () => onActiveChange(m.id),
+              onBlur: () => onActiveChange(null),
+            }
+          : {};
         return (
           <React.Fragment key={m.id}>
             {/* with a chip, the point is where the leader's dot lands; without, the numbered pin */}
             <span data-stage-pin={m.id} className={styles.marker} style={{ insetInlineStart: m.x * scale, insetBlockStart: m.y * scale - offsetY }}>
-              {chip ? null : <Pin number={m.label} variant="red" pinStyle="solid" />}
+              {chip ? null : (
+                <span className={styles.pinHover} {...hover}>
+                  <Pin
+                    number={m.label}
+                    variant="red"
+                    pinStyle="solid"
+                    active={active}
+                    onClick={onSelect ? () => onSelect(m.id) : undefined}
+                    ariaLabel={onSelect ? `Open ${name}` : undefined}
+                  />
+                </span>
+              )}
             </span>
             {chip ? (
               <span
@@ -123,7 +157,14 @@ function Markers({ markers, offsetY = 0, scale = 1 }: { markers: StageMarker[]; 
                 className={[styles.chip, m.chipX! < m.x * scale ? styles.chipBefore : ''].filter(Boolean).join(' ')}
                 style={{ insetInlineStart: m.chipX, insetBlockStart: m.chipY! - offsetY }}
               >
-                <PinLabel tone="red" number={m.label} selected={m.selected}>
+                <PinLabel
+                  tone="red"
+                  number={m.label}
+                  selected={m.selected}
+                  active={active}
+                  onClick={onSelect ? () => onSelect(m.id) : undefined}
+                  onActiveChange={onActiveChange ? (on) => onActiveChange(on ? m.id : null) : undefined}
+                >
                   {m.part}
                 </PinLabel>
               </span>
@@ -148,9 +189,13 @@ export default function Stage({
   offsetY = 0,
   picking = false,
   onPick,
+  onSelect,
+  activeId,
+  onActiveChange,
   className,
   style,
 }: StageProps) {
+  const events = { onSelect, activeId, onActiveChange };
   const viewport = useRef<HTMLDivElement>(null);
   const [room, setRoom] = useState(0);
 
@@ -184,7 +229,7 @@ export default function Stage({
           {markers?.length ? (
             <>
               <div className={styles.origin}>
-                <Markers markers={markers} scale={contentScale} />
+                <Markers markers={markers} scale={contentScale} {...events} />
               </div>
               <Leaders markers={markers} />
             </>
@@ -222,7 +267,7 @@ export default function Stage({
             </div>
             {markers?.length ? (
               <>
-                <Markers markers={markers} offsetY={offsetY} />
+                <Markers markers={markers} offsetY={offsetY} {...events} />
                 <Leaders markers={markers} />
               </>
             ) : null}

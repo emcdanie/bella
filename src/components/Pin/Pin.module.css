@@ -68,6 +68,19 @@
   cursor: pointer;
 }
 
+/* Lit (anatomy hover, from elleta.design's hero pins, 18 Nov: "i just wanted
+   the animation and the side part"): the disc pops up a step on the pop
+   easing; reduced motion shows the lit size at once. */
+.disc {
+  transition: transform var(--motion-duration-250) var(--motion-easing-pop);
+}
+.active .disc {
+  transform: scale(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .disc { transition: none; }
+}
+
 /* the ring thickens; the fill stays the card, because ink fails AA on the red */
 .action:hover .disc,
 .action:hover .label {

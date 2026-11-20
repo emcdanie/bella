@@ -2622,6 +2622,7 @@
             "pinStyle",
             "label",
             "onClick",
+            "active",
             "ariaLabel",
             "className",
             "style"
@@ -2658,6 +2659,9 @@
             "tone",
             "status",
             "selected",
+            "active",
+            "onClick",
+            "onActiveChange",
             "className",
             "style"
           ],
@@ -2716,6 +2720,10 @@
             "title",
             "description",
             "detail",
+            "active",
+            "onActiveChange",
+            "onClick",
+            "selected",
             "className",
             "style"
           ],
@@ -2725,7 +2733,7 @@
           "dont": [
             "Do not use it for navigation or actions: it is a caption, not a control"
           ],
-          "a11y": "Plain text: title content/default, lines content/subtle (7:1+). The pin's number is text.",
+          "a11y": "Plain text: title content/default, lines content/subtle (7:1+). The pin's number is text. With onClick the row is a button (aria-pressed = selected, at least 48 tall); hover and focus light its match on the specimen.",
           "figma": "Matches the published BellaComponents Part row (841:124467), read 20 Nov 2026: solid blue Pin, 12 apart, title Lexend 18 / 600, description and detail Lexend 16 subtle.",
           "figmaProps": {
             "Title": "title",
@@ -3753,6 +3761,9 @@
             "offsetY",
             "picking",
             "onPick",
+            "onSelect",
+            "activeId",
+            "onActiveChange",
             "className",
             "style"
           ],
@@ -3764,7 +3775,7 @@
             "Not a card (Card)",
             "Not a whole screen at design size (ScaledFrame)"
           ],
-          "a11y": "Not interactive. A group when given a label. The dots are decoration (background), no contrast bar.",
+          "a11y": "Not interactive. A group when given a label. The dots are decoration (background), no contrast bar. With onSelect each pin and chip is a button (44 target) that opens its part; hover and focus report onActiveChange so the anatomy list lights the same part.",
           "figma": "Matches the published BellaComponents Stage (809:186284), read 19 Nov 2026: dots 2px every 24, first centred at 16, background/highlight on background/default, corner 16, content 24 padding, 16 apart, centred.",
           "figmaProps": {
             "grid": "grid",
@@ -3923,9 +3934,23 @@
           "name": "RadiusTile",
           "category": "Data",
           "description": "One corner token drawn on a 72 tile, with its token name and the Chip semantic names that use it.",
-          "states": ["0", "4", "8", "12", "16", "20", "24", "round"],
-          "props": ["radius", "use", "className", "style"],
-          "figma": "Matches CHIP Dashboard Foundations \u00b7 Shape and space (808:82396), local to CHIP, read 21 Nov 2026."
+          "states": [
+            "0",
+            "4",
+            "8",
+            "12",
+            "16",
+            "20",
+            "24",
+            "round"
+          ],
+          "props": [
+            "radius",
+            "use",
+            "className",
+            "style"
+          ],
+          "figma": "Matches CHIP Dashboard Foundations · Shape and space (808:82396), local to CHIP, read 21 Nov 2026."
         }
       }
     },
@@ -3935,9 +3960,19 @@
           "name": "EasingCurve",
           "category": "Data",
           "description": "One easing token drawn as its cubic-bezier curve with its name and value. Exports DurationBar: one duration token as a bar to scale against 3400ms.",
-          "states": ["standard", "emphasis", "out", "draw", "pop"],
-          "props": ["easing", "className", "style"],
-          "figma": "Matches CHIP Dashboard Foundations \u00b7 Motion (810:82446), local to CHIP, read 21 Nov 2026."
+          "states": [
+            "standard",
+            "emphasis",
+            "out",
+            "draw",
+            "pop"
+          ],
+          "props": [
+            "easing",
+            "className",
+            "style"
+          ],
+          "figma": "Matches CHIP Dashboard Foundations · Motion (810:82446), local to CHIP, read 21 Nov 2026."
         }
       }
     },

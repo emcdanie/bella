@@ -13,6 +13,8 @@ export interface PinProps {
   label?: ReactNode;
   /** Makes the pin a button with a 44px box. */
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Lit: its match is hovered or focused elsewhere (the anatomy list, the stage chip). The pin pops. */
+  active?: boolean;
   /** Accessible name, for a clickable pin with no label. */
   ariaLabel?: string;
   /** Extra classes on the pin. */
@@ -31,12 +33,13 @@ export default function Pin({
   pinStyle = 'dot',
   label,
   onClick,
+  active = false,
   ariaLabel,
   className,
   style,
 }: PinProps) {
   const bare = number == null;
-  const cls = [styles.pin, styles[variant], pinStyle === 'solid' ? styles.solid : '', bare ? styles.bare : '', onClick ? styles.action : '', className]
+  const cls = [styles.pin, styles[variant], pinStyle === 'solid' ? styles.solid : '', bare ? styles.bare : '', onClick ? styles.action : '', active ? styles.active : '', className]
     .filter(Boolean)
     .join(' ');
   const body = (

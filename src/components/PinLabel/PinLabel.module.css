@@ -37,3 +37,37 @@
 .selected {
   box-shadow: 0 0 0 var(--border-width-2) var(--color-border-ink), var(--shadow-soft);
 }
+
+/* Lit (anatomy hover): the hover light blue, lifted a step on the pop
+   easing; reduced motion shows the lit look at once. */
+.label {
+  transition:
+    background-color var(--motion-duration-150) var(--motion-easing-standard),
+    transform var(--motion-duration-250) var(--motion-easing-pop);
+}
+.active {
+  background: var(--color-background-brand-subtle);
+  transform: translateY(calc(var(--border-width-2) * -1));
+}
+@media (prefers-reduced-motion: reduce) {
+  .label { transition: none; }
+}
+
+/* clickable chip: a button with the same drawing; the 44 hit area reaches
+   past the 32 chip */
+.action {
+  position: relative;
+  border: 0;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.action::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--spacing-44) - var(--spacing-32)) / -2) 0;
+}
+.action:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}

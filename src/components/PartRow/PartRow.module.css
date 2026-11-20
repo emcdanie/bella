@@ -30,3 +30,40 @@
   line-height: var(--typography-line-height-px-24);
   color: var(--color-content-subtle);
 }
+
+/* Anatomy hover (her website's interaction and side list, 18 Nov): a live row
+   gets the row padding and corner; lit = the hover light blue, its pin pops;
+   selected = the selected light blue with an ink edge. Reduced motion: the
+   lit look at once. */
+.live {
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-md);
+  transition: background-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+.active {
+  background: var(--color-background-brand-subtle);
+}
+.selected {
+  background: var(--color-background-brand-subtle-hover);
+}
+.action {
+  inline-size: 100%;
+  border: 0;
+  background-color: transparent;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.action.active {
+  background: var(--color-background-brand-subtle);
+}
+.action.selected {
+  background: var(--color-background-brand-subtle-hover);
+}
+.action:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+@media (prefers-reduced-motion: reduce) {
+  .live { transition: none; }
+}

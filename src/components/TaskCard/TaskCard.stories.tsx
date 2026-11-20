@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import TaskCard from './TaskCard';
 import cssRaw from './TaskCard.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -145,6 +146,43 @@ export const Behavior: Story = {
     await step('keyboard: Tab reaches the link, then Move to…', async () => {
       canvas.getByRole('link').focus();
       await expect(canvas.getByRole('link')).toHaveFocus();
+    });
+  },
+};
+
+function LiftDemo() {
+  const [dragging, setDragging] = React.useState(false);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', justifyItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+      <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" dragging={dragging} style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} />
+      <Button variant="secondary" size="sm" onClick={() => setDragging((d) => !d)}>
+        {dragging ? 'Drop it' : 'Pick it up'}
+      </Button>
+    </div>
+  );
+}
+
+/** Lifts when picked up (rule "Motion that shows what happened", item 2): the shadow deepens and the
+ * card grows a step on the motion tokens, and settles back when dropped. Reduced motion: the lifted
+ * look at once. */
+export const Lift: Story = {
+  render: () => <LiftDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const card = () => canvasElement.querySelector('[data-bella-component="task-card"]') as HTMLElement;
+    await step('at rest: no lift', async () => {
+      await expect(card()).toHaveAttribute('data-state', 'default');
+      await expect(getComputedStyle(card()).scale).toMatch(/^(none|1)$/);
+    });
+    await step('picked up: it lifts, on the motion token', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Pick it up' }));
+      await expect(card()).toHaveAttribute('data-state', 'dragging');
+      await waitFor(() => expect(getComputedStyle(card()).scale).toBe('1.02'));
+      await expect(parseFloat(getComputedStyle(card()).transitionDuration)).toBe(reduced ? 0 : 0.2);
+    });
+    await step('dropped: it settles', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Drop it' }));
+      await expect(card()).toHaveAttribute('data-state', 'default');
     });
   },
 };

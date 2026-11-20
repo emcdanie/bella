@@ -101,8 +101,37 @@
 }
 
 .emoji {
+  display: inline-block;
   font-size: var(--typography-font-size-24);
   line-height: var(--size-32);
+  /* the small animation (rules/empty-states-and-history.md, 19 Nov: "something
+     fun on each one"): the emoji pops up from below, overshoots a step and
+     settles, once; then it holds still. Reduced motion: the end state. */
+  animation: emptyRise var(--motion-duration-900) var(--motion-easing-pop) both;
+}
+
+@keyframes emptyRise {
+  0% {
+    transform: translateY(var(--spacing-12)) scale(0.6);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(calc(var(--spacing-8) * -1)) scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(var(--border-width-2)) scale(0.97);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emoji {
+    animation: none;
+  }
 }
 
 .page .emoji {

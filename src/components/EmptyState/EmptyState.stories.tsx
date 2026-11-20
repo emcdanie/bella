@@ -120,3 +120,28 @@ export const Behavior: Story = {
     expect(mark?.textContent).toBe('🤷');
   },
 };
+
+/** The small animation (rules/empty-states-and-history.md): the emoji pops up, overshoots a step and
+ * settles, once, on motion/duration/900 and motion/easing/pop; then it holds still. Reduced motion:
+ * it is simply there. No Replay. */
+export const Arrives: Story = {
+  render: () => <EmptyState mark="👀" title="Pick a part" line="Go on, pick one. They don't bite." />,
+  play: async ({ canvasElement, step }) => {
+    const emoji = canvasElement.querySelector('[data-bella-component="empty-state"] [aria-hidden="true"] > span') as HTMLElement;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await step(reduced ? 'reduced motion: no movement, the end state' : 'plays once on the motion tokens', async () => {
+      const cs = getComputedStyle(emoji);
+      if (reduced) {
+        await expect(cs.animationName).toBe('none');
+      } else {
+        await expect(cs.animationName).toMatch(/emptyRise/);
+        await expect(cs.animationIterationCount).toBe('1');
+      }
+    });
+    await step('then holds still at its place', async () => {
+      await Promise.all(emoji.getAnimations().map((a) => a.finished));
+      await expect(['none', 'matrix(1, 0, 0, 1, 0, 0)']).toContain(getComputedStyle(emoji).transform);
+      await expect(Number(getComputedStyle(emoji).opacity)).toBe(1);
+    });
+  },
+};

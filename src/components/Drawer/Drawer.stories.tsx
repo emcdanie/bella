@@ -238,3 +238,70 @@ export const LongTitle: Story = {
     });
   },
 };
+
+function HeadHarness() {
+  const [open, setOpen] = useState(true);
+  const [log, setLog] = useState('none');
+  return (
+    <div>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open chat
+      </Button>
+      <span data-testid="log">{log}</span>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        label="Ask BELLA"
+        side="right"
+        size="lg"
+        subtitle="About Button"
+        status="3 messages"
+        onBack={() => setLog('back')}
+        backLabel="Back to chats"
+        action={
+          <Button variant="tertiary" onClick={() => setLog('new')}>
+            New chat
+          </Button>
+        }
+      >
+        <p>The thread goes here.</p>
+      </Drawer>
+    </div>
+  );
+}
+
+/** The full head (Figma Drawer Head 172:528): Back at the start, the title with its subtitle and status,
+ * the Action ("New chat") before Close, 12 apart. Back, Action and Close together need size="lg": at sm
+ * (320) they leave the title about 32 wide. */
+export const FullHead: Story = {
+  render: () => <HeadHarness />,
+  play: async ({ canvasElement, step }) => {
+    const dialog = await waitFor(() => within(document.body).getByRole('dialog', { name: 'Ask BELLA' }));
+    const d = within(dialog);
+    const back = d.getByRole('button', { name: 'Back to chats' });
+    const action = d.getByRole('button', { name: 'New chat' });
+    const close = d.getByRole('button', { name: 'Close' });
+    const title = d.getByRole('heading', { name: 'Ask BELLA' });
+    const x = (el: HTMLElement) => el.getBoundingClientRect().left;
+    await step('Back, title, Action, Close in that order', async () => {
+      await expect(x(back)).toBeLessThan(x(title));
+      await expect(x(title)).toBeLessThan(x(action));
+      await expect(x(action)).toBeLessThan(x(close));
+    });
+    await step('the title has its own room: on one line, clear of the action', async () => {
+      await expect(title.getBoundingClientRect().right).toBeLessThanOrEqual(x(action));
+      await expect(title.getBoundingClientRect().height).toBeLessThan(parseFloat(getComputedStyle(title).lineHeight) * 1.5);
+    });
+    await step('subtitle sits above the status', async () => {
+      const y = (t: string) => d.getByText(t).getBoundingClientRect().top;
+      await expect(y('About Button')).toBeLessThan(y('3 messages'));
+    });
+    await step('Back and Action do their own thing and keep the drawer open', async () => {
+      await userEvent.click(back);
+      await expect(within(canvasElement).getByTestId('log')).toHaveTextContent('back');
+      await userEvent.click(action);
+      await expect(within(canvasElement).getByTestId('log')).toHaveTextContent('new');
+      await expect(dialog).toHaveAttribute('open');
+    });
+  },
+};

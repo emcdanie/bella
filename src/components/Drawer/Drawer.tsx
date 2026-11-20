@@ -21,6 +21,14 @@ export interface DrawerProps {
   children?: ReactNode;
   /** Figma "Show status" + "Status": one line under the title ("Checks ran 2 min ago"). Missing = off. */
   status?: ReactNode;
+  /** Figma "Show subtitle" + "Subtitle": one line under the title, above the status, the same subtle 16. Missing = off. */
+  subtitle?: ReactNode;
+  /** Figma "Show action" + "Action": one control in the head before Close, a tertiary Button ("New chat"). Missing = off. */
+  action?: ReactNode;
+  /** Figma "Show back": the tertiary icon-only Back (44) at the head's start, for a drawer opened one level down. Missing = off. */
+  onBack?: () => void;
+  /** Back's name for screen readers. Default "Back". */
+  backLabel?: string;
   /** Figma "Show footer" + Footer: actions pinned under the body, above a hairline: at most one primary Button, the rest secondary. Missing = off. */
   footer?: ReactNode;
   /** Extra classes on the dialog. */
@@ -33,7 +41,7 @@ export interface DrawerProps {
  * it is open, so focus stays inside; Esc closes it; focus goes back to
  * whatever opened it.
  */
-export default function Drawer({ open, onClose, label, side = 'left', size = 'sm', children, status, footer, className }: DrawerProps) {
+export default function Drawer({ open, onClose, label, side = 'left', size = 'sm', children, status, subtitle, action, onBack, backLabel = 'Back', footer, className }: DrawerProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
@@ -135,15 +143,18 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
     >
       {shown ? (
         <>
-          {/* Figma Head: Title row (Title, Status, 8 apart) fills; Close is
+          {/* Figma Head (172:528): Back, Title row (Title, Subtitle, Status) fills, Action, Close, 12 apart; Close is
               the 44 secondary icon-only Button in the flow, never pinned */}
           <div className={styles.head}>
+            {onBack ? <Button variant="tertiary" size="md" iconOnly icon="NavArrowLeft" ariaLabel={backLabel} onClick={onBack} /> : null}
             <div className={styles.titleRow}>
               <h2 id={titleId} className={styles.title}>
                 {label}
               </h2>
+              {subtitle != null ? <p className={styles.status}>{subtitle}</p> : null}
               {status != null ? <p className={styles.status}>{status}</p> : null}
             </div>
+            {action != null ? <div className={styles.action}>{action}</div> : null}
             <Button variant="secondary" size="md" iconOnly icon="Xmark" ariaLabel="Close" onClick={shut} />
           </div>
           {/* the body scrolls; Chrome makes a scrolling box a tab stop, so it is a

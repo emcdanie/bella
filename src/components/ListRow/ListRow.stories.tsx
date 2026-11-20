@@ -259,3 +259,26 @@ export const ValueGlow: Story = {
     });
   },
 };
+
+/** Published 21 Nov: the Tag sits with the text, so the status bar runs beside both; Indent sets a
+ * child row (↳) in by 4; Swatch is a 24 square of a colour. */
+export const PublishedZones: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', maxInlineSize: 'calc(var(--spacing-80) * 6)' }}>
+      <ListRowGroup ariaLabel="Rows">
+        <ListRow layout="stacked" statusBar="attention" title="Contrast pairs" description="Missing: BrandWordmark" tag={<Tag variant="line" tone="attention">Finding</Tag>} />
+        <ListRow layout="stacked" indent statusBar="neutral" title="BrandWordmark" description="No pair yet" />
+        <ListRow layout="inline" swatch="var(--color-background-brand)" title="background/brand" description="#63b4e8" />
+      </ListRowGroup>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const rows = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="list-row"]');
+    const bar = rows[0].querySelector('[data-tone]') as HTMLElement;
+    const tag = rows[0].querySelector('[data-bella-component="tag"]') as HTMLElement;
+    await expect(bar.getBoundingClientRect().bottom).toBeGreaterThanOrEqual(tag.getBoundingClientRect().bottom - 1);
+    await expect(rows[1].querySelector('[class*="indent"]')).not.toBeNull();
+    const sw = rows[2].querySelector('[class*="swatch"]') as HTMLElement;
+    await expect(Math.round(sw.getBoundingClientRect().width)).toBe(24);
+  },
+};

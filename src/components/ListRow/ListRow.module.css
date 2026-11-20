@@ -389,3 +389,33 @@
 @media (prefers-reduced-motion: reduce) {
   .glow { animation: none; }
 }
+
+/* Figma Text frame (21 Nov publish): text stack, Tag and text button in one
+   column beside the status bar, 4 apart */
+.leadText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.leadText > .stack {
+  align-self: stretch;
+}
+
+/* Figma Indent: a child row sits in by 4 before its bar */
+.indent {
+  flex: 0 0 var(--spacing-4);
+}
+
+/* Figma Left Swatch: a 24 square of the colour, a 1px border/default edge
+   inside, corner sm */
+.swatch {
+  box-sizing: border-box;
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-default);
+}

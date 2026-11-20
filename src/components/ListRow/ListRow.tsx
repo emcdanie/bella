@@ -34,6 +34,10 @@ export interface ListRowProps {
   body?: ReactNode;
   /** Figma "Middle" › "↳ Tag". A Tag. */
   tag?: ReactNode;
+  /** Figma "Indent" (21 Nov publish): a child row (↳), set in by the indent before its bar and text. */
+  indent?: boolean;
+  /** Figma Left "Swatch" (21 Nov publish): a 24 square of this colour (a token, e.g. var(--color-background-brand)), for colour roles. */
+  swatch?: string;
   /** Figma "Middle" › "↳ Text button". A Button tertiary sm. */
   textButton?: ReactNode;
   /** Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it instead of the icon well, not with it. It also sets her 20 Nov hierarchy: overline 16 subtle, title 20 regular ink, description 16 subtle, all in the reading face (meta stays in the subtext face for times and numbers); the right stack centred, its text button flush right over a `Tag variant="line"`. */
@@ -121,7 +125,7 @@ export default function ListRow(props: ListRowProps) {
 }
 
 const ZONE_KEYS = [
-  'layout', 'selected', 'iconWell', 'pin', 'meta', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'textButton',
+  'layout', 'selected', 'iconWell', 'pin', 'meta', 'statusDot', 'avatar', 'overline', 'body', 'tag', 'indent', 'swatch', 'textButton',
   'statusBar', 'value', 'valueLabel', 'rightTag', 'subValue', 'actionButton', 'switch', 'trailing', 'progress', 'helperText', 'divider',
   'href', 'onClick', 'as',
 ] as const;
@@ -147,6 +151,8 @@ function ZonedRow({
   overline,
   body,
   tag,
+  indent = false,
+  swatch,
   textButton,
   statusBar,
   value,
@@ -168,7 +174,7 @@ function ZonedRow({
 }: ListRowProps) {
   const right = actionButton ?? action;
   const valueKey = useChangeKey(value);
-  const hasLeft = iconWell != null || pin != null || statusDot != null || avatar != null;
+  const hasLeft = iconWell != null || pin != null || statusDot != null || avatar != null || swatch != null;
   const hasRight = value != null || valueLabel != null || subValue != null || right != null || rightTag != null || switchSlot != null;
   const hasBelow = progress != null || helperText != null || divider;
   const interactive = href != null || onClick != null;
@@ -203,6 +209,7 @@ function ZonedRow({
           {pin}
           {statusDot}
           {avatar}
+          {swatch != null ? <span className={styles.swatch} style={{ background: swatch }} aria-hidden="true" /> : null}
         </div>
       ) : null}
       <div className={styles.body}>
@@ -210,6 +217,8 @@ function ZonedRow({
           <div className={styles.middle}>
             <div className={styles.lead}>
             {statusBar != null ? <span className={styles.statusBar} data-tone={statusBar} aria-hidden="true" /> : null}
+            {indent ? <span className={styles.indent} aria-hidden="true" /> : null}
+            <div className={styles.leadText}>
             <TextStack
               className={styles.stack}
               overline={line(overline, styles.barLabel)}
@@ -236,9 +245,12 @@ function ZonedRow({
               }
               body={body}
             />
-            </div>
+            {/* Figma Text frame (21 Nov publish): the Tag and the text button
+                sit with the text, so the status bar runs beside all of them */}
             {tag != null ? <div className={styles.tag}>{tag}</div> : null}
             {textButton != null ? <div className={styles.textButton}>{textButton}</div> : null}
+            </div>
+            </div>
           </div>
           {hasRight ? (
             <div className={styles.right}>

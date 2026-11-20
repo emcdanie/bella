@@ -183,3 +183,40 @@ export const OpensAndClosesUp: Story = {
     });
   },
 };
+
+function CountDemo() {
+  const [cards, setCards] = React.useState(['Figma check']);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+      <BoardLane name="Needs you" lane="needs-you" count={cards.length} order="Failures first, then what blocks a push." style={{ inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+        {cards.map((t, i) => (
+          <TaskCard key={t} title={t} line="Waiting on you" status="Failed" statusTone="danger" entering={i > 0 && i === cards.length - 1} />
+        ))}
+      </BoardLane>
+      <Button variant="secondary" size="sm" onClick={() => setCards((c) => [...c, `Contrast pair ${c.length}`])}>
+        Add a card
+      </Button>
+    </div>
+  );
+}
+
+/** A new card in Needs you (rule "Motion that shows what happened", item 4): the card pops in once and
+ * the count bumps once. Nothing moves on first paint; reduced motion: no movement. */
+export const NewCard: Story = {
+  render: () => <CountDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const bump = () => canvasElement.querySelector('[class*="bump"]') as HTMLElement | null;
+    await step('first paint: no bump', async () => {
+      await expect(bump()).toBeNull();
+    });
+    await step(reduced ? 'a new card: the count changes, no movement' : 'a new card pops in and the count bumps once', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Add a card' }));
+      await waitFor(() => expect(canvasElement.querySelectorAll('[data-bella-component="task-card"]').length).toBe(2));
+      await expect(getComputedStyle(bump()!).animationName).toMatch(reduced ? /^none$/ : /countBump/);
+      const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="task-card"]');
+      await expect(getComputedStyle(cards[1]).animationName).toMatch(reduced ? /^none$/ : /taskEnter/);
+      await expect(getComputedStyle(cards[0]).animationName).toBe('none');
+    });
+  },
+};

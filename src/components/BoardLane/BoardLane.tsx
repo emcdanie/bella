@@ -1,5 +1,6 @@
 import React, { Children, useEffect, useId, type CSSProperties, type ReactNode } from 'react';
 import Tag from '../Tag/Tag';
+import { useChangeKey } from '../shared/useCountTo';
 import styles from './BoardLane.module.css';
 
 /* ---------------------------------------------------------------------------
@@ -93,6 +94,8 @@ export default function BoardLane({
   const items = Children.toArray(children);
   const n = count ?? items.length;
   const tone = lane === 'needs-you' ? 'attention' : 'count';
+  /* the count bumps once when it changes (item 4), never on first paint */
+  const countKey = useChangeKey(n);
   const H = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
   return (
     <section
@@ -111,10 +114,12 @@ export default function BoardLane({
         <H id={id} className={styles.name}>
           {name}
         </H>
-        <Tag variant="outline" tone={tone}>
-          {n}
-          <span className={styles.srOnly}> {n === 1 ? 'card' : 'cards'}</span>
-        </Tag>
+        <span key={countKey} className={[styles.countWrap, countKey ? styles.bump : ''].filter(Boolean).join(' ')}>
+          <Tag variant="outline" tone={tone}>
+            {n}
+            <span className={styles.srOnly}> {n === 1 ? 'card' : 'cards'}</span>
+          </Tag>
+        </span>
       </div>
       {order != null ? <p className={styles.order}>{order}</p> : null}
       {items.length > 0 ? (

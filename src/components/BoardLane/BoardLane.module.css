@@ -168,3 +168,26 @@
   color: var(--color-content-brand);
   text-align: center;
 }
+
+/* The count bumps once when it changes (rule "Motion that shows what
+   happened", item 4): up a step and back on motion/duration/250 and
+   motion/easing/pop; reduced motion: none. */
+.countWrap {
+  display: inline-flex;
+}
+
+.bump {
+  animation: countBump var(--motion-duration-250) var(--motion-easing-pop);
+}
+
+@keyframes countBump {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bump {
+    animation: none;
+  }
+}

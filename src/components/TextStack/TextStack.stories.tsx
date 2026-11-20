@@ -92,3 +92,17 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** Meta (21 Nov publish): one line of files, counts or places under the subtitle, subtle. */
+export const WithMeta: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', maxInlineSize: 'calc(var(--spacing-80) * 4)' }}>
+      <TextStack title="Button" subtitle="The main action, one per view" meta="Button.tsx · 3 pages · 6 files" />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const meta = canvas.getByText('Button.tsx · 3 pages · 6 files');
+    const sub = canvas.getByText('The main action, one per view');
+    await expect(sub.compareDocumentPosition(meta) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  },
+};

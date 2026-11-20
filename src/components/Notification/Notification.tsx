@@ -17,7 +17,7 @@ export interface NotificationProps {
   message?: ReactNode;
   /** Figma "Show icon". Off drops the icon column. */
   showIcon?: boolean;
-  /** Figma "Show action". The first action, a soft button in the tone's own colours. Missing = off. */
+  /** Figma "Show action". The first action, the small secondary Button (white, grey edge, ink label; 32 plate, 44 hit; as Figma draws it). Missing = off. */
   action?: NotificationAction;
   /** Figma "Title". */
   title?: ReactNode;
@@ -112,7 +112,7 @@ export default function Notification({
               <Button
                 key={i}
                 variant="secondary"
-                className={styles.act}
+                size="sm"
                 onClick={a.onClick}
                 href={a.href}
               >

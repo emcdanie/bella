@@ -453,7 +453,8 @@
             "accent",
             "outline",
             "flat",
-            "index"
+            "index",
+            "line"
           ],
           "states": [
             "default"
@@ -3252,7 +3253,7 @@
         "bella": {
           "name": "Notification",
           "category": "Layout",
-          "description": "The button's words. */ label: ReactNode; onClick?: () => void; href?: string; } export interface NotificationProps { /** Figma \"Message\". The line under the title; wraps. */ message?: ReactNode; /** Figma \"Show icon\". Off drops the icon column. */ showIcon?: boolean; /** Figma \"Show action\". The first action, a soft button in the tone's own colours. Missing = off. */ action?: NotificationAction; /** Figma \"Title\". */ title?: ReactNode; /** Figma \"Show second action\". Missing = off. */ secondAction?: NotificationAction; /** Figma \"Show close\". Missing = off. Close is Button tertiary, sm, icon only, top right in the flow. */ onClose?: () => void; /** Accessible name of the close button. */ closeLabel?: string; /** Figma \"tone\". */ tone?: NotificationTone; /** Figma \"Icon\" (nested swap). Defaults per tone to the registry glyph Figma uses: info InfoCircle, success CheckCircle, attention WarningCircle, danger XmarkCircle. / icon?: IconName; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } const DEFAULT_ICON: Record<NotificationTone, IconName> = { info: \"InfoCircle\", success: \"CheckCircle\", attention: \"WarningCircle\", danger: \"XmarkCircle\", }; const TONE_WORD: Record<NotificationTone, string> = { info: \"Information\", success: \"Success\", attention: \"Needs attention\", danger: \"Error\", }; /** A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border; icon in its own column; title and message on one left edge; actions on the right, centred on the text; close top right, in the flow.",
+          "description": "The button's words. */ label: ReactNode; onClick?: () => void; href?: string; } export interface NotificationProps { /** Figma \"Message\". The line under the title; wraps. */ message?: ReactNode; /** Figma \"Show icon\". Off drops the icon column. */ showIcon?: boolean; /** Figma \"Show action\". The first action, the small secondary Button (white, grey edge, ink label; 32 plate, 44 hit; as Figma draws it). Missing = off. */ action?: NotificationAction; /** Figma \"Title\". */ title?: ReactNode; /** Figma \"Show second action\". Missing = off. */ secondAction?: NotificationAction; /** Figma \"Show close\". Missing = off. Close is Button tertiary, sm, icon only, top right in the flow. */ onClose?: () => void; /** Accessible name of the close button. */ closeLabel?: string; /** Figma \"tone\". */ tone?: NotificationTone; /** Figma \"Icon\" (nested swap). Defaults per tone to the registry glyph Figma uses: info InfoCircle, success CheckCircle, attention WarningCircle, danger XmarkCircle. / icon?: IconName; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } const DEFAULT_ICON: Record<NotificationTone, IconName> = { info: \"InfoCircle\", success: \"CheckCircle\", attention: \"WarningCircle\", danger: \"XmarkCircle\", }; const TONE_WORD: Record<NotificationTone, string> = { info: \"Information\", success: \"Success\", attention: \"Needs attention\", danger: \"Error\", }; /** A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border; icon in its own column; title and message on one left edge; actions on the right, centred on the text; close top right, in the flow.",
           "states": [
             "default"
           ],
@@ -3584,7 +3585,6 @@
             "index",
             "lane",
             "dropTarget",
-            "statusTone",
             "count",
             "children",
             "headingLevel",
@@ -3599,7 +3599,7 @@
             "Not a table (DataTable)",
             "Never a blue lane"
           ],
-          "a11y": "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 lowest on the needs-you wash; on the lane grey checked by the gate. Needs-you edge border-utility-warning 3.56:1 on the page. Drop label content-brand 7.52:1 on the lane (Chip light).",
+          "a11y": "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 on the lane grey, checked by the gate. Drop label content-brand 7.52:1 on the lane (Chip light).",
           "figma": "Matches the published BellaComponents BoardLane (783:496472) and BoardLane drop space (783:496703), read 19 Nov 2026. Figma draws drop-target the same as default; the drop space marks the landing.",
           "figmaProps": {
             "Name": "name",
@@ -3607,7 +3607,6 @@
             "Show index + Index label": "index (missing = off)",
             "lane": "lane",
             "state=drop-target": "dropTarget",
-            "Status (StatusDot) tone": "statusTone",
             "Count (Tag) label": "count (defaults to the number of cards)",
             "Card 1 to 4 / Show card 1 to 4": "children",
             "drop space kind / Label": "BoardLaneDropSpace kind / label"

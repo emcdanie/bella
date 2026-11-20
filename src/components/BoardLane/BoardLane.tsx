@@ -1,5 +1,4 @@
 import React, { Children, useId, type CSSProperties, type ReactNode } from 'react';
-import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
 import styles from './BoardLane.module.css';
 
@@ -43,12 +42,10 @@ export interface BoardLaneProps {
   order?: ReactNode;
   /** Figma "Show index" + the Index Tag label ("01"): the lane's place in the sequence. Missing = off. Only where the lanes are a sequence (guideline 11). */
   index?: ReactNode;
-  /** Figma "lane". Both lanes are the neutral lane grey; needs-you colours only its count and index (attention tone). */
+  /** Figma "lane". Both lanes are the neutral lane grey; needs-you colours only its count (attention tone). The index stays neutral. */
   lane?: 'needs-you' | 'other';
   /** Figma "state=drop-target": a card is over this lane. Figma draws it the same as default; the drop space inside marks where it lands. */
   dropTarget?: boolean;
-  /** Figma Status (StatusDot) tone in the Head. */
-  statusTone?: StatusDotProps['tone'];
   /** Figma Count (Tag) label. Defaults to the number of cards. */
   count?: number;
   /** Figma Cards (Card 1 to 4, TaskCard; Show card 1 to 4): the cards, each in a list item. */
@@ -69,7 +66,6 @@ export default function BoardLane({
   index,
   lane = 'other',
   dropTarget = false,
-  statusTone = 'attention',
   count,
   children,
   headingLevel = 2,
@@ -91,14 +87,10 @@ export default function BoardLane({
     >
       <div className={styles.head}>
         {index != null ? (
-          <Tag variant="index" tone={tone}>
+          <Tag variant="index" tone="count">
             {index}
           </Tag>
         ) : null}
-        {/* the heading names the lane; the dot only carries the tone */}
-        <span className={styles.status} aria-hidden="true">
-          <StatusDot tone={statusTone} showDot showWash showLabel={false} label={name} />
-        </span>
         <H id={id} className={styles.name}>
           {name}
         </H>

@@ -200,12 +200,22 @@ export const ZonedStatusBar: Story = {
     <Card label="Status bar" width={560}>
       <ListRow
         layout="stacked"
+        statusBar="attention"
+        overline="Needs you"
+        title="Figma check"
+        description="No file key in server/.env · 10:29"
+        actionButton={<Button variant="tertiary">Add file key</Button>}
+        rightTag={<Tag variant="line">Design systems</Tag>}
+        divider
+      />
+      <ListRow
+        layout="stacked"
         statusBar="neutral"
         overline="Label"
         title="Title"
         meta="Sub title"
         actionButton={<Button variant="tertiary" size="sm">button</Button>}
-        rightTag={<Tag variant="outline">Label</Tag>}
+        rightTag={<Tag variant="line">Label</Tag>}
         trailing
         href="#status-bar"
         divider

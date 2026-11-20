@@ -178,6 +178,37 @@
   flex: 1 1 0;
 }
 
+/* Her 20 Nov hierarchy on status-bar rows (colour-and-buttons.md, "the
+   hierachy is all off.."; CHIP Dashboard 612:88931 Text stack, read 21 Nov):
+   Label 16 subtle, Title 20 regular ink (the biggest thing in the row), Sub
+   title 16 subtle, all in the reading face; meta keeps the subtext face for
+   times and numbers. The right stack is centred on the text and its text
+   button ends flush on the row's right edge, over the line Tag. Library
+   publish pending: re-check against BellaComponents ListRow after it. */
+.barLabel,
+.barTitle {
+  display: block;
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+}
+.barLabel {
+  color: var(--color-content-subtle);
+}
+.barTitle {
+  font-size: var(--typography-font-size-20);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+.hasBar .description {
+  color: var(--color-content-subtle);
+}
+.hasBar .content {
+  align-items: center;
+}
+.hasBar .actionLine > [data-bella-component='button'] {
+  padding-inline-end: 0;
+}
+
 /* Figma "Status bar" 1512:249842: 4 wide, round, the Tag's own edge token so
    it reaches 3:1. Its own shape, not a row edge (rule 9). */
 .statusBar {

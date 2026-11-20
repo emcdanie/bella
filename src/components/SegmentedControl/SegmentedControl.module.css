@@ -64,7 +64,13 @@
 .control button[aria-current='true'] {
   /* Published Figma (selected=true): brand-subtle-hover fill, no edge; the
      decided Chip selected look (18 Nov): light blue with a bold ink label. */
-  background: var(--color-background-brand-subtle-hover);
+  /* The lifted plate is a surface: the blue sits on background/surface, not
+     on the track, so Chip dark's see-through blue reads the same on a page
+     or a card (ink 7.09:1, was 5.70 on a card; audit 8, 21 Nov). The other
+     themes' blue is solid, so they look the same. */
+  background:
+    linear-gradient(var(--color-background-brand-subtle-hover), var(--color-background-brand-subtle-hover)),
+    var(--color-background-surface);
   color: var(--color-content-default);
   font-weight: var(--typography-font-weight-600);
   box-shadow: var(--shadow-soft); /* the lift (published Segment selected=true) */

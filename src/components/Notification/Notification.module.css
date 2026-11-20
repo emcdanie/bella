@@ -33,22 +33,18 @@
 .info {
   background: var(--color-background-utility-info);
   --notification-ink: var(--color-content-utility-info);
-  --notification-edge: var(--color-border-utility-info);
 }
 .success {
   background: var(--color-background-utility-success);
   --notification-ink: var(--color-content-utility-success);
-  --notification-edge: var(--color-border-utility-success);
 }
 .attention {
   background: var(--color-background-utility-warning);
   --notification-ink: var(--color-content-utility-warning);
-  --notification-edge: var(--color-border-utility-warning);
 }
 .danger {
   background: var(--color-background-utility-error);
   --notification-ink: var(--color-content-utility-error);
-  --notification-edge: var(--color-border-utility-error);
 }
 
 /* 4 on top and a 24 slot, so the 20 glyph centres on the 24 title line */
@@ -106,20 +102,6 @@
   gap: var(--spacing-8);
 }
 
-/* The one place an action is not blue: wash fill, status edge, status ink
- * (17 Nov, "Yes, use A"). Doubled class so it outranks Button's tiers. */
-.actions .act.act {
-  background-color: transparent;
-  border-color: var(--notification-edge);
-  color: var(--notification-ink);
-}
-
-.actions .act.act:hover:not(:disabled),
-.actions .act.act:focus-visible {
-  border-color: var(--notification-ink);
-  background-color: transparent;
-}
-
 .close {
   grid-area: close;
   align-self: start;
@@ -127,8 +109,7 @@
 
 /* Figma Notification (951:4124): Close is the tertiary icon-only sm Button
  * with its glyph in the tone's ink (the same override Figma makes), at the
- * top of the row, not centred. Doubled class beats Button's own tier colour,
- * as .act does above. */
+ * top of the row, not centred. Doubled class beats Button's own tier colour. */
 .close.close {
   color: var(--notification-ink);
 }

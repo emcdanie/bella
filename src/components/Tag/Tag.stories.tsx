@@ -72,7 +72,8 @@ const FIGMA_TONES = ['default', 'count', 'success', 'info', 'attention', 'danger
 
 /** Figma's tone x style x Show dot, in Chip light and Chip dark (re-sync,
  * 19 Nov 2026). outline every tone, with and without the dot; index for the
- * lane pins (count, attention); flat for missing items (18 Nov, "B, flat"). */
+ * lane pins (count, attention); flat for missing items (18 Nov, "B, flat"); line on a List row's right
+ * stack (21 Nov). */
 export const ChipTones: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
@@ -99,6 +100,7 @@ export const ChipTones: Story = {
           <Tag variant="index" tone="count">01</Tag>
           <Tag variant="index" tone="attention">02</Tag>
           <Tag variant="flat">No dark story</Tag>
+          <Tag variant="line">Design systems</Tag>
         </div>
       ))}
     </div>

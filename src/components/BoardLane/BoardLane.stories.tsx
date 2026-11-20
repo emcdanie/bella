@@ -42,7 +42,6 @@ const meta: Meta<typeof BoardLane> = {
   },
   argTypes: {
     lane: { control: 'inline-radio' },
-    statusTone: { control: 'inline-radio' },
     className: { control: false },
     style: { control: false },
     children: { control: false },
@@ -68,17 +67,17 @@ export const Playground: Story = {};
 export const WorkBoard: Story = {
   render: () => (
     <Board>
-      <BoardLane name="Needs you" index="01" lane="needs-you" statusTone="attention" order="Failures first, then what blocks a push.">
+      <BoardLane name="Needs you" index="01" lane="needs-you" order="Failures first, then what blocks a push.">
         {card('Figma check', 'No file key in server/.env', 'Failed', 'danger')}
         {card('Hero at 390', 'Wraps under the photo', 'Waiting on you', 'attention')}
       </BoardLane>
-      <BoardLane name="Agent" index="02" statusTone="info" order="Oldest first.">
+      <BoardLane name="Agent" index="02" order="Oldest first.">
         {card('Contrast pairs', '9 to go', 'Working', 'info')}
       </BoardLane>
-      <BoardLane name="Gate" index="03" statusTone="info" order="In the order they were sent.">
+      <BoardLane name="Gate" index="03" order="In the order they were sent.">
         {card('Button pressed', 'Checks 4 of 5', 'Gate checking', 'info')}
       </BoardLane>
-      <BoardLane name="Ready" index="04" statusTone="success" order="Ready to push.">
+      <BoardLane name="Ready" index="04" order="Ready to push.">
         {card('Tabs count', 'All checks pass', 'Passed', 'success')}
       </BoardLane>
     </Board>
@@ -89,10 +88,10 @@ export const WorkBoard: Story = {
 export const Dragging: Story = {
   render: () => (
     <Board>
-      <BoardLane name="Needs you" lane="needs-you" statusTone="attention" order="Failures first, then what blocks a push." count={1}>
+      <BoardLane name="Needs you" lane="needs-you" order="Failures first, then what blocks a push." count={1}>
         <BoardLaneDropSpace kind="origin" />
       </BoardLane>
-      <BoardLane name="Agent" statusTone="info" order="Oldest first." dropTarget count={0}>
+      <BoardLane name="Agent" order="Oldest first." dropTarget count={0}>
         <BoardLaneDropSpace kind="target" />
       </BoardLane>
     </Board>

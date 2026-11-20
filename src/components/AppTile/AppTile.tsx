@@ -11,7 +11,7 @@ export interface AppTileProps {
   size?: 'sm' | 'md' | 'lg';
   /** Figma "icon" swap: a glyph from the Icon set (Brain for the agent, GitBranch for git…). */
   icon?: IconName;
-  /** A service's brand mark, in place of an icon (GitHub, Figma, Claude). */
+  /** A service's brand mark, in place of an icon (GitHub, Figma, Claude). tone="claude" with no icon or brand shows the Claude mark (published 21 Nov). */
   brand?: BrandMark;
   /** Figma "Show badge": a count Tag beside the tile. */
   badge?: ReactNode;
@@ -24,7 +24,8 @@ export interface AppTileProps {
  * optional badge (Figma BellaComponents App tile 796:8193, read 20 Nov 2026).
  * Decorative beside its name: the name carries the meaning.
  */
-export default function AppTile({ tone = 'inverse', size = 'md', icon = 'ViewGrid', brand, badge, className, style }: AppTileProps) {
+export default function AppTile({ tone = 'inverse', size = 'md', icon, brand: brandProp, badge, className, style }: AppTileProps) {
+  const brand = brandProp ?? (tone === 'claude' && icon == null ? 'claude' : undefined);
   return (
     <span className={[styles.wrap, className].filter(Boolean).join(' ')} style={style} data-bella-component="app-tile">
       <span className={[styles.tile, styles[tone], styles[size]].join(' ')} aria-hidden="true">
@@ -41,7 +42,7 @@ export default function AppTile({ tone = 'inverse', size = 'md', icon = 'ViewGri
             ))}
           </svg>
         ) : (
-          <Icon name={icon} size="lg" />
+          <Icon name={icon ?? 'ViewGrid'} size="lg" />
         )}
       </span>
       {badge != null ? (

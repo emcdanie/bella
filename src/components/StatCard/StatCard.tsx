@@ -5,9 +5,12 @@ import Progress from '../Progress/Progress';
 import type { IconName } from '../Icon/Icon';
 import styles from './StatCard.module.css';
 
-export type StatCardTone = 'info' | 'success' | 'warning';
+export type StatCardTone = 'info' | 'success' | 'warning' | 'danger' | 'neutral';
 
-const PROGRESS_TONE = { info: 'info', success: 'success', warning: 'attention' } as const;
+/* Figma tone onto the parts' own names: Progress has no neutral (a neutral
+   card is chart=none or empty, where no mark is drawn) */
+const PROGRESS_TONE = { info: 'info', success: 'success', warning: 'attention', danger: 'danger', neutral: 'info' } as const;
+const WELL_TONE = { info: 'info', success: 'success', warning: 'warning', danger: 'error', neutral: 'neutral' } as const;
 
 export interface StatCardMeter {
   /** Bar: Progress "Fill · value", 0 to 100. */
@@ -35,15 +38,19 @@ export interface StatCardProps {
   caption?: ReactNode;
   /** Figma "Show button". Footer right: a secondary Button only when it acts ("Set target"), never to navigate. Missing = off. */
   button?: ReactNode;
-  /** Figma "chart". */
-  chart?: 'bar' | 'segments';
-  /** Figma "tone". Icon well, chart marks. warning maps to Progress attention. */
+  /**
+   * Figma "chart". none: the number only (counts such as Runs). empty: no
+   * data yet, the same card with the count at zero, an empty bar, and the
+   * footer saying why with an action (her 21 Nov pick A).
+   */
+  chart?: 'bar' | 'segments' | 'none' | 'empty';
+  /** Figma "tone". Status only: the icon well and the chart marks; a count with no status is neutral. */
   tone?: StatCardTone;
   /** Figma Icon well icon swap. */
   icon: IconName;
-  /** The chart's numbers. Missing = no chart (as the "Runs this week" instance). */
+  /** The chart's numbers for bar and segments. Missing = no chart. */
   meter?: StatCardMeter;
-  /** Header opens the detail: a link. The whole 44 header row is the target and carries the ›. */
+  /** Header opens the detail: a link. The whole 44 header row is the target and carries the ↗. */
   href?: string;
   /** Header opens the detail: a button. Ignored when `href` is set. */
   onOpen?: () => void;
@@ -54,9 +61,10 @@ export interface StatCardProps {
 }
 
 /**
- * A number with its meaning: header (icon well, title, ›), body (number and
- * unit, chart, context), footer (caption, optional action). Cards in a row
- * share a height; the body centres between header and footer.
+ * One figure on a card (published 21 Nov, one pattern): header (icon well,
+ * title, ↗), body (number and unit, chart, context), footer (caption,
+ * optional action), all from one left edge, no indent. Cards in a row share
+ * a height; the body centres between header and footer.
  */
 export default function StatCard({
   title,
@@ -78,6 +86,8 @@ export default function StatCard({
   const opens = href != null || onOpen != null;
   const headInner = (
     <>
+      {/* Figma Header (21 Nov): the 36 Icon well, 12, the title, the ↗ */}
+      <IconWell icon={icon} tone={WELL_TONE[tone]} />
       <span className={styles.title}>{title}</span>
       {opens ? <Trailing /> : null}
     </>
@@ -102,19 +112,22 @@ export default function StatCard({
       style={style}
       data-bella-component="stat-card"
     >
-      {/* Figma 20 Nov (rule 20): the icon well in its own Lead column, centred
-          on the 44 header row; every text in Content shares one left edge. */}
-      <div className={styles.lead}>
-        <IconWell icon={icon} tone={tone} />
-      </div>
-      <div className={styles.content}>
       {header}
       <div className={styles.body}>
         <p className={styles.number}>
           <span className={styles.value}>{value}</span>
           {unit != null && unit !== '' ? <span className={styles.unit}>{unit}</span> : null}
         </p>
-        {meter ? (
+        {chart === 'empty' ? (
+          <Progress
+            className={styles.meter}
+            label={typeof title === 'string' ? title : 'Progress'}
+            value={words || undefined}
+            showLabel={false}
+            shape="bar"
+            fill={0}
+          />
+        ) : meter && chart !== 'none' ? (
           <Progress
             className={styles.meter}
             label={typeof title === 'string' ? title : 'Progress'}
@@ -138,7 +151,6 @@ export default function StatCard({
           {button}
         </div>
       ) : null}
-      </div>
     </section>
   );
 }

@@ -28,7 +28,9 @@
 
 .heading {
   margin: 0;
-  padding: var(--spacing-24) var(--spacing-12) var(--spacing-4);
+  /* one left edge (rule 20, published 21 Nov): headings inset 16, as the
+     rows' folder icons and status dots and as Nav item */
+  padding: var(--spacing-24) var(--spacing-12) var(--spacing-4) var(--spacing-16);
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-body-default-font-size);
   font-weight: var(--typography-font-weight-600);
@@ -60,4 +62,11 @@
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* Show heading in a drawer (published 21 Nov): the drawer title's size, 18,
+   never larger */
+.drawerHeading {
+  font-size: var(--typography-font-size-18);
+  line-height: var(--typography-line-height-130);
 }

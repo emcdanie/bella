@@ -45,7 +45,7 @@ export default function Select({
             </option>
           ))}
         </select>
-        <Icon name="NavArrowDown" size="sm" className={styles.chevron} />
+        <Icon name="NavArrowDown" size="md" className={styles.chevron} />
       </span>
     </label>
   );

@@ -103,10 +103,10 @@ export const NotAgainRow: Story = {
 export const ChartsAndTones: Story = {
   render: () => (
     <Themed>
-      {(['success', 'warning', 'info'] as const).map((tone) => (
+      {(['success', 'warning', 'info', 'danger'] as const).map((tone) => (
         <StatCard key={`bar-${tone}`} title={`Bar · ${tone}`} value="80" unit="%" context="35 of 44 have pairs · 9 to go" caption="Target 90%" tone={tone} icon="Check" meter={{ fill: 80, target: 90 }} href="#x" />
       ))}
-      {(['success', 'warning', 'info'] as const).map((tone) => (
+      {(['success', 'warning', 'info', 'danger'] as const).map((tone) => (
         <StatCard key={`seg-${tone}`} title={`Segments · ${tone}`} value="4" unit="of 5" context="4 of 5 checks pass · 1 to fix" caption="Target 5 of 5" chart="segments" tone={tone} icon="Check" meter={{ segments: 5, done: 4 }} href="#x" />
       ))}
       <StatCard title="With action" value="0" unit="%" context="No target set yet" caption="No target" tone="info" icon="Check" meter={{ fill: 0 }} button={<Button variant="secondary" size="sm">Set target</Button>} />
@@ -114,7 +114,29 @@ export const ChartsAndTones: Story = {
   ),
 };
 
-/** The header row is one link with the ›; nothing else is a target. */
+/** The published variants side by side (Stat card 1168:56015, 21 Nov): bar, segments, none and empty, 330 wide. */
+export const OnePattern: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 'var(--spacing-16)', padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" tone="success" icon="ShieldCheck" meter={{ fill: 80, target: 90 }} href="#a" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="segments" tone="danger" icon="Brain" meter={{ segments: 5, done: 5 }} href="#b" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="none" tone="info" icon="ShieldCheck" href="#c" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="5" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="stat-card"]');
+    const well = cards[0].querySelector('[data-bella-component="icon-well"]') as HTMLElement;
+    const value = cards[0].querySelector('p span') as HTMLElement;
+    await expect(Math.round(well.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
+    await expect(Math.round(value.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
+    await expect(getComputedStyle(value).fontWeight).toBe('700');
+    await expect(cards[2].querySelector('[role="progressbar"]')).toBeNull();
+    await expect(cards[3].querySelector('[role="progressbar"]')).toHaveAttribute('aria-valuenow', '0');
+  },
+};
+
+/** The header row is one link with the ↗; nothing else is a target. */
 export const Behavior: Story = {
   play: async ({ canvas, step }) => {
     await step('header is one link, chart is a progressbar', async () => {

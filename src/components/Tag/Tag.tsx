@@ -24,6 +24,11 @@ export interface TagProps {
   tone?: TagTone;
   /** Figma "Show dot". A 12 dot in the tone before the label. */
   showDot?: boolean;
+  /**
+   * Figma "Show count" + "Count" (published 21 Nov): a number before the
+   * label, 4 apart, in the number face 600, the tone's ink. Missing = off.
+   */
+  count?: ReactNode;
   /** Extra classes on the chip. */
   className?: string;
   style?: CSSProperties;
@@ -38,11 +43,12 @@ export default function Tag({
   variant = 'default',
   tone,
   showDot = false,
+  count,
   className,
   style,
   children,
 }: TagProps) {
-  const figma = tone !== undefined || showDot || variant === 'outline' || variant === 'flat' || variant === 'index' || variant === 'line';
+  const figma = tone !== undefined || showDot || count != null || variant === 'outline' || variant === 'flat' || variant === 'index' || variant === 'line';
   if (!figma) {
     const cls = [styles.tag, variant === 'accent' ? styles.accent : '', className]
       .filter(Boolean)
@@ -59,7 +65,14 @@ export default function Tag({
   return (
     <span className={cls} style={style} data-bella-component="tag">
       {showDot ? <span className={styles.dot} aria-hidden="true" /> : null}
-      {children}
+      {count != null ? (
+        <span className={styles.text}>
+          <span className={styles.count}>{count}</span>
+          {children}
+        </span>
+      ) : (
+        children
+      )}
     </span>
   );
 }

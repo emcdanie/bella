@@ -119,3 +119,30 @@ export const InDrawer: Story = {
     });
   },
 };
+
+/** Show heading (published 21 Nov): in a drawer titled "Menu" the panel shows its headings at the drawer title's size, 18. */
+export const InMenuDrawer: Story = {
+  render: () => (
+    <Drawer open onClose={() => {}} label="Menu">
+      <ProjectPanel
+        flush
+        showHeading
+        switcher={<ClientSwitcher variant="plain" name="BELLA" />}
+        projects={
+          <>
+            <TreeItem kind="folder" label="CHIP" open current />
+            <TreeItem kind="branch" label="main" status="passed" lineBelow={false} />
+          </>
+        }
+        status={<TreeItem kind="status" label="Needs you" tone="attention" count={4} />}
+      />
+    </Drawer>
+  ),
+  play: async () => {
+    const dialog = document.querySelector('dialog[data-bella-component="drawer"]') as HTMLElement;
+    const heading = [...dialog.querySelectorAll('h2')].find((h) => h.textContent === 'Projects') as HTMLElement;
+    await expect(heading.getBoundingClientRect().width).toBeGreaterThan(1);
+    await expect(getComputedStyle(heading).fontSize).toBe('18px');
+    await expect(getComputedStyle(heading).paddingLeft).toBe('16px');
+  },
+};

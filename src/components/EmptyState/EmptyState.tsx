@@ -4,7 +4,7 @@ import styles from './EmptyState.module.css';
 export interface EmptyStateProps {
   /** Figma "size". lane: the compact one, for a card or lane; page: a whole view. */
   size?: 'lane' | 'page';
-  /** Figma "Wash". One brand wash per page, or none. */
+  /** Figma "Wash". Cleared in the 21 Nov publish: every value draws no wash. Kept until Figma deletes the property. */
   wash?: 'none' | 'pink' | 'blue' | 'ochre' | 'navy';
   /** Figma "Title". Short, says what is missing. */
   title: ReactNode;
@@ -28,7 +28,6 @@ export interface EmptyStateProps {
  */
 export default function EmptyState({
   size = 'lane',
-  wash = 'none',
   title,
   line,
   mark,
@@ -37,7 +36,7 @@ export default function EmptyState({
   className,
   style,
 }: EmptyStateProps) {
-  const cls = [styles.root, styles[size], wash !== 'none' ? styles[wash] : '', className].filter(Boolean).join(' ');
+  const cls = [styles.root, styles[size], className].filter(Boolean).join(' ');
   return (
     <div className={cls} style={style} data-bella-component="empty-state" data-bella-reveal="">
       <div className={styles.content}>

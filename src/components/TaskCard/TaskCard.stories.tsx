@@ -238,20 +238,23 @@ export const AcceptAndUndo: Story = {
   },
 };
 
-/** The published default (TaskCard 778:495606, 21 Nov): the status bar down the left and a line Tag,
- * neutral "To do" when no status is given; any tone colours both. */
-export const StatusBarAndTag: Story = {
+/** Her pick "B · coloured border, no bar" (TaskCard 799:177248, published 21 Nov): a 2px border in the
+ * status tone and a line Tag; neutral "To do" when no status is given. */
+export const BorderAndTag: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
-      <TaskCard title="Figma check" line="main · 10:19" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} />
-      <TaskCard title="Contrast pair for the new wash" line="Waiting on you" status="Needs you" statusTone="attention" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+      <TaskCard title="Contrast pairs" line="main · 10:19" status="Working" statusTone="info" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Waiting on you" statusTone="attention" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Done" statusTone="success" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="task-card"]');
     await expect(cards[0].querySelector('[data-bella-component="tag"]')).toHaveTextContent('To do');
-    const bar = cards[1].querySelector('[data-tone]') as HTMLElement;
-    await expect(bar).toHaveAttribute('data-tone', 'attention');
-    await expect(Math.round(bar.getBoundingClientRect().width)).toBe(4);
+    await expect(cards[2]).toHaveAttribute('data-tone', 'attention');
+    await expect(getComputedStyle(cards[2]).borderTopWidth).toBe('2px');
+    await expect(cards[2].querySelector('[aria-hidden="true"][class*="bar"]')).toBeNull();
   },
 };

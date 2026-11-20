@@ -20,7 +20,7 @@ export interface TaskCardProps {
   branch?: ReactNode;
   /** Figma Status (Tag, style=line): the status in words. Default "To do". */
   status?: ReactNode;
-  /** The status tone: the Tag's tone and the status bar down the card's left edge (21 Nov publish). neutral is Figma's default. */
+  /** Figma "tone": the Tag's tone and the card's 2px border colour (21 Nov publish, her pick "B · coloured border, no bar"). neutral is Figma's tone=default, "To do". */
   statusTone?: StatusDotProps['tone'];
   /** Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states. */
   dragging?: boolean;
@@ -57,10 +57,10 @@ export interface TaskCardProps {
  * One task on the Work board: what it is and its status. The whole card
  * opens it (a stretched link or button on the title, so the card is one
  * target); "Move to…" is its own 44 button above that target. States:
- * default, hover (edge goes strong), focus (4 + 4 ring round the card),
+ * default, hover (light blue, brand-subtle), focus (4 + 4 ring round the card),
  * dragging (only dragging lifts).
  */
-/* the status tone on the line Tag and the bar (StatusDot's names, Tag's tones) */
+/* the status tone on the line Tag and the border (StatusDot's names, Tag's tones) */
 const TONE = { success: 'success', info: 'info', attention: 'attention', danger: 'danger', neutral: 'default' } as const;
 
 export default function TaskCard({
@@ -109,6 +109,7 @@ export default function TaskCard({
       style={style}
       data-bella-component="task-card"
       data-state={dragging ? 'dragging' : 'default'}
+      data-tone={TONE[statusTone]}
       onAnimationEnd={(e) => {
         if (leaving && e.target === e.currentTarget) onLeft?.();
       }}
@@ -116,8 +117,6 @@ export default function TaskCard({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >
-      {/* Figma Status bar: 4 wide, the full height, in the status tone */}
-      <span className={styles.bar} data-tone={TONE[statusTone]} aria-hidden="true" />
       <div className={styles.content}>
       <div className={styles.head}>
         <div className={styles.text}>

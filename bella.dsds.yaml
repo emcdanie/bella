@@ -10102,7 +10102,7 @@ entries:
   - kind: component
     id: stat
     name: Stat
-    description: "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: a sans label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour. An optional sparkline (series, two points or more) draws the history as a 1px ink line, spoken as one sentence."
+    description: "One figure with its label and an optional change (CHIP components, 2026-10-03; BellaComponents Stat 161:78, 21 Nov 2026). A term-description pair: a 16 label, the figure in the number face 700 at 24 in tabular numerals, a change line in the subtext face whose direction is an arrow plus a spoken word, never colour. An optional sparkline."
     metadata:
       origin:
         method: extracted
@@ -11909,7 +11909,7 @@ entries:
   - kind: component
     id: trailing
     name: Trailing
-    description: "Figma \"Icon\" choices: › opens, ↗ leaves, ⇅ switches (the client switcher). */ export type TrailingIcon = 'NavArrowRight' | 'ArrowUpRight' | 'NavArrowUpDown'; export interface TrailingProps { /** Figma \"Icon\" (instance swap). Default › = \"open where you see more\". */ icon?: TrailingIcon; /** Decorative by default (the row names the target). Pass a label to make the glyph meaningful. */ label?: string; /** Extra classes on the frame. */ className?: string; style?: CSSProperties; } /** The end-of-row mark: a 24 frame that fills the row height with the glyph centred, and a 44 hit area. The whole row is the target; this only marks it."
+    description: "The end-of-row mark: a 24 frame that fills the row height, glyph centred, 44 hit area. Figma \"Icon\" choices: ↗ (the default, 21 Nov) and ⇅ at the 24 icon, › at the 32 icon with a 1.5px line."
     metadata:
       origin:
         method: extracted
@@ -11983,7 +11983,7 @@ entries:
   - kind: component
     id: progress
     name: Progress
-    description: "Clamp to 0–100 so a bad number never draws outside the track. */ const pct = (n: number) => Math.min(100, Math.max(0, n)); /* --------------------------------------------------------------------------- The pieces. Each is its own part in Figma; here they live in the Progress folder and are exported so a legend or a chart can reuse the same mark. ------------------------------------------------------------------------- */ export interface TargetMarkProps { className?: string; style?: CSSProperties; } /** Figma \"_Target mark\" (private): the one target mark. 4 wide, round ends, border/brand, as tall as its frame. Also the key in a \"Target N%\" legend. */ export function TargetMark({ className, style }: TargetMarkProps) { return ( <span className={[styles.targetMark, className].filter(Boolean).join(' ')} style={style} aria-hidden=\"true\" data-bella-component=\"target-mark\" /> ); } export interface ProgressFillProps { /** Figma \"value\", 0–100. At 0 nothing is drawn: the track reads empty. */ value: number; tone?: ProgressTone; } /** Figma \"Progress fill\": the filled part of a bar, width = value %. */ export function ProgressFill({ value, tone = 'info' }: ProgressFillProps) { const v = pct(value); if (v === 0) return null; return ( <span className={[styles.fill, styles[tone]].join(' ')} style={{ '--progress-fill': `${v}%` } as CSSProperties} data-bella-component=\"progress-fill\" /> ); } export interface ProgressSegmentProps { /** Figma \"tone\". */ tone?: ProgressTone; /** Figma \"done\". true takes the tone's mark, false the track. */ done?: boolean; } /** Figma \"Progress segment\": one step of shape=segments. */ export function ProgressSegment({ tone = 'info', done = true }: ProgressSegmentProps) { return ( <span className={[styles.segment, done ? styles[tone] : ''].filter(Boolean).join(' ')} data-bella-component=\"progress-segment\" /> ); } export interface ProgressTargetProps { /** Figma \"target\", 0–100. */ target: number; } /** Figma \"Progress target\": the named overlay over the track (absolute, as code positions it), holding the Target mark at left: target %. */ export function ProgressTarget({ target }: ProgressTargetProps) { return ( <span className={styles.target} style={{ '--progress-target': `${pct(target)}%` } as CSSProperties} data-bella-component=\"progress-target\" > <TargetMark className={styles.targetPlaced} /> </span> ); } /* --------------------------------------------------------------------------- Progress ------------------------------------------------------------------------- */ export interface ProgressProps { /** Figma \"Label\". What is measured. Stays the accessible name when hidden. */ label: ReactNode; /** Figma \"Value\". The amount in words (\"60%\", \"4 of 6\"). */ value?: ReactNode; /** Figma \"Show label\". Off hides the Head (label and value) visually. */ showLabel?: boolean; /** Figma \"Show target\". Bar only: draws the Target mark at `target`. */ showTarget?: boolean; /** Figma \"shape\". */ shape?: 'bar' | 'segments' | 'ring'; /** Figma \"tone\". Status colours for status only. */ tone?: ProgressTone; /** Figma \"Fill · value\" (bar, ring): 0–100. */ fill?: number; /** Figma \"Target · target\" (bar): 0–100. */ target?: number; /** Segments only: how many steps (Figma draws 6; the gate uses 5). */ segments?: number; /** Segments only: how many are done. */ done?: number; className?: string; style?: CSSProperties; } /** How far something has got, as a bar, a row of segments or a ring. Always shown with words. Not interactive. role=\"progressbar\" with the amount."
+    description: "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle (her 21 Nov \"can we litghten the grey bar\"): the empty part, not a mark; the fill carries the amount and the amount is always in words."
     metadata:
       origin:
         method: extracted
@@ -12020,7 +12020,7 @@ entries:
   - kind: component
     id: stat-card
     name: StatCard
-    description: "Bar: Progress \"Fill · value\", 0–100. */ fill?: number; /** Bar: Progress \"Target · target\", 0–100. Drawn when set. */ target?: number; /** Segments: how many. */ segments?: number; /** Segments: how many are done. */ done?: number; /** Accessible amount in words (\"1 of 2\"). Defaults to value + unit. */ valueText?: string; } export interface StatCardProps { /** Figma \"Title\". The card title, and the chart's accessible name. */ title: ReactNode; /** Figma \"Value\". The big number. */ value: ReactNode; /** Figma \"Unit\". Small, beside the number (\"%\", \"of 2\"). Missing = off. */ unit?: ReactNode; /** Figma \"Context\". One line worked out from real numbers: what the number means and which way. */ context?: ReactNode; /** Figma \"Caption\". Footer left: the target or where it came from. */ caption?: ReactNode; /** Figma \"Show button\". Footer right: a secondary Button only when it acts (\"Set target\"), never to navigate. Missing = off. */ button?: ReactNode; /** Figma \"chart\". */ chart?: 'bar' | 'segments'; /** Figma \"tone\". Icon well, chart marks. warning maps to Progress attention. */ tone?: StatCardTone; /** Figma Icon well icon swap. */ icon: IconName; /** The chart's numbers. Missing = no chart (as the \"Runs this week\" instance). */ meter?: StatCardMeter; /** Header opens the detail: a link. The whole 44 header row is the target and carries the ›. */ href?: string; /** Header opens the detail: a button. Ignored when `href` is set. */ onOpen?: () => void; className?: string; style?: CSSProperties; } /** A number with its meaning: header (icon well, title, ›), body (number and unit, chart, context), footer (caption, optional action). Cards in a row share a height; the body centres between header and footer."
+    description: "One figure on a card: what it is, the number, how far along, and ↗ to open it. One column from the 24 padding, no indent: header (36 icon well, title, ↗; the whole 44 row is the target), body (number and unit in the number face 700, chart, context), footer (caption, a Button only when it acts). chart bar, segments, none (number only) or empty (no data yet: zero, an empty bar, the footer says why and offers the action). tone success, warning, info, danger, neutral: status only."
     metadata:
       origin:
         method: extracted
@@ -12131,12 +12131,15 @@ entries:
   - kind: component
     id: notification
     name: Notification
-    description: "The button's words. */ label: ReactNode; onClick?: () => void; href?: string; } export interface NotificationProps { /** Figma \"Message\". The line under the title; wraps. */ message?: ReactNode; /** Figma \"Show icon\". Off drops the icon column. */ showIcon?: boolean; /** Figma \"Show action\". The first action, the small secondary Button (white, grey edge, ink label; 32 plate, 44 hit; as Figma draws it). Missing = off. */ action?: NotificationAction; /** Figma \"Title\". */ title?: ReactNode; /** Figma \"Show second action\". Missing = off. */ secondAction?: NotificationAction; /** Figma \"Show close\". Missing = off. Close is Button tertiary, sm, icon only, top right in the flow. */ onClose?: () => void; /** Accessible name of the close button. */ closeLabel?: string; /** Figma \"tone\". */ tone?: NotificationTone; /** Figma \"Icon\" (nested swap). Defaults per tone to the registry glyph Figma uses: info InfoCircle, success CheckCircle, attention WarningCircle, danger XmarkCircle. / icon?: IconName; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } const DEFAULT_ICON: Record<NotificationTone, IconName> = { info: \"InfoCircle\", success: \"CheckCircle\", attention: \"WarningCircle\", danger: \"XmarkCircle\", }; const TONE_WORD: Record<NotificationTone, string> = { info: \"Information\", success: \"Success\", attention: \"Needs attention\", danger: \"Error\", }; /** A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border; icon in its own column; title and message on one left edge; actions on the right, centred on the text; close top right, in the flow."
+    description: A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border, no bar, no Tag; an outline circle icon in the tone (on by default) leads, top-aligned with the title; the title names the thing, the message says why; actions on the right; close top right.
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: role status (alert for danger); the tone in words for screen readers before the title. Icon stroke color/border/utility/<tone> on its fill 3.46:1 lowest (attention, light). Close 44 target. Text 7:1.
       tags:
         - component
         - notification
@@ -12464,7 +12467,7 @@ entries:
   - kind: component
     id: empty-state
     name: EmptyState
-    description: "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page; one brand wash per page, or none."
+    description: "Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash (cleared 21 Nov); the wash prop draws nothing and goes when Figma deletes its Wash property."
     metadata:
       origin:
         method: extracted
@@ -12509,7 +12512,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title content-default and line content-subtle on background-surface, 8.53:1 lowest (Chip light). Edge on hover border-strong 3.76:1 lowest. Focus ring 4 + 4, border-focus."
+          note: "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title and line on background-surface 8.53:1 lowest, on the hover fill (background-brand-subtle) 7.34:1 lowest (line, BELLA light). The 2px status edge on the lane (background-default) 3.56:1 lowest (attention, light). The status is in words in the Tag, so colour is never alone. Focus ring 4 + 4, border-focus."
       tags:
         - component
         - task-card

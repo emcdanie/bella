@@ -1,16 +1,18 @@
-/* TaskCard (Figma BellaComponents TaskCard 799:177248, read 19 Nov 2026). Tokens only.
- * Card: column, 12 between Head and Status row, 12 padding inside a 1px
- * edge (Figma 799:177248, read 21 Nov: the edge sits inside the box and the
- * content starts at 13, so border + padding matches), border/radius/card, background/surface,
- * edge border/subtle, resting shadow/card-ink (published 19 Nov, 18:11).
+/* TaskCard (Figma BellaComponents TaskCard 799:177248, published 21 Nov 2026). Tokens only.
+ * Card: 12 padding inside a 2px edge in the status tone (border/width/2,
+ * color/border/utility/<tone>, neutral for default; her pick "B · coloured
+ * border, no bar", which replaces the status bar), border/radius/card,
+ * background/surface, resting shadow/card-ink. Content: Head over Status
+ * row, 12 apart.
  * Head: row, 4 apart: Text column fills (Title, Line, Branch, 4 apart),
  * Move to… hugs at its right end, one title line tall (24) so the handle
  * centres on the first line; its 44 hit area is a ::after, as Figma's
  * absolute Hit area.
- * Title: reading face 600, 16/24, content/default. Line: reading face 400,
- * 16/24, content/subtle (published 19 Nov, 18:11: Lexend, her y23).
- * Status row: the status Tag (style line, its tone; default "To do"), the › (Trailing) at the end, 8 apart, centred; a status bar in the same tone runs down the left edge (21 Nov publish, 778:495606).
- * States (Figma variants): hover = edge border/strong; focus = 4 ring, 4 gap,
+ * Title: reading face 600, 16/24, content/default. Line: the subtext face
+ * (Geist Mono in Chip) 400, 16/24, content/subtle (21 Nov publish).
+ * Status row: the status Tag (style line, its tone; default "To do"), the ↗ (Trailing) at the end, 8 apart, centred.
+ * States (Figma variants): hover = background/brand-subtle, the one light
+ * blue of every interactive part; focus = 4 ring, 4 gap,
  * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
  * corner here); dragging = shadow/lg. Only dragging lifts above the rest. */
 
@@ -18,13 +20,10 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
-  /* 21 Nov publish: the status bar, then the content, 12 apart */
-  flex-direction: row;
-  gap: var(--spacing-12);
   min-inline-size: 0;
   margin: 0;
   padding: var(--spacing-12);
-  border: var(--border-width-1) solid var(--color-border-subtle);
+  border: var(--border-width-2) solid var(--color-border-utility-neutral);
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-card-ink);
@@ -35,8 +34,13 @@
 }
 
 .opens:hover {
-  border-color: var(--color-border-strong);
+  background: var(--color-background-brand-subtle);
 }
+
+.card[data-tone='success'] { border-color: var(--color-border-utility-success); }
+.card[data-tone='info'] { border-color: var(--color-border-utility-info); }
+.card[data-tone='attention'] { border-color: var(--color-border-utility-warning); }
+.card[data-tone='danger'] { border-color: var(--color-border-utility-error); }
 
 .card:has(.open:focus-visible) {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
@@ -139,7 +143,7 @@
 
 .line {
   margin: 0;
-  font-family: var(--typography-body-default-font-family);
+  font-family: var(--typography-subtext-font-family);
   font-size: var(--typography-font-size-16);
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-px-24);
@@ -203,7 +207,7 @@ button.move:focus-visible {
   min-inline-size: 0;
 }
 
-/* Figma Content: head over the status row, 12 apart, fills beside the bar */
+/* Figma Content: head over the status row, 12 apart, fills the card */
 .content {
   display: flex;
   flex-direction: column;
@@ -211,16 +215,3 @@ button.move:focus-visible {
   flex: 1 1 auto;
   min-inline-size: 0;
 }
-
-/* Figma Status bar (1512:249842): 4 wide, round, the full height, the
-   tone's edge colour (as ListRow's, so it reaches 3:1) */
-.bar {
-  flex: 0 0 var(--spacing-4);
-  align-self: stretch;
-  border-radius: var(--border-radius-round);
-  background: var(--color-border-utility-neutral);
-}
-.bar[data-tone='success'] { background: var(--color-border-utility-success); }
-.bar[data-tone='info'] { background: var(--color-border-utility-info); }
-.bar[data-tone='attention'] { background: var(--color-border-utility-warning); }
-.bar[data-tone='danger'] { background: var(--color-border-utility-error); }

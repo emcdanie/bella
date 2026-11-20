@@ -26,17 +26,8 @@
 }
 
 .noIcon {
-  grid-template-columns: var(--spacing-4) minmax(0, 1fr) auto auto;
-  grid-template-areas: 'icon text actions close';
-}
-
-/* Figma Status bar: 4 wide, round, the full height of the text, in the
-   tone's edge colour */
-.bar {
-  grid-area: icon;
-  align-self: stretch;
-  border-radius: var(--border-radius-round);
-  background: var(--notification-edge);
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-areas: 'text actions close';
 }
 
 .info {
@@ -60,14 +51,16 @@
   --notification-edge: var(--color-border-utility-error);
 }
 
-/* 4 on top and a 24 slot, so the 20 glyph centres on the 24 title line */
+/* Figma Icon column (21 Nov publish): 4 on top and a 24 slot, so the 20
+   outline circle sits on the 30 title line; its stroke in the tone's edge
+   colour (color/border/utility/<tone>, 3:1 or more on the fill) */
 .iconColumn {
   grid-area: icon;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   padding-block-start: var(--spacing-4);
-  color: var(--notification-ink);
+  color: var(--notification-edge);
 }
 
 .iconSlot {
@@ -84,11 +77,6 @@
   flex-direction: column;
   gap: var(--spacing-4);
   min-inline-size: 0;
-}
-
-/* the older icon column lines its glyph up with a 4 lower text block */
-.row:not(.noIcon) .text {
-  padding-block-start: var(--spacing-4);
 }
 
 .title,
@@ -163,10 +151,4 @@
   .actions {
     flex-wrap: wrap;
   }
-}
-
-/* Show tag (21 Nov publish): a line Tag under the message, 4 below it, on
-   the text column's left edge */
-.tag {
-  display: flex;
 }

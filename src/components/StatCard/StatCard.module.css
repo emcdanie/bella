@@ -1,15 +1,15 @@
-/* Stat card (Figma CHIP Dashboard "Stat card", read 19 Nov 2026). Tokens only.
+/* Stat card (BellaComponents "Stat card" 1168:56015, published 21 Nov 2026). Tokens only.
  * Card: background/surface, card corner, the two-layer card shadow
  * (shadow-card-ink = neutral alpha 5 + 10, as Figma), padding 20 / 24.
- * Two columns (Figma 20 Nov, rule 20), 12 apart: Lead (the 36 Icon well,
- * centred on the 44 header row) and Content (header, body, footer).
- * Header: the 44 row; title (reading face 600) and the Trailing part
- * (rule 12) when it opens.
+ * One column from the 24 padding, no indent (her 21 Nov "i would preffer
+ * not to have it"; named exception R20): header, body, footer, 8 apart.
+ * Header: the 44 row; the 36 Icon well, 12, title (reading face 600), and
+ * the Trailing ↗ (rule 12) when it opens.
  * The whole header is the target: light-blue hover, 4 + 4 focus ring.
  * Body: number + unit, chart, context, 12 apart, centred between header and
  * footer when the card is taller than its content (cards in a row share a
- * height). Number and unit: number face (never Geist Mono directly), value
- * 40 / 600, unit 18 / 500 in content/subtle. Context: reading face,
+ * height). Number and unit: number face (never Geist Mono directly), 700:
+ * value 40, unit 18 in content/subtle, both on a 110 line. Context: reading face,
  * content/body. Footer: caption left (content/subtle), action right.
  * Groups (header, body, footer) sit 8 apart, as Figma draws them (21 Nov,
  * follow Figma; was 24 by guideline 10). */
@@ -17,7 +17,8 @@
 .card {
   box-sizing: border-box;
   display: flex;
-  gap: var(--spacing-12);
+  flex-direction: column;
+  gap: var(--spacing-8); /* Figma: Header, Body, Footer 8 apart */
   min-inline-size: 0;
   margin: 0;
   padding-block: var(--spacing-20);
@@ -25,21 +26,6 @@
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-card-ink);
-}
-
-.lead {
-  display: flex;
-  align-items: center;
-  flex: none;
-  block-size: var(--spacing-44);
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8); /* Figma Content, 8 (audit 5: detail line to Target 26 as Figma) */
-  flex: 1 1 auto;
-  min-inline-size: 0;
 }
 
 .header {
@@ -98,7 +84,7 @@
 .value {
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-40);
-  font-weight: var(--typography-font-weight-600);
+  font-weight: var(--typography-font-weight-700);
   line-height: var(--typography-line-height-110);
   color: var(--color-content-default);
 }
@@ -106,8 +92,8 @@
 .unit {
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-18);
-  font-weight: var(--typography-font-weight-500);
-  line-height: var(--typography-line-height-150);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--typography-line-height-110);
   color: var(--color-content-subtle);
 }
 

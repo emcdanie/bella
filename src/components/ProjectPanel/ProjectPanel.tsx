@@ -15,6 +15,12 @@ export interface ProjectPanelProps {
    * drawer's title already says it.
    */
   flush?: boolean;
+  /**
+   * Figma "Show heading" (published 21 Nov), for flush only: show the
+   * Projects heading when the drawer's title names something else ("Menu").
+   * It then takes the drawer title's size (18), never larger. Off by default.
+   */
+  showHeading?: boolean;
   /** Extra classes on the panel. */
   className?: string;
   style?: CSSProperties;
@@ -26,7 +32,7 @@ export interface ProjectPanelProps {
  * branches, and the run status counts. Not page navigation (the rail has
  * the pages). It fills the height and width its layout gives it.
  */
-export default function ProjectPanel({ switcher, projects, status, flush = false, className, style }: ProjectPanelProps) {
+export default function ProjectPanel({ switcher, projects, status, flush = false, showHeading = false, className, style }: ProjectPanelProps) {
   const id = useId();
   return (
     <aside
@@ -38,7 +44,7 @@ export default function ProjectPanel({ switcher, projects, status, flush = false
       {switcher}
       {projects != null ? (
         <section className={styles.group} aria-labelledby={`${id}-projects`}>
-          <h2 id={`${id}-projects`} className={flush ? styles.srOnly : styles.heading}>
+          <h2 id={`${id}-projects`} className={!flush ? styles.heading : showHeading ? [styles.heading, styles.drawerHeading].join(' ') : styles.srOnly}>
             Projects
           </h2>
           {projects}
@@ -46,7 +52,7 @@ export default function ProjectPanel({ switcher, projects, status, flush = false
       ) : null}
       {status != null ? (
         <section className={styles.group} aria-labelledby={`${id}-status`}>
-          <h2 id={`${id}-status`} className={styles.heading}>
+          <h2 id={`${id}-status`} className={flush && showHeading ? [styles.heading, styles.drawerHeading].join(' ') : styles.heading}>
             Status
           </h2>
           {status}

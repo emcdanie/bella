@@ -67,7 +67,7 @@ export const Playground: Story = {
   ),
 };
 
-/** The lane size in every wash, with and without actions (Figma 1014:2670). */
+/** The lane size for every Wash value: all draw no wash since the 21 Nov publish (Figma 1014:2670). */
 export const LaneWashes: Story = {
   render: () => (
     <Surface>
@@ -93,14 +93,13 @@ export const LaneWashes: Story = {
   ),
 };
 
-/** The page size as published (Figma size=page, Wash=blue): left edge, mark on top, one primary action pinned to the bottom, at least 300 tall. */
+/** The page size as published (Figma size=page): centred, mark on top, one primary action, at least 300 tall. */
 export const Page: Story = {
   render: () => (
     <Surface>
       <Card>
         <EmptyState
           size="page"
-          wash="blue"
           mark="🤷"
           title="Nothing here yet"
           line="Say what fills this space."

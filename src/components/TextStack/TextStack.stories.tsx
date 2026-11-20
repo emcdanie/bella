@@ -126,3 +126,20 @@ export const TitleAsHeading: Story = {
     });
   },
 };
+
+/** Count (Text stack 1253:443, published 21 Nov): a number that belongs to the title, at the Title row's right end. */
+export const Count: Story = {
+  render: () => (
+    <div style={{ inlineSize: 'calc(var(--spacing-80) * 4)', padding: 'var(--spacing-16)' }}>
+      <TextStack title="Inputs" count="18" subtitle="Parts that take a value" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const stack = canvasElement.querySelector('[data-bella-component="text-stack"]') as HTMLElement;
+    const row = stack.firstElementChild as HTMLElement;
+    const count = row.lastElementChild as HTMLElement;
+    await expect(count).toHaveTextContent('18');
+    await expect(Math.round(row.getBoundingClientRect().right - count.getBoundingClientRect().right)).toBe(0);
+    await expect(getComputedStyle(count).fontWeight).toBe('600');
+  },
+};

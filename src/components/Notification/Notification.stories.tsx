@@ -50,8 +50,8 @@ const meta: Meta<typeof Notification> = {
   },
   args: {
     tone: 'attention',
-    title: 'Needs you',
-    message: 'Figma can’t see CodeBlock: no file key in server/.env',
+    title: 'Figma can’t see CodeBlock',
+    message: 'No file key in server/.env',
     action: { label: 'Add file key' },
     onClose: () => {},
   },
@@ -70,8 +70,8 @@ export const Tones: Story = {
         <Notification
           key={tone}
           tone={tone}
-          title="Needs you"
-          message="Figma can’t see CodeBlock: no file key in server/.env"
+          title="Figma can’t see CodeBlock"
+          message="No file key in server/.env"
           action={{ label: 'Add file key', onClick: () => {} }}
           secondAction={{ label: 'Later', onClick: () => {} }}
           onClose={() => {}}
@@ -118,8 +118,8 @@ export const Narrow: Story = {
     <Themed width={320}>
       <Notification
         tone="attention"
-        title="Needs you"
-        message="Figma can’t see CodeBlock: no file key in server/.env"
+        title="Figma can’t see CodeBlock"
+        message="No file key in server/.env"
         action={{ label: 'Add file key' }}
         onClose={() => {}}
       />
@@ -139,18 +139,5 @@ export const Behavior: Story = {
       const r = close.getBoundingClientRect();
       expect(r.width).toBeGreaterThanOrEqual(32);
     });
-  },
-};
-
-/** Show tag (21 Nov publish): a line Tag under the message, in its tone. */
-export const WithTag: Story = {
-  render: () => (
-    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: 'calc(var(--spacing-80) * 8)' }}>
-      <Notification tone="info" title="Needs you" message="Figma can't see CodeBlock: no file key." tag={{ label: 'Working', tone: 'info' }} action={{ label: 'Add key', onClick: () => {} }} />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const tag = canvasElement.querySelector('[data-bella-component="notification"] [data-bella-component="tag"]');
-    await expect(tag).toHaveTextContent('Working');
   },
 };

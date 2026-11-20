@@ -3,7 +3,7 @@
  * strong), the 24 icon centred. sm 32, md 44, lg 48. Tones: inverse
  * background/knockout + content/knockout; outline background/surface +
  * content/default; git background/logo/git + content/knockout; claude
- * background/logo/claude + content/on-accent-1; info background/brand-subtle
+ * background/logo/claude + neutral/white (brand exception); info background/brand-subtle
  * + content/default. Badge: the count Tag, 8 beside the tile. */
 
 .wrap {
@@ -36,5 +36,8 @@
 .inverse { --tile-fill: var(--color-background-knockout); --tile-ink: var(--color-content-knockout); }
 .outline { --tile-fill: var(--color-background-surface); --tile-edge: var(--color-border-strong); --tile-ink: var(--color-content-default); }
 .git { --tile-fill: var(--color-background-logo-git); --tile-ink: var(--color-content-knockout); }
-.claude { --tile-fill: var(--color-background-logo-claude); --tile-ink: var(--color-content-on-accent-1); }
+/* Claude: the official mark in pure white on the Claude orange (her 15 Nov "Orange, white mark",
+   published 21 Nov). Named brand exception to Tier 3 → Semantic: color/neutral/white, 3.12:1, over
+   the 3:1 non-text floor; the tile is decorative beside its name. */
+.claude { --tile-fill: var(--color-background-logo-claude); --tile-ink: var(--color-neutral-white); }
 .info { --tile-fill: var(--color-background-brand-subtle); --tile-ink: var(--color-content-default); }

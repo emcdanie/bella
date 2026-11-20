@@ -10,10 +10,8 @@
  * 12 apart, the text at most 408 wide; 20 under) and the actions centred;
  * at least 300 tall.
  *
- * Wash: two radial layers from the top-left corner (90% x 70%) on wash/fade.
- * Under: wash/<hue> to 40%, wash/fade at 85%. Over, at 40% paint opacity
- * (named exception, not a token): wash/<hue>-strong at 0, wash/<hue> at 40%,
- * wash/fade at 85%.
+ * No wash (published 21 Nov: the washes are cleared; Figma's Wash property
+ * stays until CHIP's copies move to none, then goes).
  *
  * Exceptions as Figma: the 72 mark has no token (2 x size/36); title line
  * height 150%. */
@@ -63,30 +61,6 @@
   align-items: center;
   gap: var(--spacing-12);
   max-inline-size: calc(var(--spacing-80) * 5 + var(--spacing-8)); /* Figma Text max 408 */
-}
-
-.pink,
-.blue,
-.ochre,
-.navy {
-  background-color: var(--color-background-wash-fade);
-}
-
-.pink { --wash: var(--color-background-wash-pink); --wash-strong: var(--color-background-wash-pink-strong); }
-.blue { --wash: var(--color-background-wash-blue); --wash-strong: var(--color-background-wash-blue-strong); }
-.ochre { --wash: var(--color-background-wash-ochre); --wash-strong: var(--color-background-wash-ochre-strong); }
-.navy { --wash: var(--color-background-wash-navy); --wash-strong: var(--color-background-wash-navy-strong); }
-
-.pink,
-.blue,
-.ochre,
-.navy {
-  background-image:
-    radial-gradient(90% 70% at 0 0,
-      color-mix(in srgb, var(--wash-strong) 40%, transparent) 0%,
-      color-mix(in srgb, var(--wash) 40%, transparent) 40%,
-      color-mix(in srgb, var(--color-background-wash-fade) 40%, transparent) 85%),
-    radial-gradient(90% 70% at 0 0, var(--wash) 40%, var(--color-background-wash-fade) 85%);
 }
 
 .mark {

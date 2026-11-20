@@ -185,3 +185,23 @@ export const Contrast: Story = {
     }
   },
 };
+
+/** Show count (Tag 140:46, published 21 Nov): the number before the label, in the number face, the tone kept. */
+export const Count: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-8)', padding: 'var(--spacing-16)' }}>
+      <Tag tone="default" count={12}>Components</Tag>
+      <Tag tone="attention" count={3}>Waiting on you</Tag>
+      <Tag tone="info" count={5}>Working</Tag>
+      <Tag tone="success" count={18}>Done</Tag>
+      <Tag tone="danger" count={1}>Failed</Tag>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const tag = canvasElement.querySelector('[data-bella-component="tag"]') as HTMLElement;
+    await expect(tag).toHaveTextContent('12Components');
+    const count = tag.querySelector('[class*="count"]') as HTMLElement;
+    await expect(getComputedStyle(count).fontWeight).toBe('600');
+    await expect(getComputedStyle(count).fontFamily).toMatch(/Mono|Geist|Lexend|DM/);
+  },
+};

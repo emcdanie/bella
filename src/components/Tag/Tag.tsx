@@ -12,10 +12,11 @@ export interface TagProps {
    *   accent is gone from the Tag tones); kept here so existing pages render.
    * - `"outline"` / `"flat"` / `"index"`: Figma's `style` axis (Figma calls
    *   it style; code cannot, `style` is the CSS prop). outline = wash and
-   *   edge per tone; flat = grey fill, no edge, small corner (18 Nov "B,
+   *   edge per tone; flat = grey fill, no edge (18 Nov "B,
    *   flat"); index = the numbered lane pin, number face 600; line = no
-   *   fill, the default tone's edge and ink, small corner (Figma style=line,
+   *   fill, the default tone's edge and ink (Figma style=line,
    *   on the List row's right stack, 20 Nov). Tone default only.
+   * Every style has the small corner, none is round (21 Nov, "A, small corner").
    * Passing `tone` or `showDot` with `"default"` gives Figma's outline.
    */
   variant?: 'default' | 'accent' | 'outline' | 'flat' | 'index' | 'line';
@@ -54,7 +55,7 @@ export default function Tag({
   }
   const look = variant === 'flat' || variant === 'index' || variant === 'line' ? variant : 'outline';
   const t: TagTone = look === 'flat' || look === 'line' ? 'default' : tone ?? 'default';
-  const cls = [styles.pill, styles[look], styles[`tone-${t}`], className].filter(Boolean).join(' ');
+  const cls = [styles.plate, styles[look], styles[`tone-${t}`], className].filter(Boolean).join(' ');
   return (
     <span className={cls} style={style} data-bella-component="tag">
       {showDot ? <span className={styles.dot} aria-hidden="true" /> : null}

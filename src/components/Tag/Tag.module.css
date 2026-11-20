@@ -16,7 +16,7 @@
   display: inline-flex;
   align-items: center;
   padding: var(--spacing-4) var(--spacing-12);
-  border-radius: var(--border-radius-round);
+  border-radius: var(--border-radius-sm); /* every Tag the small corner, none round (Elleta, 21 Nov: "A, small corner") */
   border: var(--border-width-1) solid var(--color-border-utility-neutral);
   cursor: default;
   background: var(--color-background-utility-neutral);
@@ -43,14 +43,14 @@
  * index labels are the number face at 600 (numbers that stand alone are
  * Geist Mono in Chip). The legacy .tag / .accent above are untouched. */
 
-.pill {
+.plate {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);
   min-block-size: var(--spacing-32);
   padding: var(--spacing-4) var(--spacing-12);
-  border-radius: var(--border-radius-round);
+  border-radius: var(--border-radius-sm); /* every Tag the small corner, none round (Elleta, 21 Nov: "A, small corner") */
   cursor: default;
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
@@ -132,19 +132,17 @@
   font-weight: var(--typography-font-weight-600);
 }
 
-/* flat (18 Nov, "B, flat"): grey fill, no edge, small corner, ink label.
- * Tone default only. */
+/* flat (18 Nov, "B, flat"): grey fill, no edge, ink label (the small
+ * corner is every Tag's). Tone default only. */
 .flat {
-  border-radius: var(--border-radius-sm);
   background: var(--color-background-highlight);
   color: var(--color-content-default);
 }
 
 /* line (Figma Tag style=line, CHIP Dashboard, read 21 Nov): no fill, the
- * default tone's 1px edge inside and its ink, small corner. Tone default
- * only. Comes after .tone-default so its fill is cleared. */
+ * default tone's 1px edge inside and its ink (the small corner is every
+ * Tag's). Tone default only. Comes after .tone-default so its fill is cleared. */
 .line.line {
-  border-radius: var(--border-radius-sm);
   background: transparent;
   box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-neutral);
   color: var(--color-content-utility-neutral);

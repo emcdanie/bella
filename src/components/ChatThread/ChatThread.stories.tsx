@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import ChatThread, { ChatThreadTimestamp, ChatThreadDelivered } from './ChatThread';
+import ChatThread, { ChatThreadTimestamp, ChatThreadDelivered, ThinkingList, ThinkingTick } from './ChatThread';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import TypingDots from '../TypingDots/TypingDots';
 import AvatarStack, { type AvatarStackMember } from '../AvatarStack/AvatarStack';
@@ -170,6 +170,33 @@ export const Behavior: Story = {
 
     await step('data-bella-component present', async () => {
       expect(log.dataset.bellaComponent).toBe('chat-thread');
+    });
+  },
+};
+
+/** Thinking, as her tick list (Figma _Thinking tick, 21 Nov; 20 Nov "one chat"): what was read, ticked,
+ * and the step under way with a dot; meta in the number face. A polite live region. */
+export const Thinking: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 5)', background: 'var(--color-background-surface)' }}>
+      <ThinkingList>
+        <ThinkingTick label="BELLA data" meta="18 Nov 21:42" />
+        <ThinkingTick label="3 history records" />
+        <ThinkingTick state="working" label="Writing" meta="3 s" />
+      </ThinkingList>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const list = canvasElement.querySelector('[data-bella-component="thinking-list"]') as HTMLElement;
+    await step('a named polite list of ticks', async () => {
+      await expect(list).toHaveAttribute('aria-live', 'polite');
+      await expect(list.querySelectorAll('li').length).toBe(3);
+    });
+    await step('done rows say so; the working row has a dot', async () => {
+      const rows = list.querySelectorAll<HTMLElement>('li');
+      await expect(rows[0]).toHaveTextContent(/Done: BELLA data/);
+      await expect(rows[2]).toHaveAttribute('data-state', 'working');
+      await expect(rows[2].querySelector('svg')).toBeNull();
     });
   },
 };

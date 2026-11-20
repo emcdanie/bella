@@ -42,3 +42,69 @@
   color: var(--color-content-subtle);
   padding-right: var(--spacing-4);
 }
+
+/* Thinking tick list (Figma _Thinking tick 1514:344566, read 21 Nov) */
+.ticks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tick {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.tickMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+  color: var(--color-content-default);
+}
+
+/* Figma draws the dot 6, off the 4 scale: snapped to 8 (no 6 token) */
+.tickDot {
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-content-subtle);
+}
+
+.tickText {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.tickLabel {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-body);
+}
+
+.tickMeta {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

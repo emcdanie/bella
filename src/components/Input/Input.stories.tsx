@@ -214,3 +214,18 @@ export const WithSend: Story = {
     });
   },
 };
+
+/** Field corners (library round 6, Elleta 21 Nov: "it should be like the others"): every field takes
+ * border/radius/lg, the same corner as Button, 8 in Chip. */
+export const FieldCorners: Story = {
+  render: () => (
+    <div data-probe="" style={{ borderRadius: 'var(--border-radius-lg)' }}>
+      <Input label="Name" value="" onChange={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const probe = canvasElement.querySelector('[data-probe]') as HTMLElement;
+    const field = canvasElement.querySelector('input')!.closest('[class*="field"]') as HTMLElement ?? canvasElement.querySelector('input')!;
+    await expect(getComputedStyle(field).borderTopLeftRadius).toBe(getComputedStyle(probe).borderTopLeftRadius);
+  },
+};

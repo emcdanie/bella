@@ -67,8 +67,28 @@
   color: var(--color-content-default);
 }
 
+/* busy (as Button busy, motion item 1): the icon turns a full turn per
+   motion/duration/900 while the job runs; reduced motion holds it still */
+.busy {
+  cursor: progress;
+}
+
+.turn {
+  display: inline-flex;
+  animation: chipTurn var(--motion-duration-900) var(--motion-easing-standard) infinite;
+}
+
+@keyframes chipTurn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .chip {
     transition: none;
+  }
+  .turn {
+    animation: none;
   }
 }

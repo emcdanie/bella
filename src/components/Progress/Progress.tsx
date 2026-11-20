@@ -1,4 +1,4 @@
-import React, { type CSSProperties, type ReactNode } from 'react';
+import React, { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import styles from './Progress.module.css';
 
 export type ProgressTone = 'info' | 'success' | 'attention' | 'danger';
@@ -133,6 +133,19 @@ export default function Progress({
 }: ProgressProps) {
   const isSeg = shape === 'segments';
   const now = isSeg ? Math.min(segments, Math.max(0, done)) : pct(fill);
+  /* A new amount (rule "Motion that shows what happened", item 5): the bar
+   * and the ring move from the old amount to the new one (a transition on
+   * the registered --progress-fill), and on a bar the stretch gained or lost
+   * shows once as a band that fades. Nothing moves on first paint; reduced
+   * motion shows the new amount at once, no band. */
+  const before = useRef(now);
+  const [band, setBand] = useState<{ from: number; to: number; key: number } | null>(null);
+  useEffect(() => {
+    if (before.current === now) return;
+    const from = before.current;
+    before.current = now;
+    if (shape === 'bar') setBand((b) => ({ from, to: now, key: (b?.key ?? 0) + 1 }));
+  }, [now, shape]);
   const aria = {
     role: 'progressbar',
     'aria-valuemin': 0,
@@ -152,13 +165,13 @@ export default function Progress({
             <>
               <span
                 className={[styles.ringFill, styles[tone]].join(' ')}
-                style={{ background: `conic-gradient(currentColor ${now}%, transparent 0)` }}
+                style={{ '--progress-fill': `${now}%` } as CSSProperties}
                 aria-hidden="true"
               />
               <span className={[styles.ringCap, styles[tone]].join(' ')} aria-hidden="true" />
               <span
-                className={[styles.ringCap, styles[tone]].join(' ')}
-                style={{ rotate: `${now * 3.6}deg` }}
+                className={[styles.ringCap, styles.ringEnd, styles[tone]].join(' ')}
+                style={{ '--progress-turn': `${now * 3.6}deg` } as CSSProperties}
                 aria-hidden="true"
               />
             </>
@@ -185,6 +198,14 @@ export default function Progress({
       ) : (
         <div className={styles.track} aria-hidden="true">
           <ProgressFill value={now} tone={tone} />
+          {band ? (
+            <span
+              key={band.key}
+              className={[styles.band, styles[tone]].join(' ')}
+              style={{ insetInlineStart: `${Math.min(band.from, band.to)}%`, inlineSize: `${Math.abs(band.to - band.from)}%` }}
+              data-bella-change={band.to > band.from ? 'gain' : 'loss'}
+            />
+          ) : null}
           {showTarget ? <ProgressTarget target={target} /> : null}
         </div>
       )}

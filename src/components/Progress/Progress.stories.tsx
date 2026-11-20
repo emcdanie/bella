@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import Progress, { TargetMark } from './Progress';
 import cssRaw from './Progress.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -115,6 +116,49 @@ export const Behavior: Story = {
       expect(bar).toHaveAttribute('aria-valuenow', '60');
       expect(bar).toHaveAttribute('aria-valuetext', '60%');
       expect(canvas.queryAllByRole('button')).toHaveLength(0);
+    });
+  },
+};
+
+function NewAmountDemo() {
+  const [after, setAfter] = React.useState(false);
+  const fill = after ? 93 : 80;
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 5)' }}>
+      <Progress label="Stories" value={`${fill}%`} fill={fill} target={90} showTarget tone="success" />
+      <Progress label="Docs" value={`${fill}%`} fill={fill} shape="ring" tone="info" />
+      <Button variant="secondary" size="sm" onClick={() => setAfter((a) => !a)}>
+        Check again
+      </Button>
+    </div>
+  );
+}
+
+/** A new amount (rule "Motion that shows what happened", item 5): the bar and the ring move from 80
+ * to 93, and on the bar the stretch gained shows once as a light band that fades (a loss is a dashed
+ * outline). Nothing moves on first paint. Reduced motion: the new amount at once, no band. */
+export const NewAmount: Story = {
+  render: () => <NewAmountDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fill = () => canvasElement.querySelector('[data-bella-component="progress-fill"]') as HTMLElement;
+    await step('first paint: no band', async () => {
+      await expect(canvasElement.querySelector('[data-bella-change]')).toBeNull();
+    });
+    await step('a new amount: the bar says 93 and moves there', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Check again' }));
+      await expect(canvas.getAllByRole('progressbar')[0]).toHaveAttribute('aria-valuenow', '93');
+      await expect(parseFloat(getComputedStyle(fill()).transitionDuration)).toBe(reduced ? 0 : 0.45);
+    });
+    await step(reduced ? 'reduced motion: no band' : 'the gain shows once as a band', async () => {
+      const band = canvasElement.querySelector('[data-bella-change]') as HTMLElement;
+      if (reduced) {
+        await expect(getComputedStyle(band).display).toBe('none');
+        return;
+      }
+      await expect(band).toHaveAttribute('data-bella-change', 'gain');
+      await expect(getComputedStyle(band).animationIterationCount).toBe('1');
+      await waitFor(() => expect(Number(getComputedStyle(band).opacity)).toBe(0), { timeout: 3000 });
     });
   },
 };

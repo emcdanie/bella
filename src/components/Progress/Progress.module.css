@@ -47,6 +47,21 @@
   color: var(--color-content-default);
 }
 
+/* A new amount (item 5, 21 Nov): the fill and the ring's sweep are one
+   registered property, so they move from the old amount to the new one on
+   motion/duration/450 and motion/easing/out. */
+@property --progress-fill {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --progress-turn {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
 /* ---- bar ---- */
 .track {
   position: relative;
@@ -59,6 +74,7 @@
 .fill {
   box-sizing: border-box;
   inline-size: var(--progress-fill);
+  transition: --progress-fill var(--motion-duration-450) var(--motion-easing-out);
   min-inline-size: var(--component-meter-height);
   block-size: 100%;
   border-radius: var(--border-radius-round);
@@ -98,6 +114,7 @@
 
 .segment {
   box-sizing: border-box;
+  transition: background-color var(--motion-duration-250) var(--motion-easing-standard);
   flex: 1 1 0;
   block-size: var(--component-meter-height);
   border-radius: var(--border-radius-round);
@@ -139,6 +156,55 @@
 
 .ringTrack {
   background: var(--color-border-strong);
+}
+
+.ring > .ringFill {
+  background: conic-gradient(currentColor var(--progress-fill), transparent 0);
+  transition: --progress-fill var(--motion-duration-450) var(--motion-easing-out);
+}
+
+.ringEnd {
+  rotate: var(--progress-turn);
+  transition: --progress-turn var(--motion-duration-450) var(--motion-easing-out);
+}
+
+/* the stretch gained or lost: a band over the track in the tone, fading out
+   once (motion/duration/900) */
+.band {
+  position: absolute;
+  inset-block: 0;
+  box-sizing: border-box;
+  border-radius: var(--border-radius-round);
+  pointer-events: none;
+  opacity: 0;
+  animation: progressBand var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+.band[data-bella-change='gain'] {
+  background: var(--color-background-surface);
+  border: 0;
+}
+
+.band[data-bella-change='loss'] {
+  background: transparent;
+  border: var(--border-width-2) dashed currentColor;
+}
+
+@keyframes progressBand {
+  0%, 30% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill,
+  .segment,
+  .ring > .ringFill,
+  .ringEnd {
+    transition: none;
+  }
+  .band {
+    display: none;
+  }
 }
 
 .ring > .ringFill,

@@ -1,6 +1,7 @@
 import React, { useId, type ReactNode } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
 import Button from '../Button/Button';
+import Kbd from '../Kbd/Kbd';
 import styles from './Input.module.css';
 
 export interface InputProps {
@@ -29,8 +30,10 @@ export interface InputProps {
   /** Figma "Menu" (Input 149:107): a control at the start of the field, such as the model picker (a Menu
    * trigger Button). A 1×24 border/strong divider follows it, before the text. Missing = off. */
   menu?: ReactNode;
-  /** Figma "Send button": the small primary icon-only Button (32 plate, 44 hit area) inside the field at its end. Missing = off. Enter in a single-line field sends too. */
-  onSend?: () => void;
+  /** Figma "Send button": the small primary icon-only Button (32 plate, 44 hit area) inside the field at its end. Missing = off. Enter in a single-line field sends too. Called with the text sent: the value, or the suggestion when Enter accepts it. */
+  onSend?: (text: string) => void;
+  /** Figma state=suggestion (Input 1608:3716): the likely next question as ghost text in the empty field, with a one-cap "↵" Kbd before Send. Enter sends it; typing replaces it and the keycap goes. Single-line with onSend only; it stands in for the placeholder. */
+  suggestion?: string;
   /** The Send button's name (and its tooltip words). */
   sendLabel?: string;
   /** Extra classes on the field wrapper. */
@@ -59,20 +62,25 @@ export default function Input({
   onSend,
   sendLabel = 'Send',
   menu,
+  suggestion,
   className,
 }: InputProps) {
   const autoId = useId();
   const fieldId = id ?? autoId;
   const errorId = `${fieldId}-error`;
   const hintId = `${fieldId}-hint`;
+  const suggestId = `${fieldId}-suggest`;
+  // A suggestion shows only in an empty single-line field that can send.
+  const suggesting = Boolean(suggestion && !value && onSend && !multiline && !disabled);
   const describedBy =
-    [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ') || undefined;
+    [error ? errorId : null, hint ? hintId : null, suggesting ? suggestId : null].filter(Boolean).join(' ') ||
+    undefined;
 
   const shared = {
     id: fieldId,
     className: styles.field,
     value,
-    placeholder,
+    placeholder: suggesting ? suggestion : placeholder,
     autoComplete,
     name,
     required,
@@ -117,13 +125,32 @@ export default function Input({
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && onSend) {
                   e.preventDefault();
-                  onSend();
+                  onSend(suggesting ? (suggestion as string) : value);
                 }
               }}
             />
           )}
+          {suggesting ? (
+            <>
+              {/* The keycap marks the ghost text as a suggestion, not a placeholder (aria-hidden; the hint says it). */}
+              <span className={styles.enterHint} aria-hidden="true">
+                <Kbd keys={['↵']} />
+              </span>
+              <span id={suggestId} className={styles.srOnly}>
+                Press Enter to ask
+              </span>
+            </>
+          ) : null}
           {onSend ? (
-            <Button variant="primary" size="sm" iconOnly icon="SendDiagonal" ariaLabel={sendLabel} onClick={onSend} disabled={disabled} />
+            <Button
+              variant="primary"
+              size="sm"
+              iconOnly
+              icon="SendDiagonal"
+              ariaLabel={sendLabel}
+              onClick={() => onSend(suggesting ? (suggestion as string) : value)}
+              disabled={disabled}
+            />
           ) : null}
         </div>
       ) : multiline ? (

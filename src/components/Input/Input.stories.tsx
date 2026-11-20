@@ -271,3 +271,53 @@ export const WithMenu: Story = {
     });
   },
 };
+
+/** state=suggestion (Figma Input 1608:3716, Elleta 21 Nov: "i can jsut hit enter here and it asks you"):
+ * the likely next question as ghost text in the empty field, a one-cap "↵" before Send. Enter sends it;
+ * typing replaces it and the keycap goes. */
+function SuggestComposer() {
+  const [v, setV] = useState('');
+  const [sent, setSent] = useState('');
+  return (
+    <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 7)' }}>
+      <Input
+        label="Ask BELLA"
+        value={v}
+        onChange={setV}
+        suggestion="Which parts still fail contrast?"
+        onSend={(text) => {
+          setSent(text);
+          setV('');
+        }}
+      />
+      {/* the play test reads this; it is not part of the composer */}
+      <p data-testid="sent" hidden>{sent}</p>
+    </div>
+  );
+}
+
+export const Suggestion: Story = {
+  render: () => <SuggestComposer />,
+  play: async ({ canvasElement, canvas, userEvent, step }) => {
+    const input = canvas.getByRole('textbox', { name: 'Ask BELLA' });
+    const keycap = () => canvasElement.querySelector('[class*="enterHint"]');
+    await step('the suggestion is ghost text with the ↵ keycap, and the field says Enter asks it', async () => {
+      await expect(input).toHaveAttribute('placeholder', 'Which parts still fail contrast?');
+      await expect(keycap()).not.toBeNull();
+      await expect(keycap()).toHaveAttribute('aria-hidden', 'true');
+      await expect(input).toHaveAccessibleDescription('Press Enter to ask');
+    });
+    await step('Enter in the empty field sends the suggestion', async () => {
+      input.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('Which parts still fail contrast?');
+    });
+    await step('typing replaces it and the keycap goes', async () => {
+      await userEvent.type(input, 'Is Tabs done');
+      await expect(keycap()).toBeNull();
+      await expect(input).not.toHaveAccessibleDescription('Press Enter to ask');
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('Is Tabs done');
+    });
+  },
+};

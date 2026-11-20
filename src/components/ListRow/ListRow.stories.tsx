@@ -166,11 +166,17 @@ export const ZonedStates: Story = {
       <ListRow layout="stacked" title="Does a thing" description="onClick row, with its own action" onClick={() => {}} actionButton={<ActionChip>Run</ActionChip>} />
     </Card>
   ),
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     for (const link of within(canvasElement).getAllByRole('link')) {
       const row = link.closest('[data-bella-component="list-row"]') as HTMLElement;
       await expect(row.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
     }
+    await step('selected: the subtitle is content/default ink (21 Nov publish)', async () => {
+      const selected = canvasElement.querySelector('[data-bella-component="list-row"][aria-current="true"]') as HTMLElement;
+      const sub = within(selected).getByText('The darker light blue, never pink');
+      const title = within(selected).getByText('Selected');
+      await expect(getComputedStyle(sub).color).toBe(getComputedStyle(title).color);
+    });
   },
 };
 

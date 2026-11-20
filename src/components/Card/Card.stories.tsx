@@ -348,3 +348,27 @@ export const WithFooter: StoryObj<typeof Card> = {
     </div>
   ),
 };
+
+/** Stretched (21 Nov publish, Card Body fills and centres; rule 15): in a row of cards that share a
+ * height, the shorter card's content sits in its middle, and a footer stays pinned to the bottom. */
+export const Stretched: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(calc(var(--spacing-80) * 3), 1fr))', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', alignItems: 'stretch' }}>
+      <Card>
+        <p style={{ margin: 0 }}>Three lines of content that make this card the tallest one in the row, so the other one stretches to match it.</p>
+      </Card>
+      <Card>
+        <p style={{ margin: 0 }} data-testid="short">One line.</p>
+      </Card>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('the shorter card centres its content', async () => {
+      const short = canvasElement.querySelector('[data-testid="short"]') as HTMLElement;
+      const card = short.closest('[data-bella-component="card"]') as HTMLElement;
+      const c = card.getBoundingClientRect();
+      const t = short.getBoundingClientRect();
+      if (c.height - t.height > 8) await expect(Math.abs(t.top + t.height / 2 - (c.top + c.height / 2))).toBeLessThan(2);
+    });
+  },
+};

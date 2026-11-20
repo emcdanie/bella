@@ -91,7 +91,6 @@ export default function Card({
     styles.inner,
     variant === 'peek' ? styles.innerPeek : '',
     media != null ? styles.innerFlush : '',
-    footerText != null || footerAction != null ? styles.innerWithFooter : '',
     innerClassName,
   ]
     .filter(Boolean)
@@ -128,7 +127,7 @@ export default function Card({
         </div>
       ) : (
         <>
-          {children}
+          <div className={styles.content}>{children}</div>
           {footer}
         </>
       )}

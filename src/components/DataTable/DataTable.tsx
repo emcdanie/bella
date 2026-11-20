@@ -1,4 +1,4 @@
-import React, { useMemo, useState, type ReactNode } from 'react';
+import React, { useId, useMemo, useState, type ReactNode } from 'react';
 import TableRow from '../TableRow/TableRow';
 import TableCell from '../TableCell/TableCell';
 import type { TagTone } from '../Tag/Tag';
@@ -68,6 +68,7 @@ export default function DataTable<Row extends Record<string, any>>({
   className,
 }: DataTableProps<Row>) {
   const [sort, setSort] = useState<DataTableSort | undefined>(defaultSort);
+  const captionId = useId();
   // compact only where nothing in a row is interactive
   const compact = density === 'compact' && !onSelect && !columns.some((c) => c.sortable);
 
@@ -92,16 +93,21 @@ export default function DataTable<Row extends Record<string, any>>({
 
   return (
     <div
-      className={[styles.wrap, className].filter(Boolean).join(' ')}
-      style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
+      className={[styles.root, className].filter(Boolean).join(' ')}
       data-bella-component="data-table"
       data-density={compact ? 'compact' : undefined}
-      tabIndex={maxHeight ? 0 : undefined}
-      role={maxHeight ? 'region' : undefined}
-      aria-label={maxHeight ? caption : undefined}
     >
-      <table className={styles.table}>
-        <caption className={styles.caption}>{caption}</caption>
+      {/* The caption sits outside the frame so the frame's edge and corners stay
+          put while the table scrolls inside it; it still names the table. */}
+      <div className={styles.caption} id={captionId}>{caption}</div>
+      <div
+        className={styles.wrap}
+        style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
+        tabIndex={maxHeight ? 0 : undefined}
+        role={maxHeight ? 'region' : undefined}
+        aria-labelledby={maxHeight ? captionId : undefined}
+      >
+      <table className={styles.table} aria-labelledby={captionId}>
         <thead>
           <TableRow hover={false}>
             {columns.map((c) => {
@@ -171,6 +177,7 @@ export default function DataTable<Row extends Record<string, any>>({
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

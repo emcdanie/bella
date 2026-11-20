@@ -5,12 +5,22 @@
  * light blue. The caption sits above the bordered table with no side
  * padding, so it starts on the table's edge (as Primer's DataTable title).
  *
+ * The edge and corners live on .wrap, the scroller, not on the table, so the
+ * frame keeps its right edge while a wide table scrolls inside it (Work at
+ * 1100). The caption sits above the frame and names the table by id.
+ *
  * Sticky needs a scrolling ancestor: with maxHeight the wrapper scrolls
  * (and becomes a focusable named region so keyboards can scroll it);
  * without it the wrapper only scrolls sideways and the header rides along. */
 
+.root {
+  min-inline-size: 0;
+}
+
 .wrap {
   overflow: auto;
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-12);
 }
 
 .wrap:focus-visible {
@@ -20,8 +30,6 @@
 
 .table {
   inline-size: 100%;
-  border: var(--border-width-1) solid var(--color-border-default);
-  border-radius: var(--border-radius-12);
   border-collapse: separate;
   border-spacing: 0;
   letter-spacing: var(--typography-letter-spacing-0);
@@ -29,7 +37,6 @@
 
 /* Figma Caption: Lexend 16 subtle, 12 above and below, no side padding */
 .caption {
-  caption-side: top;
   text-align: start;
   padding-block: var(--spacing-12);
   font-family: var(--typography-body-default-font-family);
@@ -39,8 +46,8 @@
 }
 
 /* density="compact": display-only tables, rows under the 44px target */
-.wrap[data-density='compact'] .table th,
-.wrap[data-density='compact'] .table td {
+.root[data-density='compact'] .table th,
+.root[data-density='compact'] .table td {
   padding: var(--spacing-4) var(--spacing-16);
   block-size: var(--spacing-32);
 }

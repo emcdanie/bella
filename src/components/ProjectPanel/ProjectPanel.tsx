@@ -8,6 +8,13 @@ export interface ProjectPanelProps {
   projects?: ReactNode;
   /** Under "Status": TreeItem status rows (Needs you, Claude, Gate, Ready). */
   status?: ReactNode;
+  /**
+   * Inside a Drawer (the phone Projects drawer): no fill, padding, edge,
+   * width or height of its own, so it sits flush in the drawer body; the
+   * "Projects" heading is kept for assistive tech but not shown, because the
+   * drawer's title already says it.
+   */
+  flush?: boolean;
   /** Extra classes on the panel. */
   className?: string;
   style?: CSSProperties;
@@ -19,11 +26,11 @@ export interface ProjectPanelProps {
  * branches, and the run status counts. Not page navigation (the rail has
  * the pages). It fills the height and width its layout gives it.
  */
-export default function ProjectPanel({ switcher, projects, status, className, style }: ProjectPanelProps) {
+export default function ProjectPanel({ switcher, projects, status, flush = false, className, style }: ProjectPanelProps) {
   const id = useId();
   return (
     <aside
-      className={[styles.panel, className].filter(Boolean).join(' ')}
+      className={[styles.panel, flush ? styles.flush : '', className].filter(Boolean).join(' ')}
       style={style}
       aria-label="Projects and status"
       data-bella-component="project-panel"
@@ -31,7 +38,7 @@ export default function ProjectPanel({ switcher, projects, status, className, st
       {switcher}
       {projects != null ? (
         <section className={styles.group} aria-labelledby={`${id}-projects`}>
-          <h2 id={`${id}-projects`} className={styles.heading}>
+          <h2 id={`${id}-projects`} className={flush ? styles.srOnly : styles.heading}>
             Projects
           </h2>
           {projects}

@@ -40,3 +40,24 @@
 .group:first-of-type .heading {
   padding-block-start: var(--layout-panel-heading-padding-top);
 }
+
+/* flush: inside a Drawer the panel is just its rows; the drawer gives the
+   fill, padding, edge, size and scroll (CHIP phone Projects drawer, 21 Nov:
+   "this is broken.."). */
+.flush {
+  inline-size: auto;
+  block-size: auto;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

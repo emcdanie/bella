@@ -182,7 +182,7 @@ function ZonedRow({
   );
   /* Status-bar rows carry her 20 Nov hierarchy on their own spans. */
   const bar = statusBar != null;
-  const line = (node: ReactNode, cls: string) => (bar && node != null ? <span className={cls}>{node}</span> : node);
+  const line = (node: ReactNode, cls: string, on = bar) => (on && node != null ? <span className={cls}>{node}</span> : node);
   const cls = [
     styles.zoned,
     styles[layout],
@@ -221,6 +221,8 @@ function ZonedRow({
                   </span>
                 ),
                 styles.barTitle,
+                /* Figma List item Text stack Title: 20 regular ink on every stacked row (21 Nov) */
+                bar || layout === 'stacked',
               )}
               subtitle={
                 description != null || meta != null ? (

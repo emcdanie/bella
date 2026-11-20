@@ -1,6 +1,5 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import ListRow from '../ListRow/ListRow';
-import IconWell from '../IconWell/IconWell';
 import Progress, { TargetMark } from '../Progress/Progress';
 import Tag from '../Tag/Tag';
 import Button from '../Button/Button';
@@ -48,7 +47,7 @@ export function CheckListHeader({ title, count, legend, headingLevel = 2, classN
  * ------------------------------------------------------------------------- */
 
 export interface CheckRowProps {
-  /** Figma "status". pass: Icon well success with CheckCircle, success bar. fail: Icon well warning with WarningCircle, attention bar, and the text button. */
+  /** Figma "status". pass: success status bar and bar fill. fail: attention status bar and fill, and the text button. */
   status?: 'pass' | 'fail';
   /** List item Text stack "Title": the check. */
   title: ReactNode;
@@ -72,7 +71,8 @@ export interface CheckRowProps {
 
 /**
  * One health check across all components. A configuration of List item
- * (ListRow), never its own drawing: Left = Icon well, Middle = title and
+ * (ListRow), never its own drawing: Lead = status bar (no icon well, 20 Nov
+ * rule "status bar at the left, not an icon"), Middle = title 20 regular and
  * what is missing, then the text button underneath (fail), Right = the
  * count, Below = the Progress bar with its target.
  */
@@ -97,7 +97,7 @@ export default function CheckRow({
       layout="stacked"
       className={className}
       style={style}
-      iconWell={<IconWell icon={pass ? 'CheckCircle' : 'WarningCircle'} tone={pass ? 'success' : 'warning'} />}
+      statusBar={pass ? 'success' : 'attention'}
       title={title}
       description={subtitle}
       textButton={

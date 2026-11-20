@@ -1,6 +1,7 @@
 import React, { useMemo, useState, type ReactNode } from 'react';
 import TableRow from '../TableRow/TableRow';
 import TableCell from '../TableCell/TableCell';
+import type { TagTone } from '../Tag/Tag';
 import styles from './DataTable.module.css';
 
 export interface DataTableColumn<Row> {
@@ -14,6 +15,10 @@ export interface DataTableColumn<Row> {
   render?: (row: Row) => ReactNode;
   /** What to sort by when the cell renders something else; defaults to the value at `key`. */
   sortValue?: (row: Row) => string | number;
+  /** tag: each cell is a Tag (TableCell kind=tag, style line). Not for the first column. */
+  kind?: 'tag';
+  /** kind=tag: the tone for this row's Tag ("success" for Ready, "attention" for Needs you). Missing = default. */
+  tagTone?: (row: Row) => TagTone;
 }
 
 export type DataTableSort = { key: string; direction: 'ascending' | 'descending' };
@@ -150,7 +155,13 @@ export default function DataTable<Row extends Record<string, any>>({
                   }
                   return (
                     /* numeric columns: the number face (every number in Geist Mono) */
-                    <TableCell key={c.key} kind={c.numeric ? 'mono' : undefined} align={align} selected={selected}>
+                    <TableCell
+                      key={c.key}
+                      kind={c.kind === 'tag' ? 'tag' : c.numeric ? 'mono' : undefined}
+                      tagTone={c.kind === 'tag' ? c.tagTone?.(r) : undefined}
+                      align={align}
+                      selected={selected}
+                    >
                       {content}
                     </TableCell>
                   );

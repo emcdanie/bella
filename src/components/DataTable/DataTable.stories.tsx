@@ -183,3 +183,37 @@ export const Behavior: Story = {
     });
   },
 };
+
+type StatusRow = { name: string; status: 'Ready' | 'Needs you' };
+const statusRows: StatusRow[] = [
+  { name: 'Button', status: 'Ready' },
+  { name: 'Switch', status: 'Needs you' },
+  { name: 'Tabs', status: 'Ready' },
+];
+
+/** A tag column (coordinator, 21 Nov): kind="tag" makes each cell a TableCell kind=tag, the line Tag
+ * as published; tagTone picks the tone per row. */
+export const TagColumn: Story = {
+  render: () => (
+    <DataTable<StatusRow>
+      caption="Component status"
+      rowKey="name"
+      rows={statusRows}
+      columns={[
+        { key: 'name', label: 'Component' },
+        { key: 'status', label: 'Status', kind: 'tag', tagTone: (r) => (r.status === 'Ready' ? 'success' : 'attention') },
+      ]}
+    />
+  ),
+  play: async ({ canvasElement, step }) => {
+    const tags = [...canvasElement.querySelectorAll<HTMLElement>('tbody [data-bella-component="tag"]')];
+    await step('one Tag per row, carrying the value', async () => {
+      await expect(tags.map((t) => t.textContent)).toEqual(['Ready', 'Needs you', 'Ready']);
+    });
+    await step('the tone follows the row', async () => {
+      const look = (t: HTMLElement) => { const cs = getComputedStyle(t); return `${cs.color} ${cs.borderTopColor} ${cs.backgroundColor}`; };
+      await expect(look(tags[0])).toBe(look(tags[2]));
+      await expect(look(tags[0])).not.toBe(look(tags[1]));
+    });
+  },
+};

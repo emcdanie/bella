@@ -80,3 +80,45 @@ export const Behavior: Story = {
     });
   },
 };
+
+const ALL = [
+  ['success', 'CheckCircle'],
+  ['warning', 'WarningCircle'],
+  ['info', 'InfoCircle'],
+  ['neutral', 'Clock'],
+  ['error', 'XmarkCircle'],
+  ['fix', 'EditPencil'],
+  ['visual', 'Eye'],
+  ['tokens', 'Palette'],
+  ['tooling', 'Settings'],
+  ['docs', 'Page'],
+  ['contract', 'Code'],
+  ['decision', 'Check'],
+] as const;
+
+/** Every Figma tone in both sizes (Icon well 1168:72470, 21 Nov publish): md 36 / 24 and sm 24 / 16.
+ * sm error and success are a source's ✕ / ✓ findings. */
+export const TonesAndSizes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      {(['md', 'sm'] as const).map((size) => (
+        <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-12)', alignItems: 'center' }}>
+          {ALL.map(([tone, icon]) => (
+            <IconWell key={tone} tone={tone} icon={icon} size={size} />
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const wells = [...canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="icon-well"]')];
+    await step('md is 36, sm is 24', async () => {
+      await expect(Math.round(wells[0].getBoundingClientRect().width)).toBe(36);
+      await expect(Math.round(wells[ALL.length].getBoundingClientRect().width)).toBe(24);
+      await expect(Math.round(wells[ALL.length].querySelector('svg')!.getBoundingClientRect().width)).toBe(16);
+    });
+    await step('every tone draws a filled circle', async () => {
+      for (const w of wells) await expect(getComputedStyle(w).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    });
+  },
+};

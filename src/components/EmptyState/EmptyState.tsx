@@ -39,7 +39,7 @@ export default function EmptyState({
 }: EmptyStateProps) {
   const cls = [styles.root, styles[size], wash !== 'none' ? styles[wash] : '', className].filter(Boolean).join(' ');
   return (
-    <div className={cls} style={style} data-bella-component="empty-state">
+    <div className={cls} style={style} data-bella-component="empty-state" data-bella-reveal="">
       <div className={styles.content}>
         {showMark && mark ? (
           <span className={styles.mark} aria-hidden="true">

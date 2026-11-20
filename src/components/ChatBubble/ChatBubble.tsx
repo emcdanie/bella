@@ -79,6 +79,7 @@ export default function ChatBubble({
         .filter(Boolean)
         .join(' ')}
       data-bella-component="chat-bubble"
+      data-bella-reveal=""
     >
       {senderName && !isSent && (
         <span className={styles.senderName}>{senderName}</span>

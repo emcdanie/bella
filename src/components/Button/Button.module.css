@@ -230,11 +230,14 @@
 .button.sm::after {
   content: '';
   position: absolute;
-  /* sized, not inset: the padding box shrinks by the border, the target must not */
-  inset-inline: 0;
+  /* sized, not inset: the padding box shrinks by the border, the target must not.
+     At least 44 wide too, centred, so a short label ("Go") keeps a 44 square
+     (her rule: "Small = 32 plate with 44 tap area", 21 Nov) */
+  inset-inline-start: 50%;
   inset-block-start: 50%;
+  inline-size: max(100%, var(--spacing-44));
   block-size: var(--spacing-44);
-  translate: 0 -50%;
+  translate: -50% -50%;
 }
 
 .button.sm.iconOnly {
@@ -244,12 +247,7 @@
   padding: 0;
 }
 
-.button.sm.iconOnly::after {
-  inset-inline: auto;
-  inset-inline-start: 50%;
-  inline-size: var(--spacing-44);
-  translate: -50% -50%;
-}
+
 
 /* busy (rule "Motion that shows what happened", item 1, 21 Nov): the icon
    turns, a full turn per motion/duration/900, while the job runs; the label

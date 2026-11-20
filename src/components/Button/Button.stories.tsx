@@ -516,3 +516,28 @@ export const Busy: Story = {
     });
   },
 };
+
+/** Small = 32 plate with a 44 tap area (her rule, 21 Nov), with text or icon only: the invisible target
+ * reaches 44 tall and at least 44 wide, centred on the plate, so even "Go" keeps a 44 square. */
+export const SmallTapArea: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <Button variant="secondary" size="sm">Go</Button>
+      <Button variant="tertiary" size="sm" icon="NavArrowRight">See all 36</Button>
+      <Button variant="secondary" size="sm" iconOnly icon="Copy" ariaLabel="Copy" />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    for (const b of canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="button"]')) {
+      await step(`${b.getAttribute('aria-label') ?? b.textContent}: 32 plate, 44 target`, async () => {
+        const r = b.getBoundingClientRect();
+        await expect(Math.round(r.height)).toBe(32);
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        for (const [dx, dy] of [[-21, 0], [21, 0], [0, -21], [0, 21]]) {
+          await expect(b.contains(document.elementFromPoint(cx + dx, cy + dy))).toBe(true);
+        }
+      });
+    }
+  },
+};

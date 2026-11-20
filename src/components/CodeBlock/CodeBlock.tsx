@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, type ReactNode } from 'react';
 import { Prism, normalizeTokens } from 'prism-react-renderer';
 import Icon from '../Icon/Icon';
 import Tooltip from '../Tooltip/Tooltip';
+import Pin from '../Pin/Pin';
 import styles from './CodeBlock.module.css';
 
 export interface CodeBlockProps {
@@ -15,8 +16,19 @@ export interface CodeBlockProps {
   lineNumbers?: boolean;
   /** Shows the Copy icon button. */
   copy?: boolean;
+  /** Figma Code line kind (483:31): marks lines by number (1-based). current = the line being read, a
+   * background/default wash; lit = the line a Tour step points at, a 2px border/focus outline with a red
+   * numbered Pin at its end (the Pin number matches the Tour step). */
+  lineMarks?: CodeLineMark[];
   /** Extra classes on the block. */
   className?: string;
+}
+
+export interface CodeLineMark {
+  line: number;
+  kind: 'current' | 'lit';
+  /** lit only: the number on its Pin, the Tour step's number ("01"). */
+  pin?: ReactNode;
 }
 
 // Prism's token types, to BELLA's syntax classes (colours are tokens, never inline)
@@ -35,7 +47,7 @@ const kindOf = (types: string[]) => {
  * line, long lines wrapped, and one Copy. Diffs mark added and removed lines
  * with + and − as well as a wash, so colour is never the only signal.
  */
-export default function CodeBlock({ code, language = 'jsx', title, lineNumbers = true, copy = true, className }: CodeBlockProps) {
+export default function CodeBlock({ code, language = 'jsx', title, lineNumbers = true, copy = true, lineMarks, className }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const [copyFailed, setCopyFailed] = useState(false);
   const lines = useMemo(() => {
@@ -76,8 +88,13 @@ export default function CodeBlock({ code, language = 'jsx', title, lineNumbers =
           {lines.map((line, i) => {
             const first = line.map((t) => t.content).join('').charAt(0);
             const mark = language === 'diff' ? (first === '+' ? styles.add : first === '-' ? styles.del : '') : '';
+            const lm = lineMarks?.find((m) => m.line === i + 1);
             return (
-              <span key={i} className={[styles.line, mark].filter(Boolean).join(' ')}>
+              <span
+                key={i}
+                className={[styles.line, mark, lm ? styles[lm.kind] : ''].filter(Boolean).join(' ')}
+                data-kind={lm?.kind}
+              >
                 {lineNumbers ? (
                   <span className={styles.n} aria-hidden="true">
                     {i + 1}
@@ -89,8 +106,18 @@ export default function CodeBlock({ code, language = 'jsx', title, lineNumbers =
                       {t.content}
                     </span>
                   ))}
-                  {'\n'}
+                  {lm?.kind === 'lit' && lm.pin != null ? null : '\n'}
                 </span>
+                {lm?.kind === 'lit' && lm.pin != null ? (
+                  <>
+                    {/* The Pin is the Tour step's marker; read as words, not as the disc. */}
+                    <span className={styles.pin} aria-hidden="true">
+                      <Pin number={lm.pin} variant="red" pinStyle="solid" />
+                    </span>
+                    <span className={styles.srOnly}>{`, step ${lm.pin}`}</span>
+                    {'\n'}
+                  </>
+                ) : null}
               </span>
             );
           })}

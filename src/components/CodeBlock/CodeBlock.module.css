@@ -71,6 +71,25 @@
   padding-inline: var(--spacing-16);
 }
 
+/* Figma Code line kind=current (483:22): the line being read, a background/default wash. */
+.current { background: var(--color-background-default); }
+
+/* Figma Code line kind=lit (1455:24947): a 2px border/focus outline, corner 4, with the red solid
+ * Pin (32) at the end; 36 tall. The outline is drawn inset (box-shadow) rather than as a border so
+ * the line's text keeps the same left edge as every other line (rule 20); Figma's inside stroke
+ * shifts it 2px. */
+.lit {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  padding-block: var(--border-width-2); /* the 2px outline above and below the 32 Pin: 36 tall */
+  border-radius: var(--border-radius-4);
+  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-focus);
+}
+
+.pin {
+  display: inline-flex;
+}
+
 .add { background: var(--color-background-syntax-add); }
 .del { background: var(--color-background-syntax-del); }
 

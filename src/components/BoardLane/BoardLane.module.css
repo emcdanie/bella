@@ -2,9 +2,9 @@
  * space 783:496703, read 19 Nov 2026). Tokens only.
  * Lane: column, 16 apart (Head, Order, Cards); padding 16 on every side
  * (Figma 783:496472, read 21 Nov; Elleta: "all this wasted space on the
- * padding"), border/radius/card. The Cards scroll box reaches the lane's
- * own sides and foot, so a card's shadow fades out inside the lane and is
- * never cut beside the card (rule 16).
+ * padding"), border/radius/card. The Cards scroll box reaches past the
+ * lane's sides and foot, so a card's shadow fades out before any edge cuts
+ * it (rule 16).
  * Both lanes: background/lane, no edge; needs-you differs only by its
  * coloured count (attention tone). Index neutral, no status dot (CHIP
  * Dashboard 608:182555, read 21 Nov).
@@ -73,10 +73,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-16);
-  /* the scroll box runs out to the lane's sides and foot (8 above for the
-     first card's 4 + 4 focus ring), so shadows fade inside the lane */
-  margin: calc(var(--spacing-8) * -1) calc(var(--spacing-16) * -1) calc(var(--spacing-16) * -1);
-  padding: var(--spacing-8) var(--spacing-16) var(--spacing-16);
+  /* A scroll box clips both axes, so it carries the room for TaskCard's
+     resting shadow (0 12 28, up to 30% ink in Chip dark) itself: 32 at the
+     sides, 16 above (it also holds the 4 + 4 focus ring), 40 below, each
+     undone by a matching negative margin so no card moves. The box reaches
+     16 past the lane's sides and 24 below its foot, where the shadow fades
+     out under 1% ink (rule 16: never clip a shadow). */
+  margin: calc(var(--spacing-16) * -1) calc(var(--spacing-32) * -1) calc(var(--spacing-40) * -1);
+  padding: var(--spacing-16) var(--spacing-32) var(--spacing-40);
   border-end-start-radius: var(--border-radius-card);
   border-end-end-radius: var(--border-radius-card);
   list-style: none;

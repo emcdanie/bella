@@ -1,5 +1,8 @@
 /* Stage (Figma BellaComponents Stage 809:186284, read 19 Nov 2026). Tokens only.
- * Surface: background/default, border/radius/16, clips its content.
+ * Surface: background/default, border/radius/16, clips its content, but a
+ * resting shadow may fade 40 past the edge (overflow-clip-margin): Card's
+ * shadow (0 12 28, 30% ink in Chip dark) sits 24 in from the edge and was cut
+ * there (rule 16, the System map at every width).
  * Dot grid (grid=dots): 2px dots (border/width/2) in background/highlight,
  * every 24 (spacing/24), the first centred 16 (spacing/16) in from the
  * top-left corner, measured from the published part at 1x.
@@ -10,7 +13,8 @@
   box-sizing: border-box;
   display: flex;
   min-inline-size: 0;
-  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: var(--spacing-40);
   border-radius: var(--border-radius-16);
   background-color: var(--color-background-default);
 }

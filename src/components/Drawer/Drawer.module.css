@@ -104,10 +104,21 @@
 
 .head {
   display: flex;
-  align-items: center;
+  /* Close lines up with the title's first line, so a 2 or 3 line title
+     (and its status) never leaves it floating mid-block (CHIP overlay audit,
+     21 Nov) */
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--spacing-12);
-  padding: var(--spacing-24);
+  /* no padding under the head: the body's own 24 is the one gap between
+     the title and the first group (rule 10; it measured 48) */
+  padding: var(--spacing-24) var(--spacing-24) 0;
+}
+
+/* the 44 Close centred on the title's first line box (18 at 1.3) */
+.head > [data-bella-component='button'] {
+  flex: none;
+  margin-block-start: calc((var(--typography-font-size-18) * var(--typography-line-height-130) - var(--spacing-44)) / 2);
 }
 
 .titleRow {

@@ -211,3 +211,30 @@ export const Large: Story = {
     });
   },
 };
+
+/** A long title (CHIP's fix drawer): Close lines up with the title's first line, and the first group
+ * starts 24 under the title block (rule 10), as between groups. */
+export const LongTitle: Story = {
+  render: () => (
+    <Drawer open onClose={() => {}} side="right" label="Give agents BELLA's component list (llms.txt)" status="Needs you · opened 2 min ago">
+      <NavList label="Sections" groups={GROUPS} onToggle={() => {}} />
+    </Drawer>
+  ),
+  play: async ({ step }) => {
+    const dialog = document.querySelector('dialog[open]') as HTMLElement;
+    const title = dialog.querySelector('h2') as HTMLElement;
+    const close = within(dialog).getByRole('button', { name: 'Close' });
+    await step('Close is centred on the title\'s first line', async () => {
+      const t = title.getBoundingClientRect();
+      const lineH = parseFloat(getComputedStyle(title).lineHeight);
+      const c = close.getBoundingClientRect();
+      await expect(Math.abs(c.top + c.height / 2 - (t.top + lineH / 2))).toBeLessThan(2);
+    });
+    await step('24 from the title block to the first group', async () => {
+      const block = title.parentElement!.getBoundingClientRect();
+      const body = within(dialog).getByRole('region', { name: /content/ });
+      const first = body.firstElementChild!.getBoundingClientRect();
+      await expect(Math.round(first.top - block.bottom)).toBe(24);
+    });
+  },
+};

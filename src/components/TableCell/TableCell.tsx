@@ -3,7 +3,7 @@ import Icon from '../Icon/Icon';
 import styles from './TableCell.module.css';
 
 export interface TableCellProps {
-  /** Figma "kind". header: the column label (th scope=col), 600 subtle · text: body face · mono: number face (role names, numbers, ratios) · swatch: a Pantone-style chip plus the hex in mono · link: pass a Link as children. */
+  /** Figma "kind". header: the column label (th scope=col), 600 subtle · text: body face · mono: number face (role names, numbers, ratios) · swatch: a 20 square of the colour plus the hex in mono · link: pass a Link as children. */
   kind?: 'header' | 'text' | 'mono' | 'swatch' | 'link';
   /** Figma "align". end for a column that reads from the right (counts, links). */
   align?: 'start' | 'end';

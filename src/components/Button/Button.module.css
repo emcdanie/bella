@@ -251,6 +251,42 @@
   translate: -50% -50%;
 }
 
+/* busy (rule "Motion that shows what happened", item 1, 21 Nov): the icon
+   turns, a full turn per motion/duration/900, while the job runs; the label
+   does not roll and the plate keeps its rest look. Reduced motion: the icon
+   holds still. */
+.turn {
+  display: inline-flex;
+  animation: buttonTurn var(--motion-duration-900) var(--motion-easing-standard) infinite;
+}
+.busy {
+  cursor: progress;
+}
+.busy .rollLabel,
+.busy .rollCopy {
+  transition: none;
+}
+.button.busy:hover:not(:disabled) .rollLabel,
+.button.busy:focus-visible .rollLabel {
+  transform: none;
+}
+.button.busy:hover:not(:disabled) .rollCopy,
+.button.busy:focus-visible .rollCopy {
+  transform: translateY(100%);
+}
+
+@keyframes buttonTurn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn {
+    animation: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rollLabel,
   .rollCopy,

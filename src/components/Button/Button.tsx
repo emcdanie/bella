@@ -44,6 +44,13 @@ export interface ButtonProps {
   /** Disabled state: muted surface, no elevation, no affordances. Buttons only, not links. */
   disabled?: boolean;
   /**
+   * A job this button started is running ("Check again", "Test"): its icon
+   * turns (RefreshDouble, leading, when it has none), aria-busy is set and
+   * clicks wait until it is done. The label stays. Reduced motion: the icon
+   * holds still. Buttons only, not links.
+   */
+  busy?: boolean;
+  /**
    * Component used to render internal links; inject your router's Link
    * (e.g. next/link) at the consumer; defaults to a plain anchor.
    */
@@ -78,6 +85,7 @@ export default function Button({
   onClick,
   type = 'button',
   disabled,
+  busy = false,
   linkComponent: LinkComponent = 'a',
   ariaLabel,
   ariaExpanded,
@@ -86,12 +94,23 @@ export default function Button({
   children: childrenProp,
 }: ButtonProps) {
   /* Figma Label + icon zones, additive (19 Nov re-sync): children still win */
-  const glyph = icon && (showIcon ?? true) ? <Icon name={icon} size="md" /> : null;
+  const busyHere = busy && !href;
+  const shownIcon = busyHere ? (icon ?? 'RefreshDouble') : icon;
+  const glyph =
+    shownIcon && (busyHere || (showIcon ?? true)) ? (
+      busyHere ? (
+        <span className={styles.turn}>
+          <Icon name={shownIcon} size="md" />
+        </span>
+      ) : (
+        <Icon name={shownIcon} size="md" />
+      )
+    ) : null;
   const words = childrenProp ?? labelProp;
   const children = glyph ? (
     iconOnly ? (
       glyph
-    ) : leadingIcon ? (
+    ) : leadingIcon || (busyHere && !icon) ? (
       <>
         {glyph}
         {words}
@@ -105,7 +124,7 @@ export default function Button({
   ) : (
     words
   );
-  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', className]
+  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', busyHere ? styles.busy : '', className]
     .filter(Boolean)
     .join(' ');
   /* The label roll: the real label slides up and out while an identical
@@ -147,7 +166,16 @@ export default function Button({
     );
   }
   return (
-    <button type={type} onClick={onClick} disabled={disabled} aria-expanded={ariaExpanded} aria-haspopup={ariaHaspopup} {...shared}>
+    <button
+      type={type}
+      onClick={busyHere ? undefined : onClick}
+      disabled={disabled}
+      aria-busy={busyHere || undefined}
+      aria-disabled={busyHere || undefined}
+      aria-expanded={ariaExpanded}
+      aria-haspopup={ariaHaspopup}
+      {...shared}
+    >
       {label}
     </button>
   );

@@ -470,3 +470,49 @@ export const ChipMatrix: Story = {
     </div>
   ),
 };
+
+function BusyDemo() {
+  const [busy, setBusy] = React.useState(false);
+  const [runs, setRuns] = React.useState(0);
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <Button
+        variant="secondary"
+        busy={busy}
+        onClick={() => {
+          setRuns((n) => n + 1);
+          setBusy(true);
+        }}
+      >
+        Check again
+      </Button>
+      <Button variant="secondary" size="sm" icon="RefreshDouble" leadingIcon busy>
+        Test
+      </Button>
+      <span data-testid="runs" style={{ fontFamily: 'var(--typography-number-font-family)', color: 'var(--color-content-default)' }}>
+        {runs} run{runs === 1 ? '' : 's'}
+      </span>
+    </div>
+  );
+}
+
+/** busy (rule "Motion that shows what happened", item 1): the job it started is running, so its icon
+ * turns and clicks wait. The label stays and never rolls. Reduced motion: the icon holds still. */
+export const Busy: Story = {
+  render: () => <BusyDemo />,
+  play: async ({ canvas, step }) => {
+    const check = canvas.getByRole('button', { name: 'Check again' });
+    await step('a click starts the job: aria-busy, the icon turns', async () => {
+      await userEvent.click(check);
+      await expect(check).toHaveAttribute('aria-busy', 'true');
+      const turn = check.querySelector('[class*="turn"]') as HTMLElement;
+      await expect(turn).not.toBeNull();
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      await expect(getComputedStyle(turn).animationName).toMatch(reduced ? /^none$/ : /buttonTurn/);
+    });
+    await step('while busy, clicks wait', async () => {
+      await userEvent.click(check);
+      await expect(canvas.getByTestId('runs')).toHaveTextContent('1 run');
+    });
+  },
+};

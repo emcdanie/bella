@@ -14,6 +14,11 @@ const srcDirs = readdirSync(join(process.cwd(), 'src'), { withFileTypes: true })
 
 const config: StorybookConfig = {
   stories: srcDirs.flatMap((d) => [`../src/${d}/**/*.mdx`, `../src/${d}/**/*.stories.@(ts|tsx)`]),
+  /* CHIP's own Storybook (templates and pages, locked to Chip), composed into
+   * this sidebar under "CHIP" when running locally: `npm run storybook` in the
+   * CHIP repo serves it on :6122 (Elleta, 19 Nov 2026). Never in the built,
+   * public Storybook, which cannot reach a local server. */
+  ...(isDev ? { refs: { chip: { title: 'CHIP', url: process.env.CHIP_STORYBOOK_URL ?? 'http://localhost:6122' } } } : {}),
   /* addon-mcp serves an MCP endpoint at /mcp in dev mode (agent access;
      see the Agent access note on the Welcome docs page) */
   addons: [

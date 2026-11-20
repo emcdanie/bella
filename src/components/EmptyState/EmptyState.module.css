@@ -1,12 +1,14 @@
 /* EmptyState (BellaComponents "Empty state" 1014:2670, read 21 Nov 2026 from
  * the 20 Nov publish, matched to her 19 Nov mock). Tokens only.
  *
+ * Re-read 21 Nov from her publish (Elleta: no circle, no fill, content
+ * centred on both axes): the mark has no fill and no shadow.
  * lane: a centred column, 12 apart, padding 24 x 16; mark 48 with the emoji
  * at 24; title 16 600; line 16 ink; small buttons, 8 apart.
- * page: left edge, padding 32 / 24 / 24; Content (mark 72 with the emoji at
- * 32, 16 to the text; title 20 600 and line 16 subtle, 12 apart; 20 under)
- * and the actions pinned to the bottom; at least 300 tall (the mock's
- * min-height).
+ * page: centred on both axes, padding 32 / 24 / 24, 24 apart; Content (mark
+ * 72 with the emoji at 32, 16 to the text; title 20 600 and line 16 subtle,
+ * 12 apart, the text at most 408 wide; 20 under) and the actions centred;
+ * at least 300 tall.
  *
  * Wash: two radial layers from the top-left corner (90% x 70%) on wash/fade.
  * Under: wash/<hue> to 40%, wash/fade at 85%. Over, at 40% paint opacity
@@ -31,11 +33,12 @@
 }
 
 .page {
-  justify-content: space-between;
-  gap: var(--spacing-16);
-  min-block-size: calc(var(--spacing-48) * 6 + var(--spacing-12)); /* 300: the mock's min-height */
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-24);
+  min-block-size: calc(var(--spacing-48) * 6 + var(--spacing-12)); /* 300: Figma's min height */
   padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
-  text-align: start;
+  text-align: center;
 }
 
 .content {
@@ -45,6 +48,7 @@
 .page .content {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-16);
   padding-block-end: var(--spacing-20);
 }
@@ -56,7 +60,9 @@
 .page .text {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-12);
+  max-inline-size: calc(var(--spacing-80) * 5 + var(--spacing-8)); /* Figma Text max 408 */
 }
 
 .pink,
@@ -91,8 +97,6 @@
   inline-size: var(--spacing-48);
   block-size: var(--spacing-48);
   border-radius: var(--border-radius-round);
-  background: var(--color-background-surface);
-  box-shadow: var(--shadow-card-ink);
 }
 
 .page .mark {
@@ -175,5 +179,5 @@
 }
 
 .page .actions {
-  justify-content: flex-start;
+  justify-content: center;
 }

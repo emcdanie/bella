@@ -109,6 +109,16 @@ export const Page: Story = {
       </Card>
     </Surface>
   ),
+  play: async ({ canvasElement, step }) => {
+    await step('page: centred on both axes, no circle behind the emoji (21 Nov publish)', async () => {
+      const root = canvasElement.querySelector('[data-bella-component="empty-state"]') as HTMLElement;
+      await expect(getComputedStyle(root).textAlign).toBe('center');
+      await expect(getComputedStyle(root).alignItems).toBe('center');
+      const mark = root.querySelector('[aria-hidden="true"]') as HTMLElement;
+      await expect(getComputedStyle(mark).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+      await expect(getComputedStyle(mark).boxShadow).toBe('none');
+    });
+  }
 };
 
 /** Behavior: the mark is decorative (hidden), the title and line are read in order. */

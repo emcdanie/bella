@@ -10,7 +10,7 @@ export interface EmptyStateProps {
   title: ReactNode;
   /** Figma "Line". One line on what fills this space (Belfast mode allowed). */
   line?: ReactNode;
-  /** Figma "Mark". An emoji in a white circle. Decorative: hidden from assistive tech. */
+  /** Figma "Mark". An emoji, no circle or fill behind it. Decorative: hidden from assistive tech. */
   mark?: string;
   /** Figma "Show mark". Missing mark = off. */
   showMark?: boolean;
@@ -22,9 +22,9 @@ export interface EmptyStateProps {
 
 /**
  * Says a space is empty, kindly, and what fills it (BellaComponents
- * "Empty state" 1014:2670, 20 Nov publish). lane: a centred column; page:
- * left edge, mark and text on top, actions pinned to the bottom. Not
- * interactive itself.
+ * "Empty state" 1014:2670, re-read from the 21 Nov publish). The emoji
+ * stands alone, no circle or fill; lane and page are both centred on both
+ * axes, the page's text at most 408. Not interactive itself.
  */
 export default function EmptyState({
   size = 'lane',

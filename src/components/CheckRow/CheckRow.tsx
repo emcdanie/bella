@@ -53,8 +53,10 @@ export interface CheckRowProps {
   title: ReactNode;
   /** List item Text stack "Subtitle": what is missing. Missing = off. */
   subtitle?: ReactNode;
-  /** List item "Value": the count ("42/44"). */
+  /** The count ("42/44"). Figma's published Check row hides the Value; it is the bar's spoken value. */
   value: ReactNode;
+  /** The status Tag's words (21 Nov publish): "Passes" (pass) or "Finding" (fail) by default. */
+  statusLabel?: ReactNode;
   /** Progress "Fill · value", 0 to 100. */
   fill: number;
   /** Progress "Target · target", 0 to 100. Missing = no target mark. */
@@ -84,6 +86,7 @@ export default function CheckRow({
   fill,
   target,
   actionLabel = 'Add stories',
+  statusLabel,
   onAction,
   as = 'li',
   className,
@@ -109,7 +112,12 @@ export default function CheckRow({
           </Button>
         ) : undefined
       }
-      value={value}
+      /* Figma Text frame: the status Tag under the text, beside the bar */
+      tag={
+        <Tag variant="line" tone={pass ? 'success' : 'attention'}>
+          {statusLabel ?? (pass ? 'Passes' : 'Finding')}
+        </Tag>
+      }
       progress={
         <Progress
           label={words ?? 'Coverage'}

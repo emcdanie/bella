@@ -6,6 +6,7 @@ import React, {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import Icon from "../Icon/Icon";
 import styles from "./Combobox.module.css";
 
 export interface ComboboxOption {
@@ -44,6 +45,10 @@ export interface ComboboxProps {
   placeholder?: string;
   /** Something quiet at the end of the field, such as a Kbd shortcut. */
   hint?: ReactNode;
+  /** The search mark at the start of the field (Figma Combobox: Search 20). */
+  search?: boolean;
+  /** Shown under the field when the typed value matches nothing ("No results for …"). Announced politely. */
+  noResults?: ReactNode;
   /** Runs before the field's own keys; call preventDefault to take the key over. */
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   /** Id for the input. */
@@ -68,6 +73,8 @@ export default function Combobox({
   placement = "below",
   placeholder,
   hint,
+  search = false,
+  noResults,
   onKeyDown,
   id,
   className,
@@ -94,6 +101,7 @@ export default function Combobox({
   useEffect(() => setActive(startAt()), [signature, defaultOptionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const expanded = open && flat.length > 0;
+  const empty = open && flat.length === 0 && value.trim() !== "" && !!noResults;
 
   function choose(i: number) {
     const f = flat[i];
@@ -142,6 +150,7 @@ export default function Combobox({
       </label>
       <div className={styles.anchor}>
         <div className={styles.field}>
+          {search ? <Icon name="Search" size="md" className={styles.searchMark} /> : null}
           <input
             id={inputId}
             className={styles.input}
@@ -209,6 +218,13 @@ export default function Combobox({
               })}
             </div>
           ))}
+        </div>
+        <div role="status">
+          {empty ? (
+            <div className={styles.list}>
+              <p className={styles.noResults}>{noResults}</p>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

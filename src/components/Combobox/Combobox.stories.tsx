@@ -133,3 +133,56 @@ export const Behavior: Story = {
     });
   },
 };
+
+function SearchHarness({ start = '' }: { start?: string }) {
+  const [q, setQ] = useState(start);
+  const t = q.trim().toLowerCase();
+  const groups: ComboboxGroup[] = t
+    ? [{ id: 'jump', label: 'Jump to', options: COMPONENTS.filter((c) => c.toLowerCase().includes(t)).map((c) => ({ id: c, label: c, meta: 'Component' })) }]
+    : [];
+  return (
+    <div style={{ display: 'grid', maxInlineSize: 'calc(var(--spacing-80) * 7)', minBlockSize: 'calc(var(--spacing-80) * 3)' }}>
+      <Combobox
+        label="Search components"
+        hideLabel
+        search
+        value={q}
+        onChange={setQ}
+        groups={groups}
+        onSelect={() => {}}
+        placeholder="Search components"
+        hint={<Kbd keys={['⌘', 'K']} label="Command K" />}
+        noResults={`No results for “${q.trim()}”`}
+      />
+    </div>
+  );
+}
+
+/** The search part (Figma Combobox no-results 1560:26256): the search mark at the start, ⌘K at the end,
+ * and one quiet line in the list when nothing matches, announced politely. */
+export const SearchNoResults: Story = {
+  render: () => <SearchHarness start="zebra" />,
+  play: async ({ canvas, canvasElement, step }) => {
+    await step('the search mark sits before the text', async () => {
+      const mark = canvasElement.querySelector('[class*="searchMark"]') as HTMLElement;
+      await expect(mark).not.toBeNull();
+      await expect(mark.getBoundingClientRect().right).toBeLessThanOrEqual(canvas.getByRole('combobox').getBoundingClientRect().left);
+    });
+    await step('nothing matches: the no-results line shows, as a status', async () => {
+      await userEvent.click(canvas.getByRole('combobox'));
+      await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('No results for “zebra”'));
+      await expect(canvas.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false');
+    });
+    await step('a match brings the list back', async () => {
+      await userEvent.clear(canvas.getByRole('combobox'));
+      await userEvent.type(canvas.getByRole('combobox'), 'tab');
+      await waitFor(() => expect(canvas.getByRole('option', { name: /Tabs/ })).toBeVisible());
+      await expect(canvas.getByRole('status')).toBeEmptyDOMElement();
+    });
+    await step('back to no match, the state this story pictures', async () => {
+      await userEvent.clear(canvas.getByRole('combobox'));
+      await userEvent.type(canvas.getByRole('combobox'), 'zebra');
+      await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('No results for “zebra”'));
+    });
+  },
+};

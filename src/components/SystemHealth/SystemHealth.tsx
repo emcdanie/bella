@@ -2,6 +2,7 @@ import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Icon from '../Icon/Icon';
 import StatusDot from '../StatusDot/StatusDot';
+import useCountTo, { formatDiff } from '../shared/useCountTo';
 import styles from './SystemHealth.module.css';
 
 export interface SystemHealthFail {
@@ -81,7 +82,12 @@ export default function SystemHealth({
   style,
 }: SystemHealthProps) {
   const pct = Math.max(0, Math.min(100, value));
-  const lit = Math.round((pct / 100) * TICKS);
+  /* A new score (rule "Motion that shows what happened", item 5): the gauge
+   * fills or empties tick by tick from the old score to the new one and the
+   * difference shows once under the number. Reduced motion: the new score at
+   * once. aria-valuenow is the real score throughout. */
+  const count = useCountTo(pct);
+  const lit = Math.round((count.shown / 100) * TICKS);
   const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
   const third = lit / 3;
   const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
@@ -117,7 +123,14 @@ export default function SystemHealth({
             })}
           </div>
           <div className={styles.value} aria-hidden="true">
-            <span className={styles.number}>{pct}%</span>
+            <span className={styles.number}>
+              {Math.round(count.shown)}%
+              {count.diff ? (
+                <span key={count.changeKey} className={styles.diff}>
+                  {formatDiff(count.diff)}
+                </span>
+              ) : null}
+            </span>
             <span className={styles.status}>{status}</span>
           </div>
         </div>

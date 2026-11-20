@@ -259,6 +259,35 @@
   color: var(--color-content-subtle);
 }
 
+/* the difference after a new score: pops in under the number, holds, fades,
+   once (item 5, 21 Nov); reduced motion: none */
+.number {
+  position: relative;
+}
+
+.diff {
+  position: absolute;
+  inset-inline-start: calc(100% + var(--spacing-4));
+  inset-block-start: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  opacity: 0;
+  animation: healthDiff var(--motion-duration-3400) var(--motion-easing-out) both;
+}
+
+@keyframes healthDiff {
+  0% { opacity: 0; transform: translateY(var(--spacing-4)); }
+  10%, 75% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diff { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .open {
     transition: none;

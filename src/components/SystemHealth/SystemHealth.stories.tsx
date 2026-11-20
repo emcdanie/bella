@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import Button from '../Button/Button';
 import SystemHealth from './SystemHealth';
 import cssRaw from './SystemHealth.module.css?raw';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -84,5 +85,42 @@ export const Behavior: Story = {
     await expect(meter).toHaveAttribute('aria-valuenow', '95');
     await expect(meter).toHaveAttribute('aria-valuetext', '95%, Healthy');
     await expect(c.getAllByRole('link')).toHaveLength(3);
+  },
+};
+
+function NewScoreDemo() {
+  const [after, setAfter] = React.useState(false);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', maxInlineSize: 'calc(var(--spacing-80) * 5)' }}>
+      <SystemHealth value={after ? 91 : 84} status={after ? 'Healthy' : 'Below target'} passed={after ? '40 of 44 pass' : '37 of 44 pass'} />
+      <Button variant="secondary" size="sm" onClick={() => setAfter((a) => !a)}>
+        Check again
+      </Button>
+    </div>
+  );
+}
+
+/** A new score (rule "Motion that shows what happened", item 5): the gauge fills tick by tick from 84
+ * to 91 and "+7" shows once beside the number. Nothing moves on first paint; aria-valuenow is the real
+ * score throughout. Reduced motion: the new score at once, no difference mark. */
+export const NewScore: Story = {
+  render: () => <NewScoreDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const meter = canvas.getByRole('meter');
+    await step('a new score: the meter says 91 at once, the drawing counts there', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Check again' }));
+      await expect(meter).toHaveAttribute('aria-valuenow', '91');
+      await waitFor(() => expect(canvasElement.querySelector('[class*="number"]')!.textContent).toMatch(/^91%/), { timeout: 3000 });
+    });
+    await step(reduced ? 'reduced motion: no difference mark' : 'the difference shows once', async () => {
+      const diff = canvasElement.querySelector('[class*="diff"]') as HTMLElement | null;
+      if (reduced) {
+        await expect(diff === null || getComputedStyle(diff).display === 'none').toBe(true);
+        return;
+      }
+      await expect(diff).toHaveTextContent('+7');
+      await expect(getComputedStyle(diff!).animationIterationCount).toBe('1');
+    });
   },
 };

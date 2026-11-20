@@ -47,6 +47,8 @@ export interface StatCardProps {
   href?: string;
   /** Header opens the detail: a button. Ignored when `href` is set. */
   onOpen?: () => void;
+  /** The chart draws in once when the card first appears (Progress drawIn). Off by default (demo). */
+  drawIn?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -69,6 +71,7 @@ export default function StatCard({
   meter,
   href,
   onOpen,
+  drawIn = false,
   className,
   style,
 }: StatCardProps) {
@@ -124,6 +127,7 @@ export default function StatCard({
             showTarget={chart === 'bar' && meter.target != null}
             segments={meter.segments}
             done={meter.done}
+            drawIn={drawIn}
           />
         ) : null}
         {context != null ? <p className={styles.context}>{context}</p> : null}

@@ -195,7 +195,44 @@
   100% { opacity: 0; }
 }
 
+/* drawIn (demo, 21 Nov): the mark draws in once from nothing to its value
+   on motion/duration/450 and motion/easing/out; the target is not animated,
+   so it is there before the mark arrives. Round caps stay (the fill keeps
+   its round ends while it grows). Fill mode backwards: once drawn it lets
+   go, so a new value still slides on the transition above. */
+.drawIn .fill,
+.drawIn .ring > .ringFill {
+  animation: progressDraw var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+.drawIn .ringEnd {
+  animation: progressTurn var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+.drawIn .segment {
+  transform-origin: left center;
+  animation: progressSegment var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+@keyframes progressDraw {
+  from { --progress-fill: 0%; }
+}
+
+@keyframes progressTurn {
+  from { --progress-turn: 0deg; }
+}
+
+@keyframes progressSegment {
+  from { transform: scaleX(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .drawIn .fill,
+  .drawIn .ring > .ringFill,
+  .drawIn .ringEnd,
+  .drawIn .segment {
+    animation: none;
+  }
   .fill,
   .segment,
   .ring > .ringFill,

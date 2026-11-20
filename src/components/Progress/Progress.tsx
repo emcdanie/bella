@@ -109,6 +109,11 @@ export interface ProgressProps {
   segments?: number;
   /** Segments only: how many are done. */
   done?: number;
+  /** Draws in once when it first appears: the bar grows, the ring sweeps, the segments fill, to the
+   * value on motion/duration/450 and motion/easing/out; the target is there before the mark arrives.
+   * Reduced motion: drawn at once. A demo for Health charts (21 Nov: "should we not put motion on the
+   * graphs??"), off by default. */
+  drawIn?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -128,6 +133,7 @@ export default function Progress({
   target = 0,
   segments = 6,
   done = 0,
+  drawIn = false,
   className,
   style,
 }: ProgressProps) {
@@ -154,7 +160,7 @@ export default function Progress({
     'aria-valuetext': typeof value === 'string' ? value : undefined,
   } as const;
   const name = typeof label === 'string' ? label : undefined;
-  const cls = [styles.root, shape === 'ring' ? styles.ringRoot : '', className].filter(Boolean).join(' ');
+  const cls = [styles.root, shape === 'ring' ? styles.ringRoot : '', drawIn ? styles.drawIn : '', className].filter(Boolean).join(' ');
 
   if (shape === 'ring') {
     return (

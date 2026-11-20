@@ -1,9 +1,9 @@
 /* Step (Figma BellaComponents "Step", read 19 Nov 2026). Tokens only.
  * Marker: Icon well 36 (done success + Check, current info, pending neutral;
  * 18 Nov: done uses the check in a soft success circle). Lines are Map line.
- * horizontal: column, 12 apart, padding 12 / 0 / 12 / 12 (the connector runs
- * to the right edge so steps in a row join); marker row = marker + connector,
- * 12 apart; text column 4 apart with 12 on its right.
+ * horizontal: column, 12 apart, padding 12 on every side (21 Nov publish:
+ * paddingRight 12, the connector stops 12 short of the edge); marker row =
+ * marker + connector, 12 apart; text column 4 apart.
  * vertical: row, 12 apart, 12 each side; marker column runs edge to edge
  * (line above 12, marker, connector fills) so rows join; text column 12
  * above and below, 4 apart; time 12 from the top.
@@ -38,8 +38,7 @@
 .horizontal .row {
   flex-direction: column;
   gap: var(--spacing-12);
-  padding-block: var(--spacing-12);
-  padding-inline-start: var(--spacing-12);
+  padding: var(--spacing-12);
 }
 
 .vertical .row {
@@ -152,10 +151,6 @@
   gap: var(--spacing-4);
   flex: 1 1 auto;
   min-inline-size: 0;
-}
-
-.horizontal .text {
-  padding-inline-end: var(--spacing-12);
 }
 
 .vertical .text {

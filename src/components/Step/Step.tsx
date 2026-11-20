@@ -83,9 +83,10 @@ export default function Step({
 }: StepProps) {
   const m = MARKER[state];
   const horizontal = layout === 'horizontal';
-  /* Figma: vertical connectors are solid when done, dashed when current or
-   * pending; the horizontal variants are drawn solid in every state. */
-  const lineStyle = !horizontal && state !== 'done' ? 'dashed' : 'solid';
+  /* Figma (re-read from the 21 Nov publish): vertical connectors are solid
+   * when done or current, dashed only for what has not started (pending);
+   * the horizontal variants are drawn solid in every state. */
+  const lineStyle = !horizontal && state === 'pending' ? 'dashed' : 'solid';
   const marker =
     number != null ? (
       <StepNumber state={state} number={number} />

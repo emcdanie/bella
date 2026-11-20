@@ -84,6 +84,13 @@ export const Horizontal: Story = {
       <Pipeline states={['done', 'done', 'done', 'done']} />
     </Themed>
   ),
+  play: async ({ canvasElement, step }) => {
+    await step('horizontal: 12 on every side, the connector stops 12 short (21 Nov publish)', async () => {
+      const row = canvasElement.querySelector('li [class*="row"]') as HTMLElement;
+      const cs = getComputedStyle(row);
+      await expect([cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft]).toEqual(['12px', '12px', '12px', '12px']);
+    });
+  },
 };
 
 /** Vertical activity list (History): line above / connector join row to row, tag, time, selected. */
@@ -102,6 +109,13 @@ export const Vertical: Story = {
       </ol>
     </Themed>
   ),
+  play: async ({ canvasElement, step }) => {
+    await step('the current step\'s line is solid, a pending one dashed (21 Nov publish)', async () => {
+      const current = canvasElement.querySelector('li[aria-current="step"]') as HTMLElement;
+      const line = current.querySelector('[data-bella-component="map-line"]') as HTMLElement;
+      await expect(line.getAttribute('data-variant') ?? line.className).not.toMatch(/dash/);
+    });
+  }
 };
 
 /** History row: the whole row is a button, aria-pressed follows selected. */

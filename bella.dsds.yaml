@@ -8136,7 +8136,7 @@ entries:
   - kind: component
     id: button
     name: Button
-    description: "Buttons with real hierarchy: a flat ink primary plate (12px radius, no gloss, no key edge, no shadow, never lifts; near-white in dark), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are DM Sans on the label type token, sentence case, never Unique."
+    description: "Buttons with real hierarchy: a flat primary plate on background/brand (ink in BELLA, near-white in BELLA dark; light blue #63b4e8 with a navy label in Chip), no gloss, no key edge, no shadow, never lifts; corner radius/lg (pill in BELLA, 8 in Chip), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are the theme's body face (DM Sans in BELLA, Lexend in Chip), 16 on a 22 line, weight 600, sentence case, never Unique."
     metadata:
       origin:
         method: extracted
@@ -8144,7 +8144,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "Verified 8 Nov 2026 (shared look): primary label 13.90:1 on the plate in both modes, and 9.01:1 light / 9.54:1 dark on the hover plate (AAA). Secondary label 16.13:1 light / 14.98:1 dark on the card. Control border 5.16:1 light / 5.13:1 dark on the card. Focus ring 3px, 3px offset, ink in light and near-white in dark: 15.04:1 and 16.26:1 on the page. Focus-visible only. busy: aria-busy and aria-disabled while the job it started runs; clicks wait, focus stays; the turning icon is decorative and holds still under reduced motion."
+          note: "Measured 20 Nov 2026: primary label 13.90:1 on the plate in BELLA light and dark, 7.12:1 in Chip light and dark; on the hover plate 7.34:1 BELLA light, 9.54:1 BELLA dark, 7.54:1 Chip (AAA). Secondary label 16.13:1 light / 10.99:1 dark on the card. Control border 5.16:1 light on the card. Focus ring 4px with a 4px gap, outside: blue/600 #1865bb in the light themes (3.62:1 on the page), #63b4e8 in the dark themes (9.22:1). Focus-visible only. busy: aria-busy and aria-disabled while the job it started runs; clicks wait, focus stays; the turning icon is decorative and holds still under reduced motion."
       tags:
         - component
         - button
@@ -8171,7 +8171,7 @@ entries:
         title: Do not
         items:
           - level: must-not
-            statement: "Do not render more than one primary per view: the flat ink plate is the single main action"
+            statement: "Do not render more than one primary per view: the flat primary plate is the single main action"
           - level: must-not
             statement: "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory"
           - level: must-not
@@ -8188,7 +8188,7 @@ entries:
         description: "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
         context: anatomy
         items:
-          - term: flat ink plate
+          - term: flat plate
             definition: "Trigger: rest. Paints at rest."
           - term: no gloss, no key edge
             definition: "Trigger: rest. Paints at rest."
@@ -8217,13 +8217,13 @@ entries:
           - term: 1. Shadow
             definition: "none on the primary: no key edge, no drop, no highlight (shared look, 8 Nov 2026). Token --shadow-key-resting; target :scope."
           - term: 2. Fill
-            definition: flat ink plate, no gloss (near-white in dark). Token --color-background-brand; target :scope.
+            definition: "flat plate, no gloss: ink in BELLA, near-white in BELLA dark, light blue #63b4e8 in Chip. Token --color-background-brand; target :scope."
           - term: 3. Box
-            definition: 44px min, padding 12 / 20, radius 12. Token --spacing-44; target :scope.
+            definition: 44px min, padding 0 / 20, radius/lg (pill in BELLA, 8 in Chip). Token --spacing-44; target :scope.
           - term: 4. Label
-            definition: DM Sans 16, sentence case (font-size.tag). Token --typography-label-default-font-size; target [data-bella-roll=label].
+            definition: 16 on 22, weight 600, sentence case; DM Sans in BELLA, Lexend in Chip. Token --typography-label-default-font-size; target [data-bella-roll=label].
           - term: 5. Focus ring
-            definition: 3px, 3px offset, focus-visible only. Token --color-border-focus; target :scope.
+            definition: 4px, 4px gap, outside, focus-visible only. Token --color-border-focus; target :scope.
     refs:
       - href: ./src/components/Button/Button.stories.tsx
         rel: storybook
@@ -8273,7 +8273,7 @@ entries:
         restState:
           description: "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button)."
           atRest:
-            - flat ink plate
+            - flat plate
             - no gloss, no key edge
             - no shadow
             - label
@@ -8396,7 +8396,7 @@ entries:
           - term: 5. Padding
             definition: "24px all round. Trigger: rest. Token --spacing-24; target :scope > div."
           - term: 6. Focus ring
-            definition: "interactive cards only: 3px, 3px offset, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
+            definition: "interactive cards only: 4px, 4px gap, outside, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
     refs:
       - href: ./src/components/Card/Card.stories.tsx
         rel: storybook
@@ -8819,7 +8819,7 @@ entries:
           - term: 5. Label
             definition: "Geist 14, 500, text-secondary. Trigger: rest. Token --color-content-body; target :scope."
           - term: 6. Focus ring
-            definition: "3px, 3px offset, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
+            definition: "4px, 4px gap, outside, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
     refs:
       - href: ./src/components/FilterChip/FilterChip.stories.tsx
         rel: storybook
@@ -9408,7 +9408,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height."
+          note: "real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 4px focus ring (4px gap, outside) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height."
       tags:
         - component
         - input
@@ -9461,7 +9461,7 @@ entries:
           - term: 5. Placeholder
             definition: "text-muted, opacity reset for Firefox; never the label. Trigger: rest. Token --color-content-subtle; target input, textarea."
           - term: 6. Focus ring
-            definition: "3px, 3px offset, and the edge goes ink. Trigger: focus. Token --color-border-focus; target input, textarea."
+            definition: "4px, 4px gap, outside, and the edge goes ink. Trigger: focus. Token --color-border-focus; target input, textarea."
     refs:
       - href: ./src/components/Input/Input.stories.tsx
         rel: storybook
@@ -9566,7 +9566,7 @@ entries:
           - term: 3. Hover underline
             definition: "thickens to 2px; colour stays ink. Trigger: hover. Token --border-width-2; target :scope."
           - term: 4. Focus ring
-            definition: "3px, 3px offset, radius 4, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
+            definition: "4px, 4px gap, outside, corner = part + 4, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
     refs:
       - href: ./src/components/Link/Link.stories.tsx
         rel: storybook
@@ -9826,7 +9826,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.
+          note: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 4px, inset. Tabs hit the 44px touch-target token.
       tags:
         - component
         - tabs
@@ -10016,7 +10016,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 3px, inset. Rows and the toggle hit the 44px touch-target token.
+          note: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 4px, inset. Rows and the toggle hit the 44px touch-target token.
       tags:
         - component
         - nav-list
@@ -10207,7 +10207,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.
+          note: a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 4px with a 4px gap.
       tags:
         - component
         - data-table

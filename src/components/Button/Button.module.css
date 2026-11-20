@@ -1,11 +1,12 @@
 /* Button (component 2, extracted from the portfolio keycap system,
  * 2026-07-22; motion reworked 2026-09-18; recoloured by the brand refresh,
  * 2026-09-22; flattened by the shared look, 8 Nov 2026). Tokens only. Three
- * tiers: primary is the flat INK plate (one per view), secondary the control
- * outline, tertiary the ink label with a hover fill. No accent colour on any tier at rest:
- * the focus ring is focus-visible only (--ring-focus-*, 3px, 3px offset,
- * ink in light, near-white in dark). Labels are DM Sans on the label type
- * tokens, never Unique.
+ * tiers: primary is the flat plate on background/brand (one per view; ink in
+ * BELLA, light blue #63b4e8 with a navy label in Chip), secondary the control
+ * outline, tertiary the ink label with a hover fill. The focus ring is
+ * focus-visible only (focus-ring width 4, gap 4, outside, border/focus).
+ * Corner radius/lg: pill in BELLA, 8 in Chip. Labels are the theme's body
+ * face (DM Sans in BELLA, Lexend in Chip), 16 on 22, 600, never Unique.
  *
  * ONE JOB PER STATE (2026-09-18, kept exactly):
  * - hover + focus-visible: the label roll (label up, aria-hidden copy in
@@ -106,7 +107,7 @@
   transform: translateY(0);
 }
 
-/* PRIMARY: the flat ink plate (shared look, 8 Nov 2026). No gloss, no key
+/* PRIMARY: the flat plate on background/brand (shared look, 8 Nov 2026). No gloss, no key
  * edge, no shadow. Hover rolls the label and eases the plate one step
  * lighter. Active: a small move down. */
 .primary {

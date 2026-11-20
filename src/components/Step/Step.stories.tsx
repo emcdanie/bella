@@ -140,3 +140,23 @@ export const NumbersAndDays: Story = {
     </ol>
   ),
 };
+
+/** History kinds (CHIP History flow, 21 Nov): one deeper wash per kind with an
+ * ink glyph, so the list is not all green; green only for Merged. */
+export const HistoryKinds: Story = {
+  render: () => (
+    <ol style={{ margin: 0, padding: 0, inlineSize: 'calc(var(--spacing-48) * 12)', background: 'var(--color-background-surface)' }}>
+      <StepDay>18 Nov</StepDay>
+      <Step kind="tokens" title="tokens: Foundations export, Lexend, parts on role font tokens" detail="Re-exported from the published Foundations." showLineAbove time="21:33" />
+      <StepDay>9 Nov</StepDay>
+      <Step kind="code" title="DSDS lists every component with code" detail="Button: ariaHaspopup for a button that opens a dialog." showLineAbove time="14:34" />
+      <StepDay>8 Nov</StepDay>
+      <Step kind="visual" title="brand: shared look is the default" detail="The default now matches what both products share." showLineAbove time="14:58" />
+      <Step kind="fix" title="Review fixes for the chat parts" detail="Tails and meta on the bubbles." showLineAbove time="10:20" />
+      <Step kind="docs" title="Rules: Figma first, code follows" detail="Docs" showLineAbove time="10:24" />
+      <Step kind="tooling" title="Save the week's work before backup" detail="Tooling" showLineAbove time="10:28" />
+      <Step kind="decision" title="History kinds get ink glyphs" detail="Decision" showLineAbove time="10:30" />
+      <Step kind="merged" title="Merge chip/fix-llms-txt" tag={<Tag tone="success">Merged</Tag>} showLineAbove showConnector={false} time="10:36" />
+    </ol>
+  ),
+};

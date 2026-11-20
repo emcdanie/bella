@@ -171,7 +171,7 @@ export { default as SystemHealth } from './SystemHealth/SystemHealth';
 export type { SystemHealthProps, SystemHealthFail } from './SystemHealth/SystemHealth';
 
 export { default as Step } from './Step/Step';
-export type { StepProps } from './Step/Step';
+export type { StepProps, StepKind } from './Step/Step';
 
 export { default as MapLine } from './MapLine/MapLine';
 export type { MapLineProps } from './MapLine/MapLine';

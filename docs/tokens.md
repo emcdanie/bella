@@ -117,6 +117,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-yellow-700` | `#5e4800` | Utility yellow ramp, step 700. Light warning word on its wash, 7:1. |
 | `--color-utility-yellow-800` | `#423100` | utility yellow ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-yellow-900` | `#271c00` | utility yellow ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
+| `--color-utility-yellow-alpha-22` | `#c49a1638` | utility yellow/400 at 22% opacity. Global; used through Tier 2 (color/background/wash/yellow-strong in the dark themes: the History Docs kind, 19 Nov 2026). |
 | `--color-neutral-100` | `#eceef3` | Neutral ramp, step 100. Dark default text; light subtle fill and light hairline. |
 | `--color-neutral-200` | `#c3c7d2` | Neutral ramp, step 200. Dark muted and disabled text; light disabled edge. |
 | `--color-neutral-300` | `#b1b7c7` | Neutral ramp, step 300. Global scale: parts use a Tier 2 token, not this. |
@@ -312,6 +313,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-background-wash-navy` | → `color.brand.navy.100` `#edecf2` | → `color.brand.navy.alpha.8` `#9994b114` | → `color.brand.navy.100` `#edecf2` | → `color.brand.navy.alpha.8` `#9994b114` |
 | `--color-background-wash-navy-strong` | → `color.brand.navy.200` `#c6c2d4` | → `color.brand.navy.alpha.22` `#9994b138` | → `color.brand.navy.200` `#c6c2d4` | → `color.brand.navy.alpha.22` `#9994b138` |
 | `--color-background-wash-fade` | → `color.neutral.white` `#ffffff` | → `color.neutral.alpha.0` `#1d203000` | → `color.neutral.white` `#ffffff` | → `color.neutral.alpha.0` `#1d203000` |
+| `--color-background-wash-grey-strong` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.200` `#c3c7d2` | → `color.neutral.white-alpha.10` `#ffffff1a` |
+| `--color-background-wash-yellow-strong` | → `color.utility.yellow.200` `#f1d68a` | → `color.utility.yellow.alpha.22` `#c49a1638` | → `color.utility.yellow.200` `#f1d68a` | → `color.utility.yellow.alpha.22` `#c49a1638` |
 | `--color-background-brand-active` | → `color.neutral.900` `#1d2030` | → `color.neutral.100` `#eceef3` | → `color.brand.blue.280` `#75bdeb` | → `color.brand.blue.280` `#75bdeb` |
 | `--color-border-glass-top` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.70` `#ffffffb2` | → `color.neutral.white-alpha.10` `#ffffff1a` |
 | `--color-border-glass-edge` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` | → `color.neutral.white-alpha.50` `#ffffff80` | → `color.neutral.white-alpha.10` `#ffffff1a` |

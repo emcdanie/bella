@@ -108,6 +108,50 @@
   border-radius: var(--border-radius-16);
 }
 
+/* Opens instead of jumping, closes up after (item 2, 21 Nov): the space
+   grows from nothing to its height, and on close shrinks back, so the cards
+   under it slide rather than jump. 160 is the most a drop space is tall. */
+.drop {
+  overflow: hidden;
+  animation: dropOpen var(--motion-duration-250) var(--motion-easing-out) backwards;
+}
+
+.closing {
+  animation: dropClose var(--motion-duration-200) var(--motion-easing-standard) forwards;
+}
+
+@keyframes dropOpen {
+  from {
+    max-block-size: 0;
+    padding-block: 0;
+    border-width: 0;
+    opacity: 0;
+  }
+  to {
+    max-block-size: calc(var(--spacing-80) * 2);
+    opacity: 1;
+  }
+}
+
+@keyframes dropClose {
+  from {
+    max-block-size: calc(var(--spacing-80) * 2);
+  }
+  to {
+    max-block-size: 0;
+    padding-block: 0;
+    border-width: 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop,
+  .closing {
+    animation: none;
+  }
+}
+
 .target {
   border-color: var(--color-border-brand);
 }

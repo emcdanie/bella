@@ -1,4 +1,4 @@
-import React, { Children, useId, type CSSProperties, type ReactNode } from 'react';
+import React, { Children, useEffect, useId, type CSSProperties, type ReactNode } from 'react';
 import Tag from '../Tag/Tag';
 import styles from './BoardLane.module.css';
 
@@ -12,17 +12,34 @@ export interface BoardLaneDropSpaceProps {
   kind?: 'target' | 'origin';
   /** Figma "Label". target only. */
   label?: ReactNode;
+  /**
+   * The space opens when it mounts (rule "Motion that shows what happened",
+   * item 2). Set false to close it up (after the drop, or when the card left
+   * for good): it shrinks to nothing, then onClosed runs so you can remove it.
+   */
+  open?: boolean;
+  /** Called once the space has closed up. Remove it then. */
+  onClosed?: () => void;
   className?: string;
   /** Size it to the card it stands for (Figma draws it at the card's size). */
   style?: CSSProperties;
 }
 
 /** Shows only while a card is being dragged. A dashed 2px edge: brand where it lands, strong where it left. */
-export function BoardLaneDropSpace({ kind = 'target', label = 'Drop here to start', className, style }: BoardLaneDropSpaceProps) {
+export function BoardLaneDropSpace({ kind = 'target', label = 'Drop here to start', open = true, onClosed, className, style }: BoardLaneDropSpaceProps) {
+  /* Opens on motion/duration/250 and closes up on motion/duration/200; with
+   * reduced motion it appears and goes at once. */
+  useEffect(() => {
+    if (!open && window.matchMedia('(prefers-reduced-motion: reduce)').matches) onClosed?.();
+  }, [open, onClosed]);
   return (
     <div
-      className={[styles.drop, kind === 'origin' ? styles.origin : styles.target, className].filter(Boolean).join(' ')}
+      className={[styles.drop, kind === 'origin' ? styles.origin : styles.target, open ? '' : styles.closing, className].filter(Boolean).join(' ')}
       style={style}
+      onAnimationEnd={(e) => {
+        if (!open && e.target === e.currentTarget) onClosed?.();
+      }}
+      data-state={open ? 'open' : 'closing'}
       data-bella-component="board-lane-drop-space"
       aria-hidden={kind === 'origin' ? true : undefined}
     >

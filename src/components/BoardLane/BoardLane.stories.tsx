@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import BoardLane, { BoardLaneDropSpace } from './BoardLane';
 import TaskCard from '../TaskCard/TaskCard';
 import cssRaw from './BoardLane.module.css?raw';
@@ -142,6 +143,43 @@ export const Behavior: Story = {
     });
     await step('the count says what it counts', async () => {
       await expect(canvas.getByText('cards', { exact: false })).toBeInTheDocument();
+    });
+  },
+};
+
+function OpenCloseDemo() {
+  const [phase, setPhase] = React.useState<'idle' | 'over' | 'dropped'>('idle');
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
+      <BoardLane name="Agent" count={2} order="Failures first, then what blocks a push." style={{ inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+        {phase !== 'idle' ? (
+          <BoardLaneDropSpace open={phase === 'over'} onClosed={() => setPhase('idle')} />
+        ) : null}
+        <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" />
+      </BoardLane>
+      <Button variant="secondary" size="sm" onClick={() => setPhase(phase === 'over' ? 'dropped' : 'over')}>
+        {phase === 'over' ? 'Drop' : 'Drag a card over'}
+      </Button>
+    </div>
+  );
+}
+
+/** Opens instead of jumping (rule "Motion that shows what happened", item 2): a card over the lane
+ * opens the drop space from nothing, and after the drop it closes up, so the cards under it slide.
+ * Reduced motion: it appears and goes at once. */
+export const OpensAndClosesUp: Story = {
+  render: () => <OpenCloseDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const space = () => canvasElement.querySelector('[data-bella-component="board-lane-drop-space"]') as HTMLElement | null;
+    await step(reduced ? 'a card over: the space is there' : 'a card over: the space opens', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Drag a card over' }));
+      await expect(space()).toHaveAttribute('data-state', 'open');
+      await expect(getComputedStyle(space()!).animationName).toMatch(reduced ? /^none$/ : /dropOpen/);
+    });
+    await step('dropped: it closes up, then it is gone', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Drop' }));
+      await waitFor(() => expect(space()).toBeNull(), { timeout: 2000 });
     });
   },
 };

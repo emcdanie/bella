@@ -106,3 +106,23 @@ export const WithMeta: Story = {
     await expect(sub.compareDocumentPosition(meta) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   },
 };
+
+/** titleAs (chip-code, 21 Nov): a record's title is its heading ("h2" on a History record) but keeps
+ * Figma's Title look, 20 regular ink, the same as the plain title beside it. */
+export const TitleAsHeading: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--spacing-24)' }}>
+      <TextStack title="Button token swap" titleAs="h2" subtitle="21 Nov · merged" />
+      <TextStack title="Button token swap" subtitle="21 Nov · merged" />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    const heading = canvas.getByRole('heading', { level: 2, name: 'Button token swap' });
+    const plain = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="text-stack"]')[1].firstElementChild as HTMLElement;
+    await step('an h2 that looks like the plain title', async () => {
+      const a = getComputedStyle(heading);
+      const b = getComputedStyle(plain);
+      for (const k of ['fontSize', 'fontWeight', 'fontFamily', 'lineHeight', 'color', 'marginTop', 'marginBottom'] as const) await expect(a[k]).toBe(b[k]);
+    });
+  },
+};

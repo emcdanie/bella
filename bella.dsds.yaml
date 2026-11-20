@@ -8463,7 +8463,7 @@ entries:
       reviewed:
         - date: "2026-07-30"
           by: human:elleta
-          note: "title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 13px metadata tier, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop."
+          note: "title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 16px reading floor, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop."
       tags:
         - component
         - resource-card
@@ -9333,7 +9333,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22."
+          note: "16px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22."
       tags:
         - component
         - eyebrow
@@ -9358,7 +9358,7 @@ entries:
           - level: must-not
             statement: "Never an accent colour: wayfinding is not action"
           - level: must-not
-            statement: Never below 13px, never tracked, never uppercased
+            statement: Never below 16px, never tracked, never uppercased
       - kind: definitions
         for: all
         title: At rest
@@ -9408,7 +9408,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 4px focus ring (4px gap, outside) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height."
+          note: "real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Suggestion (Input 1608:3716): the ghost question is the placeholder in content/subtle (8.53:1 Chip light, 10.99:1 Chip dark on the surface, AAA); the ↵ keycap is aria-hidden and the field is described by \"Press Enter to ask\"; Enter sends it, typing replaces it. Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 4px focus ring (4px gap, outside) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height."
       tags:
         - component
         - input
@@ -9506,6 +9506,7 @@ entries:
           - focus
           - disabled
           - error
+          - suggestion
         restState:
           description: "Flat always: field, border, label, messages. audit:quality asserts no elevation ever (root carries data-bella-component=input)."
           atRest:
@@ -9926,7 +9927,7 @@ entries:
   - kind: component
     id: kbd
     name: Kbd
-    description: "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them."
+    description: "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one white cap with a hairline edge per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them."
     metadata:
       origin:
         method: extracted
@@ -9935,7 +9936,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.
+          note: "a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps content/subtle on a white plate (background/surface, Figma Kbd 156:117, 18 Nov): 8.53:1 BELLA and Chip light, 7.54:1 BELLA dark, 10.99:1 Chip dark (AAA, measured 20 Nov 2026). The cap edge is a decorative hairline. Mono at the 16px floor."
       tags:
         - component
         - kbd
@@ -9958,7 +9959,7 @@ entries:
           - level: must-not
             statement: "Do not make it clickable: a pressable keycap is Button"
           - level: must-not
-            statement: "Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button"
+            statement: "Do not raise or animate it: Kbd is flat and static, and a pressable thing is a Button"
           - level: must-not
             statement: "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
       - kind: definitions
@@ -10198,7 +10199,7 @@ entries:
   - kind: component
     id: data-table
     name: DataTable
-    description: Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row pink without dimming any other row.
+    description: Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row light blue (background/brand-subtle-hover) with a bold ink label, without dimming any other row.
     metadata:
       origin:
         method: extracted
@@ -10207,7 +10208,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 4px with a 4px gap.
+          note: "a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the light blue fill (background/brand-subtle-hover) with a bold ink label: 12.30:1 Chip light, 9.54:1 BELLA light, 7.34:1 BELLA dark (AAA, measured 20 Nov 2026; Chip dark's white-alpha tint not measured), nested components included, and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 4px with a 4px gap."
       tags:
         - component
         - data-table
@@ -10226,7 +10227,7 @@ entries:
         title: Do not
         items:
           - level: must-not
-            statement: "Do not dim unselected rows: selection is the pink fill, everything else keeps its paint"
+            statement: "Do not dim unselected rows: selection is the light blue fill with a bold ink label, everything else keeps its paint"
           - level: must-not
             statement: "Do not use the focus ring colour for selection: the ring means focus only"
           - level: must-not
@@ -10370,7 +10371,7 @@ entries:
   - kind: component
     id: combobox
     name: Combobox
-    description: "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the pink fill."
+    description: "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the light blue fill (background/brand-subtle) with an ink label, the same as hover."
     metadata:
       origin:
         method: extracted
@@ -10379,7 +10380,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option near-black on the pink fill 8.13:1 (AAA; shared look, 8 Nov 2026). Options and field are 44px. Focus ring on the field.
+          note: "input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field."
       tags:
         - component
         - combobox
@@ -10400,7 +10401,7 @@ entries:
           - level: must-not
             statement: "Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant"
           - level: must-not
-            statement: "Do not dim the other options: the active one gets the pink fill, nothing else changes"
+            statement: "Do not dim the other options: the active one gets the light blue fill, nothing else changes"
           - level: must-not
             statement: "Do not use it for a fixed short list without typing: that is Select"
       - kind: definitions

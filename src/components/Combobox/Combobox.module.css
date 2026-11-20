@@ -12,6 +12,9 @@
   grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-8);
   min-width: 0;
+  /* the part binds its face (published Combobox: body-default font family),
+     so the list never falls back to the page's face */
+  font-family: var(--typography-body-default-font-family);
 }
 
 .label {
@@ -134,9 +137,11 @@
   cursor: pointer;
 }
 
+/* Active option: light blue with an ink label and subtle meta, the same as
+ * hover (published Combobox 172:430: "Pink is only for annotations", 19 Nov). */
 .option[aria-selected='true'] {
-  background: var(--color-background-accent-1);
-  color: var(--color-content-on-accent-1);
+  background: var(--color-background-brand-subtle);
+  color: var(--color-content-default);
 }
 
 .optionLabel {
@@ -150,10 +155,6 @@
   flex: none;
   font-size: var(--typography-font-size-18);
   color: var(--color-content-subtle);
-}
-
-.option[aria-selected='true'] .meta {
-  color: var(--color-content-on-accent-1);
 }
 
 .srOnly {

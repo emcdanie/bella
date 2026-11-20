@@ -166,7 +166,6 @@ const INSET_EXEMPT = {
   'src/components/SegmentedControl/SegmentedControl.module.css :: .control': 'the track behind the segments, not a field: each segment is the 44 target, the selected one lifts (her rule, 19 Nov: "no border or dividers, selected lifted by a shadow")',
   'src/patterns/BeforeAfterFrame/BeforeAfterFrame.module.css :: .stage': 'decorative container around a screen, not a control',
   'src/components/StatusPill/StatusPill.module.css :: .neutral': 'identified by its text, not the fill',
-  'src/components/Kbd/Kbd.module.css :: .key': 'identified by its key label, not the fill',
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',

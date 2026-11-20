@@ -68,62 +68,68 @@
   border-radius: var(--border-radius-round);
 }
 
-/* outline + index: wash, edge and ink per tone */
-.outline.tone-default {
-  background: var(--color-background-utility-neutral);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-neutral);
-  color: var(--color-content-utility-neutral);
+/* Tones (BellaComponents Tag 140:46, bindings re-read 21 Nov): each Tag
+ * carries its own fill, so its ink keeps 7:1 on any row behind it. The tone
+ * wash is laid over background/surface inside the Tag (in Chip dark the
+ * washes are see-through: alone on a selected row "Merged" fell to 5.23:1).
+ * outline + index: wash, edge, ink per tone. line: surface, the tone's edge
+ * and ink. count: surface, border/strong, content/default. */
+.plate {
+  --tag-wash: transparent;
+  --tag-edge: var(--color-border-utility-neutral);
+  --tag-ink: var(--color-content-utility-neutral);
+  --tag-dot: var(--color-border-utility-neutral);
+  background: linear-gradient(var(--tag-wash), var(--tag-wash)), var(--color-background-surface);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--tag-edge);
+  color: var(--tag-ink);
 }
-.tone-default .dot {
-  background: var(--color-border-utility-neutral);
+
+.dot {
+  background: var(--tag-dot);
+}
+
+.tone-default {
+  --tag-wash: var(--color-background-utility-neutral);
 }
 
 .tone-count {
-  background: var(--color-background-surface);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-strong);
-  color: var(--color-content-default);
+  --tag-edge: var(--color-border-strong);
+  --tag-ink: var(--color-content-default);
+  --tag-dot: var(--color-content-subtle);
   font-family: var(--typography-number-font-family);
   font-weight: var(--typography-font-weight-600);
 }
-.tone-count .dot {
-  background: var(--color-content-subtle);
-}
 
 .tone-success {
-  background: var(--color-background-utility-success);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-success);
-  color: var(--color-content-utility-success);
-}
-.tone-success .dot {
-  background: var(--color-border-utility-success);
+  --tag-wash: var(--color-background-utility-success);
+  --tag-edge: var(--color-border-utility-success);
+  --tag-ink: var(--color-content-utility-success);
+  --tag-dot: var(--color-border-utility-success);
 }
 
 .tone-info {
-  background: var(--color-background-utility-info);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-info);
-  color: var(--color-content-utility-info);
-}
-.tone-info .dot {
-  background: var(--color-border-utility-info);
+  --tag-wash: var(--color-background-utility-info);
+  --tag-edge: var(--color-border-utility-info);
+  --tag-ink: var(--color-content-utility-info);
+  --tag-dot: var(--color-border-utility-info);
 }
 
 .tone-attention {
-  background: var(--color-background-utility-warning);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-warning);
-  color: var(--color-content-utility-warning);
+  --tag-wash: var(--color-background-utility-warning);
+  --tag-edge: var(--color-border-utility-warning);
+  --tag-ink: var(--color-content-utility-warning);
+  --tag-dot: var(--color-background-utility-warning-mark);
 }
+
 .tone-attention .dot {
-  background: var(--color-background-utility-warning-mark);
   border: var(--border-width-1) solid var(--color-border-utility-warning);
 }
 
 .tone-danger {
-  background: var(--color-background-utility-error);
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-error);
-  color: var(--color-content-utility-error);
-}
-.tone-danger .dot {
-  background: var(--color-border-utility-error);
+  --tag-wash: var(--color-background-utility-error);
+  --tag-edge: var(--color-border-utility-error);
+  --tag-ink: var(--color-content-utility-error);
+  --tag-dot: var(--color-border-utility-error);
 }
 
 /* index: the numbered lane pin, number face 600 on any tone */
@@ -132,18 +138,15 @@
   font-weight: var(--typography-font-weight-600);
 }
 
-/* flat (18 Nov, "B, flat"): grey fill, no edge, ink label (the small
- * corner is every Tag's). Tone default only. */
-.flat {
-  background: var(--color-background-highlight);
-  color: var(--color-content-default);
+/* line (Figma style=line, every tone): the surface, the tone's edge and ink */
+.line {
+  --tag-wash: transparent;
 }
 
-/* line (Figma Tag style=line, CHIP Dashboard, read 21 Nov): no fill, the
- * default tone's 1px edge inside and its ink (the small corner is every
- * Tag's). Tone default only. Comes after .tone-default so its fill is cleared. */
-.line.line {
-  background: transparent;
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-neutral);
-  color: var(--color-content-utility-neutral);
+/* flat (18 Nov, "B, flat"): the highlight fill (over the surface, like
+ * every Tag), no edge, ink label. Tone default only. */
+.flat {
+  --tag-wash: var(--color-background-highlight);
+  --tag-ink: var(--color-content-default);
+  box-shadow: none;
 }

@@ -21,6 +21,9 @@ export interface SegmentedControlProps {
  * Pick one view among a few, all options visible. The selected state lives
  * in ARIA, not just paint.
  */
+/* every number in Geist Mono (her font rule): a label made only of digits, with % or px */
+const NUMERIC = /^\d[\d.,]*\s*(%|px)?$/;
+
 export default function SegmentedControl({
   options,
   value,
@@ -40,6 +43,8 @@ export default function SegmentedControl({
             type="button"
             aria-current={value === o.value ? 'true' : undefined}
             onClick={() => onChange(o.value)}
+            /* a label that is a number ("375", "1440", "100%") takes the number face */
+            data-numeric={NUMERIC.test(o.label) ? '' : undefined}
           >
             {o.icon != null ? (
               <span className={styles.icon} aria-hidden="true">

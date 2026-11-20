@@ -50,6 +50,10 @@ export default meta;
 
 type Story = StoryObj<typeof SegmentedControl>;
 
+/* every number in Geist Mono: the element's face is the number token's first family */
+const numberFace = (el: Element) => getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
+const faceOf = (el: Element) => getComputedStyle(el).fontFamily.split(',')[0].trim().replace(/['"]/g, '');
+
 /** The shipped shape: icon + label per segment, exactly the /work
  * switcher. Icons are decorative (aria-hidden); the label carries the
  * semantics. */
@@ -111,5 +115,23 @@ export const Behavior: Story = {
     await step('touch target: 44px minimum per segment', async () => {
       expectTouchTarget(cards);
     });
+  },
+};
+
+/** Number labels (Playground widths): the number face, as every number; word labels stay Lexend. */
+export const NumberLabels: Story = {
+  render: () => {
+    const [v, setV] = useState('1024');
+    return (
+      <SegmentedControl
+        label="Width"
+        value={v}
+        onChange={setV}
+        options={['375', '768', '1024', '1440'].map((w) => ({ value: w, label: w }))}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    for (const b of canvasElement.querySelectorAll('button')) await expect(faceOf(b)).toBe(numberFace(b));
   },
 };

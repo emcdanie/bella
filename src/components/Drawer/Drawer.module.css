@@ -72,6 +72,36 @@
   background: var(--color-background-transparent);
 }
 
+/* the scrim fades in with the slide, and out with it (item 8, 21 Nov) */
+.drawer[open]::backdrop {
+  animation: scrimIn var(--motion-duration-250) var(--motion-easing-standard) both;
+}
+
+/* closing: the panel slides back to its edge, the scrim fades; the dialog
+   closes when the slide ends */
+.drawer[data-closing] {
+  animation: drawerOutLeft var(--motion-duration-200) var(--motion-easing-standard) both;
+}
+.drawer[data-side='right'][data-closing] {
+  animation-name: drawerOutRight;
+}
+.drawer[data-closing]::backdrop {
+  animation: scrimOut var(--motion-duration-200) var(--motion-easing-standard) both;
+}
+
+@keyframes drawerOutLeft {
+  to { transform: translateX(-100%); }
+}
+@keyframes drawerOutRight {
+  to { transform: translateX(100%); }
+}
+@keyframes scrimIn {
+  from { opacity: 0; }
+}
+@keyframes scrimOut {
+  to { opacity: 0; }
+}
+
 .head {
   display: flex;
   align-items: center;
@@ -126,5 +156,10 @@
 @media (prefers-reduced-motion: reduce) {
   .drawer[open] {
     transition: none;
+  }
+  .drawer[open]::backdrop,
+  .drawer[data-closing],
+  .drawer[data-closing]::backdrop {
+    animation: none;
   }
 }

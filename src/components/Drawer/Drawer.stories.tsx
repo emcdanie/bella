@@ -123,8 +123,8 @@ export const Behavior: Story = {
     await step('Esc closes it and focus returns to the trigger', async () => {
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(dialog().open).toBe(false));
+      await waitFor(() => expect(canvas.getByTestId('closes').textContent).toBe('1'));
       expect(document.activeElement).toBe(trigger);
-      expect(canvas.getByTestId('closes').textContent).toBe('1');
     });
 
     await step('the Close button closes it', async () => {
@@ -132,6 +132,7 @@ export const Behavior: Story = {
       await waitFor(() => expect(dialog().open).toBe(true));
       await userEvent.click(dialog().querySelector('button[data-bella-component="button"]')!);
       await waitFor(() => expect(dialog().open).toBe(false));
+      await waitFor(() => expect(canvas.getByTestId('closes').textContent).toBe('2'));
       expect(document.activeElement).toBe(trigger);
     });
 
@@ -151,5 +152,29 @@ export const WithFooter: Story = {
   play: async () => {
     const dialog = document.querySelector('dialog[open]') as HTMLElement;
     await expect(within(dialog).getByRole('button', { name: 'Apply' })).toBeVisible();
+  },
+};
+
+/** Goes as it came (rule "Motion that shows what happened", item 8): Close slides the panel back to
+ * its edge and fades the scrim, once, then the dialog closes and focus returns. Reduced motion: it
+ * closes at once. */
+export const SlidesOut: Story = {
+  render: () => <Harness />,
+  play: async ({ canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const trigger = canvas.getByRole('button', { name: 'Open menu' });
+    const dialog = () => document.querySelector('dialog[data-bella-component="drawer"]') as HTMLDialogElement;
+    await userEvent.click(trigger);
+    await waitFor(() => expect(dialog().open).toBe(true));
+    await step(reduced ? 'reduced motion: Close closes at once' : 'Close slides it out before it closes', async () => {
+      await userEvent.click(dialog().querySelector('button[data-bella-component="button"]')!);
+      if (!reduced) {
+        await expect(dialog().dataset.closing).toBe('true');
+        await expect(getComputedStyle(dialog()).animationName).toMatch(/drawerOut/);
+      }
+      await waitFor(() => expect(dialog().open).toBe(false));
+      await expect(dialog().dataset.closing).toBeUndefined();
+      await expect(document.activeElement).toBe(trigger);
+    });
   },
 };

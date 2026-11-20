@@ -46,9 +46,25 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
       dialog.showModal(); // after the content mounts
       dialog.focus(); // the dialog itself takes focus and is announced by its title; Tab moves into it
     } else if (!open && dialog.open) {
-      dialog.close();
+      shut();
     }
   }, [open, shown]);
+
+  /* Goes as it came (rule "Motion that shows what happened", item 8): the
+   * panel slides back out to its edge and the scrim fades, then the dialog
+   * closes. Reduced motion: it closes at once. */
+  function shut() {
+    const dialog = ref.current;
+    if (!dialog?.open || dialog.dataset.closing) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) dialog.close();
+    else dialog.dataset.closing = 'true';
+  }
+  function onAnimationEnd(e: React.AnimationEvent<HTMLDialogElement>) {
+    const dialog = ref.current;
+    if (e.target !== dialog || !dialog?.dataset.closing) return;
+    delete dialog.dataset.closing;
+    dialog.close();
+  }
 
   useEffect(() => {
     const dialog = ref.current;
@@ -65,7 +81,7 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
 
   // the scrim is the dialog's own box outside the panel's content
   function onClick(e: MouseEvent<HTMLDialogElement>) {
-    if (e.target === ref.current) ref.current?.close();
+    if (e.target === ref.current) shut();
   }
 
   // Esc: the browser's own cancel does this too; listening on the document
@@ -75,7 +91,7 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
     const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key !== 'Escape' || !ref.current?.open) return;
       e.preventDefault();
-      ref.current.close();
+      shut();
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -89,6 +105,11 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
       tabIndex={-1}
       data-side={side}
       onClick={onClick}
+      onCancel={(e) => {
+        e.preventDefault();
+        shut();
+      }}
+      onAnimationEnd={onAnimationEnd}
       data-bella-component="drawer"
     >
       {shown ? (
@@ -102,7 +123,7 @@ export default function Drawer({ open, onClose, label, side = 'left', children, 
               </h2>
               {status != null ? <p className={styles.status}>{status}</p> : null}
             </div>
-            <Button variant="secondary" size="md" iconOnly icon="Xmark" ariaLabel="Close" onClick={() => ref.current?.close()} />
+            <Button variant="secondary" size="md" iconOnly icon="Xmark" ariaLabel="Close" onClick={shut} />
           </div>
           <div className={styles.body}>{children}</div>
           {footer != null ? <div className={styles.footer}>{footer}</div> : null}

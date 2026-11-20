@@ -16,6 +16,34 @@
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   box-shadow: 0 var(--spacing-4) var(--spacing-16) 0 var(--color-background-transparent);
+  /* arrives: slides up a step and fades in, once (item 3, 21 Nov) */
+  animation: toastIn var(--motion-duration-250) var(--motion-easing-out) both;
+}
+
+/* goes: fades out and drops a little; onClose runs when it ends */
+.leaving {
+  animation: toastOut var(--motion-duration-200) var(--motion-easing-standard) both;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-16));
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateY(var(--spacing-8));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast,
+  .leaving {
+    animation: none;
+  }
 }
 
 .body {

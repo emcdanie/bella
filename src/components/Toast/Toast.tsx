@@ -30,11 +30,22 @@ export interface ToastProps {
  */
 export default function Toast({ tone = 'success', children, action, onClose, duration = 6000, className, style }: ToastProps) {
   const [paused, setPaused] = useState(false);
+  const [leaving, setLeaving] = useState(false);
   const left = useRef(duration);
+  /* Comes and goes (rule "Motion that shows what happened", item 3): it slides
+   * up and fades in on arrival, and fades out before onClose; with reduced
+   * motion it simply appears and goes. */
+  const close = () => {
+    if (!onClose || leaving) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) onClose();
+    else setLeaving(true);
+  };
+  const closeRef = useRef(close);
+  closeRef.current = close;
   useEffect(() => {
     if (!onClose || !duration || paused) return;
     const started = Date.now();
-    const t = window.setTimeout(onClose, left.current);
+    const t = window.setTimeout(() => closeRef.current(), left.current);
     return () => {
       window.clearTimeout(t);
       left.current -= Date.now() - started;
@@ -43,8 +54,11 @@ export default function Toast({ tone = 'success', children, action, onClose, dur
 
   return (
     <div
-      className={[styles.toast, styles[tone], className].filter(Boolean).join(' ')}
+      className={[styles.toast, styles[tone], leaving ? styles.leaving : '', className].filter(Boolean).join(' ')}
       style={style}
+      onAnimationEnd={(e) => {
+        if (leaving && e.target === e.currentTarget) onClose?.();
+      }}
       role="status"
       aria-live="polite"
       onMouseEnter={() => setPaused(true)}
@@ -52,6 +66,7 @@ export default function Toast({ tone = 'success', children, action, onClose, dur
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       data-bella-component="toast"
+      data-bella-reveal=""
     >
       <div className={styles.body}>
       <span className={styles.icon} aria-hidden="true">
@@ -67,7 +82,7 @@ export default function Toast({ tone = 'success', children, action, onClose, dur
       ) : null}
       {onClose ? (
         <span className={styles.close}>
-          <Button variant="tertiary" iconOnly icon="Xmark" ariaLabel="Close" onClick={onClose} />
+          <Button variant="tertiary" iconOnly icon="Xmark" ariaLabel="Close" onClick={close} />
         </span>
       ) : null}
       </div>

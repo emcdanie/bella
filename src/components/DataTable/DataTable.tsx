@@ -149,7 +149,8 @@ export default function DataTable<Row extends Record<string, any>>({
                     );
                   }
                   return (
-                    <TableCell key={c.key} align={align} selected={selected}>
+                    /* numeric columns: the number face (every number in Geist Mono) */
+                    <TableCell key={c.key} kind={c.numeric ? 'mono' : undefined} align={align} selected={selected}>
                       {content}
                     </TableCell>
                   );

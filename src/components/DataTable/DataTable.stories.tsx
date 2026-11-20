@@ -26,6 +26,10 @@ export default meta;
 
 type Story = StoryObj<typeof DataTable>;
 
+/* every number in Geist Mono: the element's face is the number token's first family */
+const numberFace = (el: Element) => getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
+const faceOf = (el: Element) => getComputedStyle(el).fontFamily.split(',')[0].trim().replace(/['"]/g, '');
+
 type Row = { name: string; story: boolean; contract: string; tokens: number };
 
 const ROWS: Row[] = [
@@ -57,6 +61,10 @@ export const Default: Story = {
       <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Component health" defaultSort={{ key: 'name', direction: 'ascending' }} />
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const numeric = canvasElement.querySelector('tbody tr td:last-child') as HTMLElement;
+    await expect(faceOf(numeric.querySelector('span') ?? numeric)).toBe(numberFace(numeric));
+  },
 };
 
 /* `testHook` shows the selected key for the play test only; `capped` caps the

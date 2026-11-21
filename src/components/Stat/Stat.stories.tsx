@@ -242,6 +242,24 @@ export const Scrubber: Story = {
       await userEvent.keyboard('{Home}');
       await waitFor(() => expect(tipOf(svg)).toHaveTextContent('18 · Mon'));
     });
+    await step('Esc hides the callout and the guide', async () => {
+      await userEvent.keyboard('{ArrowLeft}');
+      await waitFor(() => expect(tipOf(svg)).toBeVisible());
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(tipOf(svg)).not.toBeVisible());
+      await waitFor(() => expect(svg.querySelector('[data-bella-scrub]')).toBeNull());
+    });
+    await step('chart reading: tabular change line, a hidden summary that describes the line, a hidden table of the points', async () => {
+      const delta = svg.closest('dd') as HTMLElement;
+      await expect(getComputedStyle(delta).fontVariantNumeric).toContain('tabular-nums');
+      const summary = canvasElement.ownerDocument.getElementById(svg.getAttribute('aria-describedby')!)!;
+      await expect(summary).toHaveTextContent('Components: up 6 from 18 to 24 this week, low 18 (Mon), high 24 (Sun)');
+      await expect(summary.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+      const table = canvasElement.querySelector<HTMLTableElement>('table[data-bella-chart-table]')!;
+      await expect(table.closest('[class*="srOnly"]')).not.toBeNull();
+      const rows = Array.from(table.tBodies[0].rows).map((r) => [r.cells[0].textContent, Number(r.cells[1].textContent)]);
+      await expect(rows).toEqual(DAYS.map((d, i) => [d, WEEK[i]]));
+    });
     await step('leaving hides the guide and the Tooltip', async () => {
       svg.blur();
       await waitFor(() => expect(tipOf(svg)).not.toBeVisible());
@@ -306,5 +324,8 @@ export const ReducedMotion: Story = {
     await expect(getComputedStyle(svg.querySelector('circle')!).animationName).toBe('none');
     await userEvent.click(canvas.getByRole('button', { name: 'Y' }));
     await expect(svg.querySelector('polyline')).toHaveAttribute('points', '2.0,22.0 27.3,17.0 52.7,14.0 78.0,2.0');
+    // the hidden table follows the new range at once
+    const rows = canvasElement.querySelectorAll<HTMLTableRowElement>('table[data-bella-chart-table] tbody tr');
+    await expect(Array.from(rows).map((r) => Number(r.cells[1].textContent))).toEqual([4, 9, 12, 24]);
   },
 };

@@ -63,6 +63,7 @@ export const OnEveryTone: Story = {
       const face = getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
       const text = label.querySelector('span') as HTMLElement;
       await expect(getComputedStyle(text).fontFamily.split(',')[0].trim().replace(/['"]/g, '')).toBe(face);
+      await expect(getComputedStyle(text).fontVariantNumeric).toContain('tabular-nums');
       await expect(Math.round(track.getBoundingClientRect().top - label.getBoundingClientRect().bottom)).toBe(8);
       const lb = label.getBoundingClientRect();
       const tb = track.getBoundingClientRect();
@@ -93,5 +94,18 @@ export const LabelSide: Story = {
         await expect(l.right).toBeLessThanOrEqual(t.right + 1);
       }
     });
+  },
+};
+
+/** Own unit (22 Nov): the label reads in the value's own unit; the dash still sits at its place on the track. */
+export const OwnUnit: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+      <Progress label="Lowest contrast" value="7.06:1" fill={70} target={70} targetLabel="Target 7:1" showTarget />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const label = canvasElement.querySelector('[data-bella-component="progress-target"] [data-bella-component="tag"]') as HTMLElement;
+    await expect(label.textContent).toBe('Target 7:1');
   },
 };

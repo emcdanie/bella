@@ -68,6 +68,12 @@ export interface StatCardProps {
    * motion/duration/450 on motion/easing/out; a new value slides and counts from the old one. Reduced
    * motion: the end state at once. On by default; false shows the first value still. */
   drawIn?: boolean;
+  /**
+   * The chart's one-line summary (22 Nov reading), passed to Progress and read as the bar's
+   * description, never drawn. Missing: written from the title, value and target ("Contrast
+   * coverage: 95%, target 80%, above target").
+   */
+  summary?: string;
   className?: string;
   style?: CSSProperties;
 }
@@ -94,6 +100,7 @@ export default function StatCard({
   href,
   onOpen,
   drawIn = true,
+  summary,
   className,
   style,
 }: StatCardProps) {
@@ -166,6 +173,7 @@ export default function StatCard({
             showLabel={false}
             shape="bar"
             fill={0}
+            summary={summary}
           />
         ) : meter && chart !== 'none' ? (
           <Progress
@@ -181,6 +189,7 @@ export default function StatCard({
             segments={meter.segments}
             done={meter.done}
             drawIn={drawIn}
+            summary={summary}
           />
         ) : null}
         {context != null ? <p className={styles.context} data-bella-meta>{context}</p> : null}

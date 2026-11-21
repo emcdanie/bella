@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import useCountTo, { bezier, formatDiff, reducedMotion, tokenMs, useReducedMotion } from '../shared/useCountTo';
 import { EASING_POINTS } from '../EasingCurve/EasingCurve';
 import Icon, { type IconName } from '../Icon/Icon';
@@ -20,6 +20,14 @@ export interface StatProps {
   seriesLabel?: string;
   /** One name per point, same order as `series` ("Mon", "10:00"): the scrubber's callout says it after the value. */
   seriesLabels?: string[];
+  /**
+   * The sparkline's one-line summary (22 Nov reading: every chart has a summary and a table behind
+   * it), read as its description (aria-describedby), never drawn. Missing: written from the series,
+   * e.g. "Components: up 6 from 18 to 24, low 18 (Mon), high 24 (Sun)".
+   */
+  summary?: string;
+  /** The sparkline's points as a visually hidden table (name and value per row, from `seriesLabels` and `series`). Default true. */
+  table?: boolean;
   /**
    * The span the series covers, picked by the parent's D/W/M/Y control, in words ("this week"). Spoken
    * with the sparkline. A new range brings a new `series`; the line morphs point by point from the old
@@ -47,6 +55,12 @@ const PAD = 2;
 
 type Pt = [number, number];
 
+/* Scales start at zero (22 Nov reading) is for charts that compare amounts.
+ * The sparkline is a mini trend line, not a comparison: it zooms to the
+ * series' own low and high so a small change still shows as a slope in its
+ * 24 px. Its numbers are in the summary, the hidden table and the callout,
+ * so nothing is read off the height. Starting it at zero would flatten most
+ * lines (a look change, which waits for Elleta). */
 function toPoints(series: number[]): Pt[] {
   const min = Math.min(...series);
   const max = Math.max(...series);
@@ -77,8 +91,36 @@ function resample(pts: Pt[], n: number): Pt[] {
  * focused, moves a 1px guide (border/strong) from point to point, and
  * BELLA's Tooltip says that point's value and name; leaving hides both.
  * Reduced motion: the end state at once. */
-function Sparkline({ series, names, label, range }: { series: number[]; names?: string[]; label: string; range?: string }) {
+/** The sparkline's one line, from its numbers: which way, from what to what, the low and the high. */
+function sparkSummary(label: string, series: number[], names?: string[], range?: string) {
+  const first = series[0];
+  const last = series[series.length - 1];
+  const lo = series.indexOf(Math.min(...series));
+  const hi = series.indexOf(Math.max(...series));
+  const name = (i: number) => (names?.[i] ? ` (${names[i]})` : '');
+  const change = last > first ? `up ${last - first} from ${first} to ${last}` : last < first ? `down ${first - last} from ${first} to ${last}` : `level at ${last}`;
+  return `${label}: ${change}${range ? ` ${range}` : ''}, low ${series[lo]}${name(lo)}, high ${series[hi]}${name(hi)}`;
+}
+
+function Sparkline({
+  series,
+  names,
+  label,
+  range,
+  summary,
+  table,
+  caption,
+}: {
+  series: number[];
+  names?: string[];
+  label: string;
+  range?: string;
+  summary: string;
+  table: boolean;
+  caption: string;
+}) {
   const still = useReducedMotion();
+  const summaryId = useId();
   const target = useMemo(() => toPoints(series), [series.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
   const [drawn, setDrawn] = useState<Pt[]>(target);
   const shownRef = useRef<Pt[]>(target);
@@ -118,6 +160,12 @@ function Sparkline({ series, names, label, range }: { series: number[]; names?: 
     setActive(Math.max(0, Math.min(last, Math.round(f * last))));
   };
   const onKey = (e: KeyboardEvent<SVGSVGElement>) => {
+    /* Esc: BELLA's Tooltip hides the callout (WCAG 1.4.13); the guide goes with it */
+    if (e.key === 'Escape') {
+      setActive(null);
+      setSpoken('');
+      return;
+    }
     const keys: Record<string, number> = { ArrowLeft: at - 1, ArrowRight: at + 1, Home: 0, End: last };
     if (!(e.key in keys)) return;
     e.preventDefault();
@@ -139,6 +187,7 @@ function Sparkline({ series, names, label, range }: { series: number[]; names?: 
           viewBox={`0 0 ${W} ${H}`}
           role="img"
           aria-label={label}
+          aria-describedby={summaryId}
           tabIndex={0}
           data-bella-diagram
           data-bella-range={range}
@@ -155,6 +204,31 @@ function Sparkline({ series, names, label, range }: { series: number[]; names?: 
       </Tooltip>
       {/* the keyboard scrubber says each point once it moves there */}
       <span className={styles.srOnly} aria-live="polite">{spoken}</span>
+      <span id={summaryId} className={styles.srOnly} data-bella-summary="">
+        {summary}
+      </span>
+      {/* the table behind the chart: one row per point, never drawn */}
+      {table ? (
+        <span className={styles.srOnly}>
+          <table data-bella-chart-table="">
+            <caption>{caption}</caption>
+            <thead>
+              <tr>
+                <th scope="col">Point</th>
+                <th scope="col">Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              {series.map((v, i) => (
+                <tr key={i}>
+                  <th scope="row">{names?.[i] ?? String(i + 1)}</th>
+                  <td>{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </span>
+      ) : null}
     </>
   );
 }
@@ -172,6 +246,8 @@ export default function Stat({
   series,
   seriesLabel,
   seriesLabels,
+  summary,
+  table = true,
   range,
   icon,
   measure,
@@ -244,6 +320,9 @@ export default function Stat({
               names={seriesLabels}
               range={range}
               label={seriesLabel ?? `${label}: ${spark[0]} to ${spark[spark.length - 1]} over ${spark.length} points${range ? `, ${range}` : ''}`}
+              summary={summary ?? sparkSummary(label, spark, seriesLabels, range)}
+              table={table}
+              caption={`${label}${range ? `, ${range}` : ''}`}
             />
           ) : null}
           {delta && trend && measured ? (

@@ -25,8 +25,10 @@ export function TargetMark({ className, style }: TargetMarkProps) {
 }
 
 export interface ProgressTargetProps {
-  /** Figma "target", 0 to 100. */
+  /** Figma "target", 0 to 100: where the dash sits on the track. The caller maps its own value onto the track. */
   target: number;
+  /** Figma exposed Label (22 Nov): the label in its own unit, e.g. "Target 7:1" or "Target 5 of 5". Default "Target n%". */
+  label?: string;
 }
 
 /** Figma "Progress target" 1168:72541 (22 Nov publish, her pick "B · dashed
@@ -37,7 +39,7 @@ export interface ProgressTargetProps {
  * it stop at that end. Place it inside a position: relative track that has a
  * 32 Target row 8 above it (Progress does this with showTarget). The label is
  * real text; the bar's own name says the target too. */
-export default function ProgressTarget({ target }: ProgressTargetProps) {
+export default function ProgressTarget({ target, label: text }: ProgressTargetProps) {
   const t = pct(target);
   const root = useRef<HTMLSpanElement>(null);
   const label = useRef<HTMLSpanElement>(null);
@@ -70,7 +72,7 @@ export default function ProgressTarget({ target }: ProgressTargetProps) {
     >
       <span className={styles.dash} aria-hidden="true" />
       <span ref={label} className={styles.label}>
-        <Tag variant="outline" count={`Target ${t}%`} />
+        <Tag variant="outline" count={text ?? `Target ${t}%`} />
       </span>
     </span>
   );

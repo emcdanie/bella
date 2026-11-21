@@ -269,6 +269,22 @@ export const MotionAndCallout: Story = {
       bar.blur();
       await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
     });
+    await step('chart reading: tabular number, unit and context; a hidden summary describes the bar', async () => {
+      for (const cls of ['value', 'unit', 'context']) {
+        const el = cards[0].querySelector<HTMLElement>(`[class*="${cls}"]`)!;
+        await expect(getComputedStyle(el).fontVariantNumeric).toContain('tabular-nums');
+      }
+      const summary = canvasElement.ownerDocument.getElementById(bar.getAttribute('aria-describedby')!)!;
+      await expect(summary).toHaveTextContent('Contrast coverage: 80%, target 90%, below target');
+      await expect(summary.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+    });
+    await step('Esc hides the callout', async () => {
+      bar.focus();
+      await waitFor(() => expect(tipOf(bar)).toBeVisible());
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
+      bar.blur();
+    });
     await step('hover on the segments: "4 of 5 · target 80%"', async () => {
       const segs = cards[1].querySelector<HTMLElement>('[role="progressbar"]')!;
       await userEvent.hover(segs);
@@ -307,5 +323,7 @@ export const ReducedMotion: Story = {
     await expect(value).toHaveTextContent(/^80$/);
     const fill = canvasElement.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!;
     await expect(getComputedStyle(fill).animationName).toBe('none');
+    const track = fill.parentElement!;
+    await expect(Math.round((fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)).toBe(80);
   },
 };

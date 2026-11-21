@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import React, { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import styles from './Progress.module.css';
 import ProgressTarget, { TargetMark } from '../ProgressTarget/ProgressTarget';
 import Tooltip from '../Tooltip/Tooltip';
@@ -79,6 +79,8 @@ export interface ProgressProps {
   fill?: number;
   /** Figma "Target · target" (bar): 0 to 100. */
   target?: number;
+  /** The target label in its own unit ("Target 7:1"); default "Target n%". Bar only, with showTarget. */
+  targetLabel?: string;
   /** Segments only: how many steps (Figma draws 6; the gate uses 5). */
   segments?: number;
   /** Segments only: how many are done. */
@@ -95,6 +97,12 @@ export interface ProgressProps {
    * On, the bar takes keyboard focus. Off by default, so rows of bars add no tab stops.
    */
   callout?: boolean | string;
+  /**
+   * The chart's one-line summary (22 Nov reading: every chart has a summary behind it), read as the
+   * bar's description (aria-describedby) and never drawn. Missing: written from the data, e.g.
+   * "Contrast coverage: 95%, target 80%, above target".
+   */
+  summary?: string;
   className?: string;
   style?: CSSProperties;
 }
@@ -112,13 +120,16 @@ export default function Progress({
   tone = 'info',
   fill = 0,
   target = 0,
+  targetLabel,
   segments = 5,
   done = 0,
   drawIn = false,
   callout = false,
+  summary,
   className,
   style,
 }: ProgressProps) {
+  const summaryId = useId();
   const still = useReducedMotion();
   const isSeg = shape === 'segments';
   const now = isSeg ? Math.min(segments, Math.max(0, done)) : pct(fill);
@@ -145,6 +156,21 @@ export default function Progress({
   const name = typeof label === 'string' ? label : undefined;
   const amount = typeof value === 'string' || typeof value === 'number' ? String(value) : isSeg ? `${now} of ${segments}` : `${now}%`;
   const withTarget = shape === 'bar' && showTarget;
+  /* the one-line summary: what, how much, and where it stands against its target */
+  const said = summary ?? (() => {
+    const parts = [name ? `${name}: ${amount}` : amount];
+    if (withTarget) {
+      const t = pct(target);
+      if (!/target/i.test(amount)) parts.push(`target ${t}%`);
+      parts.push(now > t ? 'above target' : now < t ? 'below target' : 'at target');
+    }
+    return parts.join(', ');
+  })();
+  const described = (
+    <span id={summaryId} className={styles.srOnly} data-bella-summary="">
+      {said}
+    </span>
+  );
   const calloutText = typeof callout === 'string' ? callout : withTarget ? `${amount} · target ${pct(target)}%` : amount;
   const cls = [
     styles.root,
@@ -167,7 +193,8 @@ export default function Progress({
 
   if (shape === 'ring') {
     return withCallout(
-      <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria} {...focus}>
+      <div className={cls} style={style} data-bella-component="progress" aria-label={name} aria-describedby={summaryId} {...aria} {...focus}>
+        {described}
         <span className={styles.ring}>
           <span className={styles.ringTrack} aria-hidden="true" />
           {now > 0 ? (
@@ -193,7 +220,8 @@ export default function Progress({
   }
 
   return withCallout(
-    <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria} {...focus}>
+    <div className={cls} style={style} data-bella-component="progress" aria-label={name} aria-describedby={summaryId} {...aria} {...focus}>
+      {described}
       <div className={showLabel ? styles.head : styles.srOnly}>
         <span className={styles.label}>{label}</span>
         {value != null ? <span className={styles.value}>{value}</span> : null}
@@ -219,7 +247,7 @@ export default function Progress({
               data-bella-change={band.to > band.from ? 'gain' : 'loss'}
             />
           ) : null}
-          {showTarget ? <ProgressTarget target={target} /> : null}
+          {showTarget ? <ProgressTarget target={target} label={targetLabel} /> : null}
         </div>
         </>
       )}

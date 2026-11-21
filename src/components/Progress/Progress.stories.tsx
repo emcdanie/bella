@@ -194,6 +194,22 @@ export const Callout: Story = {
       bar.blur();
       await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
     });
+    await step('chart reading: the amount is tabular, the summary is hidden and describes the bar', async () => {
+      const value = bar.querySelector<HTMLElement>('[class*="value"]')!;
+      await expect(getComputedStyle(value).fontVariantNumeric).toContain('tabular-nums');
+      const summary = canvasElement.ownerDocument.getElementById(bar.getAttribute('aria-describedby')!)!;
+      await expect(summary).toHaveTextContent('Stories: 60%, target 90%, below target');
+      await expect(summary.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+      const segSummary = canvasElement.ownerDocument.getElementById(segs.getAttribute('aria-describedby')!)!;
+      await expect(segSummary).toHaveTextContent('Checks: 4 of 5');
+    });
+    await step('Esc hides the callout (WCAG 1.4.13)', async () => {
+      bar.focus();
+      await waitFor(() => expect(tipOf(bar)).toBeVisible());
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
+      bar.blur();
+    });
     await step('segments: the callout says the count', async () => {
       await userEvent.hover(segs);
       await waitFor(() => expect(tipOf(segs)).toHaveTextContent('4 of 5'));
@@ -226,5 +242,6 @@ export const ReducedMotion: Story = {
     await expect(Math.round((fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)).toBe(60);
     bar.focus();
     await waitFor(() => expect(tipOf(bar)).toHaveTextContent('60% · target 90%'));
+    await expect(canvasElement.ownerDocument.getElementById(bar.getAttribute('aria-describedby')!)).toHaveTextContent('Stories: 60%, target 90%, below target');
   },
 };

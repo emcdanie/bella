@@ -171,7 +171,7 @@ export default function Progress({
         <span className={styles.ring}>
           <span className={styles.ringTrack} aria-hidden="true" />
           {now > 0 ? (
-            <>
+            <span className={styles.ringArc} data-tone={tone} aria-hidden="true">
               <span
                 className={[styles.ringFill, styles[tone]].join(' ')}
                 style={{ '--progress-fill': `${now}%` } as CSSProperties}
@@ -183,7 +183,7 @@ export default function Progress({
                 style={{ '--progress-turn': `${now * 3.6}deg` } as CSSProperties}
                 aria-hidden="true"
               />
-            </>
+            </span>
           ) : null}
           {value != null ? <span className={styles.value}>{value}</span> : null}
         </span>

@@ -56,6 +56,18 @@ export const Healthy: Story = {
   play: async ({ canvasElement }) => {
     const count = canvasElement.querySelector('[class*="countNumber"]') as HTMLElement;
     await expect(faceOf(count)).toBe(numberFace(count));
+    // chart language (22 Nov 20:48): the status is a small-caps label 4 above the number
+    const status = canvasElement.querySelector<HTMLElement>('[class*="status"]')!;
+    const number = canvasElement.querySelector<HTMLElement>('[class*="number"]')!;
+    await expect(status.nextElementSibling).toBe(number);
+    await expect(getComputedStyle(status).textTransform).toBe('uppercase');
+    await expect(Math.round(number.getBoundingClientRect().top - status.getBoundingClientRect().bottom)).toBe(4);
+    // lit ticks glow; off ticks and the target tick do not. At 95: ticks 1 to 38 lit, 36 the target, 39 and 40 off
+    await waitFor(() => expect(number.textContent).toMatch(/^95%/), { timeout: 3000 });
+    const ticks = Array.from(canvasElement.querySelector<HTMLElement>('[class*="arc"]')!.children);
+    await expect(getComputedStyle(ticks[0]).filter).toContain('drop-shadow');
+    await expect(getComputedStyle(ticks[35]).filter).toBe('none');
+    await expect(getComputedStyle(ticks[39]).filter).toBe('none');
   },
 };
 

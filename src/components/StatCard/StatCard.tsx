@@ -29,11 +29,14 @@ export interface StatCardMeter {
 export interface StatCardProps {
   /** Figma "Title". The card title, and the chart's accessible name. */
   title: ReactNode;
+  /** Figma "Label" (22 Nov chart language): a small-caps line above the big number saying what it
+   * counts ("Have pairs"). Drawn on chart=empty too, where the number is not. Missing = off. */
+  label?: ReactNode;
   /** Figma "Value". The big number. Not drawn on chart=empty: no figure before a measure. */
   value?: ReactNode;
   /** Figma "Unit". Small, beside the number ("%", "of 2"). Missing = off. */
   unit?: ReactNode;
-  /** Figma "Context". One line worked out from real numbers: what the number means and which way. */
+  /** Figma "Context". One short meta line (subtext face, 14) worked out from real numbers: what the number means and which way. */
   context?: ReactNode;
   /** Figma "Empty count" (21 Nov publish). Kept for compatibility, not drawn: chart=empty shows no figure before a measure (22 Nov 19:08). Removal waits for Elleta's yes (public API). */
   emptyCount?: ReactNode;
@@ -70,13 +73,15 @@ export interface StatCardProps {
 }
 
 /**
- * One figure on a card (published 21 Nov, one pattern): header (icon well,
- * title, ↗), body (number and unit, chart, context), footer (caption,
- * optional action), all from one left edge, no indent. Cards in a row share
- * a height; the body centres between header and footer.
+ * One figure on a card (published 21 Nov, one pattern; chart language 22 Nov):
+ * header (icon well, title, ↗), body (small-caps label over number and unit,
+ * chart, one meta line), footer (caption, optional action), all from one left
+ * edge, no indent. Cards in a row share the tallest height; the body fills it
+ * with its content centred and the footer stays on the bottom edge.
  */
 export default function StatCard({
   title,
+  label,
   value,
   unit,
   context,
@@ -134,20 +139,26 @@ export default function StatCard({
     >
       {header}
       <div className={styles.body}>
-        {empty ? null : (
-          <p className={styles.number}>
-            {asNumber != null ? (
-              <span className={styles.value}>
-                {/* the drawing counts; assistive tech reads the final value only */}
-                <span aria-hidden="true">{count.shown}</span>
-                <span className={styles.srOnly}>{value}</span>
-              </span>
-            ) : (
-              <span className={styles.value}>{value}</span>
+        {/* Label and number, one group 4 apart (22 Nov chart language) */}
+        {label != null || !empty ? (
+          <div className={styles.lead}>
+            {label != null ? <p className={styles.label} data-bella-meta>{label}</p> : null}
+            {empty ? null : (
+              <p className={styles.number}>
+                {asNumber != null ? (
+                  <span className={styles.value}>
+                    {/* the drawing counts; assistive tech reads the final value only */}
+                    <span aria-hidden="true">{count.shown}</span>
+                    <span className={styles.srOnly}>{value}</span>
+                  </span>
+                ) : (
+                  <span className={styles.value}>{value}</span>
+                )}
+                {unit != null && unit !== '' ? <span className={styles.unit}>{unit}</span> : null}
+              </p>
             )}
-            {unit != null && unit !== '' ? <span className={styles.unit}>{unit}</span> : null}
-          </p>
-        )}
+          </div>
+        ) : null}
         {empty ? (
           <Progress
             label={typeof title === 'string' ? title : 'Progress'}
@@ -172,7 +183,7 @@ export default function StatCard({
             drawIn={drawIn}
           />
         ) : null}
-        {context != null ? <p className={styles.context}>{context}</p> : null}
+        {context != null ? <p className={styles.context} data-bella-meta>{context}</p> : null}
       </div>
       {caption != null || button != null ? (
         <div className={styles.footer}>

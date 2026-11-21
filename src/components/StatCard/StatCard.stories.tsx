@@ -48,6 +48,7 @@ const meta: Meta<typeof StatCard> = {
   },
   args: {
     title: 'Contrast coverage',
+    label: 'Have pairs',
     value: '80',
     unit: '%',
     context: '35 of 44 have pairs · 9 to go',
@@ -132,7 +133,7 @@ export const OnePattern: Story = {
     await waitFor(() => expect(value).toHaveTextContent('4'), { timeout: 3000 });
     await expect(Math.round(well.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
     await expect(Math.round(value.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
-    await expect(getComputedStyle(value).fontWeight).toBe('700');
+    await expect(getComputedStyle(value).fontWeight).toBe('600');
     await expect(cards[2].querySelector('[role="progressbar"]')).toBeNull();
     await expect(cards[3].querySelector('[role="progressbar"]')).toHaveAttribute('aria-valuenow', '0');
     // chart=empty: no figure before a measure (22 Nov 19:08)
@@ -144,11 +145,54 @@ export const OnePattern: Story = {
     await expect([getComputedStyle(unit).fontSize, getComputedStyle(unit).lineHeight]).toEqual(['20px', '28px']);
     const number = value.parentElement as HTMLElement;
     const bar = cards[0].querySelector('[role="progressbar"]') as HTMLElement;
-    const context = number.parentElement!.lastElementChild as HTMLElement;
+    const context = cards[0].querySelector<HTMLElement>('[class*="context"]')!;
     await expect(Math.round(bar.getBoundingClientRect().top - number.getBoundingClientRect().bottom)).toBe(8);
     // the Meter carries the 8 below its track (Figma Meter pad bottom 8), so track to line is 8 + 8
     const track = bar.getBoundingClientRect().bottom - parseFloat(getComputedStyle(bar).paddingBottom);
     await expect(Math.round(context.getBoundingClientRect().top - track)).toBe(16);
+  },
+};
+
+/** The chart language row (22 Nov 20:48, as Figma "row"): three cards in a grid row, one chart=empty.
+ * Each has a small-caps label over its number; the cards share the tallest height, each body fills it
+ * with its content centred, and every footer sits on the card's bottom edge. */
+export const Row: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+        alignItems: 'stretch',
+        gap: 'var(--spacing-24)',
+        padding: 'var(--spacing-24)',
+        background: 'var(--color-background-default)',
+        maxInlineSize: 'calc(var(--spacing-80) * 14)',
+      }}
+    >
+      <StatCard title="Contrast coverage" label="Have pairs" value="95" unit="%" context="81 of 85 · target 80%" caption="Compared today, 10:19" tone="success" icon="ShieldCheck" meter={{ fill: 95, target: 80 }} href="#coverage" />
+      <StatCard title="Drift from BELLA" label="Parts that differ" value="4" unit="of 5" context="4 of 5 · target 5 of 5" caption="Compared today, 10:19" chart="segments" tone="warning" icon="Brain" meter={{ segments: 5, done: 3 }} href="#drift" />
+      <StatCard title="Lowest contrast" label="Lowest pair" context="Waiting for the first check" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#lowest" button={<Button variant="secondary" size="sm">Compare</Button>} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const cards = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="stat-card"]'));
+    await expect(cards).toHaveLength(3);
+    // equal height, footers on one bottom line (within 1px)
+    const heights = cards.map((c) => Math.round(c.getBoundingClientRect().height));
+    await expect(new Set(heights).size).toBe(1);
+    const footBottoms = cards.map((c) => (c.lastElementChild as HTMLElement).getBoundingClientRect().bottom);
+    await expect(Math.max(...footBottoms) - Math.min(...footBottoms)).toBeLessThanOrEqual(1);
+    // the label: uppercase small caps, 4 above the number; still drawn on chart=empty, the number not
+    const label = cards[0].querySelector<HTMLElement>('[class*="label"]')!;
+    await expect(getComputedStyle(label).textTransform).toBe('uppercase');
+    await expect(getComputedStyle(label).fontSize).toBe('14px');
+    const number = label.nextElementSibling as HTMLElement;
+    await expect(Math.round(number.getBoundingClientRect().top - label.getBoundingClientRect().bottom)).toBe(4);
+    await expect(cards[2].querySelector('[class*="label"]')).toBeVisible();
+    await expect(cards[2].querySelector('[class*="number"]')).toBeNull();
+    // context is one meta line at 14
+    const meta = cards[0].querySelector<HTMLElement>('[class*="context"]')!;
+    await expect([getComputedStyle(meta).fontSize, getComputedStyle(meta).lineHeight]).toEqual(['14px', '20px']);
   },
 };
 

@@ -7,8 +7,11 @@
  * ticks in border/utility/success on the Progress track colour border/subtle
  * (fill vs track 5.0 light, 4.5 dark; 22 Nov, the dark green was lost on
  * the grey), one
- * target tick drawn longer (10) in border/brand. Value and status centred over
- * the arc, 84 from its top: number face 40 / 600, status 16 content/subtle.
+ * target tick drawn longer (10) in border/brand. Status and value centred over
+ * the arc, 84 from its top (22 Nov 20:48 chart language): the status a
+ * small-caps label (reading face 600, 14, 4% tracking, content/subtle), 4
+ * above the number (number face 40 / 600). Lit ticks carry the Progress glow
+ * (4 and 12 blur, green alpha 20); off ticks and the target tick none.
  * Scale row 12 below: Low and High in content/subtle, the count 600 ink.
  * Details: why in content/body, then Fail rows 44 tall, corner 8, padding
  * 0 8, gap 8: attention dot (no wash), name, "9 of 44 parts" (number 600),
@@ -108,7 +111,12 @@
   background: var(--color-border-brand);
 }
 
-.on { background: var(--color-border-utility-success); }
+.on {
+  background: var(--color-border-utility-success);
+  filter:
+    drop-shadow(0 0 var(--spacing-4) var(--color-utility-green-alpha-20))
+    drop-shadow(0 0 var(--spacing-12) var(--color-utility-green-alpha-20));
+}
 .off { background: var(--color-border-subtle); }
 
 /* The one overlay: value and status centred over the arc, 84 of 174 down. */
@@ -119,6 +127,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: var(--spacing-4); /* status 4 above the number */
 }
 
 .number {
@@ -133,8 +142,11 @@
 
 .status {
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-16);
-  line-height: var(--typography-line-height-px-24);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
   color: var(--color-content-subtle);
 }
 

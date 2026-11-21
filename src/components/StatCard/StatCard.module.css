@@ -6,13 +6,16 @@
  * Header: the 44 row; the 36 Icon well, 12, title (reading face 600), and
  * the Trailing ↗ (rule 12) when it opens.
  * The whole header is the target: light-blue hover, 4 + 4 focus ring.
- * Body: number + unit, chart, context, 8 apart (batch 4: number to bar 8, bar to
- * line 16 through the Meter's 8 below), centred between header and
- * footer when the card is taller than its content (cards in a row share a
- * height). Number and unit: number face (never Geist Mono directly), 700:
- * value 40 on a 48 line, unit 20 on a 28 line in content/subtle (batch 4: the 1.2
- * scale, line heights on the 4 grid). Context: reading face,
- * content/body. Footer: caption left (content/subtle), action right.
+ * Body: label + number (one group, 4 apart), chart, context, 8 apart (batch 4:
+ * number to bar 8, bar to line 16 through the Meter's 8 below). In a row the
+ * card takes the tallest height; the body grows to fill it with its content
+ * centred, so the footer sits on the bottom edge (no fixed heights).
+ * Chart language (22 Nov 20:48): Label in small caps (reading face 600, 14,
+ * 4% tracking, content/subtle); number and unit in the number face (never
+ * Geist Mono directly) at 600, value 40 on a 48 line, unit 20 on a 28 line in
+ * content/subtle, the unit in caps; Context one meta line (subtext face, 14 on
+ * a 20 line, content/subtle, data-bella-meta). Footer: caption left
+ * (content/subtle), action right.
  * Groups (header, body, footer) sit 8 apart, as Figma draws them (21 Nov,
  * follow Figma; was 24 by guideline 10). */
 
@@ -76,6 +79,24 @@
   flex: 1 1 auto;
 }
 
+.lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4); /* label and number, one group */
+}
+
+/* Small caps above the number: what it counts (22 Nov chart language) */
+.label {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
 .number {
   display: flex;
   align-items: baseline;
@@ -86,7 +107,7 @@
 .value {
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-40);
-  font-weight: var(--typography-font-weight-700);
+  font-weight: var(--typography-font-weight-600);
   line-height: var(--spacing-48); /* 40 on a 48 line; no line-height-px/48 token */
   color: var(--color-content-default);
 }
@@ -94,8 +115,9 @@
 .unit {
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-20);
-  font-weight: var(--typography-font-weight-700);
+  font-weight: var(--typography-font-weight-600);
   line-height: var(--size-28); /* 20 on a 28 line; no line-height-px/28 token */
+  text-transform: uppercase;
   color: var(--color-content-subtle);
 }
 
@@ -104,24 +126,26 @@
    line's margin, so the bar's callout (Progress, 22 Nov) sits 16 under the
    track, as Figma's Tooltip does. The chart is the Progress part, or the
    Tooltip that wraps it when the callout is on. */
-.body > :not(.number) + .context {
+.body > :not(.lead) + .context {
   margin-block-start: var(--spacing-8);
 }
 
-.context,
+/* One short meta line (meta lines at 14, AGENTS.md floors) */
+.context {
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  color: var(--color-content-subtle);
+}
+
 .caption {
   margin: 0;
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
   font-weight: var(--typography-font-weight-400);
   line-height: var(--typography-line-height-150);
-}
-
-.context {
-  color: var(--color-content-body);
-}
-
-.caption {
   color: var(--color-content-subtle);
 }
 

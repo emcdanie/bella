@@ -25,7 +25,7 @@ export interface SystemHealthProps {
   subtitle?: ReactNode;
   /** Gauge "Value": the share that passes, 0 to 100. Lights that share of the 40 ticks. */
   value: number;
-  /** Gauge "Status": the word under the number ("Healthy"). */
+  /** Gauge "Status": the small-caps label above the number ("Healthy"; 22 Nov chart language). */
   status: ReactNode;
   /** The target tick, 0 to 100 (Figma: 90, the blue tick). */
   target?: number;
@@ -65,7 +65,7 @@ function tickStyle(i: number, r0: number, r1: number, w: number): CSSProperties 
 
 /**
  * System health card (Chip): icon well and title, subtitle, a segmented arc
- * gauge of 40 ticks with the value and status centred over it, the scale row
+ * gauge of 40 ticks with the status (small caps) over the value, centred in it, the scale row
  * (Low, the count, High), why, and the failing checks as rows that open them.
  * Decided 18 Nov: "It becomes the System health part in the library".
  */
@@ -124,6 +124,7 @@ export default function SystemHealth({
             })}
           </div>
           <div className={styles.value} aria-hidden="true">
+            <span className={styles.status} data-bella-meta>{status}</span>
             <span className={styles.number}>
               {Math.round(count.shown)}%
               {count.diff ? (
@@ -132,7 +133,6 @@ export default function SystemHealth({
                 </span>
               ) : null}
             </span>
-            <span className={styles.status}>{status}</span>
           </div>
         </div>
         <div className={styles.scale}>

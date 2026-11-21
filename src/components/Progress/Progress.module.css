@@ -14,7 +14,11 @@
  * Segments: equal pills 8 apart, done = tone mark, not done = track.
  * Ring: 64 box, an 8 band, round caps, track the same shape in border/subtle.
  * Attention marks: warning-mark fill with a 1px inside edge in
- * border/utility/warning, so the mark reaches 3:1 (18 Nov "B, bright with edge"). */
+ * border/utility/warning, so the mark reaches 3:1 (18 Nov "B, bright with edge").
+ * Glow (22 Nov 20:48): the fill, each lit segment and the ring arc carry a
+ * soft two-layer glow, 4 and 12 blur with no offset, in the tone's
+ * see-through colour (green alpha 20, yellow alpha 22, red alpha 22, blue
+ * alpha 30). The fill stays solid; nothing here clips, so the glow shows. */
 
 .root {
   display: flex;
@@ -116,8 +120,19 @@
   block-size: var(--spacing-64);
 }
 
-.ring > * {
+.ring > *,
+.ringArc > * {
   grid-area: 1 / 1;
+}
+
+/* The arc and its caps as one layer, so the glow follows the band: a filter
+   on the masked fill itself would be cut away by its own mask. */
+.ringArc {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+  filter: drop-shadow(0 0 var(--spacing-4) var(--progress-glow)) drop-shadow(0 0 var(--spacing-12) var(--progress-glow));
 }
 
 /* Drawn in CSS, no inline SVG (one-set rule): the track and the arc are
@@ -140,7 +155,7 @@
   background: var(--color-border-subtle);
 }
 
-.ring > .ringFill {
+.ringArc > .ringFill {
   background: conic-gradient(currentColor var(--progress-fill), transparent 0);
   transition: --progress-fill var(--motion-duration-450) var(--motion-easing-out);
 }
@@ -183,7 +198,7 @@
    its round ends while it grows). Fill mode backwards: once drawn it lets
    go, so a new value still slides on the transition above. */
 .drawIn .fill,
-.drawIn .ring > .ringFill {
+.drawIn .ringArc > .ringFill {
   animation: progressDraw var(--motion-duration-450) var(--motion-easing-out) backwards;
 }
 
@@ -237,7 +252,7 @@
 
 /* Reduced motion read in JS as well (useReducedMotion): the end state at once */
 .still .fill,
-.still .ring > .ringFill,
+.still .ringArc > .ringFill,
 .still .ringEnd,
 .still .segment {
   animation: none;
@@ -250,14 +265,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .drawIn .fill,
-  .drawIn .ring > .ringFill,
+  .drawIn .ringArc > .ringFill,
   .drawIn .ringEnd,
   .drawIn .segment {
     animation: none;
   }
   .fill,
   .segment,
-  .ring > .ringFill,
+  .ringArc > .ringFill,
   .ringEnd {
     transition: none;
   }
@@ -266,8 +281,8 @@
   }
 }
 
-.ring > .ringFill,
-.ring > .ringCap {
+.ringArc > .ringFill,
+.ringArc > .ringCap {
   border: 0;
 }
 
@@ -281,6 +296,32 @@
   border-radius: var(--border-radius-round);
   background: currentColor;
   transform-origin: 50% var(--spacing-32);
+}
+
+/* ---- glow (22 Nov 20:48): on the fill and each lit segment; a segment
+   with no tone (not done) has no --progress-glow, so it draws none ---- */
+.fill,
+.segment {
+  box-shadow:
+    0 0 var(--spacing-4) var(--progress-glow),
+    0 0 var(--spacing-12) var(--progress-glow);
+}
+
+.info,
+.ringArc[data-tone='info'] {
+  --progress-glow: var(--color-utility-blue-alpha-30);
+}
+.success,
+.ringArc[data-tone='success'] {
+  --progress-glow: var(--color-utility-green-alpha-20);
+}
+.danger,
+.ringArc[data-tone='danger'] {
+  --progress-glow: var(--color-utility-red-alpha-22);
+}
+.attention,
+.ringArc[data-tone='attention'] {
+  --progress-glow: var(--color-utility-yellow-alpha-22);
 }
 
 /* ---- tones (fill, done segment, ring arc) ---- */

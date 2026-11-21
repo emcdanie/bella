@@ -168,11 +168,28 @@
   max-inline-size: 100%;
 }
 
-/* Title 400 (22 Nov, "Bold is for keywords only"): never a bold whole
-   title; a keyword inside it carries the Marker */
+/* Title line (22 Nov, her pick B; replaces "titles 400"): the title at 600
+   with the time beside it after a dot; the line wraps, so a long title
+   takes the dot and time onto the next line */
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--spacing-8);
+  max-inline-size: 100%;
+}
+
+/* the dot and the time wrap together, never apart */
+.timeInline {
+  display: inline-flex;
+  align-items: baseline;
+  column-gap: var(--spacing-8);
+  white-space: nowrap;
+}
+
 .title {
   font-family: var(--typography-body-default-font-family);
-  font-weight: var(--typography-font-weight-400);
+  font-weight: var(--typography-font-weight-600);
   color: var(--color-content-default);
 }
 
@@ -198,11 +215,16 @@
 
 .time {
   flex-shrink: 0;
-  padding-block-start: var(--spacing-12);
 }
 
-.tag {
+/* The status Tag on the right edge, top-aligned with the title (Figma Time
+   zone, padding-top 12) */
+.tagSide {
   display: flex;
+  align-self: flex-start;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-block-start: var(--spacing-12);
 }
 
 /* ---- states ---- */
@@ -237,7 +259,7 @@
   padding-block: var(--spacing-24);
 }
 
-.vertical.selected .timeSide {
+.vertical.selected .tagSide {
   padding-block-start: var(--spacing-24);
 }
 
@@ -261,27 +283,9 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Narrow (22 Nov, "nothing squished"; replaces the 20 Nov 768 media
-   query): when the title column would drop under 200, the time moves to
-   its own line under the title. The Step is its own container, so this
-   follows the Step's width, not the window's. 332 = 200 title column + 12
-   + 36 marker + 12 + 12 + 48 time zone + 12 (named exception: a container
-   query cannot read a token). One of the two copies shows at a time; the
-   hidden one is display: none, so it is read once. */
-.vertical {
-  container-type: inline-size;
-}
-
-.timeUnder { display: none; }
-.timeUnder.time { padding-block-start: 0; }
-
-@container (max-width: 331.98px) {
-  .timeSide { display: none; }
-  .timeUnder { display: block; }
-}
-
-.timeUnderTitle .timeSide { display: none; }
-.timeUnderTitle .timeUnder { display: block; }
+/* Narrow (22 Nov, "nothing squished"): the title line wraps by itself, so
+   no container query is needed; timeUnderTitle still puts the time on its
+   own line. */
 
 /* Kind markers (CHIP History flow, read 21 Nov): the Icon well's fill is the
    kind's strong wash and the glyph is ink, as Figma overrides it (grey and

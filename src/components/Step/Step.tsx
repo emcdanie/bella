@@ -36,11 +36,11 @@ export interface StepProps {
   detail?: ReactNode;
   /** Figma "Show connector". The line to the next marker; off on the last step. */
   showConnector?: boolean;
-  /** Figma "Show tag". A Tag under the title (vertical). Missing = off. */
+  /** Figma "Show tag". The status Tag on the right edge, top-aligned with the title (vertical; her pick B, 22 Nov). Missing = off. */
   tag?: ReactNode;
-  /** Figma "Time" + "Show time". Right column, meta line (Geist Mono 14 on 20; vertical). It moves under the title by itself when the title column would drop under 200 (container query). Missing = off. */
+  /** Figma "Time" + "Show time". On the title line after a dot, a meta line (Geist Mono 14 on 20; vertical; her pick B, 22 Nov). A long title wraps and takes the dot and time with it. Missing = off. */
   time?: ReactNode;
-  /** Figma "Show time under title": always put the time on its own line under the title, whatever the width. Default false (the container query decides). */
+  /** Figma "Show time under title": put the time on its own line under the title instead of on the title line. Default false. */
   timeUnderTitle?: boolean;
   /** Figma "Show line above". Vertical: the line into this marker; off on the first row. */
   showLineAbove?: boolean;
@@ -101,16 +101,28 @@ export default function Step({
       />
     );
 
+  const inlineTime = !horizontal && time != null && !timeUnderTitle;
   const text = (
     <span className={styles.text}>
-      <span className={styles.title}>{title}</span>
-      {/* Figma order: Title, time under the title, Tag, Detail */}
-      {!horizontal && time != null ? (
+      {/* Figma Title row (22 Nov, her pick B): Title · Separator · Time */}
+      <span className={styles.titleRow}>
+        <span className={styles.title}>{title}</span>
+        {inlineTime ? (
+          <span className={styles.timeInline}>
+            <span className={styles.time} aria-hidden="true" data-bella-meta>
+              ·
+            </span>
+            <span className={styles.time} data-bella-meta>
+              {time}
+            </span>
+          </span>
+        ) : null}
+      </span>
+      {!horizontal && time != null && timeUnderTitle ? (
         <span className={[styles.time, styles.timeUnder].join(' ')} data-bella-meta>
           {time}
         </span>
       ) : null}
-      {!horizontal && tag != null ? <span className={styles.tag}>{tag}</span> : null}
       {detail != null ? <span className={styles.detail}>{detail}</span> : null}
     </span>
   );
@@ -138,11 +150,8 @@ export default function Step({
         </span>
       </span>
       {text}
-      {time != null ? (
-        <span className={[styles.time, styles.timeSide].join(' ')} data-bella-meta>
-          {time}
-        </span>
-      ) : null}
+      {/* Figma Time zone now holds the status Tag on the right edge (22 Nov, B) */}
+      {tag != null ? <span className={styles.tagSide}>{tag}</span> : null}
     </>
   );
 
@@ -151,7 +160,6 @@ export default function Step({
     styles[layout],
     styles[state],
     !horizontal && selected ? styles.selected : '',
-    !horizontal && timeUnderTitle ? styles.timeUnderTitle : '',
     onSelect ? styles.interactive : '',
     className,
   ]

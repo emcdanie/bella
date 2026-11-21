@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import Step, { StepDay, type StepState } from './Step';
 import Tag from '../Tag/Tag';
 import cssRaw from './Step.module.css?raw';
@@ -175,19 +175,19 @@ export const HistoryKinds: Story = {
   ),
 };
 
-/** Narrow (22 Nov, "nothing squished"): the time moves under the title by
- * itself when the title column would drop under 200 (a container query on
- * the Step, not the window). timeUnderTitle forces it at any width. Time is
- * a meta line: Geist Mono 14 on a 20 line. Titles are 400. */
+/** Title line (22 Nov, her pick B): the title at 600 with the time beside
+ * it after a dot, the status Tag on the right edge. A long title wraps and
+ * takes the dot and time with it; timeUnderTitle puts the time on its own
+ * line. Time is a meta line: Geist Mono 14 on a 20 line. */
 export const TimeUnderTitle: Story = {
   render: () => (
     <Themed>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 6)' }} data-testid="wide">
-          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" showConnector={false} />
+          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" tag={<Tag tone="success">Merged</Tag>} showConnector={false} />
         </ol>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 3.5)' }} data-testid="narrow">
-          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" showConnector={false} />
+          <Step state="done" title="Merge the reading fixes" detail="9 pairs, one commit." time="10:02" showConnector={false} />
         </ol>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 6)' }} data-testid="forced">
           <Step state="current" timeUnderTitle title="The gate" detail="Working now." time="10:04" showConnector={false} />
@@ -196,31 +196,33 @@ export const TimeUnderTitle: Story = {
     </Themed>
   ),
   play: async ({ canvas, step }) => {
-    const shown = (list: HTMLElement) =>
-      Array.from(list.querySelectorAll<HTMLElement>('[data-bella-meta]')).filter((n) => getComputedStyle(n).display !== 'none');
-    await step('wide: the time sits in its right column', async () => {
-      const [t] = shown(canvas.getByTestId('wide'));
-      const title = canvas.getByTestId('wide').querySelector('li')!.textContent!;
-      await expect(title).toContain('Pairs added');
-      const titleBox = canvas.getAllByText('Pairs added')[0].getBoundingClientRect();
+    const times = (list: HTMLElement) => Array.from(list.querySelectorAll<HTMLElement>('[data-bella-meta]:not([aria-hidden])'));
+    await step('wide: the time is on the title line, after the title; the Tag is on the right edge', async () => {
+      const wide = canvas.getByTestId('wide');
+      const [t] = times(wide);
+      const titleBox = canvas.getByText('Pairs added').getBoundingClientRect();
       await expect(t.getBoundingClientRect().left).toBeGreaterThan(titleBox.right);
+      await expect(Math.abs(t.getBoundingClientRect().bottom - titleBox.bottom)).toBeLessThanOrEqual(4);
+      const tag = within(wide).getByText('Merged').closest('[data-bella-component="tag"]') as HTMLElement;
+      const row = wide.querySelector('li')!.getBoundingClientRect();
+      await expect(tag.getBoundingClientRect().left).toBeGreaterThan(t.getBoundingClientRect().right);
+      await expect(row.right - tag.getBoundingClientRect().right).toBeLessThanOrEqual(13);
     });
-    await step('narrow (title column under 200): the time is under the title, once', async () => {
-      const times = shown(canvas.getByTestId('narrow'));
-      await expect(times).toHaveLength(1);
-      const titleBox = canvas.getAllByText('Pairs added')[1].getBoundingClientRect();
-      await expect(times[0].getBoundingClientRect().top).toBeGreaterThanOrEqual(titleBox.bottom - 1);
+    await step('narrow: the time is shown once and never squeezes the title', async () => {
+      const ts = times(canvas.getByTestId('narrow'));
+      await expect(ts).toHaveLength(1);
+      await expect(ts[0].getBoundingClientRect().width).toBeGreaterThan(0);
     });
     await step('forced: under the title at any width', async () => {
-      const times = shown(canvas.getByTestId('forced'));
-      await expect(times).toHaveLength(1);
-      await expect(times[0].getBoundingClientRect().top).toBeGreaterThanOrEqual(canvas.getByText('The gate').getBoundingClientRect().bottom - 1);
+      const ts = times(canvas.getByTestId('forced'));
+      await expect(ts).toHaveLength(1);
+      await expect(ts[0].getBoundingClientRect().top).toBeGreaterThanOrEqual(canvas.getByText('The gate').getBoundingClientRect().bottom - 1);
     });
-    await step('meta line 14 on 20 in the subtext face; title 400', async () => {
-      const t = shown(canvas.getByTestId('wide'))[0];
+    await step('meta line 14 on 20 in the subtext face; title 600', async () => {
+      const t = times(canvas.getByTestId('wide'))[0];
       await expect(getComputedStyle(t).fontSize).toBe('14px');
       await expect(getComputedStyle(t).lineHeight).toBe('20px');
-      await expect(getComputedStyle(canvas.getByText('The gate')).fontWeight).toBe('400');
+      await expect(getComputedStyle(canvas.getByText('The gate')).fontWeight).toBe('600');
     });
   },
 };

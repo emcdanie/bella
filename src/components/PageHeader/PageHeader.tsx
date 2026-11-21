@@ -21,6 +21,12 @@ export interface PageHeaderProps {
   health?: ReactNode;
   /** Figma "Show actions". The page's main action, top right: one primary Button. */
   actions?: ReactNode;
+  /**
+   * Figma "size" (PageHeader set 1663:281509, batch 4, published 22 Nov). page (default): the title at
+   * display-section, 40 on a 48 line. project: a project's tabs, where the project name ("CHIP") is 28 on 36
+   * so the tab's own subject leads.
+   */
+  size?: 'page' | 'project';
   /** The h1's id. */
   id?: string;
   className?: string;
@@ -41,11 +47,16 @@ export default function PageHeader({
   health,
   lede,
   actions,
+  size = 'page',
   id,
   className,
 }: PageHeaderProps) {
   return (
-    <header className={[styles.header, className].filter(Boolean).join(' ')} data-bella-component="page-header">
+    <header
+      className={[styles.header, size === 'project' ? styles.project : '', className].filter(Boolean).join(' ')}
+      data-bella-component="page-header"
+      data-size={size}
+    >
       {meta != null ? <p className={styles.meta}>{meta}</p> : null}
       <div className={styles.row}>
         <div className={styles.titleColumn}>

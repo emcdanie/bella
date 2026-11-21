@@ -18,8 +18,10 @@ export interface TaskCardProps {
   line?: ReactNode;
   /** Figma "Show branch" + the Branch Tag label: the branch name, for the board's branch filter. Missing = off. */
   branch?: ReactNode;
-  /** Figma Status (Tag, style=line): the status in words. Default "To do". */
+  /** Figma Status (Tag, style=line): the status in words. Default "To do". Shown only with `showTag`; otherwise screen readers still hear it. */
   status?: ReactNode;
+  /** Figma "Show tag" (off by default, batch 4, 22 Nov: on the board the border says the status, so the Tag no longer repeats it). */
+  showTag?: boolean;
   /** Figma "tone": the Tag's tone and the card's 2px border colour (21 Nov publish, her pick "B · coloured border, no bar"). neutral is Figma's tone=default, "To do". */
   statusTone?: StatusDotProps['tone'];
   /** Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states. */
@@ -68,6 +70,7 @@ export default function TaskCard({
   line,
   branch,
   status = 'To do',
+  showTag = false,
   statusTone = 'neutral',
   dragging = false,
   href,
@@ -141,9 +144,13 @@ export default function TaskCard({
         )}
       </div>
       <div className={styles.status}>
-        <Tag variant="line" tone={TONE[statusTone]}>
-          {status}
-        </Tag>
+        {showTag ? (
+          <Tag variant="line" tone={TONE[statusTone]}>
+            {status}
+          </Tag>
+        ) : (
+          <span className={styles.srOnly}>{status}</span>
+        )}
         {opens ? <Trailing /> : null}
       </div>
       </div>

@@ -3,7 +3,7 @@
 // Style of Nathan Curtis' specs-cli: structured, compact, token references, no AI interpretation.
 //   node scripts/spec-build.mjs <Name> [--figma <figma-spec-read.json>] [--out <path>] [--stdout]
 // Default output: specs/components/<Name>.spec.yaml. An existing `guidance:` block is kept as written.
-// Code sources: src/components/<Name>/<Name>.tsx and .module.css, tokens/component.json (contract),
+// Code sources: src/components/<Name>/<Name>.tsx and .module.css, tokens/contracts.json (contract),
 //   tokens/bella.css (values), scripts/contrast-pairs.mjs (pairs), the stories in bella-storybook-brand.
 // Figma source: the JSON that scripts/figma-spec-read.js returns (read-only plugin script).
 // Where code and Figma disagree both are recorded in `mismatch`; neither is picked.
@@ -116,8 +116,8 @@ const composite = (vars, spec) => {
   return '#' + [0, 2, 4].map((i) => Math.round(parseInt(t.slice(i, i + 2), 16) * a + parseInt(b.slice(i, i + 2), 16) * (1 - a)).toString(16).padStart(2, '0')).join('');
 };
 
-// ---------- contract (tokens/component.json) ----------
-const contractAll = JSON.parse(read(`${ROOT}/tokens/component.json`)).component || {};
+// ---------- contract (tokens/contracts.json) ----------
+const contractAll = JSON.parse(read(`${ROOT}/tokens/contracts.json`)).component || {};
 const contract = contractAll[kebab]?.$extensions?.bella || contractAll[name.toLowerCase()]?.$extensions?.bella || null;
 
 // ---------- props from the .tsx ----------
@@ -426,7 +426,7 @@ a11y.ariaChips = [...new Map([...tsx.matchAll(/['"]?\b(aria-[\w-]+)['"]?\s*(?:=|
 const leadSrc = contract?.description ? (() => { const d = contract.description; let c = -1, dp = 0; for (let i = 0; i < d.length; i++) { const ch = d[i]; if (ch === '(') dp++; else if (ch === ')') dp = Math.max(0, dp - 1); else if (dp === 0 && (ch === ':' || ch === ';')) { c = i; break; } } const first = d.split(/(?<=\.)\s/)[0]; return (c >= 15 ? d.slice(0, c) : first).replace(/\s*\([^)]*\d{4}[^)]*\)/g, '').replace(/\.$/, '') + '.'; })() : null;
 const spec = {
   name,
-  lead: leadSrc ? { text: leadSrc, source: 'tokens/component.json description, up to the first colon or semicolon' } : null,
+  lead: leadSrc ? { text: leadSrc, source: 'tokens/contracts.json description, up to the first colon or semicolon' } : null,
   category: contract?.category || null,
   rendersAs: contract?.rendersAs || null,
   links: { storybook, github, storyTitle },
@@ -445,7 +445,7 @@ const spec = {
   a11y,
   contrast,
   codeExample: guidance.codeExample ? { ...(codeExample || {}), ...guidance.codeExample } : codeExample, // guidance.codeExample { import, code, lines } shows more of the real story (e.g. the panel a tab owns)
-  usage: contract ? { use: contract.usage || [], dont: contract.dont || [], source: 'tokens/component.json' } : null,
+  usage: contract ? { use: contract.usage || [], dont: contract.dont || [], source: 'tokens/contracts.json' } : null,
   figma: figma ? { nodeId: figma.nodeId, fileKey: figma.fileKey, props: figma.props, variants: figma.variants, defaultVariant: figma.defaultVariant, annotations: figma.annotations, documentationLinks: figma.documentationLinks } : null,
   mismatch,
   notApplicable,

@@ -83,12 +83,20 @@
      phone fit Q1: "A · use display-section". */
   font-size: var(--typography-font-size-display-section);
   font-weight: var(--typography-font-weight-600);
-  line-height: var(--typography-line-height-115);
+  /* 40 on a 48 line (batch 4: line heights on the 4 grid). No line-height-px/48
+     token exists; Figma types 48, so the 48 step of the 4-point scale carries it. */
+  line-height: var(--spacing-48);
   letter-spacing: var(--typography-letter-spacing-minus-2);
   text-wrap: balance;
   /* titles never break mid-word (her rule); wrap only between words */
   overflow-wrap: normal;
   hyphens: manual;
+}
+
+/* size=project (Figma 1663:281461): the project name 28 on 36, typography/font-size/28 */
+.project .title {
+  font-size: var(--typography-font-size-28);
+  line-height: var(--size-36);
 }
 
 .storyLink {

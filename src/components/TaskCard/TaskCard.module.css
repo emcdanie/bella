@@ -3,14 +3,14 @@
  * color/border/utility/<tone>, neutral for default; her pick "B · coloured
  * border, no bar", which replaces the status bar), border/radius/card,
  * background/surface, resting shadow/card-ink. Content: Head over Status
- * row, 12 apart.
+ * row, 16 apart (batch 4: groups 16, 4 inside a group, rule 10).
  * Head: row, 4 apart: Text column fills (Title, Line, Branch, 4 apart),
  * Move to… hugs at its right end, one title line tall (24) so the handle
  * centres on the first line; its 44 hit area is a ::after, as Figma's
  * absolute Hit area.
  * Title: reading face 600, 16/24, content/default. Line: the subtext face
  * (Geist Mono in Chip) 400, 16/24, content/subtle (21 Nov publish).
- * Status row: the status Tag (style line, its tone; default "To do"), the ↗ (Trailing) at the end, 8 apart, centred.
+ * Status row (MAX): the ↗ (Trailing) at the right end; the status Tag (style line, its tone; default "To do") only with showTag (off by default, batch 4), else the status words are for screen readers only.
  * States (Figma variants): hover = background/brand-subtle, the one light
  * blue of every interactive part; focus = 4 ring, 4 gap,
  * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
@@ -202,16 +202,29 @@ button.move:focus-visible {
 .status {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: var(--spacing-8);
   min-inline-size: 0;
 }
 
-/* Figma Content: head over the status row, 12 apart, fills the card */
+.status > [data-bella-component='tag'] {
+  margin-inline-end: auto;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Figma Content: head over the status row, 16 apart (spacing/16, batch 4), fills the card */
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-12);
+  gap: var(--spacing-16);
   flex: 1 1 auto;
   min-inline-size: 0;
 }

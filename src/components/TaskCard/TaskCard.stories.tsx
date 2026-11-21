@@ -238,23 +238,33 @@ export const AcceptAndUndo: Story = {
   },
 };
 
-/** Her pick "B · coloured border, no bar" (TaskCard 799:177248, published 21 Nov): a 2px border in the
- * status tone and a line Tag; neutral "To do" when no status is given. */
-export const BorderAndTag: Story = {
+/** Her pick "B · coloured border, no bar" (TaskCard 799:177248) and batch 4 (published 22 Nov): the 2px border
+ * in the status tone says the status, the Tag is off by default (`showTag` turns it on), the ↗ stays at the
+ * right end, and the two groups sit 16 apart. Screen readers still hear the status words. */
+export const BorderSaysStatus: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
       <TaskCard title="Figma check" line="main · 10:19" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
       <TaskCard title="Contrast pairs" line="main · 10:19" status="Working" statusTone="info" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
       <TaskCard title="Figma check" line="main · 10:19" status="Waiting on you" statusTone="attention" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
       <TaskCard title="Figma check" line="main · 10:19" status="Done" statusTone="success" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
-      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" showTag style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="task-card"]');
-    await expect(cards[0].querySelector('[data-bella-component="tag"]')).toHaveTextContent('To do');
+    await expect(cards[0].querySelector('[data-bella-component="tag"]')).toBeNull();
+    await expect(cards[0]).toHaveTextContent('To do');
+    await expect(cards[4].querySelector('[data-bella-component="tag"]')).toHaveTextContent('Failed');
     await expect(cards[2]).toHaveAttribute('data-tone', 'attention');
     await expect(getComputedStyle(cards[2]).borderTopWidth).toBe('2px');
     await expect(cards[2].querySelector('[aria-hidden="true"][class*="bar"]')).toBeNull();
+    for (const card of [cards[0], cards[4]]) {
+      const content = card.firstElementChild as HTMLElement;
+      await expect(getComputedStyle(content).rowGap).toBe('16px');
+      const row = content.lastElementChild as HTMLElement;
+      const arrow = row.lastElementChild as HTMLElement;
+      await expect(Math.round(row.getBoundingClientRect().right - arrow.getBoundingClientRect().right)).toBe(0);
+    }
   },
 };

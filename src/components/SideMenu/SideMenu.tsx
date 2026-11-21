@@ -13,7 +13,7 @@ export interface SideMenuItem {
   icon?: IconName;
   /** A count after the label ("Needs you" 3), Geist Mono SemiBold. */
   badge?: string | number;
-  /** The page you are on: bold ink, no fill, aria-current="page". */
+  /** The page you are on: bold ink on the selected light blue (Chip), aria-current="page". */
   current?: boolean;
   /** Called on click (a button row, or a link the app routes in place). */
   onClick?: (event: MouseEvent<HTMLElement>) => void;

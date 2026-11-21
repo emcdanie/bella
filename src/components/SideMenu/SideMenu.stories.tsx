@@ -111,7 +111,7 @@ export const Behavior: Story = {
       await expect(within(nav).getByRole('list', { name: 'Projects' })).toBeInTheDocument();
     });
 
-    await step('the current page: aria-current, bold ink, no fill in Chip', async () => {
+    await step('the current page: aria-current, bold ink on the selected light blue in Chip', async () => {
       const current = c.getByRole('link', { name: /Needs you/ });
       await expect(current).toHaveAttribute('aria-current', 'page');
       const root = document.documentElement;
@@ -121,9 +121,8 @@ export const Behavior: Story = {
         await expect(Number(getComputedStyle(current).fontWeight)).toBeGreaterThanOrEqual(600);
         // after the 150 hover/fill transition settles
         // no fill is the Chip rule; BELLA's own theme keeps its brand fill
-        if ((was ?? '').startsWith('chip')) {
-          await waitFor(() => expect(getComputedStyle(current).backgroundColor).toMatch(/, 0\)$|transparent/));
-        }
+        // Chip: the selected light blue, like a selected tab (22 Nov)
+        await waitFor(() => expect(getComputedStyle(current).backgroundColor).not.toMatch(/, 0\)$|transparent/));
       } finally {
         if (was) root.setAttribute('data-theme', was);
         else root.removeAttribute('data-theme');

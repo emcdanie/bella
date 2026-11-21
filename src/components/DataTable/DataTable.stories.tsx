@@ -217,3 +217,55 @@ export const TagColumn: Story = {
     });
   },
 };
+
+type RoleRow = { role: string; token: string; light: string; dark: string };
+const roleRows: RoleRow[] = [
+  { role: 'content/default', token: 'var(--color-content-default)', light: '#1D2030', dark: '#ECEEF3' },
+  { role: 'background/surface', token: 'var(--color-background-surface)', light: '#FFFFFF', dark: '#2E3240' },
+  { role: 'background/brand', token: 'var(--color-background-brand)', light: '#63B4E8', dark: '#63B4E8' },
+  { role: 'border/utility/warning', token: 'var(--color-border-utility-warning)', light: '#A17E0D', dark: '#E8A83E' },
+];
+
+/** A swatch column (Foundations › Colour roles; coordinator, 22 Nov): kind="swatch" makes each cell a TableCell
+ * kind=swatch, one square of one colour (rule "Colour swatch is one square of one colour") with its hex in the
+ * number face. swatch picks the row's colour; swatchTheme resolves it in one theme, so the Light and Dark columns
+ * each show their own mode whatever the page's theme. */
+export const SwatchColumn: Story = {
+  render: () => (
+    <DataTable<RoleRow>
+      caption="Colour roles"
+      rowKey="role"
+      rows={roleRows}
+      columns={[
+        { key: 'role', label: 'Role' },
+        { key: 'light', label: 'Chip light', kind: 'swatch', swatch: (r) => r.token, swatchTheme: 'chip-light' },
+        { key: 'dark', label: 'Chip dark', kind: 'swatch', swatch: (r) => r.token, swatchTheme: 'chip-dark' },
+      ]}
+    />
+  ),
+  play: async ({ canvasElement, step }) => {
+    const rows = [...canvasElement.querySelectorAll<HTMLElement>('tbody tr')];
+    const squares = (row: HTMLElement) => [...row.querySelectorAll<HTMLElement>('td [aria-hidden="true"]')];
+    const hex = (rgb: string) => '#' + (rgb.match(/\d+/g) ?? []).slice(0, 3).map((n) => Number(n).toString(16).padStart(2, '0')).join('').toUpperCase();
+    await step('one square per swatch cell, 20 by 20, with the hex beside it in the number face', async () => {
+      for (const row of rows) {
+        const chips = squares(row);
+        await expect(chips).toHaveLength(2);
+        for (const chip of chips) {
+          const box = chip.getBoundingClientRect();
+          await expect([Math.round(box.width), Math.round(box.height)]).toEqual([20, 20]);
+          // one colour: the chip holds a single coloured block, nothing else
+          await expect(chip.children).toHaveLength(1);
+        }
+      }
+      const text = rows[0].querySelector('td > span > span:last-child') as HTMLElement;
+      await expect(faceOf(text)).toBe(numberFace(text));
+    });
+    await step('each column shows its own theme\'s colour, matching the hex', async () => {
+      for (const [i, row] of rows.entries()) {
+        const [light, dark] = squares(row).map((c) => hex(getComputedStyle(c.firstElementChild as HTMLElement).backgroundColor));
+        await expect([light, dark]).toEqual([roleRows[i].light, roleRows[i].dark]);
+      }
+    });
+  },
+};

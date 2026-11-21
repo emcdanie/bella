@@ -15,10 +15,17 @@ export interface DataTableColumn<Row> {
   render?: (row: Row) => ReactNode;
   /** What to sort by when the cell renders something else; defaults to the value at `key`. */
   sortValue?: (row: Row) => string | number;
-  /** tag: each cell is a Tag (TableCell kind=tag, style line). Not for the first column. */
-  kind?: 'tag';
+  /** tag: each cell is a Tag (TableCell kind=tag, style line). swatch: each cell is the colour square plus
+   *  its value in the number face (TableCell kind=swatch; rule "Colour swatch is one square of one colour").
+   *  Not for the first column. */
+  kind?: 'tag' | 'swatch';
   /** kind=tag: the tone for this row's Tag ("success" for Ready, "attention" for Needs you). Missing = default. */
   tagTone?: (row: Row) => TagTone;
+  /** kind=swatch: this row's colour as a token (`var(--color-content-default)`). Missing = no colour, the square shows its edge only. */
+  swatch?: (row: Row) => string | undefined;
+  /** kind=swatch: the theme the colour resolves in, so a Light and a Dark column each show their own mode
+   *  ("chip-light", "chip-dark"), as Figma sets the Colour block's mode. Missing = the page's theme. */
+  swatchTheme?: string;
 }
 
 export type DataTableSort = { key: string; direction: 'ascending' | 'descending' };
@@ -163,8 +170,10 @@ export default function DataTable<Row extends Record<string, any>>({
                     /* numeric columns: the number face (every number in Geist Mono) */
                     <TableCell
                       key={c.key}
-                      kind={c.kind === 'tag' ? 'tag' : c.numeric ? 'mono' : undefined}
+                      kind={c.kind ?? (c.numeric ? 'mono' : undefined)}
                       tagTone={c.kind === 'tag' ? c.tagTone?.(r) : undefined}
+                      swatch={c.kind === 'swatch' ? c.swatch?.(r) : undefined}
+                      swatchTheme={c.kind === 'swatch' ? c.swatchTheme : undefined}
                       align={align}
                       selected={selected}
                     >

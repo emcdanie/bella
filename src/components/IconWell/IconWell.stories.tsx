@@ -64,7 +64,7 @@ export const AllTones: Story = {
     <Themed>
       <IconWell icon="Activity" tone="success" />
       <IconWell icon="WarningCircle" tone="warning" />
-      <IconWell icon="Sparks" tone="info" />
+      <IconWell icon="RefreshDouble" tone="info" />
       <IconWell icon="Clock" tone="neutral" />
     </Themed>
   ),

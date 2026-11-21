@@ -15,7 +15,7 @@ export interface StatusSquareProps {
 const GLYPH: Record<NonNullable<StatusSquareProps['status']>, IconName> = {
   failed: 'WarningCircle',
   waiting: 'Clock',
-  working: 'Sparks',
+  working: 'RefreshDouble',
   passed: 'Check',
 };
 

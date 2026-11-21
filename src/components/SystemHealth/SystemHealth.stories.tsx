@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import SystemHealth from './SystemHealth';
 import cssRaw from './SystemHealth.module.css?raw';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -109,8 +110,8 @@ function NewScoreDemo() {
 }
 
 /** A new score (rule "Motion that shows what happened", item 5): the gauge fills tick by tick from 84
- * to 91 and "+7" shows once beside the number. Nothing moves on first paint; aria-valuenow is the real
- * score throughout. Reduced motion: the new score at once, no difference mark. */
+ * to 91 and "+7" shows once beside the number. aria-valuenow is the real score throughout. Reduced
+ * motion: the new score at once, no difference mark. */
 export const NewScore: Story = {
   render: () => <NewScoreDemo />,
   play: async ({ canvasElement, canvas, step }) => {
@@ -151,5 +152,46 @@ export const LongName: Story = {
       const lh = parseFloat(getComputedStyle(name).lineHeight);
       await expect(Math.round(name.getBoundingClientRect().height / lh)).toBeLessThanOrEqual(2);
     }
+  },
+};
+
+/* lit ticks: the arc's spans with the "on" class (CSS module names are _on_<hash> or on) */
+const litTicks = (root: HTMLElement) =>
+  Array.from(root.querySelectorAll<HTMLElement>('[role="meter"] [aria-hidden="true"] > span')).filter((t) =>
+    Array.from(t.classList).some((c) => /^_?on(_|$)/.test(c)),
+  ).length;
+
+/** Chart motion (22 Nov): when the gauge first shows, the ticks light one after another from Low to the
+ * score while the number counts up from 0, over motion/duration/450 on motion/easing/out; no difference
+ * mark for that first count. The meter says the real score from the start. */
+export const FirstShow: Story = {
+  render: () => (
+    <Ground>
+      <SystemHealth value={95} status="Healthy" passed="251 of 264 pass" />
+    </Ground>
+  ),
+  play: async ({ canvasElement, canvas }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await expect(canvas.getByRole('meter')).toHaveAttribute('aria-valuenow', '95');
+    const number = canvasElement.querySelector<HTMLElement>('[class*="number"]')!;
+    if (!reduced) await expect(Number(number.textContent!.replace('%', ''))).toBeLessThan(95);
+    await waitFor(() => expect(number.textContent).toBe('95%'), { timeout: 3000 });
+    // 95% of 40 ticks = 38 lit; the target tick at 90% (tick 36) is drawn on its own
+    await expect(litTicks(canvasElement)).toBe(37);
+    await expect(canvasElement.querySelector('[class*="diff"]')).toBeNull();
+  },
+};
+
+/** Reduced motion (matchMedia mocked to "reduce"): the score and its ticks at once. */
+export const ReducedMotion: Story = {
+  beforeEach: reduceMotion,
+  render: () => (
+    <Ground>
+      <SystemHealth value={95} status="Healthy" passed="251 of 264 pass" />
+    </Ground>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('[class*="number"]')).toHaveTextContent(/^95%$/);
+    await expect(litTicks(canvasElement)).toBe(37);
   },
 };

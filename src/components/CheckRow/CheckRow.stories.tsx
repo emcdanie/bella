@@ -89,3 +89,54 @@ export const Behavior: Story = {
     });
   },
 };
+
+const WEATHER = [
+  { title: 'Story', passed: 83 },
+  { title: 'Docs', passed: 80 },
+  { title: 'Contract', passed: 83 },
+  { title: 'Spec', passed: 83 },
+  { title: 'Contrast', passed: 81 },
+  { title: 'A11y', passed: 52 },
+];
+
+/** layout=weather (Figma, 22 Nov, her pick "C · Weather rows"): one 56 row per check, a pip per 5
+ * parts, the dashed target at 90%, the count on the right; no divider under the last row. */
+export const Weather: Story = {
+  render: () => (
+    <Card>
+      <ListRowGroup ariaLabel="Component checks">
+        {WEATHER.map((c, i) => (
+          <CheckRow key={c.title} layout="weather" title={c.title} passed={c.passed} total={85} value={`${c.passed}/85`} target={90} showDivider={i < WEATHER.length - 1} />
+        ))}
+      </ListRowGroup>
+    </Card>
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    const rows = canvasElement.querySelectorAll<HTMLElement>('[data-bella-layout="weather"]');
+    await expect(rows).toHaveLength(6);
+    await expect(rows[0].tagName).toBe('LI');
+    await expect(Math.round(rows[0].getBoundingClientRect().height)).toBe(56);
+    // 85 parts = 17 pips; 83 pass = 17 filled; A11y 52 = 10 filled, under the target
+    const story = canvas.getByRole('img', { name: 'Story: 83 of 85 pass, target 90%' });
+    await expect(story.querySelectorAll(':scope > span')).toHaveLength(18); // 17 pips + the target line
+    const pip = story.firstElementChild as HTMLElement;
+    await expect(Math.round(pip.getBoundingClientRect().height)).toBe(20);
+    await expect(getComputedStyle(pip).borderRadius).toBe('4px');
+    // Docs 80 of 85: 16 filled, the 17th on the track
+    const docs = canvas.getByRole('img', { name: 'Docs: 80 of 85 pass, target 90%' });
+    await expect(getComputedStyle(docs.children[15]).backgroundColor).toBe(getComputedStyle(pip).backgroundColor);
+    await expect(getComputedStyle(docs.children[16]).backgroundColor).not.toBe(getComputedStyle(pip).backgroundColor);
+    const a11y = canvas.getByRole('img', { name: 'A11y: 52 of 85 pass, target 90%' });
+    const a11yPips = Array.from(a11y.children).slice(0, 17) as HTMLElement[];
+    await expect(getComputedStyle(a11yPips[0]).backgroundColor).not.toBe(getComputedStyle(pip).backgroundColor);
+    await expect(getComputedStyle(a11yPips[9]).backgroundColor).toBe(getComputedStyle(a11yPips[0]).backgroundColor);
+    await expect(getComputedStyle(a11yPips[10]).backgroundColor).not.toBe(getComputedStyle(a11yPips[0]).backgroundColor);
+    // the target line reaches 4 above and below the pips
+    const line = story.lastElementChild as HTMLElement;
+    await expect(Math.round(story.getBoundingClientRect().top - line.getBoundingClientRect().top)).toBe(4);
+    await expect(Math.round(line.getBoundingClientRect().bottom - story.getBoundingClientRect().bottom)).toBe(4);
+    // divider on every row but the last
+    await expect(getComputedStyle(rows[0]).borderBottomStyle).toBe('solid');
+    await expect(getComputedStyle(rows[5]).borderBottomStyle).toBe('none');
+  },
+};

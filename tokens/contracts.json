@@ -1790,6 +1790,8 @@
             "trend",
             "series",
             "seriesLabel",
+            "range",
+            "seriesLabels",
             "className",
             "icon",
             "measure",
@@ -1962,7 +1964,7 @@
           "name": "Drawer",
           "category": "Layout",
           "rendersAs": "a native dialog, opened modal",
-          "description": "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
+          "description": "A panel that slides in from the left (or the right, side=right) over a scrim, or rises from the bottom as the phone sheet (side=bottom: full width, 24 corners on top, a decorative grab handle, no divider above the footer). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
           "variants": [],
           "states": [
             "closed",
@@ -1971,7 +1973,8 @@
           ],
           "sides": [
             "left",
-            "right"
+            "right",
+            "bottom"
           ],
           "props": [
             "open",
@@ -1990,14 +1993,15 @@
           ],
           "usage": [
             "CHIP sidebar below 720px",
-            "Any navigation or filter panel that cannot stay on screen at phone width"
+            "Any navigation or filter panel that cannot stay on screen at phone width",
+            "The phone sheet (side=bottom): the Side menu or a short panel on a phone"
           ],
           "dont": [
             "Do not use it as a page section: it is a modal and blocks the page",
             "Do not open it without a visible trigger: focus has to return somewhere",
             "Do not dim content inside the panel: the scrim covers the page, never the drawer"
           ],
-          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it.",
+          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it. side=bottom: the same dialog, focus trap, Esc and Close; the grab handle is aria-hidden; the rise is 450ms and dropped under prefers-reduced-motion.",
           "restState": {
             "description": "Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.",
             "atRest": [
@@ -2014,7 +2018,7 @@
             ],
             "invariants": []
           },
-          "figma": "Matched to the published BellaComponents Drawer (172:622) on 19 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft. Edge (one side) waits on her pick. size lg (640 from 768, full width on a phone) follows CHIP · Dashboard Flow 12 (791:264033, 791:264846); the library Drawer has 320 only: a size variant is due there.",
+          "figma": "Matched to the published BellaComponents Drawer (172:622), 22 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft, edge corner border/radius/24. side=bottom (her pick A, \"remove the last divider\"): sm hugs the content, lg 720 tall, the 36 x 4 handle in border/strong, slides up on motion/duration/450 and motion/easing/out. size lg at the sides: 640 from 768, full width on a phone (CHIP · Dashboard Flow 12).",
           "figmaProps": {
             "Label": "label",
             "side": "side",
@@ -3185,6 +3189,7 @@
             "segments",
             "done",
             "drawIn",
+            "callout",
             "className",
             "style"
           ],
@@ -3504,20 +3509,86 @@
         "bella": {
           "name": "TopBar",
           "category": "Layout",
-          "description": "The left side: the SearchField. */ search?: ReactNode; /** The right side, 12 apart: the person's Avatar (size sm, image). */ right?: ReactNode; /** Extra classes on the bar. */ className?: string; style?: CSSProperties; } /** The bar across the top of the page column (Figma \"Top bar\", read 19 Nov 2026; no Figma props): search on the left, the person on the right.",
+          "description": "The top bar of the CHIP app frame: where you are on the left (\"CHIP › Work\", a breadcrumb nav), search and your notifications on the right. Parent in content/subtle, a › separator, Current in content/default at 600, 8 apart; the Search field grows up to layout/search/max-width (420), then the bell and the Avatar, 12 apart.",
           "states": [
             "default"
           ],
           "props": [
+            "placeParent",
+            "placeParentHref",
+            "onPlaceParent",
+            "placeCurrent",
+            "showPlace",
             "search",
             "right",
             "className",
             "style"
           ],
           "usage": [
-            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+            "CHIP screen shell, once per screen above the content, beside the Side menu (22 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+          "figma": "Matches the published BellaComponents Top bar (1168:95226), 22 Nov 2026: her pick \"B · search on the right\". Props Place parent, Place current, Show place.",
+          "figmaProps": {
+            "Place parent": "placeParent",
+            "Place current": "placeCurrent",
+            "Show place": "showPlace",
+            "Search field": "search",
+            "Notifications + Avatar": "right"
+          },
+          "a11y": "Place is a nav landmark named \"Breadcrumb\" (an ordered list); the parent is a link with a 44 target, the current page has aria-current=\"page\"; the › is hidden from screen readers. Search sits in a search landmark; ⌘K focuses it. Notifications is a button named \"Notifications\". 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap.",
+          "dont": [
+            "Do not use it as a page title: that is PageHeader",
+            "Do not use it for page views: that is Tabs"
+          ]
+        }
+      }
+    },
+    "side-menu": {
+      "$extensions": {
+        "bella": {
+          "name": "SideMenu",
+          "category": "Layout",
+          "description": "The one side menu of the CHIP app (like Notion): the plain Client switcher level with the Top bar, then Go to (Search, Home, Needs you with its count, Not again), Pinned, Projects (Folder rows), and Team and Settings at the foot. 232 wide, a 1px right edge in border/default; 12 at the sides, 16 between groups, 4 inside a group; every row a Nav item.",
+          "states": [
+            "default",
+            "hover",
+            "current",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "client",
+            "onClientClick",
+            "clientExpanded",
+            "items",
+            "pinned",
+            "projects",
+            "foot",
+            "showPinned",
+            "showProjects",
+            "onNavigate",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The left edge of every CHIP screen (CHIP / Screen template), full window height"
+          ],
+          "dont": [
+            "Do not use it inside a page or card: that is NavList",
+            "Do not use it for page views: that is Tabs",
+            "Do not show it on a phone: put it in a Drawer side=bottom"
+          ],
+          "a11y": "A nav landmark named \"Main\" (label) holding lists; Pinned and Projects are lists labelled by their group label (16, content/subtle). Each row a link (Search a button), the current one aria-current=\"page\": bold ink, no fill in Chip, so \"you are here\" shows once. 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap, never clipped by the scrolling middle. Labels never break mid-word at 232.",
+          "figma": "Matches the published BellaComponents Side menu (1709:48082), 22 Nov 2026: her pick \"A · a new Side menu part\". 232 has no token: three 80 steps less an 8.",
+          "figmaProps": {
+            "Show pinned": "showPinned",
+            "Show projects": "showProjects",
+            "Switcher": "client, onClientClick, clientExpanded",
+            "Group · Go to": "items",
+            "Group · Pinned": "pinned",
+            "Group · Projects": "projects",
+            "Foot": "foot"
+          }
         }
       }
     },
@@ -3761,6 +3832,7 @@
             "fail"
           ],
           "props": [
+            "layout",
             "status",
             "title",
             "subtitle",
@@ -3772,7 +3844,10 @@
             "onAction",
             "as",
             "className",
-            "style"
+            "style",
+            "passed",
+            "total",
+            "showDivider"
           ],
           "usage": [
             "CHIP Health: component checks"

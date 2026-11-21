@@ -22,9 +22,8 @@ export interface PageHeaderProps {
   /** Figma "Show actions". The page's main action, top right: one primary Button. */
   actions?: ReactNode;
   /**
-   * Figma "size" (PageHeader set 1663:281509, batch 4, published 22 Nov). page (default): the title at
-   * display-section, 40 on a 48 line. project: a project's tabs, where the project name ("CHIP") is 28 on 36
-   * so the tab's own subject leads.
+   * Figma "size" (PageHeader set 1663:281509). page (default) or project (a project's tabs). Since 22 Nov
+   * 19:08 both set the title 28 on 36 and the meta and health lines 14 on 20.
    */
   size?: 'page' | 'project';
   /** The h1's id. */
@@ -53,7 +52,7 @@ export default function PageHeader({
 }: PageHeaderProps) {
   return (
     <header
-      className={[styles.header, size === 'project' ? styles.project : '', className].filter(Boolean).join(' ')}
+      className={[styles.header, className].filter(Boolean).join(' ')}
       data-bella-component="page-header"
       data-size={size}
     >
@@ -77,7 +76,7 @@ export default function PageHeader({
               <Trailing />
             </span>
           ) : null}
-          {health != null ? <p className={styles.health}>{health}</p> : null}
+          {health != null ? <p className={styles.health} data-bella-meta>{health}</p> : null}
         </div>
         {actions != null ? <div className={styles.actions}>{actions}</div> : null}
       </div>

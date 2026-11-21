@@ -71,7 +71,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |
 | A message that stays, with its actions | `Notification` |
 | The head of a section card: icon, title, info, description | `SectionHead` |
-| CHIP app shell | `IconRail`, `NavItem`, `ProjectPanel`, `TreeItem`, `ClientSwitcher`, `TopBar`, `SearchField` |
+| CHIP app shell | `SideMenu`, `IconRail`, `NavItem`, `ProjectPanel`, `TreeItem`, `ClientSwitcher`, `TopBar`, `SearchField` |
 | Brand art (not for product UI) | `BrandWordmark`, `PatternField` |
 
 Props, variants and examples: each component's `.tsx` types and Storybook stories. Machine-readable contracts: `bella.dsds.yaml`.

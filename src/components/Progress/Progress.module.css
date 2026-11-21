@@ -194,6 +194,8 @@
 .drawIn .segment {
   transform-origin: left center;
   animation: progressSegment var(--motion-duration-450) var(--motion-easing-out) backwards;
+  /* one after another (22 Nov): each segment starts motion/stagger-120 after the one before */
+  animation-delay: calc(var(--motion-stagger-120) * var(--progress-order));
 }
 
 @keyframes progressDraw {
@@ -206,6 +208,44 @@
 
 @keyframes progressSegment {
   from { transform: scaleX(0); }
+}
+
+/* The callout (22 Nov): BELLA's Tooltip wraps the part. Its wrapper runs the
+   part's full width and reaches 8 under the track (taken back by the
+   margin, so nothing moves), so the Tooltip, 8 under its trigger, sits 16
+   under the bar. The bar then takes focus, with BELLA's ring. */
+.callout {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--spacing-8);
+  margin-block-end: calc(var(--spacing-8) * -1);
+}
+
+.callout > .root {
+  flex: 1 1 auto;
+}
+
+.focusable {
+  border-radius: var(--border-radius-sm);
+  cursor: default;
+}
+
+.focusable:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Reduced motion read in JS as well (useReducedMotion): the end state at once */
+.still .fill,
+.still .ring > .ringFill,
+.still .ringEnd,
+.still .segment {
+  animation: none;
+  transition: none;
+}
+
+.still .band {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -81,7 +81,7 @@ export const Behavior: Story = {
     const lede = canvasElement.querySelector('header p:last-child') as HTMLElement;
     await step('one h1, at the fixed page-title size (not the display ramp)', async () => {
       expect(h1s.length).toBe(1);
-      expect(getComputedStyle(h1s[0]).fontSize).toBe('40px');
+      expect(getComputedStyle(h1s[0]).fontSize).toBe('28px');
     });
     await step('the lede is no wider than 70ch', async () => {
       const probe = document.createElement('span');
@@ -131,23 +131,29 @@ export const ChipShell: Story = {
   },
 };
 
-/** Figma "size" (batch 4, published 22 Nov): page keeps the title 40 on a 48 line; project, for a project's
- * tabs, sets the project name 28 on 36 so the tab's own subject leads. */
+/** Figma "size" (22 Nov 19:08): the title is 28 on a 36 line in both sizes; the meta and health lines are
+ * meta lines, 14 on 20, in both. */
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-48)' }}>
       {/* each in its own region, so the story has no second banner landmark */}
       <section aria-label="size page">
-        <PageHeader size="page" meta="Specimen No. 002 · Actions" title="Button" lede="Buttons with real hierarchy." />
+        <PageHeader size="page" meta="Specimen No. 002 · Actions" title="Button" health="95% healthy · 13 checks to fix" lede="Buttons with real hierarchy." />
       </section>
       <section aria-label="size project">
-        <PageHeader size="project" meta="BELLA 0.3.0 · checked 7 Nov, 10:53" title="CHIP" lede="Every item says why it matters and offers the action that follows." actions={<Button variant="primary" size="sm">Run checks</Button>} />
+        <PageHeader size="project" meta="BELLA 0.3.0 · checked 7 Nov, 10:53" title="CHIP" health="95% healthy · 13 checks to fix" lede="Every item says why it matters and offers the action that follows." actions={<Button variant="primary" size="sm">Run checks</Button>} />
       </section>
     </div>
   ),
   play: async ({ canvasElement }) => {
     const [page, project] = Array.from(canvasElement.querySelectorAll('h1')).map((h) => getComputedStyle(h));
-    await expect([page.fontSize, page.lineHeight]).toEqual(['40px', '48px']);
+    await expect([page.fontSize, page.lineHeight]).toEqual(['28px', '36px']);
     await expect([project.fontSize, project.lineHeight]).toEqual(['28px', '36px']);
+    for (const header of Array.from(canvasElement.querySelectorAll('header'))) {
+      for (const line of Array.from(header.querySelectorAll<HTMLElement>('[data-bella-meta]'))) {
+        await expect([getComputedStyle(line).fontSize, getComputedStyle(line).lineHeight]).toEqual(['14px', '20px']);
+      }
+      await expect(header.querySelectorAll('[data-bella-meta]')).toHaveLength(2);
+    }
   },
 };

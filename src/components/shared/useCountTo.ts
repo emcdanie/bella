@@ -5,9 +5,10 @@ import { EASING_POINTS } from '../EasingCurve/EasingCurve';
  * that shows what happened", item 5, Elleta 21 Nov). Shared by Stat and
  * SystemHealth so both count the same way: motion/duration/450 on
  * motion/easing/out, read from the tokens; reduced motion jumps to the new
- * value. Nothing moves on first paint. */
+ * value. Nothing moves on first paint unless `from` is given (charts count
+ * up when they first show, 22 Nov). */
 
-function bezier([x1, y1, x2, y2]: [number, number, number, number]) {
+export function bezier([x1, y1, x2, y2]: [number, number, number, number]) {
   const at = (a: number, b: number, t: number) => 3 * a * (1 - t) ** 2 * t + 3 * b * (1 - t) * t ** 2 + t ** 3;
   return (x: number) => {
     let lo = 0;
@@ -21,7 +22,13 @@ function bezier([x1, y1, x2, y2]: [number, number, number, number]) {
   };
 }
 
-function tokenMs(name: string) {
+/** True when the reader asked for less motion: every count then shows its end value at once. */
+export function reducedMotion() {
+  return typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+export function tokenMs(name: string) {
   const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const n = parseFloat(v);
   return Number.isFinite(n) ? (v.endsWith('ms') ? n : n * 1000) : 0;
@@ -36,20 +43,31 @@ export interface CountTo {
   changeKey: number;
 }
 
-export default function useCountTo(target: number): CountTo {
-  const [shown, setShown] = useState(target);
+export interface CountToOptions {
+  /** Count up from this number when the value first shows (charts, 22 Nov: "plays when the chart first
+   * shows"). No difference mark for that first count. Missing = the first value shows at once. */
+  from?: number;
+}
+
+export default function useCountTo(target: number, { from: first }: CountToOptions = {}): CountTo {
+  const [shown, setShown] = useState(() => (first != null && !reducedMotion() ? first : target));
   const [diff, setDiff] = useState<number | null>(null);
   const [changeKey, setChangeKey] = useState(0);
-  const from = useRef(target);
+  const from = useRef(first ?? target);
+  const intro = useRef(first != null);
 
   useEffect(() => {
     const start = from.current;
+    const isIntro = intro.current;
+    intro.current = false;
     if (start === target) return;
     from.current = target;
-    setDiff(target - start);
-    setChangeKey((k) => k + 1);
+    if (!isIntro) {
+      setDiff(target - start);
+      setChangeKey((k) => k + 1);
+    }
     const ms = tokenMs('--motion-duration-450');
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || ms === 0) {
+    if (reducedMotion() || ms === 0) {
       setShown(target);
       return;
     }
@@ -58,7 +76,8 @@ export default function useCountTo(target: number): CountTo {
     const t0 = performance.now();
     let raf = 0;
     const tick = (now: number) => {
-      const p = Math.min(1, (now - t0) / ms);
+      /* asked for less motion mid-count (or a capture that emulates it): the end value now */
+      const p = reducedMotion() ? 1 : Math.min(1, (now - t0) / ms);
       const v = start + (target - start) * ease(p);
       setShown(p === 1 ? target : Number(v.toFixed(decimals)));
       if (p < 1) raf = requestAnimationFrame(tick);
@@ -94,4 +113,18 @@ export function useChangeKey(value: ReactNode): number {
     last.current = value;
   }, [value]);
   return n;
+}
+
+/** Reduced motion as React state, so a part can turn its CSS motion off in JS too (a story can then
+ * mock matchMedia and see the end state). Follows the setting while mounted. */
+export function useReducedMotion(): boolean {
+  const [reduced, setReduced] = useState(reducedMotion);
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined;
+    const m = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const on = () => setReduced(m.matches);
+    m.addEventListener?.('change', on);
+    return () => m.removeEventListener?.('change', on);
+  }, []);
+  return reduced;
 }

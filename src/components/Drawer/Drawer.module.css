@@ -26,9 +26,10 @@
   padding: 0;
   border: 0;
   border-inline-end: var(--border-width-1) solid var(--color-border-default);
-  /* Figma: the two corners away from the edge take the card corner */
-  border-start-end-radius: var(--border-radius-card);
-  border-end-end-radius: var(--border-radius-card);
+  /* Figma: the two corners away from the edge take border/radius/24, the
+     drawer edge (published 22 Nov; it was the card corner, 20 in Chip) */
+  border-start-end-radius: var(--border-radius-24);
+  border-end-end-radius: var(--border-radius-24);
   background: var(--color-background-surface);
   color: var(--color-content-default);
   box-shadow: var(--shadow-soft);
@@ -51,6 +52,10 @@
   .drawer[data-side='right'][open] {
     transform: translateX(100%);
   }
+
+  .drawer[data-side='bottom'][open] {
+    transform: translateY(100%);
+  }
 }
 
 .drawer[data-side='right'] {
@@ -60,8 +65,8 @@
   border-inline-start: var(--border-width-1) solid var(--color-border-default);
   border-start-end-radius: 0;
   border-end-end-radius: 0;
-  border-start-start-radius: var(--border-radius-card);
-  border-end-start-radius: var(--border-radius-card);
+  border-start-start-radius: var(--border-radius-24);
+  border-end-start-radius: var(--border-radius-24);
 }
 
 .drawer:focus {
@@ -85,6 +90,9 @@
 .drawer[data-side='right'][data-closing] {
   animation-name: drawerOutRight;
 }
+.drawer[data-side='bottom'][data-closing] {
+  animation-name: drawerOutBottom;
+}
 .drawer[data-closing]::backdrop {
   animation: scrimOut var(--motion-duration-200) var(--motion-easing-standard) both;
 }
@@ -94,6 +102,9 @@
 }
 @keyframes drawerOutRight {
   to { transform: translateX(100%); }
+}
+@keyframes drawerOutBottom {
+  to { transform: translateY(100%); }
 }
 @keyframes scrimIn {
   from { opacity: 0; }
@@ -180,14 +191,14 @@
 @media (min-width: 768px) {
   .drawer[data-size='lg'] {
     inline-size: min(100vw, calc(var(--spacing-80) * 8));
-    border-start-end-radius: var(--border-radius-card);
-    border-end-end-radius: var(--border-radius-card);
+    border-start-end-radius: var(--border-radius-24);
+    border-end-end-radius: var(--border-radius-24);
   }
   .drawer[data-size='lg'][data-side='right'] {
     border-start-end-radius: 0;
     border-end-end-radius: 0;
-    border-start-start-radius: var(--border-radius-card);
-    border-end-start-radius: var(--border-radius-card);
+    border-start-start-radius: var(--border-radius-24);
+    border-end-start-radius: var(--border-radius-24);
   }
 }
 
@@ -201,8 +212,58 @@
   border-block-start: var(--border-width-1) solid var(--color-border-default);
 }
 
+/* side bottom (Figma Drawer side=bottom, published 22 Nov 2026; her pick
+   "A", "remove the last divider"): the phone sheet. The full width, rising
+   from the bottom edge on motion/duration/450 and motion/easing/out; 24
+   corners on the top two only, the bottom square; no edge line, the shadow
+   alone. sm hugs its content, lg is 720 tall (nine 80 steps; no sheet-height
+   token), both stopping 48 under the top of the window. A 36 x 4 grab handle
+   (size/36, size/4, border/strong, round) sits 8 under the top edge, 24
+   above the head; it is decorative (Close and Esc close the sheet). The
+   footer has no hairline above it. */
+.drawer[data-side='bottom'] {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline: 0;
+  inline-size: 100vw;
+  max-inline-size: 100vw;
+  block-size: auto;
+  max-block-size: calc(100dvh - var(--spacing-48));
+  border: 0;
+  border-radius: var(--border-radius-24) var(--border-radius-24) 0 0;
+}
+
+.drawer[data-side='bottom'][data-size='lg'] {
+  inline-size: 100vw;
+  block-size: min(calc(var(--spacing-80) * 9), calc(100dvh - var(--spacing-48)));
+  border-radius: var(--border-radius-24) var(--border-radius-24) 0 0;
+}
+
+.drawer[data-side='bottom'][open] {
+  transition: transform var(--motion-duration-450) var(--motion-easing-out);
+}
+
+.drawer[data-side='bottom'] .head {
+  padding-block-start: 0;
+}
+
+.handle {
+  flex: none;
+  align-self: center;
+  inline-size: var(--size-36);
+  block-size: var(--size-4);
+  margin-block: var(--spacing-8) var(--spacing-24);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-strong);
+}
+
+.drawer[data-side='bottom'] .footer {
+  border-block-start: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .drawer[open] {
+  .drawer[open],
+  .drawer[data-side='bottom'][open] {
     transition: none;
   }
   .drawer[open]::backdrop,

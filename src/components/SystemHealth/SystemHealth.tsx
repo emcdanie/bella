@@ -82,17 +82,19 @@ export default function SystemHealth({
   style,
 }: SystemHealthProps) {
   const pct = Math.max(0, Math.min(100, value));
-  /* A new score (rule "Motion that shows what happened", item 5): the gauge
-   * fills or empties tick by tick from the old score to the new one and the
-   * difference shows once under the number. Reduced motion: the new score at
-   * once. aria-valuenow is the real score throughout. */
-  const count = useCountTo(pct);
+  /* Chart motion (22 Nov): when the gauge first shows, the ticks light one
+   * after another from Low to the score while the number counts up, over
+   * motion/duration/450 on motion/easing/out. A new score fills or empties
+   * tick by tick from the old score to the new one and the difference shows
+   * once under the number. Reduced motion: the end state at once.
+   * aria-valuenow is the real score throughout. */
+  const count = useCountTo(pct, { from: 0 });
   const lit = Math.round((count.shown / 100) * TICKS);
   const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
   const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
 
   return (
-    <section className={[styles.card, className].filter(Boolean).join(' ')} style={style}>
+    <section className={[styles.card, className].filter(Boolean).join(' ')} style={style} data-bella-reveal="">
       <div className={styles.heading}>
         <div className={styles.titleRow}>
           <IconWell icon="Activity" tone="success" />

@@ -226,3 +226,54 @@ export const TimeUnderTitle: Story = {
     });
   },
 };
+
+/** state=failed (22 Nov, Figma audit): a step that ran and did not pass, such as a failed gate. The
+ * danger Icon well with the Xmark, title and detail in ink, no working tint. A long title wraps between
+ * words and never truncates; her B title line stays (title 600, "· time" after it, Tag on the right). */
+export const Failed: Story = {
+  render: () => (
+    <Themed>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+        <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 3.5)' }} data-testid="vertical">
+          <Step state="done" title="Undone: Give agents BELLA's component list (llms.txt)" detail="Reverted by Elleta" time="10:02" />
+          <Step state="current" showLineAbove title="The gate" detail="Gate: 4 of 5 passed. Colour contrast failed." time="10:02" />
+          <Step state="failed" showLineAbove title="The gate failed on main" detail="Gate: 4 of 5 passed. Colour contrast failed." time="10:02" />
+          <Step state="pending" showLineAbove showConnector={false} title="Publish BellaComponents" detail="Waiting on you" time="10:02" />
+        </ol>
+        <ol style={ROW} data-testid="horizontal">
+          <Step layout="horizontal" state="failed" title="The gate" detail="Colour contrast failed." showConnector={false} />
+        </ol>
+      </div>
+    </Themed>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    const failed = canvas.getByText('The gate failed on main').closest('li') as HTMLElement;
+    await step('the marker is the error Icon well with the Xmark', async () => {
+      const well = failed.querySelector<HTMLElement>('[data-bella-component="icon-well"]')!;
+      await expect(well).toBeInTheDocument();
+      await expect(well.className).toMatch(/error/);
+    });
+    await step('title and detail in ink, no working tint', async () => {
+      const ink = getComputedStyle(canvas.getByText('The gate failed on main')).color;
+      const detail = failed.querySelector<HTMLElement>('[class*="detail"]')!;
+      await expect(getComputedStyle(detail).color).toBe(ink);
+      const row = failed.querySelector<HTMLElement>('[class*="row"]')!;
+      await expect(getComputedStyle(row).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+      await expect(failed).not.toHaveAttribute('aria-current');
+    });
+    await step('a long title wraps between words, never cut', async () => {
+      const title = canvas.getByText("Undone: Give agents BELLA's component list (llms.txt)");
+      await expect(title.scrollWidth).toBeLessThanOrEqual(title.clientWidth);
+      await expect(getComputedStyle(title).textOverflow).not.toBe('ellipsis');
+      await expect(title.getBoundingClientRect().height).toBeGreaterThan(24);
+      const range = document.createRange();
+      range.selectNodeContents(title);
+      const lines = new Set(Array.from(range.getClientRects()).map((r) => Math.round(r.top)));
+      await expect(lines.size).toBeGreaterThan(1);
+    });
+    await step('horizontal failed: Xmark well, no connector', async () => {
+      const h = canvasElement.querySelector('[data-testid="horizontal"] li') as HTMLElement;
+      await expect(h.querySelector('[data-bella-component="icon-well"]')!.className).toMatch(/error/);
+    });
+  },
+};

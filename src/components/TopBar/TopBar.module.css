@@ -1,16 +1,17 @@
-/* TopBar (Figma "Top bar", read 19 Nov 2026). Tokens only.
- * A row: padding 12 x 32, gap 16, ends apart, centred; surface fill and a
- * 1px line below (border/default) that separates it from the page header.
- * 68 tall = 12 + the 44 search field + 12. Right side: items 12 apart.
- *
- * The search slot fills the room left of the right side; the field itself
- * stops at layout/search/max-width (420, published 19 Nov 2026). */
+/* TopBar (Figma BellaComponents "Top bar" 1168:95226, published 22 Nov 2026;
+ * her pick "B · search on the right"). Tokens only.
+ * A row: padding 12 x 32, Place and Right 16 apart, centred; surface fill and
+ * a 1px line below (border/default) that separates it from the page header.
+ * 68 tall = 12 + the 44 search field + 12.
+ * Place: Parent (content/subtle), a › separator, Current (content/default,
+ * 600), Lexend 16 on 24, 8 apart. Right, pushed to the right edge: the
+ * Search field (grows up to layout/search/max-width, 420), then the bell and
+ * the Avatar, 12 apart. */
 
 .bar {
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--spacing-16);
   padding: var(--spacing-12) var(--spacing-32);
   background: var(--color-background-surface);
@@ -18,16 +19,83 @@
   box-shadow: inset 0 calc(-1 * var(--border-width-1)) 0 var(--color-border-default);
 }
 
-.search {
+.place {
+  flex: none;
+}
+
+.placeList {
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-inline-size: 0;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  white-space: nowrap;
+}
+
+.parent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+.parentLink {
+  /* a 44 target with the text where Figma puts it: 4 of padding each side,
+     taken back by the margin, so the label does not move */
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--spacing-44);
+  margin-inline: calc(-1 * var(--spacing-4));
+  padding-inline: var(--spacing-4);
+  border-radius: var(--border-radius-sm);
+  color: inherit;
+  text-decoration: none;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+/* the one light-blue hover on everything interactive except buttons */
+.parentLink:hover {
+  background: var(--color-background-brand-subtle);
+  color: var(--color-content-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parentLink {
+    transition: none;
+  }
+}
+
+.parentLink:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.separator {
+  color: var(--color-content-subtle);
+}
+
+.current {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
 }
 
 .right {
   display: flex;
-  flex: none;
+  flex: 1;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--spacing-12);
+  min-inline-size: 0;
+}
+
+.search {
+  display: flex;
+  flex: 0 1 var(--layout-search-max-width);
+  flex-direction: column;
+  min-inline-size: 0;
 }

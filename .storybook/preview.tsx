@@ -121,7 +121,7 @@ const preview: Preview = {
             'Data',
             ['Avatar', 'AvatarStack', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'Progress', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
             'Layout',
-            ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
+            ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SideMenu', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
           ],
           'Patterns',
           'Pages',

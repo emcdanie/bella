@@ -203,6 +203,8 @@ export type { ClientSwitcherProps } from './ClientSwitcher/ClientSwitcher';
 
 export { default as TopBar } from './TopBar/TopBar';
 export type { TopBarProps } from './TopBar/TopBar';
+export { default as SideMenu } from './SideMenu/SideMenu';
+export type { SideMenuProps, SideMenuItem } from './SideMenu/SideMenu';
 
 export { default as SearchField } from './SearchField/SearchField';
 export type { SearchFieldProps } from './SearchField/SearchField';

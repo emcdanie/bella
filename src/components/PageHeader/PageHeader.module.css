@@ -5,8 +5,8 @@
  * Row: the title column and the actions, ends apart, centred, 16 apart.
  * Title column: the title group, story link and health line, 8 apart.
  * Title group: the 48 icon well (corner 12, background/subtle, icon 24),
- * the title and the aside, 16 apart. Title: the title face 600, 40 at
- * 115%. Actions 8 apart. Lede: body face 16 at 150%, content/subtle.
+ * the title and the aside, 16 apart. Title: the title face 600, 28 on a
+ * 36 line on every page (22 Nov). Actions 8 apart. Lede: body face 16 at 150%, content/subtle.
  *
  * Kept from code, not in Figma: the space below the header
  * (layout/section-space) and the row wrapping when narrow.
@@ -80,24 +80,17 @@
   margin: 0;
   min-width: 0;
   font-family: var(--typography-title-default-font-family);
-  /* Tier 2, not a Tier 1 step: 40 on desktop, 34 below 768. Her pick, 19 Nov,
-     phone fit Q1: "A · use display-section". */
-  font-size: var(--typography-font-size-display-section);
+  /* 28 on every page and both sizes (22 Nov 19:08, she preferred the 28
+     header to the 40 one; replaces display-section 40). 28 on a 36 line: no
+     line-height-px/36 token, the 36 size step carries it. */
+  font-size: var(--typography-font-size-28);
   font-weight: var(--typography-font-weight-600);
-  /* 40 on a 48 line (batch 4: line heights on the 4 grid). No line-height-px/48
-     token exists; Figma types 48, so the 48 step of the 4-point scale carries it. */
-  line-height: var(--spacing-48);
+  line-height: var(--size-36);
   letter-spacing: var(--typography-letter-spacing-minus-2);
   text-wrap: balance;
   /* titles never break mid-word (her rule); wrap only between words */
   overflow-wrap: normal;
   hyphens: manual;
-}
-
-/* size=project (Figma 1663:281461): the project name 28 on 36, typography/font-size/28 */
-.project .title {
-  font-size: var(--typography-font-size-28);
-  line-height: var(--size-36);
 }
 
 .storyLink {
@@ -111,10 +104,11 @@
 
 .health {
   margin: 0;
+  /* a meta line (22 Nov, "Meta lines at 14: B"): 14 on a 20 line in both sizes */
   font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-body-default-font-size);
+  font-size: var(--typography-font-size-14);
   font-weight: var(--typography-body-default-font-weight);
-  line-height: var(--typography-line-height-150);
+  line-height: var(--size-20);
   color: var(--color-content-subtle);
 }
 

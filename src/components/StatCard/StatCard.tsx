@@ -2,6 +2,7 @@ import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Trailing from '../Trailing/Trailing';
 import Progress from '../Progress/Progress';
+import useCountTo from '../shared/useCountTo';
 import type { IconName } from '../Icon/Icon';
 import styles from './StatCard.module.css';
 
@@ -28,15 +29,15 @@ export interface StatCardMeter {
 export interface StatCardProps {
   /** Figma "Title". The card title, and the chart's accessible name. */
   title: ReactNode;
-  /** Figma "Value". The big number. */
-  value: ReactNode;
+  /** Figma "Value". The big number. Not drawn on chart=empty: no figure before a measure. */
+  value?: ReactNode;
   /** Figma "Unit". Small, beside the number ("%", "of 2"). Missing = off. */
   unit?: ReactNode;
   /** Figma "Context". One line worked out from real numbers: what the number means and which way. */
   context?: ReactNode;
-  /** Figma "Empty count" (21 Nov publish): the number on chart=empty, 0 by default. */
+  /** Figma "Empty count" (21 Nov publish). Kept for compatibility, not drawn: chart=empty shows no figure before a measure (22 Nov 19:08). Removal waits for Elleta's yes (public API). */
   emptyCount?: ReactNode;
-  /** Figma "Empty total" (21 Nov publish): the unit on chart=empty ("of 44"); missing = `unit`. */
+  /** Figma "Empty total" (21 Nov publish). Kept for compatibility, not drawn (see emptyCount). */
   emptyTotal?: ReactNode;
   /** Figma "Caption". Footer left: the target or where it came from. */
   caption?: ReactNode;
@@ -44,8 +45,9 @@ export interface StatCardProps {
   button?: ReactNode;
   /**
    * Figma "chart". none: the number only (counts such as Runs). empty: no
-   * data yet, the same card with the count at zero, an empty bar, and the
-   * footer saying why with an action (her 21 Nov pick A).
+   * data yet: the title, the empty bar, the context line and the footer
+   * ("Not compared yet" with its Compare action), and no number (22 Nov
+   * 19:08: a number only once something is measured).
    */
   chart?: 'bar' | 'segments' | 'none' | 'empty';
   /** Figma "tone". Status only: the icon well and the chart marks; a count with no status is neutral. */
@@ -58,7 +60,10 @@ export interface StatCardProps {
   href?: string;
   /** Header opens the detail: a button. Ignored when `href` is set. */
   onOpen?: () => void;
-  /** The chart draws in once when the card first appears (Progress drawIn). Off by default (demo). */
+  /** Chart motion (22 Nov, CHIP chart language): when the card first shows, the bar grows from the
+   * start (segments fill one after another) and a numeric value counts up from 0, over
+   * motion/duration/450 on motion/easing/out; a new value slides and counts from the old one. Reduced
+   * motion: the end state at once. On by default; false shows the first value still. */
   drawIn?: boolean;
   className?: string;
   style?: CSSProperties;
@@ -74,8 +79,6 @@ export default function StatCard({
   title,
   value,
   unit,
-  emptyCount = 0,
-  emptyTotal,
   context,
   caption,
   button,
@@ -85,7 +88,7 @@ export default function StatCard({
   meter,
   href,
   onOpen,
-  drawIn = false,
+  drawIn = true,
   className,
   style,
 }: StatCardProps) {
@@ -110,39 +113,52 @@ export default function StatCard({
     <div className={styles.header}>{headInner}</div>
   );
 
-  /* Figma chart=empty binds Value and Unit to Empty count and Empty total */
+  /* chart=empty: no figure before a measure (22 Nov 19:08) */
   const empty = chart === 'empty';
-  const shownValue = empty ? emptyCount : value;
-  const shownUnit = empty ? (emptyTotal ?? unit) : unit;
-  const said = meter?.valueText ?? [value, unit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
-  /* the meter is spoken with its target ("95%, target 90%"), Figma description */
+  /* a plain number counts from the old value to the new one (from 0 when it first shows) */
+  const asNumber = typeof value === 'number' ? value : typeof value === 'string' && /^-?\d+(\.\d+)?$/.test(value) ? Number(value) : null;
+  const count = useCountTo(asNumber ?? 0, drawIn ? { from: 0 } : {});
+  const plain = (x: ReactNode) => typeof x === 'string' || typeof x === 'number';
+  const said = meter?.valueText ?? (plain(value) && unit === '%' ? `${value}%` : [value, unit].filter(plain).join(' '));
+  /* the meter is spoken with its target ("95%, target 90%"), Figma description; the callout says
+     the same with a dot ("95% · target 90%") */
   const words = chart === 'bar' && meter?.target != null && said ? `${said}, target ${meter.target}%` : said;
-  const emptyWords = [shownValue, shownUnit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
+  const calloutText = meter?.target != null && said ? `${said} · target ${meter.target}%` : said;
 
   return (
     <section
       className={[styles.card, className].filter(Boolean).join(' ')}
       style={style}
       data-bella-component="stat-card"
+      data-bella-reveal={drawIn ? '' : undefined}
     >
       {header}
       <div className={styles.body}>
-        <p className={styles.number}>
-          <span className={styles.value}>{shownValue}</span>
-          {shownUnit != null && shownUnit !== '' ? <span className={styles.unit}>{shownUnit}</span> : null}
-        </p>
-        {chart === 'empty' ? (
+        {empty ? null : (
+          <p className={styles.number}>
+            {asNumber != null ? (
+              <span className={styles.value}>
+                {/* the drawing counts; assistive tech reads the final value only */}
+                <span aria-hidden="true">{count.shown}</span>
+                <span className={styles.srOnly}>{value}</span>
+              </span>
+            ) : (
+              <span className={styles.value}>{value}</span>
+            )}
+            {unit != null && unit !== '' ? <span className={styles.unit}>{unit}</span> : null}
+          </p>
+        )}
+        {empty ? (
           <Progress
-            className={styles.meter}
             label={typeof title === 'string' ? title : 'Progress'}
-            value={emptyWords || undefined}
+            value="Not measured"
             showLabel={false}
             shape="bar"
             fill={0}
           />
         ) : meter && chart !== 'none' ? (
           <Progress
-            className={styles.meter}
+            callout={calloutText || true}
             label={typeof title === 'string' ? title : 'Progress'}
             value={words || undefined}
             showLabel={false}

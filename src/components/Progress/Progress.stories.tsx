@@ -6,6 +6,7 @@ import Progress, { TargetMark } from './Progress';
 import cssRaw from './Progress.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -160,5 +161,70 @@ export const NewAmount: Story = {
       await expect(getComputedStyle(band).animationIterationCount).toBe('1');
       await waitFor(() => expect(Number(getComputedStyle(band).opacity)).toBe(0), { timeout: 3000 });
     });
+  },
+};
+
+/** The tip of the callout: the Tooltip bubble inside the part's wrapper. */
+const tipOf = (root: HTMLElement) => root.closest('[data-bella-component="tooltip"]')!.querySelector<HTMLElement>('[aria-hidden="true"][id]')!;
+
+/** The chart callout (22 Nov, CHIP chart language): hover or keyboard focus on the bar shows BELLA's
+ * Tooltip 16 under the track, pointing up, with the amount and the target. Draws in from the start of
+ * the track on motion/duration/450, motion/easing/out; the target is there before the fill arrives. */
+export const Callout: Story = {
+  render: () => (
+    <Themed>
+      <Progress label="Stories" value="60%" fill={60} target={90} showTarget tone="success" drawIn callout />
+      <Progress label="Checks" value="4 of 5" shape="segments" segments={5} done={4} tone="info" drawIn callout />
+    </Themed>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const [bar, segs] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[role="progressbar"]'));
+    await step('final state: the fill reaches 60% of the track', async () => {
+      const track = bar.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!.parentElement!;
+      const fill = bar.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!;
+      await waitFor(() => expect(Math.round((fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)).toBe(60), { timeout: 3000 });
+    });
+    await step('keyboard focus shows the Tooltip with the amount and the target, 16 under the track', async () => {
+      await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
+      bar.focus();
+      await waitFor(() => expect(tipOf(bar)).toBeVisible());
+      await waitFor(() => expect(tipOf(bar)).toHaveTextContent('60% · target 90%'));
+      const track = bar.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!.parentElement!;
+      await expect(Math.round(tipOf(bar).getBoundingClientRect().top - track.getBoundingClientRect().bottom)).toBe(16);
+      bar.blur();
+      await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
+    });
+    await step('segments: the callout says the count', async () => {
+      await userEvent.hover(segs);
+      await waitFor(() => expect(tipOf(segs)).toHaveTextContent('4 of 5'));
+      await userEvent.unhover(segs);
+    });
+    await step('segments fill one after another, motion/stagger-120 apart', async () => {
+      const s = segs.querySelectorAll<HTMLElement>('[data-bella-component="progress-segment"]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+      await expect(parseFloat(getComputedStyle(s[2]).animationDelay)).toBeCloseTo(0.24, 2);
+    });
+  },
+};
+
+/** Reduced motion (matchMedia mocked to "reduce"): the end state at once, no draw-in, no slide; the
+ * callout still shows. */
+export const ReducedMotion: Story = {
+  beforeEach: reduceMotion,
+  render: () => (
+    <Themed>
+      <Progress label="Stories" value="60%" fill={60} target={90} showTarget tone="success" drawIn callout />
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const bar = canvasElement.querySelector<HTMLElement>('[role="progressbar"]')!;
+    const fill = bar.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!;
+    await expect(getComputedStyle(fill).animationName).toBe('none');
+    await expect(parseFloat(getComputedStyle(fill).transitionDuration)).toBe(0);
+    const track = fill.parentElement!;
+    await expect(Math.round((fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)).toBe(60);
+    bar.focus();
+    await waitFor(() => expect(tipOf(bar)).toHaveTextContent('60% · target 90%'));
   },
 };

@@ -10332,7 +10332,7 @@ entries:
   - kind: component
     id: drawer
     name: Drawer
-    description: "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens."
+    description: "A panel that slides in from the left (or the right, side=right) over a scrim, or rises from the bottom as the phone sheet (side=bottom: full width, 24 corners on top, a decorative grab handle, no divider above the footer). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens."
     metadata:
       origin:
         method: extracted
@@ -10341,7 +10341,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: "a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it."
+          note: "a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it. side=bottom: the same dialog, focus trap, Esc and Close; the grab handle is aria-hidden; the rise is 450ms and dropped under prefers-reduced-motion."
       tags:
         - component
         - drawer
@@ -10355,6 +10355,8 @@ entries:
             statement: CHIP sidebar below 720px
           - level: may
             statement: Any navigation or filter panel that cannot stay on screen at phone width
+          - level: may
+            statement: "The phone sheet (side=bottom): the Side menu or a short panel on a phone"
       - kind: guidelines
         for: all
         title: Do not
@@ -12429,12 +12431,15 @@ entries:
   - kind: component
     id: top-bar
     name: TopBar
-    description: "The left side: the SearchField. */ search?: ReactNode; /** The right side, 12 apart: the person's Avatar (size sm, image). */ right?: ReactNode; /** Extra classes on the bar. */ className?: string; style?: CSSProperties; } /** The bar across the top of the page column (Figma \"Top bar\", read 19 Nov 2026; no Figma props): search on the left, the person on the right."
+    description: "The top bar of the CHIP app frame: where you are on the left (\"CHIP › Work\", a breadcrumb nav), search and your notifications on the right. Parent in content/subtle, a › separator, Current in content/default at 600, 8 apart; the Search field grows up to layout/search/max-width (420), then the bell and the Avatar, 12 apart."
     metadata:
       origin:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Place is a nav landmark named "Breadcrumb" (an ordered list); the parent is a link with a 44 target, the current page has aria-current="page"; the › is hidden from screen readers. Search sits in a search landmark; ⌘K focuses it. Notifications is a button named "Notifications". 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap.
       tags:
         - component
         - top-bar
@@ -12445,7 +12450,15 @@ entries:
         title: Where it is used
         items:
           - level: may
-            statement: CHIP "Not again" page and screen shell (19 Nov 2026)
+            statement: CHIP screen shell, once per screen above the content, beside the Side menu (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it as a page title: that is PageHeader"
+          - level: must-not
+            statement: "Do not use it for page views: that is Tabs"
     refs:
       - href: ./src/components/TopBar/TopBar.stories.tsx
         rel: storybook
@@ -12463,6 +12476,59 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+  - kind: component
+    id: side-menu
+    name: SideMenu
+    description: "The one side menu of the CHIP app (like Notion): the plain Client switcher level with the Top bar, then Go to (Search, Home, Needs you with its count, Not again), Pinned, Projects (Folder rows), and Team and Settings at the foot. 232 wide, a 1px right edge in border/default; 12 at the sides, 16 between groups, 4 inside a group; every row a Nav item."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "A nav landmark named \"Main\" (label) holding lists; Pinned and Projects are lists labelled by their group label (16, content/subtle). Each row a link (Search a button), the current one aria-current=\"page\": bold ink, no fill in Chip, so \"you are here\" shows once. 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap, never clipped by the scrolling middle. Labels never break mid-word at 232."
+      tags:
+        - component
+        - side-menu
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The left edge of every CHIP screen (CHIP / Screen template), full window height
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not use it inside a page or card: that is NavList"
+          - level: must-not
+            statement: "Do not use it for page views: that is Tabs"
+          - level: must-not
+            statement: "Do not show it on a phone: put it in a Drawer side=bottom"
+    refs:
+      - href: ./src/components/SideMenu/SideMenu.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/SideMenu/SideMenu.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - current
+          - focus
   - kind: component
     id: search-field
     name: SearchField

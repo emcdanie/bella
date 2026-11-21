@@ -9,12 +9,17 @@ export interface DrawerProps {
   onClose: () => void;
   /** The drawer's visible title, which also names the dialog. */
   label: string;
-  /** The edge it slides from: left for navigation (default), right for a tool panel. */
-  side?: 'left' | 'right';
+  /**
+   * The edge it slides from: left for navigation (default), right for a tool
+   * panel, bottom for the phone sheet (Figma side=bottom, 22 Nov 2026): the
+   * full width, 24 corners on top, a grab handle, rising from the bottom.
+   */
+  side?: 'left' | 'right' | 'bottom';
   /**
    * Width. sm (default): 320, for navigation and filters (BellaComponents Drawer).
    * lg: 640 from a 768 window, the full width on a phone, for a session's run
    * or the terminal (CHIP · Dashboard Flow 12, 791:264033 and 791:264846).
+   * With side="bottom" it is the height: sm hugs the content, lg is 720 tall.
    */
   size?: 'sm' | 'lg';
   /** The drawer's content (a NavList, filters, settings). */
@@ -143,6 +148,8 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
     >
       {shown ? (
         <>
+          {/* Figma Handle (side=bottom): decorative; Close, Esc and the scrim close the sheet */}
+          {side === 'bottom' ? <span className={styles.handle} aria-hidden="true" /> : null}
           {/* Figma Head (172:528): Back, Title row (Title, Subtitle, Status) fills, Action, Close, 12 apart; Close is
               the 44 secondary icon-only Button in the flow, never pinned */}
           <div className={styles.head}>

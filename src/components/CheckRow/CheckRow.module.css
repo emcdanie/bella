@@ -59,3 +59,98 @@
   font-size: var(--typography-font-size-20);
   font-weight: var(--typography-font-weight-700);
 }
+
+/* layout=weather (Figma, 22 Nov, her pick "C · Weather rows"). One row per
+   check, 56 tall: name in a 160 column (reading face 600), the pips filling
+   the middle, the count at the right (number face 600). Divider in
+   border/subtle at the bottom. */
+.weather {
+  /* inside a ListRowGroup (a three-column grid) the row runs the full width */
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  min-block-size: calc(var(--spacing-48) + var(--spacing-8));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.divider {
+  border-block-end: var(--border-width-1) solid var(--color-border-subtle);
+}
+
+.weatherName {
+  flex: 0 0 calc(var(--spacing-80) * 2);
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+/* the pips: one block per 5 parts, 4 apart, 20 tall, corner 4 */
+.pips {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.pip {
+  flex: 1 1 0;
+  block-size: var(--size-20);
+  border-radius: var(--border-radius-4);
+  background: var(--color-border-subtle);
+}
+
+.pipOn {
+  background: var(--color-border-utility-success);
+}
+
+.pipUnder {
+  background: var(--color-border-utility-warning);
+}
+
+/* the target: a 1.5 dashed line in border/brand at the target, reaching 4
+   above and below the pips (the Progress target's dash) */
+.weatherTarget {
+  position: absolute;
+  inset-block: calc(var(--spacing-4) * -1);
+  inset-inline-start: calc(var(--check-target) - (var(--border-width-1) + var(--border-width-2)) / 4);
+  inline-size: calc((var(--border-width-1) + var(--border-width-2)) / 2);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-border-brand) 0 calc(var(--border-width-1) + var(--border-width-2)),
+    transparent 0 calc(2 * (var(--border-width-1) + var(--border-width-2)))
+  );
+  pointer-events: none;
+}
+
+.weatherCount {
+  flex: none;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+@media (forced-colors: active) {
+  .pip {
+    border: var(--border-width-1) solid CanvasText;
+  }
+  .pipOn,
+  .pipUnder {
+    background: CanvasText;
+  }
+  .weatherTarget {
+    background: none;
+    border-inline-start: var(--border-width-1) dashed Highlight;
+  }
+}

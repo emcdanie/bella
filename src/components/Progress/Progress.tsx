@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import styles from './Progress.module.css';
 import ProgressTarget, { TargetMark } from '../ProgressTarget/ProgressTarget';
+import Tooltip from '../Tooltip/Tooltip';
+import { useReducedMotion } from '../shared/useCountTo';
 
 /* Progress target and the private _Target mark are their own parts (Figma
  * 1168:72541); re-exported here so older imports keep working. */
@@ -41,13 +43,16 @@ export interface ProgressSegmentProps {
   tone?: ProgressTone;
   /** Figma "done". true takes the tone's mark, false the track. */
   done?: boolean;
+  /** Its place in the row, from 0: on draw-in the segments fill one after another, motion/stagger-120 apart. */
+  order?: number;
 }
 
 /** Figma "Progress segment": one step of shape=segments. */
-export function ProgressSegment({ tone = 'info', done = true }: ProgressSegmentProps) {
+export function ProgressSegment({ tone = 'info', done = true, order = 0 }: ProgressSegmentProps) {
   return (
     <span
       className={[styles.segment, done ? styles[tone] : ''].filter(Boolean).join(' ')}
+      style={{ '--progress-order': order } as CSSProperties}
       data-bella-component="progress-segment"
     />
   );
@@ -83,6 +88,13 @@ export interface ProgressProps {
    * Reduced motion: drawn at once. A demo for Health charts (21 Nov: "should we not put motion on the
    * graphs??"), off by default. */
   drawIn?: boolean;
+  /**
+   * The chart callout (22 Nov, CHIP chart language): hover or keyboard focus on the bar shows BELLA's
+   * Tooltip 16 under the track, pointing up, with the amount and the target ("60% · target 90%").
+   * true writes that text from `value` and `target`; a string says it instead ("4 of 5 · target 80%").
+   * On, the bar takes keyboard focus. Off by default, so rows of bars add no tab stops.
+   */
+  callout?: boolean | string;
   className?: string;
   style?: CSSProperties;
 }
@@ -103,9 +115,11 @@ export default function Progress({
   segments = 5,
   done = 0,
   drawIn = false,
+  callout = false,
   className,
   style,
 }: ProgressProps) {
+  const still = useReducedMotion();
   const isSeg = shape === 'segments';
   const now = isSeg ? Math.min(segments, Math.max(0, done)) : pct(fill);
   /* A new amount (rule "Motion that shows what happened", item 5): the bar
@@ -129,11 +143,31 @@ export default function Progress({
     'aria-valuetext': typeof value === 'string' ? value : undefined,
   } as const;
   const name = typeof label === 'string' ? label : undefined;
-  const cls = [styles.root, shape === 'ring' ? styles.ringRoot : '', drawIn ? styles.drawIn : '', className].filter(Boolean).join(' ');
+  const amount = typeof value === 'string' || typeof value === 'number' ? String(value) : isSeg ? `${now} of ${segments}` : `${now}%`;
+  const withTarget = shape === 'bar' && showTarget;
+  const calloutText = typeof callout === 'string' ? callout : withTarget ? `${amount} · target ${pct(target)}%` : amount;
+  const cls = [
+    styles.root,
+    shape === 'ring' ? styles.ringRoot : '',
+    drawIn ? styles.drawIn : '',
+    callout ? styles.focusable : '',
+    still ? styles.still : '',
+    className,
+  ].filter(Boolean).join(' ');
+  const focus = callout ? { tabIndex: 0 } : {};
+  /* the callout: BELLA's Tooltip round the whole part (the bar is the trigger) */
+  const withCallout = (node: React.ReactElement<{ 'aria-describedby'?: string }>) =>
+    callout ? (
+      <Tooltip label={calloutText} placement="bottom" className={styles.callout}>
+        {node}
+      </Tooltip>
+    ) : (
+      node
+    );
 
   if (shape === 'ring') {
-    return (
-      <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria}>
+    return withCallout(
+      <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria} {...focus}>
         <span className={styles.ring}>
           <span className={styles.ringTrack} aria-hidden="true" />
           {now > 0 ? (
@@ -158,8 +192,8 @@ export default function Progress({
     );
   }
 
-  return (
-    <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria}>
+  return withCallout(
+    <div className={cls} style={style} data-bella-component="progress" aria-label={name} {...aria} {...focus}>
       <div className={showLabel ? styles.head : styles.srOnly}>
         <span className={styles.label}>{label}</span>
         {value != null ? <span className={styles.value}>{value}</span> : null}
@@ -167,7 +201,7 @@ export default function Progress({
       {isSeg ? (
         <div className={styles.segments} aria-hidden="true">
           {Array.from({ length: segments }, (_, i) => (
-            <ProgressSegment key={i} tone={tone} done={i < now} />
+            <ProgressSegment key={i} tone={tone} done={i < now} order={i} />
           ))}
         </div>
       ) : (

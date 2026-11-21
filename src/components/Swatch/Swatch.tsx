@@ -23,14 +23,14 @@ export interface SwatchProps {
 
 /**
  * One colour role as a Pantone-style chip (Figma BellaComponents Swatch
- * 794:169044, published 19 Nov 2026; Elleta, 18 Nov: "i liked the other onew
- * becuase they look like the panttone ones"): the colour block on top, a label
- * strip under it with the name, the hex and the contrast pair. Never text on
- * the colour.
+ * 794:169044; the colour chip card again on 22 Nov, while a table cell keeps
+ * its plain square): the colour block on top, a label strip under it with
+ * the name, the hex and the contrast pair, inside a light edge so a colour
+ * close to the page still shows where it ends. Never text on the colour.
  */
 export default function Swatch({ color, name, hex, ratio, pair = true, size = 'sm', onCopy, className, style }: SwatchProps) {
   const meta = (
-    <span className={styles.meta}>
+    <span className={styles.meta} data-bella-meta>
       <span>{hex}</span>
       <span>{pair ? ratio : 'No pair'}</span>
     </span>

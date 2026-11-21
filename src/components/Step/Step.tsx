@@ -5,7 +5,7 @@ import MapLine from '../MapLine/MapLine';
 import type { IconName } from '../Icon/Icon';
 import styles from './Step.module.css';
 
-export type StepState = 'done' | 'current' | 'pending';
+export type StepState = 'done' | 'current' | 'pending' | 'failed';
 
 /** What a History record is (CHIP History flow, read 21 Nov): one deeper
  * wash per kind with an ink glyph, so the list is not all green; green stays
@@ -23,10 +23,12 @@ const KIND_ICON: Record<StepKind, IconName> = {
   merged: 'Check',
 };
 
-const MARKER: Record<StepState, { tone: 'success' | 'info' | 'neutral'; icon: IconName }> = {
+const MARKER: Record<StepState, { tone: 'success' | 'info' | 'neutral' | 'error'; icon: IconName }> = {
   done: { tone: 'success', icon: 'Check' },
   current: { tone: 'info', icon: 'RefreshDouble' },
   pending: { tone: 'neutral', icon: 'Clock' },
+  /* failed (22 Nov, Figma audit): ran and did not pass; the danger Icon well with the Xmark */
+  failed: { tone: 'error', icon: 'Xmark' },
 };
 
 export interface StepProps {
@@ -44,7 +46,7 @@ export interface StepProps {
   timeUnderTitle?: boolean;
   /** Figma "Show line above". Vertical: the line into this marker; off on the first row. */
   showLineAbove?: boolean;
-  /** Figma "state". done = check in a soft success circle; current = info; pending = neutral. */
+  /** Figma "state". done = check in a soft success circle; current = info; pending = neutral; failed = it ran and did not pass (the gate failed): the danger Icon well with the Xmark, title and detail in ink, no working tint. */
   state?: StepState;
   /** Figma "layout". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */
   layout?: 'horizontal' | 'vertical';
@@ -180,12 +182,13 @@ export default function Step({
 }
 
 /** Figma "_Step number" 1510:348034 (private): done = a check, current = the
- * number in a 2px info ring, pending = the plain number. */
+ * number in a 2px info ring, pending = the plain number, failed = an Xmark
+ * on the error wash. */
 function StepNumber({ state, number }: { state: StepState; number: number }) {
   return (
     /* the <ol> already says the order; the number is drawn, not read twice */
     <span className={[styles.number, styles[`number-${state}`]].join(' ')} aria-hidden="true">
-      {state === 'done' ? <Icon name="Check" size="md" /> : number}
+      {state === 'done' ? <Icon name="Check" size="md" /> : state === 'failed' ? <Icon name="Xmark" size="md" /> : number}
     </span>
   );
 }

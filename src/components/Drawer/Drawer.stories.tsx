@@ -45,7 +45,7 @@ const GROUPS = [
   },
 ];
 
-function Harness({ startOpen = false, side, size, withFooter = false, status, tall = false }: { startOpen?: boolean; side?: 'left' | 'right'; size?: 'sm' | 'lg'; withFooter?: boolean; status?: string; tall?: boolean }) {
+function Harness({ startOpen = false, side, size, withFooter = false, status, tall = false }: { startOpen?: boolean; side?: 'left' | 'right' | 'bottom'; size?: 'sm' | 'lg'; withFooter?: boolean; status?: string; tall?: boolean }) {
   const [open, setOpen] = useState(startOpen);
   const [closes, setCloses] = useState(0);
   return (
@@ -302,6 +302,136 @@ export const FullHead: Story = {
       await userEvent.click(action);
       await expect(within(canvasElement).getByTestId('log')).toHaveTextContent('new');
       await expect(dialog).toHaveAttribute('open');
+    });
+  },
+};
+
+/* side="bottom" is the phone sheet: shown at 390, the width Figma draws it */
+const PHONE = { viewport: { value: 'mobile', isRotated: false } };
+
+/* the published sheet's content (Figma Drawer side=bottom): the NavList without its toggle or footer */
+function SheetHarness({ startOpen = false, size, withFooter = false }: { startOpen?: boolean; size?: 'sm' | 'lg'; withFooter?: boolean }) {
+  const [open, setOpen] = useState(startOpen);
+  const [closes, setCloses] = useState(0);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-12)', justifyItems: 'start' }}>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open projects
+      </Button>
+      <span data-testid="closes">{closes}</span>
+      <Drawer
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setCloses((n) => n + 1);
+        }}
+        label="Projects"
+        side="bottom"
+        size={size}
+        footer={
+          withFooter ? (
+            <>
+              <Button variant="secondary" onClick={() => setOpen(false)}>
+                Reset
+              </Button>
+              <Button variant="primary" onClick={() => setOpen(false)}>
+                Apply
+              </Button>
+            </>
+          ) : undefined
+        }
+      >
+        <NavList label="Sections" groups={GROUPS} />
+      </Drawer>
+    </div>
+  );
+}
+
+/** side="bottom", size sm (Figma, 22 Nov 2026): the phone sheet hugs its content and rises from the
+ * bottom edge, 24 corners on top, the bottom square, a 36 x 4 grab handle, in the toolbar theme. */
+export const Bottom: Story = {
+  globals: PHONE,
+  render: () => (
+    <SheetHarness startOpen />
+  ),
+};
+
+/** side="bottom", size lg: 720 tall (or the window less 48), with a footer and no divider above it. */
+export const BottomLarge: Story = {
+  globals: PHONE,
+  render: () => (
+    <SheetHarness startOpen size="lg" withFooter />
+  ),
+  play: async ({ step }) => {
+    const dialog = await waitFor(() => document.querySelector('dialog[open]') as HTMLDialogElement);
+    await step('720 tall, or the window less 48', async () => {
+      await waitFor(() => expect(Math.round(dialog.getBoundingClientRect().height)).toBe(Math.min(720, window.innerHeight - 48)));
+    });
+    await step('no divider above the footer', async () => {
+      const footer = within(dialog).getByRole('button', { name: 'Apply' }).parentElement as HTMLElement;
+      await expect(parseFloat(getComputedStyle(footer).borderTopWidth)).toBe(0);
+    });
+  },
+};
+
+/** Behavior of the sheet: the full width at the bottom edge, top corners 24 and bottom square, the handle
+ * 36 x 4 and hidden from screen readers; the same modal dialog, focus trap, Esc and Close as the side drawer. */
+export const BottomBehavior: Story = {
+  globals: PHONE,
+  render: () => (
+    <SheetHarness />
+  ),
+  play: async ({ canvas, step }) => {
+    const trigger = canvas.getByRole('button', { name: 'Open projects' });
+    const dialog = () => document.querySelector('dialog[data-bella-component="drawer"]') as HTMLDialogElement;
+
+    await step('opens as a modal dialog at the bottom edge, the full width', async () => {
+      await userEvent.click(trigger);
+      await waitFor(() => expect(dialog().open).toBe(true));
+      await expect(dialog().matches(':modal')).toBe(true);
+      await expect(dialog()).toHaveAccessibleName('Projects');
+      await waitFor(() => expect(Math.round(dialog().getBoundingClientRect().bottom)).toBe(window.innerHeight));
+      await expect(Math.round(dialog().getBoundingClientRect().width)).toBe(document.documentElement.clientWidth);
+    });
+
+    await step('24 corners on top, the bottom square', async () => {
+      const cs = getComputedStyle(dialog());
+      await expect(cs.borderTopLeftRadius).toBe('24px');
+      await expect(cs.borderTopRightRadius).toBe('24px');
+      await expect(cs.borderBottomLeftRadius).toBe('0px');
+      await expect(cs.borderBottomRightRadius).toBe('0px');
+    });
+
+    await step('the grab handle: 36 x 4, decorative', async () => {
+      const handle = dialog().firstElementChild as HTMLElement;
+      await expect(handle).toHaveAttribute('aria-hidden', 'true');
+      const r = handle.getBoundingClientRect();
+      await expect(Math.round(r.width)).toBe(36);
+      await expect(Math.round(r.height)).toBe(4);
+    });
+
+    await step('Tab stays inside; Close is a 44 target', async () => {
+      const close = within(dialog()).getByRole('button', { name: 'Close' });
+      await expect(close.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
+      for (let i = 0; i < 8; i++) {
+        await userEvent.tab();
+        await expect(dialog().contains(document.activeElement) || document.activeElement === document.body).toBe(true);
+      }
+    });
+
+    await step('Esc closes it and focus returns to the trigger', async () => {
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(dialog().open).toBe(false));
+      await waitFor(() => expect(canvas.getByTestId('closes').textContent).toBe('1'));
+      await expect(document.activeElement).toBe(trigger);
+    });
+
+    await step('the Close button closes it', async () => {
+      await userEvent.click(trigger);
+      await waitFor(() => expect(dialog().open).toBe(true));
+      await userEvent.click(within(dialog()).getByRole('button', { name: 'Close' }));
+      await waitFor(() => expect(dialog().open).toBe(false));
+      await expect(document.activeElement).toBe(trigger);
     });
   },
 };

@@ -1,0 +1,73 @@
+/* SideMenu (Figma BellaComponents "Side menu" 1709:48082, published 22 Nov
+ * 2026). Tokens only. 232 wide, full height; surface fill with a 1px right
+ * edge in border/default (inside, as Figma's inside stroke, so the column
+ * stays 232). Padding 0 12 24 12 (spacing/12 sides, spacing/24 under the
+ * foot); Switcher, Main and Foot 16 apart (spacing/16). Main: groups 16
+ * apart, rows 4 apart inside a group (spacing/4). Group labels are NavList's
+ * section label: Lexend 16 on 24, 400, content/subtle, 16 in. The Foot
+ * (Team, Settings) is pushed to the bottom. Rows are Nav items, untouched:
+ * 44 tall, current = bold ink, no fill in Chip (nav-list/current-background).
+ *
+ * 232 has no token (no new variables): three 80 steps less an 8. */
+
+.menu {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  inline-size: calc(var(--spacing-80) * 3 - var(--spacing-8));
+  block-size: 100%;
+  min-block-size: 0;
+  padding: 0 var(--spacing-12) var(--spacing-24);
+  background: var(--color-background-surface);
+  box-shadow: inset calc(-1 * var(--border-width-1)) 0 0 var(--color-border-default);
+}
+
+.nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+  overflow-y: auto;
+  /* room for the 4 + 4 outside focus ring of a row, so the scroll box never clips it */
+  margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
+  padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.groupLabel {
+  margin: 0;
+  padding: 0 var(--spacing-12) 0 var(--spacing-16);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foot {
+  margin-block-start: auto;
+}

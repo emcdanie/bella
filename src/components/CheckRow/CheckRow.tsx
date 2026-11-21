@@ -47,6 +47,18 @@ export function CheckListHeader({ title, count, legend, headingLevel = 2, classN
  * ------------------------------------------------------------------------- */
 
 export interface CheckRowProps {
+  /**
+   * Figma "layout". list (default): the List item set-up, title, what is missing, the bar and its
+   * target. weather (22 Nov, her pick "C · Weather rows"): one 56 row per check: name, one pip per 5
+   * parts with the dashed target line, and the count on the right. Weather needs `passed` and `total`.
+   */
+  layout?: 'list' | 'weather';
+  /** Weather: how many parts pass. Filled pips = round(passed / 5). */
+  passed?: number;
+  /** Weather: how many parts are checked. Pips = ceil(total / 5). */
+  total?: number;
+  /** Weather: a divider at the row's bottom. Off on the last row. Default true. */
+  showDivider?: boolean;
   /** Figma "status". pass: success bar fill and the count alone at the right end. fail: attention fill, the count with the action under it. */
   status?: 'pass' | 'fail';
   /** List item Text stack "Title": the check. */
@@ -57,9 +69,9 @@ export interface CheckRowProps {
   value: ReactNode;
   /** @deprecated The status Tag left the published Check row (21 Nov, "yes take it off"); ignored. Removing the prop is a public API change and waits for Elleta. */
   statusLabel?: ReactNode;
-  /** Progress "Fill · value", 0 to 100. */
-  fill: number;
-  /** Progress "Target · target", 0 to 100. Missing = no target mark. */
+  /** Progress "Fill · value", 0 to 100. List layout only (weather works it out from passed and total). */
+  fill?: number;
+  /** Progress "Target · target", 0 to 100. Missing = no target mark. Weather: the dashed line, and the pips' colour (at or over it: success; under: warning). */
   target?: number;
   /** The action's label (fail only): "Add stories". It sits at the row's right end, under the count. */
   actionLabel?: string;
@@ -81,7 +93,53 @@ export interface CheckRowProps {
  * Mono bold 20 ("the numbers are too small now"), with the action under it
  * on fail; Below = the Progress bar with its target.
  */
-export default function CheckRow({
+export default function CheckRow(props: CheckRowProps) {
+  return props.layout === 'weather' ? <WeatherRow {...props} /> : <ListCheckRow {...props} />;
+}
+
+/**
+ * layout=weather (Figma, 22 Nov, her pick "C · Weather rows"): name
+ * (reading face 600, a 160 column), the pips (one rounded block per 5 parts,
+ * 4 apart, 20 tall, corner 4; filled up to round(passed / 5) in success at
+ * or over the target, warning under it; the rest border/subtle), a 1.5
+ * dashed target line in border/brand at the target, 4 above and below the
+ * pips, and the count in the number face 600 at the right. 56 tall, a
+ * divider at the bottom unless `showDivider` is off. The pips are one image
+ * with a sentence for a name ("Story: 83 of 85 pass, target 90%").
+ */
+function WeatherRow({ title, value, passed = 0, total = 0, target, showDivider = true, as = 'li', className, style }: CheckRowProps) {
+  const Row = as;
+  const pips = Math.ceil(total / 5);
+  const filled = Math.min(pips, Math.round(passed / 5));
+  const share = total > 0 ? (passed / total) * 100 : 0;
+  const under = target != null && share < target;
+  const name = typeof title === 'string' ? title : 'Check';
+  const sentence = `${name}: ${passed} of ${total} pass${target != null ? `, target ${target}%` : ''}`;
+  return (
+    <Row
+      className={[styles.weather, showDivider ? styles.divider : '', className].filter(Boolean).join(' ')}
+      style={style}
+      data-bella-component="check-row"
+      data-bella-layout="weather"
+    >
+      <span className={styles.weatherName}>{title}</span>
+      <span
+        className={styles.pips}
+        role="img"
+        aria-label={sentence}
+        style={target != null ? ({ '--check-target': `${Math.min(100, Math.max(0, target))}%` } as CSSProperties) : undefined}
+      >
+        {Array.from({ length: pips }, (_, i) => (
+          <span key={i} className={[styles.pip, i < filled ? (under ? styles.pipUnder : styles.pipOn) : ''].filter(Boolean).join(' ')} />
+        ))}
+        {target != null ? <span className={styles.weatherTarget} /> : null}
+      </span>
+      <span className={styles.weatherCount}>{value}</span>
+    </Row>
+  );
+}
+
+function ListCheckRow({
   status = 'pass',
   title,
   subtitle,
@@ -122,7 +180,7 @@ export default function CheckRow({
           showTarget={target != null}
           shape="bar"
           tone={pass ? 'success' : 'attention'}
-          fill={fill}
+          fill={fill ?? 0}
           target={target ?? 0}
         />
       }

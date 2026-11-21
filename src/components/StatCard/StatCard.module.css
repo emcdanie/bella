@@ -100,9 +100,12 @@
 }
 
 /* Figma "Meter" (batch 4): 0 above, 8 below, so the number sits 8 from the bar
-   and the bar 16 from the line under it */
-.meter {
-  padding-block: 0 var(--size-8);
+   and the bar 16 from the line under it. In code the 8 below is the context
+   line's margin, so the bar's callout (Progress, 22 Nov) sits 16 under the
+   track, as Figma's Tooltip does. The chart is the Progress part, or the
+   Tooltip that wraps it when the callout is on. */
+.body > :not(.number) + .context {
+  margin-block-start: var(--spacing-8);
 }
 
 .context,
@@ -137,4 +140,13 @@
 
 .footer > :last-child:not(:first-child) {
   margin-inline-start: auto;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

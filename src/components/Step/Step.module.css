@@ -121,6 +121,11 @@
   color: var(--color-content-utility-neutral);
 }
 
+.number-failed {
+  background: var(--color-background-utility-error);
+  color: var(--color-content-utility-error);
+}
+
 /* Step day: the line runs through the day heading */
 .day {
   display: flex;
@@ -171,12 +176,15 @@
 /* Title line (22 Nov, her pick B; replaces "titles 400"): the title at 600
    with the time beside it after a dot; the line wraps, so a long title
    takes the dot and time onto the next line */
+/* the title flows as text, so the dot and time follow its last word and
+   wrap together onto the next line only when they do not fit (her B) */
 .titleRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  column-gap: var(--spacing-8);
+  display: block;
   max-inline-size: 100%;
+}
+
+.titleRow .title {
+  display: inline;
 }
 
 /* the dot and the time wrap together, never apart */
@@ -184,6 +192,7 @@
   display: inline-flex;
   align-items: baseline;
   column-gap: var(--spacing-8);
+  margin-inline-start: var(--spacing-8);
   white-space: nowrap;
 }
 
@@ -236,6 +245,12 @@
 .current .detail,
 .current .time {
   color: var(--color-content-utility-info);
+}
+
+/* failed (22 Nov, Figma audit): no working tint; the title and the detail
+   in ink, so the failure reads as plainly as the rest of the list */
+.failed .detail {
+  color: var(--color-content-default);
 }
 
 .step.selected .row {

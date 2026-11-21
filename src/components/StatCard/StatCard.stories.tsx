@@ -1,11 +1,12 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import StatCard from './StatCard';
 import Button from '../Button/Button';
 import cssRaw from './StatCard.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -50,7 +51,7 @@ const meta: Meta<typeof StatCard> = {
     value: '80',
     unit: '%',
     context: '35 of 44 have pairs · 9 to go',
-    caption: 'Target 90%',
+    caption: 'Compared today, 10:19',
     chart: 'bar',
     tone: 'success',
     icon: 'Check',
@@ -104,12 +105,12 @@ export const ChartsAndTones: Story = {
   render: () => (
     <Themed>
       {(['success', 'warning', 'info', 'danger'] as const).map((tone) => (
-        <StatCard key={`bar-${tone}`} title={`Bar · ${tone}`} value="80" unit="%" context="35 of 44 have pairs · 9 to go" caption="Target 90%" tone={tone} icon="Check" meter={{ fill: 80, target: 90 }} href="#x" />
+        <StatCard key={`bar-${tone}`} title={`Bar · ${tone}`} value="80" unit="%" context="35 of 44 have pairs · 9 to go" caption="Compared today, 10:19" tone={tone} icon="Check" meter={{ fill: 80, target: 90 }} href="#x" />
       ))}
       {(['success', 'warning', 'info', 'danger'] as const).map((tone) => (
-        <StatCard key={`seg-${tone}`} title={`Segments · ${tone}`} value="4" unit="of 5" context="4 of 5 checks pass · 1 to fix" caption="Target 5 of 5" chart="segments" tone={tone} icon="Check" meter={{ segments: 5, done: 4 }} href="#x" />
+        <StatCard key={`seg-${tone}`} title={`Segments · ${tone}`} value="4" unit="of 5" context="4 of 5 checks pass · 1 to fix" caption="Compared today, 10:19" chart="segments" tone={tone} icon="Check" meter={{ segments: 5, done: 4 }} href="#x" />
       ))}
-      <StatCard title="With action" value="0" unit="%" context="No target set yet" caption="No target" tone="info" icon="Check" meter={{ fill: 0 }} button={<Button variant="secondary" size="sm">Set target</Button>} />
+      <StatCard title="With action" value="0" unit="%" context="No target set yet" caption="Compared today, 10:19" tone="info" icon="Check" meter={{ fill: 0 }} button={<Button variant="secondary" size="sm">Set target</Button>} />
     </Themed>
   ),
 };
@@ -118,21 +119,25 @@ export const ChartsAndTones: Story = {
 export const OnePattern: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 'var(--spacing-16)', padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" tone="success" icon="ShieldCheck" meter={{ fill: 80, target: 90 }} href="#a" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="segments" tone="danger" icon="Brain" meter={{ segments: 5, done: 4 }} href="#b" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Not compared yet" chart="none" tone="info" icon="ShieldCheck" href="#c" />
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" emptyTotal="of 44" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Compared today, 10:19" tone="success" icon="ShieldCheck" meter={{ fill: 80, target: 90 }} href="#a" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Compared today, 10:19" chart="segments" tone="danger" icon="Brain" meter={{ segments: 5, done: 4 }} href="#b" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" value="4" unit="of 5" context="Parts that differ from BELLA" caption="Compared today, 10:19" chart="none" tone="info" icon="ShieldCheck" href="#c" />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
     </div>
   ),
   play: async ({ canvasElement }) => {
     const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="stat-card"]');
     const well = cards[0].querySelector('[data-bella-component="icon-well"]') as HTMLElement;
     const value = cards[0].querySelector('p span') as HTMLElement;
+    await waitFor(() => expect(value).toHaveTextContent('4'), { timeout: 3000 });
     await expect(Math.round(well.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
     await expect(Math.round(value.getBoundingClientRect().left - cards[0].getBoundingClientRect().left)).toBe(24);
     await expect(getComputedStyle(value).fontWeight).toBe('700');
     await expect(cards[2].querySelector('[role="progressbar"]')).toBeNull();
     await expect(cards[3].querySelector('[role="progressbar"]')).toHaveAttribute('aria-valuenow', '0');
+    // chart=empty: no figure before a measure (22 Nov 19:08)
+    await expect(cards[3].querySelector('[class*="number"]')).toBeNull();
+    await expect(cards[3]).toHaveTextContent('Not compared yet');
     // batch 4 (published 22 Nov): value 40 on 48, unit 20 on 28, number to bar 8, bar to line 16
     const unit = value.nextElementSibling as HTMLElement;
     await expect([getComputedStyle(value).fontSize, getComputedStyle(value).lineHeight]).toEqual(['40px', '48px']);
@@ -151,7 +156,7 @@ export const OnePattern: Story = {
 export const LongCaption: Story = {
   render: () => (
     <div style={{ padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
-      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Lowest contrast" value="0" unit="of 44" context="No pairs measured yet" caption="Runs after the next gate on main" chart="empty" tone="neutral" icon="Activity" href="#e" button={<Button variant="secondary" size="sm">Compare</Button>} />
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Lowest contrast" context="No pairs measured yet" caption="Runs after the next gate on main" chart="empty" tone="neutral" icon="Activity" href="#e" button={<Button variant="secondary" size="sm">Compare</Button>} />
     </div>
   ),
   play: async ({ canvasElement }) => {
@@ -168,7 +173,7 @@ export const LongCaption: Story = {
   },
 };
 
-/** The header row is one link with the ↗; nothing else is a target. */
+/** The header row is one link with the ↗; the bar takes focus only for its callout. */
 export const Behavior: Story = {
   play: async ({ canvas, step }) => {
     await step('header is one link, chart is a progressbar', async () => {
@@ -176,5 +181,78 @@ export const Behavior: Story = {
       expect(link).toHaveTextContent('Contrast coverage');
       expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '80');
     });
+  },
+};
+
+/** The tip of a bar's callout: the Tooltip bubble round the Progress part. */
+const tipOf = (bar: HTMLElement) => bar.closest('[data-bella-component="tooltip"]')!.querySelector<HTMLElement>('[aria-hidden="true"][id]')!;
+
+/** Chart motion and callout (22 Nov, CHIP chart language): the bar grows from the start and the number
+ * counts up from 0 over motion/duration/450; hover or focus on the bar shows BELLA's Tooltip 16 under it,
+ * pointing up ("80% · target 90%"; segments "4 of 5 · target 80%"). Assistive tech reads the final value only. */
+export const MotionAndCallout: Story = {
+  render: () => (
+    <Themed>
+      <StatCard title="Contrast coverage" value="80" unit="%" context="35 of 44 have pairs · 9 to go" caption="Compared today, 10:19" tone="success" icon="Check" meter={{ fill: 80, target: 90 }} href="#coverage" />
+      <StatCard title="Gate checks" value="4" unit="of 5" context="4 of 5 checks pass · 1 to fix" caption="Compared today, 10:19" chart="segments" tone="info" icon="Check" meter={{ segments: 5, done: 4, target: 80, valueText: '4 of 5' }} href="#gate" />
+    </Themed>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="stat-card"]');
+    const bar = cards[0].querySelector<HTMLElement>('[role="progressbar"]')!;
+    await step('final state: 80, the fill at 80%, the words read once', async () => {
+      const value = cards[0].querySelector<HTMLElement>('[class*="value"]')!;
+      await waitFor(() => expect(value.querySelector('[aria-hidden="true"]')).toHaveTextContent(/^80$/), { timeout: 3000 });
+      await expect(value.querySelector('[class*="srOnly"]')).toHaveTextContent(/^80$/);
+      await expect(bar).toHaveAttribute('aria-valuenow', '80');
+      await expect(bar).toHaveAttribute('aria-valuetext', '80%, target 90%');
+    });
+    await step('focus on the bar: the Tooltip with the value and the target, 16 under the bar', async () => {
+      bar.focus();
+      await waitFor(() => expect(tipOf(bar)).toBeVisible());
+      await waitFor(() => expect(tipOf(bar)).toHaveTextContent('80% · target 90%'));
+      const track = bar.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!.parentElement!;
+      await expect(Math.round(tipOf(bar).getBoundingClientRect().top - track.getBoundingClientRect().bottom)).toBe(16);
+      bar.blur();
+      await waitFor(() => expect(tipOf(bar)).not.toBeVisible());
+    });
+    await step('hover on the segments: "4 of 5 · target 80%"', async () => {
+      const segs = cards[1].querySelector<HTMLElement>('[role="progressbar"]')!;
+      await userEvent.hover(segs);
+      await waitFor(() => expect(tipOf(segs)).toHaveTextContent('4 of 5 · target 80%'));
+      await userEvent.unhover(segs);
+    });
+  },
+};
+
+/** No data yet (22 Nov 19:08): title, the empty bar, the context line and "Not compared yet" with its Compare action, no number. */
+export const Empty: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-16)', background: 'var(--color-background-default)' }}>
+      <StatCard style={{ inlineSize: 'calc(var(--spacing-80) * 4.125)' }} title="Drift from BELLA" context="Parts that differ from BELLA" caption="Not compared yet" chart="empty" tone="neutral" icon="Activity" href="#d" button={<Button variant="secondary" size="sm">Compare</Button>} />
+    </div>
+  ),
+  play: async ({ canvasElement, canvas }) => {
+    const card = canvasElement.querySelector<HTMLElement>('[data-bella-component="stat-card"]')!;
+    await expect(card.querySelector('[class*="number"]')).toBeNull();
+    await expect(canvas.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
+    await expect(canvas.getByText('Not compared yet')).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Compare' })).toBeVisible();
+  },
+};
+
+/** Reduced motion (matchMedia mocked to "reduce"): the number and the bar show their end state at once. */
+export const ReducedMotion: Story = {
+  beforeEach: reduceMotion,
+  render: () => (
+    <div style={{ maxInlineSize: '24rem' }}>
+      <StatCard title="Contrast coverage" value="80" unit="%" context="35 of 44 have pairs · 9 to go" caption="Compared today, 10:19" tone="success" icon="Check" meter={{ fill: 80, target: 90 }} href="#coverage" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const value = canvasElement.querySelector<HTMLElement>('[class*="value"] [aria-hidden="true"]')!;
+    await expect(value).toHaveTextContent(/^80$/);
+    const fill = canvasElement.querySelector<HTMLElement>('[data-bella-component="progress-fill"]')!;
+    await expect(getComputedStyle(fill).animationName).toBe('none');
   },
 };

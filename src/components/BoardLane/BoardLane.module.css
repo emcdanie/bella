@@ -6,13 +6,14 @@
  * Lane tints (Elleta, 21 Nov late: "A, light tints"): needs-you
  * background/utility/warning, agent utility/info, gate background/lane,
  * ready utility/success; existing tokens only.
- * Head: row, 8 apart, centred: Name (reading face 600, 18 / 24,
+ * Head: row, 8 apart, centred: Name (reading face 600, 20 on a 28 line, batch 4,
  * content/default) and the Count plate: Tag style=solid in the lane's
  * knockout tone; gate keeps Tag tone=count outline. No lane number and no
  * status dot ("less is more").
  * Order: reading face 400, 16/24, content/lane-subtle.
- * Cards: a list, 16 apart, each card fills the lane. Show empty: the Empty
- * state (size=lane) fills the lane under the head, its content centred.
+ * Cards: a list, 16 apart, each card fills the lane; the card area grows with
+ * its cards and is never shorter than one card (128, batch 4). Show empty: the
+ * Empty state (size=lane) sits in that area on the cards' edge, centred.
  * drop-target: Figma draws it the same as default; noted, not invented.
  * Drop space: dashed 2px edge, border/radius/16; target border/brand with
  * the Label (reading face 600, 16/24, content/brand) centred, 24 padding;
@@ -54,9 +55,9 @@
   margin: 0;
   min-inline-size: 0;
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-20); /* lane name 20 on a 28 line (batch 4) */
   font-weight: var(--typography-font-weight-600);
-  line-height: var(--typography-line-height-px-24);
+  line-height: var(--size-28);
   color: var(--color-content-default);
   overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
   hyphens: manual;
@@ -75,7 +76,8 @@
   /* when the page gives the lane a height, the cards scroll on their own and
      the head stays put (Elleta's board, 20 Nov) */
   flex: 1 1 auto;
-  min-block-size: 0;
+  /* Figma Cards: HUG, never shorter than one card (128 = 2 x 64) */
+  min-block-size: calc(var(--spacing-64) * 2);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -125,13 +127,14 @@
   }
 }
 
-/* Show empty: the Empty state fills the room under the head, centred */
+/* Show empty: the Empty state fills the card area under the head, on the
+   cards' edge, centred; the area is one card tall at least (Figma 128) */
 .empty {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-block-size: 0;
+  min-block-size: calc(var(--spacing-64) * 2);
 }
 
 .item {

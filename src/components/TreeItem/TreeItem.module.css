@@ -2,9 +2,9 @@
  * Every row: min-height spacing/44, gap 12, corner border/radius/md, label
  * body 16 on a 24 line. Every kind starts 16 in, one left edge with Nav
  * item (published 21 Nov, rule 20); folder and status keep 12 on the right. Current:
- * nav-list/current-background with the label 600 in nav-list/label-color.
- * Hover: nav-list/hover-background, the lighter blue; current keeps its
- * fill. Focus: the standard ring, 4 wide with a 4 gap, outside.
+ * nav-list/current-background (none in Chip, batch 4) with the label 600 in
+ * nav-list/label-color. Hover: nav-list/hover-background, the lighter blue;
+ * current keeps its own fill, none in Chip, also on hover. Focus: the standard ring, 4 wide with a 4 gap, outside.
  *
  * branch: Leader (the spine and a 12 tick, border-width/2 in
  * border/strong, 3:1 as the Step connector; the spine is the one overlay, absolute as Figma names it)
@@ -66,9 +66,14 @@
   gap: var(--spacing-8);
 }
 
+/* branch (batch 4, published 22 Nov; rule 20): a name that wraps keeps its
+   Status icon on the first line. The Row aligns to the top with 10 above and
+   below, so a one-line row is still 44 (named exception R10: 10 = (44 - 24) / 2,
+   geometry, not a spacing token). */
 .branch {
+  align-items: flex-start;
   gap: var(--spacing-8);
-  padding: var(--spacing-8) var(--spacing-12);
+  padding: calc((var(--spacing-44) - var(--typography-line-height-px-24)) / 2) var(--spacing-12);
 }
 
 .group .label {
@@ -123,7 +128,9 @@
   font-weight: var(--typography-font-weight-600);
 }
 
-/* the leader: spine down from the top, a tick at the middle */
+/* the leader: spine down from the top, the tick on the first line's centre
+   (22 from the top of the 44 row, Figma Leader top padding 21 + half the 2
+   tick), so a wrapped name keeps its tick on the first line (batch 4) */
 .leader {
   position: relative;
   flex: none;
@@ -133,20 +140,22 @@
 .leader::before {
   content: '';
   position: absolute;
-  inset-block: calc(var(--spacing-4) * -1) calc(50% - var(--border-width-2) / 2);
+  inset-block-start: calc(var(--spacing-4) * -1);
+  block-size: calc(var(--spacing-4) + var(--spacing-44) / 2 + var(--border-width-2) / 2);
   inset-inline-start: var(--tree-spine-x);
   inline-size: var(--border-width-2);
   background: var(--color-border-strong);
 }
 
 .lineBelow .leader::before {
+  block-size: auto;
   inset-block-end: 0;
 }
 
 .leader::after {
   content: '';
   position: absolute;
-  inset-block-start: 50%;
+  inset-block-start: calc(var(--spacing-44) / 2);
   inset-inline-start: var(--tree-spine-x);
   inline-size: var(--spacing-12);
   block-size: var(--border-width-2);

@@ -142,7 +142,7 @@ export const InMenuDrawer: Story = {
     const dialog = document.querySelector('dialog[data-bella-component="drawer"]') as HTMLElement;
     const heading = [...dialog.querySelectorAll('h2')].find((h) => h.textContent === 'Projects') as HTMLElement;
     await expect(heading.getBoundingClientRect().width).toBeGreaterThan(1);
-    await expect(getComputedStyle(heading).fontSize).toBe('18px');
+    await expect([getComputedStyle(heading).fontSize, getComputedStyle(heading).lineHeight]).toEqual(['20px', '28px']); // batch 4: 20 on a 28 line
     await expect(getComputedStyle(heading).paddingLeft).toBe('16px');
   },
 };

@@ -139,6 +139,17 @@ export const Empty: Story = {
       await expect(Math.abs(s.top - box.top - (box.bottom - s.bottom))).toBeLessThanOrEqual(1);
       await expect(lane.querySelector('ul')).toBeNull();
     });
+    await step('batch 4: the state sits on the cards\' edge and the lane name is 20 on 28', async () => {
+      const lane = canvasElement.querySelector('[data-bella-component="board-lane"]') as HTMLElement;
+      const state = lane.querySelector('[data-bella-component="empty-state"]') as HTMLElement;
+      const box = state.parentElement!.getBoundingClientRect();
+      const laneBox = lane.getBoundingClientRect();
+      await expect(Math.round(box.left - laneBox.left)).toBe(16);
+      await expect(Math.round(laneBox.right - box.right)).toBe(16);
+      await expect(Math.round(box.height)).toBeGreaterThanOrEqual(128);
+      const name = lane.querySelector('h2, h3') as HTMLElement;
+      await expect([getComputedStyle(name).fontSize, getComputedStyle(name).lineHeight]).toEqual(['20px', '28px']);
+    });
   },
 };
 

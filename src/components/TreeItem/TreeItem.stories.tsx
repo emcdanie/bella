@@ -100,3 +100,27 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** A branch name that wraps (batch 4, published 22 Nov; rule 20): the Status square and the tree tick stay on
+ * the first line, the spine runs down the whole row, and a one-line branch is still 44 tall. */
+export const WrappedBranch: Story = {
+  render: () => (
+    <Themed>
+      <TreeItem kind="branch" label="main" status="passed" />
+      <TreeItem kind="branch" label="chip/retire-status-pill-everywhere-in-the-shell" status="working" current />
+      <TreeItem kind="branch" label="fix-llms-txt" status="failed" lineBelow={false} />
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const rows = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="tree-item"]')).slice(0, 3);
+    const [one, wrapped] = rows;
+    await expect(Math.round(one.getBoundingClientRect().height)).toBe(44);
+    await expect(wrapped.getBoundingClientRect().height).toBeGreaterThan(44);
+    const icon = wrapped.querySelector('[data-bella-component="status-square"], svg') as Element;
+    const r = icon.getBoundingClientRect();
+    await expect(Math.abs((r.top + r.bottom) / 2 - wrapped.getBoundingClientRect().top - 22)).toBeLessThanOrEqual(1);
+    const leader = wrapped.firstElementChild as HTMLElement;
+    const tick = getComputedStyle(leader, '::after');
+    await expect(tick.top).toBe('22px');
+  },
+};

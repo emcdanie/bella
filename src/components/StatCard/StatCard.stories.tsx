@@ -133,6 +133,17 @@ export const OnePattern: Story = {
     await expect(getComputedStyle(value).fontWeight).toBe('700');
     await expect(cards[2].querySelector('[role="progressbar"]')).toBeNull();
     await expect(cards[3].querySelector('[role="progressbar"]')).toHaveAttribute('aria-valuenow', '0');
+    // batch 4 (published 22 Nov): value 40 on 48, unit 20 on 28, number to bar 8, bar to line 16
+    const unit = value.nextElementSibling as HTMLElement;
+    await expect([getComputedStyle(value).fontSize, getComputedStyle(value).lineHeight]).toEqual(['40px', '48px']);
+    await expect([getComputedStyle(unit).fontSize, getComputedStyle(unit).lineHeight]).toEqual(['20px', '28px']);
+    const number = value.parentElement as HTMLElement;
+    const bar = cards[0].querySelector('[role="progressbar"]') as HTMLElement;
+    const context = number.parentElement!.lastElementChild as HTMLElement;
+    await expect(Math.round(bar.getBoundingClientRect().top - number.getBoundingClientRect().bottom)).toBe(8);
+    // the Meter carries the 8 below its track (Figma Meter pad bottom 8), so track to line is 8 + 8
+    const track = bar.getBoundingClientRect().bottom - parseFloat(getComputedStyle(bar).paddingBottom);
+    await expect(Math.round(context.getBoundingClientRect().top - track)).toBe(16);
   },
 };
 

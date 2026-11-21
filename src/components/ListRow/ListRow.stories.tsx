@@ -156,6 +156,19 @@ export const ZonedEveryZone: Story = {
   ),
 };
 
+/** The decided rows, less is more (21 Nov visual study): a strong name, one
+ * subtle line 4 under, and one thing on the right: a value with its meta
+ * line, or the ↗ that opens it. No Tag where the row already says its state. */
+export const Quiet: Story = {
+  render: () => (
+    <Card label="Quiet rows" width={560}>
+      <ListRow layout="stacked" title="Figma check" meta="main · 10:19" value="42/44" subValue="pass" />
+      <ListRow layout="stacked" title="Tabs" description="Every check passes" value="44/44" subValue="pass" />
+      <ListRow layout="stacked" title="Opens something else" description="The whole row is the target" trailing href="#quiet" />
+    </Card>
+  ),
+};
+
 /** States: default, hover and pressed come from the target (hover a row);
  * selected is light blue; focus is the 4/4 ring (Tab into a row). */
 export const ZonedStates: Story = {

@@ -89,7 +89,6 @@ export default function SystemHealth({
   const count = useCountTo(pct);
   const lit = Math.round((count.shown / 100) * TICKS);
   const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
-  const third = lit / 3;
   const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
 
   return (
@@ -118,7 +117,7 @@ export default function SystemHealth({
               if (n === targetIndex) {
                 return <span key={i} className={styles.target} style={tickStyle(i, 83.5, 121.5, 10)} />;
               }
-              const tone = n > lit ? styles.off : n <= third ? styles.on1 : n <= third * 2 ? styles.on2 : styles.on3;
+              const tone = n > lit ? styles.off : styles.on;
               return <span key={i} className={[styles.tick, tone].join(' ')} style={tickStyle(i, 87.5, 116.5, 6)} />;
             })}
           </div>

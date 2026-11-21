@@ -34,7 +34,7 @@ type Story = StoryObj<typeof ProgressTarget>;
 export const Playground: Story = {};
 
 /** Figma Progress target 1168:72541 (22 Nov publish, her pick "B · dashed marker and label"):
- * a 1.5 dashed line in border/brand at target %, from the label down to 4 below
+ * a 1.5 dashed line in border/brand at target %, from the label down to 8 below
  * the 8 bar, and a "Target n%" Tag in the number face above the bar. Shown on every tone. */
 export const OnEveryTone: Story = {
   render: () => (
@@ -49,27 +49,33 @@ export const OnEveryTone: Story = {
     const track = target.parentElement as HTMLElement;
     const dash = target.firstElementChild as HTMLElement;
     const label = target.querySelector('[data-bella-component="tag"]') as HTMLElement;
-    await step('the dash is centred on 90% of the track and runs from the label to 4 below the bar', async () => {
+    await step('the dash is centred on 90% of the track and runs from the label to 8 below the bar', async () => {
       const d = dash.getBoundingClientRect();
       const t = track.getBoundingClientRect();
       const l = label.getBoundingClientRect();
       await expect(Math.abs(d.left + d.width / 2 - (t.left + t.width * 0.9))).toBeLessThanOrEqual(1);
       await expect(d.width).toBe(1.5);
       await expect(Math.round(d.top)).toBe(Math.round(l.bottom));
-      await expect(Math.round(d.bottom - t.bottom)).toBe(4);
+      await expect(Math.round(d.bottom - t.bottom)).toBe(8);
     });
-    await step('the label reads "Target 90%" in the number face, 8 above the bar, and ends at the line (target over 50)', async () => {
+    await step('the label reads "Target 90%" in the number face, 8 above the bar, centred on the line unless that would pass the track end', async () => {
       await expect(label.textContent).toBe('Target 90%');
       const face = getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
       const text = label.querySelector('span') as HTMLElement;
       await expect(getComputedStyle(text).fontFamily.split(',')[0].trim().replace(/['"]/g, '')).toBe(face);
       await expect(Math.round(track.getBoundingClientRect().top - label.getBoundingClientRect().bottom)).toBe(8);
-      await expect(Math.abs(label.getBoundingClientRect().right - (dash.getBoundingClientRect().left + 0.75))).toBeLessThanOrEqual(1);
+      const lb = label.getBoundingClientRect();
+      const tb = track.getBoundingClientRect();
+      const dx = dash.getBoundingClientRect().left + 0.75;
+      const centred = Math.abs(lb.left + lb.width / 2 - dx) <= 1;
+      const atEnd = Math.abs(lb.right - tb.right) <= 1;
+      await expect(centred || atEnd).toBe(true);
+      await expect(lb.right).toBeLessThanOrEqual(tb.right + 1);
     });
   },
 };
 
-/** Up to 50 the label starts at the line and runs right; above 50 it ends at the line, so it never sticks out of the bar. */
+/** The label is centred on the line; near 0 and 100 it stops at the end of the bar, so it never sticks out of it. */
 export const LabelSide: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-16)', inlineSize: 'calc(var(--spacing-80) * 4)' }}>

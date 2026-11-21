@@ -48,7 +48,7 @@ const meta: Meta<typeof TaskCard> = {
   },
   args: {
     title: 'Figma check',
-    line: 'No file key in server/.env',
+    line: 'main · 10:19',
     status: 'Failed',
     statusTone: 'danger',
     href: '#task',
@@ -70,8 +70,8 @@ export const Playground: Story = {};
 export const States: Story = {
   render: () => (
     <Lane>
-      <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" href="#a" onMoveTo={() => {}} />
-      <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" href="#b" onMoveTo={() => {}} dragging />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" href="#a" onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" href="#b" onMoveTo={() => {}} dragging />
       <TaskCard
         title="Hero at 390"
         line="Wraps under the photo"
@@ -92,7 +92,7 @@ export const FigmaSet: Story = {
     <div style={{ display: 'flex', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
       {[false, true, false, false].map((dragging, i) => (
         <div key={i} style={{ inlineSize: 'calc(var(--spacing-80) * 2 + var(--spacing-64) + var(--spacing-8))' }}>
-          <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" href={`#t${i}`} onMoveTo={() => {}} dragging={dragging} />
+          <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" href={`#t${i}`} onMoveTo={() => {}} dragging={dragging} />
         </div>
       ))}
     </div>
@@ -120,7 +120,7 @@ export const LongContent: Story = {
 export const Behavior: Story = {
   render: () => (
     <div style={{ maxInlineSize: '15rem' }}>
-      <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" href="#task" onMoveTo={() => {}} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" href="#task" onMoveTo={() => {}} />
     </div>
   ),
   play: async ({ canvas, step }) => {
@@ -154,7 +154,7 @@ function LiftDemo() {
   const [dragging, setDragging] = React.useState(false);
   return (
     <div style={{ display: 'grid', gap: 'var(--spacing-24)', justifyItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
-      <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" dragging={dragging} style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} />
+      <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" dragging={dragging} style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} />
       <Button variant="secondary" size="sm" onClick={() => setDragging((d) => !d)}>
         {dragging ? 'Drop it' : 'Pick it up'}
       </Button>
@@ -194,7 +194,7 @@ function AcceptUndoDemo() {
       {phase !== 'gone' ? (
         <TaskCard
           title="Figma check"
-          line="No file key in server/.env"
+          line="main · 10:19"
           status="Ready"
           statusTone="success"
           entering={phase === 'back'}

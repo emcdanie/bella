@@ -1,4 +1,4 @@
-import React, { type CSSProperties } from 'react';
+import React, { type CSSProperties, useLayoutEffect, useRef } from 'react';
 import Tag from '../Tag/Tag';
 import styles from './ProgressTarget.module.css';
 
@@ -30,23 +30,48 @@ export interface ProgressTargetProps {
 }
 
 /** Figma "Progress target" 1168:72541 (22 Nov publish, her pick "B · dashed
- * marker and label"): a 1.5 dashed line in border/brand at target %, from
- * the label's bottom to 4 below the bar, and a "Target n%" Tag (outline,
- * number face 600) above the bar. Up to 50 the label starts at the line and
- * runs right; above 50 it ends at the line, so it never sticks out of the
- * bar. Place it inside a position: relative track that has a 32 Target row
- * 8 above it (Progress does this with showTarget). The label is real text;
- * the bar's own name says the target too. */
+ * marker and label"; centred 22 Nov): a 1.5 dashed line in border/brand at
+ * target %, 8 above and 8 below the 8 bar so the bar sits in its middle, and
+ * a "Target n%" Tag (outline, number face 600) centred on the line above the
+ * bar. Only where centring would push the label past an end of the track does
+ * it stop at that end. Place it inside a position: relative track that has a
+ * 32 Target row 8 above it (Progress does this with showTarget). The label is
+ * real text; the bar's own name says the target too. */
 export default function ProgressTarget({ target }: ProgressTargetProps) {
   const t = pct(target);
+  const root = useRef<HTMLSpanElement>(null);
+  const label = useRef<HTMLSpanElement>(null);
+  // Centred on the line by CSS; this only pulls the label back inside the
+  // track when centring would push it past an end (Figma: targets near 0 or 100).
+  useLayoutEffect(() => {
+    const r = root.current;
+    const l = label.current;
+    if (!r || !l) return undefined;
+    const place = () => {
+      const w = r.clientWidth;
+      const lw = l.offsetWidth;
+      const centre = (t / 100) * w;
+      const left = Math.min(Math.max(centre - lw / 2, 0), Math.max(w - lw, 0));
+      // CSS already centres it at centre - lw / 2; shift only the overflow.
+      l.style.setProperty('--progress-target-shift', `${left - (centre - lw / 2)}px`);
+    };
+    place();
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const ro = new ResizeObserver(place);
+    ro.observe(r);
+    return () => ro.disconnect();
+  }, [t]);
   return (
     <span
-      className={[styles.target, t > 50 ? styles.end : styles.start].join(' ')}
-      style={{ '--progress-target': `${t}%`, '--progress-target-rest': `${100 - t}%` } as CSSProperties}
+      ref={root}
+      className={styles.target}
+      style={{ '--progress-target': `${t}%` } as CSSProperties}
       data-bella-component="progress-target"
     >
       <span className={styles.dash} aria-hidden="true" />
-      <Tag variant="outline" className={styles.label} count={`Target ${t}%`} />
+      <span ref={label} className={styles.label}>
+        <Tag variant="outline" count={`Target ${t}%`} />
+      </span>
     </span>
   );
 }

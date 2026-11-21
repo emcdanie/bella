@@ -240,7 +240,7 @@ function OpenCloseDemo() {
         {phase !== 'idle' ? (
           <BoardLaneDropSpace open={phase === 'over'} onClosed={() => setPhase('idle')} />
         ) : null}
-        <TaskCard title="Figma check" line="No file key in server/.env" status="Failed" statusTone="danger" />
+        <TaskCard title="Figma check" line="main · 10:19" status="Failed" statusTone="danger" />
       </BoardLane>
       <Button variant="secondary" size="sm" onClick={() => setPhase(phase === 'over' ? 'dropped' : 'over')}>
         {phase === 'over' ? 'Drop' : 'Drag a card over'}

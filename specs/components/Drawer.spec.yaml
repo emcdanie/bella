@@ -3,11 +3,11 @@
 name: Drawer
 lead:
   text: A panel that slides in from the left (or the right, side=right) over a scrim. A native modal dialog.
-  source: tokens/contracts.json description, up to the first colon or semicolon
+  source: tokens/component.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a native dialog, opened modal
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-drawer--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-drawer--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Drawer/Drawer.tsx
   storyTitle: Components/Drawer
 props:
@@ -38,60 +38,21 @@ props:
     required: false
     doc: 'The edge it slides from: left for navigation (default), right for a tool panel.'
     at: src/components/Drawer/Drawer.tsx:13
-  - name: size
-    type: '''sm'' | ''lg'''
-    values:
-      - sm
-      - lg
-    default: sm
-    required: false
-    doc: >-
-      Width. sm (default): 320, for navigation and filters (BellaComponents Drawer). lg: 640 from a 768 window, the full width on a phone,
-      for a session's run or the terminal (CHIP · Dashboard Flow 12, 791:264033 and 791:264846).
-    at: src/components/Drawer/Drawer.tsx:19
   - name: children
     type: ReactNode
     required: false
     doc: The drawer's content (a NavList, filters, settings).
-    at: src/components/Drawer/Drawer.tsx:21
-  - name: status
-    type: ReactNode
-    required: false
-    doc: 'Figma "Show status" + "Status": one line under the title ("Checks ran 2 min ago"). Missing = off.'
-    at: src/components/Drawer/Drawer.tsx:23
-  - name: subtitle
-    type: ReactNode
-    required: false
-    doc: 'Figma "Show subtitle" + "Subtitle": one line under the title, above the status, the same subtle 16. Missing = off.'
-    at: src/components/Drawer/Drawer.tsx:25
-  - name: action
-    type: ReactNode
-    required: false
-    doc: 'Figma "Show action" + "Action": one control in the head before Close, a tertiary Button ("New chat"). Missing = off.'
-    at: src/components/Drawer/Drawer.tsx:27
-  - name: onBack
-    type: () => void
-    required: false
-    doc: 'Figma "Show back": the tertiary icon-only Back (44) at the head''s start, for a drawer opened one level down. Missing = off.'
-    at: src/components/Drawer/Drawer.tsx:29
-  - name: backLabel
-    type: string
-    default: Back
-    required: false
-    doc: Back's name for screen readers. Default "Back".
-    at: src/components/Drawer/Drawer.tsx:31
+    at: src/components/Drawer/Drawer.tsx:15
   - name: footer
     type: ReactNode
     required: false
-    doc: >-
-      Figma "Show footer" + Footer: actions pinned under the body, above a hairline: at most one primary Button, the rest secondary. Missing
-      = off.
-    at: src/components/Drawer/Drawer.tsx:33
+    doc: 'Actions pinned under the body, above a hairline (BellaComponents, 11 Nov 2026): at most one primary Button, the rest secondary.'
+    at: src/components/Drawer/Drawer.tsx:17
   - name: className
     type: string
     required: false
     doc: Extra classes on the dialog.
-    at: src/components/Drawer/Drawer.tsx:35
+    at: src/components/Drawer/Drawer.tsx:19
 variants:
   side:
     values:
@@ -99,12 +60,6 @@ variants:
       - right
     default: left
     at: src/components/Drawer/Drawer.tsx:13
-  size:
-    values:
-      - sm
-      - lg
-    default: sm
-    at: src/components/Drawer/Drawer.tsx:19
 states:
   contract:
     - closed
@@ -113,16 +68,7 @@ states:
   css:
     - '[data-side=''right'']'
     - focus-visible
-    - '[data-closing]'
-    - '[data-bella-component=''button'']'
-    - '[data-size=''lg'']'
-sizes:
-  - value: sm
-    default: true
-    css: []
-  - value: lg
-    default: false
-    css: []
+sizes: []
 anatomy:
   scaleWidth: 320
   parts:
@@ -154,521 +100,522 @@ anatomy:
       at: bottom
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma: null
+  figma:
+    name: side=left, state=open
+    type: COMPONENT
+    size: 320x720
+    tokens:
+      - field: topRightRadius
+        variable: component/drawer/radius
+      - field: bottomRightRadius
+        variable: component/drawer/radius
+      - field: fills
+        variable: component/drawer/background
+      - field: strokes
+        variable: component/drawer/border
+      - field: effects
+        variable:
+          - component/drawer/shadow/color
+          - component/drawer/shadow/blur
+          - component/drawer/shadow/y
+    children:
+      - name: Head
+        type: FRAME
+        size: 319x85
+        tokens:
+          - field: itemSpacing
+            variable: spacing/3
+          - field: paddingLeft
+            variable: component/drawer/padding
+          - field: paddingTop
+            variable: component/drawer/padding
+          - field: paddingRight
+            variable: component/drawer/padding
+          - field: paddingBottom
+            variable: component/drawer/padding
+          - field: strokes
+            variable: component/drawer/head-border
+        children:
+          - name: Heading
+            type: FRAME
+            size: 195x29
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+            children:
+              - name: Title
+                type: TEXT
+                text: Navigation
+                size: 195x29
+                tokens:
+                  - field: fills
+                    variable: component/drawer/foreground
+                  - field: fontSize
+                    variable: component/drawer/title/font-size
+                  - field: fontFamily
+                    variable: component/drawer/title/font-family
+                  - field: fontWeight
+                    variable: component/drawer/title/font-weight
+              - name: Status
+                type: TEXT
+                hidden: true
+                text: Checks ran 2 min ago
+                size: 195x52
+                tokens:
+                  - field: fills
+                    variable: color/semantic/text-secondary
+                  - field: fontSize
+                    variable: typography/font-size/body
+                  - field: fontFamily
+                    variable: typography/font-family/body
+                  - field: fontWeight
+                    variable: typography/font-weight/regular
+          - name: Close
+            type: INSTANCE
+            instanceOf: Button
+            size: 84x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: paddingLeft
+                variable: component/button/primary/padding-x
+              - field: paddingTop
+                variable: component/button/primary/padding-y
+              - field: paddingRight
+                variable: component/button/primary/padding-x
+              - field: paddingBottom
+                variable: component/button/primary/padding-y
+              - field: visible
+                variable: component/drawer/close-text
+              - field: topLeftRadius
+                variable: component/button/shape/default
+              - field: topRightRadius
+                variable: component/button/shape/default
+              - field: bottomLeftRadius
+                variable: component/button/shape/default
+              - field: bottomRightRadius
+                variable: component/button/shape/default
+              - field: minHeight
+                variable: component/button/tertiary/min-height
+          - name: Close icon
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: visible
+                variable: component/drawer/close-icon-only
+              - field: topLeftRadius
+                variable: radius/full
+              - field: topRightRadius
+                variable: radius/full
+              - field: bottomLeftRadius
+                variable: radius/full
+              - field: bottomRightRadius
+                variable: radius/full
+              - field: minHeight
+                variable: spacing/touch-target
+              - field: fills
+                variable: component/button/secondary/background
+              - field: strokes
+                variable: component/button/secondary/border
+      - name: Body
+        type: FRAME
+        size: 319x635
+        tokens:
+          - field: paddingLeft
+            variable: component/drawer/padding
+          - field: paddingTop
+            variable: component/drawer/padding
+          - field: paddingRight
+            variable: component/drawer/padding
+          - field: paddingBottom
+            variable: component/drawer/padding
+        children:
+          - name: Body
+            type: SLOT
+            size: 279x595
+            children:
+              - name: NavList
+                type: INSTANCE
+                instanceOf: NavList
+                size: 279x442
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/2
+      - name: Footer
+        type: FRAME
+        hidden: true
+        size: 319x77
+        tokens:
+          - field: itemSpacing
+            variable: spacing/2
+          - field: paddingLeft
+            variable: spacing/6
+          - field: paddingTop
+            variable: spacing/4
+          - field: paddingRight
+            variable: spacing/6
+          - field: paddingBottom
+            variable: spacing/4
+          - field: strokes
+            variable: component/drawer/border
+        children:
+          - name: Button
+            type: INSTANCE
+            instanceOf: Button
+            size: 84x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: paddingLeft
+                variable: component/button/secondary/padding-x
+              - field: paddingTop
+                variable: component/button/secondary/padding-y
+              - field: paddingRight
+                variable: component/button/secondary/padding-x
+              - field: paddingBottom
+                variable: component/button/secondary/padding-y
+              - field: topLeftRadius
+                variable: component/button/shape/default
+              - field: topRightRadius
+                variable: component/button/shape/default
+              - field: bottomLeftRadius
+                variable: component/button/shape/default
+              - field: bottomRightRadius
+                variable: component/button/shape/default
+              - field: minHeight
+                variable: component/button/secondary/min-height
+              - field: fills
+                variable: component/button/secondary/background
+              - field: strokes
+                variable: component/button/secondary/border
+          - name: Button
+            type: INSTANCE
+            instanceOf: Button
+            size: 86x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/2
+              - field: paddingLeft
+                variable: component/button/primary/padding-x
+              - field: paddingTop
+                variable: component/button/primary/padding-y
+              - field: paddingRight
+                variable: component/button/primary/padding-x
+              - field: paddingBottom
+                variable: component/button/primary/padding-y
+              - field: topLeftRadius
+                variable: component/button/shape/default
+              - field: topRightRadius
+                variable: component/button/shape/default
+              - field: bottomLeftRadius
+                variable: component/button/shape/default
+              - field: bottomRightRadius
+                variable: component/button/shape/default
+              - field: minHeight
+                variable: component/button/primary/min-height
   code: []
 tokens:
   used:
     - part: root
       state: rest
-      property: border-inline-end
-      token: '--border-width-1'
+      property: inline-size
+      token: '--component-drawer-width'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:28
+      at: src/components/Drawer/Drawer.module.css:18
     - part: root
       state: rest
       property: border-inline-end
-      token: '--color-border-default'
+      token: '--border-width-thin'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:28
+      at: src/components/Drawer/Drawer.module.css:22
     - part: root
       state: rest
-      property: border-start-end-radius
-      token: '--border-radius-card'
+      property: border-inline-end
+      token: '--component-drawer-border'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:30
-    - part: root
-      state: rest
-      property: border-end-end-radius
-      token: '--border-radius-card'
-      selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:31
+      at: src/components/Drawer/Drawer.module.css:22
     - part: root
       state: rest
       property: background
-      token: '--color-background-surface'
+      token: '--component-drawer-background'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:32
+      at: src/components/Drawer/Drawer.module.css:23
     - part: root
       state: rest
       property: color
-      token: '--color-content-default'
+      token: '--component-drawer-foreground'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:33
+      at: src/components/Drawer/Drawer.module.css:24
     - part: root
       state: rest
       property: box-shadow
-      token: '--shadow-soft'
+      token: '--component-drawer-shadow'
       selector: .drawer
-      at: src/components/Drawer/Drawer.module.css:34
+      at: src/components/Drawer/Drawer.module.css:25
     - part: root
       state: rest
       property: transition
-      token: '--motion-duration-250'
+      token: '--component-drawer-duration'
       selector: .drawer[open]
-      at: src/components/Drawer/Drawer.module.css:41
+      at: src/components/Drawer/Drawer.module.css:32
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .drawer[open]
-      at: src/components/Drawer/Drawer.module.css:41
+      at: src/components/Drawer/Drawer.module.css:32
     - part: root
       state: '[data-side=''right'']'
       property: border-inline-start
-      token: '--border-width-1'
+      token: '--border-width-thin'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:60
+      at: src/components/Drawer/Drawer.module.css:51
     - part: root
       state: '[data-side=''right'']'
       property: border-inline-start
-      token: '--color-border-default'
+      token: '--component-drawer-border'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:60
-    - part: root
-      state: '[data-side=''right'']'
-      property: border-start-start-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:63
-    - part: root
-      state: '[data-side=''right'']'
-      property: border-end-start-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:64
+      at: src/components/Drawer/Drawer.module.css:51
     - part: root
       state: rest
       property: background
-      token: '--color-background-transparent'
+      token: '--component-drawer-scrim'
       selector: .drawer::backdrop
-      at: src/components/Drawer/Drawer.module.css:72
-    - part: root
-      state: rest
-      property: animation
-      token: '--motion-duration-250'
-      selector: .drawer[open]::backdrop
-      at: src/components/Drawer/Drawer.module.css:77
-    - part: root
-      state: rest
-      property: animation
-      token: '--motion-easing-standard'
-      selector: .drawer[open]::backdrop
-      at: src/components/Drawer/Drawer.module.css:77
-    - part: root
-      state: '[data-closing]'
-      property: animation
-      token: '--motion-duration-200'
-      selector: .drawer[data-closing]
-      at: src/components/Drawer/Drawer.module.css:83
-    - part: root
-      state: '[data-closing]'
-      property: animation
-      token: '--motion-easing-standard'
-      selector: .drawer[data-closing]
-      at: src/components/Drawer/Drawer.module.css:83
-    - part: root
-      state: '[data-closing]'
-      property: animation
-      token: '--motion-duration-200'
-      selector: .drawer[data-closing]::backdrop
-      at: src/components/Drawer/Drawer.module.css:89
-    - part: root
-      state: '[data-closing]'
-      property: animation
-      token: '--motion-easing-standard'
-      selector: .drawer[data-closing]::backdrop
-      at: src/components/Drawer/Drawer.module.css:89
+      at: src/components/Drawer/Drawer.module.css:59
     - part: head
       state: rest
       property: gap
-      token: '--spacing-12'
+      token: '--spacing-3'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:112
+      at: src/components/Drawer/Drawer.module.css:66
     - part: head
       state: rest
       property: padding
-      token: '--spacing-24'
+      token: '--component-drawer-padding'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:115
+      at: src/components/Drawer/Drawer.module.css:67
     - part: head
       state: rest
-      property: padding
-      token: '--spacing-24'
+      property: border-block-end
+      token: '--border-width-thin'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:115
-    - part: root
-      state: '[data-bella-component=''button'']'
-      property: margin-block-start
-      token: '--size-28'
-      selector: .head > [data-bella-component='button']
-      at: src/components/Drawer/Drawer.module.css:121
-    - part: root
-      state: '[data-bella-component=''button'']'
-      property: margin-block-start
-      token: '--spacing-44'
-      selector: .head > [data-bella-component='button']
-      at: src/components/Drawer/Drawer.module.css:121
-    - part: titleRow
+      at: src/components/Drawer/Drawer.module.css:68
+    - part: head
+      state: rest
+      property: border-block-end
+      token: '--component-drawer-border'
+      selector: .head
+      at: src/components/Drawer/Drawer.module.css:68
+    - part: title
+      state: rest
+      property: font-family
+      token: '--typography-font-family-body'
+      selector: .title
+      at: src/components/Drawer/Drawer.module.css:73
+    - part: title
+      state: rest
+      property: font-size
+      token: '--typography-font-size-xl'
+      selector: .title
+      at: src/components/Drawer/Drawer.module.css:74
+    - part: title
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-medium'
+      selector: .title
+      at: src/components/Drawer/Drawer.module.css:75
+    - part: title
+      state: rest
+      property: letter-spacing
+      token: '--typography-letter-spacing-title'
+      selector: .title
+      at: src/components/Drawer/Drawer.module.css:76
+    - part: title
+      state: rest
+      property: line-height
+      token: '--typography-line-height-snug'
+      selector: .title
+      at: src/components/Drawer/Drawer.module.css:77
+    - part: body
+      state: rest
+      property: padding
+      token: '--component-drawer-padding'
+      selector: .body
+      at: src/components/Drawer/Drawer.module.css:84
+    - part: footer
       state: rest
       property: gap
+      token: '--spacing-2'
+      selector: .footer
+      at: src/components/Drawer/Drawer.module.css:92
+    - part: footer
+      state: rest
+      property: padding
       token: '--spacing-4'
-      selector: .titleRow
-      at: src/components/Drawer/Drawer.module.css:133
-    - part: title
-      state: rest
-      property: font-family
-      token: '--typography-body-default-font-family'
-      selector: .title
-      at: src/components/Drawer/Drawer.module.css:139
-    - part: title
-      state: rest
-      property: font-size
-      token: '--typography-font-size-20'
-      selector: .title
-      at: src/components/Drawer/Drawer.module.css:140
-    - part: title
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-600'
-      selector: .title
-      at: src/components/Drawer/Drawer.module.css:141
-    - part: title
-      state: rest
-      property: line-height
-      token: '--size-28'
-      selector: .title
-      at: src/components/Drawer/Drawer.module.css:142
-    - part: title
-      state: rest
-      property: color
-      token: '--color-content-default'
-      selector: .title
-      at: src/components/Drawer/Drawer.module.css:143
-    - part: status
-      state: rest
-      property: font-family
-      token: '--typography-body-default-font-family'
-      selector: .status
-      at: src/components/Drawer/Drawer.module.css:148
-    - part: status
-      state: rest
-      property: font-size
-      token: '--typography-font-size-16'
-      selector: .status
-      at: src/components/Drawer/Drawer.module.css:149
-    - part: status
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-400'
-      selector: .status
-      at: src/components/Drawer/Drawer.module.css:150
-    - part: status
-      state: rest
-      property: line-height
-      token: '--typography-line-height-px-24'
-      selector: .status
-      at: src/components/Drawer/Drawer.module.css:151
-    - part: status
-      state: rest
-      property: color
-      token: '--color-content-subtle'
-      selector: .status
-      at: src/components/Drawer/Drawer.module.css:152
-    - part: body
-      state: rest
-      property: padding
-      token: '--spacing-24'
-      selector: .body
-      at: src/components/Drawer/Drawer.module.css:163
-    - part: body
-      state: rest
-      property: padding
-      token: '--spacing-8'
-      selector: .body
-      at: src/components/Drawer/Drawer.module.css:163
-    - part: body
-      state: focus-visible
-      property: outline
-      token: '--focus-ring-width'
-      selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:169
-    - part: body
-      state: focus-visible
-      property: outline
-      token: '--color-border-focus'
-      selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:169
-    - part: body
-      state: focus-visible
-      property: outline-offset
-      token: '--focus-ring-width'
-      selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:170
-    - part: body
-      state: focus-visible
-      property: outline-offset
-      token: '--focus-ring-offset'
-      selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:170
-    - part: root
-      state: '[data-size=''lg'']'
-      property: inline-size
-      token: '--spacing-80'
-      selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:182
-    - part: root
-      state: '[data-size=''lg'']'
-      property: border-start-end-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:183
-    - part: root
-      state: '[data-size=''lg'']'
-      property: border-end-end-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:184
-    - part: root
-      state: '[data-size=''lg''] [data-side=''right'']'
-      property: border-start-start-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-size='lg'][data-side='right']
-      at: src/components/Drawer/Drawer.module.css:189
-    - part: root
-      state: '[data-size=''lg''] [data-side=''right'']'
-      property: border-end-start-radius
-      token: '--border-radius-card'
-      selector: .drawer[data-size='lg'][data-side='right']
-      at: src/components/Drawer/Drawer.module.css:190
-    - part: footer
-      state: rest
-      property: gap
-      token: '--spacing-8'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:199
+      at: src/components/Drawer/Drawer.module.css:93
     - part: footer
       state: rest
       property: padding
-      token: '--spacing-24'
+      token: '--spacing-6'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:200
+      at: src/components/Drawer/Drawer.module.css:93
     - part: footer
       state: rest
       property: border-block-start
-      token: '--border-width-1'
+      token: '--border-width-thin'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:201
+      at: src/components/Drawer/Drawer.module.css:94
     - part: footer
       state: rest
       property: border-block-start
-      token: '--color-border-default'
+      token: '--component-drawer-border'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:201
+      at: src/components/Drawer/Drawer.module.css:94
   values:
-    '--border-radius-card':
-      light: null
-      chip: null
-    '--border-width-1':
-      light: null
-      chip: null
-    '--color-background-surface':
-      light: null
-      chip: null
-    '--color-background-transparent':
-      light: null
-      chip: null
-    '--color-border-default':
-      light: null
-      chip: null
-    '--color-border-focus':
-      light: null
-      chip: null
-    '--color-content-default':
-      light: null
-      chip: null
-    '--color-content-subtle':
-      light: null
-      chip: null
-    '--focus-ring-offset':
-      light: null
-      chip: null
-    '--focus-ring-width':
-      light: null
-      chip: null
-    '--motion-duration-200':
-      light: null
-      chip: null
-    '--motion-duration-250':
-      light: null
-      chip: null
+    '--border-width-thin':
+      light: 1px
+      chip: 1px
+    '--component-drawer-background':
+      light: '#ffffff'
+      chip: '#ffffff'
+    '--component-drawer-border':
+      light: '#e4e6ec'
+      chip: '#1F1C1938'
+    '--component-drawer-duration':
+      light: 250ms
+      chip: 250ms
+    '--component-drawer-foreground':
+      light: '#1d2030'
+      chip: '#1d2030'
+    '--component-drawer-padding':
+      light: 20px
+      chip: 20px
+    '--component-drawer-scrim':
+      light: '#1A172038'
+      chip: '#1D203052'
+    '--component-drawer-shadow':
+      light: 0 12px 32px rgba(28,26,46,0.12)
+      chip: 0 12px 32px rgba(28,26,46,0.12)
+    '--component-drawer-width':
+      light: min(85vw, 20rem)
+      chip: min(85vw, 20rem)
     '--motion-easing-standard':
-      light: null
-      chip: null
-    '--shadow-soft':
-      light: null
-      chip: null
-    '--size-28':
-      light: null
-      chip: null
-    '--spacing-12':
-      light: null
-      chip: null
-    '--spacing-24':
-      light: null
-      chip: null
+      light: cubic-bezier(0.4, 0, 0.2, 1)
+      chip: cubic-bezier(0.4, 0, 0.2, 1)
+    '--spacing-2':
+      light: 8px
+      chip: 8px
+    '--spacing-3':
+      light: 12px
+      chip: 12px
     '--spacing-4':
-      light: null
-      chip: null
-    '--spacing-44':
-      light: null
-      chip: null
-    '--spacing-8':
-      light: null
-      chip: null
-    '--spacing-80':
-      light: null
-      chip: null
-    '--typography-body-default-font-family':
-      light: null
-      chip: null
-    '--typography-font-size-16':
-      light: null
-      chip: null
-    '--typography-font-size-20':
-      light: null
-      chip: null
-    '--typography-font-weight-400':
-      light: null
-      chip: null
-    '--typography-font-weight-600':
-      light: null
-      chip: null
-    '--typography-line-height-px-24':
-      light: null
-      chip: null
+      light: 16px
+      chip: 16px
+    '--spacing-6':
+      light: 24px
+      chip: 24px
+    '--typography-font-family-body':
+      light: '''DM Sans'', system-ui, sans-serif'
+      chip: '''DM Sans'', system-ui, sans-serif'
+    '--typography-font-size-xl':
+      light: 22px
+      chip: 22px
+    '--typography-font-weight-medium':
+      light: '500'
+      chip: '500'
+    '--typography-letter-spacing-title':
+      light: '0'
+      chip: '0'
+    '--typography-line-height-snug':
+      light: '1.3'
+      chip: '1.3'
 motion:
   transitions:
     - selector: .drawer[open]
       state: rest
-      declaration: 'transition: transform var(--motion-duration-250) var(--motion-easing-standard)'
+      declaration: 'transition: transform var(--component-drawer-duration) var(--motion-easing-standard)'
       properties:
         - transform
       durations:
-        - token: '--motion-duration-250'
-          value: null
+        - token: '--component-drawer-duration'
+          value: 250ms
       easings:
         - token: '--motion-easing-standard'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:41
-    - selector: .drawer[open]::backdrop
-      state: rest
-      declaration: 'animation: scrimIn var(--motion-duration-250) var(--motion-easing-standard) both'
-      properties:
-        - scrimIn var(--motion-duration-250) var(--motion-easing-standard) both
-      durations:
-        - token: '--motion-duration-250'
-          value: null
-      easings:
-        - token: '--motion-easing-standard'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:77
-    - selector: .drawer[data-closing]
-      state: '[data-closing]'
-      declaration: 'animation: drawerOutLeft var(--motion-duration-200) var(--motion-easing-standard) both'
-      properties:
-        - drawerOutLeft var(--motion-duration-200) var(--motion-easing-standard) both
-      durations:
-        - token: '--motion-duration-200'
-          value: null
-      easings:
-        - token: '--motion-easing-standard'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:83
-    - selector: .drawer[data-closing]::backdrop
-      state: '[data-closing]'
-      declaration: 'animation: scrimOut var(--motion-duration-200) var(--motion-easing-standard) both'
-      properties:
-        - scrimOut var(--motion-duration-200) var(--motion-easing-standard) both
-      durations:
-        - token: '--motion-duration-200'
-          value: null
-      easings:
-        - token: '--motion-easing-standard'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:89
+          value: cubic-bezier(0.4, 0, 0.2, 1)
+      at: src/components/Drawer/Drawer.module.css:32
   reducedMotion:
-    selector: .drawer[open]::backdrop, .drawer[data-closing], .drawer[data-closing]::backdrop
-    declaration: 'animation: none'
-    at: src/components/Drawer/Drawer.module.css:211
+    selector: .drawer[open]
+    declaration: 'transition: none'
+    at: src/components/Drawer/Drawer.module.css:99
   reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/Drawer/Drawer.tsx:148
+    at: src/components/Drawer/Drawer.tsx:94
   role:
-    value: region
-    source: role attribute
-    at: src/components/Drawer/Drawer.tsx:148
+    value: null
+    source: native element
+    at: src/components/Drawer/Drawer.tsx:94
   nameSource:
     value: visible content
-    at: src/components/Drawer/Drawer.tsx:148
+    at: src/components/Drawer/Drawer.tsx:94
   keyboard:
     - key: Escape
       source: handler in the .tsx
-      at: src/components/Drawer/Drawer.tsx:120
+      at: src/components/Drawer/Drawer.tsx:74
   aria:
     - attribute: aria-labelledby
       value: titleId
-      at: src/components/Drawer/Drawer.tsx:132
-    - attribute: aria-label
-      value: '`${label'
-      at: src/components/Drawer/Drawer.tsx:162
-  focusRing:
-    - property: outline
-      value: var(--focus-ring-width) solid var(--color-border-focus)
-      tokens:
-        - token: '--focus-ring-width'
-          value: null
-        - token: '--color-border-focus'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:169
-    - property: outline-offset
-      value: calc((var(--focus-ring-width) + var(--focus-ring-offset)) * -1)
-      tokens:
-        - token: '--focus-ring-width'
-          value: null
-        - token: '--focus-ring-offset'
-          value: null
-      at: src/components/Drawer/Drawer.module.css:170
+      at: src/components/Drawer/Drawer.tsx:86
+  focusRing: []
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
-    selector: .drawer[open]::backdrop, .drawer[data-closing], .drawer[data-closing]::backdrop
-    declaration: 'animation: none'
-    at: src/components/Drawer/Drawer.module.css:211
+    selector: .drawer[open]
+    declaration: 'transition: none'
+    at: src/components/Drawer/Drawer.module.css:99
   contract: >-
     Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is
     inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that
     opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped
-    under prefers-reduced-motion. The body is a region named "<label>: content"; when it scrolls it is a tab stop with BELLA's focus ring
-    drawn inside, and the keyboard scrolls it.
+    under prefers-reduced-motion.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/Drawer/Drawer.tsx:132
-    - kind: ARIA
-      value: aria-label
-      at: src/components/Drawer/Drawer.tsx:162
+      at: src/components/Drawer/Drawer.tsx:86
 contrast:
-  pairs: []
-  derived: []
+  pairs:
+    - label: drawer text on its panel
+      foreground: '--component-drawer-foreground'
+      background: '--component-drawer-background'
+      foregroundHex: '#1d2030'
+      backgroundHex: '#ffffff'
+      ratio: 16.13
+      bar: 7
+      barName: AAA
+      pass: true
+      theme: chip
+      at: scripts/contrast-pairs.mjs:102
+  derived:
+    - foreground: '--component-drawer-foreground'
+      background: '--color-semantic-background'
+      ratio: 15.04
+      theme: chip
+    - foreground: '--component-drawer-foreground'
+      background: '--color-semantic-surface-card'
+      ratio: 16.13
+      theme: chip
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Drawer/Drawer.stories.tsx
   lines: 45-71
   import: import Drawer from '@bella/components/Drawer/Drawer';
-  importSource: the style the Button doc page uses (CHIP import path)
   code: |-
     <Button variant="secondary" onClick={() => setOpen(true)}>
       Open menu
@@ -684,13 +631,169 @@ usage:
     - 'Do not use it as a page section: it is a modal and blocks the page'
     - 'Do not open it without a visible trigger: focus has to return somewhere'
     - 'Do not dim content inside the panel: the scrim covers the page, never the drawer'
-  source: tokens/contracts.json
-figma: null
+  source: tokens/component.json
+figma:
+  nodeId: '172:622'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    label#172:39:
+      type: TEXT
+      default: Navigation
+    Show footer#434:42:
+      type: BOOLEAN
+      default: false
+    Body#790:35:
+      type: SLOT
+    status#823:977:
+      type: TEXT
+      default: Checks ran 2 min ago
+    Show status#823:984:
+      type: BOOLEAN
+      default: false
+    side:
+      type: VARIANT
+      default: left
+      values:
+        - left
+        - right
+    state:
+      type: VARIANT
+      default: open
+      values:
+        - open
+        - focus
+        - closed
+  variants:
+    - name: side=left, state=open
+      width: 320
+      height: 720
+    - name: side=left, state=focus
+      width: 320
+      height: 720
+    - name: side=left, state=closed
+      width: 320
+      height: 720
+    - name: side=right, state=open
+      width: 320
+      height: 720
+    - name: side=right, state=focus
+      width: 320
+      height: 720
+    - name: side=right, state=closed
+      width: 320
+      height: 720
+  defaultVariant: side=left, state=open
+  annotations:
+    - label: >-
+        Motion · slides from its edge over component/drawer/duration (motion/duration/normal, 250ms), motion/easing/standard, via
+        @starting-style. Reduced motion: appears in place.
+      category: '123:4'
+    - label: Dev · Native <dialog> + showModal(); ::backdrop is the scrim. Head border-bottom, body scrolls. Close is Button tertiary.
+      category: '123:0'
+    - label: A11y · Modal dialog named by its title. Page inert; Esc closes; focus returns to the trigger. Text 16.73:1.
+      category: '123:2'
+  documentationLinks:
+    - https://emcdanie.github.io/bella/?path=/docs/components-layout-drawer--docs
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
-notApplicable: []
+  - field: props.open
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/color
+    sameValueInChip: false
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/blur
+    sameValueInChip: false
+  - field: tokens.side=left, state=open.effects
+    code:
+      - '--component-drawer-width'
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-shadow'
+      - '--component-drawer-duration'
+      - '--motion-easing-standard'
+      - '--component-drawer-scrim'
+      - '--spacing-3'
+      - '--component-drawer-padding'
+      - '--typography-font-family-body'
+      - '--typography-font-size-xl'
+      - '--typography-font-weight-medium'
+      - '--typography-letter-spacing-title'
+      - '--typography-line-height-snug'
+      - '--spacing-2'
+      - '--spacing-4'
+      - '--spacing-6'
+    figma: component/drawer/shadow/y
+    sameValueInChip: false
+  - field: tokens.Head.strokes
+    code:
+      - '--border-width-thin'
+      - '--component-drawer-border'
+      - '--component-drawer-shadow'
+    figma: component/drawer/head-border
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-xl'
+    figma: component/drawer/title/font-size
+    sameValueInChip: false
+  - field: tokens.Status.fills
+    code:
+      - '--component-drawer-background'
+      - '--component-drawer-foreground'
+      - '--component-drawer-scrim'
+    figma: color/semantic/text-secondary
+    sameValueInChip: false
+  - field: tokens.Status.fontSize
+    code:
+      - '--typography-font-size-xl'
+    figma: typography/font-size/body
+    sameValueInChip: false
+notApplicable:
+  - section: Sizes
+    why: no size prop in src/components/Drawer/Drawer.tsx
 guidance:
   lead: A modal panel from the edge for navigation or filters that cannot stay on screen.
   whenToUse:

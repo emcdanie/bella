@@ -110,6 +110,16 @@ export const Behavior: Story = {
     await expect(meter).toHaveAttribute('aria-valuenow', '95');
     await expect(meter).toHaveAttribute('aria-valuetext', '95%, Healthy');
     await expect(c.getAllByRole('link')).toHaveLength(3);
+    // chart reading (22 Nov): a hidden one-line summary describes the gauge; the fails are a real list
+    const summary = canvasElement.ownerDocument.getElementById(meter.getAttribute('aria-describedby')!)!;
+    await expect(summary).toHaveTextContent('System health: 95%, Healthy, target 90%, above target, 251 of 264 pass');
+    await expect(summary.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+    await expect(c.getByRole('list').querySelectorAll(':scope > li')).toHaveLength(3);
+    // every number in tabular figures
+    for (const cls of ['number', 'passed', 'count']) {
+      const el = canvasElement.querySelector<HTMLElement>(`[class*="${cls}"]`)!;
+      await expect(getComputedStyle(el).fontVariantNumeric).toContain('tabular-nums');
+    }
   },
 };
 
@@ -163,6 +173,20 @@ export const LongName: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
+    // narrowest width: the status word clears the ticks by 8 or more, and the number clears Low and High (22 Nov)
+    const narrow = canvasElement.querySelector<HTMLElement>('[data-width="3"]')!;
+    const status = [...narrow.querySelectorAll<HTMLElement>('[class*="status"]')].find((e) => /^needs work$/i.test((e.textContent ?? '').trim()) && !/srOnly/.test(e.className))!;
+    const st = status.getBoundingClientRect();
+    let nearest = Infinity;
+    for (const t of narrow.querySelectorAll<HTMLElement>('[class*="tick"]')) {
+      const b = t.getBoundingClientRect();
+      if (b.top > st.bottom || b.bottom < st.top) continue;
+      nearest = Math.min(nearest, b.right <= st.left ? st.left - b.right : b.left >= st.right ? b.left - st.right : 0);
+    }
+    await expect(nearest).toBeGreaterThanOrEqual(8);
+    const num = narrow.querySelector<HTMLElement>('[class*="number"]')!.getBoundingClientRect();
+    const scale = narrow.querySelector<HTMLElement>('[class*="scale"]')!.getBoundingClientRect();
+    await expect(scale.top - num.bottom).toBeGreaterThanOrEqual(4);
     for (const name of canvasElement.querySelectorAll<HTMLElement>('[class*="name"]')) {
       if (!name.textContent?.startsWith('Parts')) continue;
       const lh = parseFloat(getComputedStyle(name).lineHeight);

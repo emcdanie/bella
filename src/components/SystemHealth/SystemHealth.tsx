@@ -1,4 +1,4 @@
-import React, { type CSSProperties, type ReactNode } from 'react';
+import React, { useId, type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Icon from '../Icon/Icon';
 import StatusDot from '../StatusDot/StatusDot';
@@ -35,6 +35,12 @@ export interface SystemHealthProps {
   why?: ReactNode;
   /** Figma "Failing checks": one Fail row each. */
   failing?: SystemHealthFail[];
+  /**
+   * The gauge's one-line summary (22 Nov reading), read as its description (aria-describedby),
+   * never drawn. Missing: written from the data ("System health: 95%, Healthy, target 90%, above
+   * target, 251 of 264 pass"). The failing checks are a real list, so they need no hidden table.
+   */
+  summary?: string;
   className?: string;
   style?: CSSProperties;
 }
@@ -78,9 +84,11 @@ export default function SystemHealth({
   passed,
   why,
   failing = [],
+  summary,
   className,
   style,
 }: SystemHealthProps) {
+  const summaryId = useId();
   const pct = Math.max(0, Math.min(100, value));
   /* Chart motion (22 Nov): when the gauge first shows, the ticks light one
    * after another from Low to the score while the number counts up, over
@@ -92,6 +100,17 @@ export default function SystemHealth({
   const lit = Math.round((count.shown / 100) * TICKS);
   const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
   const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
+  const t = Math.max(0, Math.min(100, target));
+  const said =
+    summary ??
+    [
+      `${typeof title === 'string' ? title : 'System health'}: ${valueText}`,
+      `target ${t}%`,
+      pct > t ? 'above target' : pct < t ? 'below target' : 'at target',
+      typeof passed === 'string' ? passed : null,
+    ]
+      .filter(Boolean)
+      .join(', ');
 
   return (
     <section className={[styles.card, className].filter(Boolean).join(' ')} style={style} data-bella-reveal="">
@@ -112,7 +131,11 @@ export default function SystemHealth({
           aria-valuenow={pct}
           aria-valuetext={valueText}
           aria-label={typeof title === 'string' ? title : 'System health'}
+          aria-describedby={summaryId}
         >
+          <span id={summaryId} className={styles.srOnly} data-bella-summary="">
+            {said}
+          </span>
           <div className={styles.arc} aria-hidden="true">
             {Array.from({ length: TICKS }, (_, i) => {
               const n = i + 1;

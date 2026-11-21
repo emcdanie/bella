@@ -137,6 +137,7 @@
   font-size: clamp(var(--typography-font-size-24), calc(40 / 283 * 100cqi), var(--typography-font-size-40));
   font-weight: var(--typography-font-weight-600);
   line-height: var(--typography-line-height-110);
+  font-variant-numeric: tabular-nums;
   color: var(--color-content-default);
 }
 
@@ -148,6 +149,23 @@
   letter-spacing: var(--typography-letter-spacing-4);
   text-transform: uppercase;
   color: var(--color-content-subtle);
+}
+
+/* Narrow arcs (the card at 3 columns, arc under 208): the inner circle is
+   smaller than the status word at 14, so the word drops its tracking and
+   takes two lines in a 64 box, and the block sits higher (74 of 174) so the
+   number stays clear of Low and High. Measured at the 192 arc: 13 clear of
+   the ticks each side, 6 above the scale row. */
+@container (max-width: 13rem) {
+  .value {
+    inset-block-start: calc(74 / 174 * 100%);
+  }
+  .status {
+    letter-spacing: 0;
+    white-space: normal;
+    text-align: center;
+    max-inline-size: var(--spacing-64);
+  }
 }
 
 .scale {
@@ -172,6 +190,7 @@
   color: var(--color-content-default);
   text-align: center;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Narrow cards: the count takes its own line under Low and High, so it never
@@ -254,6 +273,7 @@
   white-space: nowrap;
   /* "36 of 83 fail": every number in Geist Mono (her font rule; re-audit 21 Nov) */
   font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
 }
 
 
@@ -304,4 +324,14 @@
   .open {
     transition: none;
   }
+}
+
+/* the gauge's one-line summary: read as its description, never drawn */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }

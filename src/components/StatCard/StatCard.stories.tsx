@@ -188,6 +188,15 @@ export const Row: Story = {
     await expect(getComputedStyle(label).fontSize).toBe('14px');
     const number = label.nextElementSibling as HTMLElement;
     await expect(Math.round(number.getBoundingClientRect().top - label.getBoundingClientRect().bottom)).toBe(4);
+    // Figma row (22 Nov, parts-7 at 100%): the label right under the 44 header, the caption right under
+    // the context line, the card 268 tall in Figma (code 272: label and meta lines on the 4 grid)
+    const header = cards[0].firstElementChild as HTMLElement;
+    const footer = cards[0].lastElementChild as HTMLElement;
+    const ctxLine = cards[0].querySelector<HTMLElement>('[class*="context"]')!;
+    await expect(Math.round(header.getBoundingClientRect().height)).toBe(44);
+    await expect(Math.round(label.getBoundingClientRect().top - header.getBoundingClientRect().bottom)).toBe(0);
+    await expect(Math.round(footer.getBoundingClientRect().top - ctxLine.getBoundingClientRect().bottom)).toBe(0);
+    await expect(heights[0]).toBeLessThanOrEqual(272);
     await expect(cards[2].querySelector('[class*="label"]')).toBeVisible();
     await expect(cards[2].querySelector('[class*="number"]')).toBeNull();
     // context is one meta line at 14

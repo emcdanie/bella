@@ -2,7 +2,7 @@
  * Card: background/surface, card corner, the two-layer card shadow
  * (shadow-card-ink = neutral alpha 5 + 10, as Figma), padding 20 / 24.
  * One column from the 24 padding, no indent (her 21 Nov "i would preffer
- * not to have it"; named exception R20): header, body, footer, 8 apart.
+ * not to have it"; named exception R20): header, body, footer, touching.
  * Header: the 44 row; the 36 Icon well, 12, title (reading face 600), and
  * the Trailing ↗ (rule 12) when it opens.
  * The whole header is the target: light-blue hover, 4 + 4 focus ring.
@@ -16,14 +16,18 @@
  * content/subtle, the unit in caps; Context one meta line (subtext face, 14 on
  * a 20 line, content/subtle, data-bella-meta). Footer: caption left
  * (content/subtle), action right.
- * Groups (header, body, footer) sit 8 apart, as Figma draws them (21 Nov,
- * follow Figma; was 24 by guideline 10). */
+ * Groups (header, body, footer) touch, as the 22 Nov Figma rebuild draws
+ * them (follow Figma, rule 5; was 8, and 24 by guideline 10 before). */
 
 .card {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-8); /* Figma: Header, Body, Footer 8 apart */
+  /* Figma (1680:8117, measured at 100% on the 22 Nov row, parts-7): the
+     label sits right under the 44 header row and the caption right under the
+     context line, so Header, Body and Footer touch; the header's 44 row
+     already leaves 4 under its 36 icon well. Was 8 apart (20 too tall). */
+  gap: 0;
   min-inline-size: 0;
   margin: 0;
   padding-block: var(--spacing-20);

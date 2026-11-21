@@ -10,7 +10,7 @@ export interface SystemHealthFail {
   name: ReactNode;
   /** Figma Fail row "Number". How many fail. */
   count: ReactNode;
-  /** Figma Fail row "Of total". What the number counts ("of 44 parts"). */
+  /** Figma Fail row "Of total". What the number counts, ending in what it says of them ("of 44 fail"; rule 12, Figma Fail row default). */
   ofTotal: ReactNode;
   /** The row opens the failing list: a link. */
   href?: string;

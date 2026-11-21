@@ -4,7 +4,7 @@
  * stays 232). Padding 0 12 24 12 (spacing/12 sides, spacing/24 under the
  * foot); Switcher, Main and Foot 16 apart (spacing/16). Main: groups 16
  * apart, rows 4 apart inside a group (spacing/4). Group labels are NavList's
- * section label: Lexend 16 on 24, 400, content/subtle, 16 in. The Foot
+ * section label: Lexend 16 on 28 (Figma 27), 400, content/subtle, 16 in. The Foot
  * (Team, Settings) is pushed to the bottom. Rows are Nav items, untouched:
  * 44 tall, current = bold ink on the selected light blue in Chip (nav-list/current-background, 22 Nov).
  *
@@ -55,7 +55,10 @@
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-16);
   font-weight: var(--typography-font-weight-400);
-  line-height: var(--typography-line-height-150);
+  /* Figma's label frame is 27 tall (Lexend 16, auto line height); 28 is the
+     4-grid step, so the rows under each label land within 2 of Figma (22 Nov).
+     No line-height-px/28 token: size/28, as StatCard's unit. */
+  line-height: var(--size-28);
   color: var(--color-content-subtle);
 }
 

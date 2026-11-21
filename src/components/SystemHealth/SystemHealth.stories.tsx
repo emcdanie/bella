@@ -35,9 +35,9 @@ const Ground = ({ children }: { children: React.ReactNode }) => (
 );
 
 const FAILING = [
-  { name: 'Contrast', count: 9, ofTotal: 'of 44 parts', href: '#contrast' },
-  { name: 'Story', count: 2, ofTotal: 'of 44 parts', href: '#story' },
-  { name: 'A11y', count: 2, ofTotal: 'of 44 parts', href: '#a11y' },
+  { name: 'Contrast', count: 9, ofTotal: 'of 44 fail', href: '#contrast' },
+  { name: 'Story', count: 2, ofTotal: 'of 44 fail', href: '#story' },
+  { name: 'A11y', count: 2, ofTotal: 'of 44 fail', href: '#a11y' },
 ];
 
 /** As the published Figma instance: 95% healthy, the blue target tick at 90%, three failing checks. */
@@ -56,6 +56,10 @@ export const Healthy: Story = {
   play: async ({ canvasElement }) => {
     const count = canvasElement.querySelector('[class*="countNumber"]') as HTMLElement;
     await expect(faceOf(count)).toBe(numberFace(count));
+    // rule 12, a count says of what, as the Figma Fail row: "9 of 44 fail"
+    for (const c of canvasElement.querySelectorAll<HTMLElement>('[class*="count"]:not([class*="countNumber"])')) {
+      await expect(c.textContent).toMatch(/^\d+ of \d+ fail$/);
+    }
     // chart language (22 Nov 20:48): the status is a small-caps label 4 above the number
     const status = canvasElement.querySelector<HTMLElement>('[class*="status"]')!;
     const number = canvasElement.querySelector<HTMLElement>('[class*="number"]')!;
@@ -153,7 +157,7 @@ export const LongName: Story = {
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-default)' }}>
       {[3, 4, 5].map((n) => (
         <div key={n} data-width={n} style={{ inlineSize: `calc(var(--spacing-80) * ${n})` }}>
-          <SystemHealth value={72} status="Needs work" passed="190 of 264 pass" failing={[{ name: 'Parts that need work', count: 36, ofTotal: 'of 83 parts', href: '#parts' }, ...FAILING.slice(0, 1)]} />
+          <SystemHealth value={72} status="Needs work" passed="190 of 264 pass" failing={[{ name: 'Parts that need work', count: 36, ofTotal: 'of 83 fail', href: '#parts' }, ...FAILING.slice(0, 1)]} />
         </div>
       ))}
     </div>

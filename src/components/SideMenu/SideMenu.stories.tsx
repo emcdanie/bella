@@ -146,6 +146,33 @@ export const Behavior: Story = {
       }
     });
 
+    await step('labels as Figma: 400 on every row, 600 on the current one', async () => {
+      for (const el of Array.from(menu.querySelectorAll<HTMLElement>('[data-bella-component="nav-item"]'))) {
+        const want = el.getAttribute('aria-current') === 'page' ? '600' : '400';
+        await expect(getComputedStyle(el).fontWeight).toBe(want);
+      }
+    });
+
+    await step('spacing as Figma (1709:48082): 16 between switcher, groups and foot; 4 inside a group; labels 28 (Figma 27)', async () => {
+      const top = (el: Element) => el.getBoundingClientRect().top - menu.getBoundingClientRect().top;
+      const bottom = (el: Element) => el.getBoundingClientRect().bottom - menu.getBoundingClientRect().top;
+      const link = (name: RegExp | string) => c.getByRole(name === 'Search' ? 'button' : 'link', { name });
+      const switcher = menu.firstElementChild as HTMLElement;
+      await expect(Math.round(top(c.getByRole('button', { name: 'Search' })) - bottom(switcher))).toBe(16);
+      await expect(Math.round(top(link('Home')) - bottom(c.getByRole('button', { name: 'Search' })))).toBe(4);
+      const pinned = c.getByText('Pinned');
+      const projects = c.getByText('Projects');
+      await expect(Math.round(pinned.getBoundingClientRect().height)).toBe(28);
+      await expect(Math.round(top(pinned) - bottom(link('Not again')))).toBe(16);
+      await expect(Math.round(top(link('Components')) - bottom(pinned))).toBe(4);
+      await expect(Math.round(top(projects) - bottom(link('System map')))).toBe(16);
+      // Figma rows (from the menu top): Components 319, CHIP 458, Team 724; within 2
+      await expect(Math.abs(top(link('Components')) - 319)).toBeLessThanOrEqual(2);
+      await expect(Math.abs(top(link('CHIP')) - 458)).toBeLessThanOrEqual(2);
+      await expect(Math.abs(top(link('Team')) - 724)).toBeLessThanOrEqual(2);
+      await expect(Math.round(top(link('Settings')) - bottom(link('Team')))).toBe(4);
+    });
+
     await step('group labels are 16, never smaller', async () => {
       const lbl = c.getByText('Pinned');
       await expect(getComputedStyle(lbl).fontSize).toBe('16px');

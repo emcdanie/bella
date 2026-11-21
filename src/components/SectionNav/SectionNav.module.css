@@ -1,6 +1,9 @@
 /* SectionNav (7 Nov 2026, the documentation-site top bar). Tokens only.
- * The current section is the ink text, medium weight and the indicator line;
- * the others are secondary text that turns ink on hover. */
+ * The current section (Figma SectionNav item 749:945902, current=true; batch 4,
+ * published 22 Nov): nav-list/current-background with the label 600 in
+ * nav-list/label-color, the one "you are here" of Nav item and Tree item. In
+ * Chip the fill is none, so it is bold ink only. The others are secondary text
+ * that turns ink on hover. */
 
 .nav {
   min-width: 0;
@@ -34,18 +37,9 @@
 }
 
 .item[aria-current='page'] {
-  color: var(--color-content-default);
+  background: var(--nav-list-current-background);
+  color: var(--nav-list-label-color);
   font-weight: var(--typography-font-weight-600);
-}
-
-.item[aria-current='page']::after {
-  content: '';
-  position: absolute;
-  left: var(--spacing-12);
-  right: var(--spacing-12);
-  bottom: 0;
-  height: var(--border-width-2);
-  background: var(--color-content-default);
 }
 
 .item:focus-visible {

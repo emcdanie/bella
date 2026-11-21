@@ -424,6 +424,6 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--button-color-border-default` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#b1b7c7` |
 | `--button-color-border-disabled` | → `color.border.strong` `#686d7d` | → `color.border.strong` `#858b9f` | → `color.border.strong` `#686d7d` | → `color.border.default` `#474c5e` |
 | `--button-color-content-active` | → `color.content.brand` `#1d2030` | → `color.content.brand` `#eceef3` | → `color.content.default` `#1d2030` | → `color.content.default` `#eceef3` |
-| `--nav-list-current-background` | → `color.background.brand` `#1d2030` | → `color.background.brand` `#eceef3` | → `color.background.brand-subtle-hover` `#c8e5f7` | → `color.background.brand-subtle-hover` `#6495c54d` |
+| `--nav-list-current-background` | → `color.background.brand` `#1d2030` | → `color.background.brand` `#eceef3` | → `color.background.transparent-none` `#1d203000` | → `color.background.transparent-none` `#1d203000` |
 | `--nav-list-label-color` | → `color.content.brand-knockout` `#eceef3` | → `color.content.brand-knockout` `#1d2030` | → `color.content.default` `#1d2030` | → `color.content.default` `#eceef3` |
 | `--nav-list-hover-background` | → `color.background.subtle` `#eceef3` | → `color.background.subtle` `#000000` | → `color.background.brand-subtle` `#eaf5fc` | → `color.background.brand-subtle` `#6495c526` |

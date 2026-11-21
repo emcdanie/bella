@@ -1,7 +1,7 @@
 /* PageOutline (7 Nov 2026, the documentation-site "On this page"). Tokens only.
  * At rest a 44px marker of lines, one per section, the current one ink and
  * wider; open, a list on the card with the current section marked by weight
- * and a wash, never by colour alone. */
+ * (600, plus the nav-list current plate in BELLA; none in Chip), never by colour alone. */
 
 .outline {
   position: relative;
@@ -107,10 +107,12 @@
   padding-left: var(--spacing-24);
 }
 
+/* current (Figma PageOutline link 749:1061256, batch 4): the shared
+   nav-list current fill (none in Chip) with the label 600 in nav-list/label-color */
 .link[aria-current='location'] {
-  color: var(--color-content-default);
+  color: var(--nav-list-label-color);
   font-weight: var(--typography-font-weight-600);
-  background: var(--color-border-subtle);
+  background: var(--nav-list-current-background);
 }
 
 .srOnly {

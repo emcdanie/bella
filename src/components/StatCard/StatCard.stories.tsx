@@ -327,3 +327,16 @@ export const ReducedMotion: Story = {
     await expect(Math.round((fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)).toBe(80);
   },
 };
+
+/** Own unit (22 Nov): a contrast ratio against its 7:1 target, not a percent. */
+export const OwnUnitTarget: Story = {
+  render: () => (
+    <div style={{ inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+      <StatCard icon="Activity" title="Lowest contrast" label="Lowest pair" value="7.06" unit=":1" chart="bar" tone="success" meter={{ fill: 70, target: 70, targetText: '7:1', valueText: '7.06:1' }} caption="429 checks · target 7:1" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelector('[data-bella-component="progress-target"] [data-bella-component="tag"]')!.textContent).toBe('Target 7:1');
+    await expect(canvasElement.textContent).not.toMatch(/Target 70%/);
+  },
+};

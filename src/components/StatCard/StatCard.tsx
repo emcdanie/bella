@@ -18,6 +18,8 @@ export interface StatCardMeter {
   fill?: number;
   /** Bar: Progress "Target · target", 0 to 100. Drawn when set. */
   target?: number;
+  /** Bar: the target in its own unit, e.g. "7:1" or "5 of 5". Default is the target as a percent. Drawn on the label ("Target 7:1") and spoken ("..., target 7:1"). */
+  targetText?: string;
   /** Segments: how many. */
   segments?: number;
   /** Segments: how many are done. */
@@ -134,8 +136,9 @@ export default function StatCard({
   const said = meter?.valueText ?? (plain(value) && unit === '%' ? `${value}%` : [value, unit].filter(plain).join(' '));
   /* the meter is spoken with its target ("95%, target 90%"), Figma description; the callout says
      the same with a dot ("95% · target 90%") */
-  const words = chart === 'bar' && meter?.target != null && said ? `${said}, target ${meter.target}%` : said;
-  const calloutText = meter?.target != null && said ? `${said} · target ${meter.target}%` : said;
+  const targetWord = meter?.targetText ?? (meter?.target != null ? `${meter.target}%` : undefined);
+  const words = chart === 'bar' && meter?.target != null && said ? `${said}, target ${targetWord}` : said;
+  const calloutText = meter?.target != null && said ? `${said} · target ${targetWord}` : said;
 
   return (
     <section
@@ -185,6 +188,7 @@ export default function StatCard({
             tone={PROGRESS_TONE[tone]}
             fill={meter.fill}
             target={meter.target}
+            targetLabel={meter.targetText != null ? `Target ${meter.targetText}` : undefined}
             showTarget={chart === 'bar' && meter.target != null}
             segments={meter.segments}
             done={meter.done}

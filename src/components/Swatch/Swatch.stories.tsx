@@ -60,12 +60,15 @@ export const Narrow: Story = {
 export const ChipCard: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)', alignItems: 'start' }}>
+      <Swatch style={{ inlineSize: 'calc(var(--spacing-40) * 5)' }} color="var(--color-neutral-900)" name="neutral/900" hex="#1D2030" ratio="AAA 16.1" />
       <Swatch style={{ inlineSize: 'calc(var(--spacing-40) * 5)' }} color="var(--color-neutral-100)" name="neutral/100" hex="#ECEEF3" pair={false} />
-      <Swatch style={{ inlineSize: 'calc(var(--spacing-40) * 5)' }} color="var(--color-neutral-900)" name="neutral/900" hex="#1D2030" ratio="AAA 16.1" size="lg" onCopy={() => {}} />
+      <Swatch color="var(--color-neutral-900)" name="neutral/900" hex="#1D2030" ratio="AAA 16.1" size="lg" onCopy={() => {}} />
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const [sm, lg] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="swatch"]'));
+    const all = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="swatch"]'));
+    const [sm, lg] = [all[0], all[all.length - 1]];
+    await expect(Math.round(lg.getBoundingClientRect().width)).toBe(264);
     const block = (el: HTMLElement) => el.querySelector<HTMLElement>('[class*="colour"]')!;
     await expect(Math.round(block(sm).getBoundingClientRect().height)).toBe(64);
     await expect(Math.round(block(lg).getBoundingClientRect().height)).toBe(96);

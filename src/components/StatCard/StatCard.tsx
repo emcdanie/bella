@@ -96,7 +96,7 @@ export default function StatCard({
   const headInner = (
     <>
       {/* Figma Header (21 Nov): the 36 Icon well, 12, the title, the ↗ */}
-      <IconWell icon={icon} tone={WELL_TONE[tone]} />
+      <IconWell icon={icon} tone={WELL_TONE[tone]} className={WELL_TONE[tone] === 'neutral' ? styles.neutralGlyph : undefined} />
       <span className={styles.title}>{title}</span>
       {opens ? <Trailing /> : null}
     </>

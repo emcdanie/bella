@@ -59,6 +59,8 @@ export type { InputProps } from './Input/Input';
 
 export { default as Kbd } from './Kbd/Kbd';
 export type { KbdProps } from './Kbd/Kbd';
+export { default as Marker } from './Marker/Marker';
+export type { MarkerProps } from './Marker/Marker';
 
 export { default as Link } from './Link/Link';
 export type { LinkProps } from './Link/Link';

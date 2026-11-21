@@ -9,7 +9,8 @@
  * above and below, 4 apart; time 12 from the top.
  * current: background/utility/info with a 1px inside edge border/utility/info,
  * detail and time in content/utility/info. selected (vertical): background/
- * brand-subtle-hover, no edge, ink text (content/default), title 600. Interactive rows: one light-blue
+ * brand-subtle-hover, no edge, ink text (content/default). Title 400 in every
+ * state (22 Nov, "Bold is for keywords only"). Interactive rows: one light-blue
  * hover (background/brand-subtle) and the 4 + 4 focus ring on the 12 corner.
  * The inside edge is an inset shadow, so it adds no size (Figma INSIDE). */
 
@@ -167,9 +168,11 @@
   max-inline-size: 100%;
 }
 
+/* Title 400 (22 Nov, "Bold is for keywords only"): never a bold whole
+   title; a keyword inside it carries the Marker */
 .title {
   font-family: var(--typography-body-default-font-family);
-  font-weight: var(--typography-font-weight-600);
+  font-weight: var(--typography-font-weight-400);
   color: var(--color-content-default);
 }
 
@@ -185,8 +188,12 @@
   font-family: var(--typography-body-default-font-family);
 }
 
+/* Meta (22 Nov, "Meta lines at 14, reading text stays 16: B"): Geist Mono
+   14 on a 20 line (no line-height-px/20 token; size-20 carries it) */
 .time {
   font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
 }
 
 .time {
@@ -254,15 +261,27 @@
   outline-offset: var(--focus-ring-offset);
 }
 
-/* Her phone-fit pick, 20 Nov ("B · Row reflows"): below 768 the time moves
-   under the title, so the title gets the row's width. One of the two copies
-   shows at a time; the hidden one is display: none, so it is read once. */
-.timeUnder { display: none; }
+/* Narrow (22 Nov, "nothing squished"; replaces the 20 Nov 768 media
+   query): when the title column would drop under 200, the time moves to
+   its own line under the title. The Step is its own container, so this
+   follows the Step's width, not the window's. 332 = 200 title column + 12
+   + 36 marker + 12 + 12 + 48 time zone + 12 (named exception: a container
+   query cannot read a token). One of the two copies shows at a time; the
+   hidden one is display: none, so it is read once. */
+.vertical {
+  container-type: inline-size;
+}
 
-@media (max-width: 767px) {
+.timeUnder { display: none; }
+.timeUnder.time { padding-block-start: 0; }
+
+@container (max-width: 331.98px) {
   .timeSide { display: none; }
   .timeUnder { display: block; }
 }
+
+.timeUnderTitle .timeSide { display: none; }
+.timeUnderTitle .timeUnder { display: block; }
 
 /* Kind markers (CHIP History flow, read 21 Nov): the Icon well's fill is the
    kind's strong wash and the glyph is ink, as Figma overrides it (grey and

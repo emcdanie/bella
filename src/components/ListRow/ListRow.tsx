@@ -263,7 +263,7 @@ function ZonedRow({
                 </span>
               ) : null}
               {valueLabel != null ? <span className={styles.valueLabel}>{valueLabel}</span> : null}
-              {subValue != null ? <span className={styles.subValue}>{subValue}</span> : null}
+              {subValue != null ? <span className={styles.subValue} data-bella-meta>{subValue}</span> : null}
               {right != null ? <div className={[styles.lift, styles.actionLine].join(' ')}>{right}</div> : null}
               {rightTag != null ? <div className={styles.lift}>{rightTag}</div> : null}
               {switchSlot != null ? <div className={styles.lift}>{switchSlot}</div> : null}

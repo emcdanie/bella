@@ -174,3 +174,53 @@ export const HistoryKinds: Story = {
     </ol>
   ),
 };
+
+/** Narrow (22 Nov, "nothing squished"): the time moves under the title by
+ * itself when the title column would drop under 200 (a container query on
+ * the Step, not the window). timeUnderTitle forces it at any width. Time is
+ * a meta line: Geist Mono 14 on a 20 line. Titles are 400. */
+export const TimeUnderTitle: Story = {
+  render: () => (
+    <Themed>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+        <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 6)' }} data-testid="wide">
+          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" showConnector={false} />
+        </ol>
+        <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 3.5)' }} data-testid="narrow">
+          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" showConnector={false} />
+        </ol>
+        <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 6)' }} data-testid="forced">
+          <Step state="current" timeUnderTitle title="The gate" detail="Working now." time="10:04" showConnector={false} />
+        </ol>
+      </div>
+    </Themed>
+  ),
+  play: async ({ canvas, step }) => {
+    const shown = (list: HTMLElement) =>
+      Array.from(list.querySelectorAll<HTMLElement>('[data-bella-meta]')).filter((n) => getComputedStyle(n).display !== 'none');
+    await step('wide: the time sits in its right column', async () => {
+      const [t] = shown(canvas.getByTestId('wide'));
+      const title = canvas.getByTestId('wide').querySelector('li')!.textContent!;
+      await expect(title).toContain('Pairs added');
+      const titleBox = canvas.getAllByText('Pairs added')[0].getBoundingClientRect();
+      await expect(t.getBoundingClientRect().left).toBeGreaterThan(titleBox.right);
+    });
+    await step('narrow (title column under 200): the time is under the title, once', async () => {
+      const times = shown(canvas.getByTestId('narrow'));
+      await expect(times).toHaveLength(1);
+      const titleBox = canvas.getAllByText('Pairs added')[1].getBoundingClientRect();
+      await expect(times[0].getBoundingClientRect().top).toBeGreaterThanOrEqual(titleBox.bottom - 1);
+    });
+    await step('forced: under the title at any width', async () => {
+      const times = shown(canvas.getByTestId('forced'));
+      await expect(times).toHaveLength(1);
+      await expect(times[0].getBoundingClientRect().top).toBeGreaterThanOrEqual(canvas.getByText('The gate').getBoundingClientRect().bottom - 1);
+    });
+    await step('meta line 14 on 20 in the subtext face; title 400', async () => {
+      const t = shown(canvas.getByTestId('wide'))[0];
+      await expect(getComputedStyle(t).fontSize).toBe('14px');
+      await expect(getComputedStyle(t).lineHeight).toBe('20px');
+      await expect(getComputedStyle(canvas.getByText('The gate')).fontWeight).toBe('400');
+    });
+  },
+};

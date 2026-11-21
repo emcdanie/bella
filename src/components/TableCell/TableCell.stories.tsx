@@ -58,12 +58,13 @@ export const RolesTable: Story = {
     </div>
   ),
   play: async ({ canvasElement, step }) => {
-    await step('swatch chip: a 20 square, one colour, no fill of its own (21 Nov publish)', async () => {
+    await step('swatch chip: a plain 20 square of one colour, corner 4, no edge (22 Nov publish)', async () => {
       const chip = canvasElement.querySelector('td [aria-hidden="true"]') as HTMLElement;
       const r = chip.getBoundingClientRect();
       await expect([Math.round(r.width), Math.round(r.height)]).toEqual([20, 20]);
       await expect(getComputedStyle(chip).backgroundColor).toBe('rgba(0, 0, 0, 0)');
-      await expect(parseFloat(getComputedStyle(chip).borderTopWidth)).toBe(1);
+      await expect(parseFloat(getComputedStyle(chip).borderTopWidth)).toBe(0);
+      await expect(getComputedStyle(chip).borderTopLeftRadius).toBe('4px');
     });
   }
 };

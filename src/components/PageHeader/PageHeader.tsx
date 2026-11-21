@@ -57,7 +57,7 @@ export default function PageHeader({
       data-bella-component="page-header"
       data-size={size}
     >
-      {meta != null ? <p className={styles.meta}>{meta}</p> : null}
+      {meta != null ? <p className={styles.meta} data-bella-meta>{meta}</p> : null}
       <div className={styles.row}>
         <div className={styles.titleColumn}>
           <div className={styles.titleGroup}>

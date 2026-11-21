@@ -1,4 +1,5 @@
 import React, { type CSSProperties } from 'react';
+import Tag from '../Tag/Tag';
 import styles from './ProgressTarget.module.css';
 
 const pct = (n: number) => Math.min(100, Math.max(0, n));
@@ -28,19 +29,24 @@ export interface ProgressTargetProps {
   target: number;
 }
 
-/** Figma "Progress target" 1168:72541 (21 Nov publish): the named overlay
- * over the track (absolute, as code positions it), the bar's own height
- * (8), holding the Target mark centred on target %. Place it inside a
- * position: relative track. */
+/** Figma "Progress target" 1168:72541 (22 Nov publish, her pick "B · dashed
+ * marker and label"): a 1.5 dashed line in border/brand at target %, from
+ * the label's bottom to 4 below the bar, and a "Target n%" Tag (outline,
+ * number face 600) above the bar. Up to 50 the label starts at the line and
+ * runs right; above 50 it ends at the line, so it never sticks out of the
+ * bar. Place it inside a position: relative track that has a 32 Target row
+ * 8 above it (Progress does this with showTarget). The label is real text;
+ * the bar's own name says the target too. */
 export default function ProgressTarget({ target }: ProgressTargetProps) {
+  const t = pct(target);
   return (
     <span
-      className={styles.target}
-      style={{ '--progress-target': `${pct(target)}%` } as CSSProperties}
+      className={[styles.target, t > 50 ? styles.end : styles.start].join(' ')}
+      style={{ '--progress-target': `${t}%`, '--progress-target-rest': `${100 - t}%` } as CSSProperties}
       data-bella-component="progress-target"
     >
-      <TargetMark className={styles.targetPlaced} />
+      <span className={styles.dash} aria-hidden="true" />
+      <Tag variant="outline" className={styles.label} count={`Target ${t}%`} />
     </span>
   );
 }
-

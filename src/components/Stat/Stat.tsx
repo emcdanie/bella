@@ -22,13 +22,14 @@ export interface StatProps {
   measure?: number;
   /** What the bar says, spoken in place of the drawing. Defaults to "<label>: <n>%". */
   measureLabel?: string;
-  /** False when there is no real figure yet: the value reads "Not measured" and no sparkline or bar is drawn. Never invent a figure. Default true. */
+  /** False when there is no real figure yet: only the label and "Not measured" show; no bar, sparkline or change line. Never invent a figure. Default true. */
   measured?: boolean;
   /** Extra classes on the root. */
   className?: string;
 }
 
-const ARROW = { up: '▲', down: '▼' } as const;
+/* Figma Delta row (22 Nov): a thin arrow in the meta face, 8 from the words */
+const ARROW = { up: '↑', down: '↓' } as const;
 // the drawing's own grid; CSS sizes it from the trend tokens, proportions kept
 const W = 80;
 const H = 24;
@@ -122,8 +123,9 @@ export default function Stat({
           </span>
         </dd>
       ) : null}
-      {delta || spark ? (
-        <dd className={styles.delta}>
+      {/* measured=false draws nothing with a number: no change line (Figma, 22 Nov) */}
+      {measured && (delta || spark) ? (
+        <dd className={styles.delta} data-bella-meta>
           {spark ? (
             <Sparkline
               series={spark}
@@ -132,7 +134,7 @@ export default function Stat({
           ) : null}
           {delta && trend && measured ? (
             <>
-              <span aria-hidden="true">{ARROW[trend]} </span>
+              <span className={styles.arrow} aria-hidden="true">{ARROW[trend]}</span>
               <span className={styles.srOnly}>{SPOKEN[trend]} </span>
             </>
           ) : null}

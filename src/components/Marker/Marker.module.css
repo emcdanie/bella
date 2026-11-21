@@ -1,0 +1,31 @@
+/* Marker (Figma BellaComponents 1600:45992, 22 Nov 2026 publish). Tokens only.
+ * Phrase: inherits the face, size and ink of its line; weight 600
+ * (typography/font-weight/600). Underline: the lower 10 of the 24 line, 2
+ * above its bottom, color/background/wash/blue-strong (brand/blue/200 in
+ * Chip light, brand/blue/alpha/22 in Chip dark). Drawn as a background band
+ * (the Figma description's code: an inline <mark>, box-decoration-break:
+ * clone), so it wraps across lines. An inline background paints the font's
+ * content box, not the line box: Lexend's content box at 16 is 20 tall,
+ * centred on the 24 line (2 above, 2 below), so the band is its lower half,
+ * which lands at 12 to 22 of the line, 2 above the bottom.
+ * Exceptions (named in Figma): the 10 height and 2 offset have no size
+ * tokens; the band's 2 corner is not drawn, a background band has none. */
+
+.marker {
+  font-weight: var(--typography-font-weight-600);
+  color: inherit;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    var(--color-background-wash-blue-strong) 50%
+  );
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@media (forced-colors: active) {
+  .marker {
+    background: Mark;
+    color: MarkText;
+  }
+}

@@ -124,7 +124,7 @@ export default function TaskCard({
       <div className={styles.head}>
         <div className={styles.text}>
           <h3 className={styles.title}>{titleInner}</h3>
-          {line != null ? <p className={styles.line}>{pathBreaks(line)}</p> : null}
+          {line != null ? <p className={styles.line} data-bella-meta>{pathBreaks(line)}</p> : null}
           {branch != null ? (
             <Tag variant="outline" tone="count" className={styles.branch}>
               <span className={styles.branchText} title={typeof branch === 'string' ? branch : undefined}>

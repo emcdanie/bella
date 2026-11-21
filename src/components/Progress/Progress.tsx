@@ -64,7 +64,7 @@ export interface ProgressProps {
   value?: ReactNode;
   /** Figma "Show label". Off hides the Head (label and value) visually. */
   showLabel?: boolean;
-  /** Figma "Show target". Bar only: draws the Target mark at `target`. */
+  /** Figma "Show target". Bar only: a 32 row above the track with a "Target n%" label and a dashed line at `target`. */
   showTarget?: boolean;
   /** Figma "shape". */
   shape?: 'bar' | 'segments' | 'ring';
@@ -171,6 +171,10 @@ export default function Progress({
           ))}
         </div>
       ) : (
+        <>
+        {/* Show target (22 Nov, her pick B): a 32 Target row between Head and
+            Track, 8 apart, that the target's label sits in */}
+        {showTarget ? <div className={styles.targetRow} aria-hidden="true" /> : null}
         <div className={styles.track} aria-hidden="true">
           <ProgressFill value={now} tone={tone} />
           {band ? (
@@ -183,6 +187,7 @@ export default function Progress({
           ) : null}
           {showTarget ? <ProgressTarget target={target} /> : null}
         </div>
+        </>
       )}
     </div>
   );

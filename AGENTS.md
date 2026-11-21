@@ -36,6 +36,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Doc-page anatomy: outline and name on a piece; numbered part list; a measured size | `AnatomyHighlight`, `PartRow`, `SizeTag` |
 | Show / hide content | `Disclosure`, `Drawer` |
 | Labels and status | `Tag`, `StatusPill`, `Kbd`, `Avatar` |
+| The key phrase in a line (bold plus blue underline) | `Marker` |
 | Group of people (overlapping discs) | `AvatarStack` |
 | Chat message bubble | `ChatBubble` |
 | Chat message list | `ChatThread` |
@@ -84,7 +85,7 @@ Props, variants and examples: each component's `.tsx` types and Storybook storie
 
 ## Floors (always)
 
-Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body text 16", "1, yes") · nothing < 16px · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
+Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body text 16", "1, yes") · nothing < 16px except meta lines at 14 (`typography.font-size.14`, Geist Mono on a 20 line, marked `data-bella-meta`; Elleta, 22 Nov: "Meta lines at 14, reading text stays 16: B") · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
 
 ## Rules with examples
 
@@ -106,7 +107,7 @@ Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body
 **type.floor** — no font size below `typography.label.default-font-size`.
 - BAD: `.meta { font-size: 13px; }`
 - GOOD: `.meta { font-size: var(--typography-label-default-font-size); }`
-- WHY: `typography.label.default-font-size` is the floor (16px, "Never go smaller"); no token exists under it.
+- WHY: `typography.label.default-font-size` is the floor (16px, "Never go smaller"). The one exception is a meta line (14, `data-bella-meta`), never reading text.
 
 **colour.ochre-is-a-fill** — ochre is the Needs you fill with ink text, never text, a line or selection.
 - BAD: `.due { color: var(--color-brand-ochre-300); }` · `.row[aria-selected] { background: var(--color-brand-ochre-300); }`

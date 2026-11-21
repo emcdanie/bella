@@ -269,3 +269,56 @@ export const SwatchColumn: Story = {
     });
   },
 };
+
+/** Scroll edge (Figma 22 Nov, "Edge left" / "Edge right"): a table wider than
+ * its frame shows a 24 fade on the side that has more to scroll: right at the
+ * start, both in the middle, left at the end. One that fits shows none. */
+export const ScrollEdge: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)' }}>
+      <div style={{ maxWidth: 'calc(var(--spacing-80) * 4)' }} data-testid="narrow">
+        <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Scrolls sideways" />
+      </div>
+      <div style={{ maxWidth: 640 }} data-testid="fits">
+        <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Fits" />
+      </div>
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    const edges = (id: string) => {
+      const frame = canvas.getByTestId(id).querySelector('[data-bella-scroll-edge]') as HTMLElement;
+      return {
+        frame,
+        scroller: frame.firstElementChild as HTMLElement,
+        left: () => Number(getComputedStyle(frame, '::before').opacity),
+        right: () => Number(getComputedStyle(frame, '::after').opacity),
+      };
+    };
+    const n = edges('narrow');
+    await step('the narrow table scrolls sideways', async () => {
+      await expect(n.scroller.scrollWidth).toBeGreaterThan(n.scroller.clientWidth);
+    });
+    await step('at the start: right fade only, 24 wide', async () => {
+      await waitFor(() => expect(n.right()).toBe(1));
+      await expect(n.left()).toBe(0);
+      await expect(getComputedStyle(n.frame, '::after').width).toBe('24px');
+    });
+    await step('in the middle: both', async () => {
+      n.scroller.scrollLeft = (n.scroller.scrollWidth - n.scroller.clientWidth) / 2;
+      await waitFor(() => expect(n.left()).toBe(1));
+      await expect(n.right()).toBe(1);
+    });
+    await step('at the end: left fade only', async () => {
+      n.scroller.scrollLeft = n.scroller.scrollWidth;
+      await waitFor(() => expect(n.right()).toBe(0));
+      await expect(n.left()).toBe(1);
+      n.scroller.scrollLeft = 0;
+    });
+    await step('a table that fits: no fade', async () => {
+      const f = edges('fits');
+      await expect(f.scroller.scrollWidth).toBeLessThanOrEqual(f.scroller.clientWidth);
+      await expect(f.left()).toBe(0);
+      await expect(f.right()).toBe(0);
+    });
+  },
+};

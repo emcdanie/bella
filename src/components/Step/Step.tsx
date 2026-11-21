@@ -38,8 +38,10 @@ export interface StepProps {
   showConnector?: boolean;
   /** Figma "Show tag". A Tag under the title (vertical). Missing = off. */
   tag?: ReactNode;
-  /** Figma "Time" + "Show time". Right column, subtext face (vertical). Missing = off. */
+  /** Figma "Time" + "Show time". Right column, meta line (Geist Mono 14 on 20; vertical). It moves under the title by itself when the title column would drop under 200 (container query). Missing = off. */
   time?: ReactNode;
+  /** Figma "Show time under title": always put the time on its own line under the title, whatever the width. Default false (the container query decides). */
+  timeUnderTitle?: boolean;
   /** Figma "Show line above". Vertical: the line into this marker; off on the first row. */
   showLineAbove?: boolean;
   /** Figma "state". done = check in a soft success circle; current = info; pending = neutral. */
@@ -70,6 +72,7 @@ export default function Step({
   showConnector = true,
   tag,
   time,
+  timeUnderTitle = false,
   showLineAbove = false,
   state = 'done',
   layout = 'vertical',
@@ -101,9 +104,14 @@ export default function Step({
   const text = (
     <span className={styles.text}>
       <span className={styles.title}>{title}</span>
+      {/* Figma order: Title, time under the title, Tag, Detail */}
+      {!horizontal && time != null ? (
+        <span className={[styles.time, styles.timeUnder].join(' ')} data-bella-meta>
+          {time}
+        </span>
+      ) : null}
       {!horizontal && tag != null ? <span className={styles.tag}>{tag}</span> : null}
       {detail != null ? <span className={styles.detail}>{detail}</span> : null}
-      {!horizontal && time != null ? <span className={[styles.time, styles.timeUnder].join(' ')}>{time}</span> : null}
     </span>
   );
 
@@ -130,7 +138,11 @@ export default function Step({
         </span>
       </span>
       {text}
-      {time != null ? <span className={[styles.time, styles.timeSide].join(' ')}>{time}</span> : null}
+      {time != null ? (
+        <span className={[styles.time, styles.timeSide].join(' ')} data-bella-meta>
+          {time}
+        </span>
+      ) : null}
     </>
   );
 
@@ -139,6 +151,7 @@ export default function Step({
     styles[layout],
     styles[state],
     !horizontal && selected ? styles.selected : '',
+    !horizontal && timeUnderTitle ? styles.timeUnderTitle : '',
     onSelect ? styles.interactive : '',
     className,
   ]

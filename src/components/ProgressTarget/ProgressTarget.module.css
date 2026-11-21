@@ -1,27 +1,51 @@
-/* Progress target (Figma BellaComponents 1168:72541, 21 Nov 2026 publish).
- * The overlay is the bar's own height (size/8, published in Foundations
- * 22 Nov) and sits on the track, no overhang. The private
- * _Target mark: 4 wide, round ends, color/border/brand, with a 1px edge in
- * color/background/surface outside it (Figma stroke OUTSIDE), so it reads
- * on a fill of any tone. Centred on target %, kept inside the track. */
+/* Progress target (Figma BellaComponents 1168:72541, 22 Nov 2026 publish,
+ * her pick "B · dashed marker and label"). An overlay on the track that
+ * reaches up over the 32 Target row and the 8 gap: 32 + 8 + 8 + 4 = 52 tall.
+ * Dash: 1.5 wide (1 + 2 halved), 3 on 3 off, color/border/brand, from the
+ * label's bottom to 4 below the 8 bar, centred on target %. Label: the Tag
+ * (outline, default tone) with the words in its count, so they are in the
+ * number face at 600. The private _Target mark below stays for the Check
+ * row legend. */
 
 .target {
   position: absolute;
   inset-inline: 0;
-  inset-block-start: 0;
-  block-size: var(--size-8);
+  inset-block-start: calc(-1 * (var(--spacing-32) + var(--spacing-8)));
+  block-size: calc(var(--spacing-32) + var(--spacing-8) + var(--size-8) + var(--spacing-4));
   pointer-events: none;
 }
 
-.target .targetPlaced {
+.dash {
   position: absolute;
-  inset-block: 0;
-  min-block-size: 0;
-  inset-inline-start: clamp(
-    0%,
-    calc(var(--progress-target) - var(--border-width-4) / 2),
-    calc(100% - var(--border-width-4))
+  inset-block: var(--spacing-32) 0;
+  inline-size: calc((var(--border-width-1) + var(--border-width-2)) / 2);
+  inset-inline-start: calc(var(--progress-target) - (var(--border-width-1) + var(--border-width-2)) / 4);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-border-brand) 0 calc(var(--border-width-1) + var(--border-width-2)),
+    transparent 0 calc(2 * (var(--border-width-1) + var(--border-width-2)))
   );
+}
+
+.label {
+  position: absolute;
+  inset-block-start: 0;
+  white-space: nowrap;
+}
+
+.start .label {
+  inset-inline-start: var(--progress-target);
+}
+
+.end .label {
+  inset-inline-end: var(--progress-target-rest);
+}
+
+@media (forced-colors: active) {
+  .dash {
+    background: none;
+    border-inline-start: var(--border-width-1) dashed CanvasText;
+  }
 }
 
 .targetMark {

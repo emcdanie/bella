@@ -1,6 +1,8 @@
 /* Stat (CHIP components, 2026-10-03; BellaComponents Stat 161:78, published
- * 21 Nov 2026). Tokens only. One figure: a 16 label, the figure in Geist
- * Mono Bold 24 (number face 700) in tabular numerals, an optional change line with
+ * 22 Nov 2026). Tokens only. One figure: a 16 label, the figure in Geist
+ * Mono Bold 40 on a 48 line (number face 700, her 22 Nov "the numbers are
+ * too small now") in tabular numerals, an optional change line (meta: Geist
+ * Mono 14 on a 20 line, her 22 Nov "Meta lines at 14: B") with
  * an optional sparkline (2026-10-03, Elleta: a trend that never relies on
  * colour).
  *
@@ -27,11 +29,13 @@
 
 .value {
   margin: 0;
-  /* Stat 161:78, published 21 Nov: Geist Mono Bold 24 on a 24 line */
+  /* Stat 161:78 stacked and tile, 22 Nov: Geist Mono Bold 40 on a 48 line
+     (no line-height-px/48 token; spacing-48 carries it, as Stat card) */
   font-family: var(--typography-number-font-family);
-  font-size: var(--typography-font-size-24);
+  font-size: var(--typography-font-size-40);
   font-weight: var(--typography-font-weight-700);
-  line-height: var(--typography-line-height-px-24);
+  line-height: var(--spacing-48);
+  letter-spacing: var(--typography-letter-spacing-minus-1-half);
   font-variant-numeric: tabular-nums;
   color: var(--color-content-default);
 }
@@ -39,11 +43,15 @@
 .delta {
   margin: 0;
   font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-font-size-16);
+  font-size: var(--typography-font-size-14);
   font-weight: var(--typography-font-weight-400);
-  line-height: var(--typography-line-height-px-24);
+  line-height: var(--size-20); /* 14 on a 20 line; no line-height-px/20 token */
   letter-spacing: var(--typography-letter-spacing-0);
   color: var(--color-content-subtle);
+}
+
+.arrow {
+  margin-inline-end: var(--spacing-8);
 }
 
 .delta:has(.spark) {
@@ -176,4 +184,8 @@
   .barFill { transition: none; }
   .diff { display: none; }
   .glow { animation: none; }
+}
+
+.delta:has(.spark) .arrow {
+  margin-inline-end: 0;
 }

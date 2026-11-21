@@ -160,7 +160,7 @@ export default function SystemHealth({
                     </span>
                     {f.href != null || f.onOpen != null ? (
                       <span className={styles.arrow} aria-hidden="true">
-                        <Icon name="NavArrowRight" size="md" />
+                        <Icon name="ArrowUpRight" size="md" />
                       </span>
                     ) : null}
                   </>

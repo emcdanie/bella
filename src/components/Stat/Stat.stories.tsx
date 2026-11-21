@@ -97,7 +97,7 @@ export const Behavior: Story = {
 
     await step('direction is a hidden arrow plus a spoken word', async () => {
       const delta = root.querySelectorAll('dd')[1];
-      expect(delta.querySelector('[aria-hidden="true"]')?.textContent?.trim()).toBe('▼');
+      expect(delta.querySelector('[aria-hidden="true"]')?.textContent?.trim()).toBe('↓');
       expect(delta.textContent).toContain('Down');
       expect(getComputedStyle(delta).color).toBe(getComputedStyle(root.querySelector('dt')!).color);
     });
@@ -154,6 +154,8 @@ export const NotMeasured: Story = {
     await expect(canvas.queryByText('18')).toBeNull();
     await expect(canvasElement.querySelector('[role="img"]')).toBeNull();
     await expect(canvas.queryByText('Up')).toBeNull();
+    // Figma measured=false (22 Nov): only the label and "Not measured"; the change line is dropped
+    await expect(canvas.queryByText(/Waiting for the first sync/)).toBeNull();
   },
 };
 

@@ -3249,6 +3249,7 @@
             "showConnector",
             "tag",
             "time",
+            "timeUnderTitle",
             "showLineAbove",
             "state",
             "layout",
@@ -4143,7 +4144,7 @@
         "bella": {
           "name": "ProgressTarget",
           "category": "Data",
-          "description": "The target drawn into a meter: an overlay the bar's own height holding the private _Target mark (4 wide, round ends, border/brand, 1px background/surface edge outside it), centred on target % and kept inside the track. Also exports TargetMark, the key in a \"Target N%\" legend.",
+          "description": "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, her pick \"B · dashed marker and label\"): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses.",
           "states": [
             "default"
           ],
@@ -4158,11 +4159,40 @@
             "Never a second target colour: blue (border/brand) only",
             "No overhang past the bar (21 Nov publish)"
           ],
-          "a11y": "Decorative (aria-hidden); the target is said in words beside the bar (\"Target 90%\").",
+          "a11y": "The marker and its label sit in the bar's aria-hidden track, so they are not read twice; the target is spoken in the bar's value text (\"80%, target 90%\", as Stat card sets it). Label ink 7:1 on its Tag; the dash 3:1 on the card.",
           "figma": "Matches the published BellaComponents Progress target (1168:72541) and _Target mark, 21 Nov 2026: 8 tall, 1px outside edge color/background/surface. Height is size/8 (published in Foundations 22 Nov).",
           "figmaProps": {
             "target": "target (0 to 100 in 5s)"
           }
+        }
+      }
+    },
+    "marker": {
+      "$extensions": {
+        "bella": {
+          "name": "Marker",
+          "category": "Content",
+          "description": "The keyword mark (Figma BellaComponents Marker 1600:45992, 22 Nov 2026): the key word or phrase in a line at weight 600 over a soft blue underline (color/background/wash/blue-strong), the lower 10 of the 24 line, 2 above its bottom. Inline, so it wraps with its line. Bold is for keywords only, and every keyword gets this underline.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The one key phrase in an Ask BELLA answer's verdict line",
+            "The words to take away in a doc paragraph or a Why line",
+            "A keyword inside a Step or record title"
+          ],
+          "dont": [
+            "Do not mark a link: that is Link",
+            "Do not mark a status: that is Tag",
+            "Do not mark a whole sentence, or more than one phrase per paragraph"
+          ],
+          "a11y": "A <mark> element, so screen readers can announce a highlight. The phrase keeps the ink of its line on the page colour and on the band, 7:1 or more in all four themes; the band is decoration under it. Forced colours: Mark and MarkText."
         }
       }
     }

@@ -269,8 +269,13 @@ async function runQualityChecks(
           const cs = getComputedStyle(el);
           const size = parseFloat(cs.fontSize);
           const snippet = own.slice(0, 40);
-          if (size < 16) {
-            fails.push(`text below the 16px hard floor (${size}px): "${snippet}"`);
+          /* Meta lines (short subtext under a title or value: Stat delta,
+             Step time, ListRow sub value, TaskCard line, PageHeader meta)
+             are 14, marked data-bella-meta; reading text stays 16 (Elleta,
+             22 Nov 2026: "Meta lines at 14, reading text stays 16: B") */
+          const meta = el.closest('[data-bella-meta]') !== null;
+          if (meta ? size < 14 : size < 16) {
+            fails.push(`text below the ${meta ? '14px meta' : '16px hard'} floor (${size}px): "${snippet}"`);
           }
           /* reading text and labels share the 16px floor: Figma body is 16
              (Elleta, 17 Nov 2026: "one size per token … body text 16") */

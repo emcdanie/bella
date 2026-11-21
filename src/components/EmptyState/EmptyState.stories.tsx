@@ -85,6 +85,18 @@ export const Lane: Story = {
       </Card>
     </Surface>
   ),
+  play: async ({ canvasElement, step }) => {
+    await step('lane emoji 48 in a 48 mark; 16 between mark, words and actions; title to line 4 (22 Nov)', async () => {
+      const root = canvasElement.querySelector('[data-bella-component="empty-state"]') as HTMLElement;
+      const mark = root.querySelector('[aria-hidden="true"]') as HTMLElement;
+      await expect(getComputedStyle(mark.firstElementChild as HTMLElement).fontSize).toBe('48px');
+      await expect(mark.getBoundingClientRect().height).toBe(48);
+      const title = root.querySelector('p') as HTMLElement;
+      const line = title.nextElementSibling as HTMLElement;
+      await expect(Math.round(title.getBoundingClientRect().top - mark.getBoundingClientRect().bottom)).toBe(16);
+      await expect(Math.round(line.getBoundingClientRect().top - title.getBoundingClientRect().bottom)).toBe(4);
+    });
+  },
 };
 
 /** The page size as published (Figma size=page): centred, mark on top, one primary action, at least 300 tall. */
@@ -110,6 +122,19 @@ export const Page: Story = {
       const mark = root.querySelector('[aria-hidden="true"]') as HTMLElement;
       await expect(getComputedStyle(mark).backgroundColor).toBe('rgba(0, 0, 0, 0)');
       await expect(getComputedStyle(mark).boxShadow).toBe('none');
+    });
+    await step('page emoji 64 on a 64 line in a 64 mark; 16 between mark, words and action; title to line 4 (22 Nov, "B · 64")', async () => {
+      const root = canvasElement.querySelector('[data-bella-component="empty-state"]') as HTMLElement;
+      const mark = root.querySelector('[aria-hidden="true"]') as HTMLElement;
+      const emoji = mark.firstElementChild as HTMLElement;
+      await expect(getComputedStyle(emoji).fontSize).toBe('64px');
+      await expect(mark.getBoundingClientRect().height).toBe(64);
+      const title = root.querySelector('p') as HTMLElement;
+      const line = title.nextElementSibling as HTMLElement;
+      await expect(Math.round(title.getBoundingClientRect().top - mark.getBoundingClientRect().bottom)).toBe(16);
+      await expect(Math.round(line.getBoundingClientRect().top - title.getBoundingClientRect().bottom)).toBe(4);
+      const btn = root.querySelector('button') as HTMLElement;
+      await expect(Math.round(btn.getBoundingClientRect().top - line.getBoundingClientRect().bottom)).toBe(16);
     });
   }
 };

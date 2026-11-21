@@ -17,7 +17,63 @@
   min-inline-size: 0;
 }
 
+/* Scroll edge (Figma 22 Nov, "Edge left" / "Edge right"): when the table is
+   wider than its frame, a 24 fade of background/surface sits over the side
+   that has more to scroll: right at the start, both in the middle, left at
+   the end, neither when everything fits. Overlays, not a mask on the
+   scroller, so the scroller's focus ring is never masked away. Driven by the
+   scroller's own inline scroll timeline: no timeline (nothing to scroll)
+   means no animation and no fade. Each fade comes and goes over the first
+   or last 4 of the scroll. */
+.frame {
+  position: relative;
+  timeline-scope: --data-table-x;
+}
+
+.frame::before,
+.frame::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--spacing-24);
+  pointer-events: none;
+  opacity: 0;
+  animation-timeline: --data-table-x;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  z-index: 2;
+}
+
+.frame::before {
+  inset-inline-start: 0;
+  border-start-start-radius: var(--border-radius-12);
+  border-end-start-radius: var(--border-radius-12);
+  background: linear-gradient(to right, var(--color-background-surface), transparent);
+  animation-name: dataTableEdgeIn;
+  animation-range: 0 var(--spacing-4);
+}
+
+.frame::after {
+  inset-inline-end: 0;
+  border-start-end-radius: var(--border-radius-12);
+  border-end-end-radius: var(--border-radius-12);
+  background: linear-gradient(to left, var(--color-background-surface), transparent);
+  animation-name: dataTableEdgeOut;
+  animation-range: calc(100% - var(--spacing-4)) 100%;
+}
+
+@keyframes dataTableEdgeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dataTableEdgeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 .wrap {
+  scroll-timeline: --data-table-x inline;
   overflow: auto;
   border: var(--border-width-1) solid var(--color-border-default);
   border-radius: var(--border-radius-12);

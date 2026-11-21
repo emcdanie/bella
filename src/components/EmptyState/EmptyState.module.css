@@ -1,42 +1,39 @@
-/* EmptyState (BellaComponents "Empty state" 1014:2670, read 21 Nov 2026 from
- * the 20 Nov publish, matched to her 19 Nov mock). Tokens only.
+/* EmptyState (BellaComponents "Empty state" 1014:2670, re-read 22 Nov 2026
+ * from the 22 Nov publish). Tokens only.
  *
- * Re-read 21 Nov from her publish (Elleta: no circle, no fill, content
- * centred on both axes): the mark has no fill and no shadow.
- * lane: a centred column, 12 apart, padding 24 x 16; mark 48 with the emoji
- * at 24; title 16 600; line 16 ink; small buttons, 8 apart.
- * page: centred on both axes, padding 32 / 24 / 24, 24 apart; Content (mark
- * 72 with the emoji at 32, 16 to the text; title 20 600 and line 16 subtle,
- * 12 apart, the text at most 408 wide; 20 under) and the actions centred;
- * at least 300 tall.
+ * No circle, no fill, content centred on both axes (21 Nov). Emoji size
+ * (Elleta, 22 Nov, "B · 64"): page emoji 64 on a 64 line in a 64 mark;
+ * lane emoji 48 on a 48 line in its 48 mark. Spacing (8/16 rule, 22 Nov):
+ * 16 between the emoji, the words and the actions; 4 between the title and
+ * its line.
+ * lane: padding 24 x 16; title 16 600; line 16 ink; small buttons, 8 apart.
+ * page: padding 32 / 24 / 24, at least 300 tall; title 20 600 on a 28 line,
+ * line 16 subtle, the text at most 408 wide; actions centred.
  *
  * No wash: the Wash property was deleted from Figma on 21 Nov 2026 and
  * from code with it.
  *
- * Exceptions as Figma: the 72 mark has no token (2 x size/36); title line
- * height 150%. */
+ * Exceptions as Figma: emoji 48 and 64 have no font-size token; they ride
+ * spacing/48 and spacing/64 (the mark's own box). */
 
 .root {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
   inline-size: 100%;
+  text-align: center;
 }
 
 .lane {
-  align-items: center;
-  gap: var(--spacing-12);
   padding: var(--spacing-24) var(--spacing-16);
-  text-align: center;
 }
 
 .page {
-  align-items: center;
   justify-content: center;
-  gap: var(--spacing-24);
   min-block-size: calc(var(--spacing-48) * 6 + var(--spacing-12)); /* 300: Figma's min height */
   padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
-  text-align: center;
 }
 
 .content {
@@ -48,18 +45,18 @@
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-16);
-  padding-block-end: var(--spacing-20);
+  inline-size: 100%;
 }
 
 .text {
-  display: contents;
-}
-
-.page .text {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-12);
+  gap: var(--spacing-4);
+  inline-size: 100%;
+}
+
+.page .text {
   max-inline-size: calc(var(--spacing-80) * 5 + var(--spacing-8)); /* Figma Text max 408 */
 }
 
@@ -74,14 +71,14 @@
 }
 
 .page .mark {
-  inline-size: calc(var(--size-36) * 2);
-  block-size: calc(var(--size-36) * 2);
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
 }
 
 .emoji {
   display: inline-block;
-  font-size: var(--typography-font-size-24);
-  line-height: var(--size-32);
+  font-size: var(--spacing-48);
+  line-height: var(--spacing-48);
   /* the small animation (rules/empty-states-and-history.md, 19 Nov: "something
      fun on each one"): the emoji pops up from below, overshoots a step and
      settles, once; then it holds still. Reduced motion: the end state. */
@@ -113,8 +110,8 @@
 }
 
 .page .emoji {
-  font-size: var(--typography-font-size-32);
-  line-height: var(--typography-line-height-px-40);
+  font-size: var(--spacing-64);
+  line-height: var(--spacing-64);
 }
 
 .title,
@@ -150,8 +147,4 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--spacing-8);
-}
-
-.page .actions {
-  justify-content: center;
 }

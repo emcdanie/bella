@@ -5680,6 +5680,24 @@ entries:
       rel: file
       role: primitive.typography.font-family.lexend
   - kind: token
+    id: typography.font-size.14
+    name: "14"
+    description: "Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Description and usage rules extracted from tokens/bella.json; the DTCG file stays the source of truth for the value.
+      tags:
+        - primitive
+        - typography
+      group: typography.font-size
+    tokenType: dimension
+    source:
+      href: ./tokens/bella.json
+      rel: file
+      role: primitive.typography.font-size.14
+  - kind: token
     id: typography.font-size.16
     name: Font Size 16
     description: "Value: 16 in every mode."
@@ -7002,7 +7020,7 @@ entries:
       role: primitive.blur.8
   - kind: token
     id: blur.14
-    name: "14"
+    name: Blur 14
     description: "Value: 14 in every mode."
     metadata:
       origin:
@@ -13211,7 +13229,7 @@ entries:
   - kind: component
     id: progress-target
     name: ProgressTarget
-    description: "The target drawn into a meter: an overlay the bar's own height holding the private _Target mark (4 wide, round ends, border/brand, 1px background/surface edge outside it), centred on target % and kept inside the track. Also exports TargetMark, the key in a \"Target N%\" legend."
+    description: "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, her pick \"B · dashed marker and label\"): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses."
     metadata:
       origin:
         method: extracted
@@ -13219,7 +13237,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: Decorative (aria-hidden); the target is said in words beside the bar ("Target 90%").
+          note: The marker and its label sit in the bar's aria-hidden track, so they are not read twice; the target is spoken in the bar's value text ("80%, target 90%", as Stat card sets it). Label ink 7:1 on its Tag; the dash 3:1 on the card.
       tags:
         - component
         - progress-target
@@ -13248,6 +13266,60 @@ entries:
     sourceFiles:
       - platform: react
         file: ./src/components/ProgressTarget/ProgressTarget.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: marker
+    name: Marker
+    description: "The keyword mark (Figma BellaComponents Marker 1600:45992, 22 Nov 2026): the key word or phrase in a line at weight 600 over a soft blue underline (color/background/wash/blue-strong), the lower 10 of the 24 line, 2 above its bottom. Inline, so it wraps with its line. Bold is for keywords only, and every keyword gets this underline."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "A <mark> element, so screen readers can announce a highlight. The phrase keeps the ink of its line on the page colour and on the band, 7:1 or more in all four themes; the band is decoration under it. Forced colours: Mark and MarkText."
+      tags:
+        - component
+        - marker
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The one key phrase in an Ask BELLA answer's verdict line
+          - level: may
+            statement: The words to take away in a doc paragraph or a Why line
+          - level: may
+            statement: A keyword inside a Step or record title
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not mark a link: that is Link"
+          - level: must-not
+            statement: "Do not mark a status: that is Tag"
+          - level: must-not
+            statement: Do not mark a whole sentence, or more than one phrase per paragraph
+    refs:
+      - href: ./src/components/Marker/Marker.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Marker/Marker.tsx
     specs:
       - href: ./tokens/contracts.json
         rel: contract

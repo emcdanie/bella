@@ -21,7 +21,7 @@ export interface DataTableColumn<Row> {
   kind?: 'tag' | 'swatch';
   /** kind=tag: the tone for this row's Tag ("success" for Ready, "attention" for Needs you). Missing = default. */
   tagTone?: (row: Row) => TagTone;
-  /** kind=swatch: this row's colour as a token (`var(--color-content-default)`). Missing = no colour, the square shows its edge only. */
+  /** kind=swatch: this row's colour as a token (`var(--color-content-default)`). Missing = no colour: the square is empty (it has no edge). */
   swatch?: (row: Row) => string | undefined;
   /** kind=swatch: the theme the colour resolves in, so a Light and a Dark column each show their own mode
    *  ("chip-light", "chip-dark"), as Figma sets the Colour block's mode. Missing = the page's theme. */
@@ -107,6 +107,10 @@ export default function DataTable<Row extends Record<string, any>>({
       {/* The caption sits outside the frame so the frame's edge and corners stay
           put while the table scrolls inside it; it still names the table. */}
       <div className={styles.caption} id={captionId}>{caption}</div>
+      {/* Figma "Edge left" / "Edge right" (22 Nov): the frame holds the two
+          24 fades over the scroller; CSS shows each only while there is more
+          to scroll on its side. */}
+      <div className={styles.frame} data-bella-scroll-edge="">
       <div
         className={styles.wrap}
         style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
@@ -186,6 +190,7 @@ export default function DataTable<Row extends Record<string, any>>({
           })}
         </tbody>
       </table>
+      </div>
       </div>
     </div>
   );

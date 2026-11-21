@@ -114,7 +114,9 @@ export default function StatCard({
   const empty = chart === 'empty';
   const shownValue = empty ? emptyCount : value;
   const shownUnit = empty ? (emptyTotal ?? unit) : unit;
-  const words = meter?.valueText ?? [value, unit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
+  const said = meter?.valueText ?? [value, unit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
+  /* the meter is spoken with its target ("95%, target 90%"), Figma description */
+  const words = chart === 'bar' && meter?.target != null && said ? `${said}, target ${meter.target}%` : said;
   const emptyWords = [shownValue, shownUnit].filter((x) => typeof x === 'string' || typeof x === 'number').join(' ');
 
   return (

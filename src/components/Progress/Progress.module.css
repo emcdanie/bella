@@ -8,9 +8,9 @@
  * drawn, so the track reads empty (fixes the library gap where 0 read full).
  * Track height is the meter token (8): Figma draws 10, which has no token
  * and is off the 4 scale.
- * Target: the one named overlay, absolute as Figma's, 4 beyond the track
- * above and below; the mark is 4 wide (border/width/4), round ends,
- * border/brand, centred on target %.
+ * Target (22 Nov, her pick "B · dashed marker and label"): a 32 row above
+ * the track holds the "Target n%" label; the dashed line in border/brand
+ * runs from it to 4 below the track at target %.
  * Segments: equal pills 8 apart, done = tone mark, not done = track.
  * Ring: 64 box, an 8 band, round caps, track the same shape in border/subtle.
  * Attention marks: warning-mark fill with a 1px inside edge in
@@ -82,7 +82,12 @@
   border-radius: var(--border-radius-round);
 }
 
-/* ---- target: its own part, src/components/ProgressTarget ---- */
+/* ---- target: its own part, src/components/ProgressTarget; the bar keeps
+   a 32 row above the track for its label (22 Nov) ---- */
+.targetRow {
+  block-size: var(--spacing-32);
+}
+
 /* ---- segments ---- */
 .segments {
   display: flex;

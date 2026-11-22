@@ -46,6 +46,42 @@
   stroke-width: var(--border-width-2);
 }
 
+/* draw-in (motion tokens: 900ms the first draw, 250ms a pick, ease-out): the line is revealed from its start
+ * to its end, in the way it runs. The attribute is set once per start (see the component), so a resize
+ * redraw never replays it. */
+.leader[data-draw='map'] {
+  animation: reveal var(--motion-duration-900) var(--motion-easing-out) backwards;
+}
+
+.leader[data-draw='pick'] {
+  animation: reveal var(--motion-duration-250) var(--motion-easing-out) backwards;
+}
+
+.leader[data-heading='right'] { --leader-from: inset(-50% 100% -50% -50%); }
+.leader[data-heading='left'] { --leader-from: inset(-50% -50% -50% 100%); }
+.leader[data-heading='down'] { --leader-from: inset(-50% -50% 100% -50%); }
+.leader[data-heading='up'] { --leader-from: inset(100% -50% -50% -50%); }
+
+@keyframes reveal {
+  from {
+    clip-path: var(--leader-from);
+  }
+  to {
+    clip-path: inset(-50%);
+  }
+}
+
+/* reduced motion: drawn at once (also when a story mocks the setting) */
+.leader[data-motion='still'] {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leader[data-draw] {
+    animation: none;
+  }
+}
+
 @media (forced-colors: active) {
   .line,
   .arrow {

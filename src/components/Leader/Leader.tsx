@@ -16,6 +16,8 @@ export interface LeaderProps {
   selected?: boolean;
   /** How the line lands: a solid arrowhead or a dot. */
   end?: 'arrow' | 'dot';
+  /** Draw-in, start to end, when the line first shows and again when what it joins changes (from, to, selected or its style), never on a resize redraw. map = 900ms (the first draw of a stage), pick = 250ms (the pinned part changed). none = drawn at once. prefers-reduced-motion: always drawn at once. */
+  draw?: 'none' | 'map' | 'pick';
   /** Extra classes on the SVG. */
   className?: string;
   style?: CSSProperties;
@@ -54,6 +56,7 @@ export default function Leader({
   end = 'arrow',
   lineStyle = 'dashed',
   selected = false,
+  draw = 'none',
   className,
   style,
 }: LeaderProps) {
@@ -64,8 +67,14 @@ export default function Leader({
     const host = svg?.parentElement;
     if (!svg || !host) return undefined;
     let raf = 0;
+    const still = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let pending = draw !== 'none' && !still;
+    svg.removeAttribute('data-draw');
+    void svg.getBoundingClientRect(); /* flush, so setting it again restarts the reveal */
+    if (still) svg.setAttribute('data-motion', 'still');
+    else svg.removeAttribute('data-motion');
 
-    const draw = () => {
+    const paint = () => {
       raf = 0;
       const a = host.querySelector(from)?.getBoundingClientRect();
       const b = host.querySelector(to)?.getBoundingClientRect();
@@ -84,6 +93,7 @@ export default function Leader({
         for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, String(v));
         parts.push(el);
       };
+      let heading = 'right';
       const sideways = b.left >= a.right || a.left >= b.right;
       if (lineStyle === 'solid' && sideways) {
         /* the stage (Elleta, 20 Nov: "these annotations are not correct .."): out of the
@@ -93,6 +103,7 @@ export default function Leader({
         const bx = b.left + b.width / 2 - h.left;
         const by = b.top + b.height / 2 - h.top;
         const dir = bx >= a.right - h.left ? 1 : -1;
+        heading = dir > 0 ? 'right' : 'left';
         const ax = (dir > 0 ? a.right : a.left) - h.left;
         const ay = a.top + a.height / 2 - h.top;
         const level = Math.abs(by - ay) < 1;
@@ -109,6 +120,7 @@ export default function Leader({
         }
       } else if (sideways) {
         const dir = b.left >= a.right ? 1 : -1;
+        heading = dir > 0 ? 'right' : 'left';
         const x1 = (dir > 0 ? a.right : a.left) - h.left;
         const x2 = (dir > 0 ? b.left : b.right) - h.left;
         const y1 = a.top + a.height / 2 - h.top;
@@ -122,6 +134,7 @@ export default function Leader({
         }
       } else {
         const dir = b.top >= a.bottom ? 1 : -1;
+        heading = dir > 0 ? 'down' : 'up';
         const y1 = (dir > 0 ? a.bottom : a.top) - h.top;
         const y2 = (dir > 0 ? b.top : b.bottom) - h.top;
         const x1 = a.left + a.width / 2 - h.left;
@@ -135,12 +148,19 @@ export default function Leader({
         }
       }
       svg.replaceChildren(...parts);
+      /* the way the line runs, so the draw-in follows it */
+      svg.setAttribute('data-heading', heading);
+      /* draw once: only the first draw after this effect starts plays the reveal; resize redraws leave it alone */
+      if (pending) {
+        pending = false;
+        svg.setAttribute('data-draw', draw);
+      }
     };
 
     const queue = () => {
-      if (!raf) raf = requestAnimationFrame(draw);
+      if (!raf) raf = requestAnimationFrame(paint);
     };
-    draw();
+    paint();
     const ro = new ResizeObserver(queue);
     ro.observe(host);
     for (const sel of [from, to]) {
@@ -154,7 +174,7 @@ export default function Leader({
       window.removeEventListener('resize', queue);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [from, to, end, lineStyle]);
+  }, [from, to, end, lineStyle, selected, draw]);
 
   return (
     <svg
@@ -164,6 +184,7 @@ export default function Leader({
       role="img"
       aria-label={label}
       data-bella-component="leader"
+      data-bella-reveal={draw !== 'none' ? '' : undefined}
       data-bella-diagram
     />
   );

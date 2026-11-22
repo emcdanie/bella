@@ -261,3 +261,15 @@ export type { ToolColumnProps } from './ToolColumn/ToolColumn';
 
 export { default as MapNode } from './MapNode/MapNode';
 export type { MapNodeProps } from './MapNode/MapNode';
+
+export { default as Branch } from './Branch/Branch';
+export type { BranchProps } from './Branch/Branch';
+
+export { default as BranchGroup } from './BranchGroup/BranchGroup';
+export type { BranchGroupProps } from './BranchGroup/BranchGroup';
+
+export { default as MapLabel } from './MapLabel/MapLabel';
+export type { MapLabelProps } from './MapLabel/MapLabel';
+
+export { default as MapLeaf } from './MapLeaf/MapLeaf';
+export type { MapLeafProps } from './MapLeaf/MapLeaf';

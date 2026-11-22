@@ -74,6 +74,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |
 | One step of a process map (name and health), joined by `MapLine` curves | `MapNode` |
+| A process as a mind map: a branch between any two points, a step as bare text on its end, the root and stage names, and a stage as a tappable group on a phone | `Branch`, `MapLeaf`, `MapLabel`, `BranchGroup` |
 | A message that stays, with its actions | `Notification` |
 | The head of a section card: icon, title, info, description | `SectionHead` |
 | CHIP app shell | `SideMenu`, `IconRail`, `NavItem`, `ProjectPanel`, `TreeItem`, `ClientSwitcher`, `TopBar`, `SearchField` |

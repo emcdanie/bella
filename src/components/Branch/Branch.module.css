@@ -1,0 +1,88 @@
+/* Branch (23 Nov 2026, Processes mind map, her pick A). Tokens only. An S-curve in a box the
+ * instance is sized to: top-left is `from`, bottom-right is `to` (flipped when the other way).
+ * Colour = one of five brand colours; regular is 3 wide (1.5 x border/width/2), thin 2. Round ends.
+ * Motion as MapLine: draw-in 900ms (map) or 250ms (pick), one travelling highlight, reduced
+ * motion = fully drawn and still. */
+
+.root {
+  display: block;
+  min-inline-size: var(--border-width-2);
+  min-block-size: var(--border-width-2);
+  pointer-events: none;
+  --hue: var(--color-brand-pink-500);
+  color: var(--hue);
+}
+
+.pink { --hue: var(--color-brand-pink-500); }
+.navy { --hue: var(--color-brand-navy-600); }
+.ochre { --hue: var(--color-brand-ochre-500); }
+.stone { --hue: var(--color-brand-stone-500); }
+.blue { --hue: var(--color-brand-blue-500); }
+
+.path {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: calc(var(--border-width-2) * 1.5);
+  stroke-linecap: round;
+}
+
+.thin .path {
+  stroke-width: var(--border-width-2);
+}
+
+[data-flip-y] .path { scale: 1 -1; }
+[data-flip-x] .path { scale: -1 1; }
+[data-flip-y][data-flip-x] .path { scale: -1 -1; }
+
+/* draw-in: reveal from the start to the end, the way the branch runs */
+.root[data-draw='map'] { animation: var(--draw-name, drawRight) var(--motion-duration-900) var(--motion-easing-out) backwards; }
+.root[data-draw='pick'] { animation: var(--draw-name, drawRight) var(--motion-duration-250) var(--motion-easing-out) backwards; }
+.root[data-heading='right'] { --draw-name: drawRight; --travel-name: travelRight; }
+.root[data-heading='left'] { --draw-name: drawLeft; --travel-name: travelLeft; }
+
+@keyframes drawRight {
+  from { clip-path: inset(calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1)); }
+  to { clip-path: inset(calc(var(--spacing-4) * -1)); }
+}
+@keyframes drawLeft {
+  from { clip-path: inset(calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1) 100%); }
+  to { clip-path: inset(calc(var(--spacing-4) * -1)); }
+}
+
+/* travel: one soft pass in the branch's direction, then it rests */
+.glint {
+  stroke: var(--color-border-ink);
+  stroke-opacity: 0.45;
+  filter: drop-shadow(0 0 var(--spacing-4) var(--hue));
+  animation: var(--travel-name, travelRight) var(--motion-duration-900) var(--motion-easing-out) 1 both;
+}
+
+@keyframes travelRight {
+  0% { clip-path: inset(calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1) 0); opacity: 1; }
+  20% { clip-path: inset(calc(var(--spacing-4) * -1) 70% calc(var(--spacing-4) * -1) 0); }
+  80% { clip-path: inset(calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1) 70%); }
+  100% { clip-path: inset(calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1) 100%); opacity: 0; }
+}
+@keyframes travelLeft {
+  0% { clip-path: inset(calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1) 100%); opacity: 1; }
+  20% { clip-path: inset(calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1) 70%); }
+  80% { clip-path: inset(calc(var(--spacing-4) * -1) 70% calc(var(--spacing-4) * -1) 0); }
+  100% { clip-path: inset(calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1) 0); opacity: 0; }
+}
+
+[data-motion='still'] { animation: none; }
+[data-motion='still'] .glint { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .root[data-draw] { animation: none; }
+  .glint { display: none; }
+}
+
+@media (forced-colors: active) {
+  .path { stroke: CanvasText; }
+}

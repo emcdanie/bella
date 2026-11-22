@@ -4449,6 +4449,134 @@
         }
       }
     },
+    "branch": {
+      "$extensions": {
+        "bella": {
+          "name": "Branch",
+          "category": "Data",
+          "description": "One branch of a mind map: an S-curve between any two points that leaves and arrives level, in one of five brand colours (pink, navy, ochre, stone, blue) by name. regular is 3 wide (root to stage), thin 2 (stage to step), round ends. Motion as MapLine: draw (map 900ms, pick 250ms, start to end), travel (one soft pass, then rests), nothing moves under reduced motion. Decorative.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "from",
+            "to",
+            "hue",
+            "weight",
+            "draw",
+            "travel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a straight or right-angle line between rows (MapLine)",
+            "Not a leader to a part (Leader)"
+          ],
+          "a11y": "Decorative: aria-hidden; the words beside it carry the meaning. The colour names the stage only; a step's state is always a shape and a word. Marks 3:1 on the work area. Reduced motion: fully drawn, no draw-in, no highlight.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "map-leaf": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLeaf",
+          "category": "Data",
+          "description": "One step of a mind map as bare text on a branch end: name, then a state shape and word, then an optional measured line in plain text. A button, 44 tall, with MapNode's selected state (light-blue fill, 2px brand edge), a 1px edge for a linked step and MapNode's focus ring.",
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "related",
+            "focus"
+          ],
+          "props": [
+            "name",
+            "state",
+            "status",
+            "detail",
+            "selected",
+            "related",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps and, in a BranchGroup, on a phone (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a boxed step (MapNode)",
+            "Not a status on its own (StatusDot)"
+          ],
+          "a11y": "A button with aria-pressed. State is a shape (ticked circle, triangle, diamond, minus square, dashed circle) plus its word, never colour alone; the shape is decorative. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "map-label": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLabel",
+          "category": "Data",
+          "description": "A node of a mind map that is not a step. root: the map's name in a rounded 20 box with a 1px strong edge, 64 tall, centred. stage: a stage's name as bare bold text (Lexend 600, 20), up to 148 wide, where its branches meet. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "kind",
+            "children",
+            "as",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a step (MapLeaf, MapNode)",
+            "Not a section title (SectionHead) or page heading (PageHeader)"
+          ],
+          "a11y": "Plain text; pass `as` to make it a heading when it titles a region. Text 7:1.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "branch-group": {
+      "$extensions": {
+        "bella": {
+          "name": "BranchGroup",
+          "category": "Data",
+          "description": "A stage on a phone mind map: a white row with a 4 wide colour bar at the left, the stage's name, its count and a plus or minus. The head is a 48 tall button with aria-expanded; open, it shows its steps (MapLeaf) below. One open at a time is the caller's rule.",
+          "states": [
+            "default",
+            "open",
+            "focus"
+          ],
+          "props": [
+            "name",
+            "count",
+            "hue",
+            "open",
+            "onToggle",
+            "children",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps on a phone (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a disclosure of long text (Disclosure)",
+            "Not a group name in a wide layout (GroupHead)"
+          ],
+          "a11y": "A button with aria-expanded and aria-controls naming the list; the plus or minus is decorative. The colour bar names the stage only. 48 tall target; focus ring 4 wide, drawn inside.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
     "map-node": {
       "$extensions": {
         "bella": {

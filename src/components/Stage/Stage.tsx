@@ -58,6 +58,8 @@ export interface StageProps {
 
   /** The leaders' colour. neutral (default) as published; red for CHIP's anatomy (23 Nov: leaders are red). */
   leaderVariant?: 'neutral' | 'red';
+  /** Draw-in of the leaders (23 Nov: they animate when you select something). none (default) draws them at once; map draws every leader in over 900ms, for a stage's first show; pick draws the selected marker's leader in over 250ms each time another part is selected. Reduced motion always draws at once. */
+  leaderDraw?: 'none' | 'map' | 'pick';
   /** A click on a marker's pin or chip: opens that part (its card). Makes pins and chips buttons. */
   onSelect?: (id: string) => void;
   /** The marker lit from outside (its row in the anatomy list is hovered or focused). */
@@ -98,7 +100,7 @@ interface MarkerEvents {
   onActiveChange?: (id: string | null) => void;
 }
 
-function Leaders({ markers, variant = 'neutral' }: { markers: StageMarker[]; variant?: 'neutral' | 'red' }) {
+function Leaders({ markers, variant = 'neutral', draw = 'none' }: { markers: StageMarker[]; variant?: 'neutral' | 'red'; draw?: 'none' | 'map' | 'pick' }) {
   return (
     <>
       {markers.filter(hasChip).map((m) => (
@@ -111,6 +113,7 @@ function Leaders({ markers, variant = 'neutral' }: { markers: StageMarker[]; var
           lineStyle="solid"
           end="dot"
           selected={m.selected}
+          draw={draw === 'pick' && !m.selected ? 'none' : draw}
         />
       ))}
     </>
@@ -195,6 +198,7 @@ export default function Stage({
   activeId,
   onActiveChange,
   leaderVariant,
+  leaderDraw,
   className,
   style,
 }: StageProps) {
@@ -234,7 +238,7 @@ export default function Stage({
               <div className={styles.origin}>
                 <Markers markers={markers} scale={contentScale} {...events} />
               </div>
-              <Leaders markers={markers} variant={leaderVariant} />
+              <Leaders markers={markers} variant={leaderVariant} draw={leaderDraw} />
             </>
           ) : null}
         </div>
@@ -271,7 +275,7 @@ export default function Stage({
             {markers?.length ? (
               <>
                 <Markers markers={markers} offsetY={offsetY} {...events} />
-                <Leaders markers={markers} variant={leaderVariant} />
+                <Leaders markers={markers} variant={leaderVariant} draw={leaderDraw} />
               </>
             ) : null}
             {picking ? <div className={styles.picker} onClick={pick} aria-hidden="true" /> : null}

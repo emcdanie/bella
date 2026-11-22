@@ -262,3 +262,78 @@ export const RedLeaders: Story = {
     for (const l of leaders) await expect(l.getAttribute('class') ?? '').toMatch(/red/);
   },
 };
+
+/* prefers-reduced-motion mocked for a story, as MapLine and Leader do. */
+const ReducedFrame = ({ children }: { children: React.ReactNode }) => {
+  const original = React.useRef<typeof window.matchMedia | null>(null);
+  if (original.current === null) {
+    original.current = window.matchMedia;
+    const real = original.current.bind(window);
+    window.matchMedia = ((q: string) =>
+      q.includes('prefers-reduced-motion') ? ({ ...real(q), matches: true, addEventListener() {}, removeEventListener() {} } as MediaQueryList) : real(q)) as typeof window.matchMedia;
+  }
+  React.useEffect(
+    () => () => {
+      if (original.current) window.matchMedia = original.current;
+    },
+    []
+  );
+  return <>{children}</>;
+};
+
+const drawMarkers = [
+  { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate', chipX: -184, chipY: -48 },
+  { id: 'label', x: -6, y: -8, label: 2, part: 'Label', chipX: -184, chipY: 0 },
+];
+
+const DrawStage = ({ leaderDraw }: { leaderDraw: 'map' | 'pick' }) => {
+  const [active, setActive] = useState<string>('plate');
+  return (
+    <Stage
+      grid="dots"
+      label="Button on the stage"
+      scale={3}
+      leaderVariant="red"
+      leaderDraw={leaderDraw}
+      onSelect={setActive}
+      markers={drawMarkers.map((m) => ({ ...m, selected: m.id === active }))}
+    >
+      <Button variant="primary">Send</Button>
+    </Stage>
+  );
+};
+
+/** leaderDraw (23 Nov): leaders draw in on first show (map) and the picked part's leader draws again on every pick (pick). */
+export const LeadersDrawIn: Story = {
+  render: () => <DrawStage leaderDraw="pick" />,
+  play: async ({ canvasElement }) => {
+    const leaders = () => Array.from(canvasElement.querySelectorAll<SVGElement>('[data-bella-component="leader"]'));
+    await waitFor(() => expect(leaders().filter((l) => l.getAttribute('data-draw') === 'pick')).toHaveLength(1));
+    await waitFor(() => expect(leaders().filter((l) => l.getAttribute('data-draw') === 'pick')).toHaveLength(1));
+    const pins = canvasElement.querySelectorAll<HTMLElement>('[data-stage-pin]');
+    await expect(pins.length).toBeGreaterThan(1);
+  },
+};
+
+export const LeadersDrawInOnFirstShow: Story = {
+  render: () => <DrawStage leaderDraw="map" />,
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(canvasElement.querySelectorAll('[data-bella-component="leader"][data-draw="map"]').length).toBeGreaterThan(1));
+  },
+};
+
+/** Reduced motion: leaders are drawn at once. */
+export const LeadersReducedMotion: Story = {
+  render: () => (
+    <ReducedFrame>
+      <DrawStage leaderDraw="map" />
+    </ReducedFrame>
+  ),
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(canvasElement.querySelectorAll('[data-bella-component="leader"][data-motion="still"]').length).toBeGreaterThan(1));
+    for (const l of canvasElement.querySelectorAll('[data-bella-component="leader"]')) {
+      await expect(l).not.toHaveAttribute('data-draw');
+      await expect(getComputedStyle(l).animationName).toBe('none');
+    }
+  },
+};

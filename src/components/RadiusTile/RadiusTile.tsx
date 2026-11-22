@@ -8,6 +8,8 @@ export interface RadiusTileProps {
   radius: RadiusTileRadius;
   /** The Chip semantic names and size under the token ("sm · 4px"). Defaults to Chip's names. */
   use?: string;
+  /** Pink tile whose corner grows from square to the token as it scrolls into view (CHIP Foundations). Still under reduced motion. */
+  animated?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -29,9 +31,9 @@ const USE: Record<RadiusTileRadius, string> = {
  * names that use it (CHIP Dashboard "Foundations · Shape and space" 808:82396,
  * read 21 Nov 2026). Use: the radius ramp on CHIP Foundations.
  */
-export default function RadiusTile({ radius, use, className, style }: RadiusTileProps) {
+export default function RadiusTile({ radius, use, animated, className, style }: RadiusTileProps) {
   return (
-    <div className={[styles.tile, className].filter(Boolean).join(' ')} style={style} data-bella-component="radius-tile">
+    <div className={[styles.tile, animated && styles.animated, className].filter(Boolean).join(' ')} style={style} data-bella-component="radius-tile">
       <span className={[styles.shape, styles[`r${radius}` as keyof typeof styles]].join(' ')} aria-hidden="true" />
       <span className={styles.token}>radius/{radius}</span>
       <span className={styles.use}>{use ?? USE[radius]}</span>

@@ -44,3 +44,30 @@
 .value {
   color: var(--color-content-default);
 }
+
+/* animated (CHIP Foundations, 23 Nov: the pink grow-in she liked): the bar is
+ * pink (accent-1) with its ink edge for the 3:1 line, and grows from zero to
+ * its token width once, as it scrolls into view. Reduced motion: drawn at full
+ * size, no growth. */
+.animated .bar {
+  background: var(--color-background-accent-1);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-ink);
+  transform-origin: left center;
+  animation: grow var(--motion-duration-450) var(--motion-easing-out) both;
+}
+
+@supports (animation-timeline: view()) {
+  .animated .bar {
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .bar { animation: none; }
+}

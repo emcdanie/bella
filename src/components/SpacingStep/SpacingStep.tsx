@@ -8,6 +8,8 @@ export interface SpacingStepProps {
   step: SpacingStepStep;
   /** Figma "Value": the size in words. Defaults to the step's px ("16px"; touch "44px"). */
   value?: string;
+  /** Pink bar that grows in from zero when it scrolls into view (CHIP Foundations). Still under reduced motion. */
+  animated?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -19,10 +21,10 @@ const PX: Record<string, number> = { 1: 4, 2: 8, 3: 12, 4: 16, 5: 20, 6: 24, 8: 
  * BellaComponents "Spacing step" 796:8518, read 19 Nov 2026). Use: the spacing
  * ramp on CHIP Foundations.
  */
-export default function SpacingStep({ step, value, className, style }: SpacingStepProps) {
+export default function SpacingStep({ step, value, animated, className, style }: SpacingStepProps) {
   const px = PX[String(step)];
   return (
-    <div className={[styles.row, className].filter(Boolean).join(' ')} style={style} data-bella-component="spacing-step">
+    <div className={[styles.row, animated && styles.animated, className].filter(Boolean).join(' ')} style={style} data-bella-component="spacing-step">
       <span className={styles.step}>{step}</span>
       <span className={[styles.bar, styles[`s${px}` as keyof typeof styles]].join(' ')} aria-hidden="true" />
       <span className={styles.value}>{value ?? `${px}px`}</span>

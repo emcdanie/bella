@@ -120,3 +120,88 @@
   display: block;
   background: var(--color-content-default);
 }
+
+/* animated (CHIP Foundations, 23 Nov: the pink dot she liked). The row is a
+ * button, 44 tall at least, with the focus ring. Easing: the dot rides the
+ * curve, x is time (linear) and y is progress (the token's own easing), both
+ * 900ms (motion/duration/900). Duration: the dot crosses the track in the
+ * token's own time, linear. The dot is pink (accent-1) with an ink edge for
+ * the 3:1 line. Reduced motion: no ride; the dot jumps to the end. */
+.playable {
+  appearance: none;
+  inline-size: 100%;
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.playable:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--spacing-4);
+  border-radius: var(--border-radius-sm);
+}
+
+.plot {
+  position: relative;
+  display: block;
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+}
+
+.rider,
+.dot {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-accent-1);
+  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-ink);
+}
+
+.rider {
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  transform: translate(-50%, 50%);
+}
+
+.ride {
+  animation: ride-x var(--motion-duration-900) both, ride-y var(--motion-duration-900) both;
+}
+
+@keyframes ride-x { to { inset-inline-start: 100%; } }
+@keyframes ride-y { to { inset-block-end: 100%; } }
+
+.dot {
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  inline-size: var(--spacing-16);
+  block-size: var(--spacing-16);
+  transform: translateY(-50%);
+}
+
+.cross {
+  animation: cross linear both;
+}
+
+/* the dot's left edge to the track's right edge: 100% less its own width */
+@keyframes cross { to { inset-inline-start: calc(100% - var(--spacing-16)); } }
+
+.duration.playable .track {
+  position: relative;
+  overflow: visible;
+}
+
+.duration.playable .fill {
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ride { animation: none; inset-inline-start: 100%; inset-block-end: 100%; }
+  .cross { animation: none; inset-inline-start: calc(100% - var(--spacing-16)); }
+}

@@ -44,3 +44,26 @@
   line-height: var(--typography-line-height-px-24);
   color: var(--color-content-subtle);
 }
+
+/* animated (CHIP Foundations, 23 Nov): the tile is the pink wash with its
+ * strong edge, and its corner rounds from square to the token once, as it
+ * scrolls into view. Reduced motion: drawn at its token, no morph. */
+.animated .shape {
+  background: var(--color-background-wash-pink-strong);
+  animation: round var(--motion-duration-450) var(--motion-easing-out) both;
+}
+
+@supports (animation-timeline: view()) {
+  .animated .shape {
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+
+@keyframes round {
+  from { border-radius: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .shape { animation: none; }
+}

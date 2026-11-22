@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, fireEvent, userEvent, waitFor } from 'storybook/test';
+import { expect, fireEvent, fn, userEvent, waitFor } from 'storybook/test';
 import BarChart, { type BarChartRange, type BarChartSlot } from './BarChart';
 import cssRaw from './BarChart.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -308,5 +308,82 @@ export const GrowsFromTheBase: Story = {
     const bar = card.querySelector('[data-bar]') as HTMLElement;
     await expect(card).toHaveAttribute('data-motion', 'live');
     await expect(getComputedStyle(bar).animationName).toContain('grow');
+  },
+};
+
+/** 320 wide: a long unit goes under the number, nothing runs past the card (23 Nov). */
+export const NarrowNumberRow: Story = {
+  render: (args) => (
+    <div style={{ inlineSize: '20rem', maxInlineSize: '100%', padding: 'var(--spacing-16)', background: 'var(--color-background-subtle)' }}>
+      <BarChart {...args} unit="Commits this half hour" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = root(canvasElement);
+    await expect(card.scrollWidth).toBeLessThanOrEqual(card.clientWidth);
+    const number = card.querySelector('[class*="number"]') as HTMLElement;
+    await expect(getComputedStyle(number).flexWrap).toBe('wrap');
+    const unit = number.lastElementChild as HTMLElement;
+    await expect(unit.getBoundingClientRect().right).toBeLessThanOrEqual(card.getBoundingClientRect().right);
+  },
+};
+
+/** axisUnit prints what the axis counts once; an empty slot never prints a number over it. */
+export const AxisUnitAndEmptySlot: Story = {
+  args: { axisUnit: 'Runs per half hour', slots: [...DAY.slice(0, 14), { label: '15:15', range: '15:15-15:30', passed: 0, failed: 0 }] },
+  render: (args) => (
+    <Surface>
+      <BarChart {...args} />
+    </Surface>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = root(canvasElement);
+    await expect(card.querySelectorAll('[data-testid="bar-chart-axis-unit"]')).toHaveLength(1);
+    await expect(card.querySelector('[data-testid="bar-chart-axis-unit"]')).toHaveTextContent('Runs per half hour');
+    /* the last slot is empty and is the latest: no "0" over it */
+    const last = card.querySelectorAll('[data-bar]')[14] as HTMLElement;
+    await expect(last.querySelector('[class*="valueLabel"]')).toBeNull();
+  },
+};
+
+/** calloutText: the callout says what the caller words from the data. */
+export const CalloutFromData: Story = {
+  args: { calloutText: (s: BarChartSlot) => `${s.passed + s.failed} runs · ${s.failed} failed · ${s.passed} passed` },
+  render: (args) => (
+    <Surface>
+      <BarChart {...args} />
+    </Surface>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = root(canvasElement);
+    const cells = card.querySelectorAll<HTMLElement>('[role="img"], [role="button"]');
+    await userEvent.click(cells[10]);
+    await expect(card.querySelector('[data-testid="bar-chart-callout-text"]')).toHaveTextContent('3 runs · 3 failed · 0 passed');
+    await expect(cells[10].getAttribute('aria-label')).toContain('3 runs · 3 failed · 0 passed');
+  },
+};
+
+/** onSlotSelect: slots with failures are buttons (click, Enter, Space) with a spoken action; the others stay plain. */
+export const SlotsWithFailuresOpen: Story = {
+  args: { onSlotSelect: fn() },
+  render: (args) => (
+    <Surface>
+      <BarChart {...args} />
+    </Surface>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const card = root(canvasElement);
+    const buttons = card.querySelectorAll<HTMLElement>('[role="button"]');
+    await expect(buttons).toHaveLength(3);
+    await expect(card.querySelectorAll('[role="img"]').length).toBe(12);
+    await expect(buttons[0].getAttribute('aria-label')).toContain('open what failed');
+    await userEvent.click(buttons[1]);
+    await expect(args.onSlotSelect).toHaveBeenCalledTimes(1);
+    buttons[2].focus();
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    await expect(args.onSlotSelect).toHaveBeenCalledTimes(3);
+    const calls = (args.onSlotSelect as ReturnType<typeof fn>).mock.calls;
+    await expect(calls[0][1]).toBe(10);
   },
 };

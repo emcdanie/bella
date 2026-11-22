@@ -1,4 +1,4 @@
-import React, { useId, type ReactNode } from 'react';
+import React, { useId, useState, type ReactNode } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
 import Button from '../Button/Button';
 import Kbd from '../Kbd/Kbd';
@@ -17,8 +17,8 @@ export interface InputProps {
   error?: string;
   /** Supporting hint below the field, wired via aria-describedby. */
   hint?: string;
-  /** Input type for the single-line control. */
-  type?: 'text' | 'email' | 'url';
+  /** Input type for the single-line control. password (23 Nov): masked, with a Show / Hide button at the end of the field; autocomplete off, spellcheck, autocorrect and capitals off, and the value lives only in the field itself (no title, no aria text, no other attribute). Hides again whenever the field is cleared or disabled. */
+  type?: 'text' | 'email' | 'url' | 'password';
   placeholder?: string;
   /** Autofill hint, passed straight through (the shipped contact form sets these). */
   autoComplete?: string;
@@ -73,6 +73,9 @@ export default function Input({
   const errorId = `${fieldId}-error`;
   const hintId = `${fieldId}-hint`;
   const suggestId = `${fieldId}-suggest`;
+  const isPassword = type === 'password' && !multiline;
+  const [revealed, setRevealed] = useState(false);
+  const shownAsText = isPassword && revealed && !disabled && value !== '';
   // A suggestion shows only in an empty single-line field that can send.
   const suggesting = Boolean(suggestion && !value && onSend && !multiline && !disabled);
   const describedBy =
@@ -85,7 +88,10 @@ export default function Input({
     value,
     placeholder: suggesting ? undefined : placeholder,
     'aria-placeholder': suggesting ? suggestion : undefined,
-    autoComplete,
+    autoComplete: autoComplete ?? (isPassword ? 'off' : undefined),
+    spellCheck: isPassword ? false : undefined,
+    autoCapitalize: isPassword ? 'off' : undefined,
+    autoCorrect: isPassword ? 'off' : undefined,
     name,
     required,
     disabled,
@@ -107,7 +113,7 @@ export default function Input({
         {label}
         {required ? <span aria-hidden="true"> *</span> : null}
       </label>
-      {leadingIcon || onSend || menu ? (
+      {leadingIcon || onSend || menu || isPassword ? (
         /* Figma Field with zones: Leading icon, Value, Send button, 8 apart.
            The box carries the edge, corner and focus ring; the native control
            inside is bare. Without these props the field renders as before. */
@@ -126,7 +132,7 @@ export default function Input({
               <input
                 {...shared}
                 className={styles.bare}
-                type={type}
+                type={isPassword ? (shownAsText ? 'text' : 'password') : type}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && onSend) {
                     e.preventDefault();
@@ -153,6 +159,18 @@ export default function Input({
                 Press Enter to ask
               </span>
             </>
+          ) : null}
+          {isPassword ? (
+            <Button
+              variant="tertiary"
+              size="sm"
+              ariaPressed={shownAsText}
+              ariaLabel={shownAsText ? 'Hide the password' : 'Show the password'}
+              onClick={() => setRevealed(!shownAsText)}
+              disabled={disabled || value === ''}
+            >
+              {shownAsText ? 'Hide' : 'Show'}
+            </Button>
           ) : null}
           {onSend ? (
             <Button

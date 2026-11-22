@@ -48,6 +48,14 @@ export interface BarChartProps {
   failedLabel?: string;
   /** Figma "Summary": the one line under the chart, always present. Missing = written from the data ("7 of 30 runs failed today"). */
   summary?: string;
+  /** What the axis counts, printed once above the plot at the axis side ("Runs per half hour"), in small caps. Missing = off. */
+  axisUnit?: string;
+  /** The callout's wording, from the data ("16 runs · 3 failed · 13 passed"). Missing = the built-in lines (status, number and unit, range and cause). It also becomes the slot's spoken name after its range. */
+  calloutText?: (slot: BarChartSlot, index: number) => string;
+  /** A click, Enter or Space on a slot that has failures: opens what failed (the consumer's drawer). Those slots become buttons; slots without failures stay plain. */
+  onSlotSelect?: (slot: BarChartSlot, index: number) => void;
+  /** The words after the slot's name in the button's accessible name. */
+  slotActionLabel?: string;
   /** Extra classes on the card. */
   className?: string;
   style?: CSSProperties;
@@ -98,6 +106,10 @@ export default function BarChart({
   context,
   failedLabel = 'Failed',
   summary,
+  axisUnit,
+  calloutText,
+  onSlotSelect,
+  slotActionLabel = 'open what failed',
   className,
   style,
 }: BarChartProps) {
@@ -132,8 +144,11 @@ export default function BarChart({
   const tickOf = (s: BarChartSlot, i: number) => (hasTicks ? s.axisLabel : i % axisEvery === 0 ? s.label : undefined);
   const failedWord = failedLabel;
   const cause = (s: BarChartSlot) => (s.failed > 0 && s.cause ? `, ${s.cause}` : '');
-  const nameOf = (s: BarChartSlot) =>
-    `${s.range ?? s.label}, ${plural(runs(s), 'run', 'runs')}, ${s.failed} failed${cause(s)}`;
+  const nameOf = (s: BarChartSlot, i = 0) =>
+    calloutText
+      ? `${s.range ?? s.label}, ${calloutText(s, i)}`
+      : `${s.range ?? s.label}, ${plural(runs(s), 'run', 'runs')}, ${s.failed} failed${cause(s)}`;
+  const actionable = (s: BarChartSlot) => Boolean(onSlotSelect) && s.failed > 0;
 
   const pick = (i: number | null) => setPicked(i == null ? null : Math.min(n - 1, Math.max(0, i)));
 
@@ -160,6 +175,7 @@ export default function BarChart({
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') focusCell(from - 1);
     else if (e.key === 'Home') focusCell(0);
     else if (e.key === 'End') focusCell(n - 1);
+    else if ((e.key === 'Enter' || e.key === ' ') && slots[from] && actionable(slots[from])) onSlotSelect?.(slots[from], from);
     else if (e.key === 'Escape') {
       if (picked == null) return;
       setPicked(null);
@@ -233,6 +249,11 @@ export default function BarChart({
         <DataTable caption={`${title} by slot`} columns={columns} rows={rows} rowKey="id" density="compact" />
       ) : (
         <div className={styles.plot}>
+          {axisUnit ? (
+            <p className={styles.axisUnit} data-bella-meta data-testid="bar-chart-axis-unit">
+              {axisUnit}
+            </p>
+          ) : null}
           <div className={styles.main}>
             <div className={styles.stack}>
               <div className={styles.room}>
@@ -244,16 +265,29 @@ export default function BarChart({
                     data-testid="bar-chart-callout"
                     aria-hidden="true"
                   >
-                    <span className={styles.calloutStatus} data-bella-meta>
-                      {calloutFailed ? failedWord.split(',')[0] : 'Passed'}
-                    </span>
-                    <span className={styles.calloutNumber}>
-                      <span className={styles.calloutValue}>{calloutFailed ? sel.failed : sel.passed}</span>
-                      <span className={styles.calloutUnit}>{unit}</span>
-                    </span>
-                    <span className={styles.calloutContext} data-bella-meta>
-                      {[sel.range ?? sel.label, calloutFailed ? sel.cause : undefined].filter(Boolean).join(' · ')}
-                    </span>
+                    {calloutText && picked != null ? (
+                      <>
+                        <span className={styles.calloutStatus} data-bella-meta>
+                          {sel.range ?? sel.label}
+                        </span>
+                        <span className={styles.calloutLine} data-testid="bar-chart-callout-text">
+                          {calloutText(sel, picked)}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={styles.calloutStatus} data-bella-meta>
+                          {calloutFailed ? failedWord.split(',')[0] : 'Passed'}
+                        </span>
+                        <span className={styles.calloutNumber}>
+                          <span className={styles.calloutValue}>{calloutFailed ? sel.failed : sel.passed}</span>
+                          <span className={styles.calloutUnit}>{unit}</span>
+                        </span>
+                        <span className={styles.calloutContext} data-bella-meta>
+                          {[sel.range ?? sel.label, calloutFailed ? sel.cause : undefined].filter(Boolean).join(' · ')}
+                        </span>
+                      </>
+                    )}
                   </div>
                 ) : null}
               </div>
@@ -284,10 +318,12 @@ export default function BarChart({
                           cellRefs.current[i] = el;
                         }}
                         className={styles.cell}
-                        role="img"
+                        role={actionable(s) ? 'button' : 'img'}
                         tabIndex={tabIdx === i ? 0 : -1}
-                        aria-label={nameOf(s)}
+                        aria-label={actionable(s) ? `${nameOf(s, i)}, ${slotActionLabel}` : nameOf(s, i)}
                         data-picked={isPicked ? '' : undefined}
+                        data-action={actionable(s) ? '' : undefined}
+                        onClick={actionable(s) ? () => onSlotSelect?.(s, i) : undefined}
                         onFocus={() => {
                           setTabIdx(i);
                           setPicked(i);
@@ -303,7 +339,7 @@ export default function BarChart({
                               <Icon name="Xmark" size="sm" className={styles.cross} style={CROSS} />
                             </span>
                           ) : null}
-                          {isPicked || (latest && picked == null) ? (
+                          {total > 0 && (isPicked || (latest && picked == null)) ? (
                             <span className={styles.valueLabel} data-bella-meta>
                               {total}
                             </span>

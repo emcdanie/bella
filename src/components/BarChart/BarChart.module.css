@@ -54,12 +54,15 @@
 
 .number {
   display: flex;
+  flex-wrap: wrap; /* a long unit goes under the number instead of past the card (23 Nov, 320 wide) */
   align-items: baseline;
   gap: var(--spacing-8);
   margin: 0;
+  min-inline-size: 0;
 }
 
 .value {
+  flex: none;
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-40);
   font-weight: var(--typography-font-weight-600);
@@ -69,6 +72,8 @@
 }
 
 .unit {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
   font-family: var(--typography-number-font-family);
   font-size: var(--typography-font-size-20);
   font-weight: var(--typography-font-weight-600);
@@ -333,6 +338,34 @@
   line-height: var(--size-20);
   font-variant-numeric: tabular-nums;
   color: var(--color-content-default);
+}
+
+/* what the axis counts, once, above the plot at the axis side (23 Nov) */
+.axisUnit {
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: end;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+/* a callout line the caller words from the data */
+.calloutLine {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-24);
+  font-variant-numeric: tabular-nums;
+}
+
+/* a slot with failures opens what failed */
+.cell[data-action] {
+  cursor: pointer;
 }
 
 /* ---- axes ---- */

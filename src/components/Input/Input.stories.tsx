@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import Input from './Input';
 import Button from '../Button/Button';
@@ -346,5 +346,46 @@ export const LabelInline: Story = {
       const hint = canvas.getByText('We reply within two days.');
       await expect(Math.round(hint.getBoundingClientRect().left - field.getBoundingClientRect().right)).toBe(8);
     });
+  },
+};
+
+const PasswordField = () => {
+  const [v, setV] = React.useState('');
+  return <div style={{ inlineSize: '22rem', padding: 'var(--spacing-16)' }}><Input label="Figma token" type="password" value={v} onChange={setV} hint="Stays on this computer." /></div>;
+};
+
+/** type="password": masked, a Show / Hide button at the end, autocomplete off, never echoed into the page. */
+export const Password: Story = {
+  render: () => <PasswordField />,
+  play: async ({ canvasElement }) => {
+    const field = canvasElement.querySelector('input') as HTMLInputElement;
+    const toggle = canvasElement.querySelector('button') as HTMLButtonElement;
+    await expect(field.type).toBe('password');
+    await expect(field.autocomplete).toBe('off');
+    await expect(field.spellcheck).toBe(false);
+    await expect(toggle).toBeDisabled();
+    await userEvent.type(field, 'figd_secret123');
+    await expect(toggle).toBeEnabled();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle.getAttribute('aria-label')).toBe('Show the password');
+    /* never echoed: the secret is only in the field's own value, not in any text, label, title or other attribute */
+    const copy = canvasElement.cloneNode(true) as HTMLElement;
+    copy.querySelectorAll('input').forEach((i) => i.removeAttribute('value'));
+    await expect(copy.innerHTML.includes('figd_secret123')).toBe(false);
+    await userEvent.click(toggle);
+    await expect(field.type).toBe('text');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(toggle).toHaveTextContent('Hide');
+    await userEvent.click(toggle);
+    await expect(field.type).toBe('password');
+    /* keyboard: Tab from the field to the button, Space shows */
+    field.focus();
+    await userEvent.tab();
+    await expect(toggle).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await expect(field.type).toBe('text');
+    /* clearing the field hides it again */
+    await userEvent.clear(field);
+    await expect(field.type).toBe('password');
   },
 };

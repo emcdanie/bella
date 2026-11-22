@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fireEvent, userEvent, waitFor } from 'storybook/test';
 import FloatingPanel from './FloatingPanel';
@@ -9,6 +9,7 @@ import ProgressRing from '../ProgressRing/ProgressRing';
 import cssRaw from './FloatingPanel.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -43,29 +44,11 @@ const TerminalBody = () => {
   );
 };
 
-/* The entrance lift is timing, so its pictures would depend on when they are taken. Every story renders
- * under mocked prefers-reduced-motion (the panel then stands at rest at once), as the other animated parts do. */
-const StillFrame = ({ children }: { children: React.ReactNode }) => {
-  const original = useRef<typeof window.matchMedia | null>(null);
-  if (original.current === null) {
-    original.current = window.matchMedia;
-    const real = original.current.bind(window);
-    window.matchMedia = ((q: string) =>
-      q.includes('prefers-reduced-motion') ? ({ ...real(q), matches: true, addEventListener() {}, removeEventListener() {} } as MediaQueryList) : real(q)) as typeof window.matchMedia;
-  }
-  useEffect(
-    () => () => {
-      if (original.current) window.matchMedia = original.current;
-    },
-    []
-  );
-  return <>{children}</>;
-};
-
 const meta: Meta<typeof FloatingPanel> = {
   title: 'Components/Layout/FloatingPanel',
   component: FloatingPanel,
-  decorators: [(Story) => <StillFrame><Story /></StillFrame>],
+  /* the entrance lift is timing: every story renders under reduced motion, so its pictures are taken at rest */
+  beforeEach: reduceMotion,
   parameters: {
     layout: 'fullscreen',
     docs: { page: ComponentDocsPage },

@@ -2,6 +2,7 @@ import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Icon from '../Icon/Icon';
 import MapLine from '../MapLine/MapLine';
+import ProgressRing from '../ProgressRing/ProgressRing';
 import type { IconName } from '../Icon/Icon';
 import styles from './Step.module.css';
 
@@ -46,13 +47,13 @@ export interface StepProps {
   timeUnderTitle?: boolean;
   /** Figma "Show line above". Vertical: the line into this marker; off on the first row. */
   showLineAbove?: boolean;
-  /** Figma "state". done = check in a soft success circle; current = info; pending = neutral; failed = it ran and did not pass (the gate failed): the danger Icon well with the Xmark, title and detail in ink, no working tint. */
+  /** Figma "state". done = check in a soft success circle; current = the turning ProgressRing (22 Nov; the numbered ring when `number` is set); pending = neutral; failed = it ran and did not pass (the gate failed): the danger Icon well with the Xmark, title and detail in ink, no working tint. */
   state?: StepState;
   /** Figma "layout". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */
   layout?: 'horizontal' | 'vertical';
   /** Figma "selected". Vertical rows that open a record (History): light-blue row. */
   selected?: boolean;
-  /** Figma "Marker" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */
+  /** Figma "Marker" icon swap (the kind icon). Defaults: Check, Clock by state; the current state draws ProgressRing (running, md) unless this or `kind` is set. */
   icon?: IconName;
   /** The record's kind (History): its marker takes the kind's wash and an ink glyph, and wins over `state` for the marker only. docs Page on the yellow wash, tooling Settings on grey, tokens Palette on navy, code Code on blue, visual Eye on ochre, fix EditPencil on the red wash; decision a dark ink circle with a knockout glyph; merged Check on the success wash (green only for Merged). Pass `icon` to swap a glyph. Missing = the state's marker. */
   kind?: StepKind;
@@ -95,6 +96,9 @@ export default function Step({
   const marker =
     number != null ? (
       <StepNumber state={state} number={number} />
+    ) : state === 'current' && icon == null && kind == null ? (
+      /* 22 Nov: the current marker is the ProgressRing (running, md, no count); the row's words carry the state */
+      <ProgressRing state="running" size="md" decorative className={styles.marker} />
     ) : (
       <IconWell
         icon={icon ?? (kind ? KIND_ICON[kind] : m.icon)}

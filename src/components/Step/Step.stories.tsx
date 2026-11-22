@@ -277,3 +277,32 @@ export const Failed: Story = {
     });
   },
 };
+
+/** The current marker is ProgressRing (running, md); a numbered step keeps the numbered ring (22 Nov). */
+export const CurrentIsTheRing: Story = {
+  render: () => (
+    <Themed>
+      <ol style={LIST}>
+        <Step state="done" title="Pairs added" detail="9 pairs, one commit." />
+        <Step state="current" showLineAbove title="The gate" detail="Working now." />
+      </ol>
+      <ol style={LIST}>
+        <Step state="current" number={3} title="Numbered step" detail="Keeps the numbered ring." showConnector={false} />
+      </ol>
+    </Themed>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const items = canvasElement.querySelectorAll<HTMLElement>('li[aria-current="step"]');
+    await step('current uses ProgressRing running md, 36 wide, hidden from screen readers', async () => {
+      const ring = items[0].querySelector('[data-bella-component="progress-ring"]') as HTMLElement;
+      await expect(ring).toHaveAttribute('data-state', 'running');
+      await expect(ring).toHaveAttribute('data-size', 'md');
+      await expect(ring.getBoundingClientRect().width).toBe(36);
+      await expect(ring).toHaveAttribute('aria-hidden', 'true');
+    });
+    await step('number set keeps the numbered ring', async () => {
+      await expect(items[1].querySelector('[data-bella-component="progress-ring"]')).toBeNull();
+      await expect(items[1]).toHaveTextContent('3');
+    });
+  },
+};

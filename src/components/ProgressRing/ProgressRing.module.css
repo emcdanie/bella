@@ -1,0 +1,168 @@
+/* ProgressRing (Figma BellaComponents ProgressRing 1730:129 + _ProgressRing arc, 22 Nov 2026). Tokens only.
+ * Sizes: sm 20, md 36. Track and arc are a 4-wide band on the inside edge
+ * (border/width/4), drawn in CSS like Progress shape=ring (no inline SVG):
+ * a disc cut by a radial mask, the arc a conic sweep from 12 o'clock, round
+ * caps as 4 discs on the band's centre line.
+ * running: track border/subtle (decorative), arc border/utility/info; half a
+ * circle when indeterminate (as measured in the approved Fix tab and Work card).
+ * done: filled border/utility/success circle, Check in content/knockout (16 in sm, 20 in md).
+ * waiting: a ring in border/strong (3:1 on card and page).
+ * failed: filled border/utility/error circle, Xmark in content/knockout.
+ * md count: number face 600, 14 on a 20 line, tabular, content/default.
+ * Motion: indeterminate turns 1 turn per motion/duration/900, linear, and only
+ * until `duration` (default 2.5 s, under 3 s) when the part sets data-motion=still;
+ * the arc grows to a new value on motion/duration/400 and motion/easing/out;
+ * state changes cross-fade on motion/duration/150. Reduced motion: no turning, a still arc. */
+
+@property --ring-fill {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+
+@property --ring-turn {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.root {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--color-border-utility-info);
+  transition:
+    background-color var(--motion-duration-150) var(--motion-easing-standard),
+    border-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.sm {
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+}
+
+.md {
+  inline-size: var(--size-36);
+  block-size: var(--size-36);
+}
+
+.root > * {
+  grid-area: 1 / 1;
+}
+
+.track,
+.fill {
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--border-radius-round);
+  mask: radial-gradient(
+    closest-side,
+    transparent calc(100% - var(--border-width-4)),
+    currentColor calc(100% - var(--border-width-4) + var(--border-width-1))
+  );
+}
+
+.track {
+  background: var(--color-border-subtle);
+}
+
+/* the arc and its caps as one layer, so a turn carries all three */
+.arc {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.arc > * {
+  grid-area: 1 / 1;
+}
+
+.fill {
+  background: conic-gradient(currentColor var(--ring-fill), transparent 0);
+  transition: --ring-fill var(--motion-duration-400) var(--motion-easing-out);
+}
+
+/* a cap is a full-size layer with one 4 disc at 12 o'clock; the end cap is turned to the arc's end */
+.cap {
+  inline-size: 100%;
+  block-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cap::before {
+  content: '';
+  inline-size: var(--border-width-4);
+  block-size: var(--border-width-4);
+  border-radius: var(--border-radius-round);
+  background: currentColor;
+}
+
+.end {
+  rotate: var(--ring-turn);
+  transition: --ring-turn var(--motion-duration-400) var(--motion-easing-out);
+}
+
+.turning {
+  animation: ringTurn var(--motion-duration-900) linear infinite;
+}
+
+@keyframes ringTurn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* done and failed: a filled circle, the mark in knockout */
+.done,
+.failed {
+  border-radius: var(--border-radius-round);
+  color: var(--color-content-knockout);
+}
+
+.done {
+  background: var(--color-border-utility-success);
+}
+
+.failed {
+  background: var(--color-border-utility-error);
+}
+
+/* waiting: a grey ring in border/strong */
+.waiting {
+  border-radius: var(--border-radius-round);
+  border: var(--border-width-4) solid var(--color-border-strong);
+}
+
+.count {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turning {
+    animation: none;
+  }
+  .root,
+  .fill,
+  .end {
+    transition: none;
+  }
+}

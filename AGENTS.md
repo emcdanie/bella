@@ -53,6 +53,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Title, subtitle and body as one text column | `TextStack` |
 | The › on anything that opens something | `Trailing` |
 | Bar, segments or ring, with a target | `Progress` (target: `ProgressTarget`) |
+| Where a step or job is: running (turning arc), done, waiting, failed | `ProgressRing` |
 | One number with its chart, context and caption | `StatCard` |
 | How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |
 | One step of the type ramp, set in its own size (Foundations) | `TypeSpecimen` |

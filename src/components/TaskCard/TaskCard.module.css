@@ -229,3 +229,56 @@ button.move:focus-visible {
   flex: 1 1 auto;
   min-inline-size: 0;
 }
+
+/* Progress zone (22 Nov, Work board section 4; off by default, `progress`): the
+   body between the head and the ↗ row, 16 apart from both (it is a group in
+   .content). Bar row: a Progress bar fills, "n of m" in the number face 600 at
+   20 on 28 sits beside it, 8 apart. Step row: ProgressRing sm, then the step
+   text in the reading face 14, one line, cut with an ellipsis, 8 apart. */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.barTrack {
+  flex: 1 1 auto;
+}
+
+.count {
+  flex-shrink: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.stepNow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.stepText {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  color: var(--color-content-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

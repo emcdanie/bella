@@ -3202,6 +3202,43 @@
         }
       }
     },
+    "progress-ring": {
+      "$extensions": {
+        "bella": {
+          "name": "ProgressRing",
+          "category": "Data",
+          "description": "The one small circle that says where a step or job is: a turning blue arc while it runs (half a circle, or n of m when it knows its steps), a green tick when done, a grey ring while waiting or paused, a red cross when it failed. Indeterminate motion turns for under 3 s, then holds still and says it is still working. Reduced motion: a still arc.",
+          "states": [
+            "running",
+            "done",
+            "waiting",
+            "failed"
+          ],
+          "props": [
+            "state",
+            "size",
+            "value",
+            "total",
+            "showCount",
+            "duration",
+            "label",
+            "decorative",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "TaskCard step row, Step current marker, Work board and Components Fix tab (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not an amount on its own with a label (Progress shape=ring)",
+            "Not a whole-page wait (Skeleton)",
+            "Never turns for 3 s or more"
+          ],
+          "a11y": "role=img named by the state words (\"Running, 2 of 5\"), or role=progressbar with aria-valuenow/aria-valuemax when determinate; decorative hides it where the words beside it already say the state. Never colour alone: the tick and cross are shapes. Settled indeterminate adds \"Still working\" as its description. Arc, done and failed 3:1 or more on card and page; waiting ring border/strong 5.2:1 on the card (Chip light), 6.4:1 (Chip dark).",
+          "figma": "Matches BellaComponents ProgressRing 1730:129 (22 Nov 2026): state running, done, waiting, failed; size sm 20, md 36; Count and Show count; arc 4 wide."
+        }
+      }
+    },
     "stat-card": {
       "$extensions": {
         "bella": {
@@ -3227,7 +3264,8 @@
             "meter",
             "href",
             "onOpen",
-            "drawIn", "summary",
+            "drawIn",
+            "summary",
             "className",
             "style"
           ],
@@ -3272,7 +3310,7 @@
           "usage": [
             "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026 22 Nov 2026: state=current takes ProgressRing running md as its marker (the numbered ring when number is set)."
         }
       }
     },
@@ -3668,6 +3706,11 @@
             "showTag",
             "statusTone",
             "dragging",
+            "progress",
+            "progressDone",
+            "progressTotal",
+            "stepNow",
+            "paused",
             "href",
             "onOpen",
             "onMoveTo",
@@ -3689,7 +3732,7 @@
             "Never several buttons on one card"
           ],
           "a11y": "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title and line on background-surface 8.53:1 lowest, on the hover fill (background-brand-subtle) 7.34:1 lowest (line, BELLA light). The 2px status edge on the lane (background-default) 3.56:1 lowest (attention, light). The status is in words in the Tag, so colour is never alone. Focus ring 4 + 4, border-focus.",
-          "figma": "Matches the published BellaComponents TaskCard (799:177248), 21 Nov 2026: tone gives the 2px border (border/width/2, color/border/utility/<tone>) and the Tag tone; no status bar (her pick B). hover (background-brand-subtle), focus are CSS states; dragging is a prop.",
+          "figma": "Matches the published BellaComponents TaskCard (799:177248), 21 Nov 2026: tone gives the 2px border (border/width/2, color/border/utility/<tone>) and the Tag tone; no status bar (her pick B). hover (background-brand-subtle), focus are CSS states; dragging is a prop. 22 Nov 2026: Show progress (off by default) draws a Progress bar with \"n of m\" (number face 600, 20) beside it, then a ProgressRing sm and \"Now · step\" or, paused, a grey ring and \"Paused · step\", cut with an ellipsis.",
           "figmaProps": {
             "Title": "title",
             "Line": "line",
@@ -3698,7 +3741,8 @@
             "state=dragging": "dragging",
             "state=hover, state=focus": "CSS :hover, :focus-visible",
             "Move to… (Drag handle)": "onMoveTo",
-            "Open arrow (Trailing)": "drawn when href or onOpen"
+            "Open arrow (Trailing)": "drawn when href or onOpen",
+            "Show progress + _TaskCard progress (Count, Step now, state)": "progress / progressDone, progressTotal / stepNow / paused"
           }
         }
       }
@@ -3939,7 +3983,8 @@
             "target",
             "passed",
             "why",
-            "failing", "summary",
+            "failing",
+            "summary",
             "className",
             "style"
           ],

@@ -12056,6 +12056,59 @@ entries:
         states:
           - default
   - kind: component
+    id: progress-ring
+    name: ProgressRing
+    description: "The one small circle that says where a step or job is: a turning blue arc while it runs (half a circle, or n of m when it knows its steps), a green tick when done, a grey ring while waiting or paused, a red cross when it failed. Indeterminate motion turns for under 3 s, then holds still and says it is still working. Reduced motion: a still arc."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=img named by the state words (\"Running, 2 of 5\"), or role=progressbar with aria-valuenow/aria-valuemax when determinate; decorative hides it where the words beside it already say the state. Never colour alone: the tick and cross are shapes. Settled indeterminate adds \"Still working\" as its description. Arc, done and failed 3:1 or more on card and page; waiting ring border/strong 5.2:1 on the card (Chip light), 6.4:1 (Chip dark)."
+      tags:
+        - component
+        - progress-ring
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: TaskCard step row, Step current marker, Work board and Components Fix tab (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not an amount on its own with a label (Progress shape=ring)
+          - level: must-not
+            statement: Not a whole-page wait (Skeleton)
+          - level: must-not
+            statement: Never turns for 3 s or more
+    refs:
+      - href: ./src/components/ProgressRing/ProgressRing.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ProgressRing/ProgressRing.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - running
+          - done
+          - waiting
+          - failed
+  - kind: component
     id: stat-card
     name: StatCard
     description: "One figure on a card: what it is, the number, how far along, and ↗ to open it. One column from the 24 padding, no indent: header (36 icon well, title, ↗; the whole 44 row is the target), body (number and unit in the number face 700, chart, context), footer (caption, a Button only when it acts). chart bar, segments, none (number only) or empty (no data yet: zero, an empty bar, the footer says why and offers the action). tone success, warning, info, danger, neutral: status only."

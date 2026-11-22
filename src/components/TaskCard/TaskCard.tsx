@@ -1,5 +1,7 @@
 import React, { useEffect, type CSSProperties, type DragEventHandler, type ReactNode } from 'react';
 import Icon from '../Icon/Icon';
+import Progress from '../Progress/Progress';
+import ProgressRing from '../ProgressRing/ProgressRing';
 import { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
 import Trailing from '../Trailing/Trailing';
@@ -26,6 +28,16 @@ export interface TaskCardProps {
   statusTone?: StatusDotProps['tone'];
   /** Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states. */
   dragging?: boolean;
+  /** Figma "Show progress" (off by default: existing cards are unchanged, 22 Nov). Shows the progress zone between the head and the ↗ row: a Progress bar with "n of m" beside it, then the step now. */
+  progress?: boolean;
+  /** progress: steps done. */
+  progressDone?: number;
+  /** progress: steps in all. */
+  progressTotal?: number;
+  /** progress: the step running now (one line, cut with an ellipsis). */
+  stepNow?: string;
+  /** progress: dragged back to Next: a grey ring and "Paused · {stepNow}" instead of the turning arc and "Now · {stepNow}". */
+  paused?: boolean;
   /** The whole card opens the task: a link. */
   href?: string;
   /** The whole card opens the task: a button. Ignored when `href` is set. */
@@ -73,6 +85,11 @@ export default function TaskCard({
   showTag = false,
   statusTone = 'neutral',
   dragging = false,
+  progress = false,
+  progressDone = 0,
+  progressTotal = 0,
+  stepNow,
+  paused = false,
   href,
   onOpen,
   onMoveTo,
@@ -143,6 +160,30 @@ export default function TaskCard({
           </span>
         )}
       </div>
+      {progress ? (
+        <div className={styles.progress} data-bella-progress={paused ? 'paused' : 'running'}>
+          <div className={styles.bar}>
+            <Progress
+              className={styles.barTrack}
+              label="Steps done"
+              value={`${progressDone} of ${progressTotal}`}
+              showLabel={false}
+              fill={progressTotal > 0 ? (progressDone / progressTotal) * 100 : 0}
+            />
+            <span className={styles.count} aria-hidden="true">
+              {progressDone} of {progressTotal}
+            </span>
+          </div>
+          {stepNow != null ? (
+            <div className={styles.stepNow}>
+              <ProgressRing state={paused ? 'waiting' : 'running'} size="sm" decorative />
+              <span className={styles.stepText} data-bella-meta title={`${paused ? 'Paused' : 'Now'} · ${stepNow}`}>
+                {paused ? 'Paused' : 'Now'} · {stepNow}
+              </span>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
       <div className={styles.status}>
         {showTag ? (
           <Tag variant="line" tone={TONE[statusTone]}>

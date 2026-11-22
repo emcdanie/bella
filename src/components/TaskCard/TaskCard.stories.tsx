@@ -268,3 +268,66 @@ export const BorderSaysStatus: Story = {
     }
   },
 };
+
+/** Show progress (22 Nov, Work board): the bar with "n of m", then the step now. Off by default. */
+export const Progress: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', background: 'var(--color-background-lane)' }}>
+      <TaskCard
+        title="Work board: our workflow, live progress, backlog"
+        line="Agent · just now"
+        status="Working"
+        statusTone="info"
+        progress
+        progressDone={2}
+        progressTotal={5}
+        stepNow="Re-shoot states, cards and board pictures"
+        style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }}
+        onOpen={() => {}}
+        onMoveTo={() => {}}
+      />
+      <TaskCard
+        title="Select: the dark label"
+        line="CHIP run · paused"
+        progress
+        paused
+        progressDone={2}
+        progressTotal={5}
+        stepNow="Fix it in the Chip theme and publish"
+        style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }}
+        onOpen={() => {}}
+        onMoveTo={() => {}}
+      />
+      <TaskCard title="No progress zone" line="main · 10:19" style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }} onOpen={() => {}} onMoveTo={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="task-card"]');
+    await step('the bar and "n of m" sit side by side, 8 apart, count in Geist Mono 600 20', async () => {
+      const bar = cards[0].querySelector('[class*="bar"]') as HTMLElement;
+      await expect(getComputedStyle(bar).columnGap).toBe('8px');
+      const count = bar.querySelector('[class*="count"]') as HTMLElement;
+      await expect(count).toHaveTextContent('2 of 5');
+      await expect(getComputedStyle(count).fontSize).toBe('20px');
+      await expect(getComputedStyle(count).fontWeight).toBe('600');
+      await expect(cards[0].querySelector('[role="progressbar"]')).toHaveAttribute('aria-valuenow', '40');
+    });
+    await step('the step row: a turning ring and "Now · step", cut with an ellipsis on one line', async () => {
+      const row = cards[0].querySelector('[class*="stepNow"]') as HTMLElement;
+      await expect(row.querySelector('[data-bella-component="progress-ring"]')).toHaveAttribute('data-state', 'running');
+      const text = row.querySelector('[class*="stepText"]') as HTMLElement;
+      await expect(text).toHaveTextContent('Now · Re-shoot states, cards and board pictures');
+      await expect(getComputedStyle(text).textOverflow).toBe('ellipsis');
+      await expect(getComputedStyle(text).whiteSpace).toBe('nowrap');
+      await expect(text.scrollWidth).toBeGreaterThan(text.clientWidth);
+    });
+    await step('paused: a grey ring and "Paused · step"', async () => {
+      const row = cards[1].querySelector('[class*="stepNow"]') as HTMLElement;
+      await expect(row.querySelector('[data-bella-component="progress-ring"]')).toHaveAttribute('data-state', 'waiting');
+      await expect(row).toHaveTextContent('Paused · Fix it in the Chip theme and publish');
+    });
+    await step('off by default: a card without it is unchanged', async () => {
+      await expect(cards[2].querySelector('[class*="progress"]')).toBeNull();
+    });
+  },
+};

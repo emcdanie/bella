@@ -166,6 +166,8 @@ export type { TrailingProps } from './Trailing/Trailing';
 
 export { default as Progress } from './Progress/Progress';
 export type { ProgressProps } from './Progress/Progress';
+export { default as ProgressRing } from './ProgressRing/ProgressRing';
+export type { ProgressRingProps, ProgressRingState } from './ProgressRing/ProgressRing';
 export { default as ProgressTarget } from './ProgressTarget/ProgressTarget';
 export type { ProgressTargetProps } from './ProgressTarget/ProgressTarget';
 

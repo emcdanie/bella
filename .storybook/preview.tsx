@@ -119,7 +119,7 @@ const preview: Preview = {
             'Inputs',
             ['Combobox', 'Input', 'SearchField', 'Select', 'Slider'],
             'Data',
-            ['Avatar', 'AvatarStack', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'Progress', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
+            ['Avatar', 'AvatarStack', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'Progress', 'ProgressRing', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
             'Layout',
             ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SideMenu', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
           ],

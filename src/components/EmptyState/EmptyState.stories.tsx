@@ -1,11 +1,12 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, waitFor } from 'storybook/test';
 import EmptyState from './EmptyState';
 import Button from '../Button/Button';
 import cssRaw from './EmptyState.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((cssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -171,5 +172,61 @@ export const Arrives: Story = {
       await expect(['none', 'matrix(1, 0, 0, 1, 0, 0)']).toContain(getComputedStyle(emoji).transform);
       await expect(Number(getComputedStyle(emoji).opacity)).toBe(1);
     });
+  },
+};
+
+/* Stand-ins for the animated WebP and its still (the real marks are passed in by the product). */
+const svg = (fill: string) => `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="10" y="8" width="44" height="48" rx="8" fill="${fill}"/><path d="M20 24h24M20 34h24M20 44h14" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/></svg>`)}`;
+const ANIMATED = svg('#e5a33a');
+const STILL = svg('#6b7a90');
+
+/** markSrc: an animated image in the mark's own box, no circle or fill, decorative unless markLabel says something. */
+export const AnimatedMark: Story = {
+  args: { title: 'Nothing here yet', line: 'Say what fills this space.', markSrc: ANIMATED, markStill: STILL, mark: '🤷' },
+  play: async ({ canvasElement }) => {
+    const mark = canvasElement.querySelector('[data-mark="image"]') as HTMLElement;
+    const img = mark.querySelector('img') as HTMLImageElement;
+    await expect(img.getAttribute('src')).toBe(ANIMATED);
+    await expect(img.alt).toBe('');
+    await expect(mark).toHaveAttribute('aria-hidden', 'true');
+    await expect(mark.getBoundingClientRect().width).toBe(48);
+    await expect(getComputedStyle(mark).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+  },
+};
+
+/** On a page the image takes the 64 box. */
+export const AnimatedMarkPage: Story = {
+  args: { size: 'page', title: 'Nothing here yet', line: 'Say what fills this space.', markSrc: ANIMATED, markStill: STILL },
+  play: async ({ canvasElement }) => {
+    await expect((canvasElement.querySelector('[data-mark="image"]') as HTMLElement).getBoundingClientRect().width).toBe(64);
+  },
+};
+
+/** markLabel: when the picture says something the words don't, it has a name. */
+export const LabelledMark: Story = {
+  args: { title: 'No runs yet', markSrc: ANIMATED, markStill: STILL, markLabel: 'A note, waiting' },
+  play: async ({ canvasElement }) => {
+    const mark = canvasElement.querySelector('[data-mark="image"]') as HTMLElement;
+    await expect(mark).not.toHaveAttribute('aria-hidden');
+    await expect((mark.querySelector('img') as HTMLImageElement).alt).toBe('A note, waiting');
+  },
+};
+
+/** Reduced motion: the still is shown, never the animation. */
+export const AnimatedMarkReducedMotion: Story = {
+  beforeEach: reduceMotion,
+  args: { title: 'Nothing here yet', line: 'Say what fills this space.', markSrc: ANIMATED, markStill: STILL },
+  play: async ({ canvasElement }) => {
+    const img = canvasElement.querySelector('[data-mark="image"] img') as HTMLImageElement;
+    await expect(img.getAttribute('src')).toBe(STILL);
+  },
+};
+
+/** A mark that fails to load falls back to the emoji. */
+export const AnimatedMarkFallback: Story = {
+  args: { title: 'Nothing here yet', markSrc: 'data:image/webp;base64,AAAA', mark: '🤷' },
+  play: async ({ canvasElement }) => {
+    await waitFor(() => expect(canvasElement.querySelector('[data-mark="image"]')).toBeNull());
+    await expect(canvasElement).toHaveTextContent('🤷');
   },
 };

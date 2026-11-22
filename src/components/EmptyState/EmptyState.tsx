@@ -1,4 +1,5 @@
-import React, { type CSSProperties, type ReactNode } from 'react';
+import React, { useState, type CSSProperties, type ReactNode } from 'react';
+import { useReducedMotion } from '../shared/useCountTo';
 import styles from './EmptyState.module.css';
 
 export interface EmptyStateProps {
@@ -10,6 +11,12 @@ export interface EmptyStateProps {
   line?: ReactNode;
   /** Figma "Mark". An emoji, no circle or fill behind it. Decorative: hidden from assistive tech. */
   mark?: string;
+  /** An animated image for the mark (an animated WebP, 23 Nov: Noto animated emoji), instead of the emoji. Sized like the emoji's box (48 in a lane, 64 on a page), no circle or fill behind it. The emoji in `mark` stays as the fallback when the image fails to load. */
+  markSrc?: string;
+  /** The still of `markSrc` (a PNG). Shown instead of the animation when the reader asked for less motion. Without it the animated image is shown as it is. */
+  markStill?: string;
+  /** What the image shows, only if it says something the words don't. Missing = decorative (empty alt, hidden from assistive tech). */
+  markLabel?: string;
   /** Figma "Show mark". Missing mark = off. */
   showMark?: boolean;
   /** Figma "Show action" / "Show secondary action": the Button(s), sm in a lane. Missing = off. */
@@ -29,16 +36,26 @@ export default function EmptyState({
   title,
   line,
   mark,
-  showMark = mark != null,
+  markSrc,
+  markStill,
+  markLabel,
+  showMark = mark != null || markSrc != null,
   actions,
   className,
   style,
 }: EmptyStateProps) {
   const cls = [styles.root, styles[size], className].filter(Boolean).join(' ');
+  const reduced = useReducedMotion();
+  const [broken, setBroken] = useState(false);
+  const image = markSrc && !broken ? (reduced && markStill ? markStill : markSrc) : null;
   return (
     <div className={cls} style={style} data-bella-component="empty-state" data-bella-reveal="">
       <div className={styles.content}>
-        {showMark && mark ? (
+        {showMark && image ? (
+          <span className={styles.mark} aria-hidden={markLabel ? undefined : true} data-mark="image">
+            <img className={styles.image} src={image} alt={markLabel ?? ''} onError={() => setBroken(true)} draggable={false} />
+          </span>
+        ) : showMark && mark ? (
           <span className={styles.mark} aria-hidden="true">
             <span className={styles.emoji}>{mark}</span>
           </span>

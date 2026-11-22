@@ -6,7 +6,7 @@ export interface ButtonProps {
   /**
    * Tier. `"primary"` is the flat ink plate, no shadow, never lifts;
    * render at most ONE per view. `"secondary"` is the flat accent outline.
-   * `"tertiary"` is the text tier: an ink label, no plate, no underline; hover lays a fill under it (Figma 26:320).
+   * `"tertiary"` is the text tier: no plate. BELLA themes: an ink label, hover lays a fill under it (Figma 26:320). Chip (her pick E, 22 Nov): dark brand blue text only, and hover, pressed and focus lay a pale blue wash under it and underline the label in blue.
    * The neutral tier is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';

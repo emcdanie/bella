@@ -44,6 +44,8 @@ const TerminalBody = () => {
   );
 };
 
+/* Stories start at the 16 edge the panel never goes inside: under a loaded full run the panel is sometimes pulled
+ * to that edge by a transient resize, and a start at 40 then made its pictures differ run to run. */
 const meta: Meta<typeof FloatingPanel> = {
   title: 'Components/Layout/FloatingPanel',
   component: FloatingPanel,
@@ -106,7 +108,7 @@ const Page = (args: React.ComponentProps<typeof FloatingPanel> & { docked?: stri
 export const WithSampleContent: Story = {
   render: (args) => (
     <div style={{ minBlockSize: '100dvh', background: 'var(--color-background-subtle)' }}>
-      <FloatingPanel {...args} defaultPosition={{ x: 40, y: 40 }} onDock={() => {}} onClose={() => {}}>
+      <FloatingPanel {...args} defaultPosition={{ x: 16, y: 16 }} onDock={() => {}} onClose={() => {}}>
         <TerminalBody />
       </FloatingPanel>
     </div>
@@ -240,7 +242,7 @@ export const TitleOnly: Story = {
   args: { status: undefined, actionLabel: undefined, title: 'Notes' },
   render: (args) => (
     <div style={{ minBlockSize: '100dvh', background: 'var(--color-background-subtle)' }}>
-      <FloatingPanel {...args} defaultPosition={{ x: 40, y: 40 }} onDock={() => {}} onClose={() => {}}>
+      <FloatingPanel {...args} defaultPosition={{ x: 16, y: 16 }} onDock={() => {}} onClose={() => {}}>
         <p style={{ margin: 0 }}>Nothing running.</p>
       </FloatingPanel>
     </div>

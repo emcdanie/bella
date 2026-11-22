@@ -118,6 +118,9 @@ const PAIRS = [
   ['content-default on the not-doing wash over background-default', c('content-default'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
   ['content-lane-subtle on the not-doing wash over background-default', c('content-lane-subtle'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
   ['content-default on the not-doing count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
+  // Tertiary Button in Chip (22 Nov 2026, her pick E): the blue label at rest on the page, and on the pale blue wash it takes on hover and focus
+  ['content-brand on background-default', c('content-brand'), c('background-default'), TEXT],
+  ['content-brand on the blue wash over background-default', c('content-brand'), `${c('background-wash-blue')} over ${c('background-default')}`, TEXT],
   // BoardLane drop space (19 Nov 2026): label and dashed edge on the lane
   ['content-brand on background-lane', c('content-brand'), c('background-lane'), TEXT],
   // text on filled parts

@@ -541,3 +541,46 @@ export const SmallTapArea: Story = {
     }
   },
 };
+
+/** Tertiary in Chip (her pick E, 22 Nov): blue text only at rest; BELLA's own themes keep the ink text. */
+export const TertiaryBlue: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap', padding: 'var(--spacing-16)' }}>
+      <Button variant="tertiary" onClick={() => {}}>Show table</Button>
+      <Button variant="tertiary" onClick={() => {}} disabled>Not now</Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const [rest, off] = canvas.getAllByRole('button');
+    const chip = document.documentElement.getAttribute('data-theme')?.startsWith('chip');
+    const brand = getComputedStyle(document.documentElement).getPropertyValue('--color-content-brand').trim();
+    const ink = getComputedStyle(document.documentElement).getPropertyValue('--color-content-default').trim();
+    const swatch = (v: string) => { const d = document.createElement('i'); d.style.color = v; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; };
+    await expect(getComputedStyle(rest).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(getComputedStyle(rest).color).toBe(swatch(chip ? brand : ink));
+    await expect(getComputedStyle(off).color).not.toBe(getComputedStyle(rest).color);
+  },
+};
+
+/** Focus (and hover): the pale blue wash and a blue underline under the label, in Chip. */
+export const TertiaryBlueFocus: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-16)' }}>
+      <Button variant="tertiary" onClick={() => {}}>Show table</Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const b = canvas.getByRole('button');
+    await userEvent.tab();
+    await expect(b).toHaveFocus();
+    const chip = document.documentElement.getAttribute('data-theme')?.startsWith('chip');
+    const label = b.querySelector('[data-bella-roll="copy"]') as HTMLElement;
+    if (chip) {
+      await expect(getComputedStyle(b).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+      await expect(getComputedStyle(label).textDecorationLine).toBe('underline');
+      await expect(getComputedStyle(label).textDecorationThickness).toBe('2px');
+    } else {
+      await expect(getComputedStyle(label).textDecorationLine).toBe('none');
+    }
+  },
+};

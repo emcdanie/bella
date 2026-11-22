@@ -220,6 +220,34 @@
   border: 0;
 }
 
+/* TERTIARY in Chip (Elleta, 22 Nov, her pick E; replaces the ink-text tertiary of 19 Nov): blue text only,
+ * no fill at rest. The label is content/brand (dark brand blue, 8.90:1 on the page ground in Chip light; the
+ * light blue in Chip dark). Hover, pressed, toggled-on and focus lay the pale blue wash under it and
+ * underline the label in blue (2 thick, 4 off). The underline sits on the roll's copy, the one that rolls into view
+ * (the label rolls out, and an underline on it would show at the window's top edge); the copy is an inline-flex
+ * box, so it carries the decoration itself. BELLA's own themes keep the ink tertiary above. */
+:global([data-theme^='chip']) .tertiary {
+  color: var(--color-content-brand);
+}
+
+:global([data-theme^='chip']) .tertiary:hover:not(:disabled),
+:global([data-theme^='chip']) .tertiary:active:not(:disabled),
+:global([data-theme^='chip']) .tertiary[aria-pressed='true']:not(:disabled),
+:global([data-theme^='chip']) .tertiary:focus-visible {
+  background: var(--color-background-wash-blue);
+}
+
+:global([data-theme^='chip']) .tertiary:hover:not(:disabled) .rollCopy,
+:global([data-theme^='chip']) .tertiary:focus-visible .rollCopy {
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-width-2);
+  text-underline-offset: var(--spacing-4);
+}
+
+:global([data-theme^='chip']) .tertiary:disabled {
+  color: var(--color-content-subtle);
+}
+
 /* SIZE SM (Figma Button 26:320, read 19 Nov 2026): a 32 plate (size/32),
  * 12 sides, the same 16px label. The 44 tap area stays: an invisible ::after
  * reaches 6px past the top and bottom edges, as Figma's Hit area at y -6. */

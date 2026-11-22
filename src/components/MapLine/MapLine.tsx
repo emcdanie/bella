@@ -1,4 +1,4 @@
-import React, { type CSSProperties } from 'react';
+import React, { useEffect, useState, type CSSProperties } from 'react';
 import Icon from '../Icon/Icon';
 import styles from './MapLine.module.css';
 
@@ -22,8 +22,30 @@ export interface MapLineProps {
   flip?: boolean;
   /** Figma "corner". Turn only: which corner the curve bends round. */
   corner?: MapLineCorner;
+  /** curve only. Weight: regular is 2px; thin is 1px in a lighter tone, for the lines of steps that are not picked so a busy map does not bunch. */
+  weight?: 'regular' | 'thin';
+  /** curve only. Draw-in along the line, start to end, when it appears or this prop changes: map = 900ms (the first draw of a map), pick = 250ms (a line becoming the picked step's). none = drawn at once. */
+  draw?: 'none' | 'map' | 'pick';
+  /** curve only. A soft highlight travels the line in its direction, once, then rests. Set it on the picked step's lines; it plays each time it turns on. */
+  travel?: boolean;
   className?: string;
   style?: CSSProperties;
+}
+
+/* prefers-reduced-motion: the line is fully drawn and nothing travels. */
+function useStill(): boolean {
+  const [still, setStill] = useState(() =>
+    typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (!mq) return undefined;
+    const on = () => setStill(mq.matches);
+    on();
+    mq.addEventListener?.('change', on);
+    return () => mq.removeEventListener?.('change', on);
+  }, []);
+  return still;
 }
 
 /* Turn: a 16-radius quarter curve in a 24 box, measured from the Figma
@@ -50,10 +72,14 @@ export default function MapLine({
   from,
   to,
   flip = false,
+  weight = 'regular',
+  draw = 'none',
+  travel = false,
   className,
   style,
 }: MapLineProps) {
-  const cls = [styles.root, styles[direction], styles[tone], variant === 'dashed' ? styles.dashed : '', className]
+  const still = useStill();
+  const cls = [styles.root, styles[direction], styles[tone], variant === 'dashed' ? styles.dashed : '', direction === 'curve' && weight === 'thin' ? styles.thin : '', className]
     .filter(Boolean)
     .join(' ');
 
@@ -71,8 +97,20 @@ export default function MapLine({
         }
       : {};
     const mirrored = placed ? to.x < from.x : flip;
+    const drawn = still ? 'none' : draw;
+    const path = <path d="M 0 0 C 0 50, 100 50, 100 100" vectorEffect="non-scaling-stroke" />;
     return (
-      <span className={cls} style={{ ...box, ...style }} aria-hidden="true" data-bella-component="map-line" data-flip={mirrored ? '' : undefined}>
+      <span
+        className={cls}
+        style={{ ...box, ...style }}
+        aria-hidden="true"
+        data-bella-component="map-line"
+        data-flip={mirrored ? '' : undefined}
+        data-motion={still ? 'still' : undefined}
+        data-bella-reveal={drawn !== 'none' || travel ? '' : undefined}
+        data-draw={drawn === 'none' ? undefined : drawn}
+        data-travel={!still && travel ? '' : undefined}
+      >
         <svg
           className={styles.curvePath}
           viewBox="0 0 100 100"
@@ -81,8 +119,13 @@ export default function MapLine({
           role="img"
           aria-label="Connection"
         >
-          <path d="M 0 0 C 0 50, 100 50, 100 100" vectorEffect="non-scaling-stroke" />
+          {path}
         </svg>
+        {!still && travel ? (
+          <svg className={[styles.curvePath, styles.glint].join(' ')} viewBox="0 0 100 100" preserveAspectRatio="none" data-bella-diagram="" role="img" aria-label="Highlight travelling along the connection" data-glint="">
+            {path}
+          </svg>
+        ) : null}
       </span>
     );
   }

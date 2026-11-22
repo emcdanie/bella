@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import MapLine from './MapLine';
@@ -46,6 +46,9 @@ const meta: Meta<typeof MapLine> = {
     end: { control: 'inline-radio' },
     variant: { control: 'inline-radio' },
     tone: { control: 'inline-radio' },
+    weight: { control: 'inline-radio' },
+    draw: { control: 'inline-radio' },
+    travel: { control: 'boolean' },
     corner: { control: 'inline-radio' },
     className: { control: false },
     style: { control: false },
@@ -180,5 +183,99 @@ export const FollowsTwoPoints: Story = {
     await expect(b.style.left).toBe('220px');
     await expect(b.style.width).toBe('60px');
     await expect(b).toHaveAttribute('data-flip');
+  },
+};
+
+/** weight="thin" (curve only): 1px in a lighter tone, for the lines of steps that are not picked. */
+export const ThinWeight: Story = {
+  render: () => (
+    <Themed>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-24)' }}>
+        <Cell label="curve · regular"><MapLine direction="curve" /></Cell>
+        <Cell label="curve · thin"><MapLine direction="curve" weight="thin" /></Cell>
+      </div>
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const [regular, thin] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="map-line"]'));
+    await expect(getComputedStyle(regular.querySelector('path')!).strokeWidth).toBe('2px');
+    await expect(getComputedStyle(thin.querySelector('path')!).strokeWidth).toBe('1px');
+    await expect(getComputedStyle(thin).color).not.toBe(getComputedStyle(regular).color);
+  },
+};
+
+/* prefers-reduced-motion mocked for a story, as BarChart does. */
+const ReducedFrame = ({ children }: { children: React.ReactNode }) => {
+  const original = useRef<typeof window.matchMedia | null>(null);
+  if (original.current === null) {
+    original.current = window.matchMedia;
+    const real = original.current.bind(window);
+    window.matchMedia = ((q: string) =>
+      q.includes('prefers-reduced-motion') ? ({ ...real(q), matches: true, addEventListener() {}, removeEventListener() {} } as MediaQueryList) : real(q)) as typeof window.matchMedia;
+  }
+  useEffect(
+    () => () => {
+      if (original.current) window.matchMedia = original.current;
+    },
+    []
+  );
+  return <>{children}</>;
+};
+
+const motionOf = (el: Element) => el.getAnimations().map((a) => (a as CSSAnimation).animationName);
+
+/** draw="map": the first draw of a map runs 900ms along the line, ease-out; draw="pick" runs 250ms. */
+export const DrawIn: Story = {
+  render: () => (
+    <Themed>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 'var(--spacing-24)' }}>
+        <Cell label="draw · map"><MapLine direction="curve" tone="selected" draw="map" /></Cell>
+        <Cell label="draw · pick"><MapLine direction="curve" tone="selected" draw="pick" /></Cell>
+      </div>
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const [map, pick] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="map-line"]'));
+    await expect(map).toHaveAttribute('data-draw', 'map');
+    await expect(pick).toHaveAttribute('data-draw', 'pick');
+    /* the snapshot harness mocks reduced motion for data-bella-reveal pages, so read the rule itself */
+    await expect(getComputedStyle(map).animationDuration === '0.9s' || getComputedStyle(map).animationName === 'none').toBe(true);
+    await expect(getComputedStyle(pick).animationDuration === '0.25s' || getComputedStyle(pick).animationName === 'none').toBe(true);
+  },
+};
+
+/** travel: a soft highlight runs the line once in its direction, then rests; it is in the page only while travel is on. */
+export const Travel: Story = {
+  render: () => (
+    <Themed>
+      <Cell label="travel · picked step's line"><MapLine direction="curve" tone="selected" draw="pick" travel /></Cell>
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const line = canvasElement.querySelector('[data-bella-component="map-line"]') as HTMLElement;
+    const glint = line.querySelector('[data-glint]') as SVGElement;
+    await expect(glint).not.toBeNull();
+    await expect(getComputedStyle(glint).animationIterationCount === '1' || getComputedStyle(glint).animationName === 'none').toBe(true);
+    await expect(line).toHaveAttribute('aria-hidden', 'true');
+  },
+};
+
+/** Reduced motion: fully drawn, no draw-in and no travelling highlight. */
+export const ReducedMotion: Story = {
+  render: () => (
+    <ReducedFrame>
+      <Themed>
+        <Cell label="reduced · draw and travel asked for"><MapLine direction="curve" tone="selected" draw="map" travel /></Cell>
+      </Themed>
+    </ReducedFrame>
+  ),
+  play: async ({ canvasElement }) => {
+    const line = canvasElement.querySelector('[data-bella-component="map-line"]') as HTMLElement;
+    await expect(line).toHaveAttribute('data-motion', 'still');
+    await expect(line).not.toHaveAttribute('data-draw');
+    await expect(line.querySelector('[data-glint]')).toBeNull();
+    await expect(getComputedStyle(line).animationName).toBe('none');
+    await expect(motionOf(line)).toHaveLength(0);
+    await expect(getComputedStyle(line.querySelector('path')!).strokeWidth).toBe('2px');
   },
 };

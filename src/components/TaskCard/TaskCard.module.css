@@ -208,6 +208,17 @@ button.move:focus-visible {
   min-inline-size: 0;
 }
 
+/* A status row with nothing to draw (no Tag, no ↗) holds only the status words for screen readers: it leaves the
+   flow, so the card does not keep an empty 24 row and a 16 gap under its last line (23 Nov, Elleta: white space
+   on cards) */
+.status:not(:has(> :not(.srOnly))) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
 .status > [data-bella-component='tag'] {
   margin-inline-end: auto;
 }

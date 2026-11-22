@@ -135,3 +135,37 @@ export const NumberLabels: Story = {
     for (const b of canvasElement.querySelectorAll('button')) await expect(faceOf(b)).toBe(numberFace(b));
   },
 };
+
+/** Figma "Show segment 4" and the instance drawn at card width (Gate runs' range): four options, `stretch` shares the width equally. */
+export const FourSegmentsStretched: Story = {
+  render: () => {
+    const [v, setV] = useState('d');
+    return (
+      <div style={{ inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+        <SegmentedControl
+          label="Range"
+          stretch
+          value={v}
+          onChange={setV}
+          options={[
+            { value: 'd', label: 'D' },
+            { value: 'w', label: 'W' },
+            { value: 'm', label: 'M' },
+            { value: 'y', label: 'Y' },
+          ]}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement, step }) => {
+    const group = canvasElement.querySelector('[data-bella-component="segmented-control"]') as HTMLElement;
+    const buttons = Array.from(group.querySelectorAll('button'));
+    await step('four segments fill the group and share it equally', async () => {
+      await expect(buttons).toHaveLength(4);
+      const widths = buttons.map((b) => Math.round(b.getBoundingClientRect().width));
+      await expect(new Set(widths).size).toBe(1);
+      await expect(Math.round(group.getBoundingClientRect().width)).toBe(Math.round(group.parentElement!.getBoundingClientRect().width));
+      await expect(buttons[0]).toHaveAttribute('aria-current', 'true');
+    });
+  },
+};

@@ -59,6 +59,8 @@ export interface ButtonProps {
   ariaLabel?: string;
   /** For a button that shows or hides content: whether that content is open (aria-expanded). */
   ariaExpanded?: boolean;
+  /** For a toggle button (light or dark, mark up, compare in ToolColumn): whether it is on. On shows the pressed look, the same fill as hover (aria-pressed). */
+  ariaPressed?: boolean;
   /** For a button that opens a dialog (aria-haspopup). */
   ariaHaspopup?: 'dialog';
   /** Extra classes on the control. */
@@ -89,6 +91,7 @@ export default function Button({
   linkComponent: LinkComponent = 'a',
   ariaLabel,
   ariaExpanded,
+  ariaPressed,
   ariaHaspopup,
   className,
   children: childrenProp,
@@ -173,6 +176,7 @@ export default function Button({
       aria-busy={busyHere || undefined}
       aria-disabled={busyHere || undefined}
       aria-expanded={ariaExpanded}
+      aria-pressed={ariaPressed}
       aria-haspopup={ariaHaspopup}
       {...shared}
     >

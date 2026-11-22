@@ -45,6 +45,13 @@
   translate: 0 -50%;
 }
 
+.left {
+  top: 50%;
+  left: auto;
+  right: calc(100% + var(--spacing-8));
+  translate: 0 -50%;
+}
+
 /* the pointer: one shape with the bubble, 16 wide and 8 deep, 1px into it */
 .tip:not(.rich)::before {
   content: '';
@@ -68,6 +75,15 @@
 .top:not(.rich)::before {
   top: calc(100% - var(--border-width-1));
   clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.left:not(.rich)::before {
+  top: 50%;
+  left: calc(100% - var(--border-width-1));
+  inline-size: var(--spacing-8);
+  block-size: var(--size-16);
+  translate: 0 -50%;
+  clip-path: polygon(0 0, 0 100%, 100% 50%);
 }
 
 .right:not(.rich)::before {

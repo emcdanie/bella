@@ -74,3 +74,34 @@ export const Rich: Story = {
     await waitFor(() => expect(card.hidden).toBe(false));
   },
 };
+
+/** Side placements: the bubble sits 8 to the left or right of a short label's trigger and its pointer is centred on the box, aimed at the trigger. */
+export const SidePlacements: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-48)', display: 'flex', gap: 'calc(var(--spacing-80) * 2)', justifyContent: 'center' }}>
+      {(['left', 'right'] as const).map((p) => (
+        <Tooltip key={p} label="Fit" placement={p}>
+          <button type="button" aria-label="Fit" style={{ minWidth: 'var(--spacing-44)', minHeight: 'var(--spacing-44)', display: 'inline-grid', placeItems: 'center', border: 'var(--border-width-1) solid var(--color-border-strong)', borderRadius: 'var(--border-radius-8)', background: 'var(--color-background-surface)', color: 'var(--color-content-default)' }}>
+            <Icon name="Expand" size="sm" />
+          </button>
+        </Tooltip>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const wraps = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="tooltip"]'));
+    for (const [i, w] of wraps.entries()) {
+      (w.querySelector('button') as HTMLElement).focus();
+      const tip = w.querySelector('[aria-hidden="true"]:not(svg)') as HTMLElement;
+      await waitFor(() => expect(tip.hidden).toBe(false));
+      const b = w.querySelector('button')!.getBoundingClientRect();
+      const t = tip.getBoundingClientRect();
+      await expect(Math.round(Math.abs(t.top + t.height / 2 - (b.top + b.height / 2)))).toBe(0);
+      const gap = i === 0 ? b.left - t.right : t.left - b.right;
+      await expect(Math.round(gap)).toBe(8);
+      const pointer = getComputedStyle(tip, '::before');
+      await expect(pointer.width).toBe('8px');
+      await expect(pointer.height).toBe('16px');
+    }
+  },
+};

@@ -115,13 +115,13 @@ const preview: Preview = {
           // (Elleta, 19 Nov 2026: "oranize the compoents please.. by type"); A to Z in each
           [
             'Actions',
-            ['ActionChip', 'Button', 'FilterChip', 'Link', 'SegmentedControl', 'Tabs', 'Tooltip'],
+            ['ActionChip', 'Button', 'FilterChip', 'Link', 'SegmentedControl', 'Tabs', 'ToolColumn', 'Tooltip'],
             'Inputs',
             ['Combobox', 'Input', 'SearchField', 'Select', 'Slider'],
             'Data',
-            ['Avatar', 'AvatarStack', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'Progress', 'ProgressRing', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
+            ['Avatar', 'AvatarStack', 'BarChart', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLine', 'MapNode', 'Progress', 'ProgressRing', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
             'Layout',
-            ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SideMenu', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
+            ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'FloatingPanel', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SideMenu', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
           ],
           'Patterns',
           'Pages',

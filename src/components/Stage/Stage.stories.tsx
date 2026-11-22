@@ -239,3 +239,26 @@ export const AnatomyHover: Story = {
     });
   },
 };
+
+/** Leader colour (23 Nov): neutral as published; red for CHIP's anatomy, where the leaders are red. */
+export const RedLeaders: Story = {
+  render: () => (
+    <Stage
+      grid="dots"
+      label="Button on the stage"
+      scale={3}
+      leaderVariant="red"
+      markers={[
+        { id: 'plate', x: 30, y: -22, label: 1, part: 'Plate', chipX: -184, chipY: -48 },
+        { id: 'label', x: -6, y: -8, label: 2, part: 'Label', chipX: -184, chipY: 0 },
+      ]}
+    >
+      <Button variant="primary">Send</Button>
+    </Stage>
+  ),
+  play: async ({ canvasElement }) => {
+    const leaders = canvasElement.querySelectorAll('[data-bella-component="leader"]');
+    await expect(leaders.length).toBeGreaterThan(0);
+    for (const l of leaders) await expect(l.getAttribute('class') ?? '').toMatch(/red/);
+  },
+};

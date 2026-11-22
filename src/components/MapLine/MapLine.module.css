@@ -4,7 +4,7 @@
  * Icon at the end; the path runs under it to 4 short of the end, as Figma's
  * 116-in-120 path. turn: a 24 box holding a 16-radius quarter curve (a CSS border corner),
  * joined at 8 so it meets straight pieces on their centre line.
- * tone default = border/strong; accent = border/accent-1. Arrow ink:
+ * tone default = border/strong; selected = border/brand; danger = border/utility/error; accent = border/accent-1. Arrow ink:
  * content/subtle, accent = content/accent. dashed: 6 on, 6 off, as Figma
  * (CSS dashed borders, straight pieces and turn).
  * Butt ends: connectors are not data marks. Named exception (craft-check R12):
@@ -68,6 +68,47 @@
 
 .accent .arrow {
   color: var(--color-content-accent);
+}
+
+.selected {
+  color: var(--color-border-brand);
+}
+
+.danger {
+  color: var(--color-border-utility-error);
+}
+
+.danger .arrow {
+  color: var(--color-content-utility-error);
+}
+
+/* curve (22 Nov, Processes): one bezier in a stretchable box, 2 wide, round ends, no arrow. */
+.curve {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  min-inline-size: var(--border-width-2);
+  min-block-size: var(--border-width-2);
+}
+
+.curve[data-flip] .curvePath {
+  scale: -1 1;
+}
+
+.curvePath {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--border-width-2);
+  stroke-linecap: round;
+}
+
+.dashed .curvePath {
+  stroke-dasharray: calc(var(--border-width-2) * 3);
 }
 
 .turn {

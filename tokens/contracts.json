@@ -41,6 +41,7 @@
             "linkComponent",
             "ariaLabel",
             "ariaExpanded",
+            "ariaPressed",
             "ariaHaspopup",
             "className",
             "children"
@@ -724,6 +725,7 @@
             "value",
             "onChange",
             "label",
+            "stretch",
             "className"
           ],
           "usage": [
@@ -3333,13 +3335,17 @@
             "variant",
             "tone",
             "corner",
+            "from",
+            "to",
+            "flip",
             "className",
             "style"
           ],
           "usage": [
-            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)",
+            "Processes maps, joining MapNodes with direction=curve (22 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026. 22 Nov 2026: direction=curve (one bezier from the middle of a step's bottom edge to the middle of the next step's top edge, scaling with its box, round ends, no arrow; from and to follow measured nodes), tones selected (brand blue) and danger, style solid or dashed."
         }
       }
     },
@@ -3941,6 +3947,7 @@
             "offsetY",
             "picking",
             "onPick",
+            "leaderVariant",
             "onSelect",
             "activeId",
             "onActiveChange",
@@ -4317,6 +4324,155 @@
             "Do not mark a whole sentence, or more than one phrase per paragraph"
           ],
           "a11y": "A <mark> element, so screen readers can announce a highlight. The phrase keeps the ink of its line on the page colour and on the band, 7:1 or more in all four themes; the band is decoration under it. Forced colours: Mark and MarkText."
+        }
+      }
+    },
+    "bar-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "BarChart",
+          "category": "Data",
+          "description": "Runs over time as rounded bars, one bar per time slot, from a visible zero baseline: passes in green and failures in red on top with a cross mark, so a failure is found at a glance and never by colour alone (Gate runs, \"C · Apple style\"). A range (D, W, M, Y), the number with its unit and one meta line above, thin dashed gridlines, the latest bar labelled. Hover, touch or arrow keys pick a bar: a 1px guide, an outline on that bar (the others stay as they are) and a callout above the plot. A table of the same data and a one-line summary sit behind every chart. Bars grow from the base and morph between ranges; reduced motion shows the end state at once.",
+          "states": [
+            "default",
+            "scrub"
+          ],
+          "props": [
+            "slots",
+            "title",
+            "view",
+            "onViewChange",
+            "showViewToggle",
+            "range",
+            "defaultRange",
+            "onRangeChange",
+            "label",
+            "unit",
+            "context",
+            "failedLabel",
+            "summary",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Gate runs on CHIP Health and the Work board (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a trend over a long time with many points (a line chart)",
+            "Not a part of a whole (never a pie or donut)",
+            "Never red and green alone: the cross mark and the legend words carry the failure",
+            "Never gaps joined by a line across them"
+          ],
+          "a11y": "A group named by its title, described by the summary line (always present). Each slot is a focusable image with roving tabindex, named \"14:15-14:30, 3 runs, 3 failed, contracts\"; arrow keys, Home and End move between slots and the callout follows, Esc closes it. The callout is decoration: the slot's name says the same. Pass and fail differ by position, the cross mark and the legend words, never colour alone. A Show table button swaps the chart for a DataTable of the same data. Bars 3:1 on the card in all four themes, text 7:1, numbers tabular. Reduced motion: bars stand at full height at once.",
+          "figma": "Matches BellaComponents BarChart 1737:304 (22 Nov 2026): state default and scrub, view chart and table; Range is SegmentedControl with Show segment 4 (stretch). Differences kept on purpose: the table view carries DataTable's visible caption, and a Show table button sits at the right of the legend row (the Figma table view has neither)."
+        }
+      }
+    },
+    "floating-panel": {
+      "$extensions": {
+        "bella": {
+          "name": "FloatingPanel",
+          "category": "Layout",
+          "description": "A panel detached from its drawer into a small window that floats over any page, so you can watch an agent (the Terminal) and keep working. A title bar with a grip, the title, an optional status (a StatusDot, no wash) and a Stop button, Dock and Close; a body slot holding the drawer's content as it is. Moved by dragging the title bar or the arrow keys on the focused bar, kept fully on screen. Esc or Dock puts it back; Close closes it.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "status",
+            "statusTone",
+            "actionLabel",
+            "onAction",
+            "children",
+            "onDock",
+            "onClose",
+            "defaultPosition",
+            "onMove",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The Terminal detached from its Drawer on every CHIP page (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a dialog that needs an answer (a modal)",
+            "Not a hover hint (Tooltip)",
+            "No resize corner: the window has one size"
+          ],
+          "a11y": "role=dialog, aria-modal=false, named by its title; the page behind stays usable. The title bar is focusable (tabindex 0) with the description \"Arrow keys move it, Esc docks it\"; arrows move it 8 a press, Shift 40, and it stops 16 from the window edge. Focus moves to the title bar when it opens and back to the button that opened it when it docks or closes. Dock and Close have names (\"Dock Terminal\", \"Close Terminal\") and Tooltips; every control is a 44 target with the focus ring. Reduced motion: it appears and goes at once.",
+          "figma": "Matches BellaComponents FloatingPanel 1739:20 (22 Nov 2026): Title, Show status, Show action, Body slot. Arrow step 8 and Shift 40 as the published description says. The Dock button uses SidebarExpand until the Icon set gains a dock icon (Figma gap noted in the spec)."
+        }
+      }
+    },
+    "tool-column": {
+      "$extensions": {
+        "bella": {
+          "name": "ToolColumn",
+          "category": "Actions",
+          "description": "The thin column of view tools beside a stage: zoom in, fit, zoom out, then light or dark, mark up and compare. Icon-only tertiary buttons, each named by a Tooltip on its right; a zoom readout (\"200%\") 16 right of and 8 under the column. Zoom steps 25, 50, 75, 100, 150, 200, 300, 400; light or dark, mark up and compare are toggles. It replaces a control bar so the part gets the stage.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "zoom",
+            "defaultZoom",
+            "onZoomChange",
+            "onFit",
+            "showZoom",
+            "dark",
+            "onDarkChange",
+            "markUp",
+            "onMarkUpChange",
+            "compare",
+            "onCompareChange",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Components workbench and Playground stage, top left inside it (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not page actions (PageHeader)",
+            "Not a row of choices (SegmentedControl)"
+          ],
+          "a11y": "role=toolbar, aria-orientation=vertical, named \"View tools\". One tab stop (roving tabindex): Up, Down, Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool.",
+          "figma": "Matches BellaComponents ToolColumn (22 Nov 2026): View group, Divider, Tools group, Show zoom. Icons ZoomIn, ZoomOut and Expand were added to the Icon registry from the Figma Icon set; Compare uses Copy until the set gains a two-pane glyph. The Tooltip shows at once on hover (the Figma 500 ms hover delay is not in the Tooltip part yet)."
+        }
+      }
+    },
+    "map-node": {
+      "$extensions": {
+        "bella": {
+          "name": "MapNode",
+          "category": "Data",
+          "description": "One step of a process map on CHIP Processes: its name and its health, a flat 176-wide box (no shadow) with a strong edge. Tone default, attention (the warning edge: a step that needs you) or blocked (a neutral dot, \"Blocked: <what>\"); selected is the light-blue fill with the 2px brand edge. The dot meets the title's left edge and the status word starts 8 after it. Joined by MapLine direction=curve.",
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "focus"
+          ],
+          "props": [
+            "title",
+            "status",
+            "tone",
+            "statusTone",
+            "selected",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes maps and the System map (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a grid item (Card)",
+            "Not a status on its own (StatusDot)",
+            "Not a step in a short sequence (Step)"
+          ],
+          "a11y": "A button with aria-pressed. The dot is a StatusDot named by the status word, so the word is read once; the visible word is aria-hidden. Text 7:1; the resting edge is a hairline (decoration), the selected edge 4.05:1; the status is never colour alone (the word says it). Focus ring 4 wide, 4 gap, corner 16.",
+          "figma": "Matches BellaComponents MapNode 794:169078 (22 Nov 2026): tone default, attention, blocked; selected; 176 wide, corner 12, flat. Show hotspot (the Pin badge on the corner) is not built: the map board places its pins itself."
         }
       }
     }

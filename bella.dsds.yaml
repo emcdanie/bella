@@ -12202,6 +12202,8 @@ entries:
         items:
           - level: may
             statement: CHIP "Not again" page and screen shell (19 Nov 2026)
+          - level: may
+            statement: Processes maps, joining MapNodes with direction=curve (22 Nov 2026)
     refs:
       - href: ./src/components/MapLine/MapLine.stories.tsx
         rel: storybook
@@ -13449,6 +13451,210 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+  - kind: component
+    id: bar-chart
+    name: BarChart
+    description: "Runs over time as rounded bars, one bar per time slot, from a visible zero baseline: passes in green and failures in red on top with a cross mark, so a failure is found at a glance and never by colour alone (Gate runs, \"C · Apple style\"). A range (D, W, M, Y), the number with its unit and one meta line above, thin dashed gridlines, the latest bar labelled. Hover, touch or arrow keys pick a bar: a 1px guide, an outline on that bar (the others stay as they are) and a callout above the plot. A table of the same data and a one-line summary sit behind every chart. Bars grow from the base and morph between ranges; reduced motion shows the end state at once."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "A group named by its title, described by the summary line (always present). Each slot is a focusable image with roving tabindex, named \"14:15-14:30, 3 runs, 3 failed, contracts\"; arrow keys, Home and End move between slots and the callout follows, Esc closes it. The callout is decoration: the slot's name says the same. Pass and fail differ by position, the cross mark and the legend words, never colour alone. A Show table button swaps the chart for a DataTable of the same data. Bars 3:1 on the card in all four themes, text 7:1, numbers tabular. Reduced motion: bars stand at full height at once."
+      tags:
+        - component
+        - bar-chart
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Gate runs on CHIP Health and the Work board (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a trend over a long time with many points (a line chart)
+          - level: must-not
+            statement: Not a part of a whole (never a pie or donut)
+          - level: must-not
+            statement: "Never red and green alone: the cross mark and the legend words carry the failure"
+          - level: must-not
+            statement: Never gaps joined by a line across them
+    refs:
+      - href: ./src/components/BarChart/BarChart.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/BarChart/BarChart.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - scrub
+  - kind: component
+    id: floating-panel
+    name: FloatingPanel
+    description: A panel detached from its drawer into a small window that floats over any page, so you can watch an agent (the Terminal) and keep working. A title bar with a grip, the title, an optional status (a StatusDot, no wash) and a Stop button, Dock and Close; a body slot holding the drawer's content as it is. Moved by dragging the title bar or the arrow keys on the focused bar, kept fully on screen. Esc or Dock puts it back; Close closes it.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=dialog, aria-modal=false, named by its title; the page behind stays usable. The title bar is focusable (tabindex 0) with the description \"Arrow keys move it, Esc docks it\"; arrows move it 8 a press, Shift 40, and it stops 16 from the window edge. Focus moves to the title bar when it opens and back to the button that opened it when it docks or closes. Dock and Close have names (\"Dock Terminal\", \"Close Terminal\") and Tooltips; every control is a 44 target with the focus ring. Reduced motion: it appears and goes at once."
+      tags:
+        - component
+        - floating-panel
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The Terminal detached from its Drawer on every CHIP page (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a dialog that needs an answer (a modal)
+          - level: must-not
+            statement: Not a hover hint (Tooltip)
+          - level: must-not
+            statement: "No resize corner: the window has one size"
+    refs:
+      - href: ./src/components/FloatingPanel/FloatingPanel.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/FloatingPanel/FloatingPanel.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: tool-column
+    name: ToolColumn
+    description: "The thin column of view tools beside a stage: zoom in, fit, zoom out, then light or dark, mark up and compare. Icon-only tertiary buttons, each named by a Tooltip on its right; a zoom readout (\"200%\") 16 right of and 8 under the column. Zoom steps 25, 50, 75, 100, 150, 200, 300, 400; light or dark, mark up and compare are toggles. It replaces a control bar so the part gets the stage."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=toolbar, aria-orientation=vertical, named \"View tools\". One tab stop (roving tabindex): Up, Down, Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool."
+      tags:
+        - component
+        - tool-column
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Components workbench and Playground stage, top left inside it (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not page actions (PageHeader)
+          - level: must-not
+            statement: Not a row of choices (SegmentedControl)
+    refs:
+      - href: ./src/components/ToolColumn/ToolColumn.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ToolColumn/ToolColumn.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+  - kind: component
+    id: map-node
+    name: MapNode
+    description: "One step of a process map on CHIP Processes: its name and its health, a flat 176-wide box (no shadow) with a strong edge. Tone default, attention (the warning edge: a step that needs you) or blocked (a neutral dot, \"Blocked: <what>\"); selected is the light-blue fill with the 2px brand edge. The dot meets the title's left edge and the status word starts 8 after it. Joined by MapLine direction=curve."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: A button with aria-pressed. The dot is a StatusDot named by the status word, so the word is read once; the visible word is aria-hidden. Text 7:1; the resting edge is a hairline (decoration), the selected edge 4.05:1; the status is never colour alone (the word says it). Focus ring 4 wide, 4 gap, corner 16.
+      tags:
+        - component
+        - map-node
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Processes maps and the System map (22 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a grid item (Card)
+          - level: must-not
+            statement: Not a status on its own (StatusDot)
+          - level: must-not
+            statement: Not a step in a short sequence (Step)
+    refs:
+      - href: ./src/components/MapNode/MapNode.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/MapNode/MapNode.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - hover
+          - selected
+          - focus
   - kind: entry
     id: foundation-color
     name: Colour

@@ -249,3 +249,15 @@ export { default as Toast } from './Toast/Toast';
 export type { ToastProps, ToastTone } from './Toast/Toast';
 export { default as ConnectorTile } from './ConnectorTile/ConnectorTile';
 export type { ConnectorTileProps } from './ConnectorTile/ConnectorTile';
+
+export { default as BarChart } from './BarChart/BarChart';
+export type { BarChartProps, BarChartSlot, BarChartRange } from './BarChart/BarChart';
+
+export { default as FloatingPanel } from './FloatingPanel/FloatingPanel';
+export type { FloatingPanelProps } from './FloatingPanel/FloatingPanel';
+
+export { default as ToolColumn, ZOOM_STEPS } from './ToolColumn/ToolColumn';
+export type { ToolColumnProps } from './ToolColumn/ToolColumn';
+
+export { default as MapNode } from './MapNode/MapNode';
+export type { MapNodeProps } from './MapNode/MapNode';

@@ -55,6 +55,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Bar, segments or ring, with a target | `Progress` (target: `ProgressTarget`) |
 | Where a step or job is: running (turning arc), done, waiting, failed | `ProgressRing` |
 | One number with its chart, context and caption | `StatCard` |
+| Runs over time as bars, failures red with a cross, a callout, a table behind it (Gate runs) | `BarChart` |
 | How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |
 | One step of the type ramp, set in its own size (Foundations) | `TypeSpecimen` |
 | One spacing step drawn at its real size (Foundations) | `SpacingStep` |
@@ -67,9 +68,12 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | A short message after an action that comes and goes (Notification stays) | `Toast` |
 | One connected service on Connectors: app tile, status, name, value, one action | `ConnectorTile` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |
+| A panel detached into a small window you can move over any page (the Terminal) | `FloatingPanel` |
+| The thin column of view tools beside a stage: zoom, fit, light or dark, mark up, compare | `ToolColumn` |
 | The actions on one thing, from a "…" button | `Menu` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |
+| One step of a process map (name and health), joined by `MapLine` curves | `MapNode` |
 | A message that stays, with its actions | `Notification` |
 | The head of a section card: icon, title, info, description | `SectionHead` |
 | CHIP app shell | `SideMenu`, `IconRail`, `NavItem`, `ProjectPanel`, `TreeItem`, `ClientSwitcher`, `TopBar`, `SearchField` |

@@ -127,3 +127,58 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** direction="curve" (22 Nov, Processes): one S-curve that scales with its box, in every tone, solid or dashed, no arrow. */
+export const Curves: Story = {
+  render: () => (
+    <Themed>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(10rem, 1fr))', gap: 'var(--spacing-24)' }}>
+        {(['default', 'selected', 'accent', 'danger'] as const).flatMap((tone) =>
+          (['solid', 'dashed'] as const).map((variant) => (
+            <Cell key={`${tone}-${variant}`} label={`curve · ${variant} · ${tone}`}>
+              <MapLine direction="curve" tone={tone} variant={variant} />
+            </Cell>
+          ))
+        )}
+      </div>
+    </Themed>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const lines = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="map-line"]'));
+    await step('eight curves, each one 2 wide round-capped path with no arrow', async () => {
+      await expect(lines).toHaveLength(8);
+      for (const l of lines) {
+        const path = l.querySelector('path') as SVGPathElement;
+        await expect(path.getAttribute('d')).toBe('M 0 0 C 0 50, 100 50, 100 100');
+        await expect(getComputedStyle(path).strokeWidth).toBe('2px');
+        await expect(getComputedStyle(path).strokeLinecap).toBe('round');
+        await expect(l.querySelector('[data-bella-icon]')).toBeNull();
+      }
+    });
+    await step('dashed is 6 on and 6 off; the selected tone is the brand colour', async () => {
+      await expect(getComputedStyle(lines[1].querySelector('path')!).strokeDasharray).toBe('6px');
+      await expect(getComputedStyle(lines[0].querySelector('path')!).strokeDasharray).toBe('none');
+      await expect(getComputedStyle(lines[2]).color).not.toBe(getComputedStyle(lines[0]).color);
+    });
+  },
+};
+
+/** from and to place and size the curve between two points of the board and flip it when the next step is to the left. */
+export const FollowsTwoPoints: Story = {
+  render: () => (
+    <div style={{ position: 'relative', inlineSize: '20rem', blockSize: '10rem' }}>
+      <MapLine direction="curve" tone="selected" from={{ x: 40, y: 8 }} to={{ x: 200, y: 120 }} />
+      <MapLine direction="curve" variant="dashed" from={{ x: 280, y: 8 }} to={{ x: 220, y: 120 }} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [a, b] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="map-line"]'));
+    await expect(a.style.left).toBe('40px');
+    await expect(a.style.width).toBe('160px');
+    await expect(a.style.height).toBe('112px');
+    await expect(a).not.toHaveAttribute('data-flip');
+    await expect(b.style.left).toBe('220px');
+    await expect(b.style.width).toBe('60px');
+    await expect(b).toHaveAttribute('data-flip');
+  },
+};

@@ -56,6 +56,8 @@ export interface StageProps {
   /** Called with the picked point, in frame pixels. */
   onPick?: (x: number, y: number) => void;
 
+  /** The leaders' colour. neutral (default) as published; red for CHIP's anatomy (23 Nov: leaders are red). */
+  leaderVariant?: 'neutral' | 'red';
   /** A click on a marker's pin or chip: opens that part (its card). Makes pins and chips buttons. */
   onSelect?: (id: string) => void;
   /** The marker lit from outside (its row in the anatomy list is hovered or focused). */
@@ -96,7 +98,7 @@ interface MarkerEvents {
   onActiveChange?: (id: string | null) => void;
 }
 
-function Leaders({ markers }: { markers: StageMarker[] }) {
+function Leaders({ markers, variant = 'neutral' }: { markers: StageMarker[]; variant?: 'neutral' | 'red' }) {
   return (
     <>
       {markers.filter(hasChip).map((m) => (
@@ -105,7 +107,7 @@ function Leaders({ markers }: { markers: StageMarker[] }) {
           from={`[data-stage-chip="${m.id}"]`}
           to={`[data-stage-pin="${m.id}"]`}
           label={`${m.label != null ? `Pin ${m.label}` : 'The label'} points to ${typeof m.part === 'string' ? m.part : 'the part'}`}
-          variant="neutral"
+          variant={variant}
           lineStyle="solid"
           end="dot"
           selected={m.selected}
@@ -192,6 +194,7 @@ export default function Stage({
   onSelect,
   activeId,
   onActiveChange,
+  leaderVariant,
   className,
   style,
 }: StageProps) {
@@ -231,7 +234,7 @@ export default function Stage({
               <div className={styles.origin}>
                 <Markers markers={markers} scale={contentScale} {...events} />
               </div>
-              <Leaders markers={markers} />
+              <Leaders markers={markers} variant={leaderVariant} />
             </>
           ) : null}
         </div>
@@ -268,7 +271,7 @@ export default function Stage({
             {markers?.length ? (
               <>
                 <Markers markers={markers} offsetY={offsetY} {...events} />
-                <Leaders markers={markers} />
+                <Leaders markers={markers} variant={leaderVariant} />
               </>
             ) : null}
             {picking ? <div className={styles.picker} onClick={pick} aria-hidden="true" /> : null}

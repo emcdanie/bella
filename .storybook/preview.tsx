@@ -119,7 +119,7 @@ const preview: Preview = {
             'Inputs',
             ['Combobox', 'Input', 'SearchField', 'Select', 'Slider'],
             'Data',
-            ['Avatar', 'AvatarStack', 'BarChart', 'Branch', 'BranchGroup', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'ListRow', 'MapLabel', 'MapLeaf', 'MapLine', 'MapNode', 'Progress', 'ProgressRing', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
+            ['Avatar', 'AvatarStack', 'BarChart', 'Branch', 'BranchGroup', 'ChatBubble', 'ChatThread', 'CodeBlock', 'DataTable', 'Icon', 'IconWell', 'Kbd', 'LineChart', 'ListRow', 'MapLabel', 'MapLeaf', 'MapLine', 'MapNode', 'Progress', 'ProgressRing', 'Stat', 'StatCard', 'StatusDot', 'StatusPill', 'StatusSquare', 'Step', 'Tag', 'Trailing', 'TypingDots'],
             'Layout',
             ['Card', 'ClientSwitcher', 'Columns', 'Disclosure', 'Drawer', 'EmptyState', 'Eyebrow', 'FloatingPanel', 'Heading', 'IconRail', 'Leader', 'NavItem', 'NavList', 'Notification', 'PageHeader', 'PageOutline', 'Pin', 'ProjectPanel', 'ResourceCard', 'ScaledFrame', 'Section', 'SectionHead', 'SectionHeader', 'SectionNav', 'SideMenu', 'SidebarLayout', 'TextStack', 'TopBar', 'TreeItem'],
           ],

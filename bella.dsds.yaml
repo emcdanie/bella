@@ -13801,6 +13801,58 @@ entries:
           - open
           - focus
   - kind: component
+    id: line-chart
+    name: LineChart
+    description: "A trend over time: a 1.5 round-capped line over a soft gradient of its tone (fading to nothing at the baseline) on dashed thin gridlines. Hover, touch drag or the arrow keys (Home, End, Escape) stand a 14 wide fully rounded scrubber on the line; above it a dark pill says the change against the previous point or a reference, the value and the label, and the same words go to a live region. Scale starts at zero; baseline=auto needs a stated reason, printed under the chart. Tones success, warning, danger, info, neutral, brand. draw map 900ms or pick 250ms (line left to right, area fades in, scrubber settles). variant=compact is a sparkline with a dot on the last point. Always a one-line summary and a visually hidden table; showViewToggle shows the table on request. Reduced motion draws the end state."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "The plot is a slider (arrow keys, Home, End, Escape) with aria-valuetext in words; the callout's words are in a polite live region; a visually hidden table holds the same data and a one-line summary is always present. Direction is a triangle and a word, never colour alone. Line 3:1 on the ground, pill 7:1. Reduced motion: drawn at once, nothing slides."
+      tags:
+        - component
+        - line-chart
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Trends on Health, the audit score, Gate runs as an alternative view, History activity, and the Drift drawer headline as a compact sparkline (23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not runs with passes and failures per slot (BarChart)
+          - level: must-not
+            statement: Not a single figure with a tiny trend line (Stat)
+          - level: must-not
+            statement: Not for comparing categories (bars); never a pie
+    refs:
+      - href: ./src/components/LineChart/LineChart.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/LineChart/LineChart.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - picked
+          - focus
+  - kind: component
     id: map-node
     name: MapNode
     description: "One step of a process map on CHIP Processes: its name and its health, a flat 176-wide box (no shadow) with a strong edge. Tone default, attention (the warning edge: a step that needs you) or blocked (a neutral dot, \"Blocked: <what>\"); selected is the light-blue fill with the 2px brand edge. The dot meets the title's left edge and the status word starts 8 after it. Joined by MapLine direction=curve."

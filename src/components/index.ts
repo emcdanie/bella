@@ -273,3 +273,6 @@ export type { MapLabelProps } from './MapLabel/MapLabel';
 
 export { default as MapLeaf } from './MapLeaf/MapLeaf';
 export type { MapLeafProps } from './MapLeaf/MapLeaf';
+
+export { default as LineChart } from './LineChart/LineChart';
+export type { LineChartProps, LineChartPoint } from './LineChart/LineChart';

@@ -1,0 +1,266 @@
+/* LineChart (23 Nov 2026, her reference picture: layout only). Tokens only. A 1.5 round-capped line over a soft
+ * gradient of its tone (28% to nothing at the baseline), dashed thin gridlines, a 14 wide fully rounded
+ * scrubber standing on the line and a dark pill above it (knockout surface, 7:1). The scale starts at zero
+ * unless the caller states why not. Numbers Geist Mono tabular; two text sizes (16 pill, 14 axes, meta).
+ * Tones: border/utility/success, warning, error (danger), info, neutral; brand = border/brand: every mark 3:1.
+ * Motion: draw map 900ms / pick 250ms (line left to right, area fades in, scrubber settles); the scrubber
+ * slides 150ms; reduced motion = the end state at once. compact = a sparkline 40 tall with a dot on the last point. */
+
+.root {
+  --tone: var(--color-border-brand);
+  --plot-h: calc(var(--spacing-64) * 2);
+  --inset: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+  color: var(--tone);
+  font-family: var(--typography-body-default-font-family);
+}
+
+.success { --tone: var(--color-border-utility-success); }
+.warning { --tone: var(--color-border-utility-warning); }
+.danger { --tone: var(--color-border-utility-error); }
+.info { --tone: var(--color-border-utility-info); }
+.neutral { --tone: var(--color-border-utility-neutral); }
+.brand { --tone: var(--color-border-brand); }
+
+.compact {
+  --plot-h: var(--spacing-40);
+  --inset: var(--spacing-4);
+  gap: 0;
+}
+
+/* room for the pill above the plot */
+.room {
+  position: relative;
+  block-size: var(--spacing-48);
+}
+
+.pill {
+  position: absolute;
+  inset-block-end: var(--spacing-8);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-knockout);
+  color: var(--color-content-knockout);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--size-24);
+  white-space: nowrap;
+  pointer-events: none;
+  translate: -50% 0;
+  transition: left var(--motion-duration-150) var(--motion-easing-out);
+}
+
+.pill[data-side='start'] { translate: calc(var(--inset) * -1) 0; }
+.pill[data-side='end'] { translate: calc(-100% + var(--inset)) 0; }
+
+.pillNum {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.pillRest {
+  font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+/* the delta's triangle: a shape, so direction is never colour alone */
+.tri {
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-8);
+  background: currentColor;
+}
+.tri[data-dir='up'] { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.tri[data-dir='down'] { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+
+.plot {
+  position: relative;
+  block-size: var(--plot-h);
+  touch-action: pan-y;
+  outline-offset: var(--spacing-4);
+}
+
+.plot[data-interactive] { cursor: crosshair; }
+
+.plot:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  border-radius: var(--border-radius-8);
+}
+
+.gridline,
+.baseline {
+  position: absolute;
+  inset-inline: 0;
+  pointer-events: none;
+}
+
+/* dashed 3 on 3, border/subtle, 1 thick */
+.gridline {
+  block-size: var(--border-width-1);
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-border-subtle) 0 calc(var(--border-width-1) * 3),
+    transparent calc(var(--border-width-1) * 3) calc(var(--border-width-1) * 6)
+  );
+}
+
+.baseline {
+  inset-block-end: 0;
+  block-size: var(--border-width-1);
+  background: var(--color-border-default);
+}
+
+.inner {
+  position: absolute;
+  inset-block: 0;
+  inset-inline: var(--inset);
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+}
+
+.line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: calc(var(--border-width-1) * 1.5);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the scrubber: 14 wide, fully rounded, standing on the line down to the baseline */
+.scrub {
+  position: absolute;
+  inline-size: calc(var(--spacing-12) + var(--border-width-2));
+  inset-block-end: 0;
+  translate: -50% 0;
+  border-radius: var(--border-radius-round);
+  background: var(--tone);
+  pointer-events: none;
+  transition: left var(--motion-duration-150) var(--motion-easing-out);
+}
+
+.dot {
+  position: absolute;
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  translate: -50% -50%;
+  border-radius: var(--border-radius-round);
+  background: var(--tone);
+  box-shadow: 0 0 0 var(--border-width-2) var(--color-background-surface);
+}
+
+.empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  color: var(--color-content-subtle);
+  font-size: var(--typography-font-size-16);
+}
+
+.yLabel {
+  position: absolute;
+  inset-inline-start: 0;
+  translate: 0 -100%;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+  pointer-events: none;
+}
+
+.xAxis {
+  position: relative;
+  inset-inline: var(--inset);
+  block-size: var(--size-20);
+  margin-inline: var(--inset);
+}
+
+.xCell {
+  position: absolute;
+  inset-block-start: 0;
+}
+
+.xLabel {
+  position: absolute;
+  translate: -50% 0;
+  white-space: nowrap;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+.note,
+.summary {
+  margin: 0;
+  color: var(--color-content-subtle);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+}
+
+.note { font-size: var(--typography-font-size-14); }
+
+.foot { display: flex; justify-content: flex-end; }
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* draw-in: the line left to right, the area fades in, the scrubber settles. Different names per mode so a change replays it. */
+.root[data-draw='map'] .line { animation: revealMap var(--motion-duration-900) var(--motion-easing-out) backwards; }
+.root[data-draw='pick'] .line { animation: revealPick var(--motion-duration-250) var(--motion-easing-out) backwards; }
+.root[data-draw='map'] .area { animation: fadeMap var(--motion-duration-900) var(--motion-easing-out) backwards; }
+.root[data-draw='pick'] .area { animation: fadePick var(--motion-duration-250) var(--motion-easing-out) backwards; }
+.root[data-draw='map'] .scrub { animation: settleMap var(--motion-duration-450) var(--motion-easing-out) backwards; }
+.root[data-draw='pick'] .scrub { animation: settlePick var(--motion-duration-250) var(--motion-easing-out) backwards; }
+
+@keyframes revealMap { from { clip-path: inset(calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1)); } to { clip-path: inset(calc(var(--spacing-4) * -1)); } }
+@keyframes revealPick { from { clip-path: inset(calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1)); } to { clip-path: inset(calc(var(--spacing-4) * -1)); } }
+@keyframes fadeMap { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadePick { from { opacity: 0; } to { opacity: 1; } }
+@keyframes settleMap { from { scale: 1 0; transform-origin: bottom; } to { scale: 1 1; transform-origin: bottom; } }
+@keyframes settlePick { from { scale: 1 0; transform-origin: bottom; } to { scale: 1 1; transform-origin: bottom; } }
+
+/* reduced motion: the end state at once (also when a story mocks the setting) */
+[data-motion='still'] .line,
+[data-motion='still'] .area,
+[data-motion='still'] .scrub,
+[data-motion='still'] .pill {
+  animation: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line,
+  .area,
+  .scrub,
+  .pill {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .line { stroke: CanvasText; }
+  .scrub, .dot { background: CanvasText; }
+}

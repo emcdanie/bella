@@ -4577,6 +4577,58 @@
         }
       }
     },
+    "line-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "LineChart",
+          "category": "Data",
+          "description": "A trend over time: a 1.5 round-capped line over a soft gradient of its tone (fading to nothing at the baseline) on dashed thin gridlines. Hover, touch drag or the arrow keys (Home, End, Escape) stand a 14 wide fully rounded scrubber on the line; above it a dark pill says the change against the previous point or a reference, the value and the label, and the same words go to a live region. Scale starts at zero; baseline=auto needs a stated reason, printed under the chart. Tones success, warning, danger, info, neutral, brand. draw map 900ms or pick 250ms (line left to right, area fades in, scrubber settles). variant=compact is a sparkline with a dot on the last point. Always a one-line summary and a visually hidden table; showViewToggle shows the table on request. Reduced motion draws the end state.",
+          "variants": [
+            "full",
+            "compact"
+          ],
+          "states": [
+            "default",
+            "picked",
+            "focus"
+          ],
+          "props": [
+            "points",
+            "label",
+            "tone",
+            "area",
+            "unit",
+            "baseline",
+            "baselineReason",
+            "grid",
+            "scrubber",
+            "callout",
+            "reference",
+            "selectedIndex",
+            "defaultSelectedIndex",
+            "onSelectedIndexChange",
+            "draw",
+            "variant",
+            "summary",
+            "view",
+            "onViewChange",
+            "showViewToggle",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Trends on Health, the audit score, Gate runs as an alternative view, History activity, and the Drift drawer headline as a compact sparkline (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not runs with passes and failures per slot (BarChart)",
+            "Not a single figure with a tiny trend line (Stat)",
+            "Not for comparing categories (bars); never a pie"
+          ],
+          "a11y": "The plot is a slider (arrow keys, Home, End, Escape) with aria-valuetext in words; the callout's words are in a polite live region; a visually hidden table holds the same data and a one-line summary is always present. Direction is a triangle and a word, never colour alone. Line 3:1 on the ground, pill 7:1. Reduced motion: drawn at once, nothing slides.",
+          "figma": "Code only, 23 Nov 2026 (her reference picture, layout only); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
     "map-node": {
       "$extensions": {
         "bella": {

@@ -1,7 +1,7 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import styles from './Tag.module.css';
 
-export type TagTone = 'default' | 'count' | 'success' | 'info' | 'attention' | 'danger';
+export type TagTone = 'default' | 'count' | 'success' | 'info' | 'attention' | 'danger' | 'ochre' | 'navy' | 'pink';
 
 export interface TagProps {
   /**

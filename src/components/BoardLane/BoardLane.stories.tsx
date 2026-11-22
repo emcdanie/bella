@@ -305,3 +305,51 @@ export const NewCard: Story = {
     });
   },
 };
+
+/** The roadmap lanes (23 Nov, "light brand washes"): ideas ochre, next navy, now blue, shipped green, not doing pink. Each is a wash, never a grey lane. */
+export const RoadmapLanes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))', gap: 'var(--spacing-16)', padding: 'var(--spacing-16)' }}>
+      {([['Ideas', 'ideas'], ['Next', 'next'], ['Now', 'agent'], ['Shipped', 'ready'], ['Not doing', 'not-doing']] as const).map(([name, lane]) => (
+        <BoardLane
+          key={lane}
+          name={name}
+          lane={lane}
+          order="In the order we talk about it."
+          empty={<EmptyState mark="🤷" title="Nothing here yet" line="Say what fills this space." />}
+        />
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const lanes = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="board-lane"]'));
+    await expect(lanes).toHaveLength(5);
+    const fills = lanes.map((l) => getComputedStyle(l).backgroundColor);
+    await expect(new Set(fills).size).toBe(5);
+    const grey = getComputedStyle(document.documentElement).getPropertyValue('--color-background-lane').trim();
+    for (const l of lanes) await expect(l.dataset.lane).not.toBe('gate');
+    for (const l of lanes) await expect(getComputedStyle(l).backgroundColor).not.toBe(grey);
+    /* the count plate is in the lane's tone: one different fill per lane */
+    const plates = lanes.map((l) => getComputedStyle(l.querySelector('[data-bella-component="tag"]')!).backgroundImage);
+    await expect(new Set(plates).size).toBe(5);
+  },
+};
+
+/** Cards in the new lanes: the count plate reads the number, and the empty text sits on its wash. */
+export const RoadmapLanesWithCards: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))', gap: 'var(--spacing-16)', padding: 'var(--spacing-16)' }}>
+      {([['Ideas', 'ideas'], ['Next', 'next'], ['Not doing', 'not-doing']] as const).map(([name, lane]) => (
+        <BoardLane key={lane} name={name} lane={lane} order="In the order we talk about it.">
+          <TaskCard title="Stat card status icon" line="Waits on your pick" status="Waiting" statusTone="attention" />
+        </BoardLane>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const lanes = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="board-lane"]'));
+    for (const l of lanes) await expect(l.querySelectorAll('li')).toHaveLength(1);
+    await expect(lanes[0].dataset.lane).toBe('ideas');
+    await expect(lanes[2].dataset.lane).toBe('not-doing');
+  },
+};

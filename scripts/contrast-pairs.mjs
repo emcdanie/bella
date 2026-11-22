@@ -106,6 +106,18 @@ const PAIRS = [
   ['content-default on the needs-you wash over background-default', c('content-default'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
   ['content-lane-subtle on the needs-you wash over background-default', c('content-lane-subtle'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
   ['border-utility-warning on background-default', c('border-utility-warning'), c('background-default'), MARK],
+  // BoardLane ideas (23 Nov 2026): name, order and empty text on the ochre wash over the page; the count plate ink on the strong wash
+  ['content-default on the ideas wash over background-default', c('content-default'), `${c('background-wash-ochre')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the ideas wash over background-default', c('content-lane-subtle'), `${c('background-wash-ochre')} over ${c('background-default')}`, TEXT],
+  ['content-default on the ideas count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
+  // BoardLane next (23 Nov 2026): name, order and empty text on the navy wash over the page; the count plate ink on the strong wash
+  ['content-default on the next wash over background-default', c('content-default'), `${c('background-wash-navy')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the next wash over background-default', c('content-lane-subtle'), `${c('background-wash-navy')} over ${c('background-default')}`, TEXT],
+  ['content-default on the next count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
+  // BoardLane not-doing (23 Nov 2026): name, order and empty text on the pink wash over the page; the count plate ink on the strong wash
+  ['content-default on the not-doing wash over background-default', c('content-default'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the not-doing wash over background-default', c('content-lane-subtle'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
+  ['content-default on the not-doing count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
   // BoardLane drop space (19 Nov 2026): label and dashed edge on the lane
   ['content-brand on background-lane', c('content-brand'), c('background-lane'), TEXT],
   // text on filled parts

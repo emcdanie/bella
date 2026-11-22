@@ -53,7 +53,7 @@ export function BoardLaneDropSpace({ kind = 'target', label = 'Drop here to star
  * BoardLane
  * ------------------------------------------------------------------------- */
 
-export type BoardLaneKind = 'needs-you' | 'agent' | 'gate' | 'ready';
+export type BoardLaneKind = 'needs-you' | 'agent' | 'gate' | 'ready' | 'ideas' | 'next' | 'not-doing';
 
 export interface BoardLaneProps {
   /** Figma "Name". The lane's name; the lane's heading. */
@@ -62,7 +62,7 @@ export interface BoardLaneProps {
   order?: ReactNode;
   /** @deprecated The lane number plate left the published BoardLane (21 Nov late: "take the lane numbers off"); ignored. Removing the prop is a public API change and waits for Elleta. */
   index?: ReactNode;
-  /** Figma "lane" (21 Nov publish, "A, light tints"): each lane its own light tint, the count plate filled in the lane's tone. needs-you warning, agent info, gate the lane grey, ready success. "other" is the old name of gate. */
+  /** Figma "lane" (21 Nov publish, "A, light tints"): each lane its own light tint, the count plate filled in the lane's tone. needs-you warning, agent info, gate the lane grey, ready success. Code only, 23 Nov (the Notion roadmap lanes, "light brand washes"): ideas ochre, next navy, not-doing pink. "other" is the old name of gate. */
   lane?: BoardLaneKind | 'other';
   /** Figma "state=drop-target": a card is over this lane. Figma draws it the same as default; the drop space inside marks where it lands. */
   dropTarget?: boolean;
@@ -81,11 +81,14 @@ export interface BoardLaneProps {
 /* the count plate per lane: Tag style=solid in the lane's knockout tone; gate
    keeps the outlined count until a neutral fill is decided (no existing
    neutral pair stays light in both themes) */
-const COUNT: Record<BoardLaneKind, { variant: 'solid' | 'outline'; tone: 'attention' | 'info' | 'success' | 'count' }> = {
+const COUNT: Record<BoardLaneKind, { variant: 'solid' | 'outline'; tone: 'attention' | 'info' | 'success' | 'count' | 'ochre' | 'navy' | 'pink' }> = {
   'needs-you': { variant: 'solid', tone: 'attention' },
   agent: { variant: 'solid', tone: 'info' },
   gate: { variant: 'outline', tone: 'count' },
   ready: { variant: 'solid', tone: 'success' },
+  ideas: { variant: 'solid', tone: 'ochre' },
+  next: { variant: 'solid', tone: 'navy' },
+  'not-doing': { variant: 'solid', tone: 'pink' },
 };
 
 /**

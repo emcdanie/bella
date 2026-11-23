@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor } from 'storybook/test';
-import DataTable, { type DataTableColumn } from './DataTable';
+import DataTable, { type DataTableColumn, type DataTableSort } from './DataTable';
 import StatusPill from '../StatusPill/StatusPill';
 import tableCssRaw from './DataTable.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
@@ -360,5 +360,18 @@ export const OpenRowsStacked: Story = {
     // narrow: the header row is hidden from view, the second number's label shows under the name
     const narrow = canvasElement.querySelectorAll('[data-bella-component="data-table"]')[1];
     await expect(narrow.querySelector('thead')!.getBoundingClientRect().height).toBeLessThanOrEqual(1);
+  },
+};
+
+/** The page holds the sort (a toolbar can follow it) and the first column stays put while the rest scrolls. */
+export const PageSortFrozenFirst: Story = {
+  render: () => {
+    const [sort, setSort] = useState<DataTableSort | null>({ key: 'name', direction: 'ascending' });
+    return (
+      <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 4)' }}>
+        <p>{sort ? `Sorted by ${sort.key}, ${sort.direction}` : 'Not sorted'}</p>
+        <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Component health" sort={sort} onSortChange={setSort} freezeFirst />
+      </div>
+    );
   },
 };

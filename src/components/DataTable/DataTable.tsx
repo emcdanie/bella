@@ -40,6 +40,12 @@ export interface DataTableProps<Row extends Record<string, any>> {
   caption: string;
   /** Initial sort; sorting is then held by the table. */
   defaultSort?: DataTableSort;
+  /** A sort held by the page (CHIP search-filter plan, 23 Nov: the toolbar's Sort follows the table). With `onSortChange`,
+   *  the header buttons ask the page to change it; `null` means unsorted. Without it, the table holds its own. */
+  sort?: DataTableSort | null;
+  onSortChange?: (sort: DataTableSort) => void;
+  /** The first column stays put while the other columns scroll sideways, so a row keeps its name (CHIP second pass S11). */
+  freezeFirst?: boolean;
   /** Selection, single. The first column renders as a toggle button; the selected row is the shared light blue with bold ink text (Figma 20 Nov). */
   selectedKey?: string | null;
   onSelect?: (key: string | null) => void;
@@ -75,6 +81,9 @@ export default function DataTable<Row extends Record<string, any>>({
   rowKey,
   caption,
   defaultSort,
+  sort: sortGiven,
+  onSortChange,
+  freezeFirst = false,
   selectedKey,
   onSelect,
   maxHeight,
@@ -83,7 +92,8 @@ export default function DataTable<Row extends Record<string, any>>({
   onOpen,
   className,
 }: DataTableProps<Row>) {
-  const [sort, setSort] = useState<DataTableSort | undefined>(defaultSort);
+  const [sortOwn, setSort] = useState<DataTableSort | undefined>(defaultSort);
+  const sort = sortGiven !== undefined ? sortGiven ?? undefined : sortOwn;
   const captionId = useId();
   // compact only where nothing in a row is interactive
   const compact = density === 'compact' && !onSelect && !onOpen && !columns.some((c) => c.sortable);
@@ -98,11 +108,10 @@ export default function DataTable<Row extends Record<string, any>>({
   }, [rows, columns, sort]);
 
   function toggle(key: string) {
-    setSort((s) =>
-      s?.key === key && s.direction === 'ascending'
-        ? { key, direction: 'descending' }
-        : { key, direction: 'ascending' }
-    );
+    const next: DataTableSort =
+      sort?.key === key && sort.direction === 'ascending' ? { key, direction: 'descending' } : { key, direction: 'ascending' };
+    if (onSortChange) onSortChange(next);
+    if (sortGiven === undefined) setSort(next);
   }
 
   const selectable = Boolean(onSelect) && !onOpen;
@@ -114,6 +123,7 @@ export default function DataTable<Row extends Record<string, any>>({
       data-density={compact ? 'compact' : undefined}
       data-stack={stack ? '' : undefined}
       data-open={onOpen ? '' : undefined}
+      data-freeze={freezeFirst ? '' : undefined}
     >
       {/* The caption sits outside the frame so the frame's edge and corners stay
           put while the table scrolls inside it; it still names the table. */}

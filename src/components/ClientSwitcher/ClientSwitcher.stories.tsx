@@ -75,3 +75,24 @@ export const Plain: Story = {
     });
   },
 };
+
+/** variant="plain" with `logo` (CHIP, 23 Nov 2026): the client's drawn logo stands where the name stood; the button is still
+ * named "Switch client: BELLA" and keeps its ⌄ and its height. */
+export const PlainLogo: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', maxInlineSize: 'calc(var(--spacing-80) * 3)' }}>
+      <ClientSwitcher variant="plain" name="BELLA" logo={<BrandWordmark word="BELLA" variant="ink" size="nav" />} onClick={() => {}} />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    const b = canvas.getByRole('button', { name: /^Switch client: BELLA$/ });
+    await step('the logo draws, the name is only the accessible text', async () => {
+      await expect(b.querySelectorAll('svg').length).toBe(2);
+      await expect(b).toHaveAttribute('aria-haspopup', 'listbox');
+    });
+    await step('the row keeps its 64 height', async () => {
+      await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(64);
+      void canvasElement;
+    });
+  },
+};

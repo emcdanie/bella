@@ -17,6 +17,11 @@ export interface ClientSwitcherProps {
    * 601:112027): the name alone with a small ⌄ after it, no tile or caption.
    */
   variant?: 'tile' | 'plain';
+  /**
+   * plain only (CHIP, 23 Nov 2026, "BELLA has a logo too"): the client's own logo drawn in place of the visible
+   * name, e.g. <BrandWordmark word="BELLA" variant="ink" />. The name stays in the button's accessible name.
+   */
+  logo?: ReactNode;
   /** Opens the client list. */
   onClick?: () => void;
   /** Whether the client list is open (aria-expanded). */
@@ -32,7 +37,7 @@ export interface ClientSwitcherProps {
  * whole block is one button, named "Switch client" plus what it shows; the
  * ⇅ is the Trailing part.
  */
-export default function ClientSwitcher({ name, caption, mark, variant = 'tile', onClick, expanded, className, style }: ClientSwitcherProps) {
+export default function ClientSwitcher({ name, caption, mark, logo, variant = 'tile', onClick, expanded, className, style }: ClientSwitcherProps) {
   const plain = variant === 'plain';
   return (
     <button
@@ -47,7 +52,14 @@ export default function ClientSwitcher({ name, caption, mark, variant = 'tile', 
       {plain ? null : <span className={styles.tile} aria-hidden="true">{mark ?? <BrandWordmark word="BELLA" variant="mark" />}</span>}
       <span className={styles.text}>
         <span className={styles.srOnly}>Switch client: </span>
-        <span className={styles.name}>{name}</span>
+        {plain && logo != null ? (
+          <>
+            <span className={styles.srOnly}>{name}</span>
+            <span className={styles.logo} aria-hidden="true">{logo}</span>
+          </>
+        ) : (
+          <span className={styles.name}>{name}</span>
+        )}
         {!plain && caption != null ? <span className={styles.caption}>{caption}</span> : null}
       </span>
       {plain ? (

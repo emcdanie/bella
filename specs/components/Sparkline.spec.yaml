@@ -49,12 +49,31 @@ props:
     required: true
     doc: The hidden table's caption.
     at: src/components/Sparkline/Sparkline.tsx:78
-variants: {}
+  - name: form
+    type: '''line'' | ''bars'''
+    values:
+      - line
+      - bars
+    default: line
+    required: false
+    doc: >-
+      line (default): a 1px line and an end dot, zoomed to the series' own low and high. bars: one bar per point, from zero, the latest in
+      ink and the earlier ones lighter (the chart language's mini bar sparkline, 23 Nov: "bars from zero, one per dated snapshot, the latest
+      highlighted"). Same scrubber, summary and table.
+    at: src/components/Sparkline/Sparkline.tsx:84
+variants:
+  form:
+    values:
+      - line
+      - bars
+    default: line
+    at: src/components/Sparkline/Sparkline.tsx:84
 states:
   contract:
     - default
     - scrubbing
   css:
+    - '[data-latest]'
     - focus-visible
 sizes: []
 anatomy:
@@ -148,42 +167,54 @@ tokens:
       token: '--motion-duration-450'
       selector: .spark circle
       at: src/components/Sparkline/Sparkline.module.css:39
+    - part: root
+      state: rest
+      property: fill
+      token: '--color-border-strong'
+      selector: .spark rect
+      at: src/components/Sparkline/Sparkline.module.css:52
+    - part: root
+      state: '[data-latest]'
+      property: fill
+      token: '--color-content-default'
+      selector: .spark rect[data-latest]
+      at: src/components/Sparkline/Sparkline.module.css:56
     - part: guide
       state: rest
       property: stroke
       token: '--color-border-strong'
       selector: .spark .guide
-      at: src/components/Sparkline/Sparkline.module.css:52
+      at: src/components/Sparkline/Sparkline.module.css:60
     - part: guide
       state: rest
       property: stroke-width
       token: '--border-width-1'
       selector: .spark .guide
-      at: src/components/Sparkline/Sparkline.module.css:53
+      at: src/components/Sparkline/Sparkline.module.css:61
     - part: root
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .spark:focus-visible
-      at: src/components/Sparkline/Sparkline.module.css:58
+      at: src/components/Sparkline/Sparkline.module.css:66
     - part: root
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .spark:focus-visible
-      at: src/components/Sparkline/Sparkline.module.css:58
+      at: src/components/Sparkline/Sparkline.module.css:66
     - part: root
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .spark:focus-visible
-      at: src/components/Sparkline/Sparkline.module.css:59
+      at: src/components/Sparkline/Sparkline.module.css:67
     - part: root
       state: focus-visible
       property: border-radius
       token: '--border-radius-sm'
       selector: .spark:focus-visible
-      at: src/components/Sparkline/Sparkline.module.css:60
+      at: src/components/Sparkline/Sparkline.module.css:68
   values:
     '--border-radius-sm':
       light: null
@@ -259,37 +290,37 @@ motion:
         - none
       durations: []
       easings: []
-      at: src/components/Sparkline/Sparkline.module.css:66
+      at: src/components/Sparkline/Sparkline.module.css:74
   reducedMotion:
     selector: .spark polyline, .spark circle
     declaration: 'animation: none'
-    at: src/components/Sparkline/Sparkline.module.css:80
+    at: src/components/Sparkline/Sparkline.module.css:88
   reducedMotionQuery: true
 a11y:
   element:
     tag: span
-    at: src/components/Sparkline/Sparkline.tsx:176
+    at: src/components/Sparkline/Sparkline.tsx:197
   role:
     value: img
     source: role attribute
-    at: src/components/Sparkline/Sparkline.tsx:176
+    at: src/components/Sparkline/Sparkline.tsx:197
   nameSource:
     value: visible content
-    at: src/components/Sparkline/Sparkline.tsx:176
+    at: src/components/Sparkline/Sparkline.tsx:197
   keyboard:
     - key: Escape
       source: handler in the .tsx
-      at: src/components/Sparkline/Sparkline.tsx:133
+      at: src/components/Sparkline/Sparkline.tsx:140
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/Sparkline/Sparkline.tsx:158
+      at: src/components/Sparkline/Sparkline.tsx:165
     - attribute: aria-describedby
       value: summaryId
-      at: src/components/Sparkline/Sparkline.tsx:159
+      at: src/components/Sparkline/Sparkline.tsx:166
     - attribute: aria-live
       value: polite
-      at: src/components/Sparkline/Sparkline.tsx:176
+      at: src/components/Sparkline/Sparkline.tsx:197
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -298,26 +329,26 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/Sparkline/Sparkline.module.css:58
+      at: src/components/Sparkline/Sparkline.module.css:66
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/Sparkline/Sparkline.module.css:59
+      at: src/components/Sparkline/Sparkline.module.css:67
     - property: border-radius
       value: var(--border-radius-sm)
       tokens:
         - token: '--border-radius-sm'
           value: null
-      at: src/components/Sparkline/Sparkline.module.css:60
+      at: src/components/Sparkline/Sparkline.module.css:68
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .spark polyline, .spark circle
     declaration: 'animation: none'
-    at: src/components/Sparkline/Sparkline.module.css:80
+    at: src/components/Sparkline/Sparkline.module.css:88
   contract: >-
     role=img with a name and a description (the one-line summary); the keyboard scrubber (arrow keys, Home, End, Esc) says each point in a
     polite live region; the table of points is visually hidden. The hit area is 44 tall. Reduced motion: the end state at once.
@@ -325,18 +356,18 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/Sparkline/Sparkline.tsx:158
+      at: src/components/Sparkline/Sparkline.tsx:165
     - kind: ARIA
       value: aria-describedby
-      at: src/components/Sparkline/Sparkline.tsx:159
+      at: src/components/Sparkline/Sparkline.tsx:166
     - kind: ARIA
       value: aria-live="polite"
-      at: src/components/Sparkline/Sparkline.tsx:176
+      at: src/components/Sparkline/Sparkline.tsx:197
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-parts/src/components/Sparkline/Sparkline.stories.tsx
+  file: ~/DEV/bella-health/src/components/Sparkline/Sparkline.stories.tsx
   lines: 35-35
   import: import Sparkline from '@bella/components/Sparkline/Sparkline';
   importSource: the style the Button doc page uses (CHIP import path)

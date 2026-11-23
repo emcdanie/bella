@@ -354,6 +354,7 @@ export const WithChange: Story = {
         icon="Activity"
         series={[79, 79, 81, 90, 93]}
         seriesLabels={['21 Nov', '21 Nov', '22 Nov', '23 Nov', '23 Nov']}
+        seriesForm="bars"
         trend="up"
         trendTone="warning"
         comparison="93 of 102 parts now, 79 on 21 Nov"

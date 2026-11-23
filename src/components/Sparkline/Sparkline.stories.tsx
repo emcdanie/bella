@@ -58,3 +58,13 @@ export const Shapes: Story = {
     </div>
   ),
 };
+
+/** The mini bar sparkline: one bar per point from zero, the latest in ink; same scrubber, summary and table (23 Nov). */
+export const Bars: Story = {
+  args: { form: 'bars' },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('svg[role="img"] rect').length).toBe(5);
+    await expect(canvasElement.querySelectorAll('svg[role="img"] rect[data-latest]').length).toBe(1);
+    await expect(canvasElement.querySelector('svg[role="img"] polyline')).toBeNull();
+  },
+};

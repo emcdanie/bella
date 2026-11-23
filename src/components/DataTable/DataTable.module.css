@@ -240,7 +240,7 @@
   .root[data-stack] tbody tr {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto auto;
-    align-items: center;
+    align-items: stretch;
     border-bottom: var(--border-width-1) solid var(--color-border-default);
   }
 
@@ -259,14 +259,19 @@
     grid-row: 1;
   }
 
+  /* the main number and the ↗ fill the row's height (so the row's hover is one block) and sit centred in it */
   .root[data-stack] tbody tr > :nth-child(2) {
     grid-column: 2;
     grid-row: 1 / span 8;
+    display: flex;
+    align-items: center;
   }
 
   .root[data-stack] tbody tr > .openCell {
     grid-column: 3;
     grid-row: 1 / span 8;
+    display: flex;
+    align-items: center;
   }
 
   .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) {

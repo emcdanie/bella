@@ -15,12 +15,12 @@ props:
     type: ReactNode
     required: true
     doc: Figma "Label". What is measured. Stays the accessible name when hidden.
-    at: src/components/Progress/Progress.tsx:78
+    at: src/components/Progress/Progress.tsx:79
   - name: value
     type: ReactNode
     required: false
     doc: Figma "Value". The amount in words ("60%", "4 of 6").
-    at: src/components/Progress/Progress.tsx:80
+    at: src/components/Progress/Progress.tsx:81
   - name: showLabel
     type: boolean
     values:
@@ -29,7 +29,7 @@ props:
     default: true
     required: false
     doc: Figma "Show label". Off hides the Head (label and value) visually.
-    at: src/components/Progress/Progress.tsx:82
+    at: src/components/Progress/Progress.tsx:83
   - name: showTarget
     type: boolean
     values:
@@ -38,7 +38,7 @@ props:
     default: false
     required: false
     doc: 'Figma "Show target". Bar only: a 32 row above the track with a "Target n%" label and a dashed line at `target`.'
-    at: src/components/Progress/Progress.tsx:84
+    at: src/components/Progress/Progress.tsx:85
   - name: shape
     type: '''bar'' | ''segments'' | ''ring'''
     values:
@@ -48,30 +48,30 @@ props:
     default: bar
     required: false
     doc: Figma "shape".
-    at: src/components/Progress/Progress.tsx:86
+    at: src/components/Progress/Progress.tsx:87
   - name: tone
     type: ProgressTone
     default: info
     required: false
     doc: Figma "tone". Status colours for status only.
-    at: src/components/Progress/Progress.tsx:88
+    at: src/components/Progress/Progress.tsx:89
   - name: fill
     type: number
     default: '0'
     required: false
     doc: 'Figma "Fill · value" (bar, ring): 0 to 100.'
-    at: src/components/Progress/Progress.tsx:90
+    at: src/components/Progress/Progress.tsx:91
   - name: target
     type: number
     default: '0'
     required: false
     doc: 'Figma "Target · target" (bar): 0 to 100.'
-    at: src/components/Progress/Progress.tsx:92
+    at: src/components/Progress/Progress.tsx:93
   - name: targetLabel
     type: string
     required: false
     doc: The target label in its own unit ("Target 7:1"); default "Target n%". Bar only, with showTarget.
-    at: src/components/Progress/Progress.tsx:94
+    at: src/components/Progress/Progress.tsx:95
   - name: showTargetLabel
     type: boolean
     values:
@@ -82,7 +82,7 @@ props:
     doc: >-
       Bar with a target: false draws the thin tick only, with no "Target" tag and no 32 row for it (23 Nov). The target is still said in the
       summary and callout. Default true.
-    at: src/components/Progress/Progress.tsx:96
+    at: src/components/Progress/Progress.tsx:97
   - name: parts
     type: ProgressPart[]
     required: false
@@ -90,19 +90,19 @@ props:
       Bar only: a bar in parts (23 Nov, Gaps: "specified, not in code" beside "not in BELLA yet"). Each part is a share of the whole track,
       0 to 100, drawn one after another from the start; `fill` is ignored. Each says what it is in `label`, which is spoken ("12 specified,
       not in code, 8 not in BELLA yet") and never drawn on the bar.
-    at: src/components/Progress/Progress.tsx:102
+    at: src/components/Progress/Progress.tsx:103
   - name: segments
     type: number
     default: '5'
     required: false
     doc: 'Segments only: how many steps (Figma draws 6; the gate uses 5).'
-    at: src/components/Progress/Progress.tsx:104
+    at: src/components/Progress/Progress.tsx:105
   - name: done
     type: number
     default: '0'
     required: false
     doc: 'Segments only: how many are done.'
-    at: src/components/Progress/Progress.tsx:106
+    at: src/components/Progress/Progress.tsx:107
   - name: drawIn
     type: boolean
     values:
@@ -114,7 +114,7 @@ props:
       Draws in once when it first appears: the bar grows, the ring sweeps, the segments fill, to the value on motion/duration/450 and
       motion/easing/out; the target is there before the mark arrives. Reduced motion: drawn at once. A demo for Health charts (21 Nov:
       "should we not put motion on the graphs??"), off by default.
-    at: src/components/Progress/Progress.tsx:111
+    at: src/components/Progress/Progress.tsx:112
   - name: callout
     type: boolean | string
     default: false
@@ -123,22 +123,22 @@ props:
       The chart callout (22 Nov, CHIP chart language): hover or keyboard focus on the bar shows BELLA's Tooltip 16 under the track, pointing
       up, with the amount and the target ("60% · target 90%"). true writes that text from `value` and `target`; a string says it instead ("4
       of 5 · target 80%"). On, the bar takes keyboard focus. Off by default, so rows of bars add no tab stops.
-    at: src/components/Progress/Progress.tsx:118
+    at: src/components/Progress/Progress.tsx:119
   - name: summary
     type: string
     required: false
     doc: >-
       The chart's one-line summary (22 Nov reading: every chart has a summary behind it), read as the bar's description (aria-describedby)
       and never drawn. Missing: written from the data, e.g. "Contrast coverage: 95%, target 80%, above target".
-    at: src/components/Progress/Progress.tsx:124
+    at: src/components/Progress/Progress.tsx:125
   - name: className
     type: string
     required: false
-    at: src/components/Progress/Progress.tsx:125
+    at: src/components/Progress/Progress.tsx:126
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/Progress/Progress.tsx:126
+    at: src/components/Progress/Progress.tsx:127
 variants:
   shape:
     values:
@@ -146,7 +146,7 @@ variants:
       - segments
       - ring
     default: bar
-    at: src/components/Progress/Progress.tsx:86
+    at: src/components/Progress/Progress.tsx:87
 states:
   contract:
     - default
@@ -158,6 +158,7 @@ states:
     - '[data-tone=''success'']'
     - '[data-tone=''danger'']'
     - '[data-tone=''attention'']'
+    - '[data-tone=''neutral'']'
 sizes: []
 anatomy:
   scaleWidth: 480
@@ -633,61 +634,73 @@ tokens:
       property: background
       token: '--color-border-utility-info'
       selector: .info
-      at: src/components/Progress/Progress.module.css:340
+      at: src/components/Progress/Progress.module.css:345
     - part: info
       state: rest
       property: color
       token: '--color-border-utility-info'
       selector: .info
-      at: src/components/Progress/Progress.module.css:341
+      at: src/components/Progress/Progress.module.css:346
     - part: success
       state: rest
       property: background
       token: '--color-border-utility-success'
       selector: .success
-      at: src/components/Progress/Progress.module.css:344
-    - part: success
-      state: rest
-      property: color
-      token: '--color-border-utility-success'
-      selector: .success
-      at: src/components/Progress/Progress.module.css:345
-    - part: danger
-      state: rest
-      property: background
-      token: '--color-border-utility-error'
-      selector: .danger
-      at: src/components/Progress/Progress.module.css:348
-    - part: danger
-      state: rest
-      property: color
-      token: '--color-border-utility-error'
-      selector: .danger
       at: src/components/Progress/Progress.module.css:349
+    - part: success
+      state: rest
+      property: color
+      token: '--color-border-utility-success'
+      selector: .success
+      at: src/components/Progress/Progress.module.css:350
+    - part: danger
+      state: rest
+      property: background
+      token: '--color-border-utility-error'
+      selector: .danger
+      at: src/components/Progress/Progress.module.css:353
+    - part: danger
+      state: rest
+      property: color
+      token: '--color-border-utility-error'
+      selector: .danger
+      at: src/components/Progress/Progress.module.css:354
+    - part: neutral
+      state: rest
+      property: background
+      token: '--color-border-strong'
+      selector: .neutral
+      at: src/components/Progress/Progress.module.css:357
+    - part: neutral
+      state: rest
+      property: color
+      token: '--color-border-strong'
+      selector: .neutral
+      at: src/components/Progress/Progress.module.css:358
     - part: attention
       state: rest
       property: background
       token: '--color-background-utility-warning-mark'
       selector: .attention
-      at: src/components/Progress/Progress.module.css:352
+      at: src/components/Progress/Progress.module.css:361
     - part: attention
       state: rest
       property: border
       token: '--border-width-1'
       selector: .attention
-      at: src/components/Progress/Progress.module.css:353
+      at: src/components/Progress/Progress.module.css:362
     - part: attention
       state: rest
       property: border
       token: '--color-border-utility-warning'
       selector: .attention
-      at: src/components/Progress/Progress.module.css:353
+      at: src/components/Progress/Progress.module.css:362
     - part: attention
       state: rest
       property: color
       token: '--color-background-utility-warning-mark'
       selector: .attention
-      at: src/components/Progress/Progress.module.css:354
+      at: src/components/Progress/Progress.module.css:363
   values:
     '--border-radius-round':
       light: null
@@ -708,6 +721,9 @@ tokens:
       light: null
       chip: null
     '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-strong':
       light: null
       chip: null
     '--color-border-subtle':
@@ -940,52 +956,52 @@ motion:
 a11y:
   element:
     tag: span
-    at: src/components/Progress/Progress.tsx:35
+    at: src/components/Progress/Progress.tsx:36
   role:
     value: progressbar
     source: role attribute
-    at: src/components/Progress/Progress.tsx:35
+    at: src/components/Progress/Progress.tsx:36
   nameSource:
     value: visible content
-    at: src/components/Progress/Progress.tsx:35
+    at: src/components/Progress/Progress.tsx:36
   keyboard: []
   aria:
     - attribute: aria-label
       value: name
-      at: src/components/Progress/Progress.tsx:218
+      at: src/components/Progress/Progress.tsx:219
     - attribute: aria-describedby
       value: summaryId
-      at: src/components/Progress/Progress.tsx:218
+      at: src/components/Progress/Progress.tsx:219
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:221
+      at: src/components/Progress/Progress.tsx:222
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:223
+      at: src/components/Progress/Progress.tsx:224
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:227
+      at: src/components/Progress/Progress.tsx:228
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:229
+      at: src/components/Progress/Progress.tsx:230
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:233
+      at: src/components/Progress/Progress.tsx:234
     - attribute: aria-label
       value: name
-      at: src/components/Progress/Progress.tsx:245
+      at: src/components/Progress/Progress.tsx:246
     - attribute: aria-describedby
       value: summaryId
-      at: src/components/Progress/Progress.tsx:245
+      at: src/components/Progress/Progress.tsx:246
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Progress/Progress.tsx:252
-    - attribute: aria-hidden
-      value: 'true'
-      at: src/components/Progress/Progress.tsx:261
+      at: src/components/Progress/Progress.tsx:253
     - attribute: aria-hidden
       value: 'true'
       at: src/components/Progress/Progress.tsx:262
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/Progress/Progress.tsx:263
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -1013,25 +1029,25 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-valuemin
-      at: src/components/Progress/Progress.tsx:173
-    - kind: ARIA
-      value: aria-valuemax
       at: src/components/Progress/Progress.tsx:174
     - kind: ARIA
-      value: aria-valuenow
+      value: aria-valuemax
       at: src/components/Progress/Progress.tsx:175
     - kind: ARIA
-      value: aria-valuetext
+      value: aria-valuenow
       at: src/components/Progress/Progress.tsx:176
     - kind: ARIA
+      value: aria-valuetext
+      at: src/components/Progress/Progress.tsx:177
+    - kind: ARIA
       value: aria-label
-      at: src/components/Progress/Progress.tsx:245
+      at: src/components/Progress/Progress.tsx:246
     - kind: ARIA
       value: aria-describedby
-      at: src/components/Progress/Progress.tsx:245
+      at: src/components/Progress/Progress.tsx:246
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/Progress/Progress.tsx:262
+      at: src/components/Progress/Progress.tsx:263
 contrast:
   pairs: []
   derived: []

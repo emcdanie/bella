@@ -1,4 +1,4 @@
-import React, { useId, useMemo } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 import Button from '../Button/Button';
 import { patternShapes, wordPaths } from '../../brand/pattern';
 import styles from './BrandWordmark.module.css';
@@ -11,8 +11,11 @@ export interface BrandWordmarkProps {
    * `"mark"` (Figma "Brand / CHIP logo" variant=mark and "Brand / BELLA mark", read 19 Nov 2026): the
    * drawn mark in its own colours, from theme tokens. BELLA's is the B; CHIP's is the board with the C,
    * its pins and the yellow and red dots (the red dot lives only here, in the artwork).
+   * `"logotype"` (CHIP only, drawn 8 Nov 2026 in the CHIP app): the blue chip with its ink C, and the chip's right
+   * wall writes out HIP in one ink line. A pink signal runs the circuit once on open and rests as the full stop;
+   * under reduced motion it starts at rest (the still final frame).
    */
-  variant?: 'pattern' | 'ink' | 'mark';
+  variant?: 'pattern' | 'ink' | 'mark' | 'logotype';
   /** `"nav"`: 40px tall. `"full-bleed"`: fills its container's width and sits on the baseline. */
   size?: 'nav' | 'full-bleed';
   /** The pattern seed. The same seed always draws the same pattern. */
@@ -110,8 +113,50 @@ function inkX(paths: string[], sw: number): [number, number] {
   return [lo, hi];
 }
 
+/* The CHIP logotype, shapes and motion exactly as drawn in the CHIP app on 8 Nov 2026 (commit 024a1be):
+ * a blue chip whose right wall is the H's first stroke, the wall, C and HIP in one ink line, a pink signal
+ * that runs SIGNAL once in 1.8s and rests as the full stop. Paint reads the theme tokens (blue accent-3,
+ * ink content-default, yellow accent-2, red accent-4, pink accent-1). Reduced motion: no animation, the
+ * signal starts at rest on the full stop. */
+const SIGNAL = 'M5 32 H12 V19 A5 5 0 0 1 17 14 H46 V32 H57 V44 H63.5 V20 H76 A6.48 6.48 0 0 1 76 32.96 H70 V44 L86 42.4';
+const LINE = { fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
+const POP = (token: string) => ({ fill: `var(--color-background-${token})` });
+
+function ChipLogotype({ size = 'nav', className }: { size?: 'nav' | 'full-bleed'; className?: string }) {
+  const [still] = useState(
+    () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  );
+  return (
+    <span
+      className={[styles.wordmark, styles[size], className].filter(Boolean).join(' ')}
+      data-bella-component="brand-wordmark"
+    >
+      <svg className={styles.svg} viewBox="0 0 94 64" role="img" aria-label="CHIP" data-bella-brand data-bella-logotype>
+        <g style={{ ...LINE, stroke: 'var(--color-background-accent-3)', strokeWidth: 2.4 }}>
+          <path d="M46 14 H17 A5 5 0 0 0 12 19 V45 A5 5 0 0 0 17 50 H46" />
+          <path d="M20 7v7M29 7v7M38 7v7M20 50v7M29 50v7M38 50v7M5 24h7M5 32h7M5 40h7" />
+        </g>
+        <g style={{ ...LINE, stroke: 'var(--color-content-default)', strokeWidth: 2.8 }}>
+          <path d="M38.88 23.29 A13 13 0 1 0 38.88 40.71" />
+          <path d="M46 14V50 M46 32H57V20 M57 32V44H63.5V20H76A6.48 6.48 0 0 1 76 32.96H70 M70 20V44" />
+        </g>
+        <circle cx="38" cy="4.5" r="2.6" style={POP('accent-2')} />
+        <circle cx="20" cy="59.5" r="2.6" style={POP('accent-4')} />
+        {still ? (
+          <circle cx="86" cy="42.4" r="2.6" style={POP('accent-1')} data-signal="rest" />
+        ) : (
+          <circle r="2.6" style={POP('accent-1')} data-signal="run">
+            <animateMotion dur="1.8s" fill="freeze" calcMode="linear" path={SIGNAL} />
+          </circle>
+        )}
+      </svg>
+    </span>
+  );
+}
+
 export default function BrandWordmark(props: BrandWordmarkProps) {
   const { word = 'ELLETA', variant = 'pattern', size = 'nav', className } = props;
+  if (word === 'CHIP' && variant === 'logotype') return <ChipLogotype size={size} className={className} />;
   if (word === 'CHIP' || (variant === 'mark' && word === 'BELLA')) {
     const mark = MARKS[word];
     return (

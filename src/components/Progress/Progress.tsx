@@ -9,7 +9,8 @@ import { useReducedMotion } from '../shared/useCountTo';
 export { ProgressTarget, TargetMark };
 export type { ProgressTargetProps, TargetMarkProps } from '../ProgressTarget/ProgressTarget';
 
-export type ProgressTone = 'info' | 'success' | 'attention' | 'danger';
+/** neutral (23 Nov, CHIP Drift): a measure nobody has taken yet ("not read from Figma"): grey, unknown, never a warning. */
+export type ProgressTone = 'info' | 'success' | 'attention' | 'danger' | 'neutral';
 
 /** Clamp to 0 to 100 so a bad number never draws outside the track. */
 const pct = (n: number) => Math.min(100, Math.max(0, n));

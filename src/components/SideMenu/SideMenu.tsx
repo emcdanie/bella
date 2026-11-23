@@ -1,4 +1,4 @@
-import React, { useId, type CSSProperties, type MouseEvent } from 'react';
+import React, { useId, type CSSProperties, type MouseEvent, type ReactNode } from 'react';
 import ClientSwitcher from '../ClientSwitcher/ClientSwitcher';
 import NavItem from '../NavItem/NavItem';
 import type { IconName } from '../Icon/Icon';
@@ -24,6 +24,8 @@ export interface SideMenuProps {
   label?: string;
   /** Switcher name, the plain Client switcher ("BELLA ⌄"). */
   client?: string;
+  /** The client's own logo in the switcher, in place of the visible name (CHIP, 23 Nov 2026), e.g. BrandWordmark word="BELLA". `client` stays the accessible name. */
+  clientLogo?: ReactNode;
   /** Opens the client list. */
   onClientClick?: () => void;
   /** Whether the client list is open (aria-expanded on the switcher). */
@@ -56,6 +58,7 @@ export interface SideMenuProps {
 export default function SideMenu({
   label = 'Main',
   client = 'BELLA',
+  clientLogo,
   onClientClick,
   clientExpanded,
   items,
@@ -100,7 +103,7 @@ export default function SideMenu({
   };
   return (
     <div className={[styles.menu, className].filter(Boolean).join(' ')} style={style} data-bella-component="side-menu">
-      <ClientSwitcher variant="plain" name={client} onClick={onClientClick} expanded={clientExpanded} />
+      <ClientSwitcher variant="plain" name={client} logo={clientLogo} onClick={onClientClick} expanded={clientExpanded} />
       <nav aria-label={label} className={styles.nav}>
         <div className={styles.main}>
           <ul className={styles.list}>{items.map((it) => row(it))}</ul>

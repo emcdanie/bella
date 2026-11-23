@@ -2,6 +2,7 @@ import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import SideMenu, { type SideMenuItem } from './SideMenu';
+import BrandWordmark from '../BrandWordmark/BrandWordmark';
 import cssRaw from './SideMenu.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -74,6 +75,23 @@ export const Default: Story = {
       <Column {...args} />
     </div>
   ),
+};
+
+/** clientLogo (CHIP, 23 Nov 2026, "BELLA has a logo too"): the client's own logo stands where the name stood; `client` stays the
+ * switcher's accessible name. */
+export const WithLogo: Story = {
+  args: { clientLogo: <BrandWordmark word="BELLA" variant="ink" size="nav" /> },
+  render: (args) => (
+    <div style={{ background: 'var(--color-background-default)', paddingInlineEnd: 'var(--spacing-32)' }}>
+      <Column {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const c = within(canvasElement);
+    const b = c.getByRole('button', { name: /Switch client: BELLA/ });
+    await expect(b.querySelector('[data-bella-component="brand-wordmark"], svg')).toBeTruthy();
+    await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(64);
+  },
 };
 
 /** Show pinned and Show projects off: Go to, then the foot. */

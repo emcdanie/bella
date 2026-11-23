@@ -37,11 +37,18 @@ props:
       Figma "variant". tile (default): the mark in its tile, name and caption, the ⇅. plain (her 21 Nov pick "A, one plain line", CHIP
       Screen template 601:112027): the name alone with a small ⌄ after it, no tile or caption.
     at: src/components/ClientSwitcher/ClientSwitcher.tsx:19
+  - name: logo
+    type: ReactNode
+    required: false
+    doc: >-
+      plain only (CHIP, 23 Nov 2026, "BELLA has a logo too"): the client's own logo drawn in place of the visible name, e.g. <BrandWordmark
+      word="BELLA" variant="ink" />. The name stays in the button's accessible name.
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:24
   - name: onClick
     type: () => void
     required: false
     doc: Opens the client list.
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:21
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:26
   - name: expanded
     type: boolean
     values:
@@ -49,16 +56,16 @@ props:
       - false
     required: false
     doc: Whether the client list is open (aria-expanded).
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:23
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:28
   - name: className
     type: string
     required: false
     doc: Extra classes on the button.
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:25
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:30
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:26
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:31
 variants:
   variant:
     values:
@@ -403,34 +410,37 @@ motion:
 a11y:
   element:
     tag: button
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:38
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
   role:
     value: button
     source: native element
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:38
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
   nameSource:
     value: visible content
-    at: src/components/ClientSwitcher/ClientSwitcher.tsx:38
+    at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
   keyboard:
     - key: Enter activates
       source: native element
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:38
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
     - key: Space activates
       source: native element
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:38
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
   aria:
     - attribute: aria-haspopup
       value: listbox
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:48
     - attribute: aria-expanded
       value: expanded
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:44
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:49
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:47
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:52
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:54
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:58
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:66
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -458,19 +468,18 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-haspopup="listbox"
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:43
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:48
     - kind: ARIA
       value: aria-expanded
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:44
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:49
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/ClientSwitcher/ClientSwitcher.tsx:54
+      at: src/components/ClientSwitcher/ClientSwitcher.tsx:66
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/ClientSwitcher/ClientSwitcher.stories.tsx
+  file: ~/DEV/bella-sidelogo/src/components/ClientSwitcher/ClientSwitcher.stories.tsx
   lines: 38-38
   import: import ClientSwitcher from '@bella/components/ClientSwitcher/ClientSwitcher';
   importSource: the style the Button doc page uses (CHIP import path)

@@ -23,11 +23,18 @@ props:
     required: false
     doc: Switcher name, the plain Client switcher ("BELLA ⌄").
     at: src/components/SideMenu/SideMenu.tsx:26
+  - name: clientLogo
+    type: ReactNode
+    required: false
+    doc: >-
+      The client's own logo in the switcher, in place of the visible name (CHIP, 23 Nov 2026), e.g. BrandWordmark word="BELLA". `client`
+      stays the accessible name.
+    at: src/components/SideMenu/SideMenu.tsx:28
   - name: onClientClick
     type: () => void
     required: false
     doc: Opens the client list.
-    at: src/components/SideMenu/SideMenu.tsx:28
+    at: src/components/SideMenu/SideMenu.tsx:30
   - name: clientExpanded
     type: boolean
     values:
@@ -35,30 +42,30 @@ props:
       - false
     required: false
     doc: Whether the client list is open (aria-expanded on the switcher).
-    at: src/components/SideMenu/SideMenu.tsx:30
+    at: src/components/SideMenu/SideMenu.tsx:32
   - name: items
     type: SideMenuItem[]
     required: true
     doc: 'Group · Go to: Search, Home, Needs you (count), Not again.'
-    at: src/components/SideMenu/SideMenu.tsx:32
+    at: src/components/SideMenu/SideMenu.tsx:34
   - name: pinned
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Pinned: what she pinned.'
-    at: src/components/SideMenu/SideMenu.tsx:34
+    at: src/components/SideMenu/SideMenu.tsx:36
   - name: projects
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Projects: one Folder row per project.'
-    at: src/components/SideMenu/SideMenu.tsx:36
+    at: src/components/SideMenu/SideMenu.tsx:38
   - name: foot
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Foot, pushed to the bottom: Team, Settings.'
-    at: src/components/SideMenu/SideMenu.tsx:38
+    at: src/components/SideMenu/SideMenu.tsx:40
   - name: showPinned
     type: boolean
     values:
@@ -67,7 +74,7 @@ props:
     default: true
     required: false
     doc: Figma "Show pinned".
-    at: src/components/SideMenu/SideMenu.tsx:40
+    at: src/components/SideMenu/SideMenu.tsx:42
   - name: showProjects
     type: boolean
     values:
@@ -76,21 +83,21 @@ props:
     default: true
     required: false
     doc: Figma "Show projects".
-    at: src/components/SideMenu/SideMenu.tsx:42
+    at: src/components/SideMenu/SideMenu.tsx:44
   - name: onNavigate
     type: '(href: string, event: MouseEvent<HTMLElement>) => void'
     required: false
     doc: Called on every row click with the row's href, before navigation; call event.preventDefault() to route in the app.
-    at: src/components/SideMenu/SideMenu.tsx:44
+    at: src/components/SideMenu/SideMenu.tsx:46
   - name: className
     type: string
     required: false
     doc: Extra classes on the menu.
-    at: src/components/SideMenu/SideMenu.tsx:46
+    at: src/components/SideMenu/SideMenu.tsx:48
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SideMenu/SideMenu.tsx:47
+    at: src/components/SideMenu/SideMenu.tsx:49
 variants: {}
 states:
   contract:
@@ -301,14 +308,14 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/SideMenu/SideMenu.tsx:91
+    at: src/components/SideMenu/SideMenu.tsx:94
   role:
     value: null
     source: native element
-    at: src/components/SideMenu/SideMenu.tsx:91
+    at: src/components/SideMenu/SideMenu.tsx:94
   nameSource:
     value: visible content
-    at: src/components/SideMenu/SideMenu.tsx:91
+    at: src/components/SideMenu/SideMenu.tsx:94
   keyboard: []
   aria:
     - attribute: aria-current
@@ -316,10 +323,10 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - attribute: aria-labelledby
       value: headId
-      at: src/components/SideMenu/SideMenu.tsx:95
+      at: src/components/SideMenu/SideMenu.tsx:98
     - attribute: aria-label
       value: label
-      at: src/components/SideMenu/SideMenu.tsx:104
+      at: src/components/SideMenu/SideMenu.tsx:107
   focusRing: []
   disabled:
     prop: null
@@ -336,17 +343,16 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/SideMenu/SideMenu.tsx:95
+      at: src/components/SideMenu/SideMenu.tsx:98
     - kind: ARIA
       value: aria-label
-      at: src/components/SideMenu/SideMenu.tsx:104
+      at: src/components/SideMenu/SideMenu.tsx:107
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/SideMenu/SideMenu.stories.tsx
-  lines: 65-65
+  file: ~/DEV/bella-sidelogo/src/components/SideMenu/SideMenu.stories.tsx
+  lines: 66-66
   import: import SideMenu from '@bella/components/SideMenu/SideMenu';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <SideMenu {...props} />

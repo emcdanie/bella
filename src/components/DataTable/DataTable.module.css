@@ -172,3 +172,120 @@
   text-decoration-thickness: var(--border-width-1);
   text-underline-offset: var(--spacing-4);
 }
+
+/* onOpen (CHIP drawers, 23 Nov plan: "a table row that opens its detail"): the row's name is a button whose
+   ::after covers the whole row, so the row is one 44 target; a ↗ Trailing mark ends it (rule 12). The row's
+   own hover is the shared light blue (Table row). */
+.root[data-open] tbody tr {
+  position: relative;
+  cursor: pointer;
+}
+
+.open {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  min-block-size: var(--spacing-44);
+  cursor: pointer;
+}
+
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.open:focus-visible {
+  outline: none;
+}
+
+.root[data-open] tbody tr:has(.open:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+  border-radius: var(--border-radius-8);
+}
+
+.openCell {
+  inline-size: var(--spacing-44);
+  padding-inline: var(--spacing-8) var(--spacing-16);
+}
+
+.hidden,
+.stackLabel {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* stack (narrow mode): under 480 of its container the header row goes and each row reorganises, never squeezes:
+   the name and the second column's value on the first line, the ↗ at the end, every other column under the name as
+   "Label: value" in the subtle ink. The table's semantics stay for readers; the header is only hidden from view. */
+.root[data-stack] {
+  container-type: inline-size;
+}
+
+@container (max-width: 479px) {
+  .root[data-stack] thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .root[data-stack] tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    border-bottom: var(--border-width-1) solid var(--color-border-default);
+  }
+
+  .root[data-stack] tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .root[data-stack] tbody tr > * {
+    display: block;
+    block-size: auto;
+    border-bottom: none;
+  }
+
+  .root[data-stack] tbody tr > :first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .root[data-stack] tbody tr > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 8;
+  }
+
+  .root[data-stack] tbody tr > .openCell {
+    grid-column: 3;
+    grid-row: 1 / span 8;
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) {
+    grid-column: 1;
+    padding-block-start: 0;
+    text-align: start;
+    color: var(--color-content-subtle);
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) > * {
+    justify-content: flex-start;
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3) .stackLabel {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--typography-body-default-font-family);
+  }
+}

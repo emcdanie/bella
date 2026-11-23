@@ -3,51 +3,70 @@
 name: DataTable
 lead:
   text: Rows of facts in columns.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-datatable--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-datatable--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/DataTable/DataTable.tsx
   storyTitle: Components/DataTable
 props:
   - name: columns
     type: DataTableColumn<Row>[]
     required: true
-    at: src/components/DataTable/DataTable.tsx:21
+    at: src/components/DataTable/DataTable.tsx:35
   - name: rows
     type: Row[]
     required: true
-    at: src/components/DataTable/DataTable.tsx:22
+    at: src/components/DataTable/DataTable.tsx:36
   - name: rowKey
     type: string
     required: true
     doc: 'The field that identifies a row: React key and selection value.'
-    at: src/components/DataTable/DataTable.tsx:24
+    at: src/components/DataTable/DataTable.tsx:38
   - name: caption
     type: string
     required: true
     doc: 'Visible caption naming the table. Required: a table without a name is a grid of guesses.'
-    at: src/components/DataTable/DataTable.tsx:26
+    at: src/components/DataTable/DataTable.tsx:40
   - name: defaultSort
     type: DataTableSort
     required: false
     doc: Initial sort; sorting is then held by the table.
-    at: src/components/DataTable/DataTable.tsx:28
+    at: src/components/DataTable/DataTable.tsx:42
   - name: selectedKey
     type: string | null
     required: false
-    doc: Selection, single. The first column renders as a toggle button; the selected row fills pink.
-    at: src/components/DataTable/DataTable.tsx:30
+    doc: >-
+      Selection, single. The first column renders as a toggle button; the selected row is the shared light blue with bold ink text (Figma 20
+      Nov).
+    at: src/components/DataTable/DataTable.tsx:44
   - name: onSelect
     type: '(key: string | null) => void'
     required: false
-    at: src/components/DataTable/DataTable.tsx:31
+    at: src/components/DataTable/DataTable.tsx:45
+  - name: onOpen
+    type: '(key: string) => void'
+    required: false
+    doc: >-
+      The row opens its detail (CHIP drawers, 23 Nov plan: "a table row that opens its detail"). The row's name becomes a button that covers
+      the whole row, and a ↗ Trailing mark ends it (rule 12: the whole row is the target). Not with onSelect.
+    at: src/components/DataTable/DataTable.tsx:48
+  - name: stack
+    type: boolean
+    values:
+      - true
+      - false
+    required: false
+    doc: >-
+      Narrow mode: below 480 of its container the header row goes and each row stacks: the name and the second column's value on one line,
+      the other columns under the name as "Label: value" ("reorganise, do not squeeze").
+    at: src/components/DataTable/DataTable.tsx:51
   - name: maxHeight
     type: string
     required: false
-    doc: Caps the height (a token, e.g. `calc(var(--spacing-20) * 5)`) so the sticky header has something to stick in.
-    at: src/components/DataTable/DataTable.tsx:33
+    doc: Caps the height (a token, e.g. `calc(var(--spacing-80) * 5)`) so the sticky header has something to stick in.
+    at: src/components/DataTable/DataTable.tsx:53
   - name: density
     type: '''default'' | ''compact'''
     values:
@@ -57,19 +76,19 @@ props:
     doc: >-
       Row height. compact is for display-only tables (answers, read-only lists): rows under 44px. It is ignored on a sortable or selectable
       table, whose rows keep the 44px target.
-    at: src/components/DataTable/DataTable.tsx:36
+    at: src/components/DataTable/DataTable.tsx:56
   - name: className
     type: string
     required: false
     doc: Extra classes on the scroll wrapper.
-    at: src/components/DataTable/DataTable.tsx:38
+    at: src/components/DataTable/DataTable.tsx:58
 variants:
   density:
     values:
       - default
       - compact
     default: null
-    at: src/components/DataTable/DataTable.tsx:36
+    at: src/components/DataTable/DataTable.tsx:56
 states:
   contract:
     - default
@@ -81,9 +100,8 @@ states:
     - focus-visible
     - '[data-density=''compact'']'
     - hover
-    - '[data-direction]'
-    - '[data-direction=''ascending'']'
-    - '[data-selected]'
+    - '[data-open]'
+    - '[data-stack]'
 sizes: []
 anatomy:
   scaleWidth: 582
@@ -122,848 +140,386 @@ anatomy:
       at: centre
       side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma:
-    name: state=default, density=default
-    type: COMPONENT
-    size: 582x293
-    children:
-      - name: Caption
-        type: FRAME
-        size: 270x55
-        tokens:
-          - field: paddingLeft
-            variable: spacing/4
-          - field: paddingTop
-            variable: spacing/3
-          - field: paddingRight
-            variable: spacing/4
-          - field: paddingBottom
-            variable: spacing/3
-        children:
-          - name: Caption text
-            type: TEXT
-            text: Component health, last sync
-            size: 238x31
-            tokens:
-              - field: fills
-                variable: color/semantic/text-secondary
-              - field: fontSize
-                variable: typography/font-size/sm
-              - field: fontFamily
-                variable: typography/font-family/body
-              - field: fontWeight
-                variable: typography/font-weight/regular
-      - name: Table
-        type: FRAME
-        size: 582x238
-        tokens:
-          - field: topLeftRadius
-            variable: radius/lg
-          - field: topRightRadius
-            variable: radius/lg
-          - field: bottomLeftRadius
-            variable: radius/lg
-          - field: bottomRightRadius
-            variable: radius/lg
-          - field: strokes
-            variable: color/semantic/border
-        children:
-          - name: Header row
-            type: FRAME
-            size: 580x60
-            tokens:
-              - field: fills
-                variable: color/semantic/surface-card
-            children:
-              - name: th Component
-                type: FRAME
-                size: 260x60
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: Label
-                    type: FRAME
-                    size: 113x34
-                    tokens:
-                      - field: itemSpacing
-                        variable: spacing/1
-                    children:
-                      - name: (text content)
-                        type: TEXT
-                        text: Component
-                        size: 113x34
-                        tokens:
-                          - field: fills
-                            variable: color/semantic/text-secondary
-                          - field: fontSize
-                            variable: typography/font-size/base
-                          - field: fontFamily
-                            variable: typography/font-family/body
-                          - field: fontWeight
-                            variable: typography/font-weight/medium
-              - name: th Status
-                type: FRAME
-                size: 180x60
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: Label
-                    type: FRAME
-                    size: 61x34
-                    tokens:
-                      - field: itemSpacing
-                        variable: spacing/1
-                    children:
-                      - name: (text content)
-                        type: TEXT
-                        text: Status
-                        size: 61x34
-                        tokens:
-                          - field: fills
-                            variable: color/semantic/text-secondary
-                          - field: fontSize
-                            variable: typography/font-size/base
-                          - field: fontFamily
-                            variable: typography/font-family/body
-                          - field: fontWeight
-                            variable: typography/font-weight/medium
-              - name: th Failures
-                type: FRAME
-                size: 140x60
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: Sort button
-                    type: FRAME
-                    size: 72x44
-                    tokens:
-                      - field: itemSpacing
-                        variable: spacing/1
-                      - field: topLeftRadius
-                        variable: radius/sm
-                      - field: topRightRadius
-                        variable: radius/sm
-                      - field: bottomLeftRadius
-                        variable: radius/sm
-                      - field: bottomRightRadius
-                        variable: radius/sm
-                      - field: minHeight
-                        variable: spacing/touch-target
-                    children:
-                      - name: (text content)
-                        type: TEXT
-                        text: Failures
-                        size: 72x34
-                        tokens:
-                          - field: fills
-                            variable: color/semantic/text-secondary
-                          - field: fontSize
-                            variable: typography/font-size/base
-                          - field: fontFamily
-                            variable: typography/font-family/body
-                          - field: fontWeight
-                            variable: typography/font-weight/medium
-          - name: Row 1
-            type: FRAME
-            size: 580x44
-            children:
-              - name: th Component
-                type: FRAME
-                size: 260x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Button
-                    size: 64x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/medium
-              - name: td Status
-                type: FRAME
-                size: 180x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Passing
-                    size: 70x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-              - name: td Failures
-                type: FRAME
-                size: 140x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: '0'
-                    size: 14x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-          - name: Row 2
-            type: FRAME
-            size: 580x44
-            children:
-              - name: th Component
-                type: FRAME
-                size: 260x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Select
-                    size: 60x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/medium
-              - name: td Status
-                type: FRAME
-                size: 180x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Drifting
-                    size: 68x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-              - name: td Failures
-                type: FRAME
-                size: 140x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: '2'
-                    size: 12x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-          - name: Row 3
-            type: FRAME
-            size: 580x44
-            children:
-              - name: th Component
-                type: FRAME
-                size: 260x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: DataTable
-                    size: 95x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/medium
-              - name: td Status
-                type: FRAME
-                size: 180x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Passing
-                    size: 70x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-              - name: td Failures
-                type: FRAME
-                size: 140x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                  - field: strokes
-                    variable: color/semantic/border
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: '0'
-                    size: 14x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-          - name: Row 4
-            type: FRAME
-            size: 580x44
-            children:
-              - name: th Component
-                type: FRAME
-                size: 260x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Combobox
-                    size: 104x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/medium
-              - name: td Status
-                type: FRAME
-                size: 180x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: Failing
-                    size: 58x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
-              - name: td Failures
-                type: FRAME
-                size: 140x44
-                tokens:
-                  - field: paddingLeft
-                    variable: spacing/4
-                  - field: paddingTop
-                    variable: spacing/2
-                  - field: paddingRight
-                    variable: spacing/4
-                  - field: paddingBottom
-                    variable: spacing/2
-                children:
-                  - name: (text content)
-                    type: TEXT
-                    text: '5'
-                    size: 13x34
-                    tokens:
-                      - field: fills
-                        variable: color/semantic/text-primary
-                      - field: fontSize
-                        variable: typography/font-size/base
-                      - field: fontFamily
-                        variable: typography/font-family/body
-                      - field: fontWeight
-                        variable: typography/font-weight/regular
+  figma: null
   code: []
 tokens:
   used:
-    - part: root
+    - part: frame
+      state: rest
+      property: inline-size
+      token: '--spacing-24'
+      selector: .frame::before, .frame::after
+      at: src/components/DataTable/DataTable.module.css:38
+    - part: frame
+      state: rest
+      property: border-start-start-radius
+      token: '--border-radius-12'
+      selector: .frame::before
+      at: src/components/DataTable/DataTable.module.css:49
+    - part: frame
+      state: rest
+      property: border-end-start-radius
+      token: '--border-radius-12'
+      selector: .frame::before
+      at: src/components/DataTable/DataTable.module.css:50
+    - part: frame
+      state: rest
+      property: background
+      token: '--color-background-surface'
+      selector: .frame::before
+      at: src/components/DataTable/DataTable.module.css:51
+    - part: frame
+      state: rest
+      property: animation-range
+      token: '--spacing-4'
+      selector: .frame::before
+      at: src/components/DataTable/DataTable.module.css:53
+    - part: frame
+      state: rest
+      property: border-start-end-radius
+      token: '--border-radius-12'
+      selector: .frame::after
+      at: src/components/DataTable/DataTable.module.css:58
+    - part: frame
+      state: rest
+      property: border-end-end-radius
+      token: '--border-radius-12'
+      selector: .frame::after
+      at: src/components/DataTable/DataTable.module.css:59
+    - part: frame
+      state: rest
+      property: background
+      token: '--color-background-surface'
+      selector: .frame::after
+      at: src/components/DataTable/DataTable.module.css:60
+    - part: frame
+      state: rest
+      property: animation-range
+      token: '--spacing-4'
+      selector: .frame::after
+      at: src/components/DataTable/DataTable.module.css:62
+    - part: wrap
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .wrap
-      at: src/components/DataTable/DataTable.module.css:16
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:78
+    - part: wrap
       state: rest
       property: border
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       selector: .wrap
-      at: src/components/DataTable/DataTable.module.css:16
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:78
+    - part: wrap
       state: rest
       property: border-radius
-      token: '--component-data-table-border-radius'
+      token: '--border-radius-12'
       selector: .wrap
-      at: src/components/DataTable/DataTable.module.css:17
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:79
+    - part: wrap
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .wrap:focus-visible
-      at: src/components/DataTable/DataTable.module.css:21
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:83
+    - part: wrap
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .wrap:focus-visible
-      at: src/components/DataTable/DataTable.module.css:21
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:83
+    - part: wrap
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .wrap:focus-visible
-      at: src/components/DataTable/DataTable.module.css:22
-    - part: table
-      state: rest
-      property: font-family
-      token: '--typography-font-family-body'
-      selector: .table
-      at: src/components/DataTable/DataTable.module.css:29
-    - part: table
-      state: rest
-      property: font-size
-      token: '--component-data-table-font-size'
-      selector: .table
-      at: src/components/DataTable/DataTable.module.css:30
+      at: src/components/DataTable/DataTable.module.css:84
     - part: table
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-body'
+      token: '--typography-letter-spacing-0'
       selector: .table
-      at: src/components/DataTable/DataTable.module.css:31
-    - part: table
-      state: rest
-      property: color
-      token: '--color-semantic-text-primary'
-      selector: .table
-      at: src/components/DataTable/DataTable.module.css:32
+      at: src/components/DataTable/DataTable.module.css:91
     - part: caption
       state: rest
-      property: padding
-      token: '--spacing-3'
+      property: padding-block
+      token: '--spacing-12'
       selector: .caption
-      at: src/components/DataTable/DataTable.module.css:38
-    - part: caption
-      state: rest
-      property: padding
-      token: '--spacing-4'
-      selector: .caption
-      at: src/components/DataTable/DataTable.module.css:38
+      at: src/components/DataTable/DataTable.module.css:97
     - part: caption
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .caption
-      at: src/components/DataTable/DataTable.module.css:39
+      at: src/components/DataTable/DataTable.module.css:98
     - part: caption
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-16'
       selector: .caption
-      at: src/components/DataTable/DataTable.module.css:40
+      at: src/components/DataTable/DataTable.module.css:99
+    - part: caption
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .caption
+      at: src/components/DataTable/DataTable.module.css:100
     - part: caption
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .caption
-      at: src/components/DataTable/DataTable.module.css:41
+      at: src/components/DataTable/DataTable.module.css:101
     - part: root
-      state: rest
-      property: padding
-      token: '--spacing-2'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:46
-    - part: root
-      state: rest
+      state: '[data-density=''compact''] [data-density=''compact'']'
       property: padding
       token: '--spacing-4'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:46
-    - part: root
-      state: rest
-      property: min-block-size
-      token: '--component-data-table-row-min-height'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:47
-    - part: root
-      state: rest
-      property: block-size
-      token: '--component-data-table-row-min-height'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:48
-    - part: root
-      state: rest
-      property: border-bottom
-      token: '--border-width-thin'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:49
-    - part: root
-      state: rest
-      property: border-bottom
-      token: '--color-semantic-border'
-      selector: .table th, .table td
-      at: src/components/DataTable/DataTable.module.css:49
+      selector: .root[data-density='compact'] .table th, .root[data-density='compact'] .table td
+      at: src/components/DataTable/DataTable.module.css:107
     - part: root
       state: '[data-density=''compact''] [data-density=''compact'']'
       property: padding
-      token: '--spacing-1'
-      selector: .wrap[data-density='compact'] .table th, .wrap[data-density='compact'] .table td
-      at: src/components/DataTable/DataTable.module.css:57
-    - part: root
-      state: '[data-density=''compact''] [data-density=''compact'']'
-      property: padding
-      token: '--spacing-3'
-      selector: .wrap[data-density='compact'] .table th, .wrap[data-density='compact'] .table td
-      at: src/components/DataTable/DataTable.module.css:57
-    - part: root
-      state: '[data-density=''compact''] [data-density=''compact'']'
-      property: min-block-size
-      token: '--component-data-table-compact-row-min-height'
-      selector: .wrap[data-density='compact'] .table th, .wrap[data-density='compact'] .table td
-      at: src/components/DataTable/DataTable.module.css:58
+      token: '--spacing-16'
+      selector: .root[data-density='compact'] .table th, .root[data-density='compact'] .table td
+      at: src/components/DataTable/DataTable.module.css:107
     - part: root
       state: '[data-density=''compact''] [data-density=''compact'']'
       property: block-size
-      token: '--component-data-table-compact-row-min-height'
-      selector: .wrap[data-density='compact'] .table th, .wrap[data-density='compact'] .table td
-      at: src/components/DataTable/DataTable.module.css:59
+      token: '--spacing-32'
+      selector: .root[data-density='compact'] .table th, .root[data-density='compact'] .table td
+      at: src/components/DataTable/DataTable.module.css:108
     - part: root
       state: rest
       property: background
-      token: '--component-data-table-header-background'
+      token: '--color-background-surface'
       selector: .table thead th
-      at: src/components/DataTable/DataTable.module.css:70
-    - part: root
+      at: src/components/DataTable/DataTable.module.css:119
+    - part: rowLabel
       state: rest
       property: font-weight
-      token: '--typography-font-weight-medium'
-      selector: .table thead th
-      at: src/components/DataTable/DataTable.module.css:71
-    - part: root
-      state: rest
-      property: color
-      token: '--color-semantic-text-secondary'
-      selector: .table thead th
-      at: src/components/DataTable/DataTable.module.css:72
-    - part: root
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-medium'
-      selector: .table tbody th
-      at: src/components/DataTable/DataTable.module.css:77
-    - part: sort
-      state: rest
-      property: gap
-      token: '--spacing-1'
-      selector: .sort, .select
-      at: src/components/DataTable/DataTable.module.css:91
+      token: '--typography-font-weight-600'
+      selector: .rowLabel
+      at: src/components/DataTable/DataTable.module.css:124
     - part: sort
       state: rest
       property: min-block-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .sort, .select
-      at: src/components/DataTable/DataTable.module.css:92
-    - part: sort
-      state: rest
-      property: border-radius
-      token: '--radius-sm'
-      selector: .sort, .select
-      at: src/components/DataTable/DataTable.module.css:94
+      at: src/components/DataTable/DataTable.module.css:138
     - part: sort
       state: hover
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .sort:hover
-      at: src/components/DataTable/DataTable.module.css:102
-    - part: sort
+      at: src/components/DataTable/DataTable.module.css:149
+    - part: sortable
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
-      selector: .sort:focus-visible, .select:focus-visible
-      at: src/components/DataTable/DataTable.module.css:107
-    - part: sort
+      token: '--focus-ring-width'
+      selector: .sortable:has(.sort:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:159
+    - part: sortable
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
-      selector: .sort:focus-visible, .select:focus-visible
-      at: src/components/DataTable/DataTable.module.css:107
-    - part: sort
+      token: '--color-border-focus'
+      selector: .sortable:has(.sort:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:159
+    - part: sortable
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
-      selector: .sort:focus-visible, .select:focus-visible
-      at: src/components/DataTable/DataTable.module.css:108
+      token: '--spacing-4'
+      selector: .sortable:has(.sort:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:160
+    - part: sortable
+      state: focus-visible
+      property: outline-offset
+      token: '--focus-ring-width'
+      selector: .sortable:has(.sort:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:160
+    - part: sortable
+      state: focus-visible
+      property: border-radius
+      token: '--border-radius-8'
+      selector: .sortable:has(.sort:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:161
+    - part: select
+      state: focus-visible
+      property: outline
+      token: '--focus-ring-width'
+      selector: .select:focus-visible
+      at: src/components/DataTable/DataTable.module.css:165
+    - part: select
+      state: focus-visible
+      property: outline
+      token: '--color-border-focus'
+      selector: .select:focus-visible
+      at: src/components/DataTable/DataTable.module.css:165
+    - part: select
+      state: focus-visible
+      property: outline-offset
+      token: '--focus-ring-offset'
+      selector: .select:focus-visible
+      at: src/components/DataTable/DataTable.module.css:166
+    - part: select
+      state: focus-visible
+      property: border-radius
+      token: '--border-radius-4'
+      selector: .select:focus-visible
+      at: src/components/DataTable/DataTable.module.css:167
     - part: select
       state: hover
       property: text-decoration-thickness
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .select:hover
-      at: src/components/DataTable/DataTable.module.css:113
+      at: src/components/DataTable/DataTable.module.css:172
     - part: select
       state: hover
       property: text-underline-offset
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .select:hover
-      at: src/components/DataTable/DataTable.module.css:114
+      at: src/components/DataTable/DataTable.module.css:173
+    - part: open
+      state: rest
+      property: min-block-size
+      token: '--spacing-44'
+      selector: .open
+      at: src/components/DataTable/DataTable.module.css:189
+    - part: open
+      state: focus-visible [data-open]
+      property: outline
+      token: '--focus-ring-width'
+      selector: .root[data-open] tbody tr:has(.open:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:204
+    - part: open
+      state: focus-visible [data-open]
+      property: outline
+      token: '--color-border-focus'
+      selector: .root[data-open] tbody tr:has(.open:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:204
+    - part: open
+      state: focus-visible [data-open]
+      property: outline-offset
+      token: '--focus-ring-width'
+      selector: .root[data-open] tbody tr:has(.open:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:205
+    - part: open
+      state: focus-visible [data-open]
+      property: border-radius
+      token: '--border-radius-8'
+      selector: .root[data-open] tbody tr:has(.open:focus-visible)
+      at: src/components/DataTable/DataTable.module.css:206
+    - part: openCell
+      state: rest
+      property: inline-size
+      token: '--spacing-44'
+      selector: .openCell
+      at: src/components/DataTable/DataTable.module.css:210
+    - part: openCell
+      state: rest
+      property: padding-inline
+      token: '--spacing-8'
+      selector: .openCell
+      at: src/components/DataTable/DataTable.module.css:211
+    - part: openCell
+      state: rest
+      property: padding-inline
+      token: '--spacing-16'
+      selector: .openCell
+      at: src/components/DataTable/DataTable.module.css:211
     - part: root
-      state: '[data-selected]'
-      property: '--ring-focus-color'
-      token: '--component-data-table-selected-foreground'
-      selector: tr[data-selected]
-      at: src/components/DataTable/DataTable.module.css:133
+      state: '[data-stack]'
+      property: border-bottom
+      token: '--border-width-1'
+      selector: .root[data-stack] tbody tr
+      at: src/components/DataTable/DataTable.module.css:244
     - part: root
-      state: '[data-selected]'
-      property: background
-      token: '--component-data-table-selected-background'
-      selector: tr[data-selected] > *
-      at: src/components/DataTable/DataTable.module.css:137
-    - part: root
-      state: '[data-selected]'
+      state: '[data-stack]'
+      property: border-bottom
+      token: '--color-border-default'
+      selector: .root[data-stack] tbody tr
+      at: src/components/DataTable/DataTable.module.css:244
+    - part: openCell
+      state: '[data-stack]'
       property: color
-      token: '--component-data-table-selected-foreground'
-      selector: tr[data-selected] > *
-      at: src/components/DataTable/DataTable.module.css:138
-    - part: root
-      state: '[data-selected]'
-      property: color
-      token: '--component-data-table-selected-foreground'
-      selector: tr[data-selected] > * *
-      at: src/components/DataTable/DataTable.module.css:144
+      token: '--color-content-subtle'
+      selector: .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell)
+      at: src/components/DataTable/DataTable.module.css:276
+    - part: stackLabel
+      state: '[data-stack]'
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .root[data-stack] tbody tr > :nth-child(n + 3) .stackLabel
+      at: src/components/DataTable/DataTable.module.css:289
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-data-table-border-radius':
-      light: 12px
-      chip: 2px
-    '--component-data-table-compact-row-min-height':
-      light: 32px
-      chip: 32px
-    '--component-data-table-font-size':
-      light: 20px
-      chip: 20px
-    '--component-data-table-header-background':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-data-table-row-min-height':
-      light: 44px
-      chip: 44px
-    '--component-data-table-selected-background':
-      light: '#E58BBB'
-      chip: '#E58BBB'
-    '--component-data-table-selected-foreground':
-      light: '#0A0C14'
-      chip: '#0A0C14'
-    '--radius-sm':
-      light: 4px
-      chip: 4px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--border-radius-12':
+      light: null
+      chip: null
+    '--border-radius-4':
+      light: null
+      chip: null
+    '--border-radius-8':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
+    '--spacing-32':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--spacing-touch-target':
-      light: 44px
-      chip: 44px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-size-sm':
-      light: 18px
-      chip: 18px
-    '--typography-font-weight-medium':
-      light: '500'
-      chip: '500'
-    '--typography-letter-spacing-body':
-      light: '0'
-      chip: '0'
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -971,198 +527,85 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/DataTable/DataTable.tsx:87
+    at: src/components/DataTable/DataTable.tsx:111
   role:
     value: maxHeight
     source: role attribute
-    at: src/components/DataTable/DataTable.tsx:87
+    at: src/components/DataTable/DataTable.tsx:111
   nameSource:
-    value: aria-label from the maxHeight prop
-    at: src/components/DataTable/DataTable.tsx:87
+    value: visible content
+    at: src/components/DataTable/DataTable.tsx:111
   keyboard: []
   aria:
-    - attribute: aria-label
+    - attribute: aria-labelledby
       value: maxHeight
-      at: src/components/DataTable/DataTable.tsx:94
-    - attribute: aria-sort
-      value: c.sortable
-      at: src/components/DataTable/DataTable.tsx:107
-    - attribute: aria-hidden
-      value: 'true'
-      at: src/components/DataTable/DataTable.tsx:115
+      at: src/components/DataTable/DataTable.tsx:130
+    - attribute: aria-labelledby
+      value: captionId
+      at: src/components/DataTable/DataTable.tsx:132
     - attribute: aria-pressed
       value: selected
-      at: src/components/DataTable/DataTable.tsx:144
+      at: src/components/DataTable/DataTable.tsx:182
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/DataTable/DataTable.module.css:21
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/DataTable/DataTable.module.css:83
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
-      at: src/components/DataTable/DataTable.module.css:22
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/DataTable/DataTable.module.css:84
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion: null
   contract: >-
-    Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable
-    headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with
-    aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested
-    components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on
-    panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select
-    buttons hit the 44px touch-target token; focus ring 3px.
+    Verified 2026-10-03: a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column
+    headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending,
+    descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the light
+    blue fill (background/brand-subtle-hover) with a bold ink label: 12.30:1 Chip light, 9.54:1 BELLA light, 7.34:1 BELLA dark (AAA,
+    measured 20 Nov 2026; Chip dark's white-alpha tint not measured), nested components included, and no other row changes. Header labels
+    text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while
+    the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px
+    touch-target token; focus ring 4px with a 4px gap.
   targetPx: null
   ariaChips:
     - kind: ARIA
-      value: aria-label
-      at: src/components/DataTable/DataTable.tsx:94
-    - kind: ARIA
-      value: aria-sort
-      at: src/components/DataTable/DataTable.tsx:107
-    - kind: ARIA
-      value: aria-hidden="true"
-      at: src/components/DataTable/DataTable.tsx:115
+      value: aria-labelledby
+      at: src/components/DataTable/DataTable.tsx:132
     - kind: ARIA
       value: aria-pressed
-      at: src/components/DataTable/DataTable.tsx:144
+      at: src/components/DataTable/DataTable.tsx:182
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: 'selected table row: text on the fill'
-      foreground: '--component-data-table-selected-foreground'
-      background: '--component-data-table-selected-background'
-      foregroundHex: '#0A0C14'
-      backgroundHex: '#E58BBB'
-      ratio: 8.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:100
-    - label: table header label on its panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--component-data-table-header-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:101
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--component-data-table-selected-foreground'
-      background: '--color-semantic-background'
-      ratio: 18.2
-      theme: chip
-    - foreground: '--component-data-table-selected-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 19.52
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/DataTable/DataTable.stories.tsx
   lines: 57-57
   import: import DataTable from '@bella/components/DataTable/DataTable';
   importSource: the style the Button doc page uses (CHIP import path)
-  code: |-
-    <DataTable
-      columns={COLUMNS}
-      rows={ROWS}
-      rowKey="name"
-      caption="Component health"
-      defaultSort={{ key: 'name', direction: 'ascending' }}
+  code: >-
+    <DataTable columns={COLUMNS} rows={ROWS} rowKey="name" caption="Component health" defaultSort={{ key: 'name', direction: 'ascending' }}
     />
 usage:
   use:
     - CHIP per-component health results
     - Any comparison of the same facts across many items
   dont:
-    - 'Do not dim unselected rows: selection is the pink fill, everything else keeps its paint'
+    - 'Do not dim unselected rows: selection is the light blue fill with a bold ink label, everything else keeps its paint'
     - 'Do not use the focus ring colour for selection: the ring means focus only'
     - 'Do not left-align figures: numeric columns are right-aligned and tabular'
     - 'Do not drop the caption: it names the table'
     - >-
       Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact
       there)
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '161:426'
   fileKey: '${FIGMA_FILE_KEY}'
@@ -1224,6 +667,9 @@ mismatch:
     figma: radius/lg
     sameValueInChip: false
     note: waits on Elleta (Chip 2px corners); shown as today
+  - field: props.onOpen, props.stack
+    code: present (23 Nov, CHIP drawer template)
+    figma: not drawn yet; Figma follows after Tue 24 Nov
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/DataTable/DataTable.tsx

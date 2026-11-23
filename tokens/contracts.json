@@ -1799,7 +1799,9 @@
             "measure",
             "measureLabel",
             "size",
-            "measured", "summary", "table"
+            "measured",
+            "summary",
+            "table"
           ],
           "usage": [
             "CHIP health figures (components, failures, indexed chunks, last sync)",
@@ -1907,6 +1909,8 @@
             "defaultSort",
             "selectedKey",
             "onSelect",
+            "onOpen",
+            "stack",
             "maxHeight",
             "density",
             "className"
@@ -1917,14 +1921,16 @@
           ],
           "usage": [
             "CHIP per-component health results",
-            "Any comparison of the same facts across many items"
+            "Any comparison of the same facts across many items",
+            "A long list in a CHIP drawer: the row opens its detail (onOpen) and stacks under 480 (stack)"
           ],
           "dont": [
             "Do not dim unselected rows: selection is the light blue fill with a bold ink label, everything else keeps its paint",
             "Do not use the focus ring colour for selection: the ring means focus only",
             "Do not left-align figures: numeric columns are right-aligned and tabular",
             "Do not drop the caption: it names the table",
-            "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"
+            "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)",
+            "Do not put a fix button on every row: the row opens its detail, and the action lives there"
           ],
           "a11y": "Verified 2026-10-03: a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the light blue fill (background/brand-subtle-hover) with a bold ink label: 12.30:1 Chip light, 9.54:1 BELLA light, 7.34:1 BELLA dark (AAA, measured 20 Nov 2026; Chip dark's white-alpha tint not measured), nested components included, and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 4px with a 4px gap.",
           "restState": {

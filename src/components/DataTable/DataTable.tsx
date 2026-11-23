@@ -1,6 +1,7 @@
 import React, { useId, useMemo, useState, type ReactNode } from 'react';
 import TableRow from '../TableRow/TableRow';
 import TableCell from '../TableCell/TableCell';
+import Trailing from '../Trailing/Trailing';
 import type { TagTone } from '../Tag/Tag';
 import styles from './DataTable.module.css';
 
@@ -42,6 +43,12 @@ export interface DataTableProps<Row extends Record<string, any>> {
   /** Selection, single. The first column renders as a toggle button; the selected row is the shared light blue with bold ink text (Figma 20 Nov). */
   selectedKey?: string | null;
   onSelect?: (key: string | null) => void;
+  /** The row opens its detail (CHIP drawers, 23 Nov plan: "a table row that opens its detail"). The row's name becomes
+   *  a button that covers the whole row, and a ↗ Trailing mark ends it (rule 12: the whole row is the target). Not with onSelect. */
+  onOpen?: (key: string) => void;
+  /** Narrow mode: below 480 of its container the header row goes and each row stacks: the name and the second
+   *  column's value on one line, the other columns under the name as "Label: value" ("reorganise, do not squeeze"). */
+  stack?: boolean;
   /** Caps the height (a token, e.g. `calc(var(--spacing-80) * 5)`) so the sticky header has something to stick in. */
   maxHeight?: string;
   /** Row height. compact is for display-only tables (answers, read-only lists): rows under 44px.
@@ -72,12 +79,14 @@ export default function DataTable<Row extends Record<string, any>>({
   onSelect,
   maxHeight,
   density = 'default',
+  stack = false,
+  onOpen,
   className,
 }: DataTableProps<Row>) {
   const [sort, setSort] = useState<DataTableSort | undefined>(defaultSort);
   const captionId = useId();
   // compact only where nothing in a row is interactive
-  const compact = density === 'compact' && !onSelect && !columns.some((c) => c.sortable);
+  const compact = density === 'compact' && !onSelect && !onOpen && !columns.some((c) => c.sortable);
 
   const sorted = useMemo(() => {
     if (!sort) return rows;
@@ -96,13 +105,15 @@ export default function DataTable<Row extends Record<string, any>>({
     );
   }
 
-  const selectable = Boolean(onSelect);
+  const selectable = Boolean(onSelect) && !onOpen;
 
   return (
     <div
       className={[styles.root, className].filter(Boolean).join(' ')}
       data-bella-component="data-table"
       data-density={compact ? 'compact' : undefined}
+      data-stack={stack ? '' : undefined}
+      data-open={onOpen ? '' : undefined}
     >
       {/* The caption sits outside the frame so the frame's edge and corners stay
           put while the table scrolls inside it; it still names the table. */}
@@ -141,6 +152,11 @@ export default function DataTable<Row extends Record<string, any>>({
                 </TableCell>
               );
             })}
+            {onOpen ? (
+              <TableCell kind="header" className={styles.openCell}>
+                <span className={styles.hidden}>Open</span>
+              </TableCell>
+            ) : null}
           </TableRow>
         </thead>
         <tbody>
@@ -155,7 +171,11 @@ export default function DataTable<Row extends Record<string, any>>({
                   if (i === 0) {
                     return (
                       <TableCell key={c.key} rowHeader align={align} selected={selected} className={styles.rowLabel}>
-                        {selectable ? (
+                        {onOpen ? (
+                          <button type="button" className={styles.open} onClick={() => onOpen(key)}>
+                            {content}
+                          </button>
+                        ) : selectable ? (
                           <button
                             type="button"
                             className={styles.select}
@@ -181,10 +201,16 @@ export default function DataTable<Row extends Record<string, any>>({
                       align={align}
                       selected={selected}
                     >
+                      {stack ? <span className={styles.stackLabel}>{`${c.label}: `}</span> : null}
                       {content}
                     </TableCell>
                   );
                 })}
+                {onOpen ? (
+                  <TableCell className={styles.openCell}>
+                    <Trailing />
+                  </TableCell>
+                ) : null}
               </TableRow>
             );
           })}

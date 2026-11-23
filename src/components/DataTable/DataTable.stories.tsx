@@ -322,3 +322,43 @@ export const ScrollEdge: Story = {
     });
   },
 };
+
+type DriftRow = { name: string; differ: number; behind: number };
+const DRIFT: DriftRow[] = [
+  { name: 'Input', differ: 17, behind: 6 },
+  { name: 'ListRow', differ: 14, behind: 29 },
+  { name: 'NavList', differ: 13, behind: 0 },
+  { name: 'Card', differ: 12, behind: 2 },
+];
+const DRIFT_COLUMNS: DataTableColumn<DriftRow>[] = [
+  { key: 'name', label: 'Part', sortable: true },
+  { key: 'differ', label: 'Differences', numeric: true, sortable: true },
+  { key: 'behind', label: 'Spec behind', numeric: true, sortable: true },
+];
+
+/** onOpen: each row opens its detail; the whole row is the target and ↗ ends it. stack: under 480 of its container
+ *  the header goes and each row stacks (the name and the main number on one line, the rest under the name). */
+export const OpenRowsStacked: Story = {
+  render: () => {
+    const [opened, setOpened] = useState<string | null>(null);
+    return (
+      <div style={{ display: 'grid', gap: 24 }}>
+        {[560, 288].map((w) => (
+          <div key={w} style={{ maxWidth: w }}>
+            <DataTable caption={`Parts that differ (${w} wide)`} columns={DRIFT_COLUMNS} rows={DRIFT} rowKey="name" stack onOpen={setOpened} defaultSort={{ key: 'differ', direction: 'descending' }} />
+          </div>
+        ))}
+        <p>{opened ? `Opened ${opened}` : 'Nothing opened'}</p>
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const buttons = canvasElement.querySelectorAll('button');
+    const input = [...buttons].find((b) => b.textContent === 'Input')!;
+    await userEvent.click(input);
+    await waitFor(() => expect(canvasElement.textContent).toContain('Opened Input'));
+    // narrow: the header row is hidden from view, the second number's label shows under the name
+    const narrow = canvasElement.querySelectorAll('[data-bella-component="data-table"]')[1];
+    await expect(narrow.querySelector('thead')!.getBoundingClientRect().height).toBeLessThanOrEqual(1);
+  },
+};

@@ -3,7 +3,7 @@
 name: Leader
 lead:
   text: A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Annotation
 rendersAs: null
 links:
@@ -101,31 +101,31 @@ tokens:
     - part: root
       state: rest
       property: '--leader-pop'
-      token: '--component-leader-pink'
+      token: '--color-border-accent-1'
       selector: .leader
       at: src/components/Leader/Leader.module.css:5
     - part: yellow
       state: rest
       property: '--leader-pop'
-      token: '--component-leader-yellow'
+      token: '--color-background-accent-2'
       selector: .yellow
       at: src/components/Leader/Leader.module.css:14
     - part: pink
       state: rest
       property: '--leader-pop'
-      token: '--component-leader-pink'
+      token: '--color-border-accent-1'
       selector: .pink
       at: src/components/Leader/Leader.module.css:15
     - part: blue
       state: rest
       property: '--leader-pop'
-      token: '--component-leader-blue'
+      token: '--color-background-accent-3'
       selector: .blue
       at: src/components/Leader/Leader.module.css:16
     - part: red
       state: rest
       property: '--leader-pop'
-      token: '--component-leader-red'
+      token: '--color-background-accent-4'
       selector: .red
       at: src/components/Leader/Leader.module.css:17
     - part: line
@@ -137,15 +137,9 @@ tokens:
     - part: line
       state: rest
       property: stroke-width
-      token: '--component-leader-stroke-width'
+      token: '--border-width-2'
       selector: .line, .arrow
       at: src/components/Leader/Leader.module.css:23
-    - part: line
-      state: rest
-      property: stroke-dasharray
-      token: '--component-leader-dash'
-      selector: .line
-      at: src/components/Leader/Leader.module.css:27
     - part: dot
       state: rest
       property: fill
@@ -153,24 +147,21 @@ tokens:
       selector: .dot
       at: src/components/Leader/Leader.module.css:31
   values:
-    '--component-leader-blue':
-      light: '#2F9BE0'
-      chip: '#2F9BE0'
-    '--component-leader-dash':
-      light: 4 4
-      chip: 4 4
-    '--component-leader-pink':
-      light: '#E58BBB'
-      chip: '#E58BBB'
-    '--component-leader-red':
-      light: '#E2473B'
-      chip: '#E2473B'
-    '--component-leader-stroke-width':
-      light: 2px
-      chip: 2px
-    '--component-leader-yellow':
-      light: '#E9B820'
-      chip: '#E9B820'
+    '--border-width-2':
+      light: null
+      chip: null
+    '--color-background-accent-2':
+      light: null
+      chip: null
+    '--color-background-accent-3':
+      light: null
+      chip: null
+    '--color-background-accent-4':
+      light: null
+      chip: null
+    '--color-border-accent-1':
+      light: null
+      chip: null
     '--leader-pop':
       light: null
       chip: null
@@ -210,7 +201,7 @@ codeExample:
   lines: 41-41
   import: import Leader from '@bella/components/Leader/Leader';
   importSource: the style the Button doc page uses (CHIP import path)
-  code: <Leader {...args} />
+  code: <Leader from="#pin" to="#part" label="Pin 1 points to the part" variant="pink" />
 usage:
   use:
     - From a Pin to the part it numbers
@@ -218,7 +209,7 @@ usage:
   dont:
     - 'Do not leave out the label: the line is meaning too, so it says what it ties together'
     - 'Do not hard-code coordinates: it measures its ends and redraws on resize'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '436:90'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
@@ -315,4 +306,5 @@ guidance:
     label: What the line ties together
     variant: Match its Pin
     end: arrow or dot
+    draw: none, map (900ms, the first draw of a stage) or pick (250ms, the pinned part changed); revealed start to end once, never on a resize redraw; reduced motion draws at once (code only, 23 Nov 2026)
   anatomyScaleWidth: 480

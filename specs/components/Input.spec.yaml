@@ -3,7 +3,7 @@
 name: Input
 lead:
   text: Labelled, stateful, honest about errors.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Inputs
 rendersAs: null
 links:
@@ -136,436 +136,482 @@ anatomy:
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default, disabled=false, error=false, multiline=false, shape=default
+    name: state=default, disabled=false, error=false, multiline=false, labelPosition=top
     type: COMPONENT
-    size: 320x134
+    size: 320x108
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/8
     children:
       - name: Label row
         type: FRAME
-        size: 320x27
+        size: 320x24
         children:
           - name: Label
             type: TEXT
             text: Email
-            size: 43x27
+            size: 46x24
             tokens:
               - field: fills
-                variable: color/semantic/text-body
+                variable: color/content/body
               - field: fontSize
-                variable: typography/font-size/tag
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/bold
+                variable: typography/font-weight/600
           - name: Required star
             type: TEXT
             hidden: true
             text: ' *'
-            size: 12x21
+            size: 13x20
             tokens:
               - field: fills
-                variable: color/semantic/text-body
+                variable: color/content/body
               - field: fontSize
-                variable: typography/font-size/tag
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/700
       - name: Field
         type: FRAME
-        size: 320x60
+        size: 320x44
         tokens:
           - field: itemSpacing
-            variable: spacing/2
+            variable: spacing/8
           - field: paddingLeft
-            variable: spacing/4
-          - field: paddingTop
-            variable: spacing/3
+            variable: spacing/16
           - field: paddingRight
-            variable: spacing/4
-          - field: paddingBottom
-            variable: spacing/3
-          - field: height
-            variable: size/control/input
+            variable: spacing/8
           - field: topLeftRadius
-            variable: component/input/border-radius
+            variable: border/radius/lg
           - field: topRightRadius
-            variable: component/input/border-radius
+            variable: border/radius/lg
           - field: bottomLeftRadius
-            variable: component/input/border-radius
+            variable: border/radius/lg
           - field: bottomRightRadius
-            variable: component/input/border-radius
+            variable: border/radius/lg
           - field: strokeTopWeight
-            variable: border/width/thin
+            variable: border/width/1
           - field: strokeBottomWeight
-            variable: border/width/thin
+            variable: border/width/1
           - field: strokeLeftWeight
-            variable: border/width/thin
+            variable: border/width/1
           - field: strokeRightWeight
-            variable: border/width/thin
+            variable: border/width/1
           - field: minHeight
-            variable: component/input/min-height
+            variable: spacing/44
           - field: fills
-            variable: color/semantic/surface
+            variable: color/background/surface
           - field: strokes
-            variable: color/semantic/border-strong
+            variable: color/border/strong
         children:
           - name: Leading icon
             type: INSTANCE
             instanceOf: Icon
             hidden: true
             size: 20x20
-          - name: Value
-            type: TEXT
-            text: you@studio.com
-            size: 286x34
             tokens:
-              - field: fills
-                variable: color/semantic/text-muted
-              - field: fontSize
-                variable: component/input/font-size
-              - field: fontFamily
-                variable: typography/font-family/body
-              - field: fontWeight
-                variable: typography/font-weight/regular
+              - field: width
+                variable: size/20
+              - field: height
+                variable: size/20
+          - name: Menu
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 90x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: size/32
+          - name: Text area
+            type: FRAME
+            size: 294x24
+            tokens:
+              - field: paddingRight
+                variable: spacing/8
+            children:
+              - name: Value
+                type: TEXT
+                text: you@studio.com
+                size: 286x24
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/400
           - name: Send button
             type: INSTANCE
             instanceOf: Button
             hidden: true
-            size: 44x44
+            size: 32x32
             tokens:
               - field: itemSpacing
-                variable: spacing/2
+                variable: spacing/8
               - field: topLeftRadius
-                variable: radius/full
+                variable: border/radius/lg
               - field: topRightRadius
-                variable: radius/full
+                variable: border/radius/lg
               - field: bottomLeftRadius
-                variable: radius/full
+                variable: border/radius/lg
               - field: bottomRightRadius
-                variable: radius/full
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minWidth
+                variable: size/32
               - field: minHeight
-                variable: spacing/touch-target
+                variable: size/32
               - field: fills
-                variable: component/button/primary/fill-hi
+                variable: color/background/brand
               - field: strokes
-                variable: component/button/primary/edge
+                variable: color/border/action-raised
       - name: HelperText
         type: INSTANCE
         instanceOf: HelperText
-        size: 320x31
+        size: 320x24
         tokens:
           - field: itemSpacing
-            variable: spacing/2
+            variable: spacing/8
   code:
     - key: label
       title: Label
       kind: content
       trigger: rest
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       detail: Geist 13, 700, caps; a real label wired for/id
     - key: field
       title: Field
       kind: fill
       trigger: rest
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       detail: surface, padding 12 / 16, radius 8
     - key: border
       title: Border
       kind: edge
       trigger: rest
-      token: '--color-semantic-border-strong'
+      token: '--color-border-strong'
       detail: 1px border-strong, the 3:1 control edge
     - key: box
       title: Box
       kind: box
       trigger: rest
-      token: '--component-input-min-height'
+      token: '--size-60'
       detail: 44px min, field text 16px
     - key: placeholder
       title: Placeholder
       kind: content
       trigger: rest
-      token: '--color-semantic-text-muted'
+      token: '--color-content-subtle'
       detail: text-muted, opacity reset for Firefox; never the label
     - key: ring
       title: Focus ring
       kind: ring
       trigger: focus
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       detail: 3px, 3px offset, and the edge goes ink
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .wrapper
       at: src/components/Input/Input.module.css:19
     - part: label
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .label
       at: src/components/Input/Input.module.css:24
     - part: label
       state: rest
       property: font-size
-      token: '--typography-font-size-tag'
+      token: '--typography-label-default-font-size'
       selector: .label
       at: src/components/Input/Input.module.css:25
     - part: label
       state: rest
       property: font-weight
-      token: '--typography-font-weight-bold'
+      token: '--typography-font-weight-700'
       selector: .label
       at: src/components/Input/Input.module.css:26
     - part: label
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-normal'
+      token: '--typography-letter-spacing-0'
       selector: .label
       at: src/components/Input/Input.module.css:27
     - part: label
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .label
       at: src/components/Input/Input.module.css:28
     - part: field
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .field
       at: src/components/Input/Input.module.css:35
     - part: field
       state: rest
       property: font-size
-      token: '--component-input-font-size'
+      token: '--typography-body-default-font-size'
       selector: .field
       at: src/components/Input/Input.module.css:36
     - part: field
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .field
       at: src/components/Input/Input.module.css:37
     - part: field
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .field
       at: src/components/Input/Input.module.css:38
     - part: field
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .field
       at: src/components/Input/Input.module.css:39
     - part: field
       state: rest
       property: border
-      token: '--color-semantic-border-strong'
+      token: '--color-border-strong'
       selector: .field
       at: src/components/Input/Input.module.css:40
     - part: field
       state: rest
       property: border-radius
-      token: '--component-input-border-radius'
+      token: '--border-radius-form'
       selector: .field
       at: src/components/Input/Input.module.css:41
     - part: field
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .field
       at: src/components/Input/Input.module.css:42
     - part: field
       state: rest
       property: padding
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .field
       at: src/components/Input/Input.module.css:42
     - part: field
       state: rest
       property: min-height
-      token: '--component-input-min-height'
+      token: '--size-60'
       selector: .field
       at: src/components/Input/Input.module.css:43
     - part: field
       state: rest
       property: color
-      token: '--color-semantic-text-muted'
+      token: '--color-content-subtle'
       selector: .field::placeholder
       at: src/components/Input/Input.module.css:51
     - part: field
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .field:focus-visible, .field:focus
       at: src/components/Input/Input.module.css:59
     - part: field
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .field:focus-visible, .field:focus
       at: src/components/Input/Input.module.css:59
     - part: field
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .field:focus-visible, .field:focus
       at: src/components/Input/Input.module.css:60
     - part: field
       state: focus-visible
       property: border-color
-      token: '--color-semantic-border-ink'
+      token: '--color-border-ink'
       selector: .field:focus-visible, .field:focus
       at: src/components/Input/Input.module.css:61
     - part: field
       state: disabled
       property: color
-      token: '--color-semantic-text-muted'
+      token: '--color-content-subtle'
       selector: .field:disabled
       at: src/components/Input/Input.module.css:65
     - part: field
       state: disabled
       property: background
-      token: '--color-semantic-surface-inset'
+      token: '--color-background-subtle'
       selector: .field:disabled
       at: src/components/Input/Input.module.css:66
     - part: field
       state: rest
       property: border-color
-      token: '--color-semantic-danger-border'
+      token: '--color-border-utility-error'
       selector: .invalid .field
       at: src/components/Input/Input.module.css:71
     - part: field
       state: rest
       property: box-shadow
-      token: '--color-semantic-danger-border'
+      token: '--color-border-utility-error'
       selector: .invalid .field
       at: src/components/Input/Input.module.css:72
     - part: hint
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .hint
       at: src/components/Input/Input.module.css:77
     - part: hint
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .hint
       at: src/components/Input/Input.module.css:78
     - part: error
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .error
       at: src/components/Input/Input.module.css:84
     - part: error
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .error
       at: src/components/Input/Input.module.css:86
     - part: error
       state: rest
       property: font-weight
-      token: '--typography-font-weight-medium'
+      token: '--typography-font-weight-500'
       selector: .error
       at: src/components/Input/Input.module.css:87
     - part: error
       state: rest
       property: color
-      token: '--color-semantic-danger-text'
+      token: '--color-content-utility-error'
       selector: .error
       at: src/components/Input/Input.module.css:88
     - part: errorIcon
       state: rest
       property: margin-top
-      token: '--component-icon-size-sm'
+      token: '--size-16'
       selector: .errorIcon
       at: src/components/Input/Input.module.css:94
   values:
-    '--color-semantic-border-ink':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-border-strong':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--color-semantic-danger-border':
-      light: '#b3261e'
-      chip: '#b3261e'
-    '--color-semantic-danger-text':
-      light: '#b3261e'
-      chip: '#b3261e'
-    '--color-semantic-surface':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-muted':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-icon-size-sm':
-      light: 16px
-      chip: 16px
-    '--component-input-border-radius':
-      light: 8px
-      chip: 2px
-    '--component-input-font-size':
-      light: 20px
-      chip: 20px
-    '--component-input-min-height':
-      light: 60px
-      chip: 60px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
-    '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-size-sm':
-      light: 18px
-      chip: 18px
-    '--typography-font-size-tag':
-      light: 16px
-      chip: 16px
-    '--typography-font-weight-bold':
-      light: '700'
-      chip: '700'
-    '--typography-font-weight-medium':
-      light: '500'
-      chip: '500'
-    '--typography-letter-spacing-normal':
-      light: '0'
-      chip: '0'
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+    '--border-radius-form':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--color-content-utility-error':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--size-16':
+      light: null
+      chip: null
+    '--size-60':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-font-weight-700':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -588,18 +634,18 @@ a11y:
       at: src/components/Input/Input.tsx:82
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
       at: src/components/Input/Input.module.css:59
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
+        - token: '--focus-ring-offset'
+          value: null
       at: src/components/Input/Input.module.css:60
   disabled:
     prop: disabled
@@ -612,7 +658,7 @@ a11y:
     role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1
     light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger
     edge under the ring. 44px min-height.
-  targetPx: 60
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-invalid
@@ -630,194 +676,8 @@ a11y:
       value: required
       at: src/components/Input/Input.tsx:23
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-    - label: control border on the page
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:91
-    - label: control border on panel
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:92
-    - label: danger text on the page
-      foreground: '--color-semantic-danger-text'
-      background: '--color-semantic-background'
-      foregroundHex: '#b3261e'
-      backgroundHex: '#F7F7F5'
-      ratio: 6.09
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:121
-    - label: danger text on panel
-      foreground: '--color-semantic-danger-text'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#b3261e'
-      backgroundHex: '#ffffff'
-      ratio: 6.54
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:122
-    - label: danger border on panel
-      foreground: '--color-semantic-danger-border'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#b3261e'
-      backgroundHex: '#ffffff'
-      ratio: 6.54
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:126
-    - label: error border on surface
-      foreground: '--color-semantic-danger-border'
-      background: '--color-semantic-surface'
-      foregroundHex: '#b3261e'
-      backgroundHex: '#ffffff'
-      ratio: 6.54
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: placeholder on field
-      foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: error message on surface
-      foreground: '--color-semantic-danger-text'
-      background: '--color-semantic-surface'
-      foregroundHex: '#b3261e'
-      backgroundHex: '#ffffff'
-      ratio: 6.54
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: disabled text
-      foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface-inset'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#eceef3'
-      ratio: 7.34
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: focus edge on surface
-      foreground: '--color-semantic-border-ink'
-      background: '--color-semantic-surface'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--color-semantic-danger-text'
-      background: '--color-semantic-background'
-      ratio: 6.09
-      theme: chip
-    - foreground: '--color-semantic-danger-text'
-      background: '--color-semantic-surface-card'
-      ratio: 6.54
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Input/Input.stories.tsx
   lines: 49-49
@@ -828,22 +688,22 @@ usage:
   use:
     - Contact form fields
     - Any labelled free-text entry; multiline renders the textarea
+    - 'Secrets such as a token: type=password, masked with a Show / Hide button at the end of the field, autocomplete off, the value only in the field itself (code only, 23 Nov 2026; Figma catch-up after Tue 24 Nov)'
   dont:
     - 'Do not use placeholder as the label: the label is always rendered and wired with for/id'
     - 'Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern'
     - 'Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '149:135'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    label#149:13:
+    Label#149:13:
       type: TEXT
       default: Email
-    value#149:18:
+    Value#149:18:
       type: TEXT
       default: you@studio.com
-    hint#149:23:
+    Show hint#149:23:
       type: BOOLEAN
       default: true
     required#728:0:
@@ -855,12 +715,17 @@ figma:
     Send button#810:871:
       type: BOOLEAN
       default: false
+    Show menu#1549:32:
+      type: BOOLEAN
+      default: false
     state:
       type: VARIANT
       default: default
       values:
         - default
         - focus
+        - hover
+        - suggestion
     disabled:
       type: VARIANT
       default: 'false'
@@ -879,124 +744,232 @@ figma:
       values:
         - 'false'
         - 'true'
-    shape:
+    labelPosition:
       type: VARIANT
-      default: default
+      default: top
       values:
-        - default
-        - pill
+        - inline
+        - top
   variants:
-    - name: state=default, disabled=false, error=false, multiline=false, shape=default
+    - name: state=default, disabled=false, error=false, multiline=false, labelPosition=top
       width: 320
-      height: 134
-    - name: state=focus, disabled=false, error=false, multiline=false, shape=default
+      height: 108
+    - name: state=focus, disabled=false, error=false, multiline=false, labelPosition=top
       width: 320
-      height: 134
-    - name: state=default, disabled=true, error=false, multiline=false, shape=default
+      height: 108
+    - name: state=default, disabled=true, error=false, multiline=false, labelPosition=top
       width: 320
-      height: 134
-    - name: state=default, disabled=false, error=true, multiline=false, shape=default
+      height: 108
+    - name: state=default, disabled=false, error=true, multiline=false, labelPosition=top
       width: 320
-      height: 165
-    - name: state=default, disabled=false, error=false, multiline=true, shape=default
+      height: 132
+    - name: state=default, disabled=false, error=false, multiline=true, labelPosition=top
       width: 320
-      height: 270
-    - name: state=focus, disabled=false, error=false, multiline=true, shape=default
+      height: 260
+    - name: state=focus, disabled=false, error=false, multiline=true, labelPosition=top
       width: 320
-      height: 270
-    - name: state=default, disabled=true, error=false, multiline=true, shape=default
+      height: 260
+    - name: state=default, disabled=true, error=false, multiline=true, labelPosition=top
       width: 320
-      height: 270
-    - name: state=default, disabled=false, error=true, multiline=true, shape=default
+      height: 260
+    - name: state=default, disabled=false, error=true, multiline=true, labelPosition=top
       width: 320
-      height: 301
-    - name: state=default, disabled=false, error=false, multiline=false, shape=pill
+      height: 284
+    - name: state=hover, disabled=false, error=false, multiline=false, labelPosition=top
       width: 320
-      height: 118
-    - name: state=focus, disabled=false, error=false, multiline=false, shape=pill
+      height: 108
+    - name: state=suggestion, disabled=false, error=false, multiline=false, labelPosition=top
       width: 320
-      height: 118
-    - name: state=default, disabled=true, error=false, multiline=false, shape=pill
-      width: 320
-      height: 118
-    - name: state=default, disabled=false, error=true, multiline=false, shape=pill
-      width: 320
-      height: 149
-  defaultVariant: state=default, disabled=false, error=false, multiline=false, shape=default
+      height: 108
+    - name: state=default, disabled=false, error=false, multiline=false, labelPosition=inline
+      width: 578
+      height: 44
+    - name: state=focus, disabled=false, error=false, multiline=false, labelPosition=inline
+      width: 578
+      height: 44
+    - name: state=hover, disabled=false, error=false, multiline=false, labelPosition=inline
+      width: 578
+      height: 44
+    - name: state=default, disabled=true, error=false, multiline=false, labelPosition=inline
+      width: 578
+      height: 44
+    - name: state=default, disabled=false, error=true, multiline=false, labelPosition=inline
+      width: 707
+      height: 44
+    - name: state=suggestion, disabled=false, error=false, multiline=false, labelPosition=inline
+      width: 578
+      height: 44
+  defaultVariant: state=default, disabled=false, error=false, multiline=false, labelPosition=top
   annotations:
     - label: >-
-        Dev · <Input label value onChange hint error disabled required multiline />. Field: component/input/min-height 60
-        (size/control/input), border-strong 1px; focus adds border-ink under the 3px ring; error is a 2px danger-border (inset shadow);
-        multiline is a 196px textarea (5 rows).
+        <Input label value onChange hint error disabled required multiline /> · src/components/Input/Input.tsx. Field 44 min
+        (spacing/44), corner border/radius/form (16), edge border/width/1 in color/border/strong; error edge in the danger status colour
+        with the WarningCircle icon. Label 16 semibold with a required star; HelperText under the field. multiline uses a textarea.
       category: '123:0'
     - label: >-
-        A11y · Real <label for>. Errors: aria-invalid + role=alert via aria-describedby, plus the WarningCircle icon. Placeholder opacity
-        reset so 8.53:1 holds in Firefox. 60px min height.
+        Real label (for). Errors: aria-invalid and role=alert through aria-describedby, plus the warning icon; required is said in words.
+        Focus ring color/border/focus (blue/600 in Chip light), 4px wide with a 4px gap. Text 7.34:1 or more (disabled included).
       category: '123:2'
+    - label: |-
+        Hover and focus: edge and ring change over motion/duration/fast.
+        Reduced motion: instant.
+      category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-inputs-input--docs
 mismatch:
-  - field: props.shape
-    code: no such prop
+  - field: states
+    code:
+      contract:
+        - default
+        - focus
+        - disabled
+        - error
+      css:
+        - focus-visible
+        - disabled
     figma:
       - default
-      - pill
+      - focus
+      - hover
+      - suggestion
+      - disabled
+      - error
+  - field: props.labelPosition
+    code: no such prop
+    figma:
+      - inline
+      - top
   - field: props.type
     code:
       - text
       - email
       - url
     figma: no such variant property
-  - field: tokens.Field.height
+  - field: tokens.Label.fontSize
     code:
-      - '--spacing-2'
-      - '--typography-font-family-body'
-      - '--typography-font-size-tag'
-      - '--typography-font-weight-bold'
-      - '--typography-letter-spacing-normal'
-      - '--color-semantic-text-body'
-      - '--component-input-font-size'
-      - '--typography-line-height-normal'
-      - '--color-semantic-text-primary'
-      - '--color-semantic-surface'
-      - '--color-semantic-border-strong'
-      - '--component-input-border-radius'
-      - '--spacing-3'
-      - '--spacing-4'
-      - '--component-input-min-height'
-      - '--color-semantic-text-muted'
-      - '--color-semantic-danger-border'
-      - '--typography-font-size-sm'
-      - '--typography-font-weight-medium'
-      - '--color-semantic-danger-text'
-      - '--component-icon-size-sm'
-    figma: size/control/input
-    sameValueInChip: true
-  - field: tokens.Send button.radius
+      - '--typography-label-default-font-size'
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
+    sameValueInChip: false
+  - field: tokens.Required star.fontSize
     code:
-      - '--component-input-border-radius'
-    figma: radius/full
+      - '--typography-label-default-font-size'
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
+    sameValueInChip: false
+  - field: tokens.Field.paddingRight
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Field.minHeight
+    code:
+      - '--size-60'
+    figma: spacing/44
+    sameValueInChip: false
+  - field: tokens.Leading icon.width
+    code:
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-700'
+      - '--typography-letter-spacing-0'
+      - '--color-content-body'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-border-strong'
+      - '--border-radius-form'
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--size-60'
+      - '--color-content-subtle'
+      - '--color-border-utility-error'
+      - '--typography-font-size-18'
+      - '--typography-font-weight-500'
+      - '--color-content-utility-error'
+      - '--size-16'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Leading icon.height
+    code:
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-700'
+      - '--typography-letter-spacing-0'
+      - '--color-content-body'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-border-strong'
+      - '--border-radius-form'
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--size-60'
+      - '--color-content-subtle'
+      - '--color-border-utility-error'
+      - '--typography-font-size-18'
+      - '--typography-font-weight-500'
+      - '--color-content-utility-error'
+      - '--size-16'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Menu.paddingTop
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Menu.paddingBottom
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Menu.minHeight
+    code:
+      - '--size-60'
+    figma: size/32
+    sameValueInChip: false
+  - field: tokens.Text area.paddingRight
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Value.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
     sameValueInChip: false
   - field: tokens.Send button.minHeight
     code:
-      - '--component-input-min-height'
-    figma: spacing/touch-target
+      - '--size-60'
+    figma: size/32
     sameValueInChip: false
   - field: tokens.Send button.fills
     code:
-      - '--color-semantic-text-body'
-      - '--color-semantic-text-primary'
-      - '--color-semantic-surface'
-      - '--color-semantic-text-muted'
-      - '--color-semantic-danger-text'
-    figma: component/button/primary/fill-hi
+      - '--color-content-body'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-content-utility-error'
+    figma: color/background/brand
     sameValueInChip: false
   - field: tokens.Send button.strokes
     code:
-      - '--color-semantic-border-strong'
-      - '--component-input-border-radius'
-      - '--color-semantic-danger-border'
-    figma: component/button/primary/edge
+      - '--color-border-strong'
+      - '--border-radius-form'
+      - '--color-border-utility-error'
+    figma: color/border/action-raised
     sameValueInChip: false
 notApplicable:
   - section: Sizes

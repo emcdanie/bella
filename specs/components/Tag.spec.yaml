@@ -3,7 +3,7 @@
 name: Tag
 lead:
   text: Non-interactive metadata.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
@@ -65,163 +65,224 @@ anatomy:
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: variant=default
+    name: tone=default, style=outline
     type: COMPONENT
-    size: 140x35
+    size: 145x32
     tokens:
+      - field: itemSpacing
+        variable: spacing/8
       - field: paddingLeft
-        variable: component/tag/default/padding-x
+        variable: spacing/12
       - field: paddingTop
-        variable: component/tag/default/padding-y
+        variable: spacing/4
       - field: paddingRight
-        variable: component/tag/default/padding-x
+        variable: spacing/12
       - field: paddingBottom
-        variable: component/tag/default/padding-y
+        variable: spacing/4
       - field: topLeftRadius
-        variable: component/tag/default/border-radius
+        variable: border/radius/sm
       - field: topRightRadius
-        variable: component/tag/default/border-radius
+        variable: border/radius/sm
       - field: bottomLeftRadius
-        variable: component/tag/default/border-radius
+        variable: border/radius/sm
       - field: bottomRightRadius
-        variable: component/tag/default/border-radius
+        variable: border/radius/sm
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: minHeight
+        variable: spacing/32
       - field: fills
-        variable: component/tag/default/background
+        variable: color/background/utility/neutral
+      - field: strokes
+        variable: color/border/utility/neutral
     children:
-      - name: Label
-        type: TEXT
-        text: Design systems
-        size: 116x27
+      - name: Dot
+        type: ELLIPSE
+        hidden: true
+        size: 12x12
         tokens:
+          - field: width
+            variable: spacing/12
+          - field: height
+            variable: spacing/12
           - field: fills
-            variable: component/tag/default/foreground
-          - field: fontSize
-            variable: component/tag/default/font-size
-          - field: fontFamily
-            variable: typography/font-family/body
-          - field: fontWeight
-            variable: typography/font-weight/regular
+            variable: color/border/utility/neutral
+      - name: Text
+        type: FRAME
+        size: 121x24
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Count
+            type: TEXT
+            hidden: true
+            text: '0'
+            size: 10x24
+            tokens:
+              - field: fills
+                variable: color/content/utility/neutral
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/number/font-family
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Label
+            type: TEXT
+            text: Design systems
+            size: 121x24
+            tokens:
+              - field: fills
+                variable: color/content/utility/neutral
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: padding
-      token: '--component-tag-default-padding-y'
+      token: '--spacing-4'
       selector: .tag
-      at: src/components/Tag/Tag.module.css:20
+      at: src/components/Tag/Tag.module.css:18
     - part: root
       state: rest
       property: padding
-      token: '--component-tag-default-padding-x'
+      token: '--spacing-12'
+      selector: .tag
+      at: src/components/Tag/Tag.module.css:18
+    - part: root
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .tag
+      at: src/components/Tag/Tag.module.css:19
+    - part: root
+      state: rest
+      property: border
+      token: '--border-width-1'
       selector: .tag
       at: src/components/Tag/Tag.module.css:20
     - part: root
       state: rest
-      property: border-radius
-      token: '--component-tag-default-border-radius'
+      property: border
+      token: '--color-border-utility-neutral'
       selector: .tag
-      at: src/components/Tag/Tag.module.css:21
+      at: src/components/Tag/Tag.module.css:20
     - part: root
       state: rest
       property: background
-      token: '--component-tag-default-background'
+      token: '--color-background-utility-neutral'
+      selector: .tag
+      at: src/components/Tag/Tag.module.css:22
+    - part: root
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .tag
+      at: src/components/Tag/Tag.module.css:23
+    - part: root
+      state: rest
+      property: font-size
+      token: '--typography-label-default-font-size'
       selector: .tag
       at: src/components/Tag/Tag.module.css:24
     - part: root
       state: rest
-      property: font-family
-      token: '--component-tag-default-font-family'
+      property: font-weight
+      token: '--typography-font-weight-400'
       selector: .tag
       at: src/components/Tag/Tag.module.css:25
     - part: root
       state: rest
-      property: font-size
-      token: '--component-tag-default-font-size'
+      property: line-height
+      token: '--typography-line-height-150'
       selector: .tag
       at: src/components/Tag/Tag.module.css:26
     - part: root
       state: rest
-      property: font-weight
-      token: '--component-tag-default-font-weight'
+      property: letter-spacing
+      token: '--typography-letter-spacing-0'
       selector: .tag
       at: src/components/Tag/Tag.module.css:27
     - part: root
       state: rest
-      property: line-height
-      token: '--typography-line-height-normal'
-      selector: .tag
-      at: src/components/Tag/Tag.module.css:28
-    - part: root
-      state: rest
-      property: letter-spacing
-      token: '--component-tag-default-letter-spacing'
+      property: color
+      token: '--color-content-utility-neutral'
       selector: .tag
       at: src/components/Tag/Tag.module.css:29
-    - part: root
+    - part: accent
       state: rest
-      property: font-feature-settings
-      token: '--component-tag-default-font-feature-settings'
-      selector: .tag
-      at: src/components/Tag/Tag.module.css:30
-    - part: root
-      state: rest
-      property: color
-      token: '--component-tag-default-foreground'
-      selector: .tag
-      at: src/components/Tag/Tag.module.css:31
+      property: border-color
+      token: '--color-background-accent-1'
+      selector: .accent
+      at: src/components/Tag/Tag.module.css:34
     - part: accent
       state: rest
       property: background
-      token: '--component-tag-accent-background'
+      token: '--color-background-accent-1'
       selector: .accent
-      at: src/components/Tag/Tag.module.css:36
+      at: src/components/Tag/Tag.module.css:35
     - part: accent
       state: rest
       property: color
-      token: '--component-tag-accent-foreground'
+      token: '--color-content-on-accent-1'
       selector: .accent
-      at: src/components/Tag/Tag.module.css:37
+      at: src/components/Tag/Tag.module.css:36
   values:
-    '--component-tag-accent-background':
-      light: '#E58BBB'
-      chip: '#E58BBB'
-    '--component-tag-accent-foreground':
-      light: '#0A0C14'
-      chip: '#0A0C14'
-    '--component-tag-default-background':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--component-tag-default-border-radius':
-      light: 999px
-      chip: 2px
-    '--component-tag-default-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-tag-default-font-feature-settings':
-      light: normal
-      chip: normal
-    '--component-tag-default-font-size':
-      light: 16px
-      chip: 16px
-    '--component-tag-default-font-weight':
-      light: '400'
-      chip: '400'
-    '--component-tag-default-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-tag-default-letter-spacing':
-      light: '0'
-      chip: '0'
-    '--component-tag-default-padding-x':
-      light: 12px
-      chip: 12px
-    '--component-tag-default-padding-y':
-      light: 4px
-      chip: 4px
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-accent-1':
+      light: null
+      chip: null
+    '--color-background-utility-neutral':
+      light: null
+      chip: null
+    '--color-border-utility-neutral':
+      light: null
+      chip: null
+    '--color-content-on-accent-1':
+      light: null
+      chip: null
+    '--color-content-utility-neutral':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -251,46 +312,8 @@ a11y:
   targetPx: null
   ariaChips: []
 contrast:
-  pairs:
-    - label: Default label on its wash
-      foreground: '--component-tag-default-foreground'
-      background: '--component-tag-default-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#eceef3'
-      ratio: 11.47
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Accent label on its wash
-      foreground: '--component-tag-accent-foreground'
-      background: '--component-tag-accent-background'
-      foregroundHex: '#0A0C14'
-      backgroundHex: '#E58BBB'
-      ratio: 8.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-tag-default-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-tag-default-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-tag-accent-foreground'
-      background: '--color-semantic-background'
-      ratio: 18.2
-      theme: chip
-    - foreground: '--component-tag-accent-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 19.52
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Tag/Tag.stories.tsx
   lines: 50-50
@@ -302,64 +325,155 @@ usage:
     - Card category labels
     - Project metadata rows
     - Mood and topic markers
+    - 'Count plates of the Work board lanes (style=solid; tone ochre, navy and pink are code only, 23 Nov 2026, Figma catch-up after Tue 24 Nov)'
   dont:
     - 'Do not make it clickable: narrowing a set is FilterChip''s job'
     - 'Do not add a border: the flat wash is what separates it from interactive chips'
     - 'Do not set the label in an accent or status colour: tints are wash-only here'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '140:46'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    children#140:0:
+    Label#140:0:
       type: TEXT
       default: Design systems
-    variant:
+    Show dot#885:0:
+      type: BOOLEAN
+      default: false
+    Count#1645:96:
+      type: TEXT
+      default: '0'
+    Show count#1645:111:
+      type: BOOLEAN
+      default: false
+    tone:
       type: VARIANT
       default: default
       values:
         - default
-        - accent
         - count
-        - inverse
+        - success
+        - info
+        - attention
+        - danger
+    style:
+      type: VARIANT
+      default: outline
+      values:
+        - outline
+        - flat
+        - index
+        - line
+        - solid
   variants:
-    - name: variant=default
-      width: 140
-      height: 35
-    - name: variant=accent
-      width: 140
-      height: 35
-    - name: variant=count
-      width: 139
-      height: 26
-    - name: variant=inverse
-      width: 132
-      height: 35
-  defaultVariant: variant=default
+    - name: tone=default, style=outline
+      width: 145
+      height: 32
+    - name: tone=count, style=outline
+      width: 159
+      height: 32
+    - name: tone=success, style=outline
+      width: 145
+      height: 32
+    - name: tone=info, style=outline
+      width: 145
+      height: 32
+    - name: tone=attention, style=outline
+      width: 145
+      height: 32
+    - name: tone=danger, style=outline
+      width: 145
+      height: 32
+    - name: tone=default, style=flat
+      width: 145
+      height: 32
+    - name: tone=count, style=index
+      width: 159
+      height: 32
+    - name: tone=attention, style=index
+      width: 159
+      height: 32
+    - name: tone=default, style=line
+      width: 145
+      height: 32
+    - name: tone=success, style=line
+      width: 145
+      height: 32
+    - name: tone=info, style=line
+      width: 145
+      height: 32
+    - name: tone=attention, style=line
+      width: 145
+      height: 32
+    - name: tone=danger, style=line
+      width: 145
+      height: 32
+    - name: tone=success, style=solid
+      width: 145
+      height: 32
+    - name: tone=info, style=solid
+      width: 145
+      height: 32
+    - name: tone=attention, style=solid
+      width: 145
+      height: 32
+  defaultVariant: tone=default, style=outline
   annotations:
     - label: >-
-        Dev · <Tag variant> · src/components/Tag/Tag.tsx:19. Wash component/tag/default/background (accent:
-        component/tag/accent/background), label component/tag/default/foreground (accent: accent/foreground) at
-        component/tag/default/font-size, radius component/tag/default/border-radius (999px in Light and Dark, 2px in Chip:
-        bella.css:1296-1297), padding component/tag/default/padding-y / padding-x (Tag.module.css:20). Code tokens:
-        --component-tag-default-*, --component-tag-accent-*.
+        <Tag variant dot> · src/components/Tag/Tag.tsx. 32 tall in every tone: padding spacing/4 × spacing/12, gap spacing/8, corner
+        border/radius/round, an edge on every tone (border/width/1). Label typography/font-size/16 at 150%. Wash and edge per tone: default
+        color/background/utility/neutral + color/border/utility/neutral; count color/background/surface + color/border/strong; success,
+        info, attention, danger use color/background/utility/{tone} + color/border/utility/{tone}. Show dot adds a 12px dot in the tone.
       category: '123:0'
-    - label: 'Non-interactive: plain text, no role, no tab stop, cursor default (Tag.module.css:23).'
+    - label: >-
+        Not interactive: plain text, no role, no tab stop. The word carries the meaning; the wash, edge and dot never carry it alone. Label
+        7:1 or more in all four themes.
       category: '123:2'
-    - label: 'None: static, no transition (Tag.module.css has none).'
+    - label: 'None: static, no transition.'
       category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-data-tag--docs
 mismatch:
-  - field: props.variant.values
+  - field: props.tone
+    code: no such prop
+    figma:
+      - default
+      - count
+      - success
+      - info
+      - attention
+      - danger
+  - field: props.style
+    code: no such prop
+    figma:
+      - outline
+      - flat
+      - index
+      - line
+      - solid
+  - field: props.variant
     code:
       - default
       - accent
-    figma:
-      - default
-      - accent
-      - count
-      - inverse
+    figma: no such variant property
+  - field: tokens.Dot.fills
+    code:
+      - '--color-background-utility-neutral'
+      - '--color-content-utility-neutral'
+      - '--color-background-accent-1'
+      - '--color-content-on-accent-1'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Count.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: false
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tag/Tag.tsx

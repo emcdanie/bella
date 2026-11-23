@@ -62,10 +62,10 @@ export interface BarChartProps {
 }
 
 const RANGES: { value: BarChartRange; label: string; ariaLabel: string; word: string }[] = [
-  { value: 'day', label: 'D', ariaLabel: 'Day', word: 'today' },
-  { value: 'week', label: 'W', ariaLabel: 'Week', word: 'this week' },
-  { value: 'month', label: 'M', ariaLabel: 'Month', word: 'this month' },
-  { value: 'year', label: 'Y', ariaLabel: 'Year', word: 'this year' },
+  { value: 'day', label: 'Day', ariaLabel: 'Day', word: 'today' },
+  { value: 'week', label: 'Week', ariaLabel: 'Week', word: 'this week' },
+  { value: 'month', label: 'Month', ariaLabel: 'Month', word: 'this month' },
+  { value: 'year', label: 'Year', ariaLabel: 'Year', word: 'this year' },
 ];
 
 /** The top of the scale: two even intervals (0, half, top) on a round step. */

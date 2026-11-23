@@ -29,6 +29,15 @@ export interface SystemHealthProps {
   status: ReactNode;
   /** The target tick, 0 to 100 (Figma: 90, the blue tick). */
   target?: number;
+  /** The scale's low end, in words or a number ("0%"). Default "Low". A scale end with no number says nothing about how low (23 Nov second pass). */
+  lowLabel?: ReactNode;
+  /** The scale's high end ("100%"). Default "High". */
+  highLabel?: ReactNode;
+  /**
+   * Whether the number counts up from 0 when the gauge first shows. On by default (Figma motion); off draws the real score at once,
+   * so the number never reads a wrong state on the way ("Healthy 82%" at 92) (23 Nov second pass).
+   */
+  countUp?: boolean;
   /** Figma "Passed": the count in words under the arc ("251 of 264 pass"). */
   passed: ReactNode;
   /** Figma "Why": what healthy means, and what still fails. */
@@ -84,6 +93,9 @@ export default function SystemHealth({
   passed,
   why,
   failing = [],
+  lowLabel = 'Low',
+  highLabel = 'High',
+  countUp = true,
   summary,
   className,
   style,
@@ -96,7 +108,7 @@ export default function SystemHealth({
    * tick by tick from the old score to the new one and the difference shows
    * once under the number. Reduced motion: the end state at once.
    * aria-valuenow is the real score throughout. */
-  const count = useCountTo(pct, { from: 0 });
+  const count = useCountTo(pct, countUp ? { from: 0 } : {});
   const lit = Math.round((count.shown / 100) * TICKS);
   const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
   const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
@@ -159,9 +171,9 @@ export default function SystemHealth({
           </div>
         </div>
         <div className={styles.scale}>
-          <span className={styles.end}>Low</span>
+          <span className={styles.end}>{lowLabel}</span>
           <span className={styles.passed}>{passed}</span>
-          <span className={styles.end}>High</span>
+          <span className={styles.end}>{highLabel}</span>
         </div>
       </div>
 

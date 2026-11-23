@@ -235,3 +235,19 @@ export const ReducedMotion: Story = {
     await expect(litTicks(canvasElement)).toBe(37);
   },
 };
+
+/** The scale ends carry numbers and the number does not count up through other states (23 Nov second pass). */
+export const NumberedScaleNoCountUp: Story = {
+  render: () => (
+    <div style={{ maxInlineSize: '24rem' }}>
+      <SystemHealth subtitle="Component checks that pass" value={92} status="Healthy" target={90} passed="564 of 612 pass" lowLabel="0%" highLabel="100%" countUp={false} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.textContent).toContain('0%');
+    await expect(canvasElement.textContent).toContain('100%');
+    await expect(canvasElement.textContent).not.toContain('Low');
+    // the first paint already says the real score, not a count on its way
+    await expect(canvasElement.textContent).toContain('92%');
+  },
+};

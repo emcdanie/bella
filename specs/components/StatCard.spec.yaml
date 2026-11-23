@@ -15,51 +15,51 @@ props:
     type: ReactNode
     required: true
     doc: Figma "Title". The card title, and the chart's accessible name.
-    at: src/components/StatCard/StatCard.tsx:33
+    at: src/components/StatCard/StatCard.tsx:38
   - name: label
     type: ReactNode
     required: false
     doc: >-
       Figma "Label" (22 Nov chart language): a small-caps line above the big number saying what it counts ("Have pairs"). Drawn on
       chart=empty too, where the number is not. Missing = off.
-    at: src/components/StatCard/StatCard.tsx:36
+    at: src/components/StatCard/StatCard.tsx:41
   - name: value
     type: ReactNode
     required: false
     doc: 'Figma "Value". The big number. Not drawn on chart=empty: no figure before a measure.'
-    at: src/components/StatCard/StatCard.tsx:38
+    at: src/components/StatCard/StatCard.tsx:43
   - name: unit
     type: ReactNode
     required: false
     doc: Figma "Unit". Small, beside the number ("%", "of 2"). Missing = off.
-    at: src/components/StatCard/StatCard.tsx:40
+    at: src/components/StatCard/StatCard.tsx:45
   - name: context
     type: ReactNode
     required: false
     doc: 'Figma "Context". One short meta line (subtext face, 14) worked out from real numbers: what the number means and which way.'
-    at: src/components/StatCard/StatCard.tsx:42
+    at: src/components/StatCard/StatCard.tsx:47
   - name: emptyCount
     type: ReactNode
     required: false
     doc: >-
       Figma "Empty count" (21 Nov publish). Kept for compatibility, not drawn: chart=empty shows no figure before a measure (22 Nov 19:08).
       Removal waits for Elleta's yes (public API).
-    at: src/components/StatCard/StatCard.tsx:44
+    at: src/components/StatCard/StatCard.tsx:49
   - name: emptyTotal
     type: ReactNode
     required: false
     doc: Figma "Empty total" (21 Nov publish). Kept for compatibility, not drawn (see emptyCount).
-    at: src/components/StatCard/StatCard.tsx:46
+    at: src/components/StatCard/StatCard.tsx:51
   - name: caption
     type: ReactNode
     required: false
     doc: 'Figma "Caption". Footer left: the target or where it came from.'
-    at: src/components/StatCard/StatCard.tsx:48
+    at: src/components/StatCard/StatCard.tsx:53
   - name: button
     type: ReactNode
     required: false
     doc: 'Figma "Show button". Footer right: a secondary Button only when it acts ("Set target"), never to navigate. Missing = off.'
-    at: src/components/StatCard/StatCard.tsx:50
+    at: src/components/StatCard/StatCard.tsx:55
   - name: chart
     type: '''bar'' | ''segments'' | ''none'' | ''empty'''
     values:
@@ -72,33 +72,64 @@ props:
     doc: >-
       Figma "chart". none: the number only (counts such as Runs). empty: no data yet: the title, the empty bar, the context line and the
       footer ("Not compared yet" with its Compare action), and no number (22 Nov 19:08: a number only once something is measured).
-    at: src/components/StatCard/StatCard.tsx:57
+    at: src/components/StatCard/StatCard.tsx:62
   - name: tone
     type: StatCardTone
     default: success
     required: false
     doc: 'Figma "tone". Status only: the icon well and the chart marks; a count with no status is neutral.'
-    at: src/components/StatCard/StatCard.tsx:59
+    at: src/components/StatCard/StatCard.tsx:64
   - name: icon
     type: IconName
     required: true
     doc: Figma Icon well icon swap.
-    at: src/components/StatCard/StatCard.tsx:61
+    at: src/components/StatCard/StatCard.tsx:66
   - name: meter
     type: StatCardMeter
     required: false
     doc: The chart's numbers for bar and segments. Missing = no chart.
-    at: src/components/StatCard/StatCard.tsx:63
+    at: src/components/StatCard/StatCard.tsx:68
+  - name: series
+    type: number[]
+    required: false
+    doc: >-
+      The change over time (23 Nov, chart language: "numbers carry a change arrow and sparkline"): earlier values, oldest first, ending with
+      the current one. Two or more draw Stat's sparkline under the number. Never invent a series.
+    at: src/components/StatCard/StatCard.tsx:73
+  - name: seriesLabels
+    type: string[]
+    required: false
+    doc: 'One name per point, same order as `series` ("21 Nov"): the sparkline''s callout says it.'
+    at: src/components/StatCard/StatCard.tsx:75
+  - name: trend
+    type: '''up'' | ''down'''
+    values:
+      - up
+      - down
+    required: false
+    doc: 'Which way the figure moved: a thin arrow in a tinted circle, with a spoken word, never colour alone.'
+    at: src/components/StatCard/StatCard.tsx:77
+  - name: trendTone
+    type: StatCardTone
+    default: neutral
+    required: false
+    doc: The tone of the arrow's circle (status only; up is not always bad). Default neutral.
+    at: src/components/StatCard/StatCard.tsx:79
+  - name: comparison
+    type: ReactNode
+    required: false
+    doc: The comparison in one line, in the meta face, beside the arrow ("93 of 102 parts now, 79 on 21 Nov").
+    at: src/components/StatCard/StatCard.tsx:81
   - name: href
     type: string
     required: false
     doc: 'Header opens the detail: a link. The whole 44 header row is the target and carries the ↗.'
-    at: src/components/StatCard/StatCard.tsx:65
+    at: src/components/StatCard/StatCard.tsx:83
   - name: onOpen
     type: () => void
     required: false
     doc: 'Header opens the detail: a button. Ignored when `href` is set.'
-    at: src/components/StatCard/StatCard.tsx:67
+    at: src/components/StatCard/StatCard.tsx:85
   - name: drawIn
     type: boolean
     values:
@@ -110,22 +141,22 @@ props:
       Chart motion (22 Nov, CHIP chart language): when the card first shows, the bar grows from the start (segments fill one after another)
       and a numeric value counts up from 0, over motion/duration/450 on motion/easing/out; a new value slides and counts from the old one.
       Reduced motion: the end state at once. On by default; false shows the first value still.
-    at: src/components/StatCard/StatCard.tsx:72
+    at: src/components/StatCard/StatCard.tsx:90
   - name: summary
     type: string
     required: false
     doc: >-
       The chart's one-line summary (22 Nov reading), passed to Progress and read as the bar's description, never drawn. Missing: written
       from the title, value and target ("Contrast coverage: 95%, target 80%, above target").
-    at: src/components/StatCard/StatCard.tsx:78
+    at: src/components/StatCard/StatCard.tsx:96
   - name: className
     type: string
     required: false
-    at: src/components/StatCard/StatCard.tsx:79
+    at: src/components/StatCard/StatCard.tsx:97
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/StatCard/StatCard.tsx:80
+    at: src/components/StatCard/StatCard.tsx:98
 variants:
   chart:
     values:
@@ -134,7 +165,13 @@ variants:
       - none
       - empty
     default: bar
-    at: src/components/StatCard/StatCard.tsx:57
+    at: src/components/StatCard/StatCard.tsx:62
+  trend:
+    values:
+      - up
+      - down
+    default: null
+    at: src/components/StatCard/StatCard.tsx:77
 states:
   contract:
     - default
@@ -455,6 +492,48 @@ tokens:
       token: '--color-content-utility-info'
       selector: .neutralGlyph.neutralGlyph
       at: src/components/StatCard/StatCard.module.css:190
+    - part: change
+      state: rest
+      property: gap
+      token: '--spacing-8'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:199
+    - part: change
+      state: rest
+      property: margin-block-start
+      token: '--spacing-8'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:200
+    - part: change
+      state: rest
+      property: font-family
+      token: '--typography-subtext-font-family'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:202
+    - part: change
+      state: rest
+      property: font-size
+      token: '--typography-font-size-14'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:203
+    - part: change
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:204
+    - part: change
+      state: rest
+      property: line-height
+      token: '--size-20'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:205
+    - part: change
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .change
+      at: src/components/StatCard/StatCard.module.css:206
   values:
     '--border-radius-card':
       light: null
@@ -559,19 +638,19 @@ motion:
 a11y:
   element:
     tag: section
-    at: src/components/StatCard/StatCard.tsx:144
+    at: src/components/StatCard/StatCard.tsx:167
   role:
     value: region
     source: native element
-    at: src/components/StatCard/StatCard.tsx:144
+    at: src/components/StatCard/StatCard.tsx:167
   nameSource:
     value: visible content
-    at: src/components/StatCard/StatCard.tsx:144
+    at: src/components/StatCard/StatCard.tsx:167
   keyboard: []
   aria:
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/StatCard/StatCard.tsx:161
+      at: src/components/StatCard/StatCard.tsx:184
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -596,13 +675,12 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/StatCard/StatCard.tsx:161
+      at: src/components/StatCard/StatCard.tsx:184
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/StatCard/StatCard.stories.tsx
+  file: ~/DEV/bella-parts/src/components/StatCard/StatCard.stories.tsx
   lines: 64-64
   import: import StatCard from '@bella/components/StatCard/StatCard';
   importSource: the style the Button doc page uses (CHIP import path)

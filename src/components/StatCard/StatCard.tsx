@@ -1,7 +1,8 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Trailing from '../Trailing/Trailing';
-import Progress from '../Progress/Progress';
+import Progress, { type ProgressPart } from '../Progress/Progress';
+import { Sparkline, sparkSummary } from '../Stat/Stat';
 import useCountTo from '../shared/useCountTo';
 import type { IconName } from '../Icon/Icon';
 import styles from './StatCard.module.css';
@@ -26,6 +27,10 @@ export interface StatCardMeter {
   done?: number;
   /** Accessible amount in words ("1 of 2"). Defaults to value + unit. */
   valueText?: string;
+  /** Bar: false draws the target as a thin tick only, no "Target" tag (23 Nov). The target is still spoken and in the callout. Default true. */
+  showTargetLabel?: boolean;
+  /** Bar: the bar in parts (Progress `parts`), each a share of the track with what it is. `fill` is then ignored. */
+  parts?: ProgressPart[];
 }
 
 export interface StatCardProps {
@@ -61,6 +66,19 @@ export interface StatCardProps {
   icon: IconName;
   /** The chart's numbers for bar and segments. Missing = no chart. */
   meter?: StatCardMeter;
+  /**
+   * The change over time (23 Nov, chart language: "numbers carry a change arrow and sparkline"): earlier values, oldest
+   * first, ending with the current one. Two or more draw Stat's sparkline under the number. Never invent a series.
+   */
+  series?: number[];
+  /** One name per point, same order as `series` ("21 Nov"): the sparkline's callout says it. */
+  seriesLabels?: string[];
+  /** Which way the figure moved: a thin arrow in a tinted circle, with a spoken word, never colour alone. */
+  trend?: 'up' | 'down';
+  /** The tone of the arrow's circle (status only; up is not always bad). Default neutral. */
+  trendTone?: StatCardTone;
+  /** The comparison in one line, in the meta face, beside the arrow ("93 of 102 parts now, 79 on 21 Nov"). */
+  comparison?: ReactNode;
   /** Header opens the detail: a link. The whole 44 header row is the target and carries the ↗. */
   href?: string;
   /** Header opens the detail: a button. Ignored when `href` is set. */
@@ -99,6 +117,11 @@ export default function StatCard({
   tone = 'success',
   icon,
   meter,
+  series,
+  seriesLabels,
+  trend,
+  trendTone = 'neutral',
+  comparison,
   href,
   onOpen,
   drawIn = true,
@@ -189,12 +212,35 @@ export default function StatCard({
             fill={meter.fill}
             target={meter.target}
             targetLabel={meter.targetText != null ? `Target ${meter.targetText}` : undefined}
+            showTargetLabel={meter.showTargetLabel}
+            parts={meter.parts}
             showTarget={chart === 'bar' && meter.target != null}
             segments={meter.segments}
             done={meter.done}
             drawIn={drawIn}
             summary={summary}
           />
+        ) : null}
+        {!empty && (comparison != null || (series && series.length >= 2)) ? (
+          <div className={styles.change} data-bella-meta>
+            {series && series.length >= 2 ? (
+              <Sparkline
+                series={series}
+                names={seriesLabels}
+                label={`${typeof title === 'string' ? title : 'Trend'}: ${series[0]} to ${series[series.length - 1]} over ${series.length} points`}
+                summary={sparkSummary(typeof title === 'string' ? title : 'Trend', series, seriesLabels)}
+                table
+                caption={typeof title === 'string' ? title : 'Trend'}
+              />
+            ) : null}
+            {trend ? (
+              <>
+                <IconWell icon={trend === 'up' ? 'NavArrowUp' : 'NavArrowDown'} size="sm" tone={WELL_TONE[trendTone]} className={WELL_TONE[trendTone] === 'neutral' ? styles.neutralGlyph : undefined} />
+                <span className={styles.srOnly}>{trend === 'up' ? 'Up' : 'Down'}</span>
+              </>
+            ) : null}
+            {comparison != null ? <span>{comparison}</span> : null}
+          </div>
         ) : null}
         {context != null ? <p className={styles.context} data-bella-meta>{context}</p> : null}
       </div>

@@ -340,3 +340,58 @@ export const OwnUnitTarget: Story = {
     await expect(canvasElement.textContent).not.toMatch(/Target 70%/);
   },
 };
+
+/** The change over time (23 Nov): the sparkline of the dated counts kept, the arrow in its tinted circle, one comparison line. */
+export const WithChange: Story = {
+  render: () => (
+    <Themed>
+      <StatCard
+        title="Drift from BELLA"
+        value="93"
+        unit="of 102"
+        chart="none"
+        tone="warning"
+        icon="Activity"
+        series={[79, 79, 81, 90, 93]}
+        seriesLabels={['21 Nov', '21 Nov', '22 Nov', '23 Nov', '23 Nov']}
+        trend="up"
+        trendTone="warning"
+        comparison="93 of 102 parts now, 79 on 21 Nov"
+        context="Parts that differ from Figma, their spec or their code"
+        href="#drift"
+      />
+      <StatCard title="Gaps" value="20" unit="parts" chart="none" tone="success" icon="WarningCircle" trend="down" trendTone="success" comparison="20 now, 24 on 21 Nov" context="What BELLA can't do yet" href="#gaps" />
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const card = canvasElement.querySelector<HTMLElement>('[data-bella-component="stat-card"]')!;
+    await expect(card.querySelector('svg[role="img"]')).not.toBeNull();
+    await expect(card.textContent).toContain('79 on 21 Nov');
+    await expect(card.textContent).toContain('Up');
+  },
+};
+
+/** A bar in parts, and a target as a thin tick with no tag (23 Nov). */
+export const PartsAndTick: Story = {
+  render: () => (
+    <Themed>
+      <StatCard
+        title="Gaps"
+        value="20"
+        unit="parts"
+        tone="warning"
+        icon="WarningCircle"
+        meter={{ parts: [{ value: 60, label: 'specified, not in code' }, { value: 40, label: 'not in BELLA yet', tone: 'info' }], valueText: '12 specified, not in code, 8 not in BELLA yet' }}
+        context="12 specified, not in code · 8 not in BELLA yet"
+        href="#gaps"
+      />
+      <StatCard title="Contrast coverage" value="96" unit="%" tone="success" icon="Palette" meter={{ fill: 96, target: 90, showTargetLabel: false }} context="98 of 102 have pairs · 4 to go" href="#c" />
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const cards = canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="stat-card"]');
+    await expect(cards[1].querySelector('[data-bella-component="progress-target"]')).not.toBeNull();
+    await expect(cards[1].textContent).not.toContain('Target 90%');
+    await expect(cards[0].querySelectorAll('[data-bella-component="progress-fill"]').length).toBe(2);
+  },
+};

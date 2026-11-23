@@ -12025,7 +12025,7 @@ entries:
   - kind: component
     id: progress
     name: Progress
-    description: "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle ((decided 21 Nov 2026: a lighter grey bar): the empty part, not a mark; the fill carries the amount and the amount is always in words."
+    description: "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle ((decided 21 Nov 2026: a lighter grey bar): the empty part, not a mark; the fill carries the amount and the amount is always in words. 23 Nov: parts draws a bar in parts (each a share with what it is); showTargetLabel off leaves the thin tick with no tag."
     metadata:
       origin:
         method: extracted
@@ -12115,7 +12115,7 @@ entries:
   - kind: component
     id: stat-card
     name: StatCard
-    description: "One figure on a card: what it is, the number, how far along, and ↗ to open it. One column from the 24 padding, no indent: header (36 icon well, title, ↗; the whole 44 row is the target), body (number and unit in the number face 700, chart, context), footer (caption, a Button only when it acts). chart bar, segments, none (number only) or empty (no data yet: zero, an empty bar, the footer says why and offers the action). tone success, warning, info, danger, neutral: status only."
+    description: "One figure on a card: what it is, the number, how far along, and ↗ to open it. One column from the 24 padding, no indent: header (36 icon well, title, ↗; the whole 44 row is the target), body (number and unit in the number face 700, chart, context), footer (caption, a Button only when it acts). chart bar, segments, none (number only) or empty (no data yet: zero, an empty bar, the footer says why and offers the action). tone success, warning, info, danger, neutral: status only. 23 Nov: optional change row under the number (series: Stat's sparkline; trend: a thin arrow in a tinted circle with a spoken word; comparison: one meta line), and meter.parts / meter.showTargetLabel pass through to Progress."
     metadata:
       origin:
         method: extracted
@@ -13357,7 +13357,7 @@ entries:
   - kind: component
     id: progress-target
     name: ProgressTarget
-    description: "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, decided: a dashed marker and label): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses."
+    description: "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, decided: a dashed marker and label): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses. showLabel off draws the dash alone (23 Nov)."
     metadata:
       origin:
         method: extracted

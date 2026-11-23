@@ -21,6 +21,17 @@ props:
     required: false
     doc: 'Figma exposed Label (22 Nov): the label in its own unit, e.g. "Target 7:1" or "Target 5 of 5". Default "Target n%".'
     at: src/components/ProgressTarget/ProgressTarget.tsx:31
+  - name: showLabel
+    type: boolean
+    values:
+      - true
+      - false
+    default: true
+    required: false
+    doc: >-
+      Show the "Target" tag above the dash (default true). Off leaves the thin tick alone; the amount and target are said in the bar's own
+      words (23 Nov: "the target is a thin tick on the bar, nothing else").
+    at: src/components/ProgressTarget/ProgressTarget.tsx:33
 variants: {}
 states:
   contract:
@@ -249,7 +260,7 @@ a11y:
       at: src/components/ProgressTarget/ProgressTarget.tsx:21
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ProgressTarget/ProgressTarget.tsx:73
+      at: src/components/ProgressTarget/ProgressTarget.tsx:75
   focusRing: []
   disabled:
     prop: null
@@ -262,7 +273,7 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/ProgressTarget/ProgressTarget.tsx:73
+      at: src/components/ProgressTarget/ProgressTarget.tsx:75
 contrast:
   pairs: []
   derived: []

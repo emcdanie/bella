@@ -29,6 +29,8 @@ export interface ProgressTargetProps {
   target: number;
   /** Figma exposed Label (22 Nov): the label in its own unit, e.g. "Target 7:1" or "Target 5 of 5". Default "Target n%". */
   label?: string;
+  /** Show the "Target" tag above the dash (default true). Off leaves the thin tick alone; the amount and target are said in the bar's own words (23 Nov: "the target is a thin tick on the bar, nothing else"). */
+  showLabel?: boolean;
 }
 
 /** Figma "Progress target" 1168:72541 (22 Nov publish, her pick B · dashed
@@ -39,7 +41,7 @@ export interface ProgressTargetProps {
  * it stop at that end. Place it inside a position: relative track that has a
  * 32 Target row 8 above it (Progress does this with showTarget). The label is
  * real text; the bar's own name says the target too. */
-export default function ProgressTarget({ target, label: text }: ProgressTargetProps) {
+export default function ProgressTarget({ target, label: text, showLabel = true }: ProgressTargetProps) {
   const t = pct(target);
   const root = useRef<HTMLSpanElement>(null);
   const label = useRef<HTMLSpanElement>(null);
@@ -48,7 +50,7 @@ export default function ProgressTarget({ target, label: text }: ProgressTargetPr
   useLayoutEffect(() => {
     const r = root.current;
     const l = label.current;
-    if (!r || !l) return undefined;
+    if (!r || !l) return undefined; // no label, nothing to keep inside the track
     const place = () => {
       const w = r.clientWidth;
       const lw = l.offsetWidth;
@@ -71,9 +73,11 @@ export default function ProgressTarget({ target, label: text }: ProgressTargetPr
       data-bella-component="progress-target"
     >
       <span className={styles.dash} aria-hidden="true" />
-      <span ref={label} className={styles.label}>
-        <Tag variant="outline" count={text ?? `Target ${t}%`} />
-      </span>
+      {showLabel ? (
+        <span ref={label} className={styles.label}>
+          <Tag variant="outline" count={text ?? `Target ${t}%`} />
+        </span>
+      ) : null}
     </span>
   );
 }

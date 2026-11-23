@@ -23,15 +23,17 @@ export interface ProgressFillProps {
   /** Figma "value", 0 to 100. At 0 nothing is drawn: the track reads empty. */
   value: number;
   tone?: ProgressTone;
+  /** A later part of a bar in parts: it follows the part before it, a 4 gap apart in the track's own colour. */
+  part?: boolean;
 }
 
 /** Figma "Progress fill": the filled part of a bar, width = value %. */
-export function ProgressFill({ value, tone = 'info' }: ProgressFillProps) {
+export function ProgressFill({ value, tone = 'info', part = false }: ProgressFillProps) {
   const v = pct(value);
   if (v === 0) return null;
   return (
     <span
-      className={[styles.fill, styles[tone]].join(' ')}
+      className={[styles.fill, styles[tone], part ? styles.part : ''].filter(Boolean).join(' ')}
       style={{ '--progress-fill': `${v}%` } as CSSProperties}
       data-bella-component="progress-fill"
     />
@@ -62,6 +64,15 @@ export function ProgressSegment({ tone = 'info', done = true, order = 0 }: Progr
  * Progress
  * ------------------------------------------------------------------------- */
 
+export interface ProgressPart {
+  /** This part's share of the track, 0 to 100. */
+  value: number;
+  /** What it is, in words ("specified, not in code"). Spoken, not drawn. */
+  label: string;
+  /** Status colour for this part. Default the bar's tone. */
+  tone?: ProgressTone;
+}
+
 export interface ProgressProps {
   /** Figma "Label". What is measured. Stays the accessible name when hidden. */
   label: ReactNode;
@@ -81,6 +92,14 @@ export interface ProgressProps {
   target?: number;
   /** The target label in its own unit ("Target 7:1"); default "Target n%". Bar only, with showTarget. */
   targetLabel?: string;
+  /** Bar with a target: false draws the thin tick only, with no "Target" tag and no 32 row for it (23 Nov). The target is still said in the summary and callout. Default true. */
+  showTargetLabel?: boolean;
+  /**
+   * Bar only: a bar in parts (23 Nov, Gaps: "specified, not in code" beside "not in BELLA yet"). Each part is a share of
+   * the whole track, 0 to 100, drawn one after another from the start; `fill` is ignored. Each says what it is in `label`,
+   * which is spoken ("12 specified, not in code, 8 not in BELLA yet") and never drawn on the bar.
+   */
+  parts?: ProgressPart[];
   /** Segments only: how many steps (Figma draws 6; the gate uses 5). */
   segments?: number;
   /** Segments only: how many are done. */
@@ -121,6 +140,8 @@ export default function Progress({
   fill = 0,
   target = 0,
   targetLabel,
+  showTargetLabel = true,
+  parts,
   segments = 5,
   done = 0,
   drawIn = false,
@@ -132,7 +153,8 @@ export default function Progress({
   const summaryId = useId();
   const still = useReducedMotion();
   const isSeg = shape === 'segments';
-  const now = isSeg ? Math.min(segments, Math.max(0, done)) : pct(fill);
+  const split = shape === 'bar' && parts && parts.length ? parts : null;
+  const now = isSeg ? Math.min(segments, Math.max(0, done)) : split ? pct(split.reduce((t, x) => t + pct(x.value), 0)) : pct(fill);
   /* A new amount (rule "Motion that shows what happened", item 5): the bar
    * and the ring move from the old amount to the new one (a transition on
    * the registered --progress-fill), and on a bar the stretch gained or lost
@@ -154,7 +176,7 @@ export default function Progress({
     'aria-valuetext': typeof value === 'string' ? value : undefined,
   } as const;
   const name = typeof label === 'string' ? label : undefined;
-  const amount = typeof value === 'string' || typeof value === 'number' ? String(value) : isSeg ? `${now} of ${segments}` : `${now}%`;
+  const amount = typeof value === 'string' || typeof value === 'number' ? String(value) : split ? split.map((x) => `${x.value}% ${x.label}`).join(', ') : isSeg ? `${now} of ${segments}` : `${now}%`;
   const withTarget = shape === 'bar' && showTarget;
   /* the one-line summary: what, how much, and where it stands against its target */
   const said = summary ?? (() => {
@@ -236,9 +258,13 @@ export default function Progress({
         <>
         {/* Show target (22 Nov, her pick B): a 32 Target row between Head and
             Track, 8 apart, that the target's label sits in */}
-        {showTarget ? <div className={styles.targetRow} aria-hidden="true" /> : null}
+        {showTarget ? <div className={[styles.targetRow, showTargetLabel ? '' : styles.targetRowTick].filter(Boolean).join(' ')} aria-hidden="true" /> : null}
         <div className={styles.track} aria-hidden="true">
-          <ProgressFill value={now} tone={tone} />
+          {split ? (
+            split.map((x, i) => <ProgressFill key={i} value={Math.min(pct(x.value), 100 - split.slice(0, i).reduce((t, y) => t + pct(y.value), 0))} tone={x.tone ?? tone} part={i > 0} />)
+          ) : (
+            <ProgressFill value={now} tone={tone} />
+          )}
           {band ? (
             <span
               key={band.key}
@@ -247,7 +273,7 @@ export default function Progress({
               data-bella-change={band.to > band.from ? 'gain' : 'loss'}
             />
           ) : null}
-          {showTarget ? <ProgressTarget target={target} label={targetLabel} /> : null}
+          {showTarget ? <ProgressTarget target={target} label={targetLabel} showLabel={showTargetLabel} /> : null}
         </div>
         </>
       )}

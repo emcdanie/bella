@@ -245,3 +245,18 @@ export const ReducedMotion: Story = {
     await expect(canvasElement.ownerDocument.getElementById(bar.getAttribute('aria-describedby')!)).toHaveTextContent('Stories: 60%, target 90%, below target');
   },
 };
+
+/** A bar in parts (23 Nov): each a share of the track with what it is; the target as a thin tick with no tag. */
+export const PartsAndTick: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', maxInlineSize: '24rem' }}>
+      <Progress label="Gaps" value="20 parts" showLabel parts={[{ value: 60, label: 'specified, not in code', tone: 'attention' }, { value: 40, label: 'not in BELLA yet', tone: 'info' }]} />
+      <Progress label="Contrast coverage" value="96%" fill={96} target={90} showTarget showTargetLabel={false} tone="success" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement.querySelectorAll('[data-bella-component="progress-fill"]').length).toBe(3);
+    await expect(canvasElement.querySelectorAll('[data-bella-component="progress-target"]').length).toBe(1);
+    await expect(canvasElement.textContent).not.toContain('Target 90%');
+  },
+};

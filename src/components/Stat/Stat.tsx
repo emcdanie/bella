@@ -98,7 +98,7 @@ function resample(pts: Pt[], n: number): Pt[] {
  * BELLA's Tooltip says that point's value and name; leaving hides both.
  * Reduced motion: the end state at once. */
 /** The sparkline's one line, from its numbers: which way, from what to what, the low and the high. */
-function sparkSummary(label: string, series: number[], names?: string[], range?: string) {
+export function sparkSummary(label: string, series: number[], names?: string[], range?: string) {
   const first = series[0];
   const last = series[series.length - 1];
   const lo = series.indexOf(Math.min(...series));
@@ -108,7 +108,7 @@ function sparkSummary(label: string, series: number[], names?: string[], range?:
   return `${label}: ${change}${range ? ` ${range}` : ''}, low ${series[lo]}${name(lo)}, high ${series[hi]}${name(hi)}`;
 }
 
-function Sparkline({
+export function Sparkline({
   series,
   names,
   label,

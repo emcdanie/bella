@@ -355,3 +355,26 @@ export const StepsLeft: Story = {
     await expect(canvas.getByText('4 left')).toBeInTheDocument();
   },
 };
+
+/** Stopped (second pass D6): a red cross, the reason wrapped, one count (the bar's), no clock. */
+export const Stopped: Story = {
+  render: () => (
+    <TaskCard
+      title="Fix CheckRow's drift · 22:26"
+      line="CHIP run · 22:26"
+      status="Failed"
+      statusTone="danger"
+      progress
+      stopped
+      progressDone={1}
+      progressTotal={4}
+      stepNow="BELLA's gate refused the commit: two stories no longer match their baselines"
+      style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }}
+      onOpen={() => {}}
+      onMoveTo={() => {}}
+    />
+  ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText(/Stopped · BELLA's gate refused the commit: two stories/)).toBeInTheDocument();
+  },
+};

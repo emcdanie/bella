@@ -122,23 +122,34 @@ props:
     required: false
     doc: 'progress: dragged back to Next: a grey ring and "Paused · {stepNow}" instead of the turning arc and "Now · {stepNow}".'
     at: src/components/TaskCard/TaskCard.tsx:47
+  - name: stopped
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      progress: the run stopped or failed (second-pass D6, 23 Nov): a red cross ring, "Stopped · {stepNow}" with the reason wrapped (never
+      cut), the bar in the danger tone, and no clock.
+    at: src/components/TaskCard/TaskCard.tsx:49
   - name: href
     type: string
     required: false
     doc: 'The whole card opens the task: a link.'
-    at: src/components/TaskCard/TaskCard.tsx:49
+    at: src/components/TaskCard/TaskCard.tsx:51
   - name: onOpen
     type: () => void
     required: false
     doc: 'The whole card opens the task: a button. Ignored when `href` is set.'
-    at: src/components/TaskCard/TaskCard.tsx:51
+    at: src/components/TaskCard/TaskCard.tsx:53
   - name: onMoveTo
     type: () => void
     required: false
     doc: >-
       Figma "Move to…" (the drag handle): the keyboard way to move the card; open a Menu of lanes from here. Missing = the handle is drawn
       but does nothing (pointer drag only).
-    at: src/components/TaskCard/TaskCard.tsx:53
+    at: src/components/TaskCard/TaskCard.tsx:55
   - name: draggable
     type: boolean
     values:
@@ -146,15 +157,15 @@ props:
       - false
     required: false
     doc: Native drag, wired by the board.
-    at: src/components/TaskCard/TaskCard.tsx:55
+    at: src/components/TaskCard/TaskCard.tsx:57
   - name: onDragStart
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:56
+    at: src/components/TaskCard/TaskCard.tsx:58
   - name: onDragEnd
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:57
+    at: src/components/TaskCard/TaskCard.tsx:59
   - name: entering
     type: boolean
     values:
@@ -166,7 +177,7 @@ props:
       Arrives (rule "Motion that shows what happened", items 4 and 6): a new card in Needs you, or one Undo brings back, pops in once on
       motion/duration/250 and motion/easing/pop. Set it only on the card that is new, never on first load. Reduced motion: it is simply
       there.
-    at: src/components/TaskCard/TaskCard.tsx:64
+    at: src/components/TaskCard/TaskCard.tsx:66
   - name: leaving
     type: boolean
     values:
@@ -177,20 +188,20 @@ props:
     doc: >-
       Leaves (item 6, Accept): the card slides out to the right and fades on motion/duration/250, then onLeft runs so the page removes it.
       Reduced motion: onLeft runs at once.
-    at: src/components/TaskCard/TaskCard.tsx:70
+    at: src/components/TaskCard/TaskCard.tsx:72
   - name: onLeft
     type: () => void
     required: false
     doc: Called once the card has left. Remove it then.
-    at: src/components/TaskCard/TaskCard.tsx:72
+    at: src/components/TaskCard/TaskCard.tsx:74
   - name: className
     type: string
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:73
+    at: src/components/TaskCard/TaskCard.tsx:75
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:74
+    at: src/components/TaskCard/TaskCard.tsx:76
 variants:
   statusTone:
     values:
@@ -805,25 +816,25 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/TaskCard/TaskCard.tsx:153
+    at: src/components/TaskCard/TaskCard.tsx:156
   role:
     value: null
     source: native element
-    at: src/components/TaskCard/TaskCard.tsx:153
+    at: src/components/TaskCard/TaskCard.tsx:156
   nameSource:
     value: visible content
-    at: src/components/TaskCard/TaskCard.tsx:153
+    at: src/components/TaskCard/TaskCard.tsx:156
   keyboard: []
   aria:
     - attribute: aria-label
       value: Move
-      at: src/components/TaskCard/TaskCard.tsx:167
+      at: src/components/TaskCard/TaskCard.tsx:170
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/TaskCard/TaskCard.tsx:171
+      at: src/components/TaskCard/TaskCard.tsx:174
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/TaskCard/TaskCard.tsx:186
+      at: src/components/TaskCard/TaskCard.tsx:190
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -855,10 +866,10 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label="Move to…"
-      at: src/components/TaskCard/TaskCard.tsx:167
+      at: src/components/TaskCard/TaskCard.tsx:170
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/TaskCard/TaskCard.tsx:186
+      at: src/components/TaskCard/TaskCard.tsx:190
 contrast:
   pairs: []
   derived: []

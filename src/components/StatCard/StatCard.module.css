@@ -35,6 +35,9 @@
   border-radius: var(--border-radius-card);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-card-ink);
+  /* the card is the target when it opens something (23 Nov second pass: "only the title row was clickable"): the header's
+     link or button stretches over the whole card, and anything that acts on its own sits above it */
+  position: relative;
 }
 
 .header {
@@ -53,6 +56,26 @@
 
 .opens {
   cursor: pointer;
+}
+
+.opens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-card);
+}
+
+/* hover anywhere on the card lights the header plate, so the whole card reads as the one target */
+.card:has(.opens:hover) .opens {
+  background: var(--color-background-brand-subtle);
+}
+
+/* what acts on its own (a footer button or link, the bar's callout, the sparkline's scrubber) stays above the stretched link */
+.footer :is(a, button),
+.body [tabindex],
+.change svg {
+  position: relative;
+  z-index: 1;
 }
 
 .opens:hover {

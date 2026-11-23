@@ -395,3 +395,25 @@ export const PartsAndTick: Story = {
     await expect(cards[0].querySelectorAll('[data-bella-component="progress-fill"]').length).toBe(2);
   },
 };
+
+/** The whole card is the target when it opens something (23 Nov second pass): a click on the number opens it, not only the title row. */
+export const WholeCardOpens: Story = {
+  render: () => {
+    const [opened, setOpened] = React.useState(0);
+    return (
+      <Themed>
+        <StatCard title="Drift from BELLA" value="93" unit="of 102" chart="none" tone="warning" icon="Activity" context="Parts that differ" onOpen={() => setOpened((n) => n + 1)} />
+        <p data-testid="opened" style={{ margin: 0 }}>{`Opened ${opened}`}</p>
+      </Themed>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const number = canvasElement.querySelector<HTMLElement>('[data-bella-component="stat-card"] p')!;
+    // a click lands on what is at that point: the stretched header, not the number's own text
+    const r = number.getBoundingClientRect();
+    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) as HTMLElement;
+    await expect(hit.closest('button')).not.toBeNull();
+    await userEvent.click(hit);
+    await expect(canvasElement.querySelector('[data-testid="opened"]')!.textContent).toBe('Opened 1');
+  },
+};

@@ -259,7 +259,7 @@ export default function Progress({
         <>
         {/* Show target (22 Nov, her pick B): a 32 Target row between Head and
             Track, 8 apart, that the target's label sits in */}
-        {showTarget ? <div className={[styles.targetRow, showTargetLabel ? '' : styles.targetRowTick].filter(Boolean).join(' ')} aria-hidden="true" /> : null}
+        {showTarget && showTargetLabel ? <div className={styles.targetRow} aria-hidden="true" /> : null}
         <div className={styles.track} aria-hidden="true">
           {split ? (
             split.map((x, i) => <ProgressFill key={i} value={Math.min(pct(x.value), 100 - split.slice(0, i).reduce((t, y) => t + pct(y.value), 0))} tone={x.tone ?? tone} part={i > 0} />)

@@ -1,0 +1,119 @@
+/* RunIndicator (23 Nov 2026, feedback and sense of time). Tokens only. One pill, 44 high: the ring, then
+ * what is running, its step and the time in the number face. Idle is grey, running is the brand wash, done
+ * and failed take the status wash. The edge is a full 1px border all the way round (guideline 9), at least
+ * 3:1 on the header. Narrow: the ring and the count only. */
+
+.root {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-block-size: var(--spacing-44);
+  max-inline-size: 100%;
+  min-inline-size: var(--spacing-44);
+  padding: var(--spacing-4) var(--spacing-16) var(--spacing-4) var(--spacing-12);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-surface);
+  color: var(--color-content-body);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-px-24);
+  margin: 0;
+  transition:
+    background var(--motion-duration-150) var(--motion-easing-standard),
+    border-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.root[data-state='running'] {
+  background: var(--color-background-brand-subtle);
+  border-color: var(--color-border-brand);
+  color: var(--color-content-default);
+}
+.root[data-state='done'] {
+  background: var(--color-background-utility-success);
+  border-color: var(--color-border-utility-success);
+  color: var(--color-content-default);
+}
+.root[data-state='failed'] {
+  background: var(--color-background-utility-error);
+  border-color: var(--color-border-utility-error);
+  color: var(--color-content-default);
+}
+
+.action {
+  cursor: pointer;
+}
+.action:hover {
+  border-color: var(--color-border-ink);
+}
+.action:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+  flex-wrap: nowrap;
+}
+.head,
+.tail {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tail {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+.meta {
+  white-space: nowrap;
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+.time,
+.count {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-700);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+.count {
+  display: none;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Narrow (the plan: at 320 the pill shows the ring and the count only; the list opens full width) */
+@media (max-width: 480px) {
+  .root {
+    padding-inline: var(--spacing-12);
+  }
+  .text {
+    display: none;
+  }
+  .root[data-state='running'] .count {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    transition: none;
+  }
+}

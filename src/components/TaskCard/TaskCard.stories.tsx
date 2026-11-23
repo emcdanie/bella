@@ -331,3 +331,27 @@ export const Progress: Story = {
     });
   },
 };
+
+/** Steps left (23 Nov, feedback and sense of time): under the step row, "3 left". With `since` and `lastStepAt` the
+ * line also counts the time up and says how long ago the last step finished; those tick, so the story shows the static part. */
+export const StepsLeft: Story = {
+  render: () => (
+    <TaskCard
+      title="Fix CheckRow's drift"
+      line="CHIP run · 09:41"
+      status="Working"
+      statusTone="info"
+      progress
+      progressDone={2}
+      progressTotal={7}
+      progressLeft={4}
+      stepNow="Rebuilding the spec"
+      style={{ inlineSize: 'calc(var(--spacing-80) * 3)' }}
+      onOpen={() => {}}
+      onMoveTo={() => {}}
+    />
+  ),
+  play: async ({ canvas }) => {
+    await expect(canvas.getByText('4 left')).toBeInTheDocument();
+  },
+};

@@ -1,0 +1,75 @@
+/* TimelineRow (23 Nov 2026, feedback and sense of time). Tokens only. A rounded row on the surface, a full
+ * 1px edge all the way round, the ring first and the text beside it. 44 or more high; the title may wrap. */
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  inline-size: 100%;
+  min-block-size: var(--spacing-44);
+  padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) var(--spacing-12);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--border-radius-24);
+  background: var(--color-background-surface);
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  text-align: start;
+  margin: 0;
+}
+.row[data-state='failed'] {
+  border-color: var(--color-border-utility-error);
+}
+.row[data-state='running'] {
+  border-color: var(--color-border-brand);
+}
+
+.action {
+  cursor: pointer;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+.action:hover {
+  background: var(--color-background-default-hover);
+}
+.action:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  flex: 1;
+  min-inline-size: 0;
+}
+.title {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: anywhere;
+}
+.line {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+  overflow-wrap: anywhere;
+}
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action {
+    transition: none;
+  }
+}

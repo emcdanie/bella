@@ -54,6 +54,9 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | The › on anything that opens something | `Trailing` |
 | Bar, segments or ring, with a target | `Progress` (target: `ProgressTarget`) |
 | Where a step or job is: running (turning arc), done, waiting, failed | `ProgressRing` |
+| Whether anything is running, which run, its step and the time (one pill, always visible) | `RunIndicator` |
+| One job in an activity list: state ring, title, when and how far | `TimelineRow` |
+| The stamp under an action that can run again ("Ran 09:24 · 2 s · nothing new") | `LastRun` |
 | One number with its chart, context and caption | `StatCard` |
 | Runs over time as bars, failures red with a cross, a callout, a table behind it (Gate runs) | `BarChart` |
 | How healthy the system is: the segmented arc gauge and the failing checks | `SystemHealth` |

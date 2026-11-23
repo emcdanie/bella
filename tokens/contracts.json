@@ -1799,7 +1799,9 @@
             "measure",
             "measureLabel",
             "size",
-            "measured", "summary", "table"
+            "measured",
+            "summary",
+            "table"
           ],
           "usage": [
             "CHIP health figures (components, failures, indexed chunks, last sync)",
@@ -3724,6 +3726,9 @@
             "progressDone",
             "progressTotal",
             "stepNow",
+            "lastStepAt",
+            "since",
+            "progressLeft",
             "paused",
             "href",
             "onOpen",
@@ -4799,6 +4804,108 @@
           ],
           "a11y": "The video is named by label; captions are on by default. Autoplay is skipped under prefers-reduced-motion and the poster stays until Play is pressed. The button is a BELLA Button with its 44 target; it does not rely on the native control bar.",
           "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "run-indicator": {
+      "$extensions": {
+        "bella": {
+          "name": "RunIndicator",
+          "category": "Data",
+          "description": "One persistent pill that says whether anything is running, which run, its step and how long it has been going; idle, running, done and failed are all drawn so a quiet screen is never ambiguous.",
+          "states": [
+            "idle",
+            "running",
+            "done",
+            "failed"
+          ],
+          "props": [
+            "state",
+            "count",
+            "title",
+            "stepDone",
+            "stepTotal",
+            "since",
+            "elapsed",
+            "onOpen",
+            "expanded",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP header, beside Search (23 Nov 2026, feedback and sense of time)"
+          ],
+          "dont": [
+            "Not a progress bar (Progress)",
+            "Not a toast (Toast): it stays",
+            "No second spinner on the page"
+          ],
+          "a11y": "Button when it opens the list (aria-expanded), otherwise role=img; always named by the whole sentence (\"Running: Fix CheckRow, Step 3 of 7, 2:41 so far\"). A status region announces start and end, never the ticking time. 44 high; edge 3:1; narrow screens keep the ring and the count and the name stays full.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "timeline-row": {
+      "$extensions": {
+        "bella": {
+          "name": "TimelineRow",
+          "category": "Data",
+          "description": "One job in the Activity timeline: a rounded row with its state ring (running, done, queued, did not land), the title and one line of when, how long and how far.",
+          "states": [
+            "running",
+            "done",
+            "waiting",
+            "failed"
+          ],
+          "props": [
+            "title",
+            "line",
+            "state",
+            "stepDone",
+            "stepTotal",
+            "onOpen",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Activity list in the drawer (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a Card (a message or a result is a Notification)",
+            "Never colour alone: the state is a ring shape and a word"
+          ],
+          "a11y": "A button when it opens the run, a plain row otherwise; the state is read as a word (Running, Done, Queued, Did not land). 44 or more high; focus ring on keyboard focus.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "last-run": {
+      "$extensions": {
+        "bella": {
+          "name": "LastRun",
+          "category": "Data",
+          "description": "The stamp under any action that can be run again: what, when, how long, what it found, as one line (\"Ran 09:24 · 2 s · nothing new\").",
+          "states": [
+            "default",
+            "failed"
+          ],
+          "props": [
+            "when",
+            "took",
+            "result",
+            "tone",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Check again, Refresh and Test (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a Tag",
+            "Not for a time on its own (Stat)"
+          ],
+          "a11y": "Plain text in a paragraph; a failed run begins with the words \"Did not land\", so colour is never the only signal. 16px, 1.5 line height; subtle ink 7:1 or more on the page.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
         }
       }
     }

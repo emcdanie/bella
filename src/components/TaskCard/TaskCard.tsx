@@ -5,6 +5,7 @@ import ProgressRing from '../ProgressRing/ProgressRing';
 import { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
 import Trailing from '../Trailing/Trailing';
+import { useAgo, useElapsed } from '../shared/useElapsed';
 import styles from './TaskCard.module.css';
 
 /** A path wraps after each "/", never mid-name: <wbr> marks where it may break. */
@@ -36,6 +37,12 @@ export interface TaskCardProps {
   progressTotal?: number;
   /** progress: the step running now (one line, cut with an ellipsis). */
   stepNow?: string;
+  /** progress: steps left (feedback plan, 23 Nov: every card shows steps done, the step running and what is left). Shown as "3 left" in the line under the step. */
+  progressLeft?: number;
+  /** progress: when the run started (ISO or epoch ms). The line under the step counts up from it, every second. Not while paused. */
+  since?: string | number;
+  /** progress: when the last step finished (ISO or epoch ms). The line says "last step 12 s ago", so a long quiet step reads as alive and slow, not stuck. Not while paused. */
+  lastStepAt?: string | number;
   /** progress: dragged back to Next: a grey ring and "Paused · {stepNow}" instead of the turning arc and "Now · {stepNow}". */
   paused?: boolean;
   /** The whole card opens the task: a link. */
@@ -89,6 +96,9 @@ export default function TaskCard({
   progressDone = 0,
   progressTotal = 0,
   stepNow,
+  progressLeft,
+  since,
+  lastStepAt,
   paused = false,
   href,
   onOpen,
@@ -102,6 +112,9 @@ export default function TaskCard({
   className,
   style,
 }: TaskCardProps) {
+  const elapsed = useElapsed(since, progress && !paused);
+  const lastAgo = useAgo(lastStepAt, progress && !paused);
+  const meta = [progressLeft != null ? (progressLeft === 0 ? 'none left' : `${progressLeft} left`) : null, elapsed, lastAgo ? `last step ${lastAgo}` : null].filter(Boolean).join(' · ');
   const opens = href != null || onOpen != null;
   useEffect(() => {
     if (leaving && window.matchMedia('(prefers-reduced-motion: reduce)').matches) onLeft?.();
@@ -181,6 +194,11 @@ export default function TaskCard({
                 {paused ? 'Paused' : 'Now'} · {stepNow}
               </span>
             </div>
+          ) : null}
+          {meta ? (
+            <span className={styles.stepMeta} data-bella-meta="">
+              {meta}
+            </span>
           ) : null}
         </div>
       ) : null}

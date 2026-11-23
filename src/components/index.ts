@@ -288,3 +288,12 @@ export type { DeckBarProps } from './DeckBar/DeckBar';
 
 export { default as VideoPlayer } from './VideoPlayer/VideoPlayer';
 export type { VideoPlayerProps } from './VideoPlayer/VideoPlayer';
+
+export { default as RunIndicator } from './RunIndicator/RunIndicator';
+export type { RunIndicatorProps, RunIndicatorState } from './RunIndicator/RunIndicator';
+
+export { default as TimelineRow } from './TimelineRow/TimelineRow';
+export type { TimelineRowProps, TimelineRowState } from './TimelineRow/TimelineRow';
+
+export { default as LastRun } from './LastRun/LastRun';
+export type { LastRunProps } from './LastRun/LastRun';

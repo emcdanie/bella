@@ -4621,7 +4621,7 @@
         "bella": {
           "name": "LineChart",
           "category": "Data",
-          "description": "A trend over time: a 1.5 round-capped line over a soft gradient of its tone (fading to nothing at the baseline) on dashed thin gridlines. Hover, touch drag or the arrow keys (Home, End, Escape) stand a 14 wide fully rounded scrubber on the line; above it a dark pill says the change against the previous point or a reference, the value and the label, and the same words go to a live region. Scale starts at zero; baseline=auto needs a stated reason, printed under the chart. Tones success, warning, danger, info, neutral, brand. draw map 900ms or pick 250ms (line left to right, area fades in, scrubber settles). variant=compact is a sparkline with a dot on the last point. Always a one-line summary and a visually hidden table; showViewToggle shows the table on request. Reduced motion draws the end state.",
+          "description": "A trend over time: a 1.5 round-capped line over a soft gradient of its tone (fading to nothing at the baseline) on dashed thin gridlines. Hover, touch drag or the arrow keys (Home, End, Escape) stand a 14 wide fully rounded scrubber on the line; above it a dark pill says the change against the previous point or a reference, the value and the label, and the same words go to a live region. Scale starts at zero; baseline=auto needs a stated reason, printed under the chart. Tones success, warning, danger, info, neutral, brand. draw map 900ms or pick 250ms (line left to right, area fades in, scrubber settles). variant=compact is a sparkline with a dot on the last point. Always a one-line summary and a visually hidden table; showViewToggle shows the table on request. Reduced motion draws the end state. 23 Nov (additive): a point may carry x, and when every point has one they are placed by it on a numeric scale (xRange fixes the ends so two charts share one time axis; labels that would collide are skipped, the last always printed); target draws a dashed 2 wide brand line with its name at the right end, counts toward the y scale and is said in the summary and the table caption.",
           "variants": [
             "full",
             "compact"
@@ -4652,6 +4652,9 @@
             "view",
             "onViewChange",
             "showViewToggle",
+            "xRange",
+            "target",
+            "targetLabel",
             "className",
             "style"
           ],
@@ -4963,6 +4966,68 @@
           "a11y": "role=img with a name and a description (the one-line summary); the keyboard scrubber (arrow keys, Home, End, Esc) says each point in a polite live region; the table of points is visually hidden. The hit area is 44 tall. Reduced motion: the end state at once.",
           "figma": "Drawn inside the published Stat (22 Nov); no Figma part of its own yet.",
           "figmaProps": {}
+        }
+      }
+    },
+    "gap-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "GapChart",
+          "category": "Data",
+          "description": "Two scores per item on one scale: a hollow ring for the base, a solid ink dot for the new value and a line in the tone between them (the gap), on dashed gridlines at 0, half and max, with an axis row and a legend. Each row: the name with its numbers as a meta line (\"84.2 → 45.0\", or one number when there is no base: then only the dot, no line), the track, the gap in the number face in the tone's ink, a Tag word, and an optional tertiary Why button that opens the reason under the row. One line per row in a container 760 wide or more, stacked below (container query). Tones success, danger, warning; neutral is grey for no real change. A table of the same data sits behind a Disclosure.",
+          "states": [
+            "default",
+            "why-open",
+            "no-base"
+          ],
+          "props": [
+            "rows",
+            "label",
+            "baseLabel",
+            "valueLabel",
+            "max",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: benchmark runs and jobs, AGENTS.md against no file (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not one value over time (LineChart)",
+            "Not a share of a total from a middle zero (ShareBars)",
+            "Never colour alone: the gap number and the Tag word carry the meaning"
+          ],
+          "a11y": "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "share-bars": {
+      "$extensions": {
+        "bella": {
+          "name": "ShareBars",
+          "category": "Data",
+          "description": "How much each item adds to or takes from a total, from a middle zero: one row per item, a dashed 2 wide zero line at the middle, a round-ended bar growing left for a negative share and right for a positive one (length is the share over max, half the track at max; at least 1% when not zero; none at zero), the name with a meta line under it, and the signed share in the number face at the row end (real minus sign). One line per row in a container 760 wide or more, stacked below (container query). Tones success, danger; neutral is grey for no real change. A table of the same data sits behind a Disclosure.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "rows",
+            "label",
+            "max",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: each check's weighted share of the score gap (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not runs over time (BarChart)",
+            "Not two scores per item (GapChart)",
+            "Never a pie or a stacked bar for parts of a change"
+          ],
+          "a11y": "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
         }
       }
     }

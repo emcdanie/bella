@@ -194,6 +194,42 @@ export const WithFooterNote: Story = {
   },
 };
 
+/** Header and footer stay put, only the body scrolls (23 Nov 2026), with short content and with long content that
+ *  holds absolutely placed screen-reader text (as Progress has): the footer's bottom is the drawer's bottom edge and
+ *  the drawer itself never scrolls. */
+function PinnedFooter({ rows }: { rows: number }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <Drawer
+      open={open}
+      onClose={() => setOpen(false)}
+      label={rows > 10 ? 'Long content' : 'Short content'}
+      side="right"
+      size="lg"
+      footerNote="Opens the plan; nothing runs until you approve it."
+      footer={<Button variant="primary" onClick={() => setOpen(false)}>Plan the build</Button>}
+    >
+      <ul style={{ margin: 0, padding: 'var(--spacing-16)', display: 'grid', gap: 'var(--spacing-12)' }}>
+        {Array.from({ length: rows }, (_, i) => (
+          <li key={i}>
+            {`Part ${i + 1}`}
+            <span style={{ position: 'absolute', inlineSize: 1, blockSize: 1, overflow: 'hidden', clipPath: 'inset(50%)' }}>{`Part ${i + 1}: ${i} differences`}</span>
+          </li>
+        ))}
+      </ul>
+    </Drawer>
+  );
+}
+const pinned = async () => {
+  const dialog = document.querySelector('dialog[open]') as HTMLDialogElement;
+  const body = dialog.querySelector(':scope > [role="region"]') as HTMLElement;
+  const footer = body.nextElementSibling as HTMLElement;
+  await expect(dialog.scrollHeight).toBeLessThanOrEqual(dialog.clientHeight + 1);
+  await expect(Math.abs(footer.getBoundingClientRect().bottom - dialog.getBoundingClientRect().bottom)).toBeLessThan(1.5);
+};
+export const FooterPinnedShort: Story = { render: () => <PinnedFooter rows={3} />, play: pinned };
+export const FooterPinnedLong: Story = { render: () => <PinnedFooter rows={60} />, play: pinned };
+
 /** Goes as it came (rule "Motion that shows what happened", item 8): Close slides the panel back to
  * its edge and fades the scrim, once, then the dialog closes and focus returns. Reduced motion: it
  * closes at once. */

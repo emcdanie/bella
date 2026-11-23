@@ -38,6 +38,10 @@
 .drawer[open] {
   display: flex;
   flex-direction: column;
+  /* the drawer never scrolls itself; only the body does (23 Nov 2026, CHIP's Drift drawer in a 722 x 1000 pane: a
+     Progress bar's screen-reader text, absolutely placed, measured against the dialog and made it 1512 tall, so a
+     scroll over the footer moved the whole drawer and left the footer mid-panel over empty white) */
+  overflow: hidden;
   transform: none;
   transition: transform var(--motion-duration-250) var(--motion-easing-standard);
 }
@@ -167,6 +171,9 @@
   flex: 1;
   min-block-size: 0;
   overflow: auto;
+  /* the containing block for anything absolutely placed inside (screen-reader text, a tooltip), so it scrolls with
+     the content and never stretches the dialog */
+  position: relative;
   /* Figma Body (21 Nov publish): spacing/8 at the sides, so the rows' own
      16 inset (NavList, Project panel) lands on the title's 24 edge: one
      left edge at 24. Top 24 is the one gap under the head (Figma Head 24

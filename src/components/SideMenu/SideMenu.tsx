@@ -17,6 +17,12 @@ export interface SideMenuItem {
   current?: boolean;
   /** Called on click (a button row, or a link the app routes in place). */
   onClick?: (event: MouseEvent<HTMLElement>) => void;
+  /**
+   * What opens under this row (CHIP, 23 Nov 2026: System's component list lives in the menu, not in a second column on
+   * the page): a find field, a filter and the rows, drawn indented on a line under the row. It flows with the menu and
+   * scrolls with it, never in a box of its own. Pass it only for the current row.
+   */
+  sub?: ReactNode;
 }
 
 export interface SideMenuProps {
@@ -97,6 +103,7 @@ export default function SideMenu({
           if (it.href && onNavigate) onNavigate(it.href, e);
         }}
       />
+      {it.sub != null ? <div className={styles.sub}>{it.sub}</div> : null}
     </li>
   );
   const group = (name: string, rows: SideMenuItem[], fallbackIcon?: IconName) => {

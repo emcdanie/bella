@@ -68,7 +68,7 @@ export const NoPlace: Story = {
   render: Default.render,
 };
 
-/** Behavior: 68 tall; Place is a breadcrumb nav with the current page marked; search is a search landmark
+/** Behavior: 56 tall (CHIP, 23 Nov, was 68); Place is a breadcrumb nav with the current page marked; search is a search landmark
  * on the right, beside the bell, no wider than 420; Tab runs parent, search, bell; 44 targets. */
 export const Behavior: Story = {
   render: (args) => <Bar {...args} />,
@@ -76,8 +76,8 @@ export const Behavior: Story = {
     const c = within(canvasElement);
     const bar = canvasElement.querySelector('[data-bella-component="top-bar"]') as HTMLElement;
 
-    await step('68 tall', async () => {
-      await expect(Math.round(bar.getBoundingClientRect().height)).toBe(68);
+    await step('56 tall', async () => {
+      await expect(Math.round(bar.getBoundingClientRect().height)).toBe(56);
     });
 
     await step('Place: a breadcrumb, the parent a link, the current page marked', async () => {

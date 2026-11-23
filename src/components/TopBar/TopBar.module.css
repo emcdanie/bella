@@ -13,9 +13,11 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-16);
-  padding: var(--spacing-12) var(--spacing-32);
+  padding: 0 var(--spacing-32);
+  /* 56 (CHIP, 23 Nov, "page chrome is small"; was 68): a 44 target with 6 of air above and below */
+  min-block-size: calc(var(--size-28) * 2);
   background: var(--color-background-surface);
-  /* the line is drawn inside (inset shadow, as Figma's inside stroke), so the bar stays 68 */
+  /* the line is drawn inside (inset shadow, as Figma's inside stroke), so the bar stays 56 */
   box-shadow: inset 0 calc(-1 * var(--border-width-1)) 0 var(--color-border-default);
 }
 

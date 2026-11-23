@@ -133,3 +133,45 @@
   color: var(--color-content-subtle);
   text-wrap: pretty;
 }
+
+/* size bar (CHIP, 23 Nov, "page chrome is small"): one 56 row, breadcrumb parents then the title, the action at the right edge. */
+.header[data-size='bar'] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-block-size: calc(var(--size-28) * 2);
+}
+.header[data-size='bar'] .meta {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--size-24);
+}
+.header[data-size='bar'] .meta::after {
+  content: '\203A';
+  color: var(--color-content-subtle);
+}
+.header[data-size='bar'] .row {
+  flex: 1;
+  flex-wrap: nowrap;
+  min-inline-size: 0;
+}
+.header[data-size='bar'] .title {
+  font-size: var(--typography-font-size-22);
+  line-height: var(--size-28);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+.header[data-size='bar'] .actions {
+  flex-wrap: nowrap;
+}
+/* a breadcrumb that is only its way-back arrow (a phone) has no separator after it */
+.header[data-size='bar'] .meta:has([data-no-separator])::after {
+  content: none;
+}

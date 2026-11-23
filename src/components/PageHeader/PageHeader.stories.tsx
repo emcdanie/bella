@@ -157,3 +157,17 @@ export const Sizes: Story = {
     }
   },
 };
+
+/** size bar (CHIP, 23 Nov, "page chrome is small"): one 56 row, the breadcrumb's parents then the title (the one h1, 22 on 28), the action at the right edge. */
+export const Bar: Story = {
+  render: () => (
+    <section aria-label="size bar">
+      <PageHeader size="bar" meta="CHIP › System" title="Components" actions={<Button variant="primary" size="sm">New</Button>} />
+    </section>
+  ),
+  play: async ({ canvasElement }) => {
+    const header = canvasElement.querySelector('header') as HTMLElement;
+    await expect(header.getBoundingClientRect().height).toBeLessThanOrEqual(56);
+    await expect(getComputedStyle(canvasElement.querySelector('h1') as HTMLElement).fontSize).toBe('22px');
+  },
+};

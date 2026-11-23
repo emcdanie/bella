@@ -24,8 +24,11 @@ export interface PageHeaderProps {
   /**
    * Figma "size" (PageHeader set 1663:281509). page (default) or project (a project's tabs). Since 22 Nov
    * 19:08 both set the title 28 on 36 and the meta and health lines 14 on 20.
+   * bar (CHIP, 23 Nov, "page chrome is small"): ONE 56 row. The meta (the breadcrumb's parents) and the title (its
+   * last segment, still the page's one h1, 22 on 28) read as one line, the page's one action at the right edge.
+   * No lede, health line or story link in a bar: they are left out.
    */
-  size?: 'page' | 'project';
+  size?: 'page' | 'project' | 'bar';
   /** The h1's id. */
   id?: string;
   className?: string;
@@ -70,17 +73,17 @@ export default function PageHeader({
             </h1>
             {titleAside != null ? <div className={styles.titleAside}>{titleAside}</div> : null}
           </div>
-          {storyLink ? (
+          {storyLink && size !== 'bar' ? (
             <span className={styles.storyLink}>
               <Link href={storyLink.href}>{storyLink.label}</Link>
               <Trailing />
             </span>
           ) : null}
-          {health != null ? <p className={styles.health} data-bella-meta>{health}</p> : null}
+          {health != null && size !== 'bar' ? <p className={styles.health} data-bella-meta>{health}</p> : null}
         </div>
         {actions != null ? <div className={styles.actions}>{actions}</div> : null}
       </div>
-      {lede != null ? <p className={styles.lede}>{lede}</p> : null}
+      {lede != null && size !== 'bar' ? <p className={styles.lede}>{lede}</p> : null}
     </header>
   );
 }

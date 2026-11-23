@@ -14265,6 +14265,57 @@ entries:
         states:
           - default
           - failed
+  - kind: component
+    id: sparkline
+    name: Sparkline
+    description: "A mini trend line (23 Nov 2026; moved out of Stat, rule 2: a mark used in two parts is its own part): a 1px ink line and an end dot in a 80 by 24 drawing, a scrubber with BELLA's Tooltip as the callout, a one-line summary and a table behind it. It zooms to the series' own low and high, so a small change still reads as a slope; the numbers are in the summary, the table and the callout. Stat and StatCard draw it."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "role=img with a name and a description (the one-line summary); the keyboard scrubber (arrow keys, Home, End, Esc) says each point in a polite live region; the table of points is visually hidden. The hit area is 44 tall. Reduced motion: the end state at once."
+      tags:
+        - component
+        - sparkline
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Stat (series)
+          - level: may
+            statement: Stat card (series, under the number)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Never invent a series: it is the values that were kept"
+          - level: must-not
+            statement: "Never read the height as an amount: it is a shape"
+    refs:
+      - href: ./src/components/Sparkline/Sparkline.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Sparkline/Sparkline.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - scrubbing
   - kind: entry
     id: foundation-color
     name: Colour

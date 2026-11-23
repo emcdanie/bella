@@ -1,0 +1,81 @@
+/* Sparkline: moved out of Stat.module.css unchanged (23 Nov 2026). */
+
+/* the sparkline: a 1px ink line and an end dot. Its shape and the arrow plus
+   spoken word carry the direction; colour carries nothing */
+.spark {
+  inline-size: var(--spacing-80);
+  block-size: var(--spacing-24);
+  flex: none;
+  overflow: visible;
+  /* the scrubber's hit area is 44 tall (the target floor): padding round the
+     24 drawing, undone by a negative margin so the layout does not move */
+  box-sizing: content-box;
+  padding-block: calc((var(--spacing-44) - var(--spacing-24)) / 2);
+  margin-block: calc((var(--spacing-44) - var(--spacing-24)) / -2);
+}
+
+.spark polyline {
+  fill: none;
+  stroke: var(--color-content-default);
+  stroke-width: var(--border-width-1);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.spark circle {
+  fill: var(--color-content-default);
+}
+
+/* Chart motion (22 Nov): the line draws left to right on first show
+   (pathLength 1, so one dash is the whole line), then the end dot fades in */
+.spark polyline {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: sparkDraw var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+.spark circle {
+  animation: sparkDot var(--motion-duration-150) var(--motion-easing-out) var(--motion-duration-450) backwards;
+}
+
+@keyframes sparkDraw {
+  from { stroke-dashoffset: 1; }
+}
+
+@keyframes sparkDot {
+  from { opacity: 0; }
+}
+
+/* the scrubber's guide: 1px in border/strong, the drawing's full height */
+.spark .guide {
+  stroke: var(--color-border-strong);
+  stroke-width: var(--border-width-1);
+  vector-effect: non-scaling-stroke;
+}
+
+.spark:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--border-radius-sm);
+}
+
+/* reduced motion, read in JS too (useReducedMotion): the end state at once */
+.spark.still polyline,
+.spark.still circle {
+  animation: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark polyline,
+  .spark circle { animation: none; }
+}

@@ -4920,6 +4920,39 @@
           "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
         }
       }
+    },
+    "sparkline": {
+      "$extensions": {
+        "bella": {
+          "name": "Sparkline",
+          "category": "Data",
+          "description": "A mini trend line (23 Nov 2026; moved out of Stat, rule 2: a mark used in two parts is its own part): a 1px ink line and an end dot in a 80 by 24 drawing, a scrubber with BELLA's Tooltip as the callout, a one-line summary and a table behind it. It zooms to the series' own low and high, so a small change still reads as a slope; the numbers are in the summary, the table and the callout. Stat and StatCard draw it.",
+          "states": [
+            "default",
+            "scrubbing"
+          ],
+          "props": [
+            "series",
+            "names",
+            "label",
+            "range",
+            "summary",
+            "table",
+            "caption"
+          ],
+          "usage": [
+            "Stat (series)",
+            "Stat card (series, under the number)"
+          ],
+          "dont": [
+            "Never invent a series: it is the values that were kept",
+            "Never read the height as an amount: it is a shape"
+          ],
+          "a11y": "role=img with a name and a description (the one-line summary); the keyboard scrubber (arrow keys, Home, End, Esc) says each point in a polite live region; the table of points is visually hidden. The hit area is 44 tall. Reduced motion: the end state at once.",
+          "figma": "Drawn inside the published Stat (22 Nov); no Figma part of its own yet.",
+          "figmaProps": {}
+        }
+      }
     }
   }
 }

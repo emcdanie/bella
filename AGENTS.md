@@ -78,6 +78,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | The thin column of view tools beside a stage: zoom, fit, light or dark, mark up, compare | `ToolColumn` |
 | The actions on one thing, from a "…" button | `Menu` |
 | A trend over time (line and soft area, scrubber and callout) and its sparkline | `LineChart` |
+| The mini trend line of a stat (line, end dot, scrubber, summary and table) | `Sparkline` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |
 | One step of a process map (name and health), joined by `MapLine` curves | `MapNode` |

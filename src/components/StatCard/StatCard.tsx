@@ -2,7 +2,7 @@ import React, { type CSSProperties, type ReactNode } from 'react';
 import IconWell from '../IconWell/IconWell';
 import Trailing from '../Trailing/Trailing';
 import Progress, { type ProgressPart } from '../Progress/Progress';
-import { Sparkline, sparkSummary } from '../Stat/Stat';
+import Sparkline, { sparkSummary } from '../Sparkline/Sparkline';
 import useCountTo from '../shared/useCountTo';
 import type { IconName } from '../Icon/Icon';
 import styles from './StatCard.module.css';

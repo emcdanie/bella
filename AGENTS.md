@@ -65,6 +65,9 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | A variant or state thumbnail with its label; a row picks one | `VariantTile` |
 | One step of a code walkthrough ("Help me understand"): pin, text, Back / Next | `TourStep` |
 | A connected app or service: its icon on a coloured tile, optional badge | `AppTile` |
+| One 16:9 slide (drawn at 1280 by 720, scaled to fit); the first or last slide with an eyebrow, hero title and lead | `Slide`, `TitleSlide` |
+| Controls under a presented deck: Back, count, Next, Notes, All slides | `DeckBar` |
+| A silent clip with a still, captions and a Play or Pause button (a deck's opening film) | `VideoPlayer` |
 | A short message after an action that comes and goes (Notification stays) | `Toast` |
 | One connected service on Connectors: app tile, status, name, value, one action | `ConnectorTile` |
 | Work board: a lane of cards, one task card, a group's name in an order | `BoardLane`, `TaskCard`, `GroupHead` |

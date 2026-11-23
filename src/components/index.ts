@@ -276,3 +276,15 @@ export type { MapLeafProps } from './MapLeaf/MapLeaf';
 
 export { default as LineChart } from './LineChart/LineChart';
 export type { LineChartProps, LineChartPoint } from './LineChart/LineChart';
+
+export { default as Slide } from './Slide/Slide';
+export type { SlideProps } from './Slide/Slide';
+
+export { default as TitleSlide } from './TitleSlide/TitleSlide';
+export type { TitleSlideProps } from './TitleSlide/TitleSlide';
+
+export { default as DeckBar } from './DeckBar/DeckBar';
+export type { DeckBarProps } from './DeckBar/DeckBar';
+
+export { default as VideoPlayer } from './VideoPlayer/VideoPlayer';
+export type { VideoPlayerProps } from './VideoPlayer/VideoPlayer';

@@ -42,6 +42,12 @@ export interface StatProps {
   measureLabel?: string;
   /** False when there is no real figure yet: only the label and "Not measured" show; no bar, sparkline or change line. Never invent a figure. Default true. */
   measured?: boolean;
+  /**
+   * `"display"` is the presenting size (deck plan, 23 Nov 2026): the figure in Geist Mono Bold 88 for a
+   * slide read from the back of a room. Default `"default"` is the 40 card figure. The label, change
+   * line and sparkline keep their sizes; the 16 floor is untouched.
+   */
+  size?: 'default' | 'display';
   /** Extra classes on the root. */
   className?: string;
 }
@@ -253,6 +259,7 @@ export default function Stat({
   measure,
   measureLabel,
   measured = true,
+  size = 'default',
   className,
 }: StatProps) {
   /* A new figure (rule "Motion that shows what happened", items 1 and 5): a
@@ -267,7 +274,7 @@ export default function Stat({
   const fill = measured && typeof measure === 'number' ? Math.min(1, Math.max(0, measure)) : null;
   return (
     <dl
-      className={[styles.stat, className].filter(Boolean).join(' ')}
+      className={[styles.stat, size === 'display' ? styles.display : '', className].filter(Boolean).join(' ')}
       data-bella-component="stat"
       data-measured={measured ? undefined : 'false'}
       data-bella-reveal={spark ? '' : undefined}

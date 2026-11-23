@@ -13908,6 +13908,206 @@ entries:
           - hover
           - selected
           - focus
+  - kind: component
+    id: slide
+    name: Slide
+    description: One 16:9 slide drawn at 1280 by 720 and scaled to the width it is given; a card frame that holds BELLA parts.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: role group named "slide" with the label as its name. Content is drawn at the 16 px floor and scaled down only to fit; a slide is never scaled up past its design size.
+      tags:
+        - component
+        - slide
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: A deck stage, the all-slides grid and slide thumbnails (deck plan, 23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a page (PageHeader and Section)
+          - level: must-not
+            statement: Not a card in a grid (Card)
+    refs:
+      - href: ./src/components/Slide/Slide.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Slide/Slide.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - centered
+  - kind: component
+    id: title-slide
+    name: TitleSlide
+    description: "The opening or closing slide: an eyebrow, the hero title, one lead sentence and a foot line, centred on a Slide."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: The title is an h2 inside the slide group; the group is named by label or the title text.
+      tags:
+        - component
+        - title-slide
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: First and last slide of a deck (deck plan, 23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a content slide (Slide)
+          - level: must-not
+            statement: Not a page heading (PageHeader)
+    refs:
+      - href: ./src/components/TitleSlide/TitleSlide.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/TitleSlide/TitleSlide.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - title-only
+  - kind: component
+    id: deck-bar
+    name: DeckBar
+    description: "The controls under a presented deck: Back, the count with one segment per slide, Next, and Notes and All slides."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: A labelled group. Back and Next are disabled, not hidden, at the ends. Notes is a toggle (aria-pressed). The count is read in the progress name; the visible text is hidden from the tree to avoid a double read.
+      tags:
+        - component
+        - deck-bar
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: Under the deck stage in the Present page (deck plan, 23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a tour step (TourStep)
+          - level: must-not
+            statement: Not site navigation (SectionNav)
+    refs:
+      - href: ./src/components/DeckBar/DeckBar.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/DeckBar/DeckBar.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - first
+          - last
+          - notes-open
+  - kind: component
+    id: video-player
+    name: VideoPlayer
+    description: A silent 16:9 clip with a still, captions and a visible Play or Pause button; autoplays muted unless the person wants less motion.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: The video is named by label; captions are on by default. Autoplay is skipped under prefers-reduced-motion and the poster stays until Play is pressed. The button is a BELLA Button with its 44 target; it does not rely on the native control bar.
+      tags:
+        - component
+        - video-player
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: The opening film of a deck (deck plan, 23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Not for sound or long video: no volume or scrub"
+          - level: must-not
+            statement: Not a hero background loop
+    refs:
+      - href: ./src/components/VideoPlayer/VideoPlayer.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/VideoPlayer/VideoPlayer.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - playing
+          - paused
+          - ended
+          - reduced-motion
   - kind: entry
     id: foundation-color
     name: Colour

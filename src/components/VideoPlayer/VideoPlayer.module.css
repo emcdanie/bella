@@ -1,0 +1,31 @@
+/* Video player (deck plan, 23 Nov 2026). Tokens only. A figure: the 16:9 clip in a card frame (1px
+ * border/default, radius 16, shadow/soft, on content/default ground so a letterbox is dark ink),
+ * and the control row under it with the Play or Pause button on the left. */
+
+.player {
+  box-sizing: border-box;
+  inline-size: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+}
+
+.video {
+  display: block;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-16);
+  background: var(--color-content-default);
+  box-shadow: var(--shadow-soft);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+}

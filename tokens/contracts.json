@@ -1798,6 +1798,7 @@
             "icon",
             "measure",
             "measureLabel",
+            "size",
             "measured", "summary", "table"
           ],
           "usage": [
@@ -4671,6 +4672,133 @@
           ],
           "a11y": "A button with aria-pressed. The dot is a StatusDot named by the status word, so the word is read once; the visible word is aria-hidden. Text 7:1; the resting edge is a hairline (decoration), the selected edge 4.05:1; the status is never colour alone (the word says it). Focus ring 4 wide, 4 gap, corner 16.",
           "figma": "Matches BellaComponents MapNode 794:169078 (22 Nov 2026): tone default, attention, blocked; selected; 176 wide, corner 12, flat. Show hotspot (the Pin badge on the corner) is not built: the map board places its pins itself."
+        }
+      }
+    },
+    "slide": {
+      "$extensions": {
+        "bella": {
+          "name": "Slide",
+          "category": "Layout",
+          "description": "One 16:9 slide drawn at 1280 by 720 and scaled to the width it is given; a card frame that holds BELLA parts.",
+          "states": [
+            "default",
+            "centered"
+          ],
+          "props": [
+            "label",
+            "children",
+            "centered",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A deck stage, the all-slides grid and slide thumbnails (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a page (PageHeader and Section)",
+            "Not a card in a grid (Card)"
+          ],
+          "a11y": "role group named \"slide\" with the label as its name. Content is drawn at the 16 px floor and scaled down only to fit; a slide is never scaled up past its design size.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "title-slide": {
+      "$extensions": {
+        "bella": {
+          "name": "TitleSlide",
+          "category": "Layout",
+          "description": "The opening or closing slide: an eyebrow, the hero title, one lead sentence and a foot line, centred on a Slide.",
+          "states": [
+            "default",
+            "title-only"
+          ],
+          "props": [
+            "label",
+            "eyebrow",
+            "title",
+            "lead",
+            "footer",
+            "className"
+          ],
+          "usage": [
+            "First and last slide of a deck (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a content slide (Slide)",
+            "Not a page heading (PageHeader)"
+          ],
+          "a11y": "The title is an h2 inside the slide group; the group is named by label or the title text.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "deck-bar": {
+      "$extensions": {
+        "bella": {
+          "name": "DeckBar",
+          "category": "Layout",
+          "description": "The controls under a presented deck: Back, the count with one segment per slide, Next, and Notes and All slides.",
+          "states": [
+            "default",
+            "first",
+            "last",
+            "notes-open"
+          ],
+          "props": [
+            "current",
+            "total",
+            "onBack",
+            "onNext",
+            "onNotes",
+            "notesOpen",
+            "onGrid",
+            "className"
+          ],
+          "usage": [
+            "Under the deck stage in the Present page (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a tour step (TourStep)",
+            "Not site navigation (SectionNav)"
+          ],
+          "a11y": "A labelled group. Back and Next are disabled, not hidden, at the ends. Notes is a toggle (aria-pressed). The count is read in the progress name; the visible text is hidden from the tree to avoid a double read.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "video-player": {
+      "$extensions": {
+        "bella": {
+          "name": "VideoPlayer",
+          "category": "Layout",
+          "description": "A silent 16:9 clip with a still, captions and a visible Play or Pause button; autoplays muted unless the person wants less motion.",
+          "states": [
+            "playing",
+            "paused",
+            "ended",
+            "reduced-motion"
+          ],
+          "props": [
+            "src",
+            "poster",
+            "captions",
+            "captionsLang",
+            "label",
+            "autoPlay",
+            "loop",
+            "className"
+          ],
+          "usage": [
+            "The opening film of a deck (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not for sound or long video: no volume or scrub",
+            "Not a hero background loop"
+          ],
+          "a11y": "The video is named by label; captions are on by default. Autoplay is skipped under prefers-reduced-motion and the poster stays until Play is pressed. The button is a BELLA Button with its 44 target; it does not rely on the native control bar.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
         }
       }
     }

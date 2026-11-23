@@ -264,3 +264,29 @@
   .line { stroke: CanvasText; }
   .scrub, .dot { background: CanvasText; }
 }
+
+/* target (23 Nov 2026, Audit reports): a dashed 2 wide brand line across the plot, its name at the right end above it */
+.target {
+  position: absolute;
+  inset-inline: 0;
+  block-size: 0;
+  border-block-start: var(--border-width-2) dashed var(--color-border-brand);
+  pointer-events: none;
+}
+
+.targetLabel {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: var(--spacing-4);
+  white-space: nowrap;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-brand);
+}
+
+@media (forced-colors: active) {
+  .target { border-color: CanvasText; }
+}

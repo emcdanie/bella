@@ -227,3 +227,47 @@ export const ReducedMotion: Story = {
     await expect(root.querySelector('[data-testid="line-chart-callout"]')).not.toBeNull();
   },
 };
+
+/* days since 8 Oct, so both charts share one time axis (8 Oct to 23 Nov) */
+const composite = [
+  { label: '8 Oct', x: 0, value: 73.4 },
+  { label: '9 Oct', x: 1, value: 85.6 },
+  { label: '12 Nov', x: 35, value: 74.6 },
+  { label: '21 Nov', x: 44, value: 74.5 },
+];
+const filesOnly = [
+  { label: '8 Oct', x: 0, value: 42.8 },
+  { label: '9 Oct', x: 1, value: 65.8 },
+  { label: '12 Nov', x: 35, value: 64.7 },
+  { label: '21 Nov', x: 44, value: 63.9 },
+];
+
+/** Points placed by x on a shared time scale (xRange), with a dashed target line; the summary and table caption say the target. */
+export const OnATimeScaleWithATarget: Story = {
+  name: 'On a time scale with a target',
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', gridTemplateColumns: 'repeat(auto-fit, minmax(18rem, 1fr))', padding: 'var(--spacing-16)' }}>
+      <Frame w="auto">
+        <LineChart points={composite} label="Readiness score (with the agent run)" xRange={[0, 46]} target={70} targetLabel="Target 70" tone="neutral" area={false} />
+      </Frame>
+      <Frame w="auto">
+        <LineChart points={filesOnly} label="Readiness score (files only)" xRange={[0, 46]} tone="neutral" area={false} />
+      </Frame>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [withTarget, plain] = Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="line-chart"]'));
+    await expect(withTarget.querySelector('[data-testid="line-chart-target"]')).toHaveTextContent('Target 70');
+    await expect(plain.querySelector('[data-testid="line-chart-target"]')).toBeNull();
+    await expect(withTarget).toHaveTextContent('against a target of 70');
+    await expect(withTarget.querySelector('table[data-bella-chart-table] caption')).toHaveTextContent('Readiness score (with the agent run), target 70');
+    /* placed by x: 9 Oct (day 1) sits near the left, 12 Nov (day 35) at 35/46 of the width */
+    const cells = Array.from(withTarget.querySelectorAll<HTMLElement>('[class*="xCell"]')).map((c) => parseFloat(c.style.left));
+    await expect(Math.round(cells[2])).toBe(Math.round((35 / 46) * 100));
+    const slider = withTarget.querySelector('[role="slider"]') as HTMLElement;
+    slider.focus();
+    await userEvent.keyboard('{Home}{ArrowRight}');
+    await expect(slider).toHaveAttribute('aria-valuenow', '1');
+    slider.blur();
+  },
+};

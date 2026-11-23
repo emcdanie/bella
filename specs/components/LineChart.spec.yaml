@@ -15,12 +15,12 @@ props:
     type: LineChartPoint[]
     required: true
     doc: One point per step, left to right. Fewer than two points shows the empty state.
-    at: src/components/LineChart/LineChart.tsx:16
+    at: src/components/LineChart/LineChart.tsx:18
   - name: label
     type: string
     required: true
     doc: What the chart is, for assistive tech and the table caption ("Audit score").
-    at: src/components/LineChart/LineChart.tsx:18
+    at: src/components/LineChart/LineChart.tsx:20
   - name: tone
     type: '''success'' | ''warning'' | ''danger'' | ''info'' | ''neutral'' | ''brand'''
     values:
@@ -35,7 +35,7 @@ props:
     doc: >-
       Semantic colour of the line, area and scrubber: success, warning, danger, info, neutral or brand. Status colours keep their meaning on
       every page; the callout and summary carry the meaning in words.
-    at: src/components/LineChart/LineChart.tsx:20
+    at: src/components/LineChart/LineChart.tsx:22
   - name: area
     type: boolean
     values:
@@ -44,12 +44,12 @@ props:
     default: true
     required: false
     doc: The soft gradient under the line, fading from the tone to nothing at the baseline.
-    at: src/components/LineChart/LineChart.tsx:22
+    at: src/components/LineChart/LineChart.tsx:24
   - name: unit
     type: string
     required: false
     doc: The unit after each value ("%", "ms", "runs").
-    at: src/components/LineChart/LineChart.tsx:24
+    at: src/components/LineChart/LineChart.tsx:26
   - name: baseline
     type: '''zero'' | ''auto'''
     values:
@@ -60,14 +60,14 @@ props:
     doc: >-
       zero (default): the scale starts at zero. auto: the scale fits the data, for a chart about change; it must come with `baselineReason`,
       which is printed under the chart.
-    at: src/components/LineChart/LineChart.tsx:26
+    at: src/components/LineChart/LineChart.tsx:28
   - name: baselineReason
     type: string
     required: false
     doc: >-
       Why the scale does not start at zero ("Shows change in score, not the score"). Required with baseline="auto" and printed under the
       chart.
-    at: src/components/LineChart/LineChart.tsx:28
+    at: src/components/LineChart/LineChart.tsx:30
   - name: grid
     type: boolean
     values:
@@ -76,7 +76,7 @@ props:
     default: true
     required: false
     doc: Dashed thin gridlines (full variant).
-    at: src/components/LineChart/LineChart.tsx:30
+    at: src/components/LineChart/LineChart.tsx:32
   - name: scrubber
     type: boolean
     values:
@@ -85,7 +85,7 @@ props:
     default: true
     required: false
     doc: 'The scrubber: hover, touch drag, and the arrow keys, Home and End move it; Escape clears it. Off = a plain line.'
-    at: src/components/LineChart/LineChart.tsx:32
+    at: src/components/LineChart/LineChart.tsx:34
   - name: callout
     type: boolean
     values:
@@ -94,29 +94,29 @@ props:
     default: true
     required: false
     doc: The callout above the scrubber (value, label and the change against the reference).
-    at: src/components/LineChart/LineChart.tsx:34
+    at: src/components/LineChart/LineChart.tsx:36
   - name: reference
     type: '''previous'' | number'
     default: previous
     required: false
     doc: 'What the change in the callout is measured against: the previous point (default), or a number (a target or last week''s value).'
-    at: src/components/LineChart/LineChart.tsx:36
+    at: src/components/LineChart/LineChart.tsx:38
   - name: selectedIndex
     type: number | null
     required: false
     doc: The picked point's index, or null for none. Controlled when set.
-    at: src/components/LineChart/LineChart.tsx:38
+    at: src/components/LineChart/LineChart.tsx:40
   - name: defaultSelectedIndex
     type: number | null
     default: 'null'
     required: false
     doc: The picked point at the start, when uncontrolled.
-    at: src/components/LineChart/LineChart.tsx:40
+    at: src/components/LineChart/LineChart.tsx:42
   - name: onSelectedIndexChange
     type: '(index: number | null) => void'
     required: false
     doc: Fires when the pick changes (hover, drag, keys, Escape).
-    at: src/components/LineChart/LineChart.tsx:42
+    at: src/components/LineChart/LineChart.tsx:44
   - name: draw
     type: '''none'' | ''map'' | ''pick'''
     values:
@@ -128,7 +128,7 @@ props:
     doc: >-
       Draw-in: the line draws left to right and the area fades in. map = 900ms (first draw), pick = 250ms (a refresh). none = at once.
       Replays when it changes. Reduced motion draws at once.
-    at: src/components/LineChart/LineChart.tsx:44
+    at: src/components/LineChart/LineChart.tsx:46
   - name: variant
     type: '''full'' | ''compact'''
     values:
@@ -139,12 +139,12 @@ props:
     doc: >-
       full: axes, grid, scrubber and callout. compact: a sparkline for a stat card or drawer, with the line, the area and a dot on the last
       point, no axes, no grid, no scrubber.
-    at: src/components/LineChart/LineChart.tsx:46
+    at: src/components/LineChart/LineChart.tsx:48
   - name: summary
     type: string
     required: false
     doc: The one-line summary under the chart, always present. Missing = written from the data.
-    at: src/components/LineChart/LineChart.tsx:48
+    at: src/components/LineChart/LineChart.tsx:50
   - name: view
     type: '''chart'' | ''table'''
     values:
@@ -152,11 +152,11 @@ props:
       - table
     required: false
     doc: chart or table; the table is the same data. Missing = held by the chart.
-    at: src/components/LineChart/LineChart.tsx:50
+    at: src/components/LineChart/LineChart.tsx:52
   - name: onViewChange
     type: '(view: ''chart'' | ''table'') => void'
     required: false
-    at: src/components/LineChart/LineChart.tsx:51
+    at: src/components/LineChart/LineChart.tsx:53
   - name: showViewToggle
     type: boolean
     values:
@@ -165,15 +165,32 @@ props:
     default: false
     required: false
     doc: 'The "Show table" button. Off by default: the table is always there for screen readers, visually hidden.'
-    at: src/components/LineChart/LineChart.tsx:53
+    at: src/components/LineChart/LineChart.tsx:55
+  - name: xRange
+    type: '[number, number]'
+    required: false
+    doc: The ends of the x scale, when every point has `x` (so two charts share one time axis). Missing = the first and last x.
+    at: src/components/LineChart/LineChart.tsx:57
+  - name: target
+    type: number
+    required: false
+    doc: >-
+      A target value: a dashed 2 wide brand line across the plot with its name at the right end. Counts toward the y scale; the summary and
+      the table caption say it.
+    at: src/components/LineChart/LineChart.tsx:59
+  - name: targetLabel
+    type: string
+    required: false
+    doc: The target's name on the line ("Target 70"). Missing = "Target" and the value.
+    at: src/components/LineChart/LineChart.tsx:61
   - name: className
     type: string
     required: false
-    at: src/components/LineChart/LineChart.tsx:54
+    at: src/components/LineChart/LineChart.tsx:62
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/LineChart/LineChart.tsx:55
+    at: src/components/LineChart/LineChart.tsx:63
 variants:
   tone:
     values:
@@ -184,32 +201,32 @@ variants:
       - neutral
       - brand
     default: brand
-    at: src/components/LineChart/LineChart.tsx:20
+    at: src/components/LineChart/LineChart.tsx:22
   baseline:
     values:
       - zero
       - auto
     default: zero
-    at: src/components/LineChart/LineChart.tsx:26
+    at: src/components/LineChart/LineChart.tsx:28
   draw:
     values:
       - none
       - map
       - pick
     default: none
-    at: src/components/LineChart/LineChart.tsx:44
+    at: src/components/LineChart/LineChart.tsx:46
   variant:
     values:
       - full
       - compact
     default: full
-    at: src/components/LineChart/LineChart.tsx:46
+    at: src/components/LineChart/LineChart.tsx:48
   view:
     values:
       - chart
       - table
     default: null
-    at: src/components/LineChart/LineChart.tsx:50
+    at: src/components/LineChart/LineChart.tsx:52
 states:
   contract:
     - default
@@ -809,6 +826,54 @@ tokens:
       token: '--spacing-4'
       selector: to
       at: src/components/LineChart/LineChart.module.css:238
+    - part: target
+      state: rest
+      property: border-block-start
+      token: '--border-width-2'
+      selector: .target
+      at: src/components/LineChart/LineChart.module.css:273
+    - part: target
+      state: rest
+      property: border-block-start
+      token: '--color-border-brand'
+      selector: .target
+      at: src/components/LineChart/LineChart.module.css:273
+    - part: targetLabel
+      state: rest
+      property: inset-block-end
+      token: '--spacing-4'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:280
+    - part: targetLabel
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:282
+    - part: targetLabel
+      state: rest
+      property: font-size
+      token: '--typography-font-size-14'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:283
+    - part: targetLabel
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:284
+    - part: targetLabel
+      state: rest
+      property: line-height
+      token: '--size-20'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:285
+    - part: targetLabel
+      state: rest
+      property: color
+      token: '--color-content-brand'
+      selector: .targetLabel
+      at: src/components/LineChart/LineChart.module.css:287
   values:
     '--border-radius-8':
       light: null
@@ -853,6 +918,9 @@ tokens:
       light: null
       chip: null
     '--color-border-utility-warning':
+      light: null
+      chip: null
+    '--color-content-brand':
       light: null
       chip: null
     '--color-content-knockout':
@@ -1052,94 +1120,97 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/LineChart/LineChart.tsx:227
+    at: src/components/LineChart/LineChart.tsx:267
   role:
     value: group
     source: role attribute
-    at: src/components/LineChart/LineChart.tsx:227
+    at: src/components/LineChart/LineChart.tsx:267
   nameSource:
     value: aria-label from the label prop (required)
-    at: src/components/LineChart/LineChart.tsx:227
+    at: src/components/LineChart/LineChart.tsx:267
   keyboard:
     - key: ArrowLeft
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:160
+      at: src/components/LineChart/LineChart.tsx:179
     - key: ArrowDown
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:160
+      at: src/components/LineChart/LineChart.tsx:179
     - key: End
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:160
+      at: src/components/LineChart/LineChart.tsx:179
     - key: ArrowRight
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:161
+      at: src/components/LineChart/LineChart.tsx:180
     - key: ArrowUp
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:161
+      at: src/components/LineChart/LineChart.tsx:180
     - key: Home
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:163
+      at: src/components/LineChart/LineChart.tsx:182
     - key: Escape
       source: handler in the .tsx
-      at: src/components/LineChart/LineChart.tsx:165
+      at: src/components/LineChart/LineChart.tsx:184
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/LineChart/LineChart.tsx:231
+      at: src/components/LineChart/LineChart.tsx:271
     - attribute: aria-describedby
       value: '`${uid'
-      at: src/components/LineChart/LineChart.tsx:232
+      at: src/components/LineChart/LineChart.tsx:272
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:247
+      at: src/components/LineChart/LineChart.tsx:287
     - attribute: aria-label
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:263
+      at: src/components/LineChart/LineChart.tsx:303
     - attribute: aria-orientation
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:264
+      at: src/components/LineChart/LineChart.tsx:304
     - attribute: aria-valuemin
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:265
+      at: src/components/LineChart/LineChart.tsx:305
     - attribute: aria-valuemax
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:266
+      at: src/components/LineChart/LineChart.tsx:306
     - attribute: aria-valuenow
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:267
+      at: src/components/LineChart/LineChart.tsx:307
     - attribute: aria-valuetext
       value: interactive
-      at: src/components/LineChart/LineChart.tsx:268
+      at: src/components/LineChart/LineChart.tsx:308
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:278
+      at: src/components/LineChart/LineChart.tsx:318
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:279
+      at: src/components/LineChart/LineChart.tsx:319
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:282
+      at: src/components/LineChart/LineChart.tsx:322
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/LineChart/LineChart.tsx:324
     - attribute: aria-label
-      value: written
-      at: src/components/LineChart/LineChart.tsx:285
+      value: writtenFull
+      at: src/components/LineChart/LineChart.tsx:330
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:299
+      at: src/components/LineChart/LineChart.tsx:344
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:303
+      at: src/components/LineChart/LineChart.tsx:348
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:310
+      at: src/components/LineChart/LineChart.tsx:355
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:311
+      at: src/components/LineChart/LineChart.tsx:356
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/LineChart/LineChart.tsx:316
+      at: src/components/LineChart/LineChart.tsx:361
     - attribute: aria-live
       value: polite
-      at: src/components/LineChart/LineChart.tsx:349
+      at: src/components/LineChart/LineChart.tsx:394
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -1170,43 +1241,42 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/LineChart/LineChart.tsx:285
+      at: src/components/LineChart/LineChart.tsx:330
     - kind: ARIA
       value: aria-describedby
-      at: src/components/LineChart/LineChart.tsx:232
+      at: src/components/LineChart/LineChart.tsx:272
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/LineChart/LineChart.tsx:316
+      at: src/components/LineChart/LineChart.tsx:361
     - kind: ARIA
       value: aria-orientation
-      at: src/components/LineChart/LineChart.tsx:264
+      at: src/components/LineChart/LineChart.tsx:304
     - kind: ARIA
       value: aria-valuemin
-      at: src/components/LineChart/LineChart.tsx:265
+      at: src/components/LineChart/LineChart.tsx:305
     - kind: ARIA
       value: aria-valuemax
-      at: src/components/LineChart/LineChart.tsx:266
+      at: src/components/LineChart/LineChart.tsx:306
     - kind: ARIA
       value: aria-valuenow
-      at: src/components/LineChart/LineChart.tsx:267
+      at: src/components/LineChart/LineChart.tsx:307
     - kind: ARIA
       value: aria-valuetext
-      at: src/components/LineChart/LineChart.tsx:268
+      at: src/components/LineChart/LineChart.tsx:308
     - kind: ARIA
       value: aria-live="polite"
-      at: src/components/LineChart/LineChart.tsx:349
+      at: src/components/LineChart/LineChart.tsx:394
     - kind: ARIA
       value: role=group
-      at: src/components/LineChart/LineChart.tsx:230
+      at: src/components/LineChart/LineChart.tsx:270
     - kind: ARIA
       value: role=status
-      at: src/components/LineChart/LineChart.tsx:349
+      at: src/components/LineChart/LineChart.tsx:394
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/LineChart/LineChart.stories.tsx
+  file: ~/DEV/bella-audit-charts/src/components/LineChart/LineChart.stories.tsx
   lines: 48-48
   import: import LineChart from '@bella/components/LineChart/LineChart';
   importSource: the style the Button doc page uses (CHIP import path)

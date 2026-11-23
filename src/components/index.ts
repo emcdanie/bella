@@ -276,6 +276,10 @@ export type { MapLeafProps } from './MapLeaf/MapLeaf';
 
 export { default as LineChart } from './LineChart/LineChart';
 export type { LineChartProps, LineChartPoint } from './LineChart/LineChart';
+export { default as GapChart } from './GapChart/GapChart';
+export type { GapChartProps, GapChartRow } from './GapChart/GapChart';
+export { default as ShareBars } from './ShareBars/ShareBars';
+export type { ShareBarsProps, ShareBarsRow } from './ShareBars/ShareBars';
 
 export { default as Slide } from './Slide/Slide';
 export type { SlideProps } from './Slide/Slide';

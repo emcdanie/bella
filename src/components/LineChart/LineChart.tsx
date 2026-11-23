@@ -9,6 +9,8 @@ export interface LineChartPoint {
   label: string;
   /** Its value. */
   value: number;
+  /** Where it sits on a numeric scale (days since a start). When every point has one, points are placed by it, not evenly; the axis still prints `label`. */
+  x?: number;
 }
 
 export interface LineChartProps {
@@ -51,6 +53,12 @@ export interface LineChartProps {
   onViewChange?: (view: 'chart' | 'table') => void;
   /** The "Show table" button. Off by default: the table is always there for screen readers, visually hidden. */
   showViewToggle?: boolean;
+  /** The ends of the x scale, when every point has `x` (so two charts share one time axis). Missing = the first and last x. */
+  xRange?: [number, number];
+  /** A target value: a dashed 2 wide brand line across the plot with its name at the right end. Counts toward the y scale; the summary and the table caption say it. */
+  target?: number;
+  /** The target's name on the line ("Target 70"). Missing = "Target" and the value. */
+  targetLabel?: string;
   className?: string;
   style?: CSSProperties;
 }
@@ -109,6 +117,9 @@ export default function LineChart({
   view: viewProp,
   onViewChange,
   showViewToggle = false,
+  xRange,
+  target,
+  targetLabel,
   className,
   style,
 }: LineChartProps) {
@@ -125,7 +136,7 @@ export default function LineChart({
   const interactive = scrubber && !compact && ready;
 
   const { lo, hi } = useMemo(() => {
-    const vs = points.map((p) => p.value);
+    const vs = points.map((p) => p.value).concat(target != null ? [target] : []);
     const mx = Math.max(0, ...vs);
     const mn = Math.min(...vs);
     if (baseline === 'auto' && ready) {
@@ -133,9 +144,12 @@ export default function LineChart({
       return { lo: mn - pad, hi: mx + pad };
     }
     return { lo: Math.min(0, mn), hi: niceCeil(mx) };
-  }, [points, baseline, ready]);
+  }, [points, baseline, ready, target]);
 
-  const xOf = (i: number) => (n < 2 ? 50 : (i / (n - 1)) * 100);
+  const byX = ready && points.every((p) => typeof p.x === 'number');
+  const [x0, x1] = byX ? xRange ?? [points[0].x as number, points[n - 1].x as number] : [0, 1];
+  const xOf = (i: number) =>
+    n < 2 ? 50 : byX ? (((points[i].x as number) - x0) / (x1 - x0 || 1)) * 100 : (i / (n - 1)) * 100;
   const yOf = (v: number) => 100 - ((v - lo) / (hi - lo || 1)) * 100;
   const xy = points.map((p, i) => [xOf(i), yOf(p.value)] as [number, number]);
   const line = ready ? smooth(xy) : '';
@@ -152,7 +166,12 @@ export default function LineChart({
     const el = plotRef.current;
     if (!el || !interactive) return;
     const r = el.getBoundingClientRect();
-    setPick(Math.round(((e.clientX - r.left) / r.width) * (n - 1)));
+    const at = ((e.clientX - r.left) / r.width) * 100;
+    if (!byX) return setPick(Math.round((at / 100) * (n - 1)));
+    /* on a numeric scale: the nearest point by position; keys still step by index */
+    let best = 0;
+    for (let i = 1; i < n; i++) if (Math.abs(xOf(i) - at) < Math.abs(xOf(best) - at)) best = i;
+    setPick(best);
   };
 
   const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -192,7 +211,10 @@ export default function LineChart({
   const written = !ready
     ? `${label}: not enough data to draw a trend`
     : `${label} went from ${withUnit(first.value, unit)} at ${first.label} to ${withUnit(last.value, unit)} at ${last.label}`;
-  const summaryLine = summary ?? written;
+  const targetName = target != null ? targetLabel ?? `Target ${withUnit(target, unit)}` : '';
+  const writtenFull = ready && target != null ? `${written}, against a target of ${withUnit(target, unit)}` : written;
+  const summaryLine = summary ?? writtenFull;
+  const caption = target != null ? `${label}, target ${withUnit(target, unit)}` : label;
 
   const columns: DataTableColumn<Record<string, any>>[] = [
     { key: 'label', label: 'Point' },
@@ -200,12 +222,30 @@ export default function LineChart({
   ];
   const rows = points.map((p, i) => ({ id: String(i), label: p.label, value: p.value }));
   const axisEvery = Math.max(1, Math.ceil(n / 5));
+  /* on a numeric scale points can sit close: print a label only when it clears the last one printed (the last point always wins) */
+  const xLabelled = (() => {
+    const keep = new Set<number>();
+    if (!byX) {
+      points.forEach((_, i) => { if (i % axisEvery === 0 || i === n - 1) keep.add(i); });
+      return keep;
+    }
+    let at = -Infinity;
+    points.forEach((_, i) => {
+      if (xOf(i) - at >= 15) { keep.add(i); at = xOf(i); }
+    });
+    if (!keep.has(n - 1)) {
+      const prev = Math.max(...keep);
+      if (xOf(n - 1) - xOf(prev) < 15) keep.delete(prev);
+      keep.add(n - 1);
+    }
+    return keep;
+  })();
 
   const side = shown == null ? 'mid' : xOf(shown) < 18 ? 'start' : xOf(shown) > 82 ? 'end' : 'mid';
 
   const table = (
     <table data-bella-chart-table="">
-      <caption>{label}</caption>
+      <caption>{caption}</caption>
       <thead>
         <tr>
           <th scope="col">Point</th>
@@ -238,7 +278,7 @@ export default function LineChart({
       data-bella-reveal={draw !== 'none' ? '' : undefined}
     >
       {view === 'table' && !compact ? (
-        <DataTable caption={label} columns={columns} rows={rows} rowKey="id" density="compact" />
+        <DataTable caption={caption} columns={columns} rows={rows} rowKey="id" density="compact" />
       ) : (
         <>
           {!compact && callout ? (
@@ -260,7 +300,7 @@ export default function LineChart({
             ref={plotRef}
             role={interactive ? 'slider' : 'img'}
             tabIndex={interactive ? 0 : undefined}
-            aria-label={interactive ? `${label}, move through the points` : written}
+            aria-label={interactive ? `${label}, move through the points` : writtenFull}
             aria-orientation={interactive ? 'horizontal' : undefined}
             aria-valuemin={interactive ? 0 : undefined}
             aria-valuemax={interactive ? n - 1 : undefined}
@@ -280,9 +320,14 @@ export default function LineChart({
               </>
             ) : null}
             {!compact ? <span className={styles.baseline} aria-hidden="true" /> : null}
+            {!compact && ready && target != null ? (
+              <span className={styles.target} style={{ insetBlockStart: `${yOf(target)}%` }} aria-hidden="true" data-testid="line-chart-target">
+                <span className={styles.targetLabel} data-bella-meta>{targetName}</span>
+              </span>
+            ) : null}
             {ready ? (
               <div className={styles.inner}>
-                <svg className={styles.svg} viewBox="0 0 100 100" preserveAspectRatio="none" data-bella-diagram="" role="img" aria-label={written}>
+                <svg className={styles.svg} viewBox="0 0 100 100" preserveAspectRatio="none" data-bella-diagram="" role="img" aria-label={writtenFull}>
                   <defs>
                     <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
                       <stop offset="0" stopColor="currentColor" stopOpacity="0.28" />
@@ -316,7 +361,7 @@ export default function LineChart({
             <div className={styles.xAxis} aria-hidden="true">
               {points.map((p, i) => (
                 <span key={i} className={styles.xCell} style={{ left: `${xOf(i)}%` }}>
-                  {i % axisEvery === 0 || i === n - 1 ? <span className={styles.xLabel} data-bella-meta>{p.label}</span> : null}
+                  {xLabelled.has(i) ? <span className={styles.xLabel} data-bella-meta>{p.label}</span> : null}
                 </span>
               ))}
             </div>

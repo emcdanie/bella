@@ -96,7 +96,7 @@ export default function Leader({
       let heading = 'right';
       const sideways = b.left >= a.right || a.left >= b.right;
       if (lineStyle === 'solid' && sideways) {
-        /* the stage (Elleta, 20 Nov: "these annotations are not correct .."): out of the
+        /* the stage (decided 20 Nov): out of the
            label's near side, across, then at most one rounded bend onto the point on the
            part's edge (Figma route straight / bend up / bend down). The end mark sits on
            the part. Level within a pixel: one straight line. */

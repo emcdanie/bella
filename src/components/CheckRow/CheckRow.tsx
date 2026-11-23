@@ -49,7 +49,7 @@ export function CheckListHeader({ title, count, legend, headingLevel = 2, classN
 export interface CheckRowProps {
   /**
    * Figma "layout". list (default): the List item set-up, title, what is missing, the bar and its
-   * target. weather (22 Nov, her pick "C · Weather rows"): one 56 row per check: name, one pip per 5
+   * target. weather (decided 22 Nov): one 56 row per check: name, one pip per 5
    * parts with the dashed target line, and the count on the right. Weather needs `passed` and `total`.
    */
   layout?: 'list' | 'weather';
@@ -67,7 +67,7 @@ export interface CheckRowProps {
   subtitle?: ReactNode;
   /** The count ("42/44"), once, at the row's right end in the number face at title size (21 Nov publish). The bar reads it too. */
   value: ReactNode;
-  /** @deprecated The status Tag left the published Check row (21 Nov, "yes take it off"); ignored. Removing the prop is a public API change and waits for Elleta. */
+  /** @deprecated The status Tag left the published Check row (decided 21 Nov); ignored. Removing the prop is a public API change and waits for Elleta. */
   statusLabel?: ReactNode;
   /** Progress "Fill · value", 0 to 100. List layout only (weather works it out from passed and total). */
   fill?: number;
@@ -87,8 +87,7 @@ export interface CheckRowProps {
  * One health check across all components. A configuration of List item
  * (ListRow), never its own drawing. Figma Check row 793:31331 (published
  * 21 Nov): no status bar and no status Tag, the progress bar is enough
- * (Elleta: "I don't want the status bar on this, it's too much; the
- * progress bar is fine", "yes take it off"). Middle = title 20 regular and
+ * (decided). Middle = title 20 regular and
  * what is missing, on the bar's left edge; Right = the count once, Geist
  * Mono bold 20 ("the numbers are too small now"), with the action under it
  * on fail; Below = the Progress bar with its target.
@@ -98,7 +97,7 @@ export default function CheckRow(props: CheckRowProps) {
 }
 
 /**
- * layout=weather (Figma, 22 Nov, her pick "C · Weather rows"): name
+ * layout=weather (Figma, 22 Nov, her pick C · Weather rows): name
  * (reading face 600, a 160 column), the pips (one rounded block per 5 parts,
  * 4 apart, 20 tall, corner 4; filled up to round(passed / 5) in success at
  * or over the target, warning under it; the rest border/subtle), a 1.5

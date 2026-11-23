@@ -235,7 +235,7 @@ export const Failed: Story = {
     <Themed>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 3.5)' }} data-testid="vertical">
-          <Step state="done" title="Undone: Give agents BELLA's component list (llms.txt)" detail="Reverted by Elleta" time="10:02" />
+          <Step state="done" title="Undone: Give agents BELLA's component list (llms.txt)" detail="Reverted by decided10:02" />
           <Step state="current" showLineAbove title="The gate" detail="Gate: 4 of 5 passed. Colour contrast failed." time="10:02" />
           <Step state="failed" showLineAbove title="The gate failed on main" detail="Gate: 4 of 5 passed. Colour contrast failed." time="10:02" />
           <Step state="pending" showLineAbove showConnector={false} title="Publish BellaComponents" detail="Waiting on you" time="10:02" />

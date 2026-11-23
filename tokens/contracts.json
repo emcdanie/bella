@@ -895,7 +895,7 @@
         "bella": {
           "name": "Icon",
           "category": "Data",
-          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful.",
+          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful. Also carries the official one-colour tool marks (Storybook, Figma, GitHub, Notion), filled in the context ink beside a link's label.",
           "variants": [],
           "states": [
             "default"
@@ -914,7 +914,7 @@
           ],
           "dont": [
             "Do not put id attributes inside an icon SVG: the glyph renders more than once (the Button label roll duplicates it), so an id-referenced gradient or clip would collide; draw with paths and currentColor only (audit:quality enforces)",
-            "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)",
+            "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces); the one exception is the four tool marks (Storybook, Figma, GitHub, Notion), the official one-colour shapes from Simple Icons (CC0), filled not stroked, shapes unchanged",
             "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)",
             "Do not hardcode an icon colour: currentColor inherits the themed ink",
             "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"
@@ -2021,7 +2021,7 @@
             ],
             "invariants": []
           },
-          "figma": "Matched to the published BellaComponents Drawer (172:622), 22 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft, edge corner border/radius/24. side=bottom (her pick A, \"remove the last divider\"): sm hugs the content, lg 720 tall, the 36 x 4 handle in border/strong, slides up on motion/duration/450 and motion/easing/out. size lg at the sides: 640 from 768, full width on a phone (CHIP · Dashboard Flow 12).",
+          "figma": "Matched to the published BellaComponents Drawer (172:622), 22 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft, edge corner border/radius/24. side=bottom (decided: no divider after the last row): sm hugs the content, lg 720 tall, the 36 x 4 handle in border/strong, slides up on motion/duration/450 and motion/easing/out. size lg at the sides: 640 from 768, full width on a phone (CHIP · Dashboard Flow 12).",
           "figmaProps": {
             "Label": "label",
             "side": "side",
@@ -3177,7 +3177,7 @@
         "bella": {
           "name": "Progress",
           "category": "Data",
-          "description": "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle (her 21 Nov \"can we litghten the grey bar\"): the empty part, not a mark; the fill carries the amount and the amount is always in words.",
+          "description": "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle ((decided 21 Nov 2026: a lighter grey bar): the empty part, not a mark; the fill carries the amount and the amount is always in words.",
           "states": [
             "default"
           ],
@@ -3579,7 +3579,7 @@
           "usage": [
             "CHIP screen shell, once per screen above the content, beside the Side menu (22 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents Top bar (1168:95226), 22 Nov 2026: her pick \"B · search on the right\". Props Place parent, Place current, Show place.",
+          "figma": "Matches the published BellaComponents Top bar (1168:95226), 22 Nov 2026: decided: search on the right. Props Place parent, Place current, Show place.",
           "figmaProps": {
             "Place parent": "placeParent",
             "Place current": "placeCurrent",
@@ -3631,7 +3631,7 @@
             "Do not show it on a phone: put it in a Drawer side=bottom"
           ],
           "a11y": "A nav landmark named \"Main\" (label) holding lists; Pinned and Projects are lists labelled by their group label (16, content/subtle). Each row a link (Search a button), the current one aria-current=\"page\": bold ink, no fill in Chip, so \"you are here\" shows once. 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap, never clipped by the scrolling middle. Labels never break mid-word at 232.",
-          "figma": "Matches the published BellaComponents Side menu (1709:48082), 22 Nov 2026: her pick \"A · a new Side menu part\". 232 has no token: three 80 steps less an 8.",
+          "figma": "Matches the published BellaComponents Side menu (1709:48082), 22 Nov 2026: decided: a new Side menu part. 232 has no token: three 80 steps less an 8.",
           "figmaProps": {
             "Show pinned": "showPinned",
             "Show projects": "showProjects",
@@ -4289,7 +4289,7 @@
         "bella": {
           "name": "ProgressTarget",
           "category": "Data",
-          "description": "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, her pick \"B · dashed marker and label\"): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses.",
+          "description": "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, decided: a dashed marker and label): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses.",
           "states": [
             "default"
           ],

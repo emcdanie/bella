@@ -23,7 +23,7 @@ export interface TopBarProps {
 
 /**
  * The top bar of the CHIP app frame (Figma "Top bar" 1168:95226, published
- * 22 Nov 2026; her pick "B · search on the right"): where you are on the
+ * 22 Nov 2026; her pick B · search on the right): where you are on the
  * left ("CHIP › Work"), search beside the bell and the person on the right.
  */
 export default function TopBar({

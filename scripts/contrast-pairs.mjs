@@ -55,7 +55,7 @@ const ratio = (a, b) => {
 
 /* A translucent fill is composited over what it sits on: '<fill> over <surface>'.
  * Fills that are a tint in some themes (Chip dark: subtle and lane are white at 10%,
- * Elleta, 18 Nov: "A for the dark grey") sit where the parts put them: subtle on a
+ * decided 18 Nov) sit where the parts put them: subtle on a
  * card (the lighter, so the harder case for light text), lane on the page. */
 const SITS_ON = { '--color-background-brand-subtle-hover': '--color-background-surface', '--color-background-brand-subtle': '--color-background-surface', '--color-background-subtle': '--color-background-surface', '--color-background-lane': '--color-background-default' };
 function colour(vars, spec) {

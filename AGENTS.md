@@ -88,14 +88,14 @@ Props, variants and examples: each component's `.tsx` types and Storybook storie
 
 ## Open
 
-- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button. Stopping to name the gap is intended (Elleta, 12 Nov: "Keep it, build parts"). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination.
+- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button. Stopping to name the gap is intended (decided 12 Nov). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination.
 - Warning and info status tones: undecided (issue #1); don't invent values or new status UI.
 - Warm theme (`[data-theme="warm"]`): deferred; don't rebuild or retire it until Elleta decides.
-- Open foundation and component choices: the [Figma Decide board](https://www.figma.com/design/4VWkwaMTKZWoGvH6PRbud8/?node-id=244-2).
+- Open foundation and component choices: the Figma Decide board (file key in `FIGMA_DECIDE_FILE_KEY`, node 244-2).
 
 ## Floors (always)
 
-Body ≥ 16px, the Figma body size (Elleta, 17 Nov: "one size per token … body text 16", "1, yes") · nothing < 16px except meta lines at 14 (`typography.font-size.14`, Geist Mono on a 20 line, marked `data-bella-meta`; Elleta, 22 Nov: "Meta lines at 14, reading text stays 16: B") · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
+Body ≥ 16px, the Figma body size (decided 17 Nov) · nothing < 16px except meta lines at 14 (`typography.font-size.14`, Geist Mono on a 20 line, marked `data-bella-meta`; decided 22 Nov) · targets ≥ 44px · focus ring = BELLA's (never removed) · pink only for selection, ochre for Needs you · AAA for body text.
 
 ## Rules with examples
 

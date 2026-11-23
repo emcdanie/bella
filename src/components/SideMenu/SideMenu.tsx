@@ -49,7 +49,7 @@ export interface SideMenuProps {
 
 /**
  * The one side menu of the CHIP app (Figma "Side menu" 1709:48082, published
- * 22 Nov 2026; her pick "A · a new Side menu part"): the plain Client switcher
+ * 22 Nov 2026; her pick A · a new Side menu part): the plain Client switcher
  * level with the Top bar, then where you go, what you pinned, your projects,
  * and Team and Settings at the foot. Every row is a Nav item.
  */

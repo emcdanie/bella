@@ -81,7 +81,7 @@ const ZOOM_OPTIONS = [
  * content slot. Doc stages and diagrams. With frameWidth it also holds a
  * page at its design width, scaled to fit or at 100%, for the Playground.
  */
-/* Annotations on the stage (Elleta, 20 Nov: "these annotations are not correct .."; CHIP
+/* Annotations on the stage (decided 20 Nov; CHIP
    Components, read 21 Nov): each part gets a Pin label chip in her light red with its numbered
    pin ("part · value"), right-aligned in a column beside the part, and a neutral solid Leader
    from the chip to a dot on the part's nearest edge, straight when level, else one curved bend.

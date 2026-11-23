@@ -33,7 +33,7 @@ type Story = StoryObj<typeof ProgressTarget>;
 
 export const Playground: Story = {};
 
-/** Figma Progress target 1168:72541 (22 Nov publish, her pick "B · dashed marker and label"):
+/** Figma Progress target 1168:72541 (22 Nov publish, her pick B · dashed marker and label):
  * a 1.5 dashed line in border/brand at target %, from the label down to 8 below
  * the 8 bar, and a "Target n%" Tag in the number face above the bar. Shown on every tone. */
 export const OnEveryTone: Story = {

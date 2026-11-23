@@ -2,7 +2,7 @@
 // Read-only. Plain plugin-API JS, run through the Desktop Bridge (figma_execute) or use_figma.
 // The top-level `return` is for the plugin runner, which wraps code in an async function (node --check rejects it).
 // Set CHECK_OPTS first, then paste this file after it:
-//   const CHECK_OPTS = { fileKey: '9R4rDMroYpx0lfMB75lBE6', target: '452:20540', approved: ['452:20540'], budgetMs: 12000 };
+//   const CHECK_OPTS = { fileKey: '${FIGMA_FILE_KEY}', target: '452:20540', approved: ['452:20540'], budgetMs: 12000 };
 // PROTOCOL (13 Nov, sections): a doc page (instance of Doc / Component page) is NEVER walked whole. Without CHECK_OPTS.section a doc-page target returns at once
 //   { pass: null, partial: true, sections: [ids], names, hint } after reading only the page's direct structure (the units that hold the Section · frames: header, sections, footer).
 //   1. part: 'page' once: template, approved ids, root Chip mode; returns { sections, names, hasFocus, rootChip }. Pass hasFocus on to every unit call (CHECK_OPTS.hasFocus).
@@ -488,7 +488,7 @@ async function figmaDocCheck(o) {
       }
     });
 
-    // 7b. No stand-ins (Elleta, 12 Nov: "just make sure to use teh compoenents yes"): a page-owned frame that is styled
+    // 7b. No stand-ins (decided 12 Nov): a page-owned frame that is styled
     // like a control or card (visible stroke and corner radius, holding text) should be a component instance
     await step('paint', 'standIn', () => all, (n) => {
       if (n.type !== 'FRAME' || insideInstance(n) || n === root) return;

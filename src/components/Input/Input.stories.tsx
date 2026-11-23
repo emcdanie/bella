@@ -216,7 +216,7 @@ export const WithSend: Story = {
   },
 };
 
-/** Field corners (library round 6, Elleta 21 Nov: "it should be like the others"): every field takes
+/** Field corners (library round 6, decided 21 Nov): every field takes
  * border/radius/lg, the same corner as Button, 8 in Chip. */
 export const FieldCorners: Story = {
   render: () => (
@@ -272,7 +272,7 @@ export const WithMenu: Story = {
   },
 };
 
-/** state=suggestion (Figma Input 1608:3716, Elleta 21 Nov: "i can jsut hit enter here and it asks you"):
+/** state=suggestion (Figma Input 1608:3716, decided 21 Nov):
  * the likely next question as ghost text in the empty field, a one-cap "↵" before Send. Enter sends it;
  * typing replaces it and the keycap goes. */
 function SuggestComposer() {

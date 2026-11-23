@@ -4,8 +4,7 @@ import { expect, userEvent, waitFor } from 'storybook/test';
 import StatCard from '../components/StatCard/StatCard';
 import Button from '../components/Button/Button';
 
-/* Demo only, not wired into CHIP (Elleta, 21 Nov: "should we not put motion
- * on the graphs??", then "Yes, demo it"). The chart CHIP's Health renders:
+/* Demo only, not wired into CHIP (decided 21 Nov). The chart CHIP's Health renders:
  * StatCard with a Progress bar and its blue target ("Contrast coverage").
  * Left: as it is today. Right: drawIn. */
 

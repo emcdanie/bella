@@ -24,7 +24,7 @@ export interface TaskCardProps {
   status?: ReactNode;
   /** Figma "Show tag" (off by default, batch 4, 22 Nov: on the board the border says the status, so the Tag no longer repeats it). */
   showTag?: boolean;
-  /** Figma "tone": the Tag's tone and the card's 2px border colour (21 Nov publish, her pick "B · coloured border, no bar"). neutral is Figma's tone=default, "To do". */
+  /** Figma "tone": the Tag's tone and the card's 2px border colour (21 Nov publish, her pick B · coloured border, no bar). neutral is Figma's tone=default, "To do". */
   statusTone?: StatusDotProps['tone'];
   /** Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states. */
   dragging?: boolean;

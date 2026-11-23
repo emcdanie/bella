@@ -1,6 +1,6 @@
 # BELLA style unify: CONCEPT LOCK
 
-Drafted 2026-09-22. **Status: APPROVED 2026-09-22 (Elleta, "Go").** Authoritative for
+Drafted 2026-09-22. **Status: APPROVED 2026-09-22 (decided).** Authoritative for
 the style unify; supersedes the type and colour rules in AGENTS.md wherever they
 conflict (AGENTS.md updated in Phase 1).
 

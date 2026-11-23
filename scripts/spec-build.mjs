@@ -14,6 +14,8 @@ import { dirname, resolve } from 'node:path';
 import { homedir } from 'node:os';
 import yaml from 'js-yaml';
 
+// The Figma file key is never written into a spec: the real value lives in FIGMA_FILE_KEY (a gitignored .env), the spec holds this reference.
+const FILE_KEY_REF = '${FIGMA_FILE_KEY}';
 const args = process.argv.slice(2);
 const name = args.find((a) => !a.startsWith('--') && args[args.indexOf(a) - 1] !== '--figma' && args[args.indexOf(a) - 1] !== '--out');
 const opt = (k) => (args.includes(k) ? args[args.indexOf(k) + 1] : null);
@@ -26,7 +28,7 @@ const read = (p) => readFileSync(p, 'utf8');
 const kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const tsxPath = `${ROOT}/src/components/${name}/${name}.tsx`;
 const cssPath = `${ROOT}/src/components/${name}/${name}.module.css`;
-// 14 Nov (Elleta: "it has to be machine readbles"): a part drawn in Figma before its code exists gets a Figma-only spec,
+// 14 Nov (decided): a part drawn in Figma before its code exists gets a Figma-only spec,
 // built from the figma-spec-read JSON alone. status: figma-only tells the code build what it still has to make.
 if (!existsSync(tsxPath) && opt('--figma')) { figmaOnlySpec(); process.exit(0); }
 if (!existsSync(tsxPath)) { console.error(`spec-build: ${rel(tsxPath)} not found (pass --figma <json> for a part with no code yet)`); process.exit(2); }
@@ -66,7 +68,7 @@ function figmaOnlySpec() {
     status: 'figma-only',
     statusNote: 'Drawn in BellaComponents; no code yet. Build src/components/' + name + '/' + name + '.tsx from this spec, then rerun spec-build to replace this file with the code spec.',
     lead: fig.description ? { text: fig.description.split(/(?<=\.)\s/)[0], source: 'Figma component description' } : null,
-    links: { figma: { fileKey: fig.fileKey, nodeId: fig.nodeId }, storybook: null, github: null },
+    links: { figma: { fileKey: FILE_KEY_REF, nodeId: fig.nodeId }, storybook: null, github: null },
     props,
     variants: { count: (fig.variants || []).length, default: fig.defaultVariant, names: (fig.variants || []).map((v) => v.name),
       ...(fig.variantTokens ? { addTokens: Object.fromEntries(Object.entries(fig.variantTokens).map(([v, l]) => [v, l.map(css)])) } : {}) }, // tokens a variant uses that the default does not (read from Figma, 14 Nov)
@@ -446,7 +448,7 @@ const spec = {
   contrast,
   codeExample: guidance.codeExample ? { ...(codeExample || {}), ...guidance.codeExample } : codeExample, // guidance.codeExample { import, code, lines } shows more of the real story (e.g. the panel a tab owns)
   usage: contract ? { use: contract.usage || [], dont: contract.dont || [], source: 'tokens/contracts.json' } : null,
-  figma: figma ? { nodeId: figma.nodeId, fileKey: figma.fileKey, props: figma.props, variants: figma.variants, defaultVariant: figma.defaultVariant, annotations: figma.annotations, documentationLinks: figma.documentationLinks } : null,
+  figma: figma ? { nodeId: figma.nodeId, fileKey: FILE_KEY_REF, props: figma.props, variants: figma.variants, defaultVariant: figma.defaultVariant, annotations: figma.annotations, documentationLinks: figma.documentationLinks } : null,
   mismatch,
   notApplicable,
   guidance,

@@ -99,7 +99,7 @@ const WEATHER = [
   { title: 'A11y', passed: 52 },
 ];
 
-/** layout=weather (Figma, 22 Nov, her pick "C · Weather rows"): one 56 row per check, a pip per 5
+/** layout=weather (Figma, 22 Nov, her pick C · Weather rows): one 56 row per check, a pip per 5
  * parts, the dashed target at 90%, the count on the right; no divider under the last row. */
 export const Weather: Story = {
   render: () => (

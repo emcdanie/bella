@@ -278,7 +278,7 @@ async function runQualityChecks(
             fails.push(`text below the ${meta ? '14px meta' : '16px hard'} floor (${size}px): "${snippet}"`);
           }
           /* reading text and labels share the 16px floor: Figma body is 16
-             (Elleta, 17 Nov 2026: "one size per token … body text 16") */
+             (decided 17 Nov 2026) */
           if (/\bUnique\b/.test(cs.fontFamily) && size < 24) {
             fails.push(`Unique below 24px (${size}px): "${snippet}"`);
           }

@@ -47,10 +47,10 @@ for (const id of ROOTS) {
       if (off.length) add(10, n, `spacing off the 4-point scale: ${[...new Set(off)].join(', ')}`);
     }
     // Target marks: every target mark is an instance of _Target mark (4 wide, bar + 8 tall), never drawn or scaled
-    // (18 Nov: "why are these so differnt the little like..", "also the target 90% is super small").
+    // (decided 18 Nov).
     if (/^(Mark|Target mark)$/.test(n.name) && /target|legend/i.test(path(n)) && (await mainName(n)) !== '_Target mark') add('Target', n, 'target mark is not the _Target mark part');
     // R12 the › arrow is the Trailing part (24 glyph, frame fills the row height, 44 Hit area), never a loose
-    // Icon (18 Nov: "too small and not centered").
+    // Icon (decided 18 Nov).
     if (n.type === 'INSTANCE' && /^Icon\/name=NavArrowRight/.test(await mainName(n))) {
       const p = n.parent, inTrailing = (await mainName(p)) === 'Trailing' || (p && p.name === 'Trailing');
       if (!inTrailing && !/link|story/i.test(path(n))) add(12, n, '› is a loose Icon: use the Trailing part (24, centred on the row)');
@@ -85,14 +85,13 @@ for (const id of ROOTS) {
       if (bad && !inDrawing(n)) add(1, n, 'hard-coded fill colour');
     }
     // Doc pages: labels, lines and table cells stay on one line; widen the specimen or shorten the copy
-    // (Elleta, 18 Nov: "keep things in one line if we can and make sure the cards are the same height").
+    // (decided 18 Nov).
     if (n.type === 'TEXT' && /doc/i.test(root.name) && /^(Use|Line|Task|Answer|Cell \d|Prop|Values|Default|Rule|State)$/.test(n.name) && n.characters.trim()
         && !(() => { for (let x = n.parent; x && x !== root; x = x.parent) if (x.type === 'FRAME' && /^(Box|Row|Specimens)$/.test(x.name)) return true; return false; })()) {
       const fs = num(n.fontSize) ? n.fontSize : 16;
       if (n.height > fs * 2.2) add('OneLine', n, `"${n.characters.trim().slice(0, 30)}" wraps at ${Math.round(n.width)} wide`);
     }
-    // Code: every run of a CodeBlock code line is bound to a color/content/syntax/* token (Elleta, 18 Nov:
-    // "also the code blocks lost their colors"). Setting text or a style on a line resets its runs to one colour.
+    // Code: every run of a CodeBlock code line is bound to a color/content/syntax/* token (decided 18 Nov). Setting text or a style on a line resets its runs to one colour.
     if (n.type === 'TEXT' && n.name === 'Code' && /code ?line|codeblock/i.test(path(n))) {
       for (const s of n.getStyledTextSegments(['fills'])) {
         if (!s.characters.trim()) continue;
@@ -102,8 +101,7 @@ for (const id of ROOTS) {
       }
     }
   }
-  // Row: every row is a List item configuration (Elleta, 18 Nov: "this is is not working.. i thought we had a list item
-  // now"). Flags a hand-built frame, outside any instance, that holds two or more TEXT lines and a Button or ActionChip
+  // Row: every row is a List item configuration (decided 18 Nov). Flags a hand-built frame, outside any instance, that holds two or more TEXT lines and a Button or ActionChip
   // as direct children or one frame deep: a row shape that should be a List item.
   for (const f of all.filter(x => x.type === 'FRAME' && 'children' in x)) {
     let inInst = false; for (let p = f.parent; p && p.type !== 'PAGE'; p = p.parent) if (p.type === 'INSTANCE') { inInst = true; break; }
@@ -121,20 +119,18 @@ for (const id of ROOTS) {
     const ov = f.children.find(c => c.visible && c.layoutPositioning !== 'ABSOLUTE' && !inDrawing(c) && !/^(arrow|tail)$/i.test(c.name) /* Docs Kit flow banner arrow pokes out by design */ && (c.y < -0.5 || c.y + c.height > f.height + 0.5 || c.x < -0.5 || c.x + c.width > f.width + 0.5));
     if (ov) add(7, f, `"${ov.name}" spills out of its ${Math.round(f.width)}×${Math.round(f.height)} auto-layout box`);
   }
-  // Seg: no small Segmented control on a CHIP main page (Elleta, 18 Nov: "i don tlike the small segmented control on the
-  // main pages"). Views under the page header are Tabs. Flags a SegmentedControl size=sm, and size=sm Segments set
+  // Seg: no small Segmented control on a CHIP main page (decided 18 Nov). Views under the page header are Tabs. Flags a SegmentedControl size=sm, and size=sm Segments set
   // straight into a frame (a hand-built track), anywhere under a CHIP screen or page-content part.
   for (const i of all.filter(x => x.type === 'INSTANCE')) {
     const m = await i.getMainComponentAsync(); if (!m) continue;
     const setName = m.parent && m.parent.type === 'COMPONENT_SET' ? m.parent.name : '';
     const chip = /chip|content|screen/i.test(path(i));
-    if (chip && setName === 'SegmentedControl' && /size=sm/.test(m.name)) add('Seg', i, 'small Segmented control on a CHIP main page: use size md (Elleta, 18 Nov: "i thought that was trying to be the segmeted control"); Tabs only when it switches whole views');
+    if (chip && setName === 'SegmentedControl' && /size=sm/.test(m.name)) add('Seg', i, 'small Segmented control on a CHIP main page: use size md (decided 18 Nov); Tabs only when it switches whole views');
     else if (chip && /^Segment/.test(setName) && /size=sm/.test(m.name) && i.parent && i.parent.type === 'FRAME') add('Seg', i.parent, 'hand-built small segment track on a CHIP main page');
   }
   // R19 card groups keep column edges: in a wrapping group (auto layout GRID or WRAP, or a vertical stack of card
   // rows), every card's left and right edge lines up with a card edge in the row above, within 1px. A lone last card
-  // spans the same columns as the card above it (Elleta, 18 Nov: "maybe you should turn the grid on to make sure we
-  // dont have issues like this").
+  // spans the same columns as the card above it (decided 18 Nov).
   {
     const isCard = c => c.visible && (c.type === 'INSTANCE' || c.type === 'FRAME') && c.width >= 120 && c.height >= 60 && c.layoutPositioning !== 'ABSOLUTE';
     const edges = cs => cs.flatMap(c => { const b = c.absoluteBoundingBox; return b ? [b.x, b.x + b.width] : []; });
@@ -150,8 +146,7 @@ for (const id of ROOTS) {
     }
   }
   // R20 one text edge beside a leading icon: in a block whose row starts with an icon, every text in that block
-  // shares one left edge, within 1px; the icon sits in its own column (Elleta, 18 Nov: "the subtitle should be the
-  // same indent as the title").
+  // shares one left edge, within 1px; the icon sits in its own column (decided 18 Nov).
   for (const blk of all.filter(x => x.layoutMode === 'VERTICAL' && 'children' in x)) {
     const lead = blk.children.find(r => r.visible && r.layoutMode === 'HORIZONTAL' && 'children' in r && r.children.length > 1 && r.children[0].visible && /icon|glyph|well|avatar|dot/i.test(r.children[0].name) && r.children.slice(1).some(c => c.type === 'TEXT'));
     if (!lead) continue;

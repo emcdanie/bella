@@ -1,5 +1,5 @@
 import React, { type CSSProperties } from 'react';
-import { GLYPHS, type IconName } from './registry';
+import { GLYPHS, BRAND_GLYPHS, type BrandName, type IconName } from './registry';
 
 export type { IconName };
 
@@ -30,12 +30,15 @@ const ICON_SIZE = { sm: 'var(--size-16)', md: 'var(--size-20)', lg: 'var(--size-
 const STROKE = '1.8';
 
 export default function Icon({ name, size = 'md', label, className, style }: IconProps) {
+  const brand = name in BRAND_GLYPHS;
+  const paths: readonly string[] = brand ? BRAND_GLYPHS[name as BrandName] : GLYPHS[name as keyof typeof GLYPHS];
   return (
     <svg
       data-bella-icon=""
+      data-bella-brand={brand ? '' : undefined}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
+      fill={brand ? 'currentColor' : 'none'}
+      stroke={brand ? 'none' : 'currentColor'}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -47,12 +50,12 @@ export default function Icon({ name, size = 'md', label, className, style }: Ico
       style={{
         width: ICON_SIZE[size],
         height: ICON_SIZE[size],
-        strokeWidth: STROKE,
+        strokeWidth: brand ? undefined : STROKE,
         flexShrink: 0,
         ...style,
       }}
     >
-      {GLYPHS[name].map((d) => (
+      {paths.map((d) => (
         <path key={d} d={d} />
       ))}
     </svg>

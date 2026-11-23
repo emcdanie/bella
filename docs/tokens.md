@@ -52,8 +52,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-stone-700` | `#403e3b` | brand stone ramp, step 700. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-stone-800` | `#252320` | Brand stone ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-stone-900` | `#110f0d` | Warm near-black |
-| `--color-brand-wash-grey-ink` | `#3a3f50` | Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (Elleta, 17 Nov: “exactly as they were”). |
-| `--color-brand-wash-grey` | `#ededea` | Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (Elleta, 17 Nov: “exactly as they were”). |
+| `--color-brand-wash-grey-ink` | `#3a3f50` | Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (decided 17 Nov). |
+| `--color-brand-wash-grey` | `#ededea` | Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (decided 17 Nov). |
 | `--color-brand-pink-100` | `#fbeef5` | Brand pink ramp, step 100. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-pink-200` | `#f1bbd8` | brand pink ramp, step 200. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-pink-300` | `#e58bbb` | Brand pink ramp, step 300. Selection fill (Elleta, 8 Nov 2026); text on it is content/on-accent-1. |
@@ -65,17 +65,17 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-brand-pink-900` | `#361224` | brand pink ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-pink-alpha-8` | `#da73a814` | brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-pink-alpha-22` | `#da73a838` | brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
-| `--color-brand-blue-100` | `#eaf5fc` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
-| `--color-brand-blue-200` | `#c8e5f7` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
+| `--color-brand-blue-100` | `#eaf5fc` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
+| `--color-brand-blue-200` | `#c8e5f7` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
 | `--color-brand-blue-280` | `#75bdeb` | CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1. |
 | `--color-brand-blue-290` | `#6cb9ea` | CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1. |
-| `--color-brand-blue-300` | `#63b4e8` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
+| `--color-brand-blue-300` | `#63b4e8` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
 | `--color-brand-blue-400` | `#48a1dc` | brand blue ramp, step 400. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-blue-500` | `#2b8fd0` | Brand blue ramp, step 500. Accent-3 fill. Global scale: parts use a Tier 2 token, not this. |
 | `--color-brand-blue-600` | `#1865bb` | Brand blue ramp, step 600. Focus ring in the light themes; Chip light brand edge (4.57:1 on the lane). |
-| `--color-brand-blue-700` | `#16496b` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
-| `--color-brand-blue-800` | `#0f3550` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
-| `--color-brand-blue-900` | `#0a2236` | CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels. |
+| `--color-brand-blue-700` | `#16496b` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
+| `--color-brand-blue-800` | `#0f3550` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
+| `--color-brand-blue-900` | `#0a2236` | CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels. |
 | `--color-brand-blue-alpha-8` | `#48a1dc14` | brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-brand-blue-alpha-22` | `#48a1dc38` | brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026). |
 | `--color-utility-blue-100` | `#e6f1fb` | Blue ramp, step 100 = Chip wash blue #e6f1fb (brand anchor). |
@@ -98,7 +98,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-green-700` | `#18502f` | Utility green ramp, step 700. Light success word on its wash, 7:1. |
 | `--color-utility-green-800` | `#12301d` | Success wash, dark |
 | `--color-utility-green-900` | `#071b0e` | utility green ramp, step 900. Global scale: parts use a Tier 2 token, not this. |
-| `--color-utility-green-alpha-20` | `#72d08b33` | green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: “Yes, add it”. |
+| `--color-utility-green-alpha-20` | `#72d08b33` | green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). decided 18 Nov. |
 | `--color-utility-red-100` | `#fbeae8` | Red ramp, step 100 = Chip wash red #fbeae8 (brand anchor). |
 | `--color-utility-red-200` | `#febdb6` | Utility red ramp, step 200. Dark error word and dark code tags (7:1). |
 | `--color-utility-red-300` | `#ff8f84` | Utility red ramp, step 300. Error strong fill and dark error edge. |
@@ -108,7 +108,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--color-utility-red-700` | `#8f2118` | Utility red ramp, step 700. Light error word on its wash, 7:1. |
 | `--color-utility-red-800` | `#641e18` | utility red ramp, step 800. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-red-900` | `#3a1714` | Danger wash, dark |
-| `--color-utility-red-alpha-22` | `#e2473b38` | utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, Elleta "B, red wash"). |
+| `--color-utility-red-alpha-22` | `#e2473b38` | utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, decided). |
 | `--color-utility-yellow-100` | `#fcf4d8` | Utility yellow ramp, step 100 = Chip wash yellow #fcf4d8 (brand anchor). Light warning wash; dark warning word (her “A, cream is fine”). |
 | `--color-utility-yellow-200` | `#f1d68a` | utility yellow ramp, step 200. Global scale: parts use a Tier 2 token, not this. |
 | `--color-utility-yellow-300` | `#e9b820` | Value: #e9b820 in every mode. |
@@ -169,12 +169,12 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--border-radius-round` | `999px` | Value: 999 in every mode. |
 | `--border-width-1` | `1px` | Value: 1 in every mode. |
 | `--border-width-2` | `2px` | Value: 2 in every mode. |
-| `--border-width-4` | `4px` | Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3. |
+| `--border-width-4` | `4px` | Value: 4 in every mode. Focus ring thickness (decided 17 Nov). Was border/width/3. |
 | `--typography-font-family-newsreader` | `"Newsreader", serif` | Typeface Newsreader (display). Global scale; parts use a Tier 2 type token. |
 | `--typography-font-family-dm-sans` | `"DM Sans", sans-serif` | Typeface DM Sans (body and UI). Global scale; parts use a Tier 2 type token. |
-| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: “lets make sure we have guidelines for how we use the new font and geist”) |
-| `--typography-font-family-geist` | `"Geist", sans-serif` | Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: “C, Geist”). |
-| `--typography-font-family-lexend` | `"Lexend", sans-serif` | Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked “c”).  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: “lets make sure we have guidelines for how we use the new font and geist”) |
+| `--typography-font-family-geist-mono` | `"Geist Mono", monospace` | Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) |
+| `--typography-font-family-geist` | `"Geist", sans-serif` | Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (decided 17 Nov). |
+| `--typography-font-family-lexend` | `"Lexend", sans-serif` | Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (decided 18 Nov).  How Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) |
 | `--typography-font-size-14` | `14px` | Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16. |
 | `--typography-font-size-16` | `16px` | Value: 16 in every mode. |
 | `--typography-font-size-18` | `18px` | Value: 18 in every mode. |
@@ -205,8 +205,8 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 | `--typography-line-height-px-24` | `24px` | Line height 24px, fixed (px group; the % group holds ratios). Global scale; use through Tier 2. |
 | `--typography-line-height-px-40` | `40px` | Line height 40px, fixed (px group; the % group holds ratios). Global scale; use through Tier 2. |
 | `--size-0` | `0px` | Global value 0. Added 17 Nov so part tokens alias instead of typing values. |
-| `--size-4` | `4px` | size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”). |
-| `--size-8` | `8px` | Global value 8. Added 22 Nov for the Progress track and its target mark (Elleta, "A · 8"). |
+| `--size-4` | `4px` | size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (decided 17 Nov). |
+| `--size-8` | `8px` | Global value 8. Added 22 Nov for the Progress track and its target mark (decided). |
 | `--size-12` | `12px` | size 12. Global scale value; use it through Tier 2. |
 | `--size-16` | `16px` | Value: 16 in every mode. |
 | `--size-20` | `20px` | Value: 20 in every mode. |

@@ -31,8 +31,8 @@ export interface ProgressTargetProps {
   label?: string;
 }
 
-/** Figma "Progress target" 1168:72541 (22 Nov publish, her pick "B · dashed
- * marker and label"; centred 22 Nov): a 1.5 dashed line in border/brand at
+/** Figma "Progress target" 1168:72541 (22 Nov publish, her pick B · dashed
+ * marker and label; centred 22 Nov): a 1.5 dashed line in border/brand at
  * target %, 8 above and 8 below the 8 bar so the bar sits in its middle, and
  * a "Target n%" Tag (outline, number face 600) centred on the line above the
  * bar. Only where centring would push the label past an end of the track does

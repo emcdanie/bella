@@ -76,6 +76,12 @@ export interface SparklineProps {
   table: boolean;
   /** The hidden table's caption. */
   caption: string;
+  /**
+   * line (default): a 1px line and an end dot, zoomed to the series' own low and high. bars: one bar per point, from zero, the latest
+   * in ink and the earlier ones lighter (the chart language's mini bar sparkline, 23 Nov: "bars from zero, one per dated snapshot,
+   * the latest highlighted"). Same scrubber, summary and table.
+   */
+  form?: 'line' | 'bars';
 }
 
 /** The sparkline: the numbers as a mini trend line, with its scrubber, summary and table. series: oldest first. */
@@ -87,6 +93,7 @@ export default function Sparkline({
   summary,
   table,
   caption,
+  form = 'line',
 }: SparklineProps) {
   const still = useReducedMotion();
   const summaryId = useId();
@@ -167,8 +174,22 @@ export default function Sparkline({
           onBlur={leave}
           onKeyDown={onKey}
         >
-          <polyline pathLength={1} points={drawn.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')} />
-          <circle cx={lx} cy={ly} r={PAD} />
+          {form === 'bars' ? (
+            (() => {
+              const top = Math.max(...series, 1);
+              const slot = (W - PAD * 2) / series.length;
+              const bar = Math.max(slot - 2, 1);
+              return series.map((v, i) => {
+                const h = Math.max((v / top) * (H - PAD * 2), 1);
+                return <rect key={i} x={PAD + i * slot + (slot - bar) / 2} y={H - PAD - h} width={bar} height={h} rx={1} data-latest={i === series.length - 1 ? '' : undefined} />;
+              });
+            })()
+          ) : (
+            <>
+              <polyline pathLength={1} points={drawn.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')} />
+              <circle cx={lx} cy={ly} r={PAD} />
+            </>
+          )}
           {active != null ? <line className={styles.guide} x1={gx} x2={gx} y1={0} y2={H} data-bella-scrub={active} /> : null}
         </svg>
       </Tooltip>

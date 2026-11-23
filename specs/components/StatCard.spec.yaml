@@ -101,6 +101,14 @@ props:
     required: false
     doc: 'One name per point, same order as `series` ("21 Nov"): the sparkline''s callout says it.'
     at: src/components/StatCard/StatCard.tsx:75
+  - name: seriesForm
+    type: '''line'' | ''bars'''
+    values:
+      - line
+      - bars
+    required: false
+    doc: 'line (default) or bars: the mini bar sparkline, one bar per point from zero with the latest in ink.'
+    at: src/components/StatCard/StatCard.tsx:77
   - name: trend
     type: '''up'' | ''down'''
     values:
@@ -108,28 +116,28 @@ props:
       - down
     required: false
     doc: 'Which way the figure moved: a thin arrow in a tinted circle, with a spoken word, never colour alone.'
-    at: src/components/StatCard/StatCard.tsx:77
+    at: src/components/StatCard/StatCard.tsx:79
   - name: trendTone
     type: StatCardTone
     default: neutral
     required: false
     doc: The tone of the arrow's circle (status only; up is not always bad). Default neutral.
-    at: src/components/StatCard/StatCard.tsx:79
+    at: src/components/StatCard/StatCard.tsx:81
   - name: comparison
     type: ReactNode
     required: false
     doc: The comparison in one line, in the meta face, beside the arrow ("93 of 102 parts now, 79 on 21 Nov").
-    at: src/components/StatCard/StatCard.tsx:81
+    at: src/components/StatCard/StatCard.tsx:83
   - name: href
     type: string
     required: false
     doc: 'Header opens the detail: a link. The whole 44 header row is the target and carries the ↗.'
-    at: src/components/StatCard/StatCard.tsx:83
+    at: src/components/StatCard/StatCard.tsx:85
   - name: onOpen
     type: () => void
     required: false
     doc: 'Header opens the detail: a button. Ignored when `href` is set.'
-    at: src/components/StatCard/StatCard.tsx:85
+    at: src/components/StatCard/StatCard.tsx:87
   - name: drawIn
     type: boolean
     values:
@@ -141,22 +149,22 @@ props:
       Chart motion (22 Nov, CHIP chart language): when the card first shows, the bar grows from the start (segments fill one after another)
       and a numeric value counts up from 0, over motion/duration/450 on motion/easing/out; a new value slides and counts from the old one.
       Reduced motion: the end state at once. On by default; false shows the first value still.
-    at: src/components/StatCard/StatCard.tsx:90
+    at: src/components/StatCard/StatCard.tsx:92
   - name: summary
     type: string
     required: false
     doc: >-
       The chart's one-line summary (22 Nov reading), passed to Progress and read as the bar's description, never drawn. Missing: written
       from the title, value and target ("Contrast coverage: 95%, target 80%, above target").
-    at: src/components/StatCard/StatCard.tsx:96
+    at: src/components/StatCard/StatCard.tsx:98
   - name: className
     type: string
     required: false
-    at: src/components/StatCard/StatCard.tsx:97
+    at: src/components/StatCard/StatCard.tsx:99
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/StatCard/StatCard.tsx:98
+    at: src/components/StatCard/StatCard.tsx:100
 variants:
   chart:
     values:
@@ -166,12 +174,18 @@ variants:
       - empty
     default: bar
     at: src/components/StatCard/StatCard.tsx:62
+  seriesForm:
+    values:
+      - line
+      - bars
+    default: null
+    at: src/components/StatCard/StatCard.tsx:77
   trend:
     values:
       - up
       - down
     default: null
-    at: src/components/StatCard/StatCard.tsx:77
+    at: src/components/StatCard/StatCard.tsx:79
 states:
   contract:
     - default
@@ -518,34 +532,34 @@ tokens:
       at: src/components/StatCard/StatCard.module.css:223
     - part: change
       state: rest
-      property: font-family
-      token: '--typography-subtext-font-family'
-      selector: .change
-      at: src/components/StatCard/StatCard.module.css:225
-    - part: change
-      state: rest
-      property: font-size
-      token: '--typography-font-size-14'
-      selector: .change
-      at: src/components/StatCard/StatCard.module.css:226
-    - part: change
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-400'
-      selector: .change
-      at: src/components/StatCard/StatCard.module.css:227
-    - part: change
-      state: rest
-      property: line-height
-      token: '--size-20'
-      selector: .change
-      at: src/components/StatCard/StatCard.module.css:228
-    - part: change
-      state: rest
       property: color
       token: '--color-content-subtle'
       selector: .change
-      at: src/components/StatCard/StatCard.module.css:229
+      at: src/components/StatCard/StatCard.module.css:225
+    - part: comparison
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .comparison
+      at: src/components/StatCard/StatCard.module.css:230
+    - part: comparison
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .comparison
+      at: src/components/StatCard/StatCard.module.css:231
+    - part: comparison
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .comparison
+      at: src/components/StatCard/StatCard.module.css:232
+    - part: comparison
+      state: rest
+      property: line-height
+      token: '--typography-line-height-px-24'
+      selector: .comparison
+      at: src/components/StatCard/StatCard.module.css:233
   values:
     '--border-radius-card':
       light: null
@@ -650,19 +664,19 @@ motion:
 a11y:
   element:
     tag: section
-    at: src/components/StatCard/StatCard.tsx:167
+    at: src/components/StatCard/StatCard.tsx:170
   role:
     value: region
     source: native element
-    at: src/components/StatCard/StatCard.tsx:167
+    at: src/components/StatCard/StatCard.tsx:170
   nameSource:
     value: visible content
-    at: src/components/StatCard/StatCard.tsx:167
+    at: src/components/StatCard/StatCard.tsx:170
   keyboard: []
   aria:
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/StatCard/StatCard.tsx:184
+      at: src/components/StatCard/StatCard.tsx:187
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -687,12 +701,12 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/StatCard/StatCard.tsx:184
+      at: src/components/StatCard/StatCard.tsx:187
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-parts/src/components/StatCard/StatCard.stories.tsx
+  file: ~/DEV/bella-health/src/components/StatCard/StatCard.stories.tsx
   lines: 64-64
   import: import StatCard from '@bella/components/StatCard/StatCard';
   importSource: the style the Button doc page uses (CHIP import path)

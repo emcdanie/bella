@@ -73,6 +73,8 @@ export interface StatCardProps {
   series?: number[];
   /** One name per point, same order as `series` ("21 Nov"): the sparkline's callout says it. */
   seriesLabels?: string[];
+  /** line (default) or bars: the mini bar sparkline, one bar per point from zero with the latest in ink. */
+  seriesForm?: 'line' | 'bars';
   /** Which way the figure moved: a thin arrow in a tinted circle, with a spoken word, never colour alone. */
   trend?: 'up' | 'down';
   /** The tone of the arrow's circle (status only; up is not always bad). Default neutral. */
@@ -119,6 +121,7 @@ export default function StatCard({
   meter,
   series,
   seriesLabels,
+  seriesForm,
   trend,
   trendTone = 'neutral',
   comparison,
@@ -222,7 +225,7 @@ export default function StatCard({
           />
         ) : null}
         {!empty && (comparison != null || (series && series.length >= 2)) ? (
-          <div className={styles.change} data-bella-meta>
+          <div className={styles.change}>
             {series && series.length >= 2 ? (
               <Sparkline
                 series={series}
@@ -230,6 +233,7 @@ export default function StatCard({
                 label={`${typeof title === 'string' ? title : 'Trend'}: ${series[0]} to ${series[series.length - 1]} over ${series.length} points`}
                 summary={sparkSummary(typeof title === 'string' ? title : 'Trend', series, seriesLabels)}
                 table
+                form={seriesForm}
                 caption={typeof title === 'string' ? title : 'Trend'}
               />
             ) : null}
@@ -239,7 +243,7 @@ export default function StatCard({
                 <span className={styles.srOnly}>{trend === 'up' ? 'Up' : 'Down'}</span>
               </>
             ) : null}
-            {comparison != null ? <span>{comparison}</span> : null}
+            {comparison != null ? <span className={styles.comparison}>{comparison}</span> : null}
           </div>
         ) : null}
         {context != null ? <p className={styles.context} data-bella-meta>{context}</p> : null}

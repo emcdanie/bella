@@ -364,7 +364,8 @@ export const OpenRowsStacked: Story = {
 };
 
 /** compact and stack together (23 Nov 2026): a read-only list at 288 stacks each row, and every row is as tall as its
- *  lines, so the "Label: value" line under the name never runs into the next row. */
+ *  lines, so the "Label: value" line under the name never runs into the next row. State is `stackUnder`: under the
+ *  name, so "CommentThread" has the whole line. */
 export const CompactStacked: Story = {
   render: () => (
     <div style={{ maxWidth: 288 }}>
@@ -375,7 +376,7 @@ export const CompactStacked: Story = {
         rowKey="part"
         columns={[
           { key: 'part', label: 'Part' },
-          { key: 'state', label: 'State' },
+          { key: 'state', label: 'State', stackUnder: true },
           { key: 'from', label: 'Written in' },
         ]}
         rows={[
@@ -388,6 +389,10 @@ export const CompactStacked: Story = {
   ),
   play: async ({ canvasElement }) => {
     const rows = [...canvasElement.querySelectorAll('tbody tr')];
+    // stackUnder: the state sits under the name, never beside it, so a long name has the whole line
+    const first = rows[1].children[0].getBoundingClientRect();
+    const state = rows[1].children[1].getBoundingClientRect();
+    await expect(state.top).toBeGreaterThanOrEqual(first.bottom - 0.5);
     // each row's last line ends inside the row
     for (const r of rows) {
       const last = r.lastElementChild!.getBoundingClientRect();

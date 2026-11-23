@@ -254,6 +254,29 @@
     border-bottom: none;
   }
 
+  /* stackUnder (23 Nov 2026): this column goes under the name like the third and later ones, even as the second */
+  .root[data-stack] tbody tr > td.under {
+    grid-column: 1;
+    grid-row: auto;
+    display: block;
+    padding-block-start: 0;
+    text-align: start;
+    color: var(--color-content-subtle);
+  }
+
+  .root[data-stack] tbody tr > td.under > * {
+    justify-content: flex-start;
+  }
+
+  .root[data-stack] tbody tr > td.under .stackLabel {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--typography-body-default-font-family);
+  }
+
   /* compact rows stacked (23 Nov 2026, CHIP's Gaps drawer at 320): a stacked row grows with its lines; the compact
      32 is the height of one line only, so it would let the "Label: value" lines run into the next row */
   .root[data-stack][data-density='compact'] tbody tr > * {

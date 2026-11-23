@@ -27,6 +27,10 @@ export interface DataTableColumn<Row> {
   /** kind=swatch: the theme the colour resolves in, so a Light and a Dark column each show their own mode
    *  ("chip-light", "chip-dark"), as Figma sets the Colour block's mode. Missing = the page's theme. */
   swatchTheme?: string;
+  /** stack: under 480 this column goes under the name as "Label: value" in the subtle ink, even when it is the second
+   *  column (which otherwise sits beside the name). For a word too long to share the first line at 320, such as a
+   *  state ("Spec, no code"), so the name never touches it (23 Nov 2026, CHIP's Gaps drawer). */
+  stackUnder?: boolean;
 }
 
 export type DataTableSort = { key: string; direction: 'ascending' | 'descending' };
@@ -210,6 +214,7 @@ export default function DataTable<Row extends Record<string, any>>({
                       swatchTheme={c.kind === 'swatch' ? c.swatchTheme : undefined}
                       align={align}
                       selected={selected}
+                      className={c.stackUnder ? styles.under : undefined}
                     >
                       {stack ? <span className={styles.stackLabel}>{`${c.label}: `}</span> : null}
                       {content}

@@ -39,22 +39,47 @@ props:
     required: false
     doc: 'The target tick, 0 to 100 (Figma: 90, the blue tick).'
     at: src/components/SystemHealth/SystemHealth.tsx:31
+  - name: lowLabel
+    type: ReactNode
+    default: Low
+    required: false
+    doc: >-
+      The scale's low end, in words or a number ("0%"). Default "Low". A scale end with no number says nothing about how low (23 Nov second
+      pass).
+    at: src/components/SystemHealth/SystemHealth.tsx:33
+  - name: highLabel
+    type: ReactNode
+    default: High
+    required: false
+    doc: The scale's high end ("100%"). Default "High".
+    at: src/components/SystemHealth/SystemHealth.tsx:35
+  - name: countUp
+    type: boolean
+    values:
+      - true
+      - false
+    default: true
+    required: false
+    doc: >-
+      Whether the number counts up from 0 when the gauge first shows. On by default (Figma motion); off draws the real score at once, so the
+      number never reads a wrong state on the way ("Healthy 82%" at 92) (23 Nov second pass).
+    at: src/components/SystemHealth/SystemHealth.tsx:40
   - name: passed
     type: ReactNode
     required: true
     doc: 'Figma "Passed": the count in words under the arc ("251 of 264 pass").'
-    at: src/components/SystemHealth/SystemHealth.tsx:33
+    at: src/components/SystemHealth/SystemHealth.tsx:42
   - name: why
     type: ReactNode
     required: false
     doc: 'Figma "Why": what healthy means, and what still fails.'
-    at: src/components/SystemHealth/SystemHealth.tsx:35
+    at: src/components/SystemHealth/SystemHealth.tsx:44
   - name: failing
     type: SystemHealthFail[]
     default: '[]'
     required: false
     doc: 'Figma "Failing checks": one Fail row each.'
-    at: src/components/SystemHealth/SystemHealth.tsx:37
+    at: src/components/SystemHealth/SystemHealth.tsx:46
   - name: summary
     type: string
     required: false
@@ -62,15 +87,15 @@ props:
       The gauge's one-line summary (22 Nov reading), read as its description (aria-describedby), never drawn. Missing: written from the data
       ("System health: 95%, Healthy, target 90%, above target, 251 of 264 pass"). The failing checks are a real list, so they need no hidden
       table.
-    at: src/components/SystemHealth/SystemHealth.tsx:43
+    at: src/components/SystemHealth/SystemHealth.tsx:52
   - name: className
     type: string
     required: false
-    at: src/components/SystemHealth/SystemHealth.tsx:44
+    at: src/components/SystemHealth/SystemHealth.tsx:53
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SystemHealth/SystemHealth.tsx:45
+    at: src/components/SystemHealth/SystemHealth.tsx:54
 variants: {}
 states:
   contract:
@@ -796,43 +821,43 @@ motion:
 a11y:
   element:
     tag: section
-    at: src/components/SystemHealth/SystemHealth.tsx:116
+    at: src/components/SystemHealth/SystemHealth.tsx:128
   role:
     value: meter
     source: role attribute
-    at: src/components/SystemHealth/SystemHealth.tsx:116
+    at: src/components/SystemHealth/SystemHealth.tsx:128
   nameSource:
     value: visible content
-    at: src/components/SystemHealth/SystemHealth.tsx:116
+    at: src/components/SystemHealth/SystemHealth.tsx:128
   keyboard: []
   aria:
     - attribute: aria-valuemin
       value: '0'
-      at: src/components/SystemHealth/SystemHealth.tsx:129
+      at: src/components/SystemHealth/SystemHealth.tsx:141
     - attribute: aria-valuemax
       value: '100'
-      at: src/components/SystemHealth/SystemHealth.tsx:130
+      at: src/components/SystemHealth/SystemHealth.tsx:142
     - attribute: aria-valuenow
       value: pct
-      at: src/components/SystemHealth/SystemHealth.tsx:131
+      at: src/components/SystemHealth/SystemHealth.tsx:143
     - attribute: aria-valuetext
       value: valueText
-      at: src/components/SystemHealth/SystemHealth.tsx:132
+      at: src/components/SystemHealth/SystemHealth.tsx:144
     - attribute: aria-label
       value: typeof
-      at: src/components/SystemHealth/SystemHealth.tsx:133
+      at: src/components/SystemHealth/SystemHealth.tsx:145
     - attribute: aria-describedby
       value: summaryId
-      at: src/components/SystemHealth/SystemHealth.tsx:134
+      at: src/components/SystemHealth/SystemHealth.tsx:146
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/SystemHealth/SystemHealth.tsx:139
+      at: src/components/SystemHealth/SystemHealth.tsx:151
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/SystemHealth/SystemHealth.tsx:149
+      at: src/components/SystemHealth/SystemHealth.tsx:161
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/SystemHealth/SystemHealth.tsx:186
+      at: src/components/SystemHealth/SystemHealth.tsx:198
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -860,31 +885,30 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-valuemin
-      at: src/components/SystemHealth/SystemHealth.tsx:129
+      at: src/components/SystemHealth/SystemHealth.tsx:141
     - kind: ARIA
       value: aria-valuemax
-      at: src/components/SystemHealth/SystemHealth.tsx:130
+      at: src/components/SystemHealth/SystemHealth.tsx:142
     - kind: ARIA
       value: aria-valuenow
-      at: src/components/SystemHealth/SystemHealth.tsx:131
+      at: src/components/SystemHealth/SystemHealth.tsx:143
     - kind: ARIA
       value: aria-valuetext
-      at: src/components/SystemHealth/SystemHealth.tsx:132
+      at: src/components/SystemHealth/SystemHealth.tsx:144
     - kind: ARIA
       value: aria-label
-      at: src/components/SystemHealth/SystemHealth.tsx:133
+      at: src/components/SystemHealth/SystemHealth.tsx:145
     - kind: ARIA
       value: aria-describedby
-      at: src/components/SystemHealth/SystemHealth.tsx:134
+      at: src/components/SystemHealth/SystemHealth.tsx:146
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/SystemHealth/SystemHealth.tsx:186
+      at: src/components/SystemHealth/SystemHealth.tsx:198
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/SystemHealth/SystemHealth.stories.tsx
+  file: ~/DEV/bella-health/src/components/SystemHealth/SystemHealth.stories.tsx
   lines: 82-82
   import: import SystemHealth from '@bella/components/SystemHealth/SystemHealth';
   importSource: the style the Button doc page uses (CHIP import path)

@@ -76,7 +76,7 @@ export default function RunIndicator({
         total={state === 'running' && !many && known ? stepTotal : undefined}
         decorative
       />
-      {state === 'running' && many ? <span className={styles.count} data-bella-count="">{count}</span> : null}
+      {state === 'running' ? <span className={styles.count} data-bella-count="">{count}</span> : null}
       <span className={styles.text} data-bella-text="">
         <span className={styles.head}>{head}</span>
         {tail != null ? <span className={styles.tail}>{tail}</span> : null}

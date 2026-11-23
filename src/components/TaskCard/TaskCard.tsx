@@ -114,7 +114,7 @@ export default function TaskCard({
 }: TaskCardProps) {
   const elapsed = useElapsed(since, progress && !paused);
   const lastAgo = useAgo(lastStepAt, progress && !paused);
-  const meta = [progressLeft != null ? (progressLeft === 0 ? 'none left' : `${progressLeft} left`) : null, elapsed, lastAgo ? `last step ${lastAgo}` : null].filter(Boolean).join(' · ');
+  const meta = [progressLeft != null ? (progressLeft === 0 ? 'none left' : `${progressLeft} left`) : null, elapsed, lastAgo ? `last\u00a0step ${lastAgo}` : null].filter(Boolean).join(' · ');
   const opens = href != null || onOpen != null;
   useEffect(() => {
     if (leaving && window.matchMedia('(prefers-reduced-motion: reduce)').matches) onLeft?.();

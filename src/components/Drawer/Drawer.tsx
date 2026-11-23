@@ -36,6 +36,14 @@ export interface DrawerProps {
   backLabel?: string;
   /** Figma "Show footer" + Footer: actions pinned under the body, above a hairline: at most one primary Button, the rest secondary. Missing = off. */
   footer?: ReactNode;
+  /**
+   * One line of helper text in the footer's own row, at the left, with the footer's actions at the right edge
+   * (CHIP drawers, 23 Nov 2026: one fixed place to read what the action does and act). It says what the
+   * primary action does ("Opens the plan; nothing runs until you approve it"). It wraps under itself in its own column;
+   * only when the drawer is too narrow for both (two buttons at 320) does the row break, the text above the actions,
+   * never under them. Needs `footer`. Missing = off.
+   */
+  footerNote?: ReactNode;
   /** Extra classes on the dialog. */
   className?: string;
 }
@@ -46,7 +54,7 @@ export interface DrawerProps {
  * it is open, so focus stays inside; Esc closes it; focus goes back to
  * whatever opened it.
  */
-export default function Drawer({ open, onClose, label, side = 'left', size = 'sm', children, status, subtitle, action, onBack, backLabel = 'Back', footer, className }: DrawerProps) {
+export default function Drawer({ open, onClose, label, side = 'left', size = 'sm', children, status, subtitle, action, onBack, backLabel = 'Back', footer, footerNote, className }: DrawerProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
   const onCloseRef = useRef(onClose);
@@ -169,7 +177,13 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
           <div ref={bodyRef} className={styles.body} role="region" aria-label={`${label}: content`} tabIndex={scrolls ? 0 : undefined}>
             {children}
           </div>
-          {footer != null ? <div className={styles.footer}>{footer}</div> : null}
+          {/* Figma Footer: the helper text left, the actions at the right edge of the same row, primary last */}
+          {footer != null ? (
+            <div className={styles.footer}>
+              {footerNote != null ? <p className={styles.footerNote}>{footerNote}</p> : null}
+              <div className={styles.footerActions}>{footer}</div>
+            </div>
+          ) : null}
         </>
       ) : null}
     </dialog>

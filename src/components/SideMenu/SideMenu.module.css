@@ -68,6 +68,8 @@
   /* room for the 4 + 4 outside focus ring of a row, so the scroll box never clips it */
   margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
   padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+  /* a row the keyboard reaches scrolls in with its ring room too, so its ring is never cut at the scroll's edge */
+  scroll-padding-block: calc(var(--focus-ring-width) + var(--focus-ring-offset));
 }
 
 .group {

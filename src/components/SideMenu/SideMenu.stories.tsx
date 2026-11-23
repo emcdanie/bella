@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import SideMenu, { type SideMenuItem } from './SideMenu';
 import BrandWordmark from '../BrandWordmark/BrandWordmark';
+import SearchField from '../SearchField/SearchField';
+import Button from '../Button/Button';
+import Tooltip from '../Tooltip/Tooltip';
 import cssRaw from './SideMenu.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -50,6 +53,8 @@ const meta: Meta<typeof SideMenu> = {
     foot: { control: false },
     onNavigate: { control: false },
     onClientClick: { control: false },
+    search: { control: false },
+    clientLogo: { control: false },
     className: { control: false },
     style: { control: false },
   },
@@ -91,6 +96,67 @@ export const WithLogo: Story = {
     const b = c.getByRole('button', { name: /Switch client: BELLA/ });
     await expect(b.querySelector('[data-bella-component="brand-wordmark"], svg')).toBeTruthy();
     await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(64);
+  },
+};
+
+/** search (CHIP, 23 Nov 2026: one search, where Figma has its Find field): the Find field is the menu's first row, with its
+ * filter button after it; the Search row leaves `items`. The slot is the search landmark; field and button are 44 targets
+ * that end on the rows' right edge, 4 above the first row. */
+export const WithSearch: Story = {
+  args: {
+    items: ITEMS.filter((it) => it.label !== 'Search'),
+    search: (
+      <>
+        <SearchField placeholder="Find" showShortcut={false} />
+        <Tooltip label="Filter results">
+          <Button variant="tertiary" iconOnly icon="FilterList" ariaLabel="Filter results" />
+        </Tooltip>
+      </>
+    ),
+  },
+  render: (args) => (
+    <div style={{ background: 'var(--color-background-default)', paddingInlineEnd: 'var(--spacing-32)' }}>
+      <Column {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const c = within(canvasElement);
+    const menu = canvasElement.querySelector('[data-bella-component="side-menu"]') as HTMLElement;
+    const landmark = c.getByRole('search');
+    const field = within(landmark).getByRole('searchbox', { name: 'Find' });
+    const box = field.closest('[data-bella-component="search-field"]') as HTMLElement;
+    const filter = within(landmark).getByRole('button', { name: 'Filter results' });
+    const home = c.getByRole('link', { name: 'Home' });
+    const r = (el: Element) => el.getBoundingClientRect();
+
+    await step('the field is the first row: 16 under the switcher, 4 above the first row, no Search row', async () => {
+      await expect(c.queryByRole('button', { name: 'Search' })).toBeNull();
+      await expect(Math.round(r(box).top - r(menu.firstElementChild as Element).bottom)).toBe(16);
+      await expect(Math.round(r(home).top - r(landmark).bottom)).toBe(4);
+    });
+
+    await step('field and button are 44 targets, 4 apart, and span the rows (12 in from each side)', async () => {
+      await expect(Math.round(r(box).height)).toBe(44);
+      await expect(Math.round(r(filter).height)).toBeGreaterThanOrEqual(44);
+      await expect(Math.round(r(filter).width)).toBeGreaterThanOrEqual(44);
+      await expect(Math.round(r(box).left)).toBe(Math.round(r(home).left));
+      await expect(Math.round(r(filter).right)).toBe(Math.round(r(home).right));
+      await expect(Math.round(r(filter).left - r(box).right)).toBe(4);
+      await expect(Math.round(r(menu).width)).toBe(232);
+    });
+
+    await step('Tab reaches the field after the switcher, then the filter, then the rows', async () => {
+      (document.activeElement as HTMLElement | null)?.blur();
+      await userEvent.tab();
+      await userEvent.tab();
+      await expect(document.activeElement).toBe(field);
+      await userEvent.tab();
+      await expect(document.activeElement).toBe(filter);
+      await userEvent.tab();
+      await expect(document.activeElement).toBe(home);
+      // the snapshot shows the menu at rest
+      (document.activeElement as HTMLElement | null)?.blur();
+    });
   },
 };
 

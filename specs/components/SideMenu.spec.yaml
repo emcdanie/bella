@@ -43,29 +43,37 @@ props:
     required: false
     doc: Whether the client list is open (aria-expanded on the switcher).
     at: src/components/SideMenu/SideMenu.tsx:32
+  - name: search
+    type: ReactNode
+    required: false
+    doc: >-
+      The Find field at the top of the menu, over the first row (CHIP, 23 Nov 2026: one search, where Figma has its Find field). A
+      SearchField, and after it at most one icon Button (its filter): the field takes the room, the button keeps its 44. The slot is the
+      menu's search landmark. Leave the Search row out of `items` when this is set.
+    at: src/components/SideMenu/SideMenu.tsx:38
   - name: items
     type: SideMenuItem[]
     required: true
-    doc: 'Group · Go to: Search, Home, Needs you (count), Not again.'
-    at: src/components/SideMenu/SideMenu.tsx:34
+    doc: 'Group · Go to: Home, Needs you (count), Not again (and a Search row when there is no `search` slot).'
+    at: src/components/SideMenu/SideMenu.tsx:40
   - name: pinned
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Pinned: what she pinned.'
-    at: src/components/SideMenu/SideMenu.tsx:36
+    at: src/components/SideMenu/SideMenu.tsx:42
   - name: projects
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Projects: one Folder row per project.'
-    at: src/components/SideMenu/SideMenu.tsx:38
+    at: src/components/SideMenu/SideMenu.tsx:44
   - name: foot
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Foot, pushed to the bottom: Team, Settings.'
-    at: src/components/SideMenu/SideMenu.tsx:40
+    at: src/components/SideMenu/SideMenu.tsx:46
   - name: showPinned
     type: boolean
     values:
@@ -74,7 +82,7 @@ props:
     default: true
     required: false
     doc: Figma "Show pinned".
-    at: src/components/SideMenu/SideMenu.tsx:42
+    at: src/components/SideMenu/SideMenu.tsx:48
   - name: showProjects
     type: boolean
     values:
@@ -83,21 +91,21 @@ props:
     default: true
     required: false
     doc: Figma "Show projects".
-    at: src/components/SideMenu/SideMenu.tsx:44
+    at: src/components/SideMenu/SideMenu.tsx:50
   - name: onNavigate
     type: '(href: string, event: MouseEvent<HTMLElement>) => void'
     required: false
     doc: Called on every row click with the row's href, before navigation; call event.preventDefault() to route in the app.
-    at: src/components/SideMenu/SideMenu.tsx:46
+    at: src/components/SideMenu/SideMenu.tsx:52
   - name: className
     type: string
     required: false
     doc: Extra classes on the menu.
-    at: src/components/SideMenu/SideMenu.tsx:48
+    at: src/components/SideMenu/SideMenu.tsx:54
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SideMenu/SideMenu.tsx:49
+    at: src/components/SideMenu/SideMenu.tsx:55
 variants: {}
 states:
   contract:
@@ -568,96 +576,108 @@ tokens:
       token: '--color-border-default'
       selector: .menu
       at: src/components/SideMenu/SideMenu.module.css:23
+    - part: body
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .body
+      at: src/components/SideMenu/SideMenu.module.css:33
+    - part: search
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .search
+      at: src/components/SideMenu/SideMenu.module.css:41
     - part: nav
       state: rest
       property: gap
       token: '--spacing-16'
       selector: .nav
-      at: src/components/SideMenu/SideMenu.module.css:30
+      at: src/components/SideMenu/SideMenu.module.css:53
     - part: main
       state: rest
       property: gap
       token: '--spacing-16'
       selector: .main
-      at: src/components/SideMenu/SideMenu.module.css:38
+      at: src/components/SideMenu/SideMenu.module.css:61
     - part: main
       state: rest
       property: margin
       token: '--focus-ring-width'
       selector: .main
-      at: src/components/SideMenu/SideMenu.module.css:42
+      at: src/components/SideMenu/SideMenu.module.css:65
     - part: main
       state: rest
       property: margin
       token: '--focus-ring-offset'
       selector: .main
-      at: src/components/SideMenu/SideMenu.module.css:42
+      at: src/components/SideMenu/SideMenu.module.css:65
     - part: main
       state: rest
       property: padding
       token: '--focus-ring-width'
       selector: .main
-      at: src/components/SideMenu/SideMenu.module.css:43
+      at: src/components/SideMenu/SideMenu.module.css:66
     - part: main
       state: rest
       property: padding
       token: '--focus-ring-offset'
       selector: .main
-      at: src/components/SideMenu/SideMenu.module.css:43
+      at: src/components/SideMenu/SideMenu.module.css:66
     - part: group
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .group
-      at: src/components/SideMenu/SideMenu.module.css:49
+      at: src/components/SideMenu/SideMenu.module.css:72
     - part: groupLabel
       state: rest
       property: padding
       token: '--spacing-12'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:54
+      at: src/components/SideMenu/SideMenu.module.css:77
     - part: groupLabel
       state: rest
       property: padding
       token: '--spacing-16'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:54
+      at: src/components/SideMenu/SideMenu.module.css:77
     - part: groupLabel
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:55
+      at: src/components/SideMenu/SideMenu.module.css:78
     - part: groupLabel
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:56
+      at: src/components/SideMenu/SideMenu.module.css:79
     - part: groupLabel
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:57
+      at: src/components/SideMenu/SideMenu.module.css:80
     - part: groupLabel
       state: rest
       property: line-height
       token: '--size-28'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:61
+      at: src/components/SideMenu/SideMenu.module.css:84
     - part: groupLabel
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .groupLabel
-      at: src/components/SideMenu/SideMenu.module.css:62
+      at: src/components/SideMenu/SideMenu.module.css:85
     - part: list
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .list
-      at: src/components/SideMenu/SideMenu.module.css:68
+      at: src/components/SideMenu/SideMenu.module.css:91
   values:
     '--border-width-1':
       light: null
@@ -714,14 +734,14 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:105
   role:
     value: null
     source: native element
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:105
   nameSource:
     value: visible content
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:105
   keyboard: []
   aria:
     - attribute: aria-current
@@ -729,10 +749,10 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - attribute: aria-labelledby
       value: headId
-      at: src/components/SideMenu/SideMenu.tsx:98
+      at: src/components/SideMenu/SideMenu.tsx:109
     - attribute: aria-label
       value: label
-      at: src/components/SideMenu/SideMenu.tsx:107
+      at: src/components/SideMenu/SideMenu.tsx:116
   focusRing: []
   disabled:
     prop: null
@@ -749,17 +769,16 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/SideMenu/SideMenu.tsx:98
+      at: src/components/SideMenu/SideMenu.tsx:109
     - kind: ARIA
       value: aria-label
-      at: src/components/SideMenu/SideMenu.tsx:107
+      at: src/components/SideMenu/SideMenu.tsx:116
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    src/components/SideMenu/SideMenu.stories.tsx
-  lines: 66-66
+  file: src/components/SideMenu/SideMenu.stories.tsx
+  lines: 71-71
   import: import SideMenu from '@bella/components/SideMenu/SideMenu';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <SideMenu {...props} />
@@ -784,6 +803,9 @@ figma:
   variants: []
   defaultVariant: Side menu
 mismatch:
+  - field: props.search
+    code: ReactNode slot (the Find field and its filter)
+    figma: not in the set
   - field: props.clientExpanded
     code: boolean prop
     figma: not in the set

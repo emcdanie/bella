@@ -54,8 +54,209 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Menu item
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Menu item
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Menu item
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Menu item
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Menu divider
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Menu item
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Menu
+    type: COMPONENT
+    size: 240x247
+    tokens:
+      - field: paddingLeft
+        variable: spacing/8
+      - field: paddingTop
+        variable: spacing/8
+      - field: paddingRight
+        variable: spacing/8
+      - field: paddingBottom
+        variable: spacing/8
+      - field: topLeftRadius
+        variable: border/radius/12
+      - field: topRightRadius
+        variable: border/radius/12
+      - field: bottomLeftRadius
+        variable: border/radius/12
+      - field: bottomRightRadius
+        variable: border/radius/12
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/default
+      - field: effects
+        variable: color/neutral/alpha/5
+    children:
+      - name: Items
+        type: SLOT
+        size: 222x229
+        children:
+          - name: Menu item
+            type: INSTANCE
+            instanceOf: Menu item
+            size: 222x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
+          - name: Menu item
+            type: INSTANCE
+            instanceOf: Menu item
+            size: 222x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
+          - name: Menu item
+            type: INSTANCE
+            instanceOf: Menu item
+            size: 222x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
+          - name: Menu item
+            type: INSTANCE
+            instanceOf: Menu item
+            size: 222x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
+          - name: Menu divider
+            type: INSTANCE
+            instanceOf: Menu divider
+            size: 222x9
+            tokens:
+              - field: paddingLeft
+                variable: size/0
+              - field: paddingTop
+                variable: spacing/4
+              - field: paddingRight
+                variable: size/0
+              - field: paddingBottom
+                variable: spacing/4
+          - name: Menu item
+            type: INSTANCE
+            instanceOf: Menu item
+            size: 222x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
   code: []
 tokens:
   used:
@@ -349,8 +550,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Menu/Menu.stories.tsx
+  file: src/components/Menu/Menu.stories.tsx
   lines: 43-44
   import: import Menu from '@bella/components/Menu/Menu';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -365,11 +565,74 @@ usage:
     - 'Not choosing a value: the model choice (Auto, local model, Claude) is a Select'
     - Not more than about seven items
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1014:89'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Items#1014:27:
+      type: SLOT
+  variants: []
+  defaultVariant: Menu
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.autoFocus
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Menu.strokes
+    code:
+      - '--border-radius-12'
+      - '--shadow-soft'
+      - '--border-radius-md'
+    figma: color/border/default
+    sameValueInChip: false
+  - field: tokens.Menu.effects
+    code:
+      - '--spacing-8'
+      - '--border-radius-12'
+      - '--color-background-surface'
+      - '--shadow-soft'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--border-radius-md'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-content-utility-error'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--spacing-4'
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Menu item.paddingTop
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Menu item.paddingBottom
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Menu divider.paddingLeft
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Menu divider.paddingRight
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Menu/Menu.tsx

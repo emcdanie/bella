@@ -59,7 +59,7 @@ props:
     values:
       - true
       - false
-    default: mark != null || markSrc != null
+    default: false
     required: false
     doc: Figma "Show mark". Missing mark = off.
     at: src/components/EmptyState/EmptyState.tsx:21
@@ -105,8 +105,206 @@ sizes:
         at: src/components/EmptyState/EmptyState.module.css:47
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Emoji
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Message
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Action
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: size=lane
+    type: COMPONENT
+    size: 232x212
+    tokens:
+      - field: itemSpacing
+        variable: spacing/16
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingTop
+        variable: spacing/24
+      - field: paddingRight
+        variable: spacing/16
+      - field: paddingBottom
+        variable: spacing/24
+    children:
+      - name: Mark
+        type: FRAME
+        size: 48x48
+        tokens:
+          - field: width
+            variable: size/48
+          - field: height
+            variable: size/48
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
+        children:
+          - name: Emoji
+            type: TEXT
+            text: 🤷
+            size: 48x48
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Eyes
+            type: INSTANCE
+            instanceOf: _Mark eyes
+            hidden: true
+            size: 24x14
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        hidden: true
+        size: 20x20
+        tokens:
+          - field: width
+            variable: size/20
+          - field: height
+            variable: size/20
+      - name: Text
+        type: FRAME
+        size: 200x52
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Title
+            type: TEXT
+            text: Nothing here yet
+            size: 200x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Message
+            type: TEXT
+            text: Say what fills this space.
+            size: 200x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/400
+      - name: Actions
+        type: FRAME
+        size: 200x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: counterAxisSpacing
+            variable: spacing/8
+        children:
+          - name: Secondary action
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 117x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: size/32
+              - field: fills
+                variable: button/color/background/default
+              - field: strokes
+                variable: button/color/border/default
+          - name: Action
+            type: INSTANCE
+            instanceOf: Button
+            size: 115x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: size/32
+              - field: fills
+                variable: color/background/brand
+              - field: strokes
+                variable: color/border/action-raised
   code: []
 tokens:
   used:
@@ -456,7 +654,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/EmptyState/EmptyState.stories.tsx
+    src/components/EmptyState/EmptyState.stories.tsx
   lines: 64-64
   import: import EmptyState from '@bella/components/EmptyState/EmptyState';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -466,11 +664,226 @@ usage:
     - CHIP "Not again" stat cards with no data (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1014:2670'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#1014:28:
+      type: TEXT
+      default: Nothing here yet
+    Line#1014:31:
+      type: TEXT
+      default: Say what fills this space.
+    Show action#1014:34:
+      type: BOOLEAN
+      default: true
+    icon#1014:37:
+      type: INSTANCE_SWAP
+      default: '205:792'
+    Show icon#1067:5:
+      type: BOOLEAN
+      default: false
+    Show secondary action#1067:8:
+      type: BOOLEAN
+      default: false
+    Mark#1373:0:
+      type: TEXT
+      default: 🤷
+    Show mark#1373:3:
+      type: BOOLEAN
+      default: true
+    Show emoji#1381:22:
+      type: BOOLEAN
+      default: true
+    Show eyes#1381:33:
+      type: BOOLEAN
+      default: false
+    size:
+      type: VARIANT
+      default: lane
+      values:
+        - lane
+        - page
+  variants:
+    - name: size=lane
+      width: 232
+      height: 212
+    - name: size=page
+      width: 384
+      height: 300
+  defaultVariant: size=lane
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.Mark.width
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--spacing-48'
+      - '--spacing-12'
+      - '--spacing-32'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--border-radius-round'
+      - '--spacing-64'
+      - '--motion-duration-900'
+      - '--motion-easing-pop'
+      - '--border-width-2'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/48
+    sameValueInChip: false
+  - field: tokens.Mark.height
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--spacing-48'
+      - '--spacing-12'
+      - '--spacing-32'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--border-radius-round'
+      - '--spacing-64'
+      - '--motion-duration-900'
+      - '--motion-easing-pop'
+      - '--border-width-2'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/48
+    sameValueInChip: false
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--spacing-48'
+      - '--spacing-12'
+      - '--spacing-32'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--border-radius-round'
+      - '--spacing-64'
+      - '--motion-duration-900'
+      - '--motion-easing-pop'
+      - '--border-width-2'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--spacing-48'
+      - '--spacing-12'
+      - '--spacing-32'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--border-radius-round'
+      - '--spacing-64'
+      - '--motion-duration-900'
+      - '--motion-easing-pop'
+      - '--border-width-2'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Secondary action.paddingLeft
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Secondary action.paddingTop
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Secondary action.paddingRight
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Secondary action.paddingBottom
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingLeft
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Action.paddingTop
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingRight
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Action.paddingBottom
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-32'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-subtle'
+    figma: color/background/brand
+    sameValueInChip: false
+  - field: tokens.Action.strokes
+    code:
+      - '--border-radius-round'
+    figma: color/border/action-raised
+    sameValueInChip: false
 notApplicable: []
 guidance:
   lead: null

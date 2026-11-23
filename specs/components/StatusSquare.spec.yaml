@@ -52,8 +52,40 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: status=failed
+    type: COMPONENT
+    size: 24x24
+    tokens:
+      - field: width
+        variable: size/24
+      - field: height
+        variable: size/24
+      - field: topLeftRadius
+        variable: border/radius/sm
+      - field: topRightRadius
+        variable: border/radius/sm
+      - field: bottomLeftRadius
+        variable: border/radius/sm
+      - field: bottomRightRadius
+        variable: border/radius/sm
+      - field: fills
+        variable: color/border/utility/error
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 16x16
+        tokens:
+          - field: width
+            variable: size/16
+          - field: height
+            variable: size/16
   code: []
 tokens:
   used:
@@ -181,7 +213,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/StatusSquare/StatusSquare.stories.tsx
+    src/components/StatusSquare/StatusSquare.stories.tsx
   lines: 65-65
   import: import StatusSquare from '@bella/components/StatusSquare/StatusSquare';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -191,11 +223,59 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1168:95843'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    status:
+      type: VARIANT
+      default: failed
+      values:
+        - failed
+        - waiting
+        - working
+        - passed
+  variants:
+    - name: status=failed
+      width: 24
+      height: 24
+    - name: status=waiting
+      width: 24
+      height: 24
+    - name: status=working
+      width: 24
+      height: 24
+    - name: status=passed
+      width: 24
+      height: 24
+  defaultVariant: status=failed
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.Icon.width
+    code:
+      - '--size-24'
+      - '--border-radius-sm'
+      - '--color-content-knockout'
+      - '--color-border-utility-error'
+      - '--color-background-utility-warning-mark'
+      - '--border-width-1'
+      - '--color-border-utility-warning'
+      - '--color-border-utility-info'
+      - '--color-border-utility-success'
+    figma: size/16
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--size-24'
+      - '--border-radius-sm'
+      - '--color-content-knockout'
+      - '--color-border-utility-error'
+      - '--color-background-utility-warning-mark'
+      - '--border-width-1'
+      - '--color-border-utility-warning'
+      - '--color-border-utility-info'
+      - '--color-border-utility-success'
+    figma: size/16
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/StatusSquare/StatusSquare.tsx

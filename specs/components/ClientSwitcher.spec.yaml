@@ -82,8 +82,112 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Mark
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Name
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Caption
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Chevron
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: variant=tile, state=default
+    type: COMPONENT
+    size: 232x64
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+      - field: paddingLeft
+        variable: spacing/8
+      - field: paddingTop
+        variable: spacing/8
+      - field: paddingRight
+        variable: spacing/8
+      - field: paddingBottom
+        variable: spacing/8
+      - field: topLeftRadius
+        variable: border/radius/12
+      - field: topRightRadius
+        variable: border/radius/12
+      - field: bottomLeftRadius
+        variable: border/radius/12
+      - field: bottomRightRadius
+        variable: border/radius/12
+    children:
+      - name: Tile
+        type: FRAME
+        size: 48x48
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/12
+          - field: topRightRadius
+            variable: border/radius/12
+          - field: bottomLeftRadius
+            variable: border/radius/12
+          - field: bottomRightRadius
+            variable: border/radius/12
+          - field: fills
+            variable: color/background/surface
+          - field: effects
+            variable:
+              - color/neutral/alpha/5
+              - color/neutral/alpha/10
+        children:
+          - name: Mark
+            type: INSTANCE
+            instanceOf: Brand / BELLA mark
+            size: 10x24
+      - name: Text
+        type: FRAME
+        size: 120x48
+        children:
+          - name: Name row
+            type: FRAME
+            size: 65x24
+            children:
+              - name: Name
+                type: TEXT
+                text: BELLA
+                size: 65x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/20
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/font-weight/700
+          - name: Caption
+            type: TEXT
+            text: Design system
+            size: 113x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/body-default/font-weight
+      - name: Chevron
+        type: INSTANCE
+        instanceOf: Trailing
+        size: 24x48
   code: []
 tokens:
   used:
@@ -479,7 +583,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-sidelogo/src/components/ClientSwitcher/ClientSwitcher.stories.tsx
+  file: >-
+    src/components/ClientSwitcher/ClientSwitcher.stories.tsx
   lines: 38-38
   import: import ClientSwitcher from '@bella/components/ClientSwitcher/ClientSwitcher';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -489,11 +594,116 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1168:95809'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Name#1168:120:
+      type: TEXT
+      default: BELLA
+    Caption#1168:121:
+      type: TEXT
+      default: Design system
+    variant:
+      type: VARIANT
+      default: tile
+      values:
+        - plain
+        - tile
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - hover
+        - focus
+  variants:
+    - name: variant=tile, state=default
+      width: 232
+      height: 64
+    - name: variant=tile, state=hover
+      width: 232
+      height: 64
+    - name: variant=tile, state=focus
+      width: 232
+      height: 64
+    - name: variant=plain, state=default
+      width: 232
+      height: 68
+    - name: variant=plain, state=hover
+      width: 232
+      height: 68
+    - name: variant=plain, state=focus
+      width: 232
+      height: 68
+  defaultVariant: variant=tile, state=default
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: states
+    code:
+      contract:
+        - default
+      css:
+        - hover
+        - focus-visible
+    figma:
+      - default
+      - hover
+      - focus
+  - field: props.expanded
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Tile.effects
+    code:
+      - '--spacing-12'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--border-radius-12'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-48'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-700'
+      - '--typography-line-height-px-24'
+      - '--typography-body-default-font-weight'
+      - '--color-content-subtle'
+      - '--spacing-44'
+      - '--spacing-4'
+      - '--spacing-20'
+      - '--spacing-16'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Tile.effects
+    code:
+      - '--spacing-12'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--border-radius-12'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-48'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-700'
+      - '--typography-line-height-px-24'
+      - '--typography-body-default-font-weight'
+      - '--color-content-subtle'
+      - '--spacing-44'
+      - '--spacing-4'
+      - '--spacing-20'
+      - '--spacing-16'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ClientSwitcher/ClientSwitcher.tsx

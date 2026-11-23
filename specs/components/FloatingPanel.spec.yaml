@@ -101,8 +101,434 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Grip
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Status
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Action
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Dock
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Close
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 7
+      name: Message
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: ProgressRing
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 9
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 10
+      name: Meta
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 11
+      name: ProgressRing
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 12
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 13
+      name: Meta
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 14
+      name: ProgressRing
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 15
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 16
+      name: Composer
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: FloatingPanel
+    type: COMPONENT
+    size: 400x394
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/subtle
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Title bar
+        type: FRAME
+        size: 398x61
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/8
+          - field: paddingTop
+            variable: spacing/8
+          - field: paddingRight
+            variable: spacing/8
+          - field: paddingBottom
+            variable: spacing/8
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokes
+            variable: color/border/subtle
+        children:
+          - name: Move handle
+            type: FRAME
+            size: 193x24
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Grip
+                type: INSTANCE
+                instanceOf: Icon
+                size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
+              - name: Title
+                type: TEXT
+                text: Terminal
+                size: 70x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/body-default/font-size
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/title-default/font-weight
+              - name: Status
+                type: INSTANCE
+                instanceOf: StatusDot
+                size: 87x24
+          - name: Actions
+            type: FRAME
+            size: 165x44
+            children:
+              - name: Action
+                type: INSTANCE
+                instanceOf: Button
+                size: 77x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/20
+                  - field: paddingTop
+                    variable: size/0
+                  - field: paddingRight
+                    variable: spacing/20
+                  - field: paddingBottom
+                    variable: size/0
+                  - field: topLeftRadius
+                    variable: border/radius/lg
+                  - field: topRightRadius
+                    variable: border/radius/lg
+                  - field: bottomLeftRadius
+                    variable: border/radius/lg
+                  - field: bottomRightRadius
+                    variable: border/radius/lg
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
+                  - field: minHeight
+                    variable: spacing/44
+                  - field: fills
+                    variable: button/color/background/default
+                  - field: strokes
+                    variable: button/color/border/default
+              - name: Dock
+                type: INSTANCE
+                instanceOf: Button
+                size: 44x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: topLeftRadius
+                    variable: border/radius/lg
+                  - field: topRightRadius
+                    variable: border/radius/lg
+                  - field: bottomLeftRadius
+                    variable: border/radius/lg
+                  - field: bottomRightRadius
+                    variable: border/radius/lg
+                  - field: minHeight
+                    variable: spacing/44
+              - name: Close
+                type: INSTANCE
+                instanceOf: Button
+                size: 44x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: topLeftRadius
+                    variable: border/radius/lg
+                  - field: topRightRadius
+                    variable: border/radius/lg
+                  - field: bottomLeftRadius
+                    variable: border/radius/lg
+                  - field: bottomRightRadius
+                    variable: border/radius/lg
+                  - field: minHeight
+                    variable: spacing/44
+      - name: Body
+        type: SLOT
+        size: 398x331
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingTop
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/16
+          - field: paddingBottom
+            variable: spacing/16
+        children:
+          - name: Message row
+            type: FRAME
+            size: 366x70
+            children:
+              - name: Message
+                type: INSTANCE
+                instanceOf: ChatBubble
+                size: 296x70
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingTop
+                    variable: spacing/8
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: paddingBottom
+                    variable: spacing/8
+                  - field: topLeftRadius
+                    variable: border/radius/card
+                  - field: topRightRadius
+                    variable: border/radius/card
+                  - field: bottomLeftRadius
+                    variable: border/radius/card
+                  - field: bottomRightRadius
+                    variable: border/radius/card
+                  - field: fills
+                    variable: color/background/accent-1
+          - name: Steps
+            type: FRAME
+            size: 366x136
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+            children:
+              - name: Step
+                type: FRAME
+                size: 366x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                children:
+                  - name: Mark
+                    type: FRAME
+                    size: 20x22
+                    children:
+                      - name: ProgressRing
+                        type: INSTANCE
+                        instanceOf: ProgressRing
+                        size: 20x20
+                        tokens:
+                          - field: width
+                            variable: size/20
+                          - field: height
+                            variable: size/20
+                  - name: Text
+                    type: FRAME
+                    size: 338x44
+                    children:
+                      - name: Title
+                        type: TEXT
+                        text: Centred the Tag on the marker
+                        size: 338x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/body-default/font-size
+                          - field: fontFamily
+                            variable: typography/body-default/font-family
+                          - field: fontWeight
+                            variable: typography/body-default/font-weight
+                      - name: Meta
+                        type: TEXT
+                        text: Progress.tsx · 1 file
+                        size: 116x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+              - name: Step
+                type: FRAME
+                size: 366x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                children:
+                  - name: Mark
+                    type: FRAME
+                    size: 20x22
+                    children:
+                      - name: ProgressRing
+                        type: INSTANCE
+                        instanceOf: ProgressRing
+                        size: 20x20
+                        tokens:
+                          - field: width
+                            variable: size/20
+                          - field: height
+                            variable: size/20
+                  - name: Text
+                    type: FRAME
+                    size: 338x44
+                    children:
+                      - name: Title
+                        type: TEXT
+                        text: Running the gate
+                        size: 338x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/body-default/font-size
+                          - field: fontFamily
+                            variable: typography/body-default/font-family
+                          - field: fontWeight
+                            variable: typography/body-default/font-weight
+                      - name: Meta
+                        type: TEXT
+                        text: 3 of 5 checks
+                        size: 87x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+              - name: Step
+                type: FRAME
+                size: 366x24
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                children:
+                  - name: Mark
+                    type: FRAME
+                    size: 20x22
+                    children:
+                      - name: ProgressRing
+                        type: INSTANCE
+                        instanceOf: ProgressRing
+                        size: 20x20
+                        tokens:
+                          - field: width
+                            variable: size/20
+                          - field: height
+                            variable: size/20
+                  - name: Text
+                    type: FRAME
+                    size: 338x24
+                    children:
+                      - name: Title
+                        type: TEXT
+                        text: Show B before and after
+                        size: 338x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/body-default/font-size
+                          - field: fontFamily
+                            variable: typography/body-default/font-family
+                          - field: fontWeight
+                            variable: typography/body-default/font-weight
+          - name: Composer row
+            type: FRAME
+            size: 366x61
+            tokens:
+              - field: paddingTop
+                variable: spacing/16
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokes
+                variable: color/border/subtle
+            children:
+              - name: Composer
+                type: INSTANCE
+                instanceOf: Input
+                size: 366x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
   code: []
 tokens:
   used:
@@ -496,12 +922,12 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/FloatingPanel/FloatingPanel.stories.tsx
-  lines: 109-110
+    src/components/FloatingPanel/FloatingPanel.stories.tsx
+  lines: 111-112
   import: import FloatingPanel from '@bella/components/FloatingPanel/FloatingPanel';
   importSource: the style the Button doc page uses (CHIP import path)
   code: |-
-    <FloatingPanel {...args} defaultPosition={{ x: 40, y: 40 }} onDock={() => {}} onClose={() => {}}>
+    <FloatingPanel {...args} defaultPosition={{ x: 16, y: 16 }} onDock={() => {}} onClose={() => {}}>
       <TerminalBody />
 usage:
   use:
@@ -511,11 +937,218 @@ usage:
     - Not a hover hint (Tooltip)
     - 'No resize corner: the window has one size'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1739:20'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Body#1739:0:
+      type: SLOT
+    Title#1739:1:
+      type: TEXT
+      default: Terminal
+    Show status#1739:2:
+      type: BOOLEAN
+      default: true
+    Show action#1739:3:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: FloatingPanel
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.statusTone
+    code:
+      - success
+      - info
+      - attention
+      - danger
+      - neutral
+    figma: no such variant property
+  - field: tokens.FloatingPanel.effects
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.FloatingPanel.effects
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Grip.width
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Grip.height
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-16'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Action.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Action.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Action.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Message.itemSpacing
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Message.fills
+    code:
+      - '--color-background-surface'
+      - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-content-default'
+    figma: color/background/accent-1
+    sameValueInChip: false
+  - field: tokens.Steps.itemSpacing
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.ProgressRing.width
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.ProgressRing.height
+    code:
+      - '--spacing-80'
+      - '--spacing-32'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--color-content-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Meta.fontSize
+    code:
+      - '--typography-font-size-16'
+    figma: typography/font-size/14
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/FloatingPanel/FloatingPanel.tsx

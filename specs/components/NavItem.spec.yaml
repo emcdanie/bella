@@ -26,7 +26,7 @@ props:
     values:
       - true
       - false
-    default: badge != null
+    default: false
     required: false
     doc: Figma "Show badge".
     at: src/components/NavItem/NavItem.tsx:12
@@ -93,8 +93,78 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Badge
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: state=default, iconOnly=false, current=false
+    type: COMPONENT
+    size: 240x44
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingRight
+        variable: spacing/16
+      - field: topLeftRadius
+        variable: border/radius/md
+      - field: topRightRadius
+        variable: border/radius/md
+      - field: bottomLeftRadius
+        variable: border/radius/md
+      - field: bottomRightRadius
+        variable: border/radius/md
+      - field: minHeight
+        variable: spacing/44
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 20x20
+        tokens:
+          - field: width
+            variable: size/20
+          - field: height
+            variable: size/20
+      - name: Label
+        type: TEXT
+        text: Components
+        size: 144x24
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: lineHeight
+            variable: typography/line-height-px/24
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Badge
+        type: TEXT
+        text: '18'
+        size: 20x27
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: fontWeight
+            variable: typography/font-weight/600
   code: []
 tokens:
   used:
@@ -392,7 +462,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/NavItem/NavItem.stories.tsx
+    src/components/NavItem/NavItem.stories.tsx
   lines: 66-66
   import: import NavItem from '@bella/components/NavItem/NavItem';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -402,11 +472,131 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '167:178'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#167:36:
+      type: TEXT
+      default: Components
+    Badge#167:37:
+      type: TEXT
+      default: '18'
+    Show badge#167:38:
+      type: BOOLEAN
+      default: true
+    Show icon#167:39:
+      type: BOOLEAN
+      default: true
+    icon#167:40:
+      type: INSTANCE_SWAP
+      default: '172:46'
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - hover
+        - focus
+    iconOnly:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    current:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: state=default, iconOnly=false, current=false
+      width: 240
+      height: 44
+    - name: state=hover, iconOnly=false, current=false
+      width: 240
+      height: 44
+    - name: state=default, iconOnly=false, current=true
+      width: 240
+      height: 44
+    - name: state=focus, iconOnly=false, current=false
+      width: 240
+      height: 44
+    - name: state=default, iconOnly=true, current=false
+      width: 44
+      height: 44
+    - name: state=hover, iconOnly=true, current=false
+      width: 44
+      height: 44
+    - name: state=default, iconOnly=true, current=true
+      width: 44
+      height: 44
+    - name: state=focus, iconOnly=true, current=false
+      width: 44
+      height: 44
+    - name: state=hover, iconOnly=false, current=true
+      width: 240
+      height: 44
+    - name: state=focus, iconOnly=false, current=true
+      width: 240
+      height: 44
+    - name: state=hover, iconOnly=true, current=true
+      width: 44
+      height: 44
+    - name: state=focus, iconOnly=true, current=true
+      width: 44
+      height: 44
+  defaultVariant: state=default, iconOnly=false, current=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: states
+    code:
+      contract:
+        - default
+      css:
+        - hover
+        - focus-visible
+        - '[aria-current=''page'']'
+    figma:
+      - default
+      - hover
+      - focus
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--border-radius-md'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--typography-letter-spacing-0'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--border-radius-md'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--typography-letter-spacing-0'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+    figma: size/20
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/NavItem/NavItem.tsx

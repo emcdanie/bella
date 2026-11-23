@@ -109,8 +109,291 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Name
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Count
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Order
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Card
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: lane=needs-you, state=default
+    type: COMPONENT
+    size: 296x272
+    tokens:
+      - field: itemSpacing
+        variable: spacing/16
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingTop
+        variable: spacing/16
+      - field: paddingRight
+        variable: spacing/16
+      - field: paddingBottom
+        variable: spacing/16
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: fills
+        variable: color/background/utility/warning
+    children:
+      - name: Head
+        type: FRAME
+        size: 264x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Name
+            type: TEXT
+            text: Needs you
+            size: 222x28
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/20
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Count
+            type: INSTANCE
+            instanceOf: Tag
+            size: 34x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/4
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/4
+              - field: topLeftRadius
+                variable: border/radius/sm
+              - field: topRightRadius
+                variable: border/radius/sm
+              - field: bottomLeftRadius
+                variable: border/radius/sm
+              - field: bottomRightRadius
+                variable: border/radius/sm
+              - field: minHeight
+                variable: spacing/32
+              - field: fills
+                variable: color/background/utility/warning-knockout
+      - name: Order
+        type: TEXT
+        text: Failures first, then what blocks a push.
+        size: 264x48
+        tokens:
+          - field: fills
+            variable: color/content/lane-subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Cards
+        type: FRAME
+        size: 264x128
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+        children:
+          - name: Card 1
+            type: INSTANCE
+            instanceOf: TaskCard
+            size: 264x124
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/12
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/12
+              - field: topLeftRadius
+                variable: border/radius/card
+              - field: topRightRadius
+                variable: border/radius/card
+              - field: bottomLeftRadius
+                variable: border/radius/card
+              - field: bottomRightRadius
+                variable: border/radius/card
+              - field: strokeTopWeight
+                variable: border/width/2
+              - field: strokeBottomWeight
+                variable: border/width/2
+              - field: strokeLeftWeight
+                variable: border/width/2
+              - field: strokeRightWeight
+                variable: border/width/2
+              - field: fills
+                variable: color/background/surface
+              - field: strokes
+                variable: color/border/utility/neutral
+              - field: effects
+                variable:
+                  - color/neutral/alpha/5
+                  - color/neutral/alpha/10
+          - name: Card 2
+            type: INSTANCE
+            instanceOf: TaskCard
+            hidden: true
+            size: 264x128
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/12
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/12
+              - field: topLeftRadius
+                variable: border/radius/card
+              - field: topRightRadius
+                variable: border/radius/card
+              - field: bottomLeftRadius
+                variable: border/radius/card
+              - field: bottomRightRadius
+                variable: border/radius/card
+              - field: strokeTopWeight
+                variable: border/width/2
+              - field: strokeBottomWeight
+                variable: border/width/2
+              - field: strokeLeftWeight
+                variable: border/width/2
+              - field: strokeRightWeight
+                variable: border/width/2
+              - field: fills
+                variable: color/background/surface
+              - field: strokes
+                variable: color/border/utility/neutral
+              - field: effects
+                variable:
+                  - color/neutral/alpha/5
+                  - color/neutral/alpha/10
+          - name: Card 3
+            type: INSTANCE
+            instanceOf: TaskCard
+            hidden: true
+            size: 264x128
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/12
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/12
+              - field: topLeftRadius
+                variable: border/radius/card
+              - field: topRightRadius
+                variable: border/radius/card
+              - field: bottomLeftRadius
+                variable: border/radius/card
+              - field: bottomRightRadius
+                variable: border/radius/card
+              - field: strokeTopWeight
+                variable: border/width/2
+              - field: strokeBottomWeight
+                variable: border/width/2
+              - field: strokeLeftWeight
+                variable: border/width/2
+              - field: strokeRightWeight
+                variable: border/width/2
+              - field: fills
+                variable: color/background/surface
+              - field: strokes
+                variable: color/border/utility/neutral
+              - field: effects
+                variable:
+                  - color/neutral/alpha/5
+                  - color/neutral/alpha/10
+          - name: Card 4
+            type: INSTANCE
+            instanceOf: TaskCard
+            hidden: true
+            size: 264x128
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/12
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/12
+              - field: topLeftRadius
+                variable: border/radius/card
+              - field: topRightRadius
+                variable: border/radius/card
+              - field: bottomLeftRadius
+                variable: border/radius/card
+              - field: bottomRightRadius
+                variable: border/radius/card
+              - field: strokeTopWeight
+                variable: border/width/2
+              - field: strokeBottomWeight
+                variable: border/width/2
+              - field: strokeLeftWeight
+                variable: border/width/2
+              - field: strokeRightWeight
+                variable: border/width/2
+              - field: fills
+                variable: color/background/surface
+              - field: strokes
+                variable: color/border/utility/neutral
+              - field: effects
+                variable:
+                  - color/neutral/alpha/5
+                  - color/neutral/alpha/10
+          - name: Empty
+            type: INSTANCE
+            instanceOf: Empty state
+            hidden: true
+            size: 264x48
+            tokens:
+              - field: itemSpacing
+                variable: spacing/16
+              - field: paddingLeft
+                variable: spacing/16
+              - field: paddingTop
+                variable: spacing/24
+              - field: paddingRight
+                variable: spacing/16
+              - field: paddingBottom
+                variable: spacing/24
   code: []
 tokens:
   used:
@@ -653,7 +936,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/BoardLane/BoardLane.stories.tsx
+    src/components/BoardLane/BoardLane.stories.tsx
   lines: 58-58
   import: import BoardLane from '@bella/components/BoardLane/BoardLane';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -666,11 +949,637 @@ usage:
     - Not a table (DataTable)
     - Never a blue lane
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '783:496472'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Name#783:18:
+      type: TEXT
+      default: Needs you
+    Order#783:19:
+      type: TEXT
+      default: Failures first, then what blocks a push.
+    Show card 1#1219:35:
+      type: BOOLEAN
+      default: true
+    Show card 2#1219:40:
+      type: BOOLEAN
+      default: false
+    Show card 3#1219:45:
+      type: BOOLEAN
+      default: false
+    Show card 4#1219:50:
+      type: BOOLEAN
+      default: false
+    Show empty#1659:258:
+      type: BOOLEAN
+      default: false
+    lane:
+      type: VARIANT
+      default: needs-you
+      values:
+        - needs-you
+        - gate
+        - agent
+        - ready
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - drop-target
+  variants:
+    - name: lane=needs-you, state=default
+      width: 296
+      height: 272
+    - name: lane=needs-you, state=drop-target
+      width: 296
+      height: 272
+    - name: lane=gate, state=default
+      width: 296
+      height: 272
+    - name: lane=gate, state=drop-target
+      width: 296
+      height: 272
+    - name: lane=agent, state=default
+      width: 296
+      height: 272
+    - name: lane=agent, state=drop-target
+      width: 296
+      height: 272
+    - name: lane=ready, state=default
+      width: 296
+      height: 272
+    - name: lane=ready, state=drop-target
+      width: 296
+      height: 272
+  defaultVariant: lane=needs-you, state=default
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.lane
+    code: no such prop
+    figma:
+      - needs-you
+      - gate
+      - agent
+      - ready
+  - field: states
+    code:
+      contract:
+        - needs-you
+        - agent
+        - gate
+        - ready
+        - ideas
+        - next
+        - not-doing
+        - drop-target
+        - empty
+      css:
+        - '[data-lane=''needs-you'']'
+        - '[data-lane=''agent'']'
+        - '[data-lane=''gate'']'
+        - '[data-lane=''ready'']'
+        - '[data-lane=''ideas'']'
+        - '[data-lane=''next'']'
+        - '[data-lane=''not-doing'']'
+    figma:
+      - default
+      - drop-target
+  - field: props.headingLevel
+    code:
+      - '2'
+      - '3'
+      - '4'
+    figma: no such variant property
+  - field: props.dropTarget
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.lane=needs-you, state=default.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/utility/warning
+    sameValueInChip: false
+  - field: tokens.Count.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Count.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Count.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Count.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Count.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/utility/warning-knockout
+    sameValueInChip: false
+  - field: tokens.Card 1.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 1.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 1.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 1.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 1.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 1.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Card 1.strokes
+    code:
+      - '--border-radius-card'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--color-border-brand'
+      - '--color-border-strong'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Card 1.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Card 1.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Card 2.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 2.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 2.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 2.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 2.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 2.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Card 2.strokes
+    code:
+      - '--border-radius-card'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--color-border-brand'
+      - '--color-border-strong'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Card 2.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Card 2.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Card 3.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 3.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 3.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 3.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 3.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 3.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Card 3.strokes
+    code:
+      - '--border-radius-card'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--color-border-brand'
+      - '--color-border-strong'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Card 3.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Card 3.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Card 4.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 4.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 4.paddingTop
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 4.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 4.paddingBottom
+    code:
+      - '--spacing-16'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Card 4.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-lane-subtle'
+      - '--color-content-brand'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Card 4.strokes
+    code:
+      - '--border-radius-card'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--color-border-brand'
+      - '--color-border-strong'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Card 4.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Card 4.effects
+    code:
+      - '--spacing-16'
+      - '--border-radius-card'
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-lane-subtle'
+      - '--spacing-64'
+      - '--spacing-32'
+      - '--spacing-40'
+      - '--board-lane-fade'
+      - '--spacing-4'
+      - '--spacing-24'
+      - '--border-width-2'
+      - '--border-radius-16'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-80'
+      - '--color-border-brand'
+      - '--color-border-strong'
+      - '--color-content-brand'
+      - '--motion-easing-pop'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/BoardLane/BoardLane.tsx

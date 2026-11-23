@@ -51,8 +51,48 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Value
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: tone=yellow
+    type: COMPONENT
+    size: 28x29
+    tokens:
+      - field: paddingLeft
+        variable: spacing/4
+      - field: paddingTop
+        variable: spacing/4
+      - field: paddingRight
+        variable: spacing/4
+      - field: paddingBottom
+        variable: spacing/4
+      - field: topLeftRadius
+        variable: border/radius/sm
+      - field: topRightRadius
+        variable: border/radius/sm
+      - field: bottomLeftRadius
+        variable: border/radius/sm
+      - field: bottomRightRadius
+        variable: border/radius/sm
+      - field: fills
+        variable: color/background/accent-2
+    children:
+      - name: Value
+        type: TEXT
+        text: '24'
+        size: 20x21
+        tokens:
+          - field: fills
+            variable: color/content/on-accent-1
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/font-family/geist-mono
+          - field: fontWeight
+            variable: typography/font-weight/700
   code: []
 tokens:
   used:
@@ -201,7 +241,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/SizeTag/SizeTag.stories.tsx
+    src/components/SizeTag/SizeTag.stories.tsx
   lines: 21-21
   import: import SizeTag from '@bella/components/SizeTag/SizeTag';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -213,11 +253,36 @@ usage:
     - 'Do not make it a Tag: a Tag labels, a Size tag measures'
     - Do not use it for a status
   source: tokens/contracts.json
-figma: null
-mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+figma:
+  nodeId: '634:1152'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Value#634:0:
+      type: TEXT
+      default: '24'
+    tone:
+      type: VARIANT
+      default: yellow
+      values:
+        - yellow
+        - pink
+        - blue
+        - red
+  variants:
+    - name: tone=yellow
+      width: 28
+      height: 29
+    - name: tone=pink
+      width: 28
+      height: 29
+    - name: tone=blue
+      width: 28
+      height: 29
+    - name: tone=red
+      width: 28
+      height: 29
+  defaultVariant: tone=yellow
+mismatch: []
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SizeTag/SizeTag.tsx

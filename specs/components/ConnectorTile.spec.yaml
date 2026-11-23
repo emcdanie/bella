@@ -78,8 +78,208 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: App tile
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Status
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Name
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Value
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 5
+      name: Detail
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 6
+      name: Action
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Connector tile
+    type: COMPONENT
+    size: 240x258
+    tokens:
+      - field: itemSpacing
+        variable: spacing/24
+      - field: paddingLeft
+        variable: spacing/24
+      - field: paddingTop
+        variable: spacing/24
+      - field: paddingRight
+        variable: spacing/24
+      - field: paddingBottom
+        variable: spacing/24
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/subtle
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Main
+        type: FRAME
+        size: 190x152
+        tokens:
+          - field: itemSpacing
+            variable: spacing/24
+        children:
+          - name: Top
+            type: FRAME
+            size: 190x44
+            children:
+              - name: App tile
+                type: INSTANCE
+                instanceOf: App tile
+                size: 44x44
+                tokens:
+                  - field: topLeftRadius
+                    variable: border/radius/12
+                  - field: topRightRadius
+                    variable: border/radius/12
+                  - field: bottomLeftRadius
+                    variable: border/radius/12
+                  - field: bottomRightRadius
+                    variable: border/radius/12
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
+                  - field: fills
+                    variable: color/background/knockout
+                  - field: strokes
+                    variable: color/background/knockout
+              - name: Status
+                type: INSTANCE
+                instanceOf: StatusDot
+                size: 65x24
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+          - name: Text
+            type: FRAME
+            size: 190x84
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Name
+                type: TEXT
+                text: GitHub CI
+                size: 190x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Value
+                type: TEXT
+                text: 4 to push
+                size: 190x28
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/20
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Detail
+                type: TEXT
+                text: CI hasn’t run
+                size: 190x24
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/subtext/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/font-weight/400
+      - name: Footer
+        type: FRAME
+        size: 190x56
+        tokens:
+          - field: paddingTop
+            variable: spacing/24
+        children:
+          - name: Action
+            type: INSTANCE
+            instanceOf: Button
+            size: 63x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: size/32
+              - field: fills
+                variable: button/color/background/default
+              - field: strokes
+                variable: button/color/border/default
   code: []
 tokens:
   used:
@@ -363,7 +563,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/ConnectorTile/ConnectorTile.stories.tsx
+    src/components/ConnectorTile/ConnectorTile.stories.tsx
   lines: 24-24
   import: import ConnectorTile from '@bella/components/ConnectorTile/ConnectorTile';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -372,11 +572,123 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1330:51190'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Name#1330:0:
+      type: TEXT
+      default: GitHub CI
+    Value#1330:1:
+      type: TEXT
+      default: 4 to push
+    Detail#1330:2:
+      type: TEXT
+      default: CI hasn’t run
+    Show detail#1330:3:
+      type: BOOLEAN
+      default: true
+    Show action#1330:4:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: Connector tile
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.statusTone
+    code:
+      - success
+      - info
+      - attention
+      - danger
+      - neutral
+    figma: no such variant property
+  - field: tokens.Connector tile.effects
+    code:
+      - '--spacing-24'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--typography-line-height-130'
+      - '--typography-subtext-font-family'
+      - '--color-content-subtle'
+      - '--border-radius-sm'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Connector tile.effects
+    code:
+      - '--spacing-24'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--typography-font-size-20'
+      - '--typography-line-height-130'
+      - '--typography-subtext-font-family'
+      - '--color-content-subtle'
+      - '--border-radius-sm'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.App tile.fills
+    code:
+      - '--color-background-surface'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-background-brand-subtle'
+    figma: color/background/knockout
+    sameValueInChip: false
+  - field: tokens.App tile.strokes
+    code:
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+      - '--shadow-card-ink'
+      - '--border-radius-sm'
+    figma: color/background/knockout
+    sameValueInChip: false
+  - field: tokens.Action.paddingLeft
+    code:
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Action.paddingTop
+    code:
+      - '--spacing-24'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingRight
+    code:
+      - '--spacing-24'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Action.paddingBottom
+    code:
+      - '--spacing-24'
+    figma: size/0
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ConnectorTile/ConnectorTile.tsx

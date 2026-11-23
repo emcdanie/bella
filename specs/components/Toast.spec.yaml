@@ -57,8 +57,152 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Message
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Action
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: tone=success
+    type: COMPONENT
+    size: 480x60
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: effects
+        variable:
+          - color/background/transparent
+          - spacing/4
+          - spacing/16
+    children:
+      - name: Body
+        type: FRAME
+        size: 480x60
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingTop
+            variable: spacing/8
+          - field: paddingRight
+            variable: spacing/8
+          - field: paddingBottom
+            variable: spacing/8
+          - field: topLeftRadius
+            variable: border/radius/card
+          - field: topRightRadius
+            variable: border/radius/card
+          - field: bottomLeftRadius
+            variable: border/radius/card
+          - field: bottomRightRadius
+            variable: border/radius/card
+          - field: strokeTopWeight
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: fills
+            variable: color/background/surface
+          - field: strokes
+            variable: color/border/utility/success
+        children:
+          - name: Icon
+            type: INSTANCE
+            instanceOf: Icon
+            size: 24x24
+            tokens:
+              - field: width
+                variable: size/24
+              - field: height
+                variable: size/24
+          - name: Message
+            type: TEXT
+            text: Accepted. Logged in History.
+            size: 269x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Action
+            type: INSTANCE
+            instanceOf: Button
+            size: 83x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/20
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/20
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: spacing/44
+              - field: fills
+                variable: color/background/transparent-none
+          - name: Close
+            type: FRAME
+            size: 44x44
+            tokens:
+              - field: width
+                variable: spacing/44
+              - field: height
+                variable: spacing/44
+            children:
+              - name: Icon
+                type: INSTANCE
+                instanceOf: Icon
+                size: 24x24
+                tokens:
+                  - field: width
+                    variable: size/24
+                  - field: height
+                    variable: size/24
   code: []
 tokens:
   used:
@@ -416,8 +560,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Toast/Toast.stories.tsx
+  file: src/components/Toast/Toast.stories.tsx
   lines: 25-25
   import: import Toast from '@bella/components/Toast/Toast';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -426,11 +569,214 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '956:56'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Message#956:0:
+      type: TEXT
+      default: Accepted. Logged in History.
+    Show action#956:1:
+      type: BOOLEAN
+      default: true
+    Show close#956:2:
+      type: BOOLEAN
+      default: true
+    tone:
+      type: VARIANT
+      default: success
+      values:
+        - success
+        - info
+        - attention
+        - danger
+  variants:
+    - name: tone=info
+      width: 480
+      height: 60
+    - name: tone=success
+      width: 480
+      height: 60
+    - name: tone=attention
+      width: 480
+      height: 60
+    - name: tone=danger
+      width: 480
+      height: 60
+  defaultVariant: tone=success
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - success
+      - info
+      - attention
+      - danger
+  - field: tokens.Body.strokes
+    code:
+      - '--border-width-2'
+      - '--toast-edge'
+      - '--border-radius-card'
+      - '--spacing-4'
+      - '--spacing-16'
+      - '--color-background-transparent'
+    figma: color/border/utility/success
+    sameValueInChip: false
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--border-width-2'
+      - '--toast-edge'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--spacing-4'
+      - '--color-background-transparent'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-12'
+      - '--color-border-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-error'
+      - '--color-content-utility-error'
+      - '--toast-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+    figma: size/24
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--border-width-2'
+      - '--toast-edge'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--spacing-4'
+      - '--color-background-transparent'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-12'
+      - '--color-border-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-error'
+      - '--color-content-utility-error'
+      - '--toast-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+    figma: size/24
+    sameValueInChip: false
+  - field: tokens.Action.paddingLeft
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Action.paddingTop
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingRight
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Action.paddingBottom
+    code:
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.fills
+    code:
+      - '--color-background-surface'
+      - '--toast-ink'
+      - '--color-content-default'
+    figma: color/background/transparent-none
+    sameValueInChip: false
+  - field: tokens.Close.width
+    code:
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--border-width-2'
+      - '--toast-edge'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--spacing-4'
+      - '--color-background-transparent'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-12'
+      - '--color-border-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-error'
+      - '--color-content-utility-error'
+      - '--toast-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+    figma: spacing/44
+    sameValueInChip: false
+  - field: tokens.Close.height
+    code:
+      - '--spacing-80'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--border-width-2'
+      - '--toast-edge'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--spacing-4'
+      - '--color-background-transparent'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--motion-duration-200'
+      - '--motion-easing-standard'
+      - '--spacing-12'
+      - '--color-border-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-error'
+      - '--color-content-utility-error'
+      - '--toast-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+    figma: spacing/44
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Toast/Toast.tsx

@@ -44,8 +44,193 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Brand / CHIP logo
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Nav · Home
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Nav · Projects
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Nav · Not again
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Nav · Team
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Nav · System map
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 7
+      name: Nav · Settings
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Icon rail
+    type: COMPONENT
+    size: 72x900
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingTop
+        variable: spacing/16
+      - field: paddingBottom
+        variable: spacing/16
+      - field: width
+        variable: layout/rail/width
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/default
+    children:
+      - name: App logo
+        type: FRAME
+        size: 44x56
+        children:
+          - name: Brand / CHIP logo
+            type: INSTANCE
+            instanceOf: Brand / CHIP logo
+            size: 40x40
+      - name: Nav · Home
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Nav · Projects
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+          - field: fills
+            variable: nav-list/current-background
+      - name: Nav · Not again
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Nav · Team
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Nav · System map
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Spacer
+        type: FRAME
+        size: 1x492
+        children: []
+      - name: Nav · Settings
+        type: INSTANCE
+        instanceOf: Nav item
+        size: 44x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
   code: []
 tokens:
   used:
@@ -146,7 +331,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/IconRail/IconRail.stories.tsx
+    src/components/IconRail/IconRail.stories.tsx
   lines: 48-49
   import: import IconRail from '@bella/components/IconRail/IconRail';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -158,11 +343,115 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1168:93900'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props: {}
+  variants: []
+  defaultVariant: Icon rail
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.Nav · Home.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Home.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Home.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Projects.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Projects.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Projects.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Not again.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Not again.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Not again.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Team.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Team.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Team.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · System map.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · System map.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · System map.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Settings.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Settings.paddingLeft
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Nav · Settings.paddingRight
+    code:
+      - '--spacing-16'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/IconRail/IconRail.tsx

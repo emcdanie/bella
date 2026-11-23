@@ -65,8 +65,82 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: selected=false
+    type: COMPONENT
+    size: 120x100
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+    children:
+      - name: Preview
+        type: SLOT
+        size: 120x72
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/12
+          - field: topRightRadius
+            variable: border/radius/12
+          - field: bottomLeftRadius
+            variable: border/radius/12
+          - field: bottomRightRadius
+            variable: border/radius/12
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: fills
+            variable: color/background/default-hover
+          - field: strokes
+            variable: color/border/subtle
+        children: []
+      - name: Label
+        type: TEXT
+        text: Default
+        size: 120x20
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Badge
+        type: FRAME
+        hidden: true
+        size: 20x20
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
+          - field: fills
+            variable: color/background/utility/success-knockout
+        children:
+          - name: Icon
+            type: INSTANCE
+            instanceOf: Icon
+            size: 16x16
+            tokens:
+              - field: width
+                variable: size/16
+              - field: height
+                variable: size/16
   code: []
 tokens:
   used:
@@ -385,7 +459,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/VariantTile/VariantTile.stories.tsx
+    src/components/VariantTile/VariantTile.stories.tsx
   lines: 38-40
   import: import VariantTile from '@bella/components/VariantTile/VariantTile';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -401,11 +475,86 @@ usage:
     - 'Do not put live controls in the preview: it is a picture (inert)'
     - 'Do not use it for navigation: it picks a state in place'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '809:185910'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#809:802:
+      type: TEXT
+      default: Default
+    Show check badge#809:805:
+      type: BOOLEAN
+      default: false
+    Preview#809:808:
+      type: SLOT
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: selected=false
+      width: 120
+      height: 100
+    - name: selected=true
+      width: 120
+      height: 100
+  defaultVariant: selected=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.checked
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-8'
+      - '--spacing-24'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-12'
+      - '--color-background-default-hover'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-subtle'
+      - '--border-width-2'
+      - '--color-background-brand'
+      - '--color-background-surface'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--size-20'
+      - '--border-radius-round'
+      - '--color-background-utility-success-knockout'
+      - '--color-content-utility-on-status'
+    figma: size/16
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-8'
+      - '--spacing-24'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-12'
+      - '--color-background-default-hover'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-px-24'
+      - '--color-content-subtle'
+      - '--border-width-2'
+      - '--color-background-brand'
+      - '--color-background-surface'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--size-20'
+      - '--border-radius-round'
+      - '--color-background-utility-success-knockout'
+      - '--color-content-utility-on-status'
+    figma: size/16
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/VariantTile/VariantTile.tsx

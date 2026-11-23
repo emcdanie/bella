@@ -66,8 +66,70 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Placeholder
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Shortcut
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Search field
+    type: COMPONENT
+    size: 420x44
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/12
+      - field: topLeftRadius
+        variable: border/radius/lg
+      - field: topRightRadius
+        variable: border/radius/lg
+      - field: bottomLeftRadius
+        variable: border/radius/lg
+      - field: bottomRightRadius
+        variable: border/radius/lg
+      - field: fills
+        variable: color/background/highlight
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 20x20
+        tokens:
+          - field: width
+            variable: size/20
+          - field: height
+            variable: size/20
+      - name: Placeholder
+        type: TEXT
+        text: Search
+        size: 327x24
+        tokens:
+          - field: fills
+            variable: color/content/body
+          - field: fontSize
+            variable: typography/body-default/font-size
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/body-default/font-weight
+      - name: Shortcut
+        type: INSTANCE
+        instanceOf: Kbd
+        size: 33x29
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
   code: []
 tokens:
   used:
@@ -281,7 +343,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/SearchField/SearchField.stories.tsx
+    src/components/SearchField/SearchField.stories.tsx
   lines: 44-44
   import: import SearchField from '@bella/components/SearchField/SearchField';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -291,11 +353,63 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1168:95219'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Placeholder#1168:110:
+      type: TEXT
+      default: Search
+    Show shortcut#1168:111:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: Search field
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.Search field.itemSpacing
+    code:
+      - '--spacing-12'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Icon.width
+    code:
+      - '--layout-search-max-width'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--border-radius-lg'
+      - '--color-background-highlight'
+      - '--color-content-subtle'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-body-default-font-weight'
+      - '--typography-line-height-px-24'
+      - '--typography-letter-spacing-0'
+      - '--color-content-body'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--layout-search-max-width'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--border-radius-lg'
+      - '--color-background-highlight'
+      - '--color-content-subtle'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-body-default-font-weight'
+      - '--typography-line-height-px-24'
+      - '--typography-letter-spacing-0'
+      - '--color-content-body'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Shortcut.itemSpacing
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SearchField/SearchField.tsx

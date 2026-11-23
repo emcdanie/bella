@@ -95,8 +95,84 @@ sizes:
     css: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: tone=inverse, size=md
+    type: COMPONENT
+    size: 44x44
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/12
+      - field: topRightRadius
+        variable: border/radius/12
+      - field: bottomLeftRadius
+        variable: border/radius/12
+      - field: bottomRightRadius
+        variable: border/radius/12
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/knockout
+      - field: strokes
+        variable: color/background/knockout
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 24x24
+        tokens:
+          - field: width
+            variable: size/24
+          - field: height
+            variable: size/24
+      - name: Badge
+        type: INSTANCE
+        instanceOf: Tag
+        hidden: true
+        size: 159x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingTop
+            variable: spacing/4
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/4
+          - field: topLeftRadius
+            variable: border/radius/sm
+          - field: topRightRadius
+            variable: border/radius/sm
+          - field: bottomLeftRadius
+            variable: border/radius/sm
+          - field: bottomRightRadius
+            variable: border/radius/sm
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: minHeight
+            variable: spacing/32
+          - field: fills
+            variable: color/background/surface
+          - field: strokes
+            variable: color/border/strong
   code: []
 tokens:
   used:
@@ -356,7 +432,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/AppTile/AppTile.stories.tsx
+    src/components/AppTile/AppTile.stories.tsx
   lines: 22-27
   import: import AppTile from '@bella/components/AppTile/AppTile';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -370,11 +446,108 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '796:8193'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    icon#796:147:
+      type: INSTANCE_SWAP
+      default: '796:9643'
+    Show badge#796:150:
+      type: BOOLEAN
+      default: false
+    tone:
+      type: VARIANT
+      default: inverse
+      values:
+        - inverse
+        - outline
+        - git
+        - claude
+        - info
+    size:
+      type: VARIANT
+      default: md
+      values:
+        - md
+        - sm
+        - lg
+  variants:
+    - name: tone=inverse, size=md
+      width: 44
+      height: 44
+    - name: tone=outline, size=md
+      width: 44
+      height: 44
+    - name: tone=git, size=md
+      width: 44
+      height: 44
+    - name: tone=claude, size=md
+      width: 44
+      height: 44
+    - name: tone=info, size=md
+      width: 44
+      height: 44
+    - name: tone=inverse, size=sm
+      width: 32
+      height: 32
+    - name: tone=outline, size=sm
+      width: 32
+      height: 32
+    - name: tone=git, size=sm
+      width: 32
+      height: 32
+    - name: tone=claude, size=sm
+      width: 32
+      height: 32
+    - name: tone=info, size=sm
+      width: 32
+      height: 32
+    - name: tone=inverse, size=lg
+      width: 48
+      height: 48
+    - name: tone=outline, size=lg
+      width: 48
+      height: 48
+    - name: tone=git, size=lg
+      width: 48
+      height: 48
+    - name: tone=claude, size=lg
+      width: 48
+      height: 48
+    - name: tone=info, size=lg
+      width: 48
+      height: 48
+  defaultVariant: tone=inverse, size=md
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.tone=inverse, size=md.fills
+    code:
+      - '--tile-fill'
+      - '--tile-ink'
+    figma: color/background/knockout
+    sameValueInChip: false
+  - field: tokens.tone=inverse, size=md.strokes
+    code:
+      - '--border-width-1'
+      - '--tile-edge'
+      - '--tile-fill'
+      - '--border-radius-12'
+    figma: color/background/knockout
+    sameValueInChip: false
+  - field: tokens.Badge.fills
+    code:
+      - '--tile-fill'
+      - '--tile-ink'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Badge.strokes
+    code:
+      - '--border-width-1'
+      - '--tile-edge'
+      - '--tile-fill'
+      - '--border-radius-12'
+    figma: color/border/strong
+    sameValueInChip: false
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/AppTile/AppTile.module.css

@@ -106,8 +106,286 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon well
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Subtitle
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Gauge
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 6
+      name: Passed
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 7
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 8
+      name: Why
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 9
+      name: Fail row · Contrast
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 10
+      name: Fail row · Story
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 11
+      name: Fail row · A11y
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: System health
+    type: COMPONENT
+    size: 331x550
+    tokens:
+      - field: itemSpacing
+        variable: spacing/24
+      - field: paddingLeft
+        variable: spacing/24
+      - field: paddingTop
+        variable: spacing/20
+      - field: paddingRight
+        variable: spacing/24
+      - field: paddingBottom
+        variable: spacing/20
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: fills
+        variable: color/background/surface
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Heading
+        type: FRAME
+        size: 283x64
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Title row
+            type: FRAME
+            size: 162x36
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+            children:
+              - name: Icon well
+                type: INSTANCE
+                instanceOf: Icon well
+                size: 36x36
+                tokens:
+                  - field: width
+                    variable: size/36
+                  - field: height
+                    variable: size/36
+                  - field: topLeftRadius
+                    variable: border/radius/round
+                  - field: topRightRadius
+                    variable: border/radius/round
+                  - field: bottomLeftRadius
+                    variable: border/radius/round
+                  - field: bottomRightRadius
+                    variable: border/radius/round
+                  - field: fills
+                    variable: color/background/utility/success
+              - name: Title
+                type: TEXT
+                text: System health
+                size: 114x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/body-default/font-size
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/title-default/font-weight
+          - name: Subtitle
+            type: TEXT
+            text: Component checks that pass
+            size: 224x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/body-default/font-weight
+      - name: Gauge
+        type: FRAME
+        size: 283x210
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+        children:
+          - name: Gauge
+            type: INSTANCE
+            instanceOf: Gauge
+            size: 283x174
+          - name: Scale
+            type: FRAME
+            size: 283x24
+            tokens:
+              - field: paddingLeft
+                variable: spacing/4
+              - field: paddingRight
+                variable: spacing/4
+            children:
+              - name: (text content)
+                type: TEXT
+                text: Low
+                size: 32x24
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/body-default/font-size
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/body-default/font-weight
+              - name: Passed
+                type: TEXT
+                text: 251 of 264 pass
+                size: 123x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/body-default/font-size
+                  - field: fontFamily
+                    variable: typography/title-default/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: (text content)
+                type: TEXT
+                text: High
+                size: 37x24
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/body-default/font-size
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/body-default/font-weight
+      - name: Details
+        type: FRAME
+        size: 283x188
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Why
+            type: TEXT
+            text: 'Healthy means 90% or more pass (the blue tick). 13 checks still fail:'
+            size: 283x48
+            tokens:
+              - field: fills
+                variable: color/content/body
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/body-default/font-weight
+          - name: Failing checks
+            type: FRAME
+            size: 283x132
+            children:
+              - name: Fail row · Contrast
+                type: INSTANCE
+                instanceOf: System health / Fail row
+                size: 283x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/8
+                  - field: paddingRight
+                    variable: spacing/8
+                  - field: height
+                    variable: spacing/44
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+              - name: Fail row · Story
+                type: INSTANCE
+                instanceOf: System health / Fail row
+                size: 283x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/8
+                  - field: paddingRight
+                    variable: spacing/8
+                  - field: height
+                    variable: spacing/44
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+              - name: Fail row · A11y
+                type: INSTANCE
+                instanceOf: System health / Fail row
+                size: 283x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/8
+                  - field: paddingRight
+                    variable: spacing/8
+                  - field: height
+                    variable: spacing/44
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
   code: []
 tokens:
   used:
@@ -908,7 +1186,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-health/src/components/SystemHealth/SystemHealth.stories.tsx
+  file: >-
+    src/components/SystemHealth/SystemHealth.stories.tsx
   lines: 82-82
   import: import SystemHealth from '@bella/components/SystemHealth/SystemHealth';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -919,11 +1198,267 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1680:7263'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#1680:9:
+      type: TEXT
+      default: System health
+    Subtitle#1680:10:
+      type: TEXT
+      default: Component checks that pass
+    Passed#1680:11:
+      type: TEXT
+      default: 251 of 264 pass
+    Why#1680:12:
+      type: TEXT
+      default: 'Healthy means 90% or more pass (the blue tick). 13 checks still fail:'
+  variants: []
+  defaultVariant: System health
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.countUp
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.System health.effects
+    code:
+      - '--spacing-24'
+      - '--spacing-20'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--spacing-80'
+      - '--u'
+      - '--len'
+      - '--w'
+      - '--border-radius-round'
+      - '--a'
+      - '--r0'
+      - '--color-border-brand'
+      - '--color-border-utility-success'
+      - '--color-utility-green-alpha-20'
+      - '--color-border-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-line-height-110'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--color-content-body'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--motion-duration-3400'
+      - '--motion-easing-out'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.System health.effects
+    code:
+      - '--spacing-24'
+      - '--spacing-20'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--spacing-80'
+      - '--u'
+      - '--len'
+      - '--w'
+      - '--border-radius-round'
+      - '--a'
+      - '--r0'
+      - '--color-border-brand'
+      - '--color-border-utility-success'
+      - '--color-utility-green-alpha-20'
+      - '--color-border-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-line-height-110'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--color-content-body'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--motion-duration-3400'
+      - '--motion-easing-out'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Icon well.width
+    code:
+      - '--spacing-24'
+      - '--spacing-20'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--spacing-80'
+      - '--u'
+      - '--len'
+      - '--w'
+      - '--border-radius-round'
+      - '--a'
+      - '--r0'
+      - '--color-border-brand'
+      - '--color-border-utility-success'
+      - '--color-utility-green-alpha-20'
+      - '--color-border-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-line-height-110'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--color-content-body'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--motion-duration-3400'
+      - '--motion-easing-out'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.height
+    code:
+      - '--spacing-24'
+      - '--spacing-20'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--spacing-80'
+      - '--u'
+      - '--len'
+      - '--w'
+      - '--border-radius-round'
+      - '--a'
+      - '--r0'
+      - '--color-border-brand'
+      - '--color-border-utility-success'
+      - '--color-utility-green-alpha-20'
+      - '--color-border-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-line-height-110'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--spacing-64'
+      - '--spacing-8'
+      - '--color-content-body'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--motion-duration-3400'
+      - '--motion-easing-out'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.fills
+    code:
+      - '--color-background-surface'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-border-brand'
+      - '--color-border-utility-success'
+      - '--color-border-subtle'
+      - '--color-content-body'
+    figma: color/background/utility/success
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Subtitle.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.(text content).fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Passed.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.(text content).fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Why.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+      - '--typography-font-size-40'
+      - '--typography-font-size-14'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SystemHealth/SystemHealth.tsx

@@ -139,8 +139,245 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Marker
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Connector
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Detail
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: state=done, layout=vertical, selected=false
+    type: COMPONENT
+    size: 360x100
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/12
+      - field: topLeftRadius
+        variable: border/radius/12
+      - field: topRightRadius
+        variable: border/radius/12
+      - field: bottomLeftRadius
+        variable: border/radius/12
+      - field: bottomRightRadius
+        variable: border/radius/12
+    children:
+      - name: Marker column
+        type: FRAME
+        size: 36x100
+        children:
+          - name: Above
+            type: FRAME
+            size: 16x12
+            tokens:
+              - field: height
+                variable: spacing/12
+            children:
+              - name: Line above
+                type: INSTANCE
+                instanceOf: Map line
+                hidden: true
+                size: 16x12
+          - name: Marker
+            type: INSTANCE
+            instanceOf: Icon well
+            size: 36x36
+            tokens:
+              - field: width
+                variable: size/36
+              - field: height
+                variable: size/36
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/background/utility/success
+          - name: Number
+            type: INSTANCE
+            instanceOf: _Step number
+            hidden: true
+            size: 36x36
+            tokens:
+              - field: width
+                variable: size/36
+              - field: height
+                variable: size/36
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/background/utility/success
+          - name: Below
+            type: FRAME
+            size: 16x52
+            tokens:
+              - field: minHeight
+                variable: size/36
+            children:
+              - name: Connector
+                type: INSTANCE
+                instanceOf: Map line
+                size: 16x52
+      - name: Text column
+        type: FRAME
+        size: 292x100
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+          - field: paddingTop
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/12
+        children:
+          - name: Title row
+            type: FRAME
+            size: 292x24
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Title
+                type: TEXT
+                text: Draw the component
+                size: 168x24
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Time inline
+                type: FRAME
+                hidden: true
+                size: 100x100
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                children:
+                  - name: Separator
+                    type: TEXT
+                    text: ·
+                    size: 9x20
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontFamily
+                        variable: typography/subtext/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+                  - name: Time
+                    type: TEXT
+                    text: '10:02'
+                    size: 42x20
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontFamily
+                        variable: typography/subtext/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+          - name: Time under
+            type: TEXT
+            hidden: true
+            text: '10:02'
+            size: 288x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontFamily
+                variable: typography/subtext/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Detail
+            type: TEXT
+            text: Working now. Comes back to Ready with Accept or Undo.
+            size: 292x48
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/400
+      - name: Time zone
+        type: FRAME
+        hidden: true
+        size: 48x36
+        tokens:
+          - field: paddingTop
+            variable: spacing/12
+        children:
+          - name: Tag
+            type: INSTANCE
+            instanceOf: Tag
+            hidden: true
+            size: 145x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/4
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/4
+              - field: topLeftRadius
+                variable: border/radius/sm
+              - field: topRightRadius
+                variable: border/radius/sm
+              - field: bottomLeftRadius
+                variable: border/radius/sm
+              - field: bottomRightRadius
+                variable: border/radius/sm
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: spacing/32
+              - field: fills
+                variable: color/background/utility/neutral
+              - field: strokes
+                variable: color/border/utility/neutral
   code: []
 tokens:
   used:
@@ -860,8 +1097,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Step/Step.stories.tsx
+  file: src/components/Step/Step.stories.tsx
   lines: 44-44
   import: import Step from '@bella/components/Step/Step';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -871,11 +1107,172 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '789:22568'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#789:2:
+      type: TEXT
+      default: Draw the component
+    Detail#789:6:
+      type: TEXT
+      default: Working now. Comes back to Ready with Accept or Undo.
+    Show detail#789:14:
+      type: BOOLEAN
+      default: true
+    Show connector#1328:21:
+      type: BOOLEAN
+      default: true
+    Show tag#1348:0:
+      type: BOOLEAN
+      default: false
+    Show time#1348:7:
+      type: BOOLEAN
+      default: false
+    Time#1348:14:
+      type: TEXT
+      default: '10:02'
+    Show line above#1348:21:
+      type: BOOLEAN
+      default: false
+    Show number#1510:71:
+      type: BOOLEAN
+      default: false
+    Show icon#1510:83:
+      type: BOOLEAN
+      default: true
+    Show time under title#1676:37:
+      type: BOOLEAN
+      default: false
+    state:
+      type: VARIANT
+      default: done
+      values:
+        - done
+        - current
+        - pending
+        - skipped
+        - failed
+    layout:
+      type: VARIANT
+      default: vertical
+      values:
+        - vertical
+        - horizontal
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: state=done, layout=vertical, selected=false
+      width: 360
+      height: 100
+    - name: state=current, layout=vertical, selected=false
+      width: 360
+      height: 128
+    - name: state=pending, layout=vertical, selected=false
+      width: 360
+      height: 100
+    - name: state=done, layout=horizontal, selected=false
+      width: 240
+      height: 164
+    - name: state=current, layout=horizontal, selected=false
+      width: 240
+      height: 164
+    - name: state=pending, layout=horizontal, selected=false
+      width: 240
+      height: 164
+    - name: state=done, layout=vertical, selected=true
+      width: 360
+      height: 124
+    - name: state=current, layout=vertical, selected=true
+      width: 360
+      height: 152
+    - name: state=pending, layout=vertical, selected=true
+      width: 360
+      height: 124
+    - name: state=skipped, layout=vertical, selected=false
+      width: 360
+      height: 100
+    - name: state=skipped, layout=horizontal, selected=false
+      width: 240
+      height: 164
+    - name: state=failed, layout=vertical, selected=false
+      width: 360
+      height: 100
+    - name: state=failed, layout=vertical, selected=true
+      width: 360
+      height: 124
+    - name: state=failed, layout=horizontal, selected=false
+      width: 240
+      height: 164
+  defaultVariant: state=done, layout=vertical, selected=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: states
+    code:
+      contract:
+        - default
+      css:
+        - hover
+        - focus-visible
+    figma:
+      - done
+      - current
+      - pending
+      - skipped
+      - failed
+  - field: props.timeUnderTitle
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.state=done, layout=vertical, selected=false.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Title row.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Time inline.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Tag.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Tag.paddingTop
+    code:
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-24'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Tag.paddingBottom
+    code:
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-24'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Tag.strokes
+    code:
+      - '--border-radius-12'
+      - '--border-radius-round'
+      - '--border-width-2'
+      - '--color-border-utility-info'
+      - '--border-width-1'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Step/Step.tsx

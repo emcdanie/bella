@@ -97,8 +97,81 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Pin
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Description
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Detail
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: Part row
+    type: COMPONENT
+    size: 340x76
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+    children:
+      - name: Pin
+        type: INSTANCE
+        instanceOf: Pin
+        size: 32x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+      - name: Text column
+        type: FRAME
+        size: 296x76
+        children:
+          - name: Title
+            type: TEXT
+            text: Title bar
+            size: 296x28
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/20
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Description
+            type: TEXT
+            text: File name of the snippet
+            size: 296x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Detail
+            type: TEXT
+            text: 'Tokens: Not measured'
+            size: 296x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
@@ -347,7 +420,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/PartRow/PartRow.stories.tsx
+    src/components/PartRow/PartRow.stories.tsx
   lines: 21-21
   import: import PartRow from '@bella/components/PartRow/PartRow';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -358,11 +431,50 @@ usage:
   dont:
     - 'Do not use it for navigation or actions: it is a caption, not a control'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '841:124467'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#841:0:
+      type: TEXT
+      default: Title bar
+    Description#841:1:
+      type: TEXT
+      default: File name of the snippet
+    Detail#841:2:
+      type: TEXT
+      default: 'Tokens: Not measured'
+    Show detail#841:3:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: Part row
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code:
+      - yellow
+      - pink
+      - blue
+      - red
+      - green
+    figma: no such variant property
+  - field: props.active
+    code: boolean prop
+    figma: not in the set
+  - field: props.selected
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Pin.itemSpacing
+    code:
+      - '--spacing-12'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-18'
+      - '--typography-font-size-16'
+    figma: typography/font-size/20
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/PartRow/PartRow.tsx

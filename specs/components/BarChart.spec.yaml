@@ -142,8 +142,870 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Range
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Value
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 5
+      name: Unit
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 6
+      name: Context
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 7
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 9
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 10
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 11
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 12
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 13
+      name: Failed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 14
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 15
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 16
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 17
+      name: Failed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 18
+      name: Failed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 19
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 20
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 21
+      name: Value label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 22
+      name: Passed
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 23
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 24
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 25
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 26
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 27
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 28
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 29
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 30
+      name: Key mark
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 31
+      name: Key label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 32
+      name: Key mark
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 33
+      name: Key label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 34
+      name: Summary line
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: state=default, view=chart
+    type: COMPONENT
+    size: 520x658
+    tokens:
+      - field: itemSpacing
+        variable: spacing/16
+      - field: paddingLeft
+        variable: spacing/24
+      - field: paddingTop
+        variable: spacing/24
+      - field: paddingRight
+        variable: spacing/24
+      - field: paddingBottom
+        variable: spacing/24
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: fills
+        variable: color/background/surface
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Title
+        type: TEXT
+        text: Gate runs
+        size: 472x28
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/20
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/title-default/font-weight
+      - name: Range
+        type: INSTANCE
+        instanceOf: SegmentedControl
+        size: 472x52
+        tokens:
+          - field: paddingLeft
+            variable: spacing/4
+          - field: paddingTop
+            variable: spacing/4
+          - field: paddingRight
+            variable: spacing/4
+          - field: paddingBottom
+            variable: spacing/4
+          - field: topLeftRadius
+            variable: border/radius/12
+          - field: topRightRadius
+            variable: border/radius/12
+          - field: bottomLeftRadius
+            variable: border/radius/12
+          - field: bottomRightRadius
+            variable: border/radius/12
+          - field: fills
+            variable: color/background/subtle
+      - name: Summary
+        type: FRAME
+        size: 212x96
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Label
+            type: TEXT
+            text: Passed
+            size: 59x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/14
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Number
+            type: FRAME
+            size: 212x48
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Value
+                type: TEXT
+                text: 23/30
+                size: 120x48
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/40
+                  - field: fontFamily
+                    variable: typography/number/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Unit
+                type: TEXT
+                text: Commits
+                size: 84x28
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/20
+                  - field: fontFamily
+                    variable: typography/number/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+          - name: Context
+            type: TEXT
+            text: Fri 20 Nov · target 90%
+            size: 212x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/14
+              - field: fontFamily
+                variable: typography/subtext/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+      - name: Chart
+        type: FRAME
+        size: 472x310
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Plot
+            type: FRAME
+            size: 455x310
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Bars
+                type: FRAME
+                size: 455x282
+                children:
+                  - name: Baseline 0
+                    type: LINE
+                    size: 455x0
+                    tokens:
+                      - field: strokeWeight
+                        variable: border/width/1
+                      - field: strokes
+                        variable: color/border/default
+                  - name: Gridline 2
+                    type: LINE
+                    size: 455x0
+                    tokens:
+                      - field: strokeWeight
+                        variable: border/width/1
+                      - field: strokes
+                        variable: color/border/subtle
+                  - name: Gridline 4
+                    type: LINE
+                    size: 455x0
+                    tokens:
+                      - field: strokeWeight
+                        variable: border/width/1
+                      - field: strokes
+                        variable: color/border/subtle
+                  - name: Slot 1
+                    type: FRAME
+                    size: 18x120
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x120
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 2
+                    type: FRAME
+                    size: 18x40
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x40
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 3
+                    type: FRAME
+                    size: 18x80
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x80
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 4
+                    type: FRAME
+                    size: 18x160
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x160
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 5
+                    type: FRAME
+                    size: 18x80
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x80
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 6
+                    type: FRAME
+                    size: 18x80
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x80
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 7
+                    type: FRAME
+                    size: 18x120
+                    children:
+                      - name: Failed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x36
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/error
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x80
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 8
+                    type: FRAME
+                    size: 18x40
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x40
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 9
+                    type: FRAME
+                    size: 18x40
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x40
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 10 · no runs
+                    type: FRAME
+                    size: 18x1
+                    children: []
+                  - name: Slot 11
+                    type: FRAME
+                    size: 18x120
+                    children:
+                      - name: Failed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x120
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/error
+                  - name: Slot 12
+                    type: FRAME
+                    size: 18x120
+                    children:
+                      - name: Failed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x120
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/error
+                  - name: Slot 13
+                    type: FRAME
+                    size: 18x40
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x40
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 14
+                    type: FRAME
+                    size: 18x120
+                    children:
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x120
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+                  - name: Slot 15
+                    type: FRAME
+                    size: 18x64
+                    children:
+                      - name: Value label
+                        type: TEXT
+                        text: '1'
+                        size: 5x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/number/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/600
+                      - name: Passed
+                        type: INSTANCE
+                        instanceOf: _BarChart bar
+                        size: 18x40
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/success
+              - name: X axis
+                type: FRAME
+                size: 455x20
+                children:
+                  - name: Tick 1
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 2
+                    type: FRAME
+                    size: 18x20
+                    children:
+                      - name: Label
+                        type: TEXT
+                        text: '12:00'
+                        size: 42x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+                  - name: Tick 3
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 4
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 5
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 6
+                    type: FRAME
+                    size: 18x20
+                    children:
+                      - name: Label
+                        type: TEXT
+                        text: '13:00'
+                        size: 42x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+                  - name: Tick 7
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 8
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 9
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 10
+                    type: FRAME
+                    size: 18x20
+                    children:
+                      - name: Label
+                        type: TEXT
+                        text: '14:00'
+                        size: 42x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+                  - name: Tick 11
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 12
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 13
+                    type: FRAME
+                    size: 18x20
+                    children: []
+                  - name: Tick 14
+                    type: FRAME
+                    size: 18x20
+                    children:
+                      - name: Label
+                        type: TEXT
+                        text: '15:00'
+                        size: 42x20
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/14
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+                  - name: Tick 15
+                    type: FRAME
+                    size: 18x20
+                    children: []
+          - name: Y axis
+            type: FRAME
+            size: 9x282
+            children:
+              - name: Label
+                type: TEXT
+                text: '4'
+                size: 9x20
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/subtext/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/400
+              - name: Label
+                type: TEXT
+                text: '2'
+                size: 9x20
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/subtext/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/400
+              - name: Label
+                type: TEXT
+                text: '0'
+                size: 9x20
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/subtext/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/400
+      - name: Legend
+        type: FRAME
+        size: 219x20
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+        children:
+          - name: Key
+            type: FRAME
+            size: 71x20
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Key mark
+                type: INSTANCE
+                instanceOf: _BarChart key
+                size: 16x16
+                tokens:
+                  - field: width
+                    variable: size/16
+                  - field: height
+                    variable: size/16
+                  - field: topLeftRadius
+                    variable: border/radius/4
+                  - field: topRightRadius
+                    variable: border/radius/4
+                  - field: bottomLeftRadius
+                    variable: border/radius/4
+                  - field: bottomRightRadius
+                    variable: border/radius/4
+                  - field: fills
+                    variable: color/border/utility/success
+              - name: Key label
+                type: TEXT
+                text: Passed
+                size: 47x20
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/body-default/font-weight
+          - name: Key
+            type: FRAME
+            size: 132x20
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Key mark
+                type: INSTANCE
+                instanceOf: _BarChart key
+                size: 16x16
+                tokens:
+                  - field: width
+                    variable: size/16
+                  - field: height
+                    variable: size/16
+                  - field: topLeftRadius
+                    variable: border/radius/4
+                  - field: topRightRadius
+                    variable: border/radius/4
+                  - field: bottomLeftRadius
+                    variable: border/radius/4
+                  - field: bottomRightRadius
+                    variable: border/radius/4
+                  - field: fills
+                    variable: color/border/utility/error
+              - name: Key label
+                type: TEXT
+                text: Failed, contracts
+                size: 108x20
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/body-default/font-weight
+      - name: Summary line
+        type: TEXT
+        text: 7 of 30 runs failed today, 6 of them after 14:00
+        size: 472x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontSize
+            variable: typography/body-default/font-size
   code: []
 tokens:
   used:
@@ -1398,7 +2260,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-health/src/components/BarChart/BarChart.stories.tsx
+  file: >-
+    src/components/BarChart/BarChart.stories.tsx
   lines: 81-81
   import: import BarChart from '@bella/components/BarChart/BarChart';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -1412,11 +2275,176 @@ usage:
     - 'Never red and green alone: the cross mark and the legend words carry the failure'
     - Never gaps joined by a line across them
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1737:304'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Summary#1752:0:
+      type: TEXT
+      default: 7 of 30 runs failed today, 6 of them after 14:00
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - scrub
+    view:
+      type: VARIANT
+      default: chart
+      values:
+        - chart
+        - table
+  variants:
+    - name: state=default, view=chart
+      width: 520
+      height: 658
+    - name: state=scrub, view=chart
+      width: 520
+      height: 658
+    - name: state=default, view=table
+      width: 520
+      height: 1016
+  defaultVariant: state=default, view=chart
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.showViewToggle
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.state=default, view=chart.effects
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--spacing-8'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--spacing-64'
+      - '--spacing-80'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--color-border-default'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--border-radius-8'
+      - '--border-width-2'
+      - '--border-radius-round'
+      - '--motion-duration-450'
+      - '--motion-easing-out'
+      - '--size-4'
+      - '--color-border-utility-success'
+      - '--color-border-utility-error'
+      - '--color-border-ink'
+      - '--motion-duration-150'
+      - '--guide'
+      - '--spacing-12'
+      - '--color-background-subtle'
+      - '--typography-font-size-24'
+      - '--size-24'
+      - '--size-16'
+      - '--color-content-body'
+      - '--border-radius-4'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.state=default, view=chart.effects
+    code:
+      - '--spacing-16'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--spacing-8'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--spacing-64'
+      - '--spacing-80'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--color-border-default'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--border-radius-8'
+      - '--border-width-2'
+      - '--border-radius-round'
+      - '--motion-duration-450'
+      - '--motion-easing-out'
+      - '--size-4'
+      - '--color-border-utility-success'
+      - '--color-border-utility-error'
+      - '--color-border-ink'
+      - '--motion-duration-150'
+      - '--guide'
+      - '--spacing-12'
+      - '--color-background-subtle'
+      - '--typography-font-size-24'
+      - '--size-24'
+      - '--size-16'
+      - '--color-content-body'
+      - '--border-radius-4'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Baseline 0.strokes
+    code:
+      - '--border-radius-card'
+      - '--shadow-card-ink'
+      - '--border-radius-8'
+      - '--border-radius-round'
+      - '--border-radius-4'
+    figma: color/border/default
+    sameValueInChip: false
+  - field: tokens.Gridline 2.strokes
+    code:
+      - '--border-radius-card'
+      - '--shadow-card-ink'
+      - '--border-radius-8'
+      - '--border-radius-round'
+      - '--border-radius-4'
+    figma: color/border/subtle
+    sameValueInChip: false
+  - field: tokens.Gridline 4.strokes
+    code:
+      - '--border-radius-card'
+      - '--shadow-card-ink'
+      - '--border-radius-8'
+      - '--border-radius-round'
+      - '--border-radius-4'
+    figma: color/border/subtle
+    sameValueInChip: false
+  - field: tokens.Summary line.fontSize
+    code:
+      - '--typography-font-size-20'
+      - '--typography-font-size-14'
+      - '--typography-font-size-40'
+      - '--typography-font-size-16'
+      - '--typography-font-size-24'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/BarChart/BarChart.tsx

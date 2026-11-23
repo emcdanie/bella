@@ -97,8 +97,40 @@ sizes:
     css: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: tone=success, size=md
+    type: COMPONENT
+    size: 36x36
+    tokens:
+      - field: width
+        variable: size/36
+      - field: height
+        variable: size/36
+      - field: topLeftRadius
+        variable: border/radius/round
+      - field: topRightRadius
+        variable: border/radius/round
+      - field: bottomLeftRadius
+        variable: border/radius/round
+      - field: bottomRightRadius
+        variable: border/radius/round
+      - field: fills
+        variable: color/background/utility/success
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 24x24
+        tokens:
+          - field: width
+            variable: size/24
+          - field: height
+            variable: size/24
   code: []
 tokens:
   used:
@@ -340,7 +372,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/IconWell/IconWell.stories.tsx
+    src/components/IconWell/IconWell.stories.tsx
   lines: 65-65
   import: import IconWell from '@bella/components/IconWell/IconWell';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -350,11 +382,110 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
-mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+figma:
+  nodeId: '1168:72470'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Icon#1168:75:
+      type: INSTANCE_SWAP
+      default: '1168:94514'
+    tone:
+      type: VARIANT
+      default: success
+      values:
+        - success
+        - warning
+        - info
+        - neutral
+        - error
+        - fix
+        - visual
+        - tokens
+        - tooling
+        - docs
+        - contract
+        - decision
+    size:
+      type: VARIANT
+      default: md
+      values:
+        - md
+        - sm
+  variants:
+    - name: tone=success, size=md
+      width: 36
+      height: 36
+    - name: tone=warning, size=md
+      width: 36
+      height: 36
+    - name: tone=info, size=md
+      width: 36
+      height: 36
+    - name: tone=neutral, size=md
+      width: 36
+      height: 36
+    - name: tone=error, size=md
+      width: 36
+      height: 36
+    - name: tone=success, size=sm
+      width: 24
+      height: 24
+    - name: tone=warning, size=sm
+      width: 24
+      height: 24
+    - name: tone=info, size=sm
+      width: 24
+      height: 24
+    - name: tone=neutral, size=sm
+      width: 24
+      height: 24
+    - name: tone=error, size=sm
+      width: 24
+      height: 24
+    - name: tone=fix, size=md
+      width: 36
+      height: 36
+    - name: tone=visual, size=md
+      width: 36
+      height: 36
+    - name: tone=tokens, size=md
+      width: 36
+      height: 36
+    - name: tone=tooling, size=md
+      width: 36
+      height: 36
+    - name: tone=docs, size=md
+      width: 36
+      height: 36
+    - name: tone=contract, size=md
+      width: 36
+      height: 36
+    - name: tone=decision, size=md
+      width: 36
+      height: 36
+    - name: tone=fix, size=sm
+      width: 24
+      height: 24
+    - name: tone=visual, size=sm
+      width: 24
+      height: 24
+    - name: tone=tokens, size=sm
+      width: 24
+      height: 24
+    - name: tone=tooling, size=sm
+      width: 24
+      height: 24
+    - name: tone=docs, size=sm
+      width: 24
+      height: 24
+    - name: tone=contract, size=sm
+      width: 24
+      height: 24
+    - name: tone=decision, size=sm
+      width: 24
+      height: 24
+  defaultVariant: tone=success, size=md
+mismatch: []
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/IconWell/IconWell.module.css

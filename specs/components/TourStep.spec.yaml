@@ -67,8 +67,195 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Pin
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Close
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Count
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 5
+      name: Back
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Next
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: isEnd=false
+    type: COMPONENT
+    size: 360x178
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+      - field: paddingLeft
+        variable: spacing/24
+      - field: paddingTop
+        variable: spacing/24
+      - field: paddingRight
+        variable: spacing/24
+      - field: paddingBottom
+        variable: spacing/24
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/default
+      - field: effects
+        variable: color/neutral/alpha/5
+    children:
+      - name: Body
+        type: FRAME
+        size: 310x72
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+        children:
+          - name: Pin
+            type: INSTANCE
+            instanceOf: Pin
+            size: 32x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+          - name: Text
+            type: TEXT
+            text: true means yes, false means no. So the contrast check passed.
+            size: 210x72
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/body-default/font-weight
+          - name: Close
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+      - name: Footer
+        type: FRAME
+        size: 310x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Count
+            type: TEXT
+            text: 4 of 4 steps
+            size: 136x21
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/number/font-family
+              - field: fontWeight
+                variable: typography/body-default/font-weight
+          - name: Back
+            type: INSTANCE
+            instanceOf: Button
+            size: 80x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/20
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/20
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+          - name: Next
+            type: INSTANCE
+            instanceOf: Button
+            size: 78x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/20
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/20
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: fills
+                variable: button/color/background/default
+              - field: strokes
+                variable: button/color/border/default
   code: []
 tokens:
   used:
@@ -277,7 +464,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/TourStep/TourStep.stories.tsx
+    src/components/TourStep/TourStep.stories.tsx
   lines: 23-25
   import: import TourStep from '@bella/components/TourStep/TourStep';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -289,11 +476,113 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1455:40714'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Text#1455:118:
+      type: TEXT
+      default: true means yes, false means no. So the contrast check passed.
+    Count#1455:121:
+      type: TEXT
+      default: 4 of 4 steps
+    Show back#1455:124:
+      type: BOOLEAN
+      default: true
+    isEnd:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: isEnd=false
+      width: 360
+      height: 178
+    - name: isEnd=true
+      width: 360
+      height: 178
+  defaultVariant: isEnd=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.isEnd=false.paddingLeft
+    code:
+      - '--spacing-16'
+    figma: spacing/24
+    sameValueInChip: false
+  - field: tokens.isEnd=false.paddingTop
+    code:
+      - '--spacing-16'
+    figma: spacing/24
+    sameValueInChip: false
+  - field: tokens.isEnd=false.paddingRight
+    code:
+      - '--spacing-16'
+    figma: spacing/24
+    sameValueInChip: false
+  - field: tokens.isEnd=false.paddingBottom
+    code:
+      - '--spacing-16'
+    figma: spacing/24
+    sameValueInChip: false
+  - field: tokens.isEnd=false.effects
+    code:
+      - '--spacing-12'
+      - '--spacing-80'
+      - '--spacing-40'
+      - '--spacing-16'
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--border-radius-16'
+      - '--color-background-surface'
+      - '--shadow-soft'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-150'
+      - '--color-content-default'
+      - '--spacing-8'
+      - '--color-content-subtle'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Back.paddingLeft
+    code:
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Back.paddingTop
+    code:
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Back.paddingRight
+    code:
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Back.paddingBottom
+    code:
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Next.paddingLeft
+    code:
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Next.paddingTop
+    code:
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Next.paddingRight
+    code:
+      - '--spacing-16'
+    figma: spacing/20
+    sameValueInChip: false
+  - field: tokens.Next.paddingBottom
+    code:
+      - '--spacing-16'
+    figma: size/0
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TourStep/TourStep.tsx

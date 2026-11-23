@@ -58,8 +58,75 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Index
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Name
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: Group head
+    type: COMPONENT
+    size: 127x32
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+    children:
+      - name: Index
+        type: INSTANCE
+        instanceOf: Tag
+        size: 34x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingTop
+            variable: spacing/4
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/4
+          - field: topLeftRadius
+            variable: border/radius/sm
+          - field: topRightRadius
+            variable: border/radius/sm
+          - field: bottomLeftRadius
+            variable: border/radius/sm
+          - field: bottomRightRadius
+            variable: border/radius/sm
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: minHeight
+            variable: spacing/32
+          - field: fills
+            variable: color/background/surface
+          - field: strokes
+            variable: color/border/strong
+      - name: Name
+        type: TEXT
+        text: Needs you
+        size: 85x24
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: lineHeight
+            variable: typography/line-height-px/24
+          - field: fontWeight
+            variable: typography/font-weight/600
   code: []
 tokens:
   used:
@@ -148,7 +215,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/GroupHead/GroupHead.stories.tsx
+    src/components/GroupHead/GroupHead.stories.tsx
   lines: 47-47
   import: import GroupHead from '@bella/components/GroupHead/GroupHead';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -161,11 +228,31 @@ usage:
     - Not a page heading (PageHeader, SectionHeader)
     - No index where the groups have no order (guideline 11)
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1330:51325'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Name#1330:5:
+      type: TEXT
+      default: Needs you
+    Show index#1330:6:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: Group head
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.as
+    code:
+      - h2
+      - h3
+      - h4
+      - div
+    figma: no such variant property
+  - field: tokens.Index.fills
+    code:
+      - '--color-content-default'
+    figma: color/background/surface
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/GroupHead/GroupHead.tsx

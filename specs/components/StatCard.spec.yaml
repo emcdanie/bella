@@ -195,8 +195,255 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon well
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Trailing
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 5
+      name: Value
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 6
+      name: Unit
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 7
+      name: Meter
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: Context
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 9
+      name: Caption
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: chart=bar, tone=success
+    type: COMPONENT
+    size: 330x268
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/24
+      - field: paddingTop
+        variable: spacing/20
+      - field: paddingRight
+        variable: spacing/24
+      - field: paddingBottom
+        variable: spacing/20
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: fills
+        variable: color/background/surface
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Header
+        type: FRAME
+        size: 282x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: height
+            variable: spacing/44
+        children:
+          - name: Icon well
+            type: INSTANCE
+            instanceOf: Icon well
+            size: 36x36
+            tokens:
+              - field: width
+                variable: size/36
+              - field: height
+                variable: size/36
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/background/utility/success
+          - name: Title
+            type: TEXT
+            text: Drift from BELLA
+            size: 198x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/title-default/font-weight
+          - name: Trailing
+            type: INSTANCE
+            instanceOf: Trailing
+            size: 24x24
+      - name: Body
+        type: FRAME
+        size: 282x144
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Figure
+            type: FRAME
+            size: 154x72
+            children:
+              - name: Label
+                type: TEXT
+                text: Parts that differ
+                size: 154x20
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/14
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Number
+                type: FRAME
+                size: 76x48
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                children:
+                  - name: Value
+                    type: TEXT
+                    text: '4'
+                    size: 24x48
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/40
+                      - field: fontFamily
+                        variable: typography/number/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+                  - name: Unit
+                    type: TEXT
+                    text: of 5
+                    size: 48x28
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontSize
+                        variable: typography/font-size/20
+                      - field: fontFamily
+                        variable: typography/number/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+          - name: Meter
+            type: INSTANCE
+            instanceOf: Progress
+            size: 282x56
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingBottom
+                variable: spacing/8
+          - name: Context
+            type: TEXT
+            text: 4 of 5 · target 80%
+            size: 282x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/14
+              - field: fontFamily
+                variable: typography/subtext/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+      - name: Footer
+        type: FRAME
+        size: 282x24
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+        children:
+          - name: Caption
+            type: TEXT
+            text: Compared today, 10:19
+            size: 178x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Button
+            type: INSTANCE
+            instanceOf: Button
+            hidden: true
+            size: 101x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: size/0
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: size/0
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: size/32
+              - field: fills
+                variable: button/color/background/default
+              - field: strokes
+                variable: button/color/border/default
   code: []
 tokens:
   used:
@@ -706,7 +953,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-health/src/components/StatCard/StatCard.stories.tsx
+  file: >-
+    src/components/StatCard/StatCard.stories.tsx
   lines: 64-64
   import: import StatCard from '@bella/components/StatCard/StatCard';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -716,11 +964,300 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1680:8117'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#1680:13:
+      type: TEXT
+      default: Drift from BELLA
+    Value#1680:28:
+      type: TEXT
+      default: '4'
+    Unit#1680:43:
+      type: TEXT
+      default: of 5
+    Context#1680:58:
+      type: TEXT
+      default: 4 of 5 · target 80%
+    Caption#1680:73:
+      type: TEXT
+      default: Compared today, 10:19
+    Show button#1680:88:
+      type: BOOLEAN
+      default: false
+    Empty count#1680:103:
+      type: TEXT
+      default: '0'
+    Empty total#1680:118:
+      type: TEXT
+      default: of 44
+    Label#1724:0:
+      type: TEXT
+      default: Parts that differ
+    chart:
+      type: VARIANT
+      default: bar
+      values:
+        - bar
+        - segments
+        - none
+        - empty
+    tone:
+      type: VARIANT
+      default: success
+      values:
+        - success
+        - warning
+        - info
+        - danger
+        - neutral
+  variants:
+    - name: chart=bar, tone=success
+      width: 330
+      height: 268
+    - name: chart=bar, tone=warning
+      width: 330
+      height: 268
+    - name: chart=bar, tone=info
+      width: 330
+      height: 268
+    - name: chart=bar, tone=danger
+      width: 330
+      height: 268
+    - name: chart=segments, tone=success
+      width: 330
+      height: 228
+    - name: chart=segments, tone=warning
+      width: 330
+      height: 228
+    - name: chart=segments, tone=info
+      width: 330
+      height: 228
+    - name: chart=segments, tone=danger
+      width: 330
+      height: 228
+    - name: chart=none, tone=success
+      width: 330
+      height: 204
+    - name: chart=none, tone=warning
+      width: 330
+      height: 204
+    - name: chart=none, tone=info
+      width: 330
+      height: 204
+    - name: chart=none, tone=danger
+      width: 330
+      height: 204
+    - name: chart=none, tone=neutral
+      width: 330
+      height: 204
+    - name: chart=empty, tone=neutral
+      width: 330
+      height: 180
+  defaultVariant: chart=bar, tone=success
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - success
+      - warning
+      - info
+      - danger
+      - neutral
+  - field: props.seriesForm
+    code:
+      - line
+      - bars
+    figma: no such variant property
+  - field: props.trend
+    code:
+      - up
+      - down
+    figma: no such variant property
+  - field: props.drawIn
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.chart=bar, tone=success.effects
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--border-radius-lg'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-150'
+      - '--color-content-utility-info'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.chart=bar, tone=success.effects
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--border-radius-lg'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-150'
+      - '--color-content-utility-info'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Icon well.width
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--border-radius-lg'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-150'
+      - '--color-content-utility-info'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.height
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--border-radius-lg'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--spacing-4'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--typography-letter-spacing-4'
+      - '--color-content-subtle'
+      - '--typography-number-font-family'
+      - '--typography-font-size-40'
+      - '--spacing-48'
+      - '--typography-font-size-20'
+      - '--size-28'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--typography-line-height-150'
+      - '--color-content-utility-info'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.fills
+    code:
+      - '--color-background-surface'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-content-utility-info'
+    figma: color/background/utility/success
+    sameValueInChip: false
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-14'
+      - '--typography-font-size-40'
+      - '--typography-font-size-20'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Caption.fontSize
+    code:
+      - '--typography-font-size-16'
+      - '--typography-font-size-14'
+      - '--typography-font-size-40'
+      - '--typography-font-size-20'
+    figma: typography/body-default/font-size
+    sameValueInChip: false
+  - field: tokens.Button.paddingLeft
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Button.paddingTop
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--spacing-8'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Button.paddingRight
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--spacing-8'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Button.paddingBottom
+    code:
+      - '--spacing-20'
+      - '--spacing-24'
+      - '--spacing-8'
+    figma: size/0
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/StatCard/StatCard.tsx

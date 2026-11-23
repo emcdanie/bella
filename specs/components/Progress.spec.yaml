@@ -162,8 +162,100 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Value
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Fill
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: shape=bar, tone=info
+    type: COMPONENT
+    size: 320x40
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+    children:
+      - name: Head
+        type: FRAME
+        size: 320x24
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+        children:
+          - name: Label
+            type: TEXT
+            text: Coverage
+            size: 279x24
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Value
+            type: TEXT
+            text: 60%
+            size: 29x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/number/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/600
+      - name: Target row
+        type: FRAME
+        hidden: true
+        size: 320x32
+        children: []
+      - name: Track
+        type: FRAME
+        size: 320x8
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
+        children:
+          - name: Fill
+            type: INSTANCE
+            instanceOf: Progress fill
+            size: 320x8
+            tokens:
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/border/subtle
+          - name: Target
+            type: INSTANCE
+            instanceOf: Progress target
+            hidden: true
+            size: 320x56
   code: []
 tokens:
   used:
@@ -1046,7 +1138,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-health/src/components/Progress/Progress.stories.tsx
+  file: >-
+    src/components/Progress/Progress.stories.tsx
   lines: 65-65
   import: import Progress from '@bella/components/Progress/Progress';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -1056,11 +1149,101 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '955:125'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#955:0:
+      type: TEXT
+      default: Coverage
+    Value#955:13:
+      type: TEXT
+      default: 60%
+    Show label#955:26:
+      type: BOOLEAN
+      default: true
+    Show target#955:39:
+      type: BOOLEAN
+      default: false
+    Show segment 7#1514:82:
+      type: BOOLEAN
+      default: false
+    Show segment 8#1514:95:
+      type: BOOLEAN
+      default: false
+    Show segment 9#1514:108:
+      type: BOOLEAN
+      default: false
+    Show segment 10#1514:121:
+      type: BOOLEAN
+      default: false
+    shape:
+      type: VARIANT
+      default: bar
+      values:
+        - bar
+        - segments
+        - ring
+    tone:
+      type: VARIANT
+      default: info
+      values:
+        - info
+        - success
+        - attention
+        - danger
+  variants:
+    - name: shape=bar, tone=info
+      width: 320
+      height: 40
+    - name: shape=bar, tone=success
+      width: 320
+      height: 40
+    - name: shape=bar, tone=attention
+      width: 320
+      height: 40
+    - name: shape=bar, tone=danger
+      width: 320
+      height: 40
+    - name: shape=segments, tone=info
+      width: 320
+      height: 40
+    - name: shape=segments, tone=success
+      width: 320
+      height: 40
+    - name: shape=segments, tone=attention
+      width: 320
+      height: 40
+    - name: shape=segments, tone=danger
+      width: 320
+      height: 40
+    - name: shape=ring, tone=info
+      width: 104
+      height: 96
+    - name: shape=ring, tone=success
+      width: 104
+      height: 96
+    - name: shape=ring, tone=attention
+      width: 104
+      height: 96
+    - name: shape=ring, tone=danger
+      width: 104
+      height: 96
+  defaultVariant: shape=bar, tone=info
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - info
+      - success
+      - attention
+      - danger
+  - field: props.showTargetLabel
+    code: boolean prop
+    figma: not in the set
+  - field: props.drawIn
+    code: boolean prop
+    figma: not in the set
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Progress/Progress.tsx

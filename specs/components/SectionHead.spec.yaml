@@ -159,8 +159,176 @@ sizes:
     css: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Number
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Words
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: size=section
+    type: COMPONENT
+    size: 560x28
+    tokens:
+      - field: itemSpacing
+        variable: spacing/16
+      - field: counterAxisSpacing
+        variable: spacing/8
+    children:
+      - name: Lead
+        type: FRAME
+        size: 560x28
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+        children:
+          - name: Icon well
+            type: INSTANCE
+            instanceOf: Icon well
+            hidden: true
+            size: 36x36
+            tokens:
+              - field: width
+                variable: size/36
+              - field: height
+                variable: size/36
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/background/utility/warning
+          - name: Title column
+            type: FRAME
+            size: 560x28
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Title row
+                type: FRAME
+                size: 560x28
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/16
+                  - field: counterAxisSpacing
+                    variable: spacing/4
+                children:
+                  - name: Title
+                    type: TEXT
+                    text: Needs your answer
+                    size: 395x28
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/20
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+                  - name: Info
+                    type: FRAME
+                    size: 149x24
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/4
+                    children:
+                      - name: Number
+                        type: TEXT
+                        text: '4'
+                        size: 10x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/font-size/16
+                          - field: fontFamily
+                            variable: typography/number/font-family
+                          - field: lineHeight
+                            variable: typography/line-height-px/24
+                          - field: fontWeight
+                            variable: typography/font-weight/600
+                      - name: Words
+                        type: TEXT
+                        text: waiting on you
+                        size: 135x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/subtle
+                          - field: fontSize
+                            variable: typography/font-size/16
+                          - field: fontFamily
+                            variable: typography/subtext/font-family
+                          - field: lineHeight
+                            variable: typography/line-height-px/24
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+              - name: Description
+                type: TEXT
+                hidden: true
+                text: Decisions only you can make, oldest first.
+                size: 415x24
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/body-default/font-weight
+      - name: Action
+        type: INSTANCE
+        instanceOf: Button
+        hidden: true
+        size: 77x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingTop
+            variable: size/0
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: size/0
+          - field: topLeftRadius
+            variable: border/radius/lg
+          - field: topRightRadius
+            variable: border/radius/lg
+          - field: bottomLeftRadius
+            variable: border/radius/lg
+          - field: bottomRightRadius
+            variable: border/radius/lg
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: minHeight
+            variable: size/32
+          - field: fills
+            variable: button/color/background/default
+          - field: strokes
+            variable: button/color/border/default
   code: []
 tokens:
   used:
@@ -366,7 +534,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/SectionHead/SectionHead.stories.tsx
+    src/components/SectionHead/SectionHead.stories.tsx
   lines: 58-58
   import: import SectionHead from '@bella/components/SectionHead/SectionHead';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -376,11 +544,137 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1498:545602'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#1498:22:
+      type: TEXT
+      default: Needs your answer
+    Number#1498:23:
+      type: TEXT
+      default: '4'
+    Words#1498:24:
+      type: TEXT
+      default: waiting on you
+    Show number#1498:25:
+      type: BOOLEAN
+      default: true
+    Show info#1498:26:
+      type: BOOLEAN
+      default: true
+    Description#1498:27:
+      type: TEXT
+      default: Decisions only you can make, oldest first.
+    Show description#1498:28:
+      type: BOOLEAN
+      default: false
+    Show icon#1498:29:
+      type: BOOLEAN
+      default: false
+    Show action#1498:30:
+      type: BOOLEAN
+      default: false
+    size:
+      type: VARIANT
+      default: section
+      values:
+        - section
+        - card
+  variants:
+    - name: size=section
+      width: 560
+      height: 28
+    - name: size=card
+      width: 560
+      height: 28
+  defaultVariant: size=section
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.iconTone
+    code:
+      - success
+      - warning
+      - info
+      - neutral
+      - error
+      - fix
+      - visual
+      - tokens
+      - tooling
+      - docs
+      - contract
+      - decision
+    figma: no such variant property
+  - field: props.titleLevel
+    code:
+      - '0'
+      - '2'
+      - '3'
+      - '4'
+    figma: no such variant property
+  - field: tokens.size=section.counterAxisSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Icon well.width
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.height
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-600'
+      - '--size-28'
+      - '--color-content-default'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-subtle'
+    figma: color/background/utility/warning
+    sameValueInChip: false
+  - field: tokens.Action.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/SectionHead/SectionHead.module.css

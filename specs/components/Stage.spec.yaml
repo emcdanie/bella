@@ -159,8 +159,50 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Dot grid
+      type: VECTOR
+      from: figma layer tree order
+  figma:
+    name: grid=dots
+    type: COMPONENT
+    size: 440x330
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/16
+      - field: topRightRadius
+        variable: border/radius/16
+      - field: bottomLeftRadius
+        variable: border/radius/16
+      - field: bottomRightRadius
+        variable: border/radius/16
+      - field: fills
+        variable: color/background/default
+    children:
+      - name: Dot grid
+        type: VECTOR
+        size: 2400.01x1584
+        tokens:
+          - field: strokeWeight
+            variable: border/width/2
+          - field: strokes
+            variable: color/background/highlight
+      - name: Content
+        type: SLOT
+        size: 440x330
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+          - field: paddingLeft
+            variable: spacing/24
+          - field: paddingTop
+            variable: spacing/24
+          - field: paddingRight
+            variable: spacing/24
+          - field: paddingBottom
+            variable: spacing/24
+        children: []
   code: []
 tokens:
   used:
@@ -457,8 +499,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Stage/Stage.stories.tsx
+  file: src/components/Stage/Stage.stories.tsx
   lines: 34-36
   import: import Stage from '@bella/components/Stage/Stage';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -474,11 +515,54 @@ usage:
     - Not a card (Card)
     - Not a whole screen at design size (ScaledFrame)
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '809:186284'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Content#809:839:
+      type: SLOT
+    grid:
+      type: VARIANT
+      default: dots
+      values:
+        - dots
+        - none
+  variants:
+    - name: grid=dots
+      width: 440
+      height: 330
+    - name: grid=none
+      width: 440
+      height: 330
+  defaultVariant: grid=dots
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.zoom
+    code:
+      - fit
+      - actual
+    figma: no such variant property
+  - field: props.leaderVariant
+    code:
+      - neutral
+      - red
+    figma: no such variant property
+  - field: props.leaderDraw
+    code:
+      - none
+      - map
+      - pick
+    figma: no such variant property
+  - field: props.picking
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Dot grid.strokes
+    code:
+      - '--border-radius-16'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-card'
+    figma: color/background/highlight
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Stage/Stage.tsx

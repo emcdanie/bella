@@ -26,7 +26,7 @@ props:
     values:
       - true
       - false
-    default: count != null
+    default: false
     required: false
     doc: Figma "Show count".
     at: src/components/TreeItem/TreeItem.tsx:16
@@ -150,8 +150,112 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Badge
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: kind=group, state=default, open=false, current=false
+    type: COMPONENT
+    size: 240x44
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingRight
+        variable: spacing/16
+      - field: topLeftRadius
+        variable: border/radius/md
+      - field: topRightRadius
+        variable: border/radius/md
+      - field: bottomLeftRadius
+        variable: border/radius/md
+      - field: bottomRightRadius
+        variable: border/radius/md
+      - field: minHeight
+        variable: spacing/44
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 20x20
+        tokens:
+          - field: width
+            variable: size/20
+          - field: height
+            variable: size/20
+      - name: Text
+        type: FRAME
+        size: 162x24
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Label
+            type: TEXT
+            text: Data
+            size: 162x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/600
+          - name: Progress
+            type: INSTANCE
+            instanceOf: Progress fill
+            hidden: true
+            size: 154x10
+            tokens:
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/border/subtle
+      - name: Badge
+        type: TEXT
+        text: '4'
+        size: 10x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: lineHeight
+            variable: typography/line-height-px/24
+          - field: fontWeight
+            variable: typography/font-weight/600
+      - name: Needs work dot
+        type: ELLIPSE
+        hidden: true
+        size: 8x8
+        tokens:
+          - field: fills
+            variable: color/background/utility/warning-mark
+          - field: strokes
+            variable: color/border/utility/warning
   code: []
 tokens:
   used:
@@ -626,7 +730,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/TreeItem/TreeItem.stories.tsx
+    src/components/TreeItem/TreeItem.stories.tsx
   lines: 53-53
   import: import TreeItem from '@bella/components/TreeItem/TreeItem';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -636,11 +740,212 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '809:186264'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#809:811:
+      type: TEXT
+      default: Data
+    Count#809:818:
+      type: TEXT
+      default: '4'
+    Show count#809:825:
+      type: BOOLEAN
+      default: true
+    Needs work#809:832:
+      type: BOOLEAN
+      default: false
+    Line below#1168:154:
+      type: BOOLEAN
+      default: true
+    Show progress#1432:0:
+      type: BOOLEAN
+      default: false
+    kind:
+      type: VARIANT
+      default: group
+      values:
+        - group
+        - item
+        - folder
+        - branch
+        - status
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - hover
+        - focus
+    open:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    current:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: kind=group, state=default, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=group, state=default, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=item, state=default, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=item, state=hover, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=item, state=default, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=item, state=focus, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=group, state=hover, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=group, state=focus, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=group, state=hover, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=group, state=focus, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=item, state=hover, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=item, state=focus, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=default, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=default, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=default, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=default, open=true, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=hover, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=hover, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=hover, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=hover, open=true, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=focus, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=focus, open=true, current=false
+      width: 240
+      height: 44
+    - name: kind=folder, state=focus, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=folder, state=focus, open=true, current=true
+      width: 240
+      height: 44
+    - name: kind=branch, state=default, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=branch, state=default, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=branch, state=hover, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=branch, state=hover, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=branch, state=focus, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=branch, state=focus, open=false, current=true
+      width: 240
+      height: 44
+    - name: kind=status, state=default, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=status, state=hover, open=false, current=false
+      width: 240
+      height: 44
+    - name: kind=status, state=focus, open=false, current=false
+      width: 240
+      height: 44
+  defaultVariant: kind=group, state=default, open=false, current=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.kind
+    code: no such prop
+    figma:
+      - group
+      - item
+      - folder
+      - branch
+      - status
+  - field: states
+    code:
+      contract:
+        - default
+      css:
+        - hover
+        - focus-visible
+        - '[aria-current=''page'']'
+    figma:
+      - default
+      - hover
+      - focus
+  - field: props.status
+    code:
+      - failed
+      - waiting
+      - working
+      - passed
+    figma: no such variant property
+  - field: props.tone
+    code:
+      - success
+      - info
+      - attention
+      - danger
+      - neutral
+    figma: no such variant property
+  - field: tokens.Progress.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-border-strong'
+    figma: color/border/subtle
+    sameValueInChip: false
+  - field: tokens.Needs work dot.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-border-strong'
+    figma: color/background/utility/warning-mark
+    sameValueInChip: false
+  - field: tokens.Needs work dot.strokes
+    code:
+      - '--border-radius-md'
+    figma: color/border/utility/warning
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TreeItem/TreeItem.tsx

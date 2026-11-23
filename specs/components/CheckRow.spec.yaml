@@ -18,9 +18,8 @@ props:
       - weather
     required: false
     doc: >-
-      Figma "layout". list (default): the List item set-up, title, what is missing, the bar and its target. weather (22 Nov, her pick C ·
-      Weather rows): one 56 row per check: name, one pip per 5 parts with the dashed target line, and the count on the right. Weather needs
-      `passed` and `total`.
+      Figma "layout". list (default): the List item set-up, title, what is missing, the bar and its target. weather (decided 22 Nov): one 56
+      row per check: name, one pip per 5 parts with the dashed target line, and the count on the right. Weather needs `passed` and `total`.
     at: src/components/CheckRow/CheckRow.tsx:55
   - name: passed
     type: number
@@ -67,8 +66,8 @@ props:
     type: ReactNode
     required: false
     doc: >-
-      @deprecated The status Tag left the published Check row (21 Nov, "yes take it off"); ignored. Removing the prop is a public API change
-      and waits for Elleta.
+      @deprecated The status Tag left the published Check row (decided 21 Nov); ignored. Removing the prop is a public API change and waits
+      for Elleta.
     at: src/components/CheckRow/CheckRow.tsx:71
   - name: fill
     type: number
@@ -135,8 +134,44 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: List item
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: status=pass, layout=list
+    type: COMPONENT
+    size: 1008x144
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+      - field: counterAxisSpacing
+        variable: spacing/12
+    children:
+      - name: List item
+        type: INSTANCE
+        instanceOf: ListRow
+        size: 1008x144
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingTop
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/sm
+          - field: topRightRadius
+            variable: border/radius/sm
+          - field: bottomLeftRadius
+            variable: border/radius/sm
+          - field: bottomRightRadius
+            variable: border/radius/sm
   code: []
 tokens:
   used:
@@ -550,7 +585,7 @@ a11y:
   aria:
     - attribute: aria-label
       value: sentence
-      at: src/components/CheckRow/CheckRow.tsx:129
+      at: src/components/CheckRow/CheckRow.tsx:128
   focusRing: []
   disabled:
     prop: null
@@ -563,13 +598,13 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/CheckRow/CheckRow.tsx:129
+      at: src/components/CheckRow/CheckRow.tsx:128
 contrast:
   pairs: []
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/CheckRow/CheckRow.stories.tsx
+    src/components/CheckRow/CheckRow.stories.tsx
   lines: 48-48
   import: import CheckRow from '@bella/components/CheckRow/CheckRow';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -581,11 +616,51 @@ usage:
     - 'Never its own drawing: change ListRow, not CheckRow'
     - 'No status bar and no status Tag (21 Nov: "the progress bar is fine")'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '793:31331'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Check#1709:0:
+      type: TEXT
+      default: Story
+    Count#1709:5:
+      type: TEXT
+      default: 83/85
+    Show divider#1709:10:
+      type: BOOLEAN
+      default: true
+    status:
+      type: VARIANT
+      default: pass
+      values:
+        - pass
+        - fail
+    layout:
+      type: VARIANT
+      default: list
+      values:
+        - list
+        - weather
+  variants:
+    - name: status=pass, layout=list
+      width: 1008
+      height: 144
+    - name: status=fail, layout=list
+      width: 1008
+      height: 154
+    - name: status=pass, layout=weather
+      width: 640
+      height: 56
+    - name: status=fail, layout=weather
+      width: 640
+      height: 56
+  defaultVariant: status=pass, layout=list
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.as
+    code:
+      - li
+      - div
+    figma: no such variant property
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/CheckRow/CheckRow.tsx

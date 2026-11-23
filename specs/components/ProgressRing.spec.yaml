@@ -103,8 +103,37 @@ sizes:
     css: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Track
+      type: ELLIPSE
+      from: figma layer tree order
+    - 'n': 2
+      name: Arc
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: state=running, size=sm
+    type: COMPONENT
+    size: 20x20
+    tokens:
+      - field: width
+        variable: size/20
+      - field: height
+        variable: size/20
+    children:
+      - name: Track
+        type: ELLIPSE
+        size: 20x20
+        tokens:
+          - field: strokeWeight
+            variable: border/width/4
+          - field: strokes
+            variable: color/border/subtle
+      - name: Arc
+        type: INSTANCE
+        instanceOf: _ProgressRing arc
+        size: 20x20
   code: []
 tokens:
   used:
@@ -514,7 +543,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/ProgressRing/ProgressRing.stories.tsx
+    src/components/ProgressRing/ProgressRing.stories.tsx
   lines: 48-48
   import: import ProgressRing from '@bella/components/ProgressRing/ProgressRing';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -527,11 +556,67 @@ usage:
     - Not a whole-page wait (Skeleton)
     - Never turns for 3 s or more
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1730:129'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Count#1730:0:
+      type: TEXT
+      default: 2/5
+    Show count#1730:9:
+      type: BOOLEAN
+      default: true
+    state:
+      type: VARIANT
+      default: running
+      values:
+        - running
+        - done
+        - waiting
+        - failed
+    size:
+      type: VARIANT
+      default: sm
+      values:
+        - sm
+        - md
+  variants:
+    - name: state=running, size=sm
+      width: 20
+      height: 20
+    - name: state=done, size=sm
+      width: 20
+      height: 20
+    - name: state=waiting, size=sm
+      width: 20
+      height: 20
+    - name: state=failed, size=sm
+      width: 20
+      height: 20
+    - name: state=running, size=md
+      width: 36
+      height: 36
+    - name: state=done, size=md
+      width: 36
+      height: 36
+    - name: state=waiting, size=md
+      width: 36
+      height: 36
+    - name: state=failed, size=md
+      width: 36
+      height: 36
+  defaultVariant: state=running, size=sm
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.decorative
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Track.strokes
+    code:
+      - '--border-radius-round'
+      - '--border-width-4'
+      - '--color-border-strong'
+    figma: color/border/subtle
+    sameValueInChip: false
 notApplicable: []
 guidance:
   lead: null

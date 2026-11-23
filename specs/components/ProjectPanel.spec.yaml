@@ -65,8 +65,327 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Client switcher
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Folder · CHIP
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Branch · main
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Branch · chip/theme
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Branch · chip-button-page
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 7
+      name: Branch · fix-llms-txt
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: Folder · BELLA
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 9
+      name: Folder · elleta.design
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 10
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 11
+      name: Status · Needs you
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 12
+      name: Status · Claude
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 13
+      name: Status · Gate
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 14
+      name: Status · Ready
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: layout=panel, flush=false
+    type: COMPONENT
+    size: 264x756
+    tokens:
+      - field: itemSpacing
+        variable: spacing/4
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingTop
+        variable: spacing/24
+      - field: paddingRight
+        variable: spacing/16
+      - field: paddingBottom
+        variable: spacing/24
+      - field: width
+        variable: layout/panel/width
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/default
+    children:
+      - name: Client switcher
+        type: INSTANCE
+        instanceOf: Client switcher
+        size: 231x64
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingTop
+            variable: spacing/8
+          - field: paddingRight
+            variable: spacing/8
+          - field: paddingBottom
+            variable: spacing/8
+          - field: topLeftRadius
+            variable: border/radius/12
+          - field: topRightRadius
+            variable: border/radius/12
+          - field: bottomLeftRadius
+            variable: border/radius/12
+          - field: bottomRightRadius
+            variable: border/radius/12
+      - name: Heading · Projects
+        type: FRAME
+        size: 231x56
+        tokens:
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingTop
+            variable: layout/panel/heading-padding-top
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/4
+        children:
+          - name: (text content)
+            type: TEXT
+            text: Projects
+            size: 203x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/600
+      - name: Folder · CHIP
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+          - field: fills
+            variable: nav-list/current-background
+      - name: Branch · main
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+      - name: Branch · chip/theme
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+      - name: Branch · chip-button-page
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+      - name: Branch · fix-llms-txt
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+      - name: Folder · BELLA
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Folder · elleta.design
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Heading · Status
+        type: FRAME
+        size: 231x52
+        tokens:
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingTop
+            variable: spacing/24
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/4
+        children:
+          - name: (text content)
+            type: TEXT
+            text: Status
+            size: 203x24
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/body-default/font-size
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: lineHeight
+                variable: typography/line-height-px/24
+              - field: fontWeight
+                variable: typography/font-weight/600
+      - name: Status · Needs you
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Status · Claude
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Status · Gate
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
+      - name: Status · Ready
+        type: INSTANCE
+        instanceOf: Tree item
+        size: 231x44
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/md
+          - field: topRightRadius
+            variable: border/radius/md
+          - field: bottomLeftRadius
+            variable: border/radius/md
+          - field: bottomRightRadius
+            variable: border/radius/md
+          - field: minHeight
+            variable: spacing/44
   code: []
 tokens:
   used:
@@ -288,11 +607,109 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1454:424'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Show heading#1645:128:
+      type: BOOLEAN
+      default: false
+    layout:
+      type: VARIANT
+      default: panel
+      values:
+        - panel
+        - drawer
+    flush:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: layout=panel, flush=false
+      width: 264
+      height: 756
+    - name: layout=drawer, flush=false
+      width: 264
+      height: 756
+    - name: layout=drawer, flush=true
+      width: 264
+      height: 648
+  defaultVariant: layout=panel, flush=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.layout
+    code: no such prop
+    figma:
+      - panel
+      - drawer
+  - field: tokens.Client switcher.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Client switcher.paddingTop
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-12'
+      - '--spacing-4'
+      - '--layout-panel-heading-padding-top'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Client switcher.paddingRight
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-12'
+      - '--spacing-4'
+      - '--layout-panel-heading-padding-top'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Client switcher.paddingBottom
+    code:
+      - '--spacing-24'
+      - '--spacing-16'
+      - '--spacing-12'
+      - '--spacing-4'
+      - '--layout-panel-heading-padding-top'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Folder · CHIP.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Folder · BELLA.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Folder · elleta.design.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Status · Needs you.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Status · Claude.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Status · Gate.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Status · Ready.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ProjectPanel/ProjectPanel.tsx

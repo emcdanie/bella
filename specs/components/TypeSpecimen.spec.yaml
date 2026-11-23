@@ -49,8 +49,49 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Specimen
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Size
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: size=display-page
+    type: COMPONENT
+    size: 320x110
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+    children:
+      - name: Specimen
+        type: TEXT
+        text: display-page
+        size: 240x110
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/display-page
+          - field: fontFamily
+            variable: typography/title-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Size
+        type: TEXT
+        text: 44–60px
+        size: 68x21
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
   code: []
 tokens:
   used:
@@ -247,7 +288,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/TypeSpecimen/TypeSpecimen.stories.tsx
+    src/components/TypeSpecimen/TypeSpecimen.stories.tsx
   lines: 21-21
   import: import TypeSpecimen from '@bella/components/TypeSpecimen/TypeSpecimen';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -256,11 +297,60 @@ usage:
   use: []
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '796:8332'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    size:
+      type: VARIANT
+      default: display-page
+      values:
+        - display-page
+        - display-section
+        - subsection
+        - xl
+        - base
+        - sm
+        - tag
+        - mono
+  variants:
+    - name: size=display-page
+      width: 320
+      height: 110
+    - name: size=display-section
+      width: 320
+      height: 43
+    - name: size=subsection
+      width: 320
+      height: 35
+    - name: size=xl
+      width: 320
+      height: 28
+    - name: size=base
+      width: 320
+      height: 25
+    - name: size=sm
+      width: 320
+      height: 23
+    - name: size=tag
+      width: 320
+      height: 21
+    - name: size=mono
+      width: 320
+      height: 21
+  defaultVariant: size=display-page
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.size
+    code: no such prop
+    figma:
+      - display-page
+      - display-section
+      - subsection
+      - xl
+      - base
+      - sm
+      - tag
+      - mono
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TypeSpecimen/TypeSpecimen.tsx

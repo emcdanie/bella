@@ -32,8 +32,39 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Underline
+      type: RECTANGLE
+      from: figma layer tree order
+    - 'n': 2
+      name: Phrase
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: Marker
+    type: COMPONENT
+    size: 119x24
+    children:
+      - name: Underline
+        type: RECTANGLE
+        size: 119x10
+        tokens:
+          - field: fills
+            variable: color/background/wash/blue-strong
+      - name: Phrase
+        type: TEXT
+        text: the key phrase
+        size: 119x24
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/600
   code: []
 tokens:
   used:
@@ -83,7 +114,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Marker/Marker.stories.tsx
+    src/components/Marker/Marker.stories.tsx
   lines: 43-43
   import: import Marker from '@bella/components/Marker/Marker';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -98,11 +129,21 @@ usage:
     - 'Do not mark a status: that is Tag'
     - Do not mark a whole sentence, or more than one phrase per paragraph
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1600:45992'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Phrase#1600:0:
+      type: TEXT
+      default: the key phrase
+  variants: []
+  defaultVariant: Marker
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: tokens.Phrase.fills
+    code:
+      - '--color-background-wash-blue-strong'
+    figma: color/content/default
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Marker/Marker.tsx

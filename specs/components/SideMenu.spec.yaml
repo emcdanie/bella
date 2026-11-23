@@ -109,8 +109,414 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Switcher
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Search
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Home
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Needs you
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Not again
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Group label text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 7
+      name: Components
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: System map
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 9
+      name: Group label text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 10
+      name: CHIP
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 11
+      name: Site
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 12
+      name: BELLA
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 13
+      name: Team
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 14
+      name: Settings
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Side menu
+    type: COMPONENT
+    size: 232x840
+    tokens:
+      - field: itemSpacing
+        variable: spacing/16
+      - field: paddingLeft
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/12
+      - field: paddingBottom
+        variable: spacing/24
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/default
+    children:
+      - name: Switcher
+        type: INSTANCE
+        instanceOf: Client switcher
+        size: 207x68
+        tokens:
+          - field: itemSpacing
+            variable: spacing/12
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingRight
+            variable: spacing/8
+          - field: topLeftRadius
+            variable: border/radius/12
+          - field: topRightRadius
+            variable: border/radius/12
+          - field: bottomLeftRadius
+            variable: border/radius/12
+          - field: bottomRightRadius
+            variable: border/radius/12
+      - name: Main
+        type: FRAME
+        size: 207x624
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+        children:
+          - name: Group · Go to
+            type: FRAME
+            size: 207x188
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Search
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+              - name: Home
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+              - name: Needs you
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+                  - field: fills
+                    variable: nav-list/current-background
+              - name: Not again
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+          - name: Group · Pinned
+            type: FRAME
+            size: 207x123
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Group label · Pinned
+                type: FRAME
+                size: 207x27
+                tokens:
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/12
+                children:
+                  - name: Group label text
+                    type: TEXT
+                    text: Pinned
+                    size: 54x27
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+              - name: Components
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+              - name: System map
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+          - name: Group · Projects
+            type: FRAME
+            size: 207x171
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Group label · Projects
+                type: FRAME
+                size: 207x27
+                tokens:
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/12
+                children:
+                  - name: Group label text
+                    type: TEXT
+                    text: Projects
+                    size: 63x27
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+              - name: CHIP
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+              - name: Site
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+              - name: BELLA
+                type: INSTANCE
+                instanceOf: Nav item
+                size: 207x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                  - field: paddingLeft
+                    variable: spacing/16
+                  - field: paddingRight
+                    variable: spacing/16
+                  - field: topLeftRadius
+                    variable: border/radius/md
+                  - field: topRightRadius
+                    variable: border/radius/md
+                  - field: bottomLeftRadius
+                    variable: border/radius/md
+                  - field: bottomRightRadius
+                    variable: border/radius/md
+                  - field: minHeight
+                    variable: spacing/44
+      - name: Foot
+        type: FRAME
+        size: 207x92
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Team
+            type: INSTANCE
+            instanceOf: Nav item
+            size: 207x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/16
+              - field: paddingRight
+                variable: spacing/16
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
+          - name: Settings
+            type: INSTANCE
+            instanceOf: Nav item
+            size: 207x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/12
+              - field: paddingLeft
+                variable: spacing/16
+              - field: paddingRight
+                variable: spacing/16
+              - field: topLeftRadius
+                variable: border/radius/md
+              - field: topRightRadius
+                variable: border/radius/md
+              - field: bottomLeftRadius
+                variable: border/radius/md
+              - field: bottomRightRadius
+                variable: border/radius/md
+              - field: minHeight
+                variable: spacing/44
   code: []
 tokens:
   used:
@@ -351,7 +757,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-sidelogo/src/components/SideMenu/SideMenu.stories.tsx
+  file: >-
+    src/components/SideMenu/SideMenu.stories.tsx
   lines: 66-66
   import: import SideMenu from '@bella/components/SideMenu/SideMenu';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -364,11 +771,103 @@ usage:
     - 'Do not use it for page views: that is Tabs'
     - 'Do not show it on a phone: put it in a Drawer side=bottom'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1709:48082'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Show pinned#1709:15:
+      type: BOOLEAN
+      default: true
+    Show projects#1709:16:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: Side menu
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.clientExpanded
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Switcher.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Switcher.paddingRight
+    code:
+      - '--spacing-12'
+      - '--spacing-24'
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Search.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Home.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Needs you.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Not again.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Components.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.System map.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.CHIP.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Site.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.BELLA.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Team.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Settings.itemSpacing
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SideMenu/SideMenu.tsx

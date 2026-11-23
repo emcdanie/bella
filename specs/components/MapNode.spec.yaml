@@ -96,8 +96,100 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Dot
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Status
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: state=default, selected=false, tone=default
+    type: COMPONENT
+    size: 176x70
+    tokens:
+      - field: itemSpacing
+        variable: spacing/4
+      - field: paddingLeft
+        variable: spacing/16
+      - field: paddingTop
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/16
+      - field: paddingBottom
+        variable: spacing/12
+      - field: topLeftRadius
+        variable: border/radius/12
+      - field: topRightRadius
+        variable: border/radius/12
+      - field: bottomLeftRadius
+        variable: border/radius/12
+      - field: bottomRightRadius
+        variable: border/radius/12
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/strong
+    children:
+      - name: Title
+        type: TEXT
+        text: Tokens
+        size: 142x20
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/600
+      - name: Status row
+        type: FRAME
+        size: 142x20
+        children:
+          - name: Dot
+            type: INSTANCE
+            instanceOf: StatusDot
+            size: 24x24
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+          - name: Status
+            type: TEXT
+            text: Healthy
+            size: 122x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+      - name: Pin spot
+        type: INSTANCE
+        instanceOf: Pin
+        hidden: true
+        size: 32x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
   code: []
 tokens:
   used:
@@ -465,7 +557,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/MapNode/MapNode.stories.tsx
+    src/components/MapNode/MapNode.stories.tsx
   lines: 24-24
   import: import MapNode from '@bella/components/MapNode/MapNode';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -478,11 +570,119 @@ usage:
     - Not a status on its own (StatusDot)
     - Not a step in a short sequence (Step)
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '794:169078'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#794:196:
+      type: TEXT
+      default: Tokens
+    Status#794:200:
+      type: TEXT
+      default: Healthy
+    Show hotspot#794:204:
+      type: BOOLEAN
+      default: false
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - 'off'
+        - focus
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    tone:
+      type: VARIANT
+      default: default
+      values:
+        - attention
+        - default
+        - blocked
+  variants:
+    - name: state=default, selected=false, tone=default
+      width: 176
+      height: 70
+    - name: state=focus, selected=false, tone=default
+      width: 176
+      height: 70
+    - name: state=default, selected=true, tone=default
+      width: 176
+      height: 72
+    - name: state=focus, selected=true, tone=default
+      width: 176
+      height: 72
+    - name: state=off, selected=false, tone=default
+      width: 176
+      height: 74
+    - name: state=default, selected=false, tone=attention
+      width: 176
+      height: 70
+    - name: state=focus, selected=false, tone=attention
+      width: 176
+      height: 70
+    - name: state=default, selected=true, tone=attention
+      width: 176
+      height: 72
+    - name: state=focus, selected=true, tone=attention
+      width: 176
+      height: 72
+    - name: state=default, selected=false, tone=blocked
+      width: 176
+      height: 70
+    - name: state=focus, selected=false, tone=blocked
+      width: 176
+      height: 70
+    - name: state=default, selected=true, tone=blocked
+      width: 176
+      height: 72
+    - name: state=focus, selected=true, tone=blocked
+      width: 176
+      height: 72
+  defaultVariant: state=default, selected=false, tone=default
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: states
+    code:
+      contract:
+        - default
+        - hover
+        - selected
+        - focus
+      css:
+        - hover
+        - focus-visible
+    figma:
+      - default
+      - 'off'
+      - focus
+      - selected
+  - field: props.statusTone
+    code:
+      - success
+      - info
+      - attention
+      - danger
+      - neutral
+    figma: no such variant property
+  - field: tokens.state=default, selected=false, tone=default.itemSpacing
+    code:
+      - '--border-width-2'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Dot.itemSpacing
+    code:
+      - '--border-width-2'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Pin spot.itemSpacing
+    code:
+      - '--border-width-2'
+    figma: spacing/8
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/MapNode/MapNode.tsx

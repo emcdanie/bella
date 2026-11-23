@@ -177,8 +177,43 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Path
+      type: RECTANGLE
+      from: figma layer tree order
+    - 'n': 2
+      name: Arrow
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: direction=horizontal, end=arrow, style=solid, tone=default, corner=none
+    type: COMPONENT
+    size: 120x16
+    children:
+      - name: Path
+        type: RECTANGLE
+        size: 116x0.01
+        tokens:
+          - field: strokeTopWeight
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: strokes
+            variable: color/border/strong
+      - name: Arrow
+        type: INSTANCE
+        instanceOf: Icon
+        size: 16x16
+        tokens:
+          - field: width
+            variable: size/16
+          - field: height
+            variable: size/16
   code: []
 tokens:
   used:
@@ -722,7 +757,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/MapLine/MapLine.stories.tsx
+    src/components/MapLine/MapLine.stories.tsx
   lines: 59-59
   import: import MapLine from '@bella/components/MapLine/MapLine';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -733,11 +768,259 @@ usage:
     - Processes maps, joining MapNodes with direction=curve (22 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '796:8637'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    direction:
+      type: VARIANT
+      default: horizontal
+      values:
+        - horizontal
+        - vertical
+        - turn
+        - curve
+    end:
+      type: VARIANT
+      default: arrow
+      values:
+        - arrow
+        - none
+    style:
+      type: VARIANT
+      default: solid
+      values:
+        - solid
+        - dashed
+    tone:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - accent
+        - danger
+        - selected
+    corner:
+      type: VARIANT
+      default: none
+      values:
+        - none
+        - top-left
+        - top-right
+        - bottom-left
+        - bottom-right
+  variants:
+    - name: direction=horizontal, end=arrow, style=solid, tone=default, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=arrow, style=solid, tone=accent, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=arrow, style=dashed, tone=default, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=arrow, style=dashed, tone=accent, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=solid, tone=default, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=solid, tone=accent, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=dashed, tone=default, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=dashed, tone=accent, corner=none
+      width: 120
+      height: 16
+    - name: direction=vertical, end=arrow, style=solid, tone=default, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=arrow, style=solid, tone=accent, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=arrow, style=dashed, tone=default, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=arrow, style=dashed, tone=accent, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=solid, tone=default, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=solid, tone=accent, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=dashed, tone=default, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=dashed, tone=accent, corner=none
+      width: 16
+      height: 120
+    - name: direction=turn, end=none, style=solid, tone=default, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=default, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=default, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=default, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=accent, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=accent, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=accent, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=accent, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=default, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=default, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=default, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=default, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=accent, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=accent, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=accent, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=accent, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=horizontal, end=arrow, style=solid, tone=danger, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=arrow, style=dashed, tone=danger, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=solid, tone=danger, corner=none
+      width: 120
+      height: 16
+    - name: direction=horizontal, end=none, style=dashed, tone=danger, corner=none
+      width: 120
+      height: 16
+    - name: direction=vertical, end=arrow, style=solid, tone=danger, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=arrow, style=dashed, tone=danger, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=solid, tone=danger, corner=none
+      width: 16
+      height: 120
+    - name: direction=vertical, end=none, style=dashed, tone=danger, corner=none
+      width: 16
+      height: 120
+    - name: direction=turn, end=none, style=solid, tone=danger, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=danger, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=danger, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=solid, tone=danger, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=danger, corner=top-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=danger, corner=top-right
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=danger, corner=bottom-left
+      width: 24
+      height: 24
+    - name: direction=turn, end=none, style=dashed, tone=danger, corner=bottom-right
+      width: 24
+      height: 24
+    - name: direction=curve, end=none, style=solid, tone=default, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=dashed, tone=default, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=solid, tone=accent, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=dashed, tone=accent, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=solid, tone=danger, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=dashed, tone=danger, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=solid, tone=selected, corner=none
+      width: 120
+      height: 120
+    - name: direction=curve, end=none, style=dashed, tone=selected, corner=none
+      width: 120
+      height: 120
+  defaultVariant: direction=horizontal, end=arrow, style=solid, tone=default, corner=none
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.style
+    code: no such prop
+    figma:
+      - solid
+      - dashed
+  - field: props.corner
+    code: no such prop
+    figma:
+      - none
+      - top-left
+      - top-right
+      - bottom-left
+      - bottom-right
+  - field: props.variant
+    code:
+      - solid
+      - dashed
+    figma: no such variant property
+  - field: props.weight
+    code:
+      - regular
+      - thin
+    figma: no such variant property
+  - field: props.draw
+    code:
+      - none
+      - map
+      - pick
+    figma: no such variant property
+  - field: props.flip
+    code: boolean prop
+    figma: not in the set
+  - field: props.travel
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Path.strokes
+    code:
+      - '--border-width-2'
+      - '--size-16'
+    figma: color/border/strong
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/MapLine/MapLine.tsx

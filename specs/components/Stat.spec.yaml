@@ -184,7 +184,89 @@ anatomy:
       at: bottom
       side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma: null
+  figma:
+    name: trend=none, series=false, measured=true, layout=stacked, tone=neutral
+    type: COMPONENT
+    size: 143x100
+    tokens:
+      - field: itemSpacing
+        variable: spacing/4
+    children:
+      - name: Icon slot
+        type: FRAME
+        hidden: true
+        size: 40x40
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
+        children:
+          - name: Icon
+            type: INSTANCE
+            instanceOf: Icon
+            size: 20x20
+            tokens:
+              - field: width
+                variable: size/20
+              - field: height
+                variable: size/20
+      - name: Label
+        type: TEXT
+        text: Components
+        size: 98x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Value
+        type: TEXT
+        text: '18'
+        size: 48x48
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/40
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: fontWeight
+            variable: typography/font-weight/700
+      - name: Bar
+        type: INSTANCE
+        instanceOf: Progress
+        hidden: true
+        size: 138x8
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+      - name: Delta row
+        type: FRAME
+        size: 143x20
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: Delta
+            type: TEXT
+            text: 2 since last sync
+            size: 143x20
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontFamily
+                variable: typography/subtext/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
   code:
     - key: label
       title: Label
@@ -739,11 +821,162 @@ usage:
     - Do not draw a sparkline from fewer than two real points, and never from made-up history
     - 'Do not colour the sparkline: its shape carries the trend'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '161:78'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#161:18:
+      type: TEXT
+      default: Components
+    Value#161:19:
+      type: TEXT
+      default: '18'
+    Delta#161:20:
+      type: TEXT
+      default: 2 since last sync
+    Show icon#434:2:
+      type: BOOLEAN
+      default: false
+    icon#434:9:
+      type: INSTANCE_SWAP
+      default: '432:1441'
+    Show bar#434:57:
+      type: BOOLEAN
+      default: false
+    Show delta#440:0:
+      type: BOOLEAN
+      default: true
+    trend:
+      type: VARIANT
+      default: none
+      values:
+        - none
+        - up
+        - down
+    series:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    measured:
+      type: VARIANT
+      default: 'true'
+      values:
+        - 'true'
+        - 'false'
+    layout:
+      type: VARIANT
+      default: stacked
+      values:
+        - stacked
+        - inline
+        - tile
+        - row
+    tone:
+      type: VARIANT
+      default: neutral
+      values:
+        - neutral
+        - attention
+        - success
+        - info
+  variants:
+    - name: trend=none, series=false, measured=true, layout=stacked, tone=neutral
+      width: 143
+      height: 100
+    - name: trend=none, series=true, measured=true, layout=stacked, tone=neutral
+      width: 143
+      height: 128
+    - name: trend=up, series=false, measured=true, layout=stacked, tone=neutral
+      width: 160
+      height: 100
+    - name: trend=up, series=true, measured=true, layout=stacked, tone=neutral
+      width: 143
+      height: 128
+    - name: trend=down, series=false, measured=true, layout=stacked, tone=neutral
+      width: 160
+      height: 100
+    - name: trend=down, series=true, measured=true, layout=stacked, tone=neutral
+      width: 143
+      height: 128
+    - name: trend=none, series=false, measured=false, layout=stacked, tone=neutral
+      width: 116
+      height: 52
+    - name: trend=none, series=false, measured=true, layout=inline, tone=neutral
+      width: 302
+      height: 24
+    - name: trend=none, series=false, measured=true, layout=inline, tone=attention
+      width: 302
+      height: 24
+    - name: trend=none, series=false, measured=true, layout=inline, tone=success
+      width: 302
+      height: 24
+    - name: trend=none, series=false, measured=true, layout=inline, tone=info
+      width: 302
+      height: 24
+    - name: trend=none, series=false, measured=true, layout=tile, tone=neutral
+      width: 143
+      height: 100
+    - name: trend=none, series=false, measured=true, layout=tile, tone=attention
+      width: 143
+      height: 100
+    - name: trend=none, series=false, measured=true, layout=tile, tone=success
+      width: 143
+      height: 100
+    - name: trend=none, series=false, measured=true, layout=tile, tone=info
+      width: 143
+      height: 100
+    - name: trend=none, series=false, measured=true, layout=row, tone=neutral
+      width: 302
+      height: 27
+  defaultVariant: trend=none, series=false, measured=true, layout=stacked, tone=neutral
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.trend.values
+    code:
+      - up
+      - down
+    figma:
+      - none
+      - up
+      - down
+  - field: props.layout
+    code: no such prop
+    figma:
+      - stacked
+      - inline
+      - tile
+      - row
+  - field: props.tone
+    code: no such prop
+    figma:
+      - neutral
+      - attention
+      - success
+      - info
+  - field: props.size
+    code:
+      - default
+      - display
+    figma: no such variant property
+  - field: props.table
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Bar.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Delta row.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: sizes
+    code:
+      - default
+      - display
+    figma: no size variant property
 notApplicable: []
 guidance:
   lead: One figure with its label and an optional change. Say "Not measured" when there is no number.

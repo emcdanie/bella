@@ -83,8 +83,116 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Text
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Subtitle
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: Text stack
+    type: COMPONENT
+    size: 320x56
+    tokens:
+      - field: itemSpacing
+        variable: spacing/4
+    children:
+      - name: (text content)
+        type: TEXT
+        hidden: true
+        text: Overline
+        size: 65x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Title row
+        type: FRAME
+        size: 320x28
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+        children:
+          - name: (text content)
+            type: TEXT
+            text: Title
+            size: 320x28
+            tokens:
+              - field: fills
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/20
+              - field: fontFamily
+                variable: typography/body-default/font-family
+              - field: fontWeight
+                variable: typography/font-weight/400
+          - name: Count
+            type: TEXT
+            hidden: true
+            text: '18'
+            size: 20x30
+            tokens:
+              - field: fills
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/number/font-family
+              - field: fontWeight
+                variable: typography/font-weight/600
+      - name: Subtitle
+        type: TEXT
+        text: 'Subtitle: one line on what this is.'
+        size: 320x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+      - name: Meta
+        type: TEXT
+        hidden: true
+        text: Button.tsx · 3 pages · 6 files · 61 lines changed
+        size: 320x48
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable:
+              - typography/font-family/geist-mono
+              - typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
+          - field: textRangeFills
+            variable: color/content/subtle
+      - name: Body
+        type: TEXT
+        hidden: true
+        text: 'Body: the longer explanation, wrapping onto more lines when it needs to.'
+        size: 320x48
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/400
   code: []
 tokens:
   used:
@@ -299,7 +407,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/TextStack/TextStack.stories.tsx
+    src/components/TextStack/TextStack.stories.tsx
   lines: 76-76
   import: import TextStack from '@bella/components/TextStack/TextStack';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -309,11 +417,56 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1253:443'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Overline#1253:0:
+      type: BOOLEAN
+      default: false
+    ↳ Overline text#1253:1:
+      type: TEXT
+      default: Overline
+    Title#1253:2:
+      type: BOOLEAN
+      default: true
+    ↳ Title text#1253:3:
+      type: TEXT
+      default: Title
+    Subtitle#1253:4:
+      type: BOOLEAN
+      default: true
+    ↳ Subtitle text#1253:5:
+      type: TEXT
+      default: 'Subtitle: one line on what this is.'
+    Body#1253:6:
+      type: BOOLEAN
+      default: false
+    ↳ Body text#1253:7:
+      type: TEXT
+      default: 'Body: the longer explanation, wrapping onto more lines when it needs to.'
+    Meta#1567:27:
+      type: BOOLEAN
+      default: false
+    ↳ Meta text#1567:28:
+      type: TEXT
+      default: Button.tsx · 3 pages · 6 files · 61 lines changed
+    Count#1645:126:
+      type: BOOLEAN
+      default: false
+    ↳ Count text#1645:127:
+      type: TEXT
+      default: '18'
+  variants: []
+  defaultVariant: Text stack
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.titleAs
+    code:
+      - span
+      - h2
+      - h3
+      - h4
+    figma: no such variant property
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TextStack/TextStack.tsx

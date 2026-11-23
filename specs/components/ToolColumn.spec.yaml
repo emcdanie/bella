@@ -102,8 +102,214 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Zoom in
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Fit
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 3
+      name: Zoom out
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Divider
+      type: RECTANGLE
+      from: figma layer tree order
+    - 'n': 5
+      name: Light or dark
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 6
+      name: Mark up
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 7
+      name: Compare
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 8
+      name: Zoom readout
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: ToolColumn
+    type: COMPONENT
+    size: 52x305
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/4
+      - field: paddingTop
+        variable: spacing/4
+      - field: paddingRight
+        variable: spacing/4
+      - field: paddingBottom
+        variable: spacing/4
+      - field: topLeftRadius
+        variable: border/radius/16
+      - field: topRightRadius
+        variable: border/radius/16
+      - field: bottomLeftRadius
+        variable: border/radius/16
+      - field: bottomRightRadius
+        variable: border/radius/16
+      - field: fills
+        variable: color/background/surface
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: View
+        type: FRAME
+        size: 44x140
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Zoom in
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+          - name: Fit
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+          - name: Zoom out
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+      - name: Divider
+        type: RECTANGLE
+        size: 36x1
+        tokens:
+          - field: height
+            variable: border/width/1
+          - field: fills
+            variable: color/border/subtle
+      - name: Tools
+        type: FRAME
+        size: 44x140
+        tokens:
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Light or dark
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+          - name: Mark up
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+          - name: Compare
+            type: INSTANCE
+            instanceOf: Button
+            size: 44x44
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minHeight
+                variable: spacing/44
+      - name: Tooltip
+        type: INSTANCE
+        instanceOf: Tooltip
+        hidden: true
+        size: 115x32
+        tokens:
+          - field: paddingLeft
+            variable: spacing/8
+      - name: Zoom readout
+        type: TEXT
+        text: 200%
+        size: 46x24
+        tokens:
+          - field: fills
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: fontWeight
+            variable: typography/font-weight/600
   code: []
 tokens:
   used:
@@ -303,7 +509,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/ToolColumn/ToolColumn.stories.tsx
+    src/components/ToolColumn/ToolColumn.stories.tsx
   lines: 34-34
   import: import ToolColumn from '@bella/components/ToolColumn/ToolColumn';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -315,11 +521,70 @@ usage:
     - Not page actions (PageHeader)
     - Not a row of choices (SegmentedControl)
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1740:142'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Show tooltip#1740:0:
+      type: BOOLEAN
+      default: false
+    Zoom#1753:0:
+      type: TEXT
+      default: 200%
+    Show zoom#1753:1:
+      type: BOOLEAN
+      default: true
+  variants: []
+  defaultVariant: ToolColumn
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.dark
+    code: boolean prop
+    figma: not in the set
+  - field: props.markUp
+    code: boolean prop
+    figma: not in the set
+  - field: props.compare
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.ToolColumn.effects
+    code:
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--border-radius-16'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--spacing-16'
+      - '--typography-number-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.ToolColumn.effects
+    code:
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--border-radius-16'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--spacing-16'
+      - '--typography-number-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Tooltip.paddingLeft
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ToolColumn/ToolColumn.tsx

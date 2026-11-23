@@ -72,8 +72,42 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Tag
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: shape=square, tag=top
+    type: COMPONENT
+    size: 160x48
+    tokens:
+      - field: strokeTopWeight
+        variable: border/width/2
+      - field: strokeBottomWeight
+        variable: border/width/2
+      - field: strokeLeftWeight
+        variable: border/width/2
+      - field: strokeRightWeight
+        variable: border/width/2
+      - field: strokes
+        variable: color/background/accent-2
+    children:
+      - name: Tag
+        type: INSTANCE
+        instanceOf: _Anatomy tag
+        size: 72x32
+        tokens:
+          - field: paddingLeft
+            variable: spacing/12
+          - field: paddingTop
+            variable: spacing/4
+          - field: paddingRight
+            variable: spacing/12
+          - field: paddingBottom
+            variable: spacing/4
+          - field: fills
+            variable: color/background/accent-2
   code: []
 tokens:
   used:
@@ -233,7 +267,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/AnatomyHighlight/AnatomyHighlight.stories.tsx
+    src/components/AnatomyHighlight/AnatomyHighlight.stories.tsx
   lines: 29-29
   import: import AnatomyHighlight from '@bella/components/AnatomyHighlight/AnatomyHighlight';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -246,11 +280,40 @@ usage:
     - 'Do not number the pieces: it replaces numbered Pins and Leaders on doc-page anatomy'
     - 'Do not use it for flow locator dots: those stay Pins'
   source: tokens/contracts.json
-figma: null
-mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+figma:
+  nodeId: '1309:233'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Show tag#1311:1:
+      type: BOOLEAN
+      default: true
+    shape:
+      type: VARIANT
+      default: square
+      values:
+        - square
+        - round
+    tag:
+      type: VARIANT
+      default: top
+      values:
+        - top
+        - bottom
+  variants:
+    - name: shape=square, tag=top
+      width: 160
+      height: 48
+    - name: shape=square, tag=bottom
+      width: 160
+      height: 48
+    - name: shape=round, tag=top
+      width: 160
+      height: 48
+    - name: shape=round, tag=bottom
+      width: 160
+      height: 48
+  defaultVariant: shape=square, tag=top
+mismatch: []
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/AnatomyHighlight/AnatomyHighlight.tsx

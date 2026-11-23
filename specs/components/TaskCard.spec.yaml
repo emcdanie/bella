@@ -229,8 +229,225 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 2
+      name: Meta
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Drag handle
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 4
+      name: Open arrow
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: state=default, tone=default
+    type: COMPONENT
+    size: 232x124
+    tokens:
+      - field: itemSpacing
+        variable: spacing/12
+      - field: paddingLeft
+        variable: spacing/12
+      - field: paddingTop
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/12
+      - field: paddingBottom
+        variable: spacing/12
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: strokeTopWeight
+        variable: border/width/2
+      - field: strokeBottomWeight
+        variable: border/width/2
+      - field: strokeLeftWeight
+        variable: border/width/2
+      - field: strokeRightWeight
+        variable: border/width/2
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/utility/neutral
+      - field: effects
+        variable:
+          - color/neutral/alpha/5
+          - color/neutral/alpha/10
+    children:
+      - name: Content
+        type: FRAME
+        size: 204x96
+        tokens:
+          - field: itemSpacing
+            variable: spacing/16
+        children:
+          - name: Head
+            type: FRAME
+            size: 204x48
+            tokens:
+              - field: itemSpacing
+                variable: spacing/4
+            children:
+              - name: Text column
+                type: FRAME
+                size: 180x48
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                children:
+                  - name: Title
+                    type: TEXT
+                    text: Figma check
+                    size: 180x24
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+                  - name: Meta
+                    type: TEXT
+                    text: main · 10:19
+                    size: 180x20
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontFamily
+                        variable: typography/subtext/font-family
+                      - field: fontWeight
+                        variable: typography/body-default/font-weight
+                  - name: Branch
+                    type: INSTANCE
+                    instanceOf: Tag
+                    hidden: true
+                    size: 149x32
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/8
+                      - field: paddingLeft
+                        variable: spacing/12
+                      - field: paddingTop
+                        variable: spacing/4
+                      - field: paddingRight
+                        variable: spacing/12
+                      - field: paddingBottom
+                        variable: spacing/4
+                      - field: topLeftRadius
+                        variable: border/radius/sm
+                      - field: topRightRadius
+                        variable: border/radius/sm
+                      - field: bottomLeftRadius
+                        variable: border/radius/sm
+                      - field: bottomRightRadius
+                        variable: border/radius/sm
+                      - field: strokeTopWeight
+                        variable: border/width/1
+                      - field: strokeBottomWeight
+                        variable: border/width/1
+                      - field: strokeLeftWeight
+                        variable: border/width/1
+                      - field: strokeRightWeight
+                        variable: border/width/1
+                      - field: minHeight
+                        variable: spacing/32
+                      - field: fills
+                        variable: color/background/surface
+                      - field: strokes
+                        variable: color/border/strong
+              - name: Move to…
+                type: FRAME
+                size: 20x24
+                tokens:
+                  - field: height
+                    variable: size/24
+                children:
+                  - name: Drag handle
+                    type: INSTANCE
+                    instanceOf: Icon
+                    size: 20x20
+                    tokens:
+                      - field: width
+                        variable: size/20
+                      - field: height
+                        variable: size/20
+                  - name: Hit area
+                    type: FRAME
+                    size: 44x44
+                    children: []
+          - name: Progress zone
+            type: INSTANCE
+            instanceOf: _TaskCard progress
+            hidden: true
+            size: 204x56
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+          - name: Status row
+            type: FRAME
+            size: 204x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: counterAxisSpacing
+                variable: spacing/8
+            children:
+              - name: Tag
+                type: INSTANCE
+                instanceOf: Tag
+                hidden: true
+                size: 66x32
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/12
+                  - field: paddingTop
+                    variable: spacing/4
+                  - field: paddingRight
+                    variable: spacing/12
+                  - field: paddingBottom
+                    variable: spacing/4
+                  - field: topLeftRadius
+                    variable: border/radius/sm
+                  - field: topRightRadius
+                    variable: border/radius/sm
+                  - field: bottomLeftRadius
+                    variable: border/radius/sm
+                  - field: bottomRightRadius
+                    variable: border/radius/sm
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
+                  - field: minHeight
+                    variable: spacing/32
+                  - field: fills
+                    variable: color/background/surface
+                  - field: strokes
+                    variable: color/border/utility/neutral
+              - name: Open arrow
+                type: INSTANCE
+                instanceOf: Trailing
+                size: 24x32
   code: []
 tokens:
   used:
@@ -874,7 +1091,8 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-feedback-time/src/components/TaskCard/TaskCard.stories.tsx
+  file: >-
+    src/components/TaskCard/TaskCard.stories.tsx
   lines: 59-59
   import: import TaskCard from '@bella/components/TaskCard/TaskCard';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -887,11 +1105,248 @@ usage:
     - Not a message (Notification)
     - Never several buttons on one card
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '799:177248'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Title#799:0:
+      type: TEXT
+      default: Figma check
+    Line#799:1:
+      type: TEXT
+      default: main · 10:19
+    Show branch#1328:16:
+      type: BOOLEAN
+      default: false
+    Show tag#1663:0:
+      type: BOOLEAN
+      default: false
+    Show progress#1733:6:
+      type: BOOLEAN
+      default: false
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - dragging
+        - hover
+        - focus
+    tone:
+      type: VARIANT
+      default: default
+      values:
+        - info
+        - attention
+        - success
+        - danger
+        - default
+  variants:
+    - name: state=default, tone=default
+      width: 232
+      height: 124
+    - name: state=hover, tone=default
+      width: 232
+      height: 124
+    - name: state=focus, tone=default
+      width: 232
+      height: 124
+    - name: state=dragging, tone=default
+      width: 232
+      height: 124
+    - name: state=default, tone=info
+      width: 232
+      height: 124
+    - name: state=hover, tone=info
+      width: 232
+      height: 124
+    - name: state=focus, tone=info
+      width: 232
+      height: 124
+    - name: state=dragging, tone=info
+      width: 232
+      height: 124
+    - name: state=default, tone=attention
+      width: 232
+      height: 124
+    - name: state=hover, tone=attention
+      width: 232
+      height: 124
+    - name: state=focus, tone=attention
+      width: 232
+      height: 124
+    - name: state=dragging, tone=attention
+      width: 232
+      height: 124
+    - name: state=default, tone=success
+      width: 232
+      height: 124
+    - name: state=hover, tone=success
+      width: 232
+      height: 124
+    - name: state=focus, tone=success
+      width: 232
+      height: 124
+    - name: state=dragging, tone=success
+      width: 232
+      height: 124
+    - name: state=default, tone=danger
+      width: 232
+      height: 124
+    - name: state=hover, tone=danger
+      width: 232
+      height: 124
+    - name: state=focus, tone=danger
+      width: 232
+      height: 124
+    - name: state=dragging, tone=danger
+      width: 232
+      height: 124
+  defaultVariant: state=default, tone=default
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - info
+      - attention
+      - success
+      - danger
+      - default
+  - field: props.statusTone
+    code:
+      - success
+      - info
+      - attention
+      - danger
+      - neutral
+    figma: no such variant property
+  - field: props.dragging
+    code: boolean prop
+    figma: not in the set
+  - field: props.paused
+    code: boolean prop
+    figma: not in the set
+  - field: props.stopped
+    code: boolean prop
+    figma: not in the set
+  - field: props.draggable
+    code: boolean prop
+    figma: not in the set
+  - field: props.entering
+    code: boolean prop
+    figma: not in the set
+  - field: props.leaving
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.state=default, tone=default.itemSpacing
+    code:
+      - '--spacing-4'
+      - '--spacing-8'
+      - '--spacing-16'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.state=default, tone=default.effects
+    code:
+      - '--spacing-12'
+      - '--border-width-2'
+      - '--color-border-utility-neutral'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--motion-duration-200'
+      - '--motion-easing-out'
+      - '--shadow-lg'
+      - '--motion-duration-250'
+      - '--motion-easing-pop'
+      - '--motion-easing-standard'
+      - '--spacing-8'
+      - '--spacing-24'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--typography-font-weight-400'
+      - '--size-20'
+      - '--color-content-subtle'
+      - '--size-24'
+      - '--border-radius-lg'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--typography-number-font-family'
+      - '--typography-font-size-20'
+      - '--size-28'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.state=default, tone=default.effects
+    code:
+      - '--spacing-12'
+      - '--border-width-2'
+      - '--color-border-utility-neutral'
+      - '--border-radius-card'
+      - '--color-background-surface'
+      - '--shadow-card-ink'
+      - '--motion-duration-200'
+      - '--motion-easing-out'
+      - '--shadow-lg'
+      - '--motion-duration-250'
+      - '--motion-easing-pop'
+      - '--motion-easing-standard'
+      - '--spacing-8'
+      - '--spacing-24'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--typography-font-weight-400'
+      - '--size-20'
+      - '--color-content-subtle'
+      - '--size-24'
+      - '--border-radius-lg'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--typography-number-font-family'
+      - '--typography-font-size-20'
+      - '--size-28'
+    figma: color/neutral/alpha/10
+    sameValueInChip: false
+  - field: tokens.Branch.paddingTop
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Branch.paddingBottom
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Branch.strokes
+    code:
+      - '--border-width-2'
+      - '--color-border-utility-neutral'
+      - '--border-radius-card'
+      - '--shadow-card-ink'
+      - '--shadow-lg'
+      - '--border-radius-lg'
+    figma: color/border/strong
+    sameValueInChip: false
+  - field: tokens.Tag.paddingTop
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Tag.paddingBottom
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TaskCard/TaskCard.tsx

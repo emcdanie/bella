@@ -124,8 +124,63 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Pin
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Label
+      type: TEXT
+      from: figma layer tree order
+  figma:
+    name: tone=yellow, kind=label, selected=false
+    type: COMPONENT
+    size: 181x40
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+      - field: paddingLeft
+        variable: spacing/4
+      - field: paddingTop
+        variable: spacing/4
+      - field: paddingRight
+        variable: spacing/12
+      - field: paddingBottom
+        variable: spacing/4
+      - field: topLeftRadius
+        variable: border/radius/round
+      - field: topRightRadius
+        variable: border/radius/round
+      - field: bottomLeftRadius
+        variable: border/radius/round
+      - field: bottomRightRadius
+        variable: border/radius/round
+      - field: fills
+        variable: color/background/surface
+      - field: effects
+        variable: color/neutral/alpha/5
+    children:
+      - name: Pin
+        type: INSTANCE
+        instanceOf: Pin
+        size: 32x32
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+      - name: Label
+        type: TEXT
+        text: '--radius-full'
+        size: 125x21
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/font-family/geist-mono
+          - field: fontWeight
+            variable: typography/font-weight/400
   code: []
 tokens:
   used:
@@ -459,7 +514,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/PinLabel/PinLabel.stories.tsx
+    src/components/PinLabel/PinLabel.stories.tsx
   lines: 21-21
   import: import PinLabel from '@bella/components/PinLabel/PinLabel';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -472,11 +527,133 @@ usage:
     - 'Do not use it as a button: it is a label'
     - 'Do not show status by colour alone: pass shows a check mark'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '629:1116'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Label#629:0:
+      type: TEXT
+      default: '--radius-full'
+    Name#841:10:
+      type: TEXT
+      default: Elleta
+    Date#841:19:
+      type: TEXT
+      default: 6 Nov
+    Show pin#841:40:
+      type: BOOLEAN
+      default: true
+    Show status#1446:12:
+      type: BOOLEAN
+      default: true
+    tone:
+      type: VARIANT
+      default: yellow
+      values:
+        - yellow
+        - pink
+        - blue
+        - red
+        - none
+    kind:
+      type: VARIANT
+      default: label
+      values:
+        - label
+        - with-action
+        - part
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: tone=yellow, kind=label, selected=false
+      width: 181
+      height: 40
+    - name: tone=pink, kind=label, selected=false
+      width: 181
+      height: 40
+    - name: tone=blue, kind=label, selected=false
+      width: 181
+      height: 40
+    - name: tone=red, kind=label, selected=false
+      width: 181
+      height: 40
+    - name: tone=yellow, kind=with-action, selected=false
+      width: 199
+      height: 68
+    - name: tone=pink, kind=with-action, selected=false
+      width: 199
+      height: 68
+    - name: tone=blue, kind=with-action, selected=false
+      width: 199
+      height: 68
+    - name: tone=red, kind=with-action, selected=false
+      width: 199
+      height: 68
+    - name: tone=none, kind=part, selected=false
+      width: 150
+      height: 40
+    - name: tone=none, kind=part, selected=true
+      width: 150
+      height: 40
+  defaultVariant: tone=yellow, kind=label, selected=false
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone.values
+    code:
+      - yellow
+      - pink
+      - blue
+      - red
+    figma:
+      - yellow
+      - pink
+      - blue
+      - red
+      - none
+  - field: props.kind.values
+    code:
+      - label
+      - part
+    figma:
+      - label
+      - with-action
+      - part
+  - field: props.status
+    code:
+      - pass
+      - finding
+    figma: no such variant property
+  - field: props.active
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.tone=yellow, kind=label, selected=false.effects
+    code:
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-round'
+      - '--color-background-surface'
+      - '--shadow-soft'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--color-content-default'
+      - '--spacing-32'
+      - '--typography-body-default-font-family'
+      - '--typography-font-weight-500'
+      - '--border-width-2'
+      - '--color-border-ink'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--motion-duration-250'
+      - '--motion-easing-pop'
+      - '--color-background-brand-subtle'
+      - '--spacing-44'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/PinLabel/PinLabel.tsx

@@ -40,8 +40,63 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Label
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: target=0
+    type: COMPONENT
+    size: 320x56
+    children:
+      - name: Span
+        type: FRAME
+        size: 2x56
+        children:
+          - name: Dash
+            type: LINE
+            size: 24x0
+            tokens:
+              - field: strokes
+                variable: color/border/brand
+          - name: Label
+            type: INSTANCE
+            instanceOf: Tag
+            size: 111x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/12
+              - field: paddingTop
+                variable: spacing/4
+              - field: paddingRight
+                variable: spacing/12
+              - field: paddingBottom
+                variable: spacing/4
+              - field: topLeftRadius
+                variable: border/radius/sm
+              - field: topRightRadius
+                variable: border/radius/sm
+              - field: bottomLeftRadius
+                variable: border/radius/sm
+              - field: bottomRightRadius
+                variable: border/radius/sm
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: minHeight
+                variable: spacing/32
+              - field: fills
+                variable: color/background/utility/neutral
+              - field: strokes
+                variable: color/border/utility/neutral
   code: []
 tokens:
   used:
@@ -286,11 +341,149 @@ usage:
     - 'Never a second target colour: blue (border/brand) only'
     - No overhang past the bar (21 Nov publish)
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '1168:72541'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    target:
+      type: VARIANT
+      default: '0'
+      values:
+        - '0'
+        - '5'
+        - '10'
+        - '15'
+        - '20'
+        - '25'
+        - '30'
+        - '35'
+        - '40'
+        - '45'
+        - '50'
+        - '55'
+        - '60'
+        - '65'
+        - '70'
+        - '75'
+        - '80'
+        - '85'
+        - '90'
+        - '95'
+        - '100'
+  variants:
+    - name: target=0
+      width: 320
+      height: 56
+    - name: target=5
+      width: 320
+      height: 56
+    - name: target=10
+      width: 320
+      height: 56
+    - name: target=15
+      width: 320
+      height: 56
+    - name: target=20
+      width: 320
+      height: 56
+    - name: target=25
+      width: 320
+      height: 56
+    - name: target=30
+      width: 320
+      height: 56
+    - name: target=35
+      width: 320
+      height: 56
+    - name: target=40
+      width: 320
+      height: 56
+    - name: target=45
+      width: 320
+      height: 56
+    - name: target=50
+      width: 320
+      height: 56
+    - name: target=55
+      width: 320
+      height: 56
+    - name: target=60
+      width: 320
+      height: 56
+    - name: target=65
+      width: 320
+      height: 56
+    - name: target=70
+      width: 320
+      height: 56
+    - name: target=75
+      width: 320
+      height: 56
+    - name: target=80
+      width: 320
+      height: 56
+    - name: target=85
+      width: 320
+      height: 56
+    - name: target=90
+      width: 320
+      height: 56
+    - name: target=95
+      width: 320
+      height: 56
+    - name: target=100
+      width: 320
+      height: 56
+  defaultVariant: target=0
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.target
+    code: no such prop
+    figma:
+      - '0'
+      - '5'
+      - '10'
+      - '15'
+      - '20'
+      - '25'
+      - '30'
+      - '35'
+      - '40'
+      - '45'
+      - '50'
+      - '55'
+      - '60'
+      - '65'
+      - '70'
+      - '75'
+      - '80'
+      - '85'
+      - '90'
+      - '95'
+      - '100'
+  - field: props.showLabel
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.Dash.strokes
+    code:
+      - '--border-width-1'
+      - '--border-radius-round'
+      - '--color-background-surface'
+    figma: color/border/brand
+    sameValueInChip: false
+  - field: tokens.Label.fills
+    code:
+      - '--color-border-brand'
+      - '--border-width-1'
+      - '--border-width-2'
+    figma: color/background/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Label.strokes
+    code:
+      - '--border-width-1'
+      - '--border-radius-round'
+      - '--color-background-surface'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ProgressTarget/ProgressTarget.tsx

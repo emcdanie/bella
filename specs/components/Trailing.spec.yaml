@@ -39,8 +39,24 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: Trailing
+    type: COMPONENT
+    size: 24x24
+    children:
+      - name: Icon
+        type: INSTANCE
+        instanceOf: Icon
+        size: 24x24
+      - name: Hit area
+        type: FRAME
+        size: 44x44
+        children: []
   code: []
 tokens:
   used:
@@ -129,7 +145,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Trailing/Trailing.stories.tsx
+    src/components/Trailing/Trailing.stories.tsx
   lines: 80-80
   import: import Trailing from '@bella/components/Trailing/Trailing';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -139,11 +155,16 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
-mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+figma:
+  nodeId: '1240:554'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Icon#1240:0:
+      type: INSTANCE_SWAP
+      default: '172:150'
+  variants: []
+  defaultVariant: Trailing
+mismatch: []
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Trailing/Trailing.tsx

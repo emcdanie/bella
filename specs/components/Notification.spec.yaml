@@ -85,8 +85,234 @@ states:
 sizes: []
 anatomy:
   scaleWidth: 480
-  parts: []
-  figma: null
+  parts:
+    - 'n': 1
+      name: Icon
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 2
+      name: Title
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 3
+      name: Message
+      type: TEXT
+      from: figma layer tree order
+    - 'n': 4
+      name: Action
+      type: INSTANCE
+      from: figma layer tree order
+    - 'n': 5
+      name: Close
+      type: INSTANCE
+      from: figma layer tree order
+  figma:
+    name: tone=attention
+    type: COMPONENT
+    size: 960x80
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+    children:
+      - name: Body
+        type: FRAME
+        size: 960x80
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/16
+          - field: paddingTop
+            variable: spacing/12
+          - field: paddingRight
+            variable: spacing/16
+          - field: paddingBottom
+            variable: spacing/12
+          - field: topLeftRadius
+            variable: border/radius/card
+          - field: topRightRadius
+            variable: border/radius/card
+          - field: bottomLeftRadius
+            variable: border/radius/card
+          - field: bottomRightRadius
+            variable: border/radius/card
+          - field: fills
+            variable: color/background/utility/warning
+        children:
+          - name: Icon column
+            type: FRAME
+            size: 20x28
+            tokens:
+              - field: paddingTop
+                variable: spacing/4
+            children:
+              - name: Icon slot
+                type: FRAME
+                size: 20x24
+                tokens:
+                  - field: height
+                    variable: spacing/24
+                children:
+                  - name: Icon
+                    type: INSTANCE
+                    instanceOf: Icon
+                    size: 20x20
+                    tokens:
+                      - field: width
+                        variable: size/20
+                      - field: height
+                        variable: size/20
+          - name: Lead
+            type: FRAME
+            size: 725x56
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: minHeight
+                variable: spacing/32
+            children:
+              - name: Text column
+                type: FRAME
+                size: 725x56
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                children:
+                  - name: Title
+                    type: TEXT
+                    text: Figma can’t see CodeBlock
+                    size: 725x28
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/20
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+                  - name: Message
+                    type: TEXT
+                    text: No file key in server/.env
+                    size: 725x24
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+          - name: Actions
+            type: FRAME
+            size: 127x56
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/8
+            children:
+              - name: Second action
+                type: INSTANCE
+                instanceOf: Button
+                hidden: true
+                size: 78x32
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/12
+                  - field: paddingTop
+                    variable: size/0
+                  - field: paddingRight
+                    variable: spacing/12
+                  - field: paddingBottom
+                    variable: size/0
+                  - field: topLeftRadius
+                    variable: border/radius/lg
+                  - field: topRightRadius
+                    variable: border/radius/lg
+                  - field: bottomLeftRadius
+                    variable: border/radius/lg
+                  - field: bottomRightRadius
+                    variable: border/radius/lg
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
+                  - field: minHeight
+                    variable: size/32
+                  - field: fills
+                    variable: button/color/background/default
+                  - field: strokes
+                    variable: button/color/border/default
+              - name: Action
+                type: INSTANCE
+                instanceOf: Button
+                size: 119x32
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: paddingLeft
+                    variable: spacing/12
+                  - field: paddingTop
+                    variable: size/0
+                  - field: paddingRight
+                    variable: spacing/12
+                  - field: paddingBottom
+                    variable: size/0
+                  - field: topLeftRadius
+                    variable: border/radius/lg
+                  - field: topRightRadius
+                    variable: border/radius/lg
+                  - field: bottomLeftRadius
+                    variable: border/radius/lg
+                  - field: bottomRightRadius
+                    variable: border/radius/lg
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
+                  - field: minHeight
+                    variable: size/32
+                  - field: fills
+                    variable: button/color/background/default
+                  - field: strokes
+                    variable: button/color/border/default
+          - name: Close
+            type: INSTANCE
+            instanceOf: Button
+            size: 32x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+              - field: topLeftRadius
+                variable: border/radius/lg
+              - field: topRightRadius
+                variable: border/radius/lg
+              - field: bottomLeftRadius
+                variable: border/radius/lg
+              - field: bottomRightRadius
+                variable: border/radius/lg
+              - field: minWidth
+                variable: size/32
+              - field: minHeight
+                variable: size/32
   code: []
 tokens:
   used:
@@ -405,7 +631,7 @@ contrast:
   derived: []
 codeExample:
   file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/Notification/Notification.stories.tsx
+    src/components/Notification/Notification.stories.tsx
   lines: 108-108
   import: import Notification from '@bella/components/Notification/Notification';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -415,11 +641,160 @@ usage:
     - CHIP "Not again" page and screen shell (19 Nov 2026)
   dont: []
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '951:4124'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Message#951:2:
+      type: TEXT
+      default: No file key in server/.env
+    Show icon#951:3:
+      type: BOOLEAN
+      default: true
+    Show action#951:4:
+      type: BOOLEAN
+      default: true
+    Title#951:5:
+      type: TEXT
+      default: Figma can’t see CodeBlock
+    Show second action#1067:0:
+      type: BOOLEAN
+      default: false
+    Show close#1072:0:
+      type: BOOLEAN
+      default: true
+    Show message#1697:111:
+      type: BOOLEAN
+      default: true
+    tone:
+      type: VARIANT
+      default: attention
+      values:
+        - attention
+        - info
+        - success
+        - danger
+  variants:
+    - name: tone=info
+      width: 960
+      height: 80
+    - name: tone=success
+      width: 960
+      height: 80
+    - name: tone=attention
+      width: 960
+      height: 80
+    - name: tone=danger
+      width: 960
+      height: 80
+  defaultVariant: tone=attention
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - attention
+      - info
+      - success
+      - danger
+  - field: tokens.Icon.width
+    code:
+      - '--border-radius-card'
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--color-background-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-info'
+      - '--color-background-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-success'
+      - '--color-background-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-warning'
+      - '--color-background-utility-error'
+      - '--color-content-utility-error'
+      - '--color-border-utility-error'
+      - '--spacing-4'
+      - '--notification-edge'
+      - '--spacing-24'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-400'
+      - '--size-28'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--notification-ink'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--border-radius-card'
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--color-background-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-info'
+      - '--color-background-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-success'
+      - '--color-background-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-warning'
+      - '--color-background-utility-error'
+      - '--color-content-utility-error'
+      - '--color-border-utility-error'
+      - '--spacing-4'
+      - '--notification-edge'
+      - '--spacing-24'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-400'
+      - '--size-28'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--notification-ink'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Actions.paddingLeft
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Second action.paddingTop
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Second action.paddingBottom
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingTop
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Action.paddingBottom
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: size/0
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Notification/Notification.tsx

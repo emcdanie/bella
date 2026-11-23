@@ -106,3 +106,12 @@ export const Solid: StoryObj<typeof Pin> = {
     </div>
   ),
 };
+
+/** A comment's pin, as Figma draws it (23 Nov 2026): the author's initials on a white teardrop pointing at the spot. */
+export const Comment: Story = {
+  args: { number: 'EM', pinStyle: 'comment', ariaLabel: 'Comment 1 by Elleta McDaniel', onClick: () => {} },
+  play: async ({ canvasElement }) => {
+    const disc = canvasElement.querySelector('[data-bella-component="pin"] span') as HTMLElement;
+    await expect(getComputedStyle(disc).borderBottomLeftRadius).toBe('0px');
+  },
+};

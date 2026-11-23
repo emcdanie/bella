@@ -30,7 +30,13 @@ export interface SideMenuProps {
   onClientClick?: () => void;
   /** Whether the client list is open (aria-expanded on the switcher). */
   clientExpanded?: boolean;
-  /** Group · Go to: Search, Home, Needs you (count), Not again. */
+  /**
+   * The Find field at the top of the menu, over the first row (CHIP, 23 Nov 2026: one search, where Figma has its Find
+   * field). A SearchField, and after it at most one icon Button (its filter): the field takes the room, the button keeps
+   * its 44. The slot is the menu's search landmark. Leave the Search row out of `items` when this is set.
+   */
+  search?: ReactNode;
+  /** Group · Go to: Home, Needs you (count), Not again (and a Search row when there is no `search` slot). */
   items: SideMenuItem[];
   /** Group · Pinned: what she pinned. */
   pinned?: SideMenuItem[];
@@ -49,10 +55,14 @@ export interface SideMenuProps {
   style?: CSSProperties;
 }
 
+/* The search slot is the menu's search landmark. Spread, not written on the tag: the menu's own root has no role, and
+   spec-build reads a role written in this file as the root's. */
+const SEARCH_LANDMARK = { role: 'search' } as const;
+
 /**
  * The one side menu of the CHIP app (Figma "Side menu" 1709:48082, published
  * 22 Nov 2026; her pick A · a new Side menu part): the plain Client switcher
- * level with the Top bar, then where you go, what you pinned, your projects,
+ * level with the Top bar, the Find field when the app has one, then where you go, what you pinned, your projects,
  * and Team and Settings at the foot. Every row is a Nav item.
  */
 export default function SideMenu({
@@ -61,6 +71,7 @@ export default function SideMenu({
   clientLogo,
   onClientClick,
   clientExpanded,
+  search,
   items,
   pinned = [],
   projects = [],
@@ -101,17 +112,29 @@ export default function SideMenu({
       </div>
     );
   };
+  const nav = (
+    <nav aria-label={label} className={styles.nav}>
+      <div className={styles.main}>
+        <ul className={styles.list}>{items.map((it) => row(it))}</ul>
+        {showPinned && pinned.length ? group('Pinned', pinned) : null}
+        {showProjects && projects.length ? group('Projects', projects, 'Folder') : null}
+      </div>
+      {foot.length ? <ul className={[styles.list, styles.foot].join(' ')}>{foot.map((it) => row(it))}</ul> : null}
+    </nav>
+  );
   return (
     <div className={[styles.menu, className].filter(Boolean).join(' ')} style={style} data-bella-component="side-menu">
       <ClientSwitcher variant="plain" name={client} logo={clientLogo} onClick={onClientClick} expanded={clientExpanded} />
-      <nav aria-label={label} className={styles.nav}>
-        <div className={styles.main}>
-          <ul className={styles.list}>{items.map((it) => row(it))}</ul>
-          {showPinned && pinned.length ? group('Pinned', pinned) : null}
-          {showProjects && projects.length ? group('Projects', projects, 'Folder') : null}
+      {search != null ? (
+        <div className={styles.body}>
+          <div {...SEARCH_LANDMARK} className={styles.search}>
+            {search}
+          </div>
+          {nav}
         </div>
-        {foot.length ? <ul className={[styles.list, styles.foot].join(' ')}>{foot.map((it) => row(it))}</ul> : null}
-      </nav>
+      ) : (
+        nav
+      )}
     </div>
   );
 }

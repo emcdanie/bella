@@ -45,6 +45,8 @@ export interface StatCardProps {
   unit?: ReactNode;
   /** Figma "Context". One short meta line (subtext face, 14) worked out from real numbers: what the number means and which way. */
   context?: ReactNode;
+  /** The context is a sentence, not a figure ("0 failing · 8 need work"): set in the reading face, with only the numbers in the number face. Wrap each number in a <b>. Default false: the meta face (Elleta, 23 Nov: mono is for numbers only). */
+  contextSentence?: boolean;
   /** Figma "Empty count" (21 Nov publish). Kept for compatibility, not drawn: chart=empty shows no figure before a measure (22 Nov 19:08). Removal waits for Elleta's yes (public API). */
   emptyCount?: ReactNode;
   /** Figma "Empty total" (21 Nov publish). Kept for compatibility, not drawn (see emptyCount). */
@@ -113,6 +115,7 @@ export default function StatCard({
   value,
   unit,
   context,
+  contextSentence = false,
   caption,
   button,
   chart = 'bar',
@@ -246,7 +249,7 @@ export default function StatCard({
             {comparison != null ? <span className={styles.comparison}>{comparison}</span> : null}
           </div>
         ) : null}
-        {context != null ? <p className={styles.context} data-bella-meta>{context}</p> : null}
+        {context != null ? <p className={[styles.context, contextSentence ? styles.contextSentence : ''].filter(Boolean).join(' ')} data-bella-meta>{context}</p> : null}
       </div>
       {caption != null || button != null ? (
         <div className={styles.footer}>

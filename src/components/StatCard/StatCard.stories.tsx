@@ -418,3 +418,26 @@ export const WholeCardOpens: Story = {
     await expect(canvasElement.querySelector('[data-testid="opened"]')!.textContent).toBe('Opened 1');
   },
 };
+
+/** A context that is a sentence (Elleta, 23 Nov: mono is for numbers only): reading face, each number in the number face. */
+export const ContextSentence: Story = {
+  render: () => (
+    <Themed>
+      <StatCard title="CHIP app" value="60" unit="of 100" chart="none" tone="warning" icon="Activity" context={<><b>0</b> failing · <b>8</b> need work</>} contextSentence caption="Ran 22 Nov" />
+    </Themed>
+  ),
+  play: async ({ canvasElement }) => {
+    const p = canvasElement.querySelector<HTMLElement>('p[data-bella-meta]')!;
+    // each face is what its token resolves to in the theme drawn (the two can be one face in a theme, so they are not compared to each other)
+    const face = (token: string) => {
+      const probe = document.createElement('span');
+      probe.style.fontFamily = `var(${token})`;
+      canvasElement.appendChild(probe);
+      const family = getComputedStyle(probe).fontFamily;
+      probe.remove();
+      return family;
+    };
+    await expect(getComputedStyle(p).fontFamily).toBe(face('--typography-body-default-font-family'));
+    await expect(getComputedStyle(p.querySelector('b')!).fontFamily).toBe(face('--typography-number-font-family'));
+  },
+};

@@ -45,6 +45,8 @@ export interface TaskCardProps {
   lastStepAt?: string | number;
   /** progress: dragged back to Next: a grey ring and "Paused · {stepNow}" instead of the turning arc and "Now · {stepNow}". */
   paused?: boolean;
+  /** progress: the run stopped or failed (second-pass D6, 23 Nov): a red cross ring, "Stopped · {stepNow}" with the reason wrapped (never cut), the bar in the danger tone, and no clock. */
+  stopped?: boolean;
   /** The whole card opens the task: a link. */
   href?: string;
   /** The whole card opens the task: a button. Ignored when `href` is set. */
@@ -100,6 +102,7 @@ export default function TaskCard({
   since,
   lastStepAt,
   paused = false,
+  stopped = false,
   href,
   onOpen,
   onMoveTo,
@@ -112,8 +115,8 @@ export default function TaskCard({
   className,
   style,
 }: TaskCardProps) {
-  const elapsed = useElapsed(since, progress && !paused);
-  const lastAgo = useAgo(lastStepAt, progress && !paused);
+  const elapsed = useElapsed(since, progress && !paused && !stopped);
+  const lastAgo = useAgo(lastStepAt, progress && !paused && !stopped);
   const meta = [progressLeft != null ? (progressLeft === 0 ? 'none left' : `${progressLeft} left`) : null, elapsed, lastAgo ? `last\u00a0step ${lastAgo}` : null].filter(Boolean).join(' · ');
   const opens = href != null || onOpen != null;
   useEffect(() => {
@@ -181,6 +184,7 @@ export default function TaskCard({
               label="Steps done"
               value={`${progressDone} of ${progressTotal}`}
               showLabel={false}
+              tone={stopped ? 'danger' : 'info'}
               fill={progressTotal > 0 ? (progressDone / progressTotal) * 100 : 0}
             />
             <span className={styles.count} aria-hidden="true">
@@ -189,9 +193,9 @@ export default function TaskCard({
           </div>
           {stepNow != null ? (
             <div className={styles.stepNow}>
-              <ProgressRing state={paused ? 'waiting' : 'running'} size="sm" decorative />
-              <span className={styles.stepText} data-bella-meta title={`${paused ? 'Paused' : 'Now'} · ${stepNow}`}>
-                {paused ? 'Paused' : 'Now'} · {stepNow}
+              <ProgressRing state={stopped ? 'failed' : paused ? 'waiting' : 'running'} size="sm" decorative />
+              <span className={[styles.stepText, stopped ? styles.stepStopped : ''].filter(Boolean).join(' ')} data-bella-meta title={`${stopped ? 'Stopped' : paused ? 'Paused' : 'Now'} · ${stepNow}`}>
+                {stopped ? 'Stopped' : paused ? 'Paused' : 'Now'} · {stepNow}
               </span>
             </div>
           ) : null}

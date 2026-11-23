@@ -157,6 +157,43 @@ export const WithFooter: Story = {
   },
 };
 
+/** footerNote (23 Nov 2026): the helper text at the left of the footer's row, the action at the right edge of the
+ * same row, primary last. It wraps under itself, never under the button. */
+export const WithFooterNote: Story = {
+  render: () => {
+    const [open, setOpen] = useState(true);
+    return (
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        label="Gaps"
+        side="right"
+        size="lg"
+        status="12 parts BELLA can't give yet"
+        footerNote="Opens the plan to build them; nothing runs until you approve it."
+        footer={
+          <Button variant="primary" onClick={() => setOpen(false)}>
+            Plan the build
+          </Button>
+        }
+      >
+        <NavList label="Sections" groups={GROUPS} onToggle={() => {}} />
+      </Drawer>
+    );
+  },
+  play: async () => {
+    const dialog = document.querySelector('dialog[open]') as HTMLElement;
+    const note = within(dialog).getByText(/nothing runs until you approve it/);
+    const button = within(dialog).getByRole('button', { name: 'Plan the build' });
+    await expect(note).toBeVisible();
+    // one row: the note and the button share a line, the button at the right edge
+    const n = note.getBoundingClientRect();
+    const b = button.getBoundingClientRect();
+    await expect(n.right).toBeLessThanOrEqual(b.left);
+    await expect(Math.abs((n.top + n.bottom) / 2 - (b.top + b.bottom) / 2)).toBeLessThan(b.height / 2);
+  },
+};
+
 /** Goes as it came (rule "Motion that shows what happened", item 8): Close slides the panel back to
  * its edge and fades the scrim, once, then the dialog closes and focus returns. Reduced motion: it
  * closes at once. */

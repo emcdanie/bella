@@ -207,9 +207,32 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-12) var(--spacing-16);
   padding: var(--spacing-24);
   border-block-start: var(--border-width-1) solid var(--color-border-default);
+}
+
+/* footerNote (23 Nov 2026): one row, the helper text at the left and the actions at the right edge. The text takes
+   what is left and wraps under itself; below 112 for it (two buttons at 320) the actions move to a row of their own
+   under the text, still on the right edge. The subtle 16 of the head's status line. */
+.footerNote {
+  flex: 1 1 calc(var(--spacing-8) * 14);
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin-inline-start: auto;
 }
 
 /* side bottom (Figma Drawer side=bottom, published 22 Nov 2026; her pick

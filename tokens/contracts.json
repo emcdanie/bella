@@ -3754,6 +3754,8 @@
             "href",
             "onOpen",
             "onMoveTo",
+            "selected",
+            "use",
             "draggable",
             "onDragStart",
             "onDragEnd",
@@ -4474,18 +4476,21 @@
             "onMarkUpChange",
             "compare",
             "onCompareChange",
+            "tools",
+            "orientation",
             "label",
             "className",
             "style"
           ],
           "usage": [
-            "Components workbench and Playground stage, top left inside it (22 Nov 2026)"
+            "Components workbench and Playground stage, top left inside it (22 Nov 2026)",
+            "Playground picks and Needs you: tools=\"view\" (zoom in, fit, zoom out) fixed beside the picture; orientation=\"horizontal\" under the picture on a phone (Workbench A, 23 Nov 2026)"
           ],
           "dont": [
             "Not page actions (PageHeader)",
             "Not a row of choices (SegmentedControl)"
           ],
-          "a11y": "role=toolbar, aria-orientation=vertical, named \"View tools\". One tab stop (roving tabindex): Up, Down, Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool.",
+          "a11y": "role=toolbar, aria-orientation=vertical (horizontal with orientation=\"horizontal\"), named \"View tools\". One tab stop (roving tabindex): Up, Down (Left, Right when horizontal), Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool.",
           "figma": "Matches BellaComponents ToolColumn (22 Nov 2026): View group, Divider, Tools group, Show zoom. Icons ZoomIn, ZoomOut and Expand were added to the Icon registry from the Figma Icon set; Compare uses Copy until the set gains a two-pane glyph. The Tooltip shows at once on hover (the Figma 500 ms hover delay is not in the Tooltip part yet)."
         }
       }

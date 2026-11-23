@@ -2,7 +2,7 @@ import React, { useEffect, type CSSProperties, type DragEventHandler, type React
 import Icon from '../Icon/Icon';
 import Progress from '../Progress/Progress';
 import ProgressRing from '../ProgressRing/ProgressRing';
-import { type StatusDotProps } from '../StatusDot/StatusDot';
+import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
 import Tag from '../Tag/Tag';
 import Trailing from '../Trailing/Trailing';
 import { useAgo, useElapsed } from '../shared/useElapsed';
@@ -56,8 +56,12 @@ export interface TaskCardProps {
   /** Selected (Elleta's Workbench A, 23 Nov 2026): the card open on the stage in a strip of cards, outlined in the
    *  selection blue around its border; aria-current is the page's to set on the list item. */
   selected?: boolean;
-  /** board (default): the drag handle and the open arrow, as on the Work board. pick: neither, for a strip of cards
-   *  you choose from (Playground picks, Needs you), where a click selects the card and never leaves the page. */
+  /** board (default): the drag handle and the open arrow, as on the Work board. pick: a strip of cards you choose from
+   *  (Playground picks, Needs you; 23 Nov 2026): no handle or arrow (a click selects, never leaves the page), the title
+   *  and the line each clamped to two lines, the status as a StatusDot and its word (a part's own status, never a boxed
+   *  Tag), and the card's three rows (title, line, status) on its grid parent's rows through subgrid, so in a row of
+   *  pick cards every title, line and status sits at one height and the status is pinned to the foot. The parent
+   *  gives three rows (grid-template-rows: auto auto 1fr or similar); alone, the card lays its rows out itself. */
   use?: 'board' | 'pick';
   /** Native drag, wired by the board. */
   draggable?: boolean;
@@ -130,7 +134,7 @@ export default function TaskCard({
   useEffect(() => {
     if (leaving && window.matchMedia('(prefers-reduced-motion: reduce)').matches) onLeft?.();
   }, [leaving, onLeft]);
-  const cls = [styles.card, opens ? styles.opens : '', dragging ? styles.dragging : '', entering ? styles.entering : '', leaving ? styles.leaving : '', className]
+  const cls = [styles.card, use === 'pick' ? styles.pick : '', opens ? styles.opens : '', dragging ? styles.dragging : '', entering ? styles.entering : '', leaving ? styles.leaving : '', className]
     .filter(Boolean)
     .join(' ');
 
@@ -216,7 +220,9 @@ export default function TaskCard({
         </div>
       ) : null}
       <div className={styles.status}>
-        {showTag ? (
+        {showTag && use === 'pick' ? (
+          <StatusDot tone={statusTone} label={status} mark={statusTone === 'success' ? 'check' : 'dot'} />
+        ) : showTag ? (
           <Tag variant="line" tone={TONE[statusTone]}>
             {status}
           </Tag>

@@ -390,3 +390,28 @@ export const PickSelected: Story = {
     await expect(canvasElement.querySelector('[aria-label="Move to…"]')).toBeNull();
   },
 };
+
+/** A row of pick cards on a grid parent with three rows (Playground's strip, 23 Nov 2026): every card one height, each
+ *  title, line and status at one height, the status pinned to the foot, title and line clamped to two lines. */
+export const PickRow: Story = {
+  render: () => (
+    <ul style={{ display: 'grid', gridAutoFlow: 'column', gridAutoColumns: 'calc(var(--spacing-4) * 68)', gridTemplateRows: 'auto auto 1fr', columnGap: 'var(--spacing-16)', listStyle: 'none', margin: 0, padding: 'var(--spacing-8)' }}>
+      {[
+        { title: 'Which look for the tertiary button?', line: 'Tertiary buttons: A to E · 1 comment', status: 'Answered', tone: 'success' as const },
+        { title: 'Which one?', line: 'Workbench layout: tools in reach, bottom card strip, and a much longer line that clamps', status: 'Marked', tone: 'attention' as const },
+        { title: 'A shorter card', line: 'Work board', status: 'Not answered', tone: 'neutral' as const },
+      ].map((c, i) => (
+        <li key={c.title} style={{ display: 'grid', gridRow: 'span 3', gridTemplateRows: 'subgrid' }}>
+          <TaskCard title={c.title} line={c.line} status={c.status} statusTone={c.tone} showTag use="pick" selected={i === 0} onOpen={() => {}} />
+        </li>
+      ))}
+    </ul>
+  ),
+  play: async ({ canvasElement }) => {
+    const cards = Array.from(canvasElement.querySelectorAll('[data-bella-component="task-card"]')) as HTMLElement[];
+    const hs = new Set(cards.map((c) => Math.round(c.getBoundingClientRect().height)));
+    await expect(hs.size).toBe(1);
+    const ys = new Set(cards.map((c) => Math.round((c.querySelector('[class*="status"]') as HTMLElement).getBoundingClientRect().top)));
+    await expect(ys.size).toBe(1);
+  },
+};

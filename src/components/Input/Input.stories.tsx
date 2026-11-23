@@ -332,12 +332,12 @@ export const LabelInline: Story = {
     </div>
   ),
   play: async ({ canvas, step }) => {
-    await step('label 8 left of the field, both centred on it', async () => {
+    await step('label 16 left of the field (8 plus room for the focus ring, 23 Nov 2026; Figma follows), both centred on it', async () => {
       const field = canvas.getAllByLabelText('Email')[0];
       const label = field.parentElement!.querySelector('label')!;
       const f = field.getBoundingClientRect();
       const l = label.getBoundingClientRect();
-      await expect(Math.round(f.left - l.right)).toBe(8);
+      await expect(Math.round(f.left - l.right)).toBe(16);
       await expect(Math.abs((f.top + f.bottom) / 2 - (l.top + l.bottom) / 2)).toBeLessThanOrEqual(1);
       await expect(f.height).toBe(44);
     });

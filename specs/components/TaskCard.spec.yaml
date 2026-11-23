@@ -169,9 +169,13 @@ props:
     default: board
     required: false
     doc: >-
-      board (default): the drag handle and the open arrow, as on the Work board. pick: neither, for a strip of cards you choose from
-      (Playground picks, Needs you), where a click selects the card and never leaves the page.
-    at: src/components/TaskCard/TaskCard.tsx:61
+      board (default): the drag handle and the open arrow, as on the Work board. pick: a strip of cards you choose from (Playground picks,
+      Needs you; 23 Nov 2026): no handle or arrow (a click selects, never leaves the page), the title and the line each clamped to two
+      lines, the status as a StatusDot and its word (a part's own status, never a boxed Tag), and the card's three rows (title, line,
+      status) on its grid parent's rows through subgrid, so in a row of pick cards every title, line and status sits at one height and the
+      status is pinned to the foot. The parent gives three rows (grid-template-rows: auto auto 1fr or similar); alone, the card lays its
+      rows out itself.
+    at: src/components/TaskCard/TaskCard.tsx:65
   - name: draggable
     type: boolean
     values:
@@ -179,15 +183,15 @@ props:
       - false
     required: false
     doc: Native drag, wired by the board.
-    at: src/components/TaskCard/TaskCard.tsx:63
+    at: src/components/TaskCard/TaskCard.tsx:67
   - name: onDragStart
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:64
+    at: src/components/TaskCard/TaskCard.tsx:68
   - name: onDragEnd
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:65
+    at: src/components/TaskCard/TaskCard.tsx:69
   - name: entering
     type: boolean
     values:
@@ -199,7 +203,7 @@ props:
       Arrives (rule "Motion that shows what happened", items 4 and 6): a new card in Needs you, or one Undo brings back, pops in once on
       motion/duration/250 and motion/easing/pop. Set it only on the card that is new, never on first load. Reduced motion: it is simply
       there.
-    at: src/components/TaskCard/TaskCard.tsx:72
+    at: src/components/TaskCard/TaskCard.tsx:76
   - name: leaving
     type: boolean
     values:
@@ -210,20 +214,20 @@ props:
     doc: >-
       Leaves (item 6, Accept): the card slides out to the right and fades on motion/duration/250, then onLeft runs so the page removes it.
       Reduced motion: onLeft runs at once.
-    at: src/components/TaskCard/TaskCard.tsx:78
+    at: src/components/TaskCard/TaskCard.tsx:82
   - name: onLeft
     type: () => void
     required: false
     doc: Called once the card has left. Remove it then.
-    at: src/components/TaskCard/TaskCard.tsx:80
+    at: src/components/TaskCard/TaskCard.tsx:84
   - name: className
     type: string
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:81
+    at: src/components/TaskCard/TaskCard.tsx:85
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:82
+    at: src/components/TaskCard/TaskCard.tsx:86
 variants:
   statusTone:
     values:
@@ -239,7 +243,7 @@ variants:
       - board
       - pick
     default: board
-    at: src/components/TaskCard/TaskCard.tsx:61
+    at: src/components/TaskCard/TaskCard.tsx:65
 states:
   contract:
     - default
@@ -695,6 +699,18 @@ tokens:
       token: '--color-content-subtle'
       selector: .stepMeta
       at: src/components/TaskCard/TaskCard.module.css:313
+    - part: pick
+      state: rest
+      property: row-gap
+      token: '--spacing-4'
+      selector: .pick
+      at: src/components/TaskCard/TaskCard.module.css:333
+    - part: status
+      state: rest
+      property: padding-block-start
+      token: '--spacing-8'
+      selector: .pick .status
+      at: src/components/TaskCard/TaskCard.module.css:355
   values:
     '--border-radius-card':
       light: null
@@ -869,25 +885,25 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/TaskCard/TaskCard.tsx:165
+    at: src/components/TaskCard/TaskCard.tsx:169
   role:
     value: null
     source: native element
-    at: src/components/TaskCard/TaskCard.tsx:165
+    at: src/components/TaskCard/TaskCard.tsx:169
   nameSource:
     value: visible content
-    at: src/components/TaskCard/TaskCard.tsx:165
+    at: src/components/TaskCard/TaskCard.tsx:169
   keyboard: []
   aria:
     - attribute: aria-label
       value: Move
-      at: src/components/TaskCard/TaskCard.tsx:179
-    - attribute: aria-hidden
-      value: 'true'
       at: src/components/TaskCard/TaskCard.tsx:183
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/TaskCard/TaskCard.tsx:199
+      at: src/components/TaskCard/TaskCard.tsx:187
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/TaskCard/TaskCard.tsx:203
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -919,10 +935,10 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label="Move to…"
-      at: src/components/TaskCard/TaskCard.tsx:179
+      at: src/components/TaskCard/TaskCard.tsx:183
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/TaskCard/TaskCard.tsx:199
+      at: src/components/TaskCard/TaskCard.tsx:203
 contrast:
   pairs: []
   derived: []

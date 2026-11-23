@@ -320,3 +320,37 @@ button.move:focus-visible {
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+/* use="pick" (Playground picks, Needs you; Elleta's Workbench A, 23 Nov 2026, "tighter", "use the card grid"): the
+   card's title, line and status are its grid parent's three rows through subgrid, so every card in the strip is the
+   same height and each part sits at one height across it; the status is pinned to the foot. The wrappers between the
+   card and its parts step aside (display: contents) so the parts are the card's own grid items. Title and line clamp
+   to two lines each. Alone (no grid parent), subgrid falls back to the card's own rows. */
+.pick {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: var(--spacing-4);
+  align-content: start;
+}
+
+.pick .content,
+.pick .head,
+.pick .text {
+  display: contents;
+}
+
+.pick .title,
+.pick .line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.pick .status {
+  align-self: end;
+  justify-content: flex-start;
+  padding-block-start: var(--spacing-8);
+}

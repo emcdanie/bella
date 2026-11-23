@@ -33,7 +33,7 @@ export interface SideMenuProps {
   /**
    * The Find field at the top of the menu, over the first row (CHIP, 23 Nov 2026: one search, where Figma has its Find
    * field). A SearchField, and after it at most one icon Button (its filter): the field takes the room, the button keeps
-   * its 44. The slot is the menu's search landmark. Leave the Search row out of `items` when this is set.
+   * its 44; 16 above the rows, the gap between groups. The slot is the menu's search landmark. Leave the Search row out of `items` when this is set.
    */
   search?: ReactNode;
   /** Group · Go to: Home, Needs you (count), Not again (and a Search row when there is no `search` slot). */

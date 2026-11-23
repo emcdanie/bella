@@ -101,7 +101,7 @@ export const WithLogo: Story = {
 
 /** search (CHIP, 23 Nov 2026: one search, where Figma has its Find field): the Find field is the menu's first row, with its
  * filter button after it; the Search row leaves `items`. The slot is the search landmark; field and button are 44 targets
- * that end on the rows' right edge, 4 above the first row. */
+ * that end on the rows' right edge, 16 above the first row (the gap between the menu's groups). */
 export const WithSearch: Story = {
   args: {
     items: ITEMS.filter((it) => it.label !== 'Search'),
@@ -129,10 +129,10 @@ export const WithSearch: Story = {
     const home = c.getByRole('link', { name: 'Home' });
     const r = (el: Element) => el.getBoundingClientRect();
 
-    await step('the field is the first row: 16 under the switcher, 4 above the first row, no Search row', async () => {
+    await step('the field stands on its own: 16 under the switcher, 16 above the first row (the gap between groups), no Search row', async () => {
       await expect(c.queryByRole('button', { name: 'Search' })).toBeNull();
       await expect(Math.round(r(box).top - r(menu.firstElementChild as Element).bottom)).toBe(16);
-      await expect(Math.round(r(home).top - r(landmark).bottom)).toBe(4);
+      await expect(Math.round(r(home).top - r(landmark).bottom)).toBe(16);
     });
 
     await step('field and button are 44 targets, 4 apart, and span the rows (12 in from each side)', async () => {

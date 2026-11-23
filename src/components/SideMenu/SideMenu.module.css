@@ -23,14 +23,15 @@
   box-shadow: inset calc(-1 * var(--border-width-1)) 0 0 var(--color-border-default);
 }
 
-/* the search slot (CHIP, 23 Nov 2026): the Find field is the menu's first row, 4 above the rows like one row above
-   the next (spacing/4), and stays put while the rows scroll. The field takes the room; an icon button after it
+/* the search slot (CHIP, 23 Nov 2026): the Find field sits on its own, 16 above the rows (spacing/16, the gap between
+   the menu's groups; rows inside a group are 4 apart), so it never reads as part of the list (Elleta, 23 Nov evening:
+   it sat on top of the selected row), and stays put while the rows scroll. The field takes the room; an icon button after it
    keeps its own 44, 4 away. Parts untouched: SearchField and Button bring their own look. */
 .body {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-16);
   min-block-size: 0;
 }
 

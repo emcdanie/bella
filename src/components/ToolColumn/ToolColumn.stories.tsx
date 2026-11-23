@@ -173,3 +173,24 @@ export const NoReadout: Story = {
     await expect(canvasElement.querySelector('[role="status"]')).toBeNull();
   },
 };
+
+/** View tools only (Playground picks and Needs you, Workbench A, 23 Nov 2026): zoom in, fit, zoom out; no divider. */
+export const ViewOnly: Story = {
+  args: { tools: 'view', defaultZoom: 100 },
+  play: async ({ canvasElement }) => {
+    const names = Array.from(canvasElement.querySelectorAll('button')).map((b) => b.getAttribute('aria-label'));
+    if (names.join() !== 'Zoom in,Fit,Zoom out') throw new Error(`view tools: ${names.join()}`);
+    if (canvasElement.querySelector('[role="separator"]')) throw new Error('a view-only column has no divider');
+  },
+};
+
+/** Horizontal, for a phone: the tools in a row, arrow keys left and right. */
+export const Horizontal: Story = {
+  args: { tools: 'view', orientation: 'horizontal', defaultZoom: 100 },
+  play: async ({ canvasElement }) => {
+    const bar = canvasElement.querySelector('[role="toolbar"]') as HTMLElement;
+    if (bar.getAttribute('aria-orientation') !== 'horizontal') throw new Error('not horizontal');
+    const [a, b] = Array.from(bar.querySelectorAll('button')).map((el) => el.getBoundingClientRect());
+    if (!(b.left > a.left && Math.abs(b.top - a.top) < 2)) throw new Error('tools are not in a row');
+  },
+};

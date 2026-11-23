@@ -26,6 +26,12 @@ export interface ToolColumnProps {
   /** Compare: on = two panes side by side (aria-pressed). */
   compare?: boolean;
   onCompareChange?: (on: boolean) => void;
+  /** Which tools show: 'all' (view group, divider, tools group) or 'view' (zoom in, fit, zoom out only), for a stage
+   *  whose picture is marked by a click and has no light or dark look or second pane (Playground picks, Needs you;
+   *  Elleta's Workbench A, 23 Nov 2026). */
+  tools?: 'all' | 'view';
+  /** 'vertical' beside the stage; 'horizontal' for a phone, where the tools float under the picture (Workbench A, 320). */
+  orientation?: 'vertical' | 'horizontal';
   /** The toolbar's accessible name. */
   label?: string;
   /** Extra classes on the wrapper. */
@@ -50,6 +56,8 @@ export default function ToolColumn({
   onMarkUpChange,
   compare = false,
   onCompareChange,
+  tools = 'all',
+  orientation = 'vertical',
   label = 'View tools',
   className,
   style,
@@ -76,8 +84,10 @@ export default function ToolColumn({
     const list = buttons();
     const at = Math.max(0, list.indexOf(document.activeElement as HTMLButtonElement));
     let to: number | null = null;
-    if (e.key === 'ArrowDown') to = Math.min(list.length - 1, at + 1);
-    else if (e.key === 'ArrowUp') to = Math.max(0, at - 1);
+    const next = orientation === 'horizontal' ? 'ArrowRight' : 'ArrowDown';
+    const prev = orientation === 'horizontal' ? 'ArrowLeft' : 'ArrowUp';
+    if (e.key === next) to = Math.min(list.length - 1, at + 1);
+    else if (e.key === prev) to = Math.max(0, at - 1);
     else if (e.key === 'Home') to = 0;
     else if (e.key === 'End') to = list.length - 1;
     else if (e.key === '+' || e.key === '=') step(1);
@@ -92,18 +102,18 @@ export default function ToolColumn({
   };
 
   const tool = (name: string, icon: IconName, onClick: () => void, pressed?: boolean) => (
-    <Tooltip label={name} placement="right">
+    <Tooltip label={name} placement={orientation === 'horizontal' ? 'top' : 'right'}>
       <Button variant="tertiary" iconOnly icon={icon} ariaLabel={name} ariaPressed={pressed} onClick={onClick} />
     </Tooltip>
   );
 
   return (
-    <div className={[styles.wrap, className].filter(Boolean).join(' ')} style={style} data-bella-component="tool-column">
+    <div className={[styles.wrap, orientation === 'horizontal' ? styles.horizontal : '', className].filter(Boolean).join(' ')} style={style} data-bella-component="tool-column">
       <div
         ref={barRef}
         className={styles.column}
         role="toolbar"
-        aria-orientation="vertical"
+        aria-orientation={orientation}
         aria-label={label}
         onKeyDown={onKeyDown}
         onFocusCapture={(e) => {
@@ -116,12 +126,16 @@ export default function ToolColumn({
           {tool('Fit', 'Expand', () => onFit?.())}
           {tool('Zoom out', 'ZoomOut', () => step(-1))}
         </div>
-        <span className={styles.divider} role="separator" aria-orientation="horizontal" />
+        {tools === 'all' ? (
+          <>
+        <span className={styles.divider} role="separator" aria-orientation={orientation === 'horizontal' ? 'vertical' : 'horizontal'} />
         <div className={styles.group}>
           {tool('Light or dark', dark ? 'HalfMoon' : 'SunLight', () => onDarkChange?.(!dark), dark)}
           {tool('Mark up', 'EditPencil', () => onMarkUpChange?.(!markUp), markUp)}
           {tool('Compare', 'Copy', () => onCompareChange?.(!compare), compare)}
         </div>
+          </>
+        ) : null}
       </div>
       {showZoom ? (
         <span className={styles.zoom} role="status" aria-label="Zoom">

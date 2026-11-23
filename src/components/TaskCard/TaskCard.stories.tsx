@@ -378,3 +378,15 @@ export const Stopped: Story = {
     await expect(canvas.getByText(/Stopped · BELLA's gate refused the commit: two stories/)).toBeInTheDocument();
   },
 };
+
+/** In a strip you pick from (Playground picks, Needs you; Workbench A, 23 Nov 2026): no drag handle or open arrow,
+ *  the open card outlined in the selection blue. */
+export const PickSelected: Story = {
+  args: { title: 'Drag: how it moves', line: 'Work board: 3 picks left', status: 'Marked', showTag: true, statusTone: 'attention', use: 'pick', selected: true, onOpen: () => {} },
+  play: async ({ canvasElement }) => {
+    const card = canvasElement.querySelector('[data-bella-component="task-card"]') as HTMLElement;
+    await expect(card.getAttribute('data-selected')).toBe('true');
+    await expect(getComputedStyle(card).outlineStyle).toBe('solid');
+    await expect(canvasElement.querySelector('[aria-label="Move to…"]')).toBeNull();
+  },
+};

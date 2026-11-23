@@ -42,6 +42,14 @@
 .card[data-tone='attention'] { border-color: var(--color-border-utility-warning); }
 .card[data-tone='danger'] { border-color: var(--color-border-utility-error); }
 
+/* Selected (Workbench A, 23 Nov 2026): the selection blue as the border and a second line outside it, so the open
+   card reads at a glance in a strip of cards whatever its status colour. */
+.card[data-selected='true'] {
+  border-color: var(--color-border-utility-info);
+  outline: var(--border-width-2) solid var(--color-border-utility-info);
+  outline-offset: var(--border-width-2);
+}
+
 .card:has(.open:focus-visible) {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: var(--focus-ring-offset);

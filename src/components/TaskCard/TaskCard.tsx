@@ -53,6 +53,12 @@ export interface TaskCardProps {
   onOpen?: () => void;
   /** Figma "Move to…" (the drag handle): the keyboard way to move the card; open a Menu of lanes from here. Missing = the handle is drawn but does nothing (pointer drag only). */
   onMoveTo?: () => void;
+  /** Selected (Elleta's Workbench A, 23 Nov 2026): the card open on the stage in a strip of cards, outlined in the
+   *  selection blue around its border; aria-current is the page's to set on the list item. */
+  selected?: boolean;
+  /** board (default): the drag handle and the open arrow, as on the Work board. pick: neither, for a strip of cards
+   *  you choose from (Playground picks, Needs you), where a click selects the card and never leaves the page. */
+  use?: 'board' | 'pick';
   /** Native drag, wired by the board. */
   draggable?: boolean;
   onDragStart?: DragEventHandler<HTMLElement>;
@@ -106,6 +112,8 @@ export default function TaskCard({
   href,
   onOpen,
   onMoveTo,
+  selected = false,
+  use = 'board',
   draggable,
   onDragStart,
   onDragEnd,
@@ -146,6 +154,7 @@ export default function TaskCard({
       data-bella-component="task-card"
       data-state={dragging ? 'dragging' : 'default'}
       data-tone={TONE[statusTone]}
+      data-selected={selected ? 'true' : undefined}
       onAnimationEnd={(e) => {
         if (leaving && e.target === e.currentTarget) onLeft?.();
       }}
@@ -166,7 +175,7 @@ export default function TaskCard({
             </Tag>
           ) : null}
         </div>
-        {onMoveTo != null ? (
+        {use === 'pick' ? null : onMoveTo != null ? (
           <button type="button" className={styles.move} onClick={onMoveTo} aria-label="Move to…">
             <Icon name="DragHandle" size="md" />
           </button>
@@ -214,7 +223,7 @@ export default function TaskCard({
         ) : (
           <span className={styles.srOnly}>{status}</span>
         )}
-        {opens ? <Trailing /> : null}
+        {opens && use !== 'pick' ? <Trailing /> : null}
       </div>
       </div>
     </article>

@@ -49,3 +49,22 @@
   color: var(--color-content-subtle);
   white-space: nowrap;
 }
+
+/* orientation="horizontal": the same tools in a row, for a phone (Elleta's Workbench A, 320: "small floating tools"
+ * under the picture). The divider stands upright; the readout sits 16 right of the row, centred on it. */
+.horizontal .column,
+.horizontal .group {
+  flex-direction: row;
+}
+
+.horizontal .divider {
+  align-self: stretch;
+  block-size: auto;
+  inline-size: var(--border-width-1);
+}
+
+.horizontal .zoom {
+  inset-inline-start: calc(100% + var(--spacing-16));
+  inset-block-start: 50%;
+  translate: 0 -50%;
+}

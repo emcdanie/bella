@@ -14112,6 +14112,159 @@ entries:
           - paused
           - ended
           - reduced-motion
+  - kind: component
+    id: run-indicator
+    name: RunIndicator
+    description: One persistent pill that says whether anything is running, which run, its step and how long it has been going; idle, running, done and failed are all drawn so a quiet screen is never ambiguous.
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: "Button when it opens the list (aria-expanded), otherwise role=img; always named by the whole sentence (\"Running: Fix CheckRow, Step 3 of 7, 2:41 so far\"). A status region announces start and end, never the ticking time. 44 high; edge 3:1; narrow screens keep the ring and the count and the name stays full."
+      tags:
+        - component
+        - run-indicator
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP header, beside Search (23 Nov 2026, feedback and sense of time)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a progress bar (Progress)
+          - level: must-not
+            statement: "Not a toast (Toast): it stays"
+          - level: must-not
+            statement: No second spinner on the page
+    refs:
+      - href: ./src/components/RunIndicator/RunIndicator.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/RunIndicator/RunIndicator.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - idle
+          - running
+          - done
+          - failed
+  - kind: component
+    id: timeline-row
+    name: TimelineRow
+    description: "One job in the Activity timeline: a rounded row with its state ring (running, done, queued, did not land), the title and one line of when, how long and how far."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: A button when it opens the run, a plain row otherwise; the state is read as a word (Running, Done, Queued, Did not land). 44 or more high; focus ring on keyboard focus.
+      tags:
+        - component
+        - timeline-row
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP Activity list in the drawer (23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a Card (a message or a result is a Notification)
+          - level: must-not
+            statement: "Never colour alone: the state is a ring shape and a word"
+    refs:
+      - href: ./src/components/TimelineRow/TimelineRow.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/TimelineRow/TimelineRow.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - running
+          - done
+          - waiting
+          - failed
+  - kind: component
+    id: last-run
+    name: LastRun
+    description: "The stamp under any action that can be run again: what, when, how long, what it found, as one line (\"Ran 09:24 · 2 s · nothing new\")."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: Plain text in a paragraph; a failed run begins with the words "Did not land", so colour is never the only signal. 16px, 1.5 line height; subtle ink 7:1 or more on the page.
+      tags:
+        - component
+        - last-run
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: CHIP Check again, Refresh and Test (23 Nov 2026)
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: Not a Tag
+          - level: must-not
+            statement: Not for a time on its own (Stat)
+    refs:
+      - href: ./src/components/LastRun/LastRun.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/LastRun/LastRun.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - failed
   - kind: entry
     id: foundation-color
     name: Colour

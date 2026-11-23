@@ -363,6 +363,39 @@ export const OpenRowsStacked: Story = {
   },
 };
 
+/** compact and stack together (23 Nov 2026): a read-only list at 288 stacks each row, and every row is as tall as its
+ *  lines, so the "Label: value" line under the name never runs into the next row. */
+export const CompactStacked: Story = {
+  render: () => (
+    <div style={{ maxWidth: 288 }}>
+      <DataTable
+        caption="Parts BELLA can't give yet"
+        density="compact"
+        stack
+        rowKey="part"
+        columns={[
+          { key: 'part', label: 'Part' },
+          { key: 'state', label: 'State' },
+          { key: 'from', label: 'Written in' },
+        ]}
+        rows={[
+          { part: 'AddressBar', state: 'Spec, no code', from: 'Its spec file' },
+          { part: 'CommentThread', state: 'Spec, no code', from: 'Its spec file' },
+          { part: 'Carousel', state: 'Not in BELLA', from: "BELLA's AGENTS.md" },
+        ]}
+      />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const rows = [...canvasElement.querySelectorAll('tbody tr')];
+    // each row's last line ends inside the row
+    for (const r of rows) {
+      const last = r.lastElementChild!.getBoundingClientRect();
+      await expect(last.bottom).toBeLessThanOrEqual(r.getBoundingClientRect().bottom + 0.5);
+    }
+  },
+};
+
 /** The page holds the sort (a toolbar can follow it) and the first column stays put while the rest scrolls. */
 export const PageSortFrozenFirst: Story = {
   render: () => {

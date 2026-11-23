@@ -294,3 +294,16 @@
     font-family: var(--typography-body-default-font-family);
   }
 }
+
+/* freezeFirst: the first column sticks to the start edge while the rest scrolls; header and body keep the surface behind it */
+.root[data-freeze] .table th:first-child,
+.root[data-freeze] .table td:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--color-background-surface);
+}
+
+.root[data-freeze] .table thead th:first-child {
+  z-index: 2;
+}

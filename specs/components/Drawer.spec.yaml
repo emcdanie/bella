@@ -131,6 +131,8 @@ states:
     - '[data-side=''bottom'']'
     - focus-visible
     - '[data-closing]'
+    - '[data-under-head]'
+    - '[data-under-foot]'
     - '[data-bella-component=''button'']'
     - '[data-size=''lg'']'
 sizes:
@@ -222,403 +224,427 @@ tokens:
       property: transition
       token: '--motion-duration-250'
       selector: .drawer[open]
-      at: src/components/Drawer/Drawer.module.css:42
+      at: src/components/Drawer/Drawer.module.css:46
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .drawer[open]
-      at: src/components/Drawer/Drawer.module.css:42
+      at: src/components/Drawer/Drawer.module.css:46
     - part: root
       state: '[data-side=''right'']'
       property: border-inline-start
       token: '--border-width-1'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:65
+      at: src/components/Drawer/Drawer.module.css:69
     - part: root
       state: '[data-side=''right'']'
       property: border-inline-start
       token: '--color-border-default'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:65
+      at: src/components/Drawer/Drawer.module.css:69
     - part: root
       state: '[data-side=''right'']'
       property: border-start-start-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:68
+      at: src/components/Drawer/Drawer.module.css:72
     - part: root
       state: '[data-side=''right'']'
       property: border-end-start-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='right']
-      at: src/components/Drawer/Drawer.module.css:69
+      at: src/components/Drawer/Drawer.module.css:73
     - part: root
       state: rest
       property: background
       token: '--color-background-transparent'
       selector: .drawer::backdrop
-      at: src/components/Drawer/Drawer.module.css:77
+      at: src/components/Drawer/Drawer.module.css:81
     - part: root
       state: rest
       property: animation
       token: '--motion-duration-250'
       selector: .drawer[open]::backdrop
-      at: src/components/Drawer/Drawer.module.css:82
+      at: src/components/Drawer/Drawer.module.css:86
     - part: root
       state: rest
       property: animation
       token: '--motion-easing-standard'
       selector: .drawer[open]::backdrop
-      at: src/components/Drawer/Drawer.module.css:82
+      at: src/components/Drawer/Drawer.module.css:86
     - part: root
       state: '[data-closing]'
       property: animation
       token: '--motion-duration-200'
       selector: .drawer[data-closing]
-      at: src/components/Drawer/Drawer.module.css:88
+      at: src/components/Drawer/Drawer.module.css:92
     - part: root
       state: '[data-closing]'
       property: animation
       token: '--motion-easing-standard'
       selector: .drawer[data-closing]
-      at: src/components/Drawer/Drawer.module.css:88
+      at: src/components/Drawer/Drawer.module.css:92
     - part: root
       state: '[data-closing]'
       property: animation
       token: '--motion-duration-200'
       selector: .drawer[data-closing]::backdrop
-      at: src/components/Drawer/Drawer.module.css:97
+      at: src/components/Drawer/Drawer.module.css:101
     - part: root
       state: '[data-closing]'
       property: animation
       token: '--motion-easing-standard'
       selector: .drawer[data-closing]::backdrop
-      at: src/components/Drawer/Drawer.module.css:97
+      at: src/components/Drawer/Drawer.module.css:101
     - part: head
       state: rest
       property: gap
       token: '--spacing-12'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:123
+      at: src/components/Drawer/Drawer.module.css:127
     - part: head
       state: rest
       property: padding
       token: '--spacing-24'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:126
+      at: src/components/Drawer/Drawer.module.css:132
     - part: head
       state: rest
       property: padding
       token: '--spacing-24'
       selector: .head
-      at: src/components/Drawer/Drawer.module.css:126
+      at: src/components/Drawer/Drawer.module.css:132
+    - part: head
+      state: rest
+      property: padding
+      token: '--spacing-16'
+      selector: .head
+      at: src/components/Drawer/Drawer.module.css:132
+    - part: head
+      state: '[data-under-head]'
+      property: box-shadow
+      token: '--shadow-md'
+      selector: .drawer[data-under-head] .head
+      at: src/components/Drawer/Drawer.module.css:140
+    - part: footer
+      state: '[data-under-foot]'
+      property: box-shadow
+      token: '--shadow-md-up'
+      selector: .drawer[data-under-foot] .footer
+      at: src/components/Drawer/Drawer.module.css:144
     - part: root
       state: '[data-bella-component=''button'']'
       property: margin-block-start
       token: '--size-28'
       selector: .head > [data-bella-component='button']
-      at: src/components/Drawer/Drawer.module.css:132
+      at: src/components/Drawer/Drawer.module.css:151
     - part: root
       state: '[data-bella-component=''button'']'
       property: margin-block-start
       token: '--spacing-44'
       selector: .head > [data-bella-component='button']
-      at: src/components/Drawer/Drawer.module.css:132
+      at: src/components/Drawer/Drawer.module.css:151
     - part: titleRow
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .titleRow
-      at: src/components/Drawer/Drawer.module.css:144
+      at: src/components/Drawer/Drawer.module.css:163
     - part: title
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .title
-      at: src/components/Drawer/Drawer.module.css:150
+      at: src/components/Drawer/Drawer.module.css:169
     - part: title
       state: rest
       property: font-size
       token: '--typography-font-size-20'
       selector: .title
-      at: src/components/Drawer/Drawer.module.css:151
+      at: src/components/Drawer/Drawer.module.css:170
     - part: title
       state: rest
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .title
-      at: src/components/Drawer/Drawer.module.css:152
+      at: src/components/Drawer/Drawer.module.css:171
     - part: title
       state: rest
       property: line-height
       token: '--size-28'
       selector: .title
-      at: src/components/Drawer/Drawer.module.css:153
+      at: src/components/Drawer/Drawer.module.css:172
     - part: title
       state: rest
       property: color
       token: '--color-content-default'
       selector: .title
-      at: src/components/Drawer/Drawer.module.css:154
+      at: src/components/Drawer/Drawer.module.css:173
     - part: status
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .status
-      at: src/components/Drawer/Drawer.module.css:159
+      at: src/components/Drawer/Drawer.module.css:178
     - part: status
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .status
-      at: src/components/Drawer/Drawer.module.css:160
+      at: src/components/Drawer/Drawer.module.css:179
     - part: status
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .status
-      at: src/components/Drawer/Drawer.module.css:161
+      at: src/components/Drawer/Drawer.module.css:180
     - part: status
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .status
-      at: src/components/Drawer/Drawer.module.css:162
+      at: src/components/Drawer/Drawer.module.css:181
     - part: status
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .status
-      at: src/components/Drawer/Drawer.module.css:163
-    - part: body
-      state: rest
-      property: padding
-      token: '--spacing-24'
-      selector: .body
-      at: src/components/Drawer/Drawer.module.css:174
+      at: src/components/Drawer/Drawer.module.css:182
     - part: body
       state: rest
       property: padding
       token: '--spacing-8'
       selector: .body
-      at: src/components/Drawer/Drawer.module.css:174
+      at: src/components/Drawer/Drawer.module.css:196
+    - part: body
+      state: rest
+      property: padding
+      token: '--spacing-8'
+      selector: .body
+      at: src/components/Drawer/Drawer.module.css:196
+    - part: body
+      state: rest
+      property: padding
+      token: '--spacing-24'
+      selector: .body
+      at: src/components/Drawer/Drawer.module.css:196
     - part: body
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:180
+      at: src/components/Drawer/Drawer.module.css:202
     - part: body
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:180
+      at: src/components/Drawer/Drawer.module.css:202
     - part: body
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-width'
       selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:181
+      at: src/components/Drawer/Drawer.module.css:203
     - part: body
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .body:focus-visible
-      at: src/components/Drawer/Drawer.module.css:181
+      at: src/components/Drawer/Drawer.module.css:203
     - part: root
       state: '[data-size=''lg'']'
       property: inline-size
       token: '--spacing-80'
       selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:193
+      at: src/components/Drawer/Drawer.module.css:215
     - part: root
       state: '[data-size=''lg'']'
       property: border-start-end-radius
       token: '--border-radius-24'
       selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:194
+      at: src/components/Drawer/Drawer.module.css:216
     - part: root
       state: '[data-size=''lg'']'
       property: border-end-end-radius
       token: '--border-radius-24'
       selector: .drawer[data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:195
+      at: src/components/Drawer/Drawer.module.css:217
     - part: root
       state: '[data-size=''lg''] [data-side=''right'']'
       property: border-start-start-radius
       token: '--border-radius-24'
       selector: .drawer[data-size='lg'][data-side='right']
-      at: src/components/Drawer/Drawer.module.css:200
+      at: src/components/Drawer/Drawer.module.css:222
     - part: root
       state: '[data-size=''lg''] [data-side=''right'']'
       property: border-end-start-radius
       token: '--border-radius-24'
       selector: .drawer[data-size='lg'][data-side='right']
-      at: src/components/Drawer/Drawer.module.css:201
+      at: src/components/Drawer/Drawer.module.css:223
     - part: footer
       state: rest
       property: gap
       token: '--spacing-12'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:210
+      at: src/components/Drawer/Drawer.module.css:234
     - part: footer
       state: rest
       property: gap
       token: '--spacing-16'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:210
+      at: src/components/Drawer/Drawer.module.css:234
     - part: footer
       state: rest
       property: padding
       token: '--spacing-24'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:211
+      at: src/components/Drawer/Drawer.module.css:235
     - part: footer
       state: rest
       property: border-block-start
       token: '--border-width-1'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:212
+      at: src/components/Drawer/Drawer.module.css:236
     - part: footer
       state: rest
       property: border-block-start
       token: '--color-border-default'
       selector: .footer
-      at: src/components/Drawer/Drawer.module.css:212
+      at: src/components/Drawer/Drawer.module.css:236
     - part: footerNote
       state: rest
       property: flex
       token: '--spacing-8'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:219
+      at: src/components/Drawer/Drawer.module.css:243
     - part: footerNote
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:222
+      at: src/components/Drawer/Drawer.module.css:246
     - part: footerNote
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:223
+      at: src/components/Drawer/Drawer.module.css:247
     - part: footerNote
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:224
+      at: src/components/Drawer/Drawer.module.css:248
     - part: footerNote
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:225
+      at: src/components/Drawer/Drawer.module.css:249
     - part: footerNote
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .footerNote
-      at: src/components/Drawer/Drawer.module.css:226
+      at: src/components/Drawer/Drawer.module.css:250
     - part: footerActions
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .footerActions
-      at: src/components/Drawer/Drawer.module.css:234
+      at: src/components/Drawer/Drawer.module.css:258
     - part: root
       state: '[data-side=''bottom'']'
       property: max-block-size
       token: '--spacing-48'
       selector: .drawer[data-side='bottom']
-      at: src/components/Drawer/Drawer.module.css:254
+      at: src/components/Drawer/Drawer.module.css:278
     - part: root
       state: '[data-side=''bottom'']'
       property: border-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='bottom']
-      at: src/components/Drawer/Drawer.module.css:256
+      at: src/components/Drawer/Drawer.module.css:280
     - part: root
       state: '[data-side=''bottom'']'
       property: border-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='bottom']
-      at: src/components/Drawer/Drawer.module.css:256
+      at: src/components/Drawer/Drawer.module.css:280
     - part: root
       state: '[data-side=''bottom''] [data-size=''lg'']'
       property: block-size
       token: '--spacing-80'
       selector: .drawer[data-side='bottom'][data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:261
+      at: src/components/Drawer/Drawer.module.css:285
     - part: root
       state: '[data-side=''bottom''] [data-size=''lg'']'
       property: block-size
       token: '--spacing-48'
       selector: .drawer[data-side='bottom'][data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:261
+      at: src/components/Drawer/Drawer.module.css:285
     - part: root
       state: '[data-side=''bottom''] [data-size=''lg'']'
       property: border-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='bottom'][data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:262
+      at: src/components/Drawer/Drawer.module.css:286
     - part: root
       state: '[data-side=''bottom''] [data-size=''lg'']'
       property: border-radius
       token: '--border-radius-24'
       selector: .drawer[data-side='bottom'][data-size='lg']
-      at: src/components/Drawer/Drawer.module.css:262
+      at: src/components/Drawer/Drawer.module.css:286
     - part: root
       state: '[data-side=''bottom'']'
       property: transition
       token: '--motion-duration-450'
       selector: .drawer[data-side='bottom'][open]
-      at: src/components/Drawer/Drawer.module.css:266
+      at: src/components/Drawer/Drawer.module.css:290
     - part: root
       state: '[data-side=''bottom'']'
       property: transition
       token: '--motion-easing-out'
       selector: .drawer[data-side='bottom'][open]
-      at: src/components/Drawer/Drawer.module.css:266
+      at: src/components/Drawer/Drawer.module.css:290
     - part: handle
       state: rest
       property: inline-size
       token: '--size-36'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:276
+      at: src/components/Drawer/Drawer.module.css:300
     - part: handle
       state: rest
       property: block-size
       token: '--size-4'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:277
+      at: src/components/Drawer/Drawer.module.css:301
     - part: handle
       state: rest
       property: margin-block
       token: '--spacing-8'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:278
+      at: src/components/Drawer/Drawer.module.css:302
     - part: handle
       state: rest
       property: margin-block
       token: '--spacing-24'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:278
+      at: src/components/Drawer/Drawer.module.css:302
     - part: handle
       state: rest
       property: border-radius
       token: '--border-radius-round'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:279
+      at: src/components/Drawer/Drawer.module.css:303
     - part: handle
       state: rest
       property: background
       token: '--color-border-strong'
       selector: .handle
-      at: src/components/Drawer/Drawer.module.css:280
+      at: src/components/Drawer/Drawer.module.css:304
   values:
     '--border-radius-24':
       light: null
@@ -669,6 +695,12 @@ tokens:
       light: null
       chip: null
     '--motion-easing-standard':
+      light: null
+      chip: null
+    '--shadow-md':
+      light: null
+      chip: null
+    '--shadow-md-up':
       light: null
       chip: null
     '--shadow-soft':
@@ -738,7 +770,7 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/Drawer/Drawer.module.css:42
+      at: src/components/Drawer/Drawer.module.css:46
     - selector: .drawer[open]::backdrop
       state: rest
       declaration: 'animation: scrimIn var(--motion-duration-250) var(--motion-easing-standard) both'
@@ -750,7 +782,7 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/Drawer/Drawer.module.css:82
+      at: src/components/Drawer/Drawer.module.css:86
     - selector: .drawer[data-closing]
       state: '[data-closing]'
       declaration: 'animation: drawerOutLeft var(--motion-duration-200) var(--motion-easing-standard) both'
@@ -762,7 +794,7 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/Drawer/Drawer.module.css:88
+      at: src/components/Drawer/Drawer.module.css:92
     - selector: .drawer[data-closing]::backdrop
       state: '[data-closing]'
       declaration: 'animation: scrimOut var(--motion-duration-200) var(--motion-easing-standard) both'
@@ -774,7 +806,7 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/Drawer/Drawer.module.css:97
+      at: src/components/Drawer/Drawer.module.css:101
     - selector: .drawer[data-side='bottom'][open]
       state: '[data-side=''bottom'']'
       declaration: 'transition: transform var(--motion-duration-450) var(--motion-easing-out)'
@@ -786,37 +818,37 @@ motion:
       easings:
         - token: '--motion-easing-out'
           value: null
-      at: src/components/Drawer/Drawer.module.css:266
+      at: src/components/Drawer/Drawer.module.css:290
   reducedMotion:
     selector: .drawer[open]::backdrop, .drawer[data-closing], .drawer[data-closing]::backdrop
     declaration: 'animation: none'
-    at: src/components/Drawer/Drawer.module.css:295
+    at: src/components/Drawer/Drawer.module.css:319
   reducedMotionQuery: true
 a11y:
   element:
     tag: span
-    at: src/components/Drawer/Drawer.tsx:160
+    at: src/components/Drawer/Drawer.tsx:173
   role:
     value: region
     source: role attribute
-    at: src/components/Drawer/Drawer.tsx:160
+    at: src/components/Drawer/Drawer.tsx:173
   nameSource:
     value: visible content
-    at: src/components/Drawer/Drawer.tsx:160
+    at: src/components/Drawer/Drawer.tsx:173
   keyboard:
     - key: Escape
       source: handler in the .tsx
-      at: src/components/Drawer/Drawer.tsx:133
+      at: src/components/Drawer/Drawer.tsx:144
   aria:
     - attribute: aria-labelledby
       value: titleId
-      at: src/components/Drawer/Drawer.tsx:145
+      at: src/components/Drawer/Drawer.tsx:156
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Drawer/Drawer.tsx:160
+      at: src/components/Drawer/Drawer.tsx:173
     - attribute: aria-label
       value: '`${label'
-      at: src/components/Drawer/Drawer.tsx:177
+      at: src/components/Drawer/Drawer.tsx:190
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -825,7 +857,7 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/Drawer/Drawer.module.css:180
+      at: src/components/Drawer/Drawer.module.css:202
     - property: outline-offset
       value: calc((var(--focus-ring-width) + var(--focus-ring-offset)) * -1)
       tokens:
@@ -833,14 +865,14 @@ a11y:
           value: null
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/Drawer/Drawer.module.css:181
+      at: src/components/Drawer/Drawer.module.css:203
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .drawer[open]::backdrop, .drawer[data-closing], .drawer[data-closing]::backdrop
     declaration: 'animation: none'
-    at: src/components/Drawer/Drawer.module.css:295
+    at: src/components/Drawer/Drawer.module.css:319
   contract: >-
     Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is
     inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that
@@ -852,13 +884,13 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/Drawer/Drawer.tsx:145
+      at: src/components/Drawer/Drawer.tsx:156
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/Drawer/Drawer.tsx:160
+      at: src/components/Drawer/Drawer.tsx:173
     - kind: ARIA
       value: aria-label
-      at: src/components/Drawer/Drawer.tsx:177
+      at: src/components/Drawer/Drawer.tsx:190
 contrast:
   pairs: []
   derived: []
@@ -947,6 +979,9 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-layout-drawer--docs
 mismatch:
+  - field: shadow while scrolled
+    code: head shadow/md and footer shadow/md-up while content is under them; head 16 below (23 Nov 2026, her pick A)
+    figma: not drawn yet; shadow/md-up is a new effect style to add in Figma
   - field: props.footerNote
     code: footerNote, helper text at the left of the footer row (23 Nov 2026)
     figma: not drawn yet; the Figma Footer holds actions only (add a Note text layer after Tue 24 Nov)

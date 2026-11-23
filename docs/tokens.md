@@ -8,6 +8,7 @@ Built by `tokens/build.mjs` from the Figma Foundations export. Do not edit. Valu
 |---|---|---|
 | `--shadow-sm` | `0px 1px 2px 0px #1d20300d` | Shadow sm, from the Figma effect style shadow/sm; the same in every theme. |
 | `--shadow-md` | `0px 4px 12px 0px #1d20301a` | Shadow md, from the Figma effect style shadow/md; the same in every theme. |
+| `--shadow-md-up` | `0px -4px 12px 0px #1d20301a` | Shadow md pointing up: shadow/md cast above an element, for a drawer's footer while content scrolls under it (23 Nov 2026, her pick A); the same in every theme. |
 | `--shadow-lg` | `0px 12px 32px 0px #1d20301a` | Shadow lg, from the Figma effect style shadow/lg; the same in every theme. |
 | `--shadow-hover` | `0px 8px 24px 0px #1d20301a` | Shadow hover, from the Figma effect style shadow/hover; the same in every theme. |
 | `--shadow-soft` | `0px 1px 2px 0px #1d20300d, 0px 10px 30px 0px #1d20300d, 0px 24px 60px 0px #1d20300d` | Shadow soft, from the Figma effect style shadow/soft; the same in every theme. |

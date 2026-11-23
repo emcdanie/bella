@@ -227,6 +227,22 @@ const pinned = async () => {
   await expect(dialog.scrollHeight).toBeLessThanOrEqual(dialog.clientHeight + 1);
   await expect(Math.abs(footer.getBoundingClientRect().bottom - dialog.getBoundingClientRect().bottom)).toBeLessThan(1.5);
 };
+/** Her pick A (23 Nov 2026): scrolled halfway, the head casts shadow/md over the content and the footer casts
+ *  shadow/md-up; at the top, the head has no shadow. */
+export const EdgesWhileScrolled: Story = {
+  render: () => <PinnedFooter rows={60} />,
+  play: async () => {
+    const dialog = document.querySelector('dialog[open]') as HTMLDialogElement;
+    const body = dialog.querySelector(':scope > [role="region"]') as HTMLElement;
+    const head = dialog.firstElementChild as HTMLElement;
+    const footer = body.nextElementSibling as HTMLElement;
+    await waitFor(() => expect(getComputedStyle(footer).boxShadow).not.toBe('none'));
+    await expect(getComputedStyle(head).boxShadow).toBe('none');
+    body.scrollTop = (body.scrollHeight - body.clientHeight) / 2;
+    body.dispatchEvent(new Event('scroll'));
+    await waitFor(() => expect(getComputedStyle(head).boxShadow).not.toBe('none'));
+  },
+};
 export const FooterPinnedShort: Story = { render: () => <PinnedFooter rows={3} />, play: pinned };
 export const FooterPinnedLong: Story = { render: () => <PinnedFooter rows={60} />, play: pinned };
 

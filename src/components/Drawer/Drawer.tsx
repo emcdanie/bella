@@ -63,6 +63,8 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
   /* the body is a tab stop only while it scrolls, in every browser */
   const bodyRef = useRef<HTMLDivElement>(null);
   const [scrolls, setScrolls] = useState(false);
+  // content scrolled under the head (above) or under the footer (below): each edge shows its shadow only then
+  const [under, setUnder] = useState({ head: false, foot: false });
   // content renders only while open: a closed drawer holds no hidden controls
   const [shown, setShown] = useState(false);
 
@@ -112,12 +114,21 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
   useLayoutEffect(() => {
     const body = bodyRef.current;
     if (!shown || !body) return;
-    const measure = () => setScrolls(body.scrollHeight > body.clientHeight + 1);
+    const measure = () => {
+      setScrolls(body.scrollHeight > body.clientHeight + 1);
+      const head = body.scrollTop > 0;
+      const foot = body.scrollTop + body.clientHeight < body.scrollHeight - 1;
+      setUnder((u) => (u.head === head && u.foot === foot ? u : { head, foot }));
+    };
     measure();
+    body.addEventListener('scroll', measure, { passive: true });
     const ro = new ResizeObserver(measure);
     ro.observe(body);
     Array.from(body.children).forEach((c) => ro.observe(c));
-    return () => ro.disconnect();
+    return () => {
+      ro.disconnect();
+      body.removeEventListener('scroll', measure);
+    };
   }, [shown, children]);
 
   // the scrim is the dialog's own box outside the panel's content
@@ -146,6 +157,8 @@ export default function Drawer({ open, onClose, label, side = 'left', size = 'sm
       tabIndex={-1}
       data-side={side}
       data-size={size}
+      data-under-head={under.head ? 'true' : undefined}
+      data-under-foot={under.foot ? 'true' : undefined}
       onClick={onClick}
       onCancel={(e) => {
         e.preventDefault();

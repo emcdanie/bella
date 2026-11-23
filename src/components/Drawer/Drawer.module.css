@@ -127,7 +127,22 @@
   gap: var(--spacing-12);
   /* no padding under the head: the body's own 24 is the one gap between
      the title and the first group (rule 10; it measured 48) */
-  padding: var(--spacing-24) var(--spacing-24) 0;
+  /* 16 under the title block (23 Nov 2026, her pick A): scrolled content stops 16 short of the status line instead
+     of running up to it; the body's top padding is 8, so the gap at rest stays 24 */
+  padding: var(--spacing-24) var(--spacing-24) var(--spacing-16);
+  position: relative;
+  z-index: 1;
+}
+
+/* her pick A (23 Nov 2026): while content is scrolled under the head, the head casts shadow/md over it; while content
+   continues under the footer, the footer casts shadow/md-up and its hairline gives way to the shadow. At rest, none. */
+.drawer[data-under-head] .head {
+  box-shadow: var(--shadow-md);
+}
+
+.drawer[data-under-foot] .footer {
+  box-shadow: var(--shadow-md-up);
+  border-block-start-color: transparent;
 }
 
 /* the 44 Close centred on the title's first line box (20 on a 28 line) */
@@ -176,9 +191,9 @@
   position: relative;
   /* Figma Body (21 Nov publish): spacing/8 at the sides, so the rows' own
      16 inset (NavList, Project panel) lands on the title's 24 edge: one
-     left edge at 24. Top 24 is the one gap under the head (Figma Head 24
-     below, Body 0 above), 24 under the last row. */
-  padding: var(--spacing-24) var(--spacing-8);
+     left edge at 24. The gap under the head is still 24 at rest: the head's own 16
+     below (her pick A, 23 Nov 2026) and the body's 8 above; 24 under the last row. */
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-24);
 }
 
 /* A scrolling body takes focus (Chrome makes it a tab stop): BELLA's ring,
@@ -210,6 +225,8 @@
 }
 
 .footer {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;

@@ -58,11 +58,13 @@
 /* Lifts when picked up (rule "Motion that shows what happened", item 2,
    21 Nov): the shadow deepens and the card grows a step, on
    motion/duration/200 and motion/easing/out, and settles back when dropped.
-   Reduced motion: the lifted look at once. */
+   Reduced motion: the lifted look at once. The hover wash fades in on motion/duration/150 and
+   motion/easing/standard, as every other hover in BELLA does (interaction study, 23 Nov: it snapped). */
 .card {
   transition:
     box-shadow var(--motion-duration-200) var(--motion-easing-out),
-    scale var(--motion-duration-200) var(--motion-easing-out);
+    scale var(--motion-duration-200) var(--motion-easing-out),
+    background-color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .dragging {

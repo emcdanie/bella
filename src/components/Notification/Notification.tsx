@@ -93,7 +93,7 @@ export default function Notification({
           .join(" ")}
       >
         {showIcon ? (
-          <span className={styles.iconColumn} aria-hidden="true">
+          <span className={[styles.iconColumn, title != null ? styles.iconColumnTitled : ""].filter(Boolean).join(" ")} aria-hidden="true">
             <span className={styles.iconSlot}>
               <Icon name={icon ?? DEFAULT_ICON[tone]} size="md" />
             </span>

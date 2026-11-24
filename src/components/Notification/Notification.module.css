@@ -52,22 +52,27 @@
 }
 
 /* Figma Icon column (21 Nov publish): 4 on top and a 24 slot, so the 20
-   outline circle sits on the 30 title line; its stroke in the tone's edge
+   outline circle sits on the centre of the first line; its stroke in the tone's edge
    colour (color/border/utility/<tone>, 3:1 or more on the fill) */
 .iconColumn {
   grid-area: icon;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  padding-block-start: var(--spacing-4);
   color: var(--notification-edge);
 }
 
+/* The icon sits on the centre of the first line of text: the slot is that line's height, 24 for a message, 28 for a
+   title (24 Nov: the icon sat 4 below a message's line and 2 below a title's, after the title moved to a 28 line) */
 .iconSlot {
   display: flex;
   align-items: center;
   justify-content: center;
-  block-size: var(--spacing-24);
+  block-size: var(--typography-line-height-px-24);
+}
+
+.iconColumnTitled .iconSlot {
+  block-size: var(--size-28);
 }
 
 /* Beside a leading icon, the texts share one left edge (rule 20) */

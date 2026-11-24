@@ -383,6 +383,7 @@ export const CompactStacked: Story = {
           { part: 'AddressBar', state: 'Spec, no code', from: 'Its spec file' },
           { part: 'CommentThread', state: 'Spec, no code', from: 'Its spec file' },
           { part: 'Carousel', state: 'Not in BELLA', from: "BELLA's AGENTS.md" },
+          { part: 'Spec', state: 'One line under specs/components/<Name>.spec.yaml, with specs/catalog.json', from: 'A plan step' },
         ]}
       />
     </div>
@@ -393,6 +394,8 @@ export const CompactStacked: Story = {
     const first = rows[1].children[0].getBoundingClientRect();
     const state = rows[1].children[1].getBoundingClientRect();
     await expect(state.top).toBeGreaterThanOrEqual(first.bottom - 0.5);
+    // a long path under the name breaks inside the cell, never past it
+    for (const td of canvasElement.querySelectorAll('tbody td')) await expect(td.scrollWidth).toBeLessThanOrEqual(td.clientWidth + 1);
     // each row's last line ends inside the row
     for (const r of rows) {
       const last = r.lastElementChild!.getBoundingClientRect();

@@ -40,6 +40,12 @@ export const Diff: Story = {
     language: 'diff',
     code: ' "page-outline": {\n-  "line-current": "{color.semantic.text-primary}"\n+  "line-current": "{color.chip-ui.action-deep}"\n }',
   },
+  // every line is in BELLA's code face, never the browser's own monospace for <code> (24 Nov 2026)
+  play: async ({ canvasElement }) => {
+    const pre = canvasElement.querySelector('pre') as HTMLElement;
+    const line = canvasElement.querySelector('pre code') as HTMLElement;
+    await expect(getComputedStyle(line).fontFamily).toBe(getComputedStyle(pre).fontFamily);
+  },
 };
 
 /** A long line wraps instead of scrolling sideways. */

@@ -186,3 +186,24 @@ export const SearchNoResults: Story = {
     });
   },
 };
+
+/** labelPosition="inline": the label left of the field in the body text, as Select draws it, so the two sit in one row
+ *  as one pattern (Playground Pages, 24 Nov 2026). */
+export const LabelInline: Story = {
+  render: () => {
+    const [v, setV] = useState('');
+    return (
+      <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-16)' }}>
+        <Combobox label="Show" labelPosition="inline" search value={v} onChange={setV} groups={[{ id: 'parts', label: 'Parts', options: [{ id: 'b', label: 'Button' }] }]} placeholder="Find a part or a page" onSelect={() => {}} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const input = canvasElement.querySelector('input') as HTMLElement;
+    const label = canvasElement.querySelector('label') as HTMLElement;
+    const f = input.closest('[class*="field"]')!.getBoundingClientRect();
+    const l = label.getBoundingClientRect();
+    await expect(Math.round(f.left - l.right)).toBe(12);
+    await expect(getComputedStyle(label).fontSize).toBe('16px');
+  },
+};

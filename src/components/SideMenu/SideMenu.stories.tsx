@@ -136,13 +136,13 @@ export const WithSearch: Story = {
       await expect(Math.round(r(home).top - r(landmark).bottom)).toBe(16);
     });
 
-    await step('field and button are 44 targets, 4 apart, and span the rows (12 in from each side)', async () => {
+    await step('field and button are 44 targets, 12 apart (room for the field focus ring), and span the rows (12 in from each side)', async () => {
       await expect(Math.round(r(box).height)).toBe(44);
       await expect(Math.round(r(filter).height)).toBeGreaterThanOrEqual(44);
       await expect(Math.round(r(filter).width)).toBeGreaterThanOrEqual(44);
       await expect(Math.round(r(box).left)).toBe(Math.round(r(home).left));
       await expect(Math.round(r(filter).right)).toBe(Math.round(r(home).right));
-      await expect(Math.round(r(filter).left - r(box).right)).toBe(4);
+      await expect(Math.round(r(filter).left - r(box).right)).toBe(12);
       await expect(Math.round(r(menu).width)).toBe(232);
     });
 

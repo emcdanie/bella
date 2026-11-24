@@ -64,6 +64,12 @@
   overflow-wrap: anywhere;
 }
 
+/* the browser gives <code> its own monospace, which would undo Geist Mono on every line (24 Nov 2026, her look at a
+   run's "Show the change": the diff read in a different font) */
+.pre code {
+  font: inherit;
+}
+
 .line {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);

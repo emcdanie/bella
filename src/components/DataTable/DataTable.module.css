@@ -268,6 +268,14 @@
     justify-content: flex-start;
   }
 
+  /* a line under the name may hold a long path or code word ("specs/components/<Name>.spec.yaml"): it breaks inside
+     the word rather than running past the cell at 320 (24 Nov 2026, CHIP's audit plan table) */
+  .root[data-stack] tbody tr > td.under [class],
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) [class] {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
   .root[data-stack] tbody tr > td.under .stackLabel {
     position: static;
     inline-size: auto;

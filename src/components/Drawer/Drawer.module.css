@@ -138,11 +138,15 @@
    continues under the footer, the footer casts shadow/md-up and its hairline gives way to the shadow. At rest, none. */
 .drawer[data-under-head] .head {
   box-shadow: var(--shadow-md);
+  /* the shadow falls only onto the content below; at the drawer's sides it would be cut by the panel's edge */
+  clip-path: inset(0 0 calc(var(--spacing-24) * -1) 0);
 }
 
 .drawer[data-under-foot] .footer {
   box-shadow: var(--shadow-md-up);
   border-block-start-color: transparent;
+  /* only upward, onto the content above; never past the panel's sides or bottom */
+  clip-path: inset(calc(var(--spacing-24) * -1) 0 0 0);
 }
 
 /* the 44 Close centred on the title's first line box (20 on a 28 line) */

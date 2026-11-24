@@ -1,6 +1,6 @@
 /* MapLeaf (23 Nov 2026, Processes mind map). Tokens only. Bare text on a branch end: no box until hover
- * or pick. 44 tall, padding 6 / 10, corner 12. Name Lexend 500 16; the state row is the shape (14,
- * ink edge, a wash fill) then the word in subtle ink, then an optional measured line in plain text. selected = MapNode's: background/brand-subtle and the 2px brand edge; related = a 1px brand
+ * or pick. 44 tall, padding 6 / 10, corner 12. Name Lexend 500 16; the state row is the status dot and its word (her review, 24 Nov: one status mark),
+ * then an optional measured line in plain text. selected = MapNode's: background/brand-subtle and the 2px brand edge; related = a 1px brand
  * edge. Focus ring as MapNode. */
 
 .leaf {
@@ -56,31 +56,8 @@
   color: var(--color-content-subtle);
 }
 
-.shape {
-  flex: none;
-  margin-block-start: var(--spacing-4);
-  stroke: var(--color-border-ink);
-  stroke-width: calc(var(--border-width-1) * 1.5);
-}
-
-.shape path:not([class]) {
-  fill: none;
-}
-
-.ok { fill: var(--color-background-utility-success-knockout); }
-.attention { fill: var(--color-background-wash-yellow-strong); }
-.failed { fill: var(--color-background-wash-red-strong); }
-.blocked { fill: var(--color-background-wash-grey-strong); }
-.unmeasured { fill: var(--color-background-surface); }
-
-
 @media (prefers-reduced-motion: reduce) {
   .leaf {
     transition: none;
-  }
-}
-@media (forced-colors: active) {
-  .shape {
-    stroke: CanvasText;
   }
 }

@@ -13688,7 +13688,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: A button with aria-pressed. State is a shape (ticked circle, triangle, diamond, minus square, dashed circle) plus its word, never colour alone; the shape is decorative. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.
+          note: A button with aria-pressed. State is BELLA's status dot plus its word, never colour alone; the dot is decorative and the word is read. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.
       tags:
         - component
         - map-leaf
@@ -14347,7 +14347,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular."
+          note: "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) says which marks are lit; the others step back a little and stay readable."
       tags:
         - component
         - gap-chart
@@ -14388,6 +14388,7 @@ entries:
           - default
           - why-open
           - no-base
+          - highlighted
   - kind: component
     id: share-bars
     name: ShareBars
@@ -14399,7 +14400,7 @@ entries:
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
       reviewed:
         - by: human:elleta
-          note: "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular."
+          note: "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) names the lit rows; the others step back a little and stay readable."
       tags:
         - component
         - share-bars
@@ -14438,6 +14439,60 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+          - highlighted
+  - kind: component
+    id: score-tile
+    name: ScoreTile
+    description: "One score in a tile: the label above, the number centred in the number face, a light tint by its tone (neutral the base, success ahead, attention behind, danger failing) and the state word with BELLA's status dot. Tiles in a row share their size. With onSelect it is a toggle: selected draws the 2px brand edge."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - by: human:elleta
+          note: With onSelect the tile is one button named by its text, aria-pressed for selected, BELLA's focus ring; without it plain text. The word is the status dot's label, so colour is never the only cue. Text 7:1 on every tint, number tabular.
+      tags:
+        - component
+        - score-tile
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "CHIP Audit reports: the benchmark's four scores, two by two (24 Nov 2026); picking one highlights it in the charts below"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Not a status by colour alone: the word carries the meaning"
+          - level: must-not
+            statement: Not a summary card with a chart (StatCard)
+          - level: must-not
+            statement: "Not navigation: a tile toggles in place"
+    refs:
+      - href: ./src/components/ScoreTile/ScoreTile.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/ScoreTile/ScoreTile.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+          - selected
+          - hover
+          - focus
   - kind: entry
     id: foundation-color
     name: Colour

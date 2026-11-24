@@ -15,24 +15,22 @@ props:
     type: string
     required: true
     doc: The step's name ("Tokens").
-    at: src/components/MapLeaf/MapLeaf.tsx:8
+    at: src/components/MapLeaf/MapLeaf.tsx:9
   - name: state
     type: MapLeafState
     required: true
-    doc: >-
-      Its state. One shape each, so colour is never the only cue: ok a ticked circle, attention a triangle, failed a diamond, blocked a
-      minus square, unmeasured a dashed circle.
-    at: src/components/MapLeaf/MapLeaf.tsx:10
+    doc: Its state, drawn as BELLA's status dot in its tone; the word (`status`) is the cue that never relies on colour.
+    at: src/components/MapLeaf/MapLeaf.tsx:11
   - name: status
     type: string
     required: true
     doc: The word beside the shape ("Healthy", "Needs you"). Always shown.
-    at: src/components/MapLeaf/MapLeaf.tsx:12
+    at: src/components/MapLeaf/MapLeaf.tsx:13
   - name: detail
     type: string
     required: false
     doc: An optional measured line after the word ("407 CSS variables"), in plain text.
-    at: src/components/MapLeaf/MapLeaf.tsx:14
+    at: src/components/MapLeaf/MapLeaf.tsx:15
   - name: selected
     type: boolean
     values:
@@ -41,7 +39,7 @@ props:
     default: false
     required: false
     doc: 'The picked step: the light-blue fill and the 2px brand edge, as MapNode. Sets aria-pressed.'
-    at: src/components/MapLeaf/MapLeaf.tsx:16
+    at: src/components/MapLeaf/MapLeaf.tsx:17
   - name: related
     type: boolean
     values:
@@ -50,20 +48,20 @@ props:
     default: false
     required: false
     doc: 'A step the picked one is linked to: a 1px brand edge.'
-    at: src/components/MapLeaf/MapLeaf.tsx:18
+    at: src/components/MapLeaf/MapLeaf.tsx:19
   - name: onSelect
     type: () => void
     required: false
     doc: Selecting the step (a click, Enter or Space).
-    at: src/components/MapLeaf/MapLeaf.tsx:20
+    at: src/components/MapLeaf/MapLeaf.tsx:21
   - name: className
     type: string
     required: false
-    at: src/components/MapLeaf/MapLeaf.tsx:21
+    at: src/components/MapLeaf/MapLeaf.tsx:22
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/MapLeaf/MapLeaf.tsx:22
+    at: src/components/MapLeaf/MapLeaf.tsx:23
 variants: {}
 states:
   contract:
@@ -251,54 +249,6 @@ tokens:
       token: '--color-content-subtle'
       selector: .state
       at: src/components/MapLeaf/MapLeaf.module.css:56
-    - part: shape
-      state: rest
-      property: margin-block-start
-      token: '--spacing-4'
-      selector: .shape
-      at: src/components/MapLeaf/MapLeaf.module.css:61
-    - part: shape
-      state: rest
-      property: stroke
-      token: '--color-border-ink'
-      selector: .shape
-      at: src/components/MapLeaf/MapLeaf.module.css:62
-    - part: shape
-      state: rest
-      property: stroke-width
-      token: '--border-width-1'
-      selector: .shape
-      at: src/components/MapLeaf/MapLeaf.module.css:63
-    - part: ok
-      state: rest
-      property: fill
-      token: '--color-background-utility-success-knockout'
-      selector: .ok
-      at: src/components/MapLeaf/MapLeaf.module.css:70
-    - part: attention
-      state: rest
-      property: fill
-      token: '--color-background-wash-yellow-strong'
-      selector: .attention
-      at: src/components/MapLeaf/MapLeaf.module.css:71
-    - part: failed
-      state: rest
-      property: fill
-      token: '--color-background-wash-red-strong'
-      selector: .failed
-      at: src/components/MapLeaf/MapLeaf.module.css:72
-    - part: blocked
-      state: rest
-      property: fill
-      token: '--color-background-wash-grey-strong'
-      selector: .blocked
-      at: src/components/MapLeaf/MapLeaf.module.css:73
-    - part: unmeasured
-      state: rest
-      property: fill
-      token: '--color-background-surface'
-      selector: .unmeasured
-      at: src/components/MapLeaf/MapLeaf.module.css:74
   values:
     '--border-radius-12':
       light: null
@@ -312,28 +262,10 @@ tokens:
     '--color-background-brand-subtle':
       light: null
       chip: null
-    '--color-background-surface':
-      light: null
-      chip: null
-    '--color-background-utility-success-knockout':
-      light: null
-      chip: null
-    '--color-background-wash-grey-strong':
-      light: null
-      chip: null
-    '--color-background-wash-red-strong':
-      light: null
-      chip: null
-    '--color-background-wash-yellow-strong':
-      light: null
-      chip: null
     '--color-border-brand':
       light: null
       chip: null
     '--color-border-focus':
-      light: null
-      chip: null
-    '--color-border-ink':
       light: null
       chip: null
     '--color-content-default':
@@ -392,39 +324,33 @@ motion:
   reducedMotion:
     selector: .leaf
     declaration: 'transition: none'
-    at: src/components/MapLeaf/MapLeaf.module.css:79
+    at: src/components/MapLeaf/MapLeaf.module.css:61
   reducedMotionQuery: true
 a11y:
   element:
     tag: button
-    at: src/components/MapLeaf/MapLeaf.tsx:55
+    at: src/components/MapLeaf/MapLeaf.tsx:43
   role:
-    value: img
-    source: role attribute
-    at: src/components/MapLeaf/MapLeaf.tsx:55
+    value: button
+    source: native element
+    at: src/components/MapLeaf/MapLeaf.tsx:43
   nameSource:
     value: visible content
-    at: src/components/MapLeaf/MapLeaf.tsx:55
+    at: src/components/MapLeaf/MapLeaf.tsx:43
   keyboard:
     - key: Enter activates
       source: native element
-      at: src/components/MapLeaf/MapLeaf.tsx:55
+      at: src/components/MapLeaf/MapLeaf.tsx:43
     - key: Space activates
       source: native element
-      at: src/components/MapLeaf/MapLeaf.tsx:55
+      at: src/components/MapLeaf/MapLeaf.tsx:43
   aria:
     - attribute: aria-pressed
       value: selected
-      at: src/components/MapLeaf/MapLeaf.tsx:59
-    - attribute: aria-label
-      value: status
-      at: src/components/MapLeaf/MapLeaf.tsx:66
+      at: src/components/MapLeaf/MapLeaf.tsx:47
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/MapLeaf/MapLeaf.tsx:71
-    - attribute: aria-hidden
-      value: 'true'
-      at: src/components/MapLeaf/MapLeaf.tsx:72
+      at: src/components/MapLeaf/MapLeaf.tsx:57
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -446,27 +372,23 @@ a11y:
   reducedMotion:
     selector: .leaf
     declaration: 'transition: none'
-    at: src/components/MapLeaf/MapLeaf.module.css:79
+    at: src/components/MapLeaf/MapLeaf.module.css:61
   contract: >-
-    A button with aria-pressed. State is a shape (ticked circle, triangle, diamond, minus square, dashed circle) plus its word, never colour
-    alone; the shape is decorative. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.
+    A button with aria-pressed. State is BELLA's status dot plus its word, never colour
+    alone; the dot is decorative and the word is read. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-pressed
-      at: src/components/MapLeaf/MapLeaf.tsx:59
-    - kind: ARIA
-      value: aria-label
-      at: src/components/MapLeaf/MapLeaf.tsx:66
+      at: src/components/MapLeaf/MapLeaf.tsx:47
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/MapLeaf/MapLeaf.tsx:72
+      at: src/components/MapLeaf/MapLeaf.tsx:57
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    /private/tmp/claude-501/-Users-Elleta-DEV-chip/b37b5974-c805-48e4-9b4c-c0be6de8fbf4/scratchpad/mirror/src/components/MapLeaf/MapLeaf.stories.tsx
+  file: ~/DEV/bella-calm/src/components/MapLeaf/MapLeaf.stories.tsx
   lines: 23-23
   import: import MapLeaf from '@bella/components/MapLeaf/MapLeaf';
   importSource: the style the Button doc page uses (CHIP import path)

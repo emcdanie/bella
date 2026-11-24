@@ -94,3 +94,13 @@
 @media (forced-colors: active) {
   .bar { background: CanvasText; }
 }
+
+/* highlight (24 Nov 2026): picked rows keep full strength with the active glow on the bar; the rest step back a little
+   (bars only, text untouched), so nothing becomes unreadable. */
+.row[data-lit] .bar { transition: opacity var(--motion-duration-150) var(--motion-easing-standard); }
+.row[data-lit='off'] .bar { opacity: 0.45; }
+.row[data-lit='on'] .bar { box-shadow: 0 0 0 var(--spacing-2) var(--color-background-brand-subtle); }
+.srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .row[data-lit] .bar { transition: none; }
+}

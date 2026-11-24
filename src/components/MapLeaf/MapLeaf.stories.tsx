@@ -29,7 +29,7 @@ type Story = StoryObj<typeof MapLeaf>;
 
 export const Playground: Story = {};
 
-/** One shape and word per state, so colour is never the only cue. */
+/** One status dot and word per state (her review, 24 Nov: one status mark), so colour is never the only cue. */
 export const States: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-8)', inlineSize: '16rem', padding: 'var(--spacing-16)' }}>
@@ -41,8 +41,14 @@ export const States: Story = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const shapes = Array.from(canvasElement.querySelectorAll('[data-bella-component="map-leaf"] svg')).map((s) => s.innerHTML);
-    await expect(new Set(shapes).size).toBe(5);
+    const leaves = Array.from(canvasElement.querySelectorAll('[data-bella-component="map-leaf"]'));
+    // each step carries BELLA's status dot and no shape of its own
+    for (const l of leaves) {
+      await expect(l.querySelectorAll('[data-bella-component="status-dot"]').length).toBe(1);
+      await expect(l.querySelector('svg')).toBeNull();
+    }
+    const words = leaves.map((l) => l.querySelector('[data-bella-component="status-dot"]')?.textContent);
+    await expect(new Set(words).size).toBe(5);
     for (const b of Array.from(canvasElement.querySelectorAll('button'))) await expect(b.textContent?.length).toBeGreaterThan(8);
   },
 };

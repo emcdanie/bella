@@ -4560,7 +4560,7 @@
             "Not a boxed step (MapNode)",
             "Not a status on its own (StatusDot)"
           ],
-          "a11y": "A button with aria-pressed. State is a shape (ticked circle, triangle, diamond, minus square, dashed circle) plus its word, never colour alone; the shape is decorative. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.",
+          "a11y": "A button with aria-pressed. State is BELLA's status dot plus its word, never colour alone; the dot is decorative and the word is read. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.",
           "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
         }
       }
@@ -4988,7 +4988,8 @@
           "states": [
             "default",
             "why-open",
-            "no-base"
+            "no-base",
+            "highlighted"
           ],
           "props": [
             "rows",
@@ -4996,6 +4997,7 @@
             "baseLabel",
             "valueLabel",
             "max",
+            "highlight",
             "className",
             "style"
           ],
@@ -5007,7 +5009,7 @@
             "Not a share of a total from a middle zero (ShareBars)",
             "Never colour alone: the gap number and the Tag word carry the meaning"
           ],
-          "a11y": "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular.",
+          "a11y": "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) says which marks are lit; the others step back a little and stay readable.",
           "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
         }
       }
@@ -5019,12 +5021,14 @@
           "category": "Data",
           "description": "How much each item adds to or takes from a total, from a middle zero: one row per item, a dashed 2 wide zero line at the middle, a round-ended bar growing left for a negative share and right for a positive one (length is the share over max, half the track at max; at least 1% when not zero; none at zero), the name with a meta line under it, and the signed share in the number face at the row end (real minus sign). One line per row in a container 760 wide or more, stacked below (container query). Tones success, danger; neutral is grey for no real change. A table of the same data sits behind a Disclosure.",
           "states": [
-            "default"
+            "default",
+            "highlighted"
           ],
           "props": [
             "rows",
             "label",
             "max",
+            "highlight",
             "className",
             "style"
           ],
@@ -5036,8 +5040,44 @@
             "Not two scores per item (GapChart)",
             "Never a pie or a stacked bar for parts of a change"
           ],
-          "a11y": "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular.",
+          "a11y": "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) names the lit rows; the others step back a little and stay readable.",
           "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "score-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "ScoreTile",
+          "category": "Data",
+          "description": "One score in a tile: the label above, the number centred in the number face, a light tint by its tone (neutral the base, success ahead, attention behind, danger failing) and the state word with BELLA's status dot. Tiles in a row share their size. With onSelect it is a toggle: selected draws the 2px brand edge.",
+          "states": [
+            "default",
+            "selected",
+            "hover",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "value",
+            "unit",
+            "tone",
+            "word",
+            "selected",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: the benchmark's four scores, two by two (24 Nov 2026); picking one highlights it in the charts below"
+          ],
+          "dont": [
+            "Not a status by colour alone: the word carries the meaning",
+            "Not a summary card with a chart (StatCard)",
+            "Not navigation: a tile toggles in place"
+          ],
+          "a11y": "With onSelect the tile is one button named by its text, aria-pressed for selected, BELLA's focus ring; without it plain text. The word is the status dot's label, so colour is never the only cue. Text 7:1 on every tint, number tabular.",
+          "figma": "Not drawn in Figma yet: built in code first on 24 Nov 2026 for the demo, from her note on the benchmark scores; Figma follows after Tuesday."
         }
       }
     }

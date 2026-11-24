@@ -27,23 +27,35 @@ props:
     required: false
     doc: 'Half the scale: a share of this size fills one side of the track.'
     at: src/components/ShareBars/ShareBars.tsx:25
+  - name: highlight
+    type: string[] | null
+    default: 'null'
+    required: false
+    doc: >-
+      Row ids to bring forward (24 Nov 2026, a score tile picked above the chart): the other rows dim a little, never to unreadable; a
+      status line names them. Missing or empty = none.
+    at: src/components/ShareBars/ShareBars.tsx:27
   - name: className
     type: string
     required: false
-    at: src/components/ShareBars/ShareBars.tsx:26
+    at: src/components/ShareBars/ShareBars.tsx:28
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/ShareBars/ShareBars.tsx:27
+    at: src/components/ShareBars/ShareBars.tsx:29
 variants: {}
 states:
   contract:
     - default
+    - highlighted
   css:
     - '[data-tone=''success'']'
     - '[data-tone=''danger'']'
     - '[data-side=''right'']'
     - '[data-side=''left'']'
+    - '[data-lit]'
+    - '[data-lit=''off'']'
+    - '[data-lit=''on'']'
 sizes: []
 anatomy:
   scaleWidth: 480
@@ -286,6 +298,30 @@ tokens:
       token: '--spacing-48'
       selector: .grid
       at: src/components/ShareBars/ShareBars.module.css:88
+    - part: bar
+      state: '[data-lit]'
+      property: transition
+      token: '--motion-duration-150'
+      selector: .row[data-lit] .bar
+      at: src/components/ShareBars/ShareBars.module.css:100
+    - part: bar
+      state: '[data-lit]'
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .row[data-lit] .bar
+      at: src/components/ShareBars/ShareBars.module.css:100
+    - part: bar
+      state: '[data-lit=''on'']'
+      property: box-shadow
+      token: '--spacing-2'
+      selector: .row[data-lit='on'] .bar
+      at: src/components/ShareBars/ShareBars.module.css:102
+    - part: bar
+      state: '[data-lit=''on'']'
+      property: box-shadow
+      token: '--color-background-brand-subtle'
+      selector: .row[data-lit='on'] .bar
+      at: src/components/ShareBars/ShareBars.module.css:102
   values:
     '--border-radius-round':
       light: null
@@ -294,6 +330,9 @@ tokens:
       light: null
       chip: null
     '--border-width-2':
+      light: null
+      chip: null
+    '--color-background-brand-subtle':
       light: null
       chip: null
     '--color-border-default':
@@ -326,6 +365,12 @@ tokens:
     '--ink':
       light: null
       chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
     '--size-20':
       light: null
       chip: null
@@ -336,6 +381,9 @@ tokens:
       light: null
       chip: null
     '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-2':
       light: null
       chip: null
     '--spacing-24':
@@ -384,50 +432,72 @@ tokens:
       light: null
       chip: null
 motion:
-  transitions: []
-  reducedMotion: null
-  reducedMotionQuery: false
+  transitions:
+    - selector: .row[data-lit] .bar
+      state: '[data-lit]'
+      declaration: 'transition: opacity var(--motion-duration-150) var(--motion-easing-standard)'
+      properties:
+        - opacity
+      durations:
+        - token: '--motion-duration-150'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/ShareBars/ShareBars.module.css:100
+  reducedMotion:
+    selector: .row[data-lit] .bar
+    declaration: 'transition: none'
+    at: src/components/ShareBars/ShareBars.module.css:105
+  reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/ShareBars/ShareBars.tsx:51
+    at: src/components/ShareBars/ShareBars.tsx:54
   role:
     value: group
     source: role attribute
-    at: src/components/ShareBars/ShareBars.tsx:51
+    at: src/components/ShareBars/ShareBars.tsx:54
   nameSource:
     value: aria-label from the label prop (required)
-    at: src/components/ShareBars/ShareBars.tsx:51
+    at: src/components/ShareBars/ShareBars.tsx:54
   keyboard: []
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/ShareBars/ShareBars.tsx:51
+      at: src/components/ShareBars/ShareBars.tsx:54
     - attribute: aria-label
       value: '`${r.name'
-      at: src/components/ShareBars/ShareBars.tsx:62
+      at: src/components/ShareBars/ShareBars.tsx:68
   focusRing: []
   disabled:
     prop: null
     note: no disabled prop
-  reducedMotion: null
+  reducedMotion:
+    selector: .row[data-lit] .bar
+    declaration: 'transition: none'
+    at: src/components/ShareBars/ShareBars.module.css:105
   contract: >-
     A group named by label. Each track is role=img named with the item, the signed share and its detail ("Real parts: −5.0, 100 to 80, 25%
     of the score"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text
-    7:1, numbers tabular.
+    7:1, numbers tabular. With highlight set, a status line (visually hidden) names the lit rows; the others step back a little and stay
+    readable.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/ShareBars/ShareBars.tsx:62
+      at: src/components/ShareBars/ShareBars.tsx:68
     - kind: ARIA
       value: role=group
-      at: src/components/ShareBars/ShareBars.tsx:51
+      at: src/components/ShareBars/ShareBars.tsx:54
+    - kind: ARIA
+      value: role=status
+      at: src/components/ShareBars/ShareBars.tsx:55
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-audit-charts/src/components/ShareBars/ShareBars.stories.tsx
+  file: ~/DEV/bella-calm/src/components/ShareBars/ShareBars.stories.tsx
   lines: 33-33
   import: import ShareBars from '@bella/components/ShareBars/ShareBars';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -448,8 +518,6 @@ mismatch:
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ShareBars/ShareBars.tsx
-  - section: Behaviour and motion
-    why: no transition or animation in src/components/ShareBars/ShareBars.module.css
 guidance:
   lead: null
   whenToUse: []

@@ -35,6 +35,8 @@ export interface GapChartProps {
   valueLabel?: string;
   /** The top of the scale; the axis reads 0, half and max. */
   max?: number;
+  /** Which marks to bring forward (24 Nov 2026, a score tile picked above the chart): 'base' the rings, 'value' the dots and their gaps. The rest dims a little, never to unreadable; a status line says what is highlighted. Missing = none. */
+  highlight?: 'base' | 'value' | null;
   className?: string;
   style?: CSSProperties;
 }
@@ -53,7 +55,7 @@ const fmtAxis = (v: number) => (Number.isInteger(v) ? String(v) : one(v));
  * the row. One line per row in a wide container, stacked when narrow (a
  * container query). The same data is in a table behind a Disclosure.
  */
-export default function GapChart({ rows, label, baseLabel = 'No file', valueLabel = 'AGENTS.md', max = 100, className, style }: GapChartProps) {
+export default function GapChart({ rows, label, baseLabel = 'No file', valueLabel = 'AGENTS.md', max = 100, highlight = null, className, style }: GapChartProps) {
   const uid = useId();
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const pos = (v: number) => `${Math.min(100, Math.max(0, (v / (max || 1)) * 100))}%`;
@@ -86,7 +88,11 @@ export default function GapChart({ rows, label, baseLabel = 'No file', valueLabe
       role="group"
       aria-label={label}
       data-bella-component="gap-chart"
+      data-highlight={highlight ?? undefined}
     >
+      <span className={styles.srOnly} role="status">
+        {highlight === 'base' ? `Highlighted: the ${baseLabel} rings.` : highlight === 'value' ? `Highlighted: the ${valueLabel} dots and their gaps.` : ''}
+      </span>
       <div className={styles.legend}>
         <span className={styles.key}>
           <span className={styles.ring} aria-hidden="true" />

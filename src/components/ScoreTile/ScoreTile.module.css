@@ -1,0 +1,73 @@
+/* ScoreTile (24 Nov 2026, Audit reports' benchmark scores). Tokens only. A tile in the card corner with a light tint
+ * by tone (one meaning each: the base neutral, ahead success, behind attention), the label above (16, subtle), the
+ * number centred (number face 700, 40 on a 48 line, tabular) and the state word with its status dot. Equal height in
+ * a row: the consumer's grid stretches it; the content centres. Selected: the 2px brand edge, as VariantTile. */
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  min-block-size: 100%;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: var(--border-width-2) solid transparent;
+  border-radius: var(--border-radius-card);
+  text-align: center;
+  color: var(--color-content-default);
+  font: inherit;
+}
+
+button.tile {
+  cursor: pointer;
+}
+
+button.tile:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.neutral { background: var(--color-background-subtle); }
+.success { background: var(--color-background-utility-success); }
+.attention { background: var(--color-background-utility-warning); }
+.danger { background: var(--color-background-utility-error); }
+
+.selected {
+  border-color: var(--color-border-brand);
+}
+
+.label {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-40);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--spacing-48);
+  letter-spacing: var(--typography-letter-spacing-minus-1-half);
+  font-variant-numeric: tabular-nums;
+}
+
+.unit {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  letter-spacing: var(--typography-letter-spacing-0);
+  color: var(--color-content-subtle);
+}
+
+/* the word's line kept when there is none, so tiles in a row hold the number at one height */
+.spacer {
+  block-size: var(--typography-line-height-px-24);
+}
+
+@media (forced-colors: active) {
+  .tile { border-color: CanvasText; }
+  .selected { border-color: Highlight; }
+}

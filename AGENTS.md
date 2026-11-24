@@ -80,6 +80,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | A trend over time (line and soft area, scrubber and callout) and its sparkline | `LineChart` |
 | Two scores per item on one scale, the gap between them | `GapChart` |
 | How much each item adds to or takes from a total, from a middle zero | `ShareBars` |
+| One score in a tile: label above, number centred, tinted by its state with its word; can toggle | `ScoreTile` |
 | The mini trend line of a stat (line, end dot, scrubber, summary and table) | `Sparkline` |
 | One health check row (a ListRow set-up) and its list header | `CheckRow` |
 | One step in a short ordered process, and its connector | `Step`, `MapLine` |

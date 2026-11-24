@@ -39,24 +39,36 @@ props:
     required: false
     doc: The top of the scale; the axis reads 0, half and max.
     at: src/components/GapChart/GapChart.tsx:37
+  - name: highlight
+    type: '''base'' | ''value'' | null'
+    default: 'null'
+    required: false
+    doc: >-
+      Which marks to bring forward (24 Nov 2026, a score tile picked above the chart): 'base' the rings, 'value' the dots and their gaps.
+      The rest dims a little, never to unreadable; a status line says what is highlighted. Missing = none.
+    at: src/components/GapChart/GapChart.tsx:39
   - name: className
     type: string
     required: false
-    at: src/components/GapChart/GapChart.tsx:38
+    at: src/components/GapChart/GapChart.tsx:40
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/GapChart/GapChart.tsx:39
+    at: src/components/GapChart/GapChart.tsx:41
 variants: {}
 states:
   contract:
     - default
     - why-open
     - no-base
+    - highlighted
   css:
     - '[data-tone=''success'']'
     - '[data-tone=''danger'']'
     - '[data-tone=''warning'']'
+    - '[data-highlight]'
+    - '[data-highlight=''base'']'
+    - '[data-highlight=''value'']'
 sizes: []
 anatomy:
   scaleWidth: 480
@@ -515,11 +527,50 @@ tokens:
       token: '--spacing-40'
       selector: .grid
       at: src/components/GapChart/GapChart.module.css:175
+    - part: mark
+      state: '[data-highlight] [data-highlight]'
+      property: transition
+      token: '--motion-duration-150'
+      selector: .root[data-highlight] .mark, .root[data-highlight] .gap
+      at: src/components/GapChart/GapChart.module.css:193
+    - part: mark
+      state: '[data-highlight] [data-highlight]'
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .root[data-highlight] .mark, .root[data-highlight] .gap
+      at: src/components/GapChart/GapChart.module.css:193
+    - part: ring
+      state: '[data-highlight=''base''] [data-highlight=''value'']'
+      property: box-shadow
+      token: '--spacing-4'
+      selector: .root[data-highlight='base'] .ring, .root[data-highlight='value'] .dot
+      at: src/components/GapChart/GapChart.module.css:198
+    - part: ring
+      state: '[data-highlight=''base''] [data-highlight=''value'']'
+      property: box-shadow
+      token: '--color-background-brand-subtle'
+      selector: .root[data-highlight='base'] .ring, .root[data-highlight='value'] .dot
+      at: src/components/GapChart/GapChart.module.css:198
+    - part: gap
+      state: '[data-highlight=''value'']'
+      property: box-shadow
+      token: '--spacing-2'
+      selector: .root[data-highlight='value'] .gap
+      at: src/components/GapChart/GapChart.module.css:199
+    - part: gap
+      state: '[data-highlight=''value'']'
+      property: box-shadow
+      token: '--color-background-brand-subtle'
+      selector: .root[data-highlight='value'] .gap
+      at: src/components/GapChart/GapChart.module.css:199
   values:
     '--border-radius-round':
       light: null
       chip: null
     '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-brand-subtle':
       light: null
       chip: null
     '--color-background-surface':
@@ -564,6 +615,12 @@ tokens:
     '--ink':
       light: null
       chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
     '--size-20':
       light: null
       chip: null
@@ -574,6 +631,9 @@ tokens:
       light: null
       chip: null
     '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-2':
       light: null
       chip: null
     '--spacing-4':
@@ -619,62 +679,84 @@ tokens:
       light: null
       chip: null
 motion:
-  transitions: []
-  reducedMotion: null
-  reducedMotionQuery: false
+  transitions:
+    - selector: .root[data-highlight] .mark, .root[data-highlight] .gap
+      state: '[data-highlight] [data-highlight]'
+      declaration: 'transition: opacity var(--motion-duration-150) var(--motion-easing-standard)'
+      properties:
+        - opacity
+      durations:
+        - token: '--motion-duration-150'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/GapChart/GapChart.module.css:193
+  reducedMotion:
+    selector: .root[data-highlight] .mark, .root[data-highlight] .gap
+    declaration: 'transition: none'
+    at: src/components/GapChart/GapChart.module.css:203
+  reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/GapChart/GapChart.tsx:83
+    at: src/components/GapChart/GapChart.tsx:85
   role:
     value: group
     source: role attribute
-    at: src/components/GapChart/GapChart.tsx:83
+    at: src/components/GapChart/GapChart.tsx:85
   nameSource:
     value: aria-label from the label prop (required)
-    at: src/components/GapChart/GapChart.tsx:83
+    at: src/components/GapChart/GapChart.tsx:85
   keyboard: []
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/GapChart/GapChart.tsx:87
+      at: src/components/GapChart/GapChart.tsx:89
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/GapChart/GapChart.tsx:92
-    - attribute: aria-hidden
-      value: 'true'
-      at: src/components/GapChart/GapChart.tsx:96
+      at: src/components/GapChart/GapChart.tsx:98
     - attribute: aria-hidden
       value: 'true'
       at: src/components/GapChart/GapChart.tsx:102
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/GapChart/GapChart.tsx:108
     - attribute: aria-label
       value: spoken(r)
-      at: src/components/GapChart/GapChart.tsx:123
+      at: src/components/GapChart/GapChart.tsx:129
   focusRing: []
   disabled:
     prop: null
     note: no disabled prop
-  reducedMotion: null
+  reducedMotion:
+    selector: .root[data-highlight] .mark, .root[data-highlight] .gap
+    declaration: 'transition: none'
+    at: src/components/GapChart/GapChart.module.css:203
   contract: >-
     A group named by label. Each track is role=img named with both values and the gap ("Reveal a typed password: No file 84.2, AGENTS.md
     45.0, gap −39.2"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from
-    assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular.
+    assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular. With highlight set, a
+    status line (visually hidden) says which marks are lit; the others step back a little and stay readable.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/GapChart/GapChart.tsx:123
+      at: src/components/GapChart/GapChart.tsx:129
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/GapChart/GapChart.tsx:102
+      at: src/components/GapChart/GapChart.tsx:108
     - kind: ARIA
       value: role=group
-      at: src/components/GapChart/GapChart.tsx:86
+      at: src/components/GapChart/GapChart.tsx:88
+    - kind: ARIA
+      value: role=status
+      at: src/components/GapChart/GapChart.tsx:93
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-audit-charts/src/components/GapChart/GapChart.stories.tsx
+  file: ~/DEV/bella-calm/src/components/GapChart/GapChart.stories.tsx
   lines: 38-38
   import: import GapChart from '@bella/components/GapChart/GapChart';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -695,8 +777,6 @@ mismatch:
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/GapChart/GapChart.tsx
-  - section: Behaviour and motion
-    why: no transition or animation in src/components/GapChart/GapChart.module.css
 guidance:
   lead: null
   whenToUse: []

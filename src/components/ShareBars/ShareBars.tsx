@@ -23,6 +23,8 @@ export interface ShareBarsProps {
   label: string;
   /** Half the scale: a share of this size fills one side of the track. */
   max?: number;
+  /** Row ids to bring forward (24 Nov 2026, a score tile picked above the chart): the other rows dim a little, never to unreadable; a status line names them. Missing or empty = none. */
+  highlight?: string[] | null;
   className?: string;
   style?: CSSProperties;
 }
@@ -37,7 +39,8 @@ const signed = (v: number) => (v === 0 ? '0.0' : `${v > 0 ? '+' : '−'}${Math.a
  * line per row in a wide container, stacked when narrow (a container query).
  * The same data is in a table behind a Disclosure.
  */
-export default function ShareBars({ rows, label, max = 6, className, style }: ShareBarsProps) {
+export default function ShareBars({ rows, label, max = 6, highlight = null, className, style }: ShareBarsProps) {
+  const lit = highlight?.length ? new Set(highlight) : null;
   const len = (v: number) => (v === 0 ? 0 : Math.max(1, Math.min(50, (Math.abs(v) / (max || 1)) * 50)));
 
   const columns: DataTableColumn<Record<string, any>>[] = [
@@ -48,10 +51,13 @@ export default function ShareBars({ rows, label, max = 6, className, style }: Sh
   const tableRows = rows.map((r) => ({ id: r.id, name: r.name, detail: r.detail ?? 'None', share: signed(r.share) }));
 
   return (
-    <div className={[styles.root, className].filter(Boolean).join(' ')} style={style} role="group" aria-label={label} data-bella-component="share-bars">
+    <div className={[styles.root, className].filter(Boolean).join(' ')} style={style} role="group" aria-label={label} data-bella-component="share-bars" data-highlight={lit ? '' : undefined}>
+      <span className={styles.srOnly} role="status">
+        {lit ? `Highlighted: ${rows.filter((r) => lit.has(r.id)).map((r) => r.name).join(', ')}.` : ''}
+      </span>
       <div className={styles.grid}>
         {rows.map((r) => (
-          <div key={r.id} className={styles.row} data-tone={r.tone}>
+          <div key={r.id} className={styles.row} data-tone={r.tone} data-lit={lit ? (lit.has(r.id) ? 'on' : 'off') : undefined}>
             <span className={styles.name}>
               <span className={styles.title}>{r.name}</span>
               {r.detail ? <span className={styles.detail} data-bella-meta>{r.detail}</span> : null}

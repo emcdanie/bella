@@ -147,6 +147,8 @@ export type { TagProps } from './Tag/Tag';
 export { default as TypingDots } from './TypingDots/TypingDots';
 export type { TypingDotsProps } from './TypingDots/TypingDots';
 
+export { default as ScoreTile } from './ScoreTile/ScoreTile';
+export type { ScoreTileProps } from './ScoreTile/ScoreTile';
 export { default as StatusDot } from './StatusDot/StatusDot';
 export type { StatusDotProps } from './StatusDot/StatusDot';
 

@@ -17,6 +17,7 @@ props:
     doc: Names the menu for assistive tech ("Actions for Figma check").
     at: src/components/Menu/Menu.tsx:50
   - name: children
+    figmaName: Items
     type: ReactNode
     required: true
     doc: 'Figma "Items" (slot): MenuItem and MenuDivider. About seven items at most.'
@@ -574,9 +575,6 @@ figma:
   variants: []
   defaultVariant: Menu
 mismatch:
-  - field: props.autoFocus
-    code: boolean prop
-    figma: not in the set
   - field: tokens.Menu.strokes
     code:
       - '--border-radius-12'
@@ -644,3 +642,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: autoFocus
+      why: moves focus on open, behaviour only

@@ -3,15 +3,16 @@
 name: Section
 lead:
   text: A vertical slice of a page.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a section labelled by its h2
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-section--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-section--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Section/Section.tsx
   storyTitle: Components/Section
 props:
   - name: heading
+    figmaName: Heading
     type: ReactNode
     required: true
     doc: The section's heading, an h2 at the one section size.
@@ -22,6 +23,7 @@ props:
     doc: 'The section''s id: an "On this page" link points at it, and it clears a sticky header.'
     at: src/components/Section/Section.tsx:8
   - name: lede
+    figmaName: Lede
     type: ReactNode
     required: false
     doc: One or two sentences under the heading, held to the body measure.
@@ -79,106 +81,128 @@ anatomy:
   figma:
     name: Section
     type: COMPONENT
-    size: 1056x274.5
+    size: 1056x280
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/8
     children:
       - name: Head
         type: FRAME
-        size: 1056x48.5
+        size: 1056x54
         tokens:
           - field: itemSpacing
-            variable: spacing/4
+            variable: spacing/16
         children:
           - name: Heading
             type: TEXT
             text: Needs you
-            size: 174x46
+            size: 204x46
             tokens:
               - field: fills
-                variable: color/semantic/text-primary
+                variable: color/content/default
+              - field: fontSize
+                variable: typography/font-size/40
               - field: fontFamily
-                variable: typography/font-family/display
+                variable: typography/headline-sm/font-family
               - field: fontWeight
-                variable: typography/font-weight/medium
+                variable: typography/font-weight/500
           - name: Actions
             type: FRAME
-            size: 90x44
+            size: 94x44
             tokens:
               - field: itemSpacing
-                variable: spacing/2
+                variable: spacing/8
             children:
               - name: Button
                 type: INSTANCE
                 instanceOf: Button
-                size: 90x44
+                size: 94x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/2
+                    variable: spacing/8
                   - field: paddingLeft
-                    variable: component/button/secondary/padding-x
+                    variable: spacing/20
                   - field: paddingTop
-                    variable: component/button/secondary/padding-y
+                    variable: size/0
                   - field: paddingRight
-                    variable: component/button/secondary/padding-x
+                    variable: spacing/20
                   - field: paddingBottom
-                    variable: component/button/secondary/padding-y
+                    variable: size/0
                   - field: topLeftRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: topRightRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: bottomLeftRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: bottomRightRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
                   - field: minHeight
-                    variable: spacing/touch-target
+                    variable: spacing/44
                   - field: fills
-                    variable: component/button/secondary/background
+                    variable: button/color/background/default
                   - field: strokes
-                    variable: color/semantic/border-strong
+                    variable: button/color/border/default
       - name: Lede
         type: TEXT
         text: What waits on you, in the order it blocks other work.
         size: 720x34
         tokens:
           - field: fills
-            variable: color/semantic/text-secondary
+            variable: color/content/subtle
+          - field: fontSize
+            variable: typography/font-size/20
           - field: fontFamily
-            variable: typography/font-family/body
+            variable: typography/body-default/font-family
           - field: fontWeight
-            variable: typography/font-weight/regular
+            variable: typography/font-weight/400
       - name: Body gap
         type: FRAME
         size: 1x8
         children: []
-      - name: Slot · Body
-        type: FRAME
+      - name: Body
+        type: SLOT
         size: 1056x160
         tokens:
           - field: topLeftRadius
-            variable: radius/md
+            variable: border/radius/md
           - field: topRightRadius
-            variable: radius/md
+            variable: border/radius/md
           - field: bottomLeftRadius
-            variable: radius/md
+            variable: border/radius/md
           - field: bottomRightRadius
-            variable: radius/md
+            variable: border/radius/md
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
           - field: strokes
-            variable: color/semantic/border-strong
+            variable: color/border/strong
         children:
           - name: (text content)
             type: TEXT
             text: Body
-            size: 48x34
+            size: 51x34
             tokens:
               - field: fills
-                variable: color/semantic/text-secondary
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/20
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
@@ -191,7 +215,7 @@ tokens:
     - part: root
       state: rest
       property: scroll-margin-block-start
-      token: '--header-height'
+      token: '--spacing-64'
       selector: .section
       at: src/components/Section/Section.module.css:10
     - part: root
@@ -203,7 +227,7 @@ tokens:
     - part: root
       state: rest
       property: margin-block-start
-      token: '--component-section-space'
+      token: '--layout-section-space'
       selector: .section + .section
       at: src/components/Section/Section.module.css:14
     - part: head
@@ -215,37 +239,37 @@ tokens:
     - part: heading
       state: rest
       property: font-family
-      token: '--typography-font-family-display'
+      token: '--typography-headline-sm-font-family'
       selector: .heading
       at: src/components/Section/Section.module.css:28
     - part: heading
       state: rest
       property: font-size
-      token: '--component-section-heading-font-size'
+      token: '--typography-font-size-display-section'
       selector: .heading
       at: src/components/Section/Section.module.css:29
     - part: heading
       state: rest
       property: font-weight
-      token: '--component-section-heading-font-weight'
+      token: '--typography-font-weight-500'
       selector: .heading
       at: src/components/Section/Section.module.css:30
     - part: heading
       state: rest
       property: line-height
-      token: '--typography-line-height-heading'
+      token: '--typography-line-height-115'
       selector: .heading
       at: src/components/Section/Section.module.css:31
     - part: heading
       state: rest
       property: letter-spacing
-      token: '--component-section-heading-letter-spacing'
+      token: '--typography-letter-spacing-minus-1-half'
       selector: .heading
       at: src/components/Section/Section.module.css:32
     - part: heading
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .heading
       at: src/components/Section/Section.module.css:33
     - part: actions
@@ -263,31 +287,31 @@ tokens:
     - part: lede
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .lede
       at: src/components/Section/Section.module.css:47
     - part: lede
       state: rest
       property: font-size
-      token: '--typography-font-size-body'
+      token: '--typography-body-default-font-size'
       selector: .lede
       at: src/components/Section/Section.module.css:48
     - part: lede
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .lede
       at: src/components/Section/Section.module.css:49
     - part: lede
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .lede
       at: src/components/Section/Section.module.css:50
     - part: body
       state: rest
       property: margin-block-start
-      token: '--component-section-body-gap'
+      token: '--layout-stack-lg'
       selector: .body
       at: src/components/Section/Section.module.css:55
     - part: body
@@ -297,57 +321,54 @@ tokens:
       selector: .body
       at: src/components/Section/Section.module.css:55
   values:
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-section-body-gap':
-      light: 24px
-      chip: 24px
-    '--component-section-heading-font-size':
-      light: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)
-      chip: 32px
-    '--component-section-heading-font-weight':
-      light: '500'
-      chip: '500'
-    '--component-section-heading-letter-spacing':
-      light: '-0.015em'
-      chip: '-0.015em'
-    '--component-section-space':
-      light: clamp(32px, 24px + 2vw, 48px)
-      chip: clamp(32px, 24px + 2vw, 48px)
-    '--header-height':
-      light: 64px
-      chip: 64px
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
     '--layout-measure-body':
-      light: 70ch
-      chip: 70ch
+      light: null
+      chip: null
+    '--layout-section-space':
+      light: null
+      chip: null
     '--layout-stack-lg':
-      light: 24px
-      chip: 24px
+      light: null
+      chip: null
     '--layout-stack-md':
-      light: 16px
-      chip: 16px
+      light: null
+      chip: null
     '--layout-stack-sm':
-      light: 8px
-      chip: 8px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-family-display':
-      light: Newsreader, Georgia, serif
-      chip: Newsreader, Georgia, serif
-    '--typography-font-size-body':
-      light: 20px
-      chip: 16px
-    '--typography-line-height-heading':
-      light: '1.15'
-      chip: '1.15'
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+      light: null
+      chip: null
+    '--spacing-64':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-display-section':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-headline-sm-font-family':
+      light: null
+      chip: null
+    '--typography-letter-spacing-minus-1-half':
+      light: null
+      chip: null
+    '--typography-line-height-115':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -382,78 +403,20 @@ a11y:
       value: aria-labelledby
       at: src/components/Section/Section.tsx:27
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-  derived:
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Section/Section.stories.tsx
+  file: ~/DEV/bella-chip-theme/src/components/Section/Section.stories.tsx
   lines: 48-52
   import: import Section from '@bella/components/Section/Section';
   importSource: the style the Button doc page uses (CHIP import path)
   code: |-
-    <Section id="readiness" heading="Readiness map" lede="The ten-station inspection, pointed at BELLA.">
-      <Card>
-        <p style={{ margin: 0 }}>90 of 100, the mean of 4 measured stations.</p>
-      </Card>
+    <Section
+      id="readiness"
+      heading="Readiness map"
+      lede="The ten-station inspection, pointed at BELLA."
+    >
+      <Card>90 of 100, the mean of 4 measured stations.</Card>
     </Section>
 usage:
   use:
@@ -464,15 +427,15 @@ usage:
     - 'Do not nest sections inside sections: inside a section, use Card titles'
     - 'Do not leave out the heading: a block with no heading is a Columns or a Card'
     - 'Do not set your own margins between sections: the section space is the rhythm'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '405:17158'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    heading#405:15:
+    Heading#405:15:
       type: TEXT
       default: Needs you
-    lede#405:16:
+    Lede#405:16:
       type: TEXT
       default: What waits on you, in the order it blocks other work.
     Show lede#405:17:
@@ -481,48 +444,64 @@ figma:
     Show actions#405:18:
       type: BOOLEAN
       default: true
+    Body#757:1:
+      type: SLOT
   variants: []
   defaultVariant: Section
   annotations:
     - label: >-
-        Dev · <Section heading id lede actions>; section + aria-labelledby, h2 heading, scroll-margin under a sticky header. Heading to body
-        24 total: gap 8 + body margin 16 (component-section-body-gap 24, Section.module.css:55). Actions hold secondary Buttons, ActionChips
-        or Links (Section.tsx:11).
+        <Section heading id lede actions> · src/components/Section/Section.tsx. A section element with an h2 (section tier, Newsreader), an
+        optional Lede (one line, 70 characters max) and Actions (one Button), then the Body slot. Scroll margin keeps the heading clear of a
+        sticky header. The space between sections is set by the page.
       category: '123:0'
-    - label: A11y · Region named by its h2; lede held to 70ch; actions are 44px targets. Section space between siblings has no Figma form.
+    - label: A region named by its h2 (aria-labelledby). Actions are 44 targets. Text 7.95:1 or more in all four themes.
       category: '123:2'
+    - label: 'None: static.'
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-layout-section--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-section--docs
 mismatch:
   - field: tokens.Section.itemSpacing
     code:
       - '--layout-stack-sm'
       - '--layout-stack-md'
-    figma: spacing/2
+    figma: spacing/8
     sameValueInChip: true
   - field: tokens.Head.itemSpacing
     code:
       - '--layout-stack-sm'
       - '--layout-stack-md'
-    figma: spacing/4
+    figma: spacing/16
+    sameValueInChip: true
+  - field: tokens.Heading.fontSize
+    code:
+      - '--typography-font-size-display-section'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/40
     sameValueInChip: true
   - field: tokens.Actions.itemSpacing
     code:
       - '--layout-stack-sm'
       - '--layout-stack-md'
-    figma: spacing/2
+    figma: spacing/8
     sameValueInChip: true
   - field: tokens.Button.itemSpacing
     code:
       - '--layout-stack-sm'
       - '--layout-stack-md'
-    figma: spacing/2
+    figma: spacing/8
     sameValueInChip: true
-  - field: tokens.Button.fills
+  - field: tokens.Lede.fontSize
     code:
-      - '--color-semantic-text-primary'
-      - '--color-semantic-text-secondary'
-    figma: component/button/secondary/background
+      - '--typography-font-size-display-section'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/20
+    sameValueInChip: false
+  - field: tokens.(text content).fontSize
+    code:
+      - '--typography-font-size-display-section'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/20
     sameValueInChip: false
 notApplicable:
   - section: Sizes

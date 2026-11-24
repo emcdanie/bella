@@ -3,15 +3,16 @@
 name: Combobox
 lead:
   text: One field over a grouped list.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Inputs
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-inputs-combobox--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-combobox--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Combobox/Combobox.tsx
   storyTitle: Components/Combobox
 props:
   - name: label
+    figmaName: Label
     type: string
     required: true
     doc: Names the field and the list.
@@ -26,6 +27,7 @@ props:
     doc: Keep the label for assistive tech only, when the context already names the field.
     at: src/components/Combobox/Combobox.tsx:32
   - name: value
+    figmaName: Value
     type: string
     required: true
     doc: The text in the field.
@@ -50,6 +52,7 @@ props:
     doc: The option that is active when the list opens or changes. Defaults to the first.
     at: src/components/Combobox/Combobox.tsx:41
   - name: placement
+    figmaName: placement
     type: '"below" | "above"'
     values:
       - below
@@ -120,6 +123,7 @@ anatomy:
       type: GUIDANCE
       layer: Hint
       at: right
+      side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
     - 'n': 4
       name: List
@@ -134,26 +138,26 @@ anatomy:
       at: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default, placement=below
+    name: state=default, placement=below, disabled=false, error=false, open=false
     type: COMPONENT
-    size: 400x83
+    size: 400x76
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/8
     children:
       - name: Label
         type: TEXT
         text: Search
-        size: 58x31
+        size: 56x24
         tokens:
           - field: fills
-            variable: color/semantic/text-secondary
+            variable: color/content/subtle
           - field: fontSize
-            variable: typography/font-size/sm
+            variable: typography/font-size/16
           - field: fontFamily
-            variable: typography/font-family/body
+            variable: typography/body-default/font-family
           - field: fontWeight
-            variable: typography/font-weight/regular
+            variable: typography/font-weight/600
       - name: Anchor
         type: FRAME
         size: 400x44
@@ -163,221 +167,238 @@ anatomy:
             size: 400x44
             tokens:
               - field: itemSpacing
-                variable: spacing/3
+                variable: spacing/12
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/3
+                variable: spacing/12
               - field: topLeftRadius
-                variable: radius/lg
+                variable: border/radius/lg
               - field: topRightRadius
-                variable: radius/lg
+                variable: border/radius/lg
               - field: bottomLeftRadius
-                variable: radius/lg
+                variable: border/radius/lg
               - field: bottomRightRadius
-                variable: radius/lg
+                variable: border/radius/lg
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
               - field: minHeight
-                variable: component/combobox/min-height
+                variable: spacing/44
               - field: fills
-                variable: component/combobox/background
+                variable: color/background/surface
               - field: strokes
-                variable: component/combobox/border
+                variable: color/border/strong
             children:
+              - name: Search mark
+                type: INSTANCE
+                instanceOf: Icon
+                size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
               - name: Value
                 type: TEXT
-                text: Jump to a component or ask OBI
-                size: 306x34
+                text: Search parts and pages
+                size: 274x24
                 tokens:
                   - field: fills
-                    variable: color/semantic/text-muted
+                    variable: color/content/subtle
                   - field: fontSize
-                    variable: typography/font-size/base
+                    variable: typography/font-size/16
                   - field: fontFamily
-                    variable: typography/font-family/body
+                    variable: typography/body-default/font-family
                   - field: fontWeight
-                    variable: typography/font-weight/regular
+                    variable: typography/font-weight/400
               - name: Hint
                 type: INSTANCE
                 instanceOf: Kbd
-                size: 52x29
+                size: 52x26
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/1
+                    variable: spacing/4
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .combobox
       at: src/components/Combobox/Combobox.module.css:10
     - part: label
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .label
       at: src/components/Combobox/Combobox.module.css:15
     - part: label
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .label
       at: src/components/Combobox/Combobox.module.css:16
     - part: label
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .label
       at: src/components/Combobox/Combobox.module.css:17
     - part: field
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:27
     - part: field
       state: rest
       property: min-height
-      token: '--component-combobox-min-height'
+      token: '--spacing-44'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:29
     - part: field
       state: rest
       property: padding-inline
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:30
     - part: field
       state: rest
       property: padding-inline
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:30
     - part: field
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:31
     - part: field
       state: rest
       property: border
-      token: '--component-combobox-border'
+      token: '--color-border-strong'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:31
     - part: field
       state: rest
       property: border-radius
-      token: '--component-combobox-border-radius'
+      token: '--border-radius-12'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:32
     - part: field
       state: rest
       property: background
-      token: '--component-combobox-background'
+      token: '--color-background-surface'
       selector: .field
       at: src/components/Combobox/Combobox.module.css:33
     - part: field
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .field:focus-within
       at: src/components/Combobox/Combobox.module.css:37
     - part: field
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .field:focus-within
       at: src/components/Combobox/Combobox.module.css:37
     - part: field
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .field:focus-within
       at: src/components/Combobox/Combobox.module.css:38
     - part: field
       state: focus-visible
       property: border-color
-      token: '--color-semantic-border-ink'
+      token: '--color-border-ink'
       selector: .field:focus-within
       at: src/components/Combobox/Combobox.module.css:39
     - part: input
       state: rest
       property: color
-      token: '--component-combobox-foreground'
+      token: '--color-content-default'
       selector: .input
       at: src/components/Combobox/Combobox.module.css:49
     - part: input
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .input
       at: src/components/Combobox/Combobox.module.css:50
     - part: input
       state: rest
       property: font-size
-      token: '--component-combobox-font-size'
+      token: '--typography-body-default-font-size'
       selector: .input
       at: src/components/Combobox/Combobox.module.css:51
     - part: input
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .input
       at: src/components/Combobox/Combobox.module.css:52
     - part: input
       state: rest
       property: color
-      token: '--color-semantic-text-muted'
+      token: '--color-content-subtle'
       selector: .input::placeholder
       at: src/components/Combobox/Combobox.module.css:60
     - part: list
       state: rest
       property: inset-block-start
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:72
     - part: list
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:75
     - part: list
       state: rest
       property: max-block-size
-      token: '--spacing-20'
+      token: '--spacing-80'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:76
     - part: list
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:78
     - part: list
       state: rest
       property: border-radius
-      token: '--radius-lg'
+      token: '--border-radius-12'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:79
     - part: list
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:80
     - part: list
       state: rest
       property: border
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:80
     - part: list
       state: rest
       property: background
-      token: '--component-combobox-list-background'
+      token: '--color-background-surface'
       selector: .list
       at: src/components/Combobox/Combobox.module.css:81
     - part: list
@@ -389,226 +410,211 @@ tokens:
     - part: list
       state: '[data-placement=''above'']'
       property: inset-block-end
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .combobox[data-placement='above'] .list
       at: src/components/Combobox/Combobox.module.css:91
     - part: group
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .group
       at: src/components/Combobox/Combobox.module.css:96
     - part: group
       state: rest
       property: padding-block-start
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .group + .group
       at: src/components/Combobox/Combobox.module.css:100
     - part: group
       state: rest
       property: border-block-start
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .group + .group
       at: src/components/Combobox/Combobox.module.css:101
     - part: group
       state: rest
       property: border-block-start
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       selector: .group + .group
       at: src/components/Combobox/Combobox.module.css:101
     - part: groupLabel
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .groupLabel
       at: src/components/Combobox/Combobox.module.css:106
     - part: groupLabel
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .groupLabel
       at: src/components/Combobox/Combobox.module.css:106
     - part: groupLabel
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .groupLabel
       at: src/components/Combobox/Combobox.module.css:107
     - part: groupLabel
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .groupLabel
       at: src/components/Combobox/Combobox.module.css:108
     - part: groupLabel
       state: rest
       property: color
-      token: '--component-combobox-group-foreground'
+      token: '--color-content-subtle'
       selector: .groupLabel
       at: src/components/Combobox/Combobox.module.css:109
     - part: option
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:116
     - part: option
       state: rest
       property: min-height
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:117
     - part: option
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:119
     - part: option
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:119
     - part: option
       state: rest
       property: border-radius
-      token: '--radius-md'
+      token: '--border-radius-8'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:120
     - part: option
       state: rest
       property: color
-      token: '--component-combobox-foreground'
+      token: '--color-content-default'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:121
     - part: option
       state: rest
       property: font-size
-      token: '--component-combobox-font-size'
+      token: '--typography-body-default-font-size'
       selector: .option
       at: src/components/Combobox/Combobox.module.css:122
     - part: option
       state: '[aria-selected=''true'']'
       property: background
-      token: '--component-combobox-active-background'
+      token: '--color-background-accent-1'
       selector: .option[aria-selected='true']
       at: src/components/Combobox/Combobox.module.css:127
     - part: option
       state: '[aria-selected=''true'']'
       property: color
-      token: '--component-combobox-active-foreground'
+      token: '--color-content-on-accent-1'
       selector: .option[aria-selected='true']
       at: src/components/Combobox/Combobox.module.css:128
     - part: meta
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .meta
       at: src/components/Combobox/Combobox.module.css:140
     - part: meta
       state: rest
       property: color
-      token: '--component-combobox-group-foreground'
+      token: '--color-content-subtle'
       selector: .meta
       at: src/components/Combobox/Combobox.module.css:141
     - part: meta
       state: '[aria-selected=''true'']'
       property: color
-      token: '--component-combobox-active-foreground'
+      token: '--color-content-on-accent-1'
       selector: .option[aria-selected='true'] .meta
       at: src/components/Combobox/Combobox.module.css:145
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--color-semantic-border-ink':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-muted':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-combobox-active-background':
-      light: '#E58BBB'
-      chip: '#E58BBB'
-    '--component-combobox-active-foreground':
-      light: '#0A0C14'
-      chip: '#0A0C14'
-    '--component-combobox-background':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-combobox-border':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--component-combobox-border-radius':
-      light: 12px
-      chip: 2px
-    '--component-combobox-font-size':
-      light: 20px
-      chip: 16px
-    '--component-combobox-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-combobox-group-foreground':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-combobox-list-background':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-combobox-min-height':
-      light: 44px
-      chip: 44px
-    '--radius-lg':
-      light: 12px
-      chip: 12px
-    '--radius-md':
-      light: 8px
-      chip: 8px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
+    '--border-radius-12':
+      light: null
+      chip: null
+    '--border-radius-8':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-accent-1':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-on-accent-1':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
     '--shadow-lg':
-      light: 0 12px 32px rgba(28,26,46,0.12)
-      chip: 0 12px 32px rgba(28,26,46,0.12)
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-20':
-      light: 80px
-      chip: 80px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--spacing-touch-target':
-      light: 44px
-      chip: 44px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-size-sm':
-      light: 18px
-      chip: 18px
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--spacing-80':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -670,7 +676,7 @@ a11y:
     aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel
     (AAA), group headings and meta text-secondary (AAA), the active option near-black on the pink fill 8.13:1 (AAA; shared look, 8 Nov
     2026). Options and field are 44px. Focus ring on the field.
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-expanded
@@ -697,136 +703,8 @@ a11y:
       value: role=group
       at: src/components/Combobox/Combobox.tsx:178
 contrast:
-  pairs:
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: combobox option text on its list
-      foreground: '--component-combobox-foreground'
-      background: '--component-combobox-list-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:104
-    - label: combobox group heading on its list
-      foreground: '--component-combobox-group-foreground'
-      background: '--component-combobox-list-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:105
-    - label: 'combobox active option: text on the fill'
-      foreground: '--component-combobox-active-foreground'
-      background: '--component-combobox-active-background'
-      foregroundHex: '#0A0C14'
-      backgroundHex: '#E58BBB'
-      ratio: 8.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:106
-    - label: combobox field border on the page
-      foreground: '--component-combobox-border'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:107
-    - label: Placeholder on field
-      foreground: '--color-semantic-text-muted'
-      background: '--component-combobox-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--component-combobox-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-combobox-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--component-combobox-group-foreground'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--component-combobox-group-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--component-combobox-active-foreground'
-      background: '--color-semantic-background'
-      ratio: 18.2
-      theme: chip
-    - foreground: '--component-combobox-active-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 19.52
-      theme: chip
+  pairs: []
+  derived: []
 codeExample: null
 usage:
   use:
@@ -836,81 +714,218 @@ usage:
     - 'Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant'
     - 'Do not dim the other options: the active one gets the pink fill, nothing else changes'
     - 'Do not use it for a fixed short list without typing: that is Select'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '172:430'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    label#172:33:
+    Label#172:33:
       type: TEXT
       default: Search
-    value#172:34:
+    Value#172:34:
       type: TEXT
-      default: Jump to a component or ask OBI
-    showLabel#739:36:
+      default: Search parts and pages
+    Show label#739:36:
       type: BOOLEAN
       default: true
-    hint#739:41:
+    Show hint#739:41:
       type: BOOLEAN
       default: true
+    Show ask#1560:0:
+      type: BOOLEAN
+      default: true
+    Results#1560:13:
+      type: SLOT
     state:
       type: VARIANT
       default: default
       values:
         - default
         - focus
-        - open
         - active-option
+        - hover
+        - no-results
     placement:
       type: VARIANT
       default: below
       values:
         - below
         - above
+    disabled:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    error:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    open:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
   variants:
-    - name: state=default, placement=below
+    - name: state=default, placement=below, disabled=false, error=false, open=false
       width: 400
-      height: 83
-    - name: state=focus, placement=below
+      height: 76
+    - name: state=focus, placement=below, disabled=false, error=false, open=false
       width: 400
-      height: 83
-    - name: state=open, placement=below
+      height: 76
+    - name: state=default, placement=below, disabled=false, error=false, open=true
       width: 400
-      height: 412
-    - name: state=active-option, placement=below
+      height: 359
+    - name: state=active-option, placement=below, disabled=false, error=false, open=true
       width: 400
-      height: 412
-    - name: state=default, placement=above
+      height: 359
+    - name: state=default, placement=above, disabled=false, error=false, open=false
       width: 400
-      height: 83
-    - name: state=focus, placement=above
+      height: 76
+    - name: state=focus, placement=above, disabled=false, error=false, open=false
       width: 400
-      height: 83
-    - name: state=open, placement=above
+      height: 76
+    - name: state=default, placement=above, disabled=false, error=false, open=true
       width: 400
-      height: 412
-    - name: state=active-option, placement=above
+      height: 359
+    - name: state=active-option, placement=above, disabled=false, error=false, open=true
       width: 400
-      height: 412
-  defaultVariant: state=default, placement=below
+      height: 359
+    - name: state=default, placement=below, disabled=true, error=false, open=false
+      width: 400
+      height: 76
+    - name: state=default, placement=below, disabled=false, error=true, open=false
+      width: 400
+      height: 108
+    - name: state=hover, placement=below, disabled=false, error=false, open=false
+      width: 400
+      height: 76
+    - name: state=hover, placement=above, disabled=false, error=false, open=false
+      width: 400
+      height: 76
+    - name: state=no-results, placement=below, disabled=false, error=false, open=true
+      width: 400
+      height: 150
+    - name: state=no-results, placement=above, disabled=false, error=false, open=true
+      width: 400
+      height: 150
+  defaultVariant: state=default, placement=below, disabled=false, error=false, open=false
   annotations:
     - label: >-
-        Dev · <Combobox label hideLabel value onChange groups onSelect placement hint />. List is absolute, calc(100% + spacing/2) below the
-        field; max-block-size spacing/20 × 5, scrolls.
+        States: default, hover, focus, active-option (the option the arrows reached); open shows the grouped list below or above
+        (placement); disabled, error.
+      category: '123:1'
+    - label: >-
+        &lt;Combobox label hideLabel value onChange groups onSelect placement hint /&gt; · src/components/Combobox/Combobox.tsx. Field 44
+        (spacing/44), corner border/radius/form (16), edge border/width/1 in color/border/strong; options 44; the list sits spacing/8 from
+        the field. Hint with a Kbd key.
       category: '123:0'
     - label: >-
-        A11y · role=combobox with aria-expanded, aria-controls, aria-autocomplete=list; options via aria-activedescendant. 44px field and
-        options. Active ink on pink 8.13:1.
+        role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the active option via aria-activedescendant, so focus
+        stays in the field. ↓/↑ move, Enter picks, Esc closes then clears. Focus ring color/border/focus, 4px wide with a 4px gap. Text
+        7.34:1 or more (disabled included).
       category: '123:2'
+    - label: |-
+        The list appears without sliding; edge and ring change over motion/duration/fast.
+        Reduced motion: instant.
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-inputs-combobox--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-combobox--docs
 mismatch:
+  - field: states
+    code:
+      contract:
+        - default
+        - open
+        - active-option
+        - focus
+      css:
+        - focus-visible
+        - '[data-placement=''above'']'
+        - '[aria-selected=''true'']'
+    figma:
+      - default
+      - focus
+      - active-option
+      - hover
+      - no-results
+      - open
+  - field: props.disabled
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: props.error
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: props.open
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-font-size-18'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Search mark.width
+    code:
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-18'
+      - '--color-content-subtle'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--border-width-1'
+      - '--color-border-strong'
+      - '--border-radius-12'
+      - '--color-background-surface'
+      - '--color-content-default'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--color-border-default'
+      - '--shadow-lg'
+      - '--border-radius-8'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Search mark.height
+    code:
+      - '--spacing-8'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-18'
+      - '--color-content-subtle'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-16'
+      - '--border-width-1'
+      - '--color-border-strong'
+      - '--border-radius-12'
+      - '--color-background-surface'
+      - '--color-content-default'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--spacing-4'
+      - '--spacing-80'
+      - '--color-border-default'
+      - '--shadow-lg'
+      - '--border-radius-8'
+    figma: size/20
+    sameValueInChip: false
   - field: tokens.Value.fontSize
     code:
-      - '--typography-font-size-sm'
-      - '--component-combobox-font-size'
-    figma: typography/font-size/base
-    sameValueInChip: false
+      - '--typography-font-size-18'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Combobox/Combobox.tsx

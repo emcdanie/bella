@@ -3,15 +3,16 @@
 name: Columns
 lead:
   text: Two or three columns that collapse by their own width.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a grid of equal columns
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-columns--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-columns--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Columns/Columns.tsx
   storyTitle: Components/Columns
 props:
   - name: count
+    figmaName: count
     type: 2 | 3
     values:
       - '2'
@@ -21,6 +22,7 @@ props:
     doc: 'How many equal columns at full width: 2, or 3.'
     at: src/components/Columns/Columns.tsx:6
   - name: split
+    figmaName: split
     type: '''even'' | ''wide-start'''
     values:
       - even
@@ -76,32 +78,74 @@ anatomy:
   figma:
     name: count=2, split=even
     type: COMPONENT
-    size: 1056x277
+    size: 1056x78
     tokens:
       - field: itemSpacing
-        variable: component/columns/gap
+        variable: layout/gutter
     children:
       - name: Cell 1
         type: INSTANCE
         instanceOf: Card
-        size: 516x277
+        size: 516x78
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/card
+          - field: topRightRadius
+            variable: border/radius/card
+          - field: bottomLeftRadius
+            variable: border/radius/card
+          - field: bottomRightRadius
+            variable: border/radius/card
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: fills
+            variable: color/background/surface
+          - field: strokes
+            variable: color/border/subtle
       - name: Cell 2
         type: INSTANCE
         instanceOf: Card
-        size: 516x277
+        size: 516x78
+        tokens:
+          - field: topLeftRadius
+            variable: border/radius/card
+          - field: topRightRadius
+            variable: border/radius/card
+          - field: bottomLeftRadius
+            variable: border/radius/card
+          - field: bottomRightRadius
+            variable: border/radius/card
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
+          - field: fills
+            variable: color/background/surface
+          - field: strokes
+            variable: color/border/subtle
   code: []
 tokens:
   used:
     - part: grid
       state: rest
       property: gap
-      token: '--component-columns-gap'
+      token: '--layout-gutter'
       selector: .grid
       at: src/components/Columns/Columns.module.css:14
   values:
-    '--component-columns-gap':
-      light: 24px
-      chip: 24px
+    '--layout-gutter':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -147,10 +191,10 @@ usage:
   dont:
     - 'Do not use it for a sidebar: that is SidebarLayout'
     - Do not nest Columns inside Columns
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '405:17321'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     count:
       type: VARIANT
@@ -167,26 +211,25 @@ figma:
   variants:
     - name: count=2, split=even
       width: 1056
-      height: 277
+      height: 78
     - name: count=3, split=even
       width: 1056
-      height: 319
+      height: 110
     - name: count=2, split=wide-start
       width: 1056
-      height: 277
+      height: 78
   defaultVariant: count=2, split=even
   annotations:
     - label: >-
-        Dev · <Columns count split> · src/components/Columns/Columns.tsx:5-19, Columns.module.css:14-33. Gap component/columns/gap (24 =
-        --component-columns-gap). Reflows by its own container width (3 to 2 under 1200, all to 1 under 768), not the viewport. wide-start
-        only with count 2.
+        <Columns count split> · src/components/Columns/Columns.tsx. 2 or 3 columns, gap spacing/24; split wide-start makes the first column
+        wider. Reflows by its own width (container query), not the screen.
       category: '123:0'
-    - label: No role or landmark of its own. Reading order is source order at every width; never reorder cells visually.
+    - label: No role or landmark of its own. Reading order is source order at every width; never reorder for looks.
       category: '123:2'
-    - label: 'None: layout only, no transition.'
+    - label: 'None: layout only.'
       category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-layout-columns--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-columns--docs
 mismatch: []
 notApplicable:
   - section: Sizes

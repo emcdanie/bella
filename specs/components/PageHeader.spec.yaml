@@ -3,78 +3,57 @@
 name: PageHeader
 lead:
   text: The top of every page.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a header with the page's one h1
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-pageheader--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-pageheader--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/PageHeader/PageHeader.tsx
   storyTitle: Components/PageHeader
 props:
   - name: meta
+    figmaName: Meta
     type: ReactNode
     required: false
-    doc: 'Figma "Meta" (+ "Show meta"). A quiet line above the title: breadcrumb, source or category ("Specimen No. 002 · Actions").'
-    at: src/components/PageHeader/PageHeader.tsx:9
+    doc: 'A quiet line above the title: breadcrumb, source or category ("Specimen No. 002 · Actions").'
+    at: src/components/PageHeader/PageHeader.tsx:7
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
-    doc: 'Figma "Title". The page title, the page''s one h1. Plain text: no brand dot, no icon in front on CHIP pages.'
-    at: src/components/PageHeader/PageHeader.tsx:11
+    doc: The page title, the page's one h1.
+    at: src/components/PageHeader/PageHeader.tsx:9
   - name: lede
+    figmaName: Lede
     type: ReactNode
     required: false
-    doc: Figma "Lede" (+ "Show lede"). One or two sentences under the title, held to the body measure.
-    at: src/components/PageHeader/PageHeader.tsx:13
+    doc: One or two sentences under the title, held to the body measure.
+    at: src/components/PageHeader/PageHeader.tsx:11
   - name: icon
+    figmaName: icon
     type: IconName
     required: false
-    doc: >-
-      Figma "Show icon" + "icon". An Iconoir glyph in a 48 well before the title (BellaComponents, 11 Nov 2026). Decorative: the title names
-      the page.
-    at: src/components/PageHeader/PageHeader.tsx:15
+    doc: 'An Iconoir glyph in a quiet well before the title (BellaComponents, 11 Nov 2026). Decorative: the title names the page.'
+    at: src/components/PageHeader/PageHeader.tsx:13
   - name: titleAside
     type: ReactNode
     required: false
-    doc: >-
-      Figma "Show switcher". Something that belongs to the title, beside it but outside the h1 (the switcher chevron, a quiet ⋯ menu), so
-      the heading's name stays the title alone.
-    at: src/components/PageHeader/PageHeader.tsx:17
-  - name: storyLink
-    type: '{ label: ReactNode; href: string }'
-    required: false
-    doc: Figma "Show story link". A link under the title to the story behind the page, with the › Trailing mark.
-    at: src/components/PageHeader/PageHeader.tsx:19
-  - name: health
-    type: ReactNode
-    required: false
-    doc: Figma "Health" (+ "Show health"). The health line under the title, in the subtext face ("95% healthy · 13 checks to fix").
-    at: src/components/PageHeader/PageHeader.tsx:21
+    doc: Something that belongs to the title, beside it but outside the h1 (a quiet ⋯ menu), so the heading's name stays the title alone.
+    at: src/components/PageHeader/PageHeader.tsx:15
   - name: actions
     type: ReactNode
     required: false
-    doc: 'Figma "Show actions". The page''s main action, top right: one primary Button.'
-    at: src/components/PageHeader/PageHeader.tsx:23
-  - name: size
-    type: '''page'' | ''project'''
-    values:
-      - page
-      - project
-    default: page
-    required: false
-    doc: >-
-      Figma "size" (PageHeader set 1663:281509, batch 4, published 22 Nov). page (default): the title at display-section, 40 on a 48 line.
-      project: a project's tabs, where the project name ("CHIP") is 28 on 36 so the tab's own subject leads.
-    at: src/components/PageHeader/PageHeader.tsx:29
+    doc: 'The page''s actions: at most one primary Button, the rest secondary or ActionChip.'
+    at: src/components/PageHeader/PageHeader.tsx:17
   - name: id
     type: string
     required: false
     doc: The h1's id.
-    at: src/components/PageHeader/PageHeader.tsx:31
+    at: src/components/PageHeader/PageHeader.tsx:19
   - name: className
     type: string
     required: false
-    at: src/components/PageHeader/PageHeader.tsx:32
+    at: src/components/PageHeader/PageHeader.tsx:20
 variants: {}
 states:
   contract:
@@ -103,175 +82,258 @@ anatomy:
       side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: PageHeader
+    name: size=page
     type: COMPONENT
-    size: 1056x132
+    size: 1056x96
     tokens:
       - field: itemSpacing
-        variable: component/page-header/gap
+        variable: layout/stack/sm
     children:
       - name: Meta
         type: TEXT
         text: BELLA 0.3.0 · checked 7 Nov, 10:53
-        size: 284x31
+        size: 286x20
         tokens:
           - field: fills
-            variable: component/page-header/meta-foreground
+            variable: color/content/subtle
           - field: fontSize
-            variable: component/page-header/meta/font-size
+            variable: typography/font-size/14
           - field: fontFamily
-            variable: typography/font-family/body
+            variable: typography/subtext/font-family
           - field: fontWeight
-            variable: typography/font-weight/regular
+            variable: typography/font-weight/400
       - name: Row
         type: FRAME
-        size: 1056x48
+        size: 1056x36
         tokens:
           - field: itemSpacing
-            variable: spacing/4
+            variable: spacing/16
         children:
-          - name: Title group
+          - name: Title column
             type: FRAME
-            size: 171x48
+            size: 957x36
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/8
             children:
-              - name: Icon well
+              - name: Title group
                 type: FRAME
-                size: 48x48
+                size: 84x36
                 tokens:
-                  - field: topLeftRadius
-                    variable: radius/lg
-                  - field: topRightRadius
-                    variable: radius/lg
-                  - field: bottomLeftRadius
-                    variable: radius/lg
-                  - field: bottomRightRadius
-                    variable: radius/lg
-                  - field: fills
-                    variable: color/semantic/surface-inset
+                  - field: itemSpacing
+                    variable: spacing/16
                 children:
+                  - name: Icon well
+                    type: FRAME
+                    hidden: true
+                    size: 48x48
+                    tokens:
+                      - field: topLeftRadius
+                        variable: border/radius/12
+                      - field: topRightRadius
+                        variable: border/radius/12
+                      - field: bottomLeftRadius
+                        variable: border/radius/12
+                      - field: bottomRightRadius
+                        variable: border/radius/12
+                      - field: fills
+                        variable: color/background/subtle
+                    children:
+                      - name: Icon
+                        type: INSTANCE
+                        instanceOf: Icon
+                        size: 24x24
+                        tokens:
+                          - field: width
+                            variable: size/24
+                          - field: height
+                            variable: size/24
+                  - name: Title line
+                    type: FRAME
+                    size: 84x36
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/4
+                    children:
+                      - name: Title
+                        type: TEXT
+                        text: Today
+                        size: 84x36
+                        tokens:
+                          - field: fills
+                            variable: color/content/default
+                          - field: fontSize
+                            variable: typography/font-size/28
+                          - field: fontFamily
+                            variable: typography/title-default/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/600
+                      - name: Dot
+                        type: ELLIPSE
+                        hidden: true
+                        size: 12x12
+                        tokens:
+                          - field: fills
+                            variable: color/background/accent-4
+                  - name: Switcher chevron
+                    type: INSTANCE
+                    instanceOf: Icon
+                    hidden: true
+                    size: 24x24
+                    tokens:
+                      - field: width
+                        variable: size/24
+                      - field: height
+                        variable: size/24
+              - name: Story link
+                type: FRAME
+                hidden: true
+                size: 139x24
+                children:
+                  - name: Link
+                    type: INSTANCE
+                    instanceOf: Link
+                    size: 115x24
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/4
                   - name: Icon
                     type: INSTANCE
                     instanceOf: Icon
-                    size: 24x24
-              - name: Title
-                type: TEXT
-                text: Today
-                size: 107x46
-                tokens:
-                  - field: fills
-                    variable: component/page-header/foreground
-                  - field: fontSize
-                    variable:
-                      - component/page-header/title/font-size
-                      - typography/font-size/4xl
-                  - field: fontFamily
-                    variable: typography/font-family/display
-                  - field: fontWeight
-                    variable:
-                      - component/page-header/title/font-weight
-                      - typography/font-weight/semibold
-              - name: Switcher chevron
-                type: INSTANCE
-                instanceOf: Icon
+                    size: 20x20
+                    tokens:
+                      - field: width
+                        variable: size/20
+                      - field: height
+                        variable: size/20
+              - name: Health line
+                type: FRAME
                 hidden: true
-                size: 24x24
+                size: 643x24
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/12
+                children:
+                  - name: Meter
+                    type: INSTANCE
+                    instanceOf: Progress
+                    size: 180x8
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/8
+                  - name: Health text
+                    type: TEXT
+                    text: 95% healthy · 13 checks to fix · checked 10 Nov
+                    size: 395x20
+                    tokens:
+                      - field: fills
+                        variable: color/content/subtle
+                      - field: fontSize
+                        variable: typography/font-size/14
+                      - field: fontFamily
+                        variable: typography/subtext/font-family
+                      - field: fontWeight
+                        variable: typography/body-default/font-weight
           - name: Actions
             type: FRAME
-            size: 135x44
+            size: 99x32
             tokens:
               - field: itemSpacing
-                variable: spacing/2
+                variable: spacing/8
             children:
               - name: Button
                 type: INSTANCE
                 instanceOf: Button
-                size: 135x44
+                size: 99x32
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/2
+                    variable: spacing/8
                   - field: paddingLeft
-                    variable: component/button/secondary/padding-x
+                    variable: spacing/12
                   - field: paddingTop
-                    variable: component/button/secondary/padding-y
+                    variable: size/0
                   - field: paddingRight
-                    variable: component/button/secondary/padding-x
+                    variable: spacing/12
                   - field: paddingBottom
-                    variable: component/button/secondary/padding-y
+                    variable: size/0
                   - field: topLeftRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: topRightRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: bottomLeftRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
                   - field: bottomRightRadius
-                    variable: component/button/shape/default
+                    variable: border/radius/lg
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokeBottomWeight
+                    variable: border/width/1
+                  - field: strokeLeftWeight
+                    variable: border/width/1
+                  - field: strokeRightWeight
+                    variable: border/width/1
                   - field: minHeight
-                    variable: component/button/secondary/min-height
+                    variable: size/32
                   - field: fills
-                    variable: component/button/secondary/background
+                    variable: color/background/brand
                   - field: strokes
-                    variable: color/semantic/border-strong
+                    variable: color/border/action-raised
       - name: Lede
         type: TEXT
         text: Every item says why it matters and offers the action that follows.
-        size: 720x37
+        size: 720x24
         tokens:
           - field: fills
-            variable: component/page-header/meta-foreground
+            variable: color/content/subtle
           - field: fontSize
-            variable:
-              - component/page-header/lede/font-size
-              - typography/font-size/xl
+            variable: typography/font-size/16
           - field: fontFamily
-            variable: typography/font-family/body
+            variable: typography/body-default/font-family
           - field: fontWeight
-            variable: typography/font-weight/regular
+            variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--component-page-header-gap'
+      token: '--layout-stack-sm'
       selector: .header
       at: src/components/PageHeader/PageHeader.module.css:7
     - part: root
       state: rest
       property: margin-block-end
-      token: '--component-section-space'
+      token: '--layout-section-space'
       selector: .header
       at: src/components/PageHeader/PageHeader.module.css:8
     - part: root
       state: rest
       property: color
-      token: '--component-page-header-foreground'
+      token: '--color-content-default'
       selector: .header
       at: src/components/PageHeader/PageHeader.module.css:9
     - part: meta
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-subtext-font-family'
       selector: .meta
       at: src/components/PageHeader/PageHeader.module.css:14
     - part: meta
       state: rest
       property: font-size
-      token: '--component-page-header-meta-font-size'
+      token: '--typography-font-size-18'
       selector: .meta
       at: src/components/PageHeader/PageHeader.module.css:15
     - part: meta
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .meta
       at: src/components/PageHeader/PageHeader.module.css:16
     - part: meta
       state: rest
       property: color
-      token: '--component-page-header-meta-foreground'
+      token: '--color-content-subtle'
       selector: .meta
       at: src/components/PageHeader/PageHeader.module.css:17
     - part: row
@@ -283,7 +345,7 @@ tokens:
     - part: titleGroup
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .titleGroup
       at: src/components/PageHeader/PageHeader.module.css:31
     - part: titleGroup
@@ -307,49 +369,49 @@ tokens:
     - part: iconWell
       state: rest
       property: border-radius
-      token: '--radius-lg'
+      token: '--border-radius-12'
       selector: .iconWell
       at: src/components/PageHeader/PageHeader.module.css:47
     - part: iconWell
       state: rest
       property: background
-      token: '--color-semantic-surface-inset'
+      token: '--color-background-subtle'
       selector: .iconWell
       at: src/components/PageHeader/PageHeader.module.css:48
     - part: iconWell
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .iconWell
       at: src/components/PageHeader/PageHeader.module.css:49
     - part: title
       state: rest
       property: font-family
-      token: '--typography-font-family-display'
+      token: '--typography-headline-sm-font-family'
       selector: .title
       at: src/components/PageHeader/PageHeader.module.css:61
     - part: title
       state: rest
       property: font-size
-      token: '--component-page-header-title-font-size'
+      token: '--typography-font-size-40'
       selector: .title
       at: src/components/PageHeader/PageHeader.module.css:62
     - part: title
       state: rest
       property: font-weight
-      token: '--component-page-header-title-font-weight'
+      token: '--typography-font-weight-600'
       selector: .title
       at: src/components/PageHeader/PageHeader.module.css:63
     - part: title
       state: rest
       property: line-height
-      token: '--component-page-header-title-line-height'
+      token: '--typography-line-height-115'
       selector: .title
       at: src/components/PageHeader/PageHeader.module.css:64
     - part: title
       state: rest
       property: letter-spacing
-      token: '--component-page-header-title-letter-spacing'
+      token: '--typography-letter-spacing-minus-2'
       selector: .title
       at: src/components/PageHeader/PageHeader.module.css:65
     - part: actions
@@ -361,100 +423,97 @@ tokens:
     - part: lede
       state: rest
       property: max-width
-      token: '--component-page-header-lede-max-width'
+      token: '--layout-measure-body'
       selector: .lede
       at: src/components/PageHeader/PageHeader.module.css:79
     - part: lede
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .lede
       at: src/components/PageHeader/PageHeader.module.css:80
     - part: lede
       state: rest
       property: font-size
-      token: '--component-page-header-lede-font-size'
+      token: '--typography-font-size-22'
       selector: .lede
       at: src/components/PageHeader/PageHeader.module.css:81
     - part: lede
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .lede
       at: src/components/PageHeader/PageHeader.module.css:82
     - part: lede
       state: rest
       property: color
-      token: '--component-page-header-meta-foreground'
+      token: '--color-content-subtle'
       selector: .lede
       at: src/components/PageHeader/PageHeader.module.css:83
   values:
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-page-header-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-page-header-gap':
-      light: 8px
-      chip: 8px
-    '--component-page-header-lede-font-size':
-      light: clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)
-      chip: clamp(21px, 21px + 1 * (100vw - 390px) / 1050, 22px)
-    '--component-page-header-lede-max-width':
-      light: 70ch
-      chip: 70ch
-    '--component-page-header-meta-font-size':
-      light: 18px
-      chip: 18px
-    '--component-page-header-meta-foreground':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-page-header-title-font-size':
-      light: 40px
-      chip: 40px
-    '--component-page-header-title-font-weight':
-      light: '600'
-      chip: '600'
-    '--component-page-header-title-letter-spacing':
-      light: '-0.02em'
-      chip: '-0.02em'
-    '--component-page-header-title-line-height':
-      light: '1.15'
-      chip: '1.15'
-    '--component-section-space':
-      light: clamp(32px, 24px + 2vw, 48px)
-      chip: clamp(32px, 24px + 2vw, 48px)
+    '--border-radius-12':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--layout-measure-body':
+      light: null
+      chip: null
+    '--layout-section-space':
+      light: null
+      chip: null
     '--layout-stack-md':
-      light: 16px
-      chip: 16px
+      light: null
+      chip: null
     '--layout-stack-sm':
-      light: 8px
-      chip: 8px
-    '--radius-lg':
-      light: 12px
-      chip: 12px
+      light: null
+      chip: null
     '--spacing-12':
-      light: 48px
-      chip: 48px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-family-display':
-      light: Newsreader, Georgia, serif
-      chip: Newsreader, Georgia, serif
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-font-size-40':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-headline-sm-font-family':
+      light: null
+      chip: null
+    '--typography-letter-spacing-minus-2':
+      light: null
+      chip: null
+    '--typography-line-height-115':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
+    '--typography-subtext-font-family':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -489,76 +548,8 @@ a11y:
       value: aria-hidden="true"
       at: src/components/PageHeader/PageHeader.tsx:36
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: page title on the page
-      foreground: '--component-page-header-foreground'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:118
-    - label: page meta and lede on the page
-      foreground: '--component-page-header-meta-foreground'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:119
-  derived:
-    - foreground: '--component-page-header-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-page-header-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-page-header-meta-foreground'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--component-page-header-meta-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-chip-theme/src/components/PageHeader/PageHeader.stories.tsx
   lines: 35-47
@@ -568,7 +559,12 @@ codeExample:
       meta="Specimen No. 002 · Actions"
       title="Button"
       lede="Buttons with real hierarchy: two colour treatments, three tiers, one primary per view."
-      actions={<Button variant="primary" onClick={() => {}}>Open the story</Button>}
+      actions={
+        <>
+          <ActionChip onClick={() => {}}>Copy import</ActionChip>
+          <Button variant="primary" onClick={() => {}}>Open the story</Button>
+        </>
+      }
     />
 usage:
   use:
@@ -578,82 +574,292 @@ usage:
     - 'Do not use a display Heading tier for an app page title: display is for editorial heroes'
     - 'Do not put more than one primary Button in actions: the main action only; the rest are secondary Buttons or ActionChips'
     - 'Do not use it twice on a page: one h1'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
-  nodeId: '405:17148'
-  fileKey: '${FIGMA_FILE_KEY}'
+  nodeId: '1663:281509'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    meta#405:9:
+    Meta#1663:21:
       type: TEXT
       default: BELLA 0.3.0 · checked 7 Nov, 10:53
-    title#405:10:
+    Title#1663:22:
       type: TEXT
       default: Today
-    lede#405:11:
+    Lede#1663:23:
       type: TEXT
       default: Every item says why it matters and offers the action that follows.
-    Show meta#405:12:
+    Show meta#1663:24:
       type: BOOLEAN
       default: true
-    Show lede#405:13:
+    Show lede#1663:25:
       type: BOOLEAN
       default: true
-    Show actions#405:14:
+    Show actions#1663:26:
       type: BOOLEAN
       default: true
-    Show icon#434:0:
-      type: BOOLEAN
-      default: true
-    Icon#434:1:
-      type: INSTANCE_SWAP
-      default: '432:1193'
-    Show switcher#453:0:
+    Show icon#1663:27:
       type: BOOLEAN
       default: false
-  variants: []
-  defaultVariant: PageHeader
-  annotations:
-    - label: >-
-        Dev · <PageHeader meta title lede actions icon titleAside id />; renders one h1, meta 18 (text style), lede 70ch
-        (PageHeader.module.css:78), title balances its lines. Row gap spacing/4 = --layout-stack-md. titleAside and id have no Figma
-        property.
-      category: '123:0'
-    - label: 'A11y · One h1 per page; meta and lede are plain text. Actions: at most one primary Button, the rest secondary.'
-      category: '123:2'
-  documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-layout-pageheader--docs
+    icon#1663:28:
+      type: INSTANCE_SWAP
+      default: '432:1193'
+    Show switcher#1663:29:
+      type: BOOLEAN
+      default: false
+    Show dot#1663:30:
+      type: BOOLEAN
+      default: false
+    Show health#1663:31:
+      type: BOOLEAN
+      default: false
+    Health#1663:32:
+      type: TEXT
+      default: 95% healthy · 13 checks to fix · checked 10 Nov
+    Show story link#1663:33:
+      type: BOOLEAN
+      default: false
+    size:
+      type: VARIANT
+      default: page
+      values:
+        - page
+        - project
+  variants:
+    - name: size=page
+      width: 1056
+      height: 96
+    - name: size=project
+      width: 1056
+      height: 96
+  defaultVariant: size=page
+  annotations: []
+  documentationLinks: []
 mismatch:
+  - field: props.size
+    code: no such prop
+    figma:
+      - page
+      - project
+  - field: tokens.Meta.fontSize
+    code:
+      - '--typography-font-size-18'
+      - '--typography-font-size-40'
+      - '--typography-font-size-22'
+    figma: typography/font-size/14
+    sameValueInChip: false
+  - field: tokens.Row.itemSpacing
+    code:
+      - '--layout-stack-sm'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+    figma: spacing/16
+    sameValueInChip: true
+  - field: tokens.Title group.itemSpacing
+    code:
+      - '--layout-stack-sm'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+    figma: spacing/16
+    sameValueInChip: true
+  - field: tokens.Icon.width
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/24
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/24
+    sameValueInChip: false
   - field: tokens.Title.fontSize
     code:
-      - '--component-page-header-meta-font-size'
-      - '--component-page-header-title-font-size'
-      - '--component-page-header-lede-font-size'
-    figma: typography/font-size/4xl
-    sameValueInChip: true
-  - field: tokens.Button.radius
+      - '--typography-font-size-18'
+      - '--typography-font-size-40'
+      - '--typography-font-size-22'
+    figma: typography/font-size/28
+    sameValueInChip: false
+  - field: tokens.Dot.fills
     code:
-      - '--radius-lg'
-    figma: component/button/shape/default
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-background-subtle'
+    figma: color/background/accent-4
+    sameValueInChip: false
+  - field: tokens.Switcher chevron.width
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/24
+    sameValueInChip: false
+  - field: tokens.Switcher chevron.height
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/24
+    sameValueInChip: false
+  - field: tokens.Icon.width
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--layout-stack-sm'
+      - '--layout-section-space'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-18'
+      - '--typography-line-height-150'
+      - '--color-content-subtle'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--border-radius-12'
+      - '--color-background-subtle'
+      - '--typography-headline-sm-font-family'
+      - '--typography-font-size-40'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-115'
+      - '--typography-letter-spacing-minus-2'
+      - '--layout-measure-body'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-22'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Health line.itemSpacing
+    code:
+      - '--layout-stack-sm'
+      - '--layout-stack-md'
+      - '--spacing-8'
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Health text.fontSize
+    code:
+      - '--typography-font-size-18'
+      - '--typography-font-size-40'
+      - '--typography-font-size-22'
+    figma: typography/font-size/14
     sameValueInChip: false
   - field: tokens.Button.fills
     code:
-      - '--component-page-header-foreground'
-      - '--component-page-header-meta-foreground'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: component/button/secondary/background
-    sameValueInChip: false
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-background-subtle'
+    figma: color/background/brand
+    sameValueInChip: true
   - field: tokens.Button.strokes
     code:
-      - '--radius-lg'
-    figma: color/semantic/border-strong
+      - '--border-radius-12'
+    figma: color/border/action-raised
     sameValueInChip: false
   - field: tokens.Lede.fontSize
     code:
-      - '--component-page-header-meta-font-size'
-      - '--component-page-header-title-font-size'
-      - '--component-page-header-lede-font-size'
-    figma: typography/font-size/xl
+      - '--typography-font-size-18'
+      - '--typography-font-size-40'
+      - '--typography-font-size-22'
+    figma: typography/font-size/16
     sameValueInChip: false
 notApplicable:
   - section: Sizes

@@ -3,11 +3,11 @@
 name: TypingDots
 lead:
   text: Three animated dots indicating a lane is typing.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Chat
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-typingdots--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-chat-typingdots--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/TypingDots/TypingDots.tsx
   storyTitle: Components/Chat/TypingDots
 props:
@@ -49,156 +49,173 @@ anatomy:
     size: 56x24
     tokens:
       - field: itemSpacing
-        variable: component/typing-dots/default/gap
+        variable: spacing/12
       - field: paddingLeft
-        variable: spacing/3
+        variable: spacing/12
       - field: paddingTop
-        variable: spacing/2
+        variable: spacing/8
       - field: paddingRight
-        variable: spacing/3
+        variable: spacing/12
       - field: paddingBottom
-        variable: spacing/2
+        variable: spacing/8
       - field: topLeftRadius
-        variable: component/chat-bubble/default/border-radius
+        variable: border/radius/card
       - field: topRightRadius
-        variable: component/chat-bubble/default/border-radius
+        variable: border/radius/card
       - field: bottomLeftRadius
-        variable: component/chat-bubble/default/border-radius
+        variable: border/radius/card
       - field: bottomRightRadius
-        variable: component/chat-bubble/default/border-radius
+        variable: border/radius/card
       - field: fills
-        variable: component/chat-bubble/received/background
+        variable: color/background/default-hover
     children:
-      - name: Dot 1
-        type: ELLIPSE
-        size: 8x8
+      - name: Dots
+        type: FRAME
+        size: 32x8
         tokens:
-          - field: width
-            variable: component/typing-dots/default/dot-size
-          - field: height
-            variable: component/typing-dots/default/dot-size
-          - field: fills
-            variable: color/semantic/text-secondary
-      - name: Dot 2
-        type: ELLIPSE
-        size: 8x8
+          - field: itemSpacing
+            variable: spacing/4
+        children:
+          - name: Dot 1
+            type: ELLIPSE
+            size: 8x8
+            tokens:
+              - field: width
+                variable: spacing/8
+              - field: height
+                variable: spacing/8
+              - field: fills
+                variable: color/content/subtle
+          - name: Dot 2
+            type: ELLIPSE
+            size: 8x8
+            tokens:
+              - field: width
+                variable: spacing/8
+              - field: height
+                variable: spacing/8
+              - field: fills
+                variable: color/content/subtle
+          - name: Dot 3
+            type: ELLIPSE
+            size: 8x8
+            tokens:
+              - field: width
+                variable: spacing/8
+              - field: height
+                variable: spacing/8
+              - field: fills
+                variable: color/content/subtle
+      - name: Label
+        type: TEXT
+        hidden: true
+        text: Reading your sources
+        size: 168x24
         tokens:
-          - field: width
-            variable: component/typing-dots/default/dot-size
-          - field: height
-            variable: component/typing-dots/default/dot-size
           - field: fills
-            variable: color/semantic/text-secondary
-      - name: Dot 3
-        type: ELLIPSE
-        size: 8x8
-        tokens:
-          - field: width
-            variable: component/typing-dots/default/dot-size
-          - field: height
-            variable: component/typing-dots/default/dot-size
-          - field: fills
-            variable: color/semantic/text-secondary
+            variable: color/content/body
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: lineHeight
+            variable: typography/line-height-px/24
+          - field: fontWeight
+            variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--component-typing-dots-default-gap'
+      token: '--spacing-4'
       selector: .root
       at: src/components/TypingDots/TypingDots.module.css:6
     - part: root
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .root
       at: src/components/TypingDots/TypingDots.module.css:7
     - part: root
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .root
       at: src/components/TypingDots/TypingDots.module.css:7
     - part: root
       state: rest
       property: background
-      token: '--component-chat-bubble-received-background'
+      token: '--color-background-subtle'
       selector: .root
       at: src/components/TypingDots/TypingDots.module.css:8
     - part: root
       state: rest
       property: border-radius
-      token: '--component-chat-bubble-default-border-radius'
+      token: '--border-radius-20'
       selector: .root
       at: src/components/TypingDots/TypingDots.module.css:9
     - part: dot
       state: rest
       property: width
-      token: '--component-typing-dots-default-dot-size'
+      token: '--spacing-8'
       selector: .dot
       at: src/components/TypingDots/TypingDots.module.css:13
     - part: dot
       state: rest
       property: height
-      token: '--component-typing-dots-default-dot-size'
+      token: '--spacing-8'
       selector: .dot
       at: src/components/TypingDots/TypingDots.module.css:14
     - part: dot
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .dot
       at: src/components/TypingDots/TypingDots.module.css:15
     - part: dot
       state: rest
       property: background
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .dot
       at: src/components/TypingDots/TypingDots.module.css:16
     - part: dot2
       state: rest
       property: animation-delay
-      token: '--component-typing-dots-default-delay-2'
+      token: '--motion-duration-150'
       selector: .dot2
       at: src/components/TypingDots/TypingDots.module.css:21
     - part: dot3
       state: rest
       property: animation-delay
-      token: '--component-typing-dots-default-delay-3'
+      token: '--motion-duration-150'
       selector: .dot3
       at: src/components/TypingDots/TypingDots.module.css:25
   values:
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-chat-bubble-default-border-radius':
-      light: 18px
-      chip: 18px
-    '--component-chat-bubble-received-background':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--component-typing-dots-default-delay-2':
-      light: 150ms
-      chip: 150ms
-    '--component-typing-dots-default-delay-3':
-      light: 300ms
-      chip: 300ms
-    '--component-typing-dots-default-dot-size':
-      light: 8px
-      chip: 8px
-    '--component-typing-dots-default-gap':
-      light: 4px
-      chip: 4px
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--border-radius-20':
+      light: null
+      chip: null
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .dot
@@ -262,40 +279,7 @@ a11y:
       value: role=status
       at: src/components/TypingDots/TypingDots.tsx:19
 contrast:
-  pairs:
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: Dots on the pill (resting opacity is lower; decorative)
-      foreground: '--color-semantic-text-secondary'
-      background: '--component-chat-bubble-received-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#eceef3'
-      ratio: 7.34
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
+  pairs: []
   derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/TypingDots/TypingDots.stories.tsx
@@ -308,17 +292,50 @@ usage:
     - Typing indicator in chat replay
   dont:
     - Do not show for more than a few seconds without a message following
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '326:482'
-  fileKey: '${FIGMA_FILE_KEY}'
-  props: {}
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Show label#1514:57:
+      type: BOOLEAN
+      default: false
+    Label#1514:58:
+      type: TEXT
+      default: Reading your sources
   variants: []
   defaultVariant: TypingDots
-  annotations: []
+  annotations:
+    - label: <TypingDots name /> · src/components/TypingDots/TypingDots.tsx. A 56 × 24 pill on the received-bubble surface with three dots.
+      category: '123:0'
+    - label: >-
+        role=status with aria-label "{name} is typing"; the dots are aria-hidden. Dots 7.34:1 against the pill (decoration; the label says
+        it in words).
+      category: '123:2'
+    - label: |-
+        Pulse: each dot pulses over 1.2s (opacity and a 3px lift), dots 2 and 3 delayed.
+        Reduced motion: still dots.
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-data-typingdots--docs
-mismatch: []
+    - https://emcdanie.github.io/bella/?path=/docs/components-chat-typingdots--docs
+mismatch:
+  - field: tokens.TypingDots.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.TypingDots.fills
+    code:
+      - '--color-background-subtle'
+      - '--color-content-subtle'
+    figma: color/background/default-hover
+    sameValueInChip: true
+  - field: tokens.Label.fills
+    code:
+      - '--color-background-subtle'
+      - '--color-content-subtle'
+    figma: color/content/body
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TypingDots/TypingDots.tsx

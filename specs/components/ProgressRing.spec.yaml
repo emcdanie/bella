@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Data/ProgressRing
 props:
   - name: state
+    figmaName: state
     type: ProgressRingState
     default: running
     required: false
@@ -20,6 +21,7 @@ props:
       filled red circle with a cross.
     at: src/components/ProgressRing/ProgressRing.tsx:12
   - name: size
+    figmaName: size
     type: '''sm'' | ''md'''
     values:
       - sm
@@ -41,6 +43,7 @@ props:
     doc: 'running, determinate: steps in all.'
     at: src/components/ProgressRing/ProgressRing.tsx:18
   - name: showCount
+    figmaName: Show count
     type: boolean
     values:
       - true
@@ -607,9 +610,6 @@ figma:
       height: 36
   defaultVariant: state=running, size=sm
 mismatch:
-  - field: props.decorative
-    code: boolean prop
-    figma: not in the set
   - field: tokens.Track.strokes
     code:
       - '--border-radius-round'
@@ -624,3 +624,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: decorative
+      why: hides the ring from assistive tech (aria-hidden); no look change

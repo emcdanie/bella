@@ -12,11 +12,13 @@ links:
   storyTitle: Components/Data/GroupHead
 props:
   - name: name
+    figmaName: Name
     type: ReactNode
     required: true
     doc: Figma "Name". The group's name.
     at: src/components/GroupHead/GroupHead.tsx:7
   - name: index
+    figmaName: Show index
     type: ReactNode
     required: false
     doc: >-
@@ -241,13 +243,6 @@ figma:
   variants: []
   defaultVariant: Group head
 mismatch:
-  - field: props.as
-    code:
-      - h2
-      - h3
-      - h4
-      - div
-    figma: no such variant property
   - field: tokens.Index.fills
     code:
       - '--color-content-default'
@@ -264,3 +259,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: as
+      why: DOM heading level or div; the head looks the same

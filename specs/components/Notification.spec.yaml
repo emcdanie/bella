@@ -14,11 +14,13 @@ links:
   storyTitle: Components/Layout/Notification
 props:
   - name: message
+    figmaName: Message
     type: ReactNode
     required: false
     doc: Figma "Message". The line under the title; wraps.
     at: src/components/Notification/Notification.tsx:17
   - name: showIcon
+    figmaName: Show icon
     type: boolean
     values:
       - true
@@ -28,6 +30,7 @@ props:
     doc: Figma "Show icon" (on by default, her 21 Nov pick "A · outline circle icons"). Off drops the icon column.
     at: src/components/Notification/Notification.tsx:19
   - name: action
+    figmaName: Show action
     type: NotificationAction
     required: false
     doc: >-
@@ -35,16 +38,19 @@ props:
       Missing = off.
     at: src/components/Notification/Notification.tsx:21
   - name: title
+    figmaName: Title
     type: ReactNode
     required: false
     doc: Figma "Title".
     at: src/components/Notification/Notification.tsx:23
   - name: secondAction
+    figmaName: Show second action
     type: NotificationAction
     required: false
     doc: Figma "Show second action". Missing = off.
     at: src/components/Notification/Notification.tsx:25
   - name: onClose
+    figmaName: Show close
     type: () => void
     required: false
     doc: Figma "Show close". Missing = off. Close is Button tertiary, sm, icon only, top right in the flow.
@@ -56,6 +62,7 @@ props:
     doc: Accessible name of the close button.
     at: src/components/Notification/Notification.tsx:29
   - name: tone
+    figmaName: tone
     type: NotificationTone
     default: attention
     required: false
@@ -727,7 +734,7 @@ mismatch:
       - '--color-content-subtle'
       - '--notification-ink'
     figma: size/20
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Icon.height
     code:
       - '--border-radius-card'
@@ -759,7 +766,7 @@ mismatch:
       - '--color-content-subtle'
       - '--notification-ink'
     figma: size/20
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Actions.paddingLeft
     code:
       - '--spacing-12'

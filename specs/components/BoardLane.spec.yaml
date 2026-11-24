@@ -12,11 +12,13 @@ links:
   storyTitle: Components/Data/BoardLane
 props:
   - name: name
+    figmaName: Name
     type: ReactNode
     required: true
     doc: Figma "Name". The lane's name; the lane's heading.
     at: src/components/BoardLane/BoardLane.tsx:60
   - name: order
+    figmaName: Order
     type: ReactNode
     required: false
     doc: Figma "Order". One line on how the lane is sorted. Missing = off.
@@ -29,6 +31,7 @@ props:
       is a public API change and waits for Elleta.
     at: src/components/BoardLane/BoardLane.tsx:64
   - name: lane
+    figmaName: lane
     type: BoardLaneKind | 'other'
     default: gate
     required: false
@@ -52,6 +55,7 @@ props:
     doc: Figma Count (Tag) label. Defaults to the number of cards.
     at: src/components/BoardLane/BoardLane.tsx:70
   - name: empty
+    figmaName: Show empty
     type: ReactNode
     required: false
     doc: 'Figma "Show empty" + Empty (Empty state size=lane): shown, centred under the head, when the lane has no cards.'
@@ -1045,12 +1049,6 @@ mismatch:
     figma:
       - default
       - drop-target
-  - field: props.headingLevel
-    code:
-      - '2'
-      - '3'
-      - '4'
-    figma: no such variant property
   - field: props.dropTarget
     code: boolean prop
     figma: not in the set
@@ -1589,3 +1587,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: headingLevel
+      why: sets the DOM heading level (h2 to h4); the lane looks the same

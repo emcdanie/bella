@@ -3,11 +3,11 @@
 name: Avatar
 lead:
   text: A person or entity as a circle.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-avatar--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-avatar--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Avatar/Avatar.tsx
   storyTitle: Components/Avatar
 props:
@@ -31,6 +31,7 @@ props:
       name is an empty disc, which is a bug, not a state.
     at: src/components/Avatar/Avatar.tsx:19
   - name: size
+    figmaName: size
     type: '''xs'' | ''sm'' | ''md'' | ''lg'''
     values:
       - xs
@@ -44,6 +45,7 @@ props:
       rows.
     at: src/components/Avatar/Avatar.tsx:21
   - name: ring
+    figmaName: ring
     type: boolean
     values:
       - true
@@ -53,6 +55,7 @@ props:
     doc: Accent ring, separated from the disc by a gap of ground. A rest state, never a hover one.
     at: src/components/Avatar/Avatar.tsx:23
   - name: showInitials
+    figmaName: Show initials
     type: boolean
     values:
       - true
@@ -88,37 +91,37 @@ sizes:
     default: false
     css:
       - property: width
-        value: var(--component-avatar-xs-size)
+        value: var(--spacing-32)
         at: src/components/Avatar/Avatar.module.css:40
       - property: height
-        value: var(--component-avatar-xs-size)
+        value: var(--spacing-32)
         at: src/components/Avatar/Avatar.module.css:41
   - value: sm
     default: false
     css:
       - property: width
-        value: var(--component-avatar-sm-size)
+        value: var(--spacing-40)
         at: src/components/Avatar/Avatar.module.css:46
       - property: height
-        value: var(--component-avatar-sm-size)
+        value: var(--spacing-40)
         at: src/components/Avatar/Avatar.module.css:47
   - value: md
     default: true
     css:
       - property: width
-        value: var(--component-avatar-md-size)
+        value: var(--spacing-48)
         at: src/components/Avatar/Avatar.module.css:52
       - property: height
-        value: var(--component-avatar-md-size)
+        value: var(--spacing-48)
         at: src/components/Avatar/Avatar.module.css:53
   - value: lg
     default: false
     css:
       - property: width
-        value: var(--component-avatar-lg-size)
+        value: var(--spacing-80)
         at: src/components/Avatar/Avatar.module.css:58
       - property: height
-        value: var(--component-avatar-lg-size)
+        value: var(--spacing-80)
         at: src/components/Avatar/Avatar.module.css:59
 anatomy:
   scaleWidth: 480
@@ -145,250 +148,247 @@ anatomy:
       side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: size=md, content=initials, ring=false
+    name: size=sm, content=initials, ring=false
     type: COMPONENT
-    size: 48x48
+    size: 40x40
     tokens:
       - field: width
-        variable: component/avatar/md/size
+        variable: spacing/40
       - field: height
-        variable: component/avatar/md/size
+        variable: spacing/40
+      - field: topLeftRadius
+        variable: border/radius/round
+      - field: topRightRadius
+        variable: border/radius/round
+      - field: bottomLeftRadius
+        variable: border/radius/round
+      - field: bottomRightRadius
+        variable: border/radius/round
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/subtle
+      - field: strokes
+        variable: color/border/subtle
     children:
-      - name: Disc
-        type: FRAME
-        size: 48x48
-        tokens:
-          - field: topLeftRadius
-            variable: component/avatar/default/border-radius
-          - field: topRightRadius
-            variable: component/avatar/default/border-radius
-          - field: bottomLeftRadius
-            variable: component/avatar/default/border-radius
-          - field: bottomRightRadius
-            variable: component/avatar/default/border-radius
-          - field: fills
-            variable: component/avatar/default/background
-          - field: strokes
-            variable: component/avatar/default/border-color
-        children: []
       - name: Initials
         type: TEXT
         text: EM
-        size: 30x20
+        size: 25x16
         tokens:
           - field: fills
-            variable: component/avatar/default/foreground
+            variable: color/content/body
           - field: fontSize
-            variable: component/avatar/md/font-size
+            variable: typography/font-size/16
           - field: fontFamily
-            variable: component/avatar/default/font-family
+            variable: typography/body-default/font-family
           - field: fontWeight
-            variable: component/avatar/default/font-weight
+            variable: typography/font-weight/700
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: background
-      token: '--component-avatar-default-background'
+      token: '--color-background-subtle'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:24
     - part: root
       state: rest
       property: color
-      token: '--component-avatar-default-foreground'
+      token: '--color-content-body'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:25
     - part: root
       state: rest
       property: border
-      token: '--component-avatar-default-border-color'
+      token: '--color-border-subtle'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:30
     - part: root
       state: rest
       property: border-radius
-      token: '--component-avatar-default-border-radius'
+      token: '--border-radius-round'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:31
     - part: root
       state: rest
       property: font-family
-      token: '--component-avatar-default-font-family'
+      token: '--typography-body-default-font-family'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:32
     - part: root
       state: rest
       property: font-weight
-      token: '--component-avatar-default-font-weight'
+      token: '--typography-font-weight-700'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:33
     - part: root
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-normal'
+      token: '--typography-letter-spacing-0'
       selector: .avatar
       at: src/components/Avatar/Avatar.module.css:35
     - part: xs
       state: rest
       property: width
-      token: '--component-avatar-xs-size'
+      token: '--spacing-32'
       selector: .xs
       at: src/components/Avatar/Avatar.module.css:40
     - part: xs
       state: rest
       property: height
-      token: '--component-avatar-xs-size'
+      token: '--spacing-32'
       selector: .xs
       at: src/components/Avatar/Avatar.module.css:41
     - part: xs
       state: rest
       property: font-size
-      token: '--component-avatar-xs-font-size'
+      token: '--typography-label-default-font-size'
       selector: .xs
       at: src/components/Avatar/Avatar.module.css:42
     - part: sm
       state: rest
       property: width
-      token: '--component-avatar-sm-size'
+      token: '--spacing-40'
       selector: .sm
       at: src/components/Avatar/Avatar.module.css:46
     - part: sm
       state: rest
       property: height
-      token: '--component-avatar-sm-size'
+      token: '--spacing-40'
       selector: .sm
       at: src/components/Avatar/Avatar.module.css:47
     - part: sm
       state: rest
       property: font-size
-      token: '--component-avatar-sm-font-size'
+      token: '--typography-label-default-font-size'
       selector: .sm
       at: src/components/Avatar/Avatar.module.css:48
     - part: md
       state: rest
       property: width
-      token: '--component-avatar-md-size'
+      token: '--spacing-48'
       selector: .md
       at: src/components/Avatar/Avatar.module.css:52
     - part: md
       state: rest
       property: height
-      token: '--component-avatar-md-size'
+      token: '--spacing-48'
       selector: .md
       at: src/components/Avatar/Avatar.module.css:53
     - part: md
       state: rest
       property: font-size
-      token: '--component-avatar-md-font-size'
+      token: '--typography-body-default-font-size'
       selector: .md
       at: src/components/Avatar/Avatar.module.css:54
     - part: lg
       state: rest
       property: width
-      token: '--component-avatar-lg-size'
+      token: '--spacing-80'
       selector: .lg
       at: src/components/Avatar/Avatar.module.css:58
     - part: lg
       state: rest
       property: height
-      token: '--component-avatar-lg-size'
+      token: '--spacing-80'
       selector: .lg
       at: src/components/Avatar/Avatar.module.css:59
     - part: lg
       state: rest
       property: font-size
-      token: '--component-avatar-lg-font-size'
+      token: '--typography-font-size-22'
       selector: .lg
       at: src/components/Avatar/Avatar.module.css:60
     - part: ring
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-gap'
+      token: '--border-width-2'
       selector: .ring
       at: src/components/Avatar/Avatar.module.css:68
     - part: ring
       state: rest
       property: box-shadow
-      token: '--color-semantic-background'
+      token: '--color-background-default'
       selector: .ring
       at: src/components/Avatar/Avatar.module.css:68
     - part: ring
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-gap'
+      token: '--border-width-2'
       selector: .ring
       at: src/components/Avatar/Avatar.module.css:68
     - part: ring
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-width'
+      token: '--border-width-2'
       selector: .ring
       at: src/components/Avatar/Avatar.module.css:68
     - part: ring
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-color'
+      token: '--color-border-ink'
       selector: .ring
       at: src/components/Avatar/Avatar.module.css:68
   values:
-    '--color-semantic-background':
-      light: '#F7F7F5'
-      chip: '#F7F7F5'
-    '--component-avatar-default-background':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--component-avatar-default-border-color':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--component-avatar-default-border-radius':
-      light: 999px
-      chip: 999px
-    '--component-avatar-default-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-avatar-default-font-weight':
-      light: '700'
-      chip: '700'
-    '--component-avatar-default-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-avatar-default-ring-color':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-avatar-default-ring-gap':
-      light: 2px
-      chip: 2px
-    '--component-avatar-default-ring-width':
-      light: 2px
-      chip: 2px
-    '--component-avatar-lg-font-size':
-      light: 22px
-      chip: 22px
-    '--component-avatar-lg-size':
-      light: 80px
-      chip: 80px
-    '--component-avatar-md-font-size':
-      light: 20px
-      chip: 20px
-    '--component-avatar-md-size':
-      light: 48px
-      chip: 48px
-    '--component-avatar-sm-font-size':
-      light: 16px
-      chip: 16px
-    '--component-avatar-sm-size':
-      light: 40px
-      chip: 40px
-    '--component-avatar-xs-font-size':
-      light: 16px
-      chip: 16px
-    '--component-avatar-xs-size':
-      light: 32px
-      chip: 32px
-    '--typography-letter-spacing-normal':
-      light: '0'
-      chip: '0'
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--border-width-2':
+      light: null
+      chip: null
+    '--color-background-default':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--spacing-32':
+      light: null
+      chip: null
+    '--spacing-40':
+      light: null
+      chip: null
+    '--spacing-48':
+      light: null
+      chip: null
+    '--spacing-80':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-font-weight-700':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -430,38 +430,8 @@ a11y:
       value: aria-hidden="true"
       at: src/components/Avatar/Avatar.tsx:74
 contrast:
-  pairs:
-    - label: Initials on the disc
-      foreground: '--component-avatar-default-foreground'
-      background: '--component-avatar-default-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#eceef3'
-      ratio: 11.47
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Ring on the page
-      foreground: '--component-avatar-default-ring-color'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-avatar-default-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-avatar-default-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Avatar/Avatar.stories.tsx
   lines: 38-38
@@ -477,20 +447,20 @@ usage:
     - 'Do not use it as a decorative circle: an Avatar stands for someone, a plain disc is artwork'
     - 'Do not ship it without a name: the initials fallback is the point, an empty disc is a bug'
     - 'Do not put a status dot on it yet: the status ladder is unresolved (issue #1)'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '156:164'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     Initials#156:24:
       type: TEXT
       default: EM
-    showInitials#739:77:
+    Show initials#739:77:
       type: BOOLEAN
       default: true
     size:
       type: VARIANT
-      default: md
+      default: sm
       values:
         - sm
         - md
@@ -509,6 +479,18 @@ figma:
         - 'false'
         - 'true'
   variants:
+    - name: size=xs, content=initials, ring=false
+      width: 32
+      height: 32
+    - name: size=xs, content=initials, ring=true
+      width: 32
+      height: 32
+    - name: size=xs, content=image, ring=false
+      width: 32
+      height: 32
+    - name: size=xs, content=image, ring=true
+      width: 32
+      height: 32
     - name: size=sm, content=initials, ring=false
       width: 40
       height: 40
@@ -545,41 +527,33 @@ figma:
     - name: size=lg, content=image, ring=true
       width: 80
       height: 80
-    - name: size=xs, content=initials, ring=false
-      width: 32
-      height: 32
-    - name: size=xs, content=initials, ring=true
-      width: 32
-      height: 32
-    - name: size=xs, content=image, ring=false
-      width: 32
-      height: 32
-    - name: size=xs, content=image, ring=true
-      width: 32
-      height: 32
-  defaultVariant: size=md, content=initials, ring=false
+  defaultVariant: size=sm, content=initials, ring=false
   annotations:
     - label: >-
-        Dev · <Avatar name src alt size ring showInitials /> · src/components/Avatar/Avatar.tsx:37-45. Default size md (Avatar.tsx:37). Disc
-        surface-inset + border-subtle 1px, radius/full (css:24,30-31); border-box so the ring never changes disc size (css:21-23). Ring is
-        box-shadow: gap in color/semantic/background, then the ring colour (css:67-72). Figma ring=false/true is the code boolean `ring`;
-        showInitials hides the letters (Avatar.tsx:24). Sizes, disc colours, radius, initials type and ring colour are bound to
-        component/avatar/*. Ring gap and width (2px, css:68) have no component variable yet, so the ring is drawn as 2px numbers.
+        <Avatar name src alt size ring showInitials /> · src/components/Avatar/Avatar.tsx. A round Disc with a photo or two Initials; size
+        xs 32, sm 40, md 48 (default), lg 64. ring=true draws a rest ring.
       category: '123:0'
     - label: >-
-        A11y · With image: img with alt (empty alt = decorative). Without: root role=img labelled by name, initials aria-hidden
-        (Avatar.tsx:66-67). Initials text-body on surface-inset 11.47:1 Light and Chip, 13.90:1 Dark.
+        With a photo: img with alt (empty when the name sits beside it). Without: role=img named by the name; initials aria-hidden. Not
+        interactive. Initials 10.99:1 or more in all four themes.
       category: '123:2'
-    - label: Motion · none. The ring is a rest state and never animates (component.json avatar).
-      category: '123:0'
+    - label: 'None: static; the ring never animates.'
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-data-avatar--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-avatar--docs
 mismatch:
   - field: props.content
     code: no such prop
     figma:
       - initials
       - image
+  - field: tokens.Initials.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-22'
+    figma: typography/font-size/16
+    sameValueInChip: true
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/Avatar/Avatar.module.css

@@ -14,12 +14,14 @@ links:
   storyTitle: Components/Layout/FloatingPanel
 props:
   - name: title
+    figmaName: Title
     type: string
     default: Terminal
     required: false
     doc: Figma "Title". What the panel is ("Terminal"); names the dialog and the Dock and Close buttons.
     at: src/components/FloatingPanel/FloatingPanel.tsx:11
   - name: status
+    figmaName: Show status
     type: string
     required: false
     doc: Figma "Show status" + the StatusDot word ("Working"). Missing = off.
@@ -37,6 +39,7 @@ props:
     doc: The StatusDot tone beside the title. Default info, a dot with no wash.
     at: src/components/FloatingPanel/FloatingPanel.tsx:15
   - name: actionLabel
+    figmaName: Show action
     type: string
     required: false
     doc: 'Figma "Show action" + its label ("Stop"): a secondary Button in the title bar. Missing = off.'
@@ -46,6 +49,7 @@ props:
     required: false
     at: src/components/FloatingPanel/FloatingPanel.tsx:18
   - name: children
+    figmaName: Body
     type: ReactNode
     required: false
     doc: 'Figma "Body" slot: the drawer''s content as it is (the Terminal steps and composer).'
@@ -1055,7 +1059,7 @@ mismatch:
     code:
       - '--typography-font-size-16'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Action.paddingLeft
     code:
       - '--spacing-16'

@@ -23,6 +23,7 @@ props:
     doc: The card's title (Figma Title).
     at: src/components/BarChart/BarChart.tsx:30
   - name: view
+    figmaName: view
     type: '''chart'' | ''table'''
     values:
       - chart
@@ -82,6 +83,7 @@ props:
     doc: The words after "Failed" in the legend and the callout ("Failed, contracts"). Missing = "Failed".
     at: src/components/BarChart/BarChart.tsx:48
   - name: summary
+    figmaName: Summary
     type: string
     required: false
     doc: 'Figma "Summary": the one line under the chart, always present. Missing = written from the data ("7 of 30 runs failed today").'
@@ -2444,7 +2446,7 @@ mismatch:
       - '--typography-font-size-16'
       - '--typography-font-size-24'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/BarChart/BarChart.tsx

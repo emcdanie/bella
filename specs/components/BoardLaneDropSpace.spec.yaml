@@ -6,13 +6,11 @@ statusNote: >-
   Drawn in BellaComponents; no code yet. Build src/components/BoardLaneDropSpace/BoardLaneDropSpace.tsx from this spec, then rerun
   spec-build to replace this file with the code spec.
 lead:
-  text: >-
-    Where a dragged card lands (kind=target: "Drop here to start", ink, not blue: blue text is 2.8:1 on the lane) and the space it left
-    (kind=origin: no words).
+  text: 'Purpose: where a dragged card lands (kind=target, "Drop here to start") and the space it left (kind=origin, no words).'
   source: Figma component description
 links:
   figma:
-    fileKey: '${FIGMA_FILE_KEY}'
+    fileKey: JzN6DXIILH64KHI5MmgH8Q
     nodeId: '783:496703'
   storybook: null
   github: null
@@ -34,6 +32,9 @@ variants:
   names:
     - kind=target
     - kind=origin
+  addTokens:
+    kind=origin:
+      - '--color-border-strong'
 composedOf: []
 anatomy:
   parts:
@@ -46,73 +47,94 @@ anatomy:
     size: 232x140
     tokens:
       - field: topLeftRadius
-        token: '--radius-card'
+        token: '--border-radius-16'
       - field: topRightRadius
-        token: '--radius-card'
+        token: '--border-radius-16'
       - field: bottomLeftRadius
-        token: '--radius-card'
+        token: '--border-radius-16'
       - field: bottomRightRadius
-        token: '--radius-card'
-      - field: fills
-        token: '--component-board-lane-drop-space-background'
+        token: '--border-radius-16'
+      - field: strokeTopWeight
+        token: '--border-width-2'
+      - field: strokeBottomWeight
+        token: '--border-width-2'
+      - field: strokeLeftWeight
+        token: '--border-width-2'
+      - field: strokeRightWeight
+        token: '--border-width-2'
       - field: strokes
-        token: '--component-board-lane-drop-target-border'
+        token: '--color-border-brand'
     children:
       - name: Label
         type: TEXT
         text: Drop here to start
-        size: 168x30
+        size: 144x24
         boundToProps:
           characters: label
         tokens:
           - field: fills
-            token: '--color-semantic-text-primary'
+            token: '--color-content-brand'
           - field: fontSize
-            token: '--typography-font-size-body'
+            token: '--typography-font-size-16'
           - field: fontFamily
-            token: '--typography-font-family-body'
+            token: '--typography-body-default-font-family'
           - field: fontWeight
-            token: '--typography-font-weight-medium'
+            token: '--typography-font-weight-600'
 tokens:
   used:
-    - token: '--color-semantic-text-primary'
-      fields:
-        - fills
-      inCode: true
-    - token: '--component-board-lane-drop-space-background'
-      fields:
-        - fills
-      inCode: false
-    - token: '--component-board-lane-drop-target-border'
-      fields:
-        - strokes
-      inCode: false
-    - token: '--radius-card'
+    - token: '--border-radius-16'
       fields:
         - topLeftRadius
         - topRightRadius
         - bottomLeftRadius
         - bottomRightRadius
       inCode: true
-    - token: '--typography-font-family-body'
+    - token: '--border-width-2'
+      fields:
+        - strokeTopWeight
+        - strokeBottomWeight
+        - strokeLeftWeight
+        - strokeRightWeight
+      inCode: true
+    - token: '--color-border-brand'
+      fields:
+        - strokes
+      inCode: true
+    - token: '--color-border-strong'
+      fields:
+        - variant
+      inCode: true
+    - token: '--color-content-brand'
+      fields:
+        - fills
+      inCode: true
+    - token: '--typography-body-default-font-family'
       fields:
         - fontFamily
       inCode: true
-    - token: '--typography-font-size-body'
+    - token: '--typography-font-size-16'
       fields:
         - fontSize
       inCode: true
-    - token: '--typography-font-weight-medium'
+    - token: '--typography-font-weight-600'
       fields:
         - fontWeight
       inCode: true
-  missingInCode:
-    - '--component-board-lane-drop-space-background'
-    - '--component-board-lane-drop-target-border'
+  missingInCode: []
   raw: []
 description: >-
-  Where a dragged card lands (kind=target: "Drop here to start", ink, not blue: blue text is 2.8:1 on the lane) and the space it left
-  (kind=origin: no words).
+  Purpose: where a dragged card lands (kind=target, "Drop here to start") and the space it left (kind=origin, no words). Shows only while
+  dragging.
+
+
+  States: kind target, origin.
+
+
+  Parts: Label (target only).
+
+
+  Tokens: border/radius/16, border/radius/form, border/width/2, color/background/surface, color/border/brand, color/border/strong,
+  color/content/brand, spacing/24, typography/body-default/font-family, typography/font-size/16, typography/font-weight/600.
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

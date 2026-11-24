@@ -6,11 +6,11 @@ statusNote: >-
   Drawn in BellaComponents; no code yet. Build src/components/TimelineEvent/TimelineEvent.tsx from this spec, then rerun spec-build to
   replace this file with the code spec.
 lead:
-  text: 'Timeline event: one thing that happened (done, check) or is due (pending, clock) on Today''s timeline.'
+  text: 'Purpose: one thing that happened (done) or is due (pending) on Today’s timeline.'
   source: Figma component description
 links:
   figma:
-    fileKey: '${FIGMA_FILE_KEY}'
+    fileKey: JzN6DXIILH64KHI5MmgH8Q
     nodeId: '789:22618'
   storybook: null
   github: null
@@ -34,7 +34,7 @@ variants:
     - state=pending
   addTokens:
     state=pending:
-      - '--color-semantic-text-secondary'
+      - '--color-content-subtle'
 composedOf:
   - Icon
 anatomy:
@@ -49,82 +49,153 @@ anatomy:
   figma:
     name: state=done
     type: COMPONENT
-    size: 391x38
+    size: 400x42
     tokens:
+      - field: itemSpacing
+        token: '--spacing-8'
+      - field: paddingLeft
+        token: '--spacing-8'
+      - field: paddingTop
+        token: '--spacing-8'
+      - field: paddingRight
+        token: '--spacing-16'
+      - field: paddingBottom
+        token: '--spacing-8'
       - field: topLeftRadius
-        token: '--component-timeline-event-radius'
+        token: '--border-radius-round'
       - field: topRightRadius
-        token: '--component-timeline-event-radius'
+        token: '--border-radius-round'
       - field: bottomLeftRadius
-        token: '--component-timeline-event-radius'
+        token: '--border-radius-round'
       - field: bottomRightRadius
-        token: '--component-timeline-event-radius'
+        token: '--border-radius-round'
+      - field: strokeTopWeight
+        token: '--border-width-1'
+      - field: strokeBottomWeight
+        token: '--border-width-1'
+      - field: strokeLeftWeight
+        token: '--border-width-1'
+      - field: strokeRightWeight
+        token: '--border-width-1'
       - field: fills
-        token: '--component-timeline-event-background'
+        token: '--color-background-surface'
       - field: strokes
-        token: '--component-timeline-event-border'
+        token: '--color-border-default'
     children:
       - name: Icon
         type: INSTANCE
         instanceOf: Icon
         size: 20x20
+        tokens:
+          - field: width
+            token: '--size-20'
+          - field: height
+            token: '--size-20'
       - name: Label
         type: TEXT
         text: 10:19 Claude started · main checkout
+        size: 346x24
         boundToProps:
           characters: label
         tokens:
           - field: fills
-            token: '--color-semantic-text-primary'
+            token: '--color-content-default'
           - field: fontSize
-            token: '--typography-font-size-body'
+            token: '--typography-font-size-16'
           - field: fontFamily
-            token: '--typography-font-family-body'
+            token: '--typography-subtext-font-family'
+          - field: lineHeight
+            token: '--typography-line-height-px-24'
           - field: fontWeight
-            token: '--typography-font-weight-regular'
+            token: '--typography-font-weight-400'
 tokens:
   used:
-    - token: '--color-semantic-text-primary'
-      fields:
-        - fills
-      inCode: true
-    - token: '--color-semantic-text-secondary'
-      fields:
-        - variant
-      inCode: true
-    - token: '--component-timeline-event-background'
-      fields:
-        - fills
-      inCode: false
-    - token: '--component-timeline-event-border'
-      fields:
-        - strokes
-      inCode: false
-    - token: '--component-timeline-event-radius'
+    - token: '--border-radius-round'
       fields:
         - topLeftRadius
         - topRightRadius
         - bottomLeftRadius
         - bottomRightRadius
-      inCode: false
-    - token: '--typography-font-family-body'
-      fields:
-        - fontFamily
       inCode: true
-    - token: '--typography-font-size-body'
+    - token: '--border-width-1'
+      fields:
+        - strokeTopWeight
+        - strokeBottomWeight
+        - strokeLeftWeight
+        - strokeRightWeight
+      inCode: true
+    - token: '--color-background-surface'
+      fields:
+        - fills
+      inCode: true
+    - token: '--color-border-default'
+      fields:
+        - strokes
+      inCode: true
+    - token: '--color-content-default'
+      fields:
+        - fills
+      inCode: true
+    - token: '--color-content-subtle'
+      fields:
+        - variant
+      inCode: true
+    - token: '--size-20'
+      fields:
+        - width
+        - height
+      inCode: true
+    - token: '--spacing-16'
+      fields:
+        - paddingRight
+      inCode: true
+    - token: '--spacing-8'
+      fields:
+        - itemSpacing
+        - paddingLeft
+        - paddingTop
+        - paddingBottom
+      inCode: true
+    - token: '--typography-font-size-16'
       fields:
         - fontSize
       inCode: true
-    - token: '--typography-font-weight-regular'
+    - token: '--typography-font-weight-400'
       fields:
         - fontWeight
       inCode: true
-  missingInCode:
-    - '--component-timeline-event-background'
-    - '--component-timeline-event-border'
-    - '--component-timeline-event-radius'
+    - token: '--typography-line-height-px-24'
+      fields:
+        - lineHeight
+      inCode: true
+    - token: '--typography-subtext-font-family'
+      fields:
+        - fontFamily
+      inCode: true
+  missingInCode: []
   raw: []
-description: 'Timeline event: one thing that happened (done, check) or is due (pending, clock) on Today''s timeline. Time first, then what, then where.'
+description: >-
+  Purpose: one thing that happened (done) or is due (pending) on Today’s timeline.
+
+
+  Use: the Today timeline, in time order.
+
+
+  Don’t use: a task list (ListRow, TaskCard); steps in a process (Steps).
+
+
+  States: none. state done, pending.
+
+
+  Parts: Icon · Label.
+
+
+  Tokens: border/radius/form, border/radius/round, border/width/1, color/background/surface, color/border/default, color/content/default,
+  size/20, spacing/16, spacing/24, spacing/8, typography/body-default/font-family, typography/font-size/16, typography/font-weight/400,
+  typography/line-height-px/24.
+
+
+  A11y: ordered list; done and due in words.
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs
     why: 'no code yet (status: figma-only)'

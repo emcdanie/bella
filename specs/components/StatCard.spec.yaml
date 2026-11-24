@@ -12,11 +12,13 @@ links:
   storyTitle: Components/Data/StatCard
 props:
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: Figma "Title". The card title, and the chart's accessible name.
     at: src/components/StatCard/StatCard.tsx:38
   - name: label
+    figmaName: Label
     type: ReactNode
     required: false
     doc: >-
@@ -24,21 +26,25 @@ props:
       chart=empty too, where the number is not. Missing = off.
     at: src/components/StatCard/StatCard.tsx:41
   - name: value
+    figmaName: Value
     type: ReactNode
     required: false
     doc: 'Figma "Value". The big number. Not drawn on chart=empty: no figure before a measure.'
     at: src/components/StatCard/StatCard.tsx:43
   - name: unit
+    figmaName: Unit
     type: ReactNode
     required: false
     doc: Figma "Unit". Small, beside the number ("%", "of 2"). Missing = off.
     at: src/components/StatCard/StatCard.tsx:45
   - name: context
+    figmaName: Context
     type: ReactNode
     required: false
     doc: 'Figma "Context". One short meta line (subtext face, 14) worked out from real numbers: what the number means and which way.'
     at: src/components/StatCard/StatCard.tsx:47
   - name: emptyCount
+    figmaName: Empty count
     type: ReactNode
     required: false
     doc: >-
@@ -46,21 +52,25 @@ props:
       Removal waits for Elleta's yes (public API).
     at: src/components/StatCard/StatCard.tsx:49
   - name: emptyTotal
+    figmaName: Empty total
     type: ReactNode
     required: false
     doc: Figma "Empty total" (21 Nov publish). Kept for compatibility, not drawn (see emptyCount).
     at: src/components/StatCard/StatCard.tsx:51
   - name: caption
+    figmaName: Caption
     type: ReactNode
     required: false
     doc: 'Figma "Caption". Footer left: the target or where it came from.'
     at: src/components/StatCard/StatCard.tsx:53
   - name: button
+    figmaName: Show button
     type: ReactNode
     required: false
     doc: 'Figma "Show button". Footer right: a secondary Button only when it acts ("Set target"), never to navigate. Missing = off.'
     at: src/components/StatCard/StatCard.tsx:55
   - name: chart
+    figmaName: chart
     type: '''bar'' | ''segments'' | ''none'' | ''empty'''
     values:
       - bar
@@ -74,6 +84,7 @@ props:
       footer ("Not compared yet" with its Compare action), and no number (22 Nov 19:08: a number only once something is measured).
     at: src/components/StatCard/StatCard.tsx:62
   - name: tone
+    figmaName: tone
     type: StatCardTone
     default: success
     required: false
@@ -1075,9 +1086,6 @@ mismatch:
       - up
       - down
     figma: no such variant property
-  - field: props.drawIn
-    code: boolean prop
-    figma: not in the set
   - field: tokens.chart=bar, tone=success.effects
     code:
       - '--spacing-20'
@@ -1221,7 +1229,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-20'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Caption.fontSize
     code:
       - '--typography-font-size-16'
@@ -1229,7 +1237,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-20'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Button.paddingLeft
     code:
       - '--spacing-20'
@@ -1269,3 +1277,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: drawIn
+      why: plays the draw-in motion on mount; Figma shows the end state

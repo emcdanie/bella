@@ -12,16 +12,19 @@ links:
   storyTitle: Components/Data/Step
 props:
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: Figma "Title".
     at: src/components/Step/Step.tsx:37
   - name: detail
+    figmaName: Detail
     type: ReactNode
     required: false
     doc: Figma "Detail" + "Show detail". Missing = off. Subtext face; says the state in words.
     at: src/components/Step/Step.tsx:39
   - name: showConnector
+    figmaName: Show connector
     type: boolean
     values:
       - true
@@ -31,11 +34,13 @@ props:
     doc: Figma "Show connector". The line to the next marker; off on the last step.
     at: src/components/Step/Step.tsx:41
   - name: tag
+    figmaName: Show tag
     type: ReactNode
     required: false
     doc: Figma "Show tag". The status Tag on the right edge, top-aligned with the title (vertical; her pick B, 22 Nov). Missing = off.
     at: src/components/Step/Step.tsx:43
   - name: time
+    figmaName: Time
     type: ReactNode
     required: false
     doc: >-
@@ -43,6 +48,7 @@ props:
       title wraps and takes the dot and time with it. Missing = off.
     at: src/components/Step/Step.tsx:45
   - name: timeUnderTitle
+    figmaName: Show time under title
     type: boolean
     values:
       - true
@@ -52,6 +58,7 @@ props:
     doc: 'Figma "Show time under title": put the time on its own line under the title instead of on the title line. Default false.'
     at: src/components/Step/Step.tsx:47
   - name: showLineAbove
+    figmaName: Show line above
     type: boolean
     values:
       - true
@@ -61,6 +68,7 @@ props:
     doc: 'Figma "Show line above". Vertical: the line into this marker; off on the first row.'
     at: src/components/Step/Step.tsx:49
   - name: state
+    figmaName: state
     type: StepState
     default: done
     required: false
@@ -70,6 +78,7 @@ props:
       ink, no working tint.
     at: src/components/Step/Step.tsx:51
   - name: layout
+    figmaName: layout
     type: '''horizontal'' | ''vertical'''
     values:
       - horizontal
@@ -79,6 +88,7 @@ props:
     doc: Figma "layout". horizontal = a pipeline (marker and connector on top, text under); vertical = a list.
     at: src/components/Step/Step.tsx:53
   - name: selected
+    figmaName: selected
     type: boolean
     values:
       - true
@@ -104,6 +114,7 @@ props:
       swap a glyph. Missing = the state's marker.
     at: src/components/Step/Step.tsx:59
   - name: number
+    figmaName: Show number
     type: number
     required: false
     doc: >-

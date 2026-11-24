@@ -3,15 +3,16 @@
 name: Button
 lead:
   text: Buttons with real hierarchy.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Actions
 rendersAs: a button, or one anchor with href
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-button--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-button--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Button/Button.tsx
   storyTitle: Components/Button
 props:
   - name: variant
+    figmaName: variant
     type: '''primary'' | ''secondary'' | ''tertiary'''
     values:
       - primary
@@ -33,6 +34,11 @@ props:
     doc: Outline shape. `"default"` is the 12px radius every tier shares; `"pill"` rounds the ends fully (e.g. a nav call to action).
     at: src/components/Button/Button.tsx:16
   - name: size
+    figmaName: size
+    valuePairs:
+      - figma: md
+        code: default
+        why: both are the 44 box (Figma md 44 high, code min-height spacing/44, padding 20); code also accepts md as an alias
     type: '''default'' | ''sm'''
     values:
       - default
@@ -44,6 +50,7 @@ props:
       stays, extended invisibly around the box. With `iconOnly` it is a 36 circle.
     at: src/components/Button/Button.tsx:22
   - name: iconOnly
+    figmaName: iconOnly
     type: boolean
     values:
       - true
@@ -74,6 +81,7 @@ props:
     doc: Button element type; `"submit"` for forms.
     at: src/components/Button/Button.tsx:34
   - name: disabled
+    figmaName: disabled
     type: boolean
     values:
       - true
@@ -165,7 +173,7 @@ sizes:
         value: var(--component-button-sm-min-height)
         at: src/components/Button/Button.module.css:249
       - property: padding-inline
-        value: var(--component-button-sm-padding-x)
+        value: var(--spacing-20)
         at: src/components/Button/Button.module.css:250
       - property: padding
         value: '0'
@@ -193,99 +201,131 @@ anatomy:
       at: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+    name: variant=primary, state=default, iconOnly=false, size=md, disabled=false
     type: COMPONENT
-    size: 93x44
+    size: 94x44
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/8
       - field: paddingLeft
-        variable: component/button/secondary/padding-x
+        variable: spacing/20
       - field: paddingTop
-        variable: component/button/secondary/padding-y
+        variable: size/0
       - field: paddingRight
-        variable: component/button/secondary/padding-x
+        variable: spacing/20
       - field: paddingBottom
-        variable: component/button/secondary/padding-y
+        variable: size/0
       - field: topLeftRadius
-        variable: component/button/shape/default
+        variable: border/radius/lg
       - field: topRightRadius
-        variable: component/button/shape/default
+        variable: border/radius/lg
       - field: bottomLeftRadius
-        variable: component/button/shape/default
+        variable: border/radius/lg
       - field: bottomRightRadius
-        variable: component/button/shape/default
+        variable: border/radius/lg
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
       - field: minHeight
-        variable: component/button/secondary/min-height
+        variable: spacing/44
       - field: fills
-        variable: component/button/secondary/background
+        variable: color/background/brand
       - field: strokes
-        variable: component/button/secondary/border
+        variable: color/border/action-raised
     children:
       - name: Roll
         type: FRAME
-        size: 53x22
+        size: 54x22
         children:
           - name: Label row
             type: FRAME
-            size: 53x22
+            size: 54x22
             tokens:
               - field: itemSpacing
-                variable: spacing/2
+                variable: spacing/8
             children:
               - name: Leading icon
                 type: INSTANCE
                 instanceOf: Icon
                 hidden: true
                 size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
               - name: Label
                 type: TEXT
                 text: Button
-                size: 53x22
+                size: 54x22
                 tokens:
                   - field: fills
-                    variable: component/button/secondary/foreground
+                    variable: color/content/brand-knockout
                   - field: fontSize
-                    variable: component/button/primary/font-size
+                    variable: typography/font-size/16
                   - field: fontFamily
-                    variable: component/button/primary/font-family
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/button-default/line-height
                   - field: fontWeight
-                    variable: component/button/primary/font-weight
+                    variable: typography/font-weight/600
               - name: Icon
                 type: INSTANCE
                 instanceOf: Icon
                 hidden: true
                 size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
           - name: Copy row
             type: FRAME
-            size: 53x22
+            size: 54x22
             tokens:
               - field: itemSpacing
-                variable: spacing/2
+                variable: spacing/8
             children:
               - name: Leading icon
                 type: INSTANCE
                 instanceOf: Icon
                 hidden: true
                 size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
               - name: Copy
                 type: TEXT
                 text: Button
-                size: 53x22
+                size: 54x22
                 tokens:
                   - field: fills
-                    variable: color/semantic/text-accent
+                    variable: color/content/brand-knockout
                   - field: fontSize
-                    variable: typography/font-size/tag
+                    variable: typography/font-size/16
                   - field: fontFamily
-                    variable: typography/font-family/body
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/button-default/line-height
                   - field: fontWeight
-                    variable: typography/font-weight/semibold
+                    variable: typography/font-weight/600
               - name: Icon
                 type: INSTANCE
                 instanceOf: Icon
                 hidden: true
                 size: 20x20
+                tokens:
+                  - field: width
+                    variable: size/20
+                  - field: height
+                    variable: size/20
   code:
     - key: shadow
       title: Shadow
@@ -297,176 +337,170 @@ anatomy:
       title: Fill
       kind: fill
       trigger: null
-      token: '--component-button-primary-fill-hi'
+      token: '--color-background-brand'
       detail: flat ink plate, no gloss (near-white in dark)
     - key: box
       title: Box
       kind: box
       trigger: null
-      token: '--component-button-primary-min-height'
+      token: '--spacing-44'
       detail: 44px min, padding 12 / 20, radius 12
     - key: label
       title: Label
       kind: content
       trigger: null
-      token: '--component-button-primary-font-size'
+      token: '--typography-label-default-font-size'
       detail: DM Sans 16, sentence case (font-size.tag)
     - key: ring
       title: Focus ring
       kind: ring
       trigger: null
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       detail: 3px, 3px offset, focus-visible only
 tokens:
   used:
     - part: root
       state: rest
       property: min-height
-      token: '--component-button-primary-min-height'
+      token: '--spacing-44'
       selector: .button
       at: src/components/Button/Button.module.css:32
     - part: root
       state: rest
       property: padding
-      token: '--component-button-primary-padding-y'
-      selector: .button
-      at: src/components/Button/Button.module.css:33
-    - part: root
-      state: rest
-      property: padding
-      token: '--component-button-primary-padding-x'
+      token: '--spacing-20'
       selector: .button
       at: src/components/Button/Button.module.css:33
     - part: root
       state: rest
       property: font-family
-      token: '--component-button-primary-font-family'
+      token: '--typography-body-default-font-family'
       selector: .button
       at: src/components/Button/Button.module.css:34
     - part: root
       state: rest
       property: font-size
-      token: '--component-button-primary-font-size'
+      token: '--typography-label-default-font-size'
       selector: .button
       at: src/components/Button/Button.module.css:35
     - part: root
       state: rest
       property: font-weight
-      token: '--component-button-primary-font-weight'
+      token: '--typography-font-weight-600'
       selector: .button
       at: src/components/Button/Button.module.css:36
     - part: root
       state: rest
       property: letter-spacing
-      token: '--component-button-primary-letter-spacing'
+      token: '--typography-letter-spacing-0'
       selector: .button
       at: src/components/Button/Button.module.css:37
     - part: root
       state: rest
       property: border-radius
-      token: '--component-button-shape-default'
+      token: '--border-radius-12'
       selector: .button
       at: src/components/Button/Button.module.css:40
     - part: pill
       state: rest
       property: border-radius
-      token: '--component-button-shape-pill'
+      token: '--border-radius-round'
       selector: .pill
       at: src/components/Button/Button.module.css:46
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .button:focus-visible
       at: src/components/Button/Button.module.css:50
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .button:focus-visible
       at: src/components/Button/Button.module.css:50
     - part: root
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .button:focus-visible
       at: src/components/Button/Button.module.css:51
     - part: iconOnly
       state: rest
       property: inline-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .iconOnly
       at: src/components/Button/Button.module.css:57
     - part: iconOnly
       state: rest
       property: min-inline-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .iconOnly
       at: src/components/Button/Button.module.css:58
     - part: iconOnly
       state: rest
       property: block-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .iconOnly
       at: src/components/Button/Button.module.css:59
     - part: iconOnly
       state: rest
       property: min-height
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .iconOnly
       at: src/components/Button/Button.module.css:60
     - part: iconOnly
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .iconOnly
       at: src/components/Button/Button.module.css:62
     - part: rollLabel
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .rollLabel, .rollCopy
       at: src/components/Button/Button.module.css:81
     - part: rollLabel
       state: rest
       property: transition
-      token: '--component-button-motion-roll-duration'
+      token: '--motion-duration-250'
       selector: .rollLabel, .rollCopy
       at: src/components/Button/Button.module.css:82
     - part: rollLabel
       state: rest
       property: transition
-      token: '--component-button-motion-roll-easing'
+      token: '--motion-easing-out'
       selector: .rollLabel, .rollCopy
       at: src/components/Button/Button.module.css:82
     - part: primary
       state: rest
       property: color
-      token: '--component-button-primary-foreground'
+      token: '--color-content-brand-knockout'
       selector: .primary
       at: src/components/Button/Button.module.css:107
     - part: primary
       state: rest
       property: border
-      token: '--component-button-primary-edge'
+      token: '--border-width-1'
+      selector: .primary
+      at: src/components/Button/Button.module.css:108
+    - part: primary
+      state: rest
+      property: border
+      token: '--color-border-action-raised'
       selector: .primary
       at: src/components/Button/Button.module.css:108
     - part: primary
       state: rest
       property: background
-      token: '--component-button-primary-gloss'
+      token: '--color-background-brand'
       selector: .primary
       at: src/components/Button/Button.module.css:109
     - part: primary
       state: rest
       property: background
-      token: '--component-button-primary-fill-hi'
-      selector: .primary
-      at: src/components/Button/Button.module.css:109
-    - part: primary
-      state: rest
-      property: background
-      token: '--component-button-primary-fill-lo'
+      token: '--color-background-brand'
       selector: .primary
       at: src/components/Button/Button.module.css:109
     - part: primary
@@ -478,67 +512,55 @@ tokens:
     - part: primary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-duration'
+      token: '--motion-duration-150'
       selector: .primary
       at: src/components/Button/Button.module.css:113
     - part: primary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-easing'
+      token: '--motion-easing-standard'
       selector: .primary
       at: src/components/Button/Button.module.css:113
     - part: primary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-duration'
+      token: '--motion-duration-150'
       selector: .primary
       at: src/components/Button/Button.module.css:113
     - part: primary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-easing'
+      token: '--motion-easing-standard'
       selector: .primary
       at: src/components/Button/Button.module.css:113
     - part: primary
       state: hover focus-visible disabled
       property: background
-      token: '--component-button-primary-gloss'
+      token: '--color-background-brand-hover'
       selector: .primary:hover:not(:disabled), .primary:focus-visible
       at: src/components/Button/Button.module.css:122
     - part: primary
       state: hover focus-visible disabled
       property: background
-      token: '--component-button-primary-fill-hi-hover'
-      selector: .primary:hover:not(:disabled), .primary:focus-visible
-      at: src/components/Button/Button.module.css:122
-    - part: primary
-      state: hover focus-visible disabled
-      property: background
-      token: '--component-button-primary-fill-lo-hover'
+      token: '--color-background-brand-hover'
       selector: .primary:hover:not(:disabled), .primary:focus-visible
       at: src/components/Button/Button.module.css:122
     - part: primary
       state: active disabled
       property: transform
-      token: '--component-button-motion-press'
+      token: '--border-width-2'
       selector: .primary:active:not(:disabled)
       at: src/components/Button/Button.module.css:128
     - part: primary
       state: active disabled
       property: background
-      token: '--component-button-primary-gloss-pressed'
+      token: '--color-background-brand'
       selector: .primary:active:not(:disabled)
       at: src/components/Button/Button.module.css:129
     - part: primary
       state: active disabled
       property: background
-      token: '--component-button-primary-fill-hi'
-      selector: .primary:active:not(:disabled)
-      at: src/components/Button/Button.module.css:129
-    - part: primary
-      state: active disabled
-      property: background
-      token: '--component-button-primary-fill-lo'
+      token: '--color-background-brand'
       selector: .primary:active:not(:disabled)
       at: src/components/Button/Button.module.css:129
     - part: primary
@@ -550,169 +572,157 @@ tokens:
     - part: primary
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .primary:focus-visible::before
       at: src/components/Button/Button.module.css:156
     - part: primary
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .primary:focus-visible::before
       at: src/components/Button/Button.module.css:156
     - part: primary
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .primary:focus-visible::before
       at: src/components/Button/Button.module.css:157
     - part: secondary
       state: rest
       property: min-height
-      token: '--component-button-secondary-min-height'
+      token: '--spacing-44'
       selector: .secondary
       at: src/components/Button/Button.module.css:163
     - part: secondary
       state: rest
       property: padding
-      token: '--component-button-secondary-padding-y'
-      selector: .secondary
-      at: src/components/Button/Button.module.css:164
-    - part: secondary
-      state: rest
-      property: padding
-      token: '--component-button-secondary-padding-x'
+      token: '--spacing-20'
       selector: .secondary
       at: src/components/Button/Button.module.css:164
     - part: secondary
       state: rest
       property: color
-      token: '--component-button-secondary-foreground'
+      token: '--color-content-accent'
       selector: .secondary
       at: src/components/Button/Button.module.css:165
     - part: secondary
       state: rest
       property: border
-      token: '--component-button-secondary-border'
+      token: '--button-color-border-default'
       selector: .secondary
       at: src/components/Button/Button.module.css:166
     - part: secondary
       state: rest
       property: background
-      token: '--component-button-secondary-background'
+      token: '--button-color-background-default'
       selector: .secondary
       at: src/components/Button/Button.module.css:167
     - part: secondary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-duration'
+      token: '--motion-duration-150'
       selector: .secondary
       at: src/components/Button/Button.module.css:168
     - part: secondary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-easing'
+      token: '--motion-easing-standard'
       selector: .secondary
       at: src/components/Button/Button.module.css:168
     - part: secondary
       state: hover focus-visible disabled
       property: background
-      token: '--component-button-secondary-background-hover'
+      token: '--button-color-background-hover'
       selector: .secondary:hover:not(:disabled), .secondary:focus-visible
       at: src/components/Button/Button.module.css:173
     - part: secondary
       state: hover focus-visible disabled
       property: border-color
-      token: '--component-button-secondary-border-hover'
+      token: '--color-border-ink'
       selector: .secondary:hover:not(:disabled), .secondary:focus-visible
       at: src/components/Button/Button.module.css:174
     - part: secondary
       state: active disabled
       property: background
-      token: '--component-button-secondary-background-active'
+      token: '--button-color-background-active'
       selector: .secondary:active:not(:disabled)
       at: src/components/Button/Button.module.css:178
     - part: tertiary
       state: rest
       property: min-height
-      token: '--component-button-tertiary-min-height'
+      token: '--spacing-44'
       selector: .tertiary
       at: src/components/Button/Button.module.css:187
     - part: tertiary
       state: rest
       property: color
-      token: '--component-button-tertiary-foreground'
+      token: '--color-content-link'
       selector: .tertiary
       at: src/components/Button/Button.module.css:188
     - part: tertiary
       state: rest
-      property: background
-      token: '--component-button-tertiary-background'
-      selector: .tertiary
-      at: src/components/Button/Button.module.css:189
-    - part: tertiary
-      state: rest
       property: transition
-      token: '--component-button-motion-shift-duration'
+      token: '--motion-duration-150'
       selector: .tertiary
       at: src/components/Button/Button.module.css:190
     - part: tertiary
       state: rest
       property: transition
-      token: '--component-button-motion-shift-easing'
+      token: '--motion-easing-standard'
       selector: .tertiary
       at: src/components/Button/Button.module.css:190
     - part: rollLabel
       state: rest
       property: padding-block-start
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .tertiary .rollLabel, .tertiary .rollCopy
       at: src/components/Button/Button.module.css:196
     - part: rollLabel
       state: rest
       property: padding-block-end
-      token: '--component-button-tertiary-underline-offset'
+      token: '--spacing-4'
       selector: .tertiary .rollLabel, .tertiary .rollCopy
       at: src/components/Button/Button.module.css:197
     - part: rollLabel
       state: rest
       property: padding-block-end
-      token: '--component-button-tertiary-underline-thickness'
+      token: '--border-width-1'
       selector: .tertiary .rollLabel, .tertiary .rollCopy
       at: src/components/Button/Button.module.css:197
     - part: roll
       state: rest
       property: height
-      token: '--component-button-tertiary-underline-thickness'
+      token: '--border-width-1'
       selector: .tertiary .roll::after
       at: src/components/Button/Button.module.css:209
     - part: tertiary
       state: hover focus-visible disabled
       property: color
-      token: '--component-button-tertiary-foreground-hover'
+      token: '--color-content-link'
       selector: .tertiary:hover:not(:disabled), .tertiary:focus-visible
       at: src/components/Button/Button.module.css:215
     - part: roll
       state: hover focus-visible disabled
       property: height
-      token: '--component-button-tertiary-underline-thickness-hover'
+      token: '--border-width-2'
       selector: .tertiary:hover:not(:disabled) .roll::after, .tertiary:focus-visible .roll::after
       at: src/components/Button/Button.module.css:220
     - part: root
       state: disabled
       property: color
-      token: '--color-semantic-text-muted'
+      token: '--color-content-subtle'
       selector: .button:disabled
       at: src/components/Button/Button.module.css:228
     - part: root
       state: disabled
       property: background
-      token: '--color-semantic-surface-inset'
+      token: '--color-background-subtle'
       selector: .button:disabled
       at: src/components/Button/Button.module.css:229
     - part: root
       state: disabled
       property: border
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       selector: .button:disabled
       at: src/components/Button/Button.module.css:230
     - part: root
@@ -724,13 +734,13 @@ tokens:
     - part: root
       state: rest
       property: padding-inline
-      token: '--component-button-sm-padding-x'
+      token: '--spacing-20'
       selector: .button.sm
       at: src/components/Button/Button.module.css:250
     - part: root
       state: rest
       property: block-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .button.sm::after
       at: src/components/Button/Button.module.css:259
     - part: root
@@ -754,222 +764,174 @@ tokens:
     - part: root
       state: rest
       property: inline-size
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .button.sm.iconOnly::after
       at: src/components/Button/Button.module.css:273
   values:
-    '--color-semantic-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-muted':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-button-motion-press':
-      light: translateY(2px)
-      chip: translateY(2px)
-    '--component-button-motion-roll-duration':
-      light: 250ms
-      chip: 250ms
-    '--component-button-motion-roll-easing':
-      light: cubic-bezier(0.22, 1, 0.36, 1)
-      chip: cubic-bezier(0.22, 1, 0.36, 1)
-    '--component-button-motion-shift-duration':
-      light: 150ms
-      chip: 150ms
-    '--component-button-motion-shift-easing':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--component-button-primary-edge':
-      light: '#1d2030'
-      chip: '#2F9BE0'
-    '--component-button-primary-fill-hi':
-      light: '#1d2030'
-      chip: '#2F9BE0'
-    '--component-button-primary-fill-hi-hover':
-      light: '#3a3f50'
-      chip: '#6DB9E9'
-    '--component-button-primary-fill-lo':
-      light: '#1d2030'
-      chip: '#2F9BE0'
-    '--component-button-primary-fill-lo-hover':
-      light: '#3a3f50'
-      chip: '#6DB9E9'
-    '--component-button-primary-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-button-primary-font-size':
-      light: 16px
-      chip: 16px
-    '--component-button-primary-font-weight':
-      light: '600'
-      chip: '600'
-    '--component-button-primary-foreground':
-      light: '#eceef3'
-      chip: '#1d2030'
-    '--component-button-primary-gloss':
-      light: linear-gradient(transparent, transparent)
-      chip: linear-gradient(transparent, transparent)
-    '--component-button-primary-gloss-pressed':
-      light: linear-gradient(transparent, transparent)
-      chip: linear-gradient(transparent, transparent)
-    '--component-button-primary-letter-spacing':
-      light: '0'
-      chip: '0'
-    '--component-button-primary-min-height':
-      light: 44px
-      chip: 44px
-    '--component-button-primary-padding-x':
-      light: 20px
-      chip: 20px
-    '--component-button-primary-padding-y':
-      light: 0px
-      chip: 0px
-    '--component-button-secondary-background':
-      light: transparent
-      chip: '#ffffff'
-    '--component-button-secondary-background-active':
-      light: '#eceef3'
-      chip: '#E2F1FB'
-    '--component-button-secondary-background-hover':
-      light: transparent
-      chip: '#EEF7FD'
-    '--component-button-secondary-border':
-      light: '#1d2030'
-      chip: '#1F1C1938'
-    '--component-button-secondary-border-hover':
-      light: '#1d2030'
-      chip: '#2F9BE0'
-    '--component-button-secondary-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-button-secondary-min-height':
-      light: 44px
-      chip: 44px
-    '--component-button-secondary-padding-x':
-      light: 20px
-      chip: 20px
-    '--component-button-secondary-padding-y':
-      light: 0px
-      chip: 0px
-    '--component-button-shape-default':
-      light: 12px
-      chip: 999px
-    '--component-button-shape-pill':
-      light: 999px
-      chip: 999px
+    '--border-radius-12':
+      light: null
+      chip: null
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--border-width-2':
+      light: null
+      chip: null
+    '--button-color-background-active':
+      light: null
+      chip: null
+    '--button-color-background-default':
+      light: null
+      chip: null
+    '--button-color-background-hover':
+      light: null
+      chip: null
+    '--button-color-border-default':
+      light: null
+      chip: null
+    '--color-background-brand':
+      light: null
+      chip: null
+    '--color-background-brand-hover':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-border-action-raised':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-content-accent':
+      light: null
+      chip: null
+    '--color-content-brand-knockout':
+      light: null
+      chip: null
+    '--color-content-link':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
     '--component-button-sm-min-height':
-      light: 36px
-      chip: 36px
-    '--component-button-sm-padding-x':
-      light: 14px
-      chip: 14px
-    '--component-button-tertiary-background':
-      light: transparent
-      chip: transparent
-    '--component-button-tertiary-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-button-tertiary-foreground-hover':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-button-tertiary-min-height':
-      light: 44px
-      chip: 44px
-    '--component-button-tertiary-underline-offset':
-      light: 4px
-      chip: 4px
-    '--component-button-tertiary-underline-thickness':
-      light: 1px
-      chip: 1px
-    '--component-button-tertiary-underline-thickness-hover':
-      light: 2px
-      chip: 2px
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--motion-duration-250':
+      light: null
+      chip: null
+    '--motion-easing-out':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
     '--shadow-key-pressed':
-      light: none
-      chip: none
+      light: null
+      chip: null
     '--shadow-key-resting':
-      light: none
-      chip: none
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-touch-target':
-      light: 44px
-      chip: 44px
+      light: null
+      chip: null
+    '--spacing-20':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .rollLabel, .rollCopy
       state: rest
-      declaration: 'transition: transform var(--component-button-motion-roll-duration) var(--component-button-motion-roll-easing)'
+      declaration: 'transition: transform var(--motion-duration-250) var(--motion-easing-out)'
       properties:
         - transform
       durations:
-        - token: '--component-button-motion-roll-duration'
-          value: 250ms
+        - token: '--motion-duration-250'
+          value: null
       easings:
-        - token: '--component-button-motion-roll-easing'
-          value: cubic-bezier(0.22, 1, 0.36, 1)
+        - token: '--motion-easing-out'
+          value: null
       at: src/components/Button/Button.module.css:82
     - selector: .primary
       state: rest
       declaration: >-
-        transition: transform var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing), box-shadow
-        var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing)
+        transition: transform var(--motion-duration-150) var(--motion-easing-standard), box-shadow var(--motion-duration-150)
+        var(--motion-easing-standard)
       properties:
         - transform
         - box-shadow
       durations:
-        - token: '--component-button-motion-shift-duration'
-          value: 150ms
-        - token: '--component-button-motion-shift-duration'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
-        - token: '--component-button-motion-shift-easing'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-        - token: '--component-button-motion-shift-easing'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+        - token: '--motion-easing-standard'
+          value: null
+        - token: '--motion-easing-standard'
+          value: null
       at: src/components/Button/Button.module.css:113
     - selector: .secondary
       state: rest
-      declaration: 'transition: background-color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing)'
+      declaration: 'transition: background-color var(--motion-duration-150) var(--motion-easing-standard)'
       properties:
         - background-color
       durations:
-        - token: '--component-button-motion-shift-duration'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
       easings:
-        - token: '--component-button-motion-shift-easing'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+        - token: '--motion-easing-standard'
+          value: null
       at: src/components/Button/Button.module.css:168
     - selector: .tertiary
       state: rest
-      declaration: 'transition: color var(--component-button-motion-shift-duration) var(--component-button-motion-shift-easing)'
+      declaration: 'transition: color var(--motion-duration-150) var(--motion-easing-standard)'
       properties:
         - color
       durations:
-        - token: '--component-button-motion-shift-duration'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
       easings:
-        - token: '--component-button-motion-shift-easing'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+        - token: '--motion-easing-standard'
+          value: null
       at: src/components/Button/Button.module.css:190
   reducedMotion:
     selector: .rollLabel, .rollCopy, .primary
@@ -1003,18 +965,18 @@ a11y:
       at: src/components/Button/Button.tsx:117
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
       at: src/components/Button/Button.module.css:50
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
+        - token: '--focus-ring-offset'
+          value: null
       at: src/components/Button/Button.module.css:51
   disabled:
     prop: disabled
@@ -1028,7 +990,7 @@ a11y:
     Verified 8 Nov 2026 (shared look): primary label 13.90:1 on the plate in both modes, and 9.01:1 light / 9.54:1 dark on the hover plate
     (AAA). Secondary label 16.13:1 light / 14.98:1 dark on the card. Control border 5.16:1 light / 5.13:1 dark on the card. Focus ring 3px,
     3px offset, ink in light and near-white in dark: 15.04:1 and 16.26:1 on the page. Focus-visible only.
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
@@ -1043,125 +1005,8 @@ a11y:
       value: aria-haspopup
       at: src/components/Button/Button.tsx:117
 contrast:
-  pairs:
-    - label: primary button label on the ink plate
-      foreground: '--component-button-primary-foreground'
-      background: '--component-button-primary-fill-hi'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#2F9BE0'
-      ratio: 5.29
-      bar: 7
-      barName: AAA
-      pass: false
-      theme: chip
-      at: scripts/contrast-pairs.mjs:86
-    - label: primary button label on the hover plate
-      foreground: '--component-button-primary-foreground'
-      background: '--component-button-primary-fill-hi-hover'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#6DB9E9'
-      ratio: 7.5
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:87
-    - label: secondary button label on panel
-      foreground: '--component-button-secondary-foreground'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:88
-    - label: ink plate against panel
-      foreground: '--component-button-primary-fill-hi'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2F9BE0'
-      backgroundHex: '#ffffff'
-      ratio: 3.05
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:95
-    - label: Secondary outline
-      foreground: '--component-button-secondary-border over --color-semantic-surface'
-      background: '--color-semantic-surface'
-      foregroundHex: '#cecdcc'
-      backgroundHex: '#ffffff'
-      ratio: 1.59
-      bar: 3
-      barName: NON_TEXT
-      pass: false
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: disabled text
-      foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: src/components/Button/Button.module.css:228
-  derived:
-    - foreground: '--component-button-primary-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-button-primary-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-button-secondary-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-button-secondary-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-button-tertiary-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-button-tertiary-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-button-tertiary-foreground-hover'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-button-tertiary-foreground-hover'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-muted'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Button/Button.stories.tsx
   lines: 69-71
@@ -1186,15 +1031,15 @@ usage:
     - 'Do not build a neutral tier: it is retired'
     - 'Do not lift a button on hover: lift is reserved for cards; hover is the label roll'
     - 'Do not add the trace ring to a button: the trace is Card''s affordance'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '26:320'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     Label#26:0:
       type: TEXT
       default: Button
-    Icon#433:5:
+    icon#433:5:
       type: INSTANCE_SWAP
       default: '796:9513'
     Show icon#439:26:
@@ -1205,7 +1050,7 @@ figma:
       default: false
     variant:
       type: VARIANT
-      default: secondary
+      default: primary
       values:
         - primary
         - secondary
@@ -1216,7 +1061,7 @@ figma:
       values:
         - default
         - hover
-        - active
+        - pressed
         - focus
     iconOnly:
       type: VARIANT
@@ -1224,17 +1069,11 @@ figma:
       values:
         - 'false'
         - 'true'
-    shape:
-      type: VARIANT
-      default: default
-      values:
-        - default
-        - pill
     size:
       type: VARIANT
-      default: default
+      default: md
       values:
-        - default
+        - md
         - sm
     disabled:
       type: VARIANT
@@ -1243,371 +1082,363 @@ figma:
         - 'false'
         - 'true'
   variants:
-    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=secondary, state=default, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=secondary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=secondary, state=hover, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=secondary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=secondary, state=focus, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=secondary, state=active, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=secondary, state=pressed, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=true
-      width: 93
+    - name: variant=secondary, state=default, iconOnly=false, size=md, disabled=true
+      width: 94
       height: 44
-    - name: variant=primary, state=default, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=primary, state=default, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=primary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=primary, state=hover, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=primary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=primary, state=focus, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=primary, state=active, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=primary, state=pressed, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=primary, state=default, iconOnly=false, shape=default, size=default, disabled=true
-      width: 93
+    - name: variant=primary, state=default, iconOnly=false, size=md, disabled=true
+      width: 94
       height: 44
-    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=tertiary, state=default, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=tertiary, state=hover, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=tertiary, state=hover, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=tertiary, state=focus, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=tertiary, state=focus, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=tertiary, state=active, iconOnly=false, shape=default, size=default, disabled=false
-      width: 93
+    - name: variant=tertiary, state=pressed, iconOnly=false, size=md, disabled=false
+      width: 94
       height: 44
-    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=default, disabled=true
-      width: 93
+    - name: variant=tertiary, state=default, iconOnly=false, size=md, disabled=true
+      width: 94
       height: 44
-    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=secondary, state=default, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=hover, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=secondary, state=hover, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=focus, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=secondary, state=focus, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=active, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=secondary, state=pressed, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=default, disabled=true
+    - name: variant=secondary, state=default, iconOnly=true, size=md, disabled=true
       width: 44
       height: 44
-    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=secondary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=secondary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=secondary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
-      width: 93
-      height: 44
-    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=primary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=primary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=primary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
-      width: 93
-      height: 44
-    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=tertiary, state=hover, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=tertiary, state=focus, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=tertiary, state=active, iconOnly=false, shape=pill, size=default, disabled=false
-      width: 93
-      height: 44
-    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=default, disabled=true
-      width: 93
-      height: 44
-    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=default, disabled=false
+    - name: variant=secondary, state=default, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=secondary, state=hover, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=secondary, state=focus, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=secondary, state=pressed, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=secondary, state=default, iconOnly=false, size=sm, disabled=true
+      width: 78
+      height: 32
+    - name: variant=primary, state=default, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=primary, state=hover, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=primary, state=focus, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=primary, state=pressed, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=primary, state=default, iconOnly=false, size=sm, disabled=true
+      width: 78
+      height: 32
+    - name: variant=tertiary, state=default, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=tertiary, state=hover, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=tertiary, state=focus, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=tertiary, state=pressed, iconOnly=false, size=sm, disabled=false
+      width: 78
+      height: 32
+    - name: variant=tertiary, state=default, iconOnly=false, size=sm, disabled=true
+      width: 78
+      height: 32
+    - name: variant=secondary, state=default, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=secondary, state=hover, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=secondary, state=focus, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=secondary, state=pressed, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=secondary, state=default, iconOnly=true, size=sm, disabled=true
+      width: 32
+      height: 32
+    - name: variant=primary, state=default, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=hover, iconOnly=true, shape=pill, size=default, disabled=false
+    - name: variant=primary, state=hover, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=focus, iconOnly=true, shape=pill, size=default, disabled=false
+    - name: variant=primary, state=focus, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=active, iconOnly=true, shape=pill, size=default, disabled=false
+    - name: variant=primary, state=pressed, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=default, disabled=true
+    - name: variant=primary, state=default, iconOnly=true, size=md, disabled=true
       width: 44
       height: 44
-    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=primary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=hover, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=focus, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=active, iconOnly=false, shape=default, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=default, iconOnly=false, shape=default, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=hover, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=focus, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=active, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=true, shape=default, size=sm, disabled=true
-      width: 36
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=primary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=hover, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=focus, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=active, iconOnly=false, shape=pill, size=sm, disabled=false
-      width: 81
-      height: 36
-    - name: variant=tertiary, state=default, iconOnly=false, shape=pill, size=sm, disabled=true
-      width: 81
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=hover, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=focus, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=active, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=secondary, state=default, iconOnly=true, shape=pill, size=sm, disabled=true
-      width: 36
-      height: 36
-    - name: variant=primary, state=default, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=primary, state=default, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=primary, state=hover, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=primary, state=focus, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=primary, state=pressed, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=primary, state=default, iconOnly=true, size=sm, disabled=true
+      width: 32
+      height: 32
+    - name: variant=tertiary, state=default, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=primary, state=hover, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=tertiary, state=hover, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=primary, state=focus, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=tertiary, state=focus, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=primary, state=active, iconOnly=true, shape=default, size=default, disabled=false
+    - name: variant=tertiary, state=pressed, iconOnly=true, size=md, disabled=false
       width: 44
       height: 44
-    - name: variant=primary, state=default, iconOnly=true, shape=default, size=default, disabled=true
+    - name: variant=tertiary, state=default, iconOnly=true, size=md, disabled=true
       width: 44
       height: 44
-    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=default, disabled=false
-      width: 44
-      height: 44
-    - name: variant=primary, state=hover, iconOnly=true, shape=pill, size=default, disabled=false
-      width: 44
-      height: 44
-    - name: variant=primary, state=focus, iconOnly=true, shape=pill, size=default, disabled=false
-      width: 44
-      height: 44
-    - name: variant=primary, state=active, iconOnly=true, shape=pill, size=default, disabled=false
-      width: 44
-      height: 44
-    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=default, disabled=true
-      width: 44
-      height: 44
-    - name: variant=primary, state=default, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=hover, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=focus, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=active, iconOnly=true, shape=default, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=default, iconOnly=true, shape=default, size=sm, disabled=true
-      width: 36
-      height: 36
-    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=hover, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=focus, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=active, iconOnly=true, shape=pill, size=sm, disabled=false
-      width: 36
-      height: 36
-    - name: variant=primary, state=default, iconOnly=true, shape=pill, size=sm, disabled=true
-      width: 36
-      height: 36
-  defaultVariant: variant=secondary, state=default, iconOnly=false, shape=default, size=default, disabled=false
+    - name: variant=tertiary, state=default, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=tertiary, state=hover, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=tertiary, state=focus, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=tertiary, state=pressed, iconOnly=true, size=sm, disabled=false
+      width: 32
+      height: 32
+    - name: variant=tertiary, state=default, iconOnly=true, size=sm, disabled=true
+      width: 32
+      height: 32
+  defaultVariant: variant=primary, state=default, iconOnly=false, size=md, disabled=false
   annotations:
     - label: >-
-        Hover + focus-visible: the label rolls up and an aria-hidden copy rolls in, motion/duration/normal (250ms) on motion/easing/out. The
-        colour shifts on every tier over motion/duration/fast (150ms) on motion/easing/standard: primary plate one step lighter, secondary
-        fill and border, tertiary colour and a 2px underline. Never lifts. Disabled buttons don't roll.
+        States: default, hover, pressed, focus; disabled=true on every tier. Primary only for the action that commits something (Push,
+        Accept, Publish, a dialog confirm), one per card or dialog; in a group the primary sits last, the group right-aligned. Polaris look
+        for Chip: decision pending (Elleta).
+      category: '123:1'
+    - label: >-
+        Hover and focus-visible: the label rolls up and an aria-hidden copy rolls in over motion/duration/normal on motion/easing/out; the
+        fill and edge shift over motion/duration/fast on motion/easing/standard. Never lifts. Pressed: primary presses down 2px; secondary
+        and tertiary settle on their pressed fill. Disabled does not roll or press.
 
-        Reduced motion: no roll; the colour shift stays (instant on primary).
+        Reduced motion: no roll, no press; the colour change is instant.
       category: '123:4'
     - label: >-
-        Active, primary only: presses down 2px (motion/transform/key-press) over motion/duration/fast on motion/easing/standard. No shadow:
-        shadow/key-pressed is none. Secondary settles onto its active fill and does not move.
-
-        Reduced motion: no press.
-      category: '123:4'
-    - label: >-
-        <Button variant size shape iconOnly href onClick type disabled ariaLabel ariaExpanded ariaHaspopup> ·
-        src/components/Button/Button.tsx. Defaults: variant secondary, type button. Min height 44 (spacing/touch-target); size="sm" is a 36
-        box that keeps a 44 tap area; iconOnly is a 44 circle. Corners: 12 in every theme (radius/lg via component/button/shape/default);
-        Chip stays 12, not a pill (decided 13 Nov).
+        <Button variant size iconOnly href onClick type disabled ariaLabel ariaExpanded ariaHaspopup> · src/components/Button/Button.tsx.
+        Defaults: variant secondary, type button. 44 tall at every size (spacing/44); size="sm" keeps the 44 box; iconOnly is a 44 circle.
+        Corners: pill in BELLA, 8 corner in Chip (border/radius/lg). Sides 20 (spacing/20), gap 8 (spacing/8), label typography/font-size/16
+        at typography/font-weight/600. Chip light: primary fill color/background/brand with the navy label color/content/brand-knockout;
+        secondary tint button/color/background/default with edge color/border/brand; tertiary text color/content/brand.
       category: '123:0'
     - label: >-
-        Role and name: a native <button> (type button), or one <a> when href is set; external links open in a new tab with rel="noopener
-        noreferrer". The name is the visible label (the rolling copy is aria-hidden), or ariaLabel when set; icon-only buttons need
-        ariaLabel. aria-expanded and aria-haspopup="dialog" apply to buttons only.
+        Role and name: a native <button> (type button), or one <a> when href is set. The name is the visible label (the rolling copy is
+        aria-hidden); icon-only buttons need ariaLabel.
 
-        Keyboard: native: Tab to reach, Enter or Space on a button, Enter on a link.
+        Keyboard: Tab to reach; Enter or Space on a button, Enter on a link.
 
-        Focus: focus-visible only, 3px ring (ring/focus-width) at 3px offset (ring/focus-offset) in color/semantic/focus-ring, pink in Chip
-        (#CF5A95), even on all four sides of the primary.
+        Focus: focus-visible only. Ring color/border/focus (blue/600 in Chip light), focus-ring/width 4px wide with a 4px gap
+        (focus-ring/offset), outside; the pill in BELLA, 8 corner in Chip ring stays a pill in BELLA, 8 corner in Chip.
 
-        Disabled: native disabled, buttons only (links ignore it): not-allowed cursor, text-muted on surface-inset, no roll, no press.
+        Disabled: native disabled, buttons only: color/content/subtle on color/background/subtle, no roll, no press. Text holds 7:1.
 
-        Target: 44px; size="sm" keeps 44 with an invisible hit area.
-
-        Build note: focus ring: stroke ring/focus-width, sits ring/focus-offset outside the control (placed by hand; Figma cannot bind
-        position).
+        Target: 44 × 44 at every size.
       category: '123:2'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-actions-button--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-button--docs
 mismatch:
-  - field: props.type
+  - field: props.shape
     code:
-      - button
-      - submit
+      - default
+      - pill
     figma: no such variant property
-  - field: props.ariaExpanded
-    code: boolean prop
-    figma: not in the set
-  - field: tokens.Copy.fills
+  - field: tokens.variant=primary, state=default, iconOnly=false, size=md, disabled=false.paddingTop
     code:
-      - '--component-button-primary-foreground'
-      - '--component-button-primary-gloss'
-      - '--component-button-primary-fill-hi'
-      - '--component-button-primary-fill-lo'
-      - '--component-button-secondary-foreground'
-      - '--component-button-secondary-background'
-      - '--component-button-tertiary-foreground'
-      - '--component-button-tertiary-background'
-    figma: color/semantic/text-accent
+      - '--spacing-20'
+      - '--spacing-4'
+      - '--border-width-1'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.variant=primary, state=default, iconOnly=false, size=md, disabled=false.paddingBottom
+    code:
+      - '--spacing-20'
+      - '--spacing-4'
+      - '--border-width-1'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Leading icon.width
+    code:
+      - '--spacing-44'
+      - '--spacing-20'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-600'
+      - '--typography-letter-spacing-0'
+      - '--border-radius-12'
+      - '--border-radius-round'
+      - '--spacing-8'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--color-content-brand-knockout'
+      - '--border-width-1'
+      - '--color-border-action-raised'
+      - '--color-background-brand'
+      - '--shadow-key-resting'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-accent'
+      - '--button-color-border-default'
+      - '--button-color-background-default'
+      - '--color-content-link'
+      - '--spacing-4'
+      - '--component-button-sm-min-height'
+    figma: size/20
+    sameValueInChip: true
+  - field: tokens.Leading icon.height
+    code:
+      - '--spacing-44'
+      - '--spacing-20'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-600'
+      - '--typography-letter-spacing-0'
+      - '--border-radius-12'
+      - '--border-radius-round'
+      - '--spacing-8'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--color-content-brand-knockout'
+      - '--border-width-1'
+      - '--color-border-action-raised'
+      - '--color-background-brand'
+      - '--shadow-key-resting'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-accent'
+      - '--button-color-border-default'
+      - '--button-color-background-default'
+      - '--color-content-link'
+      - '--spacing-4'
+      - '--component-button-sm-min-height'
+    figma: size/20
+    sameValueInChip: true
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-44'
+      - '--spacing-20'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-600'
+      - '--typography-letter-spacing-0'
+      - '--border-radius-12'
+      - '--border-radius-round'
+      - '--spacing-8'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--color-content-brand-knockout'
+      - '--border-width-1'
+      - '--color-border-action-raised'
+      - '--color-background-brand'
+      - '--shadow-key-resting'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-accent'
+      - '--button-color-border-default'
+      - '--button-color-background-default'
+      - '--color-content-link'
+      - '--spacing-4'
+      - '--component-button-sm-min-height'
+    figma: size/20
+    sameValueInChip: true
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-44'
+      - '--spacing-20'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-600'
+      - '--typography-letter-spacing-0'
+      - '--border-radius-12'
+      - '--border-radius-round'
+      - '--spacing-8'
+      - '--motion-duration-250'
+      - '--motion-easing-out'
+      - '--color-content-brand-knockout'
+      - '--border-width-1'
+      - '--color-border-action-raised'
+      - '--color-background-brand'
+      - '--shadow-key-resting'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--color-content-accent'
+      - '--button-color-border-default'
+      - '--button-color-background-default'
+      - '--color-content-link'
+      - '--spacing-4'
+      - '--component-button-sm-min-height'
+    figma: size/20
     sameValueInChip: true
   - field: tokens.Copy.fontSize
     code:
-      - '--component-button-primary-font-size'
-    figma: typography/font-size/tag
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
 notApplicable: []
 guidance:
@@ -1712,3 +1543,12 @@ guidance:
     ariaExpanded: For a button that shows or hides content
     ariaHaspopup: For a button that opens a dialog
   anatomyScaleWidth: 480
+  codeOnly:
+    - name: type
+      why: HTML button type (button or submit); behaviour only
+    - name: ariaExpanded
+      why: accessibility state set by the caller; Figma draws no separate look for it
+  statePairs:
+    - figma: pressed
+      code: active
+      why: same look, same tokens (secondary button/color/background/active, primary color/background/brand-active); code reaches it through :active

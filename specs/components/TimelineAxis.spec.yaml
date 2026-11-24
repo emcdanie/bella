@@ -6,11 +6,11 @@ statusNote: >-
   Drawn in BellaComponents; no code yet. Build src/components/TimelineAxis/TimelineAxis.tsx from this spec, then rerun spec-build to replace
   this file with the code spec.
 lead:
-  text: 'Timeline axis: the time scale across the top of Today''s timeline.'
+  text: 'Timeline axis: the time scale across the top of Today’s timeline.'
   source: Figma component description
 links:
   figma:
-    fileKey: '${FIGMA_FILE_KEY}'
+    fileKey: JzN6DXIILH64KHI5MmgH8Q
     nodeId: '789:22619'
   storybook: null
   github: null
@@ -46,12 +46,27 @@ anatomy:
       name: Tick 1
       type: TEXT
     - 'n': 2
+      name: Tick 2
+      type: TEXT
+    - 'n': 3
+      name: Tick 3
+      type: TEXT
+    - 'n': 4
+      name: Tick 4
+      type: TEXT
+    - 'n': 5
+      name: Tick 5
+      type: TEXT
+    - 'n': 6
       name: Axis
       type: RECTANGLE
   figma:
     name: Timeline axis
     type: COMPONENT
     size: 1040x33
+    tokens:
+      - field: itemSpacing
+        token: '--spacing-8'
     children:
       - name: Ticks
         type: FRAME
@@ -60,51 +75,128 @@ anatomy:
           - name: Tick 1
             type: TEXT
             text: '10:00'
+            size: 48x24
             boundToProps:
               characters: tick1
             tokens:
               - field: fills
-                token: '--component-timeline-tick-label'
+                token: '--color-content-subtle'
               - field: fontSize
-                token: '--typography-font-size-body'
+                token: '--typography-font-size-16'
               - field: fontFamily
-                token: '--typography-font-family-body'
+                token: '--typography-subtext-font-family'
+              - field: lineHeight
+                token: '--typography-line-height-px-24'
               - field: fontWeight
-                token: '--typography-font-weight-regular'
+                token: '--typography-font-weight-400'
+          - name: Tick 2
+            type: TEXT
+            text: '10:30'
+            size: 48x24
+            boundToProps:
+              characters: tick2
+            tokens:
+              - field: fills
+                token: '--color-content-subtle'
+              - field: fontSize
+                token: '--typography-font-size-16'
+              - field: fontFamily
+                token: '--typography-subtext-font-family'
+              - field: lineHeight
+                token: '--typography-line-height-px-24'
+              - field: fontWeight
+                token: '--typography-font-weight-400'
+          - name: Tick 3
+            type: TEXT
+            text: '11:00'
+            size: 48x24
+            boundToProps:
+              characters: tick3
+            tokens:
+              - field: fills
+                token: '--color-content-subtle'
+              - field: fontSize
+                token: '--typography-font-size-16'
+              - field: fontFamily
+                token: '--typography-subtext-font-family'
+              - field: lineHeight
+                token: '--typography-line-height-px-24'
+              - field: fontWeight
+                token: '--typography-font-weight-400'
+          - name: Tick 4
+            type: TEXT
+            text: '11:30'
+            size: 48x24
+            boundToProps:
+              characters: tick4
+            tokens:
+              - field: fills
+                token: '--color-content-subtle'
+              - field: fontSize
+                token: '--typography-font-size-16'
+              - field: fontFamily
+                token: '--typography-subtext-font-family'
+              - field: lineHeight
+                token: '--typography-line-height-px-24'
+              - field: fontWeight
+                token: '--typography-font-weight-400'
+          - name: Tick 5
+            type: TEXT
+            text: '12:00'
+            size: 48x24
+            boundToProps:
+              characters: tick5
+            tokens:
+              - field: fills
+                token: '--color-content-subtle'
+              - field: fontSize
+                token: '--typography-font-size-16'
+              - field: fontFamily
+                token: '--typography-subtext-font-family'
+              - field: lineHeight
+                token: '--typography-line-height-px-24'
+              - field: fontWeight
+                token: '--typography-font-weight-400'
       - name: Axis
         type: RECTANGLE
         size: 1040x1
         tokens:
           - field: fills
-            token: '--component-timeline-axis'
+            token: '--color-border-default'
 tokens:
   used:
-    - token: '--component-timeline-axis'
+    - token: '--color-border-default'
       fields:
         - fills
-      inCode: false
-    - token: '--component-timeline-tick-label'
-      fields:
-        - fills
-      inCode: false
-    - token: '--typography-font-family-body'
-      fields:
-        - fontFamily
       inCode: true
-    - token: '--typography-font-size-body'
+    - token: '--color-content-subtle'
+      fields:
+        - fills
+      inCode: true
+    - token: '--spacing-8'
+      fields:
+        - itemSpacing
+      inCode: true
+    - token: '--typography-font-size-16'
       fields:
         - fontSize
       inCode: true
-    - token: '--typography-font-weight-regular'
+    - token: '--typography-font-weight-400'
       fields:
         - fontWeight
       inCode: true
-  missingInCode:
-    - '--component-timeline-axis'
-    - '--component-timeline-tick-label'
+    - token: '--typography-line-height-px-24'
+      fields:
+        - lineHeight
+      inCode: true
+    - token: '--typography-subtext-font-family'
+      fields:
+        - fontFamily
+      inCode: true
+  missingInCode: []
   raw: []
 description: >-
-  Timeline axis: the time scale across the top of Today's timeline. Ticks every 30 minutes. Place Timeline events and the Now marker under
+  Timeline axis: the time scale across the top of Today’s timeline. Ticks every 30 minutes. Place Timeline events and the Now marker under
   it.
 notApplicable:
   - section: Code, states from CSS, motion, contrast pairs

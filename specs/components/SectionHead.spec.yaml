@@ -12,21 +12,25 @@ links:
   storyTitle: Components/Layout/SectionHead
 props:
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: Figma "Title". The section's name, top left inside its card.
     at: src/components/SectionHead/SectionHead.tsx:9
   - name: number
+    figmaName: Number
     type: ReactNode
     required: false
     doc: Figma "Number". The count in the info, bold in the number face.
     at: src/components/SectionHead/SectionHead.tsx:11
   - name: words
+    figmaName: Words
     type: ReactNode
     required: false
     doc: Figma "Words". What the number counts, in subtext ("waiting on you").
     at: src/components/SectionHead/SectionHead.tsx:13
   - name: showNumber
+    figmaName: Show number
     type: boolean
     values:
       - true
@@ -35,6 +39,7 @@ props:
     doc: Figma "Show number". Defaults to on when `number` is set.
     at: src/components/SectionHead/SectionHead.tsx:15
   - name: showInfo
+    figmaName: Show info
     type: boolean
     values:
       - true
@@ -43,11 +48,13 @@ props:
     doc: Figma "Show info". The number and words on the right of the title line. Defaults to on when either is set.
     at: src/components/SectionHead/SectionHead.tsx:17
   - name: description
+    figmaName: Description
     type: ReactNode
     required: false
     doc: Figma "Description". One line under the title, in subtext.
     at: src/components/SectionHead/SectionHead.tsx:19
   - name: showDescription
+    figmaName: Show description
     type: boolean
     values:
       - true
@@ -56,6 +63,7 @@ props:
     doc: Figma "Show description". Defaults to on when `description` is set.
     at: src/components/SectionHead/SectionHead.tsx:21
   - name: icon
+    figmaName: Show icon
     type: IconName
     required: false
     doc: Figma "Show icon" + the exposed Icon well's icon. Missing = no icon well.
@@ -80,6 +88,7 @@ props:
     doc: The exposed Icon well's tone. Warning for sections that wait on you.
     at: src/components/SectionHead/SectionHead.tsx:25
   - name: action
+    figmaName: Show action
     type: ReactNode
     required: false
     doc: Figma "Show action". A Button secondary sm at the right end. Missing = off.
@@ -96,6 +105,7 @@ props:
     doc: The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text.
     at: src/components/SectionHead/SectionHead.tsx:29
   - name: size
+    figmaName: size
     type: '''section'' | ''card'''
     values:
       - section
@@ -605,13 +615,6 @@ mismatch:
       - contract
       - decision
     figma: no such variant property
-  - field: props.titleLevel
-    code:
-      - '0'
-      - '2'
-      - '3'
-      - '4'
-    figma: no such variant property
   - field: tokens.size=section.counterAxisSpacing
     code:
       - '--spacing-16'
@@ -684,3 +687,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: titleLevel
+      why: DOM heading level of the title; the head looks the same

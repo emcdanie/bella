@@ -12,22 +12,26 @@ links:
   storyTitle: Components/Layout/Toast
 props:
   - name: tone
+    figmaName: tone
     type: ToastTone
     default: success
     required: false
     doc: Figma "tone".
     at: src/components/Toast/Toast.tsx:12
   - name: children
+    figmaName: Message
     type: ReactNode
     required: true
     doc: 'Figma "Message": what just happened, one line ("Accepted. Logged in History.").'
     at: src/components/Toast/Toast.tsx:14
   - name: action
+    figmaName: Show action
     type: '{ label: string; onClick: () => void }'
     required: false
     doc: 'Figma "Show action": at most one action (Undo, Stop).'
     at: src/components/Toast/Toast.tsx:16
   - name: onClose
+    figmaName: Show close
     type: () => void
     required: false
     doc: Figma "Show close". Also called when the toast times out.
@@ -652,7 +656,7 @@ mismatch:
       - '--typography-line-height-px-24'
       - '--color-content-default'
     figma: size/24
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Icon.height
     code:
       - '--spacing-80'
@@ -683,7 +687,7 @@ mismatch:
       - '--typography-line-height-px-24'
       - '--color-content-default'
     figma: size/24
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Action.paddingLeft
     code:
       - '--spacing-8'

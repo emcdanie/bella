@@ -3,11 +3,11 @@
 name: NavList
 lead:
   text: A sidebar of grouped links.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-navlist--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-navlist--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/NavList/NavList.tsx
   storyTitle: Components/NavList
 props:
@@ -21,6 +21,7 @@ props:
     doc: 'Accessible name for the nav landmark. Required: a page can hold more than one nav.'
     at: src/components/NavList/NavList.tsx:25
   - name: collapsed
+    figmaName: collapsed
     type: boolean
     values:
       - true
@@ -40,6 +41,7 @@ props:
     doc: Called on every link click, before navigation; call event.preventDefault() to route in-app.
     at: src/components/NavList/NavList.tsx:31
   - name: footer
+    figmaName: Footer
     type: ReactNode
     required: false
     doc: Content pinned under the lists (an account row, a version line). Hidden with the lists.
@@ -96,271 +98,282 @@ anatomy:
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default
+    name: collapsed=false
     type: COMPONENT
-    size: 264x442
+    size: 264x427
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/8
     children:
       - name: Toggle
         type: FRAME
         size: 44x44
         tokens:
+          - field: paddingLeft
+            variable: spacing/16
           - field: topLeftRadius
-            variable: component/nav-list/border-radius
+            variable: border/radius/md
           - field: topRightRadius
-            variable: component/nav-list/border-radius
+            variable: border/radius/md
           - field: bottomLeftRadius
-            variable: component/nav-list/border-radius
+            variable: border/radius/md
           - field: bottomRightRadius
-            variable: component/nav-list/border-radius
+            variable: border/radius/md
         children:
           - name: Icon
             type: INSTANCE
             instanceOf: Icon
             size: 20x20
+            tokens:
+              - field: width
+                variable: size/20
+              - field: height
+                variable: size/20
       - name: Body
         type: FRAME
-        size: 264x326
+        size: 264x318
         tokens:
           - field: itemSpacing
-            variable: spacing/6
+            variable: spacing/24
         children:
-          - name: 'Group: Workspace'
+          - name: Workspace section
             type: FRAME
-            size: 264x175
+            size: 264x171
             tokens:
               - field: itemSpacing
-                variable: spacing/1
+                variable: spacing/4
             children:
-              - name: Group label
+              - name: Section label
                 type: FRAME
-                size: 117x31
+                size: 115x27
                 tokens:
                   - field: paddingLeft
-                    variable: spacing/3
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: spacing/3
+                    variable: spacing/12
                 children:
-                  - name: Group label text
+                  - name: Section label text
                     type: TEXT
                     text: Workspace
-                    size: 93x31
+                    size: 87x27
                     tokens:
                       - field: fills
-                        variable: color/semantic/text-secondary
+                        variable: color/content/subtle
                       - field: fontSize
-                        variable: component/nav-list/label-font-size
+                        variable: typography/font-size/16
                       - field: fontFamily
-                        variable: component/nav-list/label-font-family
+                        variable: typography/body-default/font-family
                       - field: fontWeight
-                        variable: typography/font-weight/regular
+                        variable: typography/font-weight/400
               - name: Item 1
                 type: INSTANCE
                 instanceOf: Nav item
                 size: 264x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/3
+                    variable: spacing/12
                   - field: paddingLeft
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: topLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: topRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: minHeight
-                    variable: component/nav-list/min-height
+                    variable: spacing/44
               - name: Item 2
                 type: INSTANCE
                 instanceOf: Nav item
                 size: 264x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/3
+                    variable: spacing/12
                   - field: paddingLeft
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: topLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: topRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: minHeight
-                    variable: component/nav-list/min-height
+                    variable: spacing/44
                   - field: fills
-                    variable: component/nav-list/current-background
+                    variable: nav-list/current-background
               - name: Item 3
                 type: INSTANCE
                 instanceOf: Nav item
                 size: 264x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/3
+                    variable: spacing/12
                   - field: paddingLeft
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: topLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: topRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: minHeight
-                    variable: component/nav-list/min-height
-          - name: 'Group: Library'
+                    variable: spacing/44
+          - name: Library section
             type: FRAME
-            size: 264x127
+            size: 264x123
             tokens:
               - field: itemSpacing
-                variable: spacing/1
+                variable: spacing/4
             children:
-              - name: Group label
+              - name: Section label
                 type: FRAME
-                size: 83x31
+                size: 85x27
                 tokens:
                   - field: paddingLeft
-                    variable: spacing/3
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: spacing/3
+                    variable: spacing/12
                 children:
-                  - name: Group label text
+                  - name: Section label text
                     type: TEXT
                     text: Library
-                    size: 59x31
+                    size: 57x27
                     tokens:
                       - field: fills
-                        variable: color/semantic/text-secondary
+                        variable: color/content/subtle
                       - field: fontSize
-                        variable: component/nav-list/label-font-size
+                        variable: typography/font-size/16
                       - field: fontFamily
-                        variable: component/nav-list/label-font-family
+                        variable: typography/body-default/font-family
                       - field: fontWeight
-                        variable: typography/font-weight/regular
+                        variable: typography/font-weight/400
               - name: Item 4
                 type: INSTANCE
                 instanceOf: Nav item
                 size: 264x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/3
+                    variable: spacing/12
                   - field: paddingLeft
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: topLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: topRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: minHeight
-                    variable: component/nav-list/min-height
+                    variable: spacing/44
               - name: Item 5
                 type: INSTANCE
                 instanceOf: Nav item
                 size: 264x44
                 tokens:
                   - field: itemSpacing
-                    variable: spacing/3
+                    variable: spacing/12
                   - field: paddingLeft
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: paddingRight
-                    variable: component/nav-list/padding-inline
+                    variable: spacing/16
                   - field: topLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: topRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomLeftRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: bottomRightRadius
-                    variable: component/nav-list/border-radius
+                    variable: border/radius/md
                   - field: minHeight
-                    variable: component/nav-list/min-height
+                    variable: spacing/44
       - name: Footer
         type: FRAME
-        size: 264x56
+        size: 264x49
         tokens:
           - field: paddingLeft
-            variable: spacing/3
+            variable: spacing/16
           - field: paddingTop
-            variable: spacing/3
+            variable: spacing/12
           - field: paddingRight
-            variable: spacing/3
+            variable: spacing/12
           - field: paddingBottom
-            variable: spacing/3
+            variable: spacing/12
+          - field: strokeTopWeight
+            variable: border/width/1
           - field: strokes
-            variable: color/semantic/border
+            variable: color/border/default
         children:
           - name: Footer text
             type: TEXT
             text: BELLA v0.4.0
-            size: 108x31
+            size: 101x24
             tokens:
               - field: fills
-                variable: color/semantic/text-secondary
+                variable: color/content/subtle
+              - field: fontSize
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .nav
       at: src/components/NavList/NavList.module.css:17
     - part: toggle
       state: rest
       property: min-width
-      token: '--component-nav-list-min-height'
+      token: '--spacing-44'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:26
     - part: toggle
       state: rest
       property: min-height
-      token: '--component-nav-list-min-height'
+      token: '--spacing-44'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:27
     - part: toggle
       state: rest
       property: border-radius
-      token: '--component-nav-list-border-radius'
+      token: '--border-radius-8'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:31
     - part: toggle
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:33
     - part: toggle
       state: rest
       property: font-size
-      token: '--component-nav-list-font-size'
+      token: '--typography-body-default-font-size'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:34
     - part: toggle
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:36
     - part: toggle
@@ -372,7 +385,7 @@ tokens:
     - part: toggle
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .toggle
       at: src/components/NavList/NavList.module.css:36
     - part: toggle
@@ -384,115 +397,115 @@ tokens:
     - part: toggle
       state: hover
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .toggle:hover
       at: src/components/NavList/NavList.module.css:42
     - part: toggle
       state: hover
       property: background
-      token: '--color-semantic-border-subtle'
+      token: '--color-border-subtle'
       selector: .toggle:hover
       at: src/components/NavList/NavList.module.css:43
     - part: body
       state: rest
       property: gap
-      token: '--spacing-6'
+      token: '--spacing-24'
       selector: .body
       at: src/components/NavList/NavList.module.css:49
     - part: group
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .group
       at: src/components/NavList/NavList.module.css:59
     - part: groupLabel
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .groupLabel
       at: src/components/NavList/NavList.module.css:64
     - part: groupLabel
       state: rest
       property: font-family
-      token: '--component-nav-list-label-font-family'
+      token: '--typography-body-default-font-family'
       selector: .groupLabel
       at: src/components/NavList/NavList.module.css:65
     - part: groupLabel
       state: rest
       property: font-size
-      token: '--component-nav-list-label-font-size'
+      token: '--typography-font-size-18'
       selector: .groupLabel
       at: src/components/NavList/NavList.module.css:66
     - part: groupLabel
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .groupLabel
       at: src/components/NavList/NavList.module.css:67
     - part: list
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .list
       at: src/components/NavList/NavList.module.css:73
     - part: item
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .item
       at: src/components/NavList/NavList.module.css:82
     - part: item
       state: rest
       property: min-height
-      token: '--component-nav-list-min-height'
+      token: '--spacing-44'
       selector: .item
       at: src/components/NavList/NavList.module.css:83
     - part: item
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .item
       at: src/components/NavList/NavList.module.css:84
     - part: item
       state: rest
       property: border-radius
-      token: '--component-nav-list-border-radius'
+      token: '--border-radius-8'
       selector: .item
       at: src/components/NavList/NavList.module.css:85
     - part: item
       state: rest
       property: font-family
-      token: '--component-nav-list-font-family'
+      token: '--typography-body-default-font-family'
       selector: .item
       at: src/components/NavList/NavList.module.css:86
     - part: item
       state: rest
       property: font-size
-      token: '--component-nav-list-font-size'
+      token: '--typography-body-default-font-size'
       selector: .item
       at: src/components/NavList/NavList.module.css:87
     - part: item
       state: rest
       property: font-weight
-      token: '--typography-font-weight-regular'
+      token: '--typography-font-weight-400'
       selector: .item
       at: src/components/NavList/NavList.module.css:88
     - part: item
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-body'
+      token: '--typography-letter-spacing-0'
       selector: .item
       at: src/components/NavList/NavList.module.css:89
     - part: item
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .item
       at: src/components/NavList/NavList.module.css:90
     - part: item
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .item
       at: src/components/NavList/NavList.module.css:92
     - part: item
@@ -504,7 +517,7 @@ tokens:
     - part: item
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .item
       at: src/components/NavList/NavList.module.css:92
     - part: item
@@ -516,205 +529,202 @@ tokens:
     - part: item
       state: hover
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .item:hover
       at: src/components/NavList/NavList.module.css:98
     - part: item
       state: hover
       property: background
-      token: '--color-semantic-surface-inset'
+      token: '--color-background-subtle'
       selector: .item:hover
       at: src/components/NavList/NavList.module.css:99
     - part: item
       state: '[aria-current=''page'']'
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .item[aria-current='page']
       at: src/components/NavList/NavList.module.css:103
     - part: item
       state: '[aria-current=''page'']'
       property: background
-      token: '--component-nav-list-current-background'
+      token: '--color-border-subtle'
       selector: .item[aria-current='page']
       at: src/components/NavList/NavList.module.css:104
     - part: item
       state: '[aria-current=''page'']'
       property: font-weight
-      token: '--typography-font-weight-medium'
+      token: '--typography-font-weight-500'
       selector: .item[aria-current='page']
       at: src/components/NavList/NavList.module.css:105
     - part: item
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .item:focus-visible, .toggle:focus-visible
       at: src/components/NavList/NavList.module.css:110
     - part: item
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .item:focus-visible, .toggle:focus-visible
       at: src/components/NavList/NavList.module.css:110
     - part: item
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .item:focus-visible, .toggle:focus-visible
       at: src/components/NavList/NavList.module.css:111
     - part: badge
       state: rest
       property: font-family
-      token: '--component-nav-list-label-font-family'
+      token: '--typography-number-font-family'
       selector: .badge
       at: src/components/NavList/NavList.module.css:122
     - part: badge
       state: rest
       property: font-size
-      token: '--component-nav-list-label-font-size'
+      token: '--typography-font-size-18'
       selector: .badge
       at: src/components/NavList/NavList.module.css:123
     - part: badge
       state: rest
       property: font-weight
-      token: '--typography-font-weight-regular'
+      token: '--typography-font-weight-400'
       selector: .badge
       at: src/components/NavList/NavList.module.css:125
     - part: badge
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .badge
       at: src/components/NavList/NavList.module.css:126
     - part: footer
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .footer
       at: src/components/NavList/NavList.module.css:130
     - part: footer
       state: rest
       property: border-top
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .footer
       at: src/components/NavList/NavList.module.css:131
     - part: footer
       state: rest
       property: border-top
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       selector: .footer
       at: src/components/NavList/NavList.module.css:131
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-nav-list-border-radius':
-      light: 8px
-      chip: 999px
-    '--component-nav-list-current-background':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--component-nav-list-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-nav-list-font-size':
-      light: 20px
-      chip: 16px
-    '--component-nav-list-label-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''Geist Mono'', ui-monospace, monospace'
-    '--component-nav-list-label-font-size':
-      light: 18px
-      chip: 16px
-    '--component-nav-list-min-height':
-      light: 44px
-      chip: 44px
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
+    '--border-radius-8':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
-    '--spacing-6':
-      light: 24px
-      chip: 24px
-    '--typography-font-weight-medium':
-      light: '500'
-      chip: '500'
-    '--typography-font-weight-regular':
-      light: '400'
-      chip: '400'
-    '--typography-letter-spacing-body':
-      light: '0'
-      chip: '0'
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-number-font-family':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .toggle
       state: rest
       declaration: >-
-        transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast)
+        transition: background var(--motion-duration-150) var(--motion-easing-standard), color var(--motion-duration-150)
         var(--motion-easing-standard)
       properties:
         - background
         - color
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
       at: src/components/NavList/NavList.module.css:36
     - selector: .item
       state: rest
       declaration: >-
-        transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast)
+        transition: background var(--motion-duration-150) var(--motion-easing-standard), color var(--motion-duration-150)
         var(--motion-easing-standard)
       properties:
         - background
         - color
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
       at: src/components/NavList/NavList.module.css:92
   reducedMotion:
     selector: .item, .toggle
@@ -754,18 +764,18 @@ a11y:
       at: src/components/NavList/NavList.tsx:88
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
       at: src/components/NavList/NavList.module.css:110
     - property: outline-offset
-      value: calc(-1 * var(--ring-focus-width))
+      value: calc(-1 * var(--focus-ring-width))
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
+        - token: '--focus-ring-width'
+          value: null
       at: src/components/NavList/NavList.module.css:111
   disabled:
     prop: null
@@ -780,7 +790,7 @@ a11y:
     on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real
     button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 3px, inset. Rows and the
     toggle hit the 44px touch-target token.
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-current
@@ -798,79 +808,8 @@ a11y:
       value: aria-labelledby
       at: src/components/NavList/NavList.tsx:82
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: 'current nav item: ink on its wash'
-      foreground: '--color-semantic-text-primary'
-      background: '--component-nav-list-current-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#e4e6ec'
-      ratio: 12.93
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:97
-  derived:
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/chip/app/src/Docs.jsx
   lines: 154-154
@@ -886,117 +825,163 @@ usage:
     - 'Do not use for in-page panels: that is Tabs'
     - 'Do not mark the current item with a wash alone: aria-current plus ink plus weight'
     - 'Do not collapse without onToggle: the lists would be unreachable'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '167:226'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    footer#167:42:
+    Footer#167:42:
       type: TEXT
       default: BELLA v0.4.0
-    state:
+    collapsed:
       type: VARIANT
-      default: default
+      default: 'false'
       values:
-        - default
-        - collapsed
+        - 'false'
+        - 'true'
   variants:
-    - name: state=default
+    - name: collapsed=false
       width: 264
-      height: 442
-    - name: state=collapsed
+      height: 427
+    - name: collapsed=true
       width: 44
       height: 44
-  defaultVariant: state=default
+  defaultVariant: collapsed=false
   annotations:
     - label: >-
-        Dev · <NavList groups label collapsed onToggle onNavigate footer />. Items are anchors with aria-current=page; toggle is a button
-        with aria-expanded and aria-controls.
+        <NavList groups label collapsed onToggle onNavigate footer /> · src/components/NavList/NavList.tsx. Toggle (SidebarCollapse /
+        SidebarExpand) · Body (groups of Nav item) · Footer. collapsed=true shows the icon-only rail. Collapsed toggle: decision pending.
       category: '123:0'
     - label: >-
-        A11y · nav landmark with a required label. Current = aria-current + ink + weight, never the wash alone. Rows and toggle 44px; focus
-        ring inset.
+        nav landmark with a required aria-label; groups with a heading are lists named by it. The toggle is a button with aria-expanded and
+        aria-controls. Rows and toggle are 44 targets.
       category: '123:2'
-    - label: >-
-        Motion · hover background and colour ease over motion/duration/fast, motion/easing/standard (NavList.module.css:25). Reduced motion:
-        instant.
+    - label: |-
+        Hover: background and colour ease over motion/duration/fast on motion/easing/standard.
+        Reduced motion: instant.
       category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-layout-navlist--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-navlist--docs
 mismatch:
-  - field: states
+  - field: tokens.Toggle.paddingLeft
     code:
-      contract:
-        - default
-        - hover
-        - current
-        - focus
-        - collapsed
-      css:
-        - hover
-        - '[aria-current=''page'']'
-        - focus-visible
-    figma:
-      - default
-      - collapsed
-  - field: props.collapsed
-    code: boolean prop
-    figma: not in the set
+      - '--spacing-12'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-8'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-body-default-font-size'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-24'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-18'
+      - '--typography-font-weight-400'
+      - '--typography-letter-spacing-0'
+      - '--typography-number-font-family'
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-8'
+      - '--spacing-44'
+      - '--border-radius-8'
+      - '--color-content-subtle'
+      - '--typography-body-default-font-size'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-24'
+      - '--spacing-4'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-18'
+      - '--typography-font-weight-400'
+      - '--typography-letter-spacing-0'
+      - '--typography-number-font-family'
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Section label.paddingLeft
+    code:
+      - '--spacing-12'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Section label text.fontSize
+    code:
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
+    sameValueInChip: true
   - field: tokens.Item 1.paddingLeft
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 1.paddingRight
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 2.paddingLeft
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 2.paddingRight
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
-    sameValueInChip: false
-  - field: tokens.Item 2.fills
-    code:
-      - '--color-semantic-text-secondary'
-    figma: component/nav-list/current-background
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 3.paddingLeft
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 3.paddingRight
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 4.paddingLeft
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 4.paddingRight
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 5.paddingLeft
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Item 5.paddingRight
     code:
-      - '--spacing-3'
-    figma: component/nav-list/padding-inline
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
+  - field: tokens.Footer.paddingLeft
+    code:
+      - '--spacing-12'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Footer text.fontSize
+    code:
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/NavList/NavList.tsx

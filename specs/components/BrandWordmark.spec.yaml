@@ -3,7 +3,7 @@
 name: BrandWordmark
 lead:
   text: The ELLETA / BELLA wordmark.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Brand
 rendersAs: null
 links:
@@ -12,6 +12,7 @@ links:
   storyTitle: null
 props:
   - name: word
+    figmaName: word
     type: '''ELLETA'' | ''BELLA'''
     values:
       - ELLETA
@@ -21,12 +22,11 @@ props:
     doc: The word. Only ELLETA and BELLA are drawn.
     at: src/components/BrandWordmark/BrandWordmark.tsx:8
   - name: variant
-    type: '''pattern'' | ''ink'' | ''mark'' | ''logotype'''
+    figmaName: variant
+    type: '''pattern'' | ''ink'''
     values:
       - pattern
       - ink
-      - mark
-      - logotype
     default: pattern
     required: false
     doc: '`"pattern"`: the seeded animal-print collage cut into the letters. `"ink"`: plain ink strokes (currentColor).'
@@ -66,8 +66,6 @@ variants:
     values:
       - pattern
       - ink
-      - mark
-      - logotype
     default: pattern
     at: src/components/BrandWordmark/BrandWordmark.tsx:10
   size:
@@ -85,10 +83,10 @@ sizes:
     default: true
     css:
       - property: gap
-        value: var(--spacing-3)
+        value: var(--spacing-12)
         at: src/components/BrandWordmark/BrandWordmark.module.css:17
       - property: height
-        value: var(--component-brand-wordmark-nav-height)
+        value: var(--spacing-40)
         at: src/components/BrandWordmark/BrandWordmark.module.css:21
       - property: width
         value: auto
@@ -137,37 +135,37 @@ tokens:
     - part: root
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .wordmark
       at: src/components/BrandWordmark/BrandWordmark.module.css:5
     - part: nav
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .nav
       at: src/components/BrandWordmark/BrandWordmark.module.css:17
     - part: svg
       state: rest
       property: height
-      token: '--component-brand-wordmark-nav-height'
+      token: '--spacing-40'
       selector: .nav .svg
       at: src/components/BrandWordmark/BrandWordmark.module.css:21
     - part: reroll
       state: rest
       property: margin-top
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .full-bleed .reroll
       at: src/components/BrandWordmark/BrandWordmark.module.css:43
   values:
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-brand-wordmark-nav-height':
-      light: 40px
-      chip: 40px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--color-content-default':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-40':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -208,38 +206,8 @@ a11y:
       value: aria-hidden="true"
       at: src/components/BrandWordmark/BrandWordmark.tsx:74
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-  derived:
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample: null
 usage:
   use:
@@ -251,10 +219,10 @@ usage:
     - 'Never recolour the pattern: it only comes from color.pattern.*'
     - 'Never as body type or a heading: it is a mark, not a typeface'
     - Never animate it
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '405:18315'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     word:
       type: VARIANT
@@ -284,11 +252,16 @@ figma:
   defaultVariant: word=BELLA, variant=pattern
   annotations:
     - label: >-
-        Dev: BrandWordmark.tsx:28. Letters are stroke paths cut as a mask over the pattern and grain layers; props word, variant map 1:1.
-        size, seed, onReroll are not Figma properties.
+        <BrandWordmark word variant size seed> · src/components/BrandWordmark/BrandWordmark.tsx. The E, L, T, A, B glyphs as stroke paths
+        (weight 12). variant pattern cuts the seeded brand pattern into the letters; ink draws plain strokes in currentColor
+        (color/content/default). size nav is 40 tall; full-bleed fills its container. seed and size are code-only.
       category: '123:0'
-    - label: 'A11y: BrandWordmark.tsx:49,57,74. role img, accessible name is the word, pattern layers aria-hidden, ink is text-primary (AAA).'
+    - label: >-
+        role="img" named by the word (aria-label BELLA or ELLETA); the pattern layers are aria-hidden. The ink strokes are
+        color/content/default, 7:1 or more on every background.
       category: '123:2'
+    - label: 'None: static, nothing moves; reduced motion needs no change.'
+      category: '123:4'
   documentationLinks: []
 mismatch: []
 notApplicable:

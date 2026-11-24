@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Data/MapLine
 props:
   - name: direction
+    figmaName: direction
     type: '''horizontal'' | ''vertical'' | ''turn'' | ''curve'''
     values:
       - horizontal
@@ -23,6 +24,7 @@ props:
     doc: Figma "direction". horizontal and vertical stretch to their box; turn is a 24 box with a 16-radius quarter curve.
     at: src/components/MapLine/MapLine.tsx:9
   - name: end
+    figmaName: end
     type: '''arrow'' | ''none'''
     values:
       - arrow
@@ -32,6 +34,7 @@ props:
     doc: Figma "end". Arrow on the last piece only (straight pieces; Figma draws turns with none).
     at: src/components/MapLine/MapLine.tsx:11
   - name: variant
+    figmaName: style
     type: '''solid'' | ''dashed'''
     values:
       - solid
@@ -41,6 +44,7 @@ props:
     doc: Figma "style" (code cannot use `style`, the CSS prop; same move as Tag's variant). dashed = an optional path, or a step not yet done.
     at: src/components/MapLine/MapLine.tsx:14
   - name: tone
+    figmaName: tone
     type: '''default'' | ''selected'' | ''accent'' | ''danger'''
     values:
       - default
@@ -76,6 +80,7 @@ props:
     doc: 'curve only, without `from` and `to`: flip the line horizontally so it runs top right to bottom left in its own box.'
     at: src/components/MapLine/MapLine.tsx:22
   - name: corner
+    figmaName: corner
     type: MapLineCorner
     default: none
     required: false
@@ -1012,9 +1017,6 @@ mismatch:
   - field: props.flip
     code: boolean prop
     figma: not in the set
-  - field: props.travel
-    code: boolean prop
-    figma: not in the set
   - field: tokens.Path.strokes
     code:
       - '--border-width-2'
@@ -1030,3 +1032,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: travel
+      why: plays the travelling-dot motion; Figma shows the line at rest

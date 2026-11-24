@@ -12,21 +12,25 @@ links:
   storyTitle: Components/Stat
 props:
   - name: label
+    figmaName: Label
     type: string
     required: true
     doc: What is counted, as a short Mono label.
     at: src/components/Stat/Stat.tsx:9
   - name: value
+    figmaName: Value
     type: string | number
     required: true
     doc: The figure. Numbers set in tabular figures.
     at: src/components/Stat/Stat.tsx:11
   - name: delta
+    figmaName: Delta
     type: string
     required: false
     doc: Change or context under the figure (`"2 since last sync"`). Plain text; the trend arrow is added for you.
     at: src/components/Stat/Stat.tsx:13
   - name: trend
+    figmaName: trend
     type: '''up'' | ''down'''
     values:
       - up
@@ -35,6 +39,7 @@ props:
     doc: 'Direction of the delta: an arrow plus a spoken word, never colour. Omit for a neutral note.'
     at: src/components/Stat/Stat.tsx:15
   - name: series
+    figmaName: series
     type: number[]
     required: false
     doc: Earlier values, oldest first, ending with the current one. Two or more draw a sparkline; fewer draw nothing.
@@ -73,6 +78,7 @@ props:
       brings a new `series`; the line morphs point by point from the old one over motion/duration/450, never redrawn from zero.
     at: src/components/Stat/Stat.tsx:35
   - name: icon
+    figmaName: icon
     type: IconName
     required: false
     doc: An Iconoir glyph in a round well above the label (BellaComponents, 11 Nov 2026). Decorative.
@@ -88,6 +94,7 @@ props:
     doc: 'What the bar says, spoken in place of the drawing. Defaults to "<label>: <n>%".'
     at: src/components/Stat/Stat.tsx:41
   - name: measured
+    figmaName: measured
     type: boolean
     values:
       - true

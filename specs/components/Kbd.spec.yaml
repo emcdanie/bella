@@ -3,11 +3,11 @@
 name: Kbd
 lead:
   text: A keyboard shortcut in Mono keycaps. Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-kbd--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-kbd--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Kbd/Kbd.tsx
   storyTitle: Components/Kbd
 props:
@@ -57,30 +57,38 @@ anatomy:
     size: 24x29
     tokens:
       - field: itemSpacing
-        variable: spacing/1
+        variable: spacing/4
     children:
       - name: Key 1
         type: FRAME
         size: 24x29
         tokens:
           - field: paddingLeft
-            variable: spacing/1
+            variable: spacing/4
           - field: paddingRight
-            variable: spacing/1
+            variable: spacing/4
           - field: topLeftRadius
-            variable: component/kbd/border-radius
+            variable: border/radius/sm
           - field: topRightRadius
-            variable: component/kbd/border-radius
+            variable: border/radius/sm
           - field: bottomLeftRadius
-            variable: component/kbd/border-radius
+            variable: border/radius/sm
           - field: bottomRightRadius
-            variable: component/kbd/border-radius
+            variable: border/radius/sm
+          - field: strokeTopWeight
+            variable: border/width/1
+          - field: strokeBottomWeight
+            variable: border/width/1
+          - field: strokeLeftWeight
+            variable: border/width/1
+          - field: strokeRightWeight
+            variable: border/width/1
           - field: minWidth
-            variable: spacing/6
+            variable: spacing/24
           - field: fills
-            variable: component/kbd/background
+            variable: color/background/surface
           - field: strokes
-            variable: component/kbd/border
+            variable: color/border/default
         children:
           - name: Key
             type: TEXT
@@ -88,131 +96,131 @@ anatomy:
             size: 10x27
             tokens:
               - field: fills
-                variable: component/kbd/foreground
+                variable: color/content/subtle
               - field: fontSize
-                variable: component/kbd/font-size
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: component/kbd/font-family
+                variable: typography/font-family/geist-mono
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: caps
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .caps
       at: src/components/Kbd/Kbd.module.css:13
     - part: key
       state: rest
       property: min-width
-      token: '--spacing-6'
+      token: '--spacing-24'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:20
     - part: key
       state: rest
       property: padding
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:21
     - part: key
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:22
     - part: key
       state: rest
       property: border
-      token: '--component-kbd-border'
+      token: '--color-border-subtle'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:22
     - part: key
       state: rest
       property: border-radius
-      token: '--component-kbd-border-radius'
+      token: '--border-radius-sm'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:23
     - part: key
       state: rest
       property: background
-      token: '--component-kbd-background'
+      token: '--color-background-subtle'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:24
     - part: key
       state: rest
       property: color
-      token: '--component-kbd-foreground'
+      token: '--color-content-subtle'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:25
     - part: key
       state: rest
       property: font-family
-      token: '--component-kbd-font-family'
+      token: '--typography-font-family-geist-mono'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:26
     - part: key
       state: rest
       property: font-size
-      token: '--component-kbd-font-size'
+      token: '--typography-font-size-16'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:27
     - part: key
       state: rest
       property: font-feature-settings
-      token: '--component-kbd-font-feature-settings'
+      token: '--typography-font-feature-ss09'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:28
     - part: key
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-mono'
+      token: '--typography-letter-spacing-0'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:29
     - part: key
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .key
       at: src/components/Kbd/Kbd.module.css:30
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--component-kbd-background':
-      light: '#eceef3'
-      chip: transparent
-    '--component-kbd-border':
-      light: '#e4e6ec'
-      chip: transparent
-    '--component-kbd-border-radius':
-      light: 4px
-      chip: 2px
-    '--component-kbd-font-family':
-      light: '''Geist Mono'', ui-monospace, monospace'
-      chip: '''Geist Mono'', ui-monospace, monospace'
-    '--component-kbd-font-feature-settings':
-      light: '"ss09" 1'
-      chip: '"ss09" 1'
-    '--component-kbd-font-size':
-      light: 16px
-      chip: 16px
-    '--component-kbd-foreground':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-6':
-      light: 24px
-      chip: 24px
-    '--typography-letter-spacing-mono':
-      light: '0'
-      chip: '0'
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
+    '--border-radius-sm':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--typography-font-family-geist-mono':
+      light: null
+      chip: null
+    '--typography-font-feature-ss09':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -240,51 +248,22 @@ a11y:
   reducedMotion: null
   contract: >-
     Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is
-    read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at 16px.
+    read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px
+    floor.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
       at: src/components/Kbd/Kbd.tsx:31
 contrast:
-  pairs:
-    - label: Key label on the page
-      foreground: '--component-kbd-foreground'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Key label on a card
-      foreground: '--component-kbd-foreground'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-kbd-foreground'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--component-kbd-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Kbd/Kbd.stories.tsx
-  lines: 60-60
+  lines: 73-73
   import: import Kbd from '@bella/components/Kbd/Kbd';
   importSource: the style the Button doc page uses (CHIP import path)
-  code: <Kbd keys={keys as string[]} label={label as string | undefined} />
+  code: <Kbd keys={['⌘', 'K']} label="Command K" />
 usage:
   use:
     - Shortcut hint inside a search field
@@ -294,10 +273,10 @@ usage:
     - 'Do not make it clickable: a pressable keycap is Button'
     - 'Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button'
     - 'Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '156:117'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     Key 1#156:6:
       type: TEXT
@@ -328,19 +307,17 @@ figma:
   defaultVariant: caps=1
   annotations:
     - label: >-
-        Dev · <Kbd keys label /> · src/components/Kbd/Kbd.tsx:21. Cap bound to component/kbd/background, border and border-radius
-        (css:22-24); Light and Dark draw a wash, hairline and 4px, Chip none of the three and 2px (bella.css:1281-1283). Min width
-        spacing/6, padding spacing/1 (css:20-21), Geist Mono 16 (component/kbd/font-size). Flat: no shadow, no transition. Key 1..3 are a
-        Figma stand-in for the keys array.
+        <Kbd keys label /> · src/components/Kbd/Kbd.tsx. One cap per key, Geist Mono 16, small corner, an edge; caps 4 apart (spacing/4).
+        caps 1, 2 or 3.
       category: '123:0'
     - label: >-
-        kbd with nested kbd per key, never focusable. With label, glyphs are aria-hidden and the label is read (Kbd.tsx:29-33). Label 7.09:1
-        on the Light wash; 7.95:1 on the Chip page, 8.53:1 on a card.
+        A kbd element with one kbd per key; never focusable. With a label, the glyphs are aria-hidden and the label is read ("Command K").
+        Text 7.34:1 or more.
       category: '123:2'
-    - label: 'None: static, never presses or animates (Kbd.module.css has no transition).'
+    - label: 'None: static, never presses.'
       category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-data-kbd--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-kbd--docs
 mismatch:
   - field: props.caps
     code: no such prop
@@ -348,6 +325,19 @@ mismatch:
       - '1'
       - '2'
       - '3'
+  - field: tokens.Key 1.fills
+    code:
+      - '--color-background-subtle'
+      - '--color-content-subtle'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Key 1.strokes
+    code:
+      - '--border-width-1'
+      - '--color-border-subtle'
+      - '--border-radius-sm'
+    figma: color/border/default
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Kbd/Kbd.tsx

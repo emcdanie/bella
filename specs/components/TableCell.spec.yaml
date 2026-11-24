@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Data/TableCell
 props:
   - name: kind
+    figmaName: kind
     type: '''header'' | ''text'' | ''mono'' | ''swatch'' | ''link'' | ''tag'''
     values:
       - header
@@ -33,6 +34,7 @@ props:
     doc: 'kind=tag: the Tag''s tone (style line, as the 21 Nov publish draws it).'
     at: src/components/TableCell/TableCell.tsx:10
   - name: align
+    figmaName: align
     type: '''start'' | ''end'''
     values:
       - start
@@ -42,6 +44,7 @@ props:
     doc: Figma "align". end for a column that reads from the right (counts, links).
     at: src/components/TableCell/TableCell.tsx:12
   - name: selected
+    figmaName: selected
     type: boolean
     values:
       - true
@@ -51,6 +54,7 @@ props:
     doc: 'Figma "selected": the text goes 600 in ink, so a selected row is never colour alone. Set on every cell of a selected TableRow.'
     at: src/components/TableCell/TableCell.tsx:14
   - name: sort
+    figmaName: Show sort
     type: '''none'' | ''ascending'' | ''descending'''
     values:
       - none
@@ -535,7 +539,7 @@ mismatch:
       - '--size-20'
       - '--border-radius-sm'
     figma: size/16
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Sort mark.height
     code:
       - '--spacing-44'
@@ -555,7 +559,7 @@ mismatch:
       - '--size-20'
       - '--border-radius-sm'
     figma: size/16
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TableCell/TableCell.tsx

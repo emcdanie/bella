@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Layout/TopBar
 props:
   - name: placeParent
+    figmaName: Place parent
     type: string
     default: CHIP
     required: false
@@ -28,12 +29,14 @@ props:
     doc: Called when Place parent is clicked (route in the app with event.preventDefault()).
     at: src/components/TopBar/TopBar.tsx:10
   - name: placeCurrent
+    figmaName: Place current
     type: string
     default: Work
     required: false
     doc: Figma "Place current". The page you are on ("Work"), ink 600, aria-current="page".
     at: src/components/TopBar/TopBar.tsx:12
   - name: showPlace
+    figmaName: Show place
     type: boolean
     values:
       - true
@@ -690,7 +693,7 @@ mismatch:
       - '--color-border-default'
       - '--border-radius-sm'
     figma: color/border/subtle
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TopBar/TopBar.tsx

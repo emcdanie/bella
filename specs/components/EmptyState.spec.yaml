@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Layout/EmptyState
 props:
   - name: size
+    figmaName: size
     type: '''lane'' | ''page'''
     values:
       - lane
@@ -21,16 +22,19 @@ props:
     doc: 'Figma "size". lane: the compact one, for a card or lane; page: a whole view.'
     at: src/components/EmptyState/EmptyState.tsx:7
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: Figma "Title". Short, says what is missing.
     at: src/components/EmptyState/EmptyState.tsx:9
   - name: line
+    figmaName: Line
     type: ReactNode
     required: false
     doc: Figma "Line". One line on what fills this space (Belfast mode allowed).
     at: src/components/EmptyState/EmptyState.tsx:11
   - name: mark
+    figmaName: Mark
     type: string
     required: false
     doc: 'Figma "Mark". An emoji, no circle or fill behind it. Decorative: hidden from assistive tech.'
@@ -55,6 +59,7 @@ props:
     doc: What the image shows, only if it says something the words don't. Missing = decorative (empty alt, hidden from assistive tech).
     at: src/components/EmptyState/EmptyState.tsx:19
   - name: showMark
+    figmaName: Show mark
     type: boolean
     values:
       - true
@@ -64,6 +69,7 @@ props:
     doc: Figma "Show mark". Missing mark = off.
     at: src/components/EmptyState/EmptyState.tsx:21
   - name: actions
+    figmaName: Show action
     type: ReactNode
     required: false
     doc: 'Figma "Show action" / "Show secondary action": the Button(s), sm in a lane. Missing = off.'
@@ -790,7 +796,7 @@ mismatch:
       - '--typography-font-weight-400'
       - '--color-content-subtle'
     figma: size/20
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Icon.height
     code:
       - '--spacing-16'
@@ -816,7 +822,7 @@ mismatch:
       - '--typography-font-weight-400'
       - '--color-content-subtle'
     figma: size/20
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Secondary action.paddingLeft
     code:
       - '--spacing-24'
@@ -878,7 +884,7 @@ mismatch:
       - '--color-content-default'
       - '--color-content-subtle'
     figma: color/background/brand
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Action.strokes
     code:
       - '--border-radius-round'

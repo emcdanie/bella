@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Data/CheckRow
 props:
   - name: layout
+    figmaName: layout
     type: '''list'' | ''weather'''
     values:
       - list
@@ -32,6 +33,7 @@ props:
     doc: 'Weather: how many parts are checked. Pips = ceil(total / 5).'
     at: src/components/CheckRow/CheckRow.tsx:59
   - name: showDivider
+    figmaName: Show divider
     type: boolean
     values:
       - true
@@ -40,6 +42,7 @@ props:
     doc: 'Weather: a divider at the row''s bottom. Off on the last row. Default true.'
     at: src/components/CheckRow/CheckRow.tsx:61
   - name: status
+    figmaName: status
     type: '''pass'' | ''fail'''
     values:
       - pass
@@ -655,12 +658,7 @@ figma:
       width: 640
       height: 56
   defaultVariant: status=pass, layout=list
-mismatch:
-  - field: props.as
-    code:
-      - li
-      - div
-    figma: no such variant property
+mismatch: []
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/CheckRow/CheckRow.tsx
@@ -672,3 +670,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: as
+      why: DOM element (li or div); nothing to draw

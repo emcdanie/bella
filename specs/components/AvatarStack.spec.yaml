@@ -3,11 +3,11 @@
 name: AvatarStack
 lead:
   text: Overlapping Avatars with a separating ring in the surface colour. Extends Avatar.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Chat
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-avatarstack--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-chat-avatarstack--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/AvatarStack/AvatarStack.tsx
   storyTitle: Components/Chat/AvatarStack
 props:
@@ -17,6 +17,7 @@ props:
     doc: The members to show, left-to-right. Each slides -8px under the previous.
     at: src/components/AvatarStack/AvatarStack.tsx:18
   - name: size
+    figmaName: size
     type: AvatarProps['size']
     values:
       - xs
@@ -30,7 +31,7 @@ props:
   - name: surfaceColor
     type: string
     required: false
-    doc: Background colour of the surface the stack sits on. Used for the separating ring. Defaults to --color-semantic-surface.
+    doc: Background colour of the surface the stack sits on. Used for the separating ring. Defaults to --color-background-surface.
     at: src/components/AvatarStack/AvatarStack.tsx:22
   - name: max
     type: number
@@ -92,7 +93,16 @@ anatomy:
   figma:
     name: size=sm, overflow=false
     type: COMPONENT
-    size: 108x44
+    size: 112x48
+    tokens:
+      - field: paddingLeft
+        variable: spacing/4
+      - field: paddingTop
+        variable: spacing/4
+      - field: paddingRight
+        variable: spacing/4
+      - field: paddingBottom
+        variable: spacing/4
     children:
       - name: Avatar · FR
         type: INSTANCE
@@ -100,52 +110,100 @@ anatomy:
         size: 40x40
         tokens:
           - field: width
-            variable: component/avatar/sm/size
+            variable: spacing/40
           - field: height
-            variable: component/avatar/sm/size
-          - field: strokes
-            variable: component/avatar-stack/default/ring-color
+            variable: spacing/40
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
           - field: strokeTopWeight
-            variable: component/avatar-stack/default/ring-width
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: fills
+            variable: color/background/subtle
+          - field: strokes
+            variable: color/background/surface
       - name: Avatar · LI
         type: INSTANCE
         instanceOf: Avatar
         size: 40x40
         tokens:
           - field: width
-            variable: component/avatar/sm/size
+            variable: spacing/40
           - field: height
-            variable: component/avatar/sm/size
-          - field: strokes
-            variable: component/avatar-stack/default/ring-color
+            variable: spacing/40
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
           - field: strokeTopWeight
-            variable: component/avatar-stack/default/ring-width
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: fills
+            variable: color/background/subtle
+          - field: strokes
+            variable: color/background/surface
       - name: Avatar · SA
         type: INSTANCE
         instanceOf: Avatar
         size: 40x40
         tokens:
           - field: width
-            variable: component/avatar/sm/size
+            variable: spacing/40
           - field: height
-            variable: component/avatar/sm/size
-          - field: strokes
-            variable: component/avatar-stack/default/ring-color
+            variable: spacing/40
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
           - field: strokeTopWeight
-            variable: component/avatar-stack/default/ring-width
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: fills
+            variable: color/background/subtle
+          - field: strokes
+            variable: color/background/surface
   code: []
 tokens:
   used:
     - part: item
       state: rest
       property: margin-left
-      token: '--component-avatar-stack-default-overlap'
+      token: '--spacing-8'
       selector: .item
       at: src/components/AvatarStack/AvatarStack.module.css:10
     - part: item
       state: rest
       property: box-shadow
-      token: '--component-avatar-stack-default-ring-width'
+      token: '--border-width-2'
       selector: .item
       at: src/components/AvatarStack/AvatarStack.module.css:11
     - part: item
@@ -157,13 +215,13 @@ tokens:
     - part: item
       state: rest
       property: box-shadow
-      token: '--component-avatar-stack-default-ring-color'
+      token: '--color-background-surface'
       selector: .item
       at: src/components/AvatarStack/AvatarStack.module.css:11
     - part: itemRinged
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-gap'
+      token: '--border-width-2'
       selector: .stack .itemRinged
       at: src/components/AvatarStack/AvatarStack.module.css:18
     - part: itemRinged
@@ -175,148 +233,142 @@ tokens:
     - part: itemRinged
       state: rest
       property: box-shadow
-      token: '--component-avatar-stack-default-ring-color'
+      token: '--color-background-surface'
       selector: .stack .itemRinged
       at: src/components/AvatarStack/AvatarStack.module.css:18
     - part: itemRinged
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-gap'
+      token: '--border-width-2'
       selector: .stack .itemRinged
       at: src/components/AvatarStack/AvatarStack.module.css:18
     - part: itemRinged
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-width'
+      token: '--border-width-2'
       selector: .stack .itemRinged
       at: src/components/AvatarStack/AvatarStack.module.css:18
     - part: itemRinged
       state: rest
       property: box-shadow
-      token: '--component-avatar-default-ring-color'
+      token: '--color-border-ink'
       selector: .stack .itemRinged
       at: src/components/AvatarStack/AvatarStack.module.css:18
     - part: overflow
       state: rest
       property: background
-      token: '--color-semantic-surface-inset'
+      token: '--color-background-subtle'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:33
     - part: overflow
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:34
     - part: overflow
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:35
     - part: overflow
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-number-font-family'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:36
     - part: overflow
       state: rest
       property: font-weight
-      token: '--typography-font-weight-bold'
+      token: '--typography-font-weight-700'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:37
     - part: overflow
       state: rest
       property: font-size
-      token: '--typography-font-size-label'
+      token: '--typography-label-default-font-size'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:38
     - part: overflow
       state: rest
       property: width
-      token: '--component-avatar-sm-size'
+      token: '--spacing-40'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:40
     - part: overflow
       state: rest
       property: height
-      token: '--component-avatar-sm-size'
+      token: '--spacing-40'
       selector: .overflow
       at: src/components/AvatarStack/AvatarStack.module.css:41
     - part: overflow
       state: '[data-size=''md'']'
       property: width
-      token: '--component-avatar-md-size'
+      token: '--spacing-48'
       selector: .overflow[data-size='md']
       at: src/components/AvatarStack/AvatarStack.module.css:45
     - part: overflow
       state: '[data-size=''md'']'
       property: height
-      token: '--component-avatar-md-size'
+      token: '--spacing-48'
       selector: .overflow[data-size='md']
       at: src/components/AvatarStack/AvatarStack.module.css:46
     - part: overflow
       state: '[data-size=''lg'']'
       property: width
-      token: '--component-avatar-lg-size'
+      token: '--spacing-80'
       selector: .overflow[data-size='lg']
       at: src/components/AvatarStack/AvatarStack.module.css:50
     - part: overflow
       state: '[data-size=''lg'']'
       property: height
-      token: '--component-avatar-lg-size'
+      token: '--spacing-80'
       selector: .overflow[data-size='lg']
       at: src/components/AvatarStack/AvatarStack.module.css:51
   values:
     '--avatar-stack-ring':
       light: null
       chip: null
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-avatar-default-ring-color':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-avatar-default-ring-gap':
-      light: 2px
-      chip: 2px
-    '--component-avatar-default-ring-width':
-      light: 2px
-      chip: 2px
-    '--component-avatar-lg-size':
-      light: 80px
-      chip: 80px
-    '--component-avatar-md-size':
-      light: 48px
-      chip: 48px
-    '--component-avatar-sm-size':
-      light: 40px
-      chip: 40px
-    '--component-avatar-stack-default-overlap':
-      light: '-8px'
-      chip: '-8px'
-    '--component-avatar-stack-default-ring-color':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-avatar-stack-default-ring-width':
-      light: 2px
-      chip: 2px
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-size-label':
+    '--border-radius-round':
       light: null
       chip: null
-    '--typography-font-weight-bold':
-      light: '700'
-      chip: '700'
+    '--border-width-2':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--spacing-40':
+      light: null
+      chip: null
+    '--spacing-48':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--spacing-80':
+      light: null
+      chip: null
+    '--typography-font-weight-700':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-number-font-family':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -355,49 +407,8 @@ a11y:
       value: role=group
       at: src/components/AvatarStack/AvatarStack.tsx:48
 contrast:
-  pairs:
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: +N label on its disc
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-inset'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#eceef3'
-      ratio: 7.34
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/AvatarStack/AvatarStack.stories.tsx
   lines: 48-48
@@ -409,10 +420,10 @@ usage:
     - Group header in The Bar
   dont:
     - Do not use as a standalone avatar — use Avatar for that
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '327:107'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     size:
       type: VARIANT
@@ -429,40 +440,35 @@ figma:
         - 'true'
   variants:
     - name: size=sm, overflow=false
-      width: 108
-      height: 44
+      width: 112
+      height: 48
     - name: size=sm, overflow=true
-      width: 140
-      height: 44
+      width: 144
+      height: 48
     - name: size=md, overflow=false
-      width: 132
-      height: 52
+      width: 136
+      height: 56
     - name: size=md, overflow=true
-      width: 172
-      height: 52
+      width: 176
+      height: 56
     - name: size=lg, overflow=false
-      width: 228
-      height: 84
+      width: 232
+      height: 88
     - name: size=lg, overflow=true
-      width: 300
-      height: 84
+      width: 304
+      height: 88
   defaultVariant: size=sm, overflow=false
   annotations:
     - label: >-
-        Dev · <AvatarStack members size max surfaceColor /> · src/components/AvatarStack/AvatarStack.tsx:14-31. Each member is an Avatar of
-        the same size, overlapped -8px (--component-avatar-stack-default-overlap, css:10) with a 2px separating ring in
-        color/semantic/surface (box-shadow in code, css:11-13; a stroke on the Avatar instance in Figma, the one instance override). Figma
-        overflow=true is code max with members above it; +N disc: surface-inset, text-secondary, bold, radius/full (css:29-42). itemSpacing
-        -8 is a raw value until component/avatar-stack/overlap is published.
+        <AvatarStack members size max surfaceColor /> · src/components/AvatarStack/AvatarStack.tsx. Overlapping Avatars, each with a ring in
+        the surface colour; overflow=true shows +N for the rest. size sm 32, md 40, lg 48.
       category: '123:0'
-    - label: >-
-        A11y · Root role=group, aria-label lists every member name (AvatarStack.tsx:57-58). Each Avatar is role=img named by its member. The
-        +N disc is aria-label "and N more".
+    - label: role=group with an aria-label that lists every member; each Avatar is role=img named by its person. Text 7.34:1 or more.
       category: '123:2'
-    - label: Motion · none. Static.
-      category: '123:0'
+    - label: 'None: static.'
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-data-avatarstack--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-chat-avatarstack--docs
 mismatch:
   - field: props.size.values
     code:

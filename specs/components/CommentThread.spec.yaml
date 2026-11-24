@@ -10,7 +10,7 @@ lead:
   source: Figma component description
 links:
   figma:
-    fileKey: '${FIGMA_FILE_KEY}'
+    fileKey: JzN6DXIILH64KHI5MmgH8Q
     nodeId: '841:124553'
   storybook: null
   github: null
@@ -130,34 +130,42 @@ anatomy:
     size: 328x190
     tokens:
       - field: itemSpacing
-        token: '--spacing-3'
+        token: '--spacing-12'
       - field: paddingLeft
-        token: '--spacing-3'
+        token: '--spacing-12'
       - field: paddingTop
-        token: '--spacing-3'
+        token: '--spacing-12'
       - field: paddingRight
-        token: '--spacing-3'
+        token: '--spacing-12'
       - field: paddingBottom
-        token: '--spacing-3'
+        token: '--spacing-12'
       - field: topLeftRadius
-        token: '--radius-xl'
+        token: '--border-radius-16'
       - field: topRightRadius
-        token: '--radius-xl'
+        token: '--border-radius-16'
       - field: bottomLeftRadius
-        token: '--radius-xl'
+        token: '--border-radius-16'
       - field: bottomRightRadius
-        token: '--radius-xl'
+        token: '--border-radius-16'
+      - field: strokeTopWeight
+        token: '--border-width-1'
+      - field: strokeBottomWeight
+        token: '--border-width-1'
+      - field: strokeLeftWeight
+        token: '--border-width-1'
+      - field: strokeRightWeight
+        token: '--border-width-1'
       - field: fills
-        token: '--color-semantic-surface'
+        token: '--color-background-surface'
       - field: strokes
-        token: '--color-alpha-ink-wash-08'
+        token: '--color-border-subtle'
     children:
       - name: Header
         type: FRAME
         size: 302x48
         tokens:
           - field: itemSpacing
-            token: '--spacing-2'
+            token: '--spacing-8'
         children:
           - name: Pin
             type: INSTANCE
@@ -165,7 +173,7 @@ anatomy:
             size: 32x32
             tokens:
               - field: itemSpacing
-                token: '--spacing-2'
+                token: '--spacing-8'
           - name: Where
             type: FRAME
             size: 262x48
@@ -178,13 +186,13 @@ anatomy:
                   characters: title
                 tokens:
                   - field: fills
-                    token: '--color-semantic-text-primary'
+                    token: '--color-content-default'
                   - field: fontSize
-                    token: '--typography-font-size-tag'
+                    token: '--typography-font-size-16'
                   - field: fontFamily
-                    token: '--typography-font-family-body'
+                    token: '--typography-body-default-font-family'
                   - field: fontWeight
-                    token: '--typography-font-weight-semibold'
+                    token: '--typography-font-weight-600'
               - name: Place
                 type: TEXT
                 text: Today · 1440
@@ -193,13 +201,13 @@ anatomy:
                   characters: place
                 tokens:
                   - field: fills
-                    token: '--color-semantic-text-secondary'
+                    token: '--color-content-subtle'
                   - field: fontSize
-                    token: '--typography-font-size-tag'
+                    token: '--typography-font-size-16'
                   - field: fontFamily
-                    token: '--typography-font-family-body'
+                    token: '--typography-body-default-font-family'
                   - field: fontWeight
-                    token: '--typography-font-weight-regular'
+                    token: '--typography-font-weight-400'
           - name: Tag
             type: INSTANCE
             instanceOf: Tag
@@ -208,30 +216,44 @@ anatomy:
             boundToProps:
               visible: showTag
             tokens:
+              - field: itemSpacing
+                token: '--spacing-8'
               - field: paddingLeft
-                token: '--component-tag-default-padding-x'
+                token: '--spacing-12'
               - field: paddingTop
-                token: '--component-tag-default-padding-y'
+                token: '--spacing-4'
               - field: paddingRight
-                token: '--component-tag-default-padding-x'
+                token: '--spacing-12'
               - field: paddingBottom
-                token: '--component-tag-default-padding-y'
+                token: '--spacing-4'
               - field: topLeftRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: topRightRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: bottomLeftRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: bottomRightRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
+              - field: strokeTopWeight
+                token: '--border-width-1'
+              - field: strokeBottomWeight
+                token: '--border-width-1'
+              - field: strokeLeftWeight
+                token: '--border-width-1'
+              - field: strokeRightWeight
+                token: '--border-width-1'
+              - field: minHeight
+                token: '--spacing-32'
               - field: fills
-                token: '--component-tag-default-background'
+                token: '--color-background-utility-neutral'
+              - field: strokes
+                token: '--color-border-utility-neutral'
       - name: Message
         type: FRAME
         size: 302x48
         tokens:
           - field: itemSpacing
-            token: '--spacing-2'
+            token: '--spacing-8'
         children:
           - name: Avatar
             type: INSTANCE
@@ -239,50 +261,70 @@ anatomy:
             size: 32x32
             tokens:
               - field: width
-                token: '--component-avatar-xs-size'
+                token: '--spacing-32'
               - field: height
-                token: '--component-avatar-xs-size'
-          - name: Text
+                token: '--spacing-32'
+              - field: topLeftRadius
+                token: '--border-radius-round'
+              - field: topRightRadius
+                token: '--border-radius-round'
+              - field: bottomLeftRadius
+                token: '--border-radius-round'
+              - field: bottomRightRadius
+                token: '--border-radius-round'
+              - field: strokeTopWeight
+                token: '--border-width-1'
+              - field: strokeBottomWeight
+                token: '--border-width-1'
+              - field: strokeLeftWeight
+                token: '--border-width-1'
+              - field: strokeRightWeight
+                token: '--border-width-1'
+              - field: fills
+                token: '--color-background-subtle'
+              - field: strokes
+                token: '--color-border-subtle'
+          - name: Text column
             type: FRAME
             size: 262x48
             children:
               - name: Author
                 type: FRAME
-                size: 94x24
+                size: 99x24
                 tokens:
                   - field: itemSpacing
-                    token: '--spacing-2'
+                    token: '--spacing-8'
                 children:
                   - name: Name
                     type: TEXT
                     text: Elleta
-                    size: 43x24
+                    size: 46x24
                     boundToProps:
                       characters: name
                     tokens:
                       - field: fills
-                        token: '--color-semantic-text-primary'
+                        token: '--color-content-default'
                       - field: fontSize
-                        token: '--typography-font-size-tag'
+                        token: '--typography-font-size-16'
                       - field: fontFamily
-                        token: '--typography-font-family-body'
+                        token: '--typography-body-default-font-family'
                       - field: fontWeight
-                        token: '--typography-font-weight-semibold'
+                        token: '--typography-font-weight-600'
                   - name: Meta
                     type: TEXT
                     text: 6 Nov
-                    size: 43x24
+                    size: 45x24
                     boundToProps:
                       characters: meta
                     tokens:
                       - field: fills
-                        token: '--color-semantic-text-secondary'
+                        token: '--color-content-subtle'
                       - field: fontSize
-                        token: '--typography-font-size-tag'
+                        token: '--typography-font-size-16'
                       - field: fontFamily
-                        token: '--typography-font-family-body'
+                        token: '--typography-body-default-font-family'
                       - field: fontWeight
-                        token: '--typography-font-weight-regular'
+                        token: '--typography-font-weight-400'
               - name: Body
                 type: TEXT
                 text: remove
@@ -291,13 +333,13 @@ anatomy:
                   characters: message
                 tokens:
                   - field: fills
-                    token: '--color-semantic-text-primary'
+                    token: '--color-content-default'
                   - field: fontSize
-                    token: '--typography-font-size-tag'
+                    token: '--typography-font-size-16'
                   - field: fontFamily
-                    token: '--typography-font-family-body'
+                    token: '--typography-body-default-font-family'
                   - field: fontWeight
-                    token: '--typography-font-weight-regular'
+                    token: '--typography-font-weight-400'
       - name: Reply
         type: FRAME
         hidden: true
@@ -306,30 +348,30 @@ anatomy:
           visible: showReply
         tokens:
           - field: paddingLeft
-            token: '--spacing-3'
+            token: '--spacing-12'
           - field: paddingTop
-            token: '--spacing-3'
+            token: '--spacing-12'
           - field: paddingRight
-            token: '--spacing-3'
+            token: '--spacing-12'
           - field: paddingBottom
-            token: '--spacing-3'
+            token: '--spacing-12'
           - field: topLeftRadius
-            token: '--radius-md'
+            token: '--border-radius-8'
           - field: topRightRadius
-            token: '--radius-md'
+            token: '--border-radius-8'
           - field: bottomLeftRadius
-            token: '--radius-md'
+            token: '--border-radius-8'
           - field: bottomRightRadius
-            token: '--radius-md'
+            token: '--border-radius-8'
           - field: fills
-            token: '--color-semantic-surface-inset'
+            token: '--color-background-subtle'
         children:
           - name: Message
             type: FRAME
             size: 270x48
             tokens:
               - field: itemSpacing
-                token: '--spacing-2'
+                token: '--spacing-8'
             children:
               - name: Avatar
                 type: INSTANCE
@@ -337,50 +379,70 @@ anatomy:
                 size: 32x32
                 tokens:
                   - field: width
-                    token: '--component-avatar-xs-size'
+                    token: '--spacing-32'
                   - field: height
-                    token: '--component-avatar-xs-size'
-              - name: Text
+                    token: '--spacing-32'
+                  - field: topLeftRadius
+                    token: '--border-radius-round'
+                  - field: topRightRadius
+                    token: '--border-radius-round'
+                  - field: bottomLeftRadius
+                    token: '--border-radius-round'
+                  - field: bottomRightRadius
+                    token: '--border-radius-round'
+                  - field: strokeTopWeight
+                    token: '--border-width-1'
+                  - field: strokeBottomWeight
+                    token: '--border-width-1'
+                  - field: strokeLeftWeight
+                    token: '--border-width-1'
+                  - field: strokeRightWeight
+                    token: '--border-width-1'
+                  - field: fills
+                    token: '--color-background-subtle'
+                  - field: strokes
+                    token: '--color-border-subtle'
+              - name: Text column
                 type: FRAME
                 size: 230x48
                 children:
                   - name: Author
                     type: FRAME
-                    size: 103x24
+                    size: 112x24
                     tokens:
                       - field: itemSpacing
-                        token: '--spacing-2'
+                        token: '--spacing-8'
                     children:
                       - name: Name
                         type: TEXT
                         text: Liam
-                        size: 37x24
+                        size: 41x24
                         boundToProps:
                           characters: replyName
                         tokens:
                           - field: fills
-                            token: '--color-semantic-text-primary'
+                            token: '--color-content-default'
                           - field: fontSize
-                            token: '--typography-font-size-tag'
+                            token: '--typography-font-size-16'
                           - field: fontFamily
-                            token: '--typography-font-family-body'
+                            token: '--typography-body-default-font-family'
                           - field: fontWeight
-                            token: '--typography-font-weight-semibold'
+                            token: '--typography-font-weight-600'
                       - name: Meta
                         type: TEXT
                         text: working
-                        size: 58x24
+                        size: 63x24
                         boundToProps:
                           characters: replyMeta
                         tokens:
                           - field: fills
-                            token: '--color-semantic-text-secondary'
+                            token: '--color-content-subtle'
                           - field: fontSize
-                            token: '--typography-font-size-tag'
+                            token: '--typography-font-size-16'
                           - field: fontFamily
-                            token: '--typography-font-family-body'
+                            token: '--typography-body-default-font-family'
                           - field: fontWeight
-                            token: '--typography-font-weight-regular'
+                            token: '--typography-font-weight-400'
                   - name: Body
                     type: TEXT
                     text: On it. Comes back to Ready.
@@ -389,13 +451,13 @@ anatomy:
                       characters: reply
                     tokens:
                       - field: fills
-                        token: '--color-semantic-text-primary'
+                        token: '--color-content-default'
                       - field: fontSize
-                        token: '--typography-font-size-tag'
+                        token: '--typography-font-size-16'
                       - field: fontFamily
-                        token: '--typography-font-family-body'
+                        token: '--typography-body-default-font-family'
                       - field: fontWeight
-                        token: '--typography-font-weight-regular'
+                        token: '--typography-font-weight-400'
       - name: Footer
         type: FRAME
         size: 302x44
@@ -403,7 +465,7 @@ anatomy:
           visible: showFooter
         tokens:
           - field: itemSpacing
-            token: '--spacing-1'
+            token: '--spacing-4'
         children:
           - name: To
             type: TEXT
@@ -411,200 +473,233 @@ anatomy:
             size: 18x24
             tokens:
               - field: fills
-                token: '--color-semantic-text-secondary'
+                token: '--color-content-subtle'
               - field: fontSize
-                token: '--typography-font-size-tag'
+                token: '--typography-font-size-16'
               - field: fontFamily
-                token: '--typography-font-family-body'
+                token: '--typography-body-default-font-family'
               - field: fontWeight
-                token: '--typography-font-weight-regular'
+                token: '--typography-font-weight-400'
           - name: Recipient
             type: INSTANCE
             instanceOf: Tag
-            size: 93x35
+            size: 94x32
             tokens:
+              - field: itemSpacing
+                token: '--spacing-8'
               - field: paddingLeft
-                token: '--component-tag-default-padding-x'
+                token: '--spacing-12'
               - field: paddingTop
-                token: '--component-tag-default-padding-y'
+                token: '--spacing-4'
               - field: paddingRight
-                token: '--component-tag-default-padding-x'
+                token: '--spacing-12'
               - field: paddingBottom
-                token: '--component-tag-default-padding-y'
+                token: '--spacing-4'
               - field: topLeftRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: topRightRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: bottomLeftRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
               - field: bottomRightRadius
-                token: '--component-tag-default-border-radius'
+                token: '--border-radius-sm'
+              - field: strokeTopWeight
+                token: '--border-width-1'
+              - field: strokeBottomWeight
+                token: '--border-width-1'
+              - field: strokeLeftWeight
+                token: '--border-width-1'
+              - field: strokeRightWeight
+                token: '--border-width-1'
+              - field: minHeight
+                token: '--spacing-32'
               - field: fills
-                token: '--component-tag-default-background'
+                token: '--color-background-utility-neutral'
+              - field: strokes
+                token: '--color-border-utility-neutral'
           - name: Sent state
             type: TEXT
             text: Not sent
-            size: 72x24
+            size: 70x24
             boundToProps:
               characters: sentState
             tokens:
               - field: fills
-                token: '--color-semantic-text-secondary'
+                token: '--color-content-subtle'
               - field: fontSize
-                token: '--typography-font-size-tag'
+                token: '--typography-font-size-16'
               - field: fontFamily
-                token: '--typography-font-family-body'
+                token: '--typography-body-default-font-family'
               - field: fontWeight
-                token: '--typography-font-weight-regular'
+                token: '--typography-font-weight-400'
           - name: Send
             type: INSTANCE
             instanceOf: Button
-            size: 107x44
+            size: 108x44
             tokens:
               - field: itemSpacing
-                token: '--spacing-2'
+                token: '--spacing-8'
               - field: paddingLeft
-                token: '--component-button-secondary-padding-x'
+                token: '--spacing-20'
               - field: paddingTop
-                token: '--component-button-secondary-padding-y'
+                token: '--size-0'
               - field: paddingRight
-                token: '--component-button-secondary-padding-x'
+                token: '--spacing-20'
               - field: paddingBottom
-                token: '--component-button-secondary-padding-y'
+                token: '--size-0'
               - field: topLeftRadius
-                token: '--radius-full'
+                token: '--border-radius-lg'
               - field: topRightRadius
-                token: '--radius-full'
+                token: '--border-radius-lg'
               - field: bottomLeftRadius
-                token: '--radius-full'
+                token: '--border-radius-lg'
               - field: bottomRightRadius
-                token: '--radius-full'
+                token: '--border-radius-lg'
+              - field: strokeTopWeight
+                token: '--border-width-1'
+              - field: strokeBottomWeight
+                token: '--border-width-1'
+              - field: strokeLeftWeight
+                token: '--border-width-1'
+              - field: strokeRightWeight
+                token: '--border-width-1'
               - field: minHeight
-                token: '--component-button-secondary-min-height'
+                token: '--spacing-44'
               - field: fills
-                token: '--component-button-secondary-background'
+                token: '--button-color-background-default'
               - field: strokes
-                token: '--component-button-secondary-border'
+                token: '--button-color-border-default'
 tokens:
   used:
-    - token: '--color-alpha-ink-wash-08'
+    - token: '--border-radius-16'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--border-radius-8'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--border-radius-lg'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--border-radius-round'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--border-radius-sm'
+      fields:
+        - topLeftRadius
+        - topRightRadius
+        - bottomLeftRadius
+        - bottomRightRadius
+      inCode: true
+    - token: '--border-width-1'
+      fields:
+        - strokeTopWeight
+        - strokeBottomWeight
+        - strokeLeftWeight
+        - strokeRightWeight
+      inCode: true
+    - token: '--button-color-background-default'
+      fields:
+        - fills
+      inCode: true
+    - token: '--button-color-border-default'
       fields:
         - strokes
       inCode: true
-    - token: '--color-semantic-surface'
+    - token: '--color-background-subtle'
       fields:
         - fills
       inCode: true
-    - token: '--color-semantic-surface-inset'
+    - token: '--color-background-surface'
       fields:
         - fills
       inCode: true
-    - token: '--color-semantic-text-primary'
+    - token: '--color-background-utility-neutral'
       fields:
         - fills
       inCode: true
-    - token: '--color-semantic-text-secondary'
+    - token: '--color-border-subtle'
+      fields:
+        - strokes
+      inCode: true
+    - token: '--color-border-utility-neutral'
+      fields:
+        - strokes
+      inCode: true
+    - token: '--color-content-default'
       fields:
         - fills
       inCode: true
-    - token: '--component-avatar-xs-size'
+    - token: '--color-content-subtle'
       fields:
+        - fills
+      inCode: true
+    - token: '--size-0'
+      fields:
+        - paddingTop
+        - paddingBottom
+      inCode: true
+    - token: '--spacing-12'
+      fields:
+        - itemSpacing
+        - paddingLeft
+        - paddingTop
+        - paddingRight
+        - paddingBottom
+      inCode: true
+    - token: '--spacing-20'
+      fields:
+        - paddingLeft
+        - paddingRight
+      inCode: true
+    - token: '--spacing-32'
+      fields:
+        - minHeight
         - width
         - height
       inCode: true
-    - token: '--component-button-secondary-background'
+    - token: '--spacing-4'
       fields:
-        - fills
+        - paddingTop
+        - paddingBottom
+        - itemSpacing
       inCode: true
-    - token: '--component-button-secondary-border'
-      fields:
-        - strokes
-      inCode: true
-    - token: '--component-button-secondary-min-height'
+    - token: '--spacing-44'
       fields:
         - minHeight
       inCode: true
-    - token: '--component-button-secondary-padding-x'
-      fields:
-        - paddingLeft
-        - paddingRight
-      inCode: true
-    - token: '--component-button-secondary-padding-y'
-      fields:
-        - paddingTop
-        - paddingBottom
-      inCode: true
-    - token: '--component-tag-default-background'
-      fields:
-        - fills
-      inCode: true
-    - token: '--component-tag-default-border-radius'
-      fields:
-        - topLeftRadius
-        - topRightRadius
-        - bottomLeftRadius
-        - bottomRightRadius
-      inCode: true
-    - token: '--component-tag-default-padding-x'
-      fields:
-        - paddingLeft
-        - paddingRight
-      inCode: true
-    - token: '--component-tag-default-padding-y'
-      fields:
-        - paddingTop
-        - paddingBottom
-      inCode: true
-    - token: '--radius-full'
-      fields:
-        - topLeftRadius
-        - topRightRadius
-        - bottomLeftRadius
-        - bottomRightRadius
-      inCode: true
-    - token: '--radius-md'
-      fields:
-        - topLeftRadius
-        - topRightRadius
-        - bottomLeftRadius
-        - bottomRightRadius
-      inCode: true
-    - token: '--radius-xl'
-      fields:
-        - topLeftRadius
-        - topRightRadius
-        - bottomLeftRadius
-        - bottomRightRadius
-      inCode: true
-    - token: '--spacing-1'
+    - token: '--spacing-8'
       fields:
         - itemSpacing
       inCode: true
-    - token: '--spacing-2'
-      fields:
-        - itemSpacing
-      inCode: true
-    - token: '--spacing-3'
-      fields:
-        - itemSpacing
-        - paddingLeft
-        - paddingTop
-        - paddingRight
-        - paddingBottom
-      inCode: true
-    - token: '--typography-font-family-body'
+    - token: '--typography-body-default-font-family'
       fields:
         - fontFamily
       inCode: true
-    - token: '--typography-font-size-tag'
+    - token: '--typography-font-size-16'
       fields:
         - fontSize
       inCode: true
-    - token: '--typography-font-weight-regular'
+    - token: '--typography-font-weight-400'
       fields:
         - fontWeight
       inCode: true
-    - token: '--typography-font-weight-semibold'
+    - token: '--typography-font-weight-600'
       fields:
         - fontWeight
       inCode: true

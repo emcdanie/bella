@@ -12,16 +12,19 @@ links:
   storyTitle: Components/Data/VariantTile
 props:
   - name: label
+    figmaName: Label
     type: ReactNode
     required: true
     doc: 'Figma "Label": the state or variant name under the preview.'
     at: src/components/VariantTile/VariantTile.tsx:7
   - name: children
+    figmaName: Preview
     type: ReactNode
     required: false
     doc: 'Figma "Preview" (slot): the mini specimen, centred.'
     at: src/components/VariantTile/VariantTile.tsx:9
   - name: selected
+    figmaName: selected
     type: boolean
     values:
       - true
@@ -31,6 +34,7 @@ props:
     doc: 'Figma "selected": a 2px brand edge on the preview, the label in 600 and default ink.'
     at: src/components/VariantTile/VariantTile.tsx:11
   - name: checked
+    figmaName: Show check badge
     type: boolean
     values:
       - true
@@ -529,7 +533,7 @@ mismatch:
       - '--color-background-utility-success-knockout'
       - '--color-content-utility-on-status'
     figma: size/16
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Icon.height
     code:
       - '--spacing-8'
@@ -554,7 +558,7 @@ mismatch:
       - '--color-background-utility-success-knockout'
       - '--color-content-utility-on-status'
     figma: size/16
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/VariantTile/VariantTile.tsx

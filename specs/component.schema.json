@@ -1,0 +1,220 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/emcdanie/bella/specs/component.schema.json",
+  "title": "BELLA component spec",
+  "description": "Shape of specs/components/<Name>.spec.yaml (20 Nov 2026, derived from the 87 specs spec-build.mjs wrote). Three kinds, picked by `status`: no status = code spec (built from the .tsx, .module.css and Figma), `figma-only` = drawn in BellaComponents with no code yet, `draft` = written from a prompt by the new-component skill, before Figma. Checked by scripts/spec-validate.mjs, which adds the checks JSON Schema cannot make (tokens exist, defaults are among the values, file name matches).",
+  "type": "object",
+  "required": ["name", "lead", "links", "props", "anatomy", "tokens", "notApplicable", "guidance"],
+  "properties": {
+    "name": { "$ref": "#/definitions/pascalName" },
+    "status": { "enum": ["figma-only", "draft"] }
+  },
+  "allOf": [
+    { "if": { "not": { "required": ["status"] } }, "then": { "$ref": "#/definitions/codeSpec" } },
+    { "if": { "required": ["status"], "properties": { "status": { "const": "figma-only" } } }, "then": { "$ref": "#/definitions/figmaOnlySpec" } },
+    { "if": { "required": ["status"], "properties": { "status": { "const": "draft" } } }, "then": { "$ref": "#/definitions/draftSpec" } }
+  ],
+  "definitions": {
+    "pascalName": { "type": "string", "pattern": "^[A-Z][A-Za-z0-9]*$", "description": "PascalCase, the same as the folder and file name" },
+    "camelName": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*$", "description": "camelCase prop name, as code spells it" },
+    "token": { "type": "string", "pattern": "^--[a-z0-9]+(-[a-z0-9]+)*$", "description": "a CSS custom property from tokens/bella.css, e.g. --spacing-8" },
+    "at": { "type": "string", "pattern": "^[^:]+:\\d+$", "description": "file:line where the value was read" },
+    "category": { "enum": ["Actions", "Annotation", "Brand", "Chat", "Content", "Data", "Feedback", "Inputs", "Layout", "Navigation"] },
+    "nodeId": { "type": "string", "pattern": "^\\d+:\\d+$" },
+    "fileKey": { "type": "string", "pattern": "^[A-Za-z0-9]{10,}$" },
+
+    "lead": {
+      "type": "object", "required": ["text", "source"], "additionalProperties": false,
+      "properties": { "text": { "type": "string", "minLength": 1 }, "source": { "type": "string", "minLength": 1 } }
+    },
+    "guidance": { "type": "object", "description": "hand-written doc guidance; spec-build keeps it as written. Free keys, so not checked here." },
+    "notApplicable": {
+      "type": "array",
+      "items": { "type": "object", "required": ["section", "why"], "additionalProperties": false,
+        "properties": { "section": { "type": "string" }, "why": { "type": "string" } } }
+    },
+    "figmaLink": {
+      "type": "object", "required": ["fileKey", "nodeId"], "additionalProperties": false,
+      "properties": { "fileKey": { "$ref": "#/definitions/fileKey" }, "nodeId": { "$ref": "#/definitions/nodeId" } }
+    },
+    "url": { "type": ["string", "null"], "pattern": "^https://" },
+
+    "codeProp": {
+      "type": "object", "required": ["name", "required", "type", "at"], "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/definitions/camelName" },
+        "required": { "type": "boolean" },
+        "figmaName": { "type": "string", "minLength": 1, "description": "the Figma property this code prop is drawn as, exactly as named in Figma; absent when Figma has none" },
+        "valuePairs": { "type": "array", "description": "a Figma value and a code value that draw the same thing in different words; recorded only when measured equal", "items": { "type": "object", "required": ["figma", "code", "why"], "additionalProperties": false, "properties": { "figma": { "type": "string" }, "code": { "type": "string" }, "why": { "type": "string", "minLength": 1 } } } },
+        "type": { "type": "string", "minLength": 1 },
+        "values": { "type": "array", "minItems": 1 },
+        "default": {},
+        "doc": { "type": "string" },
+        "at": { "$ref": "#/definitions/at" }
+      }
+    },
+    "figmaProp": {
+      "type": "object", "required": ["name", "figmaName", "type"], "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/definitions/camelName" },
+        "figmaName": { "type": "string", "minLength": 1 },
+        "type": { "enum": ["enum", "boolean", "string", "component", "slot"] },
+        "values": { "type": "array", "minItems": 1 },
+        "default": {}
+      }
+    },
+    "draftProp": {
+      "type": "object", "required": ["name", "type", "doc"], "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/definitions/camelName" },
+        "figmaName": { "type": "string", "minLength": 1, "description": "the Figma property name the template will draw" },
+        "type": { "enum": ["enum", "boolean", "string", "number", "node", "icon", "handler"], "description": "node = ReactNode / Figma slot, icon = BELLA Icon name / instance swap, handler = event callback (code only)" },
+        "values": { "type": "array", "minItems": 2 },
+        "default": {},
+        "required": { "type": "boolean" },
+        "doc": { "type": "string", "minLength": 1, "description": "one plain line: what it does" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "enum" } } }, "then": { "required": ["values", "default"] } }
+      ]
+    },
+
+    "codeVariants": {
+      "type": "object",
+      "additionalProperties": { "type": "object", "required": ["values", "default"], "additionalProperties": false,
+        "properties": { "values": { "type": "array", "minItems": 1 }, "default": {}, "at": { "$ref": "#/definitions/at" } } }
+    },
+    "figmaVariants": {
+      "type": "object", "required": ["count", "default", "names"], "additionalProperties": false,
+      "properties": {
+        "count": { "type": "integer", "minimum": 0, "description": "0 = one component, not a variant set" },
+        "default": { "type": "string" },
+        "names": { "type": "array", "items": { "type": "string" } },
+        "addTokens": { "type": "object", "additionalProperties": { "type": "array", "items": { "$ref": "#/definitions/token" } } }
+      }
+    },
+
+    "codeTokenRow": {
+      "type": "object", "required": ["part", "state", "property", "token", "selector", "at"], "additionalProperties": false,
+      "properties": {
+        "part": { "type": "string" }, "state": { "type": "string" }, "property": { "type": "string" },
+        "token": { "$ref": "#/definitions/token" }, "selector": { "type": "string" }, "at": { "$ref": "#/definitions/at" }
+      }
+    },
+    "figmaTokenRow": {
+      "type": "object", "required": ["token", "fields", "inCode"], "additionalProperties": false,
+      "properties": { "token": { "$ref": "#/definitions/token" }, "fields": { "type": "array", "items": { "type": "string" }, "minItems": 1 }, "inCode": { "type": "boolean" } }
+    },
+    "draftTokenRow": {
+      "type": "object", "required": ["part", "property", "token"], "additionalProperties": false,
+      "properties": {
+        "part": { "type": "string", "pattern": "^(root|[a-z][A-Za-z0-9]*)$", "description": "root, or an anatomy part in camelCase" },
+        "state": { "type": "string", "enum": ["rest", "hover", "focus-visible", "active", "disabled", "selected", "current", "error"], "default": "rest" },
+        "variant": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*=[A-Za-z0-9-]+$", "description": "prop=value this row applies to, e.g. tone=danger; missing = every variant" },
+        "property": { "type": "string", "pattern": "^[a-z-]+$", "description": "the CSS property, e.g. padding-inline, gap, color" },
+        "token": { "$ref": "#/definitions/token" }
+      }
+    },
+
+    "anatomyPart": {
+      "type": "object", "required": ["n", "name", "type"],
+      "properties": {
+        "n": { "type": "integer", "minimum": 1 }, "name": { "type": "string", "minLength": 1 }, "type": { "type": "string" },
+        "instanceOf": { "type": "string" }, "layer": { "type": "string" }, "at": { "type": "string" }, "side": { "type": "string" }, "from": { "type": "string" }
+      }
+    },
+    "draftAnatomyPart": {
+      "type": "object", "required": ["n", "name", "element"], "additionalProperties": false,
+      "properties": {
+        "n": { "type": "integer", "minimum": 1 },
+        "name": { "type": "string", "pattern": "^[a-z][A-Za-z0-9]*$", "description": "camelCase; becomes the CSS class and the Figma layer name" },
+        "element": { "type": "string", "pattern": "^[a-z][a-z0-9]*$", "description": "the HTML tag it renders as" },
+        "instanceOf": { "$ref": "#/definitions/pascalName", "description": "a BELLA part used here (Atomic: built from library parts)" },
+        "prop": { "$ref": "#/definitions/camelName", "description": "the prop whose content fills this part" },
+        "optional": { "type": "boolean", "description": "zone shown only when its prop is set (a boolean frame in Figma)" },
+        "grow": { "type": "boolean", "description": "fills the space left in its row or column (Figma: fill container)" },
+        "layout": { "enum": ["row", "column", "inline"], "description": "auto layout direction, as Figma draws it: row, column, or inline (hugs, in text)" }
+      }
+    },
+
+    "draftA11y": {
+      "type": "object", "required": ["element", "role", "nameSource", "keyboard", "targetPx", "contrast"], "additionalProperties": false,
+      "properties": {
+        "element": { "type": "string", "pattern": "^[a-z][a-z0-9]*$" },
+        "role": { "type": ["string", "null"], "description": "null = the native element's own role" },
+        "nameSource": { "type": "string", "minLength": 1, "description": "where the accessible name comes from (a prop, visible content)" },
+        "keyboard": { "type": "array", "items": { "type": "string" } },
+        "targetPx": { "type": ["integer", "null"], "description": "tap target; 44 or more when interactive (BELLA floor)" },
+        "contrast": { "type": "string", "minLength": 1, "description": "the text and non-text pairs to measure: AAA 7:1 text, 3:1 non-text" },
+        "reducedMotion": { "type": ["string", "null"] }
+      }
+    },
+
+    "codeSpec": {
+      "required": ["variants", "category", "rendersAs", "states", "sizes", "motion", "a11y", "contrast", "codeExample", "usage", "figma", "mismatch"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {}, "lead": { "$ref": "#/definitions/lead" }, "guidance": { "$ref": "#/definitions/guidance" }, "notApplicable": { "$ref": "#/definitions/notApplicable" },
+        "category": { "$ref": "#/definitions/category" },
+        "rendersAs": { "type": ["string", "null"], "minLength": 1, "description": "null = the contract names no element" },
+        "links": { "type": "object", "required": ["storybook", "github"], "additionalProperties": false,
+          "properties": { "storybook": { "$ref": "#/definitions/url" }, "github": { "$ref": "#/definitions/url" }, "storyTitle": { "type": ["string", "null"] } } },
+        "props": { "type": "array", "items": { "$ref": "#/definitions/codeProp" } },
+        "variants": { "$ref": "#/definitions/codeVariants" },
+        "states": { "type": "object", "required": ["contract", "css"], "properties": { "contract": { "type": "array" }, "css": { "type": "array" } } },
+        "sizes": { "type": "array", "items": { "type": "object", "required": ["value", "default", "css"] } },
+        "anatomy": { "type": "object", "required": ["parts"], "properties": { "parts": { "type": "array", "items": { "$ref": "#/definitions/anatomyPart" } }, "figma": {}, "code": {}, "scaleWidth": {} } },
+        "tokens": { "type": "object", "required": ["used", "values"], "additionalProperties": false,
+          "properties": { "used": { "type": "array", "items": { "$ref": "#/definitions/codeTokenRow" } }, "values": { "type": "object" } } },
+        "motion": { "type": "object", "required": ["transitions", "reducedMotion", "reducedMotionQuery"] },
+        "a11y": { "type": "object", "required": ["element", "role", "nameSource", "keyboard", "aria", "focusRing", "disabled", "contract"] },
+        "contrast": { "type": "object", "required": ["pairs", "derived"] },
+        "codeExample": { "type": ["object", "null"] },
+        "usage": { "type": "object", "required": ["use", "dont", "source"] },
+        "figma": { "type": ["object", "null"] },
+        "mismatch": { "type": "array" }
+      }
+    },
+    "figmaOnlySpec": {
+      "required": ["status", "statusNote", "variants", "composedOf", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {}, "status": {}, "statusNote": { "type": "string" },
+        "lead": { "anyOf": [{ "$ref": "#/definitions/lead" }, { "type": "null" }] },
+        "guidance": { "$ref": "#/definitions/guidance" }, "notApplicable": { "$ref": "#/definitions/notApplicable" },
+        "links": { "type": "object", "required": ["figma"], "properties": { "figma": { "$ref": "#/definitions/figmaLink" }, "storybook": { "$ref": "#/definitions/url" }, "github": { "$ref": "#/definitions/url" } } },
+        "props": { "type": "array", "items": { "$ref": "#/definitions/figmaProp" } },
+        "variants": { "$ref": "#/definitions/figmaVariants" },
+        "composedOf": { "type": "array", "items": { "type": "string" } },
+        "anatomy": { "type": "object", "required": ["parts", "figma"], "additionalProperties": false,
+          "properties": { "parts": { "type": "array", "items": { "$ref": "#/definitions/anatomyPart" } }, "figma": { "type": "object", "required": ["name", "type"] } } },
+        "tokens": { "type": "object", "required": ["used", "missingInCode", "raw"], "additionalProperties": false,
+          "properties": { "used": { "type": "array", "items": { "$ref": "#/definitions/figmaTokenRow" } }, "missingInCode": { "type": "array", "items": { "$ref": "#/definitions/token" } }, "raw": { "type": "array", "items": { "type": "string" } } } },
+        "description": { "type": ["string", "null"] }
+      }
+    },
+    "draftSpec": {
+      "required": ["status", "prompt", "category", "layout", "composedOf", "states", "a11y"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {}, "status": {},
+        "prompt": { "type": "string", "minLength": 1, "description": "the request in the asker's own words, verbatim" },
+        "lead": { "$ref": "#/definitions/lead" },
+        "category": { "$ref": "#/definitions/category" },
+        "layout": { "enum": ["row", "column", "inline"], "description": "auto layout direction, as Figma draws it: row, column, or inline (hugs, in text)" },
+        "guidance": { "$ref": "#/definitions/guidance" }, "notApplicable": { "$ref": "#/definitions/notApplicable" },
+        "links": { "type": "object", "required": ["figma"], "additionalProperties": false,
+          "properties": { "figma": { "anyOf": [{ "$ref": "#/definitions/figmaLink" }, { "type": "null" }] }, "storybook": { "$ref": "#/definitions/url" }, "github": { "$ref": "#/definitions/url" } } },
+        "props": { "type": "array", "items": { "$ref": "#/definitions/draftProp" }, "minItems": 1 },
+        "variants": { "$ref": "#/definitions/codeVariants", "description": "one axis per enum prop; leave out when there is none" },
+        "states": { "type": "array", "items": { "enum": ["default", "hover", "focus", "pressed", "error", "disabled", "selected", "current"] }, "minItems": 1, "description": "BELLA naming: default/hover/focus/pressed/error; current in nav, selected in choices" },
+        "composedOf": { "type": "array", "items": { "$ref": "#/definitions/pascalName" } },
+        "anatomy": { "type": "object", "required": ["parts"], "additionalProperties": false,
+          "properties": { "parts": { "type": "array", "items": { "$ref": "#/definitions/draftAnatomyPart" }, "minItems": 1 } } },
+        "tokens": { "type": "object", "required": ["used"], "additionalProperties": false,
+          "properties": { "used": { "type": "array", "items": { "$ref": "#/definitions/draftTokenRow" }, "minItems": 1 } } },
+        "a11y": { "$ref": "#/definitions/draftA11y" }
+      }
+    }
+  }
+}

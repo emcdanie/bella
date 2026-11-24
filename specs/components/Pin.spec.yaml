@@ -12,71 +12,48 @@ links:
   storyTitle: Components/Pin
 props:
   - name: number
+    figmaName: Number
     type: ReactNode
-    required: false
-    doc: >-
-      The number on the disc. Missing = Figma label=false: a 28 disc with a 10 dot in the tone's status colour (her "On the stage" pins).
-      Then say what it marks nearby or in ariaLabel.
-    at: src/components/Pin/Pin.tsx:7
+    required: true
+    doc: 'The number on the disc. Required: colour is never the only signal.'
+    at: src/components/Pin/Pin.tsx:6
   - name: variant
-    type: '''yellow'' | ''pink'' | ''blue'' | ''red'' | ''green'''
+    type: '''yellow'' | ''pink'' | ''blue'' | ''red'''
     values:
       - yellow
       - pink
       - blue
       - red
-      - green
     default: pink
     required: false
     doc: The pop colour of the ring. It groups pins; it never means a status.
-    at: src/components/Pin/Pin.tsx:9
-  - name: pinStyle
-    type: '''dot'' | ''solid'' | ''comment'''
-    values:
-      - dot
-      - solid
-      - comment
-    default: dot
-    required: false
-    doc: >-
-      Figma "style". dot (default): the card disc with a pop-colour ring. solid: the disc filled in the tone with an ink number and a 2px
-      surface edge (anatomy pins, the Tour step). comment: a comment's pin as Figma draws it (Elleta, 23 Nov 2026: "I want my comments to
-      look like the Figma ones"): the author's initials on a pink teardrop (pink is for annotations) whose point (bottom left) marks the
-      spot, with a white edge and the card's shadow; pass the initials as `number`.
-    at: src/components/Pin/Pin.tsx:11
+    at: src/components/Pin/Pin.tsx:8
   - name: label
+    figmaName: Label
     type: ReactNode
     required: false
     doc: The word beside the number. Without one, say what the pin means nearby.
-    at: src/components/Pin/Pin.tsx:13
+    at: src/components/Pin/Pin.tsx:10
   - name: onClick
     type: MouseEventHandler<HTMLButtonElement>
     required: false
     doc: Makes the pin a button with a 44px box.
-    at: src/components/Pin/Pin.tsx:15
-  - name: active
-    type: boolean
-    values:
-      - true
-      - false
-    default: false
-    required: false
-    doc: 'Lit: its match is hovered or focused elsewhere (the anatomy list, the stage chip). The pin pops.'
-    at: src/components/Pin/Pin.tsx:17
+    at: src/components/Pin/Pin.tsx:12
   - name: ariaLabel
     type: string
     required: false
     doc: Accessible name, for a clickable pin with no label.
-    at: src/components/Pin/Pin.tsx:19
+    at: src/components/Pin/Pin.tsx:14
   - name: className
     type: string
     required: false
     doc: Extra classes on the pin.
-    at: src/components/Pin/Pin.tsx:21
+    at: src/components/Pin/Pin.tsx:16
   - name: style
+    figmaName: style
     type: CSSProperties
     required: false
-    at: src/components/Pin/Pin.tsx:22
+    at: src/components/Pin/Pin.tsx:17
 variants:
   variant:
     values:
@@ -84,16 +61,8 @@ variants:
       - pink
       - blue
       - red
-      - green
     default: pink
-    at: src/components/Pin/Pin.tsx:9
-  pinStyle:
-    values:
-      - dot
-      - solid
-      - comment
-    default: dot
-    at: src/components/Pin/Pin.tsx:11
+    at: src/components/Pin/Pin.tsx:8
 states:
   contract:
     - default
@@ -124,7 +93,76 @@ anatomy:
       at: centre
       side: bottom
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma: null
+  figma:
+    name: tone=yellow, label=false, state=default, style=solid, selected=false
+    type: COMPONENT
+    size: 32x32
+    tokens:
+      - field: itemSpacing
+        variable: spacing/8
+    children:
+      - name: Disc
+        type: FRAME
+        size: 32x32
+        tokens:
+          - field: width
+            variable: spacing/32
+          - field: height
+            variable: spacing/32
+          - field: topLeftRadius
+            variable: border/radius/round
+          - field: topRightRadius
+            variable: border/radius/round
+          - field: bottomLeftRadius
+            variable: border/radius/round
+          - field: bottomRightRadius
+            variable: border/radius/round
+          - field: strokeTopWeight
+            variable: border/width/2
+          - field: strokeBottomWeight
+            variable: border/width/2
+          - field: strokeLeftWeight
+            variable: border/width/2
+          - field: strokeRightWeight
+            variable: border/width/2
+          - field: fills
+            variable: color/background/accent-2
+          - field: strokes
+            variable: color/background/surface
+          - field: effects
+            variable: color/neutral/alpha/5
+        children:
+          - name: Number
+            type: TEXT
+            text: '01'
+            size: 20x21
+            tokens:
+              - field: fills
+                variable: color/content/on-accent-1
+              - field: fontSize
+                variable: typography/font-size/16
+              - field: fontFamily
+                variable: typography/font-family/geist-mono
+              - field: fontWeight
+                variable: typography/font-weight/600
+      - name: Label
+        type: TEXT
+        hidden: true
+        text: Focus ring
+        size: 83x27
+        tokens:
+          - field: fills
+            variable: color/content/default
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/body-default/font-family
+          - field: fontWeight
+            variable: typography/font-weight/500
+      - name: Hit area
+        type: FRAME
+        size: 44x44
+        children: []
   code: []
 tokens:
   used:
@@ -188,347 +226,98 @@ tokens:
       token: '--color-background-accent-4'
       selector: .red
       at: src/components/Pin/Pin.module.css:19
-    - part: green
-      state: rest
-      property: '--pin-pop'
-      token: '--color-background-utility-success-knockout'
-      selector: .green
-      at: src/components/Pin/Pin.module.css:20
-    - part: solid
-      state: rest
-      property: '--pin-fill'
-      token: '--color-background-accent-1'
-      selector: .solid.pink
-      at: src/components/Pin/Pin.module.css:24
-    - part: solid
-      state: rest
-      property: '--pin-fill'
-      token: '--color-background-accent-2'
-      selector: .solid.yellow
-      at: src/components/Pin/Pin.module.css:25
-    - part: solid
-      state: rest
-      property: '--pin-fill'
-      token: '--color-background-utility-info-knockout'
-      selector: .solid.blue
-      at: src/components/Pin/Pin.module.css:26
-    - part: solid
-      state: rest
-      property: '--pin-fill'
-      token: '--color-background-utility-error-knockout'
-      selector: .solid.red
-      at: src/components/Pin/Pin.module.css:27
-    - part: solid
-      state: rest
-      property: '--pin-fill'
-      token: '--color-background-utility-success-knockout'
-      selector: .solid.green
-      at: src/components/Pin/Pin.module.css:28
-    - part: solid
-      state: rest
-      property: '--pin-ink'
-      token: '--color-content-utility-on-status'
-      selector: .solid.green
-      at: src/components/Pin/Pin.module.css:28
-    - part: disc
-      state: rest
-      property: background
-      token: '--pin-fill'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:31
-    - part: disc
-      state: rest
-      property: border
-      token: '--border-width-2'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:32
-    - part: disc
-      state: rest
-      property: border
-      token: '--color-background-surface'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:32
-    - part: disc
-      state: rest
-      property: color
-      token: '--pin-ink'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:33
-    - part: disc
-      state: rest
-      property: color
-      token: '--color-content-on-accent-1'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:33
-    - part: disc
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-700'
-      selector: .solid .disc
-      at: src/components/Pin/Pin.module.css:34
     - part: disc
       state: rest
       property: min-height
       token: '--spacing-32'
       selector: .disc, .label
-      at: src/components/Pin/Pin.module.css:43
+      at: src/components/Pin/Pin.module.css:27
     - part: disc
       state: rest
       property: background
       token: '--color-background-surface'
       selector: .disc, .label
-      at: src/components/Pin/Pin.module.css:44
+      at: src/components/Pin/Pin.module.css:28
     - part: disc
       state: rest
       property: border
       token: '--border-width-4'
       selector: .disc, .label
-      at: src/components/Pin/Pin.module.css:45
+      at: src/components/Pin/Pin.module.css:29
     - part: disc
       state: rest
       property: border
       token: '--pin-pop'
       selector: .disc, .label
-      at: src/components/Pin/Pin.module.css:45
+      at: src/components/Pin/Pin.module.css:29
     - part: disc
       state: rest
       property: border-radius
       token: '--border-radius-round'
       selector: .disc, .label
-      at: src/components/Pin/Pin.module.css:46
+      at: src/components/Pin/Pin.module.css:30
     - part: disc
       state: rest
       property: min-width
       token: '--spacing-32'
       selector: .disc
-      at: src/components/Pin/Pin.module.css:51
+      at: src/components/Pin/Pin.module.css:35
     - part: label
       state: rest
       property: padding-inline
       token: '--spacing-12'
       selector: .label
-      at: src/components/Pin/Pin.module.css:56
+      at: src/components/Pin/Pin.module.css:40
     - part: action
       state: rest
       property: min-width
       token: '--spacing-44'
       selector: .action
-      at: src/components/Pin/Pin.module.css:61
+      at: src/components/Pin/Pin.module.css:45
     - part: action
       state: rest
       property: min-height
       token: '--spacing-44'
       selector: .action
-      at: src/components/Pin/Pin.module.css:62
+      at: src/components/Pin/Pin.module.css:46
     - part: action
       state: rest
       property: border-radius
       token: '--border-radius-round'
       selector: .action
-      at: src/components/Pin/Pin.module.css:67
-    - part: disc
-      state: rest
-      property: transition
-      token: '--motion-duration-250'
-      selector: .disc
-      at: src/components/Pin/Pin.module.css:75
-    - part: disc
-      state: rest
-      property: transition
-      token: '--motion-easing-pop'
-      selector: .disc
-      at: src/components/Pin/Pin.module.css:75
+      at: src/components/Pin/Pin.module.css:51
     - part: disc
       state: hover
       property: box-shadow
       token: '--border-width-4'
       selector: .action:hover .disc, .action:hover .label
-      at: src/components/Pin/Pin.module.css:87
+      at: src/components/Pin/Pin.module.css:58
     - part: disc
       state: hover
       property: box-shadow
       token: '--pin-pop'
       selector: .action:hover .disc, .action:hover .label
-      at: src/components/Pin/Pin.module.css:87
+      at: src/components/Pin/Pin.module.css:58
     - part: action
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .action:focus-visible
-      at: src/components/Pin/Pin.module.css:91
+      at: src/components/Pin/Pin.module.css:62
     - part: action
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .action:focus-visible
-      at: src/components/Pin/Pin.module.css:91
+      at: src/components/Pin/Pin.module.css:62
     - part: action
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .action:focus-visible
-      at: src/components/Pin/Pin.module.css:92
-    - part: bare
-      state: rest
-      property: '--pin-dot'
-      token: '--color-border-accent-1'
-      selector: .bare
-      at: src/components/Pin/Pin.module.css:107
-    - part: bare
-      state: rest
-      property: '--pin-dot'
-      token: '--color-border-utility-warning'
-      selector: .bare.yellow
-      at: src/components/Pin/Pin.module.css:108
-    - part: bare
-      state: rest
-      property: '--pin-dot'
-      token: '--color-border-utility-success'
-      selector: .bare.green
-      at: src/components/Pin/Pin.module.css:109
-    - part: bare
-      state: rest
-      property: '--pin-dot'
-      token: '--color-border-utility-info'
-      selector: .bare.blue
-      at: src/components/Pin/Pin.module.css:110
-    - part: bare
-      state: rest
-      property: '--pin-dot'
-      token: '--color-border-utility-error'
-      selector: .bare.red
-      at: src/components/Pin/Pin.module.css:111
-    - part: disc
-      state: rest
-      property: min-width
-      token: '--size-28'
-      selector: .bare .disc
-      at: src/components/Pin/Pin.module.css:113
-    - part: disc
-      state: rest
-      property: min-height
-      token: '--size-28'
-      selector: .bare .disc
-      at: src/components/Pin/Pin.module.css:114
-    - part: disc
-      state: rest
-      property: box-shadow
-      token: '--shadow-ui-ink'
-      selector: .bare .disc
-      at: src/components/Pin/Pin.module.css:116
-    - part: disc
-      state: rest
-      property: box-shadow
-      token: '--spacing-4'
-      selector: .bare .disc
-      at: src/components/Pin/Pin.module.css:116
-    - part: disc
-      state: rest
-      property: box-shadow
-      token: '--color-background-surface'
-      selector: .bare .disc
-      at: src/components/Pin/Pin.module.css:116
-    - part: dot
-      state: rest
-      property: inline-size
-      token: '--spacing-12'
-      selector: .dot
-      at: src/components/Pin/Pin.module.css:119
-    - part: dot
-      state: rest
-      property: block-size
-      token: '--spacing-12'
-      selector: .dot
-      at: src/components/Pin/Pin.module.css:120
-    - part: dot
-      state: rest
-      property: border-radius
-      token: '--border-radius-round'
-      selector: .dot
-      at: src/components/Pin/Pin.module.css:121
-    - part: dot
-      state: rest
-      property: background
-      token: '--pin-dot'
-      selector: .dot
-      at: src/components/Pin/Pin.module.css:122
-    - part: disc
-      state: rest
-      property: min-width
-      token: '--spacing-32'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:129
-    - part: disc
-      state: rest
-      property: padding-inline
-      token: '--spacing-4'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:130
-    - part: disc
-      state: rest
-      property: background
-      token: '--color-background-accent-1'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:132
-    - part: disc
-      state: rest
-      property: border
-      token: '--border-width-2'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:133
-    - part: disc
-      state: rest
-      property: border
-      token: '--color-background-surface'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:133
-    - part: disc
-      state: rest
-      property: border-radius
-      token: '--border-radius-round'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:134
-    - part: disc
-      state: rest
-      property: border-radius
-      token: '--border-radius-round'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:134
-    - part: disc
-      state: rest
-      property: border-radius
-      token: '--border-radius-round'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:134
-    - part: disc
-      state: rest
-      property: box-shadow
-      token: '--shadow-card-ink'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:135
-    - part: disc
-      state: rest
-      property: font-family
-      token: '--typography-body-default-font-family'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:136
-    - part: disc
-      state: rest
-      property: font-weight
-      token: '--typography-font-weight-700'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:137
-    - part: disc
-      state: rest
-      property: color
-      token: '--color-content-on-accent-1'
-      selector: .comment .disc
-      at: src/components/Pin/Pin.module.css:138
+      at: src/components/Pin/Pin.module.css:63
   values:
     '--border-radius-round':
-      light: null
-      chip: null
-    '--border-width-2':
       light: null
       chip: null
     '--border-width-4':
@@ -549,40 +338,10 @@ tokens:
     '--color-background-surface':
       light: null
       chip: null
-    '--color-background-utility-error-knockout':
-      light: null
-      chip: null
-    '--color-background-utility-info-knockout':
-      light: null
-      chip: null
-    '--color-background-utility-success-knockout':
-      light: null
-      chip: null
-    '--color-border-accent-1':
-      light: null
-      chip: null
     '--color-border-focus':
       light: null
       chip: null
-    '--color-border-utility-error':
-      light: null
-      chip: null
-    '--color-border-utility-info':
-      light: null
-      chip: null
-    '--color-border-utility-success':
-      light: null
-      chip: null
-    '--color-border-utility-warning':
-      light: null
-      chip: null
     '--color-content-default':
-      light: null
-      chip: null
-    '--color-content-on-accent-1':
-      light: null
-      chip: null
-    '--color-content-utility-on-status':
       light: null
       chip: null
     '--focus-ring-offset':
@@ -591,31 +350,7 @@ tokens:
     '--focus-ring-width':
       light: null
       chip: null
-    '--motion-duration-250':
-      light: null
-      chip: null
-    '--motion-easing-pop':
-      light: null
-      chip: null
-    '--pin-dot':
-      light: null
-      chip: null
-    '--pin-fill':
-      light: null
-      chip: null
-    '--pin-ink':
-      light: null
-      chip: null
     '--pin-pop':
-      light: null
-      chip: null
-    '--shadow-card-ink':
-      light: null
-      chip: null
-    '--shadow-ui-ink':
-      light: null
-      chip: null
-    '--size-28':
       light: null
       chip: null
     '--spacing-12':
@@ -624,22 +359,13 @@ tokens:
     '--spacing-32':
       light: null
       chip: null
-    '--spacing-4':
-      light: null
-      chip: null
     '--spacing-44':
       light: null
       chip: null
     '--spacing-8':
       light: null
       chip: null
-    '--typography-body-default-font-family':
-      light: null
-      chip: null
     '--typography-font-weight-600':
-      light: null
-      chip: null
-    '--typography-font-weight-700':
       light: null
       chip: null
     '--typography-label-default-font-size':
@@ -649,43 +375,28 @@ tokens:
       light: null
       chip: null
 motion:
-  transitions:
-    - selector: .disc
-      state: rest
-      declaration: 'transition: transform var(--motion-duration-250) var(--motion-easing-pop)'
-      properties:
-        - transform
-      durations:
-        - token: '--motion-duration-250'
-          value: null
-      easings:
-        - token: '--motion-easing-pop'
-          value: null
-      at: src/components/Pin/Pin.module.css:75
-  reducedMotion:
-    selector: .disc
-    declaration: 'transition: none'
-    at: src/components/Pin/Pin.module.css:81
-  reducedMotionQuery: true
+  transitions: []
+  reducedMotion: null
+  reducedMotionQuery: false
 a11y:
   element:
     tag: span
-    at: src/components/Pin/Pin.tsx:47
+    at: src/components/Pin/Pin.tsx:39
   role:
-    value: ariaLabel
-    source: role attribute
-    at: src/components/Pin/Pin.tsx:47
+    value: null
+    source: native element
+    at: src/components/Pin/Pin.tsx:39
   nameSource:
     value: visible content, or aria-label from the ariaLabel prop
-    at: src/components/Pin/Pin.tsx:19
+    at: src/components/Pin/Pin.tsx:14
   keyboard: []
   aria:
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/Pin/Pin.tsx:57
+      at: src/components/Pin/Pin.tsx:49
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/Pin/Pin.tsx:63
+      at: src/components/Pin/Pin.tsx:55
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -694,20 +405,17 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/Pin/Pin.module.css:91
+      at: src/components/Pin/Pin.module.css:62
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/Pin/Pin.module.css:92
+      at: src/components/Pin/Pin.module.css:63
   disabled:
     prop: null
     note: no disabled prop
-  reducedMotion:
-    selector: .disc
-    declaration: 'transition: none'
-    at: src/components/Pin/Pin.module.css:81
+  reducedMotion: null
   contract: >-
     Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1,
     yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring.
@@ -715,7 +423,7 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/Pin/Pin.tsx:63
+      at: src/components/Pin/Pin.tsx:55
 contrast:
   pairs: []
   derived: []
@@ -733,16 +441,261 @@ usage:
     - 'Do not use colour alone: a pin always has a number'
     - 'Do not use a pop colour for a status: StatusPill carries status'
     - Do not make a label-less pin clickable without ariaLabel
-    - 'Do not leave a number-less dot pin unexplained: name it in ariaLabel or a chip beside it'
   source: tokens/contracts.json
-figma: null
+figma:
+  nodeId: '436:69'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  props:
+    Number#436:15:
+      type: TEXT
+      default: '01'
+    Label#436:24:
+      type: TEXT
+      default: Focus ring
+    tone:
+      type: VARIANT
+      default: yellow
+      values:
+        - yellow
+        - pink
+        - blue
+        - red
+        - green
+    label:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    state:
+      type: VARIANT
+      default: default
+      values:
+        - default
+        - focus
+    style:
+      type: VARIANT
+      default: solid
+      values:
+        - solid
+        - dot
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+  variants:
+    - name: tone=pink, label=false, state=default, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=pink, label=false, state=focus, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=pink, label=true, state=default, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=pink, label=true, state=focus, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=yellow, label=false, state=default, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=yellow, label=false, state=focus, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=yellow, label=true, state=default, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=yellow, label=true, state=focus, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=blue, label=false, state=default, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=blue, label=false, state=focus, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=blue, label=true, state=default, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=blue, label=true, state=focus, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=red, label=false, state=default, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=red, label=false, state=focus, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=red, label=true, state=default, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=red, label=true, state=focus, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=green, label=false, state=default, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=green, label=false, state=focus, style=solid, selected=false
+      width: 32
+      height: 32
+    - name: tone=green, label=true, state=default, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=green, label=true, state=focus, style=solid, selected=false
+      width: 152
+      height: 40
+    - name: tone=yellow, label=false, state=default, style=dot, selected=false
+      width: 32
+      height: 32
+    - name: tone=green, label=false, state=default, style=dot, selected=false
+      width: 32
+      height: 32
+    - name: tone=pink, label=false, state=default, style=solid, selected=true
+      width: 32
+      height: 32
+    - name: tone=pink, label=true, state=default, style=solid, selected=true
+      width: 152
+      height: 40
+    - name: tone=yellow, label=false, state=default, style=solid, selected=true
+      width: 32
+      height: 32
+    - name: tone=yellow, label=true, state=default, style=solid, selected=true
+      width: 152
+      height: 40
+    - name: tone=blue, label=false, state=default, style=solid, selected=true
+      width: 32
+      height: 32
+    - name: tone=blue, label=true, state=default, style=solid, selected=true
+      width: 152
+      height: 40
+    - name: tone=red, label=false, state=default, style=solid, selected=true
+      width: 32
+      height: 32
+    - name: tone=red, label=true, state=default, style=solid, selected=true
+      width: 152
+      height: 40
+    - name: tone=green, label=false, state=default, style=solid, selected=true
+      width: 32
+      height: 32
+    - name: tone=green, label=true, state=default, style=solid, selected=true
+      width: 152
+      height: 40
+    - name: tone=yellow, label=false, state=default, style=dot, selected=true
+      width: 32
+      height: 32
+    - name: tone=green, label=false, state=default, style=dot, selected=true
+      width: 32
+      height: 32
+  defaultVariant: tone=yellow, label=false, state=default, style=solid, selected=false
+  annotations:
+    - label: >-
+        <Pin number variant label onClick> · src/components/Pin/Pin.tsx. Disc 32 (size/32), border/radius/round, filled in the pin colour
+        (pink accent-1, yellow accent-2, blue utility/info-knockout, red utility/error-knockout, green utility/success-knockout), number
+        Geist Mono 16. label=true adds the part’s name. Pin colours are for pins and leaders only, never a status.
+      category: '123:0'
+    - label: >-
+        On a page: part of an image; the number and label carry the meaning. With onClick: a button, one tab stop, 44 target, focus ring
+        color/border/focus 4px wide with a 4px gap. Numbers 7.96:1 or more on every disc (blue disc color/background/utility/info-knockout,
+        red color/background/utility/error-knockout since 17 Nov, so the ink number holds 7:1).
+      category: '123:2'
+    - label: None in Figma; code thickens the ring on hover.
+      category: '123:4'
+  documentationLinks:
+    - https://emcdanie.github.io/bella/?path=/docs/components-pin--docs
 mismatch:
-  - field: figma
-    code: read
-    figma: not read (no --figma file passed)
+  - field: props.tone
+    code: no such prop
+    figma:
+      - yellow
+      - pink
+      - blue
+      - red
+      - green
+  - field: states
+    code:
+      contract:
+        - default
+        - hover
+        - focus
+      css:
+        - hover
+        - focus-visible
+    figma:
+      - default
+      - focus
+  - field: props.style
+    code: no such prop
+    figma:
+      - solid
+      - dot
+  - field: props.selected
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: props.variant
+    code:
+      - yellow
+      - pink
+      - blue
+      - red
+    figma: no such variant property
+  - field: tokens.Disc.fills
+    code:
+      - '--color-content-default'
+      - '--color-background-surface'
+    figma: color/background/accent-2
+    sameValueInChip: false
+  - field: tokens.Disc.strokes
+    code:
+      - '--border-width-4'
+      - '--pin-pop'
+      - '--border-radius-round'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Disc.effects
+    code:
+      - '--color-background-accent-1'
+      - '--spacing-8'
+      - '--typography-number-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--color-background-accent-2'
+      - '--color-background-accent-3'
+      - '--color-background-accent-4'
+      - '--spacing-32'
+      - '--color-background-surface'
+      - '--border-width-4'
+      - '--pin-pop'
+      - '--border-radius-round'
+      - '--spacing-12'
+      - '--spacing-44'
+    figma: color/neutral/alpha/5
+    sameValueInChip: false
+  - field: tokens.Number.fills
+    code:
+      - '--color-content-default'
+      - '--color-background-surface'
+    figma: color/content/on-accent-1
+    sameValueInChip: false
+  - field: tokens.Number.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Pin/Pin.tsx
+  - section: Behaviour and motion
+    why: no transition or animation in src/components/Pin/Pin.module.css
 guidance:
   lead: A numbered marker that explains a part in place. Pair it with a Leader.
   whenToUse:

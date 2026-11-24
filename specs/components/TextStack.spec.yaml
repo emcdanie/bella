@@ -12,11 +12,13 @@ links:
   storyTitle: Components/Layout/TextStack
 props:
   - name: overline
+    figmaName: Overline
     type: ReactNode
     required: false
     doc: Figma "Overline" + "↳ Overline text". Missing = off. Subtext face.
     at: src/components/TextStack/TextStack.tsx:6
   - name: title
+    figmaName: Title
     type: ReactNode
     required: false
     doc: Figma "Title" + "↳ Title text". Missing = off. 20 regular ink (21 Nov publish).
@@ -35,6 +37,7 @@ props:
       It looks the same at every level. Default span.
     at: src/components/TextStack/TextStack.tsx:11
   - name: count
+    figmaName: Count
     type: ReactNode
     required: false
     doc: >-
@@ -42,11 +45,13 @@ props:
       Title row, 8 apart; number face 600, the subtitle's size and colour. Missing = off. Never put the number inside the title text.
     at: src/components/TextStack/TextStack.tsx:18
   - name: subtitle
+    figmaName: Subtitle
     type: ReactNode
     required: false
     doc: Figma "Subtitle" + "↳ Subtitle text". Missing = off. Subtext face.
     at: src/components/TextStack/TextStack.tsx:20
   - name: meta
+    figmaName: Meta
     type: ReactNode
     required: false
     doc: >-
@@ -54,6 +59,7 @@ props:
       16, content/subtle.
     at: src/components/TextStack/TextStack.tsx:22
   - name: body
+    figmaName: Body
     type: ReactNode
     required: false
     doc: Figma "Body" + "↳ Body text". Missing = off. Reading face, wraps.
@@ -459,14 +465,7 @@ figma:
       default: '18'
   variants: []
   defaultVariant: Text stack
-mismatch:
-  - field: props.titleAs
-    code:
-      - span
-      - h2
-      - h3
-      - h4
-    figma: no such variant property
+mismatch: []
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/TextStack/TextStack.tsx
@@ -478,3 +477,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: titleAs
+      why: DOM element of the title (span or heading); nothing to draw

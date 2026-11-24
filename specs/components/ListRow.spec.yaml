@@ -3,11 +3,11 @@
 name: ListRow
 lead:
   text: One item in a work list.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-listrow--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-listrow--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/ListRow/ListRow.tsx
   storyTitle: Components/ListRow
 props:
@@ -27,6 +27,7 @@ props:
     doc: 'The status marker, with a word: a StatusPill.'
     at: src/components/ListRow/ListRow.tsx:10
   - name: action
+    figmaName: "↳ Action"
     type: ReactNode
     required: false
     doc: 'The one thing to do next: a Button, ActionChip or Link.'
@@ -96,248 +97,561 @@ anatomy:
       side: bottom
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default
+    name: layout=stacked, state=default
     type: COMPONENT
-    size: 560x89
+    size: 560x116
     tokens:
       - field: itemSpacing
-        variable: spacing/4
+        variable: spacing/16
+      - field: paddingLeft
+        variable: spacing/12
       - field: paddingTop
-        variable: spacing/3
+        variable: spacing/12
+      - field: paddingRight
+        variable: spacing/12
       - field: paddingBottom
-        variable: spacing/3
+        variable: spacing/12
+      - field: topLeftRadius
+        variable: border/radius/sm
+      - field: topRightRadius
+        variable: border/radius/sm
+      - field: bottomLeftRadius
+        variable: border/radius/sm
+      - field: bottomRightRadius
+        variable: border/radius/sm
     children:
-      - name: Icon well
+      - name: Left
         type: FRAME
         hidden: true
         size: 36x36
         tokens:
-          - field: topLeftRadius
-            variable: radius/full
-          - field: topRightRadius
-            variable: radius/full
-          - field: bottomLeftRadius
-            variable: radius/full
-          - field: bottomRightRadius
-            variable: radius/full
-          - field: fills
-            variable: component/stat/icon-well/background-attention
+          - field: itemSpacing
+            variable: spacing/8
         children:
-          - name: Icon
+          - name: Icon well
             type: INSTANCE
-            instanceOf: Icon
-            size: 20x20
-      - name: Status
-        type: INSTANCE
-        instanceOf: StatusPill
-        size: 84x33
-        tokens:
-          - field: itemSpacing
-            variable: spacing/1
-          - field: paddingLeft
-            variable: spacing/2
-          - field: paddingRight
-            variable: spacing/2
-          - field: topLeftRadius
-            variable: component/status-pill/border-radius
-          - field: topRightRadius
-            variable: component/status-pill/border-radius
-          - field: bottomLeftRadius
-            variable: component/status-pill/border-radius
-          - field: bottomRightRadius
-            variable: component/status-pill/border-radius
-          - field: fills
-            variable: component/status-pill/attention/background
-          - field: strokes
-            variable: color/semantic/attention
-      - name: Text column
+            instanceOf: Icon well
+            size: 36x36
+            tokens:
+              - field: width
+                variable: size/36
+              - field: height
+                variable: size/36
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: fills
+                variable: color/background/utility/info
+          - name: Status dot
+            type: INSTANCE
+            instanceOf: StatusDot
+            hidden: true
+            size: 71x24
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+          - name: Avatar
+            type: INSTANCE
+            instanceOf: Avatar
+            hidden: true
+            size: 48x48
+            tokens:
+              - field: width
+                variable: spacing/48
+              - field: height
+                variable: spacing/48
+              - field: topLeftRadius
+                variable: border/radius/round
+              - field: topRightRadius
+                variable: border/radius/round
+              - field: bottomLeftRadius
+                variable: border/radius/round
+              - field: bottomRightRadius
+                variable: border/radius/round
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
+              - field: fills
+                variable: color/background/subtle
+              - field: strokes
+                variable: color/border/subtle
+          - name: Pin
+            type: INSTANCE
+            instanceOf: Pin
+            hidden: true
+            size: 32x32
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+          - name: Swatch
+            type: RECTANGLE
+            hidden: true
+            size: 24x24
+            tokens:
+              - field: topLeftRadius
+                variable: border/radius/sm
+              - field: topRightRadius
+                variable: border/radius/sm
+              - field: bottomLeftRadius
+                variable: border/radius/sm
+              - field: bottomRightRadius
+                variable: border/radius/sm
+              - field: fills
+                variable: color/neutral/900
+              - field: strokes
+                variable: color/border/default
+      - name: Body
         type: FRAME
-        size: 359x65
-        children:
-          - name: Title
-            type: TEXT
-            text: Figma check
-            size: 134x33
-            tokens:
-              - field: fills
-                variable: color/semantic/text-primary
-              - field: fontSize
-                variable: component/list-row/title-font-size
-              - field: fontFamily
-                variable: typography/font-family/body
-              - field: fontWeight
-                variable: typography/font-weight/semibold
-          - name: Description
-            type: TEXT
-            text: No file key in server/.env
-            size: 222x30
-            tokens:
-              - field: fills
-                variable: color/semantic/text-body
-              - field: fontSize
-                variable: component/list-row/description-font-size
-              - field: fontWeight
-                variable: typography/font-weight/regular
-      - name: Action
-        type: INSTANCE
-        instanceOf: ActionChip
-        size: 85x44
+        size: 536x92
         tokens:
           - field: itemSpacing
-            variable: spacing/2
-          - field: paddingLeft
-            variable: spacing/4
-          - field: paddingTop
-            variable: spacing/2
-          - field: paddingRight
-            variable: spacing/4
-          - field: paddingBottom
-            variable: spacing/2
-          - field: topLeftRadius
-            variable: component/action-chip/border-radius
-          - field: topRightRadius
-            variable: component/action-chip/border-radius
-          - field: bottomLeftRadius
-            variable: component/action-chip/border-radius
-          - field: bottomRightRadius
-            variable: component/action-chip/border-radius
-          - field: minHeight
-            variable: component/action-chip/min-height
-          - field: strokes
-            variable: component/action-chip/border
+            variable: spacing/16
+        children:
+          - name: Content
+            type: FRAME
+            size: 536x92
+            tokens:
+              - field: itemSpacing
+                variable: spacing/16
+            children:
+              - name: Middle
+                type: FRAME
+                size: 496x92
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                children:
+                  - name: Lead
+                    type: FRAME
+                    size: 496x92
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/8
+                    children:
+                      - name: Status bar
+                        type: INSTANCE
+                        instanceOf: Status bar
+                        hidden: true
+                        size: 4x52
+                        tokens:
+                          - field: topLeftRadius
+                            variable: border/radius/round
+                          - field: topRightRadius
+                            variable: border/radius/round
+                          - field: bottomLeftRadius
+                            variable: border/radius/round
+                          - field: bottomRightRadius
+                            variable: border/radius/round
+                          - field: fills
+                            variable: color/border/utility/neutral
+                      - name: Indent
+                        type: FRAME
+                        hidden: true
+                        size: 4x100
+                        tokens:
+                          - field: width
+                            variable: spacing/4
+                        children: []
+                      - name: Text
+                        type: FRAME
+                        size: 496x92
+                        tokens:
+                          - field: itemSpacing
+                            variable: spacing/4
+                        children:
+                          - name: Text stack
+                            type: INSTANCE
+                            instanceOf: Text stack
+                            size: 496x56
+                            tokens:
+                              - field: itemSpacing
+                                variable: spacing/4
+                          - name: Status
+                            type: INSTANCE
+                            instanceOf: Tag
+                            size: 96x32
+                            tokens:
+                              - field: itemSpacing
+                                variable: spacing/8
+                              - field: paddingLeft
+                                variable: spacing/12
+                              - field: paddingTop
+                                variable: spacing/4
+                              - field: paddingRight
+                                variable: spacing/12
+                              - field: paddingBottom
+                                variable: spacing/4
+                              - field: topLeftRadius
+                                variable: border/radius/sm
+                              - field: topRightRadius
+                                variable: border/radius/sm
+                              - field: bottomLeftRadius
+                                variable: border/radius/sm
+                              - field: bottomRightRadius
+                                variable: border/radius/sm
+                              - field: strokeTopWeight
+                                variable: border/width/1
+                              - field: strokeBottomWeight
+                                variable: border/width/1
+                              - field: strokeLeftWeight
+                                variable: border/width/1
+                              - field: strokeRightWeight
+                                variable: border/width/1
+                              - field: minHeight
+                                variable: spacing/32
+                              - field: fills
+                                variable: color/background/surface
+                              - field: strokes
+                                variable: color/border/utility/success
+                          - name: Text button
+                            type: INSTANCE
+                            instanceOf: Button
+                            hidden: true
+                            size: 78x32
+                            tokens:
+                              - field: itemSpacing
+                                variable: spacing/8
+                              - field: paddingTop
+                                variable: size/0
+                              - field: paddingBottom
+                                variable: size/0
+                              - field: topLeftRadius
+                                variable: border/radius/lg
+                              - field: topRightRadius
+                                variable: border/radius/lg
+                              - field: bottomLeftRadius
+                                variable: border/radius/lg
+                              - field: bottomRightRadius
+                                variable: border/radius/lg
+                              - field: minHeight
+                                variable: size/32
+              - name: Right
+                type: FRAME
+                hidden: true
+                size: 77x44
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/4
+                  - field: minHeight
+                    variable: spacing/44
+                children:
+                  - name: Value
+                    type: TEXT
+                    hidden: true
+                    text: 42/44
+                    size: 48x24
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/number/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+                  - name: Value label
+                    type: TEXT
+                    hidden: true
+                    text: Open
+                    size: 43x24
+                    tokens:
+                      - field: fills
+                        variable: color/content/default
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/500
+                  - name: (text content)
+                    type: TEXT
+                    hidden: true
+                    text: Sub value
+                    size: 76x20
+                    tokens:
+                      - field: fills
+                        variable: color/content/body
+                      - field: fontFamily
+                        variable: typography/subtext/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/400
+                  - name: Action line
+                    type: FRAME
+                    hidden: true
+                    size: 77x24
+                    children:
+                      - name: Action
+                        type: INSTANCE
+                        instanceOf: ActionChip
+                        size: 77x44
+                        tokens:
+                          - field: itemSpacing
+                            variable: spacing/8
+                          - field: paddingLeft
+                            variable: spacing/16
+                          - field: paddingTop
+                            variable: spacing/8
+                          - field: paddingRight
+                            variable: spacing/16
+                          - field: paddingBottom
+                            variable: spacing/8
+                          - field: topLeftRadius
+                            variable: border/radius/lg
+                          - field: topRightRadius
+                            variable: border/radius/lg
+                          - field: bottomLeftRadius
+                            variable: border/radius/lg
+                          - field: bottomRightRadius
+                            variable: border/radius/lg
+                          - field: strokeTopWeight
+                            variable: border/width/1
+                          - field: strokeBottomWeight
+                            variable: border/width/1
+                          - field: strokeLeftWeight
+                            variable: border/width/1
+                          - field: strokeRightWeight
+                            variable: border/width/1
+                          - field: minHeight
+                            variable: spacing/44
+                          - field: strokes
+                            variable: color/border/strong
+                  - name: Tag line
+                    type: FRAME
+                    hidden: true
+                    size: 157x32
+                    tokens:
+                      - field: paddingRight
+                        variable: spacing/12
+                    children:
+                      - name: Tag
+                        type: INSTANCE
+                        instanceOf: Tag
+                        size: 145x32
+                        tokens:
+                          - field: itemSpacing
+                            variable: spacing/8
+                          - field: paddingLeft
+                            variable: spacing/12
+                          - field: paddingTop
+                            variable: spacing/4
+                          - field: paddingRight
+                            variable: spacing/12
+                          - field: paddingBottom
+                            variable: spacing/4
+                          - field: topLeftRadius
+                            variable: border/radius/sm
+                          - field: topRightRadius
+                            variable: border/radius/sm
+                          - field: bottomLeftRadius
+                            variable: border/radius/sm
+                          - field: bottomRightRadius
+                            variable: border/radius/sm
+                          - field: strokeTopWeight
+                            variable: border/width/1
+                          - field: strokeBottomWeight
+                            variable: border/width/1
+                          - field: strokeLeftWeight
+                            variable: border/width/1
+                          - field: strokeRightWeight
+                            variable: border/width/1
+                          - field: minHeight
+                            variable: spacing/32
+                          - field: fills
+                            variable: color/background/surface
+                          - field: strokes
+                            variable: color/border/utility/neutral
+                  - name: Switch
+                    type: INSTANCE
+                    instanceOf: Switch
+                    hidden: true
+                    size: 142x44
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/12
+                      - field: minHeight
+                        variable: spacing/44
+              - name: Chevron
+                type: INSTANCE
+                instanceOf: Trailing
+                size: 24x92
+          - name: Below
+            type: FRAME
+            hidden: true
+            size: 536x100
+            tokens:
+              - field: itemSpacing
+                variable: spacing/8
+            children:
+              - name: Progress
+                type: INSTANCE
+                instanceOf: Progress
+                hidden: true
+                size: 536x42
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+              - name: Helper
+                type: INSTANCE
+                instanceOf: HelperText
+                hidden: true
+                size: 536x24
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+              - name: Divider
+                type: FRAME
+                hidden: true
+                size: 536x1
+                tokens:
+                  - field: fills
+                    variable: color/border/subtle
+                children: []
   code: []
 tokens:
   used:
     - part: group
       state: rest
       property: column-gap
-      token: '--component-list-row-column-gap'
+      token: '--spacing-16'
       selector: .group
       at: src/components/ListRow/ListRow.module.css:12
     - part: row
       state: rest
       property: row-gap
-      token: '--component-list-row-row-gap'
+      token: '--spacing-4'
       selector: .row
       at: src/components/ListRow/ListRow.module.css:23
     - part: row
       state: rest
       property: min-height
-      token: '--component-list-row-min-height'
+      token: '--spacing-44'
       selector: .row
       at: src/components/ListRow/ListRow.module.css:24
     - part: row
       state: rest
       property: padding-block
-      token: '--component-list-row-padding-y'
+      token: '--spacing-12'
       selector: .row
       at: src/components/ListRow/ListRow.module.css:25
     - part: row
       state: rest
       property: border-top
-      token: '--component-list-row-border-width'
+      token: '--border-width-1'
       selector: .row + .row
       at: src/components/ListRow/ListRow.module.css:29
     - part: row
       state: rest
       property: border-top
-      token: '--component-list-row-border'
+      token: '--color-border-default'
       selector: .row + .row
       at: src/components/ListRow/ListRow.module.css:29
     - part: text
       state: rest
       property: gap
-      token: '--component-list-row-row-gap'
+      token: '--spacing-4'
       selector: .text
       at: src/components/ListRow/ListRow.module.css:39
     - part: title
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-title-default-font-family'
       selector: .title
       at: src/components/ListRow/ListRow.module.css:54
     - part: title
       state: rest
       property: font-size
-      token: '--component-list-row-title-font-size'
+      token: '--typography-font-size-22'
       selector: .title
       at: src/components/ListRow/ListRow.module.css:55
     - part: title
       state: rest
       property: font-weight
-      token: '--component-list-row-title-font-weight'
+      token: '--typography-font-weight-600'
       selector: .title
       at: src/components/ListRow/ListRow.module.css:56
     - part: title
       state: rest
       property: color
-      token: '--component-list-row-title-color'
+      token: '--color-content-default'
       selector: .title
       at: src/components/ListRow/ListRow.module.css:57
     - part: description
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-subtext-font-family'
       selector: .description
       at: src/components/ListRow/ListRow.module.css:63
     - part: description
       state: rest
       property: font-size
-      token: '--component-list-row-description-font-size'
+      token: '--typography-body-default-font-size'
       selector: .description
       at: src/components/ListRow/ListRow.module.css:64
     - part: description
       state: rest
       property: line-height
-      token: '--component-list-row-description-line-height'
+      token: '--typography-line-height-150'
       selector: .description
       at: src/components/ListRow/ListRow.module.css:65
     - part: description
       state: rest
       property: color
-      token: '--component-list-row-description-color'
+      token: '--color-content-body'
       selector: .description
       at: src/components/ListRow/ListRow.module.css:66
   values:
-    '--component-list-row-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--component-list-row-border-width':
-      light: 1px
-      chip: 1px
-    '--component-list-row-column-gap':
-      light: 16px
-      chip: 16px
-    '--component-list-row-description-color':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-list-row-description-font-size':
-      light: 20px
-      chip: 16px
-    '--component-list-row-description-line-height':
-      light: '1.7'
-      chip: '1.5'
-    '--component-list-row-min-height':
-      light: 44px
-      chip: 44px
-    '--component-list-row-padding-y':
-      light: 12px
-      chip: 12px
-    '--component-list-row-row-gap':
-      light: 4px
-      chip: 4px
-    '--component-list-row-title-color':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-list-row-title-font-size':
-      light: 22px
-      chip: 16px
-    '--component-list-row-title-font-weight':
-      light: '600'
-      chip: '600'
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
+    '--typography-subtext-font-family':
+      light: null
+      chip: null
+    '--typography-title-default-font-family':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -366,74 +680,14 @@ a11y:
   contract: >-
     Verified 2026-11-07: an li in a ul. Title is text-primary, why is text-body, AAA on the ground and card in every theme. titleAs sets the
     heading level when the page needs one. The row holds no target of its own: its action brings its own 44px box.
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-label
       at: src/components/ListRow/ListRow.tsx:36
 contrast:
-  pairs:
-    - label: list row title on the page
-      foreground: '--component-list-row-title-color'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:171
-    - label: list row title on a card
-      foreground: '--component-list-row-title-color'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:172
-    - label: list row why on the page
-      foreground: '--component-list-row-description-color'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:173
-    - label: list row why on a card
-      foreground: '--component-list-row-description-color'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:174
-  derived:
-    - foreground: '--component-list-row-title-color'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-list-row-title-color'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-list-row-description-color'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-list-row-description-color'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/ListRow/ListRow.stories.tsx
   lines: '52'
@@ -448,61 +702,159 @@ usage:
     - 'Do not use it for tabular data with several comparable columns: that is DataTable'
     - Do not put more than one action in a row
     - 'Do not rely on the status colour: StatusPill carries a word'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '436:35'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    title#436:0:
-      type: TEXT
-      default: Figma check
-    description#436:3:
-      type: TEXT
-      default: No file key in server/.env
-    Show description#436:6:
+    ↳ Tag#436:9:
       type: BOOLEAN
       default: true
-    status#436:9:
-      type: BOOLEAN
-      default: true
-    action#436:12:
-      type: BOOLEAN
-      default: true
-    Show icon#796:0:
+    ↳ Action button#436:12:
       type: BOOLEAN
       default: false
-    Icon#796:3:
-      type: INSTANCE_SWAP
-      default: '432:1423'
-    Action button#796:6:
+    Left#796:0:
+      type: BOOLEAN
+      default: false
+    ↳ Text button#1233:10:
+      type: BOOLEAN
+      default: false
+    ↳ Value#1233:15:
+      type: BOOLEAN
+      default: false
+    ↳↳ Value text#1233:20:
+      type: TEXT
+      default: 42/44
+    ↳ Sub value#1233:25:
+      type: BOOLEAN
+      default: false
+    ↳↳ Sub value text#1233:30:
+      type: TEXT
+      default: Sub value
+    Trailing#1233:35:
+      type: BOOLEAN
+      default: true
+    ↳ Progress#1233:40:
+      type: BOOLEAN
+      default: false
+    ↳ Helper text#1233:45:
+      type: BOOLEAN
+      default: false
+    ↳ Divider#1233:50:
+      type: BOOLEAN
+      default: false
+    ↳ Icon well#1254:0:
+      type: BOOLEAN
+      default: true
+    ↳ Status dot#1254:11:
+      type: BOOLEAN
+      default: false
+    ↳ Avatar#1254:22:
+      type: BOOLEAN
+      default: false
+    Middle#1254:33:
+      type: BOOLEAN
+      default: true
+    Right#1254:44:
+      type: BOOLEAN
+      default: false
+    ↳ Switch#1254:55:
+      type: BOOLEAN
+      default: false
+    Below#1254:66:
+      type: BOOLEAN
+      default: false
+    ↳ Pin#1455:87:
+      type: BOOLEAN
+      default: false
+    ↳ Value label#1509:0:
+      type: BOOLEAN
+      default: false
+    ↳↳ Value label text#1509:11:
+      type: TEXT
+      default: Open
+    ↳ Status bar#1512:24:
+      type: BOOLEAN
+      default: false
+    ↳ Right tag#1512:35:
+      type: BOOLEAN
+      default: false
+    ↳ Action#1513:46:
       type: INSTANCE_SWAP
       default: '172:279'
+    Indent#1567:0:
+      type: BOOLEAN
+      default: false
+    ↳ Swatch#1567:11:
+      type: BOOLEAN
+      default: false
+    layout:
+      type: VARIANT
+      default: stacked
+      values:
+        - stacked
+        - inline
     state:
       type: VARIANT
       default: default
       values:
         - default
         - hover
+        - pressed
+        - focus
+        - selected
   variants:
-    - name: state=default
+    - name: layout=stacked, state=default
       width: 560
-      height: 89
-    - name: state=hover
+      height: 116
+    - name: layout=stacked, state=hover
       width: 560
-      height: 89
-  defaultVariant: state=default
+      height: 116
+    - name: layout=stacked, state=pressed
+      width: 560
+      height: 116
+    - name: layout=stacked, state=focus
+      width: 560
+      height: 116
+    - name: layout=stacked, state=selected
+      width: 560
+      height: 116
+    - name: layout=inline, state=default
+      width: 560
+      height: 56
+    - name: layout=inline, state=hover
+      width: 560
+      height: 56
+    - name: layout=inline, state=pressed
+      width: 560
+      height: 56
+    - name: layout=inline, state=focus
+      width: 560
+      height: 56
+    - name: layout=inline, state=selected
+      width: 560
+      height: 56
+  defaultVariant: layout=stacked, state=default
   annotations:
     - label: >-
-        Dev · <ListRow title description status action titleAs /> inside <ListRowGroup>; li in a ul; subgrid columns status, text, action.
-        No horizontal padding on the row (ListRow.module.css); 1px rule between rows.
+        <ListRow title description status action titleAs /> inside <ListRowGroup> · src/components/ListRow/ListRow.tsx. An li in a ul;
+        subgrid columns status, text, action. Title 16 semibold, Description 16 in color/content/subtle, optional Icon well. Hover wash is
+        Figma only (code has no hover rule).
       category: '123:0'
     - label: >-
-        A11y · li in a ul named by ListRowGroup ariaLabel; no role or keyboard of its own. The action brings its own 44px box. titleAs sets
-        the heading level.
+        An li in a ul named by ListRowGroup’s aria-label; no role or keys of its own. titleAs sets the heading level. The action brings its
+        own 44 target and focus ring. Description at full opacity (was 80%): 10.99:1 or more in all four themes.
       category: '123:2'
+    - label: 'Hover (Figma only): the wash changes over motion/duration/fast.'
+      category: '123:4'
   documentationLinks:
-    - https://emcdanie.github.io/bella/?path=/docs/components-data-listrow--docs
+    - https://emcdanie.github.io/bella/?path=/docs/components-listrow--docs
 mismatch:
+  - field: props.layout
+    code: no such prop
+    figma:
+      - stacked
+      - inline
   - field: states
     code:
       contract:
@@ -511,108 +863,298 @@ mismatch:
     figma:
       - default
       - hover
-  - field: props.titleAs
+      - pressed
+      - focus
+      - selected
+  - field: tokens.layout=stacked, state=default.itemSpacing
     code:
-      - span
-      - h2
-      - h3
-      - h4
-    figma: no such variant property
-  - field: tokens.state=default.itemSpacing
-    code:
-      - '--component-list-row-row-gap'
-    figma: spacing/4
+      - '--spacing-4'
+    figma: spacing/16
     sameValueInChip: false
-  - field: tokens.state=default.paddingTop
+  - field: tokens.Left.itemSpacing
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/3
-    sameValueInChip: true
-  - field: tokens.state=default.paddingBottom
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Icon well.width
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/3
-    sameValueInChip: true
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--spacing-44'
+      - '--spacing-12'
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+    figma: size/36
+    sameValueInChip: false
+  - field: tokens.Icon well.height
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--spacing-44'
+      - '--spacing-12'
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+    figma: size/36
+    sameValueInChip: false
   - field: tokens.Icon well.fills
     code:
-      - '--component-list-row-title-color'
-      - '--component-list-row-description-color'
-    figma: component/stat/icon-well/background-attention
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/background/utility/info
+    sameValueInChip: false
+  - field: tokens.Status dot.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Avatar.width
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--spacing-44'
+      - '--spacing-12'
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+    figma: spacing/48
+    sameValueInChip: false
+  - field: tokens.Avatar.height
+    code:
+      - '--spacing-16'
+      - '--spacing-4'
+      - '--spacing-44'
+      - '--spacing-12'
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--color-content-default'
+      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+    figma: spacing/48
+    sameValueInChip: false
+  - field: tokens.Avatar.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/background/subtle
+    sameValueInChip: false
+  - field: tokens.Avatar.strokes
+    code:
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: color/border/subtle
+    sameValueInChip: true
+  - field: tokens.Pin.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Swatch.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/neutral/900
+    sameValueInChip: true
+  - field: tokens.Body.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Content.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Lead.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Status bar.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/border/utility/neutral
     sameValueInChip: false
   - field: tokens.Status.itemSpacing
     code:
-      - '--component-list-row-row-gap'
-    figma: spacing/1
-    sameValueInChip: true
-  - field: tokens.Status.paddingLeft
-    code:
-      - '--component-list-row-padding-y'
-    figma: spacing/2
+      - '--spacing-4'
+    figma: spacing/8
     sameValueInChip: false
-  - field: tokens.Status.paddingRight
+  - field: tokens.Status.paddingTop
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/2
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Status.paddingBottom
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Status.minHeight
+    code:
+      - '--spacing-44'
+    figma: spacing/32
     sameValueInChip: false
   - field: tokens.Status.fills
     code:
-      - '--component-list-row-title-color'
-      - '--component-list-row-description-color'
-    figma: component/status-pill/attention/background
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/background/surface
     sameValueInChip: false
   - field: tokens.Status.strokes
     code:
-      - '--component-list-row-border-width'
-      - '--component-list-row-border'
-    figma: color/semantic/attention
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: color/border/utility/success
     sameValueInChip: false
-  - field: tokens.Title.fills
+  - field: tokens.Text button.itemSpacing
     code:
-      - '--component-list-row-title-color'
-      - '--component-list-row-description-color'
-    figma: color/semantic/text-primary
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Text button.paddingTop
+    code:
+      - '--spacing-12'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Text button.paddingBottom
+    code:
+      - '--spacing-12'
+    figma: size/0
+    sameValueInChip: false
+  - field: tokens.Text button.minHeight
+    code:
+      - '--spacing-44'
+    figma: size/32
+    sameValueInChip: false
+  - field: tokens.Value.fontSize
+    code:
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
-  - field: tokens.Description.fills
+  - field: tokens.Value label.fontSize
     code:
-      - '--component-list-row-title-color'
-      - '--component-list-row-description-color'
-    figma: color/semantic/text-body
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
   - field: tokens.Action.itemSpacing
     code:
-      - '--component-list-row-row-gap'
-    figma: spacing/2
+      - '--spacing-4'
+    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Action.paddingLeft
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/4
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Action.paddingTop
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/2
+      - '--spacing-12'
+    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Action.paddingRight
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/4
+      - '--spacing-12'
+    figma: spacing/16
     sameValueInChip: false
   - field: tokens.Action.paddingBottom
     code:
-      - '--component-list-row-padding-y'
-    figma: spacing/2
+      - '--spacing-12'
+    figma: spacing/8
     sameValueInChip: false
-  - field: tokens.Action.minHeight
-    code:
-      - '--component-list-row-min-height'
-    figma: component/action-chip/min-height
-    sameValueInChip: true
   - field: tokens.Action.strokes
     code:
-      - '--component-list-row-border-width'
-      - '--component-list-row-border'
-    figma: component/action-chip/border
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: color/border/strong
+    sameValueInChip: false
+  - field: tokens.Tag.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Tag.paddingTop
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Tag.paddingBottom
+    code:
+      - '--spacing-12'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Tag.minHeight
+    code:
+      - '--spacing-44'
+    figma: spacing/32
+    sameValueInChip: false
+  - field: tokens.Tag.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/background/surface
+    sameValueInChip: false
+  - field: tokens.Tag.strokes
+    code:
+      - '--border-width-1'
+      - '--color-border-default'
+    figma: color/border/utility/neutral
+    sameValueInChip: false
+  - field: tokens.Switch.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/12
+    sameValueInChip: false
+  - field: tokens.Below.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Progress.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Helper.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/8
+    sameValueInChip: false
+  - field: tokens.Divider.fills
+    code:
+      - '--color-content-default'
+      - '--color-content-body'
+    figma: color/border/subtle
     sameValueInChip: false
 notApplicable:
   - section: Sizes
@@ -683,3 +1225,6 @@ guidance:
   codeExample:
     code: <ListRow title="Figma check" description="No file key in server/.env" />
     lines: '52'
+  codeOnly:
+    - name: titleAs
+      why: DOM element of the title (span or heading); nothing to draw

@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Data/SpacingStep
 props:
   - name: step
+    figmaName: step
     type: SpacingStepStep
     required: true
     doc: 'Figma "step": the spacing step; the bar is drawn at the token''s real size.'
@@ -500,9 +501,6 @@ mismatch:
       - '16'
       - '20'
       - touch
-  - field: props.animated
-    code: boolean prop
-    figma: not in the set
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SpacingStep/SpacingStep.tsx
@@ -512,3 +510,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: animated
+      why: plays the bar-grow motion on mount; Figma shows the end state

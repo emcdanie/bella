@@ -12,12 +12,14 @@ links:
   storyTitle: Components/Data/SystemHealth
 props:
   - name: title
+    figmaName: Title
     type: ReactNode
     default: System health
     required: false
     doc: Figma "Title".
     at: src/components/SystemHealth/SystemHealth.tsx:23
   - name: subtitle
+    figmaName: Subtitle
     type: ReactNode
     default: Component checks that pass
     required: false
@@ -65,11 +67,13 @@ props:
       number never reads a wrong state on the way ("Healthy 82%" at 92) (23 Nov second pass).
     at: src/components/SystemHealth/SystemHealth.tsx:40
   - name: passed
+    figmaName: Passed
     type: ReactNode
     required: true
     doc: 'Figma "Passed": the count in words under the arc ("251 of 264 pass").'
     at: src/components/SystemHealth/SystemHealth.tsx:42
   - name: why
+    figmaName: Why
     type: ReactNode
     required: false
     doc: 'Figma "Why": what healthy means, and what still fails.'
@@ -1217,9 +1221,6 @@ figma:
   variants: []
   defaultVariant: System health
 mismatch:
-  - field: props.countUp
-    code: boolean prop
-    figma: not in the set
   - field: tokens.System health.effects
     code:
       - '--spacing-24'
@@ -1418,7 +1419,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-14'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Subtitle.fontSize
     code:
       - '--typography-font-size-16'
@@ -1426,7 +1427,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-14'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.(text content).fontSize
     code:
       - '--typography-font-size-16'
@@ -1434,7 +1435,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-14'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Passed.fontSize
     code:
       - '--typography-font-size-16'
@@ -1442,15 +1443,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-14'
     figma: typography/body-default/font-size
-    sameValueInChip: false
-  - field: tokens.(text content).fontSize
-    code:
-      - '--typography-font-size-16'
-      - '--typography-font-size-24'
-      - '--typography-font-size-40'
-      - '--typography-font-size-14'
-    figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Why.fontSize
     code:
       - '--typography-font-size-16'
@@ -1458,7 +1451,7 @@ mismatch:
       - '--typography-font-size-40'
       - '--typography-font-size-14'
     figma: typography/body-default/font-size
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SystemHealth/SystemHealth.tsx
@@ -1468,3 +1461,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: countUp
+      why: plays the count-up motion on mount; Figma shows the end state

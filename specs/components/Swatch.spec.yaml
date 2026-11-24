@@ -17,21 +17,25 @@ props:
     doc: 'The colour the block shows: a token as a CSS value, e.g. "var(--color-content-default)".'
     at: src/components/Swatch/Swatch.tsx:7
   - name: name
+    figmaName: Name
     type: ReactNode
     required: true
     doc: 'Figma "Name": the role''s token name ("text-primary").'
     at: src/components/Swatch/Swatch.tsx:9
   - name: hex
+    figmaName: Hex
     type: ReactNode
     required: true
     doc: 'Figma "Hex": the colour''s hex.'
     at: src/components/Swatch/Swatch.tsx:11
   - name: ratio
+    figmaName: Ratio
     type: ReactNode
     required: false
     doc: 'Figma "Ratio": its contrast pair ("AAA 16.1"). Ignored when `pair` is false.'
     at: src/components/Swatch/Swatch.tsx:13
   - name: pair
+    figmaName: pair
     type: boolean
     values:
       - true
@@ -41,6 +45,7 @@ props:
     doc: Figma "pair". false shows "No pair".
     at: src/components/Swatch/Swatch.tsx:15
   - name: size
+    figmaName: size
     type: '''sm'' | ''lg'''
     values:
       - sm
@@ -470,7 +475,7 @@ mismatch:
       - '--color-content-default'
       - '--color-content-subtle'
     figma: color/neutral/900
-    sameValueInChip: false
+    sameValueInChip: true
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/Swatch/Swatch.module.css

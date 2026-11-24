@@ -12,16 +12,19 @@ links:
   storyTitle: Components/Data/TaskCard
 props:
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: Figma "Title". What the task is. Names the card and its open link.
     at: src/components/TaskCard/TaskCard.tsx:19
   - name: line
+    figmaName: Line
     type: ReactNode
     required: false
     doc: Figma "Line". One line under the title, in the subtext face.
     at: src/components/TaskCard/TaskCard.tsx:21
   - name: branch
+    figmaName: Show branch
     type: ReactNode
     required: false
     doc: 'Figma "Show branch" + the Branch Tag label: the branch name, for the board''s branch filter. Missing = off.'
@@ -35,6 +38,7 @@ props:
       it.
     at: src/components/TaskCard/TaskCard.tsx:25
   - name: showTag
+    figmaName: Show tag
     type: boolean
     values:
       - true
@@ -44,6 +48,7 @@ props:
     doc: 'Figma "Show tag" (off by default, batch 4, 22 Nov: on the board the border says the status, so the Tag no longer repeats it).'
     at: src/components/TaskCard/TaskCard.tsx:27
   - name: statusTone
+    figmaName: tone
     type: StatusDotProps['tone']
     values:
       - success
@@ -67,6 +72,7 @@ props:
     doc: 'Figma "state=dragging": the card is being dragged and lifts (shadow/lg). hover and focus are CSS states.'
     at: src/components/TaskCard/TaskCard.tsx:31
   - name: progress
+    figmaName: Show progress
     type: boolean
     values:
       - true
@@ -150,32 +156,6 @@ props:
       Figma "Move to…" (the drag handle): the keyboard way to move the card; open a Menu of lanes from here. Missing = the handle is drawn
       but does nothing (pointer drag only).
     at: src/components/TaskCard/TaskCard.tsx:55
-  - name: selected
-    type: boolean
-    values:
-      - true
-      - false
-    default: false
-    required: false
-    doc: >-
-      Selected (Elleta's Workbench A, 23 Nov 2026): the card open on the stage in a strip of cards, outlined in the selection blue around
-      its border; aria-current is the page's to set on the list item.
-    at: src/components/TaskCard/TaskCard.tsx:58
-  - name: use
-    type: '''board'' | ''pick'''
-    values:
-      - board
-      - pick
-    default: board
-    required: false
-    doc: >-
-      board (default): the drag handle and the open arrow, as on the Work board. pick: a strip of cards you choose from (Playground picks,
-      Needs you; 23 Nov 2026): no handle or arrow (a click selects, never leaves the page), the title and the line each clamped to two
-      lines, the status as a StatusDot and its word (a part's own status, never a boxed Tag), and the card's three rows (title, line,
-      status) on its grid parent's rows through subgrid, so in a row of pick cards every title, line and status sits at one height and the
-      status is pinned to the foot. The parent gives three rows (grid-template-rows: auto auto 1fr or similar); alone, the card lays its
-      rows out itself.
-    at: src/components/TaskCard/TaskCard.tsx:65
   - name: draggable
     type: boolean
     values:
@@ -183,15 +163,15 @@ props:
       - false
     required: false
     doc: Native drag, wired by the board.
-    at: src/components/TaskCard/TaskCard.tsx:67
+    at: src/components/TaskCard/TaskCard.tsx:57
   - name: onDragStart
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:68
+    at: src/components/TaskCard/TaskCard.tsx:58
   - name: onDragEnd
     type: DragEventHandler<HTMLElement>
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:69
+    at: src/components/TaskCard/TaskCard.tsx:59
   - name: entering
     type: boolean
     values:
@@ -203,7 +183,7 @@ props:
       Arrives (rule "Motion that shows what happened", items 4 and 6): a new card in Needs you, or one Undo brings back, pops in once on
       motion/duration/250 and motion/easing/pop. Set it only on the card that is new, never on first load. Reduced motion: it is simply
       there.
-    at: src/components/TaskCard/TaskCard.tsx:76
+    at: src/components/TaskCard/TaskCard.tsx:66
   - name: leaving
     type: boolean
     values:
@@ -214,20 +194,20 @@ props:
     doc: >-
       Leaves (item 6, Accept): the card slides out to the right and fades on motion/duration/250, then onLeft runs so the page removes it.
       Reduced motion: onLeft runs at once.
-    at: src/components/TaskCard/TaskCard.tsx:82
+    at: src/components/TaskCard/TaskCard.tsx:72
   - name: onLeft
     type: () => void
     required: false
     doc: Called once the card has left. Remove it then.
-    at: src/components/TaskCard/TaskCard.tsx:84
+    at: src/components/TaskCard/TaskCard.tsx:74
   - name: className
     type: string
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:85
+    at: src/components/TaskCard/TaskCard.tsx:75
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/TaskCard/TaskCard.tsx:86
+    at: src/components/TaskCard/TaskCard.tsx:76
 variants:
   statusTone:
     values:
@@ -238,12 +218,6 @@ variants:
       - neutral
     default: neutral
     at: src/components/TaskCard/TaskCard.tsx:29
-  use:
-    values:
-      - board
-      - pick
-    default: board
-    at: src/components/TaskCard/TaskCard.tsx:65
 states:
   contract:
     - default
@@ -256,7 +230,6 @@ states:
     - '[data-tone=''info'']'
     - '[data-tone=''attention'']'
     - '[data-tone=''danger'']'
-    - '[data-selected=''true'']'
     - focus-visible
     - '[data-bella-component=''tag'']'
 sizes: []
@@ -551,383 +524,347 @@ tokens:
       selector: .card[data-tone='danger']
       at: src/components/TaskCard/TaskCard.module.css:43
     - part: root
-      state: '[data-selected=''true'']'
-      property: border-color
-      token: '--color-border-utility-info'
-      selector: .card[data-selected='true']
-      at: src/components/TaskCard/TaskCard.module.css:48
-    - part: root
-      state: '[data-selected=''true'']'
-      property: outline
-      token: '--border-width-2'
-      selector: .card[data-selected='true']
-      at: src/components/TaskCard/TaskCard.module.css:49
-    - part: root
-      state: '[data-selected=''true'']'
-      property: outline
-      token: '--color-border-utility-info'
-      selector: .card[data-selected='true']
-      at: src/components/TaskCard/TaskCard.module.css:49
-    - part: root
-      state: '[data-selected=''true'']'
-      property: outline-offset
-      token: '--border-width-2'
-      selector: .card[data-selected='true']
-      at: src/components/TaskCard/TaskCard.module.css:50
-    - part: root
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .card:has(.open:focus-visible)
-      at: src/components/TaskCard/TaskCard.module.css:54
+      at: src/components/TaskCard/TaskCard.module.css:46
     - part: root
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .card:has(.open:focus-visible)
-      at: src/components/TaskCard/TaskCard.module.css:54
+      at: src/components/TaskCard/TaskCard.module.css:46
     - part: root
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .card:has(.open:focus-visible)
+      at: src/components/TaskCard/TaskCard.module.css:47
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-duration-200'
+      selector: .card
+      at: src/components/TaskCard/TaskCard.module.css:55
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-out'
+      selector: .card
       at: src/components/TaskCard/TaskCard.module.css:55
     - part: root
       state: rest
       property: transition
       token: '--motion-duration-200'
       selector: .card
-      at: src/components/TaskCard/TaskCard.module.css:63
+      at: src/components/TaskCard/TaskCard.module.css:55
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-out'
       selector: .card
-      at: src/components/TaskCard/TaskCard.module.css:63
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-duration-200'
-      selector: .card
-      at: src/components/TaskCard/TaskCard.module.css:63
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-easing-out'
-      selector: .card
-      at: src/components/TaskCard/TaskCard.module.css:63
+      at: src/components/TaskCard/TaskCard.module.css:55
     - part: dragging
       state: rest
       property: box-shadow
       token: '--shadow-lg'
       selector: .dragging
-      at: src/components/TaskCard/TaskCard.module.css:69
+      at: src/components/TaskCard/TaskCard.module.css:61
     - part: entering
       state: rest
       property: animation
       token: '--motion-duration-250'
       selector: .entering
-      at: src/components/TaskCard/TaskCard.module.css:77
+      at: src/components/TaskCard/TaskCard.module.css:69
     - part: entering
       state: rest
       property: animation
       token: '--motion-easing-pop'
       selector: .entering
-      at: src/components/TaskCard/TaskCard.module.css:77
+      at: src/components/TaskCard/TaskCard.module.css:69
     - part: leaving
       state: rest
       property: animation
       token: '--motion-duration-250'
       selector: .leaving
-      at: src/components/TaskCard/TaskCard.module.css:81
+      at: src/components/TaskCard/TaskCard.module.css:73
     - part: leaving
       state: rest
       property: animation
       token: '--motion-easing-standard'
       selector: .leaving
-      at: src/components/TaskCard/TaskCard.module.css:81
+      at: src/components/TaskCard/TaskCard.module.css:73
     - part: root
       state: rest
       property: transform
       token: '--spacing-8'
       selector: from
-      at: src/components/TaskCard/TaskCard.module.css:88
+      at: src/components/TaskCard/TaskCard.module.css:80
     - part: root
       state: rest
       property: transform
       token: '--spacing-24'
       selector: to
-      at: src/components/TaskCard/TaskCard.module.css:95
+      at: src/components/TaskCard/TaskCard.module.css:87
     - part: head
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .head
-      at: src/components/TaskCard/TaskCard.module.css:111
+      at: src/components/TaskCard/TaskCard.module.css:103
     - part: text
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .text
-      at: src/components/TaskCard/TaskCard.module.css:120
+      at: src/components/TaskCard/TaskCard.module.css:112
     - part: title
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .title
-      at: src/components/TaskCard/TaskCard.module.css:126
+      at: src/components/TaskCard/TaskCard.module.css:118
     - part: title
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .title
-      at: src/components/TaskCard/TaskCard.module.css:127
+      at: src/components/TaskCard/TaskCard.module.css:119
     - part: title
       state: rest
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .title
-      at: src/components/TaskCard/TaskCard.module.css:128
+      at: src/components/TaskCard/TaskCard.module.css:120
     - part: title
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .title
-      at: src/components/TaskCard/TaskCard.module.css:129
+      at: src/components/TaskCard/TaskCard.module.css:121
     - part: title
       state: rest
       property: color
       token: '--color-content-default'
       selector: .title
-      at: src/components/TaskCard/TaskCard.module.css:130
+      at: src/components/TaskCard/TaskCard.module.css:122
     - part: line
       state: rest
       property: font-family
       token: '--typography-subtext-font-family'
       selector: .line
-      at: src/components/TaskCard/TaskCard.module.css:155
+      at: src/components/TaskCard/TaskCard.module.css:147
     - part: line
       state: rest
       property: font-size
       token: '--typography-font-size-14'
       selector: .line
-      at: src/components/TaskCard/TaskCard.module.css:156
+      at: src/components/TaskCard/TaskCard.module.css:148
     - part: line
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .line
-      at: src/components/TaskCard/TaskCard.module.css:157
+      at: src/components/TaskCard/TaskCard.module.css:149
     - part: line
       state: rest
       property: line-height
       token: '--size-20'
       selector: .line
-      at: src/components/TaskCard/TaskCard.module.css:158
+      at: src/components/TaskCard/TaskCard.module.css:150
     - part: line
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .line
-      at: src/components/TaskCard/TaskCard.module.css:159
+      at: src/components/TaskCard/TaskCard.module.css:151
     - part: move
       state: rest
       property: inline-size
       token: '--size-20'
       selector: .move
-      at: src/components/TaskCard/TaskCard.module.css:189
+      at: src/components/TaskCard/TaskCard.module.css:181
     - part: move
       state: rest
       property: block-size
       token: '--size-24'
       selector: .move
-      at: src/components/TaskCard/TaskCard.module.css:190
+      at: src/components/TaskCard/TaskCard.module.css:182
     - part: move
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .move
-      at: src/components/TaskCard/TaskCard.module.css:191
+      at: src/components/TaskCard/TaskCard.module.css:183
     - part: move
       state: rest
       property: border-radius
       token: '--border-radius-lg'
       selector: button.move
-      at: src/components/TaskCard/TaskCard.module.css:196
+      at: src/components/TaskCard/TaskCard.module.css:188
     - part: move
       state: rest
       property: inset-block
       token: '--spacing-44'
       selector: button.move::after
-      at: src/components/TaskCard/TaskCard.module.css:202
+      at: src/components/TaskCard/TaskCard.module.css:194
     - part: move
       state: rest
       property: inset-block
       token: '--size-24'
       selector: button.move::after
-      at: src/components/TaskCard/TaskCard.module.css:202
+      at: src/components/TaskCard/TaskCard.module.css:194
     - part: move
       state: rest
       property: inset-inline
       token: '--spacing-44'
       selector: button.move::after
-      at: src/components/TaskCard/TaskCard.module.css:203
+      at: src/components/TaskCard/TaskCard.module.css:195
     - part: move
       state: rest
       property: inset-inline
       token: '--size-20'
       selector: button.move::after
-      at: src/components/TaskCard/TaskCard.module.css:203
+      at: src/components/TaskCard/TaskCard.module.css:195
     - part: move
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: button.move:focus-visible
-      at: src/components/TaskCard/TaskCard.module.css:207
+      at: src/components/TaskCard/TaskCard.module.css:199
     - part: move
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: button.move:focus-visible
-      at: src/components/TaskCard/TaskCard.module.css:207
+      at: src/components/TaskCard/TaskCard.module.css:199
     - part: move
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: button.move:focus-visible
-      at: src/components/TaskCard/TaskCard.module.css:208
+      at: src/components/TaskCard/TaskCard.module.css:200
     - part: status
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .status
-      at: src/components/TaskCard/TaskCard.module.css:215
+      at: src/components/TaskCard/TaskCard.module.css:207
     - part: content
       state: rest
       property: gap
       token: '--spacing-16'
       selector: .content
-      at: src/components/TaskCard/TaskCard.module.css:247
+      at: src/components/TaskCard/TaskCard.module.css:239
     - part: progress
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .progress
-      at: src/components/TaskCard/TaskCard.module.css:260
+      at: src/components/TaskCard/TaskCard.module.css:252
     - part: bar
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .bar
-      at: src/components/TaskCard/TaskCard.module.css:267
+      at: src/components/TaskCard/TaskCard.module.css:259
     - part: count
       state: rest
       property: font-family
       token: '--typography-number-font-family'
       selector: .count
-      at: src/components/TaskCard/TaskCard.module.css:277
+      at: src/components/TaskCard/TaskCard.module.css:269
     - part: count
       state: rest
       property: font-size
       token: '--typography-font-size-20'
       selector: .count
-      at: src/components/TaskCard/TaskCard.module.css:278
+      at: src/components/TaskCard/TaskCard.module.css:270
     - part: count
       state: rest
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .count
-      at: src/components/TaskCard/TaskCard.module.css:279
+      at: src/components/TaskCard/TaskCard.module.css:271
     - part: count
       state: rest
       property: line-height
       token: '--size-28'
       selector: .count
-      at: src/components/TaskCard/TaskCard.module.css:280
+      at: src/components/TaskCard/TaskCard.module.css:272
     - part: count
       state: rest
       property: color
       token: '--color-content-default'
       selector: .count
-      at: src/components/TaskCard/TaskCard.module.css:282
+      at: src/components/TaskCard/TaskCard.module.css:274
     - part: stepNow
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .stepNow
-      at: src/components/TaskCard/TaskCard.module.css:288
+      at: src/components/TaskCard/TaskCard.module.css:280
     - part: stepText
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .stepText
-      at: src/components/TaskCard/TaskCard.module.css:295
+      at: src/components/TaskCard/TaskCard.module.css:287
     - part: stepText
       state: rest
       property: font-size
       token: '--typography-font-size-14'
       selector: .stepText
-      at: src/components/TaskCard/TaskCard.module.css:296
+      at: src/components/TaskCard/TaskCard.module.css:288
     - part: stepText
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .stepText
-      at: src/components/TaskCard/TaskCard.module.css:297
+      at: src/components/TaskCard/TaskCard.module.css:289
     - part: stepText
       state: rest
       property: line-height
       token: '--size-20'
       selector: .stepText
-      at: src/components/TaskCard/TaskCard.module.css:298
+      at: src/components/TaskCard/TaskCard.module.css:290
     - part: stepText
       state: rest
       property: color
       token: '--color-content-default'
       selector: .stepText
-      at: src/components/TaskCard/TaskCard.module.css:299
+      at: src/components/TaskCard/TaskCard.module.css:291
     - part: stepMeta
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .stepMeta
-      at: src/components/TaskCard/TaskCard.module.css:308
+      at: src/components/TaskCard/TaskCard.module.css:300
     - part: stepMeta
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .stepMeta
-      at: src/components/TaskCard/TaskCard.module.css:309
+      at: src/components/TaskCard/TaskCard.module.css:301
     - part: stepMeta
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .stepMeta
-      at: src/components/TaskCard/TaskCard.module.css:310
+      at: src/components/TaskCard/TaskCard.module.css:302
     - part: stepMeta
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .stepMeta
-      at: src/components/TaskCard/TaskCard.module.css:311
+      at: src/components/TaskCard/TaskCard.module.css:303
     - part: stepMeta
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .stepMeta
-      at: src/components/TaskCard/TaskCard.module.css:313
-    - part: pick
-      state: rest
-      property: row-gap
-      token: '--spacing-4'
-      selector: .pick
-      at: src/components/TaskCard/TaskCard.module.css:333
-    - part: status
-      state: rest
-      property: padding-block-start
-      token: '--spacing-8'
-      selector: .pick .status
-      at: src/components/TaskCard/TaskCard.module.css:355
+      at: src/components/TaskCard/TaskCard.module.css:305
   values:
     '--border-radius-card':
       light: null
@@ -1069,7 +1006,7 @@ motion:
           value: null
         - token: '--motion-easing-out'
           value: null
-      at: src/components/TaskCard/TaskCard.module.css:63
+      at: src/components/TaskCard/TaskCard.module.css:55
     - selector: .entering
       state: rest
       declaration: 'animation: taskEnter var(--motion-duration-250) var(--motion-easing-pop) backwards'
@@ -1081,7 +1018,7 @@ motion:
       easings:
         - token: '--motion-easing-pop'
           value: null
-      at: src/components/TaskCard/TaskCard.module.css:77
+      at: src/components/TaskCard/TaskCard.module.css:69
     - selector: .leaving
       state: rest
       declaration: 'animation: taskLeave var(--motion-duration-250) var(--motion-easing-standard) forwards'
@@ -1093,34 +1030,34 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/TaskCard/TaskCard.module.css:81
+      at: src/components/TaskCard/TaskCard.module.css:73
   reducedMotion:
     selector: .entering, .leaving
     declaration: 'animation: none'
-    at: src/components/TaskCard/TaskCard.module.css:105
+    at: src/components/TaskCard/TaskCard.module.css:97
   reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/TaskCard/TaskCard.tsx:169
+    at: src/components/TaskCard/TaskCard.tsx:156
   role:
     value: null
     source: native element
-    at: src/components/TaskCard/TaskCard.tsx:169
+    at: src/components/TaskCard/TaskCard.tsx:156
   nameSource:
     value: visible content
-    at: src/components/TaskCard/TaskCard.tsx:169
+    at: src/components/TaskCard/TaskCard.tsx:156
   keyboard: []
   aria:
     - attribute: aria-label
       value: Move
-      at: src/components/TaskCard/TaskCard.tsx:183
+      at: src/components/TaskCard/TaskCard.tsx:170
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/TaskCard/TaskCard.tsx:187
+      at: src/components/TaskCard/TaskCard.tsx:174
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/TaskCard/TaskCard.tsx:203
+      at: src/components/TaskCard/TaskCard.tsx:190
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -1129,20 +1066,20 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/TaskCard/TaskCard.module.css:54
+      at: src/components/TaskCard/TaskCard.module.css:46
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/TaskCard/TaskCard.module.css:55
+      at: src/components/TaskCard/TaskCard.module.css:47
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .entering, .leaving
     declaration: 'animation: none'
-    at: src/components/TaskCard/TaskCard.module.css:105
+    at: src/components/TaskCard/TaskCard.module.css:97
   contract: >-
     An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is
     its own button, 44 target, named 'Move to…'. Text 7:1: title and line on background-surface 8.53:1 lowest, on the hover fill
@@ -1152,10 +1089,10 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label="Move to…"
-      at: src/components/TaskCard/TaskCard.tsx:183
+      at: src/components/TaskCard/TaskCard.tsx:170
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/TaskCard/TaskCard.tsx:203
+      at: src/components/TaskCard/TaskCard.tsx:190
 contrast:
   pairs: []
   derived: []
@@ -1298,15 +1235,6 @@ mismatch:
   - field: props.stopped
     code: boolean prop
     figma: not in the set
-  - field: props.draggable
-    code: boolean prop
-    figma: not in the set
-  - field: props.entering
-    code: boolean prop
-    figma: not in the set
-  - field: props.leaving
-    code: boolean prop
-    figma: not in the set
   - field: tokens.state=default, tone=default.itemSpacing
     code:
       - '--spacing-4'
@@ -1425,3 +1353,10 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: entering
+      why: plays the enter motion; Figma shows the resting card
+    - name: leaving
+      why: plays the leave motion; Figma shows the resting card
+    - name: draggable
+      why: turns on drag behaviour; the drag look is the dragging state

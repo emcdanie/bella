@@ -12,16 +12,19 @@ links:
   storyTitle: Components/Data/Progress
 props:
   - name: label
+    figmaName: Label
     type: ReactNode
     required: true
     doc: Figma "Label". What is measured. Stays the accessible name when hidden.
     at: src/components/Progress/Progress.tsx:79
   - name: value
+    figmaName: Value
     type: ReactNode
     required: false
     doc: Figma "Value". The amount in words ("60%", "4 of 6").
     at: src/components/Progress/Progress.tsx:81
   - name: showLabel
+    figmaName: Show label
     type: boolean
     values:
       - true
@@ -31,6 +34,7 @@ props:
     doc: Figma "Show label". Off hides the Head (label and value) visually.
     at: src/components/Progress/Progress.tsx:83
   - name: showTarget
+    figmaName: Show target
     type: boolean
     values:
       - true
@@ -40,6 +44,7 @@ props:
     doc: 'Figma "Show target". Bar only: a 32 row above the track with a "Target n%" label and a dashed line at `target`.'
     at: src/components/Progress/Progress.tsx:85
   - name: shape
+    figmaName: shape
     type: '''bar'' | ''segments'' | ''ring'''
     values:
       - bar
@@ -50,6 +55,7 @@ props:
     doc: Figma "shape".
     at: src/components/Progress/Progress.tsx:87
   - name: tone
+    figmaName: tone
     type: ProgressTone
     default: info
     required: false
@@ -1241,9 +1247,6 @@ mismatch:
   - field: props.showTargetLabel
     code: boolean prop
     figma: not in the set
-  - field: props.drawIn
-    code: boolean prop
-    figma: not in the set
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Progress/Progress.tsx
@@ -1253,3 +1256,6 @@ guidance:
   doDont: []
   anatomyParts: []
   inContext: []
+  codeOnly:
+    - name: drawIn
+      why: plays the fill-in motion on mount; Figma shows the end state

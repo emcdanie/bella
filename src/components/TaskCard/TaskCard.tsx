@@ -51,7 +51,7 @@ export interface TaskCardProps {
   href?: string;
   /** The whole card opens the task: a button. Ignored when `href` is set. */
   onOpen?: () => void;
-  /** Figma "Move to…" (the drag handle): the keyboard way to move the card; open a Menu of lanes from here. Missing = the handle is drawn but does nothing (pointer drag only). */
+  /** Figma "Move to…": its own button beside the drag handle (the handle only drags, 24 Nov 2026), the keyboard and click way to move the card; open a Menu of lanes from here. Missing = no Move to… button, the handle still drags. */
   onMoveTo?: () => void;
   /** Selected (Elleta's Workbench A, 23 Nov 2026): the card open on the stage in a strip of cards, outlined in the
    *  selection blue around its border; aria-current is the page's to set on the list item. */
@@ -179,13 +179,18 @@ export default function TaskCard({
             </Tag>
           ) : null}
         </div>
-        {use === 'pick' ? null : onMoveTo != null ? (
-          <button type="button" className={styles.move} onClick={onMoveTo} aria-label="Move to…">
-            <Icon name="DragHandle" size="md" />
-          </button>
-        ) : (
-          <span className={styles.move} aria-hidden="true">
-            <Icon name="DragHandle" size="md" />
+        {/* The handle only drags; Move to… is its own control beside it (24 Nov 2026 review: a click on the handle
+            opened a menu, so dragging and moving read as one control). */}
+        {use === 'pick' ? null : (
+          <span className={styles.actions}>
+            {onMoveTo != null ? (
+              <button type="button" className={styles.move} onClick={onMoveTo} aria-label="Move to…">
+                <Icon name="MoreHoriz" size="md" />
+              </button>
+            ) : null}
+            <span className={`${styles.move} ${draggable ? styles.grab : ''}`} aria-hidden="true">
+              <Icon name="DragHandle" size="md" />
+            </span>
           </span>
         )}
       </div>

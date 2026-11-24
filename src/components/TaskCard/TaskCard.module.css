@@ -152,9 +152,11 @@
 }
 
 /* Meta (22 Nov, "Meta lines at 14, reading text stays 16: B"): Geist Mono 14 on a 20 line (no line-height-px/20 token; size-20 carries it) */
+/* The line is a sentence ("Not measured · three parts…", "Answered, not landed yet"), so it reads in the body face; the
+   subtext face (mono in Chip) is for numbers only (24 Nov 2026 review). */
 .line {
   margin: 0;
-  font-family: var(--typography-subtext-font-family);
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-font-size-14);
   font-weight: var(--typography-font-weight-400);
   line-height: var(--size-20);
@@ -193,8 +195,21 @@
   color: var(--color-content-subtle);
 }
 
-button.move {
+/* the handle and Move to… side by side at the card's top right; the handle is a mark, the button a 44 target */
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.grab {
   cursor: grab;
+}
+
+button.move {
+  cursor: pointer;
   border-radius: var(--border-radius-lg);
 }
 

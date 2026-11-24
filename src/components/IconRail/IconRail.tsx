@@ -9,6 +9,11 @@ export interface IconRailProps {
   end?: ReactNode;
   /** Accessible name for the navigation landmark. */
   label?: string;
+  /**
+   * What stands at the top. Default the CHIP mark. An app whose rule is the whole logotype passes it here
+   * (CHIP, 24 Nov 2026: BrandWordmark word="CHIP" variant="logotype" in the rail's width); null leaves the top empty.
+   */
+  logo?: ReactNode;
   /** Extra classes on the rail. */
   className?: string;
   style?: CSSProperties;
@@ -16,11 +21,11 @@ export interface IconRailProps {
 
 /**
  * The app's first column (Figma "Icon rail", read 19 Nov 2026; no Figma
- * props). The CHIP mark once, at the top (the only place it appears), the
+ * props). The CHIP mark once (or the app's own `logo`), at the top (the only place it appears), the
  * places under it, and the end item at the bottom. The rail fills the
  * height and width its layout gives it; it sets neither.
  */
-export default function IconRail({ children, end, label = 'Main', className, style }: IconRailProps) {
+export default function IconRail({ children, end, label = 'Main', logo, className, style }: IconRailProps) {
   return (
     <nav
       aria-label={label}
@@ -28,9 +33,7 @@ export default function IconRail({ children, end, label = 'Main', className, sty
       style={style}
       data-bella-component="icon-rail"
     >
-      <span className={styles.logo}>
-        <BrandWordmark word="CHIP" variant="mark" />
-      </span>
+      {logo === null ? null : <span className={styles.logo}>{logo ?? <BrandWordmark word="CHIP" variant="mark" />}</span>}
       {children}
       {end != null ? <span className={styles.end}>{end}</span> : null}
     </nav>

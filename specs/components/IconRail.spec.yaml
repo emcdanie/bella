@@ -27,15 +27,22 @@ props:
     required: false
     doc: Accessible name for the navigation landmark.
     at: src/components/IconRail/IconRail.tsx:11
+  - name: logo
+    type: ReactNode
+    required: false
+    doc: >-
+      What stands at the top. Default the CHIP mark. An app whose rule is the whole logotype passes it here (CHIP, 24 Nov 2026:
+      BrandWordmark word="CHIP" variant="logotype" in the rail's width); null leaves the top empty.
+    at: src/components/IconRail/IconRail.tsx:16
   - name: className
     type: string
     required: false
     doc: Extra classes on the rail.
-    at: src/components/IconRail/IconRail.tsx:13
+    at: src/components/IconRail/IconRail.tsx:18
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/IconRail/IconRail.tsx:14
+    at: src/components/IconRail/IconRail.tsx:19
 variants: {}
 states:
   contract:
@@ -302,19 +309,19 @@ motion:
 a11y:
   element:
     tag: nav
-    at: src/components/IconRail/IconRail.tsx:25
+    at: src/components/IconRail/IconRail.tsx:30
   role:
     value: navigation
     source: native element
-    at: src/components/IconRail/IconRail.tsx:25
+    at: src/components/IconRail/IconRail.tsx:30
   nameSource:
     value: aria-label from the label prop
-    at: src/components/IconRail/IconRail.tsx:25
+    at: src/components/IconRail/IconRail.tsx:30
   keyboard: []
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/IconRail/IconRail.tsx:26
+      at: src/components/IconRail/IconRail.tsx:31
   focusRing: []
   disabled:
     prop: null
@@ -325,13 +332,12 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/IconRail/IconRail.tsx:26
+      at: src/components/IconRail/IconRail.tsx:31
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    src/components/IconRail/IconRail.stories.tsx
+  file: src/components/IconRail/IconRail.stories.tsx
   lines: 48-49
   import: import IconRail from '@bella/components/IconRail/IconRail';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -350,6 +356,9 @@ figma:
   variants: []
   defaultVariant: Icon rail
 mismatch:
+  - field: props.logo
+    code: ReactNode slot (default the CHIP mark)
+    figma: not in the set
   - field: tokens.Nav · Home.itemSpacing
     code:
       - '--spacing-8'

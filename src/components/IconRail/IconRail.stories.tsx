@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 import IconRail from './IconRail';
 import NavItem from '../NavItem/NavItem';
+import BrandWordmark from '../BrandWordmark/BrandWordmark';
 import cssRaw from './IconRail.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -22,7 +23,7 @@ const meta: Meta<typeof IconRail> = {
     docs: { page: ComponentDocsPage },
     bellaDocs: { tokens: consumedTokens, a11y: contract.a11y },
   },
-  argTypes: { children: { control: false }, end: { control: false }, className: { control: false }, style: { control: false } },
+  argTypes: { children: { control: false }, end: { control: false }, logo: { control: false }, className: { control: false }, style: { control: false } },
 };
 export default meta;
 
@@ -67,5 +68,26 @@ export const Behavior: Story = {
     for (const name of ['Home', 'Projects', 'Not again', 'Team', 'System map', 'Settings']) {
       expect(canvas.getByRole('button', { name })).toBeInTheDocument();
     }
+  },
+};
+
+/** logo (CHIP, 24 Nov 2026): the whole CHIP logotype at the top, in the rail's width less 8 a side, where CHIP's rule
+ * is the logotype, never the mark alone. Still one CHIP image, named once. */
+export const WithLogotype: Story = {
+  render: () => (
+    <div style={{ inlineSize: 72, blockSize: 640, background: 'var(--color-background-default)' }}>
+      <IconRail
+        logo={<span style={{ display: 'block', inlineSize: 'calc(var(--spacing-48) + var(--spacing-8))' }}><BrandWordmark word="CHIP" variant="logotype" size="full-bleed" /></span>}
+        end={<NavItem iconOnly label="Settings" icon="Settings" />}
+      >
+        <Places />
+      </IconRail>
+    </div>
+  ),
+  play: async ({ canvas, canvasElement }) => {
+    expect(canvas.getByRole('navigation', { name: 'Main' })).toBeInTheDocument();
+    const logo = canvasElement.querySelector('[data-bella-component="icon-rail"] > span') as HTMLElement;
+    expect(Math.round(logo.getBoundingClientRect().width)).toBeLessThanOrEqual(72);
+    expect(canvasElement.querySelectorAll('[data-bella-logotype]')).toHaveLength(1);
   },
 };

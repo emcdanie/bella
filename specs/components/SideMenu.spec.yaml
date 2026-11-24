@@ -16,25 +16,25 @@ props:
     default: Main
     required: false
     doc: The nav landmark's name. Default "Main".
-    at: src/components/SideMenu/SideMenu.tsx:24
+    at: src/components/SideMenu/SideMenu.tsx:30
   - name: client
     type: string
     default: BELLA
     required: false
     doc: Switcher name, the plain Client switcher ("BELLA ⌄").
-    at: src/components/SideMenu/SideMenu.tsx:26
+    at: src/components/SideMenu/SideMenu.tsx:32
   - name: clientLogo
     type: ReactNode
     required: false
     doc: >-
       The client's own logo in the switcher, in place of the visible name (CHIP, 23 Nov 2026), e.g. BrandWordmark word="BELLA". `client`
       stays the accessible name.
-    at: src/components/SideMenu/SideMenu.tsx:28
+    at: src/components/SideMenu/SideMenu.tsx:34
   - name: onClientClick
     type: () => void
     required: false
     doc: Opens the client list.
-    at: src/components/SideMenu/SideMenu.tsx:30
+    at: src/components/SideMenu/SideMenu.tsx:36
   - name: clientExpanded
     type: boolean
     values:
@@ -42,30 +42,41 @@ props:
       - false
     required: false
     doc: Whether the client list is open (aria-expanded on the switcher).
-    at: src/components/SideMenu/SideMenu.tsx:32
+    at: src/components/SideMenu/SideMenu.tsx:38
+  - name: search
+    type: ReactNode
+    required: false
+    doc: >-
+      The Find field at the top of the menu, over the first row (CHIP, 23 Nov 2026: one search, where Figma has its Find field). A
+      SearchField, and after it at most one icon Button (its filter): the field takes the room, the button keeps its 44. The slot is the
+      menu's search landmark. Leave the Search row out of `items` when this is set.
+    at: src/components/SideMenu/SideMenu.tsx:44
   - name: items
     type: SideMenuItem[]
     required: true
-    doc: 'Group · Go to: Search, Home, Needs you (count), Not again.'
-    at: src/components/SideMenu/SideMenu.tsx:34
+    doc: >-
+      Group · Go to: Home, Needs you (count), Not again (and a Search row when there is no `search` slot). An item's `sub` (ReactNode) is
+      what opens under it while it is current (CHIP, 23 Nov 2026: System's component list), indented on a 2 line, flowing with the menu's
+      scroll.
+    at: src/components/SideMenu/SideMenu.tsx:46
   - name: pinned
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Pinned: what she pinned.'
-    at: src/components/SideMenu/SideMenu.tsx:36
+    at: src/components/SideMenu/SideMenu.tsx:48
   - name: projects
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Group · Projects: one Folder row per project.'
-    at: src/components/SideMenu/SideMenu.tsx:38
+    at: src/components/SideMenu/SideMenu.tsx:50
   - name: foot
     type: SideMenuItem[]
     default: '[]'
     required: false
     doc: 'Foot, pushed to the bottom: Team, Settings.'
-    at: src/components/SideMenu/SideMenu.tsx:40
+    at: src/components/SideMenu/SideMenu.tsx:52
   - name: showPinned
     figmaName: Show pinned
     type: boolean
@@ -75,7 +86,7 @@ props:
     default: true
     required: false
     doc: Figma "Show pinned".
-    at: src/components/SideMenu/SideMenu.tsx:42
+    at: src/components/SideMenu/SideMenu.tsx:54
   - name: showProjects
     figmaName: Show projects
     type: boolean
@@ -85,21 +96,21 @@ props:
     default: true
     required: false
     doc: Figma "Show projects".
-    at: src/components/SideMenu/SideMenu.tsx:44
+    at: src/components/SideMenu/SideMenu.tsx:56
   - name: onNavigate
     type: '(href: string, event: MouseEvent<HTMLElement>) => void'
     required: false
     doc: Called on every row click with the row's href, before navigation; call event.preventDefault() to route in the app.
-    at: src/components/SideMenu/SideMenu.tsx:46
+    at: src/components/SideMenu/SideMenu.tsx:58
   - name: className
     type: string
     required: false
     doc: Extra classes on the menu.
-    at: src/components/SideMenu/SideMenu.tsx:48
+    at: src/components/SideMenu/SideMenu.tsx:60
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SideMenu/SideMenu.tsx:49
+    at: src/components/SideMenu/SideMenu.tsx:61
 variants: {}
 states:
   contract:
@@ -716,14 +727,14 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:111
   role:
     value: null
     source: native element
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:111
   nameSource:
     value: visible content
-    at: src/components/SideMenu/SideMenu.tsx:94
+    at: src/components/SideMenu/SideMenu.tsx:111
   keyboard: []
   aria:
     - attribute: aria-current
@@ -731,10 +742,10 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - attribute: aria-labelledby
       value: headId
-      at: src/components/SideMenu/SideMenu.tsx:98
+      at: src/components/SideMenu/SideMenu.tsx:115
     - attribute: aria-label
       value: label
-      at: src/components/SideMenu/SideMenu.tsx:107
+      at: src/components/SideMenu/SideMenu.tsx:122
   focusRing: []
   disabled:
     prop: null
@@ -751,10 +762,10 @@ a11y:
       at: src/components/SideMenu/SideMenu.tsx:16
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/SideMenu/SideMenu.tsx:98
+      at: src/components/SideMenu/SideMenu.tsx:115
     - kind: ARIA
       value: aria-label
-      at: src/components/SideMenu/SideMenu.tsx:107
+      at: src/components/SideMenu/SideMenu.tsx:122
 contrast:
   pairs: []
   derived: []

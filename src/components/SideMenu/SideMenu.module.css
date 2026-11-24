@@ -36,10 +36,14 @@
 }
 
 .search {
+  /* above the rows' scroll: the rows' ring room reaches 4 under the field, so a scrolled row would show through */
+  position: relative;
+  z-index: 1;
   display: flex;
   flex: none;
   align-items: center;
   gap: var(--spacing-4);
+  background: var(--color-background-surface);
 }
 
 .search > :first-child {
@@ -65,6 +69,8 @@
   /* room for the 4 + 4 outside focus ring of a row, so the scroll box never clips it */
   margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
   padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+  /* a row the keyboard reaches scrolls in with its ring room too, so its ring is never cut at the scroll's edge */
+  scroll-padding-block: calc(var(--focus-ring-width) + var(--focus-ring-offset));
 }
 
 /* When the rows don't fit (a short window), the list scrolls above the fixed foot. Its bottom edge then shows as a 1px
@@ -120,4 +126,17 @@
 
 .foot {
   margin-block-start: auto;
+}
+
+/* a row's sub-list (CHIP, 23 Nov 2026: the component list under System): 4 under its row, indented to the row's label
+   (the row's 12 padding plus the icon's 24 less the line), on a 2-wide line in border/default so it reads as the row's
+   own; its parts (a find field, chips, tree rows) bring their own look. It flows with the menu's scroll. */
+.sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin-block-start: var(--spacing-4);
+  margin-inline-start: var(--spacing-20);
+  padding-inline-start: var(--spacing-8);
+  border-inline-start: var(--border-width-2) solid var(--color-border-default);
 }

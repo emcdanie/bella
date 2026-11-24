@@ -6,6 +6,7 @@ import BrandWordmark from '../BrandWordmark/BrandWordmark';
 import SearchField from '../SearchField/SearchField';
 import Button from '../Button/Button';
 import Tooltip from '../Tooltip/Tooltip';
+import TreeItem from '../TreeItem/TreeItem';
 import cssRaw from './SideMenu.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -156,6 +157,57 @@ export const WithSearch: Story = {
       await expect(document.activeElement).toBe(home);
       // the snapshot shows the menu at rest
       (document.activeElement as HTMLElement | null)?.blur();
+    });
+  },
+};
+
+/** A row's sub-list (CHIP, 23 Nov 2026): System's components open under System, a find field first, then the parts
+ *  grouped by her task (Needs work open, Pinned, All). The group's name says the state, so its rows carry no mark. */
+export const WithSub: Story = {
+  args: {
+    items: [
+      { label: 'Home', href: '#home', icon: 'Home' },
+      {
+        label: 'System',
+        href: '#system',
+        icon: 'ViewGrid',
+        current: true,
+        sub: (
+          <>
+            <SearchField placeholder="Find a part" showShortcut={false} />
+            <ul style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)', margin: 0, padding: 0, listStyle: 'none' }} aria-label="Components">
+              <li><TreeItem kind="group" label="Needs work" count={2} open /></li>
+              <li><TreeItem kind="item" label="AppTile" href="#apptile" /></li>
+              <li><TreeItem kind="item" label="Icon" href="#icon" current /></li>
+              <li><TreeItem kind="group" label="Pinned" count={1} open={false} /></li>
+              <li><TreeItem kind="group" label="All" count={98} open={false} /></li>
+            </ul>
+          </>
+        ),
+      },
+      { label: 'Needs you', href: '#needs-you', icon: 'Bell', badge: 3 },
+    ],
+  },
+  render: (args) => (
+    <div style={{ background: 'var(--color-background-default)', paddingInlineEnd: 'var(--spacing-32)' }}>
+      <Column {...args} />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const c = within(canvasElement);
+    const system = c.getByRole('link', { name: 'System' });
+    const field = c.getByRole('searchbox', { name: 'Find a part' });
+    const box = field.closest('[data-bella-component="search-field"]') as HTMLElement;
+    const next = c.getByRole('link', { name: /Needs you/ });
+    const r = (el: Element) => el.getBoundingClientRect();
+    await step('the sub-list sits under its row, indented, before the next row', async () => {
+      await expect(Math.round(r(box).top - r(system).bottom)).toBe(4);
+      await expect(r(box).left).toBeGreaterThan(r(system).left);
+      await expect(r(next).top).toBeGreaterThan(r(box).bottom);
+    });
+    await step('its rows keep their 44 targets and the field its 44', async () => {
+      await expect(Math.round(r(box).height)).toBe(44);
+      await expect(Math.round(r(c.getByRole('link', { name: 'AppTile' })).height)).toBeGreaterThanOrEqual(44);
     });
   },
 };

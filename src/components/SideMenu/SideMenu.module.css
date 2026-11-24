@@ -67,6 +67,29 @@
   padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
 }
 
+/* When the rows don't fit (a short window), the list scrolls above the fixed foot. Its bottom edge then shows as a 1px
+   line in border/default, so a cut row reads as more to scroll, not as a row lying under Team (CHIP, 24 Nov 2026).
+   Shown only while there is more below (scroll-state query); where it isn't supported, no line. Never a fade. */
+.main {
+  container-type: scroll-state;
+}
+
+.edge {
+  display: none;
+  position: sticky;
+  inset-block-end: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
+  flex: none;
+  block-size: var(--border-width-1);
+  margin-block-start: calc(-1 * var(--spacing-16));
+  background: var(--color-border-default);
+}
+
+@container scroll-state(scrollable: bottom) {
+  .edge {
+    display: block;
+  }
+}
+
 .group {
   display: flex;
   flex-direction: column;

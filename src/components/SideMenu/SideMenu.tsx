@@ -118,6 +118,8 @@ export default function SideMenu({
         <ul className={styles.list}>{items.map((it) => row(it))}</ul>
         {showPinned && pinned.length ? group('Pinned', pinned) : null}
         {showProjects && projects.length ? group('Projects', projects, 'Folder') : null}
+        {/* the list's bottom edge while more rows sit below it (a line, never a fade); decorative */}
+        <span className={styles.edge} aria-hidden="true" />
       </div>
       {foot.length ? <ul className={[styles.list, styles.foot].join(' ')}>{foot.map((it) => row(it))}</ul> : null}
     </nav>

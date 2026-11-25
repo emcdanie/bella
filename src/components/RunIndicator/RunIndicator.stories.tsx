@@ -52,7 +52,7 @@ export const Behavior: Story = {
     return <RunIndicator state="running" title="Fix CheckRow's drift" stepDone={2} stepTotal={7} elapsed="2:41" onOpen={() => setOpen((o) => !o)} expanded={open} />;
   },
   play: async ({ canvas, step }) => {
-    const pill = canvas.getByRole('button', { name: /Running: Fix CheckRow's drift, Step 3 of 7, 2:41 so far/ });
+    const pill = canvas.getByRole('button', { name: /1 session running: Fix CheckRow's drift, Step 3 of 7, 2:41 so far/ });
     await step('named by the whole sentence, closed', async () => {
       await expect(pill).toHaveAttribute('aria-expanded', 'false');
     });

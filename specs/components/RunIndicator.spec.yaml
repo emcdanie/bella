@@ -23,7 +23,7 @@ props:
     type: number
     default: '1'
     required: false
-    doc: Figma "Count". How many runs are going (running). More than one reads "3 running"; one reads its title.
+    doc: Figma "Count". How many runs are going (running). Always named with what it counts (25 Nov 2026: "2 running" was read as the reader's own progress): "2 sessions running", "1 session running", with the one session's title beside it.
     at: src/components/RunIndicator/RunIndicator.tsx:14
   - name: title
     type: ReactNode
@@ -500,7 +500,7 @@ a11y:
     declaration: 'transition: none'
     at: src/components/RunIndicator/RunIndicator.module.css:117
   contract: >-
-    Button when it opens the list (aria-expanded), otherwise role=img; always named by the whole sentence ("Running: Fix CheckRow, Step 3 of
+    Button when it opens the list (aria-expanded), otherwise role=img; always named by the whole sentence ("1 session running: Fix CheckRow, Step 3 of
     7, 2:41 so far"). A status region announces start and end, never the ticking time. 44 high; edge 3:1; narrow screens keep the ring and
     the count and the name stays full.
   targetPx: null

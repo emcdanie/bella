@@ -10,7 +10,7 @@ const RING: Record<RunIndicatorState, ProgressRingState> = { idle: 'waiting', ru
 export interface RunIndicatorProps {
   /** Figma "state". idle reads "Nothing running" in grey, in the same place, so a quiet screen is never ambiguous; running shows the count, the step and the time; done and failed name the run that just ended. */
   state?: RunIndicatorState;
-  /** Figma "Count". How many runs are going (running). More than one reads "3 running"; one reads its title. */
+  /** Figma "Count". How many runs are going (running). Always named with what it counts (25 Nov 2026: "2 running" was read as the reader's own progress): "2 sessions running", "1 session running", with the one session's title beside it. */
   count?: number;
   /** Figma "Title". The run it speaks of: the one running, or the one that just ended. */
   title?: ReactNode;
@@ -57,12 +57,13 @@ export default function RunIndicator({
   const name = typeof title === 'string' ? title : undefined;
   const head =
     state === 'idle' ? 'Nothing running'
-    : state === 'running' ? (many ? `${count} running` : (title ?? '1 running'))
+    : state === 'running' ? `${count} ${count === 1 ? 'session' : 'sessions'} running`
     : state === 'done' ? 'Done'
     : 'Did not land';
-  const tail = state === 'done' || state === 'failed' ? title : null;
+  // the one session's name sits beside the count; done and failed name the run that just ended
+  const tail = state === 'done' || state === 'failed' || (state === 'running' && !many) ? title : null;
   const said = [
-    state === 'idle' ? 'Nothing running' : state === 'running' ? (many ? `${count} runs running` : `Running${name ? `: ${name}` : ''}`) : `${head}${name ? `: ${name}` : ''}`,
+    state === 'idle' ? 'Nothing running' : state === 'running' ? `${head}${!many && name ? `: ${name}` : ''}` : `${head}${name ? `: ${name}` : ''}`,
     state === 'running' && !many ? step : null,
     state === 'running' && time ? `${time} so far` : null,
   ].filter(Boolean).join(', ');
@@ -88,7 +89,7 @@ export default function RunIndicator({
   const cls = [styles.root, onOpen ? styles.action : '', className].filter(Boolean).join(' ');
   const live = (
     <span className={styles.srOnly} role="status">
-      {state === 'idle' ? '' : state === 'running' ? (many ? `${count} runs running` : `Running${name ? `: ${name}` : ''}`) : `${head}${name ? `: ${name}` : ''}`}
+      {state === 'idle' ? '' : state === 'running' ? `${head}${!many && name ? `: ${name}` : ''}` : `${head}${name ? `: ${name}` : ''}`}
     </span>
   );
   return onOpen ? (

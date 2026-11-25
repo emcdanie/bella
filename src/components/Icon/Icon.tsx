@@ -1,5 +1,5 @@
 import React, { type CSSProperties } from 'react';
-import { GLYPHS, BRAND_GLYPHS, type BrandName, type IconName } from './registry';
+import { GLYPHS, BRAND_GLYPHS, BRAND_VIEWBOX, type BrandName, type IconName } from './registry';
 
 export type { IconName };
 
@@ -36,7 +36,7 @@ export default function Icon({ name, size = 'md', label, className, style }: Ico
     <svg
       data-bella-icon=""
       data-bella-brand={brand ? '' : undefined}
-      viewBox="0 0 24 24"
+      viewBox={(brand && BRAND_VIEWBOX[name as BrandName]) || '0 0 24 24'}
       fill={brand ? 'currentColor' : 'none'}
       stroke={brand ? 'none' : 'currentColor'}
       strokeLinecap="round"

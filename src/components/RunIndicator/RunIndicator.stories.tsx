@@ -62,3 +62,26 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** At the app pane's width (685) and narrower the count's words stay whole; only the title shortens (25 Nov). */
+export const NarrowKeepsTheCount: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {[42.8, 30, 24].map((rem) => (
+        <div key={rem} style={{ inlineSize: `${rem}rem`, display: 'flex' }} data-testid={`w${rem}`}>
+          <RunIndicator state="running" count={1} title="Fix CheckRow's drift across every part" stepDone={2} stepTotal={7} elapsed="2:41" onOpen={() => {}} />
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('"1 session running" is never cut; only the title gives way', async () => {
+      for (const head of Array.from(canvasElement.querySelectorAll<HTMLElement>('[data-bella-text] > span:first-child'))) {
+        await expect(head.textContent).toBe('1 session running');
+        await expect(head.scrollWidth).toBeLessThanOrEqual(head.clientWidth + 1);
+        const pill = head.closest('[data-bella-component="run-indicator"]') as HTMLElement;
+        await expect(pill.getBoundingClientRect().right).toBeLessThanOrEqual(pill.parentElement!.getBoundingClientRect().right + 1);
+      }
+    });
+  },
+};

@@ -29,7 +29,7 @@
   transition: background var(--motion-duration-150) var(--motion-easing-standard);
 }
 
-.chip:hover {
+.chip:hover:not(:disabled) {
   border-color: var(--color-border-ink);
   background: var(--color-border-subtle);
 }
@@ -42,6 +42,9 @@
   outline-offset: var(--focus-ring-offset);
 }
 
+/* Disabled (kept and drawn, 25 Nov 2026): the native attribute blocks clicks
+   and focus; the grey word at 7:1 and the faint edge, and hover no longer
+   paints a disabled chip. */
 .chip:disabled {
   cursor: not-allowed;
   color: var(--color-content-subtle);

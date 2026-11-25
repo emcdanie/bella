@@ -7,19 +7,22 @@ lead:
 category: Layout
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-eyebrow--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-eyebrow--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Eyebrow/Eyebrow.tsx
-  storyTitle: Components/Eyebrow
+  storyTitle: Components/Layout/Eyebrow
 props:
-  - name: variant
+  - name: tone
+    figmaName: tone
     type: '''muted'' | ''ink'''
     values:
       - muted
       - ink
     default: muted
     required: false
-    doc: '`"muted"` (default) is text-body; `"ink"` is text-primary, for an eyebrow that leads a part.'
-    at: src/components/Eyebrow/Eyebrow.tsx:6
+    doc: >-
+      The text colour (BELLA: tone = colour, variant = style; renamed from `variant`, 25 Nov 2026). `"muted"` (default) is text-body;
+      `"ink"` is text-primary, for an eyebrow that leads a part.
+    at: src/components/Eyebrow/Eyebrow.tsx:7
   - name: as
     type: '''p'' | ''span'' | ''div'''
     values:
@@ -29,29 +32,29 @@ props:
     default: p
     required: false
     doc: Semantic element. An eyebrow is a label above a heading, never the heading.
-    at: src/components/Eyebrow/Eyebrow.tsx:8
+    at: src/components/Eyebrow/Eyebrow.tsx:9
   - name: className
     type: string
     required: false
-    at: src/components/Eyebrow/Eyebrow.tsx:9
+    at: src/components/Eyebrow/Eyebrow.tsx:10
   - name: children
     type: ReactNode
     required: false
-    at: src/components/Eyebrow/Eyebrow.tsx:10
+    at: src/components/Eyebrow/Eyebrow.tsx:11
 variants:
-  variant:
+  tone:
     values:
       - muted
       - ink
     default: muted
-    at: src/components/Eyebrow/Eyebrow.tsx:6
+    at: src/components/Eyebrow/Eyebrow.tsx:7
   as:
     values:
       - p
       - span
       - div
     default: p
-    at: src/components/Eyebrow/Eyebrow.tsx:8
+    at: src/components/Eyebrow/Eyebrow.tsx:9
 states:
   contract:
     - default
@@ -192,7 +195,7 @@ a11y:
     prop: null
     note: no disabled prop
   reducedMotion: null
-  contract: '13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.'
+  contract: '16px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.'
   targetPx: null
   ariaChips: []
 contrast:
@@ -212,11 +215,11 @@ usage:
   dont:
     - 'Do not use as a heading: eyebrows complement a heading, never replace one'
     - 'Never an accent colour: wayfinding is not action'
-    - Never below 13px, never tracked, never uppercased
+    - Never below 16px, never tracked, never uppercased
   source: tokens/contracts.json
 figma:
   nodeId: '405:17147'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#405:6:
       type: TEXT
@@ -247,16 +250,9 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-eyebrow--docs
 mismatch:
-  - field: props.tone
-    code: no such prop
-    figma:
-      - muted
-      - ink
-  - field: props.variant
-    code:
-      - muted
-      - ink
-    figma: no such variant property
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-layout-eyebrow--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-eyebrow--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Eyebrow/Eyebrow.tsx

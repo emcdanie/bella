@@ -5,10 +5,11 @@ export interface PinProps {
   /** The number on the disc. Missing = Figma label=false: a 28 disc with a 10 dot in the
    * tone's status colour (her "On the stage" pins). Then say what it marks nearby or in ariaLabel. */
   number?: ReactNode;
-  /** The pop colour of the ring. It groups pins; it never means a status. */
-  variant?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
-  /** Figma "style". dot (default): the card disc with a pop-colour ring. solid: the disc filled in the tone with an ink number and a 2px surface edge (anatomy pins, the Tour step). comment: a comment's pin as Figma draws it (Elleta, 23 Nov 2026: "I want my comments to look like the Figma ones"): the author's initials on a pink teardrop (pink is for annotations) whose point (bottom left) marks the spot, with a white edge and the card's shadow; pass the initials as `number`. */
-  pinStyle?: 'dot' | 'solid' | 'comment';
+  /** Figma "tone": the pop colour of the ring. It groups pins; it never means a status. (Named `variant` until 25 Nov
+   *  2026; BELLA: tone = colour, variant = style.) */
+  tone?: 'yellow' | 'pink' | 'blue' | 'red' | 'green';
+  /** Figma "style" (named `pinStyle` until 25 Nov 2026). dot (default): the card disc with a pop-colour ring. solid: the disc filled in the tone with an ink number and a 2px surface edge (anatomy pins, the Tour step). comment: a comment's pin as Figma draws it (Elleta, 23 Nov 2026: "I want my comments to look like the Figma ones"): the author's initials on a pink teardrop (pink is for annotations) whose point (bottom left) marks the spot, with a white edge and the card's shadow; pass the initials as `number`. */
+  variant?: 'dot' | 'solid' | 'comment';
   /** The word beside the number. Without one, say what the pin means nearby. */
   label?: ReactNode;
   /** Makes the pin a button with a 44px box. */
@@ -29,8 +30,8 @@ export interface PinProps {
  */
 export default function Pin({
   number,
-  variant = 'pink',
-  pinStyle = 'dot',
+  tone = 'pink',
+  variant = 'dot',
   label,
   onClick,
   active = false,
@@ -39,7 +40,7 @@ export default function Pin({
   style,
 }: PinProps) {
   const bare = number == null;
-  const cls = [styles.pin, styles[variant], pinStyle === 'solid' ? styles.solid : pinStyle === 'comment' ? styles.comment : '', bare ? styles.bare : '', onClick ? styles.action : '', active ? styles.active : '', className]
+  const cls = [styles.pin, styles[tone], variant === 'solid' ? styles.solid : variant === 'comment' ? styles.comment : '', bare ? styles.bare : '', onClick ? styles.action : '', active ? styles.active : '', className]
     .filter(Boolean)
     .join(' ');
   const body = (

@@ -95,3 +95,29 @@ export const WithLeading: Story = {
     await expect(canvas.getByRole('combobox', { name: 'Sort' })).toBeVisible();
   },
 };
+
+/** disabled (25 Nov 2026): the native attribute, so the field takes no
+ * focus, clicks or keys; muted text on the subtle fill, as Input. */
+export const Disabled: Story = {
+  render: () => <Select label="Sort" value="recent" onChange={() => {}} options={SORTS} disabled />,
+  play: async ({ canvas }) => {
+    const select = canvas.getByRole('combobox', { name: 'Sort' }) as HTMLSelectElement;
+    await expect(select).toBeDisabled();
+    select.focus();
+    await expect(select).not.toHaveFocus();
+  },
+};
+
+/** error (25 Nov 2026): the danger edge and the message under the field,
+ * wired by aria-invalid and aria-describedby, as Input. */
+export const WithError: Story = {
+  render: () => (
+    <Select label="Sort" value="recent" onChange={() => {}} options={SORTS} error="Choose how to sort the list." />
+  ),
+  play: async ({ canvas }) => {
+    const select = canvas.getByRole('combobox', { name: 'Sort' });
+    await expect(select).toHaveAttribute('aria-invalid', 'true');
+    await expect(select).toHaveAccessibleDescription('Choose how to sort the list.');
+    await expect(canvas.getByRole('alert')).toHaveTextContent('Choose how to sort the list.');
+  },
+};

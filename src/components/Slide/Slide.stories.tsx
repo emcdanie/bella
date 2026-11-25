@@ -24,7 +24,7 @@ export const Content: Story = {
   render: () => (
     <div style={wrap}>
       <Slide label="Slide 3: Health and drift">
-        <Eyebrow variant="ink">Health and drift</Eyebrow>
+        <Eyebrow tone="ink">Health and drift</Eyebrow>
         <Heading tier="page" as="h2">Parts that differ from Figma</Heading>
         <Stat size="display" label="Parts that differ" value="89 of 98" />
       </Slide>
@@ -39,7 +39,7 @@ export const Scales: Story = {
       {['100%', '50%', '25%'].map((w) => (
         <div key={w} style={{ inlineSize: w }}>
           <Slide label={`Slide at ${w}`}>
-            <Eyebrow variant="ink">Same slide</Eyebrow>
+            <Eyebrow tone="ink">Same slide</Eyebrow>
             <Heading tier="page" as="h2">{w} of the width</Heading>
           </Slide>
         </div>

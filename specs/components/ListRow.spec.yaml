@@ -7,31 +7,221 @@ lead:
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-listrow--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-listrow--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/ListRow/ListRow.tsx
-  storyTitle: Components/ListRow
+  storyTitle: Components/Data/ListRow
 props:
   - name: title
     type: ReactNode
     required: true
-    doc: What the item is.
-    at: src/components/ListRow/ListRow.tsx:6
+    doc: What the item is. Figma Text stack "Title".
+    at: src/components/ListRow/ListRow.tsx:9
   - name: description
     type: ReactNode
     required: false
-    doc: One line of why it matters.
-    at: src/components/ListRow/ListRow.tsx:8
+    doc: One line of why it matters. Figma Text stack "Subtitle" in the zoned row.
+    at: src/components/ListRow/ListRow.tsx:11
+  - name: selected
+    type: boolean
+    values:
+      - true
+      - false
+    required: false
+    doc: Figma state=selected. Light blue, never pink. Hover, pressed and focus come from the row being a target (`href` / `onClick`).
+    at: src/components/ListRow/ListRow.tsx:20
+  - name: iconWell
+    figmaName: Left
+    type: ReactNode
+    required: false
+    doc: Figma "Left" › "↳ Icon well". An IconWell.
+    at: src/components/ListRow/ListRow.tsx:22
+  - name: pin
+    figmaName: "↳ Pin"
+    type: ReactNode
+    required: false
+    doc: Figma "Left" › "↳ Pin" (published 19 Nov). A Pin on the title line (anatomy lists).
+    at: src/components/ListRow/ListRow.tsx:24
+  - name: meta
+    figmaName: Middle
+    type: ReactNode
+    required: false
+    doc: >-
+      Figma "Middle" › Subtitle in the subtext face (Geist Mono in Chip): short meta, a code or a date ("OK #184 · 15 Oct"). Sentences go in
+      `description` (Lexend, her y23 answer).
+    at: src/components/ListRow/ListRow.tsx:26
+  - name: statusDot
+    figmaName: "↳ Status dot"
+    type: ReactNode
+    required: false
+    doc: Figma "Left" › "↳ Status dot". A StatusDot.
+    at: src/components/ListRow/ListRow.tsx:28
+  - name: avatar
+    figmaName: "↳ Avatar"
+    type: ReactNode
+    required: false
+    doc: Figma "Left" › "↳ Avatar". An Avatar.
+    at: src/components/ListRow/ListRow.tsx:30
+  - name: overline
+    type: ReactNode
+    required: false
+    doc: Figma Text stack "Overline".
+    at: src/components/ListRow/ListRow.tsx:32
+  - name: body
+    type: ReactNode
+    required: false
+    doc: Figma Text stack "Body".
+    at: src/components/ListRow/ListRow.tsx:34
+  - name: tag
+    figmaName: "↳ Tag"
+    type: ReactNode
+    required: false
+    doc: Figma "Middle" › "↳ Tag". A Tag.
+    at: src/components/ListRow/ListRow.tsx:36
+  - name: indent
+    figmaName: Indent
+    type: boolean
+    values:
+      - true
+      - false
+    required: false
+    doc: 'Figma "Indent" (21 Nov publish): a child row (↳), set in by the indent before its bar and text.'
+    at: src/components/ListRow/ListRow.tsx:38
+  - name: swatch
+    figmaName: "↳ Swatch"
+    type: string
+    required: false
+    doc: 'Figma Left "Swatch" (21 Nov publish): a 24 square of this colour (a token, e.g. var(--color-background-brand)), for colour roles.'
+    at: src/components/ListRow/ListRow.tsx:40
+  - name: textButton
+    figmaName: "↳ Text button"
+    type: ReactNode
+    required: false
+    doc: Figma "Middle" › "↳ Text button". A Button tertiary sm.
+    at: src/components/ListRow/ListRow.tsx:42
+  - name: statusBar
+    figmaName: "↳ Status bar"
+    type: '''neutral'' | ''strong'' | ''success'' | ''info'' | ''attention'' | ''danger'''
+    values:
+      - neutral
+      - strong
+      - success
+      - info
+      - attention
+      - danger
+    required: false
+    doc: >-
+      Figma "Middle" › "Lead" › "↳ Status bar" (20 Nov): a 4-wide rounded bar the height of the text, 12 from it, in a Tag tone. Use it
+      instead of the icon well, not with it. It also sets her 20 Nov hierarchy: overline 16 subtle, title 20 regular ink, description 16
+      subtle, all in the reading face (meta stays in the subtext face for times and numbers); the right stack centred, its text button (with
+      its own padding) over a `Tag variant="line"`, both plates on the row's right padding edge.
+    at: src/components/ListRow/ListRow.tsx:44
+  - name: barHierarchy
+    type: boolean
+    values:
+      - true
+      - false
+    required: false
+    doc: >-
+      The status bar's text hierarchy and centred zones without the bar itself (Figma Check row, 21 Nov publish: bar and Tag off, the nested
+      List item keeps Title 20 regular, Subtitle subtle, Content centred). Status-bar rows have it already.
+    at: src/components/ListRow/ListRow.tsx:46
+  - name: value
+    figmaName: Right
+    type: ReactNode
+    required: false
+    doc: Figma "Right" › "↳ Value" + "↳↳ Value text". Number face, 600.
+    at: src/components/ListRow/ListRow.tsx:48
+  - name: valueLabel
+    figmaName: "↳ Value label"
+    type: ReactNode
+    required: false
+    doc: 'Figma "Right" › "↳ Value label" (20 Nov): a word in the right column ("Open stories"), body face, 500. Value stays for numbers.'
+    at: src/components/ListRow/ListRow.tsx:50
+  - name: rightTag
+    figmaName: "↳ Right tag"
+    type: ReactNode
+    required: false
+    doc: 'Figma "Right" › "↳ Right tag" (20 Nov): an outlined Tag under the action, right-aligned.'
+    at: src/components/ListRow/ListRow.tsx:52
+  - name: subValue
+    figmaName: "↳ Sub value"
+    type: ReactNode
+    required: false
+    doc: Figma "Right" › "↳ Sub value" + "↳↳ Sub value text". Subtext face.
+    at: src/components/ListRow/ListRow.tsx:54
+  - name: actionButton
+    figmaName: "↳ Action button"
+    type: ReactNode
+    required: false
+    doc: Figma "Right" › "↳ Action button". An ActionChip or Button; same zone as `action`, wins when both are set.
+    at: src/components/ListRow/ListRow.tsx:56
+  - name: switch
+    figmaName: "↳ Switch"
+    type: ReactNode
+    required: false
+    doc: Figma "Right" › "↳ Switch". A Switch.
+    at: src/components/ListRow/ListRow.tsx:58
+  - name: trailing
+    figmaName: Trailing
+    type: boolean | TrailingIcon
+    required: false
+    doc: Figma "Trailing". The › (or ↗) Trailing part; the whole row is the target, so pass `href` or `onClick`.
+    at: src/components/ListRow/ListRow.tsx:60
+  - name: progress
+    figmaName: Below
+    type: ReactNode
+    required: false
+    doc: Figma "Below" › "↳ Progress". A slot (the Progress part).
+    at: src/components/ListRow/ListRow.tsx:62
+  - name: helperText
+    figmaName: "↳ Helper text"
+    type: ReactNode
+    required: false
+    doc: Figma "Below" › "↳ Helper text". A HelperText or a short line.
+    at: src/components/ListRow/ListRow.tsx:64
+  - name: divider
+    figmaName: "↳ Divider"
+    type: boolean
+    values:
+      - true
+      - false
+    required: false
+    doc: Figma "Below" › "↳ Divider". A 1px line under the row's content.
+    at: src/components/ListRow/ListRow.tsx:66
+  - name: href
+    type: string
+    required: false
+    doc: 'Makes the whole row the target (44+ tall): it opens this.'
+    at: src/components/ListRow/ListRow.tsx:68
+  - name: onClick
+    type: () => void
+    required: false
+    doc: 'Makes the whole row the target: it does this.'
+    at: src/components/ListRow/ListRow.tsx:70
+  - name: linkComponent
+    type: ElementType
+    required: false
+    doc: Router link component for `href`; defaults to a plain anchor.
+    at: src/components/ListRow/ListRow.tsx:72
+  - name: as
+    type: '''li'' | ''div'''
+    values:
+      - li
+      - div
+    required: false
+    doc: The row's element. `li` (default) inside a list, `div` elsewhere.
+    at: src/components/ListRow/ListRow.tsx:74
   - name: status
     type: ReactNode
     required: false
     doc: 'The status marker, with a word: a StatusPill.'
-    at: src/components/ListRow/ListRow.tsx:10
+    at: src/components/ListRow/ListRow.tsx:76
   - name: action
     figmaName: "↳ Action"
     type: ReactNode
     required: false
     doc: 'The one thing to do next: a Button, ActionChip or Link.'
-    at: src/components/ListRow/ListRow.tsx:12
+    at: src/components/ListRow/ListRow.tsx:78
   - name: titleAs
     type: '''span'' | ''h2'' | ''h3'' | ''h4'''
     values:
@@ -39,32 +229,56 @@ props:
       - h2
       - h3
       - h4
-    default: span
     required: false
     doc: Sets the title's level when the page needs one. Defaults to plain text.
-    at: src/components/ListRow/ListRow.tsx:14
+    at: src/components/ListRow/ListRow.tsx:80
   - name: className
     type: string
     required: false
     doc: Extra classes on the row.
-    at: src/components/ListRow/ListRow.tsx:16
+    at: src/components/ListRow/ListRow.tsx:82
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/ListRow/ListRow.tsx:17
+    at: src/components/ListRow/ListRow.tsx:83
 variants:
+  statusBar:
+    values:
+      - neutral
+      - strong
+      - success
+      - info
+      - attention
+      - danger
+    default: null
+    at: src/components/ListRow/ListRow.tsx:44
+  as:
+    values:
+      - li
+      - div
+    default: null
+    at: src/components/ListRow/ListRow.tsx:74
   titleAs:
     values:
       - span
       - h2
       - h3
       - h4
-    default: span
-    at: src/components/ListRow/ListRow.tsx:14
+    default: null
+    at: src/components/ListRow/ListRow.tsx:80
 states:
   contract:
     - default
-  css: []
+  css:
+    - '[data-tone=''strong'']'
+    - '[data-tone=''success'']'
+    - '[data-tone=''info'']'
+    - '[data-tone=''attention'']'
+    - '[data-tone=''danger'']'
+    - '[data-bella-component=''button'']'
+    - hover
+    - active
+    - focus-visible
 sizes: []
 anatomy:
   scaleWidth: 560
@@ -566,60 +780,546 @@ tokens:
       property: font-family
       token: '--typography-title-default-font-family'
       selector: .title
-      at: src/components/ListRow/ListRow.module.css:54
+      at: src/components/ListRow/ListRow.module.css:55
     - part: title
       state: rest
       property: font-size
       token: '--typography-font-size-22'
       selector: .title
-      at: src/components/ListRow/ListRow.module.css:55
+      at: src/components/ListRow/ListRow.module.css:56
     - part: title
       state: rest
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .title
-      at: src/components/ListRow/ListRow.module.css:56
+      at: src/components/ListRow/ListRow.module.css:57
     - part: title
       state: rest
       property: color
       token: '--color-content-default'
       selector: .title
-      at: src/components/ListRow/ListRow.module.css:57
+      at: src/components/ListRow/ListRow.module.css:58
     - part: description
       state: rest
       property: font-family
-      token: '--typography-subtext-font-family'
+      token: '--typography-body-default-font-family'
       selector: .description
-      at: src/components/ListRow/ListRow.module.css:63
+      at: src/components/ListRow/ListRow.module.css:68
     - part: description
       state: rest
       property: font-size
       token: '--typography-body-default-font-size'
       selector: .description
-      at: src/components/ListRow/ListRow.module.css:64
+      at: src/components/ListRow/ListRow.module.css:69
     - part: description
       state: rest
       property: line-height
       token: '--typography-line-height-150'
       selector: .description
-      at: src/components/ListRow/ListRow.module.css:65
+      at: src/components/ListRow/ListRow.module.css:70
     - part: description
       state: rest
       property: color
       token: '--color-content-body'
       selector: .description
-      at: src/components/ListRow/ListRow.module.css:66
+      at: src/components/ListRow/ListRow.module.css:71
+    - part: zoned
+      state: rest
+      property: gap
+      token: '--spacing-16'
+      selector: .zoned
+      at: src/components/ListRow/ListRow.module.css:111
+    - part: zoned
+      state: rest
+      property: min-block-size
+      token: '--spacing-44'
+      selector: .zoned
+      at: src/components/ListRow/ListRow.module.css:112
+    - part: zoned
+      state: rest
+      property: padding
+      token: '--spacing-12'
+      selector: .zoned
+      at: src/components/ListRow/ListRow.module.css:114
+    - part: zoned
+      state: rest
+      property: border-radius
+      token: '--border-radius-sm'
+      selector: .zoned
+      at: src/components/ListRow/ListRow.module.css:115
+    - part: left
+      state: rest
+      property: gap
+      token: '--spacing-8'
+      selector: .left
+      at: src/components/ListRow/ListRow.module.css:126
+    - part: body
+      state: rest
+      property: gap
+      token: '--spacing-12'
+      selector: .body
+      at: src/components/ListRow/ListRow.module.css:133
+    - part: content
+      state: rest
+      property: gap
+      token: '--spacing-16'
+      selector: .content
+      at: src/components/ListRow/ListRow.module.css:141
+    - part: middle
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .middle
+      at: src/components/ListRow/ListRow.module.css:152
+    - part: middle
+      state: rest
+      property: gap
+      token: '--spacing-12'
+      selector: .inline .middle
+      at: src/components/ListRow/ListRow.module.css:160
+    - part: lead
+      state: rest
+      property: gap
+      token: '--spacing-12'
+      selector: .lead
+      at: src/components/ListRow/ListRow.module.css:173
+    - part: barLabel
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .barLabel, .barTitle
+      at: src/components/ListRow/ListRow.module.css:191
+    - part: barLabel
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .barLabel, .barTitle
+      at: src/components/ListRow/ListRow.module.css:192
+    - part: barLabel
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .barLabel
+      at: src/components/ListRow/ListRow.module.css:195
+    - part: barTitle
+      state: rest
+      property: font-size
+      token: '--typography-font-size-20'
+      selector: .barTitle
+      at: src/components/ListRow/ListRow.module.css:198
+    - part: barTitle
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .barTitle
+      at: src/components/ListRow/ListRow.module.css:199
+    - part: barTitle
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .barTitle
+      at: src/components/ListRow/ListRow.module.css:200
+    - part: description
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .hasBar .description
+      at: src/components/ListRow/ListRow.module.css:203
+    - part: statusBar
+      state: rest
+      property: flex
+      token: '--spacing-4'
+      selector: .statusBar
+      at: src/components/ListRow/ListRow.module.css:215
+    - part: statusBar
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .statusBar
+      at: src/components/ListRow/ListRow.module.css:216
+    - part: statusBar
+      state: rest
+      property: background
+      token: '--color-border-utility-neutral'
+      selector: .statusBar
+      at: src/components/ListRow/ListRow.module.css:217
+    - part: statusBar
+      state: '[data-tone=''strong'']'
+      property: background
+      token: '--color-border-strong'
+      selector: .statusBar[data-tone='strong']
+      at: src/components/ListRow/ListRow.module.css:219
+    - part: statusBar
+      state: '[data-tone=''success'']'
+      property: background
+      token: '--color-border-utility-success'
+      selector: .statusBar[data-tone='success']
+      at: src/components/ListRow/ListRow.module.css:220
+    - part: statusBar
+      state: '[data-tone=''info'']'
+      property: background
+      token: '--color-border-utility-info'
+      selector: .statusBar[data-tone='info']
+      at: src/components/ListRow/ListRow.module.css:221
+    - part: statusBar
+      state: '[data-tone=''attention'']'
+      property: background
+      token: '--color-border-utility-warning'
+      selector: .statusBar[data-tone='attention']
+      at: src/components/ListRow/ListRow.module.css:222
+    - part: statusBar
+      state: '[data-tone=''danger'']'
+      property: background
+      token: '--color-border-utility-error'
+      selector: .statusBar[data-tone='danger']
+      at: src/components/ListRow/ListRow.module.css:223
+    - part: right
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .right
+      at: src/components/ListRow/ListRow.module.css:229
+    - part: right
+      state: rest
+      property: min-block-size
+      token: '--spacing-44'
+      selector: .right
+      at: src/components/ListRow/ListRow.module.css:231
+    - part: actionLine
+      state: rest
+      property: block-size
+      token: '--typography-line-height-px-24'
+      selector: .actionLine
+      at: src/components/ListRow/ListRow.module.css:245
+    - part: valueLabel
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .valueLabel
+      at: src/components/ListRow/ListRow.module.css:250
+    - part: valueLabel
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .valueLabel
+      at: src/components/ListRow/ListRow.module.css:251
+    - part: valueLabel
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-500'
+      selector: .valueLabel
+      at: src/components/ListRow/ListRow.module.css:252
+    - part: valueLabel
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .valueLabel
+      at: src/components/ListRow/ListRow.module.css:253
+    - part: valueLabel
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .valueLabel
+      at: src/components/ListRow/ListRow.module.css:254
+    - part: value
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .value
+      at: src/components/ListRow/ListRow.module.css:258
+    - part: value
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .value
+      at: src/components/ListRow/ListRow.module.css:259
+    - part: value
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .value
+      at: src/components/ListRow/ListRow.module.css:260
+    - part: value
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .value
+      at: src/components/ListRow/ListRow.module.css:261
+    - part: value
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .value
+      at: src/components/ListRow/ListRow.module.css:262
+    - part: subValue
+      state: rest
+      property: font-family
+      token: '--typography-subtext-font-family'
+      selector: .subValue
+      at: src/components/ListRow/ListRow.module.css:267
+    - part: subValue
+      state: rest
+      property: font-size
+      token: '--typography-font-size-14'
+      selector: .subValue
+      at: src/components/ListRow/ListRow.module.css:268
+    - part: subValue
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .subValue
+      at: src/components/ListRow/ListRow.module.css:269
+    - part: subValue
+      state: rest
+      property: line-height
+      token: '--size-20'
+      selector: .subValue
+      at: src/components/ListRow/ListRow.module.css:270
+    - part: subValue
+      state: rest
+      property: color
+      token: '--color-content-body'
+      selector: .subValue
+      at: src/components/ListRow/ListRow.module.css:271
+    - part: below
+      state: rest
+      property: gap
+      token: '--spacing-12'
+      selector: .below
+      at: src/components/ListRow/ListRow.module.css:277
+    - part: helper
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .helper
+      at: src/components/ListRow/ListRow.module.css:281
+    - part: helper
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .helper
+      at: src/components/ListRow/ListRow.module.css:282
+    - part: helper
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .helper
+      at: src/components/ListRow/ListRow.module.css:283
+    - part: helper
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .helper
+      at: src/components/ListRow/ListRow.module.css:284
+    - part: divider
+      state: rest
+      property: block-size
+      token: '--border-width-1'
+      selector: .divider
+      at: src/components/ListRow/ListRow.module.css:288
+    - part: divider
+      state: rest
+      property: background
+      token: '--color-border-subtle'
+      selector: .divider
+      at: src/components/ListRow/ListRow.module.css:291
+    - part: interactive
+      state: hover
+      property: background
+      token: '--color-background-brand-subtle'
+      selector: .interactive:hover
+      at: src/components/ListRow/ListRow.module.css:322
+    - part: interactive
+      state: active
+      property: background
+      token: '--color-background-subtle'
+      selector: .interactive:active
+      at: src/components/ListRow/ListRow.module.css:326
+    - part: selected
+      state: hover
+      property: background
+      token: '--color-background-brand-subtle-hover'
+      selector: .selected, .selected.interactive:hover
+      at: src/components/ListRow/ListRow.module.css:331
+    - part: description
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .selected .description, .selected .meta, .selected .subValue
+      at: src/components/ListRow/ListRow.module.css:339
+    - part: interactive
+      state: focus-visible
+      property: outline
+      token: '--focus-ring-width'
+      selector: .interactive:has(.target:focus-visible)
+      at: src/components/ListRow/ListRow.module.css:343
+    - part: interactive
+      state: focus-visible
+      property: outline
+      token: '--color-border-focus'
+      selector: .interactive:has(.target:focus-visible)
+      at: src/components/ListRow/ListRow.module.css:343
+    - part: interactive
+      state: focus-visible
+      property: outline-offset
+      token: '--focus-ring-offset'
+      selector: .interactive:has(.target:focus-visible)
+      at: src/components/ListRow/ListRow.module.css:344
+    - part: meta
+      state: rest
+      property: font-family
+      token: '--typography-subtext-font-family'
+      selector: .meta
+      at: src/components/ListRow/ListRow.module.css:355
+    - part: meta
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .meta
+      at: src/components/ListRow/ListRow.module.css:356
+    - part: content
+      state: rest
+      property: row-gap
+      token: '--spacing-8'
+      selector: .zoned:not(.inline) .content
+      at: src/components/ListRow/ListRow.module.css:365
+    - part: glow
+      state: rest
+      property: border-radius
+      token: '--border-radius-sm'
+      selector: .glow
+      at: src/components/ListRow/ListRow.module.css:381
+    - part: glow
+      state: rest
+      property: animation
+      token: '--motion-duration-900'
+      selector: .glow
+      at: src/components/ListRow/ListRow.module.css:382
+    - part: glow
+      state: rest
+      property: animation
+      token: '--motion-easing-standard'
+      selector: .glow
+      at: src/components/ListRow/ListRow.module.css:382
+    - part: root
+      state: rest
+      property: background-color
+      token: '--color-background-brand-subtle'
+      selector: 0%, 40%
+      at: src/components/ListRow/ListRow.module.css:386
+    - part: leadText
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .leadText
+      at: src/components/ListRow/ListRow.module.css:400
+    - part: indent
+      state: rest
+      property: flex
+      token: '--spacing-4'
+      selector: .indent
+      at: src/components/ListRow/ListRow.module.css:411
+    - part: swatch
+      state: rest
+      property: inline-size
+      token: '--size-24'
+      selector: .swatch
+      at: src/components/ListRow/ListRow.module.css:418
+    - part: swatch
+      state: rest
+      property: block-size
+      token: '--size-24'
+      selector: .swatch
+      at: src/components/ListRow/ListRow.module.css:419
+    - part: swatch
+      state: rest
+      property: border-radius
+      token: '--border-radius-sm'
+      selector: .swatch
+      at: src/components/ListRow/ListRow.module.css:420
+    - part: swatch
+      state: rest
+      property: box-shadow
+      token: '--border-width-1'
+      selector: .swatch
+      at: src/components/ListRow/ListRow.module.css:421
+    - part: swatch
+      state: rest
+      property: box-shadow
+      token: '--color-border-default'
+      selector: .swatch
+      at: src/components/ListRow/ListRow.module.css:421
   values:
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--border-radius-sm':
+      light: null
+      chip: null
     '--border-width-1':
       light: null
       chip: null
+    '--color-background-brand-subtle':
+      light: null
+      chip: null
+    '--color-background-brand-subtle-hover':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
     '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-border-utility-info':
+      light: null
+      chip: null
+    '--color-border-utility-neutral':
+      light: null
+      chip: null
+    '--color-border-utility-success':
+      light: null
+      chip: null
+    '--color-border-utility-warning':
       light: null
       chip: null
     '--color-content-body':
       light: null
       chip: null
     '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-900':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
+    '--size-20':
+      light: null
+      chip: null
+    '--size-24':
       light: null
       chip: null
     '--spacing-12':
@@ -634,16 +1334,43 @@ tokens:
     '--spacing-44':
       light: null
       chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
     '--typography-body-default-font-size':
       light: null
       chip: null
+    '--typography-font-size-14':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-size-20':
+      light: null
+      chip: null
     '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
       light: null
       chip: null
     '--typography-font-weight-600':
       light: null
       chip: null
     '--typography-line-height-150':
+      light: null
+      chip: null
+    '--typography-line-height-px-24':
+      light: null
+      chip: null
+    '--typography-number-font-family':
       light: null
       chip: null
     '--typography-subtext-font-family':
@@ -653,30 +1380,77 @@ tokens:
       light: null
       chip: null
 motion:
-  transitions: []
-  reducedMotion: null
-  reducedMotionQuery: false
+  transitions:
+    - selector: .glow
+      state: rest
+      declaration: 'animation: valueGlow var(--motion-duration-900) var(--motion-easing-standard) both'
+      properties:
+        - valueGlow var(--motion-duration-900) var(--motion-easing-standard) both
+      durations:
+        - token: '--motion-duration-900'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/ListRow/ListRow.module.css:382
+  reducedMotion:
+    selector: .glow
+    declaration: 'animation: none'
+    at: src/components/ListRow/ListRow.module.css:391
+  reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/ListRow/ListRow.tsx:35
+    at: src/components/ListRow/ListRow.tsx:101
   role:
-    value: null
-    source: native element
-    at: src/components/ListRow/ListRow.tsx:35
+    value: heading
+    source: role attribute
+    at: src/components/ListRow/ListRow.tsx:101
   nameSource:
     value: visible content
-    at: src/components/ListRow/ListRow.tsx:35
+    at: src/components/ListRow/ListRow.tsx:101
   keyboard: []
   aria:
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/ListRow/ListRow.tsx:36
-  focusRing: []
+      at: src/components/ListRow/ListRow.tsx:102
+    - attribute: aria-current
+      value: selected
+      at: src/components/ListRow/ListRow.tsx:208
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ListRow/ListRow.tsx:215
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ListRow/ListRow.tsx:222
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ListRow/ListRow.tsx:223
+    - attribute: aria-level
+      value: Number(titleAs.slice(1))
+      at: src/components/ListRow/ListRow.tsx:233
+  focusRing:
+    - property: outline
+      value: var(--focus-ring-width) solid var(--color-border-focus)
+      tokens:
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/ListRow/ListRow.module.css:343
+    - property: outline-offset
+      value: var(--focus-ring-offset)
+      tokens:
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/ListRow/ListRow.module.css:344
   disabled:
     prop: null
     note: no disabled prop
-  reducedMotion: null
+  reducedMotion:
+    selector: .glow
+    declaration: 'animation: none'
+    at: src/components/ListRow/ListRow.module.css:391
   contract: >-
     Verified 2026-11-07: an li in a ul. Title is text-primary, why is text-body, AAA on the ground and card in every theme. titleAs sets the
     heading level when the page needs one. The row holds no target of its own: its action brings its own 44px box.
@@ -684,12 +1458,21 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/ListRow/ListRow.tsx:36
+      at: src/components/ListRow/ListRow.tsx:102
+    - kind: ARIA
+      value: aria-current
+      at: src/components/ListRow/ListRow.tsx:208
+    - kind: ARIA
+      value: aria-hidden="true"
+      at: src/components/ListRow/ListRow.tsx:223
+    - kind: ARIA
+      value: aria-level
+      at: src/components/ListRow/ListRow.tsx:233
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/ListRow/ListRow.stories.tsx
+  file: ~/DEV/bella-props/src/components/ListRow/ListRow.stories.tsx
   lines: '52'
   import: import ListRow from '@bella/components/ListRow/ListRow';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -705,7 +1488,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '436:35'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     ↳ Tag#436:9:
       type: BOOLEAN
@@ -859,23 +1642,45 @@ mismatch:
     code:
       contract:
         - default
-      css: []
+      css:
+        - '[data-tone=''strong'']'
+        - '[data-tone=''success'']'
+        - '[data-tone=''info'']'
+        - '[data-tone=''attention'']'
+        - '[data-tone=''danger'']'
+        - '[data-bella-component=''button'']'
+        - hover
+        - active
+        - focus-visible
     figma:
       - default
       - hover
       - pressed
       - focus
       - selected
-  - field: tokens.layout=stacked, state=default.itemSpacing
+  - field: props.statusBar
     code:
-      - '--spacing-4'
-    figma: spacing/16
-    sameValueInChip: false
-  - field: tokens.Left.itemSpacing
+      - neutral
+      - strong
+      - success
+      - info
+      - attention
+      - danger
+    figma: no such variant property
+  - field: props.as
     code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
+      - li
+      - div
+    figma: no such variant property
+  - field: props.selected
+    code: boolean prop
+    figma: not in the set
+  - field: props.barHierarchy
+    code: boolean prop
+    figma: not in the set
+  - field: props.divider
+    code: boolean prop
+    figma: not in the set
   - field: tokens.Icon well.width
     code:
       - '--spacing-16'
@@ -888,10 +1693,29 @@ mismatch:
       - '--typography-font-size-22'
       - '--typography-font-weight-600'
       - '--color-content-default'
-      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-family'
       - '--typography-body-default-font-size'
       - '--typography-line-height-150'
       - '--color-content-body'
+      - '--border-radius-sm'
+      - '--spacing-8'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--typography-font-size-20'
+      - '--border-radius-round'
+      - '--color-border-utility-neutral'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-500'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--color-border-subtle'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+      - '--size-24'
     figma: size/36
     sameValueInChip: false
   - field: tokens.Icon well.height
@@ -906,22 +1730,40 @@ mismatch:
       - '--typography-font-size-22'
       - '--typography-font-weight-600'
       - '--color-content-default'
-      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-family'
       - '--typography-body-default-font-size'
       - '--typography-line-height-150'
       - '--color-content-body'
+      - '--border-radius-sm'
+      - '--spacing-8'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--typography-font-size-20'
+      - '--border-radius-round'
+      - '--color-border-utility-neutral'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-500'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--color-border-subtle'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+      - '--size-24'
     figma: size/36
     sameValueInChip: false
   - field: tokens.Icon well.fills
     code:
       - '--color-content-default'
       - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-border-utility-neutral'
+      - '--color-border-subtle'
+      - '--color-background-brand-subtle'
     figma: color/background/utility/info
-    sameValueInChip: false
-  - field: tokens.Status dot.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Avatar.width
     code:
@@ -935,10 +1777,29 @@ mismatch:
       - '--typography-font-size-22'
       - '--typography-font-weight-600'
       - '--color-content-default'
-      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-family'
       - '--typography-body-default-font-size'
       - '--typography-line-height-150'
       - '--color-content-body'
+      - '--border-radius-sm'
+      - '--spacing-8'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--typography-font-size-20'
+      - '--border-radius-round'
+      - '--color-border-utility-neutral'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-500'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--color-border-subtle'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+      - '--size-24'
     figma: spacing/48
     sameValueInChip: false
   - field: tokens.Avatar.height
@@ -953,61 +1814,59 @@ mismatch:
       - '--typography-font-size-22'
       - '--typography-font-weight-600'
       - '--color-content-default'
-      - '--typography-subtext-font-family'
+      - '--typography-body-default-font-family'
       - '--typography-body-default-font-size'
       - '--typography-line-height-150'
       - '--color-content-body'
+      - '--border-radius-sm'
+      - '--spacing-8'
+      - '--typography-font-weight-400'
+      - '--color-content-subtle'
+      - '--typography-font-size-20'
+      - '--border-radius-round'
+      - '--color-border-utility-neutral'
+      - '--typography-line-height-px-24'
+      - '--typography-font-size-16'
+      - '--typography-font-weight-500'
+      - '--typography-number-font-family'
+      - '--typography-subtext-font-family'
+      - '--typography-font-size-14'
+      - '--size-20'
+      - '--color-border-subtle'
+      - '--motion-duration-900'
+      - '--motion-easing-standard'
+      - '--color-background-brand-subtle'
+      - '--size-24'
     figma: spacing/48
     sameValueInChip: false
   - field: tokens.Avatar.fills
     code:
       - '--color-content-default'
       - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-border-utility-neutral'
+      - '--color-border-subtle'
+      - '--color-background-brand-subtle'
     figma: color/background/subtle
-    sameValueInChip: false
+    sameValueInChip: true
   - field: tokens.Avatar.strokes
     code:
       - '--border-width-1'
       - '--color-border-default'
+      - '--border-radius-sm'
+      - '--border-radius-round'
     figma: color/border/subtle
     sameValueInChip: true
-  - field: tokens.Pin.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
   - field: tokens.Swatch.fills
     code:
       - '--color-content-default'
       - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-border-utility-neutral'
+      - '--color-border-subtle'
+      - '--color-background-brand-subtle'
     figma: color/neutral/900
     sameValueInChip: true
-  - field: tokens.Body.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/16
-    sameValueInChip: false
-  - field: tokens.Content.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/16
-    sameValueInChip: false
-  - field: tokens.Lead.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
-  - field: tokens.Status bar.fills
-    code:
-      - '--color-content-default'
-      - '--color-content-body'
-    figma: color/border/utility/neutral
-    sameValueInChip: false
-  - field: tokens.Status.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
   - field: tokens.Status.paddingTop
     code:
       - '--spacing-12'
@@ -1027,18 +1886,19 @@ mismatch:
     code:
       - '--color-content-default'
       - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-border-utility-neutral'
+      - '--color-border-subtle'
+      - '--color-background-brand-subtle'
     figma: color/background/surface
     sameValueInChip: false
   - field: tokens.Status.strokes
     code:
       - '--border-width-1'
       - '--color-border-default'
+      - '--border-radius-sm'
+      - '--border-radius-round'
     figma: color/border/utility/success
-    sameValueInChip: false
-  - field: tokens.Text button.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Text button.paddingTop
     code:
@@ -1054,23 +1914,6 @@ mismatch:
     code:
       - '--spacing-44'
     figma: size/32
-    sameValueInChip: false
-  - field: tokens.Value.fontSize
-    code:
-      - '--typography-font-size-22'
-      - '--typography-body-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
-  - field: tokens.Value label.fontSize
-    code:
-      - '--typography-font-size-22'
-      - '--typography-body-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
-  - field: tokens.Action.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Action.paddingLeft
     code:
@@ -1096,12 +1939,9 @@ mismatch:
     code:
       - '--border-width-1'
       - '--color-border-default'
+      - '--border-radius-sm'
+      - '--border-radius-round'
     figma: color/border/strong
-    sameValueInChip: false
-  - field: tokens.Tag.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
     sameValueInChip: false
   - field: tokens.Tag.paddingTop
     code:
@@ -1122,45 +1962,26 @@ mismatch:
     code:
       - '--color-content-default'
       - '--color-content-body'
+      - '--color-content-subtle'
+      - '--color-border-utility-neutral'
+      - '--color-border-subtle'
+      - '--color-background-brand-subtle'
     figma: color/background/surface
     sameValueInChip: false
   - field: tokens.Tag.strokes
     code:
       - '--border-width-1'
       - '--color-border-default'
+      - '--border-radius-sm'
+      - '--border-radius-round'
     figma: color/border/utility/neutral
     sameValueInChip: false
-  - field: tokens.Switch.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/12
-    sameValueInChip: false
-  - field: tokens.Below.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
-  - field: tokens.Progress.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
-  - field: tokens.Helper.itemSpacing
-    code:
-      - '--spacing-4'
-    figma: spacing/8
-    sameValueInChip: false
-  - field: tokens.Divider.fills
-    code:
-      - '--color-content-default'
-      - '--color-content-body'
-    figma: color/border/subtle
-    sameValueInChip: false
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-data-listrow--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-listrow--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ListRow/ListRow.tsx
-  - section: Behaviour and motion
-    why: no transition or animation in src/components/ListRow/ListRow.module.css
 guidance:
   lead: 'One work item: a status with a word, a title, one line of why and one action.'
   whenToUse:

@@ -7,15 +7,15 @@ lead:
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-codeblock--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-codeblock--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/CodeBlock/CodeBlock.tsx
-  storyTitle: Components/CodeBlock
+  storyTitle: Components/Data/CodeBlock
 props:
   - name: code
     type: string
     required: true
     doc: The code, as text.
-    at: src/components/CodeBlock/CodeBlock.tsx:9
+    at: src/components/CodeBlock/CodeBlock.tsx:10
   - name: language
     type: '''jsx'' | ''tsx'' | ''javascript'' | ''json'' | ''css'' | ''markup'' | ''diff'' | ''plain'''
     values:
@@ -30,13 +30,13 @@ props:
     default: jsx
     required: false
     doc: Its language; "diff" marks added and removed lines.
-    at: src/components/CodeBlock/CodeBlock.tsx:11
+    at: src/components/CodeBlock/CodeBlock.tsx:12
   - name: title
     figmaName: Title
     type: string
     required: false
     doc: A title over the code, such as its file path.
-    at: src/components/CodeBlock/CodeBlock.tsx:13
+    at: src/components/CodeBlock/CodeBlock.tsx:14
   - name: lineNumbers
     type: boolean
     values:
@@ -45,7 +45,7 @@ props:
     default: true
     required: false
     doc: Shows line numbers.
-    at: src/components/CodeBlock/CodeBlock.tsx:15
+    at: src/components/CodeBlock/CodeBlock.tsx:16
   - name: copy
     figmaName: copy
     type: boolean
@@ -55,12 +55,19 @@ props:
     default: true
     required: false
     doc: Shows the Copy icon button.
-    at: src/components/CodeBlock/CodeBlock.tsx:17
+    at: src/components/CodeBlock/CodeBlock.tsx:18
+  - name: lineMarks
+    type: CodeLineMark[]
+    required: false
+    doc: >-
+      Figma Code line kind (483:31): marks lines by number (1-based). current = the line being read, a background/default wash; lit = the
+      line a Tour step points at, a 2px border/focus outline with a red numbered Pin at its end (the Pin number matches the Tour step).
+    at: src/components/CodeBlock/CodeBlock.tsx:22
   - name: className
     type: string
     required: false
     doc: Extra classes on the block.
-    at: src/components/CodeBlock/CodeBlock.tsx:19
+    at: src/components/CodeBlock/CodeBlock.tsx:24
 variants:
   language:
     values:
@@ -73,7 +80,7 @@ variants:
       - diff
       - plain
     default: jsx
-    at: src/components/CodeBlock/CodeBlock.tsx:11
+    at: src/components/CodeBlock/CodeBlock.tsx:12
 states:
   contract:
     - default
@@ -419,84 +426,117 @@ tokens:
       property: column-gap
       token: '--spacing-16'
       selector: .line
-      at: src/components/CodeBlock/CodeBlock.module.css:70
+      at: src/components/CodeBlock/CodeBlock.module.css:76
     - part: line
       state: rest
       property: padding-inline
       token: '--spacing-16'
       selector: .line
-      at: src/components/CodeBlock/CodeBlock.module.css:71
+      at: src/components/CodeBlock/CodeBlock.module.css:77
+    - part: current
+      state: rest
+      property: background
+      token: '--color-background-wash-blue'
+      selector: .current
+      at: src/components/CodeBlock/CodeBlock.module.css:82
+    - part: lit
+      state: rest
+      property: padding-block
+      token: '--border-width-2'
+      selector: .lit
+      at: src/components/CodeBlock/CodeBlock.module.css:91
+    - part: lit
+      state: rest
+      property: border-radius
+      token: '--border-radius-4'
+      selector: .lit
+      at: src/components/CodeBlock/CodeBlock.module.css:92
+    - part: lit
+      state: rest
+      property: box-shadow
+      token: '--border-width-2'
+      selector: .lit
+      at: src/components/CodeBlock/CodeBlock.module.css:93
+    - part: lit
+      state: rest
+      property: box-shadow
+      token: '--color-border-focus'
+      selector: .lit
+      at: src/components/CodeBlock/CodeBlock.module.css:93
     - part: add
       state: rest
       property: background
       token: '--color-background-syntax-add'
       selector: .add
-      at: src/components/CodeBlock/CodeBlock.module.css:74
+      at: src/components/CodeBlock/CodeBlock.module.css:100
     - part: del
       state: rest
       property: background
       token: '--color-background-syntax-del'
       selector: .del
-      at: src/components/CodeBlock/CodeBlock.module.css:75
+      at: src/components/CodeBlock/CodeBlock.module.css:101
     - part: 'n'
       state: rest
       property: color
       token: '--color-content-syntax-line-number'
       selector: .n
-      at: src/components/CodeBlock/CodeBlock.module.css:80
+      at: src/components/CodeBlock/CodeBlock.module.css:106
     - part: keyword
       state: rest
       property: color
       token: '--color-content-syntax-keyword'
       selector: .keyword
-      at: src/components/CodeBlock/CodeBlock.module.css:84
+      at: src/components/CodeBlock/CodeBlock.module.css:110
     - part: string
       state: rest
       property: color
       token: '--color-content-syntax-string'
       selector: .string
-      at: src/components/CodeBlock/CodeBlock.module.css:85
+      at: src/components/CodeBlock/CodeBlock.module.css:111
     - part: number
       state: rest
       property: color
       token: '--color-content-syntax-number'
       selector: .number
-      at: src/components/CodeBlock/CodeBlock.module.css:86
+      at: src/components/CodeBlock/CodeBlock.module.css:112
     - part: comment
       state: rest
       property: color
       token: '--color-content-syntax-comment'
       selector: .comment
-      at: src/components/CodeBlock/CodeBlock.module.css:87
+      at: src/components/CodeBlock/CodeBlock.module.css:113
     - part: function
       state: rest
       property: color
       token: '--color-content-syntax-function'
       selector: .function
-      at: src/components/CodeBlock/CodeBlock.module.css:88
+      at: src/components/CodeBlock/CodeBlock.module.css:114
     - part: tag
       state: rest
       property: color
       token: '--color-content-syntax-tag'
       selector: .tag
-      at: src/components/CodeBlock/CodeBlock.module.css:89
+      at: src/components/CodeBlock/CodeBlock.module.css:115
     - part: attr
       state: rest
       property: color
       token: '--color-content-syntax-attr'
       selector: .attr
-      at: src/components/CodeBlock/CodeBlock.module.css:90
+      at: src/components/CodeBlock/CodeBlock.module.css:116
     - part: punct
       state: rest
       property: color
       token: '--color-content-syntax-punct'
       selector: .punct
-      at: src/components/CodeBlock/CodeBlock.module.css:91
+      at: src/components/CodeBlock/CodeBlock.module.css:117
   values:
     '--border-radius-4':
       light: null
       chip: null
     '--border-width-1':
+      light: null
+      chip: null
+    '--border-width-2':
       light: null
       chip: null
     '--color-background-highlight':
@@ -509,6 +549,9 @@ tokens:
       light: null
       chip: null
     '--color-background-syntax-del':
+      light: null
+      chip: null
+    '--color-background-wash-blue':
       light: null
       chip: null
     '--color-border-focus':
@@ -575,28 +618,31 @@ motion:
 a11y:
   element:
     tag: span
-    at: src/components/CodeBlock/CodeBlock.tsx:64
+    at: src/components/CodeBlock/CodeBlock.tsx:76
   role:
     value: null
     source: native element
-    at: src/components/CodeBlock/CodeBlock.tsx:64
+    at: src/components/CodeBlock/CodeBlock.tsx:76
   nameSource:
     value: visible content
-    at: src/components/CodeBlock/CodeBlock.tsx:64
+    at: src/components/CodeBlock/CodeBlock.tsx:76
   keyboard: []
   aria:
     - attribute: aria-label
       value: title
-      at: src/components/CodeBlock/CodeBlock.tsx:67
+      at: src/components/CodeBlock/CodeBlock.tsx:79
     - attribute: aria-label
       value: title
-      at: src/components/CodeBlock/CodeBlock.tsx:74
+      at: src/components/CodeBlock/CodeBlock.tsx:86
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/CodeBlock/CodeBlock.tsx:82
+      at: src/components/CodeBlock/CodeBlock.tsx:99
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/CodeBlock/CodeBlock.tsx:114
     - attribute: aria-live
       value: polite
-      at: src/components/CodeBlock/CodeBlock.tsx:99
+      at: src/components/CodeBlock/CodeBlock.tsx:126
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -624,19 +670,19 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/CodeBlock/CodeBlock.tsx:74
+      at: src/components/CodeBlock/CodeBlock.tsx:86
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/CodeBlock/CodeBlock.tsx:82
+      at: src/components/CodeBlock/CodeBlock.tsx:114
     - kind: ARIA
       value: aria-live="polite"
-      at: src/components/CodeBlock/CodeBlock.tsx:99
+      at: src/components/CodeBlock/CodeBlock.tsx:126
 contrast:
   pairs: []
   derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/CodeBlock/CodeBlock.stories.tsx
-  lines: 57-57
+  lines: 60-60
   import: import CodeBlock from '@bella/components/CodeBlock/CodeBlock';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <CodeBlock title="Title" code={source} currentLine={3} />
@@ -651,7 +697,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '483:32'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Title#483:15:
       type: TEXT
@@ -700,6 +746,9 @@ mismatch:
       - '--typography-font-family-geist-mono'
       - '--typography-label-default-font-size'
       - '--color-content-syntax-line-number'
+      - '--color-background-wash-blue'
+      - '--border-width-2'
+      - '--color-border-focus'
       - '--color-background-syntax-add'
       - '--color-background-syntax-del'
       - '--color-content-syntax-keyword'
@@ -726,6 +775,9 @@ mismatch:
       - '--typography-font-family-geist-mono'
       - '--typography-label-default-font-size'
       - '--color-content-syntax-line-number'
+      - '--color-background-wash-blue'
+      - '--border-width-2'
+      - '--color-border-focus'
       - '--color-background-syntax-add'
       - '--color-background-syntax-del'
       - '--color-content-syntax-keyword'
@@ -743,23 +795,9 @@ mismatch:
       - '--spacing-12'
     figma: spacing/16
     sameValueInChip: false
-  - field: tokens.Code line.fills
-    code:
-      - '--color-background-syntax-background'
-      - '--color-content-syntax-foreground'
-      - '--color-content-syntax-line-number'
-      - '--color-background-syntax-add'
-      - '--color-background-syntax-del'
-      - '--color-content-syntax-keyword'
-      - '--color-content-syntax-string'
-      - '--color-content-syntax-number'
-      - '--color-content-syntax-comment'
-      - '--color-content-syntax-function'
-      - '--color-content-syntax-tag'
-      - '--color-content-syntax-attr'
-      - '--color-content-syntax-punct'
-    figma: color/background/wash/blue
-    sameValueInChip: false
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-data-codeblock--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-codeblock--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/CodeBlock/CodeBlock.tsx

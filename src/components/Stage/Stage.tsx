@@ -147,8 +147,8 @@ function Markers({ markers, offsetY = 0, scale = 1, onSelect, activeId, onActive
                 <span className={styles.pinHover} {...hover}>
                   <Pin
                     number={m.label}
-                    variant="red"
-                    pinStyle="solid"
+                    tone="red"
+                    variant="solid"
                     active={active}
                     onClick={onSelect ? () => onSelect(m.id) : undefined}
                     ariaLabel={onSelect ? `Open ${name}` : undefined}

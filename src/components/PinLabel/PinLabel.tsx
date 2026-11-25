@@ -60,7 +60,7 @@ export default function PinLabel({
     : {};
   const body = (
     <>
-      {kind === 'label' && showPin && number != null ? <Pin number={number} variant={tone} pinStyle="solid" active={active} /> : null}
+      {kind === 'label' && showPin && number != null ? <Pin number={number} tone={tone} variant="solid" active={active} /> : null}
       {kind === 'part' && status ? (
         <StatusDot tone={status === 'pass' ? 'success' : 'attention'} mark={status === 'pass' ? 'check' : 'dot'} showLabel={false} />
       ) : null}

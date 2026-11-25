@@ -188,3 +188,41 @@
   line-height: var(--typography-line-height-px-24);
   color: var(--color-content-body);
 }
+
+/* Disabled (25 Nov 2026): the native attribute on the input blocks focus and
+   typing and the list never opens; muted text on the subtle fill with the
+   strong edge kept, the same look as Input's disabled field. */
+.disabled .field {
+  background: var(--color-background-subtle);
+  border-color: var(--color-border-strong); /* the edge carries the boundary on the subtle fill */
+  cursor: not-allowed;
+}
+
+.disabled .input,
+.disabled .searchMark,
+.disabled .input::placeholder {
+  color: var(--color-content-subtle);
+  cursor: not-allowed;
+}
+
+/* Error (25 Nov 2026): Input's error pattern, the danger edge doubled inside
+   and the message under the field with its icon, 8 below. */
+.invalid .field {
+  border-color: var(--color-border-utility-error);
+  box-shadow: inset 0 0 0 1px var(--color-border-utility-error);
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  margin: var(--spacing-8) 0 0;
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-500);
+  color: var(--color-content-utility-error);
+}
+
+.errorIcon {
+  flex: none;
+  margin-top: calc((1lh - var(--size-16)) / 2);
+}

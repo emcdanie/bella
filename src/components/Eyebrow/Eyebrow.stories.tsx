@@ -21,7 +21,7 @@ const meta: Meta<typeof Eyebrow> = {
     bellaDocs: { tokens: consumedTokens, a11y: eyebrowContract.a11y },
   },
   args: { children: '01 · The problem, framed' },
-  argTypes: { variant: { control: 'inline-radio' }, as: { control: 'inline-radio' } },
+  argTypes: { tone: { control: 'inline-radio' }, as: { control: 'inline-radio' } },
 };
 export default meta;
 type Story = StoryObj<typeof Eyebrow>;
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof Eyebrow>;
 export const Muted: Story = {};
 
 /** Ink, for an eyebrow that leads a part. */
-export const Ink: Story = { args: { variant: 'ink', children: 'Part A · the work index' } };
+export const Ink: Story = { args: { tone: 'ink', children: 'Part A · the work index' } };
 
 /** In place: eyebrow, then the h2 it labels. */
 export const AboveAHeading: Story = {

@@ -7,66 +7,71 @@ lead:
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-datatable--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-datatable--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/DataTable/DataTable.tsx
-  storyTitle: Components/DataTable
+  storyTitle: Components/Data/DataTable
 props:
   - name: columns
     type: DataTableColumn<Row>[]
     required: true
-    at: src/components/DataTable/DataTable.tsx:35
+    at: src/components/DataTable/DataTable.tsx:39
   - name: rows
     type: Row[]
     required: true
-    at: src/components/DataTable/DataTable.tsx:36
+    at: src/components/DataTable/DataTable.tsx:40
   - name: rowKey
     type: string
     required: true
     doc: 'The field that identifies a row: React key and selection value.'
-    at: src/components/DataTable/DataTable.tsx:38
+    at: src/components/DataTable/DataTable.tsx:42
   - name: caption
+    figmaName: caption
     type: string
     required: true
     doc: 'Visible caption naming the table. Required: a table without a name is a grid of guesses.'
-    at: src/components/DataTable/DataTable.tsx:40
+    at: src/components/DataTable/DataTable.tsx:44
   - name: defaultSort
     type: DataTableSort
     required: false
     doc: Initial sort; sorting is then held by the table.
-    at: src/components/DataTable/DataTable.tsx:42
+    at: src/components/DataTable/DataTable.tsx:46
   - name: sort
     type: DataTableSort | null
     required: false
-    doc: "A sort held by the page (CHIP, 23 Nov: the toolbar's Sort follows the table). With onSortChange the header buttons ask the page to change it; null is unsorted."
-    at: src/components/DataTable/DataTable.tsx:50
+    doc: >-
+      A sort held by the page (CHIP search-filter plan, 23 Nov: the toolbar's Sort follows the table). With `onSortChange`, the header
+      buttons ask the page to change it; `null` means unsorted. Without it, the table holds its own.
+    at: src/components/DataTable/DataTable.tsx:49
   - name: onSortChange
-    type: (sort: DataTableSort) => void
+    type: '(sort: DataTableSort) => void'
     required: false
-    doc: Called with the sort a header press asks for.
-    at: src/components/DataTable/DataTable.tsx:51
+    at: src/components/DataTable/DataTable.tsx:50
   - name: freezeFirst
     type: boolean
+    values:
+      - true
+      - false
     required: false
-    doc: The first column stays at the start edge while the others scroll sideways (CHIP second pass S11).
-    at: src/components/DataTable/DataTable.tsx:53
+    doc: The first column stays put while the other columns scroll sideways, so a row keeps its name (CHIP second pass S11).
+    at: src/components/DataTable/DataTable.tsx:52
   - name: selectedKey
     type: string | null
     required: false
     doc: >-
       Selection, single. The first column renders as a toggle button; the selected row is the shared light blue with bold ink text (Figma 20
       Nov).
-    at: src/components/DataTable/DataTable.tsx:44
+    at: src/components/DataTable/DataTable.tsx:54
   - name: onSelect
     type: '(key: string | null) => void'
     required: false
-    at: src/components/DataTable/DataTable.tsx:45
+    at: src/components/DataTable/DataTable.tsx:55
   - name: onOpen
     type: '(key: string) => void'
     required: false
     doc: >-
       The row opens its detail (CHIP drawers, 23 Nov plan: "a table row that opens its detail"). The row's name becomes a button that covers
       the whole row, and a ↗ Trailing mark ends it (rule 12: the whole row is the target). Not with onSelect.
-    at: src/components/DataTable/DataTable.tsx:48
+    at: src/components/DataTable/DataTable.tsx:58
   - name: stack
     type: boolean
     values:
@@ -76,13 +81,14 @@ props:
     doc: >-
       Narrow mode: below 480 of its container the header row goes and each row stacks: the name and the second column's value on one line,
       the other columns under the name as "Label: value" ("reorganise, do not squeeze").
-    at: src/components/DataTable/DataTable.tsx:51
+    at: src/components/DataTable/DataTable.tsx:61
   - name: maxHeight
     type: string
     required: false
     doc: Caps the height (a token, e.g. `calc(var(--spacing-80) * 5)`) so the sticky header has something to stick in.
-    at: src/components/DataTable/DataTable.tsx:53
+    at: src/components/DataTable/DataTable.tsx:63
   - name: density
+    figmaName: density
     type: '''default'' | ''compact'''
     values:
       - default
@@ -91,19 +97,19 @@ props:
     doc: >-
       Row height. compact is for display-only tables (answers, read-only lists): rows under 44px. It is ignored on a sortable or selectable
       table, whose rows keep the 44px target.
-    at: src/components/DataTable/DataTable.tsx:56
+    at: src/components/DataTable/DataTable.tsx:66
   - name: className
     type: string
     required: false
     doc: Extra classes on the scroll wrapper.
-    at: src/components/DataTable/DataTable.tsx:58
+    at: src/components/DataTable/DataTable.tsx:68
 variants:
   density:
     values:
       - default
       - compact
     default: null
-    at: src/components/DataTable/DataTable.tsx:56
+    at: src/components/DataTable/DataTable.tsx:66
 states:
   contract:
     - default
@@ -117,6 +123,7 @@ states:
     - hover
     - '[data-open]'
     - '[data-stack]'
+    - '[data-freeze]'
 sizes: []
 anatomy:
   scaleWidth: 582
@@ -155,7 +162,9 @@ anatomy:
       at: centre
       side: right
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
-  figma: null
+  figma:
+    name: DataTable
+    type: COMPONENT_SET
   code: []
 tokens:
   used:
@@ -453,18 +462,36 @@ tokens:
       token: '--color-border-default'
       selector: .root[data-stack] tbody tr
       at: src/components/DataTable/DataTable.module.css:244
+    - part: under
+      state: '[data-stack]'
+      property: color
+      token: '--color-content-subtle'
+      selector: .root[data-stack] tbody tr > td.under
+      at: src/components/DataTable/DataTable.module.css:264
+    - part: stackLabel
+      state: '[data-stack]'
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .root[data-stack] tbody tr > td.under .stackLabel
+      at: src/components/DataTable/DataTable.module.css:285
     - part: openCell
       state: '[data-stack]'
       property: color
       token: '--color-content-subtle'
       selector: .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell)
-      at: src/components/DataTable/DataTable.module.css:276
+      at: src/components/DataTable/DataTable.module.css:318
     - part: stackLabel
       state: '[data-stack]'
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .root[data-stack] tbody tr > :nth-child(n + 3) .stackLabel
-      at: src/components/DataTable/DataTable.module.css:289
+      at: src/components/DataTable/DataTable.module.css:331
+    - part: root
+      state: '[data-freeze] [data-freeze]'
+      property: background
+      token: '--color-background-surface'
+      selector: .root[data-freeze] .table th:first-child, .root[data-freeze] .table td:first-child
+      at: src/components/DataTable/DataTable.module.css:341
   values:
     '--border-radius-12':
       light: null
@@ -542,25 +569,25 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/DataTable/DataTable.tsx:111
+    at: src/components/DataTable/DataTable.tsx:124
   role:
     value: maxHeight
     source: role attribute
-    at: src/components/DataTable/DataTable.tsx:111
+    at: src/components/DataTable/DataTable.tsx:124
   nameSource:
     value: visible content
-    at: src/components/DataTable/DataTable.tsx:111
+    at: src/components/DataTable/DataTable.tsx:124
   keyboard: []
   aria:
     - attribute: aria-labelledby
       value: maxHeight
-      at: src/components/DataTable/DataTable.tsx:130
+      at: src/components/DataTable/DataTable.tsx:144
     - attribute: aria-labelledby
       value: captionId
-      at: src/components/DataTable/DataTable.tsx:132
+      at: src/components/DataTable/DataTable.tsx:146
     - attribute: aria-pressed
       value: selected
-      at: src/components/DataTable/DataTable.tsx:182
+      at: src/components/DataTable/DataTable.tsx:196
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -593,16 +620,16 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-labelledby
-      at: src/components/DataTable/DataTable.tsx:132
+      at: src/components/DataTable/DataTable.tsx:146
     - kind: ARIA
       value: aria-pressed
-      at: src/components/DataTable/DataTable.tsx:182
+      at: src/components/DataTable/DataTable.tsx:196
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/DataTable/DataTable.stories.tsx
-  lines: 57-57
+  file: ~/DEV/bella-props/src/components/DataTable/DataTable.stories.tsx
+  lines: 61-61
   import: import DataTable from '@bella/components/DataTable/DataTable';
   importSource: the style the Button doc page uses (CHIP import path)
   code: >-
@@ -612,6 +639,7 @@ usage:
   use:
     - CHIP per-component health results
     - Any comparison of the same facts across many items
+    - 'A long list in a CHIP drawer: the row opens its detail (onOpen) and stacks under 480 (stack)'
   dont:
     - 'Do not dim unselected rows: selection is the light blue fill with a bold ink label, everything else keeps its paint'
     - 'Do not use the focus ring colour for selection: the ring means focus only'
@@ -620,10 +648,11 @@ usage:
     - >-
       Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact
       there)
+    - 'Do not put a fix button on every row: the row opens its detail, and the action lives there'
   source: tokens/contracts.json
 figma:
   nodeId: '161:426'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     caption#161:46:
       type: TEXT
@@ -675,16 +704,12 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-data-datatable--docs
 mismatch:
-  - field: tokens.Table.radius
-    code:
-      - '--component-data-table-border-radius'
-      - '--radius-sm'
-    figma: radius/lg
-    sameValueInChip: false
-    note: waits on Elleta (Chip 2px corners); shown as today
-  - field: props.onOpen, props.stack
-    code: present (23 Nov, CHIP drawer template)
-    figma: not drawn yet; Figma follows after Tue 24 Nov
+  - field: props.freezeFirst
+    code: boolean prop
+    figma: not in the set
+  - field: props.stack
+    code: boolean prop
+    figma: not in the set
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/DataTable/DataTable.tsx

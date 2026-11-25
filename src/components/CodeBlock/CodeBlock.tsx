@@ -112,7 +112,7 @@ export default function CodeBlock({ code, language = 'jsx', title, lineNumbers =
                   <>
                     {/* The Pin is the Tour step's marker; read as words, not as the disc. */}
                     <span className={styles.pin} aria-hidden="true">
-                      <Pin number={lm.pin} variant="red" pinStyle="solid" />
+                      <Pin number={lm.pin} tone="red" variant="solid" />
                     </span>
                     <span className={styles.srOnly}>{`, step ${lm.pin}`}</span>
                     {'\n'}

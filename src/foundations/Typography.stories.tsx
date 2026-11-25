@@ -126,7 +126,7 @@ export const Eyebrows: StoryObj = {
         </Heading>
       </div>
       <div style={{ display: 'grid', rowGap: 'var(--spacing-16)' }}>
-        <Eyebrow variant="ink">Part B · case study page</Eyebrow>
+        <Eyebrow tone="ink">Part B · case study page</Eyebrow>
         <Heading tier="section" as="h2">
           The system is the agreements, not the library.
         </Heading>

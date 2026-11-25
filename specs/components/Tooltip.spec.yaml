@@ -7,9 +7,9 @@ lead:
 category: Feedback
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-tooltip--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-tooltip--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Tooltip/Tooltip.tsx
-  storyTitle: Components/Tooltip
+  storyTitle: Components/Actions/Tooltip
 props:
   - name: label
     figmaName: Label
@@ -24,13 +24,17 @@ props:
     at: src/components/Tooltip/Tooltip.tsx:8
   - name: placement
     figmaName: placement
-    type: '''top'' | ''bottom'''
+    type: '''top'' | ''bottom'' | ''left'' | ''right'''
     values:
       - top
       - bottom
+      - left
+      - right
     default: bottom
     required: false
-    doc: Where the bubble sits.
+    doc: >-
+      Where the bubble sits. `right` and `left` are the side placements (the CHIP icon rail, a tool column): the pointer is centred on the
+      box, so a short label keeps it aimed at the trigger.
     at: src/components/Tooltip/Tooltip.tsx:10
   - name: kind
     figmaName: kind
@@ -59,6 +63,8 @@ variants:
     values:
       - top
       - bottom
+      - left
+      - right
     default: bottom
     at: src/components/Tooltip/Tooltip.tsx:10
   kind:
@@ -149,132 +155,210 @@ tokens:
       property: padding
       token: '--spacing-4'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:14
+      at: src/components/Tooltip/Tooltip.module.css:19
     - part: tip
       state: rest
       property: padding
       token: '--spacing-8'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:14
+      at: src/components/Tooltip/Tooltip.module.css:19
     - part: tip
       state: rest
       property: border-radius
-      token: '--border-radius-4'
+      token: '--border-radius-sm'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:15
+      at: src/components/Tooltip/Tooltip.module.css:20
     - part: tip
       state: rest
       property: background
       token: '--color-background-knockout'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:16
+      at: src/components/Tooltip/Tooltip.module.css:21
     - part: tip
       state: rest
       property: color
       token: '--color-content-knockout'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:17
+      at: src/components/Tooltip/Tooltip.module.css:22
     - part: tip
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:18
+      at: src/components/Tooltip/Tooltip.module.css:23
     - part: tip
       state: rest
       property: font-size
-      token: '--typography-label-default-font-size'
+      token: '--typography-font-size-16'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:19
+      at: src/components/Tooltip/Tooltip.module.css:24
+    - part: tip
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .tip
+      at: src/components/Tooltip/Tooltip.module.css:25
     - part: bottom
       state: rest
       property: top
-      token: '--spacing-4'
+      token: '--spacing-8'
       selector: .bottom
-      at: src/components/Tooltip/Tooltip.module.css:30
+      at: src/components/Tooltip/Tooltip.module.css:35
     - part: top
       state: rest
       property: bottom
-      token: '--spacing-4'
+      token: '--spacing-8'
       selector: .top
-      at: src/components/Tooltip/Tooltip.module.css:34
+      at: src/components/Tooltip/Tooltip.module.css:39
+    - part: right
+      state: rest
+      property: left
+      token: '--spacing-8'
+      selector: .right
+      at: src/components/Tooltip/Tooltip.module.css:44
+    - part: left
+      state: rest
+      property: right
+      token: '--spacing-8'
+      selector: .left
+      at: src/components/Tooltip/Tooltip.module.css:51
+    - part: bottom
+      state: rest
+      property: inline-size
+      token: '--size-16'
+      selector: .bottom:not(.rich)::before, .top:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:65
+    - part: bottom
+      state: rest
+      property: block-size
+      token: '--spacing-8'
+      selector: .bottom:not(.rich)::before, .top:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:66
+    - part: bottom
+      state: rest
+      property: bottom
+      token: '--border-width-1'
+      selector: .bottom:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:71
+    - part: top
+      state: rest
+      property: top
+      token: '--border-width-1'
+      selector: .top:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:76
+    - part: left
+      state: rest
+      property: left
+      token: '--border-width-1'
+      selector: .left:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:82
+    - part: left
+      state: rest
+      property: inline-size
+      token: '--spacing-8'
+      selector: .left:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:83
+    - part: left
+      state: rest
+      property: block-size
+      token: '--size-16'
+      selector: .left:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:84
+    - part: right
+      state: rest
+      property: right
+      token: '--border-width-1'
+      selector: .right:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:91
+    - part: right
+      state: rest
+      property: inline-size
+      token: '--spacing-8'
+      selector: .right:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:92
+    - part: right
+      state: rest
+      property: block-size
+      token: '--size-16'
+      selector: .right:not(.rich)::before
+      at: src/components/Tooltip/Tooltip.module.css:93
     - part: rich
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:43
+      at: src/components/Tooltip/Tooltip.module.css:104
     - part: rich
       state: rest
       property: padding
       token: '--spacing-12'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:44
+      at: src/components/Tooltip/Tooltip.module.css:105
     - part: rich
       state: rest
       property: border
       token: '--border-width-1'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:45
+      at: src/components/Tooltip/Tooltip.module.css:106
     - part: rich
       state: rest
       property: border
       token: '--color-border-subtle'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:45
+      at: src/components/Tooltip/Tooltip.module.css:106
     - part: rich
       state: rest
       property: border-radius
       token: '--border-radius-8'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:46
+      at: src/components/Tooltip/Tooltip.module.css:107
     - part: rich
       state: rest
       property: background
       token: '--color-background-surface'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:47
+      at: src/components/Tooltip/Tooltip.module.css:108
     - part: rich
       state: rest
       property: color
       token: '--color-content-body'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:48
+      at: src/components/Tooltip/Tooltip.module.css:109
     - part: rich
       state: rest
       property: box-shadow
       token: '--shadow-ui-ink'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:49
+      at: src/components/Tooltip/Tooltip.module.css:110
     - part: rich
       state: rest
       property: line-height
       token: '--typography-line-height-130'
       selector: .rich
-      at: src/components/Tooltip/Tooltip.module.css:50
+      at: src/components/Tooltip/Tooltip.module.css:111
     - part: title
       state: rest
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .title
-      at: src/components/Tooltip/Tooltip.module.css:58
+      at: src/components/Tooltip/Tooltip.module.css:119
     - part: title
       state: rest
       property: color
       token: '--color-content-default'
       selector: .title
-      at: src/components/Tooltip/Tooltip.module.css:59
+      at: src/components/Tooltip/Tooltip.module.css:120
     - part: tip
       state: rest
       property: border
       token: '--border-width-1'
       selector: .tip
-      at: src/components/Tooltip/Tooltip.module.css:64
+      at: src/components/Tooltip/Tooltip.module.css:125
   values:
-    '--border-radius-4':
+    '--border-radius-8':
       light: null
       chip: null
-    '--border-radius-8':
+    '--border-radius-sm':
       light: null
       chip: null
     '--border-width-1':
@@ -301,6 +385,9 @@ tokens:
     '--shadow-ui-ink':
       light: null
       chip: null
+    '--size-16':
+      light: null
+      chip: null
     '--spacing-12':
       light: null
       chip: null
@@ -313,13 +400,16 @@ tokens:
     '--typography-body-default-font-family':
       light: null
       chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
     '--typography-font-weight-600':
       light: null
       chip: null
-    '--typography-label-default-font-size':
+    '--typography-line-height-130':
       light: null
       chip: null
-    '--typography-line-height-130':
+    '--typography-line-height-150':
       light: null
       chip: null
 motion:
@@ -365,7 +455,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Tooltip/Tooltip.stories.tsx
+  file: ~/DEV/bella-props/src/components/Tooltip/Tooltip.stories.tsx
   lines: 25-37
   import: import Tooltip from '@bella/components/Tooltip/Tooltip';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -384,7 +474,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '436:112'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#738:21:
       type: TEXT
@@ -452,20 +542,9 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-tooltip--docs
 mismatch:
-  - field: props.placement.values
-    code:
-      - top
-      - bottom
-    figma:
-      - top
-      - bottom
-      - right
-      - left
-  - field: tokens.Label.fontSize
-    code:
-      - '--typography-label-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-actions-tooltip--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-tooltip--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tooltip/Tooltip.tsx

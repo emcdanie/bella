@@ -22,7 +22,7 @@ const opt = (k) => (args.includes(k) ? args[args.indexOf(k) + 1] : null);
 if (!name) { console.error('usage: node scripts/spec-build.mjs <Name> [--figma file.json] [--out path] [--stdout]'); process.exit(2); }
 
 const ROOT = resolve(dirname(new URL(import.meta.url).pathname), '..');
-const STORY_ROOTS = [`${homedir()}/DEV/bella-storybook-brand`, ROOT];
+const STORY_ROOTS = [ROOT, `${homedir()}/DEV/bella-storybook-brand`]; // this checkout's stories first (25 Nov 2026: a spec took an older story title from the other checkout)
 const rel = (p) => p.replace(ROOT + '/', '');
 const read = (p) => readFileSync(p, 'utf8');
 const kebab = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
@@ -337,6 +337,8 @@ const figmaFile = opt('--figma');
 const figma = figmaFile ? JSON.parse(read(resolve(figmaFile))) : null;
 // 13 Nov (AvatarStack): a size the code has but Figma does not draw (xs) is not shown on the page (no stand-in); the mismatch row still lists it
 if (figma && figma.props) { const fk = Object.keys(figma.props).find((k) => k.toLowerCase() === 'size' && figma.props[k].type === 'VARIANT'); if (fk) { const fv = figma.props[fk].values || []; if (fv.every((v) => sizes.some((z) => z.value === v))) { for (let i = sizes.length - 1; i >= 0; i--) if (!fv.includes(sizes[i].value)) sizes.splice(i, 1); if (variants.size && variants.size.values) variants.size = { ...variants.size, values: variants.size.values.filter((v) => fv.includes(v)) }; } } }
+// 25 Nov 2026: a code default the trim above removed (Button size "default", not drawn in Figma) is no longer listed as the default
+if (variants.size && variants.size.values && variants.size.default != null && !variants.size.values.includes(variants.size.default)) variants.size.default = null;
 const normName = (n) => n.replace(/#\d+:\d+$/, '');
 const figmaToCss = (v) => '--' + v.replace(/\//g, '-');
 const tokenOfBound = (b) => Object.entries(b || {}).map(([field, v]) => ({ field, variable: v, css: [].concat(v).map((x) => (x === 'RAW' ? 'RAW' : figmaToCss(x))) }));
@@ -426,13 +428,15 @@ for (const r of tokenRows.filter((t) => t.state === 'disabled' && t.property ===
 a11y.ariaChips = [...new Map([...tsx.matchAll(/['"]?\b(aria-[\w-]+)['"]?\s*(?:=|:)\s*(\{[^}]*\}|"[^"]*"|[^,\n]+)/g)].map((m) => [m[1], { kind: 'ARIA', value: `${m[1]}${/^"/.test(m[2]) ? '=' + m[2] : ''}`, at: `${rel(tsxPath)}:${lineOf(tsx, m.index)}` }])).values(), ...[...tsx.matchAll(/\brole=["{']+(alert|status|group)/g)].map((m) => ({ kind: 'ARIA', value: `role=${m[1]}`, at: `${rel(tsxPath)}:${lineOf(tsx, m.index)}` })), ...(/\brequired\b/.test(tsx.replace(/required:|required\?/g, '')) && props.some((p) => p.name === 'required') ? [{ kind: 'ARIA', value: 'required', at: props.find((p) => p.name === 'required').at }] : [])];
 
 const leadSrc = contract?.description ? (() => { const d = contract.description; let c = -1, dp = 0; for (let i = 0; i < d.length; i++) { const ch = d[i]; if (ch === '(') dp++; else if (ch === ')') dp = Math.max(0, dp - 1); else if (dp === 0 && (ch === ':' || ch === ';')) { c = i; break; } } const first = d.split(/(?<=\.)\s/)[0]; return (c >= 15 ? d.slice(0, c) : first).replace(/\s*\([^)]*\d{4}[^)]*\)/g, '').replace(/\.$/, '') + '.'; })() : null;
+// 25 Nov 2026: a part with no contract keeps the lead, category and usage written into its spec before (TableCell, TableRow), instead of losing them
+const priorSpec = !contract ? (() => { try { return yaml.load(read(outPath)); } catch { return null; } })() : null;
 const spec = {
   name,
-  lead: leadSrc ? { text: leadSrc, source: 'tokens/contracts.json description, up to the first colon or semicolon' } : null,
-  category: contract?.category || null,
+  lead: leadSrc ? { text: leadSrc, source: 'tokens/contracts.json description, up to the first colon or semicolon' } : priorSpec?.lead ?? null,
+  category: contract?.category || priorSpec?.category || null,
   rendersAs: contract?.rendersAs || null,
   links: { storybook, github, storyTitle },
-  props: props.map(({ name: n, type, values, default: d, required, doc, at }) => ({ name: n, type, ...(values ? { values } : {}), ...(d !== undefined ? { default: d } : {}), required, ...(doc ? { doc } : {}), at })),
+  props: props.map(({ name: n, type, values, default: d, required, doc, at }) => ({ name: n, type, ...(values ? { values } : {}), ...(d !== undefined && (!values || values.includes(d)) ? { default: d } : {}), /* 25 Nov 2026: a computed default (`badge != null`) is not one of the values, so none is listed */ required, ...(doc ? { doc } : {}), at })),
   variants,
   states,
   sizes,
@@ -447,7 +451,7 @@ const spec = {
   a11y,
   contrast,
   codeExample: guidance.codeExample ? { ...(codeExample || {}), ...guidance.codeExample } : codeExample, // guidance.codeExample { import, code, lines } shows more of the real story (e.g. the panel a tab owns)
-  usage: contract ? { use: contract.usage || [], dont: contract.dont || [], source: 'tokens/contracts.json' } : null,
+  usage: contract ? { use: contract.usage || [], dont: contract.dont || [], source: 'tokens/contracts.json' } : priorSpec?.usage ?? null,
   figma: figma ? { nodeId: figma.nodeId, fileKey: FILE_KEY_REF, props: figma.props, variants: figma.variants, defaultVariant: figma.defaultVariant, annotations: figma.annotations, documentationLinks: figma.documentationLinks } : null,
   mismatch,
   notApplicable,

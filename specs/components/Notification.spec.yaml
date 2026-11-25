@@ -427,94 +427,94 @@ tokens:
       at: src/components/Notification/Notification.module.css:51
     - part: iconColumn
       state: rest
-      property: padding-block-start
-      token: '--spacing-4'
-      selector: .iconColumn
-      at: src/components/Notification/Notification.module.css:62
-    - part: iconColumn
-      state: rest
       property: color
       token: '--notification-edge'
       selector: .iconColumn
-      at: src/components/Notification/Notification.module.css:63
+      at: src/components/Notification/Notification.module.css:62
     - part: iconSlot
       state: rest
       property: block-size
-      token: '--spacing-24'
+      token: '--typography-line-height-px-24'
       selector: .iconSlot
-      at: src/components/Notification/Notification.module.css:70
+      at: src/components/Notification/Notification.module.css:71
+    - part: iconSlot
+      state: rest
+      property: block-size
+      token: '--size-28'
+      selector: .iconColumnTitled .iconSlot
+      at: src/components/Notification/Notification.module.css:75
     - part: text
       state: rest
       property: gap
       token: '--spacing-4'
       selector: .text
-      at: src/components/Notification/Notification.module.css:78
+      at: src/components/Notification/Notification.module.css:83
     - part: title
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .title, .message
-      at: src/components/Notification/Notification.module.css:85
+      at: src/components/Notification/Notification.module.css:90
     - part: title
       state: rest
       property: font-size
       token: '--typography-font-size-16'
       selector: .title, .message
-      at: src/components/Notification/Notification.module.css:86
+      at: src/components/Notification/Notification.module.css:91
     - part: title
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .title, .message
-      at: src/components/Notification/Notification.module.css:87
+      at: src/components/Notification/Notification.module.css:92
     - part: title
       state: rest
       property: font-size
       token: '--typography-font-size-20'
       selector: .title
-      at: src/components/Notification/Notification.module.css:93
+      at: src/components/Notification/Notification.module.css:98
     - part: title
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .title
-      at: src/components/Notification/Notification.module.css:94
+      at: src/components/Notification/Notification.module.css:99
     - part: title
       state: rest
       property: line-height
       token: '--size-28'
       selector: .title
-      at: src/components/Notification/Notification.module.css:95
+      at: src/components/Notification/Notification.module.css:100
     - part: title
       state: rest
       property: color
       token: '--color-content-default'
       selector: .title
-      at: src/components/Notification/Notification.module.css:96
+      at: src/components/Notification/Notification.module.css:101
     - part: message
       state: rest
       property: font-weight
       token: '--typography-font-weight-400'
       selector: .message
-      at: src/components/Notification/Notification.module.css:100
+      at: src/components/Notification/Notification.module.css:105
     - part: message
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .message
-      at: src/components/Notification/Notification.module.css:101
+      at: src/components/Notification/Notification.module.css:106
     - part: actions
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .actions
-      at: src/components/Notification/Notification.module.css:110
+      at: src/components/Notification/Notification.module.css:115
     - part: close
       state: rest
       property: color
       token: '--notification-ink'
       selector: .close.close
-      at: src/components/Notification/Notification.module.css:122
+      at: src/components/Notification/Notification.module.css:127
   values:
     '--border-radius-card':
       light: null
@@ -576,9 +576,6 @@ tokens:
     '--spacing-16':
       light: null
       chip: null
-    '--spacing-24':
-      light: null
-      chip: null
     '--spacing-4':
       light: null
       chip: null
@@ -637,8 +634,7 @@ contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    src/components/Notification/Notification.stories.tsx
+  file: ~/DEV/bella-props/src/components/Notification/Notification.stories.tsx
   lines: 108-108
   import: import Notification from '@bella/components/Notification/Notification';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -650,7 +646,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '951:4124'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Message#951:2:
       type: TEXT
@@ -703,6 +699,43 @@ mismatch:
       - info
       - success
       - danger
+  - field: tokens.Icon column.paddingTop
+    code:
+      - '--spacing-12'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: false
+  - field: tokens.Icon slot.height
+    code:
+      - '--border-radius-card'
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--color-background-utility-info'
+      - '--color-content-utility-info'
+      - '--color-border-utility-info'
+      - '--color-background-utility-success'
+      - '--color-content-utility-success'
+      - '--color-border-utility-success'
+      - '--color-background-utility-warning'
+      - '--color-content-utility-warning'
+      - '--color-border-utility-warning'
+      - '--color-background-utility-error'
+      - '--color-content-utility-error'
+      - '--color-border-utility-error'
+      - '--notification-edge'
+      - '--typography-line-height-px-24'
+      - '--size-28'
+      - '--spacing-4'
+      - '--typography-body-default-font-family'
+      - '--typography-font-size-16'
+      - '--typography-font-size-20'
+      - '--typography-font-weight-400'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--notification-ink'
+    figma: spacing/24
+    sameValueInChip: true
   - field: tokens.Icon.width
     code:
       - '--border-radius-card'
@@ -721,15 +754,14 @@ mismatch:
       - '--color-background-utility-error'
       - '--color-content-utility-error'
       - '--color-border-utility-error'
-      - '--spacing-4'
       - '--notification-edge'
-      - '--spacing-24'
+      - '--typography-line-height-px-24'
+      - '--size-28'
+      - '--spacing-4'
       - '--typography-body-default-font-family'
       - '--typography-font-size-16'
-      - '--typography-line-height-px-24'
       - '--typography-font-size-20'
       - '--typography-font-weight-400'
-      - '--size-28'
       - '--color-content-default'
       - '--color-content-subtle'
       - '--notification-ink'
@@ -753,15 +785,14 @@ mismatch:
       - '--color-background-utility-error'
       - '--color-content-utility-error'
       - '--color-border-utility-error'
-      - '--spacing-4'
       - '--notification-edge'
-      - '--spacing-24'
+      - '--typography-line-height-px-24'
+      - '--size-28'
+      - '--spacing-4'
       - '--typography-body-default-font-family'
       - '--typography-font-size-16'
-      - '--typography-line-height-px-24'
       - '--typography-font-size-20'
       - '--typography-font-weight-400'
-      - '--size-28'
       - '--color-content-default'
       - '--color-content-subtle'
       - '--notification-ink'
@@ -771,35 +802,30 @@ mismatch:
     code:
       - '--spacing-12'
       - '--spacing-16'
-      - '--spacing-4'
     figma: spacing/8
     sameValueInChip: false
   - field: tokens.Second action.paddingTop
     code:
       - '--spacing-12'
       - '--spacing-16'
-      - '--spacing-4'
     figma: size/0
     sameValueInChip: false
   - field: tokens.Second action.paddingBottom
     code:
       - '--spacing-12'
       - '--spacing-16'
-      - '--spacing-4'
     figma: size/0
     sameValueInChip: false
   - field: tokens.Action.paddingTop
     code:
       - '--spacing-12'
       - '--spacing-16'
-      - '--spacing-4'
     figma: size/0
     sameValueInChip: false
   - field: tokens.Action.paddingBottom
     code:
       - '--spacing-12'
       - '--spacing-16'
-      - '--spacing-4'
     figma: size/0
     sameValueInChip: false
 notApplicable:

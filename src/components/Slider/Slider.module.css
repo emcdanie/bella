@@ -133,6 +133,37 @@
   cursor: not-allowed;
 }
 
+/* Disabled (kept and drawn, 25 Nov 2026): the native attribute on both inputs
+   blocks focus, drag and keys. The fill, the thumb's edge and the number go
+   the grey word colour (7:1, as Input's disabled text), the number field
+   takes the subtle fill, so it reads as not available, never only by cursor. */
+.slider[data-disabled] .range::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--color-content-subtle) var(--slider-pct), var(--color-border-default) var(--slider-pct));
+}
+
+.slider[data-disabled] .range::-moz-range-track {
+  background: var(--color-border-default);
+}
+
+.slider[data-disabled] .range::-moz-range-progress {
+  background: var(--color-content-subtle);
+}
+
+.slider[data-disabled] .range::-webkit-slider-thumb {
+  border-color: var(--color-content-subtle);
+}
+
+.slider[data-disabled] .range::-moz-range-thumb {
+  border-color: var(--color-content-subtle);
+}
+
+.slider[data-disabled] .value {
+  cursor: not-allowed;
+  color: var(--color-content-subtle);
+  background: var(--color-background-subtle);
+  border-color: var(--color-border-strong); /* the edge carries the boundary on the subtle fill, as Input */
+}
+
 .marks {
   list-style: none;
   margin: 0;

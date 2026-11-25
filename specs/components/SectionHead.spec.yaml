@@ -69,30 +69,26 @@ props:
     doc: Figma "Show icon" + the exposed Icon well's icon. Missing = no icon well.
     at: src/components/SectionHead/SectionHead.tsx:23
   - name: iconTone
-    type: IconWellProps['tone']
-    values:
-      - success
-      - warning
-      - info
-      - neutral
-      - error
-      - fix
-      - visual
-      - tokens
-      - tooling
-      - docs
-      - contract
-      - decision
+    type: IconWellTone
     default: warning
     required: false
-    doc: The exposed Icon well's tone. Warning for sections that wait on you.
-    at: src/components/SectionHead/SectionHead.tsx:25
+    doc: >-
+      The exposed Icon well's tone: the status the section means (success, warning, info, neutral, error). Warning for sections that wait on
+      you. Status only since 25 Nov 2026; the History topics moved to `iconKind`.
+    at: src/components/SectionHead/SectionHead.tsx:26
+  - name: iconKind
+    type: IconWellKind
+    required: false
+    doc: >-
+      The exposed Icon well's kind, for a section about one kind of change (fix, visual, tokens, tooling, docs, contract, decision). Wins
+      over `iconTone` when set (25 Nov 2026).
+    at: src/components/SectionHead/SectionHead.tsx:29
   - name: action
     figmaName: Show action
     type: ReactNode
     required: false
     doc: Figma "Show action". A Button secondary sm at the right end. Missing = off.
-    at: src/components/SectionHead/SectionHead.tsx:27
+    at: src/components/SectionHead/SectionHead.tsx:31
   - name: titleLevel
     type: 0 | 2 | 3 | 4
     values:
@@ -103,7 +99,7 @@ props:
     default: '2'
     required: false
     doc: The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text.
-    at: src/components/SectionHead/SectionHead.tsx:29
+    at: src/components/SectionHead/SectionHead.tsx:33
   - name: size
     figmaName: size
     type: '''section'' | ''card'''
@@ -115,33 +111,17 @@ props:
     doc: >-
       The title size. "section" (default): 20. "card": 16 on a 24 line, the Stat card title, for a head inside a card in a row of Stat
       cards. Her pick, 19 Nov: "A · card size".
-    at: src/components/SectionHead/SectionHead.tsx:31
+    at: src/components/SectionHead/SectionHead.tsx:35
   - name: className
     type: string
     required: false
     doc: Extra classes on the row.
-    at: src/components/SectionHead/SectionHead.tsx:33
+    at: src/components/SectionHead/SectionHead.tsx:37
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SectionHead/SectionHead.tsx:34
+    at: src/components/SectionHead/SectionHead.tsx:38
 variants:
-  iconTone:
-    values:
-      - success
-      - warning
-      - info
-      - neutral
-      - error
-      - fix
-      - visual
-      - tokens
-      - tooling
-      - docs
-      - contract
-      - decision
-    default: warning
-    at: src/components/SectionHead/SectionHead.tsx:25
   titleLevel:
     values:
       - '0'
@@ -149,13 +129,13 @@ variants:
       - '3'
       - '4'
     default: '2'
-    at: src/components/SectionHead/SectionHead.tsx:29
+    at: src/components/SectionHead/SectionHead.tsx:33
   size:
     values:
       - section
       - card
     default: section
-    at: src/components/SectionHead/SectionHead.tsx:31
+    at: src/components/SectionHead/SectionHead.tsx:35
 states:
   contract:
     - default
@@ -515,19 +495,19 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/SectionHead/SectionHead.tsx:63
+    at: src/components/SectionHead/SectionHead.tsx:68
   role:
     value: titleLevel
     source: role attribute
-    at: src/components/SectionHead/SectionHead.tsx:63
+    at: src/components/SectionHead/SectionHead.tsx:68
   nameSource:
     value: visible content
-    at: src/components/SectionHead/SectionHead.tsx:63
+    at: src/components/SectionHead/SectionHead.tsx:68
   keyboard: []
   aria:
     - attribute: aria-level
       value: titleLevel
-      at: src/components/SectionHead/SectionHead.tsx:69
+      at: src/components/SectionHead/SectionHead.tsx:74
   focusRing: []
   disabled:
     prop: null
@@ -538,14 +518,13 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-level
-      at: src/components/SectionHead/SectionHead.tsx:69
+      at: src/components/SectionHead/SectionHead.tsx:74
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    src/components/SectionHead/SectionHead.stories.tsx
-  lines: 58-58
+  file: ~/DEV/bella-props/src/components/SectionHead/SectionHead.stories.tsx
+  lines: 59-59
   import: import SectionHead from '@bella/components/SectionHead/SectionHead';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <SectionHead icon="WarningCircle" iconTone="warning" title="Drift from BELLA" number="3" words="tokens" size="card" />
@@ -556,7 +535,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '1498:545602'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Title#1498:22:
       type: TEXT
@@ -600,21 +579,6 @@ figma:
       height: 28
   defaultVariant: size=section
 mismatch:
-  - field: props.iconTone
-    code:
-      - success
-      - warning
-      - info
-      - neutral
-      - error
-      - fix
-      - visual
-      - tokens
-      - tooling
-      - docs
-      - contract
-      - decision
-    figma: no such variant property
   - field: tokens.size=section.counterAxisSpacing
     code:
       - '--spacing-16'

@@ -57,13 +57,20 @@ export const WithMarks: Story = {
   ),
 };
 
-/** The disabled state: the track, thumb and field are all inert. */
+/** The disabled state: the track, thumb and field are all inert, and drawn grey (25 Nov 2026), so it reads as not available. */
 export const Disabled: Story = {
   render: () => (
     <div style={{ maxWidth: 420 }}>
       <Slider label="Padding" unit="px" min={8} max={32} value={20} onChange={() => {}} disabled />
     </div>
   ),
+  play: async ({ canvas }) => {
+    const range = canvas.getByRole('slider', { name: 'Padding' });
+    await expect(range).toBeDisabled();
+    await expect(canvas.getByRole('spinbutton')).toBeDisabled();
+    range.focus();
+    await expect(range).not.toHaveFocus();
+  },
 };
 
 /** Behavioral suite: 44px target, arrow keys, the unit read out, the value field in sync. */

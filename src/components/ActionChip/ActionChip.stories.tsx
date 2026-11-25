@@ -142,3 +142,20 @@ export const Busy: Story = {
     });
   },
 };
+
+/** disabled (kept, 25 Nov 2026): the native attribute, so it takes no click
+ * or focus; the grey word and the faint edge, and hover does not paint it. */
+export const Disabled: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-8)' }}>
+      <ActionChip onClick={() => {}}>Copy as proposal</ActionChip>
+      <ActionChip disabled onClick={() => {}}>Nothing to copy</ActionChip>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const chip = canvas.getByRole('button', { name: 'Nothing to copy' });
+    await expect(chip).toBeDisabled();
+    chip.focus();
+    await expect(chip).not.toHaveFocus();
+  },
+};

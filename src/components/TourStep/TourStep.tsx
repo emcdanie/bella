@@ -32,7 +32,7 @@ export default function TourStep({ number, children, count, isEnd = false, onBac
   return (
     <div className={[styles.step, className].filter(Boolean).join(' ')} style={style} role="group" aria-roledescription="tour step" data-bella-component="tour-step">
       <div className={styles.body}>
-        <Pin number={number} variant="red" pinStyle="solid" />
+        <Pin number={number} tone="red" variant="solid" />
         <p className={styles.text}>{children}</p>
         <Button variant="tertiary" iconOnly icon="Xmark" ariaLabel="Close the tour" onClick={onClose} />
       </div>

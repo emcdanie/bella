@@ -3,15 +3,16 @@
 name: StatusPill
 lead:
   text: A status word in a pill.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-statuspill--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/StatusPill/StatusPill.tsx
-  storyTitle: Components/StatusPill
+  storyTitle: Components/Data/StatusPill
 props:
   - name: variant
+    figmaName: variant
     type: '''accent'' | ''success'' | ''info'' | ''neutral'' | ''attention'' | ''danger'' | ''quiet'' | ''serving'''
     values:
       - accent
@@ -47,6 +48,7 @@ props:
     doc: Extra classes on the pill.
     at: src/components/StatusPill/StatusPill.tsx:22
   - name: children
+    figmaName: children
     type: ReactNode
     required: false
     at: src/components/StatusPill/StatusPill.tsx:23
@@ -134,365 +136,353 @@ tokens:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:27
     - part: root
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:28
     - part: root
       state: rest
       property: border-radius
-      token: '--component-status-pill-border-radius'
+      token: '--border-radius-round'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:29
     - part: root
       state: rest
       property: font-family
-      token: '--component-status-pill-font-family'
+      token: '--typography-body-default-font-family'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:30
     - part: root
       state: rest
       property: font-size
-      token: '--component-status-pill-font-size'
+      token: '--typography-font-size-16'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:31
     - part: root
       state: rest
       property: font-weight
-      token: '--component-status-pill-font-weight'
+      token: '--typography-font-weight-400'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:32
     - part: root
       state: rest
       property: letter-spacing
-      token: '--component-status-pill-letter-spacing'
+      token: '--typography-letter-spacing-0'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:33
     - part: root
       state: rest
-      property: font-feature-settings
-      token: '--component-status-pill-font-feature-settings'
-      selector: .pill
-      at: src/components/StatusPill/StatusPill.module.css:34
-    - part: root
-      state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .pill
       at: src/components/StatusPill/StatusPill.module.css:37
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-duration-250'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-duration-250'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-duration-250'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .pill
+      at: src/components/StatusPill/StatusPill.module.css:40
     - part: accent
       state: rest
       property: color
-      token: '--component-status-pill-accent-foreground'
+      token: '--color-content-on-accent-1'
       selector: .accent
-      at: src/components/StatusPill/StatusPill.module.css:44
+      at: src/components/StatusPill/StatusPill.module.css:55
     - part: accent
       state: rest
       property: background
-      token: '--component-status-pill-accent-background'
+      token: '--color-background-accent-1'
       selector: .accent
-      at: src/components/StatusPill/StatusPill.module.css:45
-    - part: accent
-      state: rest
-      property: border-color
-      token: '--component-status-pill-accent-border'
-      selector: .accent
-      at: src/components/StatusPill/StatusPill.module.css:46
-    - part: success
-      state: rest
-      property: color
-      token: '--component-status-pill-success-foreground'
-      selector: .success
-      at: src/components/StatusPill/StatusPill.module.css:50
-    - part: success
-      state: rest
-      property: background
-      token: '--component-status-pill-success-background'
-      selector: .success
-      at: src/components/StatusPill/StatusPill.module.css:51
-    - part: success
-      state: rest
-      property: border-color
-      token: '--component-status-pill-success-border'
-      selector: .success
-      at: src/components/StatusPill/StatusPill.module.css:52
-    - part: info
-      state: rest
-      property: color
-      token: '--component-status-pill-info-foreground'
-      selector: .info
       at: src/components/StatusPill/StatusPill.module.css:56
-    - part: info
-      state: rest
-      property: background
-      token: '--component-status-pill-info-background'
-      selector: .info
-      at: src/components/StatusPill/StatusPill.module.css:57
-    - part: info
-      state: rest
-      property: border-color
-      token: '--component-status-pill-info-border'
-      selector: .info
-      at: src/components/StatusPill/StatusPill.module.css:58
-    - part: neutral
+    - part: success
       state: rest
       property: color
-      token: '--component-status-pill-neutral-foreground'
-      selector: .neutral
+      token: '--color-content-body'
+      selector: .success
+      at: src/components/StatusPill/StatusPill.module.css:61
+    - part: success
+      state: rest
+      property: background
+      token: '--color-border-utility-success'
+      selector: .success
       at: src/components/StatusPill/StatusPill.module.css:62
-    - part: neutral
+    - part: success
       state: rest
-      property: background
-      token: '--component-status-pill-neutral-background'
-      selector: .neutral
+      property: border-color
+      token: '--color-border-utility-success'
+      selector: .success
       at: src/components/StatusPill/StatusPill.module.css:63
+    - part: info
+      state: rest
+      property: color
+      token: '--color-content-body'
+      selector: .info
+      at: src/components/StatusPill/StatusPill.module.css:67
+    - part: info
+      state: rest
+      property: background
+      token: '--color-background-utility-info'
+      selector: .info
+      at: src/components/StatusPill/StatusPill.module.css:68
+    - part: info
+      state: rest
+      property: border-color
+      token: '--color-border-utility-info'
+      selector: .info
+      at: src/components/StatusPill/StatusPill.module.css:69
+    - part: neutral
+      state: rest
+      property: color
+      token: '--color-content-body'
+      selector: .neutral
+      at: src/components/StatusPill/StatusPill.module.css:73
+    - part: neutral
+      state: rest
+      property: background
+      token: '--color-background-subtle'
+      selector: .neutral
+      at: src/components/StatusPill/StatusPill.module.css:74
     - part: neutral
       state: rest
       property: border-color
-      token: '--component-status-pill-neutral-border'
+      token: '--color-border-default'
       selector: .neutral
-      at: src/components/StatusPill/StatusPill.module.css:64
-    - part: attention
-      state: rest
-      property: color
-      token: '--component-status-pill-attention-foreground'
-      selector: .attention
-      at: src/components/StatusPill/StatusPill.module.css:68
-    - part: attention
-      state: rest
-      property: background
-      token: '--component-status-pill-attention-background'
-      selector: .attention
-      at: src/components/StatusPill/StatusPill.module.css:69
-    - part: attention
-      state: rest
-      property: border-color
-      token: '--component-status-pill-attention-border'
-      selector: .attention
-      at: src/components/StatusPill/StatusPill.module.css:70
-    - part: danger
-      state: rest
-      property: color
-      token: '--component-status-pill-danger-foreground'
-      selector: .danger
-      at: src/components/StatusPill/StatusPill.module.css:74
-    - part: danger
-      state: rest
-      property: background
-      token: '--component-status-pill-danger-background'
-      selector: .danger
       at: src/components/StatusPill/StatusPill.module.css:75
+    - part: attention
+      state: rest
+      property: color
+      token: '--color-content-utility-on-status'
+      selector: .attention
+      at: src/components/StatusPill/StatusPill.module.css:79
+    - part: attention
+      state: rest
+      property: background
+      token: '--color-background-utility-warning-knockout'
+      selector: .attention
+      at: src/components/StatusPill/StatusPill.module.css:80
+    - part: danger
+      state: rest
+      property: color
+      token: '--color-content-body'
+      selector: .danger
+      at: src/components/StatusPill/StatusPill.module.css:85
+    - part: danger
+      state: rest
+      property: background
+      token: '--color-border-utility-error'
+      selector: .danger
+      at: src/components/StatusPill/StatusPill.module.css:86
     - part: danger
       state: rest
       property: border-color
-      token: '--component-status-pill-danger-border'
+      token: '--color-border-utility-error'
       selector: .danger
-      at: src/components/StatusPill/StatusPill.module.css:76
-    - part: quiet
-      state: rest
-      property: color
-      token: '--component-status-pill-quiet-foreground'
-      selector: .quiet
-      at: src/components/StatusPill/StatusPill.module.css:80
-    - part: quiet
-      state: rest
-      property: background
-      token: '--component-status-pill-quiet-background'
-      selector: .quiet
-      at: src/components/StatusPill/StatusPill.module.css:81
-    - part: quiet
-      state: rest
-      property: border-color
-      token: '--component-status-pill-quiet-border'
-      selector: .quiet
-      at: src/components/StatusPill/StatusPill.module.css:82
-    - part: serving
-      state: rest
-      property: color
-      token: '--component-status-pill-serving-foreground'
-      selector: .serving
-      at: src/components/StatusPill/StatusPill.module.css:86
-    - part: serving
-      state: rest
-      property: background
-      token: '--component-status-pill-serving-background'
-      selector: .serving
       at: src/components/StatusPill/StatusPill.module.css:87
+    - part: quiet
+      state: rest
+      property: color
+      token: '--color-content-utility-neutral'
+      selector: .quiet
+      at: src/components/StatusPill/StatusPill.module.css:91
+    - part: quiet
+      state: rest
+      property: background
+      token: '--color-background-utility-neutral'
+      selector: .quiet
+      at: src/components/StatusPill/StatusPill.module.css:92
+    - part: serving
+      state: rest
+      property: color
+      token: '--color-content-body'
+      selector: .serving
+      at: src/components/StatusPill/StatusPill.module.css:97
     - part: serving
       state: rest
       property: border-color
-      token: '--component-status-pill-serving-border'
+      token: '--color-border-utility-success'
       selector: .serving
-      at: src/components/StatusPill/StatusPill.module.css:88
+      at: src/components/StatusPill/StatusPill.module.css:99
     - part: dot
       state: rest
       property: width
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .dot
-      at: src/components/StatusPill/StatusPill.module.css:96
+      at: src/components/StatusPill/StatusPill.module.css:107
     - part: dot
       state: rest
       property: height
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .dot
-      at: src/components/StatusPill/StatusPill.module.css:97
+      at: src/components/StatusPill/StatusPill.module.css:108
     - part: dot
       state: rest
       property: background
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .dot
-      at: src/components/StatusPill/StatusPill.module.css:99
+      at: src/components/StatusPill/StatusPill.module.css:110
     - part: dot-attention
       state: rest
       property: background
-      token: '--color-semantic-attention'
+      token: '--color-background-utility-warning-knockout'
       selector: .dot-attention, .dot-accent
-      at: src/components/StatusPill/StatusPill.module.css:101
+      at: src/components/StatusPill/StatusPill.module.css:112
     - part: dot-danger
       state: rest
       property: background
-      token: '--color-semantic-danger'
+      token: '--color-border-utility-error'
       selector: .dot-danger
-      at: src/components/StatusPill/StatusPill.module.css:102
+      at: src/components/StatusPill/StatusPill.module.css:113
     - part: dot-success
       state: rest
       property: background
-      token: '--color-semantic-success'
+      token: '--color-border-utility-success'
       selector: .dot-success, .dot-serving
-      at: src/components/StatusPill/StatusPill.module.css:103
+      at: src/components/StatusPill/StatusPill.module.css:114
     - part: dot-info
       state: rest
       property: background
-      token: '--color-semantic-info'
+      token: '--color-border-utility-info'
       selector: .dot-info
-      at: src/components/StatusPill/StatusPill.module.css:104
+      at: src/components/StatusPill/StatusPill.module.css:115
   values:
-    '--color-semantic-attention':
-      light: '#e8a83e'
-      chip: '#E9B820'
-    '--color-semantic-danger':
-      light: '#b3261e'
-      chip: '#E2473B'
-    '--color-semantic-info':
-      light: '#6495C5'
-      chip: '#6495C5'
-    '--color-semantic-success':
-      light: '#4A7C6F'
-      chip: '#2B9A57'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-status-pill-accent-background':
-      light: '#E58BBB'
-      chip: '#E58BBB'
-    '--component-status-pill-accent-border':
-      light: transparent
-      chip: transparent
-    '--component-status-pill-accent-foreground':
-      light: '#0A0C14'
-      chip: '#0A0C14'
-    '--component-status-pill-attention-background':
-      light: '#e8a83e'
-      chip: '#FCF4D8'
-    '--component-status-pill-attention-border':
-      light: transparent
-      chip: transparent
-    '--component-status-pill-attention-foreground':
-      light: '#1d2030'
-      chip: '#5E4800'
-    '--component-status-pill-border-radius':
-      light: 999px
-      chip: 999px
-    '--component-status-pill-danger-background':
-      light: 'color-mix(in srgb, #b3261e 10%, transparent)'
-      chip: '#FBEAE8'
-    '--component-status-pill-danger-border':
-      light: '#b3261e'
-      chip: transparent
-    '--component-status-pill-danger-foreground':
-      light: '#2b2f3d'
-      chip: '#8F2118'
-    '--component-status-pill-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''Geist Mono'', ui-monospace, monospace'
-    '--component-status-pill-font-feature-settings':
-      light: normal
-      chip: normal
-    '--component-status-pill-font-size':
-      light: 16px
-      chip: 16px
-    '--component-status-pill-font-weight':
-      light: '400'
-      chip: '500'
-    '--component-status-pill-info-background':
-      light: '#6495C526'
-      chip: '#E6F1FB'
-    '--component-status-pill-info-border':
-      light: '#6495C54D'
-      chip: transparent
-    '--component-status-pill-info-foreground':
-      light: '#2b2f3d'
-      chip: '#114C80'
-    '--component-status-pill-letter-spacing':
-      light: '0'
-      chip: '0'
-    '--component-status-pill-neutral-background':
-      light: '#eceef3'
-      chip: '#EDEDEA'
-    '--component-status-pill-neutral-border':
-      light: '#e4e6ec'
-      chip: transparent
-    '--component-status-pill-neutral-foreground':
-      light: '#2b2f3d'
-      chip: '#3a3f50'
-    '--component-status-pill-quiet-background':
-      light: '#cfe8dc'
-      chip: '#cfe8dc'
-    '--component-status-pill-quiet-border':
-      light: transparent
-      chip: transparent
-    '--component-status-pill-quiet-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-status-pill-serving-background':
-      light: transparent
-      chip: transparent
-    '--component-status-pill-serving-border':
-      light: '#4A7C6F'
-      chip: '#2B9A57'
-    '--component-status-pill-serving-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-status-pill-success-background':
-      light: 'color-mix(in srgb, #4A7C6F 10%, transparent)'
-      chip: '#E5F4EA'
-    '--component-status-pill-success-border':
-      light: '#4A7C6F'
-      chip: transparent
-    '--component-status-pill-success-foreground':
-      light: '#2b2f3d'
-      chip: '#18502F'
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--color-background-accent-1':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-utility-info':
+      light: null
+      chip: null
+    '--color-background-utility-neutral':
+      light: null
+      chip: null
+    '--color-background-utility-warning-knockout':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-border-utility-info':
+      light: null
+      chip: null
+    '--color-border-utility-success':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-on-accent-1':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--color-content-utility-neutral':
+      light: null
+      chip: null
+    '--color-content-utility-on-status':
+      light: null
+      chip: null
+    '--motion-duration-250':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
 motion:
-  transitions: []
-  reducedMotion: null
-  reducedMotionQuery: false
+  transitions:
+    - selector: .pill
+      state: rest
+      declaration: >-
+        transition: background-color var(--motion-duration-250) var(--motion-easing-standard), border-color var(--motion-duration-250)
+        var(--motion-easing-standard), color var(--motion-duration-250) var(--motion-easing-standard)
+      properties:
+        - background-color
+        - border-color
+        - color
+      durations:
+        - token: '--motion-duration-250'
+          value: null
+        - token: '--motion-duration-250'
+          value: null
+        - token: '--motion-duration-250'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+        - token: '--motion-easing-standard'
+          value: null
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/StatusPill/StatusPill.module.css:40
+  reducedMotion:
+    selector: .pill
+    declaration: 'transition: none'
+    at: src/components/StatusPill/StatusPill.module.css:48
+  reducedMotionQuery: true
 a11y:
   element:
     tag: span
@@ -510,7 +500,10 @@ a11y:
   disabled:
     prop: null
     note: no disabled prop
-  reducedMotion: null
+  reducedMotion:
+    selector: .pill
+    declaration: 'transition: none'
+    at: src/components/StatusPill/StatusPill.module.css:48
   contract: >-
     Verified 2026-07-22: the label never depends on the tint. Accent label is text-accent, 5.66:1 light / 6.65:1 dark (AA). Success/info
     labels are text-secondary, AAA both themes. Tints as non-text rings: sage 4.33:1 on ground and 3.45:1 on navy (passes 3:1); steel 2.87:1
@@ -519,226 +512,11 @@ a11y:
   targetPx: null
   ariaChips: []
 contrast:
-  pairs:
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: Accent label
-      foreground: '--component-status-pill-accent-foreground'
-      background: '--component-status-pill-accent-background'
-      foregroundHex: '#0A0C14'
-      backgroundHex: '#E58BBB'
-      ratio: 8.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Success label
-      foreground: '--component-status-pill-success-foreground'
-      background: '--component-status-pill-success-background'
-      foregroundHex: '#18502F'
-      backgroundHex: '#E5F4EA'
-      ratio: 8.29
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Info label
-      foreground: '--component-status-pill-info-foreground'
-      background: '--component-status-pill-info-background'
-      foregroundHex: '#114C80'
-      backgroundHex: '#E6F1FB'
-      ratio: 7.74
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Neutral label
-      foreground: '--component-status-pill-neutral-foreground'
-      background: '--component-status-pill-neutral-background'
-      foregroundHex: '#3a3f50'
-      backgroundHex: '#EDEDEA'
-      ratio: 8.92
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Attention label
-      foreground: '--component-status-pill-attention-foreground'
-      background: '--component-status-pill-attention-background'
-      foregroundHex: '#5E4800'
-      backgroundHex: '#FCF4D8'
-      ratio: 7.94
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Danger label
-      foreground: '--component-status-pill-danger-foreground'
-      background: '--component-status-pill-danger-background'
-      foregroundHex: '#8F2118'
-      backgroundHex: '#FBEAE8'
-      ratio: 7.52
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Quiet label
-      foreground: '--component-status-pill-quiet-foreground'
-      background: '--component-status-pill-quiet-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#cfe8dc'
-      ratio: 12.47
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Serving label
-      foreground: '--component-status-pill-serving-foreground'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Serving outline
-      foreground: '--component-status-pill-serving-border'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2B9A57'
-      backgroundHex: '#ffffff'
-      ratio: 3.58
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-status-pill-accent-foreground'
-      background: '--color-semantic-background'
-      ratio: 18.2
-      theme: chip
-    - foreground: '--component-status-pill-accent-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 19.52
-      theme: chip
-    - foreground: '--component-status-pill-success-foreground'
-      background: '--color-semantic-background'
-      ratio: 8.79
-      theme: chip
-    - foreground: '--component-status-pill-success-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 9.43
-      theme: chip
-    - foreground: '--component-status-pill-info-foreground'
-      background: '--color-semantic-background'
-      ratio: 8.26
-      theme: chip
-    - foreground: '--component-status-pill-info-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.86
-      theme: chip
-    - foreground: '--component-status-pill-neutral-foreground'
-      background: '--color-semantic-background'
-      ratio: 9.76
-      theme: chip
-    - foreground: '--component-status-pill-neutral-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 10.46
-      theme: chip
-    - foreground: '--component-status-pill-attention-foreground'
-      background: '--color-semantic-background'
-      ratio: 8.15
-      theme: chip
-    - foreground: '--component-status-pill-attention-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.74
-      theme: chip
-    - foreground: '--component-status-pill-danger-foreground'
-      background: '--color-semantic-background'
-      ratio: 8.16
-      theme: chip
-    - foreground: '--component-status-pill-danger-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.75
-      theme: chip
-    - foreground: '--component-status-pill-quiet-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-status-pill-quiet-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-status-pill-serving-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-status-pill-serving-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/StatusPill/StatusPill.stories.tsx
-  lines: 51-51
+  file: ~/DEV/bella-props/src/components/StatusPill/StatusPill.stories.tsx
+  lines: 52-52
   import: import StatusPill from '@bella/components/StatusPill/StatusPill';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <StatusPill variant="accent">Current focus</StatusPill>
@@ -760,10 +538,10 @@ usage:
     - >-
       Do not design new status UI on the carried tints without asking: the BELLA-native status ladder (issue #1) is pending and will restyle
       this
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '140:57'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     children#140:3:
       type: TEXT
@@ -824,24 +602,77 @@ mismatch:
       - pill
       - dot
     figma: no such variant property
+  - field: tokens.variant=accent.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/1
+    sameValueInChip: false
+  - field: tokens.variant=accent.paddingLeft
+    code:
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.variant=accent.paddingRight
+    code:
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.variant=accent.radius
+    code:
+      - '--border-radius-round'
+    figma: component/status-pill/border-radius
+    sameValueInChip: false
+  - field: tokens.variant=accent.fills
+    code:
+      - '--color-content-body'
+      - '--color-content-on-accent-1'
+      - '--color-background-accent-1'
+      - '--color-border-utility-success'
+      - '--color-background-utility-info'
+      - '--color-background-subtle'
+      - '--color-content-utility-on-status'
+      - '--color-background-utility-warning-knockout'
+      - '--color-border-utility-error'
+      - '--color-content-utility-neutral'
+      - '--color-background-utility-neutral'
+      - '--color-content-subtle'
+      - '--color-border-utility-info'
+    figma: component/status-pill/accent/background
+    sameValueInChip: false
   - field: tokens.variant=accent.strokes
     code:
-      - '--component-status-pill-border-radius'
-      - '--component-status-pill-accent-border'
-      - '--component-status-pill-success-border'
-      - '--component-status-pill-info-border'
-      - '--component-status-pill-neutral-border'
-      - '--component-status-pill-attention-border'
-      - '--component-status-pill-danger-border'
-      - '--component-status-pill-quiet-border'
-      - '--component-status-pill-serving-border'
+      - '--border-radius-round'
+      - '--color-border-utility-success'
+      - '--color-border-utility-info'
+      - '--color-border-default'
+      - '--color-border-utility-error'
     figma: color/semantic/accent
+    sameValueInChip: false
+  - field: tokens.Label.fills
+    code:
+      - '--color-content-body'
+      - '--color-content-on-accent-1'
+      - '--color-background-accent-1'
+      - '--color-border-utility-success'
+      - '--color-background-utility-info'
+      - '--color-background-subtle'
+      - '--color-content-utility-on-status'
+      - '--color-background-utility-warning-knockout'
+      - '--color-border-utility-error'
+      - '--color-content-utility-neutral'
+      - '--color-background-utility-neutral'
+      - '--color-content-subtle'
+      - '--color-border-utility-info'
+    figma: component/status-pill/accent/foreground
+    sameValueInChip: false
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-font-size-16'
+    figma: component/status-pill/font-size
     sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/StatusPill/StatusPill.tsx
-  - section: Behaviour and motion
-    why: no transition or animation in src/components/StatusPill/StatusPill.module.css
 guidance:
   lead: One status word in a pill. The word carries the state; the tint only backs it up.
   whenToUse:

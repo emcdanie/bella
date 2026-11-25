@@ -81,22 +81,54 @@ props:
     type: '(on: boolean) => void'
     required: false
     at: src/components/ToolColumn/ToolColumn.tsx:28
+  - name: tools
+    type: '''all'' | ''view'''
+    values:
+      - all
+      - view
+    default: all
+    required: false
+    doc: >-
+      Which tools show: 'all' (view group, divider, tools group) or 'view' (zoom in, fit, zoom out only), for a stage whose picture is
+      marked by a click and has no light or dark look or second pane (Playground picks, Needs you; Elleta's Workbench A, 23 Nov 2026).
+    at: src/components/ToolColumn/ToolColumn.tsx:32
+  - name: orientation
+    type: '''vertical'' | ''horizontal'''
+    values:
+      - vertical
+      - horizontal
+    default: vertical
+    required: false
+    doc: '''vertical'' beside the stage; ''horizontal'' for a phone, where the tools float under the picture (Workbench A, 320).'
+    at: src/components/ToolColumn/ToolColumn.tsx:34
   - name: label
     type: string
     default: View tools
     required: false
     doc: The toolbar's accessible name.
-    at: src/components/ToolColumn/ToolColumn.tsx:30
+    at: src/components/ToolColumn/ToolColumn.tsx:36
   - name: className
     type: string
     required: false
     doc: Extra classes on the wrapper.
-    at: src/components/ToolColumn/ToolColumn.tsx:32
+    at: src/components/ToolColumn/ToolColumn.tsx:38
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/ToolColumn/ToolColumn.tsx:33
-variants: {}
+    at: src/components/ToolColumn/ToolColumn.tsx:39
+variants:
+  tools:
+    values:
+      - all
+      - view
+    default: all
+    at: src/components/ToolColumn/ToolColumn.tsx:32
+  orientation:
+    values:
+      - vertical
+      - horizontal
+    default: vertical
+    at: src/components/ToolColumn/ToolColumn.tsx:34
 states:
   contract:
     - default
@@ -405,6 +437,18 @@ tokens:
       token: '--color-content-subtle'
       selector: .zoom
       at: src/components/ToolColumn/ToolColumn.module.css:49
+    - part: divider
+      state: rest
+      property: inline-size
+      token: '--border-width-1'
+      selector: .horizontal .divider
+      at: src/components/ToolColumn/ToolColumn.module.css:63
+    - part: zoom
+      state: rest
+      property: inset-inline-start
+      token: '--spacing-16'
+      selector: .horizontal .zoom
+      at: src/components/ToolColumn/ToolColumn.module.css:67
   values:
     '--border-radius-16':
       light: null
@@ -452,66 +496,72 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/ToolColumn/ToolColumn.tsx:101
+    at: src/components/ToolColumn/ToolColumn.tsx:111
   role:
     value: toolbar
     source: role attribute
-    at: src/components/ToolColumn/ToolColumn.tsx:101
+    at: src/components/ToolColumn/ToolColumn.tsx:111
   nameSource:
     value: visible content
-    at: src/components/ToolColumn/ToolColumn.tsx:101
+    at: src/components/ToolColumn/ToolColumn.tsx:111
   keyboard:
+    - key: ArrowRight
+      source: handler in the .tsx
+      at: src/components/ToolColumn/ToolColumn.tsx:87
     - key: ArrowDown
       source: handler in the .tsx
-      at: src/components/ToolColumn/ToolColumn.tsx:79
+      at: src/components/ToolColumn/ToolColumn.tsx:87
+    - key: ArrowLeft
+      source: handler in the .tsx
+      at: src/components/ToolColumn/ToolColumn.tsx:88
     - key: ArrowUp
       source: handler in the .tsx
-      at: src/components/ToolColumn/ToolColumn.tsx:80
+      at: src/components/ToolColumn/ToolColumn.tsx:88
     - key: Home
       source: handler in the .tsx
-      at: src/components/ToolColumn/ToolColumn.tsx:81
+      at: src/components/ToolColumn/ToolColumn.tsx:91
     - key: End
       source: handler in the .tsx
-      at: src/components/ToolColumn/ToolColumn.tsx:82
+      at: src/components/ToolColumn/ToolColumn.tsx:92
   aria:
     - attribute: aria-orientation
-      value: vertical
-      at: src/components/ToolColumn/ToolColumn.tsx:106
+      value: orientation
+      at: src/components/ToolColumn/ToolColumn.tsx:116
     - attribute: aria-label
       value: label
-      at: src/components/ToolColumn/ToolColumn.tsx:107
+      at: src/components/ToolColumn/ToolColumn.tsx:117
     - attribute: aria-orientation
-      value: horizontal
-      at: src/components/ToolColumn/ToolColumn.tsx:119
+      value: orientation
+      at: src/components/ToolColumn/ToolColumn.tsx:131
     - attribute: aria-label
       value: Zoom
-      at: src/components/ToolColumn/ToolColumn.tsx:127
+      at: src/components/ToolColumn/ToolColumn.tsx:141
   focusRing: []
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion: null
   contract: >-
-    role=toolbar, aria-orientation=vertical, named "View tools". One tab stop (roving tabindex): Up, Down, Home and End move between the
-    tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on
-    hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool.
+    role=toolbar, aria-orientation=vertical (horizontal with orientation="horizontal"), named "View tools". One tab stop (roving tabindex):
+    Up, Down (Left, Right when horizontal), Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44
+    target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry
+    aria-pressed. The readout is a status. Focus ring on every tool.
   targetPx: null
   ariaChips:
     - kind: ARIA
-      value: aria-orientation="horizontal"
-      at: src/components/ToolColumn/ToolColumn.tsx:119
+      value: aria-orientation
+      at: src/components/ToolColumn/ToolColumn.tsx:131
     - kind: ARIA
       value: aria-label="Zoom"
-      at: src/components/ToolColumn/ToolColumn.tsx:127
+      at: src/components/ToolColumn/ToolColumn.tsx:141
     - kind: ARIA
       value: role=status
-      at: src/components/ToolColumn/ToolColumn.tsx:127
+      at: src/components/ToolColumn/ToolColumn.tsx:141
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: >-
-    src/components/ToolColumn/ToolColumn.stories.tsx
+  file: ~/DEV/bella-props/src/components/ToolColumn/ToolColumn.stories.tsx
   lines: 34-34
   import: import ToolColumn from '@bella/components/ToolColumn/ToolColumn';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -519,13 +569,16 @@ codeExample:
 usage:
   use:
     - Components workbench and Playground stage, top left inside it (22 Nov 2026)
+    - >-
+      Playground picks and Needs you: tools="view" (zoom in, fit, zoom out) fixed beside the picture; orientation="horizontal" under the
+      picture on a phone (Workbench A, 23 Nov 2026)
   dont:
     - Not page actions (PageHeader)
     - Not a row of choices (SegmentedControl)
   source: tokens/contracts.json
 figma:
   nodeId: '1740:142'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Show tooltip#1740:0:
       type: BOOLEAN
@@ -539,6 +592,16 @@ figma:
   variants: []
   defaultVariant: ToolColumn
 mismatch:
+  - field: props.tools
+    code:
+      - all
+      - view
+    figma: no such variant property
+  - field: props.orientation
+    code:
+      - vertical
+      - horizontal
+    figma: no such variant property
   - field: props.dark
     code: boolean prop
     figma: not in the set

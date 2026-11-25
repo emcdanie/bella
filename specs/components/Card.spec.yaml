@@ -7,9 +7,9 @@ lead:
 category: Layout
 rendersAs: a div; with href one anchor, with onClick one button
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-card--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-card--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Card/Card.tsx
-  storyTitle: Components/Card
+  storyTitle: Components/Layout/Card
 props:
   - name: accent
     type: string
@@ -71,24 +71,38 @@ props:
     required: false
     doc: Component used to render internal links; inject your router's Link (e.g. next/link) at the consumer; defaults to a plain anchor.
     at: src/components/Card/Card.tsx:48
+  - name: footerText
+    figmaName: Show footer
+    type: ReactNode
+    required: false
+    doc: >-
+      Extra classes on the outer wrapper. */ /** Figma "Show footer" › _Card footer "Footer text" (+ Show text): subtext line, bottom left.
+      Missing = off.
+    at: src/components/Card/Card.tsx:51
+  - name: footerAction
+    type: ReactNode
+    required: false
+    doc: >-
+      Figma "Show footer" › _Card footer "Action" (+ Show action): a Button secondary sm, bottom right. Not on an interactive card (no
+      buttons inside a link). Missing = off.
+    at: src/components/Card/Card.tsx:53
   - name: className
     type: string
     required: false
-    doc: Extra classes on the outer wrapper.
-    at: src/components/Card/Card.tsx:50
+    at: src/components/Card/Card.tsx:54
   - name: innerClassName
     type: string
     required: false
     doc: Extra classes on the inner panel (e.g. custom padding/layout).
-    at: src/components/Card/Card.tsx:52
+    at: src/components/Card/Card.tsx:56
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/Card/Card.tsx:53
+    at: src/components/Card/Card.tsx:57
   - name: children
     type: ReactNode
     required: false
-    at: src/components/Card/Card.tsx:54
+    at: src/components/Card/Card.tsx:58
 variants:
   variant:
     values:
@@ -285,7 +299,7 @@ anatomy:
       kind: ring
       trigger: focus
       token: '--color-border-focus'
-      detail: 'interactive cards only: 3px, 3px offset, focus-visible only'
+      detail: 'interactive cards only: 4px, 4px gap, outside, focus-visible only'
 tokens:
   used:
     - part: root
@@ -335,127 +349,175 @@ tokens:
       property: background
       token: '--color-brand-stone-100'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:52
+      at: src/components/Card/Card.module.css:65
     - part: innerPeek
       state: rest
       property: color
       token: '--color-neutral-900'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:53
+      at: src/components/Card/Card.module.css:66
     - part: innerPeek
       state: rest
       property: '--color-content-default'
       token: '--color-neutral-900'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:54
+      at: src/components/Card/Card.module.css:67
     - part: innerPeek
       state: rest
       property: '--color-content-subtle'
       token: '--color-neutral-700'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:55
+      at: src/components/Card/Card.module.css:68
     - part: innerPeek
       state: rest
       property: '--color-content-body'
       token: '--color-neutral-800'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:56
+      at: src/components/Card/Card.module.css:69
     - part: innerPeek
       state: rest
       property: '--color-border-default'
       token: '--color-neutral-100'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:57
+      at: src/components/Card/Card.module.css:70
     - part: innerPeek
       state: rest
       property: '--color-border-subtle'
       token: '--color-neutral-100'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:58
+      at: src/components/Card/Card.module.css:71
     - part: innerPeek
       state: rest
       property: '--color-background-subtle'
       token: '--color-neutral-100'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:59
+      at: src/components/Card/Card.module.css:72
     - part: innerPeek
       state: rest
       property: border-color
       token: '--color-border-subtle'
       selector: .innerPeek
-      at: src/components/Card/Card.module.css:60
+      at: src/components/Card/Card.module.css:73
     - part: interactive
       state: rest
       property: transition
       token: '--motion-duration-200'
       selector: .interactive
-      at: src/components/Card/Card.module.css:84
+      at: src/components/Card/Card.module.css:97
     - part: interactive
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .interactive
-      at: src/components/Card/Card.module.css:84
+      at: src/components/Card/Card.module.css:97
     - part: interactive
       state: rest
       property: transition
       token: '--motion-duration-200'
       selector: .interactive
-      at: src/components/Card/Card.module.css:84
+      at: src/components/Card/Card.module.css:97
     - part: interactive
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .interactive
-      at: src/components/Card/Card.module.css:84
+      at: src/components/Card/Card.module.css:97
     - part: interactive
       state: hover focus-visible
       property: transform
       token: '--border-width-2'
       selector: .interactive:hover, .interactive:focus-visible
-      at: src/components/Card/Card.module.css:91
+      at: src/components/Card/Card.module.css:104
     - part: interactive
       state: hover focus-visible
       property: box-shadow
       token: '--shadow-hover'
       selector: .interactive:hover, .interactive:focus-visible
-      at: src/components/Card/Card.module.css:92
+      at: src/components/Card/Card.module.css:105
     - part: interactive
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:96
+      at: src/components/Card/Card.module.css:109
     - part: interactive
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:96
+      at: src/components/Card/Card.module.css:109
     - part: interactive
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:97
+      at: src/components/Card/Card.module.css:110
     - part: media
       state: rest
       property: background
       token: '--color-background-surface'
       selector: .media
-      at: src/components/Card/Card.module.css:116
+      at: src/components/Card/Card.module.css:129
     - part: body
       state: rest
       property: padding
       token: '--layout-card-padding'
       selector: .body
-      at: src/components/Card/Card.module.css:128
+      at: src/components/Card/Card.module.css:141
     - part: body
       state: rest
       property: gap
       token: '--spacing-8'
       selector: .body
-      at: src/components/Card/Card.module.css:131
+      at: src/components/Card/Card.module.css:144
+    - part: footer
+      state: rest
+      property: gap
+      token: '--spacing-12'
+      selector: .footer
+      at: src/components/Card/Card.module.css:170
+    - part: footer
+      state: rest
+      property: padding-block-start
+      token: '--spacing-24'
+      selector: .footer
+      at: src/components/Card/Card.module.css:172
+    - part: footerText
+      state: rest
+      property: font-family
+      token: '--typography-subtext-font-family'
+      selector: .footerText
+      at: src/components/Card/Card.module.css:179
+    - part: footerText
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .footerText
+      at: src/components/Card/Card.module.css:180
+    - part: footerText
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .footerText
+      at: src/components/Card/Card.module.css:181
+    - part: footerText
+      state: rest
+      property: line-height
+      token: '--typography-line-height-px-24'
+      selector: .footerText
+      at: src/components/Card/Card.module.css:182
+    - part: footerText
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .footerText
+      at: src/components/Card/Card.module.css:183
+    - part: inner
+      state: rest
+      property: padding
+      token: '--spacing-16'
+      selector: .inner .inner
+      at: src/components/Card/Card.module.css:195
   values:
     '--border-radius-card':
       light: null
@@ -476,6 +538,9 @@ tokens:
       light: null
       chip: null
     '--color-brand-stone-100':
+      light: null
+      chip: null
+    '--color-content-subtle':
       light: null
       chip: null
     '--color-neutral-100':
@@ -511,7 +576,28 @@ tokens:
     '--shadow-hover':
       light: null
       chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
     '--spacing-8':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-line-height-px-24':
+      light: null
+      chip: null
+    '--typography-subtext-font-family':
       light: null
       chip: null
 motion:
@@ -534,40 +620,40 @@ motion:
           value: null
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/Card/Card.module.css:84
+      at: src/components/Card/Card.module.css:97
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:139
+    at: src/components/Card/Card.module.css:156
   reducedMotionQuery: true
 a11y:
   element:
     tag: a
-    at: src/components/Card/Card.tsx:114
+    at: src/components/Card/Card.tsx:141
   role:
     value: link
     source: native element
-    at: src/components/Card/Card.tsx:114
+    at: src/components/Card/Card.tsx:141
   nameSource:
     value: aria-label from the ariaLabel prop
-    at: src/components/Card/Card.tsx:114
+    at: src/components/Card/Card.tsx:141
   keyboard:
     - key: Enter follows the link
       source: native element
-      at: src/components/Card/Card.tsx:114
+      at: src/components/Card/Card.tsx:141
   aria:
     - attribute: aria-hidden
-      value: ariaLabel
-      at: src/components/Card/Card.tsx:102
-    - attribute: aria-label
       value: ariaLabel
       at: src/components/Card/Card.tsx:119
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/Card/Card.tsx:126
+      at: src/components/Card/Card.tsx:146
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/Card/Card.tsx:137
+      at: src/components/Card/Card.tsx:153
+    - attribute: aria-label
+      value: ariaLabel
+      at: src/components/Card/Card.tsx:164
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -576,20 +662,20 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/Card/Card.module.css:96
+      at: src/components/Card/Card.module.css:109
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/Card/Card.module.css:97
+      at: src/components/Card/Card.module.css:110
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:139
+    at: src/components/Card/Card.module.css:156
   contract: >-
     Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible
     content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes).
@@ -600,15 +686,15 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-hidden
-      at: src/components/Card/Card.tsx:102
+      at: src/components/Card/Card.tsx:119
     - kind: ARIA
       value: aria-label
-      at: src/components/Card/Card.tsx:137
+      at: src/components/Card/Card.tsx:164
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Card/Card.stories.tsx
+  file: ~/DEV/bella-props/src/components/Card/Card.stories.tsx
   lines: 152-154
   import: import Card from '@bella/components/Card/Card';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -633,7 +719,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '136:130'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Title#136:21:
       type: TEXT
@@ -976,29 +1062,10 @@ mismatch:
   - field: props.mediaScrim
     code: boolean prop
     figma: not in the set
-  - field: tokens.Body.paddingLeft
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
-  - field: tokens.Body.paddingTop
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
-  - field: tokens.Body.paddingRight
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
-  - field: tokens.Body.paddingBottom
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
   - field: tokens.Head.itemSpacing
     code:
       - '--spacing-8'
+      - '--spacing-12'
     figma: spacing/16
     sameValueInChip: false
   - field: tokens.Title.fills
@@ -1006,30 +1073,17 @@ mismatch:
       - '--color-background-surface'
       - '--color-brand-stone-100'
       - '--color-neutral-900'
+      - '--color-content-subtle'
     figma: color/content/default
     sameValueInChip: true
-  - field: tokens.Body.fills
+  - field: tokens.Title.fontSize
     code:
-      - '--color-background-surface'
-      - '--color-brand-stone-100'
-      - '--color-neutral-900'
-    figma: color/content/subtle
+      - '--typography-font-size-16'
+    figma: typography/font-size/20
     sameValueInChip: false
-  - field: tokens.Footer.paddingLeft
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
-  - field: tokens.Footer.paddingRight
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
-  - field: tokens.Footer.paddingBottom
-    code:
-      - '--layout-card-padding'
-    figma: spacing/24
-    sameValueInChip: true
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-layout-card--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-card--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Card/Card.tsx

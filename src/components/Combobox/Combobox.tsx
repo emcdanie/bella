@@ -55,6 +55,13 @@ export interface ComboboxProps {
   noResults?: ReactNode;
   /** Runs before the field's own keys; call preventDefault to take the key over. */
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  /** The field cannot be used: the native `disabled` attribute on the input, so it takes no focus or typing and the
+   *  list never opens; muted text on the subtle fill, as Input draws it (25 Nov 2026). There is no `open` prop: the
+   *  list opens from typing and focus only. */
+  disabled?: boolean;
+  /** Honest error: the danger edge, an error icon and the message under the field (role=alert), wired by
+   *  aria-invalid and aria-describedby, as Input does it (25 Nov 2026). */
+  error?: string;
   /** Id for the input. */
   id?: string;
   className?: string;
@@ -81,12 +88,15 @@ export default function Combobox({
   search = false,
   noResults,
   onKeyDown,
+  disabled = false,
+  error,
   id,
   className,
 }: ComboboxProps) {
   const base = useId();
   const inputId = id ?? `${base}-input`;
   const listId = `${base}-list`;
+  const errorId = `${base}-error`;
   const shown = useMemo(() => groups.filter((g) => g.options.length), [groups]);
   const flat = useMemo(
     () => shown.flatMap((g) => g.options.map((o) => ({ o, g: g.id }))),
@@ -105,8 +115,8 @@ export default function Combobox({
   // a new list starts on the preferred option
   useEffect(() => setActive(startAt()), [signature, defaultOptionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const expanded = open && flat.length > 0;
-  const empty = open && flat.length === 0 && value.trim() !== "" && !!noResults;
+  const expanded = open && !disabled && flat.length > 0;
+  const empty = open && !disabled && flat.length === 0 && value.trim() !== "" && !!noResults;
 
   function choose(i: number) {
     const f = flat[i];
@@ -143,7 +153,15 @@ export default function Combobox({
   let n = -1;
   return (
     <div
-      className={[styles.combobox, labelPosition === 'inline' && !hideLabel ? styles.inline : '', className].filter(Boolean).join(" ")}
+      className={[
+        styles.combobox,
+        labelPosition === 'inline' && !hideLabel ? styles.inline : '',
+        error ? styles.invalid : '',
+        disabled ? styles.disabled : '',
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       data-placement={placement}
       data-bella-component="combobox"
     >
@@ -165,6 +183,9 @@ export default function Combobox({
             aria-controls={listId}
             aria-autocomplete="list"
             aria-activedescendant={expanded ? optId(active) : undefined}
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? errorId : undefined}
+            disabled={disabled}
             autoComplete="off"
             spellCheck={false}
             value={value}
@@ -224,6 +245,12 @@ export default function Combobox({
             </div>
           ))}
         </div>
+        {error ? (
+          <p id={errorId} role="alert" className={styles.error}>
+            <Icon name="WarningCircle" size="sm" className={styles.errorIcon} />
+            <span>{error}</span>
+          </p>
+        ) : null}
         <div role="status">
           {empty ? (
             <div className={styles.list}>

@@ -1,5 +1,5 @@
 import React, { type CSSProperties, type ReactNode } from 'react';
-import IconWell, { type IconWellProps } from '../IconWell/IconWell';
+import IconWell, { type IconWellKind, type IconWellTone } from '../IconWell/IconWell';
 import TextStack from '../TextStack/TextStack';
 import { type IconName } from '../Icon/Icon';
 import styles from './SectionHead.module.css';
@@ -21,8 +21,12 @@ export interface SectionHeadProps {
   showDescription?: boolean;
   /** Figma "Show icon" + the exposed Icon well's icon. Missing = no icon well. */
   icon?: IconName;
-  /** The exposed Icon well's tone. Warning for sections that wait on you. */
-  iconTone?: IconWellProps['tone'];
+  /** The exposed Icon well's tone: the status the section means (success, warning, info, neutral, error). Warning for
+   *  sections that wait on you. Status only since 25 Nov 2026; the History topics moved to `iconKind`. */
+  iconTone?: IconWellTone;
+  /** The exposed Icon well's kind, for a section about one kind of change (fix, visual, tokens, tooling, docs,
+   *  contract, decision). Wins over `iconTone` when set (25 Nov 2026). */
+  iconKind?: IconWellKind;
   /** Figma "Show action". A Button secondary sm at the right end. Missing = off. */
   action?: ReactNode;
   /** The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text. */
@@ -50,6 +54,7 @@ export default function SectionHead({
   showDescription,
   icon,
   iconTone = 'warning',
+  iconKind,
   action,
   titleLevel = 2,
   size = 'section',
@@ -61,7 +66,7 @@ export default function SectionHead({
   const descriptionOn = (showDescription ?? description != null) && description != null;
   return (
     <div className={[styles.root, size === 'card' ? styles.card : '', className].filter(Boolean).join(' ')} style={style} data-bella-component="section-head">
-      {icon ? <IconWell icon={icon} tone={iconTone} /> : null}
+      {icon ? <IconWell icon={icon} tone={iconTone} kind={iconKind} /> : null}
       <TextStack
         className={[styles.column, descriptionOn ? '' : styles.titleOnly].filter(Boolean).join(' ')}
         title={

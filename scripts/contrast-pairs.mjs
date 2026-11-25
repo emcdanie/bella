@@ -132,6 +132,14 @@ const PAIRS = [
   ['content-on-accent-1 on background-accent-1', c('content-on-accent-1'), c('background-accent-1'), TEXT],
   ['content-on-accent-1 on background-accent-1-hover', c('content-on-accent-1'), c('background-accent-1-hover'), TEXT],
   ['content-default on background-accent-subtle', c('content-default'), c('background-accent-subtle'), TEXT],
+  // FilterChip selected (25 Nov 2026, BELLA's selected rule): the bold ink label on the shared selected light blue, on the page and on a card;
+  // the brand edge around it. Disabled chips and fields: the grey word on the page, on a card and on the subtle fill.
+  ...['background-default', 'background-surface'].flatMap((g) => [
+    [`content-default on background-brand-subtle-hover over ${g} (FilterChip selected)`, c('content-default'), `${c('background-brand-subtle-hover')} over ${c(g)}`, TEXT],
+    [`border-brand on background-brand-subtle-hover over ${g} (FilterChip selected edge)`, c('border-brand'), `${c('background-brand-subtle-hover')} over ${c(g)}`, MARK],
+    [`content-subtle on ${g} (disabled chip word)`, c('content-subtle'), c(g), TEXT],
+  ]),
+  ['content-subtle on background-subtle over background-surface (disabled field word)', c('content-subtle'), `${c('background-subtle')} over ${c('background-surface')}`, TEXT],
   // status words on their washes, on the page and on cards; ink on the strong fills
   ...['error', 'success', 'info', 'warning', 'neutral'].flatMap((s) => [
     ...['background-surface', 'background-default'].map((g) =>
@@ -185,6 +193,7 @@ const INSET_EXEMPT = {
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
+  'src/components/Slider/Slider.module.css :: .slider[data-disabled] .value': 'disabled state fill of the value field (25 Nov 2026): the disabled styling carries it, and its border-strong edge stays',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
   'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',

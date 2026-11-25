@@ -32,6 +32,7 @@ const meta: Meta<typeof SectionHead> = {
   },
   argTypes: {
     iconTone: { control: 'inline-radio' },
+    iconKind: { control: 'select' },
     action: { control: false },
     className: { control: false },
     style: { control: false },

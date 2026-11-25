@@ -19,8 +19,6 @@ export interface TaskCardProps {
   title: ReactNode;
   /** Figma "Line". One line under the title, in the subtext face. */
   line?: ReactNode;
-  /** Figma "Show branch" + the Branch Tag label: the branch name, for the board's branch filter. Missing = off. */
-  branch?: ReactNode;
   /** Figma Status (Tag, style=line): the status in words. Default "To do". Shown only with `showTag`; otherwise screen readers still hear it. */
   status?: ReactNode;
   /** Figma "Show tag" (off by default, batch 4, 22 Nov: on the board the border says the status, so the Tag no longer repeats it). */
@@ -99,7 +97,6 @@ const TONE = { success: 'success', info: 'info', attention: 'attention', danger:
 export default function TaskCard({
   title,
   line,
-  branch,
   status = 'To do',
   showTag = false,
   statusTone = 'neutral',
@@ -171,13 +168,6 @@ export default function TaskCard({
         <div className={styles.text}>
           <h3 className={styles.title}>{titleInner}</h3>
           {line != null ? <p className={styles.line} data-bella-meta>{pathBreaks(line)}</p> : null}
-          {branch != null ? (
-            <Tag variant="outline" tone="count" className={styles.branch}>
-              <span className={styles.branchText} title={typeof branch === 'string' ? branch : undefined}>
-                {branch}
-              </span>
-            </Tag>
-          ) : null}
         </div>
         {/* The handle only drags; Move to… is its own control beside it (24 Nov 2026 review: a click on the handle
             opened a menu, so dragging and moving read as one control). */}

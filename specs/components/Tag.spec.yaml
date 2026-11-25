@@ -7,42 +7,84 @@ lead:
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-tag--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-tag--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Tag/Tag.tsx
-  storyTitle: Components/Tag
+  storyTitle: Components/Data/Tag
 props:
   - name: variant
-    type: '''default'' | ''accent'''
+    type: '''default'' | ''accent'' | ''outline'' | ''flat'' | ''index'' | ''line'' | ''solid'''
     values:
       - default
       - accent
+      - outline
+      - flat
+      - index
+      - line
+      - solid
     default: default
     required: false
     doc: >-
-      `"default"` is the quiet neutral wash. `"accent"` is the pink fill (#E58BBB) with a near-black label, 8.13:1 (shared look, 8 Nov
-      2026). Both set in DM Sans at 16px, sentence case (type lock, 2026-10-04).
-    at: src/components/Tag/Tag.tsx:9
+      Two jobs on one prop, both kept: - `"default"` / `"accent"`: the original look. `"default"` is the quiet neutral wash; `"accent"` is
+      the pink fill (#E58BBB) with a near-black label, 8.13:1 (shared look, 8 Nov 2026). Retired in Figma (17 Nov: accent is gone from the
+      Tag tones); kept here so existing pages render. - `"outline"` / `"flat"` / `"index"`: Figma's `style` axis (Figma calls it style; code
+      cannot, `style` is the CSS prop). outline = wash and edge per tone; flat = grey fill, no edge (18 Nov "B, flat"); index = the numbered
+      lane pin, number face 600; line = the surface with the tone's edge and ink (Figma style=line, every tone, re-read 21 Nov); solid = the
+      tone's knockout fill, no edge, the knockout ink, number face 600 (Figma style=solid, 21 Nov publish: success, info and attention only;
+      neutral has no solid yet). Every style has the small corner, none is round (21 Nov, "A, small corner"). Passing `tone` or `showDot`
+      with `"default"` gives Figma's outline.
+    at: src/components/Tag/Tag.tsx:24
+  - name: tone
+    figmaName: tone
+    type: TagTone
+    required: false
+    doc: 'Figma "tone". Status ladder: attention waiting, info working, success done, danger failed; default neutral; count for numbers.'
+    at: src/components/Tag/Tag.tsx:26
+  - name: showDot
+    figmaName: Show dot
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: Figma "Show dot". A 12 dot in the tone before the label.
+    at: src/components/Tag/Tag.tsx:28
+  - name: count
+    figmaName: Show count
+    type: ReactNode
+    required: false
+    doc: >-
+      Figma "Show count" + "Count" (published 21 Nov): a number before the label, 4 apart, in the number face 600, the tone's ink. Missing =
+      off.
+    at: src/components/Tag/Tag.tsx:33
   - name: className
     type: string
     required: false
     doc: Extra classes on the chip.
-    at: src/components/Tag/Tag.tsx:11
+    at: src/components/Tag/Tag.tsx:35
   - name: style
     figmaName: style
     type: CSSProperties
     required: false
-    at: src/components/Tag/Tag.tsx:12
+    at: src/components/Tag/Tag.tsx:36
   - name: children
+    figmaName: Label
     type: ReactNode
     required: false
-    at: src/components/Tag/Tag.tsx:13
+    doc: Figma "Label".
+    at: src/components/Tag/Tag.tsx:38
 variants:
   variant:
     values:
       - default
       - accent
+      - outline
+      - flat
+      - index
+      - line
+      - solid
     default: default
-    at: src/components/Tag/Tag.tsx:9
+    at: src/components/Tag/Tag.tsx:24
 states:
   contract:
     - default
@@ -166,7 +208,7 @@ tokens:
     - part: root
       state: rest
       property: border-radius
-      token: '--border-radius-round'
+      token: '--border-radius-sm'
       selector: .tag
       at: src/components/Tag/Tag.module.css:19
     - part: root
@@ -241,8 +283,407 @@ tokens:
       token: '--color-content-on-accent-1'
       selector: .accent
       at: src/components/Tag/Tag.module.css:36
+    - part: plate
+      state: rest
+      property: gap
+      token: '--spacing-8'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:50
+    - part: plate
+      state: rest
+      property: min-block-size
+      token: '--spacing-32'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:51
+    - part: plate
+      state: rest
+      property: padding
+      token: '--spacing-4'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:52
+    - part: plate
+      state: rest
+      property: padding
+      token: '--spacing-12'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:52
+    - part: plate
+      state: rest
+      property: border-radius
+      token: '--border-radius-sm'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:53
+    - part: plate
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:55
+    - part: plate
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:56
+    - part: plate
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-400'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:57
+    - part: plate
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:58
+    - part: plate
+      state: rest
+      property: letter-spacing
+      token: '--typography-letter-spacing-0'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:59
+    - part: dot
+      state: rest
+      property: inline-size
+      token: '--spacing-12'
+      selector: .dot
+      at: src/components/Tag/Tag.module.css:66
+    - part: dot
+      state: rest
+      property: block-size
+      token: '--spacing-12'
+      selector: .dot
+      at: src/components/Tag/Tag.module.css:67
+    - part: dot
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .dot
+      at: src/components/Tag/Tag.module.css:68
+    - part: plate
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-utility-neutral'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:79
+    - part: plate
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-utility-neutral'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:80
+    - part: plate
+      state: rest
+      property: '--tag-dot'
+      token: '--color-border-utility-neutral'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:81
+    - part: plate
+      state: rest
+      property: background
+      token: '--tag-wash'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:82
+    - part: plate
+      state: rest
+      property: background
+      token: '--tag-wash'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:82
+    - part: plate
+      state: rest
+      property: background
+      token: '--color-background-surface'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:82
+    - part: plate
+      state: rest
+      property: box-shadow
+      token: '--border-width-1'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:83
+    - part: plate
+      state: rest
+      property: box-shadow
+      token: '--tag-edge'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:83
+    - part: plate
+      state: rest
+      property: color
+      token: '--tag-ink'
+      selector: .plate
+      at: src/components/Tag/Tag.module.css:84
+    - part: dot
+      state: rest
+      property: background
+      token: '--tag-dot'
+      selector: .dot
+      at: src/components/Tag/Tag.module.css:88
+    - part: tone-default
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-neutral'
+      selector: .tone-default
+      at: src/components/Tag/Tag.module.css:92
+    - part: tone-count
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-strong'
+      selector: .tone-count
+      at: src/components/Tag/Tag.module.css:96
+    - part: tone-count
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-default'
+      selector: .tone-count
+      at: src/components/Tag/Tag.module.css:97
+    - part: tone-count
+      state: rest
+      property: '--tag-dot'
+      token: '--color-content-subtle'
+      selector: .tone-count
+      at: src/components/Tag/Tag.module.css:98
+    - part: tone-count
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .tone-count
+      at: src/components/Tag/Tag.module.css:99
+    - part: tone-count
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .tone-count
+      at: src/components/Tag/Tag.module.css:100
+    - part: tone-success
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-success'
+      selector: .tone-success
+      at: src/components/Tag/Tag.module.css:104
+    - part: tone-success
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-utility-success'
+      selector: .tone-success
+      at: src/components/Tag/Tag.module.css:105
+    - part: tone-success
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-utility-success'
+      selector: .tone-success
+      at: src/components/Tag/Tag.module.css:106
+    - part: tone-success
+      state: rest
+      property: '--tag-dot'
+      token: '--color-border-utility-success'
+      selector: .tone-success
+      at: src/components/Tag/Tag.module.css:107
+    - part: tone-info
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-info'
+      selector: .tone-info
+      at: src/components/Tag/Tag.module.css:111
+    - part: tone-info
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-utility-info'
+      selector: .tone-info
+      at: src/components/Tag/Tag.module.css:112
+    - part: tone-info
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-utility-info'
+      selector: .tone-info
+      at: src/components/Tag/Tag.module.css:113
+    - part: tone-info
+      state: rest
+      property: '--tag-dot'
+      token: '--color-border-utility-info'
+      selector: .tone-info
+      at: src/components/Tag/Tag.module.css:114
+    - part: tone-attention
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-warning'
+      selector: .tone-attention
+      at: src/components/Tag/Tag.module.css:118
+    - part: tone-attention
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-utility-warning'
+      selector: .tone-attention
+      at: src/components/Tag/Tag.module.css:119
+    - part: tone-attention
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-utility-warning'
+      selector: .tone-attention
+      at: src/components/Tag/Tag.module.css:120
+    - part: tone-attention
+      state: rest
+      property: '--tag-dot'
+      token: '--color-background-utility-warning-mark'
+      selector: .tone-attention
+      at: src/components/Tag/Tag.module.css:121
+    - part: dot
+      state: rest
+      property: border
+      token: '--border-width-1'
+      selector: .tone-attention .dot
+      at: src/components/Tag/Tag.module.css:125
+    - part: dot
+      state: rest
+      property: border
+      token: '--color-border-utility-warning'
+      selector: .tone-attention .dot
+      at: src/components/Tag/Tag.module.css:125
+    - part: tone-danger
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-error'
+      selector: .tone-danger
+      at: src/components/Tag/Tag.module.css:129
+    - part: tone-danger
+      state: rest
+      property: '--tag-edge'
+      token: '--color-border-utility-error'
+      selector: .tone-danger
+      at: src/components/Tag/Tag.module.css:130
+    - part: tone-danger
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-utility-error'
+      selector: .tone-danger
+      at: src/components/Tag/Tag.module.css:131
+    - part: tone-danger
+      state: rest
+      property: '--tag-dot'
+      token: '--color-border-utility-error'
+      selector: .tone-danger
+      at: src/components/Tag/Tag.module.css:132
+    - part: index
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .index
+      at: src/components/Tag/Tag.module.css:137
+    - part: index
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .index
+      at: src/components/Tag/Tag.module.css:138
+    - part: solid
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .solid
+      at: src/components/Tag/Tag.module.css:152
+    - part: solid
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .solid
+      at: src/components/Tag/Tag.module.css:153
+    - part: solid
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-brand-knockout'
+      selector: .solid
+      at: src/components/Tag/Tag.module.css:154
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-success-knockout'
+      selector: .solid.tone-success
+      at: src/components/Tag/Tag.module.css:157
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-info-knockout'
+      selector: .solid.tone-info
+      at: src/components/Tag/Tag.module.css:160
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-utility-warning-knockout'
+      selector: .solid.tone-attention
+      at: src/components/Tag/Tag.module.css:163
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-wash-ochre-strong'
+      selector: .solid.tone-ochre
+      at: src/components/Tag/Tag.module.css:168
+    - part: solid
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-default'
+      selector: .solid.tone-ochre
+      at: src/components/Tag/Tag.module.css:169
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-wash-navy-strong'
+      selector: .solid.tone-navy
+      at: src/components/Tag/Tag.module.css:172
+    - part: solid
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-default'
+      selector: .solid.tone-navy
+      at: src/components/Tag/Tag.module.css:173
+    - part: solid
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-wash-pink-strong'
+      selector: .solid.tone-pink
+      at: src/components/Tag/Tag.module.css:176
+    - part: solid
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-default'
+      selector: .solid.tone-pink
+      at: src/components/Tag/Tag.module.css:177
+    - part: flat
+      state: rest
+      property: '--tag-wash'
+      token: '--color-background-highlight'
+      selector: .flat
+      at: src/components/Tag/Tag.module.css:183
+    - part: flat
+      state: rest
+      property: '--tag-ink'
+      token: '--color-content-default'
+      selector: .flat
+      at: src/components/Tag/Tag.module.css:184
+    - part: text
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .text
+      at: src/components/Tag/Tag.module.css:194
+    - part: count
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .count
+      at: src/components/Tag/Tag.module.css:198
+    - part: count
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .count
+      at: src/components/Tag/Tag.module.css:199
   values:
     '--border-radius-round':
+      light: null
+      chip: null
+    '--border-radius-sm':
       light: null
       chip: null
     '--border-width-1':
@@ -251,28 +692,127 @@ tokens:
     '--color-background-accent-1':
       light: null
       chip: null
+    '--color-background-highlight':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-background-utility-error':
+      light: null
+      chip: null
+    '--color-background-utility-info':
+      light: null
+      chip: null
+    '--color-background-utility-info-knockout':
+      light: null
+      chip: null
     '--color-background-utility-neutral':
+      light: null
+      chip: null
+    '--color-background-utility-success':
+      light: null
+      chip: null
+    '--color-background-utility-success-knockout':
+      light: null
+      chip: null
+    '--color-background-utility-warning':
+      light: null
+      chip: null
+    '--color-background-utility-warning-knockout':
+      light: null
+      chip: null
+    '--color-background-utility-warning-mark':
+      light: null
+      chip: null
+    '--color-background-wash-navy-strong':
+      light: null
+      chip: null
+    '--color-background-wash-ochre-strong':
+      light: null
+      chip: null
+    '--color-background-wash-pink-strong':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-border-utility-info':
       light: null
       chip: null
     '--color-border-utility-neutral':
       light: null
       chip: null
+    '--color-border-utility-success':
+      light: null
+      chip: null
+    '--color-border-utility-warning':
+      light: null
+      chip: null
+    '--color-content-brand-knockout':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
     '--color-content-on-accent-1':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--color-content-utility-error':
+      light: null
+      chip: null
+    '--color-content-utility-info':
       light: null
       chip: null
     '--color-content-utility-neutral':
       light: null
       chip: null
+    '--color-content-utility-success':
+      light: null
+      chip: null
+    '--color-content-utility-warning':
+      light: null
+      chip: null
     '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-32':
       light: null
       chip: null
     '--spacing-4':
       light: null
       chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--tag-dot':
+      light: null
+      chip: null
+    '--tag-edge':
+      light: null
+      chip: null
+    '--tag-ink':
+      light: null
+      chip: null
+    '--tag-wash':
+      light: null
+      chip: null
     '--typography-body-default-font-family':
       light: null
       chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
     '--typography-font-weight-400':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
       light: null
       chip: null
     '--typography-label-default-font-size':
@@ -284,6 +824,9 @@ tokens:
     '--typography-line-height-150':
       light: null
       chip: null
+    '--typography-number-font-family':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -291,16 +834,19 @@ motion:
 a11y:
   element:
     tag: span
-    at: src/components/Tag/Tag.tsx:29
+    at: src/components/Tag/Tag.tsx:59
   role:
     value: null
     source: native element
-    at: src/components/Tag/Tag.tsx:29
+    at: src/components/Tag/Tag.tsx:59
   nameSource:
     value: visible content
-    at: src/components/Tag/Tag.tsx:29
+    at: src/components/Tag/Tag.tsx:59
   keyboard: []
-  aria: []
+  aria:
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/Tag/Tag.tsx:69
   focusRing: []
   disabled:
     prop: null
@@ -311,12 +857,15 @@ a11y:
     Accent label is text-accent on the accent-subtle wash, 5.25:1 worst in light and 5.30:1 worst in dark, AA. Non-interactive: no tab stop,
     no pointer affordance, cursor default.
   targetPx: null
-  ariaChips: []
+  ariaChips:
+    - kind: ARIA
+      value: aria-hidden="true"
+      at: src/components/Tag/Tag.tsx:69
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Tag/Tag.stories.tsx
+  file: ~/DEV/bella-props/src/components/Tag/Tag.stories.tsx
   lines: 50-50
   import: import Tag from '@bella/components/Tag/Tag';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -326,7 +875,6 @@ usage:
     - Card category labels
     - Project metadata rows
     - Mood and topic markers
-    - 'Count plates of the Work board lanes (style=solid; tone ochre, navy and pink are code only, 23 Nov 2026, Figma catch-up after Tue 24 Nov)'
   dont:
     - 'Do not make it clickable: narrowing a set is FilterChip''s job'
     - 'Do not add a border: the flat wash is what separates it from interactive chips'
@@ -334,6 +882,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '140:46'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#140:0:
       type: TEXT
@@ -456,6 +1005,11 @@ mismatch:
     code:
       - default
       - accent
+      - outline
+      - flat
+      - index
+      - line
+      - solid
     figma: no such variant property
   - field: tokens.Dot.fills
     code:
@@ -463,18 +1017,15 @@ mismatch:
       - '--color-content-utility-neutral'
       - '--color-background-accent-1'
       - '--color-content-on-accent-1'
+      - '--tag-wash'
+      - '--color-background-surface'
+      - '--tag-ink'
+      - '--tag-dot'
     figma: color/border/utility/neutral
     sameValueInChip: false
-  - field: tokens.Count.fontSize
-    code:
-      - '--typography-label-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
-  - field: tokens.Label.fontSize
-    code:
-      - '--typography-label-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-data-tag--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-tag--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tag/Tag.tsx

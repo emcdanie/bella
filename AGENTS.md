@@ -95,7 +95,7 @@ Props, variants and examples: each component's `.tsx` types and Storybook storie
 
 ## Open
 
-- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button, Skeleton (a loading placeholder of the content's shape; CHIP's Progress rule wants one for waits of 1 to 3 seconds, and its loading view shows a bar instead until it exists). Stopping to name the gap is intended (decided 12 Nov). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination.
+- Not in BELLA yet, ask, don't build: Switch/toggle, Checkbox, Radio, Dialog/Modal, Alert, Textarea, Pagination, destructive Button, Skeleton (a loading placeholder of the content's shape; CHIP's Progress rule wants one for waits of 1 to 3 seconds, and its loading view shows a bar instead until it exists). Stopping to name the gap is intended (decided 12 Nov). Build order: Switch, Input password with show/hide, Dialog, destructive Button, Pagination (Select's error state shipped 25 Nov 2026).
 - Warning and info status tones: undecided (issue #1); don't invent values or new status UI.
 - Warm theme (`[data-theme="warm"]`): deferred; don't rebuild or retire it until Elleta decides.
 - Open foundation and component choices: the Figma Decide board (file key in `FIGMA_DECIDE_FILE_KEY`, node 244-2).

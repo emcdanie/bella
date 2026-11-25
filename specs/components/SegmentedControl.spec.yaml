@@ -3,40 +3,52 @@
 name: SegmentedControl
 lead:
   text: Pick one view among a few, all options visible.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Actions
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-segmentedcontrol--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/SegmentedControl/SegmentedControl.tsx
-  storyTitle: Components/SegmentedControl
+  storyTitle: Components/Actions/SegmentedControl
 props:
   - name: options
-    type: '{ value: string; label: string; icon?: ReactNode }[]'
+    type: '{ value: string; label: string; icon?: ReactNode; ariaLabel?: string }[]'
     required: true
     doc: >-
       The visible options; a segmented control shows ALL of them. `icon` is a leading decorative slot (rendered aria-hidden, sized by the
-      icon tokens); the text label always stays and carries the semantics.
-    at: src/components/SegmentedControl/SegmentedControl.tsx:10
+      icon tokens); the text label always stays and carries the semantics. `ariaLabel` names a segment whose visible label is a letter (D,
+      W, M, Y).
+    at: src/components/SegmentedControl/SegmentedControl.tsx:11
   - name: value
     type: string
     required: true
     doc: The selected value; selection lives in aria-current, not just paint.
-    at: src/components/SegmentedControl/SegmentedControl.tsx:12
+    at: src/components/SegmentedControl/SegmentedControl.tsx:13
   - name: onChange
     type: '(value: string) => void'
     required: true
-    at: src/components/SegmentedControl/SegmentedControl.tsx:13
+    at: src/components/SegmentedControl/SegmentedControl.tsx:14
   - name: label
     type: string
     required: true
     doc: 'Accessible name for the group. Required: a view switcher without a name is a mystery list.'
-    at: src/components/SegmentedControl/SegmentedControl.tsx:15
+    at: src/components/SegmentedControl/SegmentedControl.tsx:16
+  - name: stretch
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      Figma: the instance drawn at the card's width, its segments sharing it equally (Gate runs' range: D, W, M, Y; Figma "Show segment 4"
+      is a fourth option in `options`, nothing more). Off = the group hugs its labels.
+    at: src/components/SegmentedControl/SegmentedControl.tsx:21
   - name: className
     type: string
     required: false
     doc: Extra classes on the group.
-    at: src/components/SegmentedControl/SegmentedControl.tsx:17
+    at: src/components/SegmentedControl/SegmentedControl.tsx:23
 variants: {}
 states:
   contract:
@@ -45,6 +57,7 @@ states:
     - selected
     - focus
   css:
+    - '[data-numeric]'
     - '[aria-current=''true'']'
     - hover
     - focus-visible
@@ -144,308 +157,323 @@ tokens:
     - part: root
       state: rest
       property: padding
-      token: '--seg-inset'
-      selector: .control
-      at: src/components/SegmentedControl/SegmentedControl.module.css:30
-    - part: root
-      state: rest
-      property: border
-      token: '--color-semantic-border-strong'
+      token: '--spacing-4'
       selector: .control
       at: src/components/SegmentedControl/SegmentedControl.module.css:32
     - part: root
       state: rest
       property: border-radius
-      token: '--component-segmented-control-border-radius'
+      token: '--border-radius-12'
       selector: .control
-      at: src/components/SegmentedControl/SegmentedControl.module.css:33
+      at: src/components/SegmentedControl/SegmentedControl.module.css:35
     - part: root
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-subtle'
       selector: .control
-      at: src/components/SegmentedControl/SegmentedControl.module.css:34
+      at: src/components/SegmentedControl/SegmentedControl.module.css:36
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:44
+      at: src/components/SegmentedControl/SegmentedControl.module.css:59
     - part: root
       state: rest
       property: min-height
-      token: '--component-segmented-control-min-height'
+      token: '--spacing-44'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:48
+      at: src/components/SegmentedControl/SegmentedControl.module.css:63
     - part: root
       state: rest
       property: padding
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:49
+      at: src/components/SegmentedControl/SegmentedControl.module.css:64
     - part: root
       state: rest
       property: border-radius
-      token: '--component-segmented-control-border-radius'
+      token: '--border-radius-8'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:50
-    - part: root
-      state: rest
-      property: border-radius
-      token: '--seg-inset'
-      selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:50
+      at: src/components/SegmentedControl/SegmentedControl.module.css:65
     - part: root
       state: rest
       property: font-family
-      token: '--component-segmented-control-font-family'
+      token: '--typography-body-default-font-family'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:51
+      at: src/components/SegmentedControl/SegmentedControl.module.css:66
     - part: root
       state: rest
       property: font-size
-      token: '--component-segmented-control-font-size'
+      token: '--typography-font-size-16'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:52
+      at: src/components/SegmentedControl/SegmentedControl.module.css:67
     - part: root
       state: rest
       property: font-weight
-      token: '--component-segmented-control-font-weight'
+      token: '--typography-font-weight-500'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:53
+      at: src/components/SegmentedControl/SegmentedControl.module.css:68
     - part: root
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-normal'
+      token: '--typography-letter-spacing-0'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:54
+      at: src/components/SegmentedControl/SegmentedControl.module.css:69
     - part: root
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:55
+      at: src/components/SegmentedControl/SegmentedControl.module.css:70
     - part: root
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:57
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-easing-standard'
-      selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:57
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-duration-fast'
-      selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:57
+      at: src/components/SegmentedControl/SegmentedControl.module.css:72
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .control button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:57
+      at: src/components/SegmentedControl/SegmentedControl.module.css:72
     - part: root
       state: rest
-      property: box-shadow
-      token: '--component-segmented-control-divider-color'
-      selector: .control li + li button
-      at: src/components/SegmentedControl/SegmentedControl.module.css:67
+      property: transition
+      token: '--motion-duration-150'
+      selector: .control button
+      at: src/components/SegmentedControl/SegmentedControl.module.css:72
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .control button
+      at: src/components/SegmentedControl/SegmentedControl.module.css:72
+    - part: root
+      state: '[data-numeric]'
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .control button[data-numeric]
+      at: src/components/SegmentedControl/SegmentedControl.module.css:80
     - part: root
       state: '[aria-current=''true'']'
       property: background
-      token: '--color-semantic-accent-subtle'
+      token: '--color-background-brand-subtle-hover'
       selector: .control button[aria-current='true']
-      at: src/components/SegmentedControl/SegmentedControl.module.css:75
+      at: src/components/SegmentedControl/SegmentedControl.module.css:90
+    - part: root
+      state: '[aria-current=''true'']'
+      property: background
+      token: '--color-background-brand-subtle-hover'
+      selector: .control button[aria-current='true']
+      at: src/components/SegmentedControl/SegmentedControl.module.css:90
+    - part: root
+      state: '[aria-current=''true'']'
+      property: background
+      token: '--color-background-surface'
+      selector: .control button[aria-current='true']
+      at: src/components/SegmentedControl/SegmentedControl.module.css:90
     - part: root
       state: '[aria-current=''true'']'
       property: color
-      token: '--color-semantic-text-accent'
+      token: '--color-content-default'
       selector: .control button[aria-current='true']
-      at: src/components/SegmentedControl/SegmentedControl.module.css:76
+      at: src/components/SegmentedControl/SegmentedControl.module.css:93
+    - part: root
+      state: '[aria-current=''true'']'
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .control button[aria-current='true']
+      at: src/components/SegmentedControl/SegmentedControl.module.css:94
     - part: root
       state: '[aria-current=''true'']'
       property: box-shadow
-      token: '--color-semantic-accent-border'
+      token: '--shadow-soft'
       selector: .control button[aria-current='true']
-      at: src/components/SegmentedControl/SegmentedControl.module.css:77
+      at: src/components/SegmentedControl/SegmentedControl.module.css:95
     - part: root
       state: hover [aria-current='true']
       property: background
-      token: '--color-semantic-border-subtle'
+      token: '--color-background-brand-subtle'
       selector: .control button:hover:not([aria-current='true'])
-      at: src/components/SegmentedControl/SegmentedControl.module.css:81
+      at: src/components/SegmentedControl/SegmentedControl.module.css:100
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .control button:focus-visible
-      at: src/components/SegmentedControl/SegmentedControl.module.css:85
+      at: src/components/SegmentedControl/SegmentedControl.module.css:104
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .control button:focus-visible
-      at: src/components/SegmentedControl/SegmentedControl.module.css:85
+      at: src/components/SegmentedControl/SegmentedControl.module.css:104
     - part: root
       state: focus-visible
       property: outline-offset
-      token: '--seg-inset'
+      token: '--spacing-4'
       selector: .control button:focus-visible
-      at: src/components/SegmentedControl/SegmentedControl.module.css:86
+      at: src/components/SegmentedControl/SegmentedControl.module.css:105
     - part: root
       state: rest
       property: width
-      token: '--icon-sm'
+      token: '--size-16'
       selector: .icon :global(svg)
-      at: src/components/SegmentedControl/SegmentedControl.module.css:95
+      at: src/components/SegmentedControl/SegmentedControl.module.css:114
     - part: root
       state: rest
       property: height
-      token: '--icon-sm'
+      token: '--size-16'
       selector: .icon :global(svg)
-      at: src/components/SegmentedControl/SegmentedControl.module.css:96
+      at: src/components/SegmentedControl/SegmentedControl.module.css:115
   values:
-    '--color-semantic-accent-border':
-      light: '#858b9f'
-      chip: '#858b9f'
-    '--color-semantic-accent-subtle':
-      light: '#e6e4e1'
-      chip: '#e6e4e1'
-    '--color-semantic-border-strong':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--color-semantic-surface':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--color-semantic-text-accent':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-segmented-control-border-radius':
-      light: 12px
-      chip: 999px
-    '--component-segmented-control-divider-color':
-      light: '#e4e6ec'
-      chip: transparent
-    '--component-segmented-control-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-segmented-control-font-size':
-      light: 18px
-      chip: 18px
-    '--component-segmented-control-font-weight':
-      light: '500'
-      chip: '500'
-    '--component-segmented-control-min-height':
-      light: 44px
-      chip: 44px
-    '--icon-sm':
-      light: 16px
-      chip: 16px
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
-    '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--seg-inset':
+    '--border-radius-12':
       light: null
       chip: null
-    '--spacing-2':
-      light: 8px
-      chip: 8px
+    '--border-radius-8':
+      light: null
+      chip: null
+    '--color-background-brand-subtle':
+      light: null
+      chip: null
+    '--color-background-brand-subtle-hover':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
+    '--shadow-soft':
+      light: null
+      chip: null
+    '--size-16':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-letter-spacing-normal':
-      light: '0'
-      chip: '0'
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-number-font-family':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .control button
       state: rest
       declaration: >-
-        transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast)
+        transition: background var(--motion-duration-150) var(--motion-easing-standard), color var(--motion-duration-150)
         var(--motion-easing-standard)
       properties:
         - background
         - color
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/SegmentedControl/SegmentedControl.module.css:57
+          value: null
+      at: src/components/SegmentedControl/SegmentedControl.module.css:72
   reducedMotion:
     selector: .control button
     declaration: 'transition: none'
-    at: src/components/SegmentedControl/SegmentedControl.module.css:101
+    at: src/components/SegmentedControl/SegmentedControl.module.css:120
   reducedMotionQuery: true
 a11y:
   element:
     tag: ul
-    at: src/components/SegmentedControl/SegmentedControl.tsx:32
+    at: src/components/SegmentedControl/SegmentedControl.tsx:42
   role:
     value: list
     source: native element
-    at: src/components/SegmentedControl/SegmentedControl.tsx:32
+    at: src/components/SegmentedControl/SegmentedControl.tsx:42
   nameSource:
     value: aria-label from the label prop (required)
-    at: src/components/SegmentedControl/SegmentedControl.tsx:32
+    at: src/components/SegmentedControl/SegmentedControl.tsx:42
   keyboard: []
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/SegmentedControl/SegmentedControl.tsx:34
+      at: src/components/SegmentedControl/SegmentedControl.tsx:44
     - attribute: aria-current
       value: value
-      at: src/components/SegmentedControl/SegmentedControl.tsx:41
+      at: src/components/SegmentedControl/SegmentedControl.tsx:51
+    - attribute: aria-label
+      value: o.ariaLabel
+      at: src/components/SegmentedControl/SegmentedControl.tsx:52
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/SegmentedControl/SegmentedControl.tsx:45
+      at: src/components/SegmentedControl/SegmentedControl.tsx:58
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/SegmentedControl/SegmentedControl.module.css:85
-    - property: outline-offset
-      value: calc(-1 * var(--seg-inset))
-      tokens:
-        - token: '--seg-inset'
+        - token: '--focus-ring-width'
           value: null
-      at: src/components/SegmentedControl/SegmentedControl.module.css:86
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/SegmentedControl/SegmentedControl.module.css:104
+    - property: outline-offset
+      value: calc(-1 * var(--spacing-4))
+      tokens:
+        - token: '--spacing-4'
+          value: null
+      at: src/components/SegmentedControl/SegmentedControl.module.css:105
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .control button
     declaration: 'transition: none'
-    at: src/components/SegmentedControl/SegmentedControl.module.css:101
+    at: src/components/SegmentedControl/SegmentedControl.module.css:120
   contract: >-
     Verified 2026-07-22: each segment is a real button; Tab moves between segments, Enter/Space selects, arrows deliberately inert;
     aria-current=true marks the selection in the tree; the group carries a required aria-label. Segment icons are a decorative leading slot,
@@ -453,127 +481,23 @@ a11y:
     dropped it, a recorded divergence). Labels text-secondary 8.33:1 light / 9.20:1 dark (AAA); selected label text-accent on accent-subtle,
     5.25:1 worst light / 5.30:1 worst dark (AA). Focus ring inset. Segments hit the 44px touch-target token (portfolio 38px is a recorded
     divergence).
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/SegmentedControl/SegmentedControl.tsx:34
+      at: src/components/SegmentedControl/SegmentedControl.tsx:52
     - kind: ARIA
       value: aria-current
-      at: src/components/SegmentedControl/SegmentedControl.tsx:41
+      at: src/components/SegmentedControl/SegmentedControl.tsx:51
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/SegmentedControl/SegmentedControl.tsx:45
+      at: src/components/SegmentedControl/SegmentedControl.tsx:58
 contrast:
-  pairs:
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-    - label: control border on the page
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:91
-    - label: control border on panel
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:92
-    - label: Selected label on selected fill
-      foreground: '--color-semantic-text-accent'
-      background: '--color-semantic-accent-subtle'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#e6e4e1'
-      ratio: 12.72
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Selected ring on surface
-      foreground: '--color-semantic-accent-border'
-      background: '--color-semantic-surface'
-      foregroundHex: '#858b9f'
-      backgroundHex: '#ffffff'
-      ratio: 3.39
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Selected ring on selected fill
-      foreground: '--color-semantic-accent-border'
-      background: '--color-semantic-accent-subtle'
-      foregroundHex: '#858b9f'
-      backgroundHex: '#e6e4e1'
-      ratio: 2.67
-      bar: 3
-      barName: NON_TEXT
-      pass: false
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-accent'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-accent'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/SegmentedControl/SegmentedControl.stories.tsx
-  lines: 70-70
+  file: ~/DEV/bella-props/src/components/SegmentedControl/SegmentedControl.stories.tsx
+  lines: 74-74
   import: import SegmentedControl from '@bella/components/SegmentedControl/SegmentedControl';
   importSource: the style the Button doc page uses (CHIP import path)
   code: <SegmentedControl options={VIEWS} value="map" onChange={() => {}} label="Library view" />
@@ -587,10 +511,10 @@ usage:
       Do not use radiogroup or tablist semantics: plain buttons with aria-current, per the recorded discovery pass (W3C APG radio rejected:
       single tab stop plus arrow-select blocks surveying; Primer SegmentedControl guidance matches)
     - 'Do not hide options behind it: if they do not all fit, it is a Select'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '145:166'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     state:
       type: VARIANT
@@ -645,6 +569,7 @@ mismatch:
         - selected
         - focus
       css:
+        - '[data-numeric]'
         - '[aria-current=''true'']'
         - hover
         - focus-visible
@@ -657,41 +582,69 @@ mismatch:
     figma:
       - sm
       - md
+  - field: props.stretch
+    code: boolean prop
+    figma: not in the set
   - field: tokens.state=default, size=md.radius
     code:
-      - '--component-segmented-control-border-radius'
-      - '--seg-inset'
+      - '--border-radius-12'
+      - '--border-radius-8'
     figma: radius/lg
+    sameValueInChip: false
+  - field: tokens.state=default, size=md.fills
+    code:
+      - '--color-background-subtle'
+      - '--color-content-body'
+    figma: color/semantic/surface
+    sameValueInChip: false
+  - field: tokens.state=default, size=md.strokes
+    code:
+      - '--border-radius-12'
+      - '--border-radius-8'
+    figma: color/semantic/border-strong
+    sameValueInChip: false
+  - field: tokens.Segment 1.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/2
     sameValueInChip: false
   - field: tokens.Segment 1.minHeight
     code:
-      - '--component-segmented-control-min-height'
+      - '--spacing-44'
     figma: spacing/touch-target
-    sameValueInChip: true
+    sameValueInChip: false
   - field: tokens.Segment 1.fills
     code:
-      - '--color-semantic-surface'
-      - '--color-semantic-text-body'
+      - '--color-background-subtle'
+      - '--color-content-body'
     figma: color/semantic/accent-subtle
     sameValueInChip: false
   - field: tokens.Segment 1.strokes
     code:
-      - '--color-semantic-border-strong'
-      - '--component-segmented-control-border-radius'
-      - '--seg-inset'
-      - '--component-segmented-control-divider-color'
+      - '--border-radius-12'
+      - '--border-radius-8'
     figma: color/semantic/accent-border
+    sameValueInChip: false
+  - field: tokens.Segment 2.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/2
     sameValueInChip: false
   - field: tokens.Segment 2.minHeight
     code:
-      - '--component-segmented-control-min-height'
+      - '--spacing-44'
     figma: spacing/touch-target
-    sameValueInChip: true
+    sameValueInChip: false
+  - field: tokens.Segment 3.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
   - field: tokens.Segment 3.minHeight
     code:
-      - '--component-segmented-control-min-height'
+      - '--spacing-44'
     figma: spacing/touch-target
-    sameValueInChip: true
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SegmentedControl/SegmentedControl.tsx

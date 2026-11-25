@@ -7,43 +7,60 @@ lead:
 category: Actions
 rendersAs: a button, or one anchor with href
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-actionchip--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-actionchip--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/ActionChip/ActionChip.tsx
-  storyTitle: Components/ActionChip
+  storyTitle: Components/Actions/ActionChip
 props:
   - name: children
     type: ReactNode
     required: false
     doc: What happens, in sentence case ("Try in sandbox").
-    at: src/components/ActionChip/ActionChip.tsx:6
+    at: src/components/ActionChip/ActionChip.tsx:7
+  - name: label
+    figmaName: Label
+    type: ReactNode
+    required: false
+    doc: Figma "Label". Same as children; children win when both are set.
+    at: src/components/ActionChip/ActionChip.tsx:9
   - name: onClick
     type: () => void
     required: false
     doc: The action. Use href instead when the chip goes somewhere.
-    at: src/components/ActionChip/ActionChip.tsx:8
+    at: src/components/ActionChip/ActionChip.tsx:11
   - name: href
     type: string
     required: false
     doc: Renders a link instead of a button.
-    at: src/components/ActionChip/ActionChip.tsx:10
+    at: src/components/ActionChip/ActionChip.tsx:13
   - name: linkComponent
     type: ElementType
     default: a
     required: false
     doc: 'For client-side routers: the component that renders the link.'
-    at: src/components/ActionChip/ActionChip.tsx:12
+    at: src/components/ActionChip/ActionChip.tsx:15
   - name: disabled
     type: boolean
     values:
       - true
       - false
     required: false
-    at: src/components/ActionChip/ActionChip.tsx:13
+    at: src/components/ActionChip/ActionChip.tsx:16
+  - name: busy
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      The job this chip started is running ("Ask"): a RefreshDouble icon turns before the label, aria-busy is set and clicks wait; the label
+      stays (as Button busy). Reduced motion: the icon holds still. Buttons only.
+    at: src/components/ActionChip/ActionChip.tsx:22
   - name: ariaLabel
     type: string
     required: false
     doc: An accessible name when the visible words are not enough.
-    at: src/components/ActionChip/ActionChip.tsx:15
+    at: src/components/ActionChip/ActionChip.tsx:24
   - name: variant
     figmaName: variant
     type: '''default'' | ''quiet'''
@@ -53,18 +70,18 @@ props:
     default: default
     required: false
     doc: '`"quiet"`: no border at rest, the inset fill on hover and focus; for a small icon action like a ⋯ menu beside content.'
-    at: src/components/ActionChip/ActionChip.tsx:17
+    at: src/components/ActionChip/ActionChip.tsx:26
   - name: className
     type: string
     required: false
-    at: src/components/ActionChip/ActionChip.tsx:18
+    at: src/components/ActionChip/ActionChip.tsx:27
 variants:
   variant:
     values:
       - default
       - quiet
     default: default
-    at: src/components/ActionChip/ActionChip.tsx:17
+    at: src/components/ActionChip/ActionChip.tsx:26
 states:
   contract:
     - default
@@ -73,8 +90,8 @@ states:
     - disabled
   css:
     - hover
-    - focus-visible
     - disabled
+    - focus-visible
 sizes: []
 anatomy:
   scaleWidth: 480
@@ -149,165 +166,189 @@ tokens:
       property: gap
       token: '--spacing-8'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:9
+      at: src/components/ActionChip/ActionChip.module.css:8
     - part: root
       state: rest
       property: min-height
       token: '--spacing-44'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:10
+      at: src/components/ActionChip/ActionChip.module.css:9
     - part: root
       state: rest
       property: padding
       token: '--spacing-8'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:13
+      at: src/components/ActionChip/ActionChip.module.css:12
     - part: root
       state: rest
       property: padding
       token: '--spacing-16'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:13
+      at: src/components/ActionChip/ActionChip.module.css:12
     - part: root
       state: rest
       property: border
       token: '--border-width-1'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:14
+      at: src/components/ActionChip/ActionChip.module.css:13
     - part: root
       state: rest
       property: border
       token: '--color-border-strong'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:14
+      at: src/components/ActionChip/ActionChip.module.css:13
     - part: root
       state: rest
       property: border-radius
-      token: '--border-radius-round'
+      token: '--border-radius-lg'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:15
+      at: src/components/ActionChip/ActionChip.module.css:16
     - part: root
       state: rest
       property: color
       token: '--color-content-default'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:17
+      at: src/components/ActionChip/ActionChip.module.css:18
     - part: root
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:18
+      at: src/components/ActionChip/ActionChip.module.css:19
     - part: root
       state: rest
       property: font-size
       token: '--typography-body-default-font-size'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:19
+      at: src/components/ActionChip/ActionChip.module.css:20
     - part: root
       state: rest
       property: font-weight
-      token: '--typography-font-weight-400'
+      token: '--typography-font-weight-600'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:20
+      at: src/components/ActionChip/ActionChip.module.css:21
     - part: root
       state: rest
       property: letter-spacing
       token: '--typography-letter-spacing-0'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:21
+      at: src/components/ActionChip/ActionChip.module.css:22
     - part: root
       state: rest
       property: line-height
-      token: '--typography-line-height-130'
+      token: '--typography-line-height-150'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:22
+      at: src/components/ActionChip/ActionChip.module.css:23
     - part: root
       state: rest
       property: transition
       token: '--motion-duration-150'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:28
+      at: src/components/ActionChip/ActionChip.module.css:29
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .chip
-      at: src/components/ActionChip/ActionChip.module.css:28
+      at: src/components/ActionChip/ActionChip.module.css:29
     - part: root
-      state: hover
+      state: hover disabled
       property: border-color
       token: '--color-border-ink'
-      selector: .chip:hover
-      at: src/components/ActionChip/ActionChip.module.css:32
+      selector: .chip:hover:not(:disabled)
+      at: src/components/ActionChip/ActionChip.module.css:33
     - part: root
-      state: hover
+      state: hover disabled
       property: background
       token: '--color-border-subtle'
-      selector: .chip:hover
-      at: src/components/ActionChip/ActionChip.module.css:33
+      selector: .chip:hover:not(:disabled)
+      at: src/components/ActionChip/ActionChip.module.css:34
+    - part: root
+      state: focus-visible
+      property: border-color
+      token: '--color-border-ink'
+      selector: .chip:focus-visible
+      at: src/components/ActionChip/ActionChip.module.css:39
+    - part: root
+      state: focus-visible
+      property: background
+      token: '--color-border-subtle'
+      selector: .chip:focus-visible
+      at: src/components/ActionChip/ActionChip.module.css:40
     - part: root
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .chip:focus-visible
-      at: src/components/ActionChip/ActionChip.module.css:37
+      at: src/components/ActionChip/ActionChip.module.css:41
     - part: root
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .chip:focus-visible
-      at: src/components/ActionChip/ActionChip.module.css:37
+      at: src/components/ActionChip/ActionChip.module.css:41
     - part: root
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .chip:focus-visible
-      at: src/components/ActionChip/ActionChip.module.css:38
+      at: src/components/ActionChip/ActionChip.module.css:42
     - part: root
       state: disabled
       property: color
       token: '--color-content-subtle'
       selector: .chip:disabled
-      at: src/components/ActionChip/ActionChip.module.css:43
+      at: src/components/ActionChip/ActionChip.module.css:50
     - part: root
       state: disabled
       property: border-color
       token: '--color-border-default'
       selector: .chip:disabled
-      at: src/components/ActionChip/ActionChip.module.css:44
+      at: src/components/ActionChip/ActionChip.module.css:51
     - part: quiet
       state: rest
       property: min-width
       token: '--spacing-44'
       selector: .quiet
-      at: src/components/ActionChip/ActionChip.module.css:52
+      at: src/components/ActionChip/ActionChip.module.css:59
     - part: quiet
       state: rest
       property: padding-inline
       token: '--spacing-12'
       selector: .quiet
-      at: src/components/ActionChip/ActionChip.module.css:53
+      at: src/components/ActionChip/ActionChip.module.css:60
     - part: quiet
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .quiet
-      at: src/components/ActionChip/ActionChip.module.css:55
+      at: src/components/ActionChip/ActionChip.module.css:62
     - part: quiet
       state: hover focus-visible
       property: background
       token: '--color-background-subtle'
       selector: .quiet:hover, .quiet:focus-visible
-      at: src/components/ActionChip/ActionChip.module.css:61
+      at: src/components/ActionChip/ActionChip.module.css:68
     - part: quiet
       state: hover focus-visible
       property: color
       token: '--color-content-default'
       selector: .quiet:hover, .quiet:focus-visible
-      at: src/components/ActionChip/ActionChip.module.css:62
+      at: src/components/ActionChip/ActionChip.module.css:69
+    - part: turn
+      state: rest
+      property: animation
+      token: '--motion-duration-900'
+      selector: .turn
+      at: src/components/ActionChip/ActionChip.module.css:80
+    - part: turn
+      state: rest
+      property: animation
+      token: '--motion-easing-standard'
+      selector: .turn
+      at: src/components/ActionChip/ActionChip.module.css:80
   values:
-    '--border-radius-round':
+    '--border-radius-lg':
       light: null
       chip: null
     '--border-width-1':
@@ -346,6 +387,9 @@ tokens:
     '--motion-duration-150':
       light: null
       chip: null
+    '--motion-duration-900':
+      light: null
+      chip: null
     '--motion-easing-standard':
       light: null
       chip: null
@@ -367,13 +411,13 @@ tokens:
     '--typography-body-default-font-size':
       light: null
       chip: null
-    '--typography-font-weight-400':
+    '--typography-font-weight-600':
       light: null
       chip: null
     '--typography-letter-spacing-0':
       light: null
       chip: null
-    '--typography-line-height-130':
+    '--typography-line-height-150':
       light: null
       chip: null
 motion:
@@ -389,37 +433,58 @@ motion:
       easings:
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/ActionChip/ActionChip.module.css:28
+      at: src/components/ActionChip/ActionChip.module.css:29
+    - selector: .turn
+      state: rest
+      declaration: 'animation: chipTurn var(--motion-duration-900) var(--motion-easing-standard) infinite'
+      properties:
+        - chipTurn var(--motion-duration-900) var(--motion-easing-standard) infinite
+      durations:
+        - token: '--motion-duration-900'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/ActionChip/ActionChip.module.css:80
   reducedMotion:
-    selector: .chip
-    declaration: 'transition: none'
-    at: src/components/ActionChip/ActionChip.module.css:67
+    selector: .turn
+    declaration: 'animation: none'
+    at: src/components/ActionChip/ActionChip.module.css:94
   reducedMotionQuery: true
 a11y:
   element:
     tag: button
-    at: src/components/ActionChip/ActionChip.tsx:45
+    at: src/components/ActionChip/ActionChip.tsx:68
   role:
     value: button
     source: native element
-    at: src/components/ActionChip/ActionChip.tsx:45
+    at: src/components/ActionChip/ActionChip.tsx:68
   nameSource:
     value: aria-label from the ariaLabel prop
-    at: src/components/ActionChip/ActionChip.tsx:45
+    at: src/components/ActionChip/ActionChip.tsx:68
   keyboard:
     - key: Enter activates
       source: native element
-      at: src/components/ActionChip/ActionChip.tsx:45
+      at: src/components/ActionChip/ActionChip.tsx:68
     - key: Space activates
       source: native element
-      at: src/components/ActionChip/ActionChip.tsx:45
+      at: src/components/ActionChip/ActionChip.tsx:68
   aria:
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ActionChip/ActionChip.tsx:51
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/ActionChip/ActionChip.tsx:39
+      at: src/components/ActionChip/ActionChip.tsx:62
+    - attribute: aria-busy
+      value: busyHere
+      at: src/components/ActionChip/ActionChip.tsx:73
+    - attribute: aria-disabled
+      value: busyHere
+      at: src/components/ActionChip/ActionChip.tsx:74
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/ActionChip/ActionChip.tsx:45
+      at: src/components/ActionChip/ActionChip.tsx:75
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -428,34 +493,45 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/ActionChip/ActionChip.module.css:37
+      at: src/components/ActionChip/ActionChip.module.css:41
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/ActionChip/ActionChip.module.css:38
+      at: src/components/ActionChip/ActionChip.module.css:42
   disabled:
     prop: disabled
-    at: src/components/ActionChip/ActionChip.tsx:13
+    at: src/components/ActionChip/ActionChip.tsx:16
     doc: null
   reducedMotion:
-    selector: .chip
-    declaration: 'transition: none'
-    at: src/components/ActionChip/ActionChip.module.css:67
+    selector: .turn
+    declaration: 'animation: none'
+    at: src/components/ActionChip/ActionChip.module.css:94
   contract: >-
     Verified 2026-10-03: a real button (or a link with href), 44px. Label ink on the page and on panel (AAA in light, warm and dark); the
-    control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring.
+    control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring. busy:
+    aria-busy and aria-disabled while its job runs; clicks wait, focus stays; the turning icon is decorative and holds still under reduced
+    motion.
   targetPx: null
   ariaChips:
     - kind: ARIA
+      value: aria-hidden="true"
+      at: src/components/ActionChip/ActionChip.tsx:51
+    - kind: ARIA
       value: aria-label
-      at: src/components/ActionChip/ActionChip.tsx:45
+      at: src/components/ActionChip/ActionChip.tsx:75
+    - kind: ARIA
+      value: aria-busy
+      at: src/components/ActionChip/ActionChip.tsx:73
+    - kind: ARIA
+      value: aria-disabled
+      at: src/components/ActionChip/ActionChip.tsx:74
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/ActionChip/ActionChip.stories.tsx
+  file: ~/DEV/bella-props/src/components/ActionChip/ActionChip.stories.tsx
   lines: 35-35
   import: import ActionChip from '@bella/components/ActionChip/ActionChip';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -473,7 +549,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '172:320'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#172:4:
       type: TEXT
@@ -536,8 +612,8 @@ mismatch:
         - disabled
       css:
         - hover
-        - focus-visible
         - disabled
+        - focus-visible
     figma:
       - default
       - hover
@@ -545,11 +621,17 @@ mismatch:
   - field: props.disabled
     code: boolean prop
     figma: not in the set
+  - field: props.busy
+    code: boolean prop
+    figma: not in the set
   - field: tokens.Label.fontSize
     code:
       - '--typography-body-default-font-size'
     figma: typography/font-size/16
     sameValueInChip: true
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-actions-actionchip--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-actionchip--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ActionChip/ActionChip.tsx

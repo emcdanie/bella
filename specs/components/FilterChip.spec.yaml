@@ -7,80 +7,95 @@ lead:
 category: Actions
 rendersAs: a button with aria-pressed
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-filterchip--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-filterchip--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/FilterChip/FilterChip.tsx
-  storyTitle: Components/FilterChip
+  storyTitle: Components/Actions/FilterChip
 props:
-  - name: pressed
+  - name: selected
+    figmaName: selected
     type: boolean
     values:
       - true
       - false
     required: true
-    doc: The real state. Rendered as aria-pressed; the fill is its paint.
-    at: src/components/FilterChip/FilterChip.tsx:6
+    doc: >-
+      Chosen or not: BELLA's "selected" for a choice (renamed from `pressed`, 25 Nov 2026). Rendered as aria-pressed, so a screen reader
+      hears a toggle; the light-blue fill and the bold label are its paint.
+    at: src/components/FilterChip/FilterChip.tsx:7
   - name: onClick
     type: () => void
     required: true
-    at: src/components/FilterChip/FilterChip.tsx:7
+    at: src/components/FilterChip/FilterChip.tsx:8
   - name: ariaLabel
     type: string
     required: false
     doc: Accessible name when the visible label isn't the right name.
-    at: src/components/FilterChip/FilterChip.tsx:9
+    at: src/components/FilterChip/FilterChip.tsx:10
   - name: size
     figmaName: size
-    valuePairs:
-      - figma: md
-        code: default
-        why: both are the 44 box (Figma md 44 high, code min-height spacing/44); compact and sm are not recorded as a pair (compact keeps a 44 box, sm is a 32 plate)
-    type: '''default'' | ''compact'''
+    type: '''md'' | ''sm'''
     values:
-      - default
-      - compact
-    default: default
+      - md
+      - sm
+    default: md
     required: false
-    doc: '`"compact"`: tighter padding and the 16px label for a long wrapping row of filters; the 44px target stays.'
-    at: src/components/FilterChip/FilterChip.tsx:11
+    doc: >-
+      `md` (default) or `sm`: tighter padding for a long wrapping row of filters; the 44px target stays at both (renamed from `default` /
+      `compact`, 25 Nov 2026, BELLA's sm / md / lg).
+    at: src/components/FilterChip/FilterChip.tsx:13
+  - name: disabled
+    figmaName: disabled
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      The chip cannot be used: the native `disabled` attribute, so it takes no click or focus; the grey word and the faint edge (25 Nov
+      2026).
+    at: src/components/FilterChip/FilterChip.tsx:16
   - name: className
     type: string
     required: false
     doc: Extra classes on the chip.
-    at: src/components/FilterChip/FilterChip.tsx:13
+    at: src/components/FilterChip/FilterChip.tsx:18
   - name: children
     type: ReactNode
     required: false
-    at: src/components/FilterChip/FilterChip.tsx:14
+    at: src/components/FilterChip/FilterChip.tsx:19
 variants:
   size:
     values:
-      - default
-      - compact
-    default: default
-    at: src/components/FilterChip/FilterChip.tsx:11
+      - md
+      - sm
+    default: md
+    at: src/components/FilterChip/FilterChip.tsx:13
 states:
   contract:
     - default
     - hover
-    - pressed
+    - selected
     - focus
+    - disabled
   css:
     - hover
+    - disabled
     - '[aria-pressed=''true'']'
     - focus-visible
 sizes:
-  - value: default
+  - value: md
     default: true
     css: []
-  - value: compact
+  - value: sm
     default: false
     css:
       - property: gap
         value: var(--spacing-4)
-        at: src/components/FilterChip/FilterChip.module.css:38
+        at: src/components/FilterChip/FilterChip.module.css:40
       - property: padding
         value: var(--spacing-4) var(--spacing-12)
-        at: src/components/FilterChip/FilterChip.module.css:39
+        at: src/components/FilterChip/FilterChip.module.css:41
 anatomy:
   scaleWidth: 480
   parts:
@@ -179,24 +194,24 @@ anatomy:
       trigger: hover
       token: '--color-border-subtle'
       detail: border-subtle wash, the edge goes ink
-    - key: pressed
-      title: Pressed fill
+    - key: selected
+      title: Selected fill
       kind: fill
-      trigger: pressed
-      token: '--color-background-knockout'
-      detail: inverse fill, label text-inverse; aria-pressed is the state
+      trigger: selected
+      token: '--color-background-brand-subtle-hover'
+      detail: the shared selected light blue, the brand edge and a bold ink label; aria-pressed is the state
     - key: label
       title: Label
       kind: content
       trigger: rest
       token: '--color-content-body'
-      detail: Geist 14, 500, text-secondary
+      detail: Lexend 16, 500 (600 when selected), content/body
     - key: ring
       title: Focus ring
       kind: ring
       trigger: focus
       token: '--color-border-focus'
-      detail: 3px, 3px offset, focus-visible only
+      detail: 4px, 4px gap, outside, focus-visible only
 tokens:
   used:
     - part: root
@@ -204,162 +219,186 @@ tokens:
       property: gap
       token: '--spacing-8'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:20
+      at: src/components/FilterChip/FilterChip.module.css:22
     - part: root
       state: rest
       property: min-height
       token: '--spacing-44'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:22
+      at: src/components/FilterChip/FilterChip.module.css:24
     - part: root
       state: rest
       property: padding
       token: '--spacing-4'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:23
+      at: src/components/FilterChip/FilterChip.module.css:25
     - part: root
       state: rest
       property: padding
       token: '--spacing-16'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:23
+      at: src/components/FilterChip/FilterChip.module.css:25
     - part: root
       state: rest
       property: border-radius
       token: '--border-radius-round'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:24
+      at: src/components/FilterChip/FilterChip.module.css:26
     - part: root
       state: rest
       property: border
       token: '--color-border-strong'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:25
+      at: src/components/FilterChip/FilterChip.module.css:27
     - part: root
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:27
+      at: src/components/FilterChip/FilterChip.module.css:29
     - part: root
       state: rest
       property: font-size
-      token: '--typography-font-size-18'
+      token: '--typography-font-size-16'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:28
+      at: src/components/FilterChip/FilterChip.module.css:30
     - part: root
       state: rest
       property: font-weight
       token: '--typography-font-weight-500'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:29
+      at: src/components/FilterChip/FilterChip.module.css:31
     - part: root
       state: rest
       property: color
       token: '--color-content-body'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:30
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-duration-150'
-      selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:32
-    - part: root
-      state: rest
-      property: transition
-      token: '--motion-easing-standard'
-      selector: .chip
       at: src/components/FilterChip/FilterChip.module.css:32
     - part: root
       state: rest
       property: transition
       token: '--motion-duration-150'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:32
+      at: src/components/FilterChip/FilterChip.module.css:34
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:32
-    - part: compact
+      at: src/components/FilterChip/FilterChip.module.css:34
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-duration-150'
+      selector: .chip
+      at: src/components/FilterChip/FilterChip.module.css:34
+    - part: root
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .chip
+      at: src/components/FilterChip/FilterChip.module.css:34
+    - part: sm
       state: rest
       property: gap
       token: '--spacing-4'
-      selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:38
-    - part: compact
+      selector: .sm
+      at: src/components/FilterChip/FilterChip.module.css:40
+    - part: sm
       state: rest
       property: padding
       token: '--spacing-4'
-      selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:39
-    - part: compact
+      selector: .sm
+      at: src/components/FilterChip/FilterChip.module.css:41
+    - part: sm
       state: rest
       property: padding
       token: '--spacing-12'
-      selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:39
-    - part: compact
+      selector: .sm
+      at: src/components/FilterChip/FilterChip.module.css:41
+    - part: sm
       state: rest
       property: font-size
       token: '--typography-label-default-font-size'
-      selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:40
+      selector: .sm
+      at: src/components/FilterChip/FilterChip.module.css:42
     - part: root
-      state: hover
+      state: hover disabled
       property: border-color
       token: '--color-border-ink'
-      selector: .chip:hover
-      at: src/components/FilterChip/FilterChip.module.css:44
+      selector: .chip:hover:not(:disabled)
+      at: src/components/FilterChip/FilterChip.module.css:46
     - part: root
-      state: hover
+      state: hover disabled
       property: background
       token: '--color-border-subtle'
-      selector: .chip:hover
-      at: src/components/FilterChip/FilterChip.module.css:45
+      selector: .chip:hover:not(:disabled)
+      at: src/components/FilterChip/FilterChip.module.css:47
     - part: root
       state: '[aria-pressed=''true'']'
       property: background
-      token: '--color-background-knockout'
+      token: '--color-background-brand-subtle-hover'
       selector: .chip[aria-pressed='true']
-      at: src/components/FilterChip/FilterChip.module.css:49
+      at: src/components/FilterChip/FilterChip.module.css:53
     - part: root
       state: '[aria-pressed=''true'']'
       property: border-color
-      token: '--color-background-knockout'
+      token: '--color-border-brand'
       selector: .chip[aria-pressed='true']
-      at: src/components/FilterChip/FilterChip.module.css:50
+      at: src/components/FilterChip/FilterChip.module.css:54
     - part: root
       state: '[aria-pressed=''true'']'
       property: color
-      token: '--color-content-knockout'
+      token: '--color-content-default'
       selector: .chip[aria-pressed='true']
-      at: src/components/FilterChip/FilterChip.module.css:51
+      at: src/components/FilterChip/FilterChip.module.css:55
+    - part: root
+      state: '[aria-pressed=''true'']'
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .chip[aria-pressed='true']
+      at: src/components/FilterChip/FilterChip.module.css:56
+    - part: root
+      state: disabled
+      property: color
+      token: '--color-content-subtle'
+      selector: .chip:disabled
+      at: src/components/FilterChip/FilterChip.module.css:61
+    - part: root
+      state: disabled
+      property: border-color
+      token: '--color-border-default'
+      selector: .chip:disabled
+      at: src/components/FilterChip/FilterChip.module.css:62
     - part: root
       state: focus-visible
       property: outline
       token: '--focus-ring-width'
       selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:55
+      at: src/components/FilterChip/FilterChip.module.css:66
     - part: root
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:55
+      at: src/components/FilterChip/FilterChip.module.css:66
     - part: root
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:56
+      at: src/components/FilterChip/FilterChip.module.css:67
   values:
     '--border-radius-round':
       light: null
       chip: null
-    '--color-background-knockout':
+    '--color-background-brand-subtle-hover':
+      light: null
+      chip: null
+    '--color-border-brand':
+      light: null
+      chip: null
+    '--color-border-default':
       light: null
       chip: null
     '--color-border-focus':
@@ -377,7 +416,10 @@ tokens:
     '--color-content-body':
       light: null
       chip: null
-    '--color-content-knockout':
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
       light: null
       chip: null
     '--focus-ring-offset':
@@ -410,10 +452,13 @@ tokens:
     '--typography-body-default-font-family':
       light: null
       chip: null
-    '--typography-font-size-18':
+    '--typography-font-size-16':
       light: null
       chip: null
     '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
       light: null
       chip: null
     '--typography-label-default-font-size':
@@ -439,37 +484,37 @@ motion:
           value: null
         - token: '--motion-easing-standard'
           value: null
-      at: src/components/FilterChip/FilterChip.module.css:32
+      at: src/components/FilterChip/FilterChip.module.css:34
   reducedMotion:
     selector: .chip
     declaration: 'transition: none'
-    at: src/components/FilterChip/FilterChip.module.css:61
+    at: src/components/FilterChip/FilterChip.module.css:72
   reducedMotionQuery: true
 a11y:
   element:
     tag: button
-    at: src/components/FilterChip/FilterChip.tsx:30
+    at: src/components/FilterChip/FilterChip.tsx:36
   role:
     value: button
     source: native element
-    at: src/components/FilterChip/FilterChip.tsx:30
+    at: src/components/FilterChip/FilterChip.tsx:36
   nameSource:
     value: aria-label from the ariaLabel prop
-    at: src/components/FilterChip/FilterChip.tsx:30
+    at: src/components/FilterChip/FilterChip.tsx:36
   keyboard:
     - key: Enter activates
       source: native element
-      at: src/components/FilterChip/FilterChip.tsx:30
+      at: src/components/FilterChip/FilterChip.tsx:36
     - key: Space activates
       source: native element
-      at: src/components/FilterChip/FilterChip.tsx:30
+      at: src/components/FilterChip/FilterChip.tsx:36
   aria:
     - attribute: aria-pressed
-      value: pressed
-      at: src/components/FilterChip/FilterChip.tsx:33
+      value: selected
+      at: src/components/FilterChip/FilterChip.tsx:39
     - attribute: aria-label
       value: ariaLabel
-      at: src/components/FilterChip/FilterChip.tsx:34
+      at: src/components/FilterChip/FilterChip.tsx:40
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -478,50 +523,53 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/FilterChip/FilterChip.module.css:55
+      at: src/components/FilterChip/FilterChip.module.css:66
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/FilterChip/FilterChip.module.css:56
+      at: src/components/FilterChip/FilterChip.module.css:67
   disabled:
-    prop: null
-    note: no disabled prop
+    prop: disabled
+    at: src/components/FilterChip/FilterChip.tsx:16
+    doc: >-
+      The chip cannot be used: the native `disabled` attribute, so it takes no click or focus; the grey word and the faint edge (25 Nov
+      2026).
   reducedMotion:
     selector: .chip
     declaration: 'transition: none'
-    at: src/components/FilterChip/FilterChip.module.css:61
+    at: src/components/FilterChip/FilterChip.module.css:72
   contract: >-
-    Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark
-    (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent.
-    Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA
-    holds).
+    Verified 2026-07-22, updated 25 Nov 2026: a real button whose selected prop renders as aria-pressed, both themes. Default label
+    text-secondary on transparent (AAA). Selected is the shared selected light blue (background/brand-subtle-hover) with the brand edge and
+    a bold ink label (content/default); contrast measured per theme in the 25 Nov build report. Disabled: the native disabled attribute, the
+    grey word at 7:1 and the faint edge. Focus ring independent. Hit area 44px minimum at md and sm (the touch-target token).
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-pressed
-      at: src/components/FilterChip/FilterChip.tsx:33
+      at: src/components/FilterChip/FilterChip.tsx:39
     - kind: ARIA
       value: aria-label
-      at: src/components/FilterChip/FilterChip.tsx:34
+      at: src/components/FilterChip/FilterChip.tsx:40
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/FilterChip/FilterChip.stories.tsx
-  lines: 46-48
+  file: ~/DEV/bella-props/src/components/FilterChip/FilterChip.stories.tsx
+  lines: 48-50
   import: import FilterChip from '@bella/components/FilterChip/FilterChip';
   importSource: the style the Button doc page uses (CHIP import path)
   code: |-
-    <FilterChip pressed={false} onClick={() => {}}>
+    <FilterChip selected={false} onClick={() => {}}>
       Design systems
     </FilterChip>
 usage:
   use:
     - Work library skill/type filters
     - Any multi-select narrowing row
-    - 'size compact: a long wrapping row of tag filters (CHIP Docs); the 44px target stays'
+    - 'size sm: a long wrapping row of tag filters (CHIP Docs); the 44px target stays'
   dont:
     - 'Do not use for mutually exclusive views: that is SegmentedControl'
     - 'Do not make it a Button: a Button is reserved for true actions'
@@ -529,7 +577,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '145:115'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#145:26:
       type: TEXT
@@ -613,53 +661,9 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-filterchip--docs
 mismatch:
-  - field: states
-    code:
-      contract:
-        - default
-        - hover
-        - pressed
-        - focus
-      css:
-        - hover
-        - '[aria-pressed=''true'']'
-        - focus-visible
-    figma:
-      - default
-      - hover
-      - focus
-  - field: props.size.values
-    code:
-      - default
-      - compact
-    figma:
-      - md
-      - sm
-  - field: props.selected
-    code: no such prop
-    figma:
-      - 'false'
-      - 'true'
-  - field: props.disabled
-    code: no such prop
-    figma:
-      - 'false'
-      - 'true'
-  - field: props.pressed
-    code: boolean prop
-    figma: not in the set
-  - field: tokens.Label.fontSize
-    code:
-      - '--typography-font-size-18'
-      - '--typography-label-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
-  - field: tokens.Count.fontSize
-    code:
-      - '--typography-font-size-18'
-      - '--typography-label-default-font-size'
-    figma: typography/font-size/16
-    sameValueInChip: true
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-actions-filterchip--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-filterchip--docs
 notApplicable: []
 guidance:
   lead: Toggles one filter on or off, so a row of them narrows a set.

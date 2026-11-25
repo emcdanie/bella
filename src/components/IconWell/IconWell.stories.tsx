@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
-import IconWell from './IconWell';
+import IconWell, { type IconWellKind, type IconWellTone } from './IconWell';
 import cssRaw from './IconWell.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -81,6 +81,8 @@ export const Behavior: Story = {
   },
 };
 
+const KINDS = new Set(['fix', 'visual', 'tokens', 'tooling', 'docs', 'contract', 'decision']);
+
 const ALL = [
   ['success', 'CheckCircle'],
   ['warning', 'WarningCircle'],
@@ -96,15 +98,15 @@ const ALL = [
   ['decision', 'Check'],
 ] as const;
 
-/** Every Figma tone in both sizes (Icon well 1168:72470, 21 Nov publish): md 36 / 24 and sm 24 / 16.
+/** Every Figma tone (status) and kind (History topic) in both sizes (Icon well 1168:72470, 21 Nov publish): md 36 / 24 and sm 24 / 16.
  * sm error and success are a source's ✕ / ✓ findings. */
 export const TonesAndSizes: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
       {(['md', 'sm'] as const).map((size) => (
         <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-12)', alignItems: 'center' }}>
-          {ALL.map(([tone, icon]) => (
-            <IconWell key={tone} tone={tone} icon={icon} size={size} />
+          {ALL.map(([name, icon]) => (
+            <IconWell key={name} {...(KINDS.has(name) ? { kind: name as IconWellKind } : { tone: name as IconWellTone })} icon={icon} size={size} />
           ))}
         </div>
       ))}

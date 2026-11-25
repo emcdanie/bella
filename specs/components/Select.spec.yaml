@@ -3,20 +3,22 @@
 name: Select
 lead:
   text: For long lists only.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Inputs
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-inputs-select--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Select/Select.tsx
-  storyTitle: Components/Select
+  storyTitle: Components/Inputs/Select
 props:
   - name: label
+    figmaName: label
     type: string
     required: true
     doc: Visible label, always rendered; the control is labelled by containment.
     at: src/components/Select/Select.tsx:7
   - name: value
+    figmaName: value
     type: string
     required: true
     at: src/components/Select/Select.tsx:8
@@ -29,24 +31,46 @@ props:
     required: true
     at: src/components/Select/Select.tsx:10
   - name: leading
+    figmaName: leading
     type: ReactNode
     required: false
     doc: 'An Icon or a small logo at the start of the field (BellaComponents, 11 Nov 2026). Decorative: the option text names the choice.'
     at: src/components/Select/Select.tsx:12
+  - name: disabled
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      The field cannot be changed: the native `disabled` attribute, so it takes no focus, clicks or keys; muted text on the subtle fill, as
+      Input draws it (25 Nov 2026).
+    at: src/components/Select/Select.tsx:14
+  - name: error
+    type: string
+    required: false
+    doc: >-
+      Honest error: the danger edge, an error icon and the message under the field (role=alert), wired by aria-invalid and aria-describedby,
+      as Input does it (25 Nov 2026).
+    at: src/components/Select/Select.tsx:16
   - name: className
     type: string
     required: false
     doc: Extra classes on the control.
-    at: src/components/Select/Select.tsx:14
+    at: src/components/Select/Select.tsx:18
 variants: {}
 states:
   contract:
     - default
     - focus
     - open
+    - disabled
+    - error
   css:
     - focus-visible
     - '[data-leading]'
+    - disabled
 sizes: []
 anatomy:
   scaleWidth: 720
@@ -151,229 +175,322 @@ tokens:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
-      selector: .control
-      at: src/components/Select/Select.module.css:22
-    - part: root
-      state: rest
-      property: font-family
-      token: '--component-select-label-font-family'
-      selector: .control
-      at: src/components/Select/Select.module.css:23
-    - part: root
-      state: rest
-      property: font-size
-      token: '--component-select-label-font-size'
+      token: '--spacing-12'
       selector: .control
       at: src/components/Select/Select.module.css:24
     - part: root
       state: rest
-      property: letter-spacing
-      token: '--typography-letter-spacing-normal'
+      property: font-family
+      token: '--typography-body-default-font-family'
       selector: .control
       at: src/components/Select/Select.module.css:25
     - part: root
       state: rest
-      property: color
-      token: '--color-semantic-text-body'
+      property: font-size
+      token: '--typography-font-size-16'
       selector: .control
       at: src/components/Select/Select.module.css:26
     - part: root
       state: rest
-      property: font-family
-      token: '--typography-font-family-body'
-      selector: .control select
-      at: src/components/Select/Select.module.css:42
+      property: line-height
+      token: '--typography-line-height-px-24'
+      selector: .control
+      at: src/components/Select/Select.module.css:27
     - part: root
       state: rest
-      property: font-size
-      token: '--component-select-font-size'
-      selector: .control select
-      at: src/components/Select/Select.module.css:43
+      property: letter-spacing
+      token: '--typography-letter-spacing-0'
+      selector: .control
+      at: src/components/Select/Select.module.css:28
     - part: root
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
-      selector: .control select
-      at: src/components/Select/Select.module.css:44
+      token: '--color-content-body'
+      selector: .control
+      at: src/components/Select/Select.module.css:29
     - part: root
       state: rest
-      property: background
-      token: '--color-semantic-surface'
+      property: font-family
+      token: '--typography-body-default-font-family'
       selector: .control select
       at: src/components/Select/Select.module.css:45
     - part: root
       state: rest
-      property: border
-      token: '--color-semantic-border-strong'
+      property: font-size
+      token: '--typography-font-size-16'
       selector: .control select
       at: src/components/Select/Select.module.css:46
     - part: root
       state: rest
-      property: border-radius
-      token: '--component-select-border-radius'
+      property: color
+      token: '--color-content-default'
       selector: .control select
       at: src/components/Select/Select.module.css:47
     - part: root
       state: rest
-      property: padding
-      token: '--spacing-2'
+      property: background
+      token: '--color-background-surface'
       selector: .control select
       at: src/components/Select/Select.module.css:48
+    - part: root
+      state: rest
+      property: border
+      token: '--color-border-strong'
+      selector: .control select
+      at: src/components/Select/Select.module.css:49
+    - part: root
+      state: rest
+      property: border-radius
+      token: '--border-radius-lg'
+      selector: .control select
+      at: src/components/Select/Select.module.css:50
     - part: root
       state: rest
       property: padding
       token: '--spacing-8'
       selector: .control select
-      at: src/components/Select/Select.module.css:48
+      at: src/components/Select/Select.module.css:52
     - part: root
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-12'
       selector: .control select
-      at: src/components/Select/Select.module.css:48
+      at: src/components/Select/Select.module.css:52
     - part: root
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--size-20'
       selector: .control select
-      at: src/components/Select/Select.module.css:48
+      at: src/components/Select/Select.module.css:52
+    - part: root
+      state: rest
+      property: padding
+      token: '--spacing-8'
+      selector: .control select
+      at: src/components/Select/Select.module.css:52
+    - part: root
+      state: rest
+      property: padding
+      token: '--spacing-8'
+      selector: .control select
+      at: src/components/Select/Select.module.css:52
+    - part: root
+      state: rest
+      property: padding
+      token: '--spacing-16'
+      selector: .control select
+      at: src/components/Select/Select.module.css:52
     - part: root
       state: rest
       property: min-height
-      token: '--component-select-min-height'
+      token: '--spacing-44'
       selector: .control select
-      at: src/components/Select/Select.module.css:49
-    - part: root
-      state: focus-visible
-      property: outline
-      token: '--ring-focus-width'
-      selector: .control select:focus-visible
       at: src/components/Select/Select.module.css:53
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--focus-ring-width'
       selector: .control select:focus-visible
-      at: src/components/Select/Select.module.css:53
+      at: src/components/Select/Select.module.css:57
+    - part: root
+      state: focus-visible
+      property: outline
+      token: '--color-border-focus'
+      selector: .control select:focus-visible
+      at: src/components/Select/Select.module.css:57
     - part: root
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .control select:focus-visible
-      at: src/components/Select/Select.module.css:54
+      at: src/components/Select/Select.module.css:58
     - part: leading
       state: rest
       property: left
-      token: '--spacing-3'
+      token: '--spacing-16'
       selector: .leading
-      at: src/components/Select/Select.module.css:59
+      at: src/components/Select/Select.module.css:63
     - part: leading
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .leading
-      at: src/components/Select/Select.module.css:65
+      at: src/components/Select/Select.module.css:69
     - part: root
       state: rest
       property: inline-size
-      token: '--icon-md'
+      token: '--size-20'
       selector: .leading :global(img)
-      at: src/components/Select/Select.module.css:70
+      at: src/components/Select/Select.module.css:74
     - part: root
       state: rest
       property: block-size
-      token: '--icon-md'
+      token: '--size-20'
       selector: .leading :global(img)
-      at: src/components/Select/Select.module.css:71
+      at: src/components/Select/Select.module.css:75
     - part: root
       state: '[data-leading]'
       property: padding-inline-start
-      token: '--spacing-3'
+      token: '--spacing-16'
       selector: .field[data-leading] select
-      at: src/components/Select/Select.module.css:77
+      at: src/components/Select/Select.module.css:81
     - part: root
       state: '[data-leading]'
       property: padding-inline-start
-      token: '--icon-md'
+      token: '--size-20'
       selector: .field[data-leading] select
-      at: src/components/Select/Select.module.css:77
+      at: src/components/Select/Select.module.css:81
     - part: root
       state: '[data-leading]'
       property: padding-inline-start
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .field[data-leading] select
-      at: src/components/Select/Select.module.css:77
+      at: src/components/Select/Select.module.css:81
     - part: chevron
       state: rest
       property: right
-      token: '--spacing-2'
+      token: '--spacing-12'
       selector: .chevron
-      at: src/components/Select/Select.module.css:84
+      at: src/components/Select/Select.module.css:88
     - part: chevron
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .chevron
-      at: src/components/Select/Select.module.css:88
+      at: src/components/Select/Select.module.css:92
+    - part: root
+      state: disabled
+      property: color
+      token: '--color-content-subtle'
+      selector: .control select:disabled
+      at: src/components/Select/Select.module.css:100
+    - part: root
+      state: disabled
+      property: background
+      token: '--color-background-subtle'
+      selector: .control select:disabled
+      at: src/components/Select/Select.module.css:101
+    - part: chevron
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .disabled .chevron, .disabled .leading
+      at: src/components/Select/Select.module.css:106
+    - part: root
+      state: rest
+      property: border-color
+      token: '--color-border-utility-error'
+      selector: .invalid select
+      at: src/components/Select/Select.module.css:112
+    - part: root
+      state: rest
+      property: box-shadow
+      token: '--color-border-utility-error'
+      selector: .invalid select
+      at: src/components/Select/Select.module.css:113
+    - part: error
+      state: rest
+      property: gap
+      token: '--spacing-8'
+      selector: .error
+      at: src/components/Select/Select.module.css:120
+    - part: error
+      state: rest
+      property: font-size
+      token: '--typography-font-size-18'
+      selector: .error
+      at: src/components/Select/Select.module.css:122
+    - part: error
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-500'
+      selector: .error
+      at: src/components/Select/Select.module.css:123
+    - part: error
+      state: rest
+      property: color
+      token: '--color-content-utility-error'
+      selector: .error
+      at: src/components/Select/Select.module.css:124
+    - part: errorIcon
+      state: rest
+      property: margin-top
+      token: '--size-16'
+      selector: .errorIcon
+      at: src/components/Select/Select.module.css:129
   values:
-    '--color-semantic-border-strong':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--color-semantic-surface':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-select-border-radius':
-      light: 8px
-      chip: 2px
-    '--component-select-font-size':
-      light: 18px
-      chip: 16px
-    '--component-select-label-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-select-label-font-size':
-      light: 18px
-      chip: 16px
-    '--component-select-min-height':
-      light: 44px
-      chip: 44px
-    '--icon-md':
-      light: 20px
-      chip: 20px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--border-radius-lg':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--color-content-utility-error':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--size-16':
+      light: null
+      chip: null
+    '--size-20':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
     '--spacing-8':
-      light: 32px
-      chip: 32px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-letter-spacing-normal':
-      light: '0'
-      chip: '0'
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-px-24':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -381,129 +498,77 @@ motion:
 a11y:
   element:
     tag: label
-    at: src/components/Select/Select.tsx:30
+    at: src/components/Select/Select.tsx:39
   role:
-    value: null
-    source: native element
-    at: src/components/Select/Select.tsx:30
+    value: alert
+    source: role attribute
+    at: src/components/Select/Select.tsx:39
   nameSource:
     value: visible content
-    at: src/components/Select/Select.tsx:30
+    at: src/components/Select/Select.tsx:39
   keyboard: []
   aria:
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Select/Select.tsx:37
+      at: src/components/Select/Select.tsx:48
+    - attribute: aria-labelledby
+      value: labelId
+      at: src/components/Select/Select.tsx:55
+    - attribute: aria-invalid
+      value: error
+      at: src/components/Select/Select.tsx:57
+    - attribute: aria-describedby
+      value: error
+      at: src/components/Select/Select.tsx:58
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/Select/Select.module.css:53
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/Select/Select.module.css:57
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
-      at: src/components/Select/Select.module.css:54
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/Select/Select.module.css:58
   disabled:
-    prop: null
-    note: no disabled prop
+    prop: disabled
+    at: src/components/Select/Select.tsx:14
+    doc: >-
+      The field cannot be changed: the native `disabled` attribute, so it takes no focus, clicks or keys; muted text on the subtle fill, as
+      Input draws it (25 Nov 2026).
   reducedMotion: null
   contract: >-
     Verified 2026-07-22: native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on
     surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field;
-    the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token.
-  targetPx: 44
+    the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token. Disabled (25 Nov 2026): the
+    native disabled attribute, so the field takes no focus, clicks or keys; muted text on the subtle fill, as Input. Error (25 Nov 2026):
+    aria-invalid plus the message under the field (role=alert), referenced by aria-describedby; the select is named by its label through
+    aria-labelledby so the error is not read as part of the name.
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/Select/Select.tsx:37
+      at: src/components/Select/Select.tsx:48
+    - kind: ARIA
+      value: aria-labelledby
+      at: src/components/Select/Select.tsx:55
+    - kind: ARIA
+      value: aria-invalid
+      at: src/components/Select/Select.tsx:57
+    - kind: ARIA
+      value: aria-describedby
+      at: src/components/Select/Select.tsx:58
+    - kind: ARIA
+      value: role=alert
+      at: src/components/Select/Select.tsx:69
 contrast:
-  pairs:
-    - label: Selected value
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Label
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: control border on surface
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-surface'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: chevron on field
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Select/Select.stories.tsx
   lines: '52'
@@ -518,10 +583,10 @@ usage:
     - 'Do not hand-roll a listbox: the native select owns the popup, the keyboard model, and the assistive-tech semantics'
     - 'Do not drop the visible label: an unlabelled dropdown is a guess'
     - 'Do not use it for a handful of visible options: SegmentedControl or FilterChip'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '149:163'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     label#149:28:
       type: TEXT
@@ -565,26 +630,115 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-inputs-select--docs
 mismatch:
+  - field: states
+    code:
+      contract:
+        - default
+        - focus
+        - open
+        - disabled
+        - error
+      css:
+        - focus-visible
+        - '[data-leading]'
+        - disabled
+    figma:
+      - default
+      - focus
+      - open
+  - field: props.disabled
+    code: boolean prop
+    figma: not in the set
+  - field: tokens.state=default.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Label.fills
+    code:
+      - '--color-content-body'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-content-utility-error'
+    figma: color/semantic/text-body
+    sameValueInChip: false
   - field: tokens.Label.fontSize
     code:
-      - '--component-select-label-font-size'
-      - '--component-select-font-size'
+      - '--typography-font-size-16'
+      - '--typography-font-size-18'
     figma: typography/font-size/sm
+    sameValueInChip: false
+  - field: tokens.Field.itemSpacing
+    code:
+      - '--spacing-12'
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Field.paddingLeft
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--size-20'
+      - '--spacing-16'
+    figma: spacing/3
+    sameValueInChip: false
+  - field: tokens.Field.paddingTop
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--size-20'
+      - '--spacing-16'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Field.paddingBottom
+    code:
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--size-20'
+      - '--spacing-16'
+    figma: spacing/2
     sameValueInChip: false
   - field: tokens.Field.radius
     code:
-      - '--component-select-border-radius'
+      - '--border-radius-lg'
     figma: radius/md
     sameValueInChip: false
   - field: tokens.Field.minHeight
     code:
-      - '--component-select-min-height'
+      - '--spacing-44'
     figma: spacing/touch-target
-    sameValueInChip: true
+    sameValueInChip: false
+  - field: tokens.Field.fills
+    code:
+      - '--color-content-body'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-content-utility-error'
+    figma: color/semantic/surface
+    sameValueInChip: false
+  - field: tokens.Field.strokes
+    code:
+      - '--color-border-strong'
+      - '--border-radius-lg'
+      - '--color-border-utility-error'
+    figma: color/semantic/border-strong
+    sameValueInChip: false
+  - field: tokens.Value.fills
+    code:
+      - '--color-content-body'
+      - '--color-content-default'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-content-utility-error'
+    figma: color/semantic/text-primary
+    sameValueInChip: false
   - field: tokens.Value.fontSize
     code:
-      - '--component-select-label-font-size'
-      - '--component-select-font-size'
+      - '--typography-font-size-16'
+      - '--typography-font-size-18'
     figma: typography/font-size/sm
     sameValueInChip: false
 notApplicable:

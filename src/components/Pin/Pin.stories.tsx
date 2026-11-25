@@ -21,6 +21,7 @@ const meta: Meta<typeof Pin> = {
     bellaDocs: { tokens: consumedTokens, a11y: contract.a11y },
   },
   argTypes: {
+    tone: { control: 'inline-radio' },
     variant: { control: 'inline-radio' },
     number: { control: 'text' },
     label: { control: 'text' },
@@ -28,28 +29,29 @@ const meta: Meta<typeof Pin> = {
     className: { control: false },
     style: { control: false },
   },
-  args: { number: '1', variant: 'pink', label: 'Fill' },
+  args: { number: '1', tone: 'pink', label: 'Fill' },
 };
 export default meta;
 
 type Story = StoryObj<typeof Pin>;
 
-/** The four pops. The number and word say it; the colour only groups. */
-export const Variants: Story = {
+/** The five tones (pop colours). The number and word say it; the colour only groups. */
+export const Tones: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-12)' }}>
-      <Pin number="1" variant="yellow" label="Key shadow" />
-      <Pin number="2" variant="pink" label="Fill" />
-      <Pin number="3" variant="blue" label="Box" />
-      <Pin number="4" variant="red" label="Focus ring" />
-      <Pin number="12" variant="pink" />
+      <Pin number="1" tone="yellow" label="Key shadow" />
+      <Pin number="2" tone="pink" label="Fill" />
+      <Pin number="3" tone="blue" label="Box" />
+      <Pin number="4" tone="red" label="Focus ring" />
+      <Pin number="5" tone="green" label="Label" />
+      <Pin number="12" tone="pink" />
     </div>
   ),
 };
 
 /** With onClick it is a button: a 44px box and BELLA's focus ring. */
 export const Clickable: Story = {
-  args: { onClick: fn(), number: '3', variant: 'blue', label: 'Box' },
+  args: { onClick: fn(), number: '3', tone: 'blue', label: 'Box' },
   play: async ({ args, canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: /Box/ });
     await expect(button.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
@@ -84,7 +86,7 @@ export const WithLeader: Story = {
         The part it explains
       </span>
       <span id="pin-story-note" style={{ justifySelf: 'end' }}>
-        <Pin number="1" variant="red" label="Focus ring" />
+        <Pin number="1" tone="red" label="Focus ring" />
       </span>
       <Leader from="#pin-story-note" to="#pin-story-part" label="Pin 1 points to the part it explains" variant="red" />
     </div>
@@ -101,7 +103,7 @@ export const Solid: StoryObj<typeof Pin> = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
       {(['yellow', 'pink', 'blue', 'red', 'green'] as const).map((v, i) => (
-        <Pin key={v} number={`0${i + 1}`} variant={v} pinStyle="solid" />
+        <Pin key={v} number={`0${i + 1}`} tone={v} variant="solid" />
       ))}
     </div>
   ),
@@ -109,7 +111,7 @@ export const Solid: StoryObj<typeof Pin> = {
 
 /** A comment's pin, as Figma draws it (23 Nov 2026): the author's initials on a white teardrop pointing at the spot. */
 export const Comment: Story = {
-  args: { number: 'EM', pinStyle: 'comment', ariaLabel: 'Comment 1 by Elleta McDaniel', onClick: () => {} },
+  args: { number: 'EM', variant: 'comment', ariaLabel: 'Comment 1 by Elleta McDaniel', onClick: () => {} },
   play: async ({ canvasElement }) => {
     const disc = canvasElement.querySelector('[data-bella-component="pin"] span') as HTMLElement;
     await expect(getComputedStyle(disc).borderBottomLeftRadius).toBe('0px');

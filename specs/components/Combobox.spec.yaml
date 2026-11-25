@@ -7,9 +7,9 @@ lead:
 category: Inputs
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-combobox--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-inputs-combobox--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Combobox/Combobox.tsx
-  storyTitle: Components/Combobox
+  storyTitle: Components/Inputs/Combobox
 props:
   - name: label
     type: string
@@ -98,15 +98,33 @@ props:
     required: false
     doc: Runs before the field's own keys; call preventDefault to take the key over.
     at: src/components/Combobox/Combobox.tsx:57
+  - name: disabled
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      The field cannot be used: the native `disabled` attribute on the input, so it takes no focus or typing and the list never opens; muted
+      text on the subtle fill, as Input draws it (25 Nov 2026). There is no `open` prop: the list opens from typing and focus only.
+    at: src/components/Combobox/Combobox.tsx:61
+  - name: error
+    type: string
+    required: false
+    doc: >-
+      Honest error: the danger edge, an error icon and the message under the field (role=alert), wired by aria-invalid and aria-describedby,
+      as Input does it (25 Nov 2026).
+    at: src/components/Combobox/Combobox.tsx:64
   - name: id
     type: string
     required: false
     doc: Id for the input.
-    at: src/components/Combobox/Combobox.tsx:59
+    at: src/components/Combobox/Combobox.tsx:66
   - name: className
     type: string
     required: false
-    at: src/components/Combobox/Combobox.tsx:60
+    at: src/components/Combobox/Combobox.tsx:67
 variants:
   labelPosition:
     values:
@@ -126,6 +144,8 @@ states:
     - open
     - active-option
     - focus
+    - disabled
+    - error
   css:
     - focus-visible
     - '[data-placement=''above'']'
@@ -536,6 +556,66 @@ tokens:
       token: '--color-content-body'
       selector: .inline .label
       at: src/components/Combobox/Combobox.module.css:189
+    - part: field
+      state: rest
+      property: background
+      token: '--color-background-subtle'
+      selector: .disabled .field
+      at: src/components/Combobox/Combobox.module.css:196
+    - part: input
+      state: rest
+      property: color
+      token: '--color-content-subtle'
+      selector: .disabled .input, .disabled .searchMark, .disabled .input::placeholder
+      at: src/components/Combobox/Combobox.module.css:203
+    - part: field
+      state: rest
+      property: border-color
+      token: '--color-border-utility-error'
+      selector: .invalid .field
+      at: src/components/Combobox/Combobox.module.css:210
+    - part: field
+      state: rest
+      property: box-shadow
+      token: '--color-border-utility-error'
+      selector: .invalid .field
+      at: src/components/Combobox/Combobox.module.css:211
+    - part: error
+      state: rest
+      property: gap
+      token: '--spacing-8'
+      selector: .error
+      at: src/components/Combobox/Combobox.module.css:217
+    - part: error
+      state: rest
+      property: margin
+      token: '--spacing-8'
+      selector: .error
+      at: src/components/Combobox/Combobox.module.css:218
+    - part: error
+      state: rest
+      property: font-size
+      token: '--typography-font-size-18'
+      selector: .error
+      at: src/components/Combobox/Combobox.module.css:219
+    - part: error
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-500'
+      selector: .error
+      at: src/components/Combobox/Combobox.module.css:220
+    - part: error
+      state: rest
+      property: color
+      token: '--color-content-utility-error'
+      selector: .error
+      at: src/components/Combobox/Combobox.module.css:221
+    - part: errorIcon
+      state: rest
+      property: margin-top
+      token: '--size-16'
+      selector: .errorIcon
+      at: src/components/Combobox/Combobox.module.css:226
   values:
     '--border-radius-8':
       light: null
@@ -547,6 +627,9 @@ tokens:
       light: null
       chip: null
     '--color-background-brand-subtle':
+      light: null
+      chip: null
+    '--color-background-subtle':
       light: null
       chip: null
     '--color-background-surface':
@@ -564,6 +647,9 @@ tokens:
     '--color-border-strong':
       light: null
       chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
     '--color-content-body':
       light: null
       chip: null
@@ -573,6 +659,9 @@ tokens:
     '--color-content-subtle':
       light: null
       chip: null
+    '--color-content-utility-error':
+      light: null
+      chip: null
     '--focus-ring-offset':
       light: null
       chip: null
@@ -580,6 +669,9 @@ tokens:
       light: null
       chip: null
     '--shadow-lg':
+      light: null
+      chip: null
+    '--size-16':
       light: null
       chip: null
     '--spacing-12':
@@ -612,6 +704,9 @@ tokens:
     '--typography-font-size-18':
       light: null
       chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
     '--typography-line-height-150':
       light: null
       chip: null
@@ -625,53 +720,62 @@ motion:
 a11y:
   element:
     tag: div
-    at: src/components/Combobox/Combobox.tsx:145
+    at: src/components/Combobox/Combobox.tsx:155
   role:
     value: combobox
     source: role attribute
-    at: src/components/Combobox/Combobox.tsx:145
+    at: src/components/Combobox/Combobox.tsx:155
   nameSource:
     value: visible content
-    at: src/components/Combobox/Combobox.tsx:145
+    at: src/components/Combobox/Combobox.tsx:155
   keyboard:
     - key: ArrowDown
       source: handler in the .tsx
-      at: src/components/Combobox/Combobox.tsx:121
+      at: src/components/Combobox/Combobox.tsx:131
     - key: ArrowUp
       source: handler in the .tsx
-      at: src/components/Combobox/Combobox.tsx:121
+      at: src/components/Combobox/Combobox.tsx:131
     - key: Enter
       source: handler in the .tsx
-      at: src/components/Combobox/Combobox.tsx:130
+      at: src/components/Combobox/Combobox.tsx:140
     - key: Escape
       source: handler in the .tsx
-      at: src/components/Combobox/Combobox.tsx:135
+      at: src/components/Combobox/Combobox.tsx:145
   aria:
     - attribute: aria-expanded
       value: expanded
-      at: src/components/Combobox/Combobox.tsx:164
+      at: src/components/Combobox/Combobox.tsx:182
     - attribute: aria-controls
       value: listId
-      at: src/components/Combobox/Combobox.tsx:165
+      at: src/components/Combobox/Combobox.tsx:183
     - attribute: aria-autocomplete
       value: list
-      at: src/components/Combobox/Combobox.tsx:166
+      at: src/components/Combobox/Combobox.tsx:184
     - attribute: aria-activedescendant
       value: expanded
-      at: src/components/Combobox/Combobox.tsx:167
+      at: src/components/Combobox/Combobox.tsx:185
+    - attribute: aria-invalid
+      value: error
+      at: src/components/Combobox/Combobox.tsx:186
+    - attribute: aria-describedby
+      value: error
+      at: src/components/Combobox/Combobox.tsx:187
     - attribute: aria-label
       value: label
-      at: src/components/Combobox/Combobox.tsx:185
+      at: src/components/Combobox/Combobox.tsx:206
     - attribute: aria-labelledby
       value: '`${base'
-      at: src/components/Combobox/Combobox.tsx:193
+      at: src/components/Combobox/Combobox.tsx:214
     - attribute: aria-selected
       value: i
-      at: src/components/Combobox/Combobox.tsx:211
+      at: src/components/Combobox/Combobox.tsx:232
   focusRing: []
   disabled:
-    prop: null
-    note: no disabled prop
+    prop: disabled
+    at: src/components/Combobox/Combobox.tsx:61
+    doc: >-
+      The field cannot be used: the native `disabled` attribute on the input, so it takes no focus or typing and the list never opens; muted
+      text on the subtle fill, as Input draws it (25 Nov 2026). There is no `open` prop: the list opens from typing and focus only.
   reducedMotion: null
   contract: >-
     Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by
@@ -679,47 +783,59 @@ a11y:
     aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel
     (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1
     Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the
-    panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field.
+    panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field. Disabled (25 Nov 2026): the native disabled
+    attribute on the input, so it takes no focus or typing and the list never opens; muted text on the subtle fill, as Input. Error (25 Nov
+    2026): aria-invalid plus the message under the field (role=alert), referenced by aria-describedby. No open prop: the list opens from
+    typing and focus only.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-expanded
-      at: src/components/Combobox/Combobox.tsx:164
+      at: src/components/Combobox/Combobox.tsx:182
     - kind: ARIA
       value: aria-controls
-      at: src/components/Combobox/Combobox.tsx:165
+      at: src/components/Combobox/Combobox.tsx:183
     - kind: ARIA
       value: aria-autocomplete="list"
-      at: src/components/Combobox/Combobox.tsx:166
+      at: src/components/Combobox/Combobox.tsx:184
     - kind: ARIA
       value: aria-activedescendant
-      at: src/components/Combobox/Combobox.tsx:167
-    - kind: ARIA
-      value: aria-label
       at: src/components/Combobox/Combobox.tsx:185
     - kind: ARIA
+      value: aria-invalid
+      at: src/components/Combobox/Combobox.tsx:186
+    - kind: ARIA
+      value: aria-describedby
+      at: src/components/Combobox/Combobox.tsx:187
+    - kind: ARIA
+      value: aria-label
+      at: src/components/Combobox/Combobox.tsx:206
+    - kind: ARIA
       value: aria-labelledby
-      at: src/components/Combobox/Combobox.tsx:193
+      at: src/components/Combobox/Combobox.tsx:214
     - kind: ARIA
       value: aria-selected
-      at: src/components/Combobox/Combobox.tsx:211
+      at: src/components/Combobox/Combobox.tsx:232
     - kind: ARIA
       value: role=group
-      at: src/components/Combobox/Combobox.tsx:192
+      at: src/components/Combobox/Combobox.tsx:213
+    - kind: ARIA
+      value: role=alert
+      at: src/components/Combobox/Combobox.tsx:249
     - kind: ARIA
       value: role=status
-      at: src/components/Combobox/Combobox.tsx:227
+      at: src/components/Combobox/Combobox.tsx:254
 contrast:
   pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-playground-tools/src/components/Combobox/Combobox.stories.tsx
+  file: ~/DEV/bella-props/src/components/Combobox/Combobox.stories.tsx
   lines: 197-197
   import: import Combobox from '@bella/components/Combobox/Combobox';
   importSource: the style the Button doc page uses (CHIP import path)
   code: >-
     <Combobox label="Show" labelPosition="inline" search value={v} onChange={setV} groups={[{ id: 'parts', label: 'Parts', options: [{ id:
-    'b', label: 'Button' }] }]} placeholder="Find a part or a page" />
+    'b', label: 'Button' }] }]} placeholder="Find a part or a page" onSelect={() => {}} />
 usage:
   use:
     - 'CHIP''s one input: jump to a component or doc, or ask OBI'
@@ -796,6 +912,7 @@ guidance:
       layer: Option (active)
       at: right
   inContext: []
+  figmaNodeId: '172:430'
   baseProps:
     value: Find a component
   propSpecimens:

@@ -4,6 +4,14 @@ All notable changes to BELLA. Format follows [Keep a Changelog](https://keepacha
 
 ## [Unreleased]
 
+### Form states and names that follow BELLA's rules (2026-11-25)
+- **Select and Combobox: `disabled` and `error`.** Disabled is the native attribute (no focus, clicks or typing; the Combobox list never opens), drawn as Input's disabled field. Error is Input's pattern: the danger edge, the message under the field (role=alert), `aria-invalid` and `aria-describedby`. No `open` prop: the browser opens a Select, typing opens a Combobox.
+- **FilterChip: `disabled`**, and selected is the shared selected light blue with the brand edge and a bold ink label (was a lighter blue at regular weight).
+- **ActionChip and Slider: `disabled` kept and now drawn** (Slider's track, thumb and number go grey; a disabled ActionChip no longer takes the hover wash). maintaining.md's disabled list names them.
+- **BREAKING renames:** FilterChip `pressed` → `selected` (still rendered as `aria-pressed`), FilterChip `size` `default` / `compact` → `md` / `sm` (44px target at both); Eyebrow `variant` → `tone`; Pin `variant` (colour) → `tone`, Pin `pinStyle` → `variant`; IconWell's History topics move from `tone` to a new `kind` (tone keeps the five status values), and SectionHead gains `iconKind` beside `iconTone`.
+- **BREAKING removal:** TaskCard `branch` (a spot for a git branch name that nothing used).
+- `audit:visual` serves Storybook on `BELLA_SB_PORT` (default 6106), so the gate never takes 6006.
+
 ### Wee Dote theme removed (2026-11-08)
 - **BREAKING: `[data-theme="wee-dote"]` is gone** (Elleta, 8 Nov 2026), with `tokens/semantic/wee-dote.json`, `tokens/preview-wee-dote.html` and the `color.wee-dote.*` primitives. The chat components stay and work in light, dark, warm and chip. Stories that borrowed the lane colours now use `color.semantic.lane-a` to `lane-d`.
 

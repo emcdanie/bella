@@ -25,7 +25,7 @@ export interface TitleSlideProps {
 export default function TitleSlide({ label, eyebrow, title, lead, footer, className }: TitleSlideProps) {
   return (
     <Slide label={label ?? (typeof title === 'string' ? title : 'Title slide')} centered className={className}>
-      {eyebrow ? <Eyebrow variant="ink">{eyebrow}</Eyebrow> : null}
+      {eyebrow ? <Eyebrow tone="ink">{eyebrow}</Eyebrow> : null}
       <Heading tier="hero" as="h2">{title}</Heading>
       {lead ? <p className={styles.lead}>{lead}</p> : null}
       {footer ? <p className={styles.footer}>{footer}</p> : null}

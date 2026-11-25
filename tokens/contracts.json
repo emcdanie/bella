@@ -575,33 +575,35 @@
           "name": "FilterChip",
           "category": "Actions",
           "rendersAs": "a button with aria-pressed",
-          "description": "The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.",
+          "description": "The toggle for narrowing a set. Selected is a real state with real semantics (aria-pressed), not a restyle.",
           "variants": [],
           "states": [
             "default",
             "hover",
-            "pressed",
-            "focus"
+            "selected",
+            "focus",
+            "disabled"
           ],
           "props": [
-            "pressed",
+            "selected",
             "onClick",
             "ariaLabel",
             "size",
+            "disabled",
             "className",
             "children"
           ],
           "usage": [
             "Work library skill/type filters",
             "Any multi-select narrowing row",
-            "size compact: a long wrapping row of tag filters (CHIP Docs); the 44px target stays"
+            "size sm: a long wrapping row of tag filters (CHIP Docs); the 44px target stays"
           ],
           "dont": [
             "Do not use for mutually exclusive views: that is SegmentedControl",
             "Do not make it a Button: a Button is reserved for true actions",
             "Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint"
           ],
-          "a11y": "Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds).",
+          "a11y": "Verified 2026-07-22, updated 25 Nov 2026: a real button whose selected prop renders as aria-pressed, both themes. Default label text-secondary on transparent (AAA). Selected is the shared selected light blue (background/brand-subtle-hover) with the brand edge and a bold ink label (content/default); contrast measured per theme in the 25 Nov build report. Disabled: the native disabled attribute, the grey word at 7:1 and the faint edge. Focus ring independent. Hit area 44px minimum at md and sm (the touch-target token).",
           "anatomy": [
             {
               "key": "box",
@@ -640,16 +642,16 @@
               "detail": "border-subtle wash, the edge goes ink"
             },
             {
-              "key": "pressed",
-              "title": "Pressed fill",
+              "key": "selected",
+              "title": "Selected fill",
               "kind": "fill",
               "target": ":scope",
               "zone": {
                 "inset": 8
               },
-              "token": "--color-background-knockout",
+              "token": "--color-background-brand-subtle-hover",
               "trigger": "pressed",
-              "detail": "inverse fill, label text-inverse; aria-pressed is the state"
+              "detail": "the shared selected light blue, the brand edge and a bold ink label; aria-pressed is the state"
             },
             {
               "key": "label",
@@ -661,7 +663,7 @@
               },
               "token": "--color-content-body",
               "trigger": "rest",
-              "detail": "Geist 14, 500, text-secondary"
+              "detail": "Lexend 16, 500 (600 when selected), content/body"
             },
             {
               "key": "ring",
@@ -677,7 +679,7 @@
             }
           ],
           "restState": {
-            "description": "At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
+            "description": "At rest the chip is the flat outline and its label; hover wash and the selected fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).",
             "atRest": [
               "outline border",
               "label"
@@ -703,7 +705,11 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "sizes": [
+            "md",
+            "sm"
+          ]
         }
       }
     },
@@ -781,15 +787,19 @@
           "states": [
             "default",
             "focus",
-            "open"
+            "open",
+            "disabled",
+            "error"
           ],
           "props": [
             "label",
             "value",
             "onChange",
             "options",
-            "className",
-            "leading"
+            "leading",
+            "disabled",
+            "error",
+            "className"
           ],
           "usage": [
             "Sort order",
@@ -800,7 +810,7 @@
             "Do not drop the visible label: an unlabelled dropdown is a guess",
             "Do not use it for a handful of visible options: SegmentedControl or FilterChip"
           ],
-          "a11y": "Verified 2026-07-22: native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token.",
+          "a11y": "Verified 2026-07-22: native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token. Disabled (25 Nov 2026): the native disabled attribute, so the field takes no focus, clicks or keys; muted text on the subtle fill, as Input. Error (25 Nov 2026): aria-invalid plus the message under the field (role=alert), referenced by aria-describedby; the select is named by its label through aria-labelledby so the error is not read as part of the name.",
           "restState": {
             "description": "Flat always: field, border, chevron, label. audit:quality asserts no elevation ever (root carries data-bella-component=select).",
             "atRest": [
@@ -998,15 +1008,11 @@
           "name": "Eyebrow",
           "category": "Layout",
           "description": "Sans label above a heading, 14px, no tracking, no caps (label style; mono is for tokens, code and hashes only, Elleta, 2026-10-03). Signals context or category.",
-          "variants": [
-            "muted",
-            "ink"
-          ],
           "states": [
             "default"
           ],
           "props": [
-            "variant",
+            "tone",
             "as",
             "className",
             "children"
@@ -1040,7 +1046,11 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "tones": [
+            "muted",
+            "ink"
+          ]
         }
       }
     },
@@ -2056,7 +2066,9 @@
             "default",
             "open",
             "active-option",
-            "focus"
+            "focus",
+            "disabled",
+            "error"
           ],
           "placements": [
             "below",
@@ -2077,6 +2089,8 @@
             "search",
             "noResults",
             "onKeyDown",
+            "disabled",
+            "error",
             "id",
             "className"
           ],
@@ -2089,7 +2103,7 @@
             "Do not dim the other options: the active one gets the light blue fill, nothing else changes",
             "Do not use it for a fixed short list without typing: that is Select"
           ],
-          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field.",
+          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field. Disabled (25 Nov 2026): the native disabled attribute on the input, so it takes no focus or typing and the list never opens; muted text on the subtle fill, as Input. Error (25 Nov 2026): aria-invalid plus the message under the field (role=alert), referenced by aria-describedby. No open prop: the list opens from typing and focus only.",
           "restState": {
             "description": "Closed: the field alone. Open: the list floats with the large shadow.",
             "atRest": [
@@ -2524,7 +2538,8 @@
             "onLoad",
             "className"
           ],
-          "variants": []
+          "variants": [],
+          "category": "Layout"
         }
       }
     },
@@ -2645,13 +2660,6 @@
           "name": "Pin",
           "category": "Annotation",
           "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups. With no number it is the dot pin of her On the stage view: a status dot on a haloed disc (green pass, yellow finding).",
-          "variants": [
-            "yellow",
-            "pink",
-            "blue",
-            "red",
-            "green"
-          ],
           "states": [
             "default",
             "hover",
@@ -2659,8 +2667,8 @@
           ],
           "props": [
             "number",
+            "tone",
             "variant",
-            "pinStyle",
             "label",
             "onClick",
             "active",
@@ -2678,7 +2686,19 @@
             "Do not make a label-less pin clickable without ariaLabel",
             "Do not leave a number-less dot pin unexplained: name it in ariaLabel or a chip beside it"
           ],
-          "a11y": "Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring."
+          "a11y": "Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring.",
+          "tones": [
+            "yellow",
+            "pink",
+            "blue",
+            "red",
+            "green"
+          ],
+          "variants": [
+            "dot",
+            "solid",
+            "comment"
+          ]
         }
       }
     },
@@ -3101,6 +3121,7 @@
           "props": [
             "icon",
             "tone",
+            "kind",
             "size",
             "label",
             "className",
@@ -3109,7 +3130,23 @@
           "usage": [
             "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026",
+          "tones": [
+            "success",
+            "warning",
+            "info",
+            "neutral",
+            "error"
+          ],
+          "kinds": [
+            "fix",
+            "visual",
+            "tokens",
+            "tooling",
+            "docs",
+            "contract",
+            "decision"
+          ]
         }
       }
     },
@@ -3424,6 +3461,7 @@
             "showDescription",
             "icon",
             "iconTone",
+            "iconKind",
             "action",
             "titleLevel",
             "size",
@@ -3433,7 +3471,23 @@
           "usage": [
             "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
           ],
-          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026",
+          "iconTones": [
+            "success",
+            "warning",
+            "info",
+            "neutral",
+            "error"
+          ],
+          "iconKinds": [
+            "fix",
+            "visual",
+            "tokens",
+            "tooling",
+            "docs",
+            "contract",
+            "decision"
+          ]
         }
       }
     },
@@ -3740,7 +3794,6 @@
           "props": [
             "title",
             "line",
-            "branch",
             "status",
             "showTag",
             "statusTone",
@@ -3781,7 +3834,6 @@
           "figmaProps": {
             "Title": "title",
             "Line": "line",
-            "Show branch + Branch label": "branch (missing = off)",
             "Status label / tone (StatusDot)": "status / statusTone",
             "state=dragging": "dragging",
             "state=hover, state=focus": "CSS :hover, :focus-visible",

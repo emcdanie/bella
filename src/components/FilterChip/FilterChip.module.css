@@ -9,8 +9,11 @@
  * - the condensed "dense" variant stays in the portfolio (it exists for
  *   the explore hub density); carrying it would re-open the touch-target
  *   call, which is Elleta's
- * - size="compact" (CHIP Docs filters, 2026-10-03, decided): tighter padding and the tag size (16px since the type lock); the
- *   target does not shrink
+ * - size="sm" (CHIP Docs filters, 2026-10-03, decided; named "compact" until 25 Nov 2026): tighter padding and the tag
+ *   size (16px since the type lock); the target does not shrink, 44 at both sizes
+ * - selected (25 Nov 2026, BELLA's selected rule): the shared selected light blue (background/brand-subtle-hover, as
+ *   the selected tab and segment) with the brand edge and a bold ink label, so the state never rests on colour alone
+ * - disabled (25 Nov 2026): the native attribute; the grey word and the faint edge, as ActionChip
  */
 
 .chip {
@@ -33,22 +36,30 @@
     color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
-.compact {
+.sm {
   gap: var(--spacing-4);
   padding: var(--spacing-4) var(--spacing-12);
   font-size: var(--typography-label-default-font-size);
 }
 
-.chip:hover {
+.chip:hover:not(:disabled) {
   border-color: var(--color-border-ink);
   background: var(--color-border-subtle);
 }
 
+/* Selected: the shared selected light blue, the brand edge and a bold ink
+   label (BELLA's selected rule; published Figma selected=true). */
 .chip[aria-pressed='true'] {
-  /* Published Figma (selected=true): brand-subtle fill, brand edge. */
-  background: var(--color-background-brand-subtle);
+  background: var(--color-background-brand-subtle-hover);
   border-color: var(--color-border-brand);
   color: var(--color-content-default);
+  font-weight: var(--typography-font-weight-600);
+}
+
+.chip:disabled {
+  cursor: not-allowed;
+  color: var(--color-content-subtle);
+  border-color: var(--color-border-default);
 }
 
 .chip:focus-visible {

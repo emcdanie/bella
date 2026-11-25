@@ -3,13 +3,13 @@
 name: Icon
 lead:
   text: The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-icon--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-icon--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Icon/Icon.tsx
-  storyTitle: Components/Icon
+  storyTitle: Components/Data/Icon
 props:
   - name: name
     figmaName: name
@@ -18,14 +18,15 @@ props:
     at: src/components/Icon/Icon.tsx:7
   - name: size
     figmaName: size
-    type: '''sm'' | ''md'' | ''lg'''
+    type: '''sm'' | ''md'' | ''lg'' | ''xl'''
     values:
       - sm
       - md
       - lg
+      - xl
     default: md
     required: false
-    doc: 'Size step from the icon ramp: sm 16, md 20, lg 24.'
+    doc: 'Size step from the icon ramp: sm 16, md 20, lg 24, xl 32 (Figma Icon 156:98).'
     at: src/components/Icon/Icon.tsx:9
   - name: label
     type: string
@@ -102,10 +103,10 @@ a11y:
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/Icon/Icon.tsx:33
+      at: src/components/Icon/Icon.tsx:46
     - attribute: aria-hidden
       value: label
-      at: src/components/Icon/Icon.tsx:34
+      at: src/components/Icon/Icon.tsx:47
   focusRing: []
   disabled:
     prop: null
@@ -118,37 +119,15 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/Icon/Icon.tsx:33
+      at: src/components/Icon/Icon.tsx:46
     - kind: ARIA
       value: aria-hidden
-      at: src/components/Icon/Icon.tsx:34
+      at: src/components/Icon/Icon.tsx:47
 contrast:
-  pairs:
-    - label: Muted icon on a card
-      foreground: '--color-semantic-icon-muted'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Icon in body ink on a card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
+  pairs: []
   derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Icon/Icon.stories.tsx
+  file: ~/DEV/bella-props/src/components/Icon/Icon.stories.tsx
   lines: 40-40
   import: import Icon from '@bella/components/Icon/Icon';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -164,16 +143,17 @@ usage:
       id-referenced gradient or clip would collide; draw with paths and currentColor only (audit:quality enforces)
     - >-
       Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry,
-      nothing inline (audit:quality enforces)
+      nothing inline (audit:quality enforces); the one exception is the four tool marks (Storybook, Figma, GitHub, Notion), the official
+      one-colour shapes from Simple Icons (CC0), filled not stroked, shapes unchanged
     - 'Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)'
     - 'Do not hardcode an icon colour: currentColor inherits the themed ink'
     - >-
       Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default
       and needs no name
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '156:98'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     name:
       type: VARIANT
@@ -4408,6 +4388,19 @@ mismatch:
       - Shapes
       - ShareAndroid
       - Plus
+      - CursorPointer
+      - ChatBubbleEmpty
+      - Ruler
+  - field: props.size.values
+    code:
+      - sm
+      - md
+      - lg
+      - xl
+    figma:
+      - sm
+      - md
+      - lg
   - field: props.tone
     code: no such prop
     figma:
@@ -4419,6 +4412,9 @@ mismatch:
       - success
       - on-action
       - inverse
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-data-icon--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-icon--docs
 notApplicable:
   - section: Behaviour and motion
     why: no transition or animation in src/components/Icon/Icon.module.css

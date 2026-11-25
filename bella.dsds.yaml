@@ -8809,7 +8809,7 @@ entries:
   - kind: component
     id: filter-chip
     name: FilterChip
-    description: The toggle for narrowing a set. Pressed is a real state with real semantics, not a restyle.
+    description: The toggle for narrowing a set. Selected is a real state with real semantics (aria-pressed), not a restyle.
     metadata:
       origin:
         method: extracted
@@ -8818,7 +8818,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent. Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA holds)."
+          note: "updated 25 Nov 2026: a real button whose selected prop renders as aria-pressed, both themes. Default label text-secondary on transparent (AAA). Selected is the shared selected light blue (background/brand-subtle-hover) with the brand edge and a bold ink label (content/default); contrast measured per theme in the 25 Nov build report. Disabled: the native disabled attribute, the grey word at 7:1 and the faint edge. Focus ring independent. Hit area 44px minimum at md and sm (the touch-target token)."
       tags:
         - component
         - filter-chip
@@ -8833,7 +8833,7 @@ entries:
           - level: may
             statement: Any multi-select narrowing row
           - level: may
-            statement: "size compact: a long wrapping row of tag filters (CHIP Docs); the 44px target stays"
+            statement: "size sm: a long wrapping row of tag filters (CHIP Docs); the 44px target stays"
       - kind: guidelines
         for: all
         title: Do not
@@ -8847,7 +8847,7 @@ entries:
       - kind: definitions
         for: all
         title: At rest
-        description: At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).
+        description: At rest the chip is the flat outline and its label; hover wash and the selected fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).
         context: anatomy
         items:
           - term: outline border
@@ -8868,10 +8868,10 @@ entries:
             definition: "1px border-strong, never raised. Trigger: rest. Token --color-border-strong; target :scope."
           - term: 3. Hover wash
             definition: "border-subtle wash, the edge goes ink. Trigger: hover. Token --color-border-subtle; target :scope."
-          - term: 4. Pressed fill
-            definition: "inverse fill, label text-inverse; aria-pressed is the state. Trigger: pressed. Token --color-background-knockout; target :scope."
+          - term: 4. Selected fill
+            definition: "the shared selected light blue, the brand edge and a bold ink label; aria-pressed is the state. Trigger: pressed. Token --color-background-brand-subtle-hover; target :scope."
           - term: 5. Label
-            definition: "Geist 14, 500, text-secondary. Trigger: rest. Token --color-content-body; target :scope."
+            definition: "Lexend 16, 500 (600 when selected), content/body. Trigger: rest. Token --color-content-body; target :scope."
           - term: 6. Focus ring
             definition: "4px, 4px gap, outside, focus-visible only. Trigger: focus. Token --color-border-focus; target :scope."
     refs:
@@ -8897,10 +8897,11 @@ entries:
         states:
           - default
           - hover
-          - pressed
+          - selected
           - focus
+          - disabled
         restState:
-          description: At rest the chip is the flat outline and its label; hover wash and the pressed fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).
+          description: At rest the chip is the flat outline and its label; hover wash and the selected fill are state paints. audit:quality asserts no elevation ever (root carries data-bella-component=filter-chip).
           atRest:
             - outline border
             - label
@@ -9019,7 +9020,7 @@ entries:
       reviewed:
         - date: "2026-07-22"
           by: human:elleta
-          note: "native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token."
+          note: "native select labelled by containment; the platform popup needs no re-verification. Closed control: text-primary on surface, 16.92:1 light (AAA); label text-secondary 8.33:1 light / 9.20:1 dark (AAA). Option text at 14px is the closed-control field; the popup renders at platform size. Focus ring on the field; 44px min-height via the touch-target token. Disabled (25 Nov 2026): the native disabled attribute, so the field takes no focus, clicks or keys; muted text on the subtle fill, as Input. Error (25 Nov 2026): aria-invalid plus the message under the field (role=alert), referenced by aria-describedby; the select is named by its label through aria-labelledby so the error is not read as part of the name."
       tags:
         - component
         - select
@@ -9074,6 +9075,8 @@ entries:
           - default
           - focus
           - open
+          - disabled
+          - error
         restState:
           description: "Flat always: field, border, chevron, label. audit:quality asserts no elevation ever (root carries data-bella-component=select)."
           atRest:
@@ -10440,7 +10443,7 @@ entries:
       reviewed:
         - date: "2026-10-03"
           by: human:elleta
-          note: "input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field."
+          note: "input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field. Disabled (25 Nov 2026): the native disabled attribute on the input, so it takes no focus or typing and the list never opens; muted text on the subtle fill, as Input. Error (25 Nov 2026): aria-invalid plus the message under the field (role=alert), referenced by aria-describedby. No open prop: the list opens from typing and focus only."
       tags:
         - component
         - combobox
@@ -10496,6 +10499,8 @@ entries:
           - open
           - active-option
           - focus
+          - disabled
+          - error
         restState:
           description: "Closed: the field alone. Open: the list floats with the large shadow."
           atRest:

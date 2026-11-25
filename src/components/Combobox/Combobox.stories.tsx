@@ -207,3 +207,53 @@ export const LabelInline: Story = {
     await expect(getComputedStyle(label).fontSize).toBe('16px');
   },
 };
+
+/** disabled (25 Nov 2026): the native attribute on the input, so the field
+ * takes no focus or typing and the list never opens; muted text on the
+ * subtle fill, as Input. */
+export const Disabled: Story = {
+  render: () => (
+    <div style={{ maxWidth: 560 }}>
+      <Combobox
+        label="Jump to"
+        value="Card"
+        onChange={() => {}}
+        groups={groupsFor('card')}
+        onSelect={() => {}}
+        search
+        disabled
+      />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const field = canvas.getByRole('combobox', { name: 'Jump to' });
+    await expect(field).toBeDisabled();
+    field.focus();
+    await expect(field).not.toHaveFocus();
+    await expect(field).toHaveAttribute('aria-expanded', 'false');
+  },
+};
+
+/** error (25 Nov 2026): the danger edge and the message under the field,
+ * wired by aria-invalid and aria-describedby, as Input. */
+export const WithError: Story = {
+  render: () => (
+    <div style={{ maxWidth: 560 }}>
+      <Combobox
+        label="Jump to"
+        value="Crad"
+        onChange={() => {}}
+        groups={[]}
+        onSelect={() => {}}
+        search
+        error="No part is called Crad. Check the name."
+      />
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const field = canvas.getByRole('combobox', { name: 'Jump to' });
+    await expect(field).toHaveAttribute('aria-invalid', 'true');
+    await expect(field).toHaveAccessibleDescription('No part is called Crad. Check the name.');
+    await expect(canvas.getByRole('alert')).toHaveTextContent('No part is called Crad.');
+  },
+};

@@ -27,41 +27,46 @@ const meta: Meta<typeof FilterChip> = {
     bellaDocs: { tokens: consumedTokens, a11y: chipContract.a11y },
   },
   argTypes: {
-    pressed: { control: 'boolean' },
+    selected: { control: 'boolean' },
+    size: { control: 'inline-radio', options: ['md', 'sm'] },
+    disabled: { control: 'boolean' },
     ariaLabel: { control: 'text' },
     onClick: { control: false },
     className: { control: false },
     children: { control: false },
   },
-  args: { pressed: false },
+  args: { selected: false },
 };
 export default meta;
 
 type Story = StoryObj<typeof FilterChip>;
 
-/** Rest and pressed side by side: the pressed fill is the state's paint. */
+/** Rest, selected and disabled side by side: the light-blue fill and the bold label are the selected state's paint. */
 export const States: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--spacing-8)', flexWrap: 'wrap' }}>
-      <FilterChip pressed={false} onClick={() => {}}>
+      <FilterChip selected={false} onClick={() => {}}>
         Design systems
       </FilterChip>
-      <FilterChip pressed onClick={() => {}}>
+      <FilterChip selected onClick={() => {}}>
         AI enablement
       </FilterChip>
-      <FilterChip pressed={false} onClick={() => {}}>
+      <FilterChip selected={false} onClick={() => {}}>
         Research
+      </FilterChip>
+      <FilterChip selected={false} disabled onClick={() => {}}>
+        Not measured
       </FilterChip>
     </div>
   ),
 };
 
-/** Compact: a long wrapping row of tag filters; the 44px target stays. */
-export const Compact: Story = {
+/** sm: a long wrapping row of tag filters; the 44px target stays. */
+export const Small: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: 'var(--spacing-4) var(--spacing-8)', flexWrap: 'wrap', maxWidth: 320 }}>
       {['answer', 'decision', 'handoff', 'loop', 'note', 'plan'].map((t, i) => (
-        <FilterChip key={t} size="compact" pressed={i === 1} onClick={() => {}}>
+        <FilterChip key={t} size="sm" selected={i === 1} onClick={() => {}}>
           {t}
         </FilterChip>
       ))}
@@ -81,7 +86,7 @@ function FilterRowHarness() {
   return (
     <div style={{ display: 'flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
       <FilterChip
-        pressed={on}
+        selected={on}
         onClick={() => {
           setOn((v) => !v);
           setActivations((n) => n + 1);
@@ -106,7 +111,7 @@ export const Behavior: Story = {
       );
     });
 
-    await step('aria: pressed is a real state and it flips', async () => {
+    await step('aria: selected is a real state (aria-pressed) and it flips', async () => {
       const before = chip.getAttribute('aria-pressed') === 'true';
       expectAriaStates(chip, { pressed: before });
       chip.click();
@@ -120,5 +125,21 @@ export const Behavior: Story = {
     await step('touch target: 44px minimum', async () => {
       expectTouchTarget(chip);
     });
+  },
+};
+
+/** disabled (25 Nov 2026): the native attribute, so it takes no click or
+ * focus; the grey word and the faint edge. */
+export const Disabled: Story = {
+  render: () => (
+    <FilterChip selected={false} disabled onClick={() => {}}>
+      Not measured
+    </FilterChip>
+  ),
+  play: async ({ canvas }) => {
+    const chip = canvas.getByRole('button', { name: 'Not measured' });
+    await expect(chip).toBeDisabled();
+    chip.focus();
+    await expect(chip).not.toHaveFocus();
   },
 };

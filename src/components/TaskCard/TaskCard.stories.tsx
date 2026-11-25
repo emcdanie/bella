@@ -66,7 +66,7 @@ type Story = StoryObj<typeof TaskCard>;
 
 export const Playground: Story = {};
 
-/** Figma's variants side by side: default, dragging (lifts), with the branch tag. Hover and focus are shown live. */
+/** Figma's variants side by side: default, dragging (lifts), waiting on you. Hover and focus are shown live. */
 export const States: Story = {
   render: () => (
     <Lane>
@@ -75,7 +75,6 @@ export const States: Story = {
       <TaskCard
         title="Hero at 390"
         line="Wraps under the photo"
-        branch="feat/hero-390"
         status="Waiting on you"
         statusTone="attention"
         href="#c"
@@ -106,7 +105,6 @@ export const LongContent: Story = {
       <TaskCard
         title="Retire the old StatusPill from every CHIP screen and the docs"
         line="components/StatusPill/StatusPill.module.css still read by 3 pages"
-        branch="chip/retire-status-pill-everywhere"
         status="Gate checking"
         statusTone="info"
         href="#long"

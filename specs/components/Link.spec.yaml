@@ -3,19 +3,20 @@
 name: Link
 lead:
   text: Inline text link inside body copy.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Actions
 rendersAs: an anchor; external opens a new tab
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-link--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Link/Link.tsx
-  storyTitle: Components/Link
+  storyTitle: Components/Actions/Link
 props:
   - name: href
     type: string
     required: true
     at: src/components/Link/Link.tsx:5
   - name: external
+    figmaName: external
     type: boolean
     values:
       - true
@@ -23,7 +24,7 @@ props:
     default: false
     required: false
     doc: Opens in a new tab with rel="noopener noreferrer"; the visible text should say where it goes.
-    at: src/components/Link/Link.tsx:6
+    at: src/components/Link/Link.tsx:7
   - name: className
     type: string
     required: false
@@ -93,161 +94,149 @@ anatomy:
       title: Text
       kind: content
       trigger: rest
-      token: '--component-link-default-foreground'
+      token: '--color-content-link'
       detail: ink; visited stays ink
     - key: underline
       title: Underline
       kind: edge
       trigger: rest
-      token: '--component-link-default-underline-thickness'
-      detail: 1px, 4px offset (--component-link-default-underline-offset)
+      token: '--border-width-1'
+      detail: 1px, 4px offset (--spacing-4)
     - key: underline-hover
       title: Hover underline
       kind: state
       trigger: hover
-      token: '--component-link-default-underline-thickness-hover'
+      token: '--border-width-2'
       detail: thickens to 2px; colour stays ink
     - key: ring
       title: Focus ring
       kind: ring
       trigger: focus
-      token: '--ring-focus-color'
-      detail: 3px, 3px offset, radius 4, focus-visible only
+      token: '--color-border-focus'
+      detail: 4px, 4px gap, outside, corner = part + 4, focus-visible only
 tokens:
   used:
     - part: root
       state: rest
       property: color
-      token: '--component-link-default-foreground'
+      token: '--color-content-link'
       selector: .link
-      at: src/components/Link/Link.module.css:6
+      at: src/components/Link/Link.module.css:5
     - part: root
       state: rest
-      property: text-decoration
-      token: '--component-link-default-text-decoration'
+      property: text-decoration-thickness
+      token: '--border-width-1'
       selector: .link
       at: src/components/Link/Link.module.css:7
     - part: root
       state: rest
-      property: text-decoration-thickness
-      token: '--component-link-default-underline-thickness'
+      property: text-underline-offset
+      token: '--spacing-4'
       selector: .link
       at: src/components/Link/Link.module.css:8
     - part: root
       state: rest
-      property: text-underline-offset
-      token: '--component-link-default-underline-offset'
+      property: transition
+      token: '--motion-duration-150'
       selector: .link
       at: src/components/Link/Link.module.css:9
     - part: root
       state: rest
       property: transition
-      token: '--motion-duration-fast'
-      selector: .link
-      at: src/components/Link/Link.module.css:10
-    - part: root
-      state: rest
-      property: transition
       token: '--motion-easing-standard'
       selector: .link
-      at: src/components/Link/Link.module.css:10
+      at: src/components/Link/Link.module.css:9
     - part: root
       state: visited
       property: color
-      token: '--component-link-default-foreground'
+      token: '--color-content-link'
       selector: .link:visited
-      at: src/components/Link/Link.module.css:14
+      at: src/components/Link/Link.module.css:13
     - part: root
       state: hover
       property: color
-      token: '--component-link-default-foreground-hover'
+      token: '--color-content-link'
       selector: .link:hover
-      at: src/components/Link/Link.module.css:18
+      at: src/components/Link/Link.module.css:17
     - part: root
       state: hover
       property: text-decoration-thickness
-      token: '--component-link-default-underline-thickness-hover'
+      token: '--border-width-2'
       selector: .link:hover
-      at: src/components/Link/Link.module.css:19
+      at: src/components/Link/Link.module.css:18
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .link:focus-visible
-      at: src/components/Link/Link.module.css:23
+      at: src/components/Link/Link.module.css:22
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .link:focus-visible
-      at: src/components/Link/Link.module.css:23
+      at: src/components/Link/Link.module.css:22
     - part: root
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .link:focus-visible
-      at: src/components/Link/Link.module.css:24
+      at: src/components/Link/Link.module.css:23
     - part: root
       state: focus-visible
       property: border-radius
-      token: '--radius-sm'
+      token: '--border-radius-4'
       selector: .link:focus-visible
-      at: src/components/Link/Link.module.css:25
+      at: src/components/Link/Link.module.css:24
   values:
-    '--component-link-default-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-link-default-foreground-hover':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-link-default-text-decoration':
-      light: underline
-      chip: underline
-    '--component-link-default-underline-offset':
-      light: 4px
-      chip: 4px
-    '--component-link-default-underline-thickness':
-      light: 1px
-      chip: 1px
-    '--component-link-default-underline-thickness-hover':
-      light: 2px
-      chip: 2px
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
+    '--border-radius-4':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--border-width-2':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-content-link':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--radius-sm':
-      light: 4px
-      chip: 4px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .link
       state: rest
-      declaration: 'transition: text-decoration-thickness var(--motion-duration-fast) var(--motion-easing-standard)'
+      declaration: 'transition: text-decoration-thickness var(--motion-duration-150) var(--motion-easing-standard)'
       properties:
         - text-decoration-thickness
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/Link/Link.module.css:10
+          value: null
+      at: src/components/Link/Link.module.css:9
   reducedMotion:
     selector: .link
     declaration: 'transition: none'
-    at: src/components/Link/Link.module.css:30
+    at: src/components/Link/Link.module.css:29
   reducedMotionQuery: true
 a11y:
   element:
@@ -267,100 +256,42 @@ a11y:
   aria: []
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/Link/Link.module.css:23
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/Link/Link.module.css:22
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
-      at: src/components/Link/Link.module.css:24
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/Link/Link.module.css:23
     - property: border-radius
-      value: var(--radius-sm)
+      value: var(--border-radius-4)
       tokens:
-        - token: '--radius-sm'
-          value: 4px
-      at: src/components/Link/Link.module.css:25
+        - token: '--border-radius-4'
+          value: null
+      at: src/components/Link/Link.module.css:24
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .link
     declaration: 'transition: none'
-    at: src/components/Link/Link.module.css:30
+    at: src/components/Link/Link.module.css:29
   contract: >-
     Ink foreground on ground passes AAA (16.06:1, verified 2026-07-21). Link affordance is the underline; hover thickens it to 2px (brand
     refresh, 2026-09-22). Ink throughout.
+  targetPx: null
+  ariaChips: []
 contrast:
-  pairs:
-    - label: Link text
-      foreground: '--color-semantic-link'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Underline
-      foreground: '--color-semantic-link'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Link on hover
-      foreground: '--component-link-default-foreground-hover'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-link-default-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-link-default-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-link-default-foreground-hover'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-link-default-foreground-hover'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Link/Link.stories.tsx
+  file: ~/DEV/bella-props/src/components/Link/Link.stories.tsx
   lines: 34-34
   import: import Link from '@bella/components/Link/Link';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -372,10 +303,10 @@ usage:
   dont:
     - Do not use for primary navigation, that's nav-link
     - Do not rely on color alone, always underlined or weight-shifted on hover
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '298:6681'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     external#725:0:
       type: BOOLEAN
@@ -412,16 +343,16 @@ figma:
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-actions-link--docs
 mismatch:
-  - field: tokens.state=default.itemSpacing
+  - field: tokens.Text.fills
     code:
-      - '--component-link-default-foreground'
-      - '--component-link-default-text-decoration'
-      - '--component-link-default-underline-thickness'
-      - '--component-link-default-underline-offset'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-    figma: spacing/1
-    sameValueInChip: true
+      - '--color-content-link'
+    figma: component/link/default/foreground
+    sameValueInChip: false
+  - field: tokens.Underline.fills
+    code:
+      - '--color-content-link'
+    figma: component/link/default/foreground
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Link/Link.tsx

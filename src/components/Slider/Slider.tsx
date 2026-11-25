@@ -46,6 +46,7 @@ export default function Slider({ label, value, onChange, min, max, step = 1, uni
       className={[styles.slider, className].filter(Boolean).join(' ')}
       style={{ '--slider-pct': `${pct(value)}%` } as CSSProperties}
       data-bella-component="slider"
+      data-disabled={disabled ? '' : undefined}
     >
       <div className={styles.head}>
         <label className={styles.label} htmlFor={fieldId}>

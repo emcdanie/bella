@@ -3,32 +3,37 @@
 name: ChatBubble
 lead:
   text: A single message bubble. Sent (ink) or received (card surface). Tail marks the last bubble in a run. Kind.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Chat
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-data-chatbubble--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/ChatBubble/ChatBubble.tsx
-  storyTitle: Components/Chat/ChatBubble
+  storyTitle: Components/Data/ChatBubble
 props:
   - name: side
+    figmaName: side
     type: '''sent'' | ''received'''
     values:
       - sent
       - received
     required: true
     doc: Which side the bubble sits on. Sent = right, received = left.
-    at: src/components/ChatBubble/ChatBubble.tsx:7
+    at: src/components/ChatBubble/ChatBubble.tsx:76
   - name: tail
+    figmaName: tail
     type: boolean
     values:
       - true
       - false
     default: false
     required: false
-    doc: Round the tail corner (bottom-right for sent, bottom-left for received). True on the last bubble in a run.
-    at: src/components/ChatBubble/ChatBubble.tsx:9
+    doc: >-
+      Figma "Show tail": the iMessage tail at the bottom corner on the speaker's side (bottom-right sent, bottom-left received). True on the
+      last bubble in a run.
+    at: src/components/ChatBubble/ChatBubble.tsx:78
   - name: kind
+    figmaName: kind
     type: '''text'' | ''ask'' | ''draft'' | ''big-emoji'' | ''image'''
     values:
       - text
@@ -42,54 +47,69 @@ props:
       text: normal; ask: a question waiting on the reader, headed by an attention StatusPill; draft: an unsent reply, a dashed outline on
       the surface with a quiet label (ask and draft per BellaComponents, 11 Nov 2026); big-emoji: oversized, transparent fill; image:
       constrained image slot.
-    at: src/components/ChatBubble/ChatBubble.tsx:16
+    at: src/components/ChatBubble/ChatBubble.tsx:85
   - name: kindLabel
+    figmaName: kindLabel
     type: string
     required: false
     doc: 'The words heading an ask or draft bubble. Defaults: "Waiting on you" (ask), "Draft" (draft).'
-    at: src/components/ChatBubble/ChatBubble.tsx:18
+    at: src/components/ChatBubble/ChatBubble.tsx:87
   - name: tapback
     type: string
     required: false
-    doc: Tapback emoji, rendered above the bubble corner.
-    at: src/components/ChatBubble/ChatBubble.tsx:20
+    doc: Tapback emoji, rendered above the bubble corner (older; prefer reactions).
+    at: src/components/ChatBubble/ChatBubble.tsx:89
+  - name: reactions
+    type: ReactionName[]
+    required: false
+    doc: 'The reactions on this message, as the coloured Reaction badge on its corner. It pops on (no sparkle burst, 22 Nov: "NO sparkles").'
+    at: src/components/ChatBubble/ChatBubble.tsx:91
+  - name: reactionCount
+    type: number
+    required: false
+    doc: How many reactions in all, when more people reacted than glyphs shown.
+    at: src/components/ChatBubble/ChatBubble.tsx:93
   - name: children
+    figmaName: children
     type: ReactNode
     required: true
     doc: 'Children: the bubble''s content.'
-    at: src/components/ChatBubble/ChatBubble.tsx:22
+    at: src/components/ChatBubble/ChatBubble.tsx:95
   - name: actions
     type: ReactNode
     required: false
     doc: Action chips rendered below the text, inside the bubble.
-    at: src/components/ChatBubble/ChatBubble.tsx:24
+    at: src/components/ChatBubble/ChatBubble.tsx:97
   - name: emojiLabel
     type: string
     required: false
     doc: 'For big-emoji kind: describe the emoji for assistive tech.'
-    at: src/components/ChatBubble/ChatBubble.tsx:26
+    at: src/components/ChatBubble/ChatBubble.tsx:99
   - name: disc
-    type: string
+    type: ReactNode
     required: false
-    doc: Colour disc (24px) pinned to the bottom-left of a received bubble. Aria-hidden. Shows speaker identity in a multi-lane thread.
-    at: src/components/ChatBubble/ChatBubble.tsx:28
+    doc: >-
+      Who is speaking, pinned to the bottom-left of a received bubble (aria-hidden; senderName or the thread says it in words). One or two
+      letters ("B" for BELLA) draw an initial disc that reads in every theme; an Avatar (or any node) is placed as is; any other string is a
+      plain colour disc (older use).
+    at: src/components/ChatBubble/ChatBubble.tsx:106
   - name: senderName
     type: string
     required: false
     doc: Speaker name label displayed above the first bubble of a received run. Uses BELLA's label size.
-    at: src/components/ChatBubble/ChatBubble.tsx:30
+    at: src/components/ChatBubble/ChatBubble.tsx:108
   - name: className
     type: string
     required: false
     doc: Extra classes on the root row.
-    at: src/components/ChatBubble/ChatBubble.tsx:32
+    at: src/components/ChatBubble/ChatBubble.tsx:110
 variants:
   side:
     values:
       - sent
       - received
     default: null
-    at: src/components/ChatBubble/ChatBubble.tsx:7
+    at: src/components/ChatBubble/ChatBubble.tsx:76
   kind:
     values:
       - text
@@ -98,11 +118,20 @@ variants:
       - big-emoji
       - image
     default: text
-    at: src/components/ChatBubble/ChatBubble.tsx:16
+    at: src/components/ChatBubble/ChatBubble.tsx:85
 states:
   contract:
     - default
-  css: []
+  css:
+    - hover
+    - '[aria-pressed=''true'']'
+    - focus-visible
+    - '[data-reaction=''heart'']'
+    - '[data-reaction=''up'']'
+    - '[data-reaction=''down'']'
+    - '[data-reaction=''haha'']'
+    - '[data-reaction=''bang'']'
+    - '[data-reaction=''question'']'
 sizes: []
 anatomy:
   scaleWidth: 480
@@ -173,506 +202,1006 @@ tokens:
     - part: root
       state: rest
       property: max-width
-      token: '--component-chat-thread-default-row-max-width'
+      token: '--spacing-80'
       selector: .row
-      at: src/components/ChatBubble/ChatBubble.module.css:6
+      at: src/components/ChatBubble/ChatBubble.module.css:7
+    - part: root
+      state: rest
+      property: max-width
+      token: '--spacing-40'
+      selector: .row
+      at: src/components/ChatBubble/ChatBubble.module.css:7
+    - part: root
+      state: rest
+      property: max-width
+      token: '--spacing-16'
+      selector: .row
+      at: src/components/ChatBubble/ChatBubble.module.css:7
     - part: rowReceived
       state: rest
       property: padding-left
-      token: '--component-chat-thread-default-avatar-gutter'
+      token: '--spacing-32'
       selector: .rowReceived
-      at: src/components/ChatBubble/ChatBubble.module.css:20
+      at: src/components/ChatBubble/ChatBubble.module.css:21
     - part: bubble
       state: rest
       property: padding
-      token: '--component-chat-bubble-default-padding-block'
-      selector: .bubble
-      at: src/components/ChatBubble/ChatBubble.module.css:25
-    - part: bubble
-      state: rest
-      property: padding
-      token: '--component-chat-bubble-default-padding-inline'
-      selector: .bubble
-      at: src/components/ChatBubble/ChatBubble.module.css:25
-    - part: bubble
-      state: rest
-      property: border-radius
-      token: '--component-chat-bubble-default-border-radius'
+      token: '--spacing-8'
       selector: .bubble
       at: src/components/ChatBubble/ChatBubble.module.css:26
     - part: bubble
       state: rest
-      property: font-family
-      token: '--typography-font-family-body'
+      property: padding
+      token: '--spacing-16'
       selector: .bubble
-      at: src/components/ChatBubble/ChatBubble.module.css:29
+      at: src/components/ChatBubble/ChatBubble.module.css:26
     - part: bubble
       state: rest
-      property: font-size
-      token: '--typography-font-size-body'
+      property: border-radius
+      token: '--border-radius-card'
+      selector: .bubble
+      at: src/components/ChatBubble/ChatBubble.module.css:27
+    - part: bubble
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
       selector: .bubble
       at: src/components/ChatBubble/ChatBubble.module.css:30
     - part: bubble
       state: rest
-      property: line-height
-      token: '--typography-line-height-body'
+      property: font-size
+      token: '--typography-body-default-font-size'
       selector: .bubble
       at: src/components/ChatBubble/ChatBubble.module.css:31
     - part: bubble
       state: rest
-      property: animation
-      token: '--motion-duration-pop'
+      property: line-height
+      token: '--typography-line-height-150'
       selector: .bubble
-      at: src/components/ChatBubble/ChatBubble.module.css:33
+      at: src/components/ChatBubble/ChatBubble.module.css:32
     - part: bubble
       state: rest
       property: animation
-      token: '--motion-easing-pop-enter'
+      token: '--motion-duration-400'
       selector: .bubble
-      at: src/components/ChatBubble/ChatBubble.module.css:33
+      at: src/components/ChatBubble/ChatBubble.module.css:34
+    - part: bubble
+      state: rest
+      property: animation
+      token: '--motion-easing-pop'
+      selector: .bubble
+      at: src/components/ChatBubble/ChatBubble.module.css:34
     - part: sent
       state: rest
       property: background
-      token: '--component-chat-bubble-sent-background'
+      token: '--color-background-accent-1'
       selector: .sent
-      at: src/components/ChatBubble/ChatBubble.module.css:37
+      at: src/components/ChatBubble/ChatBubble.module.css:39
     - part: sent
       state: rest
       property: color
-      token: '--component-chat-bubble-sent-foreground'
+      token: '--color-content-on-accent-1'
       selector: .sent
-      at: src/components/ChatBubble/ChatBubble.module.css:38
+      at: src/components/ChatBubble/ChatBubble.module.css:40
     - part: received
       state: rest
       property: background
-      token: '--component-chat-bubble-received-background'
+      token: '--color-background-subtle'
       selector: .received
-      at: src/components/ChatBubble/ChatBubble.module.css:43
+      at: src/components/ChatBubble/ChatBubble.module.css:47
     - part: received
       state: rest
       property: color
-      token: '--component-chat-bubble-received-foreground'
+      token: '--color-content-body'
       selector: .received
-      at: src/components/ChatBubble/ChatBubble.module.css:44
+      at: src/components/ChatBubble/ChatBubble.module.css:48
     - part: tailSent
       state: rest
-      property: border-bottom-right-radius
-      token: '--component-chat-bubble-default-tail-radius'
-      selector: .tailSent
-      at: src/components/ChatBubble/ChatBubble.module.css:49
+      property: inline-size
+      token: '--size-20'
+      selector: .tailSent::after, .tailReceived::after
+      at: src/components/ChatBubble/ChatBubble.module.css:61
+    - part: tailSent
+      state: rest
+      property: block-size
+      token: '--size-20'
+      selector: .tailSent::after, .tailReceived::after
+      at: src/components/ChatBubble/ChatBubble.module.css:62
+    - part: tailSent
+      state: rest
+      property: inset-inline-end
+      token: '--spacing-8'
+      selector: .tailSent::after
+      at: src/components/ChatBubble/ChatBubble.module.css:67
+    - part: tailSent
+      state: rest
+      property: inset-inline-end
+      token: '--border-width-1'
+      selector: .tailSent::after
+      at: src/components/ChatBubble/ChatBubble.module.css:67
     - part: tailReceived
       state: rest
-      property: border-bottom-left-radius
-      token: '--component-chat-bubble-default-tail-radius'
-      selector: .tailReceived
-      at: src/components/ChatBubble/ChatBubble.module.css:53
+      property: inset-inline-start
+      token: '--spacing-8'
+      selector: .tailReceived::after
+      at: src/components/ChatBubble/ChatBubble.module.css:72
+    - part: tailReceived
+      state: rest
+      property: inset-inline-start
+      token: '--border-width-1'
+      selector: .tailReceived::after
+      at: src/components/ChatBubble/ChatBubble.module.css:72
     - part: bigEmoji
       state: rest
       property: font-size
-      token: '--typography-font-size-hero'
+      token: '--typography-font-size-display-hero'
       selector: .bigEmoji
-      at: src/components/ChatBubble/ChatBubble.module.css:57
+      at: src/components/ChatBubble/ChatBubble.module.css:84
     - part: bigEmoji
       state: rest
       property: padding
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .bigEmoji
-      at: src/components/ChatBubble/ChatBubble.module.css:59
+      at: src/components/ChatBubble/ChatBubble.module.css:86
     - part: bigEmoji
       state: rest
       property: animation
-      token: '--motion-duration-slam'
+      token: '--motion-duration-450'
       selector: .bigEmoji
-      at: src/components/ChatBubble/ChatBubble.module.css:60
+      at: src/components/ChatBubble/ChatBubble.module.css:87
     - part: bigEmoji
       state: rest
       property: animation
-      token: '--motion-easing-slam-enter'
+      token: '--motion-easing-pop'
       selector: .bigEmoji
-      at: src/components/ChatBubble/ChatBubble.module.css:60
+      at: src/components/ChatBubble/ChatBubble.module.css:87
     - part: draft
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .draft
-      at: src/components/ChatBubble/ChatBubble.module.css:80
+      at: src/components/ChatBubble/ChatBubble.module.css:107
     - part: draft
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .draft
-      at: src/components/ChatBubble/ChatBubble.module.css:81
+      at: src/components/ChatBubble/ChatBubble.module.css:108
     - part: draft
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .draft
-      at: src/components/ChatBubble/ChatBubble.module.css:82
+      at: src/components/ChatBubble/ChatBubble.module.css:109
     - part: draft
       state: rest
       property: border
-      token: '--color-semantic-border-strong'
+      token: '--color-border-strong'
       selector: .draft
-      at: src/components/ChatBubble/ChatBubble.module.css:82
+      at: src/components/ChatBubble/ChatBubble.module.css:109
     - part: draftLabel
       state: rest
       property: margin-block-end
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .draftLabel, .kindHead
-      at: src/components/ChatBubble/ChatBubble.module.css:88
+      at: src/components/ChatBubble/ChatBubble.module.css:115
     - part: draftLabel
       state: rest
       property: font-size
-      token: '--typography-font-size-tag'
+      token: '--typography-label-default-font-size'
       selector: .draftLabel
-      at: src/components/ChatBubble/ChatBubble.module.css:93
+      at: src/components/ChatBubble/ChatBubble.module.css:120
     - part: draftLabel
       state: rest
       property: line-height
-      token: '--typography-line-height-snug'
+      token: '--typography-line-height-130'
       selector: .draftLabel
-      at: src/components/ChatBubble/ChatBubble.module.css:94
+      at: src/components/ChatBubble/ChatBubble.module.css:121
     - part: draftLabel
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .draftLabel
-      at: src/components/ChatBubble/ChatBubble.module.css:95
+      at: src/components/ChatBubble/ChatBubble.module.css:122
     - part: root
       state: rest
       property: font-family
-      token: '--typography-font-family-code'
+      token: '--typography-font-family-geist-mono'
       selector: .bubble :global(code)
-      at: src/components/ChatBubble/ChatBubble.module.css:100
+      at: src/components/ChatBubble/ChatBubble.module.css:127
     - part: root
       state: rest
       property: font-size
-      token: '--component-chat-bubble-default-code-font-size'
+      token: '--typography-font-size-18'
       selector: .bubble :global(code)
-      at: src/components/ChatBubble/ChatBubble.module.css:101
+      at: src/components/ChatBubble/ChatBubble.module.css:128
     - part: root
       state: rest
       property: padding
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .bubble :global(code)
-      at: src/components/ChatBubble/ChatBubble.module.css:103
+      at: src/components/ChatBubble/ChatBubble.module.css:130
     - part: root
       state: rest
       property: border-radius
-      token: '--component-chat-bubble-default-code-radius'
+      token: '--border-radius-4'
       selector: .bubble :global(code)
-      at: src/components/ChatBubble/ChatBubble.module.css:104
+      at: src/components/ChatBubble/ChatBubble.module.css:131
     - part: disc
       state: rest
       property: width
-      token: '--component-chat-bubble-default-disc-size'
+      token: '--spacing-24'
       selector: .disc
-      at: src/components/ChatBubble/ChatBubble.module.css:115
+      at: src/components/ChatBubble/ChatBubble.module.css:142
     - part: disc
       state: rest
       property: height
-      token: '--component-chat-bubble-default-disc-size'
+      token: '--spacing-24'
       selector: .disc
-      at: src/components/ChatBubble/ChatBubble.module.css:116
+      at: src/components/ChatBubble/ChatBubble.module.css:143
     - part: disc
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .disc
-      at: src/components/ChatBubble/ChatBubble.module.css:117
+      at: src/components/ChatBubble/ChatBubble.module.css:144
+    - part: initial
+      state: rest
+      property: background
+      token: '--color-background-brand-subtle-hover'
+      selector: .initial
+      at: src/components/ChatBubble/ChatBubble.module.css:152
+    - part: initial
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .initial
+      at: src/components/ChatBubble/ChatBubble.module.css:153
+    - part: initial
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .initial
+      at: src/components/ChatBubble/ChatBubble.module.css:154
+    - part: initial
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .initial
+      at: src/components/ChatBubble/ChatBubble.module.css:155
+    - part: initial
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-700'
+      selector: .initial
+      at: src/components/ChatBubble/ChatBubble.module.css:156
     - part: senderName
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .senderName
-      at: src/components/ChatBubble/ChatBubble.module.css:121
+      at: src/components/ChatBubble/ChatBubble.module.css:169
     - part: senderName
       state: rest
       property: font-size
-      token: '--typography-font-size-label'
+      token: '--typography-label-default-font-size'
       selector: .senderName
-      at: src/components/ChatBubble/ChatBubble.module.css:122
+      at: src/components/ChatBubble/ChatBubble.module.css:170
     - part: senderName
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .senderName
-      at: src/components/ChatBubble/ChatBubble.module.css:123
+      at: src/components/ChatBubble/ChatBubble.module.css:171
     - part: senderName
       state: rest
       property: padding-inline
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .senderName
-      at: src/components/ChatBubble/ChatBubble.module.css:124
+      at: src/components/ChatBubble/ChatBubble.module.css:172
     - part: senderName
       state: rest
       property: padding-bottom
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .senderName
-      at: src/components/ChatBubble/ChatBubble.module.css:125
+      at: src/components/ChatBubble/ChatBubble.module.css:173
     - part: actions
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .actions
-      at: src/components/ChatBubble/ChatBubble.module.css:131
+      at: src/components/ChatBubble/ChatBubble.module.css:179
     - part: actions
       state: rest
       property: margin-top
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .actions
-      at: src/components/ChatBubble/ChatBubble.module.css:132
+      at: src/components/ChatBubble/ChatBubble.module.css:180
     - part: tapback
       state: rest
       property: top
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:137
+      at: src/components/ChatBubble/ChatBubble.module.css:185
     - part: tapback
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:138
+      at: src/components/ChatBubble/ChatBubble.module.css:186
     - part: tapback
       state: rest
       property: border
-      token: '--color-semantic-background'
+      token: '--color-background-default'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:139
+      at: src/components/ChatBubble/ChatBubble.module.css:187
     - part: tapback
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:140
+      at: src/components/ChatBubble/ChatBubble.module.css:188
     - part: tapback
       state: rest
       property: padding
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:141
+      at: src/components/ChatBubble/ChatBubble.module.css:189
     - part: tapback
       state: rest
       property: font-size
-      token: '--typography-font-size-body'
+      token: '--typography-body-default-font-size'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:142
+      at: src/components/ChatBubble/ChatBubble.module.css:190
     - part: tapback
       state: rest
       property: box-shadow
-      token: '--shadow-ui'
+      token: '--shadow-ui-ink'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:143
+      at: src/components/ChatBubble/ChatBubble.module.css:191
     - part: tapback
       state: rest
       property: animation
-      token: '--motion-duration-pop'
+      token: '--motion-duration-400'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:144
+      at: src/components/ChatBubble/ChatBubble.module.css:192
     - part: tapback
       state: rest
       property: animation
-      token: '--motion-easing-pop-enter'
+      token: '--motion-easing-pop'
       selector: .tapback
-      at: src/components/ChatBubble/ChatBubble.module.css:144
+      at: src/components/ChatBubble/ChatBubble.module.css:192
     - part: tapbackSent
       state: rest
       property: left
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .tapbackSent
-      at: src/components/ChatBubble/ChatBubble.module.css:148
+      at: src/components/ChatBubble/ChatBubble.module.css:196
     - part: tapbackReceived
       state: rest
       property: right
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .tapbackReceived
-      at: src/components/ChatBubble/ChatBubble.module.css:152
+      at: src/components/ChatBubble/ChatBubble.module.css:200
+    - part: reactionBar
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:213
+    - part: reactionBar
+      state: rest
+      property: padding
+      token: '--spacing-4'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:214
+    - part: reactionBar
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:215
+    - part: reactionBar
+      state: rest
+      property: background
+      token: '--color-background-surface'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:216
+    - part: reactionBar
+      state: rest
+      property: box-shadow
+      token: '--border-width-1'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:217
+    - part: reactionBar
+      state: rest
+      property: box-shadow
+      token: '--color-border-strong'
+      selector: .reactionBar
+      at: src/components/ChatBubble/ChatBubble.module.css:217
+    - part: reaction
+      state: rest
+      property: inline-size
+      token: '--spacing-44'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:224
+    - part: reaction
+      state: rest
+      property: block-size
+      token: '--spacing-44'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:225
+    - part: reaction
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:228
+    - part: reaction
+      state: rest
+      property: color
+      token: '--reaction-ink'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:230
+    - part: reaction
+      state: rest
+      property: transition
+      token: '--motion-duration-150'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:232
+    - part: reaction
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .reaction
+      at: src/components/ChatBubble/ChatBubble.module.css:232
+    - part: reaction
+      state: hover [aria-pressed='true']
+      property: background
+      token: '--reaction-wash'
+      selector: .reaction:hover, .reaction[aria-pressed='true']
+      at: src/components/ChatBubble/ChatBubble.module.css:237
+    - part: reaction
+      state: focus-visible
+      property: outline
+      token: '--focus-ring-width'
+      selector: .reaction:focus-visible
+      at: src/components/ChatBubble/ChatBubble.module.css:241
+    - part: reaction
+      state: focus-visible
+      property: outline
+      token: '--color-border-focus'
+      selector: .reaction:focus-visible
+      at: src/components/ChatBubble/ChatBubble.module.css:241
+    - part: reaction
+      state: focus-visible
+      property: outline-offset
+      token: '--focus-ring-offset'
+      selector: .reaction:focus-visible
+      at: src/components/ChatBubble/ChatBubble.module.css:242
+    - part: root
+      state: '[data-reaction=''heart'']'
+      property: '--reaction-ink'
+      token: '--color-border-accent-1'
+      selector: '[data-reaction=''heart'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:245
+    - part: root
+      state: '[data-reaction=''heart'']'
+      property: '--reaction-wash'
+      token: '--color-background-wash-pink'
+      selector: '[data-reaction=''heart'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:245
+    - part: root
+      state: '[data-reaction=''up'']'
+      property: '--reaction-ink'
+      token: '--color-border-brand'
+      selector: '[data-reaction=''up'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:246
+    - part: root
+      state: '[data-reaction=''up'']'
+      property: '--reaction-wash'
+      token: '--color-background-brand-subtle'
+      selector: '[data-reaction=''up'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:246
+    - part: root
+      state: '[data-reaction=''down'']'
+      property: '--reaction-ink'
+      token: '--color-content-utility-neutral'
+      selector: '[data-reaction=''down'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:247
+    - part: root
+      state: '[data-reaction=''down'']'
+      property: '--reaction-wash'
+      token: '--color-background-utility-neutral'
+      selector: '[data-reaction=''down'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:247
+    - part: root
+      state: '[data-reaction=''haha'']'
+      property: '--reaction-ink'
+      token: '--color-border-utility-warning'
+      selector: '[data-reaction=''haha'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:248
+    - part: root
+      state: '[data-reaction=''haha'']'
+      property: '--reaction-wash'
+      token: '--color-background-utility-warning'
+      selector: '[data-reaction=''haha'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:248
+    - part: root
+      state: '[data-reaction=''bang'']'
+      property: '--reaction-ink'
+      token: '--color-border-utility-error'
+      selector: '[data-reaction=''bang'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:249
+    - part: root
+      state: '[data-reaction=''bang'']'
+      property: '--reaction-wash'
+      token: '--color-background-utility-error'
+      selector: '[data-reaction=''bang'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:249
+    - part: root
+      state: '[data-reaction=''question'']'
+      property: '--reaction-ink'
+      token: '--color-content-utility-info'
+      selector: '[data-reaction=''question'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:250
+    - part: root
+      state: '[data-reaction=''question'']'
+      property: '--reaction-wash'
+      token: '--color-background-utility-info'
+      selector: '[data-reaction=''question'']'
+      at: src/components/ChatBubble/ChatBubble.module.css:250
+    - part: reactionText
+      state: rest
+      property: font-family
+      token: '--typography-body-default-font-family'
+      selector: .reactionText
+      at: src/components/ChatBubble/ChatBubble.module.css:253
+    - part: reactionText
+      state: rest
+      property: font-size
+      token: '--typography-font-size-18'
+      selector: .reactionText
+      at: src/components/ChatBubble/ChatBubble.module.css:254
+    - part: reactionText
+      state: rest
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .reactionText
+      at: src/components/ChatBubble/ChatBubble.module.css:255
+    - part: reactionBadge
+      state: rest
+      property: top
+      token: '--spacing-16'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:261
+    - part: reactionBadge
+      state: rest
+      property: gap
+      token: '--spacing-4'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:264
+    - part: reactionBadge
+      state: rest
+      property: block-size
+      token: '--spacing-32'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:265
+    - part: reactionBadge
+      state: rest
+      property: padding
+      token: '--spacing-4'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:267
+    - part: reactionBadge
+      state: rest
+      property: padding
+      token: '--spacing-8'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:267
+    - part: reactionBadge
+      state: rest
+      property: border-radius
+      token: '--border-radius-round'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:268
+    - part: reactionBadge
+      state: rest
+      property: background
+      token: '--color-background-surface'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:269
+    - part: reactionBadge
+      state: rest
+      property: box-shadow
+      token: '--border-width-1'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:270
+    - part: reactionBadge
+      state: rest
+      property: box-shadow
+      token: '--color-border-strong'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:270
+    - part: reactionBadge
+      state: rest
+      property: animation
+      token: '--motion-duration-400'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:272
+    - part: reactionBadge
+      state: rest
+      property: animation
+      token: '--motion-easing-pop'
+      selector: .reactionBadge
+      at: src/components/ChatBubble/ChatBubble.module.css:272
+    - part: badgeSent
+      state: rest
+      property: left
+      token: '--spacing-12'
+      selector: .badgeSent
+      at: src/components/ChatBubble/ChatBubble.module.css:275
+    - part: badgeReceived
+      state: rest
+      property: right
+      token: '--spacing-12'
+      selector: .badgeReceived
+      at: src/components/ChatBubble/ChatBubble.module.css:276
+    - part: badgeGlyph
+      state: rest
+      property: color
+      token: '--reaction-ink'
+      selector: .badgeGlyph
+      at: src/components/ChatBubble/ChatBubble.module.css:280
+    - part: reactionText
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .badgeGlyph .reactionText
+      at: src/components/ChatBubble/ChatBubble.module.css:284
+    - part: badgeCount
+      state: rest
+      property: font-family
+      token: '--typography-number-font-family'
+      selector: .badgeCount
+      at: src/components/ChatBubble/ChatBubble.module.css:288
+    - part: badgeCount
+      state: rest
+      property: font-size
+      token: '--typography-font-size-16'
+      selector: .badgeCount
+      at: src/components/ChatBubble/ChatBubble.module.css:289
+    - part: badgeCount
+      state: rest
+      property: line-height
+      token: '--typography-line-height-px-24'
+      selector: .badgeCount
+      at: src/components/ChatBubble/ChatBubble.module.css:290
+    - part: badgeCount
+      state: rest
+      property: color
+      token: '--color-content-default'
+      selector: .badgeCount
+      at: src/components/ChatBubble/ChatBubble.module.css:291
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-background':
-      light: '#F7F7F5'
-      chip: '#F7F7F5'
-    '--color-semantic-border-strong':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--color-semantic-surface':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-chat-bubble-default-border-radius':
-      light: 18px
-      chip: 18px
-    '--component-chat-bubble-default-code-font-size':
-      light: 18px
-      chip: 18px
-    '--component-chat-bubble-default-code-radius':
-      light: 4px
-      chip: 4px
-    '--component-chat-bubble-default-disc-size':
-      light: 24px
-      chip: 24px
-    '--component-chat-bubble-default-padding-block':
-      light: 8px
-      chip: 8px
-    '--component-chat-bubble-default-padding-inline':
-      light: 12px
-      chip: 12px
-    '--component-chat-bubble-default-tail-radius':
-      light: 6px
-      chip: 6px
-    '--component-chat-bubble-received-background':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--component-chat-bubble-received-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-chat-bubble-sent-background':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-chat-bubble-sent-foreground':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-chat-thread-default-avatar-gutter':
-      light: 30px
-      chip: 30px
-    '--component-chat-thread-default-row-max-width':
-      light: 80%
-      chip: 80%
-    '--motion-duration-pop':
-      light: 420ms
-      chip: 420ms
-    '--motion-duration-slam':
-      light: 550ms
-      chip: 550ms
-    '--motion-easing-pop-enter':
-      light: cubic-bezier(0.2, 1.6, 0.4, 1)
-      chip: cubic-bezier(0.2, 1.6, 0.4, 1)
-    '--motion-easing-slam-enter':
-      light: cubic-bezier(0.2, 1.4, 0.3, 1)
-      chip: cubic-bezier(0.2, 1.4, 0.3, 1)
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--shadow-ui':
-      light: '0 1px 2px #1d20300f, 0 4px 10px #1d203014'
-      chip: '0 1px 2px #1d20300f, 0 4px 10px #1d203014'
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-family-code':
+    '--border-radius-4':
       light: null
       chip: null
-    '--typography-font-size-body':
-      light: 20px
-      chip: 16px
-    '--typography-font-size-hero':
+    '--border-radius-card':
       light: null
       chip: null
-    '--typography-font-size-label':
+    '--border-radius-round':
       light: null
       chip: null
-    '--typography-font-size-tag':
-      light: 16px
-      chip: 16px
-    '--typography-line-height-body':
+    '--border-width-1':
       light: null
       chip: null
-    '--typography-line-height-snug':
-      light: '1.3'
-      chip: '1.3'
+    '--color-background-accent-1':
+      light: null
+      chip: null
+    '--color-background-brand-subtle':
+      light: null
+      chip: null
+    '--color-background-brand-subtle-hover':
+      light: null
+      chip: null
+    '--color-background-default':
+      light: null
+      chip: null
+    '--color-background-subtle':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-background-utility-error':
+      light: null
+      chip: null
+    '--color-background-utility-info':
+      light: null
+      chip: null
+    '--color-background-utility-neutral':
+      light: null
+      chip: null
+    '--color-background-utility-warning':
+      light: null
+      chip: null
+    '--color-background-wash-pink':
+      light: null
+      chip: null
+    '--color-border-accent-1':
+      light: null
+      chip: null
+    '--color-border-brand':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-utility-error':
+      light: null
+      chip: null
+    '--color-border-utility-warning':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-on-accent-1':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--color-content-utility-info':
+      light: null
+      chip: null
+    '--color-content-utility-neutral':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
+    '--motion-duration-400':
+      light: null
+      chip: null
+    '--motion-duration-450':
+      light: null
+      chip: null
+    '--motion-easing-pop':
+      light: null
+      chip: null
+    '--motion-easing-standard':
+      light: null
+      chip: null
+    '--reaction-ink':
+      light: null
+      chip: null
+    '--reaction-wash':
+      light: null
+      chip: null
+    '--shadow-ui-ink':
+      light: null
+      chip: null
+    '--size-20':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
+    '--spacing-32':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-40':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--spacing-80':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-family-geist-mono':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-size-display-hero':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-font-weight-700':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-line-height-130':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
+    '--typography-line-height-px-24':
+      light: null
+      chip: null
+    '--typography-number-font-family':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .bubble
       state: rest
-      declaration: 'animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both'
+      declaration: 'animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both'
       properties:
-        - bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both
+        - bubblePop var(--motion-duration-400) var(--motion-easing-pop) both
       durations:
-        - token: '--motion-duration-pop'
-          value: 420ms
+        - token: '--motion-duration-400'
+          value: null
       easings:
-        - token: '--motion-easing-pop-enter'
-          value: cubic-bezier(0.2, 1.6, 0.4, 1)
-      at: src/components/ChatBubble/ChatBubble.module.css:33
+        - token: '--motion-easing-pop'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:34
     - selector: .bigEmoji
       state: rest
-      declaration: 'animation: bubbleSlam var(--motion-duration-slam) var(--motion-easing-slam-enter) both'
+      declaration: 'animation: bubbleSlam var(--motion-duration-450) var(--motion-easing-pop) both'
       properties:
-        - bubbleSlam var(--motion-duration-slam) var(--motion-easing-slam-enter) both
+        - bubbleSlam var(--motion-duration-450) var(--motion-easing-pop) both
       durations:
-        - token: '--motion-duration-slam'
-          value: 550ms
+        - token: '--motion-duration-450'
+          value: null
       easings:
-        - token: '--motion-easing-slam-enter'
-          value: cubic-bezier(0.2, 1.4, 0.3, 1)
-      at: src/components/ChatBubble/ChatBubble.module.css:60
+        - token: '--motion-easing-pop'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:87
     - selector: .tapback
       state: rest
-      declaration: 'animation: bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both'
+      declaration: 'animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both'
       properties:
-        - bubblePop var(--motion-duration-pop) var(--motion-easing-pop-enter) both
+        - bubblePop var(--motion-duration-400) var(--motion-easing-pop) both
       durations:
-        - token: '--motion-duration-pop'
-          value: 420ms
+        - token: '--motion-duration-400'
+          value: null
       easings:
-        - token: '--motion-easing-pop-enter'
-          value: cubic-bezier(0.2, 1.6, 0.4, 1)
-      at: src/components/ChatBubble/ChatBubble.module.css:144
+        - token: '--motion-easing-pop'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:192
+    - selector: .reaction
+      state: rest
+      declaration: 'transition: background-color var(--motion-duration-150) var(--motion-easing-standard)'
+      properties:
+        - background-color
+      durations:
+        - token: '--motion-duration-150'
+          value: null
+      easings:
+        - token: '--motion-easing-standard'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:232
+    - selector: .reactionBadge
+      state: rest
+      declaration: 'animation: bubblePop var(--motion-duration-400) var(--motion-easing-pop) both'
+      properties:
+        - bubblePop var(--motion-duration-400) var(--motion-easing-pop) both
+      durations:
+        - token: '--motion-duration-400'
+          value: null
+      easings:
+        - token: '--motion-easing-pop'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:272
   reducedMotion:
-    selector: .bubble, .bigEmoji, .tapback
-    declaration: 'animation: none'
-    at: src/components/ChatBubble/ChatBubble.module.css:185
+    selector: .reaction
+    declaration: 'transition: none'
+    at: src/components/ChatBubble/ChatBubble.module.css:328
   reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/ChatBubble/ChatBubble.tsx:72
+    at: src/components/ChatBubble/ChatBubble.tsx:40
   role:
-    value: isBig
+    value: group
     source: role attribute
-    at: src/components/ChatBubble/ChatBubble.tsx:72
+    at: src/components/ChatBubble/ChatBubble.tsx:40
   nameSource:
-    value: visible content
-    at: src/components/ChatBubble/ChatBubble.tsx:72
+    value: aria-label from the label prop (required)
+    at: src/components/ChatBubble/ChatBubble.tsx:40
   keyboard: []
   aria:
     - attribute: aria-label
+      value: label
+      at: src/components/ChatBubble/ChatBubble.tsx:40
+    - attribute: aria-pressed
+      value: selected.includes(r.name)
+      at: src/components/ChatBubble/ChatBubble.tsx:47
+    - attribute: aria-label
+      value: r.label
+      at: src/components/ChatBubble/ChatBubble.tsx:48
+    - attribute: aria-label
+      value: '`Reactions:'
+      at: src/components/ChatBubble/ChatBubble.tsx:63
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ChatBubble/ChatBubble.tsx:65
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ChatBubble/ChatBubble.tsx:69
+    - attribute: aria-label
       value: isBig
-      at: src/components/ChatBubble/ChatBubble.tsx:89
+      at: src/components/ChatBubble/ChatBubble.tsx:170
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ChatBubble/ChatBubble.tsx:97
+      at: src/components/ChatBubble/ChatBubble.tsx:178
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ChatBubble/ChatBubble.tsx:100
+      at: src/components/ChatBubble/ChatBubble.tsx:182
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/ChatBubble/ChatBubble.tsx:109
-  focusRing: []
+      at: src/components/ChatBubble/ChatBubble.tsx:189
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ChatBubble/ChatBubble.tsx:193
+    - attribute: aria-hidden
+      value: 'true'
+      at: src/components/ChatBubble/ChatBubble.tsx:195
+  focusRing:
+    - property: outline
+      value: var(--focus-ring-width) solid var(--color-border-focus)
+      tokens:
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:241
+    - property: outline-offset
+      value: var(--focus-ring-offset)
+      tokens:
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/ChatBubble/ChatBubble.module.css:242
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
-    selector: .bubble, .bigEmoji, .tapback
-    declaration: 'animation: none'
-    at: src/components/ChatBubble/ChatBubble.module.css:185
+    selector: .reaction
+    declaration: 'transition: none'
+    at: src/components/ChatBubble/ChatBubble.module.css:328
   contract: >-
     text-secondary on card surface >= 7.95:1 AAA; white on ink 16.26:1 AAA. Tapback is decorative aria-hidden. Kind=big-emoji: aria-label on
     bubble. Reduced motion: no pop or slam animation. Disc is aria-hidden (decorative). senderName label uses label font-size.
@@ -680,144 +1209,19 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/ChatBubble/ChatBubble.tsx:89
+      at: src/components/ChatBubble/ChatBubble.tsx:170
+    - kind: ARIA
+      value: aria-pressed
+      at: src/components/ChatBubble/ChatBubble.tsx:47
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/ChatBubble/ChatBubble.tsx:109
+      at: src/components/ChatBubble/ChatBubble.tsx:195
+    - kind: ARIA
+      value: role=group
+      at: src/components/ChatBubble/ChatBubble.tsx:40
 contrast:
-  pairs:
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: control border on the page
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:91
-    - label: control border on panel
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:92
-    - label: Sent label on ink
-      foreground: '--component-chat-bubble-sent-foreground'
-      background: '--component-chat-bubble-sent-background'
-      foregroundHex: '#ffffff'
-      backgroundHex: '#1d2030'
-      ratio: 16.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Received label on its wash
-      foreground: '--component-chat-bubble-received-foreground'
-      background: '--component-chat-bubble-received-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#eceef3'
-      ratio: 11.47
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Draft dashed outline on the page
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-chat-bubble-sent-foreground'
-      background: '--color-semantic-background'
-      ratio: 1.07
-      theme: chip
-    - foreground: '--component-chat-bubble-sent-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 1
-      theme: chip
-    - foreground: '--component-chat-bubble-received-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-chat-bubble-received-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/ChatBubble/ChatBubble.stories.tsx
   lines: 123-126
@@ -833,10 +1237,10 @@ usage:
     - A line of chat in The Bar replay
   dont:
     - Do not nest another bubble inside a bubble
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '326:47'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     children#345:0:
       type: TEXT
@@ -907,6 +1311,85 @@ mismatch:
       - text
       - ask
       - draft
+  - field: tokens.side=sent, kind=text, tail=false.itemSpacing
+    code:
+      - '--spacing-4'
+    figma: spacing/1
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.paddingLeft
+    code:
+      - '--spacing-32'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: component/chat-bubble/default/padding-inline
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.paddingTop
+    code:
+      - '--spacing-32'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: component/chat-bubble/default/padding-block
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.paddingRight
+    code:
+      - '--spacing-32'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: component/chat-bubble/default/padding-inline
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.paddingBottom
+    code:
+      - '--spacing-32'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-4'
+    figma: component/chat-bubble/default/padding-block
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.radius
+    code:
+      - '--border-radius-card'
+      - '--border-radius-4'
+      - '--border-radius-round'
+    figma: component/chat-bubble/default/border-radius
+    sameValueInChip: false
+  - field: tokens.side=sent, kind=text, tail=false.fills
+    code:
+      - '--color-background-accent-1'
+      - '--color-content-on-accent-1'
+      - '--color-background-subtle'
+      - '--color-content-body'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-background-brand-subtle-hover'
+      - '--color-content-default'
+      - '--reaction-ink'
+    figma: component/chat-bubble/sent/background
+    sameValueInChip: false
+  - field: tokens.Message.fills
+    code:
+      - '--color-background-accent-1'
+      - '--color-content-on-accent-1'
+      - '--color-background-subtle'
+      - '--color-content-body'
+      - '--color-background-surface'
+      - '--color-content-subtle'
+      - '--color-background-brand-subtle-hover'
+      - '--color-content-default'
+      - '--reaction-ink'
+    figma: component/chat-bubble/sent/foreground
+    sameValueInChip: false
+  - field: tokens.Message.fontSize
+    code:
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-display-hero'
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-18'
+      - '--typography-font-size-16'
+    figma: typography/font-size/body
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ChatBubble/ChatBubble.tsx

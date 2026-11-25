@@ -45,7 +45,7 @@ export default function PartRow({ number, tone = 'blue', title, description, det
     : {};
   const body = (
     <>
-      <Pin number={number} variant={tone} pinStyle="solid" active={active} />
+      <Pin number={number} tone={tone} variant="solid" active={active} />
       <span className={styles.text}>
         <span className={styles.title}>{title}</span>
         {description != null ? <span className={styles.line}>{description}</span> : null}

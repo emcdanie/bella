@@ -3,43 +3,43 @@
 name: Tabs
 lead:
   text: Switch between panels that share one place on the page. W3C APG tabs with automatic activation.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Actions
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-actions-tabs--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/Tabs/Tabs.tsx
-  storyTitle: Components/Tabs
+  storyTitle: Components/Actions/Tabs
 props:
   - name: tabs
     type: TabsItem[]
     required: true
     doc: The tabs, in order. Every tab owns one panel; render each panel with `tabPanelProps`.
-    at: src/components/Tabs/Tabs.tsx:17
+    at: src/components/Tabs/Tabs.tsx:21
   - name: value
     type: string
     required: true
     doc: The selected tab id; selection lives in aria-selected, not just paint.
-    at: src/components/Tabs/Tabs.tsx:19
+    at: src/components/Tabs/Tabs.tsx:23
   - name: onChange
     type: '(id: string) => void'
     required: true
-    at: src/components/Tabs/Tabs.tsx:21
+    at: src/components/Tabs/Tabs.tsx:24
   - name: label
     type: string
     required: true
     doc: Accessible name for the tablist. Required.
-    at: src/components/Tabs/Tabs.tsx:22
+    at: src/components/Tabs/Tabs.tsx:26
   - name: idBase
     type: string
     required: true
     doc: Prefix for the tab and panel ids, unique on the page, so aria-controls and aria-labelledby resolve.
-    at: src/components/Tabs/Tabs.tsx:24
+    at: src/components/Tabs/Tabs.tsx:28
   - name: className
     type: string
     required: false
-    doc: Extra classes on the tablist.
-    at: src/components/Tabs/Tabs.tsx:26
+    doc: Extra classes on the root (the row that carries the base line).
+    at: src/components/Tabs/Tabs.tsx:30
 variants: {}
 states:
   contract:
@@ -48,11 +48,11 @@ states:
     - selected
     - focus
   css:
+    - '[data-more-end]'
+    - '[data-more-start]'
     - hover
     - '[aria-selected=''true'']'
     - focus-visible
-    - '[data-status=''running'']'
-    - '[data-status=''idle'']'
 sizes: []
 anatomy:
   scaleWidth: 700
@@ -148,547 +148,496 @@ anatomy:
       title: Hairline
       kind: edge
       trigger: null
-      token: '--color-semantic-border'
+      token: '--color-border-default'
       detail: 1px decorative rule under the list
     - key: bar
       title: Selected bar
       kind: part
       trigger: null
-      token: '--component-tabs-indicator'
+      token: '--color-border-ink'
       detail: 2px ink bar under the selected tab
     - key: labels
       title: Labels
       kind: content
       trigger: null
-      token: '--component-tabs-font-size'
+      token: '--typography-font-size-18'
       detail: Geist 14, 500; muted at rest, ink when selected
     - key: dots
       title: Run dots
       kind: part
       trigger: null
-      token: '--color-semantic-border-ink'
+      token: '--color-border-ink'
       detail: ink fill running, control ring idle
 tokens:
   used:
     - part: root
       state: rest
+      property: box-shadow
+      token: '--border-width-1'
+      selector: .tabs
+      at: src/components/Tabs/Tabs.module.css:37
+    - part: root
+      state: rest
+      property: box-shadow
+      token: '--color-border-default'
+      selector: .tabs
+      at: src/components/Tabs/Tabs.module.css:37
+    - part: list
+      state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .list
-      at: src/components/Tabs/Tabs.module.css:19
-    - part: root
+      at: src/components/Tabs/Tabs.module.css:44
+    - part: list
       state: rest
-      property: border-bottom
-      token: '--border-width-thin'
+      property: margin
+      token: '--focus-ring-width'
       selector: .list
-      at: src/components/Tabs/Tabs.module.css:20
-    - part: root
+      at: src/components/Tabs/Tabs.module.css:45
+    - part: list
       state: rest
-      property: border-bottom
-      token: '--color-semantic-border'
+      property: margin
+      token: '--focus-ring-offset'
       selector: .list
-      at: src/components/Tabs/Tabs.module.css:20
+      at: src/components/Tabs/Tabs.module.css:45
+    - part: list
+      state: rest
+      property: padding
+      token: '--focus-ring-width'
+      selector: .list
+      at: src/components/Tabs/Tabs.module.css:46
+    - part: list
+      state: rest
+      property: padding
+      token: '--focus-ring-offset'
+      selector: .list
+      at: src/components/Tabs/Tabs.module.css:46
+    - part: list
+      state: rest
+      property: scroll-padding-inline
+      token: '--focus-ring-width'
+      selector: .list
+      at: src/components/Tabs/Tabs.module.css:54
+    - part: list
+      state: rest
+      property: scroll-padding-inline
+      token: '--focus-ring-offset'
+      selector: .list
+      at: src/components/Tabs/Tabs.module.css:54
+    - part: list
+      state: rest
+      property: scroll-padding-inline
+      token: '--spacing-24'
+      selector: .list
+      at: src/components/Tabs/Tabs.module.css:54
+    - part: list
+      state: '[data-more-end]'
+      property: '-webkit-mask-image'
+      token: '--spacing-24'
+      selector: .list[data-more-end]
+      at: src/components/Tabs/Tabs.module.css:60
+    - part: list
+      state: '[data-more-end]'
+      property: mask-image
+      token: '--spacing-24'
+      selector: .list[data-more-end]
+      at: src/components/Tabs/Tabs.module.css:61
+    - part: list
+      state: '[data-more-start]'
+      property: '-webkit-mask-image'
+      token: '--spacing-16'
+      selector: .list[data-more-start]
+      at: src/components/Tabs/Tabs.module.css:64
+    - part: list
+      state: '[data-more-start]'
+      property: mask-image
+      token: '--spacing-16'
+      selector: .list[data-more-start]
+      at: src/components/Tabs/Tabs.module.css:65
+    - part: list
+      state: '[data-more-start] [data-more-end]'
+      property: '-webkit-mask-image'
+      token: '--spacing-16'
+      selector: .list[data-more-start][data-more-end]
+      at: src/components/Tabs/Tabs.module.css:68
+    - part: list
+      state: '[data-more-start] [data-more-end]'
+      property: '-webkit-mask-image'
+      token: '--spacing-24'
+      selector: .list[data-more-start][data-more-end]
+      at: src/components/Tabs/Tabs.module.css:68
+    - part: list
+      state: '[data-more-start] [data-more-end]'
+      property: mask-image
+      token: '--spacing-16'
+      selector: .list[data-more-start][data-more-end]
+      at: src/components/Tabs/Tabs.module.css:69
+    - part: list
+      state: '[data-more-start] [data-more-end]'
+      property: mask-image
+      token: '--spacing-24'
+      selector: .list[data-more-start][data-more-end]
+      at: src/components/Tabs/Tabs.module.css:69
     - part: tab
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:28
+      at: src/components/Tabs/Tabs.module.css:83
     - part: tab
       state: rest
-      property: min-height
-      token: '--component-tabs-min-height'
+      property: block-size
+      token: '--spacing-48'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:30
+      at: src/components/Tabs/Tabs.module.css:85
+    - part: tab
+      state: rest
+      property: min-block-size
+      token: '--spacing-44'
+      selector: .tab
+      at: src/components/Tabs/Tabs.module.css:86
     - part: tab
       state: rest
       property: padding
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:31
+      at: src/components/Tabs/Tabs.module.css:87
     - part: tab
       state: rest
       property: border-radius
-      token: '--component-tabs-border-radius'
+      token: '--border-radius-md'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:34
+      at: src/components/Tabs/Tabs.module.css:90
     - part: tab
       state: rest
       property: border-radius
-      token: '--component-tabs-border-radius'
+      token: '--border-radius-md'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:34
+      at: src/components/Tabs/Tabs.module.css:90
     - part: tab
       state: rest
       property: font-family
-      token: '--component-tabs-font-family'
+      token: '--typography-body-default-font-family'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:37
+      at: src/components/Tabs/Tabs.module.css:93
     - part: tab
       state: rest
       property: font-size
-      token: '--component-tabs-font-size'
+      token: '--typography-font-size-16'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:38
+      at: src/components/Tabs/Tabs.module.css:95
     - part: tab
       state: rest
       property: font-weight
-      token: '--component-tabs-font-weight'
+      token: '--typography-font-weight-500'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:39
+      at: src/components/Tabs/Tabs.module.css:96
+    - part: tab
+      state: rest
+      property: line-height
+      token: '--typography-line-height-150'
+      selector: .tab
+      at: src/components/Tabs/Tabs.module.css:97
     - part: tab
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-body'
+      token: '--typography-letter-spacing-0'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:40
+      at: src/components/Tabs/Tabs.module.css:98
     - part: tab
       state: rest
       property: color
-      token: '--color-semantic-text-secondary'
+      token: '--color-content-subtle'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:41
+      at: src/components/Tabs/Tabs.module.css:99
     - part: tab
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:43
-    - part: tab
-      state: rest
-      property: transition
-      token: '--motion-easing-standard'
-      selector: .tab
-      at: src/components/Tabs/Tabs.module.css:43
-    - part: tab
-      state: rest
-      property: transition
-      token: '--motion-duration-fast'
-      selector: .tab
-      at: src/components/Tabs/Tabs.module.css:43
+      at: src/components/Tabs/Tabs.module.css:101
     - part: tab
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .tab
-      at: src/components/Tabs/Tabs.module.css:43
+      at: src/components/Tabs/Tabs.module.css:101
+    - part: tab
+      state: rest
+      property: transition
+      token: '--motion-duration-150'
+      selector: .tab
+      at: src/components/Tabs/Tabs.module.css:101
+    - part: tab
+      state: rest
+      property: transition
+      token: '--motion-easing-standard'
+      selector: .tab
+      at: src/components/Tabs/Tabs.module.css:101
     - part: tab
       state: hover
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .tab:hover
-      at: src/components/Tabs/Tabs.module.css:49
+      at: src/components/Tabs/Tabs.module.css:107
     - part: tab
       state: hover
       property: background
-      token: '--color-semantic-border-subtle'
+      token: '--color-background-brand-subtle'
       selector: .tab:hover
-      at: src/components/Tabs/Tabs.module.css:50
+      at: src/components/Tabs/Tabs.module.css:108
     - part: tab
       state: '[aria-selected=''true'']'
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .tab[aria-selected='true']
-      at: src/components/Tabs/Tabs.module.css:54
+      at: src/components/Tabs/Tabs.module.css:112
+    - part: tab
+      state: '[aria-selected=''true'']'
+      property: font-weight
+      token: '--typography-font-weight-600'
+      selector: .tab[aria-selected='true']
+      at: src/components/Tabs/Tabs.module.css:113
+    - part: tab
+      state: '[aria-selected=''true'']'
+      property: background
+      token: '--color-background-brand-subtle-hover'
+      selector: .tab[aria-selected='true']
+      at: src/components/Tabs/Tabs.module.css:114
     - part: tab
       state: '[aria-selected=''true'']'
       property: height
-      token: '--component-tabs-indicator-width'
+      token: '--border-width-2'
       selector: .tab[aria-selected='true']::after
-      at: src/components/Tabs/Tabs.module.css:61
+      at: src/components/Tabs/Tabs.module.css:121
     - part: tab
       state: '[aria-selected=''true'']'
       property: background
-      token: '--component-tabs-indicator'
+      token: '--color-border-ink'
       selector: .tab[aria-selected='true']::after
-      at: src/components/Tabs/Tabs.module.css:62
+      at: src/components/Tabs/Tabs.module.css:122
     - part: tab
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .tab:focus-visible
-      at: src/components/Tabs/Tabs.module.css:66
+      at: src/components/Tabs/Tabs.module.css:126
     - part: tab
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .tab:focus-visible
-      at: src/components/Tabs/Tabs.module.css:66
+      at: src/components/Tabs/Tabs.module.css:126
     - part: tab
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-width'
+      token: '--focus-ring-offset'
       selector: .tab:focus-visible
-      at: src/components/Tabs/Tabs.module.css:67
-    - part: dot
-      state: rest
-      property: width
-      token: '--spacing-2'
-      selector: .dot
-      at: src/components/Tabs/Tabs.module.css:71
-    - part: dot
-      state: rest
-      property: height
-      token: '--spacing-2'
-      selector: .dot
-      at: src/components/Tabs/Tabs.module.css:72
-    - part: dot
-      state: rest
-      property: border-radius
-      token: '--radius-full'
-      selector: .dot
-      at: src/components/Tabs/Tabs.module.css:73
-    - part: dot
-      state: '[data-status=''running'']'
-      property: background
-      token: '--color-semantic-border-ink'
-      selector: .dot[data-status='running']
-      at: src/components/Tabs/Tabs.module.css:78
-    - part: dot
-      state: '[data-status=''idle'']'
-      property: box-shadow
-      token: '--border-width-thin'
-      selector: .dot[data-status='idle']
-      at: src/components/Tabs/Tabs.module.css:82
-    - part: dot
-      state: '[data-status=''idle'']'
-      property: box-shadow
-      token: '--color-semantic-border-strong'
-      selector: .dot[data-status='idle']
-      at: src/components/Tabs/Tabs.module.css:82
-    - part: count
-      state: rest
-      property: padding-inline
-      token: '--spacing-2'
-      selector: .count
-      at: src/components/Tabs/Tabs.module.css:88
-    - part: count
-      state: rest
-      property: border-radius
-      token: '--radius-full'
-      selector: .count
-      at: src/components/Tabs/Tabs.module.css:89
-    - part: count
-      state: rest
-      property: background
-      token: '--color-semantic-surface-inset'
-      selector: .count
-      at: src/components/Tabs/Tabs.module.css:90
-    - part: count
-      state: rest
+      at: src/components/Tabs/Tabs.module.css:127
+    - part: tab
+      state: focus-visible [aria-selected='true']
       property: color
-      token: '--color-semantic-text-primary'
-      selector: .count
-      at: src/components/Tabs/Tabs.module.css:91
+      token: '--color-content-default'
+      selector: .tab:focus-visible:not([aria-selected='true'])
+      at: src/components/Tabs/Tabs.module.css:131
+    - part: tab
+      state: focus-visible [aria-selected='true']
+      property: background
+      token: '--color-background-brand-subtle'
+      selector: .tab:focus-visible:not([aria-selected='true'])
+      at: src/components/Tabs/Tabs.module.css:132
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--color-semantic-border-ink':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-border-strong':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--color-semantic-surface-inset':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-text-secondary':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-tabs-border-radius':
-      light: 8px
-      chip: 0px
-    '--component-tabs-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-tabs-font-size':
-      light: 18px
-      chip: 18px
-    '--component-tabs-font-weight':
-      light: '500'
-      chip: '500'
-    '--component-tabs-indicator':
-      light: '#1d2030'
-      chip: '#1865BB'
-    '--component-tabs-indicator-width':
-      light: 2px
-      chip: 2px
-    '--component-tabs-min-height':
-      light: 44px
-      chip: 44px
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
+    '--border-radius-md':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--border-width-2':
+      light: null
+      chip: null
+    '--color-background-brand-subtle':
+      light: null
+      chip: null
+    '--color-background-brand-subtle-hover':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-24':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-letter-spacing-body':
-      light: '0'
-      chip: '0'
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-48':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-16':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .tab
       state: rest
       declaration: >-
-        transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast)
+        transition: background var(--motion-duration-150) var(--motion-easing-standard), color var(--motion-duration-150)
         var(--motion-easing-standard)
       properties:
         - background
         - color
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/Tabs/Tabs.module.css:43
+          value: null
+      at: src/components/Tabs/Tabs.module.css:101
   reducedMotion:
     selector: .tab
     declaration: 'transition: none'
-    at: src/components/Tabs/Tabs.module.css:106
+    at: src/components/Tabs/Tabs.module.css:150
   reducedMotionQuery: true
 a11y:
   element:
     tag: div
-    at: src/components/Tabs/Tabs.tsx:68
+    at: src/components/Tabs/Tabs.tsx:118
   role:
     value: tablist
     source: role attribute
-    at: src/components/Tabs/Tabs.tsx:68
+    at: src/components/Tabs/Tabs.tsx:118
   nameSource:
-    value: aria-label from the label prop (required)
-    at: src/components/Tabs/Tabs.tsx:68
+    value: visible content
+    at: src/components/Tabs/Tabs.tsx:118
   keyboard:
     - key: ArrowRight
       source: handler in the .tsx
-      at: src/components/Tabs/Tabs.tsx:56
+      at: src/components/Tabs/Tabs.tsx:106
     - key: ArrowLeft
       source: handler in the .tsx
-      at: src/components/Tabs/Tabs.tsx:57
+      at: src/components/Tabs/Tabs.tsx:107
     - key: Home
       source: handler in the .tsx
-      at: src/components/Tabs/Tabs.tsx:58
+      at: src/components/Tabs/Tabs.tsx:108
     - key: End
       source: handler in the .tsx
-      at: src/components/Tabs/Tabs.tsx:59
+      at: src/components/Tabs/Tabs.tsx:109
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/Tabs/Tabs.tsx:70
+      at: src/components/Tabs/Tabs.tsx:126
     - attribute: aria-selected
       value: selected
-      at: src/components/Tabs/Tabs.tsx:84
+      at: src/components/Tabs/Tabs.tsx:142
     - attribute: aria-controls
       value: panelId(idBase,
-      at: src/components/Tabs/Tabs.tsx:85
+      at: src/components/Tabs/Tabs.tsx:143
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Tabs/Tabs.tsx:90
-    - attribute: aria-hidden
-      value: 'true'
-      at: src/components/Tabs/Tabs.tsx:95
+      at: src/components/Tabs/Tabs.tsx:153
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/Tabs/Tabs.module.css:66
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/Tabs/Tabs.module.css:126
     - property: outline-offset
-      value: calc(-1 * var(--ring-focus-width))
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-      at: src/components/Tabs/Tabs.module.css:67
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/Tabs/Tabs.module.css:127
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .tab
     declaration: 'transition: none'
-    at: src/components/Tabs/Tabs.module.css:106
+    at: src/components/Tabs/Tabs.module.css:150
   contract: >-
     Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap,
     Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1
     dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run
-    state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the
+    state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 4px, inset. Tabs hit the
     44px touch-target token.
+  targetPx: null
+  ariaChips:
+    - kind: ARIA
+      value: aria-labelledby
+      at: src/components/Tabs/Tabs.tsx:41
+    - kind: ARIA
+      value: aria-label
+      at: src/components/Tabs/Tabs.tsx:126
+    - kind: ARIA
+      value: aria-selected
+      at: src/components/Tabs/Tabs.tsx:142
+    - kind: ARIA
+      value: aria-controls
+      at: src/components/Tabs/Tabs.tsx:143
+    - kind: ARIA
+      value: aria-hidden="true"
+      at: src/components/Tabs/Tabs.tsx:153
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: muted text on the page
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#F7F7F5'
-      ratio: 7.95
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:76
-    - label: muted text on panel
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:77
-    - label: control border on the page
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-background'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#F7F7F5'
-      ratio: 4.81
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:91
-    - label: control border on panel
-      foreground: '--color-semantic-border-strong'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:92
-    - label: selected tab bar (ink) on the page
-      foreground: '--component-tabs-indicator'
-      background: '--color-semantic-background'
-      foregroundHex: '#1865BB'
-      backgroundHex: '#F7F7F5'
-      ratio: 5.41
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:96
-    - label: Tab label
-      foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Selected label
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Selected bar
-      foreground: '--component-tabs-indicator'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1865BB'
-      backgroundHex: '#ffffff'
-      ratio: 5.8
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--color-semantic-text-secondary'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
-  file: ~/DEV/bella-storybook-brand/src/components/Tabs/Tabs.stories.tsx
+  file: ~/DEV/bella-props/src/components/Tabs/Tabs.stories.tsx
   lines: 44-52 (Harness)
   import: import Tabs from '@bella/components/Tabs/Tabs';
   importSource: the style the Button doc page uses (CHIP import path)
@@ -709,10 +658,10 @@ usage:
     - 'Do not use for navigation between pages: that is NavList'
     - 'Do not mark the selected tab with colour alone: ink text plus the 2px ink bar'
     - 'Do not render panels without tabPanelProps: aria-controls must resolve'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '149:105'
-  fileKey: '${FIGMA_FILE_KEY}'
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     state:
       type: VARIANT
@@ -750,204 +699,103 @@ mismatch:
         - selected
         - focus
       css:
+        - '[data-more-end]'
+        - '[data-more-start]'
         - hover
         - '[aria-selected=''true'']'
         - focus-visible
-        - '[data-status=''running'']'
-        - '[data-status=''idle'']'
     figma:
       - default
       - hover
       - focus
-  - field: tokens.Tab 1.topLeftRadius
+  - field: tokens.state=default.itemSpacing
     code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
       - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
+      - '--spacing-8'
+    figma: spacing/1
+    sameValueInChip: false
+  - field: tokens.state=default.strokes
+    code:
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--border-radius-md'
+    figma: color/semantic/border
+    sameValueInChip: false
+  - field: tokens.Tab 1.itemSpacing
+    code:
+      - '--spacing-4'
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Tab 1.paddingLeft
+    code:
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 1.paddingRight
+    code:
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 1.radius
+    code:
+      - '--border-radius-md'
     figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 1.topRightRadius
+    sameValueInChip: false
+  - field: tokens.Tab 2.itemSpacing
     code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
       - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Tab 2.paddingLeft
+    code:
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 2.paddingRight
+    code:
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 2.radius
+    code:
+      - '--border-radius-md'
     figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 1.minHeight
+    sameValueInChip: false
+  - field: tokens.Tab 3.itemSpacing
     code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
       - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: spacing/touch-target
-    sameValueInChip: true
-  - field: tokens.Tab 2.topLeftRadius
+      - '--spacing-8'
+    figma: spacing/2
+    sameValueInChip: false
+  - field: tokens.Tab 3.paddingLeft
     code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 3.paddingRight
+    code:
+      - '--focus-ring-width'
+      - '--focus-ring-offset'
+      - '--spacing-16'
+    figma: spacing/4
+    sameValueInChip: true
+  - field: tokens.Tab 3.radius
+    code:
+      - '--border-radius-md'
     figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 2.topRightRadius
-    code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 2.minHeight
-    code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: spacing/touch-target
-    sameValueInChip: true
-  - field: tokens.Tab 3.topLeftRadius
-    code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 3.topRightRadius
-    code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: radius/md
-    sameValueInChip: true
-  - field: tokens.Tab 3.minHeight
-    code:
-      - '--spacing-1'
-      - '--border-width-thin'
-      - '--color-semantic-border'
-      - '--spacing-2'
-      - '--component-tabs-min-height'
-      - '--spacing-4'
-      - '--component-tabs-border-radius'
-      - '--component-tabs-font-family'
-      - '--component-tabs-font-size'
-      - '--component-tabs-font-weight'
-      - '--typography-letter-spacing-body'
-      - '--color-semantic-text-secondary'
-      - '--motion-duration-fast'
-      - '--motion-easing-standard'
-      - '--radius-full'
-      - '--color-semantic-surface-inset'
-      - '--color-semantic-text-primary'
-    figma: spacing/touch-target
-    sameValueInChip: true
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tabs/Tabs.tsx

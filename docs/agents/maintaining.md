@@ -148,7 +148,7 @@ Before any publish: ds-token-architecture, ds-architect, the colour-only sweep a
   - Segmented control small size: 24 tall segments fail the 44 target; decided. CHIP uses none. Delete waits on her yes. Elleta, 18 Nov, on Playbooks' Flow / Library switch: "i don tlike the small segmented control on the main pages". No small segmented control on any CHIP main page; views under the page header are the Tabs part (see "project views are tabs under the page header"). It slipped through, so craft-check should flag a small Segmented control on a CHIP screen. Filters and switchers (All / Needs work / Ready, viewport sizes) stay segmented controls at the standard md size; only views of a page are Tabs (decided 18 Nov).
   - Page header spacing (decided 18 Nov): the title and main action never sit on the header's bottom line; the header keeps its padding below them (24, rule 10), the same on every CHIP page.
 - Segmented control: 44 tall. No border line around the selected segment (decided 17 Nov). Selection is not an action: the selected segment and the current sidebar item must not borrow the primary button fill, so the one primary per view stays the only light-blue plate (decided 17 Nov). The selected segment is lifted with a shadow instead of a border or the primary fill (decided 17 Nov), on the existing shadow effect style, sitting on a grey track. Its fill is light blue in Chip, not white (decided 18 Nov). (Replaces "one look, the button colours".)
-- Disabled only on Input, Select, Combobox, Button, Switch, FilterChip.
+- Disabled only on Input, Select, Combobox, Button, Switch, FilterChip, ActionChip and Slider (ActionChip and Slider added 25 Nov 2026: both are native controls that already blocked use when disabled, so the rule now names what the code does and every disabled control is drawn grey at 7:1).
 - Naming: default / hover / focus / pressed / error; sm / md / lg; true / false; "Show …"; tone = colour, variant = style; text fields capitalised; "current" in nav, "selected" in choices.
 - Chip has its own dark mode (values may equal BELLA dark's; nothing falls back to its look).
 - Toast for messages that come and go; Notification (info, success, attention, danger) for ones that stay.
@@ -412,7 +412,7 @@ Bad: a Type page that opens with a ten-line "type lock" box, then a table of siz
 
 ## Governance · Building a new component (decided 12 Nov 2026)
 
-Order: Switch, Input password with show/hide, Dialog, destructive Button, Select error state, Pagination. One at a time; the next starts only after her yes on the last.
+Order: Switch, Input password with show/hide, Dialog, destructive Button, Pagination (Select's error state shipped 25 Nov 2026). One at a time; the next starts only after her yes on the last.
 
 **Machine-readable before code.** The 12 Nov rule "all of Figma first" is replaced by "Code starts page by page" (18 Nov, near the top): each page goes to code on its own once it meets that bar. Existing components meet this bar too (see "Fix the component before its doc page" below). Before code, a fresh agent checks that Figma is machine-readable:
 - every colour, size, radius, gap and type value bound to a BELLA variable, none raw;

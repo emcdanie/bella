@@ -7,9 +7,9 @@ lead:
 category: Navigation
 rendersAs: null
 links:
-  storybook: https://emcdanie.github.io/bella/?path=/docs/components-pageoutline--docs
+  storybook: https://emcdanie.github.io/bella/?path=/docs/components-layout-pageoutline--docs
   github: https://github.com/emcdanie/bella/blob/main/src/components/PageOutline/PageOutline.tsx
-  storyTitle: Components/PageOutline
+  storyTitle: Components/Layout/PageOutline
 props:
   - name: items
     type: PageOutlineItem[]
@@ -337,21 +337,21 @@ tokens:
     - part: link
       state: '[aria-current=''location'']'
       property: color
-      token: '--color-content-default'
+      token: '--nav-list-label-color'
       selector: .link[aria-current='location']
-      at: src/components/PageOutline/PageOutline.module.css:111
+      at: src/components/PageOutline/PageOutline.module.css:113
     - part: link
       state: '[aria-current=''location'']'
       property: font-weight
       token: '--typography-font-weight-600'
       selector: .link[aria-current='location']
-      at: src/components/PageOutline/PageOutline.module.css:112
+      at: src/components/PageOutline/PageOutline.module.css:114
     - part: link
       state: '[aria-current=''location'']'
       property: background
-      token: '--color-border-subtle'
+      token: '--nav-list-current-background'
       selector: .link[aria-current='location']
-      at: src/components/PageOutline/PageOutline.module.css:113
+      at: src/components/PageOutline/PageOutline.module.css:115
   values:
     '--border-radius-4':
       light: null
@@ -390,6 +390,12 @@ tokens:
       light: null
       chip: null
     '--focus-ring-width':
+      light: null
+      chip: null
+    '--nav-list-current-background':
+      light: null
+      chip: null
+    '--nav-list-label-color':
       light: null
       chip: null
     '--shadow-soft':
@@ -518,7 +524,7 @@ usage:
   source: tokens/contracts.json
 figma:
   nodeId: '749:1079554'
-  fileKey: JzN6DXIILH64KHI5MmgH8Q
+  fileKey: ${FIGMA_FILE_KEY}
   props:
     Label#749:14:
       type: TEXT
@@ -561,6 +567,9 @@ mismatch:
       - '--spacing-4'
     figma: spacing/8
     sameValueInChip: false
+  - field: links.storybook
+    code: https://emcdanie.github.io/bella/?path=/docs/components-layout-pageoutline--docs
+    figma: https://emcdanie.github.io/bella/?path=/docs/components-pageoutline--docs
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/PageOutline/PageOutline.tsx

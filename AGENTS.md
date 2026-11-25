@@ -46,6 +46,7 @@ Its job: keep that work editorial, deliberate and recognisably not AI-generic.
 | Above-heading label | `Eyebrow` |
 | Page chrome | `PageHeader`, `Section` |
 | Layout | `Columns`, `SidebarLayout`, `ScaledFrame`, `Stage` |
+| The page frame: side menu, one top row (menu button, breadcrumb, title, actions), tabs, the scrolling content; one per page | `Screen` |
 | Status beside a name: a dot and one word | `StatusDot` |
 | Branch or run status mark | `StatusSquare` |
 | A space with nothing in it yet (lane or page) | `EmptyState` |

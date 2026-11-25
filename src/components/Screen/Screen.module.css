@@ -1,0 +1,139 @@
+/* Screen: the page frame (Figma CHIP / Screen). Tokens only.
+ *
+ * Side menu | main column: the top row (lead, title, actions) and the tabs on the surface, and the content on the
+ * page ground with the container padding (16 on a phone, 32 from 800px) and the 24 gutter. The frame is the
+ * window's height and only the content scrolls, so the top row, the tabs and the page's actions stay in place.
+ * Below 1024px the menu column goes: the product opens its menu in a Drawer (overlay) instead, so nothing
+ * scrolls sideways. 1024px = --breakpoint-1024; media queries cannot read var(), so the value is written here. */
+
+.screen {
+  display: grid;
+  /* the menu sets its own width (SideMenu, IconRail); the main column takes the rest */
+  grid-template-columns: auto minmax(0, 1fr);
+  block-size: 100dvh;
+  background: var(--color-background-default);
+  /* the frame sets its own reading face and ink, so it looks the same in a product and in Storybook */
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+}
+
+.noMenu {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* the menu keeps the window's height while the content scrolls; after the page in the source, first on screen */
+.menu {
+  order: -1;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  block-size: 100dvh;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  min-block-size: 0;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-block-size: 0;
+  background: var(--color-background-surface);
+}
+
+.head {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-inline: var(--layout-container-pad);
+  padding-block-start: var(--spacing-8);
+}
+
+/* a page with no tabs: no line under the row; the surface row meeting the page ground is the edge */
+.plain {
+  padding-block-end: 0;
+}
+
+/* the one top row: the title grows, the actions sit at the right edge and move under it when the row is full */
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+  /* 4 under the row, so it ends where the side menu's first row ends and the two read as one band */
+  padding-block-end: var(--spacing-4);
+}
+
+.row > :first-child {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+/* the tabs' line runs the whole width of the page column: the tab list reaches out over the head's side padding
+   and takes it back as its own */
+.tabs {
+  margin-inline: calc(-1 * var(--layout-container-pad));
+  padding-inline: var(--layout-container-pad);
+  max-inline-size: none;
+}
+
+/* the content: the page's own scroll and its 12-column grid */
+.content {
+  container: screen-content / inline-size;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--layout-gutter);
+  align-content: start;
+  flex: 1;
+  min-block-size: 0;
+  /* positioned, so parts' absolute bits (screen-reader labels, progress targets) stay inside it */
+  position: relative;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* a control focused by keyboard scrolls in with room for its whole focus ring (4 wide, 4 out) */
+  scroll-padding-block: var(--spacing-12);
+  padding: var(--layout-gutter) var(--layout-container-pad);
+  /* 64 after the last content, so scrolling brings it clear of the window's foot */
+  padding-block-end: var(--spacing-64);
+  background: var(--color-background-default);
+}
+
+/* a child that fills the window to its foot (a board) marks itself data-screen-fill: its own shadow room hangs one
+   gutter below it, so a full 64 still shows after it */
+.content:has(> [data-screen-fill]) {
+  padding-block-end: calc(var(--spacing-64) + var(--layout-gutter));
+}
+
+/* the selected tab's panel leaves the page grid as it is */
+.panel {
+  display: contents;
+}
+
+/* each block takes the full row unless it places itself on the columns */
+.content > *,
+.panel > * {
+  grid-column: 1 / -1;
+}
+
+@media (width < 1024px) {
+  .screen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

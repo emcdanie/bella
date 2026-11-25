@@ -2372,6 +2372,62 @@
         }
       }
     },
+    "screen": {
+      "$extensions": {
+        "bella": {
+          "name": "Screen",
+          "category": "Layout",
+          "rendersAs": "a window-height grid of the side menu and the main column: one top row, the tabs and the scrolling content",
+          "description": "The page frame, the code twin of the Figma CHIP / Screen template: the side menu, one top row (lead with the menu button and the breadcrumb, the title as the page h1, the actions at the right edge, moving under the title when the row is full), optional Tabs and the content slot on the 12-column page grid. The frame is the window height and only the content scrolls, with 64 of end room. Below 1024px the menu column goes and the product opens its menu in a Drawer passed as overlay. Holds no data, routes or calls: the product passes its menu, words and parts.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "menu",
+            "title",
+            "lead",
+            "actions",
+            "tabs",
+            "children",
+            "overlay",
+            "className"
+          ],
+          "usage": [
+            "A product page: one Screen, one content component inside it",
+            "CHIP: every page, with SideMenu or IconRail as the menu",
+            "Tabs that switch the page view (System: Components, Foundations, History)"
+          ],
+          "dont": [
+            "Do not put a second scroll around the page: the content is the scroll, lists and panes inside it scroll on their own",
+            "Do not style the frame from the page: pass words and parts, place blocks with the page grid",
+            "Do not use it inside a page: SidebarLayout lays out an aside beside content within the content slot"
+          ],
+          "a11y": "Verified 2026-11-25: one main landmark (id main, the skip-link target) and one h1 (the title); the page comes before the menu in the source so the top row is the first stop for the keyboard, while the grid shows the menu on the left; with tabs, every tab has its panel (aria-controls lands) and the selected one holds the content; targets and focus rings are the composed parts own.",
+          "restState": {
+            "description": "Layout only, entirely static.",
+            "atRest": [
+              "menu",
+              "head",
+              "content"
+            ],
+            "triggered": [],
+            "invariants": [
+              {
+                "layer": "static",
+                "property": "transform",
+                "expect": "none"
+              },
+              {
+                "layer": "static",
+                "property": "animation-name",
+                "expect": "none"
+              }
+            ]
+          }
+        }
+      }
+    },
     "columns": {
       "$extensions": {
         "bella": {

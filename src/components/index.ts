@@ -95,6 +95,8 @@ export type { SelectProps } from './Select/Select';
 
 export { default as SidebarLayout } from './SidebarLayout/SidebarLayout';
 export type { SidebarLayoutProps } from './SidebarLayout/SidebarLayout';
+export { default as Screen } from './Screen/Screen';
+export type { ScreenProps, ScreenTabs } from './Screen/Screen';
 
 export { default as Slider } from './Slider/Slider';
 export type { SliderProps } from './Slider/Slider';

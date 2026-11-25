@@ -10862,6 +10862,87 @@ entries:
               property: animation-name
               expect: none
   - kind: component
+    id: screen
+    name: Screen
+    description: "The page frame, the code twin of the Figma CHIP / Screen template: the side menu, one top row (lead with the menu button and the breadcrumb, the title as the page h1, the actions at the right edge, moving under the title when the row is full), optional Tabs and the content slot on the 12-column page grid. The frame is the window height and only the content scrolls, with 64 of end room. Below 1024px the menu column goes and the product opens its menu in a Drawer passed as overlay. Holds no data, routes or calls: the product passes its menu, words and parts."
+    metadata:
+      origin:
+        method: extracted
+        author: machine-assisted
+        note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
+      reviewed:
+        - date: "2026-11-25"
+          by: human:elleta
+          note: one main landmark (id main, the skip-link target) and one h1 (the title); the page comes before the menu in the source so the top row is the first stop for the keyboard, while the grid shows the menu on the left; with tabs, every tab has its panel (aria-controls lands) and the selected one holds the content; targets and focus rings are the composed parts own.
+      tags:
+        - component
+        - screen
+    sections:
+      - kind: guidelines
+        for: all
+        framing: when-to-use
+        title: Where it is used
+        items:
+          - level: may
+            statement: "A product page: one Screen, one content component inside it"
+          - level: may
+            statement: "CHIP: every page, with SideMenu or IconRail as the menu"
+          - level: may
+            statement: "Tabs that switch the page view (System: Components, Foundations, History)"
+      - kind: guidelines
+        for: all
+        title: Do not
+        items:
+          - level: must-not
+            statement: "Do not put a second scroll around the page: the content is the scroll, lists and panes inside it scroll on their own"
+          - level: must-not
+            statement: "Do not style the frame from the page: pass words and parts, place blocks with the page grid"
+          - level: must-not
+            statement: "Do not use it inside a page: SidebarLayout lays out an aside beside content within the content slot"
+      - kind: definitions
+        for: all
+        title: At rest
+        description: Layout only, entirely static.
+        context: anatomy
+        items:
+          - term: menu
+            definition: "Trigger: rest. Paints at rest."
+          - term: head
+            definition: "Trigger: rest. Paints at rest."
+          - term: content
+            definition: "Trigger: rest. Paints at rest."
+    refs:
+      - href: ./src/components/Screen/Screen.stories.tsx
+        rel: storybook
+        role: CSF story source
+    sourceFiles:
+      - platform: react
+        file: ./src/components/Screen/Screen.tsx
+    specs:
+      - href: ./tokens/contracts.json
+        rel: contract
+        role: BELLA component contract ($extensions.bella)
+        note: Checked against the exported Props interface by scripts/contract-parity.mjs.
+    $extensions:
+      design.bella:
+        context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        states:
+          - default
+        restState:
+          description: Layout only, entirely static.
+          atRest:
+            - menu
+            - head
+            - content
+          triggered: []
+          invariants:
+            - layer: static
+              property: transform
+              expect: none
+            - layer: static
+              property: animation-name
+              expect: none
+  - kind: component
     id: columns
     name: Columns
     description: "Two or three columns that collapse by their own width (layout foundation, 2026-10-03): three become two under 1200px and one under 768px; two become one under 768px. Even by default; split wide-start makes two columns 2:1 (a stage beside its facts). Cells stretch to the row, so cards in a row line up top and bottom."

@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const comboContract = (componentContract as any).component?.combobox?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Components/Combobox',
+  title: 'Components/Inputs/Combobox',
   component: Combobox,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -68,7 +68,7 @@ export const Default: Story = {
   render: () => <Harness />,
 };
 
-/** Open: "Jump to" then "Ask OBI". The active option is the pink fill. */
+/** Open: "Jump to" then "Ask OBI". The active option is the light blue fill with an ink label, as hover. */
 export const Open: Story = {
   render: () => <Harness start="card" />,
   play: async ({ canvas }) => {
@@ -131,5 +131,79 @@ export const Behavior: Story = {
       await userEvent.keyboard('{ArrowDown}');
       for (const o of canvas.getAllByRole('option')) expect(getComputedStyle(o).opacity).toBe('1');
     });
+  },
+};
+
+function SearchHarness({ start = '' }: { start?: string }) {
+  const [q, setQ] = useState(start);
+  const t = q.trim().toLowerCase();
+  const groups: ComboboxGroup[] = t
+    ? [{ id: 'jump', label: 'Jump to', options: COMPONENTS.filter((c) => c.toLowerCase().includes(t)).map((c) => ({ id: c, label: c, meta: 'Component' })) }]
+    : [];
+  return (
+    <div style={{ display: 'grid', maxInlineSize: 'calc(var(--spacing-80) * 7)', minBlockSize: 'calc(var(--spacing-80) * 3)' }}>
+      <Combobox
+        label="Search components"
+        hideLabel
+        search
+        value={q}
+        onChange={setQ}
+        groups={groups}
+        onSelect={() => {}}
+        placeholder="Search components"
+        hint={<Kbd keys={['⌘', 'K']} label="Command K" />}
+        noResults={`No results for “${q.trim()}”`}
+      />
+    </div>
+  );
+}
+
+/** The search part (Figma Combobox no-results 1560:26256): the search mark at the start, ⌘K at the end,
+ * and one quiet line in the list when nothing matches, announced politely. */
+export const SearchNoResults: Story = {
+  render: () => <SearchHarness start="zebra" />,
+  play: async ({ canvas, canvasElement, step }) => {
+    await step('the search mark sits before the text', async () => {
+      const mark = canvasElement.querySelector('[class*="searchMark"]') as HTMLElement;
+      await expect(mark).not.toBeNull();
+      await expect(mark.getBoundingClientRect().right).toBeLessThanOrEqual(canvas.getByRole('combobox').getBoundingClientRect().left);
+    });
+    await step('nothing matches: the no-results line shows, as a status', async () => {
+      await userEvent.click(canvas.getByRole('combobox'));
+      await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('No results for “zebra”'));
+      await expect(canvas.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false');
+    });
+    await step('a match brings the list back', async () => {
+      await userEvent.clear(canvas.getByRole('combobox'));
+      await userEvent.type(canvas.getByRole('combobox'), 'tab');
+      await waitFor(() => expect(canvas.getByRole('option', { name: /Tabs/ })).toBeVisible());
+      await expect(canvas.getByRole('status')).toBeEmptyDOMElement();
+    });
+    await step('back to no match, the state this story pictures', async () => {
+      await userEvent.clear(canvas.getByRole('combobox'));
+      await userEvent.type(canvas.getByRole('combobox'), 'zebra');
+      await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('No results for “zebra”'));
+    });
+  },
+};
+
+/** labelPosition="inline": the label left of the field in the body text, as Select draws it, so the two sit in one row
+ *  as one pattern (Playground Pages, 24 Nov 2026). */
+export const LabelInline: Story = {
+  render: () => {
+    const [v, setV] = useState('');
+    return (
+      <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-16)' }}>
+        <Combobox label="Show" labelPosition="inline" search value={v} onChange={setV} groups={[{ id: 'parts', label: 'Parts', options: [{ id: 'b', label: 'Button' }] }]} placeholder="Find a part or a page" onSelect={() => {}} />
+      </div>
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const input = canvasElement.querySelector('input') as HTMLElement;
+    const label = canvasElement.querySelector('label') as HTMLElement;
+    const f = input.closest('[class*="field"]')!.getBoundingClientRect();
+    const l = label.getBoundingClientRect();
+    await expect(Math.round(f.left - l.right)).toBe(12);
+    await expect(getComputedStyle(label).fontSize).toBe('16px');
   },
 };

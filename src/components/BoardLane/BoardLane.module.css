@@ -1,0 +1,260 @@
+/* BoardLane (Figma BellaComponents BoardLane 783:496472 and BoardLane drop
+ * space 783:496703; re-read from the 21 Nov 2026 publish). Tokens only.
+ * Lane: column, 16 apart (Head, Order, Cards); padding 16 on every side,
+ * border/radius/card. The Cards scroll box reaches past the lane's sides
+ * and foot, so a card's shadow fades out before any edge cuts it (rule 16).
+ * Lane tints (decided 21 Nov): needs-you
+ * background/utility/warning, agent utility/info, gate background/lane,
+ * ready utility/success; existing tokens only.
+ * Head: row, 8 apart, centred: Name (reading face 600, 20 on a 28 line, batch 4,
+ * content/default) and the Count plate: Tag style=solid in the lane's
+ * knockout tone; gate keeps Tag tone=count outline. No lane number and no
+ * status dot ("less is more").
+ * Order: reading face 400, 16/24, content/lane-subtle.
+ * Cards: a list, 16 apart, each card fills the lane; the card area grows with
+ * its cards and is never shorter than one card (128, batch 4). Show empty: the
+ * Empty state (size=lane) sits in that area on the cards' edge, centred.
+ * drop-target: Figma draws it the same as default; noted, not invented.
+ * Drop space: dashed 2px edge, border/radius/16; target border/brand with
+ * the Label (reading face 600, 16/24, content/brand) centred, 24 padding;
+ * origin border/strong, no words. */
+
+.lane {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--spacing-16);
+  border-radius: var(--border-radius-card);
+}
+
+/* a light tint per lane, each visibly different from the page in every theme */
+.lane[data-lane='needs-you'] {
+  background: var(--color-background-utility-warning);
+}
+.lane[data-lane='agent'] {
+  background: var(--color-background-utility-info);
+}
+.lane[data-lane='gate'] {
+  background: var(--color-background-lane);
+}
+.lane[data-lane='ready'] {
+  background: var(--color-background-utility-success);
+}
+
+/* the Notion roadmap lanes (decided 23 Nov): the brand washes, in light and dark (the dark
+   washes are low-alpha tints over the page). Existing lane tints above are untouched. */
+.lane[data-lane='ideas'] {
+  background: var(--color-background-wash-ochre);
+}
+.lane[data-lane='next'] {
+  background: var(--color-background-wash-navy);
+}
+.lane[data-lane='not-doing'] {
+  background: var(--color-background-wash-pink);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.name {
+  margin: 0;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20); /* lane name 20 on a 28 line (batch 4) */
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  color: var(--color-content-default);
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
+}
+
+.order {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-lane-subtle);
+}
+
+.cards {
+  /* when the page gives the lane a height, the cards scroll on their own and
+     the head stays put (Elleta's board, 20 Nov) */
+  flex: 1 1 auto;
+  /* Figma Cards: HUG, never shorter than one card (128 = 2 x 64) */
+  min-block-size: calc(var(--spacing-64) * 2);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  /* A scroll box clips both axes, so it carries the room for TaskCard's
+     resting shadow (0 12 28, up to 30% ink in Chip dark) itself: 32 at the
+     sides, 16 above (it also holds the 4 + 4 focus ring), 40 below, each
+     undone by a matching negative margin so no card moves. The box reaches
+     16 past the lane's sides and 24 below its foot, where the shadow fades
+     out under 1% ink (rule 16: never clip a shadow). */
+  margin: calc(var(--spacing-16) * -1) calc(var(--spacing-32) * -1) calc(var(--spacing-40) * -1);
+  padding: var(--spacing-16) var(--spacing-32) var(--spacing-40);
+  border-end-start-radius: var(--border-radius-card);
+  border-end-end-radius: var(--border-radius-card);
+  list-style: none;
+  /* A full lane scrolls, and then the box's foot cuts the shadow of the
+     last card in view (Chip dark, 1024+: 1.7% ink, 34 under card 2). While
+     there is more to scroll, the 24 of room past the lane's foot fades out
+     instead, the way Tabs fades its edge; the fade lifts over the last 4 of
+     the scroll, and when nothing scrolls (the timeline is inactive) there is
+     none, so a lane that fits looks as published. */
+  /* Keyboard focus never lands in the faded foot or under the head: a
+     focused control scrolls into the lane's clear area with room for its
+     4 + 4 ring (CHIP wiring sweep, 22 Nov: "Move to…" ring cut 4 at 1100).
+     Bottom: the 24 of fade past the foot plus the 8 of ring; top: the 16 of
+     room above the cards already holds the ring. */
+  scroll-padding-block: var(--spacing-16) var(--spacing-32);
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
+  mask-image: linear-gradient(to top, transparent, #000 var(--board-lane-fade));
+  animation: laneFade linear both;
+  animation-timeline: scroll(self block);
+  animation-range: calc(100% - var(--spacing-4)) 100%;
+}
+
+@property --board-lane-fade {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes laneFade {
+  from {
+    --board-lane-fade: var(--spacing-24);
+  }
+  to {
+    --board-lane-fade: 0px;
+  }
+}
+
+/* Show empty: the Empty state fills the card area under the head, on the
+   cards' edge, centred; the area is one card tall at least (Figma 128) */
+.empty {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-block-size: calc(var(--spacing-64) * 2);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- drop space ---- */
+.drop {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-24);
+  border: var(--border-width-2) dashed;
+  border-radius: var(--border-radius-16);
+}
+
+/* Opens instead of jumping, closes up after (item 2, 21 Nov): the space
+   grows from nothing to its height, and on close shrinks back, so the cards
+   under it slide rather than jump. 160 is the most a drop space is tall. */
+.drop {
+  overflow: hidden;
+  animation: dropOpen var(--motion-duration-250) var(--motion-easing-out) backwards;
+}
+
+.closing {
+  animation: dropClose var(--motion-duration-200) var(--motion-easing-standard) forwards;
+}
+
+@keyframes dropOpen {
+  from {
+    max-block-size: 0;
+    padding-block: 0;
+    border-width: 0;
+    opacity: 0;
+  }
+  to {
+    max-block-size: calc(var(--spacing-80) * 2);
+    opacity: 1;
+  }
+}
+
+@keyframes dropClose {
+  from {
+    max-block-size: calc(var(--spacing-80) * 2);
+  }
+  to {
+    max-block-size: 0;
+    padding-block: 0;
+    border-width: 0;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drop,
+  .closing {
+    animation: none;
+  }
+}
+
+.target {
+  border-color: var(--color-border-brand);
+}
+
+.origin {
+  border-color: var(--color-border-strong);
+}
+
+.dropLabel {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-brand);
+  text-align: center;
+}
+
+/* The count bumps once when it changes (rule "Motion that shows what
+   happened", item 4): up a step and back on motion/duration/250 and
+   motion/easing/pop; reduced motion: none. */
+.countWrap {
+  display: inline-flex;
+}
+
+.bump {
+  animation: countBump var(--motion-duration-250) var(--motion-easing-pop);
+}
+
+@keyframes countBump {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bump {
+    animation: none;
+  }
+}

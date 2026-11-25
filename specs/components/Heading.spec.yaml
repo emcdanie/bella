@@ -3,7 +3,7 @@
 name: Heading
 lead:
   text: Newsreader 500 carries every heading tier, tight tracking, sentence case.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: null
 links:
@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Heading
 props:
   - name: tier
+    figmaName: tier
     type: '''hero'' | ''page'' | ''section'' | ''subsection'''
     values:
       - hero
@@ -35,6 +36,7 @@ props:
     doc: Semantic element, decoupled from the visual tier; defaults h1 for hero/page, h2 otherwise.
     at: src/components/Heading/Heading.tsx:13
   - name: accent
+    figmaName: accent
     type: ReactNode
     required: false
     doc: 'Optional accent segment after the text: the muted half-line. An interactive accent (a term button) colours itself.'
@@ -98,133 +100,130 @@ anatomy:
       side: bottom
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: tier=section, accent=off
+    name: tier=hero, accent=false
     type: COMPONENT
-    size: 880x46
+    size: 880x94
     children:
       - name: Heading
         type: TEXT
-        text: Clear
-        size: 880x46
+        text: Hero line
+        size: 880x94
         tokens:
           - field: fills
-            variable: color/semantic/text-primary
+            variable: color/content/default
           - field: fontFamily
-            variable: typography/font-family/display
+            variable: typography/headline-sm/font-family
           - field: fontWeight
-            variable: typography/font-weight/medium
+            variable: typography/font-weight/500
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: font-family
-      token: '--component-heading-font-family'
+      token: '--typography-headline-sm-font-family'
       selector: .heading
       at: src/components/Heading/Heading.module.css:11
     - part: root
       state: rest
       property: font-weight
-      token: '--component-heading-font-weight'
+      token: '--typography-font-weight-500'
       selector: .heading
       at: src/components/Heading/Heading.module.css:12
     - part: root
       state: rest
       property: letter-spacing
-      token: '--component-heading-letter-spacing'
+      token: '--typography-letter-spacing-minus-2'
       selector: .heading
       at: src/components/Heading/Heading.module.css:13
     - part: root
       state: rest
       property: line-height
-      token: '--component-heading-line-height'
+      token: '--typography-line-height-115'
       selector: .heading
       at: src/components/Heading/Heading.module.css:14
     - part: root
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .heading
       at: src/components/Heading/Heading.module.css:15
     - part: hero
       state: rest
       property: font-size
-      token: '--component-heading-hero-font-size'
+      token: '--typography-font-size-display-hero'
       selector: .hero
       at: src/components/Heading/Heading.module.css:20
     - part: page
       state: rest
       property: font-size
-      token: '--component-heading-page-font-size'
+      token: '--typography-font-size-display-page'
       selector: .page
       at: src/components/Heading/Heading.module.css:24
     - part: section
       state: rest
       property: font-size
-      token: '--component-heading-section-font-size'
+      token: '--typography-font-size-display-section'
       selector: .section
       at: src/components/Heading/Heading.module.css:28
     - part: section
       state: rest
       property: letter-spacing
-      token: '--component-heading-section-letter-spacing'
+      token: '--typography-letter-spacing-minus-1-half'
       selector: .section
       at: src/components/Heading/Heading.module.css:29
     - part: subsection
       state: rest
       property: font-size
-      token: '--component-heading-subsection-font-size'
+      token: '--typography-font-size-24'
       selector: .subsection
       at: src/components/Heading/Heading.module.css:33
     - part: subsection
       state: rest
       property: letter-spacing
-      token: '--component-heading-subsection-letter-spacing'
+      token: '--typography-letter-spacing-minus-1-half'
       selector: .subsection
       at: src/components/Heading/Heading.module.css:34
     - part: accent
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .accent
       at: src/components/Heading/Heading.module.css:41
   values:
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-heading-font-family':
-      light: Newsreader, Georgia, serif
-      chip: Newsreader, Georgia, serif
-    '--component-heading-font-weight':
-      light: '500'
-      chip: '500'
-    '--component-heading-hero-font-size':
-      light: clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)
-      chip: clamp(48px, 48px + 34 * (100vw - 390px) / 1050, 82px)
-    '--component-heading-letter-spacing':
-      light: '-0.02em'
-      chip: '-0.02em'
-    '--component-heading-line-height':
-      light: '1.15'
-      chip: '1.15'
-    '--component-heading-page-font-size':
-      light: clamp(44px, 44px + 16 * (100vw - 390px) / 1050, 60px)
-      chip: 40px
-    '--component-heading-section-font-size':
-      light: clamp(34px, 34px + 6 * (100vw - 390px) / 1050, 40px)
-      chip: 32px
-    '--component-heading-section-letter-spacing':
-      light: '-0.015em'
-      chip: '-0.015em'
-    '--component-heading-subsection-font-size':
-      light: 24px
-      chip: 24px
-    '--component-heading-subsection-letter-spacing':
-      light: '-0.015em'
-      chip: '-0.015em'
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--typography-font-size-24':
+      light: null
+      chip: null
+    '--typography-font-size-display-hero':
+      light: null
+      chip: null
+    '--typography-font-size-display-page':
+      light: null
+      chip: null
+    '--typography-font-size-display-section':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-headline-sm-font-family':
+      light: null
+      chip: null
+    '--typography-letter-spacing-minus-1-half':
+      light: null
+      chip: null
+    '--typography-letter-spacing-minus-2':
+      light: null
+      chip: null
+    '--typography-line-height-115':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -260,68 +259,8 @@ a11y:
       value: aria-label
       at: src/components/Heading/Heading.tsx:49
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-  derived:
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Heading/Heading.stories.tsx
   lines: 43-43
@@ -336,14 +275,14 @@ usage:
   dont:
     - 'Never inside a card: cards carry titles (DM Sans), not headings (contract-enforced by audit:quality)'
     - 'Never below 32px for hero, page or section: only the subsection tier (24px) sits under the section ramp'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '167:156'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
     tier:
       type: VARIANT
-      default: section
+      default: hero
       values:
         - hero
         - page
@@ -351,46 +290,46 @@ figma:
         - subsection
     accent:
       type: VARIANT
-      default: 'off'
+      default: 'false'
       values:
-        - 'off'
-        - 'on'
+        - 'false'
+        - 'true'
   variants:
-    - name: tier=section, accent=off
+    - name: tier=section, accent=false
       width: 880
       height: 46
-    - name: tier=section, accent=on
+    - name: tier=section, accent=true
       width: 880
       height: 46
-    - name: tier=hero, accent=off
+    - name: tier=hero, accent=false
       width: 880
       height: 94
-    - name: tier=hero, accent=on
+    - name: tier=hero, accent=true
       width: 880
       height: 94
-    - name: tier=page, accent=off
+    - name: tier=page, accent=false
       width: 880
       height: 69
-    - name: tier=page, accent=on
+    - name: tier=page, accent=true
       width: 880
       height: 69
-    - name: tier=subsection, accent=off
+    - name: tier=subsection, accent=false
       width: 880
-      height: 28
-    - name: tier=subsection, accent=on
+      height: 23
+    - name: tier=subsection, accent=true
       width: 880
-      height: 28
-  defaultVariant: tier=section, accent=off
+      height: 23
+  defaultVariant: tier=hero, accent=false
   annotations:
     - label: >-
-        Dev · <Heading tier as accent after />. Newsreader 500 (component/heading/font-family, weight 500); letter-spacing and line-height
-        1.15 from component/heading/*; sizes come from the text styles (Chip: hero fluid, page 40, section 32, subsection 24). Default tier
-        is section (Heading.tsx:5).
+        <Heading tier as accent after /> · src/components/Heading/Heading.tsx. Newsreader (typography/title-default/font-family), weight
+        500; tier sets size and line height: hero, page, section, subsection. Never below 32px. accent=true sets the trailing run in the
+        accent colour.
       category: '123:0'
-    - label: >-
-        A11y · Level comes from as (h1-h3), not from tier. Accent run is text-body, 12.42:1 on the page, 13.32:1 on a card (Chip). Never
-        below 32px.
+    - label: The level comes from as (h1–h3), not from tier; one h1 per page. Text 10.99:1 or more (every run, page and card, all four themes).
       category: '123:2'
+    - label: 'None: static.'
+      category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-heading--docs
 mismatch: []

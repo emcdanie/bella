@@ -1,28 +1,37 @@
 import React, { type ElementType, type ReactNode } from 'react';
+import Icon, { type IconName } from '../Icon/Icon';
 import styles from './Button.module.css';
 
 export interface ButtonProps {
   /**
    * Tier. `"primary"` is the flat ink plate, no shadow, never lifts;
    * render at most ONE per view. `"secondary"` is the flat accent outline.
-   * `"tertiary"` is the text tier: accent and underlined, nothing else.
+   * `"tertiary"` is the text tier: no plate. BELLA themes: an ink label, hover lays a fill under it (Figma 26:320). Chip (her pick E, 22 Nov): dark brand blue text only, and hover, pressed and focus lay a pale blue wash under it and underline the label in blue.
    * The neutral tier is retired; there is no fourth tier.
    */
   variant?: 'primary' | 'secondary' | 'tertiary';
   /**
-   * Outline shape. `"default"` is the 12px radius every tier shares;
+   * Outline shape. `"default"` is border/radius/lg every tier shares (8 in Chip, the pill in BELLA);
    * `"pill"` rounds the ends fully (e.g. a nav call to action).
    */
   shape?: 'default' | 'pill';
   /**
-   * `"sm"` is a 36px box with 14px sides (Elleta, 11 Nov 2026) for dense
+   * `"sm"` is a 32 plate with 12px sides (Figma Button 26:320) for dense
    * rows and tool bars. The label stays 16px and the 44px tap area stays,
-   * extended invisibly around the box. With `iconOnly` it is a 36 circle.
+   * extended invisibly around the plate. With `iconOnly` it is a 32 square.
    */
-  size?: 'default' | 'sm';
+  size?: 'default' | 'md' | 'sm';
+  /** Figma "Label". The words on the button; `children` still works and wins when both are set. */
+  label?: ReactNode;
+  /** Figma "icon" (instance swap). An Icon registry name, drawn 20 in the label's ink. */
+  icon?: IconName;
+  /** Figma "Show icon". Shows `icon` after the label (or alone with `iconOnly`). Defaults to on when `icon` is set. */
+  showIcon?: boolean;
+  /** Figma "Leading icon". Puts the icon before the label instead of after it. */
+  leadingIcon?: boolean;
   /**
-   * A 44px circle holding one Icon, with a round focus ring (BellaComponents,
-   * 11 Nov 2026). Secondary or primary only (the text tier is its underline).
+   * A 44 square (32 at sm) holding one Icon, corner border/radius/lg, ring
+   * following the corner (Figma Button 26:320).
    * Needs `ariaLabel`, and a Tooltip with the same words.
    */
   iconOnly?: boolean;
@@ -35,6 +44,13 @@ export interface ButtonProps {
   /** Disabled state: muted surface, no elevation, no affordances. Buttons only, not links. */
   disabled?: boolean;
   /**
+   * A job this button started is running ("Check again", "Test"): its icon
+   * turns (RefreshDouble, leading, when it has none), aria-busy is set and
+   * clicks wait until it is done. The label stays. Reduced motion: the icon
+   * holds still. Buttons only, not links.
+   */
+  busy?: boolean;
+  /**
    * Component used to render internal links; inject your router's Link
    * (e.g. next/link) at the consumer; defaults to a plain anchor.
    */
@@ -43,6 +59,8 @@ export interface ButtonProps {
   ariaLabel?: string;
   /** For a button that shows or hides content: whether that content is open (aria-expanded). */
   ariaExpanded?: boolean;
+  /** For a toggle button (light or dark, mark up, compare in ToolColumn): whether it is on. On shows the pressed look, the same fill as hover (aria-pressed). */
+  ariaPressed?: boolean;
   /** For a button that opens a dialog (aria-haspopup). */
   ariaHaspopup?: 'dialog';
   /** Extra classes on the control. */
@@ -60,19 +78,56 @@ export default function Button({
   variant = 'secondary',
   shape = 'default',
   size = 'default',
+  label: labelProp,
+  icon,
+  showIcon,
+  leadingIcon = false,
   iconOnly = false,
   href,
   onClick,
   type = 'button',
   disabled,
+  busy = false,
   linkComponent: LinkComponent = 'a',
   ariaLabel,
   ariaExpanded,
+  ariaPressed,
   ariaHaspopup,
   className,
-  children,
+  children: childrenProp,
 }: ButtonProps) {
-  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', className]
+  /* Figma Label + icon zones, additive (19 Nov re-sync): children still win */
+  const busyHere = busy && !href;
+  const shownIcon = busyHere ? (icon ?? 'RefreshDouble') : icon;
+  const glyph =
+    shownIcon && (busyHere || (showIcon ?? true)) ? (
+      busyHere ? (
+        <span className={styles.turn}>
+          <Icon name={shownIcon} size="md" />
+        </span>
+      ) : (
+        <Icon name={shownIcon} size="md" />
+      )
+    ) : null;
+  const words = childrenProp ?? labelProp;
+  const children = glyph ? (
+    iconOnly ? (
+      glyph
+    ) : leadingIcon || (busyHere && !icon) ? (
+      <>
+        {glyph}
+        {words}
+      </>
+    ) : (
+      <>
+        {words}
+        {glyph}
+      </>
+    )
+  ) : (
+    words
+  );
+  const cls = [styles.button, styles[variant], shape === 'pill' ? styles.pill : '', size === 'sm' ? styles.sm : '', iconOnly ? styles.iconOnly : '', busyHere ? styles.busy : '', className]
     .filter(Boolean)
     .join(' ');
   /* The label roll: the real label slides up and out while an identical
@@ -114,7 +169,17 @@ export default function Button({
     );
   }
   return (
-    <button type={type} onClick={onClick} disabled={disabled} aria-expanded={ariaExpanded} aria-haspopup={ariaHaspopup} {...shared}>
+    <button
+      type={type}
+      onClick={busyHere ? undefined : onClick}
+      disabled={disabled}
+      aria-busy={busyHere || undefined}
+      aria-disabled={busyHere || undefined}
+      aria-expanded={ariaExpanded}
+      aria-pressed={ariaPressed}
+      aria-haspopup={ariaHaspopup}
+      {...shared}
+    >
       {label}
     </button>
   );

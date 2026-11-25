@@ -1,0 +1,207 @@
+/* Easing curve and Duration bar (CHIP Dashboard "Foundations · Motion"
+ * 810:82446, read 21 Nov 2026). Tokens only.
+ * Easing: a row, 16 apart, centred: the well (64, background/subtle,
+ * border/radius/sm) holding the 48 curve at 2px content/default; the text
+ * column, 8 apart: token (number face 16, content/default) and value
+ * (reading face 16/24, content/subtle).
+ * Duration: a row, 16 apart, centred: name column (token, use) filling the
+ * row; the track (160 x 8, background/subtle, border/radius/sm) with the fill
+ * (content/default) to scale against 3400ms; the value (reading face,
+ * content/subtle).
+ * Narrow (audit 10, 21 Nov): when the row has no room for the name column
+ * beside the track, the track and value wrap onto their own line under the
+ * name, so the token never runs through the bar or pushes the page sideways.
+ * There the track gives up width (64 at least) so the ms stays on its line,
+ * at 320 too; the fill stays to scale, a share of the track. Words break
+ * only at spaces: "pop-in" and "cubic-bezier(" never split at a hyphen. */
+
+.row,
+.duration {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+
+.duration {
+  flex-wrap: wrap;
+  row-gap: var(--spacing-8);
+  min-block-size: var(--spacing-48); /* Figma: every duration row is 48, with or without a use line */
+}
+
+.well {
+  flex: none;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background-subtle);
+}
+
+.curve {
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+  fill: none;
+  stroke: var(--color-content-default);
+  stroke-width: var(--border-width-2);
+  stroke-linecap: round;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.name {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 calc(var(--spacing-80) * 2); /* wraps the track under it before the token would shrink */
+  max-inline-size: 100%;
+}
+
+.token {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+  overflow-wrap: normal; /* breaks only after a slash (<wbr>), never inside a word or number */
+}
+
+.value,
+.ms {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+/* the duration ("150ms") is a number: Geist Mono, bold (rule: fonts, audit 3) */
+.ms {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+.ms {
+  flex: none;
+  inline-size: var(--spacing-64);
+}
+
+.bar {
+  /* track + ms, one unit: it takes free width first (track up to 160) and
+     wraps under the name as a whole */
+  flex: 1000 1 calc(var(--spacing-64) * 2 + var(--spacing-16));
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  max-inline-size: calc(var(--spacing-80) * 2 + var(--spacing-16) + var(--spacing-64));
+}
+
+.track {
+  flex: 1 1 auto; /* Figma 160, down to 64 on a narrow row */
+  display: flex;
+  min-inline-size: var(--spacing-64);
+  max-inline-size: calc(var(--spacing-80) * 2);
+  block-size: var(--spacing-8);
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  background: var(--color-background-subtle);
+}
+
+.fill {
+  display: block;
+  background: var(--color-content-default);
+}
+
+/* animated (CHIP Foundations, 23 Nov: the pink dot she liked). The row is a
+ * button, 44 tall at least, with the focus ring. Easing: the dot rides the
+ * curve, x is time (linear) and y is progress (the token's own easing), both
+ * 900ms (motion/duration/900). Duration: the dot crosses the track in the
+ * token's own time, linear. The dot is pink (accent-1) with an ink edge for
+ * the 3:1 line. Reduced motion: no ride; the dot jumps to the end. */
+.playable {
+  appearance: none;
+  inline-size: 100%;
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.playable:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--spacing-4);
+  border-radius: var(--border-radius-sm);
+}
+
+.plot {
+  position: relative;
+  display: block;
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+}
+
+.rider,
+.dot {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: var(--border-radius-round);
+  background: var(--color-background-accent-1);
+  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-ink);
+}
+
+.rider {
+  inset-inline-start: 0;
+  inset-block-end: 0;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  transform: translate(-50%, 50%);
+}
+
+.ride {
+  animation: ride-x var(--motion-duration-900) both, ride-y var(--motion-duration-900) both;
+}
+
+@keyframes ride-x { to { inset-inline-start: 100%; } }
+@keyframes ride-y { to { inset-block-end: 100%; } }
+
+.dot {
+  inset-inline-start: 0;
+  inset-block-start: 50%;
+  inline-size: var(--spacing-16);
+  block-size: var(--spacing-16);
+  transform: translateY(-50%);
+}
+
+.cross {
+  animation: cross linear both;
+}
+
+/* the dot's left edge to the track's right edge: 100% less its own width */
+@keyframes cross { to { inset-inline-start: calc(100% - var(--spacing-16)); } }
+
+.duration.playable .track {
+  position: relative;
+  overflow: visible;
+}
+
+.duration.playable .fill {
+  border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ride { animation: none; inset-inline-start: 100%; inset-block-end: 100%; }
+  .cross { animation: none; inset-inline-start: calc(100% - var(--spacing-16)); }
+}

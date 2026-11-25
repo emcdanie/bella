@@ -1,0 +1,123 @@
+/* FloatingPanel (BellaComponents FloatingPanel 1739:20, published 22 Nov
+ * 2026; Elleta, Playground review: the Terminal detaches into a floating
+ * window and docks back). Tokens only. A window 400 wide: a title bar (grip,
+ * title, a status, Stop, Dock, Close; 44 targets, 4 apart; a 1px line under
+ * it) and a body slot (16 padding, 16 between groups) holding the drawer's
+ * content as it is. Card corner, card shadow, surface, a hairline edge.
+ * No resize corner. It opens with a 250 ms lift (motion/duration/250,
+ * ease-out) and leaves the same way; reduced motion: at once. */
+
+.panel {
+  position: fixed;
+  z-index: 40;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  inline-size: calc(var(--spacing-80) * 5);
+  max-inline-size: calc(100vw - var(--spacing-32));
+  max-block-size: calc(100dvh - var(--spacing-32));
+  border: var(--border-width-1) solid var(--color-border-subtle);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+  color: var(--color-content-body);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+}
+
+[data-motion='live'].panel {
+  animation: lift var(--motion-duration-250) var(--motion-easing-out) backwards;
+}
+
+[data-motion='leaving'].panel {
+  animation: lift var(--motion-duration-250) var(--motion-easing-out) reverse forwards;
+}
+
+@keyframes lift {
+  from {
+    opacity: 0;
+    translate: 0 var(--spacing-8);
+  }
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  padding-inline: var(--spacing-16) var(--spacing-8);
+  padding-block: var(--spacing-8);
+  border-block-end: var(--border-width-1) solid var(--color-border-subtle);
+}
+
+/* the move handle: grip, title and status; the whole of it drags */
+.handle {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+  min-block-size: var(--spacing-44);
+  cursor: grab;
+  touch-action: none;
+  border-radius: var(--border-radius-8);
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+.handle:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--spacing-4);
+}
+
+.grip {
+  display: inline-flex;
+  flex: none;
+  color: var(--color-content-subtle);
+}
+
+.title {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+  white-space: nowrap;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 0; /* Figma: Stop 77 + Dock 44 + Close 44 = 165, the buttons' own padding keeps them apart */
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+  padding: var(--spacing-16);
+  overflow: auto;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+[data-motion='still'].panel {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  [data-motion='live'].panel,
+  [data-motion='leaving'].panel {
+    animation: none;
+  }
+}

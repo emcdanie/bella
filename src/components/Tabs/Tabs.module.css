@@ -1,41 +1,100 @@
-/* Tabs (CHIP components, 2026-10-03). Tokens only. W3C APG tabs, automatic
+/* Tabs (CHIP components, 2026-10-03; re-synced to Figma "Tabs" and "Tab",
+ * CHIP Dashboard, read 19 Nov 2026). Tokens only. W3C APG tabs, automatic
  * activation. Built for CHIP's workspace and terminal switchers.
  *
  * Why tabs and not SegmentedControl: each tab OWNS a panel (tabpanel,
  * aria-controls), which is exactly what SegmentedControl's recorded
  * discovery pass says it is not.
  *
- * Paint: the hairline under the list is decoration; the selected tab is
- * marked by ink text plus a 2px ink bar, never by colour alone. The run
- * dot is a fill (running) or a ring (idle), and the state is also text.
+ * What Figma's Tab selected variant shows now (matched): the 18 Nov
+ * "Selected, Chip light" line, which replaced the 17 Nov dark-ink folder
+ * tab. Tab 48 tall (spacing/48, min 44), padding 0 x 16, gap 8, top corners
+ * border/radius/md. Label body face 16 at 150%, 500. Default: no fill,
+ * content/subtle. Hover: color/background/brand-subtle (the lighter blue),
+ * content/default. Selected: color/background/brand-subtle-hover (light
+ * blue in Chip, grey in BELLA), content/default 600, and the 2px ink bar
+ * (border/ink) along the bottom, so selection is never colour alone.
+ * Status is the StatusDot part (running info, idle neutral); count is the
+ * Tag count pill. Tabs 4 apart; a 1px base line (border/default) under the
+ * row. Focus: the standard ring, 4 wide with a 4 gap, outside.
  *
- * Recorded divergence: the focus ring sits inside the tab (negative
- * offset) like SegmentedControl, so a scrolling tablist cannot clip it.
- */
+ * The tablist scrolls sideways when narrow. To keep the outside focus ring
+ * whole, the scroller carries the ring's room as padding with matching
+ * negative margins; the base line is on the root, so the ring can show
+ * past it.
+ *
+ * Retired by this re-sync (looks, not props; every prop is kept): the
+ * 18px label; the grey hover (border/subtle); the inset focus ring; the
+ * drawn run dot (ink fill / hollow ring) and the background/subtle count
+ * pill. */
+
+.tabs {
+  /* never wider than its space: the list scrolls inside instead */
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  box-shadow: inset 0 calc(-1 * var(--border-width-1)) 0 var(--color-border-default);
+}
 
 .list {
+  flex: 1 1 auto;
+  min-inline-size: 0;
   display: flex;
   gap: var(--spacing-4);
-  border-bottom: var(--border-width-1) solid var(--color-border-default);
+  margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
+  padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
   overflow-x: auto;
+  /* a tab comes to rest whole at the start: it sits where the first tab sits
+     (the ring's room), the one before shows at most its own empty side, and
+     the start fade (16) covers only empty sides, never a label or a count (a
+     count Tag read as a clipped box at 375, 21 Nov). The end keeps its 24 fade
+     as the cue. */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: calc(var(--focus-ring-width) + var(--focus-ring-offset)) var(--spacing-24);
+}
+
+/* A short fade where the row goes on, under the chevron (as Carbon). A mask,
+   so it works on any ground behind the tabs. */
+.list[data-more-end] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--spacing-24)), transparent);
+}
+.list[data-more-start] {
+  -webkit-mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-16)), transparent);
+  mask-image: linear-gradient(to left, #000 calc(100% - var(--spacing-16)), transparent);
+}
+.list[data-more-start][data-more-end] {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--spacing-16), #000 calc(100% - var(--spacing-24)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--spacing-16), #000 calc(100% - var(--spacing-24)), transparent);
+}
+
+/* the chevron at an end that has more tabs (her pick B, 20 Nov) */
+.more {
+  flex: none;
+  display: inline-flex;
 }
 
 .tab {
   position: relative;
+  scroll-snap-align: start;
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-8);
   flex: none;
-  min-height: var(--spacing-44);
+  block-size: var(--spacing-48);
+  min-block-size: var(--spacing-44);
   padding: 0 var(--spacing-16);
   margin: 0;
   border: none;
-  border-radius: var(--border-radius-8) var(--border-radius-8) 0 0;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
   background: transparent;
   cursor: pointer;
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  /* Figma Tabs (149:105): Lexend 16 (20 Nov: every control label is 16), Medium unselected, SemiBold selected */
+  font-size: var(--typography-font-size-16); /* every control label is 16 (Elleta, 20 Nov) */
   font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-150);
   letter-spacing: var(--typography-letter-spacing-0);
   color: var(--color-content-subtle);
   white-space: nowrap;
@@ -46,11 +105,13 @@
 
 .tab:hover {
   color: var(--color-content-default);
-  background: var(--color-border-subtle);
+  background: var(--color-background-brand-subtle);
 }
 
 .tab[aria-selected='true'] {
   color: var(--color-content-default);
+  font-weight: var(--typography-font-weight-600);
+  background: var(--color-background-brand-subtle-hover);
 }
 
 .tab[aria-selected='true']::after {
@@ -63,32 +124,16 @@
 
 .tab:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
-  outline-offset: calc(-1 * var(--focus-ring-width));
+  outline-offset: var(--focus-ring-offset);
 }
 
-.dot {
-  width: var(--spacing-8);
-  height: var(--spacing-8);
-  border-radius: var(--border-radius-round);
-  flex: none;
-}
-
-.dot[data-status='running'] {
-  background: var(--color-border-ink);
-}
-
-.dot[data-status='idle'] {
-  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-strong);
+.tab:focus-visible:not([aria-selected='true']) {
+  color: var(--color-content-default);
+  background: var(--color-background-brand-subtle);
 }
 
 .count {
   display: inline-flex;
-  align-items: center;
-  padding-inline: var(--spacing-8);
-  border-radius: var(--border-radius-round);
-  background: var(--color-background-subtle);
-  color: var(--color-content-default);
-  font-variant-numeric: tabular-nums;
 }
 
 .srOnly {
@@ -103,5 +148,11 @@
 @media (prefers-reduced-motion: reduce) {
   .tab {
     transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .tab[aria-selected='true']::after {
+    background: CanvasText;
   }
 }

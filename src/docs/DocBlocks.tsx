@@ -112,7 +112,7 @@ export function TokenChip({ token }: { token: string }) {
         border: '1px solid var(--color-border-subtle)',
         borderRadius: 'var(--border-radius-4)',
         padding: '1px var(--spacing-8)',
-        fontFamily: 'var(--typography-font-family-dm-sans)',
+        fontFamily: 'var(--typography-body-default-font-family)',
         fontSize: 'var(--typography-font-size-18)',
         color: 'var(--color-content-default)',
         whiteSpace: 'nowrap',

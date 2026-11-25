@@ -1,4 +1,10 @@
-/* Drawer (CHIP components, 2026-10-03). Tokens only. Slides from the left
+/* Drawer (CHIP components, 2026-10-03; matched to published BellaComponents
+ * Drawer 172:622 on 19 Nov 2026, re-read 21 Nov: Head 24 padding, Title row 4 apart (Title
+ * reading face 600, 18 / 1.3; Status 16/24 content/subtle), Close the 44
+ * secondary icon-only Button, no rule under the head; Body 24 / 8 at the sides;
+ * Footer 24 padding, hairline above, actions right; shadow/soft. The
+ * one-side edge stays as it was: Figma draws it too, and full edge or none
+ * is her open pick, 19 Nov part findings). Tokens only. Slides from the left
  * (navigation) or the right (side="right", a tool panel). A native modal
  * <dialog>: the top layer stacks it (no z-index), ::backdrop is the scrim,
  * and the page behind is inert while it is open.
@@ -20,14 +26,22 @@
   padding: 0;
   border: 0;
   border-inline-end: var(--border-width-1) solid var(--color-border-default);
+  /* Figma: the two corners away from the edge take border/radius/24, the
+     drawer edge (published 22 Nov; it was the card corner, 20 in Chip) */
+  border-start-end-radius: var(--border-radius-24);
+  border-end-end-radius: var(--border-radius-24);
   background: var(--color-background-surface);
   color: var(--color-content-default);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-soft);
 }
 
 .drawer[open] {
   display: flex;
   flex-direction: column;
+  /* the drawer never scrolls itself; only the body does (23 Nov 2026, CHIP's Drift drawer in a 722 x 1000 pane: a
+     Progress bar's screen-reader text, absolutely placed, measured against the dialog and made it 1512 tall, so a
+     scroll over the footer moved the whole drawer and left the footer mid-panel over empty white) */
+  overflow: hidden;
   transform: none;
   transition: transform var(--motion-duration-250) var(--motion-easing-standard);
 }
@@ -42,6 +56,10 @@
   .drawer[data-side='right'][open] {
     transform: translateX(100%);
   }
+
+  .drawer[data-side='bottom'][open] {
+    transform: translateY(100%);
+  }
 }
 
 .drawer[data-side='right'] {
@@ -49,6 +67,10 @@
   inset-inline-end: 0;
   border-inline-end: 0;
   border-inline-start: var(--border-width-1) solid var(--color-border-default);
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-start-start-radius: var(--border-radius-24);
+  border-end-start-radius: var(--border-radius-24);
 }
 
 .drawer:focus {
@@ -59,43 +81,245 @@
   background: var(--color-background-transparent);
 }
 
+/* the scrim fades in with the slide, and out with it (item 8, 21 Nov) */
+.drawer[open]::backdrop {
+  animation: scrimIn var(--motion-duration-250) var(--motion-easing-standard) both;
+}
+
+/* closing: the panel slides back to its edge, the scrim fades; the dialog
+   closes when the slide ends */
+.drawer[data-closing] {
+  animation: drawerOutLeft var(--motion-duration-200) var(--motion-easing-standard) both;
+}
+.drawer[data-side='right'][data-closing] {
+  animation-name: drawerOutRight;
+}
+.drawer[data-side='bottom'][data-closing] {
+  animation-name: drawerOutBottom;
+}
+.drawer[data-closing]::backdrop {
+  animation: scrimOut var(--motion-duration-200) var(--motion-easing-standard) both;
+}
+
+@keyframes drawerOutLeft {
+  to { transform: translateX(-100%); }
+}
+@keyframes drawerOutRight {
+  to { transform: translateX(100%); }
+}
+@keyframes drawerOutBottom {
+  to { transform: translateY(100%); }
+}
+@keyframes scrimIn {
+  from { opacity: 0; }
+}
+@keyframes scrimOut {
+  to { opacity: 0; }
+}
+
 .head {
   display: flex;
-  align-items: center;
+  /* Close lines up with the title's first line, so a 2 or 3 line title
+     (and its status) never leaves it floating mid-block (CHIP overlay audit,
+     21 Nov) */
+  align-items: flex-start;
   justify-content: space-between;
   gap: var(--spacing-12);
-  padding: var(--spacing-20);
-  border-block-end: var(--border-width-1) solid var(--color-border-default);
+  /* no padding under the head: the body's own 24 is the one gap between
+     the title and the first group (rule 10; it measured 48) */
+  /* 16 under the title block (23 Nov 2026, her pick A): scrolled content stops 16 short of the status line instead
+     of running up to it; the body's top padding is 8, so the gap at rest stays 24 */
+  padding: var(--spacing-24) var(--spacing-24) var(--spacing-16);
+  position: relative;
+  z-index: 1;
+}
+
+/* her pick A (23 Nov 2026): while content is scrolled under the head, the head casts shadow/md over it; while content
+   continues under the footer, the footer casts shadow/md-up and its hairline gives way to the shadow. At rest, none. */
+.drawer[data-under-head] .head {
+  box-shadow: var(--shadow-md);
+  /* the shadow falls only onto the content below; at the drawer's sides it would be cut by the panel's edge */
+  clip-path: inset(0 0 calc(var(--spacing-24) * -1) 0);
+}
+
+.drawer[data-under-foot] .footer {
+  box-shadow: var(--shadow-md-up);
+  border-block-start-color: transparent;
+  /* only upward, onto the content above; never past the panel's sides or bottom */
+  clip-path: inset(calc(var(--spacing-24) * -1) 0 0 0);
+}
+
+/* the 44 Close centred on the title's first line box (20 on a 28 line) */
+.head > [data-bella-component='button'] {
+  flex: none;
+  margin-block-start: calc((var(--size-28) - var(--spacing-44)) / 2);
+}
+
+.action {
+  flex: none;
+  display: inline-flex;
+}
+
+.titleRow {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-4); /* Title rows spacing/4 (21 Nov publish) */
+  min-inline-size: 0;
 }
 
 .title {
   margin: 0;
-  font-family: var(--typography-title-default-font-family);
-  font-size: var(--typography-font-size-22);
-  font-weight: var(--typography-font-weight-500);
-  letter-spacing: var(--typography-letter-spacing-0);
-  line-height: var(--typography-line-height-130);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20); /* 20 on a 28 line (batch 4) */
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  color: var(--color-content-default);
+}
+
+.status {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
 }
 
 .body {
   flex: 1;
   min-block-size: 0;
   overflow: auto;
-  padding: var(--spacing-20);
+  /* the containing block for anything absolutely placed inside (screen-reader text, a tooltip), so it scrolls with
+     the content and never stretches the dialog */
+  position: relative;
+  /* Figma Body (21 Nov publish): spacing/8 at the sides, so the rows' own
+     16 inset (NavList, Project panel) lands on the title's 24 edge: one
+     left edge at 24. The gap under the head is still 24 at rest: the head's own 16
+     below (her pick A, 23 Nov 2026) and the body's 8 above; 24 under the last row. */
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-24);
+}
+
+/* A scrolling body takes focus (Chrome makes it a tab stop): BELLA's ring,
+   4 wide, drawn 4 inside the body so the panel edge never clips it. */
+.body:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc((var(--focus-ring-width) + var(--focus-ring-offset)) * -1);
+}
+
+/* size lg (CHIP · Dashboard Flow 12): the full width on a phone, 640 from a
+   768 window. 640 is eight of the 80 step; no drawer-width token yet. */
+.drawer[data-size='lg'] {
+  inline-size: 100vw;
+  border-radius: 0;
+}
+
+@media (min-width: 768px) {
+  .drawer[data-size='lg'] {
+    inline-size: min(100vw, calc(var(--spacing-80) * 8));
+    border-start-end-radius: var(--border-radius-24);
+    border-end-end-radius: var(--border-radius-24);
+  }
+  .drawer[data-size='lg'][data-side='right'] {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-start-start-radius: var(--border-radius-24);
+    border-end-start-radius: var(--border-radius-24);
+  }
 }
 
 .footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-12) var(--spacing-16);
+  padding: var(--spacing-24);
+  border-block-start: var(--border-width-1) solid var(--color-border-default);
+}
+
+/* footerNote (23 Nov 2026): one row, the helper text at the left and the actions at the right edge. The text takes
+   what is left and wraps under itself; below 112 for it (two buttons at 320) the actions move to a row of their own
+   under the text, still on the right edge. The subtle 16 of the head's status line. */
+.footerNote {
+  flex: 1 1 calc(var(--spacing-8) * 14);
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.footerActions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
   gap: var(--spacing-8);
-  padding: var(--spacing-4) var(--spacing-24);
-  border-block-start: var(--border-width-1) solid var(--color-border-default);
+  margin-inline-start: auto;
+}
+
+/* side bottom (Figma Drawer side=bottom, published 22 Nov 2026; her pick
+   "A", "remove the last divider"): the phone sheet. The full width, rising
+   from the bottom edge on motion/duration/450 and motion/easing/out; 24
+   corners on the top two only, the bottom square; no edge line, the shadow
+   alone. sm hugs its content, lg is 720 tall (nine 80 steps; no sheet-height
+   token), both stopping 48 under the top of the window. A 36 x 4 grab handle
+   (size/36, size/4, border/strong, round) sits 8 under the top edge, 24
+   above the head; it is decorative (Close and Esc close the sheet). The
+   footer has no hairline above it. */
+.drawer[data-side='bottom'] {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline: 0;
+  inline-size: 100vw;
+  max-inline-size: 100vw;
+  block-size: auto;
+  max-block-size: calc(100dvh - var(--spacing-48));
+  border: 0;
+  border-radius: var(--border-radius-24) var(--border-radius-24) 0 0;
+}
+
+.drawer[data-side='bottom'][data-size='lg'] {
+  inline-size: 100vw;
+  block-size: min(calc(var(--spacing-80) * 9), calc(100dvh - var(--spacing-48)));
+  border-radius: var(--border-radius-24) var(--border-radius-24) 0 0;
+}
+
+.drawer[data-side='bottom'][open] {
+  transition: transform var(--motion-duration-450) var(--motion-easing-out);
+}
+
+.drawer[data-side='bottom'] .head {
+  padding-block-start: 0;
+}
+
+.handle {
+  flex: none;
+  align-self: center;
+  inline-size: var(--size-36);
+  block-size: var(--size-4);
+  margin-block: var(--spacing-8) var(--spacing-24);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-strong);
+}
+
+.drawer[data-side='bottom'] .footer {
+  border-block-start: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .drawer[open] {
+  .drawer[open],
+  .drawer[data-side='bottom'][open] {
     transition: none;
+  }
+  .drawer[open]::backdrop,
+  .drawer[data-closing],
+  .drawer[data-closing]::backdrop {
+    animation: none;
   }
 }

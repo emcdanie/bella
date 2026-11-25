@@ -23,7 +23,7 @@ function Live(props: Omit<SliderProps, 'value' | 'onChange'> & { start: number }
 }
 
 const meta: Meta<typeof Slider> = {
-  title: 'Components/Slider',
+  title: 'Components/Inputs/Slider',
   component: Slider,
   parameters: {
     docs: { page: ComponentDocsPage },

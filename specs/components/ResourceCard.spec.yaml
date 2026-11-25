@@ -3,7 +3,7 @@
 name: ResourceCard
 lead:
   text: The folder card.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: null
 links:
@@ -12,16 +12,19 @@ links:
   storyTitle: Components/ResourceCard
 props:
   - name: type
+    figmaName: Type
     type: string
     required: true
     doc: 'The tab label. The kind of thing this is: WORKFLOW, AUDIT, and so on.'
     at: src/components/ResourceCard/ResourceCard.tsx:8
   - name: title
+    figmaName: Title
     type: string
     required: true
     doc: The resource's name. Renders at the card-title floor, never smaller.
     at: src/components/ResourceCard/ResourceCard.tsx:10
   - name: description
+    figmaName: Description
     type: string
     required: true
     doc: One or two lines. It clamps at two, so write to two.
@@ -37,6 +40,7 @@ props:
     doc: The file-window preview that fills the cover well.
     at: src/components/ResourceCard/ResourceCard.tsx:16
   - name: statusLabel
+    figmaName: Status label
     type: string
     required: false
     doc: >-
@@ -115,676 +119,691 @@ anatomy:
   figma:
     name: state=default
     type: COMPONENT
-    size: 360x430
+    size: 360x345
+    tokens:
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: fills
+        variable: color/background/surface
     children:
-      - name: Surface
+      - name: Cover
         type: FRAME
-        size: 360x430
+        size: 360x200
         tokens:
-          - field: topLeftRadius
-            variable: radius/card
-          - field: topRightRadius
-            variable: radius/card
-          - field: bottomLeftRadius
-            variable: radius/card
-          - field: bottomRightRadius
-            variable: radius/card
+          - field: paddingTop
+            variable: spacing/24
           - field: fills
-            variable: color/semantic/surface-card
-          - field: strokes
-            variable: color/semantic/border-faint
-        children: []
-      - name: Sheet
-        type: FRAME
-        size: 360x430
-        tokens:
-          - field: topLeftRadius
-            variable: radius/card
-          - field: topRightRadius
-            variable: radius/card
-          - field: bottomLeftRadius
-            variable: radius/card
-          - field: bottomRightRadius
-            variable: radius/card
+            variable: color/background/knockout
         children:
-          - name: Cover
+          - name: Cover art (placeholder)
             type: FRAME
-            size: 360x200
+            size: 264x148
             tokens:
+              - field: topLeftRadius
+                variable: border/radius/12
+              - field: topRightRadius
+                variable: border/radius/12
+              - field: bottomLeftRadius
+                variable: border/radius/12
+              - field: bottomRightRadius
+                variable: border/radius/12
+              - field: strokeTopWeight
+                variable: border/width/1
+              - field: strokeBottomWeight
+                variable: border/width/1
+              - field: strokeLeftWeight
+                variable: border/width/1
+              - field: strokeRightWeight
+                variable: border/width/1
               - field: fills
-                variable: component/resource-card/default/cover-background
+                variable: color/background/surface
+              - field: strokes
+                variable: color/border/subtle
             children:
-              - name: Cover art (placeholder)
-                type: FRAME
-                size: 264x148
+              - name: Cover shape
+                type: ELLIPSE
+                size: 7x7
                 tokens:
                   - field: fills
-                    variable: RAW
-                  - field: strokes
-                    variable: RAW
-                children:
-                  - name: Cover shape
-                    type: ELLIPSE
-                    size: 7x7
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: ELLIPSE
-                    size: 7x7
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: ELLIPSE
-                    size: 7x7
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: RECTANGLE
-                    size: 180x6
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: RECTANGLE
-                    size: 140x6
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: RECTANGLE
-                    size: 200x6
-                    tokens:
-                      - field: fills
-                        variable: RAW
-                  - name: Cover shape
-                    type: RECTANGLE
-                    size: 110x6
-                    tokens:
-                      - field: fills
-                        variable: RAW
-          - name: Body
+                    variable: color/border/strong
+              - name: Cover shape
+                type: ELLIPSE
+                size: 7x7
+                tokens:
+                  - field: fills
+                    variable: color/border/strong
+              - name: Cover shape
+                type: ELLIPSE
+                size: 7x7
+                tokens:
+                  - field: fills
+                    variable: color/border/strong
+              - name: Cover shape
+                type: RECTANGLE
+                size: 180x6
+                tokens:
+                  - field: topLeftRadius
+                    variable: border/radius/round
+                  - field: topRightRadius
+                    variable: border/radius/round
+                  - field: bottomLeftRadius
+                    variable: border/radius/round
+                  - field: bottomRightRadius
+                    variable: border/radius/round
+                  - field: fills
+                    variable: color/border/strong
+              - name: Cover shape
+                type: RECTANGLE
+                size: 140x6
+                tokens:
+                  - field: topLeftRadius
+                    variable: border/radius/round
+                  - field: topRightRadius
+                    variable: border/radius/round
+                  - field: bottomLeftRadius
+                    variable: border/radius/round
+                  - field: bottomRightRadius
+                    variable: border/radius/round
+                  - field: fills
+                    variable: color/border/strong
+              - name: Cover shape
+                type: RECTANGLE
+                size: 200x6
+                tokens:
+                  - field: topLeftRadius
+                    variable: border/radius/round
+                  - field: topRightRadius
+                    variable: border/radius/round
+                  - field: bottomLeftRadius
+                    variable: border/radius/round
+                  - field: bottomRightRadius
+                    variable: border/radius/round
+                  - field: fills
+                    variable: color/border/strong
+              - name: Cover shape
+                type: RECTANGLE
+                size: 110x6
+                tokens:
+                  - field: topLeftRadius
+                    variable: border/radius/round
+                  - field: topRightRadius
+                    variable: border/radius/round
+                  - field: bottomLeftRadius
+                    variable: border/radius/round
+                  - field: bottomRightRadius
+                    variable: border/radius/round
+                  - field: fills
+                    variable: color/border/strong
+      - name: Body
+        type: FRAME
+        size: 360x193
+        children:
+          - name: Tab row
             type: FRAME
-            size: 360x278
+            size: 360x32
             children:
-              - name: Tab row
+              - name: Cover tab
                 type: FRAME
-                size: 360x35
-                children:
-                  - name: Tab
-                    type: FRAME
-                    size: 119x35
-                    tokens:
-                      - field: paddingLeft
-                        variable: component/resource-card/default/tab-padding-x
-                      - field: paddingTop
-                        variable: component/resource-card/default/tab-padding-top
-                      - field: paddingRight
-                        variable: component/resource-card/default/tab-padding-x
-                      - field: topLeftRadius
-                        variable: radius/xl
-                      - field: topRightRadius
-                        variable: radius/xl
-                      - field: fills
-                        variable: color/semantic/surface
-                    children:
-                      - name: Type
-                        type: TEXT
-                        text: WORKFLOW
-                        size: 95x27
-                        tokens:
-                          - field: fills
-                            variable: component/resource-card/default/tab-foreground
-                          - field: fontSize
-                            variable: component/resource-card/default/tab-font-size
-                          - field: fontFamily
-                            variable: typography/font-family/body
-                          - field: fontWeight
-                            variable: typography/font-weight/bold
-                  - name: Tab row rest
-                    type: FRAME
-                    size: 241x24
-                    children: []
-              - name: Content
-                type: FRAME
-                size: 360x243
+                size: 124x32
                 tokens:
                   - field: paddingLeft
-                    variable: component/resource-card/default/body-padding
+                    variable: spacing/12
                   - field: paddingTop
-                    variable: component/resource-card/default/body-padding
+                    variable: spacing/8
                   - field: paddingRight
-                    variable: component/resource-card/default/body-padding
-                  - field: paddingBottom
-                    variable: component/resource-card/default/body-padding
+                    variable: spacing/12
+                  - field: topLeftRadius
+                    variable: border/radius/16
                   - field: topRightRadius
-                    variable: radius/xl
+                    variable: border/radius/16
                   - field: fills
-                    variable: color/semantic/surface
+                    variable: color/background/surface
+                children:
+                  - name: Type
+                    type: TEXT
+                    text: WORKFLOW
+                    size: 100x24
+                    tokens:
+                      - field: fills
+                        variable: color/content/body
+                      - field: fontSize
+                        variable: typography/font-size/16
+                      - field: fontFamily
+                        variable: typography/body-default/font-family
+                      - field: fontWeight
+                        variable: typography/font-weight/600
+              - name: Tab row rest
+                type: FRAME
+                size: 236x24
+                children: []
+          - name: Content
+            type: FRAME
+            size: 360x161
+            tokens:
+              - field: itemSpacing
+                variable: spacing/20
+              - field: paddingLeft
+                variable: spacing/20
+              - field: paddingTop
+                variable: spacing/20
+              - field: paddingRight
+                variable: spacing/20
+              - field: paddingBottom
+                variable: spacing/20
+              - field: topRightRadius
+                variable: border/radius/16
+              - field: fills
+                variable: color/background/surface
+            children:
+              - name: Text
+                type: FRAME
+                size: 320x60
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
                 children:
                   - name: Title
                     type: TEXT
-                    text: Audit a component
-                    size: 320x29
+                    text: lock-then-verify
+                    size: 320x28
                     tokens:
                       - field: fills
-                        variable: component/resource-card/default/title-foreground
+                        variable: color/content/default
                       - field: fontSize
-                        variable: component/resource-card/default/title-font-size
+                        variable: typography/font-size/20
                       - field: fontFamily
-                        variable: typography/font-family/body
+                        variable: typography/body-default/font-family
                       - field: fontWeight
-                        variable: typography/font-weight/semibold
-                  - name: Spacer · title
-                    type: FRAME
-                    size: 10x8
-                    children: []
+                        variable: typography/font-weight/600
                   - name: Description
                     type: TEXT
-                    text: Checks a component against its contract and lists what drifts, with a fix for each.
-                    size: 320x102
+                    text: Two hard gates around any build.
+                    size: 320x24
                     tokens:
                       - field: fills
-                        variable: component/resource-card/default/description-foreground
+                        variable: color/content/body
                       - field: fontSize
-                        variable: component/resource-card/default/description-font-size
+                        variable: typography/font-size/16
                       - field: fontFamily
-                        variable: typography/font-family/body
+                        variable: typography/body-default/font-family
                       - field: fontWeight
-                        variable: typography/font-weight/regular
-                  - name: Spacer · description
+                        variable: typography/font-weight/400
+              - name: Footer
+                type: FRAME
+                size: 320x41
+                tokens:
+                  - field: paddingTop
+                    variable: spacing/16
+                  - field: strokeTopWeight
+                    variable: border/width/1
+                  - field: strokes
+                    variable: color/border/subtle
+                children:
+                  - name: Status
                     type: FRAME
-                    size: 10x20
-                    children: []
-                  - name: Footer
-                    type: FRAME
-                    size: 320x44
+                    size: 49x24
                     tokens:
-                      - field: paddingTop
-                        variable: spacing/4
-                      - field: strokes
-                        variable: component/resource-card/default/divider-color
+                      - field: itemSpacing
+                        variable: spacing/8
                     children:
-                      - name: Status
-                        type: FRAME
-                        size: 78x27
+                      - name: Status dot
+                        type: ELLIPSE
+                        size: 8x8
                         tokens:
-                          - field: itemSpacing
-                            variable: spacing/2
-                        children:
-                          - name: Status dot
-                            type: ELLIPSE
-                            size: 8x8
-                            tokens:
-                              - field: fills
-                                variable: component/resource-card/default/status-dot-color
-                          - name: Status label
-                            type: TEXT
-                            text: Installed
-                            size: 62x27
-                            tokens:
-                              - field: fills
-                                variable: component/resource-card/default/meta-foreground
-                              - field: fontSize
-                                variable: component/resource-card/default/meta-font-size
-                              - field: fontFamily
-                                variable: typography/font-family/body
-                              - field: fontWeight
-                                variable: typography/font-weight/regular
-                      - name: Action
-                        type: FRAME
-                        size: 62x27
+                          - field: fills
+                            variable: color/content/subtle
+                      - name: Status label
+                        type: TEXT
+                        text: Live
+                        size: 33x24
                         tokens:
-                          - field: itemSpacing
-                            variable: spacing/1
-                        children:
-                          - name: Action label
-                            type: TEXT
-                            text: Open
-                            size: 42x27
-                            tokens:
-                              - field: fills
-                                variable: component/resource-card/default/action-foreground
-                              - field: fontSize
-                                variable: component/resource-card/default/action-font-size
-                              - field: fontFamily
-                                variable: typography/font-family/body
-                              - field: fontWeight
-                                variable: typography/font-weight/medium
-                          - name: Icon
-                            type: INSTANCE
-                            instanceOf: Icon
-                            size: 16x16
+                          - field: fills
+                            variable: color/content/body
+                          - field: fontSize
+                            variable: typography/font-size/16
+                          - field: lineHeight
+                            variable: typography/line-height-px/24
+                          - field: fontWeight
+                            variable: typography/font-weight/400
+                  - name: Action
+                    type: FRAME
+                    size: 63x24
+                    tokens:
+                      - field: itemSpacing
+                        variable: spacing/4
+                    children:
+                      - name: Action label
+                        type: TEXT
+                        text: Open
+                        size: 43x24
+                        tokens:
+                          - field: fills
+                            variable: color/content/accent
+                          - field: fontSize
+                            variable: typography/font-size/16
+                          - field: fontFamily
+                            variable: typography/body-default/font-family
+                          - field: fontWeight
+                            variable: typography/font-weight/600
+                      - name: Icon
+                        type: INSTANCE
+                        instanceOf: Icon
+                        size: 16x16
+                        tokens:
+                          - field: width
+                            variable: size/16
+                          - field: height
+                            variable: size/16
   code: []
 tokens:
   used:
     - part: cover
       state: rest
       property: height
-      token: '--component-resource-card-default-cover-height'
+      token: '--spacing-80'
       selector: .cover
       at: src/components/ResourceCard/ResourceCard.module.css:35
     - part: cover
       state: rest
       property: background
-      token: '--component-resource-card-default-cover-background'
+      token: '--color-background-knockout'
       selector: .cover
       at: src/components/ResourceCard/ResourceCard.module.css:41
     - part: body
       state: rest
       property: margin-top
-      token: '--component-resource-card-default-sheet-overlap'
+      token: '--spacing-48'
       selector: .body
       at: src/components/ResourceCard/ResourceCard.module.css:57
     - part: tab
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .tab
       at: src/components/ResourceCard/ResourceCard.module.css:73
     - part: tab
       state: rest
       property: border-radius
-      token: '--component-resource-card-default-tab-radius'
+      token: '--border-radius-16'
       selector: .tab
       at: src/components/ResourceCard/ResourceCard.module.css:74
     - part: tab
       state: rest
       property: border-radius
-      token: '--component-resource-card-default-tab-radius'
+      token: '--border-radius-16'
       selector: .tab
       at: src/components/ResourceCard/ResourceCard.module.css:74
     - part: tab
       state: rest
       property: padding
-      token: '--component-resource-card-default-tab-padding-top'
+      token: '--spacing-8'
       selector: .tab
       at: src/components/ResourceCard/ResourceCard.module.css:76
     - part: tab
       state: rest
       property: padding
-      token: '--component-resource-card-default-tab-padding-x'
+      token: '--spacing-12'
       selector: .tab
       at: src/components/ResourceCard/ResourceCard.module.css:76
     - part: tabLabel
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:81
     - part: tabLabel
       state: rest
       property: font-size
-      token: '--component-resource-card-default-tab-font-size'
+      token: '--typography-label-default-font-size'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:82
     - part: tabLabel
       state: rest
       property: font-weight
-      token: '--component-resource-card-default-tab-font-weight'
+      token: '--typography-font-weight-700'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:83
     - part: tabLabel
       state: rest
       property: letter-spacing
-      token: '--component-resource-card-default-tab-letter-spacing'
+      token: '--typography-letter-spacing-0'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:84
     - part: tabLabel
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:85
     - part: tabLabel
       state: rest
       property: color
-      token: '--component-resource-card-default-tab-foreground'
+      token: '--color-content-body'
       selector: .tabLabel
       at: src/components/ResourceCard/ResourceCard.module.css:86
     - part: notch
       state: rest
       property: width
-      token: '--component-resource-card-default-notch-size'
+      token: '--border-radius-16'
       selector: .notch
       at: src/components/ResourceCard/ResourceCard.module.css:102
     - part: notch
       state: rest
       property: height
-      token: '--component-resource-card-default-notch-size'
+      token: '--border-radius-16'
       selector: .notch
       at: src/components/ResourceCard/ResourceCard.module.css:103
     - part: notch
       state: rest
       property: background
-      token: '--component-resource-card-default-notch-size'
+      token: '--border-radius-16'
       selector: .notch
       at: src/components/ResourceCard/ResourceCard.module.css:106
     - part: notch
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .notch
       at: src/components/ResourceCard/ResourceCard.module.css:106
     - part: notch
       state: rest
       property: background
-      token: '--component-resource-card-default-notch-size'
+      token: '--border-radius-16'
       selector: .notch
       at: src/components/ResourceCard/ResourceCard.module.css:106
     - part: content
       state: rest
       property: background
-      token: '--color-semantic-surface'
+      token: '--color-background-surface'
       selector: .content
       at: src/components/ResourceCard/ResourceCard.module.css:121
     - part: content
       state: rest
       property: border-top-right-radius
-      token: '--component-resource-card-default-tab-radius'
+      token: '--border-radius-16'
       selector: .content
       at: src/components/ResourceCard/ResourceCard.module.css:122
     - part: content
       state: rest
       property: padding
-      token: '--component-resource-card-default-body-padding'
+      token: '--spacing-20'
       selector: .content
       at: src/components/ResourceCard/ResourceCard.module.css:123
     - part: title
       state: rest
       property: margin
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:130
     - part: title
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-title-default-font-family'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:131
     - part: title
       state: rest
       property: font-size
-      token: '--component-resource-card-default-title-font-size'
+      token: '--typography-font-size-22'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:132
     - part: title
       state: rest
       property: font-weight
-      token: '--component-resource-card-default-title-font-weight'
+      token: '--typography-font-weight-600'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:133
     - part: title
       state: rest
       property: letter-spacing
-      token: '--component-resource-card-default-title-letter-spacing'
+      token: '--typography-letter-spacing-0'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:134
     - part: title
       state: rest
       property: line-height
-      token: '--typography-line-height-snug'
+      token: '--typography-line-height-130'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:135
     - part: title
       state: rest
       property: color
-      token: '--component-resource-card-default-title-foreground'
+      token: '--color-content-default'
       selector: .title
       at: src/components/ResourceCard/ResourceCard.module.css:136
     - part: description
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .description
       at: src/components/ResourceCard/ResourceCard.module.css:141
     - part: description
       state: rest
       property: font-size
-      token: '--component-resource-card-default-description-font-size'
+      token: '--typography-body-default-font-size'
       selector: .description
       at: src/components/ResourceCard/ResourceCard.module.css:142
     - part: description
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .description
       at: src/components/ResourceCard/ResourceCard.module.css:143
     - part: description
       state: rest
       property: color
-      token: '--component-resource-card-default-description-foreground'
+      token: '--color-content-body'
       selector: .description
       at: src/components/ResourceCard/ResourceCard.module.css:144
     - part: footer
       state: rest
       property: padding-top
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .footer
       at: src/components/ResourceCard/ResourceCard.module.css:154
     - part: footer
       state: rest
       property: border-top
-      token: '--component-resource-card-default-divider-color'
+      token: '--color-border-subtle'
       selector: .footer
       at: src/components/ResourceCard/ResourceCard.module.css:155
     - part: footer
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .footer
       at: src/components/ResourceCard/ResourceCard.module.css:159
     - part: status
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .status
       at: src/components/ResourceCard/ResourceCard.module.css:166
     - part: status
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .status
       at: src/components/ResourceCard/ResourceCard.module.css:167
     - part: status
       state: rest
       property: font-size
-      token: '--component-resource-card-default-meta-font-size'
+      token: '--typography-label-default-font-size'
       selector: .status
       at: src/components/ResourceCard/ResourceCard.module.css:168
     - part: status
       state: rest
       property: color
-      token: '--component-resource-card-default-meta-foreground'
+      token: '--color-content-body'
       selector: .status
       at: src/components/ResourceCard/ResourceCard.module.css:169
     - part: dot
       state: rest
       property: width
-      token: '--component-resource-card-default-status-dot-size'
+      token: '--spacing-8'
       selector: .dot
       at: src/components/ResourceCard/ResourceCard.module.css:175
     - part: dot
       state: rest
       property: height
-      token: '--component-resource-card-default-status-dot-size'
+      token: '--spacing-8'
       selector: .dot
       at: src/components/ResourceCard/ResourceCard.module.css:176
     - part: dot
       state: rest
       property: border-radius
-      token: '--radius-full'
+      token: '--border-radius-round'
       selector: .dot
       at: src/components/ResourceCard/ResourceCard.module.css:177
     - part: dot
       state: rest
       property: background
-      token: '--component-resource-card-default-status-dot-color'
+      token: '--color-content-subtle'
       selector: .dot
       at: src/components/ResourceCard/ResourceCard.module.css:178
     - part: action
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .action
       at: src/components/ResourceCard/ResourceCard.module.css:185
     - part: action
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .action
       at: src/components/ResourceCard/ResourceCard.module.css:186
     - part: action
       state: rest
       property: font-size
-      token: '--component-resource-card-default-action-font-size'
+      token: '--typography-label-default-font-size'
       selector: .action
       at: src/components/ResourceCard/ResourceCard.module.css:187
     - part: action
       state: rest
       property: font-weight
-      token: '--component-resource-card-default-action-font-weight'
+      token: '--typography-font-weight-500'
       selector: .action
       at: src/components/ResourceCard/ResourceCard.module.css:188
     - part: action
       state: rest
       property: color
-      token: '--component-resource-card-default-action-foreground'
+      token: '--color-content-accent'
       selector: .action
       at: src/components/ResourceCard/ResourceCard.module.css:189
   values:
-    '--color-semantic-surface':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-resource-card-default-action-font-size':
-      light: 16px
-      chip: 16px
-    '--component-resource-card-default-action-font-weight':
-      light: '500'
-      chip: '500'
-    '--component-resource-card-default-action-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-resource-card-default-body-padding':
-      light: 20px
-      chip: 20px
-    '--component-resource-card-default-cover-background':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-resource-card-default-cover-height':
-      light: 200px
-      chip: 200px
-    '--component-resource-card-default-description-font-size':
-      light: 20px
-      chip: 20px
-    '--component-resource-card-default-description-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-resource-card-default-divider-color':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--component-resource-card-default-meta-font-size':
-      light: 16px
-      chip: 16px
-    '--component-resource-card-default-meta-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-resource-card-default-notch-size':
-      light: 16px
-      chip: 16px
-    '--component-resource-card-default-sheet-overlap':
-      light: 48px
-      chip: 48px
-    '--component-resource-card-default-status-dot-color':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-resource-card-default-status-dot-size':
-      light: 8px
-      chip: 8px
-    '--component-resource-card-default-tab-font-size':
-      light: 16px
-      chip: 16px
-    '--component-resource-card-default-tab-font-weight':
-      light: '700'
-      chip: '700'
-    '--component-resource-card-default-tab-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-resource-card-default-tab-letter-spacing':
-      light: '0'
-      chip: '0'
-    '--component-resource-card-default-tab-padding-top':
-      light: 8px
-      chip: 8px
-    '--component-resource-card-default-tab-padding-x':
-      light: 12px
-      chip: 12px
-    '--component-resource-card-default-tab-radius':
-      light: 16px
-      chip: 2px
-    '--component-resource-card-default-title-font-size':
-      light: 22px
-      chip: 22px
-    '--component-resource-card-default-title-font-weight':
-      light: '600'
-      chip: '600'
-    '--component-resource-card-default-title-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-resource-card-default-title-letter-spacing':
-      light: '0'
-      chip: '0'
-    '--radius-full':
-      light: 999px
-      chip: 999px
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+    '--border-radius-16':
+      light: null
+      chip: null
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--color-background-knockout':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-accent':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-20':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
-    '--typography-line-height-snug':
-      light: '1.3'
-      chip: '1.3'
+      light: null
+      chip: null
+    '--spacing-48':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--spacing-80':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-font-weight-700':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-130':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
+    '--typography-title-default-font-family':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .interactive
       state: rest
       declaration: >-
-        transition: transform var(--motion-duration-lift) var(--motion-easing-standard), box-shadow var(--motion-duration-lift)
+        transition: transform var(--motion-duration-200) var(--motion-easing-standard), box-shadow var(--motion-duration-200)
         var(--motion-easing-standard)
       properties:
         - transform
         - box-shadow
       durations:
-        - token: '--motion-duration-lift'
-          value: 200ms
-        - token: '--motion-duration-lift'
-          value: 200ms
+        - token: '--motion-duration-200'
+          value: null
+        - token: '--motion-duration-200'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/Card/Card.module.css:85
+          value: null
+      at: src/components/Card/Card.module.css:84
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:140
+    at: src/components/Card/Card.module.css:139
   reducedMotionQuery: true
 a11y:
   element:
@@ -815,115 +834,20 @@ a11y:
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:140
+    at: src/components/Card/Card.module.css:139
   contract: >-
     Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary,
-    7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 16px tag size (font-size.tag), text-secondary, same
-    ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word
-    Open beside the arrow. One link per card, so one tab stop.
+    7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 13px metadata tier, text-secondary, same ratios. The Open
+    action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the
+    arrow. One link per card, so one tab stop.
   targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-hidden="true"
       at: src/components/ResourceCard/ResourceCard.tsx:78
 contrast:
-  pairs:
-    - label: Title
-      foreground: '--component-resource-card-default-title-foreground'
-      background: '--color-semantic-surface'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Description
-      foreground: '--component-resource-card-default-description-foreground'
-      background: '--color-semantic-surface'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Footer status
-      foreground: '--component-resource-card-default-meta-foreground'
-      background: '--color-semantic-surface'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Open
-      foreground: '--component-resource-card-default-action-foreground'
-      background: '--color-semantic-surface'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-resource-card-default-tab-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-resource-card-default-tab-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-resource-card-default-title-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-resource-card-default-title-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-resource-card-default-description-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-resource-card-default-description-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-resource-card-default-meta-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-resource-card-default-meta-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-resource-card-default-action-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-resource-card-default-action-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: src/components/ResourceCard/ResourceCard.stories.tsx
   lines: 183-189
@@ -947,24 +871,24 @@ usage:
     - 'Do not give the tab its own colour or a shadow: it is the sheet folded up, and a shadow breaks the fold'
     - 'Do not write the description longer than two lines: it clamps, and a clamped third line reads as a bug'
     - 'Do not colour the status dot yet: the ladder is unresolved (issue #1) and the neutral dot is the honest placeholder'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '167:138'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    type#167:12:
+    Type#167:12:
       type: TEXT
       default: WORKFLOW
-    title#167:13:
+    Title#167:13:
       type: TEXT
-      default: Audit a component
-    description#167:14:
+      default: lock-then-verify
+    Description#167:14:
       type: TEXT
-      default: Checks a component against its contract and lists what drifts, with a fix for each.
-    statusLabel#167:15:
+      default: Two hard gates around any build.
+    Status label#167:15:
       type: TEXT
-      default: Installed
-    showStatus#740:101:
+      default: Live
+    Show status#740:101:
       type: BOOLEAN
       default: true
     state:
@@ -973,101 +897,163 @@ figma:
       values:
         - hover
         - default
-        - focus-visible
+        - focus
   variants:
     - name: state=default
       width: 360
-      height: 430
+      height: 345
     - name: state=hover
       width: 360
-      height: 430
-    - name: state=focus-visible
+      height: 345
+    - name: state=focus
       width: 360
-      height: 430
+      height: 345
   defaultVariant: state=default
   annotations:
-    - label: 'Motion · Card lift: translateY(-2px) + shadow/hover over motion/duration/lift, motion/easing/standard. Reduced motion: shadow only.'
+    - label: |-
+        Hover and focus: edge and ring change over motion/duration/fast. No lift (17 Nov look review).
+        Reduced motion: instant.
       category: '123:4'
     - label: >-
-        Dev · Wraps <Card> with a full-bleed sheet. Body overlaps the cover by sheet-overlap (spacing/12); the notch is a radial gradient in
-        surface.
+        Wraps a Card with a folder Tab (Type, Geist Mono caps), a Cover over a Sheet, and a Body (Title, Description, Status). Card corner
+        border/radius/card; hover edge color/border/strong.
       category: '123:0'
-    - label: A11y · One link, one tab stop. Title 12.81:1, description 7.74:1, Open 5.96:1 with the word. Focus ring 3px, 3px offset.
+    - label: >-
+        One link, one tab stop; the title is its name. Focus ring color/border/focus, 4px wide with a 4px gap. Text 10.99:1 or more; edge
+        3.76:1.
       category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-resourcecard--docs
 mismatch:
-  - field: tokens.Surface.radius
+  - field: tokens.Cover.paddingTop
     code:
-      - '--component-resource-card-default-tab-radius'
-      - '--radius-full'
-    figma: radius/card
-    sameValueInChip: true
-  - field: tokens.Surface.fills
-    code:
-      - '--component-resource-card-default-cover-background'
-      - '--color-semantic-surface'
-      - '--component-resource-card-default-tab-foreground'
-      - '--component-resource-card-default-notch-size'
-      - '--component-resource-card-default-title-foreground'
-      - '--component-resource-card-default-description-foreground'
-      - '--component-resource-card-default-meta-foreground'
-      - '--component-resource-card-default-status-dot-color'
-      - '--component-resource-card-default-action-foreground'
-    figma: color/semantic/surface-card
-    sameValueInChip: true
-  - field: tokens.Surface.strokes
-    code:
-      - '--component-resource-card-default-tab-radius'
-      - '--component-resource-card-default-divider-color'
-      - '--radius-full'
-    figma: color/semantic/border-faint
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--spacing-20'
+      - '--spacing-16'
+    figma: spacing/24
     sameValueInChip: false
-  - field: tokens.Sheet.radius
+  - field: tokens.Cover shape.fills
     code:
-      - '--component-resource-card-default-tab-radius'
-      - '--radius-full'
-    figma: radius/card
+      - '--color-background-knockout'
+      - '--color-background-surface'
+      - '--color-content-body'
+      - '--border-radius-16'
+      - '--color-content-default'
+      - '--color-content-subtle'
+      - '--color-content-accent'
+    figma: color/border/strong
+    sameValueInChip: false
+  - field: tokens.Type.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
-  - field: figma.layers.Cover art (placeholder).fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover art (placeholder).strokes
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: figma.layers.Cover shape.fills
-    code: null
-    figma: raw value, no variable
-  - field: tokens.Tab.radius
+  - field: tokens.Content.itemSpacing
     code:
-      - '--component-resource-card-default-tab-radius'
-      - '--radius-full'
-    figma: radius/xl
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-4'
+    figma: spacing/20
     sameValueInChip: false
-  - field: tokens.Content.radius
+  - field: tokens.Title.fontSize
     code:
-      - '--component-resource-card-default-tab-radius'
-      - '--radius-full'
-    figma: radius/xl
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/20
     sameValueInChip: false
+  - field: tokens.Description.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Status label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Status label.lineHeight
+    code:
+      - '--typography-line-height-150'
+      - '--typography-line-height-130'
+    figma: typography/line-height-px/24
+    sameValueInChip: false
+  - field: tokens.Action label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Icon.width
+    code:
+      - '--spacing-80'
+      - '--color-background-knockout'
+      - '--spacing-48'
+      - '--color-background-surface'
+      - '--border-radius-16'
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-700'
+      - '--typography-letter-spacing-0'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+      - '--spacing-20'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-130'
+      - '--color-content-default'
+      - '--typography-body-default-font-size'
+      - '--spacing-16'
+      - '--color-border-subtle'
+      - '--border-radius-round'
+      - '--color-content-subtle'
+      - '--spacing-4'
+      - '--typography-font-weight-500'
+      - '--color-content-accent'
+    figma: size/16
+    sameValueInChip: true
+  - field: tokens.Icon.height
+    code:
+      - '--spacing-80'
+      - '--color-background-knockout'
+      - '--spacing-48'
+      - '--color-background-surface'
+      - '--border-radius-16'
+      - '--spacing-8'
+      - '--spacing-12'
+      - '--typography-body-default-font-family'
+      - '--typography-label-default-font-size'
+      - '--typography-font-weight-700'
+      - '--typography-letter-spacing-0'
+      - '--typography-line-height-150'
+      - '--color-content-body'
+      - '--spacing-20'
+      - '--typography-title-default-font-family'
+      - '--typography-font-size-22'
+      - '--typography-font-weight-600'
+      - '--typography-line-height-130'
+      - '--color-content-default'
+      - '--typography-body-default-font-size'
+      - '--spacing-16'
+      - '--color-border-subtle'
+      - '--border-radius-round'
+      - '--color-content-subtle'
+      - '--spacing-4'
+      - '--typography-font-weight-500'
+      - '--color-content-accent'
+    figma: size/16
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/ResourceCard/ResourceCard.tsx
@@ -1183,3 +1169,7 @@ guidance:
     accent: Identity colour, passed to Card
     linkComponent: Router link for internal hrefs
   anatomyScaleWidth: 360
+  statePairs:
+    - figma: focus
+      code: focus-visible
+      why: the same focus ring, shown by :focus-visible in code

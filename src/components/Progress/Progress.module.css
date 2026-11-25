@@ -1,0 +1,368 @@
+/* Progress (Figma BellaComponents Progress + Progress fill, Progress segment,
+ * Progress target, _Target mark; read 19 Nov 2026). Tokens only.
+ * Head: label (subtext face, content/subtle) and value (number face 600,
+ * content/default), 12 apart; 8 from head to the mark.
+ * Bar: track in border/subtle (her 21 Nov "can we litghten the grey bar";
+ * the empty part, not a mark: the fill carries the amount), round ends; the fill
+ * is width = value %, round ends, in the tone's mark colour. At 0 no fill is
+ * drawn, so the track reads empty (fixes the library gap where 0 read full).
+ * Track height is the meter token (8): Figma draws 10, which has no token
+ * and is off the 4 scale.
+ * Target (22 Nov, her pick B · dashed marker and label): a 32 row above
+ * the track holds the "Target n%" label; the dashed line in border/brand
+ * runs from it to 4 below the track at target %.
+ * Segments: equal pills 8 apart, done = tone mark, not done = track.
+ * Ring: 64 box, an 8 band, round caps, track the same shape in border/subtle.
+ * Attention marks: warning-mark fill with a 1px inside edge in
+ * border/utility/warning, so the mark reaches 3:1 (18 Nov "B, bright with edge").
+ * Glow (22 Nov 20:48): the fill, each lit segment and the ring arc carry a
+ * soft two-layer glow, 4 and 12 blur with no offset, in the tone's
+ * see-through colour (green alpha 20, yellow alpha 22, red alpha 22, blue
+ * alpha 30). The fill stays solid; nothing here clips, so the glow shows. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-12);
+}
+
+.label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  /* words, not numbers: the reading face (Lexend in Chip; 21 Nov publish) */
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.value {
+  flex-shrink: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+/* A new amount (item 5, 21 Nov): the fill and the ring's sweep are one
+   registered property, so they move from the old amount to the new one on
+   motion/duration/450 and motion/easing/out. */
+@property --progress-fill {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --progress-turn {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ---- bar ---- */
+.track {
+  position: relative;
+  display: flex;
+  block-size: var(--size-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-subtle);
+}
+
+.fill {
+  box-sizing: border-box;
+  inline-size: var(--progress-fill);
+  transition: --progress-fill var(--motion-duration-450) var(--motion-easing-out);
+  min-inline-size: var(--size-8);
+  block-size: 100%;
+  border-radius: var(--border-radius-round);
+}
+
+/* ---- target: its own part, src/components/ProgressTarget; the bar keeps
+   a 32 row above the track for its label (22 Nov) ---- */
+.targetRow {
+  block-size: var(--spacing-32);
+}
+
+/* a later part of a bar in parts: a 4 gap in the track's colour, so the parts read as two (shape, not only colour) */
+.part {
+  margin-inline-start: var(--size-4);
+}
+
+/* ---- segments ---- */
+.segments {
+  display: flex;
+  gap: var(--spacing-8);
+}
+
+.segment {
+  box-sizing: border-box;
+  transition: background-color var(--motion-duration-250) var(--motion-easing-standard);
+  flex: 1 1 0;
+  block-size: var(--size-8);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-subtle);
+}
+
+/* ---- ring ---- */
+.ringRoot {
+  align-items: center;
+  inline-size: max-content;
+}
+
+.ring {
+  display: grid;
+  place-items: center;
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
+}
+
+.ring > *,
+.ringArc > * {
+  grid-area: 1 / 1;
+}
+
+/* The arc and its caps as one layer, so the glow follows the band: a filter
+   on the masked fill itself would be cut away by its own mask. */
+.ringArc {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  block-size: 100%;
+  filter: drop-shadow(0 0 var(--spacing-4) var(--progress-glow)) drop-shadow(0 0 var(--spacing-12) var(--progress-glow));
+}
+
+/* Drawn in CSS, no inline SVG (one-set rule): the track and the arc are
+ * the same 8-wide band, cut from a disc by a radial mask; the arc is a
+ * conic sweep from 12 o'clock. Round ends: an 8 disc at the start and one
+ * turned to the end, on the band's centre line (18 Nov, round caps). */
+.ringTrack,
+.ringFill {
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: var(--border-radius-round);
+  mask: radial-gradient(
+    closest-side,
+    transparent calc(100% - var(--spacing-8)),
+    currentColor calc(100% - var(--spacing-8) + var(--border-width-1))
+  );
+}
+
+.ringTrack {
+  background: var(--color-border-subtle);
+}
+
+.ringArc > .ringFill {
+  background: conic-gradient(currentColor var(--progress-fill), transparent 0);
+  transition: --progress-fill var(--motion-duration-450) var(--motion-easing-out);
+}
+
+.ringEnd {
+  rotate: var(--progress-turn);
+  transition: --progress-turn var(--motion-duration-450) var(--motion-easing-out);
+}
+
+/* the stretch gained or lost: a band over the track in the tone, fading out
+   once (motion/duration/900) */
+.band {
+  position: absolute;
+  inset-block: 0;
+  box-sizing: border-box;
+  border-radius: var(--border-radius-round);
+  pointer-events: none;
+  opacity: 0;
+  animation: progressBand var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+.band[data-bella-change='gain'] {
+  background: var(--color-background-surface);
+  border: 0;
+}
+
+.band[data-bella-change='loss'] {
+  background: transparent;
+  border: var(--border-width-2) dashed currentColor;
+}
+
+@keyframes progressBand {
+  0%, 30% { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+/* drawIn (demo, 21 Nov): the mark draws in once from nothing to its value
+   on motion/duration/450 and motion/easing/out; the target is not animated,
+   so it is there before the mark arrives. Round caps stay (the fill keeps
+   its round ends while it grows). Fill mode backwards: once drawn it lets
+   go, so a new value still slides on the transition above. */
+.drawIn .fill,
+.drawIn .ringArc > .ringFill {
+  animation: progressDraw var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+.drawIn .ringEnd {
+  animation: progressTurn var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+.drawIn .segment {
+  transform-origin: left center;
+  animation: progressSegment var(--motion-duration-450) var(--motion-easing-out) backwards;
+  /* one after another (22 Nov): each segment starts motion/stagger-120 after the one before */
+  animation-delay: calc(var(--motion-stagger-120) * var(--progress-order));
+}
+
+@keyframes progressDraw {
+  from { --progress-fill: 0%; }
+}
+
+@keyframes progressTurn {
+  from { --progress-turn: 0deg; }
+}
+
+@keyframes progressSegment {
+  from { transform: scaleX(0); }
+}
+
+/* The callout (22 Nov): BELLA's Tooltip wraps the part. Its wrapper runs the
+   part's full width and reaches 8 under the track (taken back by the
+   margin, so nothing moves), so the Tooltip, 8 under its trigger, sits 16
+   under the bar. The bar then takes focus, with BELLA's ring. */
+.callout {
+  display: flex;
+  flex-direction: column;
+  padding-block-end: var(--spacing-8);
+  margin-block-end: calc(var(--spacing-8) * -1);
+}
+
+.callout > .root {
+  flex: 1 1 auto;
+}
+
+.focusable {
+  border-radius: var(--border-radius-sm);
+  cursor: default;
+}
+
+.focusable:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Reduced motion read in JS as well (useReducedMotion): the end state at once */
+.still .fill,
+.still .ringArc > .ringFill,
+.still .ringEnd,
+.still .segment {
+  animation: none;
+  transition: none;
+}
+
+.still .band {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawIn .fill,
+  .drawIn .ringArc > .ringFill,
+  .drawIn .ringEnd,
+  .drawIn .segment {
+    animation: none;
+  }
+  .fill,
+  .segment,
+  .ringArc > .ringFill,
+  .ringEnd {
+    transition: none;
+  }
+  .band {
+    display: none;
+  }
+}
+
+.ringArc > .ringFill,
+.ringArc > .ringCap {
+  border: 0;
+}
+
+.ringCap {
+  /* masked layers paint as their own stacking layer; the caps join that
+   * layer so they sit over the track in source order */
+  position: relative;
+  align-self: start;
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  border-radius: var(--border-radius-round);
+  background: currentColor;
+  transform-origin: 50% var(--spacing-32);
+}
+
+/* ---- glow (22 Nov 20:48): on the fill and each lit segment; a segment
+   with no tone (not done) has no --progress-glow, so it draws none ---- */
+.fill,
+.segment {
+  box-shadow:
+    0 0 var(--spacing-4) var(--progress-glow),
+    0 0 var(--spacing-12) var(--progress-glow);
+}
+
+.info,
+.ringArc[data-tone='info'] {
+  --progress-glow: var(--color-utility-blue-alpha-30);
+}
+.success,
+.ringArc[data-tone='success'] {
+  --progress-glow: var(--color-utility-green-alpha-20);
+}
+.danger,
+.ringArc[data-tone='danger'] {
+  --progress-glow: var(--color-utility-red-alpha-22);
+}
+.attention,
+.ringArc[data-tone='attention'] {
+  --progress-glow: var(--color-utility-yellow-alpha-22);
+}
+/* neutral: unknown, not measured yet; no glow (glow is for the active data only) */
+.neutral,
+.ringArc[data-tone='neutral'] {
+  --progress-glow: transparent;
+}
+
+/* ---- tones (fill, done segment, ring arc) ---- */
+.info {
+  background: var(--color-border-utility-info);
+  color: var(--color-border-utility-info);
+}
+.success {
+  background: var(--color-border-utility-success);
+  color: var(--color-border-utility-success);
+}
+.danger {
+  background: var(--color-border-utility-error);
+  color: var(--color-border-utility-error);
+}
+.neutral {
+  background: var(--color-border-strong);
+  color: var(--color-border-strong);
+}
+.attention {
+  background: var(--color-background-utility-warning-mark);
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+  color: var(--color-background-utility-warning-mark);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

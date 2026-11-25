@@ -11,7 +11,7 @@
             "pill"
           ],
           "rendersAs": "a button, or one anchor with href",
-          "description": "Buttons with real hierarchy: a flat ink primary plate (12px radius, no gloss, no key edge, no shadow, never lifts; near-white in dark), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are DM Sans on the label type token, sentence case, never Unique.",
+          "description": "Chip tertiary (22 Nov, her pick E): blue text only at rest (content/brand, 8.90:1 on the page ground), a pale blue wash and a blue underline on hover and focus; BELLA themes keep the ink tertiary. Buttons with real hierarchy: a flat primary plate on background/brand (ink in BELLA, near-white in BELLA dark; light blue #63b4e8 with a navy label in Chip), no gloss, no key edge, no shadow, never lifts; corner radius/lg (pill in BELLA, 8 in Chip), an outlined secondary, an ink text tier; one primary per view (brand refresh, 2026-09-22: no accent colour on buttons; the primary was flattened by the shared look, 8 Nov 2026). Labels are the theme's body face (DM Sans in BELLA, Lexend in Chip), 16 on a 22 line, weight 600, sentence case, never Unique.",
           "variants": [
             "primary",
             "secondary",
@@ -27,16 +27,25 @@
           "props": [
             "variant",
             "shape",
+            "size",
+            "label",
+            "icon",
+            "showIcon",
+            "leadingIcon",
+            "iconOnly",
             "href",
             "onClick",
             "type",
             "disabled",
+            "busy",
             "linkComponent",
             "ariaLabel",
             "ariaExpanded",
+            "ariaPressed",
+            "ariaHaspopup",
             "className",
             "children"
-          , "size", "iconOnly", "ariaHaspopup"],
+          ],
           "usage": [
             "Hero CTA",
             "Card 'Read more' action",
@@ -46,14 +55,14 @@
             "The primary contact CTA reads \"Let's talk\" (brand refresh, 2026-09-22)"
           ],
           "dont": [
-            "Do not render more than one primary per view: the flat ink plate is the single main action",
+            "Do not render more than one primary per view: the flat primary plate is the single main action",
             "Do not use for filters, toggles, or sort: that is FilterChip / SegmentedControl / Select territory",
             "Do not set labels in Unique at any size",
             "Do not build a neutral tier: it is retired",
             "Do not lift a button on hover: lift is reserved for cards; hover is the label roll",
             "Do not add the trace ring to a button: the trace is Card's affordance"
           ],
-          "a11y": "Verified 8 Nov 2026 (shared look): primary label 13.90:1 on the plate in both modes, and 9.01:1 light / 9.54:1 dark on the hover plate (AAA). Secondary label 16.13:1 light / 14.98:1 dark on the card. Control border 5.16:1 light / 5.13:1 dark on the card. Focus ring 3px, 3px offset, ink in light and near-white in dark: 15.04:1 and 16.26:1 on the page. Focus-visible only.",
+          "a11y": "Measured 20 Nov 2026: primary label 13.90:1 on the plate in BELLA light and dark, 7.12:1 in Chip light and dark; on the hover plate 7.34:1 BELLA light, 9.54:1 BELLA dark, 7.54:1 Chip (AAA). Secondary label 16.13:1 light / 10.99:1 dark on the card. Control border 5.16:1 light on the card. Focus ring 4px with a 4px gap, outside: blue/600 #1865bb in the light themes (3.62:1 on the page), #63b4e8 in the dark themes (9.22:1). Focus-visible only. busy: aria-busy and aria-disabled while the job it started runs; clicks wait, focus stays; the turning icon is decorative and holds still under reduced motion.",
           "anatomy": [
             {
               "key": "shadow",
@@ -76,7 +85,7 @@
                 "inset": 6
               },
               "token": "--color-background-brand",
-              "detail": "flat ink plate, no gloss (near-white in dark)"
+              "detail": "flat plate, no gloss: ink in BELLA, near-white in BELLA dark, light blue #63b4e8 in Chip"
             },
             {
               "key": "box",
@@ -87,7 +96,7 @@
                 "inset": 0
               },
               "token": "--spacing-44",
-              "detail": "44px min, padding 12 / 20, radius 12"
+              "detail": "44px min, padding 0 / 20, radius/lg (pill in BELLA, 8 in Chip)"
             },
             {
               "key": "label",
@@ -98,7 +107,7 @@
                 "inset": -4
               },
               "token": "--typography-label-default-font-size",
-              "detail": "DM Sans 16, sentence case (font-size.tag)"
+              "detail": "16 on 22, weight 600, sentence case; DM Sans in BELLA, Lexend in Chip"
             },
             {
               "key": "ring",
@@ -109,13 +118,13 @@
                 "inset": -6
               },
               "token": "--color-border-focus",
-              "detail": "3px, 3px offset, focus-visible only"
+              "detail": "4px, 4px gap, outside, focus-visible only"
             }
           ],
           "restState": {
             "description": "One job per state. At rest the primary is a calm flat plate and a label: no gloss, no key edge, no shadow. Hover and focus-visible roll the label and shift the colour on every tier (primary plate, secondary fill, tertiary label); the button never lifts. Active is a small press down, primary only. Reduced motion: colour only, the shift stays and the roll and press drop. audit:quality asserts the invariants on every story rendering the component (root carries data-bella-component=button).",
             "atRest": [
-              "flat ink plate",
+              "flat plate",
               "no gloss, no key edge",
               "no shadow",
               "label"
@@ -191,7 +200,8 @@
                 "type": "single-underline",
                 "window": "[data-bella-roll=window]",
                 "selector": "[data-bella-roll=label], [data-bella-roll=copy]",
-                "underlinedVariant": "tertiary"
+                "underlinedVariant": "none",
+                "underlinedWhy": "Figma Button 26:320 (read 19 Nov 2026): no tier carries an underline; tertiary is an ink label with a hover fill. The check now asserts zero underlines on every button, at rest and mid-roll."
               }
             ]
           }
@@ -223,6 +233,8 @@
             "onClick",
             "ariaLabel",
             "linkComponent",
+            "footerText",
+            "footerAction",
             "className",
             "innerClassName",
             "style",
@@ -314,7 +326,7 @@
               },
               "token": "--color-border-focus",
               "trigger": "focus",
-              "detail": "interactive cards only: 3px, 3px offset, focus-visible only"
+              "detail": "interactive cards only: 4px, 4px gap, outside, focus-visible only"
             }
           ],
           "note": "The variant token blocks elevated/glass/featured/inverse below predate the 0.3 Card and remain solely as value sources for the .bella-card-* utility classes emitted by build.py; they are NOT Card variants (the shipped API is default | peek; styling lives in Card.module.css). Their retirement rides on the glass-utility decision.",
@@ -385,7 +397,7 @@
             "Do not write the description longer than two lines: it clamps, and a clamped third line reads as a bug",
             "Do not colour the status dot yet: the ladder is unresolved (issue #1) and the neutral dot is the honest placeholder"
           ],
-          "a11y": "Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 13px metadata tier, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop.",
+          "a11y": "Verified 2026-07-30: title is text-primary on the surface, 12.81:1 light and 12.61:1 worst dark, AAA. Description is text-secondary, 7.74:1 light and 7.33:1 worst dark, AAA. Tab label and footer meta sit at the 16px reading floor, text-secondary, same ratios. The Open action is text-accent, 5.96:1 light and 5.30:1 worst dark, AA, and never stands on colour alone: it carries the word Open beside the arrow. One link per card, so one tab stop.",
           "restState": {
             "description": "At rest the card is the cover, the sheet, the tab and the notch, under Card's rest shadow (shadow.card, 2026-10-04); the lift and shadow.hover are hover and focus only, inherited from Card. The notch is painted from the same semantic surface token as the sheet, so it flips with the theme instead of biting a light hole in the navy card.",
             "atRest": [
@@ -440,13 +452,21 @@
           "description": "Non-interactive metadata. If you can click it, it is not a Tag.",
           "variants": [
             "default",
-            "accent"
+            "accent",
+            "outline",
+            "flat",
+            "index",
+            "line",
+            "solid"
           ],
           "states": [
             "default"
           ],
           "props": [
             "variant",
+            "tone",
+            "showDot",
+            "count",
             "className",
             "style",
             "children"
@@ -481,7 +501,8 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "figma": " style=solid (21 Nov 2026 publish): success, info, attention on the knockout fills, content/brand-knockout, no edge."
         }
       }
     },
@@ -652,7 +673,7 @@
               },
               "token": "--color-border-focus",
               "trigger": "focus",
-              "detail": "3px, 3px offset, focus-visible only"
+              "detail": "4px, 4px gap, outside, focus-visible only"
             }
           ],
           "restState": {
@@ -704,6 +725,7 @@
             "value",
             "onChange",
             "label",
+            "stretch",
             "className"
           ],
           "usage": [
@@ -766,8 +788,9 @@
             "value",
             "onChange",
             "options",
-            "className"
-          , "leading"],
+            "className",
+            "leading"
+          ],
           "usage": [
             "Sort order",
             "Long single-choice lists"
@@ -798,7 +821,8 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "figma": "Matches the published BellaComponents Select (149:163), 21 Nov 2026: text 16, 16 in, chevron 20, label gap 12, Button's focus ring. The open list is the platform's (native select), so its width, padding and option corners are not styled."
         }
       }
     },
@@ -871,7 +895,7 @@
         "bella": {
           "name": "Icon",
           "category": "Data",
-          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful.",
+          "description": "The only way BELLA renders an icon. Iconoir glyphs from an inlined registry, icon-token sized, always currentColor; decorative by default, a label makes it meaningful. Also carries the official one-colour tool marks (Storybook, Figma, GitHub, Notion), filled in the context ink beside a link's label.",
           "variants": [],
           "states": [
             "default"
@@ -890,7 +914,7 @@
           ],
           "dont": [
             "Do not put id attributes inside an icon SVG: the glyph renders more than once (the Button label roll duplicates it), so an id-referenced gradient or clip would collide; draw with paths and currentColor only (audit:quality enforces)",
-            "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces)",
+            "Do not mix icon sets or draw one-off SVGs: Iconoir is the ONLY source (declared 2026-07-22) and every glyph lives in the registry, nothing inline (audit:quality enforces); the one exception is the four tool marks (Storybook, Figma, GitHub, Notion), the official one-colour shapes from Simple Icons (CC0), filled not stroked, shapes unchanged",
             "Do not import an icon library component surface: the registry carries the paths BELLA ships (borrow-behavior-only, recorded)",
             "Do not hardcode an icon colour: currentColor inherits the themed ink",
             "Do not let a meaningful icon stand without text unless its accessible name is proven in a Behavior story; decorative is the default and needs no name"
@@ -995,9 +1019,9 @@
           "dont": [
             "Do not use as a heading: eyebrows complement a heading, never replace one",
             "Never an accent colour: wayfinding is not action",
-            "Never below 13px, never tracked, never uppercased"
+            "Never below 16px, never tracked, never uppercased"
           ],
-          "a11y": "13px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
+          "a11y": "16px floor. muted: text-secondary, 7.09:1 worst light / 7.06:1 worst dark (AAA). ink: text-primary (AAA). Verified 2026-09-22.",
           "restState": {
             "description": "Type only, entirely static.",
             "atRest": [
@@ -1025,19 +1049,21 @@
         "bella": {
           "name": "Input",
           "category": "Inputs",
-          "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust.",
+          "description": "Labelled, stateful, honest about errors. The form is the channel, so the fields carry the trust. 23 Nov (code only): type=password is masked with a Show / Hide button at the end of the field, autocomplete, spellcheck and capitals off, and the value lives only in the field itself, never in text, a label or another attribute.",
           "variants": [],
           "states": [
             "default",
             "focus",
             "disabled",
-            "error"
+            "error",
+            "suggestion"
           ],
           "props": [
             "label",
             "value",
             "onChange",
             "multiline",
+            "labelPosition",
             "error",
             "hint",
             "type",
@@ -1047,6 +1073,11 @@
             "required",
             "disabled",
             "id",
+            "leadingIcon",
+            "menu",
+            "onSend",
+            "sendLabel",
+            "suggestion",
             "className"
           ],
           "usage": [
@@ -1058,7 +1089,7 @@
             "Do not fake errors with colour alone: aria-invalid plus a role=alert message wired via aria-describedby is the pattern",
             "Do not signal an error with colour alone: the danger border always comes with the WarningCircle icon, the message and aria-invalid"
           ],
-          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 3px focus ring (3px offset) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
+          "a11y": "Verified 2026-07-22: real label element (for/id), 8.33:1 light / 9.20:1 dark (AAA). Field text text-primary on surface, 16.92:1 light (AAA); placeholder text-muted, 4.67:1 worst (AA, opacity reset for Firefox). Suggestion (Input 1608:3716): the ghost question is the placeholder in content/subtle (8.53:1 Chip light, 10.99:1 Chip dark on the surface, AAA); the ↵ keycap is aria-hidden and the field is described by \"Press Enter to ask\"; Enter sends it, typing replaces it. Errors (status tokens, 2026-09-22): aria-invalid + role=alert message via aria-describedby; 2px danger-border (3:1+ on every surface), WarningCircle icon, message in danger-text (5.84:1 light on panel, 6.86:1 dark on raised; AA). Focus: the 4px focus ring (4px gap, outside) plus an ink edge; an invalid field keeps its danger edge under the ring. 44px min-height.",
           "anatomy": [
             {
               "key": "label",
@@ -1130,7 +1161,7 @@
               },
               "token": "--color-border-focus",
               "trigger": "focus",
-              "detail": "3px, 3px offset, and the edge goes ink"
+              "detail": "4px, 4px gap, outside, and the edge goes ink"
             }
           ],
           "restState": {
@@ -1153,6 +1184,19 @@
                 "expect": "none"
               }
             ]
+          },
+          "figmaProps": {
+            "Label": "label",
+            "Value": "value",
+            "Show hint": "hint",
+            "required": "required",
+            "disabled": "disabled",
+            "error": "error",
+            "multiline": "multiline",
+            "Leading icon (+ icon)": "leadingIcon (missing = off)",
+            "Send button": "onSend + sendLabel (missing = off)",
+            "state hover / focus": "CSS",
+            "labelPosition": "labelPosition (top | inline; inline single-line only)"
           }
         }
       }
@@ -1235,7 +1279,7 @@
               },
               "token": "--color-border-focus",
               "trigger": "focus",
-              "detail": "3px, 3px offset, radius 4, focus-visible only"
+              "detail": "4px, 4px gap, outside, corner = part + 4, focus-visible only"
             }
           ]
         }
@@ -1352,10 +1396,12 @@
         "bella": {
           "name": "BrandWordmark",
           "category": "Brand",
-          "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink.",
+          "description": "The ELLETA / BELLA wordmark (brand refresh, 2026-09-22): custom E, L, T, A, B stroke glyphs at the locked settings (weight 12, width 58, height 130, tracking 16, soft corners; the E, A and B bars on one low line), filled with the seeded brand pattern and a grain, or in plain ink. CHIP also has a logotype (drawn 8 Nov 2026): the blue chip with its ink C and HIP written by the chip's right wall in one ink line, with a pink signal that runs the circuit once and rests as the full stop; still under reduced motion.",
           "variants": [
             "pattern",
-            "ink"
+            "ink",
+            "mark",
+            "logotype"
           ],
           "states": [
             "default"
@@ -1451,7 +1497,7 @@
       "$extensions": {
         "bella": {
           "name": "Callout",
-          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 13px muted text. gap: a dashed muted frame with a sans label, marking words the author still owes. Static: no interaction, no motion.",
+          "description": "A quiet aside beside the content it qualifies (style unify, 2026-09-22, Elleta; from the reference's .note and .tbd). note: a hairline rule on the left, 16px muted text. gap: a dashed muted frame with a sans label, marking words the author still owes. Static: no interaction, no motion.",
           "variants": [
             "note",
             "gap"
@@ -1531,7 +1577,7 @@
             "Do not mark the selected tab with colour alone: ink text plus the 2px ink bar",
             "Do not render panels without tabPanelProps: aria-controls must resolve"
           ],
-          "a11y": "Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 3px, inset. Tabs hit the 44px touch-target token.",
+          "a11y": "Verified 2026-10-03: tablist with a required aria-label; one tab stop (roving tabindex); ArrowLeft/ArrowRight move and select with wrap, Home/End jump; aria-selected and aria-controls in the tree, each panel labelled by its tab. Labels text-secondary 7.94:1 light / 9.06:1 dark at rest (AAA), selected text-primary 18.73:1 / 16.60:1 on the page (AAA); the selected bar is ink (non-text, far above 3:1). Run state is a filled ink dot or an idle border-strong ring (3.00:1 worst) and also text in the name. Focus ring 4px, inset. Tabs hit the 44px touch-target token.",
           "anatomy": [
             {
               "key": "hairline",
@@ -1618,7 +1664,7 @@
         "bella": {
           "name": "Kbd",
           "category": "Data",
-          "description": "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one recessed cap per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them.",
+          "description": "A keyboard shortcut in Mono keycaps (CHIP components, 2026-10-03). Semantic kbd, one white cap with a hairline edge per key, with an optional spoken label for symbol keys. Static: it names keys, it does not press them.",
           "variants": [],
           "states": [
             "default"
@@ -1635,10 +1681,10 @@
           ],
           "dont": [
             "Do not make it clickable: a pressable keycap is Button",
-            "Do not raise or animate it: Kbd is recessed and flat, and a pressable thing is a Button",
+            "Do not raise or animate it: Kbd is flat and static, and a pressable thing is a Button",
             "Do not leave a symbol key unlabelled: pass label so screen readers say the shortcut, not the glyph"
           ],
-          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps text-secondary on surface-inset, 7.09:1 light / 7.69:1 dark (AAA). The cap edge is a decorative hairline. Mono at the 13px floor.",
+          "a11y": "Verified 2026-10-03: a kbd element with nested kbd per key, never focusable. With label, the glyphs are aria-hidden and the label is read. Caps content/subtle on a white plate (background/surface, Figma Kbd 156:117, 18 Nov): 8.53:1 BELLA and Chip light, 7.54:1 BELLA dark, 10.99:1 Chip dark (AAA, measured 20 Nov 2026). The cap edge is a decorative hairline. Mono at the 16px floor.",
           "restState": {
             "description": "Entirely static, like Tag. audit:quality asserts it never lifts or animates (root carries data-bella-component=kbd).",
             "atRest": [
@@ -1696,7 +1742,7 @@
             "Do not mark the current item with a wash alone: aria-current plus ink plus weight",
             "Do not collapse without onToggle: the lists would be unreachable"
           ],
-          "a11y": "Verified 2026-10-03: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 3px, inset. Rows and the toggle hit the 44px touch-target token.",
+          "a11y": "Verified 2026-10-03: a nav landmark with a required aria-label; groups with a heading are lists labelled by it; the current item is aria-current=page. Labels text-secondary at rest, 7.09:1 light / 8.44:1 dark on panel (AAA); hover and current go text-primary, current on the border-subtle wash 14.60:1 / 12.26:1 (AAA); counts go ink on the current wash (muted would be 6.18:1). The toggle is a real button with aria-expanded, aria-controls and a spoken Hide / Show name; its icon is decorative. Focus ring 4px, inset. Rows and the toggle hit the 44px touch-target token.",
           "restState": {
             "description": "Flat: text rows and the current wash. audit:quality asserts no elevation or animation (root carries data-bella-component=nav-list).",
             "atRest": [
@@ -1735,7 +1781,7 @@
         "bella": {
           "name": "Stat",
           "category": "Data",
-          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03). A term-description pair: a sans label, a light display figure in tabular numerals, a change line whose direction is an arrow plus a spoken word, never colour. An optional sparkline (series, two points or more) draws the history as a 1px ink line, spoken as one sentence.",
+          "description": "One figure with its label and an optional change (CHIP components, 2026-10-03; BellaComponents Stat 161:78, 21 Nov 2026). A term-description pair: a 16 label, the figure in the number face 700 at 24 in tabular numerals, a change line in the subtext face whose direction is an arrow plus a spoken word, never colour. An optional sparkline.",
           "variants": [],
           "states": [
             "default"
@@ -1747,8 +1793,17 @@
             "trend",
             "series",
             "seriesLabel",
-            "className"
-          , "icon", "measure", "measureLabel", "measured"],
+            "range",
+            "seriesLabels",
+            "className",
+            "icon",
+            "measure",
+            "measureLabel",
+            "size",
+            "measured",
+            "summary",
+            "table"
+          ],
           "usage": [
             "CHIP health figures (components, failures, indexed chunks, last sync)",
             "Any small row of headline figures on a Card or panel"
@@ -1828,7 +1883,8 @@
                 "expect": "none"
               }
             ]
-          }
+          },
+          "figma": "Matches the published BellaComponents Stat (161:78), 21 Nov 2026: label 16 regular, value Geist Mono Bold 24 on a 24 line, change 16 in the subtext face."
         }
       }
     },
@@ -1837,7 +1893,7 @@
         "bella": {
           "name": "DataTable",
           "category": "Data",
-          "description": "Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row pink without dimming any other row.",
+          "description": "Rows of facts in columns (CHIP components, 2026-10-03). Sortable headers are buttons with aria-sort, the header sticks, figures are right-aligned and tabular, and an optional single selection fills the chosen row light blue (background/brand-subtle-hover) with a bold ink label, without dimming any other row.",
           "variants": [],
           "states": [
             "default",
@@ -1852,8 +1908,13 @@
             "rowKey",
             "caption",
             "defaultSort",
+            "sort",
+            "onSortChange",
+            "freezeFirst",
             "selectedKey",
             "onSelect",
+            "onOpen",
+            "stack",
             "maxHeight",
             "density",
             "className"
@@ -1864,16 +1925,18 @@
           ],
           "usage": [
             "CHIP per-component health results",
-            "Any comparison of the same facts across many items"
+            "Any comparison of the same facts across many items",
+            "A long list in a CHIP drawer: the row opens its detail (onOpen) and stacks under 480 (stack)"
           ],
           "dont": [
-            "Do not dim unselected rows: selection is the pink fill, everything else keeps its paint",
+            "Do not dim unselected rows: selection is the light blue fill with a bold ink label, everything else keeps its paint",
             "Do not use the focus ring colour for selection: the ring means focus only",
             "Do not left-align figures: numeric columns are right-aligned and tabular",
             "Do not drop the caption: it names the table",
-            "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)"
+            "Do not use density compact on a sortable or selectable table: interactive rows keep the 44px target (the component ignores compact there)",
+            "Do not put a fix button on every row: the row opens its detail, and the action lives there"
           ],
-          "a11y": "Verified 2026-10-03: a real table with a visible caption; column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the pink fill with a near-black label, 8.13:1 (AAA; shared look, 8 Nov 2026), nested components included (a muted StatusPill label on the fill fails contrast), and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). With maxHeight the scroll wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 3px.",
+          "a11y": "Verified 2026-10-03: a real table named by its visible caption (aria-labelledby; the caption sits above the frame, 20 Nov 2026); column headers scope=col, the first cell of each row scope=row. Sortable headers hold a button and carry aria-sort (none, ascending, descending); the arrow is decorative. Selection is a toggle button with aria-pressed in the row header; the selected row is the light blue fill (background/brand-subtle-hover) with a bold ink label: 12.30:1 Chip light, 9.54:1 BELLA light, 7.34:1 BELLA dark (AAA, measured 20 Nov 2026; Chip dark's white-alpha tint not measured), nested components included, and no other row changes. Header labels text-secondary on panel, 7.09:1 light / 8.44:1 dark (AAA). The frame's edge and corners sit on the scroll wrapper, so they stay while the table scrolls; with maxHeight that wrapper is a focusable region named by the caption. Sort and select buttons hit the 44px touch-target token; focus ring 4px with a 4px gap.",
           "restState": {
             "description": "Flat: rules, the sticky header and the cell text. audit:quality asserts no elevation or animation (root carries data-bella-component=data-table).",
             "atRest": [
@@ -1914,7 +1977,7 @@
           "name": "Drawer",
           "category": "Layout",
           "rendersAs": "a native dialog, opened modal",
-          "description": "A panel that slides in from the left (or the right, side=right) over a scrim (CHIP components, 2026-10-03). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
+          "description": "A panel that slides in from the left (or the right, side=right) over a scrim, or rises from the bottom as the phone sheet (side=bottom: full width, 24 corners on top, a decorative grab handle, no divider above the footer). A native modal dialog: the page behind is inert, Esc closes it, focus returns to the trigger. For navigation on small screens.",
           "variants": [],
           "states": [
             "closed",
@@ -1923,26 +1986,36 @@
           ],
           "sides": [
             "left",
-            "right"
+            "right",
+            "bottom"
           ],
           "props": [
             "open",
             "onClose",
             "label",
             "side",
+            "size",
             "children",
-            "className"
-          , "footer"],
+            "status",
+            "subtitle",
+            "action",
+            "onBack",
+            "backLabel",
+            "className",
+            "footer",
+            "footerNote"
+          ],
           "usage": [
             "CHIP sidebar below 720px",
-            "Any navigation or filter panel that cannot stay on screen at phone width"
+            "Any navigation or filter panel that cannot stay on screen at phone width",
+            "The phone sheet (side=bottom): the Side menu or a short panel on a phone"
           ],
           "dont": [
             "Do not use it as a page section: it is a modal and blocks the page",
             "Do not open it without a visible trigger: focus has to return somewhere",
             "Do not dim content inside the panel: the scrim covers the page, never the drawer"
           ],
-          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion.",
+          "a11y": "Verified 2026-10-03: a native <dialog> opened with showModal(), named by its visible title (aria-labelledby). The rest of the page is inert while it is open, so Tab stays inside. Esc, the Close button and a click on the scrim close it; focus returns to the element that opened it. Title and content text-primary on the raised surface, 16.73:1 light / 12.93:1 dark (AAA). The slide is 250ms and is dropped under prefers-reduced-motion. The body is a region named \"<label>: content\"; when it scrolls it is a tab stop with BELLA's focus ring drawn inside, and the keyboard scrolls it. side=bottom: the same dialog, focus trap, Esc and Close; the grab handle is aria-hidden; the rise is 450ms and dropped under prefers-reduced-motion.",
           "restState": {
             "description": "Closed, it renders an empty dialog element the browser hides. Open, it slides in once and holds still.",
             "atRest": [
@@ -1958,6 +2031,16 @@
               }
             ],
             "invariants": []
+          },
+          "figma": "Matched to the published BellaComponents Drawer (172:622), 22 Nov 2026: head, status line, 44 icon-only Close, padding 24, shadow/soft, edge corner border/radius/24. side=bottom (decided: no divider after the last row): sm hugs the content, lg 720 tall, the 36 x 4 handle in border/strong, slides up on motion/duration/450 and motion/easing/out. size lg at the sides: 640 from 768, full width on a phone (CHIP · Dashboard Flow 12).",
+          "figmaProps": {
+            "Label": "label",
+            "side": "side",
+            "open": "open",
+            "Body (slot)": "children",
+            "Show status + Status": "status (missing = off)",
+            "Show footer + Footer": "footer (missing = off)",
+            "state=focus": "CSS :focus-visible on its controls"
           }
         }
       }
@@ -1967,7 +2050,7 @@
         "bella": {
           "name": "Combobox",
           "category": "Inputs",
-          "description": "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the pink fill.",
+          "description": "One field over a grouped list (CHIP components, 2026-10-03): the ARIA combobox pattern. Typing opens the list, Up and Down move the active option while focus stays in the field, Enter chooses it, Esc closes the list. The active option is the light blue fill (background/brand-subtle) with an ink label, the same as hover.",
           "variants": [],
           "states": [
             "default",
@@ -1982,6 +2065,7 @@
           "props": [
             "label",
             "hideLabel",
+            "labelPosition",
             "value",
             "onChange",
             "groups",
@@ -1990,6 +2074,8 @@
             "placement",
             "placeholder",
             "hint",
+            "search",
+            "noResults",
             "onKeyDown",
             "id",
             "className"
@@ -2000,10 +2086,10 @@
           ],
           "dont": [
             "Do not move focus into the list: focus stays in the field and the active option is aria-activedescendant",
-            "Do not dim the other options: the active one gets the pink fill, nothing else changes",
+            "Do not dim the other options: the active one gets the light blue fill, nothing else changes",
             "Do not use it for a fixed short list without typing: that is Select"
           ],
-          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option near-black on the pink fill 8.13:1 (AAA; shared look, 8 Nov 2026). Options and field are 44px. Focus ring on the field.",
+          "a11y": "Verified 2026-10-03: input role=combobox with aria-expanded, aria-controls and aria-autocomplete=list; the list is role=listbox named by the label, groups are role=group named by their heading, options are role=option with aria-selected on the active one, referenced by aria-activedescendant. Esc closes the list and stops there; a second Esc belongs to the page. Option and field text ink on the panel (AAA), group headings and meta text-secondary (AAA), the active option ink on the light blue fill (background/brand-subtle): 14.57:1 Chip light, 13.90:1 BELLA light, 10.99:1 BELLA dark, meta 7.70:1 / 7.34:1 / 7.54:1, and 8.98:1 for label and meta in Chip dark on the panel (AAA, measured 20 Nov 2026). Options and field are 44px. Focus ring on the field.",
           "restState": {
             "description": "Closed: the field alone. Open: the list floats with the large shadow.",
             "atRest": [
@@ -2047,8 +2133,9 @@
             "onToggle",
             "children",
             "id",
-            "className"
-          , "flush"],
+            "className",
+            "flush"
+          ],
           "usage": [
             "Facts, Checks, Tokens and Notes on the Atlas Facts card",
             "Any long card that should fit the screen closed"
@@ -2106,10 +2193,12 @@
           ],
           "props": [
             "children",
+            "label",
             "onClick",
             "href",
             "linkComponent",
             "disabled",
+            "busy",
             "ariaLabel",
             "variant",
             "className"
@@ -2125,7 +2214,7 @@
             "Do not use it as a filter or toggle: that is FilterChip with aria-pressed",
             "Do not use it for the main action of a view: that is Button primary"
           ],
-          "a11y": "Verified 2026-10-03: a real button (or a link with href), 44px. Label ink on the page and on panel (AAA in light, warm and dark); the control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring.",
+          "a11y": "Verified 2026-10-03: a real button (or a link with href), 44px. Label ink on the page and on panel (AAA in light, warm and dark); the control border clears 3:1 on every surface; hover adds the hairline wash and the edge goes ink; focus is the shared ring. busy: aria-busy and aria-disabled while its job runs; clicks wait, focus stays; the turning icon is decorative and holds still under reduced motion.",
           "restState": {
             "description": "Flat always: the control-border pill and its label. audit:quality asserts no elevation or animation (root carries data-bella-component=action-chip).",
             "atRest": [
@@ -2171,12 +2260,16 @@
           "props": [
             "meta",
             "title",
-            "titleAside",
             "lede",
+            "icon",
+            "titleAside",
+            "storyLink",
+            "health",
             "actions",
+            "size",
             "id",
             "className"
-          , "icon"],
+          ],
           "usage": [
             "The first block of every page template: Overview, Object page, Library and Settings",
             "Atlas: the component name, its category and number as meta"
@@ -2449,14 +2542,16 @@
             "tail",
             "kind",
             "tapback",
+            "reactions",
+            "reactionCount",
             "children",
             "actions",
             "emojiLabel",
             "className",
             "disc",
-            "senderName"
-          ,
-"kindLabel"],
+            "senderName",
+            "kindLabel"
+          ],
           "usage": [
             "A line of chat in The Bar replay"
           ],
@@ -2549,12 +2644,13 @@
         "bella": {
           "name": "Pin",
           "category": "Annotation",
-          "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups.",
+          "description": "A numbered marker that explains something in place. The number and the word carry the meaning; the pop colour only groups. With no number it is the dot pin of her On the stage view: a status dot on a haloed disc (green pass, yellow finding).",
           "variants": [
             "yellow",
             "pink",
             "blue",
-            "red"
+            "red",
+            "green"
           ],
           "states": [
             "default",
@@ -2564,8 +2660,10 @@
           "props": [
             "number",
             "variant",
+            "pinStyle",
             "label",
             "onClick",
+            "active",
             "ariaLabel",
             "className",
             "style"
@@ -2577,9 +2675,149 @@
           "dont": [
             "Do not use colour alone: a pin always has a number",
             "Do not use a pop colour for a status: StatusPill carries status",
-            "Do not make a label-less pin clickable without ariaLabel"
+            "Do not make a label-less pin clickable without ariaLabel",
+            "Do not leave a number-less dot pin unexplained: name it in ariaLabel or a chip beside it"
           ],
           "a11y": "Verified 2026-11-07: number and label are text-primary on surface-card, AAA in every theme. The pop ring is decoration (pink 2.40:1, yellow 1.85:1 on white). With onClick it is a button with a 44px box and BELLA's focus ring."
+        }
+      }
+    },
+    "pin-label": {
+      "$extensions": {
+        "bella": {
+          "name": "PinLabel",
+          "category": "Annotation",
+          "description": "A pill that names a pin: kind label is a Pin with the token or part name (Show pin off: the name alone, the stage's name chips); kind part is a status dot with the part name.",
+          "states": [
+            "default",
+            "selected"
+          ],
+          "props": [
+            "kind",
+            "children",
+            "number",
+            "showPin",
+            "tone",
+            "status",
+            "selected",
+            "active",
+            "onClick",
+            "onActiveChange",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Naming a numbered part on the stage, tied to its pin by a solid Leader",
+            "Listing a token or part beside its pin"
+          ],
+          "dont": [
+            "Do not use it as a button: it is a label",
+            "Do not show status by colour alone: pass shows a check mark"
+          ],
+          "a11y": "Text is text-primary on surface, AAA in every theme. The status dot carries a check mark for pass, so colour is never alone. Selected adds a 2px ink ring.",
+          "figma": "Matches the published BellaComponents Pin label (629:1116), read 20 Nov 2026."
+        }
+      }
+    },
+    "size-tag": {
+      "$extensions": {
+        "bella": {
+          "name": "SizeTag",
+          "category": "Annotation",
+          "description": "A measured size beside a bracket, in the colour of its annotation. A filled rectangle with small corners, never a pill.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "tone",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "On doc stages, beside a bracket"
+          ],
+          "dont": [
+            "Do not make it a Tag: a Tag labels, a Size tag measures",
+            "Do not use it for a status"
+          ],
+          "a11y": "Text: content/on-accent-1 on the pop fills, AA or better in every theme (the pops are light). Plain text, no role.",
+          "figma": "Matches the published BellaComponents Size tag (634:1152), read 20 Nov 2026: padding 4, radius sm, Geist Mono 16 bold."
+        }
+      }
+    },
+    "part-row": {
+      "$extensions": {
+        "bella": {
+          "name": "PartRow",
+          "category": "Annotation",
+          "description": "One numbered part in an anatomy list: pin, part name, what it does, and its tokens.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "number",
+            "tone",
+            "title",
+            "description",
+            "detail",
+            "active",
+            "onActiveChange",
+            "onClick",
+            "selected",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Beside a component render whose parts carry the same numbered Pins"
+          ],
+          "dont": [
+            "Do not use it for navigation or actions: it is a caption, not a control"
+          ],
+          "a11y": "Plain text: title content/default, lines content/subtle (7:1+). The pin's number is text. With onClick the row is a button (aria-pressed = selected, at least 48 tall); hover and focus light its match on the specimen.",
+          "figma": "Matches the published BellaComponents Part row (841:124467), read 20 Nov 2026: solid blue Pin, 12 apart, title Lexend 18 / 600, description and detail Lexend 16 subtle.",
+          "figmaProps": {
+            "Title": "title",
+            "Description": "description",
+            "Detail": "detail",
+            "Show detail": "detail present"
+          }
+        }
+      }
+    },
+    "anatomy-highlight": {
+      "$extensions": {
+        "bella": {
+          "name": "AnatomyHighlight",
+          "category": "Annotation",
+          "description": "Marks one piece of a part on a doc page: a 2px outline round the piece, outside so it never covers it, and a tag naming it on the outline's edge. No numbers. AnatomyTag is the tag alone, for the margin.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "shape",
+            "tag",
+            "showTag",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Doc-page anatomy, placed absolute over the specimen and sized to the piece",
+            "AnatomyTag alone in the margin, level with its piece, when the edge would cover the part"
+          ],
+          "dont": [
+            "Do not number the pieces: it replaces numbered Pins and Leaders on doc-page anatomy",
+            "Do not use it for flow locator dots: those stay Pins"
+          ],
+          "a11y": "The tag is text, content/on-accent-1 on accent-2 (AAA). The outline is decoration over the piece; with Show tag off the name stays for screen readers. No pointer events.",
+          "figma": "Matches the published BellaComponents Anatomy highlight (1309:233) and _Anatomy tag (1311:5454), read 20 Nov 2026.",
+          "figmaProps": {
+            "shape": "shape",
+            "tag": "tag",
+            "Show tag": "showTag",
+            "Label (on _Anatomy tag)": "label"
+          }
         }
       }
     },
@@ -2588,15 +2826,17 @@
         "bella": {
           "name": "Leader",
           "category": "Annotation",
-          "description": "A dashed line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains.",
+          "description": "A line, measured from one element to another inside the same positioned parent, that ties a Pin to what it explains. Dashed by default; solid with one rounded bend for stage markers.",
           "variants": [
             "yellow",
             "pink",
             "blue",
-            "red"
+            "red",
+            "neutral"
           ],
           "states": [
-            "default"
+            "default",
+            "selected"
           ],
           "props": [
             "from",
@@ -2604,6 +2844,9 @@
             "label",
             "variant",
             "end",
+            "lineStyle",
+            "selected",
+            "draw",
             "className",
             "style"
           ],
@@ -2631,6 +2874,35 @@
           "props": [
             "title",
             "description",
+            "layout",
+            "selected",
+            "iconWell",
+            "pin",
+            "meta",
+            "statusDot",
+            "avatar",
+            "overline",
+            "body",
+            "tag",
+            "indent",
+            "swatch",
+            "textButton",
+            "statusBar",
+            "barHierarchy",
+            "value",
+            "valueLabel",
+            "rightTag",
+            "subValue",
+            "actionButton",
+            "switch",
+            "trailing",
+            "progress",
+            "helperText",
+            "divider",
+            "href",
+            "onClick",
+            "linkComponent",
+            "as",
             "status",
             "action",
             "titleAs",
@@ -2721,10 +2993,10 @@
             "label",
             "children",
             "placement",
-            "className"
-          ,
-"kind",
-"rows"],
+            "className",
+            "kind",
+            "rows"
+          ],
           "usage": [
             "Naming an icon button in a toolbar"
           ],
@@ -2752,6 +3024,7 @@
             "title",
             "lineNumbers",
             "copy",
+            "lineMarks",
             "className"
           ],
           "usage": [
@@ -2763,7 +3036,2049 @@
             "Do not colour code inline: every colour is a syntax token",
             "Do not let a diff rely on colour: + and − lead the line"
           ],
-          "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it)."
+          "a11y": "Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named \"Copy <title>\" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it).",
+          "parts": [
+            {
+              "number": 1,
+              "name": "Title bar",
+              "does": "File name of the snippet"
+            },
+            {
+              "number": 2,
+              "name": "Copy button",
+              "does": "Copies the code; says so when it fails"
+            },
+            {
+              "number": 3,
+              "name": "Line numbers",
+              "does": "One per line"
+            },
+            {
+              "number": 4,
+              "name": "Code line",
+              "does": "Syntax colours from tokens"
+            }
+          ],
+          "figma": "Code line kind=current fills background/wash/blue in every theme (published 21 Nov, her blue wash); syntax 7.70:1 lowest on it."
+        }
+      }
+    },
+    "status-dot": {
+      "$extensions": {
+        "bella": {
+          "name": "StatusDot",
+          "category": "Data",
+          "description": "Figma \"Label\". The word that carries the meaning. */ label?: ReactNode; /** Figma \"Show label\". Off hides the word visually; it stays the accessible name. */ showLabel?: boolean; /** Figma \"Show dot\". Off drops the mark and its halo. */ showDot?: boolean; /** Figma \"Show wash\". Off gives a bare dot with no halo. */ showWash?: boolean; /** Figma \"tone\". The status colour of the halo and the mark. */ tone?: 'success' | 'info' | 'attention' | 'danger' | 'neutral'; /** Figma \"mark\". `check` shows a Check 16 in the tone's ink instead of the dot (Figma draws it for success only). */ mark?: 'dot' | 'check'; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } /** A status beside a title: the dot carries the tone, the word carries the meaning. The only dot in CHIP, and it means status. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "showLabel",
+            "showDot",
+            "showWash",
+            "tone",
+            "mark",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "icon-well": {
+      "$extensions": {
+        "bella": {
+          "name": "IconWell",
+          "category": "Data",
+          "description": "Figma \"Icon\" (instance swap). Any name from the Icon registry. */ icon: IconName; /** Figma \"tone\". The wash of the circle and the ink of the glyph. */ tone?: 'success' | 'warning' | 'info' | 'neutral'; /** Decorative by default. Pass a label only when the icon carries meaning the text beside it does not. */ label?: string; /** Extra classes on the well. */ className?: string; style?: CSSProperties; } /** A 36 circle in the tone's wash with a 24 icon in the tone's ink. Card and section headers, Stat cards, the Step marker. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "icon",
+            "tone",
+            "size",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "text-stack": {
+      "$extensions": {
+        "bella": {
+          "name": "TextStack",
+          "category": "Layout",
+          "description": "Figma \"Overline\" + \"↳ Overline text\". Missing = off. Subtext face. */ overline?: ReactNode; /** Figma \"Title\" + \"↳ Title text\". Missing = off. Semibold ink. */ title?: ReactNode; /** Figma \"Subtitle\" + \"↳ Subtitle text\". Missing = off. Subtext face. */ subtitle?: ReactNode; /** Figma \"Body\" + \"↳ Body text\". Missing = off. Reading face, wraps. */ body?: ReactNode; /** Extra classes on the stack. */ className?: string; style?: CSSProperties; } /** The text column every row, card and header reuses: overline, title, subtitle, body, 4 apart on one left edge, fill width, wrap.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "overline",
+            "title",
+            "titleAs",
+            "count",
+            "subtitle",
+            "meta",
+            "body",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "trailing": {
+      "$extensions": {
+        "bella": {
+          "name": "Trailing",
+          "category": "Actions",
+          "description": "The end-of-row mark: a 24 frame that fills the row height, glyph centred, 44 hit area. Figma \"Icon\" choices: ↗ (the default, 21 Nov) and ⇅ at the 24 icon, › at the 32 icon with a 1.5px line.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "icon",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Trailing (1240:554), 21 Nov 2026: default icon ArrowUpRight, lg 24."
+        }
+      }
+    },
+    "status-square": {
+      "$extensions": {
+        "bella": {
+          "name": "StatusSquare",
+          "category": "Data",
+          "description": "Figma \"status\". Shape of the glyph and the fill both change, so colour is never the only cue. */ status?: 'failed' | 'waiting' | 'working' | 'passed'; /** Accessible name. Defaults to the status word. */ label?: string; /** Extra classes on the square. */ className?: string; style?: CSSProperties; } const GLYPH: Record<NonNullable<StatusSquareProps['status']>, IconName> = { failed: 'WarningCircle', waiting: 'Clock', working: 'RefreshDouble', passed: 'Check', }; /** A branch or run status: a 24 filled square with a 16 glyph. Starts a branch row in the project tree. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "status",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "progress": {
+      "$extensions": {
+        "bella": {
+          "name": "Progress",
+          "category": "Data",
+          "description": "A measured amount: bar (track, fill, optional target), segments, or ring. The track and undone segments are border/subtle ((decided 21 Nov 2026: a lighter grey bar): the empty part, not a mark; the fill carries the amount and the amount is always in words. 23 Nov: parts draws a bar in parts (each a share with what it is); showTargetLabel off leaves the thin tick with no tag.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "value",
+            "showLabel",
+            "showTarget",
+            "shape",
+            "tone",
+            "fill",
+            "target",
+            "targetLabel",
+            "showTargetLabel",
+            "parts",
+            "segments",
+            "done",
+            "drawIn",
+            "callout",
+            "summary",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Progress, 21 Nov 2026: track border/subtle. 21 Nov 2026 publish: track 8 on size/8 (published in Foundations 22 Nov), labels in the reading face, segments 5 by default (3 of 5 = 60%), target is Progress target."
+        }
+      }
+    },
+    "progress-ring": {
+      "$extensions": {
+        "bella": {
+          "name": "ProgressRing",
+          "category": "Data",
+          "description": "The one small circle that says where a step or job is: a turning blue arc while it runs (half a circle, or n of m when it knows its steps), a green tick when done, a grey ring while waiting or paused, a red cross when it failed. Indeterminate motion turns for under 3 s, then holds still and says it is still working. Reduced motion: a still arc.",
+          "states": [
+            "running",
+            "done",
+            "waiting",
+            "failed"
+          ],
+          "props": [
+            "state",
+            "size",
+            "value",
+            "total",
+            "showCount",
+            "duration",
+            "label",
+            "decorative",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "TaskCard step row, Step current marker, Work board and Components Fix tab (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not an amount on its own with a label (Progress shape=ring)",
+            "Not a whole-page wait (Skeleton)",
+            "Never turns for 3 s or more"
+          ],
+          "a11y": "role=img named by the state words (\"Running, 2 of 5\"), or role=progressbar with aria-valuenow/aria-valuemax when determinate; decorative hides it where the words beside it already say the state. Never colour alone: the tick and cross are shapes. Settled indeterminate adds \"Still working\" as its description. Arc, done and failed 3:1 or more on card and page; waiting ring border/strong 5.2:1 on the card (Chip light), 6.4:1 (Chip dark).",
+          "figma": "Matches BellaComponents ProgressRing 1730:129 (22 Nov 2026): state running, done, waiting, failed; size sm 20, md 36; Count and Show count; arc 4 wide."
+        }
+      }
+    },
+    "stat-card": {
+      "$extensions": {
+        "bella": {
+          "name": "StatCard",
+          "category": "Data",
+          "description": "One figure on a card: what it is, the number, how far along, and ↗ to open it. One column from the 24 padding, no indent: header (36 icon well, title, ↗; the whole 44 row is the target), body (number and unit in the number face 700, chart, context), footer (caption, a Button only when it acts). chart bar, segments, none (number only) or empty (no data yet: zero, an empty bar, the footer says why and offers the action). tone success, warning, info, danger, neutral: status only. 23 Nov: optional change row under the number (series: Stat's sparkline; trend: a thin arrow in a tinted circle with a spoken word; comparison: one meta line), and meter.parts / meter.showTargetLabel pass through to Progress. 23 Nov: when it opens something the whole card is the target (the header link stretches over the card; a footer action, the bar's callout and the sparkline sit above it).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "label",
+            "value",
+            "unit",
+            "emptyCount",
+            "emptyTotal",
+            "context",
+            "contextSentence",
+            "caption",
+            "button",
+            "chart",
+            "tone",
+            "icon",
+            "meter",
+            "href",
+            "onOpen",
+            "drawIn",
+            "summary",
+            "className",
+            "style",
+            "series",
+            "seriesLabels",
+            "trend",
+            "trendTone",
+            "comparison",
+            "seriesForm"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Stat card (1168:56015), 21 Nov 2026: one pattern, 14 variants (bar, segments, none × tones; empty neutral). Geist Mono Bold is synthesized until the Bold file is added (only Regular is loaded).",
+          "figmaProps": {
+            "Empty count": "emptyCount (chart=empty, default 0)",
+            "Empty total": "emptyTotal (chart=empty; missing = unit)"
+          }
+        }
+      }
+    },
+    "step": {
+      "$extensions": {
+        "bella": {
+          "name": "Step",
+          "category": "Data",
+          "description": "Figma \"Title\". */ title: ReactNode; /** Figma \"Detail\" + \"Show detail\". Missing = off. Subtext face; says the state in words. */ detail?: ReactNode; /** Figma \"Show connector\". The line to the next marker; off on the last step. */ showConnector?: boolean; /** Figma \"Show tag\". A Tag under the title (vertical). Missing = off. */ tag?: ReactNode; /** Figma \"Time\" + \"Show time\". Right column, subtext face (vertical). Missing = off. */ time?: ReactNode; /** Figma \"Show line above\". Vertical: the line into this marker; off on the first row. */ showLineAbove?: boolean; /** Figma \"state\". done = check in a soft success circle; current = info; pending = neutral. */ state?: StepState; /** Figma \"layout\". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */ layout?: 'horizontal' | 'vertical'; /** Figma \"selected\". Vertical rows that open a record (History): light-blue row. */ selected?: boolean; /** Figma \"Marker\" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */ icon?: IconName; /** Makes the row a button that opens its record (vertical, History). The whole row is the target. */ onSelect?: () => void; className?: string; style?: CSSProperties; } /** One step in a short ordered process, or one event in an activity list. Renders an <li>: put Steps in an <ol>. aria-current=\"step\" on the current one.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "detail",
+            "showConnector",
+            "tag",
+            "time",
+            "timeUnderTitle",
+            "showLineAbove",
+            "state",
+            "layout",
+            "selected",
+            "icon",
+            "kind",
+            "number",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026 22 Nov 2026: state=current takes ProgressRing running md as its marker (the numbered ring when number is set)."
+        }
+      }
+    },
+    "map-line": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLine",
+          "category": "Data",
+          "description": "Figma \"direction\". horizontal and vertical stretch to their box; turn is a 24 box with a 16-radius quarter curve. */ direction?: 'horizontal' | 'vertical' | 'turn'; /** Figma \"end\". Arrow on the last piece only (straight pieces; Figma draws turns with none). */ end?: 'arrow' | 'none'; /** Figma \"style\" (code cannot use `style`, the CSS prop; same move as Tag's variant). dashed = an optional path, or a step not yet done. */ variant?: 'solid' | 'dashed'; /** Figma \"tone\". default = border/strong; accent = the open node. */ tone?: 'default' | 'accent'; /** Figma \"corner\". Turn only: which corner the curve bends round. */ corner?: MapLineCorner; className?: string; style?: CSSProperties; } /* Turn paths in a 24 box, measured from the Figma vectors (16 x 16 at x/y 0 or 8): every bend is a curve, never a square elbow (guideline 17). */ const TURN: Record<Exclude<MapLineCorner, 'none'>, string> = { 'top-left': 'M24 8A16 16 0 0 0 8 24', 'top-right': 'M0 8A16 16 0 0 1 16 24', 'bottom-left': 'M8 0A16 16 0 0 0 24 16', 'bottom-right': 'M16 0A16 16 0 0 1 0 16', }; /** A line between two nodes (Map, Step row, pipeline). 2px in its tone. Decorative: the words beside it carry the meaning, so it is aria-hidden.",
+          "variants": [
+            "solid",
+            "dashed"
+          ],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "direction",
+            "end",
+            "variant",
+            "tone",
+            "corner",
+            "from",
+            "to",
+            "flip",
+            "weight",
+            "draw",
+            "travel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)",
+            "Processes maps, joining MapNodes with direction=curve (22 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026 (Figma has no motion; draw and travel are code only). 23 Nov 2026: curve gains weight (thin, 1px lighter), draw (map 900ms or pick 250ms, start to end) and travel (one soft pass, then rests); reduced motion is fully drawn and still. 22 Nov 2026: direction=curve (one bezier from the middle of a step's bottom edge to the middle of the next step's top edge, scaling with its box, round ends, no arrow; from and to follow measured nodes), tones selected (brand blue) and danger, style solid or dashed."
+        }
+      }
+    },
+    "notification": {
+      "$extensions": {
+        "bella": {
+          "name": "Notification",
+          "category": "Layout",
+          "description": "A message that stays on the page until it is resolved or closed (Toast is for ones that come and go). Soft status fill, no border, no bar, no Tag; an outline circle icon in the tone (on by default) leads, top-aligned with the title; the title names the thing, the message says why; actions on the right; close top right.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "message",
+            "showIcon",
+            "action",
+            "title",
+            "secondAction",
+            "onClose",
+            "closeLabel",
+            "tone",
+            "icon",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Notification (951:4124), 21 Nov 2026: Show icon on by default (her pick A, outline circle icons), status bar and Show tag deleted.",
+          "a11y": "role status (alert for danger); the tone in words for screen readers before the title. Icon stroke color/border/utility/<tone> on its fill 3.46:1 lowest (attention, light). Close 44 target. Text 7:1."
+        }
+      }
+    },
+    "section-head": {
+      "$extensions": {
+        "bella": {
+          "name": "SectionHead",
+          "category": "Layout",
+          "description": "Figma \"Title\". The section's name, top left inside its card. */ title: ReactNode; /** Figma \"Number\". The count in the info, bold in the number face. */ number?: ReactNode; /** Figma \"Words\". What the number counts, in subtext (\"waiting on you\"). */ words?: ReactNode; /** Figma \"Show number\". Defaults to on when `number` is set. */ showNumber?: boolean; /** Figma \"Show info\". The number and words on the right of the title line. Defaults to on when either is set. */ showInfo?: boolean; /** Figma \"Description\". One line under the title, in subtext. */ description?: ReactNode; /** Figma \"Show description\". Defaults to on when `description` is set. */ showDescription?: boolean; /** Figma \"Show icon\" + the exposed Icon well's icon. Missing = no icon well. */ icon?: IconName; /** The exposed Icon well's tone. Warning for sections that wait on you. */ iconTone?: IconWellProps['tone']; /** Figma \"Show action\". A Button secondary sm at the right end. Missing = off. */ action?: ReactNode; /** The title's heading level (role heading + aria-level, since it sits in TextStack's inline title). Defaults to 2; 0 = plain text. */ titleLevel?: 0 | 2 | 3 | 4; /** Extra classes on the row. */ className?: string; style?: CSSProperties; } /** The first row inside a section card: icon well, title with its count on the right of the same line (number bold, no count circle), one line of description under it, and an optional action at the right end. Not a page opening (PageHeader) or an editorial header (SectionHeader).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "number",
+            "words",
+            "showNumber",
+            "showInfo",
+            "description",
+            "showDescription",
+            "icon",
+            "iconTone",
+            "action",
+            "titleLevel",
+            "size",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "nav-item": {
+      "$extensions": {
+        "bella": {
+          "name": "NavItem",
+          "category": "Layout",
+          "description": "Figma \"Label\". The place's name; with `iconOnly` it is the accessible name and the tooltip. */ label: string; /** Figma \"Badge\". A count after the label (not drawn when `iconOnly`). */ badge?: string | number; /** Figma \"Show badge\". */ showBadge?: boolean; /** Figma \"Show icon\". */ showIcon?: boolean; /** Figma \"icon\" (instance swap). */ icon?: IconName; /** Figma \"iconOnly\". A 44 square with the icon alone; the label becomes its name and its tooltip. */ iconOnly?: boolean; /** Figma \"current\". The page you are on: light-blue fill, bold ink label and ink icon (aria-current=\"page\"). */ current?: boolean; /** Renders a link. Without it the item is a button. */ href?: string; onClick?: () => void; /** Extra classes on the control. */ className?: string; style?: CSSProperties; } /** One place in the app navigation (Figma \"Nav item\", CHIP Dashboard, read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. The whole row is the 44 target.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "badge",
+            "showBadge",
+            "showIcon",
+            "icon",
+            "iconOnly",
+            "current",
+            "href",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "icon-rail": {
+      "$extensions": {
+        "bella": {
+          "name": "IconRail",
+          "category": "Layout",
+          "description": "The places, as NavItem iconOnly: Home, Projects, Not again, Team, System map. */ children?: ReactNode; /** The item pinned to the bottom (Settings, as NavItem iconOnly). */ end?: ReactNode; /** Accessible name for the navigation landmark. */ label?: string; /** Extra classes on the rail. */ className?: string; style?: CSSProperties; } /** The app's first column (Figma \"Icon rail\", read 19 Nov 2026; no Figma props). The CHIP mark once, at the top (the only place it appears), the places under it, and the end item at the bottom. The rail fills the height and width its layout gives it; it sets neither.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "end",
+            "label",
+            "logo",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "tree-item": {
+      "$extensions": {
+        "bella": {
+          "name": "TreeItem",
+          "category": "Layout",
+          "description": "Figma \"Label\". */ label: string; /** Figma \"Count\". A number after the label (group and status rows). */ count?: string | number; /** Figma \"Show count\". */ showCount?: boolean; /** Figma \"Needs work\". The attention dot at the end of a group or item row (StatusDot, spoken \"needs work\"). */ needsWork?: boolean; /** Figma \"Line below\". Branch rows: the tree's spine runs on to the next row. Off on the last branch. */ lineBelow?: boolean; /** Figma \"kind\". group: a chevron, a bold label and a count. item: a nested row with its icon. folder: a project (Folder icon, chevron at the end). branch: a branch under an open folder (spine and tick, then a Status square and the label). status: a run status (StatusDot, label, count). / kind?: TreeItemKind; /** Figma \"open\". group and folder: whether its rows show (aria-expanded). */ open?: boolean; /** Figma \"current\". The row you are on: light-blue fill, bold ink label (aria-current=\"page\"). */ current?: boolean; /** branch: the Status square's status (Figma exposes the nested Status square). */ status?: StatusSquareProps['status']; /** status: the StatusDot tone (Figma exposes the nested StatusDot). */ tone?: StatusDotProps['tone']; /** item: its icon (Figma draws ViewGrid). */ icon?: IconName; /** Renders a link. Without it the row is a button. */ href?: string; onClick?: () => void; /** Extra classes on the root. */ className?: string; style?: CSSProperties; } /** One row of the project tree (Figma \"Tree item\", read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. Every row is 44 tall and the whole row is the target.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "count",
+            "showCount",
+            "needsWork",
+            "lineBelow",
+            "kind",
+            "open",
+            "current",
+            "status",
+            "tone",
+            "icon",
+            "href",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Tree item (809:186264) as the Project panel uses it, 21 Nov 2026: every kind starts 16 in; branch status is an Icon well sm in its tone (failed error WarningCircle, waiting warning Clock, working info RefreshDouble, passed success Check); status rows wash only the attention dot; branch Leader 39, spine border/strong at x 25, corner closed (R7, R10, R12). FolderOpen is not in the icon registry: an open folder keeps the Folder glyph."
+        }
+      }
+    },
+    "project-panel": {
+      "$extensions": {
+        "bella": {
+          "name": "ProjectPanel",
+          "category": "Layout",
+          "description": "The top: the ClientSwitcher. */ switcher?: ReactNode; /** Under \"Projects\": TreeItem folders, each open one followed by its branch rows. */ projects?: ReactNode; /** Under \"Status\": TreeItem status rows (Needs you, Claude, Gate, Ready). */ status?: ReactNode; /** Extra classes on the panel. */ className?: string; style?: CSSProperties; } /** The CHIP side panel between the Icon rail and the page (Figma \"Project panel\", read 19 Nov 2026; no Figma props): which client, its projects and branches, and the run status counts. Not page navigation (the rail has the pages). It fills the height and width its layout gives it.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "switcher",
+            "projects",
+            "status",
+            "flush",
+            "showHeading",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Project panel (1454:424), 21 Nov 2026: white surface, every row 4 apart, headings inset 16; Show heading for flush (off by default) at the drawer title's size 18."
+        }
+      }
+    },
+    "client-switcher": {
+      "$extensions": {
+        "bella": {
+          "name": "ClientSwitcher",
+          "category": "Layout",
+          "description": "Figma \"Name\". The client, Lexend 700. No dot: the red dot lives only inside the drawn logo. */ name: string; /** Figma \"Caption\". What the client is. */ caption?: string; /** The client's mark in the tile (Figma: swap Tile › Mark). Default: the BELLA mark. */ mark?: ReactNode; /** Opens the client list. */ onClick?: () => void; /** Whether the client list is open (aria-expanded). */ expanded?: boolean; /** Extra classes on the button. */ className?: string; style?: CSSProperties; } /** Which client the CHIP panel shows (Figma \"Client switcher\", read 19 Nov 2026). Figma's `state` (default, hover, focus) is CSS, not a prop. The whole block is one button, named \"Switch client\" plus what it shows; the ⇅ is the Trailing part.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "name",
+            "caption",
+            "mark",
+            "variant",
+            "logo",
+            "onClick",
+            "expanded",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Client switcher (1168:95809), 21 Nov 2026: plain inset 16, 68 tall (the top bar's height: 44 + 12 above and below; no 68 token).",
+          "variants": [
+            "tile",
+            "plain"
+          ]
+        }
+      }
+    },
+    "top-bar": {
+      "$extensions": {
+        "bella": {
+          "name": "TopBar",
+          "category": "Layout",
+          "description": "The top bar of the CHIP app frame: where you are on the left (\"CHIP › Work\", a breadcrumb nav), search and your notifications on the right. Parent in content/subtle, a › separator, Current in content/default at 600, 8 apart; the Search field grows up to layout/search/max-width (420), then the bell and the Avatar, 12 apart.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "placeParent",
+            "placeParentHref",
+            "onPlaceParent",
+            "placeCurrent",
+            "showPlace",
+            "search",
+            "right",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP screen shell, once per screen above the content, beside the Side menu (22 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents Top bar (1168:95226), 22 Nov 2026: decided: search on the right. Props Place parent, Place current, Show place.",
+          "figmaProps": {
+            "Place parent": "placeParent",
+            "Place current": "placeCurrent",
+            "Show place": "showPlace",
+            "Search field": "search",
+            "Notifications + Avatar": "right"
+          },
+          "a11y": "Place is a nav landmark named \"Breadcrumb\" (an ordered list); the parent is a link with a 44 target, the current page has aria-current=\"page\"; the › is hidden from screen readers. Search sits in a search landmark; ⌘K focuses it. Notifications is a button named \"Notifications\". 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap.",
+          "dont": [
+            "Do not use it as a page title: that is PageHeader",
+            "Do not use it for page views: that is Tabs"
+          ]
+        }
+      }
+    },
+    "side-menu": {
+      "$extensions": {
+        "bella": {
+          "name": "SideMenu",
+          "category": "Layout",
+          "description": "The one side menu of the CHIP app (like Notion): the plain Client switcher level with the Top bar, the Find field as the first row when the app passes one (search slot), then Go to (Home, Needs you with its count, Not again), Pinned, Projects (Folder rows), and Team and Settings at the foot. 232 wide, a 1px right edge in border/default; 12 at the sides, 16 between groups, 4 inside a group; every row a Nav item.",
+          "states": [
+            "default",
+            "hover",
+            "current",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "client",
+            "clientLogo",
+            "onClientClick",
+            "clientExpanded",
+            "search",
+            "items",
+            "pinned",
+            "projects",
+            "foot",
+            "showPinned",
+            "showProjects",
+            "onNavigate",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The left edge of every CHIP screen (CHIP / Screen template), full window height"
+          ],
+          "dont": [
+            "Do not use it inside a page or card: that is NavList",
+            "Do not use it for page views: that is Tabs",
+            "Do not show it on a phone: put it in a Drawer side=bottom"
+          ],
+          "a11y": "A nav landmark named \"Main\" (label) holding lists; Pinned and Projects are lists labelled by their group label (16, content/subtle). Each row a link (Search a button), the current one aria-current=\"page\": bold ink, no fill in Chip, so \"you are here\" shows once. 44 targets; text 7:1; focus ring blue, 4 wide with a 4 gap, never clipped by the scrolling middle. Labels never break mid-word at 232.",
+          "figma": "Matches the published BellaComponents Side menu (1709:48082), 22 Nov 2026: decided: a new Side menu part. 232 has no token: three 80 steps less an 8.",
+          "figmaProps": {
+            "Show pinned": "showPinned",
+            "Show projects": "showProjects",
+            "Switcher": "client, onClientClick, clientExpanded",
+            "Group · Go to": "items",
+            "Group · Pinned": "pinned",
+            "Group · Projects": "projects",
+            "Foot": "foot"
+          }
+        }
+      }
+    },
+    "search-field": {
+      "$extensions": {
+        "bella": {
+          "name": "SearchField",
+          "category": "Inputs",
+          "description": "Figma \"Placeholder\". */ placeholder?: string; /** Figma \"Show shortcut\". The ⌘K legend at the right; ⌘K (or Ctrl K) then focuses the field. */ showShortcut?: boolean; /** Accessible name. Defaults to the placeholder. */ label?: string; value?: string; defaultValue?: string; onChange?: (value: string) => void; /** Called with the query when Enter is pressed. */ onSubmit?: (value: string) => void; /** Extra classes on the field. */ className?: string; style?: CSSProperties; } /** The app search in the top bar (Figma \"Search field\", read 19 Nov 2026). Not a form Input: no label row, no border. The whole field is the target (it is a label, so a click anywhere focuses the input).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "placeholder",
+            "showShortcut",
+            "label",
+            "value",
+            "defaultValue",
+            "onChange",
+            "onSubmit",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" page and screen shell (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents part of the same name, 19 Nov 2026"
+        }
+      }
+    },
+    "empty-state": {
+      "$extensions": {
+        "bella": {
+          "name": "EmptyState",
+          "category": "Layout",
+          "description": "23 Nov (code only): the mark can be an animated image (markSrc, an animated WebP) with a still (markStill) that reduced motion shows; decorative (empty alt) unless markLabel is given; the emoji in mark is the fallback if the image fails. Says a space is empty, kindly, and what fills it: an optional emoji mark (no circle or fill), a title, one line and optional actions, centred, 12 apart. lane (compact) or page. No wash.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "size",
+            "title",
+            "line",
+            "mark",
+            "markSrc",
+            "markStill",
+            "markLabel",
+            "showMark",
+            "actions",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP \"Not again\" stat cards with no data (19 Nov 2026)"
+          ],
+          "figma": "Matches the published BellaComponents \"Empty state\" (1014:2670), 21 Nov 2026: the Wash property and its variants deleted, size=lane|page only; the wash prop deleted from code with it."
+        }
+      }
+    },
+    "task-card": {
+      "$extensions": {
+        "bella": {
+          "name": "TaskCard",
+          "category": "Data",
+          "description": "One task on the Work board: what it is and its status; the whole card opens it. Move to… is the keyboard way to move it between lanes.",
+          "states": [
+            "default",
+            "hover",
+            "focus",
+            "dragging"
+          ],
+          "props": [
+            "title",
+            "line",
+            "branch",
+            "status",
+            "showTag",
+            "statusTone",
+            "dragging",
+            "progress",
+            "progressDone",
+            "progressTotal",
+            "stepNow",
+            "lastStepAt",
+            "since",
+            "progressLeft",
+            "paused",
+            "stopped",
+            "href",
+            "onOpen",
+            "onMoveTo",
+            "selected",
+            "use",
+            "draggable",
+            "onDragStart",
+            "onDragEnd",
+            "entering",
+            "leaving",
+            "onLeft",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A task in a BoardLane on CHIP Work"
+          ],
+          "dont": [
+            "Not a grid item that opens a page (Card)",
+            "Not a message (Notification)",
+            "Never several buttons on one card"
+          ],
+          "a11y": "An article with an h3 title. The title is a link or button stretched over the whole card (one target, named by the title); Move to… is its own button, 44 target, named 'Move to…'. Text 7:1: title and line on background-surface 8.53:1 lowest, on the hover fill (background-brand-subtle) 7.34:1 lowest (line, BELLA light). The 2px status edge on the lane (background-default) 3.56:1 lowest (attention, light). The status is in words in the Tag, so colour is never alone. Focus ring 4 + 4, border-focus.",
+          "figma": "Matches the published BellaComponents TaskCard (799:177248), 21 Nov 2026: tone gives the 2px border (border/width/2, color/border/utility/<tone>) and the Tag tone; no status bar (her pick B). hover (background-brand-subtle), focus are CSS states; dragging is a prop. 22 Nov 2026: Show progress (off by default) draws a Progress bar with \"n of m\" (number face 600, 20) beside it, then a ProgressRing sm and \"Now · step\" or, paused, a grey ring and \"Paused · step\", cut with an ellipsis.",
+          "figmaProps": {
+            "Title": "title",
+            "Line": "line",
+            "Show branch + Branch label": "branch (missing = off)",
+            "Status label / tone (StatusDot)": "status / statusTone",
+            "state=dragging": "dragging",
+            "state=hover, state=focus": "CSS :hover, :focus-visible",
+            "Move to… (Drag handle)": "onMoveTo",
+            "Open arrow (Trailing)": "drawn when href or onOpen",
+            "Show progress + _TaskCard progress (Count, Step now, state)": "progress / progressDone, progressTotal / stepNow / paused"
+          }
+        }
+      }
+    },
+    "board-lane": {
+      "$extensions": {
+        "bella": {
+          "name": "BoardLane",
+          "category": "Data",
+          "description": "One lane of the Work board: the name and its count plate, the order line, then the cards (or the empty state, centred). A light tint per lane (needs-you warning, agent info, gate the lane grey, ready success; code only, 23 Nov: the roadmap lanes ideas ochre, next navy, not-doing pink, each a brand wash); the count is Tag style=solid in the lane's tone (Tag tones ochre, navy and pink for the new lanes), gate outlined. No lane number, no status dot.",
+          "states": [
+            "needs-you",
+            "agent",
+            "gate",
+            "ready",
+            "ideas",
+            "next",
+            "not-doing",
+            "drop-target",
+            "empty"
+          ],
+          "props": [
+            "name",
+            "order",
+            "index",
+            "lane",
+            "dropTarget",
+            "count",
+            "empty",
+            "children",
+            "headingLevel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A status column on the CHIP Work board"
+          ],
+          "dont": [
+            "Not a list of links (NavList)",
+            "Not a table (DataTable)",
+            "Never a blue lane"
+          ],
+          "a11y": "A region named by its heading (Name), holding a list of cards. The count reads 'N cards'. Text 7:1: name content-default 10.50:1 and order content-lane-subtle 7.21:1 on the lane grey, checked by the gate. Drop label content-brand 7.52:1 on the lane (Chip light).",
+          "figma": "Matches the published BellaComponents BoardLane (783:496472), 21 Nov 2026: lane = needs-you | agent | gate | ready tints, Index and Status deleted, Count Tag style=solid (gate tone=count outline until a neutral fill is decided), Name 18/24, Show empty with Empty state size=lane. index is kept but ignored and lane=\"other\" maps to gate until removing them is approved.",
+          "figmaProps": {
+            "Name": "name",
+            "Order": "order",
+            "Show index + Index label": "index (missing = off)",
+            "lane": "lane",
+            "state=drop-target": "dropTarget",
+            "Count (Tag) label": "count (defaults to the number of cards)",
+            "Card 1 to 4 / Show card 1 to 4": "children",
+            "drop space kind / Label": "BoardLaneDropSpace kind / label",
+            "Show empty": "empty (an EmptyState, shown when there are no cards)"
+          }
+        }
+      }
+    },
+    "group-head": {
+      "$extensions": {
+        "bella": {
+          "name": "GroupHead",
+          "category": "Data",
+          "description": "The name of a group in an order: an index Tag and the group's name, for board lanes and System map stages.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "name",
+            "index",
+            "as",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Lane titles and pipeline stages in CHIP"
+          ],
+          "dont": [
+            "Not a card section title (SectionHead)",
+            "Not a page heading (PageHeader, SectionHeader)",
+            "No index where the groups have no order (guideline 11)"
+          ],
+          "a11y": "Not a control. A heading when given as=h2 to h4. Name content-default on any surface, 7:1.",
+          "figma": "Matches the published BellaComponents Group head (1330:51325), read 19 Nov 2026.",
+          "figmaProps": {
+            "Name": "name",
+            "Show index + Index label": "index (missing = off)"
+          }
+        }
+      }
+    },
+    "menu": {
+      "$extensions": {
+        "bella": {
+          "name": "Menu",
+          "category": "Actions",
+          "description": "A short list of actions that opens from a \"…\" button: the actions on one thing. Exports MenuItem and MenuDivider.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "label",
+            "children",
+            "onClose",
+            "autoFocus",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The actions on one thing (TaskCard \"…\")"
+          ],
+          "dont": [
+            "Not navigation (NavList)",
+            "Not choosing a value: the model choice (Auto, local model, Claude) is a Select",
+            "Not more than about seven items"
+          ],
+          "a11y": "role=menu named by label; items role=menuitem, roving focus: arrows, Home, End; Enter or Space acts; Esc and Tab close (the opener takes focus back). Focus ring 4px inside the item. Text 7:1: label content-default on the highlight hover 7.99:1 lowest (dark); danger content-utility-error 7.52:1 lowest on its wash.",
+          "figma": "Matches the published BellaComponents Menu (1014:89), Menu item (1014:84) and Menu divider (1014:87), read 19 Nov 2026.",
+          "figmaProps": {
+            "Items (slot)": "children",
+            "Menu item Label": "MenuItem label",
+            "Menu item Show icon + icon": "MenuItem icon (missing = off)",
+            "Menu item tone": "MenuItem tone",
+            "Menu item state hover / focus / pressed": "CSS :hover, :focus-visible, :active"
+          }
+        }
+      }
+    },
+    "check-row": {
+      "$extensions": {
+        "bella": {
+          "name": "CheckRow",
+          "category": "Data",
+          "description": "One health check across all components: a configuration of ListRow with no status bar and no status Tag (the progress bar is enough), title 20 regular, what is missing, the count once at the right end in the number face at title size with the action under it when it fails, the bar with its target. Exports CheckListHeader.",
+          "states": [
+            "pass",
+            "fail"
+          ],
+          "props": [
+            "layout",
+            "status",
+            "title",
+            "subtitle",
+            "value",
+            "statusLabel",
+            "fill",
+            "target",
+            "actionLabel",
+            "onAction",
+            "as",
+            "className",
+            "style",
+            "passed",
+            "total",
+            "showDivider"
+          ],
+          "usage": [
+            "CHIP Health: component checks"
+          ],
+          "dont": [
+            "Never its own drawing: change ListRow, not CheckRow",
+            "No status bar and no status Tag (21 Nov: \"the progress bar is fine\")"
+          ],
+          "a11y": "A list item; the bar is a progressbar named by the check with the count as its value text; the action is a Button (44 target). Text and marks inherit ListRow, Progress and Tag, each checked by the gate.",
+          "figma": "Matches the published BellaComponents Check row (793:31331, 21 Nov 2026 publish: status bar and Tag off, count Geist Mono Bold 20) and Check list header (1168:67724). statusLabel is kept but ignored until removing it is approved. The legend's target mark is 18 in Figma, off the 4 scale: snapped to 20.",
+          "figmaProps": {
+            "status": "status",
+            "List item Title text": "title",
+            "List item Subtitle text": "subtitle",
+            "List item Value text": "value",
+            "Progress fill value": "fill",
+            "Progress target": "target (missing = off)",
+            "List item Text button Label": "actionLabel + onAction (fail only), drawn at the row's right end under the count (buttons on the right)",
+            "Check list header Title / Count / Legend": "CheckListHeader title / count / legend"
+          }
+        }
+      }
+    },
+    "stage": {
+      "$extensions": {
+        "bella": {
+          "name": "Stage",
+          "category": "Layout",
+          "description": "A stage for specimens: a tinted surface with an optional dot grid and a content slot.",
+          "states": [
+            "dots",
+            "none"
+          ],
+          "props": [
+            "grid",
+            "children",
+            "label",
+            "scale",
+            "frameWidth",
+            "frameHeight",
+            "zoom",
+            "onZoomChange",
+            "markers",
+            "offsetY",
+            "picking",
+            "onPick",
+            "leaderVariant",
+            "leaderDraw",
+            "onSelect",
+            "activeId",
+            "onActiveChange",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Doc stages and diagrams",
+            "CHIP Components \"On the stage\" and the Playground canvas"
+          ],
+          "dont": [
+            "Not a card (Card)",
+            "Not a whole screen at design size (ScaledFrame)"
+          ],
+          "a11y": "Not interactive. A group when given a label. The dots are decoration (background), no contrast bar. With onSelect each pin and chip is a button (44 target) that opens its part; hover and focus report onActiveChange so the anatomy list lights the same part.",
+          "figma": "Matches the published BellaComponents Stage (809:186284), read 19 Nov 2026: dots 2px every 24, first centred at 16, background/highlight on background/default, corner 16, content 24 padding, 16 apart, centred.",
+          "figmaProps": {
+            "grid": "grid",
+            "Content (slot)": "children",
+            "frameWidth, frameHeight, zoom, onZoomChange, markers, offsetY, picking, onPick": "not in Figma as props: the Playground frame, on her decision card (19 Nov). Markers follow her CHIP Components design (690:492657, 20 Nov): dot Pins, Pin label chips without the pin, a dashed pink Leader for the part in focus; on a plain stage they measure from the centre",
+            "scale": "not a Figma prop: her On the stage frame shows the part \"Shown at 2x\" (coordinator, 20 Nov)"
+          }
+        }
+      }
+    },
+    "system-health": {
+      "$extensions": {
+        "bella": {
+          "name": "SystemHealth",
+          "category": "Data",
+          "description": "System health card: a segmented arc gauge of 40 ticks with the value and status, the scale row, why, and the failing checks as rows that open them. 23 Nov: lowLabel and highLabel put numbers on the scale ends; countUp off draws the real score at once.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "subtitle",
+            "value",
+            "status",
+            "target",
+            "passed",
+            "why",
+            "failing",
+            "summary",
+            "className",
+            "style",
+            "lowLabel",
+            "highLabel",
+            "countUp"
+          ],
+          "figma": "Matches the published System health (library 690:495725; CHIP Dashboard instance 601:109237), read 19 Nov 2026."
+        }
+      }
+    },
+    "swatch": {
+      "$extensions": {
+        "bella": {
+          "name": "Swatch",
+          "category": "Data",
+          "description": "One colour role as a Pantone-style chip: the colour block on top, a label strip with the name, hex and contrast pair or \"No pair\".",
+          "states": [
+            "sm",
+            "lg"
+          ],
+          "props": [
+            "color",
+            "name",
+            "hex",
+            "ratio",
+            "pair",
+            "size",
+            "onCopy",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Swatch (794:169044), 19 Nov 2026."
+        }
+      }
+    },
+    "variant-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "VariantTile",
+          "category": "Data",
+          "description": "A variant thumbnail: a mini preview with its label under. Selected draws a 2px brand edge; the check badge marks a copied or done state.",
+          "states": [
+            "default",
+            "selected",
+            "hover",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "children",
+            "selected",
+            "checked",
+            "onClick",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The states strip under the stage on CHIP Components",
+            "Picking a variant from thumbnails"
+          ],
+          "dont": [
+            "Do not put live controls in the preview: it is a picture (inert)",
+            "Do not use it for navigation: it picks a state in place"
+          ],
+          "a11y": "With onClick the tile is one button named by its label, aria-pressed for selected, BELLA's focus ring. The preview is inert and hidden from the accessibility tree. The check badge is an image named Done. Labels are content-subtle (7:1) or content-default on surface and default-hover.",
+          "figma": "Matches the published VariantTile (read 20 Nov 2026 from her CHIP Components design, Screen 1 612:57719): preview 72 tall, corner 12, label 16 under, 8 apart. The badge sits 6 from the corner in Figma (no token); code takes spacing-4.",
+          "figmaProps": {
+            "Label": "label",
+            "Preview (slot)": "children",
+            "selected": "selected",
+            "Show check badge": "checked"
+          }
+        }
+      }
+    },
+    "tour-step": {
+      "$extensions": {
+        "bella": {
+          "name": "TourStep",
+          "category": "Layout",
+          "description": "One step of \"Help me understand\": a Pin, the text, Close; the count, Back, and Next or Done on the right.",
+          "states": [
+            "middle",
+            "end"
+          ],
+          "props": [
+            "number",
+            "children",
+            "count",
+            "isEnd",
+            "onBack",
+            "onNext",
+            "onClose",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Tour step (1455:40714), 19 Nov 2026."
+        }
+      }
+    },
+    "type-specimen": {
+      "$extensions": {
+        "bella": {
+          "name": "TypeSpecimen",
+          "category": "Data",
+          "description": "One step of the type ramp, set in its own size token, with its size beside it.",
+          "states": [
+            "display-page",
+            "display-section",
+            "subsection",
+            "xl",
+            "base",
+            "sm",
+            "tag",
+            "mono"
+          ],
+          "props": [
+            "size",
+            "name",
+            "sizeLabel",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Type specimen (796:8332), 19 Nov 2026; Figma's row labels are placeholders, code labels each row with its real size."
+        }
+      }
+    },
+    "radius-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "RadiusTile",
+          "category": "Data",
+          "description": "One corner token drawn on a 72 tile, with its token name and the Chip semantic names that use it.",
+          "states": [
+            "0",
+            "4",
+            "8",
+            "12",
+            "16",
+            "20",
+            "24",
+            "round"
+          ],
+          "props": [
+            "radius",
+            "use",
+            "animated",
+            "className",
+            "style"
+          ],
+          "figma": "Matches CHIP Dashboard Foundations · Shape and space (808:82396), local to CHIP, read 21 Nov 2026."
+        }
+      }
+    },
+    "easing-curve": {
+      "$extensions": {
+        "bella": {
+          "name": "EasingCurve",
+          "category": "Data",
+          "description": "One easing token drawn as its cubic-bezier curve with its name and value. Exports DurationBar: one duration token as a bar to scale against 3400ms.",
+          "states": [
+            "standard",
+            "emphasis",
+            "out",
+            "draw",
+            "pop"
+          ],
+          "props": [
+            "easing",
+            "animated",
+            "className",
+            "style"
+          ],
+          "figma": "Matches CHIP Dashboard Foundations · Motion (810:82446), local to CHIP, read 21 Nov 2026."
+        }
+      }
+    },
+    "spacing-step": {
+      "$extensions": {
+        "bella": {
+          "name": "SpacingStep",
+          "category": "Data",
+          "description": "One spacing step drawn at its real size: the bar is the spacing token.",
+          "states": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "8",
+            "10",
+            "12",
+            "16",
+            "20",
+            "touch"
+          ],
+          "props": [
+            "step",
+            "value",
+            "animated",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Spacing step (796:8518), 19 Nov 2026; Figma's values are placeholders (\"4px\"), code shows each step's real size."
+        }
+      }
+    },
+    "app-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "AppTile",
+          "category": "Data",
+          "description": "A connected app or service on CHIP Connectors: its icon on a coloured tile, with an optional badge.",
+          "states": [
+            "inverse",
+            "outline",
+            "git",
+            "claude",
+            "info"
+          ],
+          "props": [
+            "tone",
+            "size",
+            "icon",
+            "brand",
+            "badge",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents App tile (796:8193), 21 Nov 2026: tone=claude shows the official Claude mark by default, in color/neutral/white (named brand exception, 3.12:1 on the Claude orange, over the 3:1 non-text floor).",
+          "a11y": "Decorative, non-interactive: a plain span with no role, no tab stop and no pointer affordance. The tile and its icon or brand mark are aria-hidden, so a screen reader skips them; the app's name must sit in the text beside the tile, which carries the meaning (never the tile alone). The optional count badge is a Tag and is not hidden, so it is read as its text, after the name. No motion, so nothing to reduce."
+        }
+      }
+    },
+    "toast": {
+      "$extensions": {
+        "bella": {
+          "name": "Toast",
+          "category": "Layout",
+          "description": "A short message after an action that comes and goes: icon, message, at most one action, Close. A polite live region.",
+          "states": [
+            "info",
+            "success",
+            "attention",
+            "danger"
+          ],
+          "props": [
+            "tone",
+            "children",
+            "action",
+            "onClose",
+            "duration",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Toast (956:56), read 20 Nov 2026."
+        }
+      }
+    },
+    "connector-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "ConnectorTile",
+          "category": "Data",
+          "description": "One connected service on CHIP Connectors: its app tile and live status, its name, what it says now, and the one action it offers.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "appTile",
+            "status",
+            "statusTone",
+            "name",
+            "value",
+            "detail",
+            "action",
+            "className",
+            "style"
+          ],
+          "figma": "Matches the published BellaComponents Connector tile (1330:51190), read 20 Nov 2026."
+        }
+      }
+    },
+    "progress-target": {
+      "$extensions": {
+        "bella": {
+          "name": "ProgressTarget",
+          "category": "Data",
+          "description": "The target drawn into a meter (Figma Progress target 1168:72541, 22 Nov 2026, decided: a dashed marker and label): a 1.5 dashed line in border/brand at target %, from its label to 4 below the 8 bar, and a \"Target n%\" Tag (outline, number face 600) in the 32 row above the bar. Up to 50 the label starts at the line; above 50 it ends at it. Also exports TargetMark, the private 4-wide mark the Check row legend still uses. showLabel off draws the dash alone (23 Nov).",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "target",
+            "label",
+            "showLabel"
+          ],
+          "usage": [
+            "Progress bar with a target (Stat card, Check row)",
+            "Check list header legend (TargetMark)"
+          ],
+          "dont": [
+            "Never a second target colour: blue (border/brand) only",
+            "No overhang past the bar (21 Nov publish)"
+          ],
+          "a11y": "The marker and its label sit in the bar's aria-hidden track, so they are not read twice; the target is spoken in the bar's value text (\"80%, target 90%\", as Stat card sets it). Label ink 7:1 on its Tag; the dash 3:1 on the card.",
+          "figma": "Matches the published BellaComponents Progress target (1168:72541) and _Target mark, 21 Nov 2026: 8 tall, 1px outside edge color/background/surface. Height is size/8 (published in Foundations 22 Nov).",
+          "figmaProps": {
+            "target": "target (0 to 100 in 5s)"
+          }
+        }
+      }
+    },
+    "marker": {
+      "$extensions": {
+        "bella": {
+          "name": "Marker",
+          "category": "Content",
+          "description": "The keyword mark (Figma BellaComponents Marker 1600:45992, 22 Nov 2026): the key word or phrase in a line at weight 600 over a soft blue underline (color/background/wash/blue-strong), the lower 10 of the 24 line, 2 above its bottom. Inline, so it wraps with its line. Bold is for keywords only, and every keyword gets this underline.",
+          "variants": [],
+          "states": [
+            "default"
+          ],
+          "props": [
+            "children",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The one key phrase in an Ask BELLA answer's verdict line",
+            "The words to take away in a doc paragraph or a Why line",
+            "A keyword inside a Step or record title"
+          ],
+          "dont": [
+            "Do not mark a link: that is Link",
+            "Do not mark a status: that is Tag",
+            "Do not mark a whole sentence, or more than one phrase per paragraph"
+          ],
+          "a11y": "A <mark> element, so screen readers can announce a highlight. The phrase keeps the ink of its line on the page colour and on the band, 7:1 or more in all four themes; the band is decoration under it. Forced colours: Mark and MarkText."
+        }
+      }
+    },
+    "bar-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "BarChart",
+          "category": "Data",
+          "description": "Runs over time as rounded bars, one bar per time slot, from a visible zero baseline: passes in green and failures in red on top with a cross mark, so a failure is found at a glance and never by colour alone (Gate runs, \"C · Apple style\"). A range (D, W, M, Y), the number with its unit and one meta line above, thin dashed gridlines, the latest bar labelled. Hover, touch or arrow keys pick a bar: a 1px guide, an outline on that bar (the others stay as they are) and a callout above the plot. A table of the same data and a one-line summary sit behind every chart. Bars grow from the base and morph between ranges; reduced motion shows the end state at once. 23 Nov (code only): the number row wraps at 320; axisUnit prints what the axis counts once above the plot; an empty slot prints no number; calloutText words the callout from the data; onSlotSelect makes slots with failures buttons (click, Enter, Space) that open what failed.",
+          "states": [
+            "default",
+            "scrub"
+          ],
+          "props": [
+            "slots",
+            "title",
+            "view",
+            "onViewChange",
+            "showViewToggle",
+            "range",
+            "defaultRange",
+            "onRangeChange",
+            "label",
+            "unit",
+            "context",
+            "failedLabel",
+            "summary",
+            "axisUnit",
+            "calloutText",
+            "onSlotSelect",
+            "slotActionLabel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Gate runs on CHIP Health and the Work board (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a trend over a long time with many points (a line chart)",
+            "Not a part of a whole (never a pie or donut)",
+            "Never red and green alone: the cross mark and the legend words carry the failure",
+            "Never gaps joined by a line across them"
+          ],
+          "a11y": "A group named by its title, described by the summary line (always present). Each slot is a focusable image with roving tabindex, named \"14:15-14:30, 3 runs, 3 failed, contracts\"; arrow keys, Home and End move between slots and the callout follows, Esc closes it. The callout is decoration: the slot's name says the same. Pass and fail differ by position, the cross mark and the legend words, never colour alone. A Show table button swaps the chart for a DataTable of the same data. Bars 3:1 on the card in all four themes, text 7:1, numbers tabular. Reduced motion: bars stand at full height at once.",
+          "figma": "Matches BellaComponents BarChart 1737:304 (22 Nov 2026): state default and scrub, view chart and table; Range is SegmentedControl with Show segment 4 (stretch). Differences kept on purpose: the table view carries DataTable's visible caption, and a Show table button sits at the right of the legend row (the Figma table view has neither)."
+        }
+      }
+    },
+    "floating-panel": {
+      "$extensions": {
+        "bella": {
+          "name": "FloatingPanel",
+          "category": "Layout",
+          "description": "A panel detached from its drawer into a small window that floats over any page, so you can watch an agent (the Terminal) and keep working. A title bar with a grip, the title, an optional status (a StatusDot, no wash) and a Stop button, Dock and Close; a body slot holding the drawer's content as it is. Moved by dragging the title bar or the arrow keys on the focused bar, kept fully on screen. Esc or Dock puts it back; Close closes it.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "title",
+            "status",
+            "statusTone",
+            "actionLabel",
+            "onAction",
+            "children",
+            "onDock",
+            "onClose",
+            "defaultPosition",
+            "onMove",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "The Terminal detached from its Drawer on every CHIP page (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a dialog that needs an answer (a modal)",
+            "Not a hover hint (Tooltip)",
+            "No resize corner: the window has one size"
+          ],
+          "a11y": "role=dialog, aria-modal=false, named by its title; the page behind stays usable. The title bar is focusable (tabindex 0) with the description \"Arrow keys move it, Esc docks it\"; arrows move it 8 a press, Shift 40, and it stops 16 from the window edge. Focus moves to the title bar when it opens and back to the button that opened it when it docks or closes. Dock and Close have names (\"Dock Terminal\", \"Close Terminal\") and Tooltips; every control is a 44 target with the focus ring. Reduced motion: it appears and goes at once.",
+          "figma": "Matches BellaComponents FloatingPanel 1739:20 (22 Nov 2026): Title, Show status, Show action, Body slot. Arrow step 8 and Shift 40 as the published description says. The Dock button uses SidebarExpand until the Icon set gains a dock icon (Figma gap noted in the spec)."
+        }
+      }
+    },
+    "tool-column": {
+      "$extensions": {
+        "bella": {
+          "name": "ToolColumn",
+          "category": "Actions",
+          "description": "The thin column of view tools beside a stage: zoom in, fit, zoom out, then light or dark, mark up and compare. Icon-only tertiary buttons, each named by a Tooltip on its right; a zoom readout (\"200%\") 16 right of and 8 under the column. Zoom steps 25, 50, 75, 100, 150, 200, 300, 400; light or dark, mark up and compare are toggles. It replaces a control bar so the part gets the stage.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "zoom",
+            "defaultZoom",
+            "onZoomChange",
+            "onFit",
+            "showZoom",
+            "dark",
+            "onDarkChange",
+            "markUp",
+            "onMarkUpChange",
+            "compare",
+            "onCompareChange",
+            "tools",
+            "orientation",
+            "label",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Components workbench and Playground stage, top left inside it (22 Nov 2026)",
+            "Playground picks and Needs you: tools=\"view\" (zoom in, fit, zoom out) fixed beside the picture; orientation=\"horizontal\" under the picture on a phone (Workbench A, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not page actions (PageHeader)",
+            "Not a row of choices (SegmentedControl)"
+          ],
+          "a11y": "role=toolbar, aria-orientation=vertical (horizontal with orientation=\"horizontal\"), named \"View tools\". One tab stop (roving tabindex): Up, Down (Left, Right when horizontal), Home and End move between the tools; + and - zoom one step, Shift+1 fits. Each tool is a 44 target named by its aria-label (the same words as its Tooltip, shown on hover and on keyboard focus); the three toggles carry aria-pressed. The readout is a status. Focus ring on every tool.",
+          "figma": "Matches BellaComponents ToolColumn (22 Nov 2026): View group, Divider, Tools group, Show zoom. Icons ZoomIn, ZoomOut and Expand were added to the Icon registry from the Figma Icon set; Compare uses Copy until the set gains a two-pane glyph. The Tooltip shows at once on hover (the Figma 500 ms hover delay is not in the Tooltip part yet)."
+        }
+      }
+    },
+    "branch": {
+      "$extensions": {
+        "bella": {
+          "name": "Branch",
+          "category": "Data",
+          "description": "One branch of a mind map: an S-curve between any two points that leaves and arrives level, in one of five brand colours (pink, navy, ochre, stone, blue) by name. regular is 3 wide (root to stage), thin 2 (stage to step), round ends. Motion as MapLine: draw (map 900ms, pick 250ms, start to end), travel (one soft pass, then rests), nothing moves under reduced motion. Decorative.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "from",
+            "to",
+            "hue",
+            "weight",
+            "draw",
+            "travel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a straight or right-angle line between rows (MapLine)",
+            "Not a leader to a part (Leader)"
+          ],
+          "a11y": "Decorative: aria-hidden; the words beside it carry the meaning. The colour names the stage only; a step's state is always a shape and a word. Marks 3:1 on the work area. Reduced motion: fully drawn, no draw-in, no highlight.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "map-leaf": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLeaf",
+          "category": "Data",
+          "description": "One step of a mind map as bare text on a branch end: name, then a state shape and word, then an optional measured line in plain text. A button, 44 tall, with MapNode's selected state (light-blue fill, 2px brand edge), a 1px edge for a linked step and MapNode's focus ring.",
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "related",
+            "focus"
+          ],
+          "props": [
+            "name",
+            "state",
+            "status",
+            "detail",
+            "selected",
+            "related",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps and, in a BranchGroup, on a phone (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a boxed step (MapNode)",
+            "Not a status on its own (StatusDot)"
+          ],
+          "a11y": "A button with aria-pressed. State is BELLA's status dot plus its word, never colour alone; the dot is decorative and the word is read. Text 7:1; target 44 tall; focus ring 4 wide, 4 gap.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "map-label": {
+      "$extensions": {
+        "bella": {
+          "name": "MapLabel",
+          "category": "Data",
+          "description": "A node of a mind map that is not a step. root: the map's name in a rounded 20 box with a 1px strong edge, 64 tall, centred. stage: a stage's name as bare bold text (Lexend 600, 20), up to 148 wide, where its branches meet. Not interactive.",
+          "states": [
+            "default"
+          ],
+          "props": [
+            "kind",
+            "children",
+            "as",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a step (MapLeaf, MapNode)",
+            "Not a section title (SectionHead) or page heading (PageHeader)"
+          ],
+          "a11y": "Plain text; pass `as` to make it a heading when it titles a region. Text 7:1.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "branch-group": {
+      "$extensions": {
+        "bella": {
+          "name": "BranchGroup",
+          "category": "Data",
+          "description": "A stage on a phone mind map: a white row with a 4 wide colour bar at the left, the stage's name, its count and a plus or minus. The head is a 48 tall button with aria-expanded; open, it shows its steps (MapLeaf) below. One open at a time is the caller's rule.",
+          "states": [
+            "default",
+            "open",
+            "focus"
+          ],
+          "props": [
+            "name",
+            "count",
+            "hue",
+            "open",
+            "onToggle",
+            "children",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes mind maps on a phone (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a disclosure of long text (Disclosure)",
+            "Not a group name in a wide layout (GroupHead)"
+          ],
+          "a11y": "A button with aria-expanded and aria-controls naming the list; the plus or minus is decorative. The colour bar names the stage only. 48 tall target; focus ring 4 wide, drawn inside.",
+          "figma": "Code only, 23 Nov 2026 (her pick A, Processes as mind maps); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "line-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "LineChart",
+          "category": "Data",
+          "description": "A trend over time: a 1.5 round-capped line over a soft gradient of its tone (fading to nothing at the baseline) on dashed thin gridlines. Hover, touch drag or the arrow keys (Home, End, Escape) stand a 14 wide fully rounded scrubber on the line; above it a dark pill says the change against the previous point or a reference, the value and the label, and the same words go to a live region. Scale starts at zero; baseline=auto needs a stated reason, printed under the chart. Tones success, warning, danger, info, neutral, brand. draw map 900ms or pick 250ms (line left to right, area fades in, scrubber settles). variant=compact is a sparkline with a dot on the last point. Always a one-line summary and a visually hidden table; showViewToggle shows the table on request. Reduced motion draws the end state. 23 Nov (additive): a point may carry x, and when every point has one they are placed by it on a numeric scale (xRange fixes the ends so two charts share one time axis; labels that would collide are skipped, the last always printed); target draws a dashed 2 wide brand line with its name at the right end, counts toward the y scale and is said in the summary and the table caption.",
+          "variants": [
+            "full",
+            "compact"
+          ],
+          "states": [
+            "default",
+            "picked",
+            "focus"
+          ],
+          "props": [
+            "points",
+            "label",
+            "tone",
+            "area",
+            "unit",
+            "baseline",
+            "baselineReason",
+            "grid",
+            "scrubber",
+            "callout",
+            "reference",
+            "selectedIndex",
+            "defaultSelectedIndex",
+            "onSelectedIndexChange",
+            "draw",
+            "variant",
+            "summary",
+            "view",
+            "onViewChange",
+            "showViewToggle",
+            "xRange",
+            "target",
+            "targetLabel",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Trends on Health, the audit score, Gate runs as an alternative view, History activity, and the Drift drawer headline as a compact sparkline (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not runs with passes and failures per slot (BarChart)",
+            "Not a single figure with a tiny trend line (Stat)",
+            "Not for comparing categories (bars); never a pie"
+          ],
+          "a11y": "The plot is a slider (arrow keys, Home, End, Escape) with aria-valuetext in words; the callout's words are in a polite live region; a visually hidden table holds the same data and a one-line summary is always present. Direction is a triangle and a word, never colour alone. Line 3:1 on the ground, pill 7:1. Reduced motion: drawn at once, nothing slides.",
+          "figma": "Code only, 23 Nov 2026 (her reference picture, layout only); Figma catch-up after Tue 24 Nov."
+        }
+      }
+    },
+    "map-node": {
+      "$extensions": {
+        "bella": {
+          "name": "MapNode",
+          "category": "Data",
+          "description": "One step of a process map on CHIP Processes: its name and its health, a flat 176-wide box (no shadow) with a strong edge. Tone default, attention (the warning edge: a step that needs you) or blocked (a neutral dot, \"Blocked: <what>\"); selected is the light-blue fill with the 2px brand edge. The dot meets the title's left edge and the status word starts 8 after it. Joined by MapLine direction=curve.",
+          "states": [
+            "default",
+            "hover",
+            "selected",
+            "focus"
+          ],
+          "props": [
+            "title",
+            "status",
+            "tone",
+            "statusTone",
+            "selected",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "Processes maps and the System map (22 Nov 2026)"
+          ],
+          "dont": [
+            "Not a grid item (Card)",
+            "Not a status on its own (StatusDot)",
+            "Not a step in a short sequence (Step)"
+          ],
+          "a11y": "A button with aria-pressed. The dot is a StatusDot named by the status word, so the word is read once; the visible word is aria-hidden. Text 7:1; the resting edge is a hairline (decoration), the selected edge 4.05:1; the status is never colour alone (the word says it). Focus ring 4 wide, 4 gap, corner 16.",
+          "figma": "Matches BellaComponents MapNode 794:169078 (22 Nov 2026): tone default, attention, blocked; selected; 176 wide, corner 12, flat. Show hotspot (the Pin badge on the corner) is not built: the map board places its pins itself."
+        }
+      }
+    },
+    "slide": {
+      "$extensions": {
+        "bella": {
+          "name": "Slide",
+          "category": "Layout",
+          "description": "One 16:9 slide drawn at 1280 by 720 and scaled to the width it is given; a card frame that holds BELLA parts.",
+          "states": [
+            "default",
+            "centered"
+          ],
+          "props": [
+            "label",
+            "children",
+            "centered",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "A deck stage, the all-slides grid and slide thumbnails (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a page (PageHeader and Section)",
+            "Not a card in a grid (Card)"
+          ],
+          "a11y": "role group named \"slide\" with the label as its name. Content is drawn at the 16 px floor and scaled down only to fit; a slide is never scaled up past its design size.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "title-slide": {
+      "$extensions": {
+        "bella": {
+          "name": "TitleSlide",
+          "category": "Layout",
+          "description": "The opening or closing slide: an eyebrow, the hero title, one lead sentence and a foot line, centred on a Slide.",
+          "states": [
+            "default",
+            "title-only"
+          ],
+          "props": [
+            "label",
+            "eyebrow",
+            "title",
+            "lead",
+            "footer",
+            "className"
+          ],
+          "usage": [
+            "First and last slide of a deck (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a content slide (Slide)",
+            "Not a page heading (PageHeader)"
+          ],
+          "a11y": "The title is an h2 inside the slide group; the group is named by label or the title text.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "deck-bar": {
+      "$extensions": {
+        "bella": {
+          "name": "DeckBar",
+          "category": "Layout",
+          "description": "The controls under a presented deck: Back, the count with one segment per slide, Next, and Notes and All slides.",
+          "states": [
+            "default",
+            "first",
+            "last",
+            "notes-open"
+          ],
+          "props": [
+            "current",
+            "total",
+            "onBack",
+            "onNext",
+            "onNotes",
+            "notesOpen",
+            "onGrid",
+            "className"
+          ],
+          "usage": [
+            "Under the deck stage in the Present page (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a tour step (TourStep)",
+            "Not site navigation (SectionNav)"
+          ],
+          "a11y": "A labelled group. Back and Next are disabled, not hidden, at the ends. Notes is a toggle (aria-pressed). The count is read in the progress name; the visible text is hidden from the tree to avoid a double read.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "video-player": {
+      "$extensions": {
+        "bella": {
+          "name": "VideoPlayer",
+          "category": "Layout",
+          "description": "A silent 16:9 clip with a still, captions and a visible Play or Pause button; autoplays muted unless the person wants less motion.",
+          "states": [
+            "playing",
+            "paused",
+            "ended",
+            "reduced-motion"
+          ],
+          "props": [
+            "src",
+            "poster",
+            "captions",
+            "captionsLang",
+            "label",
+            "autoPlay",
+            "loop",
+            "className"
+          ],
+          "usage": [
+            "The opening film of a deck (deck plan, 23 Nov 2026)"
+          ],
+          "dont": [
+            "Not for sound or long video: no volume or scrub",
+            "Not a hero background loop"
+          ],
+          "a11y": "The video is named by label; captions are on by default. Autoplay is skipped under prefers-reduced-motion and the poster stays until Play is pressed. The button is a BELLA Button with its 44 target; it does not rely on the native control bar.",
+          "figma": "Code first from the deck plan (23 Nov 2026); the Figma part follows after Tue 24 Nov."
+        }
+      }
+    },
+    "run-indicator": {
+      "$extensions": {
+        "bella": {
+          "name": "RunIndicator",
+          "category": "Data",
+          "description": "One persistent pill that says whether anything is running, which run, its step and how long it has been going; idle, running, done and failed are all drawn so a quiet screen is never ambiguous.",
+          "states": [
+            "idle",
+            "running",
+            "done",
+            "failed"
+          ],
+          "props": [
+            "state",
+            "count",
+            "title",
+            "stepDone",
+            "stepTotal",
+            "since",
+            "elapsed",
+            "onOpen",
+            "expanded",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP header, beside Search (23 Nov 2026, feedback and sense of time)"
+          ],
+          "dont": [
+            "Not a progress bar (Progress)",
+            "Not a toast (Toast): it stays",
+            "No second spinner on the page"
+          ],
+          "a11y": "Button when it opens the list (aria-expanded), otherwise role=img; always named by the whole sentence (\"Running: Fix CheckRow, Step 3 of 7, 2:41 so far\"). A status region announces start and end, never the ticking time. 44 high; edge 3:1; narrow screens keep the ring and the count and the name stays full.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "timeline-row": {
+      "$extensions": {
+        "bella": {
+          "name": "TimelineRow",
+          "category": "Data",
+          "description": "One job in the Activity timeline: a rounded row with its state ring (running, done, queued, did not land), the title and one line of when, how long and how far.",
+          "states": [
+            "running",
+            "done",
+            "waiting",
+            "failed"
+          ],
+          "props": [
+            "title",
+            "line",
+            "state",
+            "stepDone",
+            "stepTotal",
+            "onOpen",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Activity list in the drawer (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a Card (a message or a result is a Notification)",
+            "Never colour alone: the state is a ring shape and a word"
+          ],
+          "a11y": "A button when it opens the run, a plain row otherwise; the state is read as a word (Running, Done, Queued, Did not land). 44 or more high; focus ring on keyboard focus.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "last-run": {
+      "$extensions": {
+        "bella": {
+          "name": "LastRun",
+          "category": "Data",
+          "description": "The stamp under any action that can be run again: what, when, how long, what it found, as one line (\"Ran 09:24 · 2 s · nothing new\").",
+          "states": [
+            "default",
+            "failed"
+          ],
+          "props": [
+            "when",
+            "took",
+            "result",
+            "tone",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Check again, Refresh and Test (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not a Tag",
+            "Not for a time on its own (Stat)"
+          ],
+          "a11y": "Plain text in a paragraph; a failed run begins with the words \"Did not land\", so colour is never the only signal. 16px, 1.5 line height; subtle ink 7:1 or more on the page.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "sparkline": {
+      "$extensions": {
+        "bella": {
+          "name": "Sparkline",
+          "category": "Data",
+          "description": "A mini trend line (23 Nov 2026; moved out of Stat, rule 2: a mark used in two parts is its own part): a 1px ink line and an end dot in a 80 by 24 drawing, a scrubber with BELLA's Tooltip as the callout, a one-line summary and a table behind it. It zooms to the series' own low and high, so a small change still reads as a slope; the numbers are in the summary, the table and the callout. Stat and StatCard draw it.",
+          "states": [
+            "default",
+            "scrubbing"
+          ],
+          "props": [
+            "series",
+            "names",
+            "label",
+            "range",
+            "summary",
+            "table",
+            "caption",
+            "form"
+          ],
+          "usage": [
+            "Stat (series)",
+            "Stat card (series, under the number)"
+          ],
+          "dont": [
+            "Never invent a series: it is the values that were kept",
+            "Never read the height as an amount: it is a shape"
+          ],
+          "a11y": "role=img with a name and a description (the one-line summary); the keyboard scrubber (arrow keys, Home, End, Esc) says each point in a polite live region; the table of points is visually hidden. The hit area is 44 tall. Reduced motion: the end state at once.",
+          "figma": "Drawn inside the published Stat (22 Nov); no Figma part of its own yet.",
+          "figmaProps": {}
+        }
+      }
+    },
+    "gap-chart": {
+      "$extensions": {
+        "bella": {
+          "name": "GapChart",
+          "category": "Data",
+          "description": "Two scores per item on one scale: a hollow ring for the base, a solid ink dot for the new value and a line in the tone between them (the gap), on dashed gridlines at 0, half and max, with an axis row and a legend. Each row: the name with its numbers as a meta line (\"84.2 → 45.0\", or one number when there is no base: then only the dot, no line), the track, the gap in the number face in the tone's ink, a Tag word, and an optional tertiary Why button that opens the reason under the row. One line per row in a container 760 wide or more, stacked below (container query). Tones success, danger, warning; neutral is grey for no real change. A table of the same data sits behind a Disclosure.",
+          "states": [
+            "default",
+            "why-open",
+            "no-base",
+            "highlighted"
+          ],
+          "props": [
+            "rows",
+            "label",
+            "baseLabel",
+            "valueLabel",
+            "max",
+            "highlight",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: benchmark runs and jobs, AGENTS.md against no file (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not one value over time (LineChart)",
+            "Not a share of a total from a middle zero (ShareBars)",
+            "Never colour alone: the gap number and the Tag word carry the meaning"
+          ],
+          "a11y": "A group named by label. Each track is role=img named with both values and the gap (\"Reveal a typed password: No file 84.2, AGENTS.md 45.0, gap −39.2\"). Why is a BELLA Button with aria-expanded and a 44 target; its text says Why or Hide. The axis is hidden from assistive tech; the Disclosure holds a real table of every row. Marks and lines 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) says which marks are lit; the others step back a little and stay readable.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "share-bars": {
+      "$extensions": {
+        "bella": {
+          "name": "ShareBars",
+          "category": "Data",
+          "description": "How much each item adds to or takes from a total, from a middle zero: one row per item, a dashed 2 wide zero line at the middle, a round-ended bar growing left for a negative share and right for a positive one (length is the share over max, half the track at max; at least 1% when not zero; none at zero), the name with a meta line under it, and the signed share in the number face at the row end (real minus sign). One line per row in a container 760 wide or more, stacked below (container query). Tones success, danger; neutral is grey for no real change. A table of the same data sits behind a Disclosure.",
+          "states": [
+            "default",
+            "highlighted"
+          ],
+          "props": [
+            "rows",
+            "label",
+            "max",
+            "highlight",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: each check's weighted share of the score gap (23 Nov 2026)"
+          ],
+          "dont": [
+            "Not runs over time (BarChart)",
+            "Not two scores per item (GapChart)",
+            "Never a pie or a stacked bar for parts of a change"
+          ],
+          "a11y": "A group named by label. Each track is role=img named with the item, the signed share and its detail (\"Real parts: −5.0, 100 to 80, 25% of the score\"). Direction is position and the sign, never colour alone. The Disclosure holds a real table of every row. Bars 3:1, text 7:1, numbers tabular. With highlight set, a status line (visually hidden) names the lit rows; the others step back a little and stay readable.",
+          "figma": "Not drawn in Figma yet: built in code first on 23 Nov 2026 for the 24 Nov demo; Figma follows (named gap)."
+        }
+      }
+    },
+    "score-tile": {
+      "$extensions": {
+        "bella": {
+          "name": "ScoreTile",
+          "category": "Data",
+          "description": "One score in a tile: the label above, the number centred in the number face, a light tint by its tone (neutral the base, success ahead, attention behind, danger failing) and the state word with BELLA's status dot. Tiles in a row share their size. With onSelect it is a toggle: selected draws the 2px brand edge.",
+          "states": [
+            "default",
+            "selected",
+            "hover",
+            "focus"
+          ],
+          "props": [
+            "label",
+            "value",
+            "unit",
+            "tone",
+            "word",
+            "selected",
+            "onSelect",
+            "className",
+            "style"
+          ],
+          "usage": [
+            "CHIP Audit reports: the benchmark's four scores, two by two (24 Nov 2026); picking one highlights it in the charts below"
+          ],
+          "dont": [
+            "Not a status by colour alone: the word carries the meaning",
+            "Not a summary card with a chart (StatCard)",
+            "Not navigation: a tile toggles in place"
+          ],
+          "a11y": "With onSelect the tile is one button named by its text, aria-pressed for selected, BELLA's focus ring; without it plain text. The word is the status dot's label, so colour is never the only cue. Text 7:1 on every tint, number tabular.",
+          "figma": "Not drawn in Figma yet: built in code first on 24 Nov 2026 for the demo, from her note on the benchmark scores; Figma follows after Tuesday."
         }
       }
     }

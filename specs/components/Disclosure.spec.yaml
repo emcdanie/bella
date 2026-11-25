@@ -3,7 +3,7 @@
 name: Disclosure
 lead:
   text: One open/close section.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a native details with its summary
 links:
@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Disclosure
 props:
   - name: flush
+    figmaName: flush
     type: boolean
     values:
       - true
@@ -20,11 +21,13 @@ props:
     doc: 'Sits inside a row that already has its own rule: no hairline, the row''s type size.'
     at: src/components/Disclosure/Disclosure.tsx:7
   - name: title
+    figmaName: Title
     type: ReactNode
     required: true
     doc: The section's name, always visible ("Checks").
     at: src/components/Disclosure/Disclosure.tsx:9
   - name: summary
+    figmaName: Summary
     type: ReactNode
     required: false
     doc: A short summary beside the title, so a closed section still says something ("5 of 5 pass").
@@ -38,6 +41,7 @@ props:
     doc: Open on first render (uncontrolled).
     at: src/components/Disclosure/Disclosure.tsx:13
   - name: open
+    figmaName: open
     type: boolean
     values:
       - true
@@ -105,165 +109,172 @@ anatomy:
       side: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default, flush=false
+    name: state=default, flush=false, open=false
     type: COMPONENT
     size: 480x45
     tokens:
+      - field: strokeTopWeight
+        variable: border/width/1
       - field: strokes
-        variable: component/disclosure/border
+        variable: color/border/default
     children:
       - name: Summary row
         type: FRAME
         size: 480x44
         tokens:
           - field: itemSpacing
-            variable: spacing/3
+            variable: spacing/12
           - field: paddingTop
-            variable: spacing/2
+            variable: spacing/8
           - field: paddingBottom
-            variable: spacing/2
+            variable: spacing/8
           - field: minHeight
-            variable: component/disclosure/min-height
+            variable: spacing/44
         children:
           - name: Title
             type: TEXT
             text: Checks
-            size: 70x26
+            size: 71x28
             tokens:
               - field: fills
-                variable: component/disclosure/foreground
+                variable: color/content/default
               - field: fontSize
-                variable: component/disclosure/font-size
+                variable: typography/font-size/20
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/medium
+                variable: typography/font-weight/600
           - name: Summary
             type: TEXT
             text: 5 of 5 pass
-            size: 366x23
+            size: 365x24
             tokens:
               - field: fills
-                variable: component/disclosure/meta-foreground
+                variable: color/content/subtle
               - field: fontSize
-                variable: typography/font-size/sm
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
           - name: Chevron
             type: INSTANCE
             instanceOf: Icon
             size: 20x20
+            tokens:
+              - field: width
+                variable: size/20
+              - field: height
+                variable: size/20
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: border-block-start
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .disclosure
       at: src/components/Disclosure/Disclosure.module.css:7
     - part: root
       state: rest
       property: border-block-start
-      token: '--component-disclosure-border'
+      token: '--color-border-default'
       selector: .disclosure
       at: src/components/Disclosure/Disclosure.module.css:7
     - part: summary
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:21
     - part: summary
       state: rest
       property: min-height
-      token: '--component-disclosure-min-height'
+      token: '--spacing-44'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:22
     - part: summary
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:24
     - part: summary
       state: rest
       property: color
-      token: '--component-disclosure-foreground'
+      token: '--color-content-default'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:27
     - part: summary
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:28
     - part: summary
       state: rest
       property: font-size
-      token: '--component-disclosure-font-size'
+      token: '--typography-body-default-font-size'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:29
     - part: summary
       state: rest
       property: line-height
-      token: '--typography-line-height-snug'
+      token: '--typography-line-height-130'
       selector: .summary
       at: src/components/Disclosure/Disclosure.module.css:30
     - part: title
       state: hover
       property: text-underline-offset
-      token: '--component-link-default-underline-offset'
+      token: '--spacing-4'
       selector: .summary:hover .title
       at: src/components/Disclosure/Disclosure.module.css:39
     - part: summary
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .summary:focus-visible
       at: src/components/Disclosure/Disclosure.module.css:43
     - part: summary
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .summary:focus-visible
       at: src/components/Disclosure/Disclosure.module.css:43
     - part: summary
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .summary:focus-visible
       at: src/components/Disclosure/Disclosure.module.css:44
     - part: title
       state: rest
       property: font-weight
-      token: '--typography-font-weight-medium'
+      token: '--typography-font-weight-500'
       selector: .title
       at: src/components/Disclosure/Disclosure.module.css:48
     - part: meta
       state: rest
       property: color
-      token: '--component-disclosure-meta-foreground'
+      token: '--color-content-subtle'
       selector: .meta
       at: src/components/Disclosure/Disclosure.module.css:53
     - part: meta
       state: rest
       property: font-size
-      token: '--typography-font-size-sm'
+      token: '--typography-font-size-18'
       selector: .meta
       at: src/components/Disclosure/Disclosure.module.css:54
     - part: chevron
       state: rest
       property: color
-      token: '--component-disclosure-meta-foreground'
+      token: '--color-content-subtle'
       selector: .chevron
       at: src/components/Disclosure/Disclosure.module.css:60
     - part: chevron
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .chevron
       at: src/components/Disclosure/Disclosure.module.css:61
     - part: chevron
@@ -275,80 +286,80 @@ tokens:
     - part: body
       state: rest
       property: padding-block
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .body
       at: src/components/Disclosure/Disclosure.module.css:73
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--component-disclosure-border':
-      light: '#e4e6ec'
-      chip: '#1F1C1938'
-    '--component-disclosure-font-size':
-      light: 20px
-      chip: 20px
-    '--component-disclosure-foreground':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-disclosure-meta-foreground':
-      light: '#474c5e'
-      chip: '#474c5e'
-    '--component-disclosure-min-height':
-      light: 44px
-      chip: 44px
-    '--component-link-default-underline-offset':
-      light: 4px
-      chip: 4px
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-border-default':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-subtle':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-size-sm':
-      light: 18px
-      chip: 18px
-    '--typography-font-weight-medium':
-      light: '500'
-      chip: '500'
-    '--typography-line-height-snug':
-      light: '1.3'
-      chip: '1.3'
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-line-height-130':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .chevron
       state: rest
-      declaration: 'transition: transform var(--motion-duration-fast) var(--motion-easing-standard)'
+      declaration: 'transition: transform var(--motion-duration-150) var(--motion-easing-standard)'
       properties:
         - transform
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
       at: src/components/Disclosure/Disclosure.module.css:61
   reducedMotion:
     selector: .chevron
@@ -370,18 +381,18 @@ a11y:
   aria: []
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
       at: src/components/Disclosure/Disclosure.module.css:43
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
+        - token: '--focus-ring-offset'
+          value: null
       at: src/components/Disclosure/Disclosure.module.css:44
   disabled:
     prop: null
@@ -394,60 +405,11 @@ a11y:
     Verified 2026-10-03: native details/summary, so the expanded state is announced and Enter or Space toggles it. The header row is at
     least 44px; title AAA and summary AA on panel in light, warm and dark; the hairline is a divider only; focus is the shared ring; the
     chevron does not turn under reduced motion.
-  targetPx: 44
+  targetPx: null
   ariaChips: []
 contrast:
-  pairs:
-    - label: disclosure title on panel
-      foreground: '--component-disclosure-foreground'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:112
-    - label: disclosure summary on panel
-      foreground: '--component-disclosure-meta-foreground'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#474c5e'
-      backgroundHex: '#ffffff'
-      ratio: 8.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:113
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-disclosure-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-disclosure-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-disclosure-meta-foreground'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--component-disclosure-meta-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Disclosure/Disclosure.stories.tsx
   lines: 54-56
@@ -465,7 +427,7 @@ usage:
     - 'Do not use it for navigation or to switch views: that is Tabs or SegmentedControl'
     - 'Do not hide the one thing people came for: keep the main section open by default'
     - Do not nest a disclosure inside another
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '172:349'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
@@ -489,49 +451,123 @@ figma:
         - default
         - hover
         - focus
-        - open
     flush:
       type: VARIANT
       default: 'false'
       values:
         - 'false'
         - 'true'
+    open:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
   variants:
-    - name: state=default, flush=false
+    - name: state=default, flush=false, open=false
       width: 480
       height: 45
-    - name: state=hover, flush=false
+    - name: state=hover, flush=false, open=false
       width: 480
       height: 45
-    - name: state=focus, flush=false
+    - name: state=focus, flush=false, open=false
       width: 480
       height: 45
-    - name: state=open, flush=false
+    - name: state=default, flush=false, open=true
       width: 480
-      height: 129
-    - name: state=default, flush=true
-      width: 480
-      height: 44
-    - name: state=hover, flush=true
+      height: 109
+    - name: state=default, flush=true, open=false
       width: 480
       height: 44
-    - name: state=focus, flush=true
+    - name: state=hover, flush=true, open=false
       width: 480
       height: 44
-    - name: state=open, flush=true
+    - name: state=focus, flush=true, open=false
       width: 480
-      height: 128
-  defaultVariant: state=default, flush=false
-  annotations: []
+      height: 44
+    - name: state=default, flush=true, open=true
+      width: 480
+      height: 108
+    - name: state=hover, flush=false, open=true
+      width: 480
+      height: 109
+    - name: state=focus, flush=false, open=true
+      width: 480
+      height: 109
+    - name: state=hover, flush=true, open=true
+      width: 480
+      height: 108
+    - name: state=focus, flush=true, open=true
+      width: 480
+      height: 108
+  defaultVariant: state=default, flush=false, open=false
+  annotations:
+    - label: |-
+        Open and close: the chevron turns 180° over motion/duration/fast on motion/easing/standard.
+        Reduced motion: no turn.
+      category: '123:4'
+    - label: >-
+        <Disclosure title summary open flush> · src/components/Disclosure/Disclosure.tsx. Native details and summary, marker hidden. Summary
+        row 44 tall (spacing/44); title 16 semibold, summary 16 in color/content/subtle, chevron 20 (size/20). flush=true drops the side
+        padding. Hover underlines the title in code; Figma shows no change.
+      category: '123:0'
+    - label: >-
+        details and summary: the open state is announced; Enter or Space toggles. The whole row is a 44 target. Focus ring
+        color/border/focus, 4px wide with a 4px gap. Text 7.54:1 or more; the row edge is a hairline (decoration). Do not nest.
+      category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-disclosure--docs
 mismatch:
-  - field: props.defaultOpen
-    code: boolean prop
-    figma: not in the set
-  - field: props.open
-    code: boolean prop
-    figma: not in the set
+  - field: tokens.Title.fontSize
+    code:
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/20
+    sameValueInChip: false
+  - field: tokens.Summary.fontSize
+    code:
+      - '--typography-body-default-font-size'
+      - '--typography-font-size-18'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Chevron.width
+    code:
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-130'
+      - '--typography-font-weight-500'
+      - '--color-content-subtle'
+      - '--typography-font-size-18'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-16'
+    figma: size/20
+    sameValueInChip: false
+  - field: tokens.Chevron.height
+    code:
+      - '--border-width-1'
+      - '--color-border-default'
+      - '--spacing-12'
+      - '--spacing-44'
+      - '--spacing-8'
+      - '--color-content-default'
+      - '--typography-body-default-font-family'
+      - '--typography-body-default-font-size'
+      - '--typography-line-height-130'
+      - '--typography-font-weight-500'
+      - '--color-content-subtle'
+      - '--typography-font-size-18'
+      - '--motion-duration-150'
+      - '--motion-easing-standard'
+      - '--spacing-16'
+    figma: size/20
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Disclosure/Disclosure.tsx
@@ -653,3 +689,6 @@ guidance:
     onToggle: Called with the new state
     children: What opens
   anatomyScaleWidth: 480
+  codeOnly:
+    - name: defaultOpen
+      why: initial open state at mount, behaviour only; Figma draws both states as the open variant

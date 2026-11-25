@@ -1,0 +1,373 @@
+/* TaskCard (Figma BellaComponents TaskCard 799:177248, published 21 Nov 2026). Tokens only.
+ * Card: 12 padding inside a 2px edge in the status tone (border/width/2,
+ * color/border/utility/<tone>, neutral for default; her pick B · coloured
+ * border, no bar, which replaces the status bar), border/radius/card,
+ * background/surface, resting shadow/card-ink. Content: Head over Status
+ * row, 16 apart (batch 4: groups 16, 4 inside a group, rule 10).
+ * Head: row, 4 apart: Text column fills (Title, Line, Branch, 4 apart),
+ * Move to… hugs at its right end, one title line tall (24) so the handle
+ * centres on the first line; its 44 hit area is a ::after, as Figma's
+ * absolute Hit area.
+ * Title: reading face 600, 16/24, content/default. Line: the subtext face
+ * (Geist Mono in Chip) 400, 16/24, content/subtle (21 Nov publish).
+ * Status row (MAX): the ↗ (Trailing) at the right end; the status Tag (style line, its tone; default "To do") only with showTag (off by default, batch 4), else the status words are for screen readers only.
+ * States (Figma variants): hover = background/brand-subtle, the one light
+ * blue of every interactive part; focus = 4 ring, 4 gap,
+ * outside, corner = card + 4 (border/radius/24 in Figma, outline follows the
+ * corner here); dragging = shadow/lg. Only dragging lifts above the rest. */
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  min-inline-size: 0;
+  margin: 0;
+  padding: var(--spacing-12);
+  border: var(--border-width-2) solid var(--color-border-utility-neutral);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.opens {
+  cursor: pointer;
+}
+
+.opens:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.card[data-tone='success'] { border-color: var(--color-border-utility-success); }
+.card[data-tone='info'] { border-color: var(--color-border-utility-info); }
+.card[data-tone='attention'] { border-color: var(--color-border-utility-warning); }
+.card[data-tone='danger'] { border-color: var(--color-border-utility-error); }
+
+/* Selected (Workbench A, 23 Nov 2026): the selection blue as the border and a second line outside it, so the open
+   card reads at a glance in a strip of cards whatever its status colour. */
+.card[data-selected='true'] {
+  border-color: var(--color-border-utility-info);
+  outline: var(--border-width-2) solid var(--color-border-utility-info);
+  outline-offset: var(--border-width-2);
+}
+
+.card:has(.open:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Lifts when picked up (rule "Motion that shows what happened", item 2,
+   21 Nov): the shadow deepens and the card grows a step, on
+   motion/duration/200 and motion/easing/out, and settles back when dropped.
+   Reduced motion: the lifted look at once. The hover wash fades in on motion/duration/150 and
+   motion/easing/standard, as every other hover in BELLA does (interaction study, 23 Nov: it snapped). */
+.card {
+  transition:
+    box-shadow var(--motion-duration-200) var(--motion-easing-out),
+    scale var(--motion-duration-200) var(--motion-easing-out),
+    background-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.dragging {
+  box-shadow: var(--shadow-lg);
+  scale: 1.02;
+}
+
+/* Arrives and leaves (items 4 and 6, 21 Nov): a new or restored card pops
+   in once; an accepted card slides out to the right and fades. Reduced
+   motion: no movement (the page removes a leaving card at once). */
+.entering {
+  animation: taskEnter var(--motion-duration-250) var(--motion-easing-pop) backwards;
+}
+
+.leaving {
+  animation: taskLeave var(--motion-duration-250) var(--motion-easing-standard) forwards;
+  pointer-events: none;
+}
+
+@keyframes taskEnter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--spacing-8)) scale(0.96);
+  }
+}
+
+@keyframes taskLeave {
+  to {
+    opacity: 0;
+    transform: translateX(var(--spacing-24));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+  .entering,
+  .leaving {
+    animation: none;
+  }
+}
+
+.head {
+  display: flex;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.text {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
+}
+
+/* The open target: the title link, stretched over the whole card. */
+.open {
+  all: unset;
+  cursor: pointer;
+}
+
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.open:focus-visible {
+  outline: none;
+}
+
+/* Meta (22 Nov, "Meta lines at 14, reading text stays 16: B"): Geist Mono 14 on a 20 line (no line-height-px/20 token; size-20 carries it) */
+/* The line is a sentence ("Not measured · three parts…", "Answered, not landed yet"), so it reads in the body face; the
+   subtext face (mono in Chip) is for numbers only (24 Nov 2026 review). */
+.line {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  color: var(--color-content-subtle);
+  overflow-wrap: break-word; /* paths wrap after a "/" (TaskCard.tsx adds the breaks); a name longer than the line breaks last (19 Nov) */
+  hyphens: manual;
+}
+
+.branch {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+/* A branch name longer than the card ends in an ellipsis inside its pill;
+   the full name is its tooltip (19 Nov: it ran out of the pill). */
+.branchText {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Move to…: 20 wide, one title line tall, glyph centred, 44 hit area. Sits
+   above the stretched open target. */
+.move {
+  all: unset;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-20);
+  block-size: var(--size-24);
+  color: var(--color-content-subtle);
+}
+
+/* the handle and Move to… side by side at the card's top right; the handle is a mark, the button a 44 target */
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.grab {
+  cursor: grab;
+}
+
+button.move {
+  cursor: pointer;
+  border-radius: var(--border-radius-lg);
+}
+
+button.move::after {
+  content: '';
+  position: absolute;
+  inset-block: calc((var(--spacing-44) - var(--size-24)) / -2);
+  inset-inline: calc((var(--spacing-44) - var(--size-20)) / -2);
+}
+
+button.move:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+/* A status row with nothing to draw (no Tag, no ↗) holds only the status words for screen readers: it leaves the
+   flow, so the card does not keep an empty 24 row and a 16 gap under its last line (23 Nov, Elleta: white space
+   on cards) */
+.status:not(:has(> :not(.srOnly))) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.status > [data-bella-component='tag'] {
+  margin-inline-end: auto;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Figma Content: head over the status row, 16 apart (spacing/16, batch 4), fills the card */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+/* Progress zone (22 Nov, Work board section 4; off by default, `progress`): the
+   body between the head and the ↗ row, 16 apart from both (it is a group in
+   .content). Bar row: a Progress bar fills, "n of m" in the number face 600 at
+   20 on 28 sits beside it, 8 apart. Step row: ProgressRing sm, then the step
+   text in the reading face 14, one line, cut with an ellipsis, 8 apart. */
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.barTrack {
+  flex: 1 1 auto;
+}
+
+.count {
+  flex-shrink: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.stepNow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.stepText {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  color: var(--color-content-default);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Steps left, time so far and the last step's age (23 Nov, feedback and sense of time): one line under the
+   step row, the reading face 16 in the subtle ink, wrapping rather than cutting; numbers stay tabular. */
+.stepMeta {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* Stopped (second pass D6): the reason wraps, so nothing is clipped; the ring and the cross sit at the first line. */
+.stepStopped {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* use="pick" (Playground picks, Needs you; Elleta's Workbench A, 23 Nov 2026, "tighter", "use the card grid"): the
+   card's title, line and status are its grid parent's three rows through subgrid, so every card in the strip is the
+   same height and each part sits at one height across it; the status is pinned to the foot. The wrappers between the
+   card and its parts step aside (display: contents) so the parts are the card's own grid items. Title and line clamp
+   to two lines each. Alone (no grid parent), subgrid falls back to the card's own rows. */
+.pick {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  row-gap: var(--spacing-4);
+  align-content: start;
+}
+
+.pick .content,
+.pick .head,
+.pick .text {
+  display: contents;
+}
+
+.pick .title,
+.pick .line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.pick .status {
+  align-self: end;
+  justify-content: flex-start;
+  padding-block-start: var(--spacing-8);
+}

@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const contract = (componentContract as any).component?.pin?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Pin> = {
-  title: 'Components/Pin',
+  title: 'Components/Layout/Pin',
   component: Pin,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -93,5 +93,25 @@ export const WithLeader: Story = {
     const svg = canvasElement.querySelector('[data-bella-component="leader"]');
     await expect(svg?.getAttribute('aria-label')).toBeTruthy();
     await waitFor(() => expect(svg?.querySelectorAll('path').length).toBeGreaterThan(0));
+  },
+};
+
+/** style="solid": the disc filled in its tone with an ink number (anatomy pins, the Tour step), all five tones. */
+export const Solid: StoryObj<typeof Pin> = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-16)', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      {(['yellow', 'pink', 'blue', 'red', 'green'] as const).map((v, i) => (
+        <Pin key={v} number={`0${i + 1}`} variant={v} pinStyle="solid" />
+      ))}
+    </div>
+  ),
+};
+
+/** A comment's pin, as Figma draws it (23 Nov 2026): the author's initials on a white teardrop pointing at the spot. */
+export const Comment: Story = {
+  args: { number: 'EM', pinStyle: 'comment', ariaLabel: 'Comment 1 by Elleta McDaniel', onClick: () => {} },
+  play: async ({ canvasElement }) => {
+    const disc = canvasElement.querySelector('[data-bella-component="pin"] span') as HTMLElement;
+    await expect(getComputedStyle(disc).borderBottomLeftRadius).toBe('0px');
   },
 };

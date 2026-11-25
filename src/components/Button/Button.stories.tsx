@@ -30,7 +30,7 @@ const buttonContract = (componentContract as any).component?.button?.$extensions
  * the committed TSDoc via docgen, curated controls, tokens consumed and
  * a11y notes from the contract. */
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Components/Actions/Button',
   component: Button,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -102,7 +102,7 @@ export const States: Story = {
   ),
 };
 
-/** Shape: every tier shares the 12px radius by default; `shape="pill"`
+/** Shape: every tier shares border/radius/lg by default (8 in Chip, the pill in BELLA); `shape="pill"`
  * rounds the ends fully. The label still reads once: the rolling copy is
  * aria-hidden. */
 export const Shape: Story = {
@@ -127,12 +127,18 @@ export const Shape: Story = {
     </div>
   ),
   play: async ({ canvas, step }) => {
-    await step('pill: fully rounded, name read once', async () => {
+    await step('pill: fully rounded; default: border/radius/lg; name read once', async () => {
       const [square, pill] = canvas.getAllByRole('button', { name: "Let's talk" });
       expect(pill).toHaveAccessibleName("Let's talk");
-      expect(getComputedStyle(pill).borderTopLeftRadius).not.toBe(
-        getComputedStyle(square).borderTopLeftRadius
-      );
+      // Figma Button 26:320 binds border/radius/lg: 8 in Chip, the pill in
+      // BELLA (where the two shapes therefore look the same)
+      const probe = document.createElement('div');
+      probe.style.borderRadius = 'var(--border-radius-lg)';
+      square.parentElement!.append(probe);
+      const lg = getComputedStyle(probe).borderTopLeftRadius;
+      probe.remove();
+      expect(getComputedStyle(square).borderTopLeftRadius).toBe(lg);
+      expect(parseFloat(getComputedStyle(pill).borderTopLeftRadius)).toBeGreaterThanOrEqual(pill.getBoundingClientRect().height / 2);
     });
   },
 };
@@ -271,7 +277,7 @@ export const RingAndHover: Story = {
       await expect(parseFloat(cs.outlineOffset)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-offset')));
       primary.blur();
     });
-    /* hover (secondary outline to ink, tertiary underline to 2px) is
+    /* hover (secondary outline to ink, tertiary fill) is
        verified with a real pointer outside the play function: synthetic
        userEvent.hover never triggers CSS :hover */
   },
@@ -412,7 +418,7 @@ export const Small: Story = {
   play: async ({ canvas }) => {
     for (const name of ['Read the case', 'See the system', 'All work', 'Read everything again']) {
       const b = canvas.getByRole('button', { name });
-      const box = parseFloat(getComputedStyle(b).getPropertyValue('--component-button-sm-min-height'));
+      const box = parseFloat(getComputedStyle(b).getPropertyValue('--size-32'));
       await expect(Math.round(b.getBoundingClientRect().height)).toBe(box);
       await expect(parseFloat(getComputedStyle(b).fontSize)).toBeGreaterThanOrEqual(16);
       // the tap area: the invisible ::after reaches 44 both ways
@@ -435,5 +441,146 @@ export const SmallFocused: Story = {
     const b = canvas.getByRole('button', { name: 'See the system' });
     await expect(b).toHaveFocus();
     await expect(parseFloat(getComputedStyle(b).outlineWidth)).toBe(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--focus-ring-width')));
+  },
+};
+
+/* Figma re-sync (19 Nov 2026): every variant x size x iconOnly x disabled in
+ * Chip light and Chip dark, with the new Label / icon / Leading icon props. */
+const CHIP_THEMES = ['chip-light', 'chip-dark'] as const;
+
+export const ChipMatrix: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {CHIP_THEMES.map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', display: 'grid', gap: 'var(--spacing-16)' }}>
+          {(['md', 'sm'] as const).map((size) => (
+            <div key={size} style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)', alignItems: 'center' }}>
+              {(['primary', 'secondary', 'tertiary'] as const).map((variant) => (
+                <React.Fragment key={variant}>
+                  <Button variant={variant} size={size} label="Accept" onClick={() => {}} />
+                  <Button variant={variant} size={size} label="Refresh" icon="RefreshDouble" leadingIcon onClick={() => {}} />
+                  <Button variant={variant} size={size} iconOnly icon="Xmark" ariaLabel="Close" onClick={() => {}} />
+                  <Button variant={variant} size={size} label="Disabled" disabled />
+                </React.Fragment>
+              ))}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+function BusyDemo() {
+  const [busy, setBusy] = React.useState(false);
+  const [runs, setRuns] = React.useState(0);
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-16)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <Button
+        variant="secondary"
+        busy={busy}
+        onClick={() => {
+          setRuns((n) => n + 1);
+          setBusy(true);
+        }}
+      >
+        Check again
+      </Button>
+      <Button variant="secondary" size="sm" icon="RefreshDouble" leadingIcon busy>
+        Test
+      </Button>
+      <span data-testid="runs" style={{ fontFamily: 'var(--typography-number-font-family)', color: 'var(--color-content-default)' }}>
+        {runs} run{runs === 1 ? '' : 's'}
+      </span>
+    </div>
+  );
+}
+
+/** busy (rule "Motion that shows what happened", item 1): the job it started is running, so its icon
+ * turns and clicks wait. The label stays and never rolls. Reduced motion: the icon holds still. */
+export const Busy: Story = {
+  render: () => <BusyDemo />,
+  play: async ({ canvas, step }) => {
+    const check = canvas.getByRole('button', { name: 'Check again' });
+    await step('a click starts the job: aria-busy, the icon turns', async () => {
+      await userEvent.click(check);
+      await expect(check).toHaveAttribute('aria-busy', 'true');
+      const turn = check.querySelector('[class*="turn"]') as HTMLElement;
+      await expect(turn).not.toBeNull();
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      await expect(getComputedStyle(turn).animationName).toMatch(reduced ? /^none$/ : /buttonTurn/);
+    });
+    await step('while busy, clicks wait', async () => {
+      await userEvent.click(check);
+      await expect(canvas.getByTestId('runs')).toHaveTextContent('1 run');
+    });
+  },
+};
+
+/** Small = 32 plate with a 44 tap area (her rule, 21 Nov), with text or icon only: the invisible target
+ * reaches 44 tall and at least 44 wide, centred on the plate, so even "Go" keeps a 44 square. */
+export const SmallTapArea: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <Button variant="secondary" size="sm">Go</Button>
+      <Button variant="tertiary" size="sm" icon="NavArrowRight">See all 36</Button>
+      <Button variant="secondary" size="sm" iconOnly icon="Copy" ariaLabel="Copy" />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    for (const b of canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="button"]')) {
+      await step(`${b.getAttribute('aria-label') ?? b.textContent}: 32 plate, 44 target`, async () => {
+        const r = b.getBoundingClientRect();
+        await expect(Math.round(r.height)).toBe(32);
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        for (const [dx, dy] of [[-21, 0], [21, 0], [0, -21], [0, 21]]) {
+          await expect(b.contains(document.elementFromPoint(cx + dx, cy + dy))).toBe(true);
+        }
+      });
+    }
+  },
+};
+
+/** Tertiary in Chip (her pick E, 22 Nov): blue text only at rest; BELLA's own themes keep the ink text. */
+export const TertiaryBlue: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-20)', alignItems: 'center', flexWrap: 'wrap', padding: 'var(--spacing-16)' }}>
+      <Button variant="tertiary" onClick={() => {}}>Show table</Button>
+      <Button variant="tertiary" onClick={() => {}} disabled>Not now</Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const [rest, off] = canvas.getAllByRole('button');
+    const chip = document.documentElement.getAttribute('data-theme')?.startsWith('chip');
+    const brand = getComputedStyle(document.documentElement).getPropertyValue('--color-content-brand').trim();
+    const ink = getComputedStyle(document.documentElement).getPropertyValue('--color-content-default').trim();
+    const swatch = (v: string) => { const d = document.createElement('i'); d.style.color = v; document.body.appendChild(d); const c = getComputedStyle(d).color; d.remove(); return c; };
+    await expect(getComputedStyle(rest).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await expect(getComputedStyle(rest).color).toBe(swatch(chip ? brand : ink));
+    await expect(getComputedStyle(off).color).not.toBe(getComputedStyle(rest).color);
+  },
+};
+
+/** Focus (and hover): the pale blue wash and a blue underline under the label, in Chip. */
+export const TertiaryBlueFocus: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-16)' }}>
+      <Button variant="tertiary" onClick={() => {}}>Show table</Button>
+    </div>
+  ),
+  play: async ({ canvas }) => {
+    const b = canvas.getByRole('button');
+    await userEvent.tab();
+    await expect(b).toHaveFocus();
+    const chip = document.documentElement.getAttribute('data-theme')?.startsWith('chip');
+    const label = b.querySelector('[data-bella-roll="copy"]') as HTMLElement;
+    if (chip) {
+      await expect(getComputedStyle(b).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+      await expect(getComputedStyle(label).textDecorationLine).toBe('underline');
+      await expect(getComputedStyle(label).textDecorationThickness).toBe('2px');
+    } else {
+      await expect(getComputedStyle(label).textDecorationLine).toBe('none');
+    }
   },
 };

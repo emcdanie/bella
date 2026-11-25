@@ -3,7 +3,7 @@
 name: FilterChip
 lead:
   text: The toggle for narrowing a set.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Actions
 rendersAs: a button with aria-pressed
 links:
@@ -29,6 +29,11 @@ props:
     doc: Accessible name when the visible label isn't the right name.
     at: src/components/FilterChip/FilterChip.tsx:9
   - name: size
+    figmaName: size
+    valuePairs:
+      - figma: md
+        code: default
+        why: both are the 44 box (Figma md 44 high, code min-height spacing/44); compact and sm are not recorded as a pair (compact keeps a 44 box, sm is a 32 plate)
     type: '''default'' | ''compact'''
     values:
       - default
@@ -71,11 +76,11 @@ sizes:
     default: false
     css:
       - property: gap
-        value: var(--spacing-1)
-        at: src/components/FilterChip/FilterChip.module.css:39
+        value: var(--spacing-4)
+        at: src/components/FilterChip/FilterChip.module.css:38
       - property: padding
-        value: var(--spacing-1) var(--spacing-3)
-        at: src/components/FilterChip/FilterChip.module.css:40
+        value: var(--spacing-4) var(--spacing-12)
+        at: src/components/FilterChip/FilterChip.module.css:39
 anatomy:
   scaleWidth: 480
   parts:
@@ -93,333 +98,352 @@ anatomy:
       at: centre
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: state=default, size=default, pressed=false
+    name: state=default, size=md, selected=false, disabled=false
     type: COMPONENT
-    size: 92x44
+    size: 89x44
     tokens:
       - field: itemSpacing
-        variable: spacing/2
+        variable: spacing/4
       - field: paddingLeft
-        variable: spacing/4
+        variable: spacing/16
       - field: paddingTop
-        variable: spacing/1
-      - field: paddingRight
         variable: spacing/4
+      - field: paddingRight
+        variable: spacing/16
       - field: paddingBottom
-        variable: spacing/1
+        variable: spacing/4
       - field: topLeftRadius
-        variable: radius/full
+        variable: border/radius/lg
       - field: topRightRadius
-        variable: radius/full
+        variable: border/radius/lg
       - field: bottomLeftRadius
-        variable: radius/full
+        variable: border/radius/lg
       - field: bottomRightRadius
-        variable: radius/full
+        variable: border/radius/lg
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
       - field: minHeight
-        variable: spacing/touch-target
+        variable: spacing/44
       - field: strokes
-        variable: color/semantic/border-strong
+        variable: color/border/strong
     children:
       - name: Label
         type: TEXT
         text: Design
-        size: 58x23
+        size: 55x24
         tokens:
           - field: fills
-            variable: color/semantic/text-body
+            variable: color/content/body
           - field: fontSize
-            variable: typography/font-size/sm
+            variable: typography/font-size/16
           - field: fontFamily
-            variable: typography/font-family/body
+            variable: typography/body-default/font-family
           - field: fontWeight
-            variable: typography/font-weight/medium
+            variable: typography/font-weight/600
+      - name: Count
+        type: TEXT
+        hidden: true
+        text: '12'
+        size: 20x24
+        tokens:
+          - field: fills
+            variable: color/content/body
+          - field: fontSize
+            variable: typography/font-size/16
+          - field: fontFamily
+            variable: typography/number/font-family
+          - field: fontWeight
+            variable: typography/font-weight/600
   code:
     - key: box
       title: Box
       kind: box
       trigger: rest
-      token: '--component-filter-chip-min-height'
+      token: '--spacing-44'
       detail: 44px min, padding 4 / 16, pill radius
     - key: outline
       title: Outline
       kind: edge
       trigger: rest
-      token: '--component-filter-chip-border'
+      token: '--color-border-strong'
       detail: 1px border-strong, never raised
     - key: hover
       title: Hover wash
       kind: state
       trigger: hover
-      token: '--color-semantic-border-subtle'
+      token: '--color-border-subtle'
       detail: border-subtle wash, the edge goes ink
     - key: pressed
       title: Pressed fill
       kind: fill
       trigger: pressed
-      token: '--color-semantic-background-inverse'
+      token: '--color-background-knockout'
       detail: inverse fill, label text-inverse; aria-pressed is the state
     - key: label
       title: Label
       kind: content
       trigger: rest
-      token: '--component-filter-chip-foreground'
+      token: '--color-content-body'
       detail: Geist 14, 500, text-secondary
     - key: ring
       title: Focus ring
       kind: ring
       trigger: focus
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       detail: 3px, 3px offset, focus-visible only
 tokens:
   used:
     - part: root
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:21
+      at: src/components/FilterChip/FilterChip.module.css:20
     - part: root
       state: rest
       property: min-height
-      token: '--component-filter-chip-min-height'
+      token: '--spacing-44'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:23
-    - part: root
-      state: rest
-      property: padding
-      token: '--spacing-1'
-      selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:24
+      at: src/components/FilterChip/FilterChip.module.css:22
     - part: root
       state: rest
       property: padding
       token: '--spacing-4'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:24
+      at: src/components/FilterChip/FilterChip.module.css:23
+    - part: root
+      state: rest
+      property: padding
+      token: '--spacing-16'
+      selector: .chip
+      at: src/components/FilterChip/FilterChip.module.css:23
     - part: root
       state: rest
       property: border-radius
-      token: '--component-filter-chip-border-radius'
+      token: '--border-radius-round'
+      selector: .chip
+      at: src/components/FilterChip/FilterChip.module.css:24
+    - part: root
+      state: rest
+      property: border
+      token: '--color-border-strong'
       selector: .chip
       at: src/components/FilterChip/FilterChip.module.css:25
     - part: root
       state: rest
-      property: border
-      token: '--component-filter-chip-border'
+      property: font-family
+      token: '--typography-body-default-font-family'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:26
+      at: src/components/FilterChip/FilterChip.module.css:27
     - part: root
       state: rest
-      property: font-family
-      token: '--component-filter-chip-font-family'
+      property: font-size
+      token: '--typography-font-size-18'
       selector: .chip
       at: src/components/FilterChip/FilterChip.module.css:28
     - part: root
       state: rest
-      property: font-size
-      token: '--component-filter-chip-font-size'
+      property: font-weight
+      token: '--typography-font-weight-500'
       selector: .chip
       at: src/components/FilterChip/FilterChip.module.css:29
     - part: root
       state: rest
-      property: font-weight
-      token: '--component-filter-chip-font-weight'
+      property: color
+      token: '--color-content-body'
       selector: .chip
       at: src/components/FilterChip/FilterChip.module.css:30
     - part: root
       state: rest
-      property: color
-      token: '--component-filter-chip-foreground'
-      selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:31
-    - part: root
-      state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:33
+      at: src/components/FilterChip/FilterChip.module.css:32
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:33
+      at: src/components/FilterChip/FilterChip.module.css:32
     - part: root
       state: rest
       property: transition
-      token: '--motion-duration-fast'
+      token: '--motion-duration-150'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:33
+      at: src/components/FilterChip/FilterChip.module.css:32
     - part: root
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .chip
-      at: src/components/FilterChip/FilterChip.module.css:33
+      at: src/components/FilterChip/FilterChip.module.css:32
     - part: compact
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
+      selector: .compact
+      at: src/components/FilterChip/FilterChip.module.css:38
+    - part: compact
+      state: rest
+      property: padding
+      token: '--spacing-4'
       selector: .compact
       at: src/components/FilterChip/FilterChip.module.css:39
     - part: compact
       state: rest
       property: padding
-      token: '--spacing-1'
+      token: '--spacing-12'
       selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:40
-    - part: compact
-      state: rest
-      property: padding
-      token: '--spacing-3'
-      selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:40
+      at: src/components/FilterChip/FilterChip.module.css:39
     - part: compact
       state: rest
       property: font-size
-      token: '--component-filter-chip-compact-font-size'
+      token: '--typography-label-default-font-size'
       selector: .compact
-      at: src/components/FilterChip/FilterChip.module.css:41
+      at: src/components/FilterChip/FilterChip.module.css:40
     - part: root
       state: hover
       property: border-color
-      token: '--color-semantic-border-ink'
+      token: '--color-border-ink'
       selector: .chip:hover
-      at: src/components/FilterChip/FilterChip.module.css:45
+      at: src/components/FilterChip/FilterChip.module.css:44
     - part: root
       state: hover
       property: background
-      token: '--color-semantic-border-subtle'
+      token: '--color-border-subtle'
       selector: .chip:hover
-      at: src/components/FilterChip/FilterChip.module.css:46
+      at: src/components/FilterChip/FilterChip.module.css:45
     - part: root
       state: '[aria-pressed=''true'']'
       property: background
-      token: '--component-filter-chip-pressed-background'
+      token: '--color-background-knockout'
+      selector: .chip[aria-pressed='true']
+      at: src/components/FilterChip/FilterChip.module.css:49
+    - part: root
+      state: '[aria-pressed=''true'']'
+      property: border-color
+      token: '--color-background-knockout'
       selector: .chip[aria-pressed='true']
       at: src/components/FilterChip/FilterChip.module.css:50
     - part: root
       state: '[aria-pressed=''true'']'
-      property: border-color
-      token: '--component-filter-chip-pressed-border'
+      property: color
+      token: '--color-content-knockout'
       selector: .chip[aria-pressed='true']
       at: src/components/FilterChip/FilterChip.module.css:51
     - part: root
-      state: '[aria-pressed=''true'']'
-      property: color
-      token: '--component-filter-chip-pressed-foreground'
-      selector: .chip[aria-pressed='true']
-      at: src/components/FilterChip/FilterChip.module.css:52
+      state: focus-visible
+      property: outline
+      token: '--focus-ring-width'
+      selector: .chip:focus-visible
+      at: src/components/FilterChip/FilterChip.module.css:55
     - part: root
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--color-border-focus'
       selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:56
-    - part: root
-      state: focus-visible
-      property: outline
-      token: '--ring-focus-color'
-      selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:56
+      at: src/components/FilterChip/FilterChip.module.css:55
     - part: root
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .chip:focus-visible
-      at: src/components/FilterChip/FilterChip.module.css:57
+      at: src/components/FilterChip/FilterChip.module.css:56
   values:
-    '--color-semantic-border-ink':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--component-filter-chip-border':
-      light: '#686d7d'
-      chip: '#686d7d'
-    '--component-filter-chip-border-radius':
-      light: 999px
-      chip: 999px
-    '--component-filter-chip-compact-font-size':
-      light: 16px
-      chip: 16px
-    '--component-filter-chip-font-family':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--component-filter-chip-font-size':
-      light: 18px
-      chip: 18px
-    '--component-filter-chip-font-weight':
-      light: '500'
-      chip: '600'
-    '--component-filter-chip-foreground':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--component-filter-chip-min-height':
-      light: 44px
-      chip: 44px
-    '--component-filter-chip-pressed-background':
-      light: '#1d2030'
-      chip: '#E6F1FB'
-    '--component-filter-chip-pressed-border':
-      light: '#1d2030'
-      chip: '#1865BB'
-    '--component-filter-chip-pressed-foreground':
-      light: '#eceef3'
-      chip: '#114C80'
-    '--motion-duration-fast':
-      light: 150ms
-      chip: 150ms
+    '--border-radius-round':
+      light: null
+      chip: null
+    '--color-background-knockout':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-ink':
+      light: null
+      chip: null
+    '--color-border-strong':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-knockout':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--motion-duration-150':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
     '--spacing-4':
-      light: 16px
-      chip: 16px
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-size-18':
+      light: null
+      chip: null
+    '--typography-font-weight-500':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .chip
       state: rest
       declaration: >-
-        transition: background var(--motion-duration-fast) var(--motion-easing-standard), color var(--motion-duration-fast)
+        transition: background var(--motion-duration-150) var(--motion-easing-standard), color var(--motion-duration-150)
         var(--motion-easing-standard)
       properties:
         - background
         - color
       durations:
-        - token: '--motion-duration-fast'
-          value: 150ms
-        - token: '--motion-duration-fast'
-          value: 150ms
+        - token: '--motion-duration-150'
+          value: null
+        - token: '--motion-duration-150'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/FilterChip/FilterChip.module.css:33
+          value: null
+      at: src/components/FilterChip/FilterChip.module.css:32
   reducedMotion:
     selector: .chip
     declaration: 'transition: none'
-    at: src/components/FilterChip/FilterChip.module.css:62
+    at: src/components/FilterChip/FilterChip.module.css:61
   reducedMotionQuery: true
 a11y:
   element:
@@ -448,32 +472,32 @@ a11y:
       at: src/components/FilterChip/FilterChip.tsx:34
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/FilterChip/FilterChip.module.css:56
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/FilterChip/FilterChip.module.css:55
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
-      at: src/components/FilterChip/FilterChip.module.css:57
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/FilterChip/FilterChip.module.css:56
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .chip
     declaration: 'transition: none'
-    at: src/components/FilterChip/FilterChip.module.css:62
+    at: src/components/FilterChip/FilterChip.module.css:61
   contract: >-
     Verified 2026-07-22: real button with aria-pressed, both themes. Default label text-secondary on transparent, 8.33:1 light / 9.20:1 dark
     (AAA). Pressed is the inverse fill: ground-on-ink 16.06:1 light, navy-on-dark-inverse equivalent in dark (AAA). Focus ring independent.
     Hit area 44px minimum (the touch-target token; the portfolio 32px chip is a recorded divergence, below the 2.5.5 Enhanced floor BELLA
     holds).
-  targetPx: 44
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-pressed
@@ -482,79 +506,8 @@ a11y:
       value: aria-label
       at: src/components/FilterChip/FilterChip.tsx:34
 contrast:
-  pairs:
-    - label: Label on surface
-      foreground: '--component-filter-chip-foreground'
-      background: '--color-semantic-surface'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Pressed label on pressed fill
-      foreground: '--component-filter-chip-pressed-foreground'
-      background: '--component-filter-chip-pressed-background'
-      foregroundHex: '#114C80'
-      backgroundHex: '#E6F1FB'
-      ratio: 7.74
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Chip edge on surface
-      foreground: '--component-filter-chip-border'
-      background: '--color-semantic-surface'
-      foregroundHex: '#686d7d'
-      backgroundHex: '#ffffff'
-      ratio: 5.16
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Pressed edge on surface
-      foreground: '--component-filter-chip-pressed-border'
-      background: '--color-semantic-surface'
-      foregroundHex: '#1865BB'
-      backgroundHex: '#ffffff'
-      ratio: 5.8
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-filter-chip-foreground'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--component-filter-chip-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--component-filter-chip-pressed-foreground'
-      background: '--color-semantic-background'
-      ratio: 8.26
-      theme: chip
-    - foreground: '--component-filter-chip-pressed-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 8.86
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/FilterChip/FilterChip.stories.tsx
   lines: 46-48
@@ -573,7 +526,7 @@ usage:
     - 'Do not use for mutually exclusive views: that is SegmentedControl'
     - 'Do not make it a Button: a Button is reserved for true actions'
     - 'Do not fake the state with colour alone: aria-pressed is the state, the fill is its paint'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '145:115'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
@@ -581,6 +534,12 @@ figma:
     Label#145:26:
       type: TEXT
       default: Design
+    Count#1498:0:
+      type: TEXT
+      default: '12'
+    Show count#1498:11:
+      type: BOOLEAN
+      default: false
     state:
       type: VARIANT
       default: default
@@ -590,84 +549,116 @@ figma:
         - focus
     size:
       type: VARIANT
-      default: default
+      default: md
       values:
-        - default
-        - compact
-    pressed:
+        - md
+        - sm
+    selected:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
+    disabled:
       type: VARIANT
       default: 'false'
       values:
         - 'false'
         - 'true'
   variants:
-    - name: state=default, size=default
-      width: 92
+    - name: state=default, size=md, selected=false, disabled=false
+      width: 89
       height: 44
-    - name: state=hover, size=default
-      width: 92
+    - name: state=hover, size=md, selected=false, disabled=false
+      width: 89
       height: 44
-    - name: state=pressed, size=default
-      width: 92
+    - name: state=default, size=md, selected=true, disabled=false
+      width: 89
       height: 44
-    - name: state=focus, size=default
-      width: 92
+    - name: state=focus, size=md, selected=false, disabled=false
+      width: 89
       height: 44
-    - name: state=default, size=compact
-      width: 84
+    - name: state=default, size=sm, selected=false, disabled=false
+      width: 79
+      height: 32
+    - name: state=hover, size=sm, selected=false, disabled=false
+      width: 79
+      height: 32
+    - name: state=default, size=sm, selected=true, disabled=false
+      width: 79
+      height: 32
+    - name: state=focus, size=sm, selected=false, disabled=false
+      width: 79
+      height: 32
+    - name: state=default, size=md, selected=false, disabled=true
+      width: 89
       height: 44
-    - name: state=hover, size=compact
-      width: 84
-      height: 44
-    - name: state=pressed, size=compact
-      width: 84
-      height: 44
-    - name: state=focus, size=compact
-      width: 84
-      height: 44
-  defaultVariant: state=default, size=default, pressed=false
+    - name: state=default, size=sm, selected=false, disabled=true
+      width: 79
+      height: 32
+  defaultVariant: state=default, size=md, selected=false, disabled=false
   annotations:
     - label: |-
-        Pressed: background, border and label colour change in motion/duration/fast, easing.standard. Never lifts.
+        On and off: fill and label colour change over motion/duration/fast on motion/easing/standard; the edge changes at once. Never lifts.
         Reduced motion: instant.
       category: '123:4'
     - label: >-
-        <FilterChip pressed onClick> · src/components/FilterChip/FilterChip.tsx. 44 min (spacing/touch-target), padding spacing/1 /
-        spacing/4, radius/full.
+        <FilterChip pressed onClick> · src/components/FilterChip/FilterChip.tsx. md 44; sm a 32 plate in a 44 tap area (spacing/44), sides
+        spacing/16, corner border/radius/lg, edge border/width/1 in color/border/strong. On: filled. size is Figma only.
       category: '123:0'
     - label: >-
-        Toggle button: aria-pressed is the state. 44px hit area. Focus ring 3px color/semantic/focus-ring (pink in Chip, #CF5A95), 3px
-        offset, focus-visible only.
+        Toggle button: aria-pressed is the state. 44 target. Focus ring color/border/focus (blue/600 in Chip light), 4px wide with a 4px
+        gap, focus-visible only. Text 7.54:1 or more (disabled included); edge 3.76:1 or more. Open: the disabled edge is 1.16:1.
       category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-filterchip--docs
 mismatch:
-  - field: tokens.state=default, size=default, pressed=false.radius
+  - field: states
     code:
-      - '--component-filter-chip-border-radius'
-    figma: radius/full
-    sameValueInChip: true
-  - field: tokens.state=default, size=default, pressed=false.minHeight
+      contract:
+        - default
+        - hover
+        - pressed
+        - focus
+      css:
+        - hover
+        - '[aria-pressed=''true'']'
+        - focus-visible
+    figma:
+      - default
+      - hover
+      - focus
+  - field: props.size.values
     code:
-      - '--component-filter-chip-min-height'
-    figma: spacing/touch-target
-    sameValueInChip: true
-  - field: tokens.state=default, size=default, pressed=false.strokes
-    code:
-      - '--component-filter-chip-border-radius'
-      - '--component-filter-chip-border'
-    figma: color/semantic/border-strong
-    sameValueInChip: true
-  - field: tokens.Label.fills
-    code:
-      - '--component-filter-chip-foreground'
-    figma: color/semantic/text-body
-    sameValueInChip: true
+      - default
+      - compact
+    figma:
+      - md
+      - sm
+  - field: props.selected
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: props.disabled
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
+  - field: props.pressed
+    code: boolean prop
+    figma: not in the set
   - field: tokens.Label.fontSize
     code:
-      - '--component-filter-chip-font-size'
-      - '--component-filter-chip-compact-font-size'
-    figma: typography/font-size/sm
+      - '--typography-font-size-18'
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
+  - field: tokens.Count.fontSize
+    code:
+      - '--typography-font-size-18'
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
 notApplicable: []
 guidance:

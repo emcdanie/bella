@@ -1,5 +1,8 @@
-/* Stat (CHIP components, 2026-10-03). Tokens only. One figure: a sans label,
- * a light display figure in tabular numerals, an optional change line with
+/* Stat (CHIP components, 2026-10-03; BellaComponents Stat 161:78, published
+ * 22 Nov 2026). Tokens only. One figure: a 16 label, the figure in Geist
+ * Mono Bold 40 on a 48 line (number face 700, her 22 Nov "the numbers are
+ * too small now") in tabular numerals, an optional change line (meta: Geist
+ * Mono 14 on a 20 line, her 22 Nov "Meta lines at 14: B") with
  * an optional sparkline (2026-10-03, Elleta: a trend that never relies on
  * colour).
  *
@@ -18,16 +21,26 @@
 
 .label {
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
   color: var(--color-content-subtle);
+}
+
+/* Display size (deck plan, 23 Nov 2026): the figure at font-size/88 on a spacing/80 line, for a slide. */
+.display .value {
+  font-size: var(--typography-font-size-88);
+  line-height: var(--spacing-80);
 }
 
 .value {
   margin: 0;
+  /* Stat 161:78 stacked and tile, 22 Nov: Geist Mono Bold 40 on a 48 line
+     (no line-height-px/48 token; spacing-48 carries it, as Stat card) */
   font-family: var(--typography-number-font-family);
-  font-size: var(--typography-font-size-display-section);
-  font-weight: var(--typography-font-weight-300);
-  line-height: var(--typography-line-height-115);
+  font-size: var(--typography-font-size-40);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--spacing-48);
   letter-spacing: var(--typography-letter-spacing-minus-1-half);
   font-variant-numeric: tabular-nums;
   color: var(--color-content-default);
@@ -35,39 +48,24 @@
 
 .delta {
   margin: 0;
-  font-family: var(--typography-number-font-family);
-  font-size: var(--typography-font-size-18);
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20); /* 14 on a 20 line; no line-height-px/20 token */
   letter-spacing: var(--typography-letter-spacing-0);
+  font-variant-numeric: tabular-nums;
   color: var(--color-content-subtle);
 }
 
-.delta:has(.spark) {
+.arrow {
+  margin-inline-end: var(--spacing-8);
+}
+
+.delta:has([data-bella-component="sparkline"]) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-8);
-}
-
-/* the sparkline: a 1px ink line and an end dot. Its shape and the arrow plus
-   spoken word carry the direction; colour carries nothing */
-.spark {
-  inline-size: var(--spacing-80);
-  block-size: var(--spacing-24);
-  flex: none;
-  overflow: visible;
-}
-
-.spark polyline {
-  fill: none;
-  stroke: var(--color-content-default);
-  stroke-width: var(--border-width-1);
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.spark circle {
-  fill: var(--color-content-default);
 }
 
 .iconWell {
@@ -87,8 +85,8 @@
 .notMeasured {
   margin: 0;
   font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-font-size-18);
-  line-height: var(--typography-line-height-150);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
   color: var(--color-content-subtle);
 }
 
@@ -103,7 +101,7 @@
   inline-size: 100%;
   block-size: calc(var(--spacing-4) + var(--border-width-2));
   border-radius: var(--border-radius-round);
-  /* empty part of the bar: border/strong, 3:1+ (Elleta, 18 Nov: "yes all three fixes") */
+  /* empty part of the bar: border/strong, 3:1+ (decided 18 Nov) */
   background: var(--color-border-strong);
   overflow: hidden;
 }
@@ -113,6 +111,8 @@
   block-size: 100%;
   border-radius: var(--border-radius-round);
   background: var(--color-content-default);
+  /* the bar moves to the new measure with the number (item 5) */
+  transition: inline-size var(--motion-duration-450) var(--motion-easing-out);
 }
 
 @media (forced-colors: active) {
@@ -132,4 +132,45 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* A new figure (items 1 and 5, 21 Nov): the difference sits beside the
+   number, pops in and fades out once (motion/duration/3400, held most of
+   it); a changed word glows once in the brand-subtle wash. Reduced motion:
+   no difference mark, no glow. */
+.diff {
+  margin-inline-start: var(--spacing-8);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  letter-spacing: 0;
+  vertical-align: super;
+  color: var(--color-content-default);
+  opacity: 0;
+  animation: statDiff var(--motion-duration-3400) var(--motion-easing-out) both;
+}
+
+.glow {
+  border-radius: var(--border-radius-sm);
+  animation: statGlow var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+@keyframes statDiff {
+  0% { opacity: 0; transform: translateY(var(--spacing-4)); }
+  10%, 75% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@keyframes statGlow {
+  0%, 40% { background-color: var(--color-background-brand-subtle); }
+  100% { background-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .barFill { transition: none; }
+  .diff { display: none; }
+  .glow { animation: none; }
+}
+
+.delta:has([data-bella-component="sparkline"]) .arrow {
+  margin-inline-end: 0;
 }

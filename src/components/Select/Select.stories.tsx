@@ -22,7 +22,7 @@ const SORTS = [
 ];
 
 const meta: Meta<typeof Select> = {
-  title: 'Components/Select',
+  title: 'Components/Inputs/Select',
   component: Select,
   parameters: {
     docs: { page: ComponentDocsPage },

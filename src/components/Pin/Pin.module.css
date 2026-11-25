@@ -17,6 +17,22 @@
 .pink { --pin-pop: var(--color-background-accent-1); }
 .blue { --pin-pop: var(--color-background-accent-3); }
 .red { --pin-pop: var(--color-background-accent-4); }
+.green { --pin-pop: var(--color-background-utility-success-knockout); }
+
+/* style="solid" (published Figma Pin, style=solid, read 20 Nov 2026): the disc
+   filled in the tone, a 2px surface edge, the number in ink on it. */
+.solid.pink { --pin-fill: var(--color-background-accent-1); }
+.solid.yellow { --pin-fill: var(--color-background-accent-2); }
+.solid.blue { --pin-fill: var(--color-background-utility-info-knockout); }
+.solid.red { --pin-fill: var(--color-background-utility-error-knockout); }
+.solid.green { --pin-fill: var(--color-background-utility-success-knockout); --pin-ink: var(--color-content-utility-on-status); }
+
+.solid .disc {
+  background: var(--pin-fill);
+  border: var(--border-width-2) solid var(--color-background-surface);
+  color: var(--pin-ink, var(--color-content-on-accent-1));
+  font-weight: var(--typography-font-weight-700);
+}
 
 .disc,
 .label {
@@ -52,6 +68,19 @@
   cursor: pointer;
 }
 
+/* Lit (anatomy hover, from elleta.design's hero pins, 18 Nov: "i just wanted
+   the animation and the side part"): the disc pops up a step on the pop
+   easing; reduced motion shows the lit size at once. */
+.disc {
+  transition: transform var(--motion-duration-250) var(--motion-easing-pop);
+}
+.active .disc {
+  transform: scale(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .disc { transition: none; }
+}
+
 /* the ring thickens; the fill stays the card, because ink fails AA on the red */
 .action:hover .disc,
 .action:hover .label {
@@ -68,4 +97,43 @@
   .label {
     border-color: CanvasText;
   }
+}
+
+/* label=false (published Figma Pin, style=dot, read 20 Nov 2026 from her CHIP
+   Components design): a 28 surface disc with a soft shadow and a surface halo at
+   70%, a dot in the tone's status colour (yellow = warning, green = success).
+   Figma draws the dot 10 and the halo 6 with no token; code takes the nearest
+   tokens, StatusDot's 12 dot and a 4 halo, until the library binds them. */
+.bare { --pin-dot: var(--color-border-accent-1); }
+.bare.yellow { --pin-dot: var(--color-border-utility-warning); }
+.bare.green { --pin-dot: var(--color-border-utility-success); }
+.bare.blue { --pin-dot: var(--color-border-utility-info); }
+.bare.red { --pin-dot: var(--color-border-utility-error); }
+.bare .disc {
+  min-width: var(--size-28);
+  min-height: var(--size-28);
+  border: 0;
+  box-shadow: var(--shadow-ui-ink), 0 0 0 var(--spacing-4) color-mix(in srgb, var(--color-background-surface) 70%, transparent);
+}
+.dot {
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-round);
+  background: var(--pin-dot);
+}
+
+/* style="comment" (23 Nov 2026, her ask for Figma-like comments): the author's initials on a pink teardrop, round
+   except the bottom-left corner, which is the point on the spot; a white edge and the card's shadow lift it off the picture.
+   The page sets the pin so that corner sits on the spot. */
+.comment .disc {
+  min-width: var(--spacing-32);
+  padding-inline: var(--spacing-4);
+  /* pink: BELLA's colour for annotations (one job per colour); a white edge and the card shadow lift it off any picture */
+  background: var(--color-background-accent-1);
+  border: var(--border-width-2) solid var(--color-background-surface);
+  border-radius: var(--border-radius-round) var(--border-radius-round) var(--border-radius-round) 0;
+  box-shadow: var(--shadow-card-ink);
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-700);
+  color: var(--color-content-on-accent-1);
 }

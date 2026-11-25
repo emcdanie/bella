@@ -18,7 +18,7 @@ const cell = (text: string, extra?: string) => (
 );
 
 const meta: Meta<typeof Columns> = {
-  title: 'Components/Columns',
+  title: 'Components/Layout/Columns',
   component: Columns,
   parameters: {
     docs: { page: ComponentDocsPage },

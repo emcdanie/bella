@@ -1,0 +1,106 @@
+/* ShareBars (23 Nov 2026, the approved Audit reports mock, CHIP). Tokens only. Diverging bars from a dashed
+ * 2 wide zero line at the middle: left for a negative share, right for a positive one; 16 tall, round ends.
+ * Name 16/600 with a 14 meta line under it; the signed share in the number face 20/700 in the tone's ink.
+ * One line per row at 760 wide and up (container query), stacked below. Tones: border/utility success,
+ * error (danger); neutral = border/utility/neutral with subtle ink (no real change). */
+
+.root {
+  container-type: inline-size;
+  display: grid;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  color: var(--color-content-default);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--spacing-16);
+}
+
+.row {
+  --tone: var(--color-border-utility-neutral);
+  --ink: var(--color-content-subtle);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--spacing-4);
+  align-items: center;
+  padding-block: var(--spacing-12);
+  border-block-start: var(--border-width-1) solid var(--color-border-default);
+}
+
+.row:first-child { border-block-start: 0; }
+
+.row[data-tone='success'] { --tone: var(--color-border-utility-success); --ink: var(--color-content-utility-success); }
+.row[data-tone='danger'] { --tone: var(--color-border-utility-error); --ink: var(--color-content-utility-error); }
+
+.name {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.title {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: anywhere;
+}
+
+.detail {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  color: var(--color-content-subtle);
+}
+
+/* the track: a dashed 2 wide zero line at the middle; inset so a full bar's round end is whole */
+.track {
+  position: relative;
+  block-size: var(--spacing-24);
+  margin-inline: var(--spacing-8);
+  background: repeating-linear-gradient(to bottom, var(--color-border-strong) 0 var(--spacing-4), transparent var(--spacing-4) var(--spacing-8)) 50% 0 / var(--border-width-2) 100% no-repeat;
+}
+
+.bar {
+  position: absolute;
+  inset-block-start: var(--spacing-4);
+  block-size: var(--spacing-16);
+  border-radius: var(--border-radius-round);
+  background: var(--tone);
+}
+
+.bar[data-side='right'] { inset-inline-start: 50%; }
+.bar[data-side='left'] { inset-inline-end: 50%; }
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--size-28);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+@container (min-width: 47.5rem) {
+  .grid {
+    grid-template-columns: minmax(calc(var(--spacing-40) * 4), calc(var(--spacing-48) * 5)) minmax(0, 1fr) auto;
+  }
+  .row { grid-template-columns: subgrid; }
+  .value { text-align: end; }
+}
+
+@media (forced-colors: active) {
+  .bar { background: CanvasText; }
+}
+
+/* highlight (24 Nov 2026): picked rows keep full strength with the active glow on the bar; the rest step back a little
+   (bars only, text untouched), so nothing becomes unreadable. */
+.row[data-lit] .bar { transition: opacity var(--motion-duration-150) var(--motion-easing-standard); }
+.row[data-lit='off'] .bar { opacity: 0.45; }
+.row[data-lit='on'] .bar { box-shadow: 0 0 0 var(--spacing-2) var(--color-background-brand-subtle); }
+.srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .row[data-lit] .bar { transition: none; }
+}

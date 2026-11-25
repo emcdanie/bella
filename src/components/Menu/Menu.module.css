@@ -1,0 +1,86 @@
+/* Menu, Menu item, Menu divider (Figma BellaComponents 1014:89, 1014:84,
+ * 1014:87, read 19 Nov 2026). Tokens only. Polaris look (17 Nov "Polaris
+ * for all three"): white panel, soft shadow, rounded, icon plus label rows.
+ * Menu: column, 8 padding, border/radius/12, background/surface, shadow/soft.
+ * Menu item: row, 12 apart, 12 sides, 44 tall at least, border/radius/md;
+ * Icon 20, Label reading face 400, 16/24, content/default.
+ * hover background/highlight; pressed background/accent-subtle; focus a 4px
+ * ring INSIDE the item (17 Nov "A, inside the item"), following its corner.
+ * danger: label content/utility/error, hover and pressed
+ * background/utility/error. Icons in the secondary ink (content/subtle,
+ * Icon tone=secondary in Figma's Menu), the danger icon in the error ink.
+ * Divider: 4 above and below a 1px rule in border/default. */
+
+.menu {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-12);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.item {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-block-size: var(--spacing-44);
+  padding-inline: var(--spacing-12);
+  border-radius: var(--border-radius-md);
+  color: var(--color-content-default);
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--color-background-highlight);
+}
+
+.item:active {
+  background: var(--color-background-accent-subtle);
+}
+
+.item:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.icon {
+  color: var(--color-content-subtle);
+}
+
+.danger .icon {
+  color: var(--color-content-utility-error);
+}
+
+.label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.danger {
+  color: var(--color-content-utility-error);
+}
+
+.danger:hover,
+.danger:active {
+  background: var(--color-background-utility-error);
+}
+
+.divider {
+  padding-block: var(--spacing-4);
+}
+
+.divider::before {
+  content: '';
+  display: block;
+  block-size: var(--border-width-1);
+  background: var(--color-border-default);
+}

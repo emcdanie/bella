@@ -3,7 +3,7 @@
 name: CodeBlock
 lead:
   text: Code as an editor shows it.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Data
 rendersAs: null
 links:
@@ -32,15 +32,11 @@ props:
     doc: Its language; "diff" marks added and removed lines.
     at: src/components/CodeBlock/CodeBlock.tsx:11
   - name: title
+    figmaName: Title
     type: string
     required: false
     doc: A title over the code, such as its file path.
     at: src/components/CodeBlock/CodeBlock.tsx:13
-  - name: currentLine
-    type: number | number[]
-    required: false
-    doc: A line to mark, counted from 1, or several lines.
-    at: src/components/CodeBlock/CodeBlock.tsx:15
   - name: lineNumbers
     type: boolean
     values:
@@ -49,8 +45,9 @@ props:
     default: true
     required: false
     doc: Shows line numbers.
-    at: src/components/CodeBlock/CodeBlock.tsx:17
+    at: src/components/CodeBlock/CodeBlock.tsx:15
   - name: copy
+    figmaName: copy
     type: boolean
     values:
       - true
@@ -58,12 +55,12 @@ props:
     default: true
     required: false
     doc: Shows the Copy icon button.
-    at: src/components/CodeBlock/CodeBlock.tsx:19
+    at: src/components/CodeBlock/CodeBlock.tsx:17
   - name: className
     type: string
     required: false
     doc: Extra classes on the block.
-    at: src/components/CodeBlock/CodeBlock.tsx:21
+    at: src/components/CodeBlock/CodeBlock.tsx:19
 variants:
   language:
     values:
@@ -125,463 +122,452 @@ anatomy:
   figma:
     name: CodeBlock
     type: COMPONENT
-    size: 640x216.4
+    size: 640x190
     tokens:
       - field: topLeftRadius
-        variable: radius/sm
+        variable: border/radius/sm
       - field: topRightRadius
-        variable: radius/sm
+        variable: border/radius/sm
       - field: bottomLeftRadius
-        variable: radius/sm
+        variable: border/radius/sm
       - field: bottomRightRadius
-        variable: radius/sm
+        variable: border/radius/sm
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
       - field: fills
-        variable: component/code-block/background
+        variable: color/background/syntax/background
       - field: strokes
-        variable: component/code-block/border
+        variable: color/border/syntax
     children:
       - name: Bar
         type: FRAME
-        size: 640x44
+        size: 638x44
         tokens:
           - field: itemSpacing
-            variable: spacing/3
+            variable: spacing/12
           - field: paddingLeft
-            variable: spacing/4
+            variable: spacing/16
           - field: paddingRight
-            variable: spacing/2
+            variable: spacing/8
+          - field: strokeBottomWeight
+            variable: border/width/1
           - field: strokes
-            variable: component/code-block/border
+            variable: color/border/syntax
         children:
           - name: Title
             type: TEXT
             text: Copy me
-            size: 560x22
+            size: 558x22
             tokens:
               - field: fills
-                variable: component/code-block/line-number
+                variable: color/content/syntax/line-number
               - field: fontSize
-                variable: typography/font-size/mono
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: typography/font-family/mono
+                variable: typography/font-family/geist-mono
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
           - name: Copy
             type: FRAME
             size: 44x44
             tokens:
               - field: topLeftRadius
-                variable: radius/sm
+                variable: border/radius/sm
               - field: topRightRadius
-                variable: radius/sm
+                variable: border/radius/sm
               - field: bottomLeftRadius
-                variable: radius/sm
+                variable: border/radius/sm
               - field: bottomRightRadius
-                variable: radius/sm
+                variable: border/radius/sm
             children:
               - name: Icon
                 type: INSTANCE
                 instanceOf: Icon
                 size: 16x16
-              - name: Set aside · 13 Nov · drawn Copy glyph
-                type: FRAME
-                hidden: true
-                size: 20x20
-                children:
-                  - name: Copy glyph back
-                    type: VECTOR
-                    size: 9.17x9.17
-                    tokens:
-                      - field: strokes
-                        variable: component/code-block/foreground
-                  - name: Copy glyph front
-                    type: VECTOR
-                    size: 9.17x9.17
-                    tokens:
-                      - field: strokes
-                        variable: component/code-block/foreground
+                tokens:
+                  - field: width
+                    variable: size/16
+                  - field: height
+                    variable: size/16
       - name: Lines
         type: SLOT
-        size: 638x170.4
+        size: 638x144
         tokens:
           - field: paddingTop
-            variable: spacing/3
+            variable: spacing/12
           - field: paddingBottom
-            variable: spacing/3
+            variable: spacing/12
         children:
           - name: Code line
             type: INSTANCE
             instanceOf: Code line
-            size: 638x25.6
+            size: 638x24
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/4
+                variable: spacing/16
           - name: Code line
             type: INSTANCE
             instanceOf: Code line
-            size: 638x25.6
+            size: 638x24
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/4
+                variable: spacing/16
           - name: Code line
             type: INSTANCE
             instanceOf: Code line
-            size: 638x44
+            size: 638x24
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/4
+                variable: spacing/16
               - field: fills
-                variable: component/code-block/current
+                variable: color/background/wash/blue
           - name: Code line
             type: INSTANCE
             instanceOf: Code line
-            size: 638x25.6
+            size: 638x24
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/4
+                variable: spacing/16
           - name: Code line
             type: INSTANCE
             instanceOf: Code line
-            size: 638x25.6
+            size: 638x24
             tokens:
               - field: itemSpacing
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingLeft
-                variable: spacing/4
+                variable: spacing/16
               - field: paddingRight
-                variable: spacing/4
+                variable: spacing/16
   code: []
 tokens:
   used:
     - part: root
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .block
       at: src/components/CodeBlock/CodeBlock.module.css:9
     - part: root
       state: rest
       property: border
-      token: '--component-code-block-border'
+      token: '--color-border-syntax'
       selector: .block
       at: src/components/CodeBlock/CodeBlock.module.css:9
     - part: root
       state: rest
       property: border-radius
-      token: '--component-code-block-border-radius'
+      token: '--border-radius-4'
       selector: .block
       at: src/components/CodeBlock/CodeBlock.module.css:10
     - part: root
       state: rest
       property: background
-      token: '--component-code-block-background'
+      token: '--color-background-syntax-background'
       selector: .block
       at: src/components/CodeBlock/CodeBlock.module.css:11
     - part: root
       state: rest
       property: color
-      token: '--component-code-block-foreground'
+      token: '--color-content-syntax-foreground'
       selector: .block
       at: src/components/CodeBlock/CodeBlock.module.css:12
     - part: bar
       state: rest
       property: gap
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:20
     - part: bar
       state: rest
       property: padding
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:21
     - part: bar
       state: rest
       property: padding
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:21
     - part: bar
       state: rest
       property: border-bottom
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:22
     - part: bar
       state: rest
       property: border-bottom
-      token: '--component-code-block-border'
+      token: '--color-border-syntax'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:22
     - part: bar
       state: rest
       property: min-height
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .bar
       at: src/components/CodeBlock/CodeBlock.module.css:23
     - part: title
       state: rest
       property: font-family
-      token: '--typography-font-family-mono'
+      token: '--typography-font-family-geist-mono'
       selector: .title
       at: src/components/CodeBlock/CodeBlock.module.css:27
     - part: title
       state: rest
       property: font-size
-      token: '--component-code-block-font-size'
+      token: '--typography-label-default-font-size'
       selector: .title
       at: src/components/CodeBlock/CodeBlock.module.css:28
     - part: title
       state: rest
       property: color
-      token: '--component-code-block-line-number'
+      token: '--color-content-syntax-line-number'
       selector: .title
       at: src/components/CodeBlock/CodeBlock.module.css:29
     - part: copy
       state: rest
       property: min-width
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .copy
       at: src/components/CodeBlock/CodeBlock.module.css:37
     - part: copy
       state: rest
       property: min-height
-      token: '--spacing-touch-target'
+      token: '--spacing-44'
       selector: .copy
       at: src/components/CodeBlock/CodeBlock.module.css:38
     - part: copy
       state: rest
       property: border-radius
-      token: '--radius-sm'
+      token: '--border-radius-4'
       selector: .copy
       at: src/components/CodeBlock/CodeBlock.module.css:41
     - part: copy
       state: rest
       property: color
-      token: '--component-code-block-foreground'
+      token: '--color-content-syntax-foreground'
       selector: .copy
       at: src/components/CodeBlock/CodeBlock.module.css:43
     - part: copy
       state: hover
       property: background
-      token: '--component-code-block-current'
+      token: '--color-background-highlight'
       selector: .copy:hover
       at: src/components/CodeBlock/CodeBlock.module.css:48
     - part: copy
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .copy:focus-visible, .pre:focus-visible
       at: src/components/CodeBlock/CodeBlock.module.css:53
     - part: copy
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .copy:focus-visible, .pre:focus-visible
       at: src/components/CodeBlock/CodeBlock.module.css:53
     - part: copy
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .copy:focus-visible, .pre:focus-visible
       at: src/components/CodeBlock/CodeBlock.module.css:54
     - part: pre
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .pre
       at: src/components/CodeBlock/CodeBlock.module.css:59
     - part: pre
       state: rest
       property: font-family
-      token: '--typography-font-family-mono'
+      token: '--typography-font-family-geist-mono'
       selector: .pre
       at: src/components/CodeBlock/CodeBlock.module.css:60
     - part: pre
       state: rest
       property: font-size
-      token: '--component-code-block-font-size'
+      token: '--typography-label-default-font-size'
       selector: .pre
       at: src/components/CodeBlock/CodeBlock.module.css:61
     - part: line
       state: rest
       property: column-gap
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .line
       at: src/components/CodeBlock/CodeBlock.module.css:70
     - part: line
       state: rest
       property: padding-inline
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .line
       at: src/components/CodeBlock/CodeBlock.module.css:71
-    - part: current
-      state: rest
-      property: background
-      token: '--component-code-block-current'
-      selector: .current
-      at: src/components/CodeBlock/CodeBlock.module.css:74
     - part: add
       state: rest
       property: background
-      token: '--component-code-block-add'
+      token: '--color-background-syntax-add'
       selector: .add
-      at: src/components/CodeBlock/CodeBlock.module.css:75
+      at: src/components/CodeBlock/CodeBlock.module.css:74
     - part: del
       state: rest
       property: background
-      token: '--component-code-block-del'
+      token: '--color-background-syntax-del'
       selector: .del
-      at: src/components/CodeBlock/CodeBlock.module.css:76
+      at: src/components/CodeBlock/CodeBlock.module.css:75
     - part: 'n'
       state: rest
       property: color
-      token: '--component-code-block-line-number'
+      token: '--color-content-syntax-line-number'
       selector: .n
-      at: src/components/CodeBlock/CodeBlock.module.css:81
+      at: src/components/CodeBlock/CodeBlock.module.css:80
     - part: keyword
       state: rest
       property: color
-      token: '--component-code-block-keyword'
+      token: '--color-content-syntax-keyword'
       selector: .keyword
-      at: src/components/CodeBlock/CodeBlock.module.css:85
+      at: src/components/CodeBlock/CodeBlock.module.css:84
     - part: string
       state: rest
       property: color
-      token: '--component-code-block-string'
+      token: '--color-content-syntax-string'
       selector: .string
-      at: src/components/CodeBlock/CodeBlock.module.css:86
+      at: src/components/CodeBlock/CodeBlock.module.css:85
     - part: number
       state: rest
       property: color
-      token: '--component-code-block-number'
+      token: '--color-content-syntax-number'
       selector: .number
-      at: src/components/CodeBlock/CodeBlock.module.css:87
+      at: src/components/CodeBlock/CodeBlock.module.css:86
     - part: comment
       state: rest
       property: color
-      token: '--component-code-block-comment'
+      token: '--color-content-syntax-comment'
       selector: .comment
-      at: src/components/CodeBlock/CodeBlock.module.css:88
+      at: src/components/CodeBlock/CodeBlock.module.css:87
     - part: function
       state: rest
       property: color
-      token: '--component-code-block-function'
+      token: '--color-content-syntax-function'
       selector: .function
-      at: src/components/CodeBlock/CodeBlock.module.css:89
+      at: src/components/CodeBlock/CodeBlock.module.css:88
     - part: tag
       state: rest
       property: color
-      token: '--component-code-block-tag'
+      token: '--color-content-syntax-tag'
       selector: .tag
-      at: src/components/CodeBlock/CodeBlock.module.css:90
+      at: src/components/CodeBlock/CodeBlock.module.css:89
     - part: attr
       state: rest
       property: color
-      token: '--component-code-block-attr'
+      token: '--color-content-syntax-attr'
       selector: .attr
-      at: src/components/CodeBlock/CodeBlock.module.css:91
+      at: src/components/CodeBlock/CodeBlock.module.css:90
     - part: punct
       state: rest
       property: color
-      token: '--component-code-block-punct'
+      token: '--color-content-syntax-punct'
       selector: .punct
-      at: src/components/CodeBlock/CodeBlock.module.css:92
+      at: src/components/CodeBlock/CodeBlock.module.css:91
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--component-code-block-add':
-      light: '#E3F2E7'
-      chip: '#E3F2E7'
-    '--component-code-block-attr':
-      light: '#6B4E00'
-      chip: '#6B4E00'
-    '--component-code-block-background':
-      light: '#F6F7F9'
-      chip: '#F6F7F9'
-    '--component-code-block-border':
-      light: '#E4E6EC'
-      chip: '#E4E6EC'
-    '--component-code-block-border-radius':
-      light: 4px
-      chip: 4px
-    '--component-code-block-comment':
-      light: '#5A5F70'
-      chip: '#5A5F70'
-    '--component-code-block-current':
-      light: '#E8EBF3'
-      chip: '#E8EBF3'
-    '--component-code-block-del':
-      light: '#FBE7E5'
-      chip: '#FBE7E5'
-    '--component-code-block-font-size':
-      light: 16px
-      chip: 16px
-    '--component-code-block-foreground':
-      light: '#1D2030'
-      chip: '#1D2030'
-    '--component-code-block-function':
-      light: '#1D5FA8'
-      chip: '#1D5FA8'
-    '--component-code-block-keyword':
-      light: '#8A2D6B'
-      chip: '#8A2D6B'
-    '--component-code-block-line-number':
-      light: '#585D6E'
-      chip: '#585D6E'
-    '--component-code-block-number':
-      light: '#8F4500'
-      chip: '#8F4500'
-    '--component-code-block-punct':
-      light: '#474C5E'
-      chip: '#474C5E'
-    '--component-code-block-string':
-      light: '#1F6E3A'
-      chip: '#1F6E3A'
-    '--component-code-block-tag':
-      light: '#A3261C'
-      chip: '#A3261C'
-    '--radius-sm':
-      light: 4px
-      chip: 4px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--spacing-2':
-      light: 8px
-      chip: 8px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
-    '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--spacing-touch-target':
-      light: 44px
-      chip: 44px
-    '--typography-font-family-mono':
-      light: '''Geist Mono'', ui-monospace, monospace'
-      chip: '''Geist Mono'', ui-monospace, monospace'
+    '--border-radius-4':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-highlight':
+      light: null
+      chip: null
+    '--color-background-syntax-add':
+      light: null
+      chip: null
+    '--color-background-syntax-background':
+      light: null
+      chip: null
+    '--color-background-syntax-del':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-syntax':
+      light: null
+      chip: null
+    '--color-content-syntax-attr':
+      light: null
+      chip: null
+    '--color-content-syntax-comment':
+      light: null
+      chip: null
+    '--color-content-syntax-foreground':
+      light: null
+      chip: null
+    '--color-content-syntax-function':
+      light: null
+      chip: null
+    '--color-content-syntax-keyword':
+      light: null
+      chip: null
+    '--color-content-syntax-line-number':
+      light: null
+      chip: null
+    '--color-content-syntax-number':
+      light: null
+      chip: null
+    '--color-content-syntax-punct':
+      light: null
+      chip: null
+    '--color-content-syntax-string':
+      light: null
+      chip: null
+    '--color-content-syntax-tag':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-44':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-font-family-geist-mono':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -589,42 +575,42 @@ motion:
 a11y:
   element:
     tag: span
-    at: src/components/CodeBlock/CodeBlock.tsx:67
+    at: src/components/CodeBlock/CodeBlock.tsx:64
   role:
     value: null
     source: native element
-    at: src/components/CodeBlock/CodeBlock.tsx:67
+    at: src/components/CodeBlock/CodeBlock.tsx:64
   nameSource:
     value: visible content
-    at: src/components/CodeBlock/CodeBlock.tsx:67
+    at: src/components/CodeBlock/CodeBlock.tsx:64
   keyboard: []
   aria:
     - attribute: aria-label
       value: title
-      at: src/components/CodeBlock/CodeBlock.tsx:70
+      at: src/components/CodeBlock/CodeBlock.tsx:67
     - attribute: aria-label
       value: title
-      at: src/components/CodeBlock/CodeBlock.tsx:77
+      at: src/components/CodeBlock/CodeBlock.tsx:74
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/CodeBlock/CodeBlock.tsx:85
+      at: src/components/CodeBlock/CodeBlock.tsx:82
     - attribute: aria-live
       value: polite
-      at: src/components/CodeBlock/CodeBlock.tsx:102
+      at: src/components/CodeBlock/CodeBlock.tsx:99
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
       at: src/components/CodeBlock/CodeBlock.module.css:53
     - property: outline-offset
-      value: calc(-1 * var(--ring-focus-width))
+      value: calc(-1 * var(--focus-ring-width))
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
+        - token: '--focus-ring-width'
+          value: null
       at: src/components/CodeBlock/CodeBlock.module.css:54
   disabled:
     prop: null
@@ -632,350 +618,28 @@ a11y:
   reducedMotion: null
   contract: >-
     Verified 2026-11-07: the code is a focusable region named by its title; line numbers are aria-hidden; Copy is a 44px icon button named
-    "Copy <title>" with a tooltip, and Copied is announced. Every syntax colour is 4.5:1 or more on the code ground and on the marked line,
-    light and dark, checked in the gate.
-  targetPx: 44
+    "Copy <title>" with a tooltip, and Copied is announced. Every syntax colour is 7:1 or more on the code ground and on added and removed
+    lines, all four themes, checked in the gate. No marked line (Elleta's rule: no current-line highlight unless the page explains it).
+  targetPx: null
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/CodeBlock/CodeBlock.tsx:77
+      at: src/components/CodeBlock/CodeBlock.tsx:74
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/CodeBlock/CodeBlock.tsx:85
+      at: src/components/CodeBlock/CodeBlock.tsx:82
     - kind: ARIA
       value: aria-live="polite"
-      at: src/components/CodeBlock/CodeBlock.tsx:102
+      at: src/components/CodeBlock/CodeBlock.tsx:99
 contrast:
-  pairs:
-    - label: code foreground on its ground
-      foreground: '--component-code-block-foreground'
-      background: '--component-code-block-background'
-      foregroundHex: '#1D2030'
-      backgroundHex: '#F6F7F9'
-      ratio: 15.05
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:146
-    - label: code keyword on its ground
-      foreground: '--component-code-block-keyword'
-      background: '--component-code-block-background'
-      foregroundHex: '#8A2D6B'
-      backgroundHex: '#F6F7F9'
-      ratio: 7.34
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:147
-    - label: code string on its ground
-      foreground: '--component-code-block-string'
-      background: '--component-code-block-background'
-      foregroundHex: '#1F6E3A'
-      backgroundHex: '#F6F7F9'
-      ratio: 5.85
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:148
-    - label: code number on its ground
-      foreground: '--component-code-block-number'
-      background: '--component-code-block-background'
-      foregroundHex: '#8F4500'
-      backgroundHex: '#F6F7F9'
-      ratio: 6.49
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:149
-    - label: code comment on its ground
-      foreground: '--component-code-block-comment'
-      background: '--component-code-block-background'
-      foregroundHex: '#5A5F70'
-      backgroundHex: '#F6F7F9'
-      ratio: 5.93
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:150
-    - label: code function on its ground
-      foreground: '--component-code-block-function'
-      background: '--component-code-block-background'
-      foregroundHex: '#1D5FA8'
-      backgroundHex: '#F6F7F9'
-      ratio: 6.02
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:151
-    - label: code tag on its ground
-      foreground: '--component-code-block-tag'
-      background: '--component-code-block-background'
-      foregroundHex: '#A3261C'
-      backgroundHex: '#F6F7F9'
-      ratio: 6.87
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:152
-    - label: code attr on its ground
-      foreground: '--component-code-block-attr'
-      background: '--component-code-block-background'
-      foregroundHex: '#6B4E00'
-      backgroundHex: '#F6F7F9'
-      ratio: 7.22
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:153
-    - label: code punct on its ground
-      foreground: '--component-code-block-punct'
-      background: '--component-code-block-background'
-      foregroundHex: '#474C5E'
-      backgroundHex: '#F6F7F9'
-      ratio: 7.95
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:154
-    - label: code line-number on its ground
-      foreground: '--component-code-block-line-number'
-      background: '--component-code-block-background'
-      foregroundHex: '#585D6E'
-      backgroundHex: '#F6F7F9'
-      ratio: 6.11
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:155
-    - label: code foreground on the marked line
-      foreground: '--component-code-block-foreground'
-      background: '--component-code-block-current'
-      foregroundHex: '#1D2030'
-      backgroundHex: '#E8EBF3'
-      ratio: 13.53
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:156
-    - label: code comment on the marked line
-      foreground: '--component-code-block-comment'
-      background: '--component-code-block-current'
-      foregroundHex: '#5A5F70'
-      backgroundHex: '#E8EBF3'
-      ratio: 5.33
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:157
-    - label: code line-number on the marked line
-      foreground: '--component-code-block-line-number'
-      background: '--component-code-block-current'
-      foregroundHex: '#585D6E'
-      backgroundHex: '#E8EBF3'
-      ratio: 5.49
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:158
-    - label: code keyword on the marked line
-      foreground: '--component-code-block-keyword'
-      background: '--component-code-block-current'
-      foregroundHex: '#8A2D6B'
-      backgroundHex: '#E8EBF3'
-      ratio: 6.6
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:159
-    - label: code string on the marked line
-      foreground: '--component-code-block-string'
-      background: '--component-code-block-current'
-      foregroundHex: '#1F6E3A'
-      backgroundHex: '#E8EBF3'
-      ratio: 5.26
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:160
-    - label: code number on the marked line
-      foreground: '--component-code-block-number'
-      background: '--component-code-block-current'
-      foregroundHex: '#8F4500'
-      backgroundHex: '#E8EBF3'
-      ratio: 5.83
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:161
-    - label: code function on the marked line
-      foreground: '--component-code-block-function'
-      background: '--component-code-block-current'
-      foregroundHex: '#1D5FA8'
-      backgroundHex: '#E8EBF3'
-      ratio: 5.41
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:162
-    - label: code tag on the marked line
-      foreground: '--component-code-block-tag'
-      background: '--component-code-block-current'
-      foregroundHex: '#A3261C'
-      backgroundHex: '#E8EBF3'
-      ratio: 6.18
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:163
-    - label: code attr on the marked line
-      foreground: '--component-code-block-attr'
-      background: '--component-code-block-current'
-      foregroundHex: '#6B4E00'
-      backgroundHex: '#E8EBF3'
-      ratio: 6.49
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:164
-    - label: code punct on the marked line
-      foreground: '--component-code-block-punct'
-      background: '--component-code-block-current'
-      foregroundHex: '#474C5E'
-      backgroundHex: '#E8EBF3'
-      ratio: 7.15
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:165
-    - label: code on an added line
-      foreground: '--component-code-block-foreground'
-      background: '--component-code-block-add'
-      foregroundHex: '#1D2030'
-      backgroundHex: '#E3F2E7'
-      ratio: 13.92
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:166
-    - label: code on a removed line
-      foreground: '--component-code-block-foreground'
-      background: '--component-code-block-del'
-      foregroundHex: '#1D2030'
-      backgroundHex: '#FBE7E5'
-      ratio: 13.57
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:167
-  derived:
-    - foreground: '--component-code-block-foreground'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--component-code-block-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
-    - foreground: '--component-code-block-line-number'
-      background: '--color-semantic-background'
-      ratio: 6.11
-      theme: chip
-    - foreground: '--component-code-block-line-number'
-      background: '--color-semantic-surface-card'
-      ratio: 6.55
-      theme: chip
-    - foreground: '--component-code-block-keyword'
-      background: '--color-semantic-background'
-      ratio: 7.34
-      theme: chip
-    - foreground: '--component-code-block-keyword'
-      background: '--color-semantic-surface-card'
-      ratio: 7.87
-      theme: chip
-    - foreground: '--component-code-block-string'
-      background: '--color-semantic-background'
-      ratio: 5.84
-      theme: chip
-    - foreground: '--component-code-block-string'
-      background: '--color-semantic-surface-card'
-      ratio: 6.27
-      theme: chip
-    - foreground: '--component-code-block-number'
-      background: '--color-semantic-background'
-      ratio: 6.48
-      theme: chip
-    - foreground: '--component-code-block-number'
-      background: '--color-semantic-surface-card'
-      ratio: 6.96
-      theme: chip
-    - foreground: '--component-code-block-comment'
-      background: '--color-semantic-background'
-      ratio: 5.92
-      theme: chip
-    - foreground: '--component-code-block-comment'
-      background: '--color-semantic-surface-card'
-      ratio: 6.35
-      theme: chip
-    - foreground: '--component-code-block-function'
-      background: '--color-semantic-background'
-      ratio: 6.02
-      theme: chip
-    - foreground: '--component-code-block-function'
-      background: '--color-semantic-surface-card'
-      ratio: 6.45
-      theme: chip
-    - foreground: '--component-code-block-tag'
-      background: '--color-semantic-background'
-      ratio: 6.87
-      theme: chip
-    - foreground: '--component-code-block-tag'
-      background: '--color-semantic-surface-card'
-      ratio: 7.37
-      theme: chip
-    - foreground: '--component-code-block-attr'
-      background: '--color-semantic-background'
-      ratio: 7.21
-      theme: chip
-    - foreground: '--component-code-block-attr'
-      background: '--color-semantic-surface-card'
-      ratio: 7.74
-      theme: chip
-    - foreground: '--component-code-block-punct'
-      background: '--color-semantic-background'
-      ratio: 7.95
-      theme: chip
-    - foreground: '--component-code-block-punct'
-      background: '--color-semantic-surface-card'
-      ratio: 8.53
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/CodeBlock/CodeBlock.stories.tsx
   lines: 57-57
   import: import CodeBlock from '@bella/components/CodeBlock/CodeBlock';
   importSource: the style the Button doc page uses (CHIP import path)
-  code: <CodeBlock {...args} />
+  code: <CodeBlock title="Title" code={source} currentLine={3} />
 usage:
   use:
     - Copy me on component pages
@@ -984,12 +648,12 @@ usage:
   dont:
     - 'Do not colour code inline: every colour is a syntax token'
     - 'Do not let a diff rely on colour: + and − lead the line'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '483:32'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    title#483:15:
+    Title#483:15:
       type: TEXT
       default: Copy me
     copy#483:16:
@@ -1001,55 +665,100 @@ figma:
   defaultVariant: CodeBlock
   annotations:
     - label: >-
-        Dev · <CodeBlock code language title currentLine lineNumbers copy />; figure + figcaption bar + pre/code, Prism classes. Copy is
-        44x44 (CodeBlock.module.css .copy), Icon Copy sm.
+        <CodeBlock language showLineNumbers> · src/components/CodeBlock/CodeBlock.tsx. Built from Code line parts in its Lines slot; syntax
+        colours as Prism (keywords pink, strings green, tags coral, attributes yellow, punctuation and numbers muted). Background
+        color/background/syntax/background, edge color/border/syntax.
       category: '123:0'
     - label: >-
-        A11y · pre tabIndex 0, aria-label "<title>, code"; Copy aria-label "Copy <title>" inside a Tooltip; aria-live polite announces
-        Copied / Copy failed (CodeBlock.tsx:67-102). Line numbers aria-hidden.
+        A pre and code element; line numbers are aria-hidden. Added and removed lines are announced in words, not colour alone. Open: plain
+        code text is 6.75:1 in Chip dark, below 7:1.
       category: '123:2'
+    - label: 'None: static.'
+      category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-codeblock--docs
 mismatch:
-  - field: props.language
-    code:
-      - jsx
-      - tsx
-      - javascript
-      - json
-      - css
-      - markup
-      - diff
-      - plain
-    figma: no such variant property
   - field: props.lineNumbers
     code: boolean prop
     figma: not in the set
   - field: tokens.Title.fontSize
     code:
-      - '--component-code-block-font-size'
-    figma: typography/font-size/mono
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
     sameValueInChip: true
-  - field: tokens.Copy glyph back.strokes
+  - field: tokens.Icon.width
     code:
-      - '--border-width-thin'
-      - '--component-code-block-border'
-      - '--component-code-block-border-radius'
-      - '--radius-sm'
-    figma: component/code-block/foreground
-    sameValueInChip: false
-  - field: tokens.Copy glyph front.strokes
+      - '--border-width-1'
+      - '--color-border-syntax'
+      - '--border-radius-4'
+      - '--color-background-syntax-background'
+      - '--color-content-syntax-foreground'
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--typography-font-family-geist-mono'
+      - '--typography-label-default-font-size'
+      - '--color-content-syntax-line-number'
+      - '--color-background-syntax-add'
+      - '--color-background-syntax-del'
+      - '--color-content-syntax-keyword'
+      - '--color-content-syntax-string'
+      - '--color-content-syntax-number'
+      - '--color-content-syntax-comment'
+      - '--color-content-syntax-function'
+      - '--color-content-syntax-tag'
+      - '--color-content-syntax-attr'
+      - '--color-content-syntax-punct'
+    figma: size/16
+    sameValueInChip: true
+  - field: tokens.Icon.height
     code:
-      - '--border-width-thin'
-      - '--component-code-block-border'
-      - '--component-code-block-border-radius'
-      - '--radius-sm'
-    figma: component/code-block/foreground
-    sameValueInChip: false
+      - '--border-width-1'
+      - '--color-border-syntax'
+      - '--border-radius-4'
+      - '--color-background-syntax-background'
+      - '--color-content-syntax-foreground'
+      - '--spacing-12'
+      - '--spacing-8'
+      - '--spacing-16'
+      - '--spacing-44'
+      - '--typography-font-family-geist-mono'
+      - '--typography-label-default-font-size'
+      - '--color-content-syntax-line-number'
+      - '--color-background-syntax-add'
+      - '--color-background-syntax-del'
+      - '--color-content-syntax-keyword'
+      - '--color-content-syntax-string'
+      - '--color-content-syntax-number'
+      - '--color-content-syntax-comment'
+      - '--color-content-syntax-function'
+      - '--color-content-syntax-tag'
+      - '--color-content-syntax-attr'
+      - '--color-content-syntax-punct'
+    figma: size/16
+    sameValueInChip: true
   - field: tokens.Code line.itemSpacing
     code:
-      - '--spacing-3'
-    figma: spacing/4
+      - '--spacing-12'
+    figma: spacing/16
+    sameValueInChip: false
+  - field: tokens.Code line.fills
+    code:
+      - '--color-background-syntax-background'
+      - '--color-content-syntax-foreground'
+      - '--color-content-syntax-line-number'
+      - '--color-background-syntax-add'
+      - '--color-background-syntax-del'
+      - '--color-content-syntax-keyword'
+      - '--color-content-syntax-string'
+      - '--color-content-syntax-number'
+      - '--color-content-syntax-comment'
+      - '--color-content-syntax-function'
+      - '--color-content-syntax-tag'
+      - '--color-content-syntax-attr'
+      - '--color-content-syntax-punct'
+    figma: color/background/wash/blue
     sameValueInChip: false
 notApplicable:
   - section: Sizes
@@ -1094,20 +803,20 @@ guidance:
       side: right
   inContext: []
   contrastVarMap:
-    --component-code-block-foreground: component/code-block/foreground
-    --component-code-block-background: component/code-block/background
-    --component-code-block-keyword: component/code-block/keyword
-    --component-code-block-string: component/code-block/string
-    --component-code-block-number: component/code-block/number
-    --component-code-block-comment: component/code-block/comment
-    --component-code-block-function: component/code-block/function
-    --component-code-block-tag: component/code-block/tag
-    --component-code-block-attr: component/code-block/attr
-    --component-code-block-punct: component/code-block/punct
-    --component-code-block-line-number: component/code-block/line-number
-    --component-code-block-current: component/code-block/current
-    --component-code-block-add: component/code-block/add
-    --component-code-block-del: component/code-block/del
+    '--component-code-block-foreground': component/code-block/foreground
+    '--component-code-block-background': component/code-block/background
+    '--component-code-block-keyword': component/code-block/keyword
+    '--component-code-block-string': component/code-block/string
+    '--component-code-block-number': component/code-block/number
+    '--component-code-block-comment': component/code-block/comment
+    '--component-code-block-function': component/code-block/function
+    '--component-code-block-tag': component/code-block/tag
+    '--component-code-block-attr': component/code-block/attr
+    '--component-code-block-punct': component/code-block/punct
+    '--component-code-block-line-number': component/code-block/line-number
+    '--component-code-block-current': component/code-block/current
+    '--component-code-block-add': component/code-block/add
+    '--component-code-block-del': component/code-block/del
   contrastSkip: []
   a11yBracket: null
   a11yRule: The code is a focusable region named by its title. Copy is a 44px button.
@@ -1140,3 +849,6 @@ guidance:
     import: import CodeBlock from '@bella/components/CodeBlock/CodeBlock';
     code: <CodeBlock title="Title" code={source} currentLine={3} />
   a11yTag: WxH
+  codeOnly:
+    - name: language
+      why: picks the syntax grammar; the Figma sample is one fixed snippet

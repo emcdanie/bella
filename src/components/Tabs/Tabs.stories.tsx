@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const tabsContract = (componentContract as any).component?.tabs?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: 'Components/Actions/Tabs',
   component: Tabs,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -59,12 +59,12 @@ function Harness({ tabs, idBase, label }: { tabs: TabsItem[]; idBase: string; la
   );
 }
 
-/** Plain tabs: the selected tab is ink text over a 2px ink bar. */
+/** Plain tabs: the selected tab is the light-blue fill, a bold ink label and the 2px ink bar. */
 export const Default: Story = {
   render: () => <Harness tabs={WORKSPACES} idBase="ws" label="Workspaces" />,
 };
 
-/** With run state: the dot is a fill or a ring, and the state is also spoken. */
+/** With run state: the StatusDot part (running info, idle neutral), and the state is also spoken. */
 export const WithStatus: Story = {
   render: () => <Harness tabs={TERMINALS} idBase="term" label="Terminals" />,
 };
@@ -133,5 +133,74 @@ export const WithCount: Story = {
   render: () => <Harness tabs={COUNTED} idBase="counted" label="Work" />,
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('tab', { name: /^Needs you\s*,\s*4$/ })).toHaveAttribute('aria-selected', 'true');
+  },
+};
+
+const THEMES = ['chip-light', 'chip-dark'] as const;
+
+const SHELL = [
+  { id: 'work', label: 'Work', count: 4 },
+  { id: 'runs', label: 'Runs', status: 'running' as const },
+  { id: 'branches', label: 'Branches', status: 'idle' as const },
+  { id: 'library', label: 'Library', icon: 'Book' as const },
+];
+
+/** Figma's Tab variants in Chip light and Chip dark: selected, status running and idle, count, icon. Hover and focus are CSS. */
+export const ChipThemes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {THEMES.map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24) var(--spacing-32)', background: 'var(--color-background-surface)', color: 'var(--color-content-default)' }}>
+          <Harness tabs={SHELL} idBase={`shell-${theme}`} label="Project views" />
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+const WORK_PANEL = [
+  { id: 'chat', label: 'Chat', count: 3 },
+  { id: 'sessions', label: 'Sessions', count: 6 },
+  { id: 'changes', label: 'Changes', count: 12 },
+  { id: 'checks', label: 'Checks', count: 5 },
+  { id: 'notes', label: 'Notes', count: 2 },
+];
+
+/** At 375 (the Work panel's tab row, 21 Nov): the row scrolls and snaps, so a tab comes to rest whole at the
+ * start edge; the start fade covers only that tab's empty side, never a label or a count Tag. */
+export const NarrowWithCounts: Story = {
+  render: () => (
+    <div style={{ inlineSize: 'calc(var(--spacing-80) * 4 + var(--spacing-48) + var(--spacing-8) - var(--spacing-32))' }}>
+      <Harness tabs={WORK_PANEL} idBase="narrow" label="Work panel" />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    const list = canvasElement.querySelector('[role="tablist"]') as HTMLElement;
+    /* a tab that crosses the start edge may show only its own empty side (16), never its label or count */
+    const side = parseFloat(getComputedStyle(list.querySelector('[role="tab"]')!).paddingInlineEnd);
+    const clearOfFade = () => {
+      const l = list.getBoundingClientRect();
+      for (const tab of list.querySelectorAll<HTMLElement>('[role="tab"]')) {
+        const r = tab.getBoundingClientRect();
+        if (r.left < l.left - 0.5 && r.right - l.left > side + 0.5) return `${tab.textContent} rests cut at the start edge`;
+      }
+      return null;
+    };
+    await step('the row scrolls at this width', async () => {
+      await expect(list.scrollWidth).toBeGreaterThan(list.clientWidth);
+    });
+    await step('More tabs: the row rests with no tab half under the fade', async () => {
+      await userEvent.click(await waitFor(() => canvas.getByRole('button', { name: 'More tabs' })));
+      await waitFor(() => expect(list.scrollLeft).toBeGreaterThan(0), { timeout: 2000 });
+      await new Promise((r) => setTimeout(r, 600));
+      await expect(list.scrollLeft).toBeGreaterThan(0);
+      await expect(clearOfFade()).toBeNull();
+    });
+    await step('a swipe that stops mid-tab snaps to a whole tab', async () => {
+      list.scrollTo({ left: 150, behavior: 'instant' as ScrollBehavior });
+      await new Promise((r) => setTimeout(r, 600));
+      await expect(list.scrollLeft).toBeGreaterThan(0);
+      await expect(clearOfFade()).toBeNull();
+    });
   },
 };

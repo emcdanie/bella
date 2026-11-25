@@ -24,7 +24,7 @@ const THE_BAR = [
 ];
 
 const meta: Meta<typeof AvatarStack> = {
-  title: 'Components/Chat/AvatarStack',
+  title: 'Components/Data/AvatarStack',
   component: AvatarStack,
   parameters: {
     docs: { page: ComponentDocsPage },

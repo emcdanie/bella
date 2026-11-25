@@ -1,0 +1,74 @@
+/* Table cell (Figma 1510:348599, 20 Nov). Tokens only. DataTable's own
+ * cells, cut out: 8 above and below, 16 at the sides, min 44, one bottom
+ * edge. Width is the column's, set by the table. */
+
+.cell {
+  box-sizing: border-box;
+  block-size: var(--spacing-44);
+  padding: var(--spacing-8) var(--spacing-16);
+  border-bottom: var(--border-width-1) solid var(--color-border-default);
+  text-align: start;
+  vertical-align: middle;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.end {
+  text-align: end;
+}
+
+.end .inner {
+  justify-content: flex-end;
+}
+
+.header {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-subtle);
+  white-space: nowrap;
+}
+
+.mono,
+.swatch .text {
+  font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
+}
+
+.swatch .inner {
+  gap: var(--spacing-8);
+}
+
+/* Swatch chip (22 Nov publish, Table cell kind=swatch "Chip"; her 20 Nov
+   comment "can we just make the swatch a sqaure with one color"): a plain
+   20 square of one colour, corner 4 (border/radius/sm), no edge. */
+.chip {
+  box-sizing: border-box;
+  display: flex;
+  inline-size: var(--size-20);
+  block-size: var(--size-20);
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+}
+
+.colour {
+  flex: 1 1 auto;
+}
+
+.sortMark {
+  display: inline-flex;
+}
+
+/* selected: bold ink, never colour alone */
+.selected,
+.selected * {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}

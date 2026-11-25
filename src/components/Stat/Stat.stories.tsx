@@ -1,10 +1,13 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
+import Button from '../Button/Button';
 import Stat from './Stat';
 import statCssRaw from './Stat.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
+import SegmentedControl from '../SegmentedControl/SegmentedControl';
+import reduceMotion from '../shared/reduceMotion';
 
 const consumedTokens = Array.from(
   new Set((statCssRaw.match(/var\((--[a-z0-9-]+)/g) ?? []).map((m) => m.slice('var('.length)))
@@ -13,7 +16,7 @@ const consumedTokens = Array.from(
 const statContract = (componentContract as any).component?.stat?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Stat> = {
-  title: 'Components/Stat',
+  title: 'Components/Data/Stat',
   component: Stat,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -91,12 +94,14 @@ export const Behavior: Story = {
     await step('the label is a dt naming the figure', async () => {
       expect(root.tagName).toBe('DL');
       expect(root.querySelector('dt')?.textContent).toBe('Failures');
-      expect(root.querySelectorAll('dd')[0].textContent).toBe('4');
+      // the drawing (aria-hidden) and the words (read once) both say 4
+      expect(root.querySelectorAll('dd')[0].querySelector('[aria-hidden="true"]')?.textContent).toBe('4');
+      expect(root.querySelectorAll('dd')[0].querySelector('[class*="srOnly"]')?.textContent).toBe('4');
     });
 
     await step('direction is a hidden arrow plus a spoken word', async () => {
       const delta = root.querySelectorAll('dd')[1];
-      expect(delta.querySelector('[aria-hidden="true"]')?.textContent?.trim()).toBe('▼');
+      expect(delta.querySelector('[aria-hidden="true"]')?.textContent?.trim()).toBe('↓');
       expect(delta.textContent).toContain('Down');
       expect(getComputedStyle(delta).color).toBe(getComputedStyle(root.querySelector('dt')!).color);
     });
@@ -153,5 +158,174 @@ export const NotMeasured: Story = {
     await expect(canvas.queryByText('18')).toBeNull();
     await expect(canvasElement.querySelector('[role="img"]')).toBeNull();
     await expect(canvas.queryByText('Up')).toBeNull();
+    // Figma measured=false (22 Nov): only the label and "Not measured"; the change line is dropped
+    await expect(canvas.queryByText(/Waiting for the first sync/)).toBeNull();
+  },
+};
+
+function ChangeDemo() {
+  const [run, setRun] = React.useState(0);
+  const fixed = [38, 41][run % 2];
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', padding: 'var(--spacing-24)' }}>
+      <Stat label="Parts passing" value={fixed} measure={fixed / 44} measureLabel={`${fixed} of 44 parts pass`} delta="of 44" />
+      <Stat label="Gate" value={run % 2 ? 'Passing' : 'Failing'} />
+      <Button variant="secondary" size="sm" onClick={() => setRun((r) => r + 1)}>
+        Check again
+      </Button>
+    </div>
+  );
+}
+
+/** A new figure (rule "Motion that shows what happened", items 1 and 5): the number counts from 38
+ * to 41 and "+3" shows once beside it; the bar moves with it; a changed word glows once. Nothing
+ * moves on first paint. Reduced motion: the new value at once, no difference mark. */
+export const NewValue: Story = {
+  render: () => <ChangeDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const value = () => canvasElement.querySelector('[data-bella-component="stat"] dd') as HTMLElement;
+    await step('first paint: 38, no difference mark', async () => {
+      await expect(value().firstChild).toHaveTextContent(/^38$/);
+    });
+    await step('a new value counts up and lands on 41', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Check again' }));
+      await waitFor(() => expect(value().firstChild?.textContent).toBe('41'), { timeout: 3000 });
+    });
+    await step(reduced ? 'reduced motion: no difference mark' : 'the difference shows once', async () => {
+      const diff = value().querySelector('[class*="diff"]') as HTMLElement | null;
+      if (reduced) {
+        await expect(diff === null || getComputedStyle(diff).display === 'none').toBe(true);
+        return;
+      }
+      await expect(diff).toHaveTextContent('+3');
+      await expect(getComputedStyle(diff!).animationIterationCount).toBe('1');
+    });
+    await step('a changed word glows once', async () => {
+      await expect(canvas.getByText('Passing')).toBeInTheDocument();
+    });
+  },
+};
+
+const WEEK = [18, 19, 19, 21, 21, 23, 24];
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const tipOf = (svg: Element) => svg.closest('[data-bella-component="tooltip"]')!.querySelector<HTMLElement>('[aria-hidden="true"][id]')!;
+
+/** Chart motion and the scrubber (22 Nov, CHIP chart language): the line draws left to right on
+ * motion/duration/450, the end dot fades in after it. Pointer move, or the arrow keys once focused, move
+ * a 1px guide from point to point and BELLA's Tooltip says that point's value and name; leaving hides it. */
+export const Scrubber: Story = {
+  render: () => (
+    <div style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      <Stat label="Components" value={24} delta="3 since last sync" trend="up" series={WEEK} seriesLabels={DAYS} range="this week" />
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const svg = canvasElement.querySelector<SVGSVGElement>('svg[role="img"]')!;
+    await step('final state: the whole line drawn, the end dot shown', async () => {
+      await waitFor(() => expect(parseFloat(getComputedStyle(svg.querySelector('polyline')!).strokeDashoffset)).toBe(0), { timeout: 3000 });
+      await waitFor(() => expect(Number(getComputedStyle(svg.querySelector('circle')!).opacity)).toBe(1), { timeout: 3000 });
+      await expect(svg).toHaveAttribute('aria-label', 'Components: 18 to 24 over 7 points, this week');
+    });
+    await step('focus: the guide on the newest point, the Tooltip says its value and name', async () => {
+      await waitFor(() => expect(tipOf(svg)).not.toBeVisible());
+      svg.focus();
+      await waitFor(() => expect(tipOf(svg)).toBeVisible());
+      await waitFor(() => expect(tipOf(svg)).toHaveTextContent('24 · Sun'));
+      await waitFor(() => expect(svg.querySelector('[data-bella-scrub]')).toHaveAttribute('data-bella-scrub', '6'));
+    });
+    await step('arrow keys move the guide point by point, and it is said', async () => {
+      await userEvent.keyboard('{ArrowLeft}{ArrowLeft}');
+      await waitFor(() => expect(tipOf(svg)).toHaveTextContent('21 · Fri'));
+      await waitFor(() => expect(svg.querySelector('[data-bella-scrub]')).toHaveAttribute('data-bella-scrub', '4'));
+      await waitFor(() => expect(canvasElement.querySelector('[aria-live="polite"]')).toHaveTextContent('21 · Fri'));
+      await userEvent.keyboard('{Home}');
+      await waitFor(() => expect(tipOf(svg)).toHaveTextContent('18 · Mon'));
+    });
+    await step('Esc hides the callout and the guide', async () => {
+      await userEvent.keyboard('{ArrowLeft}');
+      await waitFor(() => expect(tipOf(svg)).toBeVisible());
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(tipOf(svg)).not.toBeVisible());
+      await waitFor(() => expect(svg.querySelector('[data-bella-scrub]')).toBeNull());
+    });
+    await step('chart reading: tabular change line, a hidden summary that describes the line, a hidden table of the points', async () => {
+      const delta = svg.closest('dd') as HTMLElement;
+      await expect(getComputedStyle(delta).fontVariantNumeric).toContain('tabular-nums');
+      const summary = canvasElement.ownerDocument.getElementById(svg.getAttribute('aria-describedby')!)!;
+      await expect(summary).toHaveTextContent('Components: up 6 from 18 to 24 this week, low 18 (Mon), high 24 (Sun)');
+      await expect(summary.getBoundingClientRect().width).toBeLessThanOrEqual(1);
+      const table = canvasElement.querySelector<HTMLTableElement>('table[data-bella-chart-table]')!;
+      await expect(table.closest('[class*="srOnly"]')).not.toBeNull();
+      const rows = Array.from(table.tBodies[0].rows).map((r) => [r.cells[0].textContent, Number(r.cells[1].textContent)]);
+      await expect(rows).toEqual(DAYS.map((d, i) => [d, WEEK[i]]));
+    });
+    await step('leaving hides the guide and the Tooltip', async () => {
+      svg.blur();
+      await waitFor(() => expect(tipOf(svg)).not.toBeVisible());
+      await waitFor(() => expect(svg.querySelector('[data-bella-scrub]')).toBeNull());
+    });
+  },
+};
+
+const RANGES = {
+  D: { words: 'today', series: [20, 22, 21, 24] },
+  W: { words: 'this week', series: WEEK },
+  M: { words: 'this month', series: [12, 14, 15, 18, 20, 24] },
+  Y: { words: 'this year', series: [4, 9, 12, 24] },
+} as const;
+
+function RangeDemo() {
+  const [range, setRange] = React.useState<keyof typeof RANGES>('W');
+  const r = RANGES[range];
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', justifyItems: 'start', padding: 'var(--spacing-24)', background: 'var(--color-background-surface)' }}>
+      <SegmentedControl
+        label="Range"
+        value={range}
+        onChange={(v: string) => setRange(v as keyof typeof RANGES)}
+        options={(Object.keys(RANGES) as (keyof typeof RANGES)[]).map((k) => ({ value: k, label: k }))}
+      />
+      <Stat label="Components" value={24} delta={`up ${r.series[r.series.length - 1] - r.series[0]} ${r.words}`} trend="up" series={[...r.series]} range={r.words} />
+    </div>
+  );
+}
+
+/** D/W/M/Y, handled by the parent: a new range brings a new series, and the line morphs point by point
+ * from the old one over motion/duration/450, never redrawn from zero. */
+export const RangeSwitch: Story = {
+  render: () => <RangeDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const line = () => canvasElement.querySelector<SVGPolylineElement>('svg[role="img"] polyline')!;
+    // the first draw-in ends before the range changes
+    await waitFor(() => expect(parseFloat(getComputedStyle(line()).strokeDashoffset)).toBe(0), { timeout: 3000 });
+    const before = line().getAttribute('points');
+    await step('a new range: the line moves from the old points, not from zero, and lands on the new ones', async () => {
+      await userEvent.click(canvas.getByRole('button', { name: 'Y' }));
+      const svg = canvasElement.querySelector('svg[role="img"]')!;
+      await waitFor(() => expect(svg).toHaveAttribute('data-bella-range', 'this year'));
+      // the line is never cut back to nothing: the draw-in does not replay
+      await expect(parseFloat(getComputedStyle(line()).strokeDashoffset)).toBe(0);
+      if (!reduced) await waitFor(() => expect(line().getAttribute('points')).not.toBe(before));
+      // final: the four "this year" points, 2 to 78 across
+      await waitFor(() => expect(line().getAttribute('points')).toBe('2.0,22.0 27.3,17.0 52.7,14.0 78.0,2.0'), { timeout: 3000 });
+    });
+  },
+};
+
+/** Reduced motion (matchMedia mocked to "reduce"): the line and dot drawn at once, a new range jumps. */
+export const ReducedMotion: Story = {
+  beforeEach: reduceMotion,
+  render: () => <RangeDemo />,
+  play: async ({ canvasElement, canvas }) => {
+    const svg = canvasElement.querySelector<SVGSVGElement>('svg[role="img"]')!;
+    await expect(getComputedStyle(svg.querySelector('polyline')!).animationName).toBe('none');
+    await expect(getComputedStyle(svg.querySelector('circle')!).animationName).toBe('none');
+    await userEvent.click(canvas.getByRole('button', { name: 'Y' }));
+    await expect(svg.querySelector('polyline')).toHaveAttribute('points', '2.0,22.0 27.3,17.0 52.7,14.0 78.0,2.0');
+    // the hidden table follows the new range at once
+    const rows = canvasElement.querySelectorAll<HTMLTableRowElement>('table[data-bella-chart-table] tbody tr');
+    await expect(Array.from(rows).map((r) => Number(r.cells[1].textContent))).toEqual([4, 9, 12, 24]);
   },
 };

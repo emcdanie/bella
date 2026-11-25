@@ -14,7 +14,7 @@ const consumedTokens = Array.from(
 const eyebrowContract = (componentContract as any).component?.eyebrow?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Eyebrow> = {
-  title: 'Components/Eyebrow',
+  title: 'Components/Layout/Eyebrow',
   component: Eyebrow,
   parameters: {
     docs: { page: ComponentDocsPage },

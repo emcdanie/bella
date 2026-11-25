@@ -1,5 +1,6 @@
 import React, { useId, type MouseEvent, type ReactNode } from 'react';
 import Icon, { type IconName } from '../Icon/Icon';
+import NavItem from '../NavItem/NavItem';
 import styles from './NavList.module.css';
 
 export interface NavListItem {
@@ -36,8 +37,9 @@ export interface NavListProps {
 }
 
 /**
- * A sidebar of grouped links: where you are is aria-current, not just paint.
- * Collapses to its toggle.
+ * A sidebar of grouped links (Figma NavList 167:226, read 19 Nov 2026): a 44
+ * toggle, groups of Nav item rows (the NavItem part), a footer under a hairline.
+ * Where you are is aria-current, not just paint. Collapses to its toggle.
  */
 export default function NavList({
   groups,
@@ -82,16 +84,15 @@ export default function NavList({
               <ul className={styles.list} aria-labelledby={g.label ? headId : undefined}>
                 {g.items.map((it) => (
                   <li key={it.href + it.label}>
-                    <a
+                    <NavItem
                       href={it.href}
-                      className={styles.item}
-                      aria-current={it.current ? 'page' : undefined}
-                      onClick={onNavigate ? (e) => onNavigate(it.href, e) : undefined}
-                    >
-                      {it.icon ? <Icon name={it.icon} size="sm" /> : null}
-                      <span className={styles.itemLabel}>{it.label}</span>
-                      {it.badge != null ? <span className={styles.badge}>{it.badge}</span> : null}
-                    </a>
+                      label={it.label}
+                      icon={it.icon}
+                      showIcon={it.icon != null}
+                      badge={it.badge}
+                      current={it.current}
+                      onClick={onNavigate ? (e) => onNavigate(it.href, e as MouseEvent<HTMLAnchorElement>) : undefined}
+                    />
                   </li>
                 ))}
               </ul>

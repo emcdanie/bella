@@ -1,6 +1,6 @@
 # Highlight in ochre · 2026-10-05
 
-**Decision (Elleta):** "I wanted those texts to be the ochre, since technically they change when you hover them, which was the original idea." The highlight (a linked phrase, or the part of a picture it points at, lit on hover, focus or pin) is brand ochre, not the grey `--tint-soft` (a 14% mix of surface-inset) the site uses today.
+**Decision (Elleta):** linked text turns ochre, because it changes on hover, which was the original idea. The highlight (a linked phrase, or the part of a picture it points at, lit on hover, focus or pin) is brand ochre, not the grey `--tint-soft` (a 14% mix of surface-inset) the site uses today.
 
 ## Tokens
 | token | light (and warm) | dark |

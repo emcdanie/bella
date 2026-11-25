@@ -1,0 +1,156 @@
+/* EmptyState (BellaComponents "Empty state" 1014:2670, re-read 22 Nov 2026
+ * from the 22 Nov publish). Tokens only.
+ *
+ * No circle, no fill, content centred on both axes (21 Nov). Emoji size
+ * (decided 22 Nov): page emoji 64 on a 64 line in a 64 mark;
+ * lane emoji 48 on a 48 line in its 48 mark. Spacing (8/16 rule, 22 Nov):
+ * 16 between the emoji, the words and the actions; 4 between the title and
+ * its line.
+ * lane: padding 24 x 16; title 16 600; line 16 ink; small buttons, 8 apart.
+ * page: padding 32 / 24 / 24, at least 300 tall; title 20 600 on a 28 line,
+ * line 16 subtle, the text at most 408 wide; actions centred.
+ *
+ * No wash: the Wash property was deleted from Figma on 21 Nov 2026 and
+ * from code with it.
+ *
+ * Exceptions as Figma: emoji 48 and 64 have no font-size token; they ride
+ * spacing/48 and spacing/64 (the mark's own box). */
+
+.root {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
+  inline-size: 100%;
+  text-align: center;
+}
+
+.lane {
+  padding: var(--spacing-24) var(--spacing-16);
+}
+
+.page {
+  justify-content: center;
+  min-block-size: calc(var(--spacing-48) * 6 + var(--spacing-12)); /* 300: Figma's min height */
+  padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
+}
+
+.content {
+  display: contents;
+}
+
+.page .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-16);
+  inline-size: 100%;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  inline-size: 100%;
+}
+
+.page .text {
+  max-inline-size: calc(var(--spacing-80) * 5 + var(--spacing-8)); /* Figma Text max 408 */
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+  border-radius: var(--border-radius-round);
+}
+
+.page .mark {
+  inline-size: var(--spacing-64);
+  block-size: var(--spacing-64);
+}
+
+.image {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: contain; /* the mark's own box: 48 in a lane, 64 on a page, nothing behind it */
+}
+
+.emoji {
+  display: inline-block;
+  font-size: var(--spacing-48);
+  line-height: var(--spacing-48);
+  /* the small animation (rules/empty-states-and-history.md, 19 Nov: "something
+     fun on each one"): the emoji pops up from below, overshoots a step and
+     settles, once; then it holds still. Reduced motion: the end state. */
+  animation: emptyRise var(--motion-duration-900) var(--motion-easing-pop) both;
+}
+
+@keyframes emptyRise {
+  0% {
+    transform: translateY(var(--spacing-12)) scale(0.6);
+    opacity: 0;
+  }
+  45% {
+    transform: translateY(calc(var(--spacing-8) * -1)) scale(1.1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(var(--border-width-2)) scale(0.97);
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emoji {
+    animation: none;
+  }
+}
+
+.page .emoji {
+  font-size: var(--spacing-64);
+  line-height: var(--spacing-64);
+}
+
+.title,
+.line {
+  margin: 0;
+  max-inline-size: 100%;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.title {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.page .title {
+  font-size: var(--typography-font-size-20);
+  line-height: var(--size-28); /* 20 on a 28 line (batch 4) */
+}
+
+.line {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-default);
+}
+
+.page .line {
+  color: var(--color-content-subtle);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-8);
+}

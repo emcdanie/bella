@@ -1,0 +1,43 @@
+/* App tile (Figma BellaComponents 796:8193, read 20 Nov 2026). Tokens only.
+ * A square tile, border/radius/12, 1px edge in its own fill (outline: border/
+ * strong), the 24 icon centred. sm 32, md 44, lg 48. Tones: inverse
+ * background/knockout + content/knockout; outline background/surface +
+ * content/default; git background/logo/git + content/knockout; claude
+ * background/logo/claude + neutral/white (brand exception); info background/brand-subtle
+ * + content/default. Badge: the count Tag, 8 beside the tile. */
+
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.tile {
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-width-1) solid var(--tile-edge, var(--tile-fill));
+  border-radius: var(--border-radius-12);
+  background: var(--tile-fill);
+  color: var(--tile-ink);
+}
+
+.sm { inline-size: var(--spacing-32); block-size: var(--spacing-32); }
+.md { inline-size: var(--spacing-44); block-size: var(--spacing-44); }
+.lg { inline-size: var(--spacing-48); block-size: var(--spacing-48); }
+
+.tile svg {
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+}
+
+.inverse { --tile-fill: var(--color-background-knockout); --tile-ink: var(--color-content-knockout); }
+.outline { --tile-fill: var(--color-background-surface); --tile-edge: var(--color-border-strong); --tile-ink: var(--color-content-default); }
+.git { --tile-fill: var(--color-background-logo-git); --tile-ink: var(--color-content-knockout); }
+/* Claude: the official mark in pure white on the Claude orange (her 15 Nov "Orange, white mark",
+   published 21 Nov). Named brand exception to Tier 3 → Semantic: color/neutral/white, 3.12:1, over
+   the 3:1 non-text floor; the tile is decorative beside its name. */
+.claude { --tile-fill: var(--color-background-logo-claude); --tile-ink: var(--color-neutral-white); }
+.info { --tile-fill: var(--color-background-brand-subtle); --tile-ink: var(--color-content-default); }

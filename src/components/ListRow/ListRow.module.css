@@ -47,6 +47,7 @@
 
 .action {
   grid-column: 3;
+  white-space: nowrap; /* a button label stays on one line (19 Nov audit: "See check") */
 }
 
 .title {
@@ -55,16 +56,21 @@
   font-size: var(--typography-font-size-22);
   font-weight: var(--typography-font-weight-600);
   color: var(--color-content-default);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
 }
 
 .description {
   margin: 0;
-  font-family: var(--typography-subtext-font-family);
+  /* Row descriptions are sentences: the reading face (Lexend in Chip). Her
+     y23 answer, 19 Nov: "Lexend, as Figma draws it (subtext rule covers
+     labels and meta only)". The library part still binds subtext; amend due. */
+  font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-body-default-font-size);
   line-height: var(--typography-line-height-150);
   color: var(--color-content-body);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
 }
 
 @container list-row (max-width: 560px) {
@@ -84,4 +90,333 @@
   .action {
     justify-self: start;
   }
+}
+
+/* ZONED LIST ITEM (Figma CHIP Dashboard "ListRow", re-sync 19 Nov 2026).
+ * Everything above is the original work-list row, unchanged. Flexbox as
+ * Figma's auto layout: row 16 between zones, 12 padding, corner
+ * border/radius/sm. Body = Content row (Middle fills, Right hugs, Trailing)
+ * + Below (Progress, Helper, Divider), 12 apart, so the bar sits under the
+ * text column, never under the icon. stacked: zones sit on the title line
+ * (top); inline: every zone centred. Hover light blue, pressed grey,
+ * selected the darker light blue, focus the 4/4 ring at corner + 4. */
+
+.zoned {
+  container: list-row-zoned / inline-size;
+  grid-column: 1 / -1;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: var(--spacing-12);
+  border-radius: var(--border-radius-sm);
+  list-style: none;
+}
+
+.inline {
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+}
+
+.inline .content {
+  align-items: center;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.inline .middle {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.stack {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+/* Figma "Lead" (20 Nov): the Status bar beside the Text stack, 12 apart; the
+   bar fills the text's height. */
+.lead {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-12);
+  align-self: stretch;
+}
+
+.inline .lead {
+  flex: 1 1 0;
+}
+
+/* Her 20 Nov hierarchy on status-bar rows (colour-and-buttons.md, "the
+   hierachy is all off.."; CHIP Dashboard 612:88931 Text stack, read 21 Nov):
+   Label 16 subtle, Title 20 regular ink (the biggest thing in the row), Sub
+   title 16 subtle, all in the reading face; meta keeps the subtext face for
+   times and numbers. The right stack is centred on the text; its text
+   button keeps its own padding, its plate on the row's padding edge, over
+   the line Tag. */
+.barLabel,
+.barTitle {
+  display: block;
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+}
+.barLabel {
+  color: var(--color-content-subtle);
+}
+.barTitle {
+  font-size: var(--typography-font-size-20);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+.hasBar .description {
+  color: var(--color-content-subtle);
+}
+.hasBar .content {
+  align-items: center;
+}
+/* The action keeps Button's own padding: its plate ends on the row's
+   padding edge, as Figma's List item and Check row draw it (Action plate 12
+   from the row edge, label 24; read 22 Nov). ListRow never restyles Button. */
+
+/* Figma "Status bar" 1512:249842: 4 wide, round, the Tag's own edge token so
+   it reaches 3:1. Its own shape, not a row edge (rule 9). */
+.statusBar {
+  flex: 0 0 var(--spacing-4);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-utility-neutral);
+}
+.statusBar[data-tone='strong'] { background: var(--color-border-strong); }
+.statusBar[data-tone='success'] { background: var(--color-border-utility-success); }
+.statusBar[data-tone='info'] { background: var(--color-border-utility-info); }
+.statusBar[data-tone='attention'] { background: var(--color-border-utility-warning); }
+.statusBar[data-tone='danger'] { background: var(--color-border-utility-error); }
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-4);
+  flex-shrink: 0;
+  min-block-size: var(--spacing-44); /* Figma Right min 44: an action alone keeps the row's height */
+}
+
+/* inline rows centre every zone, the value inside its 44 column too */
+.inline .right {
+  justify-content: center;
+}
+
+/* Figma "Action line" (20 Nov): the action sits on a 24 text line, its 44 box
+   reaching 10 above and below, so its label reads on the line it belongs to. */
+.actionLine {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  block-size: var(--typography-line-height-px-24);
+}
+
+/* Figma "Value label": a word, in the body face, 500. */
+.valueLabel {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-500);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+/* Meta (22 Nov, "Meta lines at 14, reading text stays 16: B"): Geist Mono 14 on a 20 line (no line-height-px/20 token; size-20 carries it) */
+.subValue {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  color: var(--color-content-body);
+}
+
+.below {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.helper {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+.divider {
+  block-size: var(--border-width-1);
+  margin: 0;
+  border: 0;
+  background: var(--color-border-subtle);
+}
+
+/* The whole row is the target: the title's link or button stretches over
+ * the row; slotted controls sit above it and stay their own targets. */
+.target {
+  all: unset;
+  cursor: pointer;
+}
+
+.target::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.lift,
+.tag,
+.textButton {
+  position: relative;
+  z-index: 1;
+}
+
+/* Figma's Text button instance has no side padding, so its words sit on
+ * the text column's left edge (rule 20). */
+.textButton.textButton > [data-bella-component='button'] {
+  padding-inline: 0;
+}
+
+.interactive:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.interactive:active {
+  background: var(--color-background-subtle);
+}
+
+.selected,
+.selected.interactive:hover {
+  background: var(--color-background-brand-subtle-hover);
+}
+
+/* selected (21 Nov publish, ListRow state=selected): the Subtitle and the Sub
+   value turn content/default, so they keep 7:1 on the darker light blue */
+.selected .description,
+.selected .meta,
+.selected .subValue {
+  color: var(--color-content-default);
+}
+
+.interactive:has(.target:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.target:focus-visible {
+  outline: none;
+}
+
+/* Meta: a code or a date in the subtext face, its own line under the
+   description (Team's "OK #184 · 15 Oct"). Sentences stay in .description. */
+.meta {
+  display: block;
+  font-family: var(--typography-subtext-font-family);
+  color: var(--color-content-subtle);
+}
+
+/* Her phone-fit pick, 20 Nov ("B · Row reflows"): in a narrow row the right
+   zone (value, action, switch) moves under the text, so the title and
+   description get the row's width. */
+@container list-row-zoned (max-width: 25rem) {
+  .zoned:not(.inline) .content {
+    flex-wrap: wrap;
+    row-gap: var(--spacing-8);
+  }
+  .zoned:not(.inline) .right {
+    flex-basis: 100%;
+    align-items: flex-end; /* buttons sit on the right, everywhere (her rule) */
+  }
+  /* an inline row keeps value and › together; its title keeps whole words */
+  .inline .middle {
+    min-inline-size: min-content;
+  }
+}
+
+/* A changed value glows once (rule "Motion that shows what happened", item 1,
+   21 Nov): the brand-subtle wash fades out over motion/duration/900; never on
+   first paint; reduced motion: no glow. */
+.glow {
+  border-radius: var(--border-radius-sm);
+  animation: valueGlow var(--motion-duration-900) var(--motion-easing-standard) both;
+}
+
+@keyframes valueGlow {
+  0%, 40% { background-color: var(--color-background-brand-subtle); }
+  100% { background-color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow { animation: none; }
+}
+
+/* Figma Text frame (21 Nov publish): text stack, Tag and text button in one
+   column beside the status bar, 4 apart */
+.leadText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.leadText > .stack {
+  align-self: stretch;
+}
+
+/* Figma Indent: a child row sits in by 4 before its bar */
+.indent {
+  flex: 0 0 var(--spacing-4);
+}
+
+/* Figma Left Swatch: a 24 square of the colour, a 1px border/default edge
+   inside, corner sm */
+.swatch {
+  box-sizing: border-box;
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+  border-radius: var(--border-radius-sm);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-default);
 }

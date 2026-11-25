@@ -1,0 +1,84 @@
+/* TextStack (Figma CHIP Dashboard "Text stack", read 19 Nov 2026). Tokens only.
+ * Vertical, 4 apart, one left edge, fills its column, wraps. All 16 at 150%.
+ * Overline and Subtitle: the reading face, content/subtle (re-read from the
+ * 21 Nov publish; they were the subtext face). Title: reading face 600, content/default. Body: reading face
+ * 400, content/default. */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.overline,
+.title,
+.subtitle,
+.body {
+  margin: 0;
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
+}
+
+.overline,
+.subtitle {
+  /* 21 Nov publish (Text stack 1253:443): Lexend 16, content/subtle */
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+.title {
+  margin: 0; /* titleAs h2–h4: the heading keeps the title's look, not the browser's */
+  /* Text stack 1253:443: Title Lexend 20 regular on a 28 line (batch 4: the 4 grid;
+     no line-height-px/28 token, so the 28 size step carries it) */
+  line-height: var(--size-28);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-default);
+}
+
+.body {
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-default);
+}
+
+/* Meta (Figma Text stack 1253:443, 21 Nov publish): under the subtitle, the
+   reading face 16 / 150, content/subtle */
+.meta {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+  overflow-wrap: break-word;
+}
+
+/* Title row (Text stack 1253:443, published 21 Nov): the Title fills, the
+   Count at its right end, 8 apart, both on the title's 30 line */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.titleRow > .title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.count {
+  flex: none;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}

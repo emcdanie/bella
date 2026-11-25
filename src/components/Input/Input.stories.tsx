@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor } from 'storybook/test';
 import { expectVisibleFocus, expectTouchTarget } from '../../testing/behavioral';
 import Input from './Input';
+import Button from '../Button/Button';
 import inputCssRaw from './Input.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -15,7 +16,7 @@ const inputContract =
   (componentContract as any).component?.input?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Input',
+  title: 'Components/Inputs/Input',
   component: Input,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -105,8 +106,8 @@ export const Behavior: Story = {
       expect(field.tagName).toBe('INPUT');
     });
 
-    await step('the field is 60 (size.control.input: 20px at line-height 1.7, whole pixel)', async () => {
-      expect(field.getBoundingClientRect().height).toBe(60);
+    await step('the single-line field is 44 (Figma 20 Nov: min spacing/44)', async () => {
+      expect(field.getBoundingClientRect().height).toBe(44);
     });
 
     await step('autoComplete and name reach the DOM (contact-form contract)', async () => {
@@ -170,5 +171,221 @@ export const Behavior: Story = {
       await expectVisibleFocus(field);
       expectTouchTarget(field);
     });
+  },
+};
+
+/** Figma "Leading icon" and "Send button" (19 Nov 2026): the Team page's
+ * composer. The Send button is the small primary icon-only Button (32 plate,
+ * 44 hit area, Figma 20 Nov) inside the
+ * field; Enter sends too. Without these props the field is unchanged. */
+function Composer() {
+  const [value, setValue] = useState('');
+  const [sent, setSent] = useState<string[]>([]);
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', maxWidth: '40rem' }}>
+      <Input
+        label="Reply"
+        value={value}
+        onChange={setValue}
+        placeholder="Write a reply"
+        leadingIcon="ChatBubbleEmpty"
+        onSend={() => {
+          if (value.trim()) setSent((s) => [...s, value]);
+          setValue('');
+        }}
+        sendLabel="Send reply"
+      />
+      {/* the play test reads this count; it is not part of the composer */}
+      <p data-testid="sent" hidden>{sent.length}</p>
+    </div>
+  );
+}
+
+export const WithSend: Story = {
+  render: () => <Composer />,
+  play: async ({ canvas, userEvent, step }) => {
+    await step('the Send button is named: a 32 plate with a 44 hit area', async () => {
+      const send = canvas.getByRole('button', { name: 'Send reply' });
+      expect(send.getBoundingClientRect().height).toBe(32);
+      expect(parseFloat(getComputedStyle(send, '::after').height)).toBeGreaterThanOrEqual(44);
+    });
+    await step('Enter sends', async () => {
+      await userEvent.type(canvas.getByLabelText('Reply'), 'Looks right{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('1');
+    });
+  },
+};
+
+/** Field corners (library round 6, decided 21 Nov): every field takes
+ * border/radius/lg, the same corner as Button, 8 in Chip. */
+export const FieldCorners: Story = {
+  render: () => (
+    <div data-probe="" style={{ borderRadius: 'var(--border-radius-lg)' }}>
+      <Input label="Name" value="" onChange={() => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const probe = canvasElement.querySelector('[data-probe]') as HTMLElement;
+    const field = canvasElement.querySelector('input')!.closest('[class*="field"]') as HTMLElement ?? canvasElement.querySelector('input')!;
+    await expect(getComputedStyle(field).borderTopLeftRadius).toBe(getComputedStyle(probe).borderTopLeftRadius);
+  },
+};
+
+/** Menu slot (Figma Input 149:107): a control at the start of the field, the model picker here, then a
+ * 1×24 divider in border/strong before the text; Send at the end. */
+export const WithMenu: Story = {
+  render: () => {
+    const [v, setV] = useState('');
+    return (
+      <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 7)' }}>
+        <Input
+          label="Message"
+          value={v}
+          onChange={setV}
+          placeholder="Ask about BELLA"
+          menu={<Button variant="tertiary" size="sm" label="Sonnet" icon="NavArrowDown" ariaLabel="Model: Sonnet" />}
+          onSend={() => {}}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement, canvas, step }) => {
+    const input = canvas.getByRole('textbox', { name: 'Message' });
+    const model = canvas.getByRole('button', { name: 'Model: Sonnet' });
+    const divider = canvasElement.querySelector('[class*="divider"]') as HTMLElement;
+    await step('menu, then divider, then the text', async () => {
+      await expect(model.getBoundingClientRect().right).toBeLessThanOrEqual(divider.getBoundingClientRect().left);
+      await expect(divider.getBoundingClientRect().right).toBeLessThanOrEqual(input.getBoundingClientRect().left);
+    });
+    await step('the divider is 1×24', async () => {
+      await expect(Math.round(divider.getBoundingClientRect().width)).toBe(1);
+      await expect(Math.round(divider.getBoundingClientRect().height)).toBe(24);
+    });
+    await step('the menu control keeps its 44 target (the sm plate is 32; its target is the 44 around it)', async () => {
+      const r = model.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      for (const [dx, dy] of [[-21, 0], [21, 0], [0, -21], [0, 21]]) {
+        await expect(model.contains(document.elementFromPoint(cx + dx, cy + dy))).toBe(true);
+      }
+    });
+  },
+};
+
+/** state=suggestion (Figma Input 1608:3716, decided 21 Nov):
+ * the likely next question as ghost text in the empty field, a one-cap "↵" before Send. Enter sends it;
+ * typing replaces it and the keycap goes. */
+function SuggestComposer() {
+  const [v, setV] = useState('');
+  const [sent, setSent] = useState('');
+  return (
+    <div style={{ maxInlineSize: 'calc(var(--spacing-80) * 7)' }}>
+      <Input
+        label="Ask BELLA"
+        value={v}
+        onChange={setV}
+        suggestion="Which parts still fail contrast?"
+        onSend={(text) => {
+          setSent(text);
+          setV('');
+        }}
+      />
+      {/* the play test reads this; it is not part of the composer */}
+      <p data-testid="sent" hidden>{sent}</p>
+    </div>
+  );
+}
+
+export const Suggestion: Story = {
+  render: () => <SuggestComposer />,
+  play: async ({ canvasElement, canvas, userEvent, step }) => {
+    const input = canvas.getByRole('textbox', { name: 'Ask BELLA' });
+    const keycap = () => canvasElement.querySelector('[class*="enterHint"]');
+    await step('the suggestion is ghost text with the ↵ keycap, and the field says Enter asks it', async () => {
+      await expect(input).toHaveAttribute('aria-placeholder', 'Which parts still fail contrast?');
+      await expect(keycap()).not.toBeNull();
+      await expect(keycap()).toHaveAttribute('aria-hidden', 'true');
+      await expect(input).toHaveAccessibleDescription('Press Enter to ask');
+    });
+    await step('Enter in the empty field sends the suggestion', async () => {
+      input.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('Which parts still fail contrast?');
+    });
+    await step('typing replaces it and the keycap goes', async () => {
+      await userEvent.type(input, 'Is Tabs done');
+      await expect(keycap()).toBeNull();
+      await expect(input).not.toHaveAccessibleDescription('Press Enter to ask');
+      await userEvent.keyboard('{Enter}');
+      await expect(canvas.getByTestId('sent')).toHaveTextContent('Is Tabs done');
+    });
+  },
+};
+
+/** labelPosition=inline (Figma Input 149:135, 21 Nov publish): label, field and hint on one line,
+ * 8 apart, all centred on the 44 field; the error takes the hint's place. */
+export const LabelInline: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 9)' }}>
+      <Input label="Email" labelPosition="inline" value="" placeholder="you@studio.com" hint="We reply within two days." onChange={() => {}} />
+      <Input label="Email" labelPosition="inline" value="you@studio" error="Enter an email like name@domain.com" onChange={() => {}} />
+    </div>
+  ),
+  play: async ({ canvas, step }) => {
+    await step('label 16 left of the field (8 plus room for the focus ring, 23 Nov 2026; Figma follows), both centred on it', async () => {
+      const field = canvas.getAllByLabelText('Email')[0];
+      const label = field.parentElement!.querySelector('label')!;
+      const f = field.getBoundingClientRect();
+      const l = label.getBoundingClientRect();
+      await expect(Math.round(f.left - l.right)).toBe(16);
+      await expect(Math.abs((f.top + f.bottom) / 2 - (l.top + l.bottom) / 2)).toBeLessThanOrEqual(1);
+      await expect(f.height).toBe(44);
+    });
+    await step('the hint sits 8 right of the field, on its line', async () => {
+      const field = canvas.getAllByLabelText('Email')[0];
+      const hint = canvas.getByText('We reply within two days.');
+      await expect(Math.round(hint.getBoundingClientRect().left - field.getBoundingClientRect().right)).toBe(8);
+    });
+  },
+};
+
+const PasswordField = () => {
+  const [v, setV] = React.useState('');
+  return <div style={{ inlineSize: '22rem', padding: 'var(--spacing-16)' }}><Input label="Figma token" type="password" value={v} onChange={setV} hint="Stays on this computer." /></div>;
+};
+
+/** type="password": masked, a Show / Hide button at the end, autocomplete off, never echoed into the page. */
+export const Password: Story = {
+  render: () => <PasswordField />,
+  play: async ({ canvasElement }) => {
+    const field = canvasElement.querySelector('input') as HTMLInputElement;
+    const toggle = canvasElement.querySelector('button') as HTMLButtonElement;
+    await expect(field.type).toBe('password');
+    await expect(field.autocomplete).toBe('off');
+    await expect(field.spellcheck).toBe(false);
+    await expect(toggle).toBeDisabled();
+    await userEvent.type(field, 'figd_secret123');
+    await expect(toggle).toBeEnabled();
+    await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(toggle.getAttribute('aria-label')).toBe('Show the password');
+    /* never echoed: the secret is only in the field's own value, not in any text, label, title or other attribute */
+    const copy = canvasElement.cloneNode(true) as HTMLElement;
+    copy.querySelectorAll('input').forEach((i) => i.removeAttribute('value'));
+    await expect(copy.innerHTML.includes('figd_secret123')).toBe(false);
+    await userEvent.click(toggle);
+    await expect(field.type).toBe('text');
+    await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(toggle).toHaveTextContent('Hide');
+    await userEvent.click(toggle);
+    await expect(field.type).toBe('password');
+    /* keyboard: Tab from the field to the button, Space shows */
+    field.focus();
+    await userEvent.tab();
+    await expect(toggle).toHaveFocus();
+    await userEvent.keyboard(' ');
+    await expect(field.type).toBe('text');
+    /* clearing the field hides it again */
+    await userEvent.clear(field);
+    await expect(field.type).toBe('password');
   },
 };

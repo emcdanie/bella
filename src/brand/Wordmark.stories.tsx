@@ -121,3 +121,28 @@ export const Behavior: Story = {
     });
   },
 };
+
+/** CHIP's logotype: the chip with its C, HIP written by its right wall, a pink signal that runs once and rests as the full stop. Under reduced motion it is the still final frame. */
+export const ChipLogotype: Story = {
+  args: { word: 'CHIP', variant: 'logotype' },
+  render: (args) => (
+    <div style={{ padding: 'var(--spacing-80) var(--spacing-48)' }}>
+      <BrandWordmark {...args} />
+    </div>
+  ),
+  play: async ({ canvas, canvasElement, step }) => {
+    await step('a labelled image named CHIP', async () => {
+      await expect(canvas.getByRole('img', { name: 'CHIP' })).toBeInTheDocument();
+    });
+    await step('the signal run is jumped to its end so the capture is the resting frame', async () => {
+      const svg = canvasElement.querySelector('svg[data-bella-logotype]') as SVGSVGElement | null;
+      svg?.pauseAnimations?.();
+      svg?.setCurrentTime?.(2);
+    });
+    await step('the pink signal is there, running or at rest, in the brand pink', async () => {
+      const dot = canvasElement.querySelector('circle[data-signal]');
+      await expect(dot).not.toBeNull();
+      await expect(dot?.getAttribute('style')).toContain('--color-background-accent-1');
+    });
+  },
+};

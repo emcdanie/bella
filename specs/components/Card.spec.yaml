@@ -3,7 +3,7 @@
 name: Card
 lead:
   text: The one-card system.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Layout
 rendersAs: a div; with href one anchor, with onClick one button
 links:
@@ -19,6 +19,7 @@ props:
       existing callers keep compiling; slated for removal in the next major.
     at: src/components/Card/Card.tsx:10
   - name: variant
+    figmaName: variant
     type: '''default'' | ''peek'''
     values:
       - default
@@ -131,100 +132,123 @@ anatomy:
       at: left
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: variant=default, state=resting, padding=default, Clip content=true
+    name: variant=default, state=default, padding=default, Clip content=true, raised=false
     type: COMPONENT
-    size: 320x387
+    size: 320x334
     tokens:
-      - field: effects
-        variable:
-          - component/card/shadow-2/blur
-          - component/card/shadow-1/color
-          - component/card/shadow-1/blur
-          - component/card/shadow-2/y
-          - component/card/shadow-1/y
-          - component/card/shadow-2/color
+      - field: topLeftRadius
+        variable: border/radius/card
+      - field: topRightRadius
+        variable: border/radius/card
+      - field: bottomLeftRadius
+        variable: border/radius/card
+      - field: bottomRightRadius
+        variable: border/radius/card
+      - field: strokeTopWeight
+        variable: border/width/1
+      - field: strokeBottomWeight
+        variable: border/width/1
+      - field: strokeLeftWeight
+        variable: border/width/1
+      - field: strokeRightWeight
+        variable: border/width/1
+      - field: fills
+        variable: color/background/surface
+      - field: strokes
+        variable: color/border/subtle
     children:
-      - name: Surface
+      - name: Main
         type: FRAME
-        size: 320x387
-        tokens:
-          - field: topLeftRadius
-            variable: component/card/radius
-          - field: topRightRadius
-            variable: component/card/radius
-          - field: bottomLeftRadius
-            variable: component/card/radius
-          - field: bottomRightRadius
-            variable: component/card/radius
-          - field: fills
-            variable: color/semantic/surface-card
-          - field: strokes
-            variable: color/semantic/border-subtle
-        children: []
-      - name: Media
-        type: FRAME
-        size: 320x200
-        tokens:
-          - field: topLeftRadius
-            variable: radius/card
-          - field: topRightRadius
-            variable: radius/card
-          - field: fills
-            variable: color/semantic/surface-card
-        children: []
-      - name: Body
-        type: FRAME
-        size: 320x187
-        tokens:
-          - field: itemSpacing
-            variable: spacing/2
-          - field: paddingLeft
-            variable: spacing/6
-          - field: paddingTop
-            variable: spacing/6
-          - field: paddingRight
-            variable: spacing/6
-          - field: paddingBottom
-            variable: spacing/6
+        size: 318x332
         children:
-          - name: Title
-            type: TEXT
-            text: Card title
-            size: 272x29
+          - name: Media
+            type: FRAME
+            size: 318x200
             tokens:
+              - field: topLeftRadius
+                variable: border/radius/card
+              - field: topRightRadius
+                variable: border/radius/card
               - field: fills
-                variable: color/semantic/text-primary
-              - field: fontSize
-                variable: component/card/title/font-size
-              - field: fontFamily
-                variable: typography/font-family/body
-              - field: fontWeight
-                variable: component/card/title/font-weight
-          - name: Text
-            type: TEXT
-            text: One or two lines of supporting text on the card surface.
-            size: 272x102
-            tokens:
-              - field: fills
-                variable: color/semantic/text-secondary
-              - field: fontSize
-                variable: component/card/description/font-size
-              - field: fontFamily
-                variable: typography/font-family/body
-              - field: lineHeight
-                variable: component/card/description/line-height
-              - field: fontWeight
-                variable: typography/font-weight/regular
-          - name: Content
-            type: SLOT
-            hidden: true
-            size: 272x0.01
+                variable: color/background/surface
+            children: []
+          - name: Body
+            type: FRAME
+            size: 318x132
             tokens:
               - field: itemSpacing
-                variable: spacing/2
-              - field: minHeight
-                variable: component/card/content-min-height
-            children: []
+                variable: spacing/8
+              - field: paddingLeft
+                variable: spacing/24
+              - field: paddingTop
+                variable: spacing/24
+              - field: paddingRight
+                variable: spacing/24
+              - field: paddingBottom
+                variable: spacing/24
+            children:
+              - name: Head
+                type: INSTANCE
+                instanceOf: Section head
+                hidden: true
+                size: 270x28
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/16
+                  - field: counterAxisSpacing
+                    variable: spacing/8
+              - name: Title
+                type: TEXT
+                text: Card title
+                size: 270x28
+                tokens:
+                  - field: fills
+                    variable: color/content/default
+                  - field: fontSize
+                    variable: typography/font-size/20
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: fontWeight
+                    variable: typography/font-weight/600
+              - name: Body
+                type: TEXT
+                text: One or two lines of supporting text on the card surface.
+                size: 270x48
+                tokens:
+                  - field: fills
+                    variable: color/content/subtle
+                  - field: fontSize
+                    variable: typography/font-size/16
+                  - field: fontFamily
+                    variable: typography/body-default/font-family
+                  - field: lineHeight
+                    variable: typography/line-height-px/24
+                  - field: fontWeight
+                    variable: typography/font-weight/400
+              - name: Content
+                type: SLOT
+                hidden: true
+                size: 272x0.01
+                tokens:
+                  - field: itemSpacing
+                    variable: spacing/8
+                  - field: minHeight
+                    variable: size/0
+                children: []
+      - name: Footer
+        type: INSTANCE
+        instanceOf: _Card footer
+        hidden: true
+        size: 318x56
+        tokens:
+          - field: itemSpacing
+            variable: spacing/8
+          - field: paddingLeft
+            variable: spacing/24
+          - field: paddingRight
+            variable: spacing/24
+          - field: paddingBottom
+            variable: spacing/24
   code:
     - key: shadow
       title: Hover shadow
@@ -236,68 +260,68 @@ anatomy:
       title: Rest shadow
       kind: shadow
       trigger: rest
-      token: '--shadow-card'
+      token: '--shadow-card-ink'
       detail: every card but peek (re-scoped to none), Colour B, 2026-10-04
     - key: surface
       title: Surface
       kind: fill
       trigger: rest
-      token: '--color-semantic-surface-card'
+      token: '--color-background-surface'
       detail: the card fill
     - key: edge
       title: Edge
       kind: edge
       trigger: rest
-      token: '--color-semantic-border-subtle'
-      detail: 1px border-subtle hairline, radius 16 (--radius-card)
+      token: '--color-border-subtle'
+      detail: 1px border-subtle hairline, radius 16 (--border-radius-card)
     - key: padding
       title: Padding
       kind: box
       trigger: rest
-      token: '--spacing-6'
+      token: '--spacing-24'
       detail: 24px all round
     - key: ring
       title: Focus ring
       kind: ring
       trigger: focus
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       detail: 'interactive cards only: 3px, 3px offset, focus-visible only'
 tokens:
   used:
     - part: root
       state: rest
       property: border-radius
-      token: '--radius-card'
+      token: '--border-radius-card'
       selector: .card
       at: src/components/Card/Card.module.css:22
     - part: root
       state: rest
       property: box-shadow
-      token: '--shadow-card'
+      token: '--shadow-card-ink'
       selector: .card
       at: src/components/Card/Card.module.css:23
     - part: root
       state: rest
       property: '--trace-w'
-      token: '--component-card-trace-width'
+      token: '--border-width-4'
       selector: .card
       at: src/components/Card/Card.module.css:24
     - part: inner
       state: rest
       property: background
-      token: '--color-semantic-surface-card'
+      token: '--color-background-surface'
       selector: .inner
       at: src/components/Card/Card.module.css:38
     - part: inner
       state: rest
       property: border
-      token: '--color-semantic-border-subtle'
+      token: '--color-border-subtle'
       selector: .inner
       at: src/components/Card/Card.module.css:39
     - part: inner
       state: rest
       property: border-radius
-      token: '--radius-card'
+      token: '--border-radius-card'
       selector: .inner
       at: src/components/Card/Card.module.css:40
     - part: inner
@@ -309,239 +333,212 @@ tokens:
     - part: innerPeek
       state: rest
       property: background
-      token: '--color-neutral-paper'
-      selector: .innerPeek
-      at: src/components/Card/Card.module.css:51
-    - part: innerPeek
-      state: rest
-      property: color
-      token: '--color-brand-ink'
+      token: '--color-brand-stone-100'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:52
     - part: innerPeek
       state: rest
-      property: '--color-semantic-text-primary'
-      token: '--color-brand-ink'
+      property: color
+      token: '--color-neutral-900'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:53
     - part: innerPeek
       state: rest
-      property: '--color-semantic-text-secondary'
-      token: '--color-neutral-ink-muted'
+      property: '--color-content-default'
+      token: '--color-neutral-900'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:54
     - part: innerPeek
       state: rest
-      property: '--color-semantic-text-body'
-      token: '--color-neutral-ink-soft'
+      property: '--color-content-subtle'
+      token: '--color-neutral-700'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:55
     - part: innerPeek
       state: rest
-      property: '--color-semantic-text-muted'
-      token: '--color-neutral-ink-faint'
+      property: '--color-content-body'
+      token: '--color-neutral-800'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:56
     - part: innerPeek
       state: rest
-      property: '--color-semantic-border'
-      token: '--color-neutral-border'
+      property: '--color-border-default'
+      token: '--color-neutral-100'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:57
     - part: innerPeek
       state: rest
-      property: '--color-semantic-border-subtle'
-      token: '--color-alpha-ink-6'
+      property: '--color-border-subtle'
+      token: '--color-neutral-100'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:58
     - part: innerPeek
       state: rest
-      property: '--color-semantic-border-faint'
-      token: '--color-alpha-ink-10'
+      property: '--color-background-subtle'
+      token: '--color-neutral-100'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:59
     - part: innerPeek
       state: rest
-      property: '--color-semantic-surface-inset'
-      token: '--color-neutral-surface'
+      property: border-color
+      token: '--color-border-subtle'
       selector: .innerPeek
       at: src/components/Card/Card.module.css:60
-    - part: innerPeek
-      state: rest
-      property: border-color
-      token: '--color-semantic-border-faint'
-      selector: .innerPeek
-      at: src/components/Card/Card.module.css:61
     - part: interactive
       state: rest
       property: transition
-      token: '--motion-duration-lift'
+      token: '--motion-duration-200'
       selector: .interactive
-      at: src/components/Card/Card.module.css:85
+      at: src/components/Card/Card.module.css:84
     - part: interactive
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .interactive
-      at: src/components/Card/Card.module.css:85
+      at: src/components/Card/Card.module.css:84
     - part: interactive
       state: rest
       property: transition
-      token: '--motion-duration-lift'
+      token: '--motion-duration-200'
       selector: .interactive
-      at: src/components/Card/Card.module.css:85
+      at: src/components/Card/Card.module.css:84
     - part: interactive
       state: rest
       property: transition
       token: '--motion-easing-standard'
       selector: .interactive
-      at: src/components/Card/Card.module.css:85
+      at: src/components/Card/Card.module.css:84
     - part: interactive
       state: hover focus-visible
       property: transform
-      token: '--motion-transform-hover-lift'
+      token: '--border-width-2'
       selector: .interactive:hover, .interactive:focus-visible
-      at: src/components/Card/Card.module.css:92
+      at: src/components/Card/Card.module.css:91
     - part: interactive
       state: hover focus-visible
       property: box-shadow
       token: '--shadow-hover'
       selector: .interactive:hover, .interactive:focus-visible
-      at: src/components/Card/Card.module.css:93
+      at: src/components/Card/Card.module.css:92
     - part: interactive
       state: focus-visible
       property: outline
-      token: '--ring-focus-width'
+      token: '--focus-ring-width'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:97
+      at: src/components/Card/Card.module.css:96
     - part: interactive
       state: focus-visible
       property: outline
-      token: '--ring-focus-color'
+      token: '--color-border-focus'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:97
+      at: src/components/Card/Card.module.css:96
     - part: interactive
       state: focus-visible
       property: outline-offset
-      token: '--ring-focus-offset'
+      token: '--focus-ring-offset'
       selector: .interactive:focus-visible
-      at: src/components/Card/Card.module.css:98
+      at: src/components/Card/Card.module.css:97
     - part: media
       state: rest
       property: background
-      token: '--color-semantic-surface-card'
+      token: '--color-background-surface'
       selector: .media
-      at: src/components/Card/Card.module.css:117
+      at: src/components/Card/Card.module.css:116
     - part: body
       state: rest
       property: padding
       token: '--layout-card-padding'
       selector: .body
-      at: src/components/Card/Card.module.css:129
+      at: src/components/Card/Card.module.css:128
     - part: body
       state: rest
       property: gap
-      token: '--spacing-2'
+      token: '--spacing-8'
       selector: .body
-      at: src/components/Card/Card.module.css:132
+      at: src/components/Card/Card.module.css:131
   values:
-    '--color-alpha-ink-10':
-      light: '#1A17201A'
-      chip: '#1A17201A'
-    '--color-alpha-ink-6':
-      light: '#1A172010'
-      chip: '#1A172010'
-    '--color-brand-ink':
-      light: '#1A1720'
-      chip: '#1A1720'
-    '--color-neutral-border':
-      light: '#E6E4DC'
-      chip: '#E6E4DC'
-    '--color-neutral-ink-faint':
-      light: '#6B6678'
-      chip: '#6B6678'
-    '--color-neutral-ink-muted':
-      light: '#4A4652'
-      chip: '#4A4652'
-    '--color-neutral-ink-soft':
-      light: '#2E2937'
-      chip: '#2E2937'
-    '--color-neutral-paper':
-      light: '#FAFAF8'
-      chip: '#FAFAF8'
-    '--color-neutral-surface':
-      light: '#EDECE4'
-      chip: '#EDECE4'
-    '--color-semantic-border-faint':
-      light: '#eceef3'
-      chip: '#1F1C1938'
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--color-semantic-surface-card':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--component-card-trace-width':
-      light: 3px
-      chip: 3px
+    '--border-radius-card':
+      light: null
+      chip: null
+    '--border-width-2':
+      light: null
+      chip: null
+    '--border-width-4':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-focus':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-brand-stone-100':
+      light: null
+      chip: null
+    '--color-neutral-100':
+      light: null
+      chip: null
+    '--color-neutral-700':
+      light: null
+      chip: null
+    '--color-neutral-800':
+      light: null
+      chip: null
+    '--color-neutral-900':
+      light: null
+      chip: null
+    '--focus-ring-offset':
+      light: null
+      chip: null
+    '--focus-ring-width':
+      light: null
+      chip: null
     '--layout-card-padding':
-      light: 24px
-      chip: 24px
-    '--motion-duration-lift':
-      light: 200ms
-      chip: 200ms
+      light: null
+      chip: null
+    '--motion-duration-200':
+      light: null
+      chip: null
     '--motion-easing-standard':
-      light: cubic-bezier(0.4, 0, 0.2, 1)
-      chip: cubic-bezier(0.4, 0, 0.2, 1)
-    '--motion-transform-hover-lift':
-      light: translateY(-2px)
-      chip: translateY(-2px)
-    '--radius-card':
-      light: 1rem
-      chip: 2px
-    '--ring-focus-color':
-      light: '#1d2030'
-      chip: '#CF5A95'
-    '--ring-focus-offset':
-      light: 3px
-      chip: 3px
-    '--ring-focus-width':
-      light: 3px
-      chip: 3px
-    '--shadow-card':
-      light: '0 1px 3px #1d20300f, 0 12px 28px #1d20301a'
-      chip: '0 1px 3px #1d20300f, 0 12px 28px #1d20301a'
+      light: null
+      chip: null
+    '--shadow-card-ink':
+      light: null
+      chip: null
     '--shadow-hover':
-      light: '0 8px 24px #1A172014'
-      chip: '0 8px 24px #1A172014'
-    '--spacing-2':
-      light: 8px
-      chip: 8px
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
 motion:
   transitions:
     - selector: .interactive
       state: rest
       declaration: >-
-        transition: transform var(--motion-duration-lift) var(--motion-easing-standard), box-shadow var(--motion-duration-lift)
+        transition: transform var(--motion-duration-200) var(--motion-easing-standard), box-shadow var(--motion-duration-200)
         var(--motion-easing-standard)
       properties:
         - transform
         - box-shadow
       durations:
-        - token: '--motion-duration-lift'
-          value: 200ms
-        - token: '--motion-duration-lift'
-          value: 200ms
+        - token: '--motion-duration-200'
+          value: null
+        - token: '--motion-duration-200'
+          value: null
       easings:
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
+          value: null
         - token: '--motion-easing-standard'
-          value: cubic-bezier(0.4, 0, 0.2, 1)
-      at: src/components/Card/Card.module.css:85
+          value: null
+      at: src/components/Card/Card.module.css:84
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:140
+    at: src/components/Card/Card.module.css:139
   reducedMotionQuery: true
 a11y:
   element:
@@ -573,26 +570,26 @@ a11y:
       at: src/components/Card/Card.tsx:137
   focusRing:
     - property: outline
-      value: var(--ring-focus-width) solid var(--ring-focus-color)
+      value: var(--focus-ring-width) solid var(--color-border-focus)
       tokens:
-        - token: '--ring-focus-width'
-          value: 3px
-        - token: '--ring-focus-color'
-          value: '#CF5A95'
-      at: src/components/Card/Card.module.css:97
+        - token: '--focus-ring-width'
+          value: null
+        - token: '--color-border-focus'
+          value: null
+      at: src/components/Card/Card.module.css:96
     - property: outline-offset
-      value: var(--ring-focus-offset)
+      value: var(--focus-ring-offset)
       tokens:
-        - token: '--ring-focus-offset'
-          value: 3px
-      at: src/components/Card/Card.module.css:98
+        - token: '--focus-ring-offset'
+          value: null
+      at: src/components/Card/Card.module.css:97
   disabled:
     prop: null
     note: no disabled prop
   reducedMotion:
     selector: .interactive, .interactive:hover, .interactive:focus-visible
     declaration: 'transition: none'
-    at: src/components/Card/Card.module.css:140
+    at: src/components/Card/Card.module.css:139
   contract: >-
     Interactive cards render as a single anchor or button: one tab stop, no nested interactives. Name a card via ariaLabel when its visible
     content isn't the right name; media is aria-hidden when ariaLabel is set. Focus shows a visible ring (asserted in CI, both themes).
@@ -608,27 +605,8 @@ a11y:
       value: aria-label
       at: src/components/Card/Card.tsx:137
 contrast:
-  pairs:
-    - label: Focus ring
-      foreground: '--color-semantic-focus-ring'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#CF5A95'
-      backgroundHex: '#ffffff'
-      ratio: 3.78
-      bar: 3
-      barName: NON_TEXT
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--color-brand-ink'
-      background: '--color-semantic-background'
-      ratio: 16.49
-      theme: chip
-    - foreground: '--color-brand-ink'
-      background: '--color-semantic-surface-card'
-      ratio: 17.69
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Card/Card.stories.tsx
   lines: 152-154
@@ -652,7 +630,7 @@ usage:
     - >-
       Do not build a fixed-dark card, no fixed-dark path exists; peek (fixed always-light paper on navy) is the one recorded fixed-context
       exception
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '136:130'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
@@ -663,7 +641,7 @@ figma:
     Text#136:28:
       type: TEXT
       default: One or two lines of supporting text on the card surface.
-    Media#136:35:
+    Show media#136:35:
       type: BOOLEAN
       default: true
     Content#660:0:
@@ -677,6 +655,12 @@ figma:
     Show content#660:21:
       type: BOOLEAN
       default: false
+    Show footer#1307:3:
+      type: BOOLEAN
+      default: false
+    Show head#1344:0:
+      type: BOOLEAN
+      default: false
     variant:
       type: VARIANT
       default: default
@@ -684,16 +668,15 @@ figma:
         - default
         - peek
         - tinted
-        - success
-        - inverse
         - inset
     state:
       type: VARIANT
-      default: resting
+      default: default
       values:
-        - resting
+        - default
         - hover
         - focus
+        - selected
     padding:
       type: VARIANT
       default: default
@@ -707,149 +690,246 @@ figma:
       values:
         - 'true'
         - 'false'
+    raised:
+      type: VARIANT
+      default: 'false'
+      values:
+        - 'false'
+        - 'true'
   variants:
-    - name: variant=default, state=resting, padding=default, Clip content=true
+    - name: variant=default, state=default, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=hover, padding=default, Clip content=true
+      height: 334
+    - name: variant=default, state=hover, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=focus, padding=default, Clip content=true
+      height: 334
+    - name: variant=default, state=focus, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=resting, padding=default, Clip content=true
+      height: 334
+    - name: variant=peek, state=default, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=hover, padding=default, Clip content=true
+      height: 334
+    - name: variant=peek, state=hover, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=focus, padding=default, Clip content=true
+      height: 334
+    - name: variant=peek, state=focus, padding=default, Clip content=true, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=resting, padding=flush, Clip content=true
+      height: 334
+    - name: variant=default, state=default, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=default, state=hover, padding=flush, Clip content=true
+      height: 318
+    - name: variant=default, state=hover, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=default, state=focus, padding=flush, Clip content=true
+      height: 318
+    - name: variant=default, state=focus, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=resting, padding=flush, Clip content=true
+      height: 318
+    - name: variant=peek, state=default, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=hover, padding=flush, Clip content=true
+      height: 318
+    - name: variant=peek, state=hover, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=focus, padding=flush, Clip content=true
+      height: 318
+    - name: variant=peek, state=focus, padding=flush, Clip content=true, raised=false
       width: 320
-      height: 371
-    - name: variant=default, state=resting, padding=default, Clip content=false
+      height: 318
+    - name: variant=default, state=default, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=hover, padding=default, Clip content=false
+      height: 334
+    - name: variant=default, state=hover, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=focus, padding=default, Clip content=false
+      height: 334
+    - name: variant=default, state=focus, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=resting, padding=default, Clip content=false
+      height: 334
+    - name: variant=peek, state=default, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=hover, padding=default, Clip content=false
+      height: 334
+    - name: variant=peek, state=hover, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=peek, state=focus, padding=default, Clip content=false
+      height: 334
+    - name: variant=peek, state=focus, padding=default, Clip content=false, raised=false
       width: 320
-      height: 387
-    - name: variant=default, state=resting, padding=flush, Clip content=false
+      height: 334
+    - name: variant=default, state=default, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=default, state=hover, padding=flush, Clip content=false
+      height: 318
+    - name: variant=default, state=hover, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=default, state=focus, padding=flush, Clip content=false
+      height: 318
+    - name: variant=default, state=focus, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=resting, padding=flush, Clip content=false
+      height: 318
+    - name: variant=peek, state=default, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=hover, padding=flush, Clip content=false
+      height: 318
+    - name: variant=peek, state=hover, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=peek, state=focus, padding=flush, Clip content=false
+      height: 318
+    - name: variant=peek, state=focus, padding=flush, Clip content=false, raised=false
       width: 320
-      height: 371
-    - name: variant=tinted, state=resting, padding=default, Clip content=true
+      height: 318
+    - name: variant=tinted, state=default, padding=default, Clip content=true, raised=false
       width: 320
-      height: 379
-    - name: variant=tinted, state=resting, padding=default, Clip content=false
+      height: 334
+    - name: variant=tinted, state=default, padding=default, Clip content=false, raised=false
       width: 320
-      height: 379
-    - name: variant=success, state=resting, padding=default, Clip content=false
+      height: 334
+    - name: variant=default, state=default, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 379
-    - name: variant=inverse, state=resting, padding=default, Clip content=false
+      height: 318
+    - name: variant=default, state=hover, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 379
-    - name: variant=default, state=resting, padding=compact, Clip content=true
+      height: 318
+    - name: variant=default, state=focus, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 337
-    - name: variant=default, state=hover, padding=compact, Clip content=true
+      height: 318
+    - name: variant=peek, state=default, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 337
-    - name: variant=default, state=focus, padding=compact, Clip content=true
+      height: 318
+    - name: variant=peek, state=hover, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=resting, padding=compact, Clip content=true
+      height: 318
+    - name: variant=peek, state=focus, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=hover, padding=compact, Clip content=true
+      height: 318
+    - name: variant=default, state=default, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=focus, padding=compact, Clip content=true
+      height: 318
+    - name: variant=default, state=hover, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=default, state=resting, padding=compact, Clip content=false
+      height: 318
+    - name: variant=default, state=focus, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=default, state=hover, padding=compact, Clip content=false
+      height: 318
+    - name: variant=peek, state=default, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=default, state=focus, padding=compact, Clip content=false
+      height: 318
+    - name: variant=peek, state=hover, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=resting, padding=compact, Clip content=false
+      height: 318
+    - name: variant=peek, state=focus, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=hover, padding=compact, Clip content=false
+      height: 318
+    - name: variant=inset, state=default, padding=compact, Clip content=true, raised=false
       width: 320
-      height: 337
-    - name: variant=peek, state=focus, padding=compact, Clip content=false
+      height: 316
+    - name: variant=inset, state=default, padding=compact, Clip content=false, raised=false
       width: 320
-      height: 337
-    - name: variant=inset, state=resting, padding=compact, Clip content=true
+      height: 316
+    - name: variant=default, state=default, padding=default, Clip content=true, raised=true
       width: 320
-      height: 329
-    - name: variant=inset, state=resting, padding=compact, Clip content=false
+      height: 334
+    - name: variant=default, state=hover, padding=default, Clip content=true, raised=true
       width: 320
-      height: 329
-  defaultVariant: variant=default, state=resting, padding=default, Clip content=true
+      height: 334
+    - name: variant=default, state=focus, padding=default, Clip content=true, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=default, padding=flush, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=hover, padding=flush, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=focus, padding=flush, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=default, padding=default, Clip content=false, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=hover, padding=default, Clip content=false, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=focus, padding=default, Clip content=false, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=default, padding=flush, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=hover, padding=flush, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=focus, padding=flush, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=default, padding=compact, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=hover, padding=compact, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=focus, padding=compact, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=default, padding=compact, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=hover, padding=compact, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=focus, padding=compact, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=default, Clip content=true, raised=false
+      width: 320
+      height: 334
+    - name: variant=default, state=selected, padding=flush, Clip content=true, raised=false
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=default, Clip content=false, raised=false
+      width: 320
+      height: 334
+    - name: variant=default, state=selected, padding=flush, Clip content=false, raised=false
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=compact, Clip content=true, raised=false
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=compact, Clip content=false, raised=false
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=default, Clip content=true, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=selected, padding=flush, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=default, Clip content=false, raised=true
+      width: 320
+      height: 334
+    - name: variant=default, state=selected, padding=flush, Clip content=false, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=compact, Clip content=true, raised=true
+      width: 320
+      height: 318
+    - name: variant=default, state=selected, padding=compact, Clip content=false, raised=true
+      width: 320
+      height: 318
+  defaultVariant: variant=default, state=default, padding=default, Clip content=true, raised=false
   annotations:
     - label: >-
-        Hover + focus (interactive cards): lifts 2px (motion/transform/hover-lift) with shadow/hover, motion/duration/lift. Static cards
-        never move.
-
-        Reduced motion: shadow only.
+        States: only interactive cards (href or onClick; variants default and peek) take hover and focus. Hover: the edge strengthens to
+        color/border/strong. Focus: the blue ring. Tinted and inset are static.
+      category: '123:1'
+    - label: |-
+        Hover and focus: edge and ring change over motion/duration/fast. Never lifts, no resting shadow.
+        Reduced motion: instant.
       category: '123:4'
     - label: >-
-        Dev · <Card href media> · src/components/Card/Card.tsx. Surface surface-card, edge border-subtle (peek border-faint), radius
-        radius/card (2 in Chip, via radius/xs), body padding spacing/6 (code: --layout-card-padding, 24; bind layout/card-padding after the
-        Foundations publish). Media fill surface-card. padding and Clip content are Figma only.
+        <Card href onClick media> · src/components/Card/Card.tsx. Surface color/background/surface, edge border/width/1 in
+        color/border/subtle, corner border/radius/card (20 in Chip). Body padding spacing/24 (compact spacing/16, flush 0), gap spacing/8.
+        Title typography/font-size/18 semibold, text typography/font-size/16 in color/content/subtle. padding and Clip content are Figma
+        only; code always clips media.
       category: '123:0'
     - label: >-
-        One tab stop: an interactive card is ONE anchor or button; never nest interactives. Focus ring 3px color/semantic/focus-ring (pink
-        in Chip, #CF5A95), 3px offset, focus-visible only.
+        One tab stop: an interactive card is one anchor or button; its title is the name. Never nest links or buttons inside it.
+
+        Focus: focus-visible only, ring color/border/focus (blue/600 in Chip light), 4px wide with a 4px gap, outside; ring corner = card
+        corner + 4 (the card+4 corner token is a pending decision).
+
+        Contrast: text 7:1 or more in all four themes.
       category: '123:2'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-card--docs
@@ -862,9 +942,21 @@ mismatch:
       - default
       - peek
       - tinted
-      - success
-      - inverse
       - inset
+  - field: states
+    code:
+      contract:
+        - resting
+        - hover
+        - focus
+      css:
+        - hover
+        - focus-visible
+    figma:
+      - default
+      - hover
+      - focus
+      - selected
   - field: props.padding
     code: no such prop
     figma:
@@ -876,186 +968,68 @@ mismatch:
     figma:
       - 'true'
       - 'false'
+  - field: props.raised
+    code: no such prop
+    figma:
+      - 'false'
+      - 'true'
   - field: props.mediaScrim
     code: boolean prop
     figma: not in the set
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-2/blur
-    sameValueInChip: false
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-1/color
-    sameValueInChip: false
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-1/blur
-    sameValueInChip: true
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-2/y
-    sameValueInChip: false
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-1/y
-    sameValueInChip: false
-  - field: tokens.variant=default, state=resting, padding=default, Clip content=true.effects
-    code:
-      - '--radius-card'
-      - '--shadow-card'
-      - '--component-card-trace-width'
-      - '--color-semantic-surface-card'
-      - '--color-semantic-border-subtle'
-      - '--layout-card-padding'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-      - '--color-neutral-ink-muted'
-      - '--color-neutral-ink-soft'
-      - '--color-neutral-ink-faint'
-      - '--color-neutral-border'
-      - '--color-alpha-ink-6'
-      - '--color-alpha-ink-10'
-      - '--color-neutral-surface'
-      - '--color-semantic-border-faint'
-      - '--motion-duration-lift'
-      - '--motion-easing-standard'
-      - '--spacing-2'
-    figma: component/card/shadow-2/color
-    sameValueInChip: false
-  - field: tokens.Surface.radius
-    code:
-      - '--radius-card'
-    figma: component/card/radius
-    sameValueInChip: false
   - field: tokens.Body.paddingLeft
     code:
       - '--layout-card-padding'
-    figma: spacing/6
+    figma: spacing/24
     sameValueInChip: true
   - field: tokens.Body.paddingTop
     code:
       - '--layout-card-padding'
-    figma: spacing/6
+    figma: spacing/24
     sameValueInChip: true
   - field: tokens.Body.paddingRight
     code:
       - '--layout-card-padding'
-    figma: spacing/6
+    figma: spacing/24
     sameValueInChip: true
   - field: tokens.Body.paddingBottom
     code:
       - '--layout-card-padding'
-    figma: spacing/6
+    figma: spacing/24
     sameValueInChip: true
+  - field: tokens.Head.itemSpacing
+    code:
+      - '--spacing-8'
+    figma: spacing/16
+    sameValueInChip: false
   - field: tokens.Title.fills
     code:
-      - '--color-semantic-surface-card'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-    figma: color/semantic/text-primary
-    sameValueInChip: false
-  - field: tokens.Text.fills
+      - '--color-background-surface'
+      - '--color-brand-stone-100'
+      - '--color-neutral-900'
+    figma: color/content/default
+    sameValueInChip: true
+  - field: tokens.Body.fills
     code:
-      - '--color-semantic-surface-card'
-      - '--color-neutral-paper'
-      - '--color-brand-ink'
-    figma: color/semantic/text-secondary
+      - '--color-background-surface'
+      - '--color-brand-stone-100'
+      - '--color-neutral-900'
+    figma: color/content/subtle
     sameValueInChip: false
+  - field: tokens.Footer.paddingLeft
+    code:
+      - '--layout-card-padding'
+    figma: spacing/24
+    sameValueInChip: true
+  - field: tokens.Footer.paddingRight
+    code:
+      - '--layout-card-padding'
+    figma: spacing/24
+    sameValueInChip: true
+  - field: tokens.Footer.paddingBottom
+    code:
+      - '--layout-card-padding'
+    figma: spacing/24
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Card/Card.tsx
@@ -1177,3 +1151,7 @@ guidance:
     - Static or one link or button
     - Peek is fixed light
   overviewIntro: One card surface; the content goes inside.
+  statePairs:
+    - figma: default
+      code: resting
+      why: the card at rest, no hover or focus rule; the two words name the same unstyled state

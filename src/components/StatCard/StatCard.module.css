@@ -1,0 +1,243 @@
+/* Stat card (BellaComponents "Stat card" 1680:8117, rebuilt and published 22 Nov 2026; was 1168:56015). Tokens only.
+ * Card: background/surface, card corner, the two-layer card shadow
+ * (shadow-card-ink = neutral alpha 5 + 10, as Figma), padding 20 / 24.
+ * One column from the 24 padding, no indent (her 21 Nov "i would preffer
+ * not to have it"; named exception R20): header, body, footer, touching.
+ * Header: the 44 row; the 36 Icon well, 12, title (reading face 600), and
+ * the Trailing ↗ (rule 12) when it opens.
+ * The whole header is the target: light-blue hover, 4 + 4 focus ring.
+ * Body: label + number (one group, 4 apart), chart, context, 8 apart (batch 4:
+ * number to bar 8, bar to line 16 through the Meter's 8 below). In a row the
+ * card takes the tallest height; the body grows to fill it with its content
+ * centred, so the footer sits on the bottom edge (no fixed heights).
+ * Chart language (22 Nov 20:48): Label in small caps (reading face 600, 14,
+ * 4% tracking, content/subtle); number and unit in the number face (never
+ * Geist Mono directly) at 600, value 40 on a 48 line, unit 20 on a 28 line in
+ * content/subtle, the unit in caps; Context one meta line (subtext face, 14 on
+ * a 20 line, content/subtle, data-bella-meta). Footer: caption left
+ * (content/subtle), action right.
+ * Groups (header, body, footer) touch, as the 22 Nov Figma rebuild draws
+ * them (follow Figma, rule 5; was 8, and 24 by guideline 10 before). */
+
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* Figma (1680:8117, measured at 100% on the 22 Nov row, parts-7): the
+     label sits right under the 44 header row and the caption right under the
+     context line, so Header, Body and Footer touch; the header's 44 row
+     already leaves 4 under its 36 icon well. Was 8 apart (20 too tall). */
+  gap: 0;
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--spacing-20);
+  padding-inline: var(--spacing-24);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+  /* the card is the target when it opens something (23 Nov second pass: "only the title row was clickable"): the header's
+     link or button stretches over the whole card, and anything that acts on its own sits above it */
+  position: relative;
+}
+
+.header {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-block-size: var(--spacing-44);
+  /* the hover plate reaches 8 past the content on each side; the row keeps
+     its place on the card's content edge */
+  margin-inline: calc(var(--spacing-8) * -1);
+  padding-inline: var(--spacing-8);
+  border-radius: var(--border-radius-lg);
+}
+
+.opens {
+  cursor: pointer;
+}
+
+.opens::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-card);
+}
+
+/* hover anywhere on the card lights the header plate, so the whole card reads as the one target */
+.card:has(.opens:hover) .opens {
+  background: var(--color-background-brand-subtle);
+}
+
+/* what acts on its own (a footer button or link, the bar's callout, the sparkline's scrubber) stays above the stretched link */
+.footer :is(a, button),
+.body [tabindex],
+.change svg {
+  position: relative;
+  z-index: 1;
+}
+
+.opens:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.opens:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  /* starts at the top (23 Nov, Elleta: cards in a row did not line up): in a row every card's label, number,
+     chart and line then sit at the same height, and the footer stays on the bottom edge */
+  justify-content: flex-start;
+  gap: var(--spacing-8); /* Figma Body spacing/8 (batch 4) */
+  flex: 1 1 auto;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4); /* label and number, one group */
+}
+
+/* Small caps above the number: what it counts (22 Nov chart language) */
+.label {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+.number {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  margin: 0;
+}
+
+.value {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-40);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--spacing-48); /* 40 on a 48 line; no line-height-px/48 token */
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.unit {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28); /* 20 on a 28 line; no line-height-px/28 token */
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* Figma "Meter" (batch 4): 0 above, 8 below, so the number sits 8 from the bar
+   and the bar 16 from the line under it. In code the 8 below is the context
+   line's margin, so the bar's callout (Progress, 22 Nov) sits 16 under the
+   track, as Figma's Tooltip does. The chart is the Progress part, or the
+   Tooltip that wraps it when the callout is on. */
+.body > :not(.lead) + .context {
+  margin-block-start: var(--spacing-8);
+}
+
+/* One short meta line (meta lines at 14, AGENTS.md floors) */
+.context {
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+.contextSentence {
+  font-family: var(--typography-body-default-font-family);
+}
+
+.contextSentence b {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+
+.caption {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+  /* A caption too long to sit beside the button takes the whole line and
+     the button moves under it, still at the right edge (buttons sit on the
+     right), instead of the caption wrapping in a narrow column beside it
+     (about 330 wide, 21 Nov). Figma's caption hugs one line, so a caption
+     that fits looks as published. */
+  flex-wrap: wrap;
+}
+
+.footer > :last-child:not(:first-child) {
+  margin-inline-start: auto;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Figma's neutral stat cards set the Icon well glyph to content/utility/info
+   on the neutral wash (an override inside this part, as in Figma 1680:8117) */
+.neutralGlyph.neutralGlyph {
+  color: var(--color-content-utility-info);
+}
+
+/* The change row (23 Nov, chart language): the sparkline, the arrow in its tinted circle and the one comparison line,
+   8 apart, in the meta face under the number. It wraps rather than clips at a narrow card. */
+.change {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin-block-start: var(--spacing-8);
+  min-inline-size: 0;
+  color: var(--color-content-subtle);
+}
+
+/* the comparison is a sentence: the reading face at 16, never the number face (23 Nov: "mono for numbers only") */
+.comparison {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+}

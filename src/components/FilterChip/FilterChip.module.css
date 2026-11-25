@@ -9,8 +9,7 @@
  * - the condensed "dense" variant stays in the portfolio (it exists for
  *   the explore hub density); carrying it would re-open the touch-target
  *   call, which is Elleta's
- * - size="compact" (CHIP Docs filters, 2026-10-03, Elleta: "compact size,
- *   still 44px targets"): tighter padding and the tag size (16px since the type lock); the
+ * - size="compact" (CHIP Docs filters, 2026-10-03, decided): tighter padding and the tag size (16px since the type lock); the
  *   target does not shrink
  */
 
@@ -25,7 +24,7 @@
   border: 1px solid var(--color-border-strong);
   background: transparent;
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16); /* every control label is 16 (audit 10, 21 Nov) */
   font-weight: var(--typography-font-weight-500);
   color: var(--color-content-body);
   margin: 0;
@@ -46,9 +45,10 @@
 }
 
 .chip[aria-pressed='true'] {
-  background: var(--color-background-knockout);
-  border-color: var(--color-background-knockout);
-  color: var(--color-content-knockout);
+  /* Published Figma (selected=true): brand-subtle fill, brand edge. */
+  background: var(--color-background-brand-subtle);
+  border-color: var(--color-border-brand);
+  color: var(--color-content-default);
 }
 
 .chip:focus-visible {

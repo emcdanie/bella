@@ -1,0 +1,70 @@
+/* ToolColumn (BellaComponents ToolColumn, published 22 Nov 2026; Elleta,
+ * Components workbench B · studio: "one tool column instead of a control
+ * bar"). Tokens only. A thin column on the surface with the card shadow:
+ * a view group (zoom in, fit, zoom out), a divider (1, border/subtle, 8
+ * above and below) and a tools group (light or dark, mark up, compare).
+ * Each tool is a tertiary icon-only Button, a 44 target, 4 apart; padding 4;
+ * corner 16 (measured 16 in the approved Fix tab picture). The zoom readout
+ * sits 16 right of and 8 under the column, Geist Mono 600 16, subtle. */
+
+.wrap {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.column {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius-16);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.divider {
+  align-self: stretch;
+  block-size: var(--border-width-1);
+  background: var(--color-border-subtle);
+}
+
+.zoom {
+  position: absolute;
+  inset-inline-start: calc(100% + var(--spacing-16));
+  inset-block-start: calc(100% + var(--spacing-8));
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-150);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+  white-space: nowrap;
+}
+
+/* orientation="horizontal": the same tools in a row, for a phone (Elleta's Workbench A, 320: "small floating tools"
+ * under the picture). The divider stands upright; the readout sits 16 right of the row, centred on it. */
+.horizontal .column,
+.horizontal .group {
+  flex-direction: row;
+}
+
+.horizontal .divider {
+  align-self: stretch;
+  block-size: auto;
+  inline-size: var(--border-width-1);
+}
+
+.horizontal .zoom {
+  inset-inline-start: calc(100% + var(--spacing-16));
+  inset-block-start: 50%;
+  translate: 0 -50%;
+}

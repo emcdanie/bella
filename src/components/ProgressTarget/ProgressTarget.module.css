@@ -1,0 +1,56 @@
+/* Progress target (Figma BellaComponents 1168:72541, 22 Nov 2026 publish,
+ * her pick B · dashed marker and label). An overlay on the track that
+ * reaches up over the 32 Target row and the 8 gap: 32 + 8 + 8 + 8 = 56 tall.
+ * Dash: 1.5 wide (1 + 2 halved), 3 on 3 off, color/border/brand, from the
+ * label's bottom to 8 below the 8 bar (the bar sits mid-line), centred on
+ * target %. Label: centred on the dash, kept inside the track ends. The Tag
+ * (outline, default tone) with the words in its count, so they are in the
+ * number face at 600. The private _Target mark below stays for the Check
+ * row legend. */
+
+.target {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(-1 * (var(--spacing-32) + var(--spacing-8)));
+  block-size: calc(var(--spacing-32) + var(--spacing-8) + var(--size-8) + var(--spacing-8));
+  pointer-events: none;
+}
+
+.dash {
+  position: absolute;
+  inset-block: var(--spacing-32) 0;
+  inline-size: calc((var(--border-width-1) + var(--border-width-2)) / 2);
+  inset-inline-start: calc(var(--progress-target) - (var(--border-width-1) + var(--border-width-2)) / 4);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--color-border-brand) 0 calc(var(--border-width-1) + var(--border-width-2)),
+    transparent 0 calc(2 * (var(--border-width-1) + var(--border-width-2)))
+  );
+}
+
+.label {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: var(--progress-target);
+  display: inline-flex;
+  white-space: nowrap;
+  /* "Target 90%" in tabular figures, as every chart number (22 Nov reading) */
+  font-variant-numeric: tabular-nums;
+  transform: translateX(calc(-50% + var(--progress-target-shift, 0px)));
+}
+
+@media (forced-colors: active) {
+  .dash {
+    background: none;
+    border-inline-start: var(--border-width-1) dashed CanvasText;
+  }
+}
+
+.targetMark {
+  display: inline-block;
+  inline-size: var(--border-width-4);
+  min-block-size: var(--spacing-16);
+  border-radius: var(--border-radius-round);
+  background: var(--color-border-brand);
+  box-shadow: 0 0 0 var(--border-width-1) var(--color-background-surface);
+}

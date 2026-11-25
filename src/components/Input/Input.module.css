@@ -20,6 +20,33 @@
   min-width: 0;
 }
 
+/* labelPosition=inline (Figma Input 149:135, 21 Nov publish): one row, 8
+   apart (spacing/8), centred on the 44 field: Label (reading face 16, 400,
+   content/body), Field, then the hint or error at 16 (HelperText). The row
+   wraps on a narrow screen so nothing is squeezed. */
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+.inline > :is(input, .box) {
+  flex: 1 1 0;
+}
+.inline .label {
+  /* 16 from the field, not 8: the field's focus ring (4 wide, 4 out) would touch the label (23 Nov 2026, her note on the
+     Playground's Comment box) */
+  margin-inline-end: var(--spacing-8);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+}
+.inline :is(.hint, .error) {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+}
+
 .label {
   font-family: var(--typography-body-default-font-family);
   font-size: var(--typography-label-default-font-size);
@@ -38,13 +65,17 @@
   color: var(--color-content-default);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-strong); /* 3:1 control border; the hairline is decorative only */
-  border-radius: var(--border-radius-form);
-  padding: var(--spacing-12) var(--spacing-16);
-  min-height: var(--size-60);
+  border-radius: var(--border-radius-lg) /* every field, as every control (decided 21 Nov) */;
+  /* Figma 20 Nov: the single-line field is 44 (min spacing/44, no top or
+     bottom padding); multiline keeps 12 above and below and its 60. */
+  padding: 0 var(--spacing-16);
+  min-height: var(--spacing-44);
 }
 
 textarea.field {
   resize: vertical;
+  padding-block: var(--spacing-12);
+  min-height: var(--size-60);
 }
 
 .field::placeholder {
@@ -92,4 +123,148 @@ textarea.field {
 .errorIcon {
   flex: none;
   margin-top: calc((1lh - var(--size-16)) / 2);
+}
+
+/* ---- Field with zones (Figma Input "Leading icon", "Send button"; 19 Nov
+ * 2026). Only when those props are set; the plain field above is unchanged.
+ * Box: row, 8 apart, padding 0 / 8 / 0 / 16 (Figma 20 Nov: the small Send
+ * button sits 8 from the end), 44 tall at least (multiline: 12 above and
+ * below, 60), same edge, corner and fill as .field;
+ * focus ring on the box when the control inside has focus. */
+.box {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: var(--spacing-44);
+  padding: 0 var(--spacing-8) 0 var(--spacing-16);
+  background: var(--color-background-surface);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--border-radius-lg) /* every field, as every control (decided 21 Nov) */;
+}
+
+.box:has(.bare:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+  border-color: var(--color-border-ink);
+}
+
+.boxDisabled {
+  background: var(--color-background-subtle);
+  border-color: var(--color-border-strong); /* the edge carries the boundary on the subtle fill */
+}
+
+.invalid .box {
+  border-color: var(--color-border-utility-error);
+  box-shadow: inset 0 0 0 1px var(--color-border-utility-error);
+}
+
+/* Figma Input 149:107: Menu at the start, then the Prefix divider (1×24, border/strong) */
+.boxMenu {
+  padding-inline-start: var(--spacing-8);
+}
+
+.menu {
+  flex: none;
+  display: inline-flex;
+}
+
+.divider {
+  flex: none;
+  inline-size: var(--border-width-1);
+  block-size: var(--spacing-24);
+  background: var(--color-border-strong);
+}
+
+.leading {
+  flex: none;
+  color: var(--color-content-subtle);
+}
+
+.bare {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.bare::placeholder {
+  color: var(--color-content-subtle);
+  opacity: 1;
+}
+
+.bare:disabled {
+  color: var(--color-content-subtle);
+  cursor: not-allowed;
+}
+
+.box:has(textarea.bare) {
+  min-height: var(--size-60);
+  padding-block: var(--spacing-12);
+}
+
+textarea.bare {
+  resize: vertical;
+  align-self: stretch;
+}
+
+/* A single-line value or suggestion that runs past the field ends in an ellipsis,
+ * never cut mid-letter (Figma Value: truncation ENDING, one line). */
+input.bare {
+  text-overflow: ellipsis;
+}
+
+/* The single-line control and its ghost suggestion share one slot. */
+.slot {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.slot > .bare {
+  width: 100%;
+}
+
+.ghost {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+/* state=suggestion (Input 1608:3716): the ghost text is the placeholder in
+ * content/subtle (above); the one-cap Kbd sits 8 before Send, after the
+ * text area's own 8 (Figma Text area padding-right 8, field gap 8). */
+.enterHint {
+  flex: none;
+  display: inline-flex;
+  margin-inline-start: var(--spacing-8);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }

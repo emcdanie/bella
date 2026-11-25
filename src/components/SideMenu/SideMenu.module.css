@@ -1,0 +1,144 @@
+/* SideMenu (Figma BellaComponents "Side menu" 1709:48082, published 22 Nov
+ * 2026). Tokens only. 232 wide, full height; surface fill with a 1px right
+ * edge in border/default (inside, as Figma's inside stroke, so the column
+ * stays 232). Padding 0 12 24 12 (spacing/12 sides, spacing/24 under the
+ * foot); Switcher, Main and Foot 16 apart (spacing/16). Main: groups 16
+ * apart, rows 4 apart inside a group (spacing/4). Group labels are NavList's
+ * section label: Lexend 16 on 28 (Figma 27), 400, content/subtle, 16 in. The Foot
+ * (Team, Settings) is pushed to the bottom. Rows are Nav items, untouched:
+ * 44 tall, current = bold ink on the selected light blue in Chip (nav-list/current-background, 22 Nov).
+ *
+ * 232 has no token (no new variables): three 80 steps less an 8. */
+
+.menu {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  inline-size: calc(var(--spacing-80) * 3 - var(--spacing-8));
+  block-size: 100%;
+  min-block-size: 0;
+  padding: 0 var(--spacing-12) var(--spacing-24);
+  background: var(--color-background-surface);
+  box-shadow: inset calc(-1 * var(--border-width-1)) 0 0 var(--color-border-default);
+}
+
+/* the search slot (CHIP, 23 Nov 2026): the Find field sits on its own, 16 above the rows (spacing/16, the gap between
+   the menu's groups; rows inside a group are 4 apart), so it never reads as part of the list (Elleta, 23 Nov evening:
+   it sat on top of the selected row), and stays put while the rows scroll. The field takes the room; an icon button after it
+   keeps its own 44, 4 away. Parts untouched: SearchField and Button bring their own look. */
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+}
+
+.search {
+  /* above the rows' scroll: the rows' ring room reaches 4 under the field, so a scrolled row would show through */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  align-items: center;
+  /* 12 between the field and its button: the field's focus ring takes 8 (4 wide, 4 out), so 4 of air stays between
+     the ring and the button (Elleta, 24 Nov: the ring and the filter overlapped at 4) */
+  gap: var(--spacing-12);
+  background: var(--color-background-surface);
+}
+
+.search > :first-child {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.nav {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-block-size: 0;
+  overflow-y: auto;
+  /* room for the 4 + 4 outside focus ring of a row, so the scroll box never clips it */
+  margin: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
+  padding: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+  /* a row the keyboard reaches scrolls in with its ring room too, so its ring is never cut at the scroll's edge */
+  scroll-padding-block: calc(var(--focus-ring-width) + var(--focus-ring-offset));
+}
+
+/* When the rows don't fit (a short window), the list scrolls above the fixed foot. Its bottom edge then shows as a 1px
+   line in border/default, so a cut row reads as more to scroll, not as a row lying under Team (CHIP, 24 Nov 2026).
+   Shown only while there is more below (scroll-state query); where it isn't supported, no line. Never a fade. */
+.main {
+  container-type: scroll-state;
+}
+
+.edge {
+  display: none;
+  position: sticky;
+  inset-block-end: calc(-1 * (var(--focus-ring-width) + var(--focus-ring-offset)));
+  flex: none;
+  block-size: var(--border-width-1);
+  margin-block-start: calc(-1 * var(--spacing-16));
+  background: var(--color-border-default);
+}
+
+@container scroll-state(scrollable: bottom) {
+  .edge {
+    display: block;
+  }
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.groupLabel {
+  margin: 0;
+  padding: 0 var(--spacing-12) 0 var(--spacing-16);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  /* Figma's label frame is 27 tall (Lexend 16, auto line height); 28 is the
+     4-grid step, so the rows under each label land within 2 of Figma (22 Nov).
+     No line-height-px/28 token: size/28, as StatCard's unit. */
+  line-height: var(--size-28);
+  color: var(--color-content-subtle);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foot {
+  margin-block-start: auto;
+}
+
+/* a row's sub-list (CHIP, 23 Nov 2026: the component list under System): 4 under its row, indented to the row's label
+   (the row's 12 padding plus the icon's 24 less the line), on a 2-wide line in border/default so it reads as the row's
+   own; its parts (a find field, chips, tree rows) bring their own look. It flows with the menu's scroll. */
+.sub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin-block-start: var(--spacing-4);
+  margin-inline-start: var(--spacing-20);
+  padding-inline-start: var(--spacing-8);
+  border-inline-start: var(--border-width-2) solid var(--color-border-default);
+}

@@ -1,0 +1,73 @@
+/* ProjectPanel (Figma "Project panel", read 19 Nov 2026). Tokens only.
+ * A column: padding 24 x 16, every row 4 apart, the white surface
+ * (color/background/surface, published 21 Nov) and a 1px line on its right (border/default, drawn inside as Figma's
+ * stroke) that separates it from the page. Headings: body face 600, 16 on
+ * a 24 line, content/default, padding 24 top, 12 sides, 4 below.
+ *
+ * Width layout/panel/width (264) and the first heading's top
+ * layout/panel/heading-padding-top (28), both published 19 Nov 2026.
+ * Published 21 Nov: rows 4 apart (spacing/4), as Figma's itemSpacing. */
+
+.panel {
+  inline-size: var(--layout-panel-width);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  gap: var(--spacing-4);
+  padding: var(--spacing-24) var(--spacing-16);
+  background: var(--color-background-surface);
+  box-shadow: inset calc(-1 * var(--border-width-1)) 0 0 var(--color-border-default);
+  overflow-y: auto;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.heading {
+  margin: 0;
+  /* one left edge (rule 20, published 21 Nov): headings inset 16, as the
+     rows' folder icons and status dots and as Nav item */
+  padding: var(--spacing-24) var(--spacing-12) var(--spacing-4) var(--spacing-16);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+/* the first heading (Projects) sits 28 under the switcher, as Figma */
+.group:first-of-type .heading {
+  padding-block-start: var(--layout-panel-heading-padding-top);
+}
+
+/* flush: inside a Drawer the panel is just its rows; the drawer gives the
+   fill, padding, edge, size and scroll (CHIP phone Projects drawer, 21 Nov:
+   "this is broken.."). */
+.flush {
+  inline-size: auto;
+  block-size: auto;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.srOnly {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Show heading in a drawer: the drawer title's size, 20 on a 28 line
+   (batch 4), never larger */
+.drawerHeading {
+  font-size: var(--typography-font-size-20);
+  line-height: var(--size-28);
+}

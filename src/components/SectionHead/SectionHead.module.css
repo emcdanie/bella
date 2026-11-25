@@ -1,0 +1,97 @@
+/* SectionHead (Figma CHIP Dashboard "Section head", read 19 Nov 2026;
+ * picked B 18 Nov: the info on the right and the number in
+ * bold). Tokens only. A row, 16 between zones: Icon well (36) · Title
+ * column (TextStack: the title line, then the description as its subtitle,
+ * 4 apart) · Action (hugs, right end). The title line holds Title (20, 600,
+ * reading face) and Info (Number 600 in the number face + Words in subtext,
+ * 4 apart), 16 apart, on one baseline. Not a card: the section card around
+ * it is the consumer's.
+ *
+ * Recorded divergence: Figma sets the 20px title at 140%; there is no 140
+ * token, so it takes line-height 150 (the 1.5 floor). */
+
+.root {
+  display: flex;
+  /* narrow cards: the action drops under the text before a word would break
+   * (guideline: titles never break mid-word; nothing squished) */
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  min-inline-size: 0;
+}
+
+.column {
+  /* narrow: the text takes the row under the icon instead of a thin column
+     beside it (CHIP audit, 20 Nov) */
+  flex: 1 1 12rem;
+  min-inline-size: min-content;
+}
+
+/* no description: nothing can be squeezed thin, so the column claims only the
+   title line and the action stays beside it while both fit (Components'
+   History card at 336, 21 Nov) */
+.titleOnly {
+  flex-basis: auto;
+}
+
+.titleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--spacing-16);
+  row-gap: var(--spacing-4);
+}
+
+.title {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28); /* 20 on a 28 line (batch 4) */
+  color: var(--color-content-default);
+}
+
+/* size="card": the Stat card title, so a row of cards shows one title size
+   (her pick, 19 Nov: A · card size). */
+.card .title {
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.info {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.number {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.words {
+  font-family: var(--typography-subtext-font-family);
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+/* The description is a sentence: the reading face (Lexend in Chip), her y23
+   answer 19 Nov ("A · Lexend, as Figma draws it"). The meta words beside the
+   number stay in the subtext face. */
+.description {
+  font-family: var(--typography-body-default-font-family);
+  color: var(--color-content-subtle); /* published Section head 1328:231, 19 Nov 18:11 */
+}
+
+/* Buttons sit on the right everywhere (her rule), also when the action
+   wraps under the text in a narrow card. */
+.action {
+  display: flex;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+}

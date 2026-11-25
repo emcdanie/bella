@@ -1,0 +1,337 @@
+/* System health (Figma CHIP Dashboard "System health", read 19 Nov 2026,
+ * instance 601:109237 of library 690:495725). Tokens only.
+ * Card: background/surface, card corner, the card shadow, padding 20 / 24,
+ * groups 24 apart. Heading: 36 icon well (success, Activity) + title
+ * (reading face 600, content/default), 12 apart; subtitle 4 below in
+ * content/subtle. Gauge: 40 round-capped ticks (6) over 220 degrees, lit
+ * ticks in border/utility/success on the Progress track colour border/subtle
+ * (fill vs track 5.0 light, 4.5 dark; 22 Nov, the dark green was lost on
+ * the grey), one
+ * target tick drawn longer (10) in border/brand. Status and value centred over
+ * the arc, 84 from its top (22 Nov 20:48 chart language): the status a
+ * small-caps label (reading face 600, 14, 4% tracking, content/subtle), 4
+ * above the number (number face 40 / 600). Lit ticks carry the Progress glow
+ * (4 and 12 blur, green alpha 20); off ticks and the target tick none.
+ * Scale row 12 below: Low and High in content/subtle, the count 600 ink.
+ * Details: why in content/body, then Fail rows 44 tall, corner 8, padding
+ * 0 8, gap 8: attention dot (no wash), name, "9 of 44 fail" (number 600; rule 12),
+ * ↗ ArrowUpRight 20 in content/subtle (rule 12, the 22 Nov rebuild 1680:7263). Rows that open take the one light-blue
+ * hover (brand-subtle) and the standard focus ring. */
+
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--spacing-20);
+  padding-inline: var(--spacing-24);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.title,
+.subtitle,
+.why {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: break-word;
+  hyphens: manual;
+}
+
+.title {
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.subtitle {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+/* Gauges cap their size (coordinator, 19 Nov: "gauges and charts cap their
+   size, about 320 for the gauge"): the gauge, value and scale stop at 320
+   (4 x spacing-80) and centre in a wider card. */
+.gaugeBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  container-type: inline-size;
+  inline-size: 100%;
+  max-inline-size: calc(var(--spacing-80) * 4);
+  margin-inline: auto;
+}
+
+/* The arc fills the card's width at Figma's 283 x 174 proportion. */
+.gauge {
+  position: relative;
+  inline-size: 100%;
+  aspect-ratio: 283 / 174;
+  container-type: inline-size;
+}
+
+/* The arc: 40 round-ended marks turned about the gauge centre (141.5, 126.5
+   of Figma's 283 x 174). --u is one Figma px at the card's width. */
+.arc {
+  --u: calc(100cqi / 283);
+  position: absolute;
+  inset: 0;
+}
+
+.tick,
+.target {
+  position: absolute;
+  inset-inline-start: calc(141.5 * var(--u));
+  inset-block-start: calc(126.5 * var(--u));
+  inline-size: calc(var(--len) * var(--u));
+  block-size: calc(var(--w) * var(--u));
+  margin-block-start: calc(var(--w) * var(--u) / -2);
+  border-radius: var(--border-radius-round);
+  transform-origin: 0 50%;
+  transform: rotate(var(--a)) translateX(calc(var(--r0) * var(--u)));
+}
+
+.target {
+  background: var(--color-border-brand);
+}
+
+.on {
+  background: var(--color-border-utility-success);
+  filter:
+    drop-shadow(0 0 var(--spacing-4) var(--color-utility-green-alpha-20))
+    drop-shadow(0 0 var(--spacing-12) var(--color-utility-green-alpha-20));
+}
+.off { background: var(--color-border-subtle); }
+
+/* The one overlay: value and status centred over the arc, 84 of 174 down. */
+.value {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(84 / 174 * 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4); /* status 4 above the number */
+}
+
+.number {
+  font-family: var(--typography-number-font-family);
+  /* 40 at Figma's 283 wide; shrinks with a narrow arc so it never meets the
+     scale row, never under 24 */
+  font-size: clamp(var(--typography-font-size-24), calc(40 / 283 * 100cqi), var(--typography-font-size-40));
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-110);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.status {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+/* Narrow arcs (the card at 3 columns, arc under 208): the inner circle is
+   smaller than the status word at 14, so the word drops its tracking and
+   takes two lines in a 64 box, and the block sits higher (74 of 174) so the
+   number stays clear of Low and High. Measured at the 192 arc: 13 clear of
+   the ticks each side, 6 above the scale row. */
+@container (max-width: 13rem) {
+  .value {
+    inset-block-start: calc(74 / 174 * 100%);
+  }
+  .status {
+    letter-spacing: 0;
+    white-space: normal;
+    text-align: center;
+    max-inline-size: var(--spacing-64);
+  }
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--spacing-8);
+  padding-inline: var(--spacing-4);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.end {
+  color: var(--color-content-subtle);
+}
+
+.passed {
+  /* "462 of 510 pass": every number in Geist Mono, as the fail rows' count (rule: fonts, audit 3) */
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+  text-align: center;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Narrow cards: the count takes its own line under Low and High, so it never
+   breaks (her rule: nothing squished, words whole). */
+@container (max-width: 15rem) {
+  .scale {
+    flex-wrap: wrap;
+  }
+  .passed {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.why {
+  color: var(--color-content-body);
+}
+
+.fails {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  inline-size: 100%;
+  min-block-size: var(--spacing-44);
+  padding-inline: var(--spacing-8);
+  padding-block: var(--spacing-4); /* air only when the count wraps under the name; a one-line row stays 44 */
+  border-radius: var(--border-radius-8);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+.open {
+  cursor: pointer;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.open:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.open:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.label {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: var(--spacing-8);
+  min-inline-size: 0;
+}
+
+.name {
+  flex: 0 1 auto;
+  min-inline-size: min-content; /* the check's name stays whole */
+  text-wrap: balance; /* when it must wrap, in word groups, never one word a line */
+}
+
+.count {
+  flex: none;
+  white-space: nowrap;
+  /* "36 of 83 fail": every number in Geist Mono (her font rule; re-audit 21 Nov) */
+  font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
+}
+
+
+.countNumber {
+  font-weight: var(--typography-font-weight-600);
+}
+
+.ofTotal {
+  color: var(--color-content-subtle);
+}
+
+.arrow {
+  display: inline-flex;
+  flex: none;
+  color: var(--color-content-subtle);
+}
+
+/* the difference after a new score: pops in under the number, holds, fades,
+   once (item 5, 21 Nov); reduced motion: none */
+.number {
+  position: relative;
+}
+
+.diff {
+  position: absolute;
+  inset-inline-start: calc(100% + var(--spacing-4));
+  inset-block-start: 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  opacity: 0;
+  animation: healthDiff var(--motion-duration-3400) var(--motion-easing-out) both;
+}
+
+@keyframes healthDiff {
+  0% { opacity: 0; transform: translateY(var(--spacing-4)); }
+  10%, 75% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diff { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .open {
+    transition: none;
+  }
+}
+
+/* the gauge's one-line summary: read as its description, never drawn */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

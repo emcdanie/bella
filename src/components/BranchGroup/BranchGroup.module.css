@@ -1,0 +1,68 @@
+/* BranchGroup (23 Nov 2026, Processes mind map on a phone). Tokens only. A white row with a 4 wide
+ * colour bar at the left (rounded on the right, 16), the head 48 tall: name Lexend 600 18, then the
+ * count in the number face and a plus or minus at the right. Open: the steps below with 8 inset. */
+
+.group {
+  --hue: var(--color-brand-pink-500);
+  border-inline-start: var(--border-width-4) solid var(--hue);
+  border-radius: 0 var(--border-radius-16) var(--border-radius-16) 0;
+  background: var(--color-background-surface);
+}
+
+.pink { --hue: var(--color-brand-pink-500); }
+.navy { --hue: var(--color-brand-navy-600); }
+.ochre { --hue: var(--color-brand-ochre-500); }
+.stone { --hue: var(--color-brand-stone-500); }
+.blue { --hue: var(--color-brand-blue-500); }
+
+.head {
+  box-sizing: border-box;
+  display: flex;
+  inline-size: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+  min-block-size: var(--spacing-48);
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 0;
+  border-radius: 0 var(--border-radius-16) var(--border-radius-16) 0;
+  background: none;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-18);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-130);
+  text-align: start;
+  cursor: pointer;
+}
+
+.head:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  color: var(--color-content-subtle);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+}
+
+.num {
+  font-family: var(--typography-number-font-family, var(--typography-body-default-font-family));
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.sign {
+  min-inline-size: var(--spacing-12);
+  text-align: center;
+}
+
+.list {
+  margin: 0;
+  padding: 0 var(--spacing-8) var(--spacing-8);
+  list-style: none;
+}

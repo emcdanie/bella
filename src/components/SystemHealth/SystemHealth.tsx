@@ -1,0 +1,222 @@
+import React, { useId, type CSSProperties, type ReactNode } from 'react';
+import IconWell from '../IconWell/IconWell';
+import Icon from '../Icon/Icon';
+import StatusDot from '../StatusDot/StatusDot';
+import useCountTo, { formatDiff } from '../shared/useCountTo';
+import styles from './SystemHealth.module.css';
+
+export interface SystemHealthFail {
+  /** Figma Fail row "Name". The check that fails. */
+  name: ReactNode;
+  /** Figma Fail row "Number". How many fail. */
+  count: ReactNode;
+  /** Figma Fail row "Of total". What the number counts, ending in what it says of them ("of 44 fail"; rule 12, Figma Fail row default). */
+  ofTotal: ReactNode;
+  /** The row opens the failing list: a link. */
+  href?: string;
+  /** The row opens the failing list: a button. Ignored when `href` is set. */
+  onOpen?: () => void;
+}
+
+export interface SystemHealthProps {
+  /** Figma "Title". */
+  title?: ReactNode;
+  /** Figma "Subtitle". */
+  subtitle?: ReactNode;
+  /** Gauge "Value": the share that passes, 0 to 100. Lights that share of the 40 ticks. */
+  value: number;
+  /** Gauge "Status": the small-caps label above the number ("Healthy"; 22 Nov chart language). */
+  status: ReactNode;
+  /** The target tick, 0 to 100 (Figma: 90, the blue tick). */
+  target?: number;
+  /** The scale's low end, in words or a number ("0%"). Default "Low". A scale end with no number says nothing about how low (23 Nov second pass). */
+  lowLabel?: ReactNode;
+  /** The scale's high end ("100%"). Default "High". */
+  highLabel?: ReactNode;
+  /**
+   * Whether the number counts up from 0 when the gauge first shows. On by default (Figma motion); off draws the real score at once,
+   * so the number never reads a wrong state on the way ("Healthy 82%" at 92) (23 Nov second pass).
+   */
+  countUp?: boolean;
+  /** Figma "Passed": the count in words under the arc ("251 of 264 pass"). */
+  passed: ReactNode;
+  /** Figma "Why": what healthy means, and what still fails. */
+  why?: ReactNode;
+  /** Figma "Failing checks": one Fail row each. */
+  failing?: SystemHealthFail[];
+  /**
+   * The gauge's one-line summary (22 Nov reading), read as its description (aria-describedby),
+   * never drawn. Missing: written from the data ("System health: 95%, Healthy, target 90%, above
+   * target, 251 of 264 pass"). The failing checks are a real list, so they need no hidden table.
+   */
+  summary?: string;
+  className?: string;
+  style?: CSSProperties;
+}
+
+/* Gauge geometry, measured from the published Figma "Gauge" (283 x 174):
+   40 ticks over 220 degrees around (141.5, 126.5), each from radius 87.5 to
+   116.5 with a 6 round-capped stroke; the target tick runs 83.5 to 121.5 at 10. */
+const TICKS = 40;
+const SWEEP = 220;
+const START = 90 + SWEEP / 2; // 200 degrees: the low end, bottom left
+
+/** The angle of tick i in degrees, counter-clockwise from the right (220 degrees, low end bottom left). */
+function tickAngle(i: number) {
+  return START - (i * SWEEP) / (TICKS - 1);
+}
+
+/* A tick is a round-ended bar: its length includes both caps (stroke / 2 each
+   side), placed from the centre and turned to its angle. Units are the
+   Figma gauge's px, scaled to the card by the --u unit in CSS. */
+function tickStyle(i: number, r0: number, r1: number, w: number): CSSProperties {
+  return {
+    ['--a' as string]: `${-tickAngle(i)}deg`,
+    ['--r0' as string]: r0 - w / 2,
+    ['--len' as string]: r1 - r0 + w,
+    ['--w' as string]: w,
+  };
+}
+
+/**
+ * System health card (Chip): icon well and title, subtitle, a segmented arc
+ * gauge of 40 ticks with the status (small caps) over the value, centred in it, the scale row
+ * (Low, the count, High), why, and the failing checks as rows that open them.
+ * Decided 18 Nov: "It becomes the System health part in the library".
+ */
+export default function SystemHealth({
+  title = 'System health',
+  subtitle = 'Component checks that pass',
+  value,
+  status,
+  target = 90,
+  passed,
+  why,
+  failing = [],
+  lowLabel = 'Low',
+  highLabel = 'High',
+  countUp = true,
+  summary,
+  className,
+  style,
+}: SystemHealthProps) {
+  const summaryId = useId();
+  const pct = Math.max(0, Math.min(100, value));
+  /* Chart motion (22 Nov): when the gauge first shows, the ticks light one
+   * after another from Low to the score while the number counts up, over
+   * motion/duration/450 on motion/easing/out. A new score fills or empties
+   * tick by tick from the old score to the new one and the difference shows
+   * once under the number. Reduced motion: the end state at once.
+   * aria-valuenow is the real score throughout. */
+  const count = useCountTo(pct, countUp ? { from: 0 } : {});
+  const lit = Math.round((count.shown / 100) * TICKS);
+  const targetIndex = Math.round((Math.max(0, Math.min(100, target)) / 100) * TICKS);
+  const valueText = `${pct}%, ${typeof status === 'string' ? status : ''}`.replace(/, $/, '');
+  const t = Math.max(0, Math.min(100, target));
+  const said =
+    summary ??
+    [
+      `${typeof title === 'string' ? title : 'System health'}: ${valueText}`,
+      `target ${t}%`,
+      pct > t ? 'above target' : pct < t ? 'below target' : 'at target',
+      typeof passed === 'string' ? passed : null,
+    ]
+      .filter(Boolean)
+      .join(', ');
+
+  return (
+    <section className={[styles.card, className].filter(Boolean).join(' ')} style={style} data-bella-reveal="">
+      <div className={styles.heading}>
+        <div className={styles.titleRow}>
+          <IconWell icon="Activity" tone="success" />
+          <h2 className={styles.title}>{title}</h2>
+        </div>
+        {subtitle != null ? <p className={styles.subtitle}>{subtitle}</p> : null}
+      </div>
+
+      <div className={styles.gaugeBlock}>
+        <div
+          className={styles.gauge}
+          role="meter"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={pct}
+          aria-valuetext={valueText}
+          aria-label={typeof title === 'string' ? title : 'System health'}
+          aria-describedby={summaryId}
+        >
+          <span id={summaryId} className={styles.srOnly} data-bella-summary="">
+            {said}
+          </span>
+          <div className={styles.arc} aria-hidden="true">
+            {Array.from({ length: TICKS }, (_, i) => {
+              const n = i + 1;
+              if (n === targetIndex) {
+                return <span key={i} className={styles.target} style={tickStyle(i, 83.5, 121.5, 10)} />;
+              }
+              const tone = n > lit ? styles.off : styles.on;
+              return <span key={i} className={[styles.tick, tone].join(' ')} style={tickStyle(i, 87.5, 116.5, 6)} />;
+            })}
+          </div>
+          <div className={styles.value} aria-hidden="true">
+            <span className={styles.status} data-bella-meta>{status}</span>
+            <span className={styles.number}>
+              {Math.round(count.shown)}%
+              {count.diff ? (
+                <span key={count.changeKey} className={styles.diff}>
+                  {formatDiff(count.diff)}
+                </span>
+              ) : null}
+            </span>
+          </div>
+        </div>
+        <div className={styles.scale}>
+          <span className={styles.end}>{lowLabel}</span>
+          <span className={styles.passed}>{passed}</span>
+          <span className={styles.end}>{highLabel}</span>
+        </div>
+      </div>
+
+      {why != null || failing.length > 0 ? (
+        <div className={styles.details}>
+          {why != null ? <p className={styles.why}>{why}</p> : null}
+          {failing.length > 0 ? (
+            <ul className={styles.fails}>
+              {failing.map((f, i) => {
+                const inner = (
+                  <>
+                    <StatusDot tone="attention" showLabel={false} />
+                    {/* name and count wrap as one group: the count sits beside the name, or under it when
+                        both do not fit, so a long name keeps its word groups (Health at 1100, 21 Nov) */}
+                    <span className={styles.label}>
+                      <span className={styles.name}>{f.name}</span>
+                      <span className={styles.count}>
+                        <span className={styles.countNumber}>{f.count}</span> <span className={styles.ofTotal}>{f.ofTotal}</span>
+                      </span>
+                    </span>
+                    {f.href != null || f.onOpen != null ? (
+                      <span className={styles.arrow} aria-hidden="true">
+                        <Icon name="ArrowUpRight" size="md" />
+                      </span>
+                    ) : null}
+                  </>
+                );
+                return (
+                  <li key={i}>
+                    {f.href != null ? (
+                      <a className={[styles.row, styles.open].join(' ')} href={f.href}>{inner}</a>
+                    ) : f.onOpen != null ? (
+                      <button type="button" className={[styles.row, styles.open].join(' ')} onClick={f.onOpen}>{inner}</button>
+                    ) : (
+                      <div className={styles.row}>{inner}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          ) : null}
+        </div>
+      ) : null}
+    </section>
+  );
+}

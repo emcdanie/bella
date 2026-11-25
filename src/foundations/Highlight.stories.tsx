@@ -3,8 +3,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent } from 'storybook/test';
 import styles from './Highlight.module.css';
 
-/* Highlight (Elleta, 2026-10-05): "I wanted those texts to be the ochre,
- * since technically they change when you hover them." A linked phrase, or
+/* Highlight (decided 2026-10-05): linked text is ochre, because it changes
+ * on hover. A linked phrase, or
  * the part of a picture it points at, lit on hover, focus or pin. The lit
  * state is the ochre wash (color.semantic.highlight-wash) PLUS a 2px edge
  * (highlight-edge: underline for text, outline for a picture target), and

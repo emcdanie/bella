@@ -1,0 +1,41 @@
+/* Deck bar (deck plan, 23 Nov 2026). Tokens only. One wrapping row, 12 between: Back, the count
+ * (segments filling, then "3 of 10" in the reading face), Next, and the extras pushed to the right
+ * edge. At 320 it wraps; every button keeps its 44 target from Button. */
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+}
+
+.count {
+  flex: 1 1 var(--spacing-80);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+}
+
+.count > :first-child {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.text {
+  flex: none;
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-700);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.extras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  margin-inline-start: auto;
+}

@@ -13,7 +13,9 @@
       "media": "(max-width: 767px)",
       "appliesTo": [
         "bella-light",
-        "bella-dark"
+        "bella-dark",
+        "chip-light",
+        "chip-dark"
       ]
     }
   },
@@ -31,6 +33,13 @@
         "$type": "shadow",
         "$description": "Shadow md, from the Figma effect style shadow/md; the same in every theme.",
         "css": "--shadow-md",
+        "tier": "primitive"
+      },
+      "shadow.md-up": {
+        "$value": "0px -4px 12px 0px #1d20301a",
+        "$type": "shadow",
+        "$description": "Shadow md pointing up: shadow/md cast above an element, for a drawer's footer while content scrolls under it (23 Nov 2026, her pick A); the same in every theme.",
+        "css": "--shadow-md-up",
         "tier": "primitive"
       },
       "shadow.lg": {
@@ -180,6 +189,20 @@
         "css": "--color-brand-navy-900",
         "tier": "primitive"
       },
+      "color.brand.navy.alpha.8": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "$description": "brand navy/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.navy.alpha.22": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "$description": "brand navy/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.ochre.100": {
         "$value": "#fcf0e0",
         "$type": "color",
@@ -243,11 +266,25 @@
         "css": "--color-brand-ochre-900",
         "tier": "primitive"
       },
+      "color.brand.ochre.alpha.8": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "$description": "brand ochre/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-8",
+        "tier": "primitive"
+      },
       "color.brand.ochre.alpha.15": {
         "$value": "#e8a83e26",
         "$type": "color",
         "$description": "brand ochre at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes).",
         "css": "--color-brand-ochre-alpha-15",
+        "tier": "primitive"
+      },
+      "color.brand.ochre.alpha.22": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "$description": "brand ochre/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-22",
         "tier": "primitive"
       },
       "color.brand.stone.100": {
@@ -316,14 +353,14 @@
       "color.brand.wash.grey-ink": {
         "$value": "#3a3f50",
         "$type": "color",
-        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (decided 17 Nov).",
         "css": "--color-brand-wash-grey-ink",
         "tier": "primitive"
       },
       "color.brand.wash.grey": {
         "$value": "#ededea",
         "$type": "color",
-        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (decided 17 Nov).",
         "css": "--color-brand-wash-grey",
         "tier": "primitive"
       },
@@ -390,24 +427,52 @@
         "css": "--color-brand-pink-900",
         "tier": "primitive"
       },
+      "color.brand.pink.alpha.8": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "$description": "brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.pink.alpha.22": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "$description": "brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.blue.100": {
         "$value": "#eaf5fc",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-100",
         "tier": "primitive"
       },
       "color.brand.blue.200": {
         "$value": "#c8e5f7",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-200",
+        "tier": "primitive"
+      },
+      "color.brand.blue.280": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "$description": "CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1.",
+        "css": "--color-brand-blue-280",
+        "tier": "primitive"
+      },
+      "color.brand.blue.290": {
+        "$value": "#6cb9ea",
+        "$type": "color",
+        "$description": "CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1.",
+        "css": "--color-brand-blue-290",
         "tier": "primitive"
       },
       "color.brand.blue.300": {
         "$value": "#63b4e8",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-300",
         "tier": "primitive"
       },
@@ -435,22 +500,36 @@
       "color.brand.blue.700": {
         "$value": "#16496b",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-700",
         "tier": "primitive"
       },
       "color.brand.blue.800": {
         "$value": "#0f3550",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-800",
         "tier": "primitive"
       },
       "color.brand.blue.900": {
         "$value": "#0a2236",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-900",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.8": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "$description": "brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.22": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "$description": "brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-22",
         "tier": "primitive"
       },
       "color.utility.blue.100": {
@@ -596,7 +675,7 @@
       "color.utility.green.alpha.20": {
         "$value": "#72d08b33",
         "$type": "color",
-        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;.",
+        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). decided 18 Nov.",
         "css": "--color-utility-green-alpha-20",
         "tier": "primitive"
       },
@@ -663,6 +742,13 @@
         "css": "--color-utility-red-900",
         "tier": "primitive"
       },
+      "color.utility.red.alpha.22": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "$description": "utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, decided).",
+        "css": "--color-utility-red-alpha-22",
+        "tier": "primitive"
+      },
       "color.utility.yellow.100": {
         "$value": "#fcf4d8",
         "$type": "color",
@@ -724,6 +810,13 @@
         "$type": "color",
         "$description": "utility yellow ramp, step 900. Global scale: parts use a Tier 2 token, not this.",
         "css": "--color-utility-yellow-900",
+        "tier": "primitive"
+      },
+      "color.utility.yellow.alpha.22": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "$description": "utility yellow/400 at 22% opacity. Global; used through Tier 2 (color/background/wash/yellow-strong in the dark themes: the History Docs kind, 19 Nov 2026).",
+        "css": "--color-utility-yellow-alpha-22",
         "tier": "primitive"
       },
       "color.neutral.100": {
@@ -922,7 +1015,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.neutral.100}",
-        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-subtle",
         "tier": "semantic"
       },
@@ -1026,7 +1119,7 @@
         "$value": "#e9b820",
         "$type": "color",
         "alias": "{color.utility.yellow.300}",
-        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. Elleta 18 Nov 2026: &quot;B, bright with edge&quot;; &quot;i wasnt asking to change the notifications&quot;.",
+        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. decided 18 Nov 2026; “i wasnt asking to change the notifications”.",
         "css": "--color-background-utility-warning-mark",
         "tier": "semantic"
       },
@@ -1034,7 +1127,7 @@
         "$value": "#474c5e",
         "$type": "color",
         "alias": "{color.neutral.700}",
-        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
+        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/290 · Chip dark brand/blue/290.",
         "css": "--color-background-brand-hover",
         "tier": "semantic"
       },
@@ -1074,7 +1167,7 @@
         "$value": "#e6e4e1",
         "$type": "color",
         "alias": "{color.brand.stone.200}",
-        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick A, darker lane, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-lane",
         "tier": "semantic"
       },
@@ -1146,7 +1239,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.neutral.100}",
-        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle",
         "tier": "semantic"
       },
@@ -1154,7 +1247,7 @@
         "$value": "#c3c7d2",
         "$type": "color",
         "alias": "{color.neutral.200}",
-        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle-hover",
         "tier": "semantic"
       },
@@ -1258,8 +1351,112 @@
         "$value": "#1d203099",
         "$type": "color",
         "alias": "{color.neutral.alpha.60}",
-        "$description": "Fill: scrim, the shade behind a drawer or dialog (17 Nov 2026, Elleta: &quot;A, add the scrim token&quot;). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
+        "$description": "Fill: scrim, the shade behind a drawer or dialog (decided 17 Nov 2026). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
         "css": "--color-background-scrim",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink": {
+        "$value": "#fbeef5",
+        "$type": "color",
+        "alias": "{color.brand.pink.100}",
+        "$description": "Fill: pink wash, the soft stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/100 · BELLA dark brand/pink/alpha/8 · Chip light brand/pink/100 · Chip dark brand/pink/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink-strong": {
+        "$value": "#f1bbd8",
+        "$type": "color",
+        "alias": "{color.brand.pink.200}",
+        "$description": "Fill: pink wash, the strong stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/200 · BELLA dark brand/pink/alpha/22 · Chip light brand/pink/200 · Chip dark brand/pink/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.red-strong": {
+        "$value": "#febdb6",
+        "$type": "color",
+        "alias": "{color.utility.red.200}",
+        "$description": "Fill: red wash, the strong stop (History kind fix; decided 21 Nov 2026, replaces the pink that broke one job per colour). BELLA light utility/red/200 · BELLA dark utility/red/alpha/22 · Chip light utility/red/200 · Chip dark utility/red/alpha/22.",
+        "css": "--color-background-wash-red-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue": {
+        "$value": "#eaf5fc",
+        "$type": "color",
+        "alias": "{color.brand.blue.100}",
+        "$description": "Fill: blue wash, the soft stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/100 · BELLA dark brand/blue/alpha/8 · Chip light brand/blue/100 · Chip dark brand/blue/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue-strong": {
+        "$value": "#c8e5f7",
+        "$type": "color",
+        "alias": "{color.brand.blue.200}",
+        "$description": "Fill: blue wash, the strong stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/200 · BELLA dark brand/blue/alpha/22 · Chip light brand/blue/200 · Chip dark brand/blue/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre": {
+        "$value": "#fcf0e0",
+        "$type": "color",
+        "alias": "{color.brand.ochre.100}",
+        "$description": "Fill: ochre wash, the soft stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/100 · BELLA dark brand/ochre/alpha/8 · Chip light brand/ochre/100 · Chip dark brand/ochre/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre-strong": {
+        "$value": "#efcda0",
+        "$type": "color",
+        "alias": "{color.brand.ochre.200}",
+        "$description": "Fill: ochre wash, the strong stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/200 · BELLA dark brand/ochre/alpha/22 · Chip light brand/ochre/200 · Chip dark brand/ochre/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy": {
+        "$value": "#edecf2",
+        "$type": "color",
+        "alias": "{color.brand.navy.100}",
+        "$description": "Fill: navy wash, the soft stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/100 · BELLA dark brand/navy/alpha/8 · Chip light brand/navy/100 · Chip dark brand/navy/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy-strong": {
+        "$value": "#c6c2d4",
+        "$type": "color",
+        "alias": "{color.brand.navy.200}",
+        "$description": "Fill: navy wash, the strong stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/200 · BELLA dark brand/navy/alpha/22 · Chip light brand/navy/200 · Chip dark brand/navy/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.fade": {
+        "$value": "#ffffff",
+        "$type": "color",
+        "alias": "{color.neutral.white}",
+        "$description": "Fill: the end stop of every brand wash, where it fades out. BELLA light neutral/white · BELLA dark neutral/alpha/0 · Chip light neutral/white · Chip dark neutral/alpha/0. Light ends on the card white; dark ends clear so the glow has no band (Figma blends gradient stops without premultiplying). 19 Nov, option E.",
+        "css": "--color-background-wash-fade",
+        "tier": "semantic"
+      },
+      "color.background.wash.grey-strong": {
+        "$value": "#c3c7d2",
+        "$type": "color",
+        "alias": "{color.neutral.200}",
+        "$description": "Fill: grey wash, the strong stop (History kind Tooling). BELLA light neutral/200 · BELLA dark neutral/white-alpha/10 · Chip light neutral/200 · Chip dark neutral/white-alpha/10. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-grey-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.yellow-strong": {
+        "$value": "#f1d68a",
+        "$type": "color",
+        "alias": "{color.utility.yellow.200}",
+        "$description": "Fill: yellow wash, the strong stop (History kind Docs). BELLA light utility/yellow/200 · BELLA dark utility/yellow/alpha/22 · Chip light utility/yellow/200 · Chip dark utility/yellow/alpha/22. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-yellow-strong",
+        "tier": "semantic"
+      },
+      "color.background.brand-active": {
+        "$value": "#1d2030",
+        "$type": "color",
+        "alias": "{color.neutral.900}",
+        "$description": "Fill: primary button pressed. BELLA light neutral/900 · BELLA dark neutral/100 (same as brand, so BELLA is unchanged) · Chip light brand/blue/280 · Chip dark brand/blue/280.",
+        "css": "--color-background-brand-active",
         "tier": "semantic"
       },
       "color.border.glass-top": {
@@ -1362,7 +1559,7 @@
         "$value": "#1865bb",
         "$type": "color",
         "alias": "{color.brand.blue.600}",
-        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick “A, darker ring”, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
+        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick A, darker ring, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
         "css": "--color-border-focus",
         "tier": "semantic"
       },
@@ -1850,7 +2047,7 @@
         "$value": "999px",
         "$type": "dimension",
         "alias": "{border.radius.round}",
-        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: &quot;all the clickable items have the same&quot;).",
+        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: “all the clickable items have the same”).",
         "css": "--border-radius-lg",
         "tier": "semantic"
       },
@@ -1866,7 +2063,7 @@
         "$value": "8px",
         "$type": "dimension",
         "alias": "{border.radius.8}",
-        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (Elleta, 16 Nov: “inputs rounded but … one step down”).",
+        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (decided 16 Nov).",
         "css": "--border-radius-form",
         "tier": "semantic"
       },
@@ -1882,7 +2079,7 @@
         "$value": "999px",
         "$type": "dimension",
         "alias": "{border.radius.round}",
-        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (Elleta 17 Nov: &quot;a&quot;).",
+        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (decided 17 Nov).",
         "css": "--border-radius-lg-focus",
         "tier": "semantic"
       },
@@ -1903,7 +2100,7 @@
       "border.width.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3.",
+        "$description": "Value: 4 in every mode. Focus ring thickness (decided 17 Nov). Was border/width/3.",
         "css": "--border-width-4",
         "tier": "primitive"
       },
@@ -1924,22 +2121,29 @@
       "typography.font-family.geist-mono": {
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
-        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-geist-mono",
         "tier": "primitive"
       },
       "typography.font-family.geist": {
         "$value": "\"Geist\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;).",
+        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (decided 17 Nov).",
         "css": "--typography-font-family-geist",
         "tier": "primitive"
       },
       "typography.font-family.lexend": {
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-lexend",
+        "tier": "primitive"
+      },
+      "typography.font-size.14": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16.",
+        "css": "--typography-font-size-14",
         "tier": "primitive"
       },
       "typography.font-size.16": {
@@ -2138,6 +2342,13 @@
         "css": "--typography-font-feature-ss09",
         "tier": "primitive"
       },
+      "typography.line-height-px.22": {
+        "$value": "22px",
+        "$type": "dimension",
+        "$description": "22px line height. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-line-height-px-22",
+        "tier": "primitive"
+      },
       "typography.line-height-px.24": {
         "$value": "24px",
         "$type": "dimension",
@@ -2156,7 +2367,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (18 Nov, picked &quot;c&quot;; replaces Geist of 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-body-default-font-family",
         "tier": "semantic"
       },
@@ -2200,6 +2411,14 @@
         "css": "--typography-button-default-font-weight",
         "tier": "semantic"
       },
+      "typography.button-default.line-height": {
+        "$value": "22px",
+        "$type": "dimension",
+        "alias": "{typography.line-height-px.22}",
+        "$description": "Button label line height: 22 on the 16 label, single line, every theme. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-button-default-line-height",
+        "tier": "semantic"
+      },
       "typography.primary-nav-default.font-weight": {
         "$value": 600,
         "$type": "number",
@@ -2220,7 +2439,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-title-default-font-family",
         "tier": "semantic"
       },
@@ -2228,7 +2447,7 @@
         "$value": "\"Newsreader\", serif",
         "$type": "string",
         "alias": "{typography.font-family.newsreader}",
-        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-headline-sm-font-family",
         "tier": "semantic"
       },
@@ -2236,7 +2455,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, &quot;B&quot;, then &quot;ok add both tokens&quot;). Sentences and ledes stay on body-default.",
+        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (decided 18 Nov). Sentences and ledes stay on body-default.",
         "css": "--typography-subtext-font-family",
         "tier": "semantic"
       },
@@ -2244,7 +2463,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (Elleta, 18 Nov: &quot;B&quot;, then &quot;ok add both tokens&quot;). A number inside a sentence stays on body-default.",
+        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (decided 18 Nov). A number inside a sentence stays on body-default.",
         "css": "--typography-number-font-family",
         "tier": "semantic"
       },
@@ -2258,8 +2477,15 @@
       "size.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”).",
+        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (decided 17 Nov).",
         "css": "--size-4",
+        "tier": "primitive"
+      },
+      "size.8": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Global value 8. Added 22 Nov for the Progress track and its target mark (decided).",
+        "css": "--size-8",
         "tier": "primitive"
       },
       "size.12": {
@@ -2528,11 +2754,40 @@
         "css": "--layout-measure-body",
         "tier": "breakpoint"
       },
+      "layout.rail.width": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "Width of the icon rail on the left of every CHIP screen. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-rail-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.width": {
+        "$value": "264px",
+        "$type": "dimension",
+        "$description": "Width of the project panel beside the rail. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.heading-padding-top": {
+        "$value": "28px",
+        "$type": "dimension",
+        "alias": "{size.28}",
+        "$description": "Space above the &quot;Projects&quot; heading at the top of the CHIP project panel. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-heading-padding-top",
+        "tier": "breakpoint"
+      },
+      "layout.search.max-width": {
+        "$value": "420px",
+        "$type": "dimension",
+        "$description": "Widest the top-bar search field grows. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-search-max-width",
+        "tier": "breakpoint"
+      },
       "focus-ring.width": {
         "$value": "4px",
         "$type": "dimension",
         "alias": "{border.width.4}",
-        "$description": "Focus ring thickness: 4px in every theme (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Focus ring thickness: 4px in every theme (decided 17 Nov).",
         "css": "--focus-ring-width",
         "tier": "semantic"
       },
@@ -2540,7 +2795,7 @@
         "$value": "4px",
         "$type": "dimension",
         "alias": "{size.4}",
-        "$description": "Gap between a part and its focus ring: 4px, outside (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Gap between a part and its focus ring: 4px, outside (decided 17 Nov).",
         "css": "--focus-ring-offset",
         "tier": "semantic"
       },
@@ -2724,7 +2979,7 @@
         "$value": "#1d203000",
         "$type": "color",
         "alias": "{color.background.transparent-none}",
-        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-hover",
         "tier": "component"
       },
@@ -2732,7 +2987,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-active",
         "tier": "component"
       },
@@ -2740,7 +2995,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; decided 18 Nov).",
         "css": "--button-color-background-disabled",
         "tier": "component"
       },
@@ -2756,7 +3011,7 @@
         "$value": "#686d7d",
         "$type": "color",
         "alias": "{color.border.strong}",
-        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; decided 18 Nov).",
         "css": "--button-color-border-disabled",
         "tier": "component"
       },
@@ -2772,7 +3027,7 @@
         "$value": "#1d2030",
         "$type": "color",
         "alias": "{color.background.brand}",
-        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover (light blue, the shared Selected fill with the selected tab and segment; Elleta 18 Nov &quot;B, light blue&quot;, replaces the 17 Nov grey wash).",
+        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip none: the rail and the project tree mark the current item with bold ink only, so \"you are here\" shows once; light blue stays on Tabs and Segmented control (decided 21 Nov 2026). Used by Nav item, Tree item, SectionNav item, PageOutline link, Project panel, Icon rail.",
         "css": "--nav-list-current-background",
         "tier": "component"
       },
@@ -2780,7 +3035,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.content.brand-knockout}",
-        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (Elleta, 17 Nov: &quot;ok create both&quot;).",
+        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (decided 17 Nov).",
         "css": "--nav-list-label-color",
         "tier": "component"
       },
@@ -2788,7 +3043,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (Elleta 18 Nov: &quot;S2, lighter hover&quot;). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (Elleta: &quot;the same for all interactive elements so we dont cofuse users&quot;; replaces the 17 Nov page-tone hover). BELLA unchanged.",
+        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (decided 18 Nov). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (decided 17 Nov). BELLA unchanged.",
         "css": "--nav-list-hover-background",
         "tier": "component"
       }
@@ -2806,6 +3061,13 @@
         "$type": "shadow",
         "$description": "Shadow md, from the Figma effect style shadow/md; the same in every theme.",
         "css": "--shadow-md",
+        "tier": "primitive"
+      },
+      "shadow.md-up": {
+        "$value": "0px -4px 12px 0px #1d20301a",
+        "$type": "shadow",
+        "$description": "Shadow md pointing up: shadow/md cast above an element, for a drawer's footer while content scrolls under it (23 Nov 2026, her pick A); the same in every theme.",
+        "css": "--shadow-md-up",
         "tier": "primitive"
       },
       "shadow.lg": {
@@ -2955,6 +3217,20 @@
         "css": "--color-brand-navy-900",
         "tier": "primitive"
       },
+      "color.brand.navy.alpha.8": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "$description": "brand navy/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.navy.alpha.22": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "$description": "brand navy/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.ochre.100": {
         "$value": "#fcf0e0",
         "$type": "color",
@@ -3018,11 +3294,25 @@
         "css": "--color-brand-ochre-900",
         "tier": "primitive"
       },
+      "color.brand.ochre.alpha.8": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "$description": "brand ochre/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-8",
+        "tier": "primitive"
+      },
       "color.brand.ochre.alpha.15": {
         "$value": "#e8a83e26",
         "$type": "color",
         "$description": "brand ochre at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes).",
         "css": "--color-brand-ochre-alpha-15",
+        "tier": "primitive"
+      },
+      "color.brand.ochre.alpha.22": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "$description": "brand ochre/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-22",
         "tier": "primitive"
       },
       "color.brand.stone.100": {
@@ -3091,14 +3381,14 @@
       "color.brand.wash.grey-ink": {
         "$value": "#3a3f50",
         "$type": "color",
-        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (decided 17 Nov).",
         "css": "--color-brand-wash-grey-ink",
         "tier": "primitive"
       },
       "color.brand.wash.grey": {
         "$value": "#ededea",
         "$type": "color",
-        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (decided 17 Nov).",
         "css": "--color-brand-wash-grey",
         "tier": "primitive"
       },
@@ -3165,24 +3455,52 @@
         "css": "--color-brand-pink-900",
         "tier": "primitive"
       },
+      "color.brand.pink.alpha.8": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "$description": "brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.pink.alpha.22": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "$description": "brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.blue.100": {
         "$value": "#eaf5fc",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-100",
         "tier": "primitive"
       },
       "color.brand.blue.200": {
         "$value": "#c8e5f7",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-200",
+        "tier": "primitive"
+      },
+      "color.brand.blue.280": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "$description": "CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1.",
+        "css": "--color-brand-blue-280",
+        "tier": "primitive"
+      },
+      "color.brand.blue.290": {
+        "$value": "#6cb9ea",
+        "$type": "color",
+        "$description": "CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1.",
+        "css": "--color-brand-blue-290",
         "tier": "primitive"
       },
       "color.brand.blue.300": {
         "$value": "#63b4e8",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-300",
         "tier": "primitive"
       },
@@ -3210,22 +3528,36 @@
       "color.brand.blue.700": {
         "$value": "#16496b",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-700",
         "tier": "primitive"
       },
       "color.brand.blue.800": {
         "$value": "#0f3550",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-800",
         "tier": "primitive"
       },
       "color.brand.blue.900": {
         "$value": "#0a2236",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-900",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.8": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "$description": "brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.22": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "$description": "brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-22",
         "tier": "primitive"
       },
       "color.utility.blue.100": {
@@ -3371,7 +3703,7 @@
       "color.utility.green.alpha.20": {
         "$value": "#72d08b33",
         "$type": "color",
-        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;.",
+        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). decided 18 Nov.",
         "css": "--color-utility-green-alpha-20",
         "tier": "primitive"
       },
@@ -3438,6 +3770,13 @@
         "css": "--color-utility-red-900",
         "tier": "primitive"
       },
+      "color.utility.red.alpha.22": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "$description": "utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, decided).",
+        "css": "--color-utility-red-alpha-22",
+        "tier": "primitive"
+      },
       "color.utility.yellow.100": {
         "$value": "#fcf4d8",
         "$type": "color",
@@ -3499,6 +3838,13 @@
         "$type": "color",
         "$description": "utility yellow ramp, step 900. Global scale: parts use a Tier 2 token, not this.",
         "css": "--color-utility-yellow-900",
+        "tier": "primitive"
+      },
+      "color.utility.yellow.alpha.22": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "$description": "utility yellow/400 at 22% opacity. Global; used through Tier 2 (color/background/wash/yellow-strong in the dark themes: the History Docs kind, 19 Nov 2026).",
+        "css": "--color-utility-yellow-alpha-22",
         "tier": "primitive"
       },
       "color.neutral.100": {
@@ -3697,7 +4043,7 @@
         "$value": "#000000",
         "$type": "color",
         "alias": "{color.neutral.black}",
-        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-subtle",
         "tier": "semantic"
       },
@@ -3801,7 +4147,7 @@
         "$value": "#e9b820",
         "$type": "color",
         "alias": "{color.utility.yellow.300}",
-        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. Elleta 18 Nov 2026: &quot;B, bright with edge&quot;; &quot;i wasnt asking to change the notifications&quot;.",
+        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. decided 18 Nov 2026; “i wasnt asking to change the notifications”.",
         "css": "--color-background-utility-warning-mark",
         "tier": "semantic"
       },
@@ -3809,7 +4155,7 @@
         "$value": "#c3c7d2",
         "$type": "color",
         "alias": "{color.neutral.200}",
-        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
+        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/290 · Chip dark brand/blue/290.",
         "css": "--color-background-brand-hover",
         "tier": "semantic"
       },
@@ -3849,7 +4195,7 @@
         "$value": "#000000",
         "$type": "color",
         "alias": "{color.neutral.black}",
-        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick A, darker lane, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-lane",
         "tier": "semantic"
       },
@@ -3921,7 +4267,7 @@
         "$value": "#2e3240",
         "$type": "color",
         "alias": "{color.neutral.800}",
-        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle",
         "tier": "semantic"
       },
@@ -3929,7 +4275,7 @@
         "$value": "#474c5e",
         "$type": "color",
         "alias": "{color.neutral.700}",
-        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle-hover",
         "tier": "semantic"
       },
@@ -4033,8 +4379,112 @@
         "$value": "#00000099",
         "$type": "color",
         "alias": "{color.neutral.black-alpha.60}",
-        "$description": "Fill: scrim, the shade behind a drawer or dialog (17 Nov 2026, Elleta: &quot;A, add the scrim token&quot;). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
+        "$description": "Fill: scrim, the shade behind a drawer or dialog (decided 17 Nov 2026). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
         "css": "--color-background-scrim",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "alias": "{color.brand.pink.alpha.8}",
+        "$description": "Fill: pink wash, the soft stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/100 · BELLA dark brand/pink/alpha/8 · Chip light brand/pink/100 · Chip dark brand/pink/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink-strong": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "alias": "{color.brand.pink.alpha.22}",
+        "$description": "Fill: pink wash, the strong stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/200 · BELLA dark brand/pink/alpha/22 · Chip light brand/pink/200 · Chip dark brand/pink/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.red-strong": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "alias": "{color.utility.red.alpha.22}",
+        "$description": "Fill: red wash, the strong stop (History kind fix; decided 21 Nov 2026, replaces the pink that broke one job per colour). BELLA light utility/red/200 · BELLA dark utility/red/alpha/22 · Chip light utility/red/200 · Chip dark utility/red/alpha/22.",
+        "css": "--color-background-wash-red-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "alias": "{color.brand.blue.alpha.8}",
+        "$description": "Fill: blue wash, the soft stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/100 · BELLA dark brand/blue/alpha/8 · Chip light brand/blue/100 · Chip dark brand/blue/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue-strong": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "alias": "{color.brand.blue.alpha.22}",
+        "$description": "Fill: blue wash, the strong stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/200 · BELLA dark brand/blue/alpha/22 · Chip light brand/blue/200 · Chip dark brand/blue/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "alias": "{color.brand.ochre.alpha.8}",
+        "$description": "Fill: ochre wash, the soft stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/100 · BELLA dark brand/ochre/alpha/8 · Chip light brand/ochre/100 · Chip dark brand/ochre/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre-strong": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "alias": "{color.brand.ochre.alpha.22}",
+        "$description": "Fill: ochre wash, the strong stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/200 · BELLA dark brand/ochre/alpha/22 · Chip light brand/ochre/200 · Chip dark brand/ochre/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "alias": "{color.brand.navy.alpha.8}",
+        "$description": "Fill: navy wash, the soft stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/100 · BELLA dark brand/navy/alpha/8 · Chip light brand/navy/100 · Chip dark brand/navy/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy-strong": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "alias": "{color.brand.navy.alpha.22}",
+        "$description": "Fill: navy wash, the strong stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/200 · BELLA dark brand/navy/alpha/22 · Chip light brand/navy/200 · Chip dark brand/navy/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.fade": {
+        "$value": "#1d203000",
+        "$type": "color",
+        "alias": "{color.neutral.alpha.0}",
+        "$description": "Fill: the end stop of every brand wash, where it fades out. BELLA light neutral/white · BELLA dark neutral/alpha/0 · Chip light neutral/white · Chip dark neutral/alpha/0. Light ends on the card white; dark ends clear so the glow has no band (Figma blends gradient stops without premultiplying). 19 Nov, option E.",
+        "css": "--color-background-wash-fade",
+        "tier": "semantic"
+      },
+      "color.background.wash.grey-strong": {
+        "$value": "#ffffff1a",
+        "$type": "color",
+        "alias": "{color.neutral.white-alpha.10}",
+        "$description": "Fill: grey wash, the strong stop (History kind Tooling). BELLA light neutral/200 · BELLA dark neutral/white-alpha/10 · Chip light neutral/200 · Chip dark neutral/white-alpha/10. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-grey-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.yellow-strong": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "alias": "{color.utility.yellow.alpha.22}",
+        "$description": "Fill: yellow wash, the strong stop (History kind Docs). BELLA light utility/yellow/200 · BELLA dark utility/yellow/alpha/22 · Chip light utility/yellow/200 · Chip dark utility/yellow/alpha/22. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-yellow-strong",
+        "tier": "semantic"
+      },
+      "color.background.brand-active": {
+        "$value": "#eceef3",
+        "$type": "color",
+        "alias": "{color.neutral.100}",
+        "$description": "Fill: primary button pressed. BELLA light neutral/900 · BELLA dark neutral/100 (same as brand, so BELLA is unchanged) · Chip light brand/blue/280 · Chip dark brand/blue/280.",
+        "css": "--color-background-brand-active",
         "tier": "semantic"
       },
       "color.border.glass-top": {
@@ -4137,7 +4587,7 @@
         "$value": "#63b4e8",
         "$type": "color",
         "alias": "{color.brand.blue.300}",
-        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick “A, darker ring”, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
+        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick A, darker ring, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
         "css": "--color-border-focus",
         "tier": "semantic"
       },
@@ -4625,7 +5075,7 @@
         "$value": "999px",
         "$type": "dimension",
         "alias": "{border.radius.round}",
-        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: &quot;all the clickable items have the same&quot;).",
+        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: “all the clickable items have the same”).",
         "css": "--border-radius-lg",
         "tier": "semantic"
       },
@@ -4641,7 +5091,7 @@
         "$value": "8px",
         "$type": "dimension",
         "alias": "{border.radius.8}",
-        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (Elleta, 16 Nov: “inputs rounded but … one step down”).",
+        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (decided 16 Nov).",
         "css": "--border-radius-form",
         "tier": "semantic"
       },
@@ -4657,7 +5107,7 @@
         "$value": "999px",
         "$type": "dimension",
         "alias": "{border.radius.round}",
-        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (Elleta 17 Nov: &quot;a&quot;).",
+        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (decided 17 Nov).",
         "css": "--border-radius-lg-focus",
         "tier": "semantic"
       },
@@ -4678,7 +5128,7 @@
       "border.width.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3.",
+        "$description": "Value: 4 in every mode. Focus ring thickness (decided 17 Nov). Was border/width/3.",
         "css": "--border-width-4",
         "tier": "primitive"
       },
@@ -4699,22 +5149,29 @@
       "typography.font-family.geist-mono": {
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
-        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-geist-mono",
         "tier": "primitive"
       },
       "typography.font-family.geist": {
         "$value": "\"Geist\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;).",
+        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (decided 17 Nov).",
         "css": "--typography-font-family-geist",
         "tier": "primitive"
       },
       "typography.font-family.lexend": {
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-lexend",
+        "tier": "primitive"
+      },
+      "typography.font-size.14": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16.",
+        "css": "--typography-font-size-14",
         "tier": "primitive"
       },
       "typography.font-size.16": {
@@ -4913,6 +5370,13 @@
         "css": "--typography-font-feature-ss09",
         "tier": "primitive"
       },
+      "typography.line-height-px.22": {
+        "$value": "22px",
+        "$type": "dimension",
+        "$description": "22px line height. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-line-height-px-22",
+        "tier": "primitive"
+      },
       "typography.line-height-px.24": {
         "$value": "24px",
         "$type": "dimension",
@@ -4931,7 +5395,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (18 Nov, picked &quot;c&quot;; replaces Geist of 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-body-default-font-family",
         "tier": "semantic"
       },
@@ -4975,6 +5439,14 @@
         "css": "--typography-button-default-font-weight",
         "tier": "semantic"
       },
+      "typography.button-default.line-height": {
+        "$value": "22px",
+        "$type": "dimension",
+        "alias": "{typography.line-height-px.22}",
+        "$description": "Button label line height: 22 on the 16 label, single line, every theme. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-button-default-line-height",
+        "tier": "semantic"
+      },
       "typography.primary-nav-default.font-weight": {
         "$value": 600,
         "$type": "number",
@@ -4995,7 +5467,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-title-default-font-family",
         "tier": "semantic"
       },
@@ -5003,7 +5475,7 @@
         "$value": "\"Newsreader\", serif",
         "$type": "string",
         "alias": "{typography.font-family.newsreader}",
-        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-headline-sm-font-family",
         "tier": "semantic"
       },
@@ -5011,7 +5483,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, &quot;B&quot;, then &quot;ok add both tokens&quot;). Sentences and ledes stay on body-default.",
+        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (decided 18 Nov). Sentences and ledes stay on body-default.",
         "css": "--typography-subtext-font-family",
         "tier": "semantic"
       },
@@ -5019,7 +5491,7 @@
         "$value": "\"DM Sans\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.dm-sans}",
-        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (Elleta, 18 Nov: &quot;B&quot;, then &quot;ok add both tokens&quot;). A number inside a sentence stays on body-default.",
+        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (decided 18 Nov). A number inside a sentence stays on body-default.",
         "css": "--typography-number-font-family",
         "tier": "semantic"
       },
@@ -5033,8 +5505,15 @@
       "size.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”).",
+        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (decided 17 Nov).",
         "css": "--size-4",
+        "tier": "primitive"
+      },
+      "size.8": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Global value 8. Added 22 Nov for the Progress track and its target mark (decided).",
+        "css": "--size-8",
         "tier": "primitive"
       },
       "size.12": {
@@ -5303,11 +5782,40 @@
         "css": "--layout-measure-body",
         "tier": "breakpoint"
       },
+      "layout.rail.width": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "Width of the icon rail on the left of every CHIP screen. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-rail-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.width": {
+        "$value": "264px",
+        "$type": "dimension",
+        "$description": "Width of the project panel beside the rail. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.heading-padding-top": {
+        "$value": "28px",
+        "$type": "dimension",
+        "alias": "{size.28}",
+        "$description": "Space above the &quot;Projects&quot; heading at the top of the CHIP project panel. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-heading-padding-top",
+        "tier": "breakpoint"
+      },
+      "layout.search.max-width": {
+        "$value": "420px",
+        "$type": "dimension",
+        "$description": "Widest the top-bar search field grows. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-search-max-width",
+        "tier": "breakpoint"
+      },
       "focus-ring.width": {
         "$value": "4px",
         "$type": "dimension",
         "alias": "{border.width.4}",
-        "$description": "Focus ring thickness: 4px in every theme (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Focus ring thickness: 4px in every theme (decided 17 Nov).",
         "css": "--focus-ring-width",
         "tier": "semantic"
       },
@@ -5315,7 +5823,7 @@
         "$value": "4px",
         "$type": "dimension",
         "alias": "{size.4}",
-        "$description": "Gap between a part and its focus ring: 4px, outside (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Gap between a part and its focus ring: 4px, outside (decided 17 Nov).",
         "css": "--focus-ring-offset",
         "tier": "semantic"
       },
@@ -5499,7 +6007,7 @@
         "$value": "#1d203000",
         "$type": "color",
         "alias": "{color.background.transparent-none}",
-        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-hover",
         "tier": "component"
       },
@@ -5507,7 +6015,7 @@
         "$value": "#000000",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-active",
         "tier": "component"
       },
@@ -5515,7 +6023,7 @@
         "$value": "#000000",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; decided 18 Nov).",
         "css": "--button-color-background-disabled",
         "tier": "component"
       },
@@ -5531,7 +6039,7 @@
         "$value": "#858b9f",
         "$type": "color",
         "alias": "{color.border.strong}",
-        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; decided 18 Nov).",
         "css": "--button-color-border-disabled",
         "tier": "component"
       },
@@ -5547,7 +6055,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.brand}",
-        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover (light blue, the shared Selected fill with the selected tab and segment; Elleta 18 Nov &quot;B, light blue&quot;, replaces the 17 Nov grey wash).",
+        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip none: the rail and the project tree mark the current item with bold ink only, so \"you are here\" shows once; light blue stays on Tabs and Segmented control (decided 21 Nov 2026). Used by Nav item, Tree item, SectionNav item, PageOutline link, Project panel, Icon rail.",
         "css": "--nav-list-current-background",
         "tier": "component"
       },
@@ -5555,7 +6063,7 @@
         "$value": "#1d2030",
         "$type": "color",
         "alias": "{color.content.brand-knockout}",
-        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (Elleta, 17 Nov: &quot;ok create both&quot;).",
+        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (decided 17 Nov).",
         "css": "--nav-list-label-color",
         "tier": "component"
       },
@@ -5563,7 +6071,7 @@
         "$value": "#000000",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (Elleta 18 Nov: &quot;S2, lighter hover&quot;). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (Elleta: &quot;the same for all interactive elements so we dont cofuse users&quot;; replaces the 17 Nov page-tone hover). BELLA unchanged.",
+        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (decided 18 Nov). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (decided 17 Nov). BELLA unchanged.",
         "css": "--nav-list-hover-background",
         "tier": "component"
       }
@@ -5581,6 +6089,13 @@
         "$type": "shadow",
         "$description": "Shadow md, from the Figma effect style shadow/md; the same in every theme.",
         "css": "--shadow-md",
+        "tier": "primitive"
+      },
+      "shadow.md-up": {
+        "$value": "0px -4px 12px 0px #1d20301a",
+        "$type": "shadow",
+        "$description": "Shadow md pointing up: shadow/md cast above an element, for a drawer's footer while content scrolls under it (23 Nov 2026, her pick A); the same in every theme.",
+        "css": "--shadow-md-up",
         "tier": "primitive"
       },
       "shadow.lg": {
@@ -5730,6 +6245,20 @@
         "css": "--color-brand-navy-900",
         "tier": "primitive"
       },
+      "color.brand.navy.alpha.8": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "$description": "brand navy/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.navy.alpha.22": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "$description": "brand navy/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.ochre.100": {
         "$value": "#fcf0e0",
         "$type": "color",
@@ -5793,11 +6322,25 @@
         "css": "--color-brand-ochre-900",
         "tier": "primitive"
       },
+      "color.brand.ochre.alpha.8": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "$description": "brand ochre/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-8",
+        "tier": "primitive"
+      },
       "color.brand.ochre.alpha.15": {
         "$value": "#e8a83e26",
         "$type": "color",
         "$description": "brand ochre at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes).",
         "css": "--color-brand-ochre-alpha-15",
+        "tier": "primitive"
+      },
+      "color.brand.ochre.alpha.22": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "$description": "brand ochre/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-22",
         "tier": "primitive"
       },
       "color.brand.stone.100": {
@@ -5866,14 +6409,14 @@
       "color.brand.wash.grey-ink": {
         "$value": "#3a3f50",
         "$type": "color",
-        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (decided 17 Nov).",
         "css": "--color-brand-wash-grey-ink",
         "tier": "primitive"
       },
       "color.brand.wash.grey": {
         "$value": "#ededea",
         "$type": "color",
-        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (decided 17 Nov).",
         "css": "--color-brand-wash-grey",
         "tier": "primitive"
       },
@@ -5940,24 +6483,52 @@
         "css": "--color-brand-pink-900",
         "tier": "primitive"
       },
+      "color.brand.pink.alpha.8": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "$description": "brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.pink.alpha.22": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "$description": "brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.blue.100": {
         "$value": "#eaf5fc",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-100",
         "tier": "primitive"
       },
       "color.brand.blue.200": {
         "$value": "#c8e5f7",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-200",
+        "tier": "primitive"
+      },
+      "color.brand.blue.280": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "$description": "CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1.",
+        "css": "--color-brand-blue-280",
+        "tier": "primitive"
+      },
+      "color.brand.blue.290": {
+        "$value": "#6cb9ea",
+        "$type": "color",
+        "$description": "CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1.",
+        "css": "--color-brand-blue-290",
         "tier": "primitive"
       },
       "color.brand.blue.300": {
         "$value": "#63b4e8",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-300",
         "tier": "primitive"
       },
@@ -5985,22 +6556,36 @@
       "color.brand.blue.700": {
         "$value": "#16496b",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-700",
         "tier": "primitive"
       },
       "color.brand.blue.800": {
         "$value": "#0f3550",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-800",
         "tier": "primitive"
       },
       "color.brand.blue.900": {
         "$value": "#0a2236",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-900",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.8": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "$description": "brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.22": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "$description": "brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-22",
         "tier": "primitive"
       },
       "color.utility.blue.100": {
@@ -6146,7 +6731,7 @@
       "color.utility.green.alpha.20": {
         "$value": "#72d08b33",
         "$type": "color",
-        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;.",
+        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). decided 18 Nov.",
         "css": "--color-utility-green-alpha-20",
         "tier": "primitive"
       },
@@ -6213,6 +6798,13 @@
         "css": "--color-utility-red-900",
         "tier": "primitive"
       },
+      "color.utility.red.alpha.22": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "$description": "utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, decided).",
+        "css": "--color-utility-red-alpha-22",
+        "tier": "primitive"
+      },
       "color.utility.yellow.100": {
         "$value": "#fcf4d8",
         "$type": "color",
@@ -6274,6 +6866,13 @@
         "$type": "color",
         "$description": "utility yellow ramp, step 900. Global scale: parts use a Tier 2 token, not this.",
         "css": "--color-utility-yellow-900",
+        "tier": "primitive"
+      },
+      "color.utility.yellow.alpha.22": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "$description": "utility yellow/400 at 22% opacity. Global; used through Tier 2 (color/background/wash/yellow-strong in the dark themes: the History Docs kind, 19 Nov 2026).",
+        "css": "--color-utility-yellow-alpha-22",
         "tier": "primitive"
       },
       "color.neutral.100": {
@@ -6472,7 +7071,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.neutral.100}",
-        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-subtle",
         "tier": "semantic"
       },
@@ -6576,15 +7175,15 @@
         "$value": "#e9b820",
         "$type": "color",
         "alias": "{color.utility.yellow.300}",
-        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. Elleta 18 Nov 2026: &quot;B, bright with edge&quot;; &quot;i wasnt asking to change the notifications&quot;.",
+        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. decided 18 Nov 2026; “i wasnt asking to change the notifications”.",
         "css": "--color-background-utility-warning-mark",
         "tier": "semantic"
       },
       "color.background.brand-hover": {
-        "$value": "#c8e5f7",
+        "$value": "#6cb9ea",
         "$type": "color",
-        "alias": "{color.brand.blue.200}",
-        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
+        "alias": "{color.brand.blue.290}",
+        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/290 · Chip dark brand/blue/290.",
         "css": "--color-background-brand-hover",
         "tier": "semantic"
       },
@@ -6624,7 +7223,7 @@
         "$value": "#e6e4e1",
         "$type": "color",
         "alias": "{color.brand.stone.200}",
-        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick A, darker lane, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-lane",
         "tier": "semantic"
       },
@@ -6696,7 +7295,7 @@
         "$value": "#eaf5fc",
         "$type": "color",
         "alias": "{color.brand.blue.100}",
-        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle",
         "tier": "semantic"
       },
@@ -6704,7 +7303,7 @@
         "$value": "#c8e5f7",
         "$type": "color",
         "alias": "{color.brand.blue.200}",
-        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle-hover",
         "tier": "semantic"
       },
@@ -6808,8 +7407,112 @@
         "$value": "#1d203099",
         "$type": "color",
         "alias": "{color.neutral.alpha.60}",
-        "$description": "Fill: scrim, the shade behind a drawer or dialog (17 Nov 2026, Elleta: &quot;A, add the scrim token&quot;). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
+        "$description": "Fill: scrim, the shade behind a drawer or dialog (decided 17 Nov 2026). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
         "css": "--color-background-scrim",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink": {
+        "$value": "#fbeef5",
+        "$type": "color",
+        "alias": "{color.brand.pink.100}",
+        "$description": "Fill: pink wash, the soft stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/100 · BELLA dark brand/pink/alpha/8 · Chip light brand/pink/100 · Chip dark brand/pink/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink-strong": {
+        "$value": "#f1bbd8",
+        "$type": "color",
+        "alias": "{color.brand.pink.200}",
+        "$description": "Fill: pink wash, the strong stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/200 · BELLA dark brand/pink/alpha/22 · Chip light brand/pink/200 · Chip dark brand/pink/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.red-strong": {
+        "$value": "#febdb6",
+        "$type": "color",
+        "alias": "{color.utility.red.200}",
+        "$description": "Fill: red wash, the strong stop (History kind fix; decided 21 Nov 2026, replaces the pink that broke one job per colour). BELLA light utility/red/200 · BELLA dark utility/red/alpha/22 · Chip light utility/red/200 · Chip dark utility/red/alpha/22.",
+        "css": "--color-background-wash-red-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue": {
+        "$value": "#eaf5fc",
+        "$type": "color",
+        "alias": "{color.brand.blue.100}",
+        "$description": "Fill: blue wash, the soft stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/100 · BELLA dark brand/blue/alpha/8 · Chip light brand/blue/100 · Chip dark brand/blue/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue-strong": {
+        "$value": "#c8e5f7",
+        "$type": "color",
+        "alias": "{color.brand.blue.200}",
+        "$description": "Fill: blue wash, the strong stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/200 · BELLA dark brand/blue/alpha/22 · Chip light brand/blue/200 · Chip dark brand/blue/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre": {
+        "$value": "#fcf0e0",
+        "$type": "color",
+        "alias": "{color.brand.ochre.100}",
+        "$description": "Fill: ochre wash, the soft stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/100 · BELLA dark brand/ochre/alpha/8 · Chip light brand/ochre/100 · Chip dark brand/ochre/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre-strong": {
+        "$value": "#efcda0",
+        "$type": "color",
+        "alias": "{color.brand.ochre.200}",
+        "$description": "Fill: ochre wash, the strong stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/200 · BELLA dark brand/ochre/alpha/22 · Chip light brand/ochre/200 · Chip dark brand/ochre/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy": {
+        "$value": "#edecf2",
+        "$type": "color",
+        "alias": "{color.brand.navy.100}",
+        "$description": "Fill: navy wash, the soft stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/100 · BELLA dark brand/navy/alpha/8 · Chip light brand/navy/100 · Chip dark brand/navy/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy-strong": {
+        "$value": "#c6c2d4",
+        "$type": "color",
+        "alias": "{color.brand.navy.200}",
+        "$description": "Fill: navy wash, the strong stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/200 · BELLA dark brand/navy/alpha/22 · Chip light brand/navy/200 · Chip dark brand/navy/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.fade": {
+        "$value": "#ffffff",
+        "$type": "color",
+        "alias": "{color.neutral.white}",
+        "$description": "Fill: the end stop of every brand wash, where it fades out. BELLA light neutral/white · BELLA dark neutral/alpha/0 · Chip light neutral/white · Chip dark neutral/alpha/0. Light ends on the card white; dark ends clear so the glow has no band (Figma blends gradient stops without premultiplying). 19 Nov, option E.",
+        "css": "--color-background-wash-fade",
+        "tier": "semantic"
+      },
+      "color.background.wash.grey-strong": {
+        "$value": "#c3c7d2",
+        "$type": "color",
+        "alias": "{color.neutral.200}",
+        "$description": "Fill: grey wash, the strong stop (History kind Tooling). BELLA light neutral/200 · BELLA dark neutral/white-alpha/10 · Chip light neutral/200 · Chip dark neutral/white-alpha/10. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-grey-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.yellow-strong": {
+        "$value": "#f1d68a",
+        "$type": "color",
+        "alias": "{color.utility.yellow.200}",
+        "$description": "Fill: yellow wash, the strong stop (History kind Docs). BELLA light utility/yellow/200 · BELLA dark utility/yellow/alpha/22 · Chip light utility/yellow/200 · Chip dark utility/yellow/alpha/22. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-yellow-strong",
+        "tier": "semantic"
+      },
+      "color.background.brand-active": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "alias": "{color.brand.blue.280}",
+        "$description": "Fill: primary button pressed. BELLA light neutral/900 · BELLA dark neutral/100 (same as brand, so BELLA is unchanged) · Chip light brand/blue/280 · Chip dark brand/blue/280.",
+        "css": "--color-background-brand-active",
         "tier": "semantic"
       },
       "color.border.glass-top": {
@@ -6912,7 +7615,7 @@
         "$value": "#1865bb",
         "$type": "color",
         "alias": "{color.brand.blue.600}",
-        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick “A, darker ring”, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
+        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick A, darker ring, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
         "css": "--color-border-focus",
         "tier": "semantic"
       },
@@ -7400,7 +8103,7 @@
         "$value": "8px",
         "$type": "dimension",
         "alias": "{border.radius.8}",
-        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: &quot;all the clickable items have the same&quot;).",
+        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: “all the clickable items have the same”).",
         "css": "--border-radius-lg",
         "tier": "semantic"
       },
@@ -7416,7 +8119,7 @@
         "$value": "16px",
         "$type": "dimension",
         "alias": "{border.radius.16}",
-        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (Elleta, 16 Nov: “inputs rounded but … one step down”).",
+        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (decided 16 Nov).",
         "css": "--border-radius-form",
         "tier": "semantic"
       },
@@ -7432,7 +8135,7 @@
         "$value": "12px",
         "$type": "dimension",
         "alias": "{border.radius.12}",
-        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (Elleta 17 Nov: &quot;a&quot;).",
+        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (decided 17 Nov).",
         "css": "--border-radius-lg-focus",
         "tier": "semantic"
       },
@@ -7453,7 +8156,7 @@
       "border.width.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3.",
+        "$description": "Value: 4 in every mode. Focus ring thickness (decided 17 Nov). Was border/width/3.",
         "css": "--border-width-4",
         "tier": "primitive"
       },
@@ -7474,22 +8177,29 @@
       "typography.font-family.geist-mono": {
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
-        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-geist-mono",
         "tier": "primitive"
       },
       "typography.font-family.geist": {
         "$value": "\"Geist\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;).",
+        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (decided 17 Nov).",
         "css": "--typography-font-family-geist",
         "tier": "primitive"
       },
       "typography.font-family.lexend": {
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-lexend",
+        "tier": "primitive"
+      },
+      "typography.font-size.14": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16.",
+        "css": "--typography-font-size-14",
         "tier": "primitive"
       },
       "typography.font-size.16": {
@@ -7688,6 +8398,13 @@
         "css": "--typography-font-feature-ss09",
         "tier": "primitive"
       },
+      "typography.line-height-px.22": {
+        "$value": "22px",
+        "$type": "dimension",
+        "$description": "22px line height. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-line-height-px-22",
+        "tier": "primitive"
+      },
       "typography.line-height-px.24": {
         "$value": "24px",
         "$type": "dimension",
@@ -7706,7 +8423,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (18 Nov, picked &quot;c&quot;; replaces Geist of 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-body-default-font-family",
         "tier": "semantic"
       },
@@ -7750,6 +8467,14 @@
         "css": "--typography-button-default-font-weight",
         "tier": "semantic"
       },
+      "typography.button-default.line-height": {
+        "$value": "22px",
+        "$type": "dimension",
+        "alias": "{typography.line-height-px.22}",
+        "$description": "Button label line height: 22 on the 16 label, single line, every theme. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-button-default-line-height",
+        "tier": "semantic"
+      },
       "typography.primary-nav-default.font-weight": {
         "$value": 600,
         "$type": "number",
@@ -7770,7 +8495,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-title-default-font-family",
         "tier": "semantic"
       },
@@ -7778,7 +8503,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-headline-sm-font-family",
         "tier": "semantic"
       },
@@ -7786,7 +8511,7 @@
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
         "alias": "{typography.font-family.geist-mono}",
-        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, &quot;B&quot;, then &quot;ok add both tokens&quot;). Sentences and ledes stay on body-default.",
+        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (decided 18 Nov). Sentences and ledes stay on body-default.",
         "css": "--typography-subtext-font-family",
         "tier": "semantic"
       },
@@ -7794,7 +8519,7 @@
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
         "alias": "{typography.font-family.geist-mono}",
-        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (Elleta, 18 Nov: &quot;B&quot;, then &quot;ok add both tokens&quot;). A number inside a sentence stays on body-default.",
+        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (decided 18 Nov). A number inside a sentence stays on body-default.",
         "css": "--typography-number-font-family",
         "tier": "semantic"
       },
@@ -7808,8 +8533,15 @@
       "size.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”).",
+        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (decided 17 Nov).",
         "css": "--size-4",
+        "tier": "primitive"
+      },
+      "size.8": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Global value 8. Added 22 Nov for the Progress track and its target mark (decided).",
+        "css": "--size-8",
         "tier": "primitive"
       },
       "size.12": {
@@ -8078,11 +8810,40 @@
         "css": "--layout-measure-body",
         "tier": "breakpoint"
       },
+      "layout.rail.width": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "Width of the icon rail on the left of every CHIP screen. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-rail-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.width": {
+        "$value": "264px",
+        "$type": "dimension",
+        "$description": "Width of the project panel beside the rail. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.heading-padding-top": {
+        "$value": "28px",
+        "$type": "dimension",
+        "alias": "{size.28}",
+        "$description": "Space above the &quot;Projects&quot; heading at the top of the CHIP project panel. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-heading-padding-top",
+        "tier": "breakpoint"
+      },
+      "layout.search.max-width": {
+        "$value": "420px",
+        "$type": "dimension",
+        "$description": "Widest the top-bar search field grows. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-search-max-width",
+        "tier": "breakpoint"
+      },
       "focus-ring.width": {
         "$value": "4px",
         "$type": "dimension",
         "alias": "{border.width.4}",
-        "$description": "Focus ring thickness: 4px in every theme (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Focus ring thickness: 4px in every theme (decided 17 Nov).",
         "css": "--focus-ring-width",
         "tier": "semantic"
       },
@@ -8090,7 +8851,7 @@
         "$value": "4px",
         "$type": "dimension",
         "alias": "{size.4}",
-        "$description": "Gap between a part and its focus ring: 4px, outside (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Gap between a part and its focus ring: 4px, outside (decided 17 Nov).",
         "css": "--focus-ring-offset",
         "tier": "semantic"
       },
@@ -8274,7 +9035,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-hover",
         "tier": "component"
       },
@@ -8282,7 +9043,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-active",
         "tier": "component"
       },
@@ -8290,7 +9051,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.background.subtle}",
-        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; decided 18 Nov).",
         "css": "--button-color-background-disabled",
         "tier": "component"
       },
@@ -8306,7 +9067,7 @@
         "$value": "#686d7d",
         "$type": "color",
         "alias": "{color.border.strong}",
-        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; decided 18 Nov).",
         "css": "--button-color-border-disabled",
         "tier": "component"
       },
@@ -8322,7 +9083,7 @@
         "$value": "#c8e5f7",
         "$type": "color",
         "alias": "{color.background.brand-subtle-hover}",
-        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover (light blue, the shared Selected fill with the selected tab and segment; Elleta 18 Nov &quot;B, light blue&quot;, replaces the 17 Nov grey wash).",
+        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover: the current item is the selected light blue, like Tabs, so the rail, the project tree and the tabs mark \"you are here\" the same way (22 Nov 2026). Used by Nav item, Tree item, SectionNav item, PageOutline link, Project panel, Icon rail.",
         "css": "--nav-list-current-background",
         "tier": "component"
       },
@@ -8330,7 +9091,7 @@
         "$value": "#1d2030",
         "$type": "color",
         "alias": "{color.content.default}",
-        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (Elleta, 17 Nov: &quot;ok create both&quot;).",
+        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (decided 17 Nov).",
         "css": "--nav-list-label-color",
         "tier": "component"
       },
@@ -8338,7 +9099,7 @@
         "$value": "#eaf5fc",
         "$type": "color",
         "alias": "{color.background.brand-subtle}",
-        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (Elleta 18 Nov: &quot;S2, lighter hover&quot;). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (Elleta: &quot;the same for all interactive elements so we dont cofuse users&quot;; replaces the 17 Nov page-tone hover). BELLA unchanged.",
+        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (decided 18 Nov). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (decided 17 Nov). BELLA unchanged.",
         "css": "--nav-list-hover-background",
         "tier": "component"
       }
@@ -8356,6 +9117,13 @@
         "$type": "shadow",
         "$description": "Shadow md, from the Figma effect style shadow/md; the same in every theme.",
         "css": "--shadow-md",
+        "tier": "primitive"
+      },
+      "shadow.md-up": {
+        "$value": "0px -4px 12px 0px #1d20301a",
+        "$type": "shadow",
+        "$description": "Shadow md pointing up: shadow/md cast above an element, for a drawer's footer while content scrolls under it (23 Nov 2026, her pick A); the same in every theme.",
+        "css": "--shadow-md-up",
         "tier": "primitive"
       },
       "shadow.lg": {
@@ -8505,6 +9273,20 @@
         "css": "--color-brand-navy-900",
         "tier": "primitive"
       },
+      "color.brand.navy.alpha.8": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "$description": "brand navy/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.navy.alpha.22": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "$description": "brand navy/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-navy-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.ochre.100": {
         "$value": "#fcf0e0",
         "$type": "color",
@@ -8568,11 +9350,25 @@
         "css": "--color-brand-ochre-900",
         "tier": "primitive"
       },
+      "color.brand.ochre.alpha.8": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "$description": "brand ochre/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-8",
+        "tier": "primitive"
+      },
       "color.brand.ochre.alpha.15": {
         "$value": "#e8a83e26",
         "$type": "color",
         "$description": "brand ochre at 15% opacity. Global; used through Tier 2 (shadows, scrims, glass, washes).",
         "css": "--color-brand-ochre-alpha-15",
+        "tier": "primitive"
+      },
+      "color.brand.ochre.alpha.22": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "$description": "brand ochre/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-ochre-alpha-22",
         "tier": "primitive"
       },
       "color.brand.stone.100": {
@@ -8641,14 +9437,14 @@
       "color.brand.wash.grey-ink": {
         "$value": "#3a3f50",
         "$type": "color",
-        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Ink on the grey wash #3a3f50, exact. Allowed off-ramp colour: the “Not measured” ink, kept as it was (decided 17 Nov).",
         "css": "--color-brand-wash-grey-ink",
         "tier": "primitive"
       },
       "color.brand.wash.grey": {
         "$value": "#ededea",
         "$type": "color",
-        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (Elleta, 17 Nov: “exactly as they were”).",
+        "$description": "Wash grey #ededea, exact: the “Not measured” status wash. Allowed off-ramp colour (decided 17 Nov).",
         "css": "--color-brand-wash-grey",
         "tier": "primitive"
       },
@@ -8715,24 +9511,52 @@
         "css": "--color-brand-pink-900",
         "tier": "primitive"
       },
+      "color.brand.pink.alpha.8": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "$description": "brand pink/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.pink.alpha.22": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "$description": "brand pink/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-pink-alpha-22",
+        "tier": "primitive"
+      },
       "color.brand.blue.100": {
         "$value": "#eaf5fc",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-100",
         "tier": "primitive"
       },
       "color.brand.blue.200": {
         "$value": "#c8e5f7",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-200",
+        "tier": "primitive"
+      },
+      "color.brand.blue.280": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "$description": "CHIP primary button pressed (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov yes). Navy label 7.90:1.",
+        "css": "--color-brand-blue-280",
+        "tier": "primitive"
+      },
+      "color.brand.blue.290": {
+        "$value": "#6cb9ea",
+        "$type": "color",
+        "$description": "CHIP primary button on hover (Elleta, 17 Nov 2026 decided #63b4e8 / #6cb9ea / #75bdeb; 19 Nov &quot;Its what ive been asking for so long&quot;). Navy label 7.54:1.",
+        "css": "--color-brand-blue-290",
         "tier": "primitive"
       },
       "color.brand.blue.300": {
         "$value": "#63b4e8",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-300",
         "tier": "primitive"
       },
@@ -8760,22 +9584,36 @@
       "color.brand.blue.700": {
         "$value": "#16496b",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-700",
         "tier": "primitive"
       },
       "color.brand.blue.800": {
         "$value": "#0f3550",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-800",
         "tier": "primitive"
       },
       "color.brand.blue.900": {
         "$value": "#0a2236",
         "$type": "color",
-        "$description": "CHIP light-blue button family (Elleta, 16 Nov 2026: “yes fill only”). AAA with the navy/blue labels.",
+        "$description": "CHIP light-blue button family (decided 16 Nov 2026). AAA with the navy/blue labels.",
         "css": "--color-brand-blue-900",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.8": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "$description": "brand blue/400 at 8% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-8",
+        "tier": "primitive"
+      },
+      "color.brand.blue.alpha.22": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "$description": "brand blue/400 at 22% opacity. Global; used through Tier 2 (the wash glow in the dark themes, 19 Nov 2026).",
+        "css": "--color-brand-blue-alpha-22",
         "tier": "primitive"
       },
       "color.utility.blue.100": {
@@ -8921,7 +9759,7 @@
       "color.utility.green.alpha.20": {
         "$value": "#72d08b33",
         "$type": "color",
-        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). Elleta, 18 Nov: &quot;Yes, add it&quot;.",
+        "$description": "green/300 at 20%. A soft success wash that reads lighter than a dark card (Chip dark status marks and icon wells). decided 18 Nov.",
         "css": "--color-utility-green-alpha-20",
         "tier": "primitive"
       },
@@ -8988,6 +9826,13 @@
         "css": "--color-utility-red-900",
         "tier": "primitive"
       },
+      "color.utility.red.alpha.22": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "$description": "utility red/500 at 22% opacity. Global; used through Tier 2 (the red wash glow in the dark themes: History kind fix, 21 Nov 2026, decided).",
+        "css": "--color-utility-red-alpha-22",
+        "tier": "primitive"
+      },
       "color.utility.yellow.100": {
         "$value": "#fcf4d8",
         "$type": "color",
@@ -9049,6 +9894,13 @@
         "$type": "color",
         "$description": "utility yellow ramp, step 900. Global scale: parts use a Tier 2 token, not this.",
         "css": "--color-utility-yellow-900",
+        "tier": "primitive"
+      },
+      "color.utility.yellow.alpha.22": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "$description": "utility yellow/400 at 22% opacity. Global; used through Tier 2 (color/background/wash/yellow-strong in the dark themes: the History Docs kind, 19 Nov 2026).",
+        "css": "--color-utility-yellow-alpha-22",
         "tier": "primitive"
       },
       "color.neutral.100": {
@@ -9247,7 +10099,7 @@
         "$value": "#ffffff1a",
         "$type": "color",
         "alias": "{color.neutral.white-alpha.10}",
-        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: subtle. BELLA light neutral/100 · BELLA dark neutral/black · Chip light neutral/100 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-subtle",
         "tier": "semantic"
       },
@@ -9351,15 +10203,15 @@
         "$value": "#e9b820",
         "$type": "color",
         "alias": "{color.utility.yellow.300}",
-        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. Elleta 18 Nov 2026: &quot;B, bright with edge&quot;; &quot;i wasnt asking to change the notifications&quot;.",
+        "$description": "Status mark fill: warning (dots, bars, segments, meters). All modes utility/yellow/300 (#E9B820). On light surfaces it is 1.7:1, so every mark also carries a 1px edge in color/border/utility/warning (3.56:1). Washes, outlines, notifications and warning text keep their own tokens. decided 18 Nov 2026; “i wasnt asking to change the notifications”.",
         "css": "--color-background-utility-warning-mark",
         "tier": "semantic"
       },
       "color.background.brand-hover": {
-        "$value": "#c8e5f7",
+        "$value": "#6cb9ea",
         "$type": "color",
-        "alias": "{color.brand.blue.200}",
-        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/200 · Chip dark brand/blue/200.",
+        "alias": "{color.brand.blue.290}",
+        "$description": "Fill: primary button on hover. BELLA light neutral/700 · BELLA dark neutral/200 · Chip light brand/blue/290 · Chip dark brand/blue/290.",
         "css": "--color-background-brand-hover",
         "tier": "semantic"
       },
@@ -9399,7 +10251,7 @@
         "$value": "#ffffff1a",
         "$type": "color",
         "alias": "{color.neutral.white-alpha.10}",
-        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick “A, darker lane”, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (Elleta, 18 Nov: &quot;A for the dark grey&quot;).",
+        "$description": "Fill: board lane, one step darker than the page so cards lift off it (her pick A, darker lane, 17 Nov). BELLA light brand/stone/200 · BELLA dark neutral/black · Chip light brand/stone/200 · Chip dark neutral/black. Chip dark: neutral/white-alpha/10, a tint over what sits under it, never black (decided 18 Nov).",
         "css": "--color-background-lane",
         "tier": "semantic"
       },
@@ -9471,7 +10323,7 @@
         "$value": "#6495c526",
         "$type": "color",
         "alias": "{color.utility.blue.alpha.15}",
-        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle. BELLA light neutral/100 · BELLA dark neutral/800 · Chip light brand/blue/100 · Chip dark brand/blue/900. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle",
         "tier": "semantic"
       },
@@ -9479,7 +10331,7 @@
         "$value": "#6495c54d",
         "$type": "color",
         "alias": "{color.utility.blue.alpha.30}",
-        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (Elleta, 18 Nov: &quot;dark isnt really visible&quot;, then &quot;Yes, apply&quot;).",
+        "$description": "Fill: brand-subtle-hover. BELLA light neutral/200 · BELLA dark neutral/700 · Chip light brand/blue/200 · Chip dark brand/blue/800. Chip dark: a blue tint lighter than the surface (decided 18 Nov).",
         "css": "--color-background-brand-subtle-hover",
         "tier": "semantic"
       },
@@ -9583,8 +10435,112 @@
         "$value": "#00000099",
         "$type": "color",
         "alias": "{color.neutral.black-alpha.60}",
-        "$description": "Fill: scrim, the shade behind a drawer or dialog (17 Nov 2026, Elleta: &quot;A, add the scrim token&quot;). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
+        "$description": "Fill: scrim, the shade behind a drawer or dialog (decided 17 Nov 2026). BELLA light neutral/alpha/60 · BELLA dark neutral/black-alpha/60 · Chip light neutral/alpha/60 · Chip dark neutral/black-alpha/60.",
         "css": "--color-background-scrim",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink": {
+        "$value": "#da73a814",
+        "$type": "color",
+        "alias": "{color.brand.pink.alpha.8}",
+        "$description": "Fill: pink wash, the soft stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/100 · BELLA dark brand/pink/alpha/8 · Chip light brand/pink/100 · Chip dark brand/pink/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink",
+        "tier": "semantic"
+      },
+      "color.background.wash.pink-strong": {
+        "$value": "#da73a838",
+        "$type": "color",
+        "alias": "{color.brand.pink.alpha.22}",
+        "$description": "Fill: pink wash, the strong stop of a brand wash (Empty state Wash=pink; later the History kinds). BELLA light brand/pink/200 · BELLA dark brand/pink/alpha/22 · Chip light brand/pink/200 · Chip dark brand/pink/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-pink-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.red-strong": {
+        "$value": "#e2473b38",
+        "$type": "color",
+        "alias": "{color.utility.red.alpha.22}",
+        "$description": "Fill: red wash, the strong stop (History kind fix; decided 21 Nov 2026, replaces the pink that broke one job per colour). BELLA light utility/red/200 · BELLA dark utility/red/alpha/22 · Chip light utility/red/200 · Chip dark utility/red/alpha/22.",
+        "css": "--color-background-wash-red-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue": {
+        "$value": "#48a1dc14",
+        "$type": "color",
+        "alias": "{color.brand.blue.alpha.8}",
+        "$description": "Fill: blue wash, the soft stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/100 · BELLA dark brand/blue/alpha/8 · Chip light brand/blue/100 · Chip dark brand/blue/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue",
+        "tier": "semantic"
+      },
+      "color.background.wash.blue-strong": {
+        "$value": "#48a1dc38",
+        "$type": "color",
+        "alias": "{color.brand.blue.alpha.22}",
+        "$description": "Fill: blue wash, the strong stop of a brand wash (Empty state Wash=blue; later the History kinds). BELLA light brand/blue/200 · BELLA dark brand/blue/alpha/22 · Chip light brand/blue/200 · Chip dark brand/blue/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-blue-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre": {
+        "$value": "#d0902a14",
+        "$type": "color",
+        "alias": "{color.brand.ochre.alpha.8}",
+        "$description": "Fill: ochre wash, the soft stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/100 · BELLA dark brand/ochre/alpha/8 · Chip light brand/ochre/100 · Chip dark brand/ochre/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre",
+        "tier": "semantic"
+      },
+      "color.background.wash.ochre-strong": {
+        "$value": "#d0902a38",
+        "$type": "color",
+        "alias": "{color.brand.ochre.alpha.22}",
+        "$description": "Fill: ochre wash, the strong stop of a brand wash (Empty state Wash=ochre; later the History kinds). BELLA light brand/ochre/200 · BELLA dark brand/ochre/alpha/22 · Chip light brand/ochre/200 · Chip dark brand/ochre/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-ochre-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy": {
+        "$value": "#9994b114",
+        "$type": "color",
+        "alias": "{color.brand.navy.alpha.8}",
+        "$description": "Fill: navy wash, the soft stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/100 · BELLA dark brand/navy/alpha/8 · Chip light brand/navy/100 · Chip dark brand/navy/alpha/8. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy",
+        "tier": "semantic"
+      },
+      "color.background.wash.navy-strong": {
+        "$value": "#9994b138",
+        "$type": "color",
+        "alias": "{color.brand.navy.alpha.22}",
+        "$description": "Fill: navy wash, the strong stop of a brand wash (Empty state Wash=navy; later the History kinds). BELLA light brand/navy/200 · BELLA dark brand/navy/alpha/22 · Chip light brand/navy/200 · Chip dark brand/navy/alpha/22. Dark is a glow, not a solid (decided 19 Nov).",
+        "css": "--color-background-wash-navy-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.fade": {
+        "$value": "#1d203000",
+        "$type": "color",
+        "alias": "{color.neutral.alpha.0}",
+        "$description": "Fill: the end stop of every brand wash, where it fades out. BELLA light neutral/white · BELLA dark neutral/alpha/0 · Chip light neutral/white · Chip dark neutral/alpha/0. Light ends on the card white; dark ends clear so the glow has no band (Figma blends gradient stops without premultiplying). 19 Nov, option E.",
+        "css": "--color-background-wash-fade",
+        "tier": "semantic"
+      },
+      "color.background.wash.grey-strong": {
+        "$value": "#ffffff1a",
+        "$type": "color",
+        "alias": "{color.neutral.white-alpha.10}",
+        "$description": "Fill: grey wash, the strong stop (History kind Tooling). BELLA light neutral/200 · BELLA dark neutral/white-alpha/10 · Chip light neutral/200 · Chip dark neutral/white-alpha/10. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-grey-strong",
+        "tier": "semantic"
+      },
+      "color.background.wash.yellow-strong": {
+        "$value": "#c49a1638",
+        "$type": "color",
+        "alias": "{color.utility.yellow.alpha.22}",
+        "$description": "Fill: yellow wash, the strong stop (History kind Docs). BELLA light utility/yellow/200 · BELLA dark utility/yellow/alpha/22 · Chip light utility/yellow/200 · Chip dark utility/yellow/alpha/22. Elleta, 19 Nov: History kinds \"B · ink glyphs\".",
+        "css": "--color-background-wash-yellow-strong",
+        "tier": "semantic"
+      },
+      "color.background.brand-active": {
+        "$value": "#75bdeb",
+        "$type": "color",
+        "alias": "{color.brand.blue.280}",
+        "$description": "Fill: primary button pressed. BELLA light neutral/900 · BELLA dark neutral/100 (same as brand, so BELLA is unchanged) · Chip light brand/blue/280 · Chip dark brand/blue/280.",
+        "css": "--color-background-brand-active",
         "tier": "semantic"
       },
       "color.border.glass-top": {
@@ -9687,7 +10643,7 @@
         "$value": "#63b4e8",
         "$type": "color",
         "alias": "{color.brand.blue.300}",
-        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick “A, darker ring”, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
+        "$description": "Focus ring: 4px, 4px gap, outside, follows the part corner (her pick A, darker ring, 17 Nov). BELLA light brand/blue/600 · BELLA dark brand/blue/300 · Chip light brand/blue/600 · Chip dark brand/blue/300.",
         "css": "--color-border-focus",
         "tier": "semantic"
       },
@@ -10175,7 +11131,7 @@
         "$value": "8px",
         "$type": "dimension",
         "alias": "{border.radius.8}",
-        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: &quot;all the clickable items have the same&quot;).",
+        "$description": "Corner radius: lg. Buttons and chips (Button, FilterChip, ActionChip). BELLA pill (round) · Chip 8 (one clickable corner, 17 Nov: “all the clickable items have the same”).",
         "css": "--border-radius-lg",
         "tier": "semantic"
       },
@@ -10191,7 +11147,7 @@
         "$value": "16px",
         "$type": "dimension",
         "alias": "{border.radius.16}",
-        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (Elleta, 16 Nov: “inputs rounded but … one step down”).",
+        "$description": "Corner radius: form fields (Input, Select). BELLA 8, Chip 16 (decided 16 Nov).",
         "css": "--border-radius-form",
         "tier": "semantic"
       },
@@ -10207,7 +11163,7 @@
         "$value": "12px",
         "$type": "dimension",
         "alias": "{border.radius.12}",
-        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (Elleta 17 Nov: &quot;a&quot;).",
+        "$description": "Corner radius: focus ring around lg parts (Button, FilterChip, ActionChip). Ring corner = part corner + 4. BELLA light round · BELLA dark round · Chip light border/radius/12 · Chip dark border/radius/12 (decided 17 Nov).",
         "css": "--border-radius-lg-focus",
         "tier": "semantic"
       },
@@ -10228,7 +11184,7 @@
       "border.width.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "Value: 4 in every mode. Focus ring thickness (Elleta, 17 Nov: “4px, on the scale”). Was border/width/3.",
+        "$description": "Value: 4 in every mode. Focus ring thickness (decided 17 Nov). Was border/width/3.",
         "css": "--border-width-4",
         "tier": "primitive"
       },
@@ -10249,22 +11205,29 @@
       "typography.font-family.geist-mono": {
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
-        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Geist Mono (code). Global scale; parts use a Tier 2 type token.\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-geist-mono",
         "tier": "primitive"
       },
       "typography.font-family.geist": {
         "$value": "\"Geist\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (Elleta, 17 Nov: &quot;C, Geist&quot;).",
+        "$description": "Typeface Geist (sans, sister of Geist Mono). Global scale; parts use a Tier 2 type token. Chip body text (decided 17 Nov).",
         "css": "--typography-font-family-geist",
         "tier": "primitive"
       },
       "typography.font-family.lexend": {
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
-        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (Elleta, 18 Nov, picked &quot;c&quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Typeface Lexend (sans, built for reading ease). Global scale; parts use a Tier 2 type token. Chip body text, labels, nav and buttons (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-font-family-lexend",
+        "tier": "primitive"
+      },
+      "typography.font-size.14": {
+        "$value": "14px",
+        "$type": "dimension",
+        "$description": "Value: 14 in every mode. Meta lines only (short subtext under a title or value); reading text stays 16.",
+        "css": "--typography-font-size-14",
         "tier": "primitive"
       },
       "typography.font-size.16": {
@@ -10463,6 +11426,13 @@
         "css": "--typography-font-feature-ss09",
         "tier": "primitive"
       },
+      "typography.line-height-px.22": {
+        "$value": "22px",
+        "$type": "dimension",
+        "$description": "22px line height. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-line-height-px-22",
+        "tier": "primitive"
+      },
       "typography.line-height-px.24": {
         "$value": "24px",
         "$type": "dimension",
@@ -10481,7 +11451,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (18 Nov, picked &quot;c&quot;; replaces Geist of 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &quot;lets make sure we have guidelines for how we use the new font and geist&quot;)",
+        "$description": "Type: body-default font-family (body text, labels, nav, buttons). BELLA DM Sans; Chip Lexend (decided 18 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov)",
         "css": "--typography-body-default-font-family",
         "tier": "semantic"
       },
@@ -10525,6 +11495,14 @@
         "css": "--typography-button-default-font-weight",
         "tier": "semantic"
       },
+      "typography.button-default.line-height": {
+        "$value": "22px",
+        "$type": "dimension",
+        "alias": "{typography.line-height-px.22}",
+        "$description": "Button label line height: 22 on the 16 label, single line, every theme. Elleta, 19 Nov 2026: &quot;follow Figma, 22px on single-line button labels; the 1.5 floor is for reading text.&quot;",
+        "css": "--typography-button-default-line-height",
+        "tier": "semantic"
+      },
       "typography.primary-nav-default.font-weight": {
         "$value": 600,
         "$type": "number",
@@ -10545,7 +11523,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: title-default font-family (titles, drawer titles). BELLA DM Sans; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-title-default-font-family",
         "tier": "semantic"
       },
@@ -10553,7 +11531,7 @@
         "$value": "\"Lexend\", sans-serif",
         "$type": "string",
         "alias": "{typography.font-family.lexend}",
-        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (17 Nov, &amp;amp;quot;C, Geist&amp;amp;quot;).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (Elleta, 18 Nov: &amp;amp;quot;lets make sure we have guidelines for how we use the new font and geist&amp;amp;quot;) Chip: Lexend; every title is Lexend (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, then &quot;B&quot;).",
+        "$description": "Type: headline-sm font-family (subsection headings, lane names). BELLA Newsreader; Chip Geist Mono (decided 17 Nov).\n\nHow Chip uses its two fonts: Lexend reads: every sentence and label (body, helper, buttons, nav, tabs, fields, tags, pills, table cells, captions, card and section titles); 400 text, 500 labels/nav/tabs, 600 card titles, selected and emphasis; 16px+, line height 1.5. Geist Mono is the brand and the figures: page titles with the red dot, lane names, numbered pins, standalone figures (stat values, 42/44, count pills), code, keys, the Brief label; 600; tighter tracking only at 32px+. A number inside a sentence stays Lexend; a number that stands alone is Geist Mono. Never Geist Mono for a sentence; never a third face. (decided 18 Nov) Chip: Lexend; every title is Lexend (decided 18 Nov).",
         "css": "--typography-headline-sm-font-family",
         "tier": "semantic"
       },
@@ -10561,7 +11539,7 @@
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
         "alias": "{typography.font-family.geist-mono}",
-        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (Elleta, 18 Nov: &quot;i thought titles were lexend ?and all subtext or numbers were geist&quot;, &quot;B&quot;, then &quot;ok add both tokens&quot;). Sentences and ledes stay on body-default.",
+        "$description": "Short subtle lines under a title or value: meta, health line, helper, caption, list subtitle, stat label and delta. BELLA: DM Sans. Chip: Geist Mono 400–500 (decided 18 Nov). Sentences and ledes stay on body-default.",
         "css": "--typography-subtext-font-family",
         "tier": "semantic"
       },
@@ -10569,7 +11547,7 @@
         "$value": "\"Geist Mono\", monospace",
         "$type": "string",
         "alias": "{typography.font-family.geist-mono}",
-        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (Elleta, 18 Nov: &quot;B&quot;, then &quot;ok add both tokens&quot;). A number inside a sentence stays on body-default.",
+        "$description": "Numbers that stand alone: stat values, list values, counts and count pills. BELLA: DM Sans. Chip: Geist Mono, weight 600 set by the part (decided 18 Nov). A number inside a sentence stays on body-default.",
         "css": "--typography-number-font-family",
         "tier": "semantic"
       },
@@ -10583,8 +11561,15 @@
       "size.4": {
         "$value": "4px",
         "$type": "dimension",
-        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (Elleta, 17 Nov: “follow the by 4 px”).",
+        "$description": "size 4. Global scale value (4px step); use it through Tier 2. Was size/3 (decided 17 Nov).",
         "css": "--size-4",
+        "tier": "primitive"
+      },
+      "size.8": {
+        "$value": "8px",
+        "$type": "dimension",
+        "$description": "Global value 8. Added 22 Nov for the Progress track and its target mark (decided).",
+        "css": "--size-8",
         "tier": "primitive"
       },
       "size.12": {
@@ -10853,11 +11838,40 @@
         "css": "--layout-measure-body",
         "tier": "breakpoint"
       },
+      "layout.rail.width": {
+        "$value": "72px",
+        "$type": "dimension",
+        "$description": "Width of the icon rail on the left of every CHIP screen. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-rail-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.width": {
+        "$value": "264px",
+        "$type": "dimension",
+        "$description": "Width of the project panel beside the rail. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-width",
+        "tier": "breakpoint"
+      },
+      "layout.panel.heading-padding-top": {
+        "$value": "28px",
+        "$type": "dimension",
+        "alias": "{size.28}",
+        "$description": "Space above the &quot;Projects&quot; heading at the top of the CHIP project panel. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-panel-heading-padding-top",
+        "tier": "breakpoint"
+      },
+      "layout.search.max-width": {
+        "$value": "420px",
+        "$type": "dimension",
+        "$description": "Widest the top-bar search field grows. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+        "css": "--layout-search-max-width",
+        "tier": "breakpoint"
+      },
       "focus-ring.width": {
         "$value": "4px",
         "$type": "dimension",
         "alias": "{border.width.4}",
-        "$description": "Focus ring thickness: 4px in every theme (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Focus ring thickness: 4px in every theme (decided 17 Nov).",
         "css": "--focus-ring-width",
         "tier": "semantic"
       },
@@ -10865,7 +11879,7 @@
         "$value": "4px",
         "$type": "dimension",
         "alias": "{size.4}",
-        "$description": "Gap between a part and its focus ring: 4px, outside (Elleta, 17 Nov: “4px, on the scale”).",
+        "$description": "Gap between a part and its focus ring: 4px, outside (decided 17 Nov).",
         "css": "--focus-ring-offset",
         "tier": "semantic"
       },
@@ -11049,7 +12063,7 @@
         "$value": "#ffffff1a",
         "$type": "color",
         "alias": "{color.background.highlight}",
-        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill on hover. BELLA none · Chip light background/subtle (grey) · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-hover",
         "tier": "component"
       },
@@ -11057,7 +12071,7 @@
         "$value": "#ffffff1a",
         "$type": "color",
         "alias": "{color.background.highlight}",
-        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary and tertiary button fill when pressed. BELLA background/subtle · Chip light background/subtle · Chip dark background/highlight (10% white wash; decided 18 Nov).",
         "css": "--button-color-background-active",
         "tier": "component"
       },
@@ -11065,7 +12079,7 @@
         "$value": "#2e3240",
         "$type": "color",
         "alias": "{color.background.surface}",
-        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Disabled button fill. BELLA and Chip light background/subtle (as before) · Chip dark background/surface (card grey, so a disabled button no longer looks heavier than one at rest; decided 18 Nov).",
         "css": "--button-color-background-disabled",
         "tier": "component"
       },
@@ -11081,7 +12095,7 @@
         "$value": "#474c5e",
         "$type": "color",
         "alias": "{color.border.default}",
-        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; Elleta 18 Nov: &quot;A, card grey&quot;).",
+        "$description": "Secondary button edge when disabled. BELLA and Chip light border/strong (as before) · Chip dark border/default (faint, so disabled reads as off; decided 18 Nov).",
         "css": "--button-color-border-disabled",
         "tier": "component"
       },
@@ -11097,7 +12111,7 @@
         "$value": "#6495c54d",
         "$type": "color",
         "alias": "{color.background.brand-subtle-hover}",
-        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover (light blue, the shared Selected fill with the selected tab and segment; Elleta 18 Nov &quot;B, light blue&quot;, replaces the 17 Nov grey wash).",
+        "$description": "NavList current item fill. BELLA background/brand (dark-ink plate, inverts in dark) · Chip background/brand-subtle-hover: the current item is the selected light blue, like Tabs, so the rail, the project tree and the tabs mark \"you are here\" the same way (22 Nov 2026). Used by Nav item, Tree item, SectionNav item, PageOutline link, Project panel, Icon rail.",
         "css": "--nav-list-current-background",
         "tier": "component"
       },
@@ -11105,7 +12119,7 @@
         "$value": "#eceef3",
         "$type": "color",
         "alias": "{color.content.default}",
-        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (Elleta, 17 Nov: &quot;ok create both&quot;).",
+        "$description": "NavList current item word and icon (icon = label colour). BELLA content/brand-knockout · Chip content/default (bold ink). Part token because BELLA and Chip differ (decided 17 Nov).",
         "css": "--nav-list-label-color",
         "tier": "component"
       },
@@ -11113,7 +12127,7 @@
         "$value": "#6495c526",
         "$type": "color",
         "alias": "{color.background.brand-subtle}",
-        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (Elleta 18 Nov: &quot;S2, lighter hover&quot;). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (Elleta: &quot;the same for all interactive elements so we dont cofuse users&quot;; replaces the 17 Nov page-tone hover). BELLA unchanged.",
+        "$description": "Nav item hover fill (NavList, Tree item, SectionNav item, PageOutline link). BELLA background/subtle (as before) · Chip light and dark background/default, the page tone: quieter than the current wash, so hover never looks like current (decided 18 Nov). 18 Nov: Chip hover is color/background/brand-subtle, the one light-blue hover on every interactive element except buttons (decided 17 Nov). BELLA unchanged.",
         "css": "--nav-list-hover-background",
         "tier": "component"
       }
@@ -11202,6 +12216,35 @@
       "$type": "dimension",
       "$description": "Value: 680 in every mode.",
       "css": "--layout-measure-body",
+      "tier": "breakpoint"
+    },
+    "layout.rail.width": {
+      "$value": "72px",
+      "$type": "dimension",
+      "$description": "Width of the icon rail on the left of every CHIP screen. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+      "css": "--layout-rail-width",
+      "tier": "breakpoint"
+    },
+    "layout.panel.width": {
+      "$value": "264px",
+      "$type": "dimension",
+      "$description": "Width of the project panel beside the rail. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+      "css": "--layout-panel-width",
+      "tier": "breakpoint"
+    },
+    "layout.panel.heading-padding-top": {
+      "$value": "28px",
+      "$type": "dimension",
+      "alias": "{size.28}",
+      "$description": "Space above the &quot;Projects&quot; heading at the top of the CHIP project panel. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+      "css": "--layout-panel-heading-padding-top",
+      "tier": "breakpoint"
+    },
+    "layout.search.max-width": {
+      "$value": "420px",
+      "$type": "dimension",
+      "$description": "Widest the top-bar search field grows. CHIP shell (Elleta, 19 Nov 2026: &quot;why do we have shell sizes with no token? Let&#39;s fix that.&quot;).",
+      "css": "--layout-search-max-width",
       "tier": "breakpoint"
     }
   }

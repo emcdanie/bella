@@ -9,7 +9,7 @@ const iconContract =
   (componentContract as any).component?.icon?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Icon> = {
-  title: 'Components/Icon',
+  title: 'Components/Data/Icon',
   component: Icon,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -70,6 +70,31 @@ export const Behavior: Story = {
     await step('always currentColor', async () => {
       const svg = canvasElement.querySelector('svg')!;
       expect(svg.getAttribute('stroke')).toBe('currentColor');
+    });
+  },
+};
+
+/** Tool marks: Storybook, Figma, GitHub and Notion, the official one-colour shapes, filled in the context ink beside a link's label. */
+export const ToolMarks: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'center' }}>
+      {(['Storybook', 'Figma', 'GitHub', 'Notion'] as const).map((name) => (
+        <span key={name} style={{ display: 'inline-flex', gap: 'var(--spacing-8)', alignItems: 'center' }}>
+          <Icon name={name} size="md" />
+          {name}
+        </span>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    await step('four tool marks, decorative beside their label, filled with the context ink', async () => {
+      const marks = canvasElement.querySelectorAll('svg[data-bella-brand]');
+      expect(marks.length).toBe(4);
+      marks.forEach((m) => {
+        expect(m.getAttribute('fill')).toBe('currentColor');
+        expect(m.getAttribute('stroke')).toBe('none');
+        expect(m).toHaveAttribute('aria-hidden', 'true');
+      });
     });
   },
 };

@@ -1,0 +1,176 @@
+/* TreeItem (Figma "Tree item", read 19 Nov 2026). Tokens only.
+ * Every row: min-height spacing/44, gap 12, corner border/radius/md, label
+ * body 16 on a 24 line. Every kind starts 16 in, one left edge with Nav
+ * item (published 21 Nov, rule 20); folder and status keep 12 on the right. Current:
+ * nav-list/current-background (none in Chip, batch 4) with the label 600 in
+ * nav-list/label-color. Hover: nav-list/hover-background, the lighter blue;
+ * current keeps its own fill, none in Chip, also on hover. Focus: the standard ring, 4 wide with a 4 gap, outside.
+ *
+ * branch: Leader (the spine and a 12 tick, border-width/2 in
+ * border/strong, 3:1 as the Step connector; the spine is the one overlay, absolute as Figma names it)
+ * then the Row: Status square 24, label, padding 8/12, gap 8.
+ *
+ * Recorded divergences from Figma:
+ * Branch (published 21 Nov, named exceptions R7, R10): Leader 39, the 2
+ *   spine centred under the folder icon (16 + 10, so x 25), from 4 above
+ *   the row down to the tick's lower edge so the corner closes; the 12 tick
+ *   from the spine; the Row right after the Leader.
+ * - Needs work is the StatusDot part (12 dot, no wash) where Figma draws an
+ *   8 dot: "never redraw a dot".
+ * - Counts take the number face (typography/number-font-family): group
+ *   counts 400 subtle, status totals 600 ink (Figma: body / title face).
+ * - FolderOpen and NavArrowUp are not in the icon registry: an open folder
+ *   keeps the Folder glyph, and its chevron is NavArrowDown turned 180. */
+
+.root {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  /* the spine's x: under the folder icon's centre (16 in, a 20 icon) */
+  --tree-spine-x: calc(var(--spacing-16) + var(--size-20) / 2 - var(--border-width-2) / 2);
+}
+
+.row {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  min-block-size: var(--spacing-44);
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: none;
+  border-radius: var(--border-radius-md);
+  background: transparent;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  letter-spacing: var(--typography-letter-spacing-0);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.folder,
+.status {
+  padding-inline: var(--spacing-16) var(--spacing-12);
+}
+
+/* status rows: the 24 dot, 8, the label (21 Nov publish), so the label
+   starts on the folder labels' edge (16 + 20 + 12 = 16 + 24 + 8 = 48) */
+.status {
+  gap: var(--spacing-8);
+}
+
+/* branch (batch 4, published 22 Nov; rule 20): a name that wraps keeps its
+   Status icon on the first line. The Row aligns to the top with 10 above and
+   below, so a one-line row is still 44 (named exception R10: 10 = (44 - 24) / 2,
+   geometry, not a spacing token). */
+.branch {
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  padding: calc((var(--spacing-44) - var(--typography-line-height-px-24)) / 2) var(--spacing-12);
+}
+
+.group .label {
+  font-weight: var(--typography-font-weight-600);
+}
+
+.label {
+  flex: 1;
+  min-inline-size: 0;
+  overflow-wrap: break-word; /* wrap at spaces; only a word longer than the line breaks, as Figma does (19 Nov) */
+  hyphens: manual;
+}
+
+.subtle {
+  color: var(--color-content-subtle);
+}
+
+.flip {
+  rotate: 180deg;
+}
+
+.count {
+  flex: none;
+  color: var(--color-content-subtle);
+  font-family: var(--typography-number-font-family);
+  font-variant-numeric: tabular-nums;
+}
+
+.total {
+  flex: none;
+  color: var(--color-content-default);
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.row:hover {
+  background: var(--nav-list-hover-background);
+}
+
+.row:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.row[aria-current='page'] {
+  background: var(--nav-list-current-background);
+}
+
+.row[aria-current='page'] .label {
+  color: var(--nav-list-label-color);
+  font-weight: var(--typography-font-weight-600);
+}
+
+/* the leader: spine down from the top, the tick on the first line's centre
+   (22 from the top of the 44 row, Figma Leader top padding 21 + half the 2
+   tick), so a wrapped name keeps its tick on the first line (batch 4) */
+.leader {
+  position: relative;
+  flex: none;
+  inline-size: calc(var(--tree-spine-x) + var(--spacing-12) + var(--border-width-2));
+}
+
+.leader::before {
+  content: '';
+  position: absolute;
+  inset-block-start: calc(var(--spacing-4) * -1);
+  block-size: calc(var(--spacing-4) + var(--spacing-44) / 2 + var(--border-width-2) / 2);
+  inset-inline-start: var(--tree-spine-x);
+  inline-size: var(--border-width-2);
+  background: var(--color-border-strong);
+}
+
+.lineBelow .leader::before {
+  block-size: auto;
+  inset-block-end: 0;
+}
+
+.leader::after {
+  content: '';
+  position: absolute;
+  inset-block-start: calc(var(--spacing-44) / 2);
+  inset-inline-start: var(--tree-spine-x);
+  inline-size: var(--spacing-12);
+  block-size: var(--border-width-2);
+  translate: 0 -50%;
+  background: var(--color-border-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .row[aria-current='page'] {
+    outline: var(--border-width-2) solid CanvasText;
+  }
+}

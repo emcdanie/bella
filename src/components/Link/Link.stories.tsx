@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const linkContract = (componentContract as any).component?.link?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof Link> = {
-  title: 'Components/Link',
+  title: 'Components/Actions/Link',
   component: Link,
   parameters: {
     docs: { page: ComponentDocsPage },

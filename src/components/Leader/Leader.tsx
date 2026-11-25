@@ -9,15 +9,38 @@ export interface LeaderProps {
   /** What the line ties together, for assistive tech: "Pin 1 points to the focus ring". */
   label: string;
   /** The pop colour of the line: match its Pin. */
-  variant?: 'yellow' | 'pink' | 'blue' | 'red';
+  variant?: 'yellow' | 'pink' | 'blue' | 'red' | 'neutral';
+  /** Figma "style". dashed (default; doc pages) or solid (the stage, 1px, rounded 8 bends). */
+  lineStyle?: 'dashed' | 'solid';
+  /** Figma "selected": a 2px ink line, to the part whose card is open. */
+  selected?: boolean;
   /** How the line lands: a solid arrowhead or a dot. */
   end?: 'arrow' | 'dot';
+  /** Draw-in, start to end, when the line first shows and again when what it joins changes (from, to, selected or its style), never on a resize redraw. map = 900ms (the first draw of a stage), pick = 250ms (the pinned part changed). none = drawn at once. prefers-reduced-motion: always drawn at once. */
+  draw?: 'none' | 'map' | 'pick';
   /** Extra classes on the SVG. */
   className?: string;
   style?: CSSProperties;
 }
 
 const NS = 'http://www.w3.org/2000/svg';
+
+/* An elbow through points with each bend rounded 8 (Figma: "one rounded 8
+   bend", guideline 17), never more than half of either segment. */
+function rounded(pts: [number, number][]): string {
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [px, py] = pts[i - 1], [cx, cy] = pts[i], [nx, ny] = pts[i + 1];
+    const l1 = Math.hypot(cx - px, cy - py), l2 = Math.hypot(nx - cx, ny - cy);
+    const r = Math.min(8, l1 / 2, l2 / 2);
+    if (r < 0.5) { d += ` L${cx} ${cy}`; continue; }
+    const ax = cx - ((cx - px) / l1) * r, ay = cy - ((cy - py) / l1) * r;
+    const bx = cx + ((nx - cx) / l2) * r, by = cy + ((ny - cy) / l2) * r;
+    d += ` L${ax} ${ay} Q${cx} ${cy} ${bx} ${by}`;
+  }
+  const last = pts[pts.length - 1];
+  return d + ` L${last[0]} ${last[1]}`;
+}
 
 /**
  * A dashed elbow line, measured from one element to another, from the site's
@@ -31,6 +54,9 @@ export default function Leader({
   label,
   variant = 'pink',
   end = 'arrow',
+  lineStyle = 'dashed',
+  selected = false,
+  draw = 'none',
   className,
   style,
 }: LeaderProps) {
@@ -41,8 +67,14 @@ export default function Leader({
     const host = svg?.parentElement;
     if (!svg || !host) return undefined;
     let raf = 0;
+    const still = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    let pending = draw !== 'none' && !still;
+    svg.removeAttribute('data-draw');
+    void svg.getBoundingClientRect(); /* flush, so setting it again restarts the reveal */
+    if (still) svg.setAttribute('data-motion', 'still');
+    else svg.removeAttribute('data-motion');
 
-    const draw = () => {
+    const paint = () => {
       raf = 0;
       const a = host.querySelector(from)?.getBoundingClientRect();
       const b = host.querySelector(to)?.getBoundingClientRect();
@@ -51,7 +83,9 @@ export default function Leader({
         return;
       }
       const h = host.getBoundingClientRect();
-      const size = parseFloat(getComputedStyle(svg).getPropertyValue('--component-leader-end-size'));
+      /* the end mark: spacing-8 (its own --component-leader-end-size was lost in the
+         17 Nov token pipeline, so every arrow and dot drew nothing; Figma draws the dot 10, no token) */
+      const size = parseFloat(getComputedStyle(svg).getPropertyValue('--spacing-8'));
       const parts: SVGElement[] = [];
       const add = (name: string, cls: string, attrs: Record<string, string | number>) => {
         const el = document.createElementNS(NS, name);
@@ -59,15 +93,40 @@ export default function Leader({
         for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, String(v));
         parts.push(el);
       };
+      let heading = 'right';
       const sideways = b.left >= a.right || a.left >= b.right;
-      if (sideways) {
+      if (lineStyle === 'solid' && sideways) {
+        /* the stage (decided 20 Nov): out of the
+           label's near side, across, then at most one rounded bend onto the point on the
+           part's edge (Figma route straight / bend up / bend down). The end mark sits on
+           the part. Level within a pixel: one straight line. */
+        const bx = b.left + b.width / 2 - h.left;
+        const by = b.top + b.height / 2 - h.top;
+        const dir = bx >= a.right - h.left ? 1 : -1;
+        heading = dir > 0 ? 'right' : 'left';
+        const ax = (dir > 0 ? a.right : a.left) - h.left;
+        const ay = a.top + a.height / 2 - h.top;
+        const level = Math.abs(by - ay) < 1;
+        add('path', styles.line, { d: rounded(level ? [[ax, by], [bx, by]] : [[ax, ay], [bx, ay], [bx, by]]) });
+        if (end === 'arrow') {
+          const v = level ? 0 : by > ay ? 1 : -1;
+          add('path', styles.arrow, {
+            d: level
+              ? `M${bx - dir * size} ${by - size / 2} L${bx} ${by} L${bx - dir * size} ${by + size / 2}`
+              : `M${bx - size / 2} ${by - v * size} L${bx} ${by} L${bx + size / 2} ${by - v * size}`,
+          });
+        } else {
+          add('circle', styles.dot, { cx: bx, cy: by, r: size / 2 });
+        }
+      } else if (sideways) {
         const dir = b.left >= a.right ? 1 : -1;
+        heading = dir > 0 ? 'right' : 'left';
         const x1 = (dir > 0 ? a.right : a.left) - h.left;
         const x2 = (dir > 0 ? b.left : b.right) - h.left;
         const y1 = a.top + a.height / 2 - h.top;
         const y2 = b.top + b.height / 2 - h.top;
         const mx = (x1 + x2) / 2;
-        add('path', styles.line, { d: `M${x1} ${y1} H${mx} V${y2} H${x2}` });
+        add('path', styles.line, { d: lineStyle === 'solid' ? rounded([[x1, y1], [mx, y1], [mx, y2], [x2, y2]]) : `M${x1} ${y1} H${mx} V${y2} H${x2}` });
         if (end === 'arrow') {
           add('path', styles.arrow, { d: `M${x2 - dir * size} ${y2 - size / 2} L${x2} ${y2} L${x2 - dir * size} ${y2 + size / 2}` });
         } else {
@@ -75,12 +134,13 @@ export default function Leader({
         }
       } else {
         const dir = b.top >= a.bottom ? 1 : -1;
+        heading = dir > 0 ? 'down' : 'up';
         const y1 = (dir > 0 ? a.bottom : a.top) - h.top;
         const y2 = (dir > 0 ? b.top : b.bottom) - h.top;
         const x1 = a.left + a.width / 2 - h.left;
         const x2 = b.left + b.width / 2 - h.left;
         const my = (y1 + y2) / 2;
-        add('path', styles.line, { d: `M${x1} ${y1} V${my} H${x2} V${y2}` });
+        add('path', styles.line, { d: lineStyle === 'solid' ? rounded([[x1, y1], [x1, my], [x2, my], [x2, y2]]) : `M${x1} ${y1} V${my} H${x2} V${y2}` });
         if (end === 'arrow') {
           add('path', styles.arrow, { d: `M${x2 - size / 2} ${y2 - dir * size} L${x2} ${y2} L${x2 + size / 2} ${y2 - dir * size}` });
         } else {
@@ -88,12 +148,19 @@ export default function Leader({
         }
       }
       svg.replaceChildren(...parts);
+      /* the way the line runs, so the draw-in follows it */
+      svg.setAttribute('data-heading', heading);
+      /* draw once: only the first draw after this effect starts plays the reveal; resize redraws leave it alone */
+      if (pending) {
+        pending = false;
+        svg.setAttribute('data-draw', draw);
+      }
     };
 
     const queue = () => {
-      if (!raf) raf = requestAnimationFrame(draw);
+      if (!raf) raf = requestAnimationFrame(paint);
     };
-    draw();
+    paint();
     const ro = new ResizeObserver(queue);
     ro.observe(host);
     for (const sel of [from, to]) {
@@ -107,16 +174,17 @@ export default function Leader({
       window.removeEventListener('resize', queue);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [from, to, end]);
+  }, [from, to, end, lineStyle, selected, draw]);
 
   return (
     <svg
       ref={ref}
-      className={[styles.leader, styles[variant], className].filter(Boolean).join(' ')}
+      className={[styles.leader, styles[variant], lineStyle === 'solid' ? styles.solid : '', selected ? styles.selected : '', className].filter(Boolean).join(' ')}
       style={style}
       role="img"
       aria-label={label}
       data-bella-component="leader"
+      data-bella-reveal={draw !== 'none' ? '' : undefined}
       data-bella-diagram
     />
   );

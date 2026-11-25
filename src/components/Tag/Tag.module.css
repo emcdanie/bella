@@ -16,7 +16,7 @@
   display: inline-flex;
   align-items: center;
   padding: var(--spacing-4) var(--spacing-12);
-  border-radius: var(--border-radius-round);
+  border-radius: var(--border-radius-sm); /* every Tag the small corner, none round (decided 21 Nov) */
   border: var(--border-width-1) solid var(--color-border-utility-neutral);
   cursor: default;
   background: var(--color-background-utility-neutral);
@@ -34,4 +34,168 @@
   border-color: var(--color-background-accent-1);
   background: var(--color-background-accent-1);
   color: var(--color-content-on-accent-1);
+}
+
+/* Figma re-sync (BellaComponents Tag, read 19 Nov 2026): tone x style x
+ * Show dot. 32 tall (min-height spacing/32), padding 4 x 12, gap 8, label 16
+ * at 150% in the reading face, an edge on every outline tone drawn inside
+ * (inset shadow, as Figma's inside stroke, so it adds no height). count and
+ * index labels are the number face at 600 (numbers that stand alone are
+ * Geist Mono in Chip). The legacy .tag / .accent above are untouched. */
+
+.plate {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-block-size: var(--spacing-32);
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--border-radius-sm); /* every Tag the small corner, none round (decided 21 Nov) */
+  cursor: default;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  letter-spacing: var(--typography-letter-spacing-0);
+  white-space: nowrap;
+}
+
+.dot {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-round);
+}
+
+/* Tones (BellaComponents Tag 140:46, bindings re-read 21 Nov): each Tag
+ * carries its own fill, so its ink keeps 7:1 on any row behind it. The tone
+ * wash is laid over background/surface inside the Tag (in Chip dark the
+ * washes are see-through: alone on a selected row "Merged" fell to 5.23:1).
+ * outline + index: wash, edge, ink per tone. line: surface, the tone's edge
+ * and ink. count: surface, border/strong, content/default. */
+.plate {
+  --tag-wash: transparent;
+  --tag-edge: var(--color-border-utility-neutral);
+  --tag-ink: var(--color-content-utility-neutral);
+  --tag-dot: var(--color-border-utility-neutral);
+  background: linear-gradient(var(--tag-wash), var(--tag-wash)), var(--color-background-surface);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--tag-edge);
+  color: var(--tag-ink);
+}
+
+.dot {
+  background: var(--tag-dot);
+}
+
+.tone-default {
+  --tag-wash: var(--color-background-utility-neutral);
+}
+
+.tone-count {
+  --tag-edge: var(--color-border-strong);
+  --tag-ink: var(--color-content-default);
+  --tag-dot: var(--color-content-subtle);
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+
+.tone-success {
+  --tag-wash: var(--color-background-utility-success);
+  --tag-edge: var(--color-border-utility-success);
+  --tag-ink: var(--color-content-utility-success);
+  --tag-dot: var(--color-border-utility-success);
+}
+
+.tone-info {
+  --tag-wash: var(--color-background-utility-info);
+  --tag-edge: var(--color-border-utility-info);
+  --tag-ink: var(--color-content-utility-info);
+  --tag-dot: var(--color-border-utility-info);
+}
+
+.tone-attention {
+  --tag-wash: var(--color-background-utility-warning);
+  --tag-edge: var(--color-border-utility-warning);
+  --tag-ink: var(--color-content-utility-warning);
+  --tag-dot: var(--color-background-utility-warning-mark);
+}
+
+.tone-attention .dot {
+  border: var(--border-width-1) solid var(--color-border-utility-warning);
+}
+
+.tone-danger {
+  --tag-wash: var(--color-background-utility-error);
+  --tag-edge: var(--color-border-utility-error);
+  --tag-ink: var(--color-content-utility-error);
+  --tag-dot: var(--color-border-utility-error);
+}
+
+/* index: the numbered lane pin, number face 600 on any tone */
+.index {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+}
+
+/* line (Figma style=line, every tone): the surface, the tone's edge and ink */
+.line {
+  --tag-wash: transparent;
+}
+
+/* solid (Figma style=solid, 21 Nov publish): the tone's knockout fill
+ * (background/utility/{tone}-knockout), no edge, content/brand-knockout
+ * ink, number face 600 (the lane counts, 7.8 to 8.7:1). Success, info and
+ * attention only; neutral has no solid yet. */
+.solid {
+  box-shadow: none;
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  --tag-ink: var(--color-content-brand-knockout);
+}
+.solid.tone-success {
+  --tag-wash: var(--color-background-utility-success-knockout);
+}
+.solid.tone-info {
+  --tag-wash: var(--color-background-utility-info-knockout);
+}
+.solid.tone-attention {
+  --tag-wash: var(--color-background-utility-warning-knockout);
+}
+/* brand tones (23 Nov, the Work board's Ideas, Next and Not doing lanes): the lane's strong wash with ink,
+ * solid only; text 7:1 or better on the wash (contrast-pairs) */
+.solid.tone-ochre {
+  --tag-wash: var(--color-background-wash-ochre-strong);
+  --tag-ink: var(--color-content-default);
+}
+.solid.tone-navy {
+  --tag-wash: var(--color-background-wash-navy-strong);
+  --tag-ink: var(--color-content-default);
+}
+.solid.tone-pink {
+  --tag-wash: var(--color-background-wash-pink-strong);
+  --tag-ink: var(--color-content-default);
+}
+
+/* flat (decided 18 Nov): the highlight fill (over the surface, like
+ * every Tag), no edge, ink label. Tone default only. */
+.flat {
+  --tag-wash: var(--color-background-highlight);
+  --tag-ink: var(--color-content-default);
+  box-shadow: none;
+}
+
+/* Show count (Tag 140:46, published 21 Nov): Text is a row, the Count then
+   the Label, 4 apart on one baseline; the count in the number face 600 in
+   the label's ink (the tone is kept) */
+.text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--spacing-4);
+}
+
+.count {
+  font-family: var(--typography-number-font-family);
+  font-weight: var(--typography-font-weight-600);
+  font-variant-numeric: tabular-nums;
 }

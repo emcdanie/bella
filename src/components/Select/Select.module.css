@@ -9,18 +9,22 @@
  *   a recorded deviation from zero-visual-change since the caret never
  *   matched the Iconoir glyph)
  * - label tracking wide 0.08 (portfolio 0.12em literal has no token)
+ * Published 21 Nov (Select 149:163): text 16, 16 in, chevron 20, label gap
+ * 12, Button's focus ring. The open list is the platform's: its width,
+ * padding and option corners are not styled here (no hand-rolled listbox).
  */
 
 .control {
   display: inline-flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start; /* label stays left when the field wraps (Components "Part" at 320) */
   min-width: 0;
   max-width: 100%;
-  gap: var(--spacing-8);
+  gap: var(--spacing-12); /* Select 149:163, published 21 Nov: label to field 12 */
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
   letter-spacing: var(--typography-letter-spacing-0);
   color: var(--color-content-body);
 }
@@ -39,12 +43,13 @@
   -webkit-appearance: none;
   cursor: pointer;
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16);
   color: var(--color-content-default);
   background: var(--color-background-surface);
   border: 1px solid var(--color-border-strong); /* 3:1 control border */
-  border-radius: var(--border-radius-form);
-  padding: var(--spacing-8) var(--spacing-32) var(--spacing-8) var(--spacing-12);
+  border-radius: var(--border-radius-lg) /* every field, as every control (decided 21 Nov) */;
+  /* Figma Field: 16 in on the left; on the right 12, the 20 chevron and an 8 gap */
+  padding: var(--spacing-8) calc(var(--spacing-12) + var(--size-20) + var(--spacing-8)) var(--spacing-8) var(--spacing-16);
   min-height: var(--spacing-44);
 }
 
@@ -55,7 +60,7 @@
 
 .leading {
   position: absolute;
-  left: var(--spacing-12);
+  left: var(--spacing-16);
   top: 50%;
   transform: translateY(-50%);
   display: inline-flex;
@@ -71,16 +76,16 @@
   object-fit: contain;
 }
 
-/* room for the leading slot: its left inset, the md glyph, a spacing-2 gap */
+/* room for the leading slot: its 16 inset, the md glyph, an 8 gap */
 .field[data-leading] select {
-  padding-inline-start: calc(var(--spacing-12) + var(--size-20) + var(--spacing-8));
+  padding-inline-start: calc(var(--spacing-16) + var(--size-20) + var(--spacing-8));
 }
 
 /* The Iconoir chevron via the Icon component (the interim CSS caret is
    retired with the Icon extraction); text-secondary ink via color */
 .chevron {
   position: absolute;
-  right: var(--spacing-8);
+  right: var(--spacing-12);
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;

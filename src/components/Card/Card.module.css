@@ -39,6 +39,19 @@
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--border-radius-card);
   padding: var(--layout-card-padding);
+  /* Figma Main: a column, so the Body can fill it and the footer pins last */
+  display: flex;
+  flex-direction: column;
+}
+
+/* No media: the content is Figma's Body without its own padding (the panel
+   pads it); it fills and centres when the card is stretched (21 Nov publish). */
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  justify-content: center;
+  min-inline-size: 0;
 }
 
 /* variant="peek": the fixed ALWAYS-LIGHT reveal panel, meant to float light
@@ -129,6 +142,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-8);
+  /* Figma Body fills and centres its content when the card is stretched
+     taller than it (21 Nov publish; rule 15, stretched cards centre) */
+  flex: 1 1 auto;
+  justify-content: center;
 }
 
 /* Reduced motion: no lift; the hover shadow still marks the state */
@@ -138,5 +155,43 @@
   .interactive:focus-visible {
     transition: none;
     transform: none;
+  }
+}
+
+/* Footer zone (Figma _Card footer 1307:4092, read 19 Nov 2026). Only when
+ * footerText or footerAction is set; other cards are unchanged. The panel
+ * is a column; the footer is its last zone, pushed to the bottom, 24
+ * below the content (groups inside a card, guideline 10). Row, 12 apart,
+ * centred: text (subtext face 16/24, content/subtle) fills and wraps; the
+ * action hugs at the right. */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-24);
+}
+
+.footerText {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.footerAction {
+  flex: none;
+  margin-inline-start: auto;
+}
+
+/* A card inside a card, below 768: the inner padding drops to 16 (her
+   answer, 20 Nov: "below 768, inner cards drop their padding to 16"). */
+@media (max-width: 767px) {
+  .inner .inner {
+    padding: var(--spacing-16);
   }
 }

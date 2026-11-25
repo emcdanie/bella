@@ -1,17 +1,79 @@
-/* DataTable (CHIP components, 2026-10-03). Tokens only.
+/* DataTable (CHIP components, 2026-10-03; Figma 161:426, 20 Nov). Tokens only.
  *
- * Paint: hairline row rules, a header on the panel surface that sticks to
- * the top of the wrapper, figures right-aligned in tabular numerals.
- * Selection is the pink fill (#E58BBB) with a near-black label on the whole
- * row, 8.13:1 (shared look, 8 Nov 2026): highlight, never dim, so every
- * other row keeps its normal paint. The focus ring is ink or near-white,
- * never the selection colour.
+ * Built from Table row and Table cell: the cells carry the padding, the
+ * bottom edge and the selected weight; the rows carry hover and selected
+ * light blue. The caption sits above the bordered table with no side
+ * padding, so it starts on the table's edge (as Primer's DataTable title).
+ *
+ * The edge and corners live on .wrap, the scroller, not on the table, so the
+ * frame keeps its right edge while a wide table scrolls inside it (Work at
+ * 1100). The caption sits above the frame and names the table by id.
  *
  * Sticky needs a scrolling ancestor: with maxHeight the wrapper scrolls
  * (and becomes a focusable named region so keyboards can scroll it);
  * without it the wrapper only scrolls sideways and the header rides along. */
 
+.root {
+  min-inline-size: 0;
+}
+
+/* Scroll edge (Figma 22 Nov, "Edge left" / "Edge right"): when the table is
+   wider than its frame, a 24 fade of background/surface sits over the side
+   that has more to scroll: right at the start, both in the middle, left at
+   the end, neither when everything fits. Overlays, not a mask on the
+   scroller, so the scroller's focus ring is never masked away. Driven by the
+   scroller's own inline scroll timeline: no timeline (nothing to scroll)
+   means no animation and no fade. Each fade comes and goes over the first
+   or last 4 of the scroll. */
+.frame {
+  position: relative;
+  timeline-scope: --data-table-x;
+}
+
+.frame::before,
+.frame::after {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--spacing-24);
+  pointer-events: none;
+  opacity: 0;
+  animation-timeline: --data-table-x;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+  z-index: 2;
+}
+
+.frame::before {
+  inset-inline-start: 0;
+  border-start-start-radius: var(--border-radius-12);
+  border-end-start-radius: var(--border-radius-12);
+  background: linear-gradient(to right, var(--color-background-surface), transparent);
+  animation-name: dataTableEdgeIn;
+  animation-range: 0 var(--spacing-4);
+}
+
+.frame::after {
+  inset-inline-end: 0;
+  border-start-end-radius: var(--border-radius-12);
+  border-end-end-radius: var(--border-radius-12);
+  background: linear-gradient(to left, var(--color-background-surface), transparent);
+  animation-name: dataTableEdgeOut;
+  animation-range: calc(100% - var(--spacing-4)) 100%;
+}
+
+@keyframes dataTableEdgeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dataTableEdgeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 .wrap {
+  scroll-timeline: --data-table-x inline;
   overflow: auto;
   border: var(--border-width-1) solid var(--color-border-default);
   border-radius: var(--border-radius-12);
@@ -26,36 +88,23 @@
   inline-size: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-body-default-font-size);
   letter-spacing: var(--typography-letter-spacing-0);
-  color: var(--color-content-default);
 }
 
+/* Figma Caption: Lexend 16 subtle, 12 above and below, no side padding */
 .caption {
-  caption-side: top;
   text-align: start;
-  padding: var(--spacing-12) var(--spacing-16);
-  font-family: var(--typography-subtext-font-family);
-  font-size: var(--typography-font-size-18);
+  padding-block: var(--spacing-12);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
 }
 
-.table th,
-.table td {
-  padding: var(--spacing-8) var(--spacing-16);
-  min-block-size: var(--spacing-44);
-  block-size: var(--spacing-44);
-  border-bottom: var(--border-width-1) solid var(--color-border-default);
-  text-align: start;
-  vertical-align: middle;
-}
-
 /* density="compact": display-only tables, rows under the 44px target */
-.wrap[data-density='compact'] .table th,
-.wrap[data-density='compact'] .table td {
-  padding: var(--spacing-4) var(--spacing-12);
-  min-block-size: var(--spacing-32);
+.root[data-density='compact'] .table th,
+.root[data-density='compact'] .table td {
+  padding: var(--spacing-4) var(--spacing-16);
   block-size: var(--spacing-32);
 }
 
@@ -68,18 +117,16 @@
   inset-block-start: 0;
   z-index: 1;
   background: var(--color-background-surface);
-  font-weight: var(--typography-font-weight-500);
-  color: var(--color-content-subtle);
-  white-space: nowrap;
 }
 
-.table tbody th {
-  font-weight: var(--typography-font-weight-500);
+/* Figma Row label: the row's name, 600 ink */
+.rowLabel {
+  font-weight: var(--typography-font-weight-600);
 }
 
-.table .numeric {
-  text-align: end;
-  font-variant-numeric: tabular-nums;
+/* the whole header cell is the 44 sort target */
+.sortable {
+  position: relative;
 }
 
 .sort,
@@ -88,24 +135,36 @@
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-4);
   min-block-size: var(--spacing-44);
   cursor: pointer;
-  border-radius: var(--border-radius-4);
 }
 
-.table .numeric .sort {
-  flex-direction: row-reverse;
+.sort::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
 .sort:hover {
   color: var(--color-content-default);
 }
 
-.sort:focus-visible,
+/* Figma: the focus ring sits inside the header cell, 4 in, corner 8, so the
+   table edge never clips it (named exception, as Menu items). */
+.sort:focus-visible {
+  outline: none;
+}
+
+.sortable:has(.sort:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--spacing-4) * -1 - var(--focus-ring-width));
+  border-radius: var(--border-radius-8);
+}
+
 .select:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: var(--focus-ring-offset);
+  border-radius: var(--border-radius-4);
 }
 
 .select:hover {
@@ -114,32 +173,174 @@
   text-underline-offset: var(--spacing-4);
 }
 
-.arrow {
+/* onOpen (CHIP drawers, 23 Nov plan: "a table row that opens its detail"): the row's name is a button whose
+   ::after covers the whole row, so the row is one 44 target; a ↗ Trailing mark ends it (rule 12). The row's
+   own hover is the shared light blue (Table row). */
+.root[data-open] tbody tr {
+  position: relative;
+  cursor: pointer;
+}
+
+.open {
+  all: unset;
+  box-sizing: border-box;
   display: inline-flex;
-  opacity: 0;
+  align-items: center;
+  min-block-size: var(--spacing-44);
+  cursor: pointer;
 }
 
-.sort:hover .arrow,
-.arrow[data-direction] {
-  opacity: 1;
+.open::after {
+  content: '';
+  position: absolute;
+  inset: 0;
 }
 
-.arrow[data-direction='ascending'] {
-  transform: rotate(180deg);
+.open:focus-visible {
+  outline: none;
 }
 
-/* a focus ring inside a selected row sits on the fill, so it takes the fill's text colour */
-tr[data-selected] {
-  --color-border-focus: var(--color-content-on-accent-1);
+.root[data-open] tbody tr:has(.open:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: calc(var(--focus-ring-width) * -1);
+  border-radius: var(--border-radius-8);
 }
 
-tr[data-selected] > * {
-  background: var(--color-background-accent-1);
-  color: var(--color-content-on-accent-1);
+.openCell {
+  inline-size: var(--spacing-44);
+  padding-inline: var(--spacing-8) var(--spacing-16);
 }
 
-/* every text on the selected fill goes near-black, nested components
-   included: a muted label fails contrast there (caught by axe on a StatusPill) */
-tr[data-selected] > * * {
-  color: var(--color-content-on-accent-1);
+.hidden,
+.stackLabel {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* stack (narrow mode): under 480 of its container the header row goes and each row reorganises, never squeezes:
+   the name and the second column's value on the first line, the ↗ at the end, every other column under the name as
+   "Label: value" in the subtle ink. The table's semantics stay for readers; the header is only hidden from view. */
+.root[data-stack] {
+  container-type: inline-size;
+}
+
+@container (max-width: 479px) {
+  .root[data-stack] thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .root[data-stack] tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: stretch;
+    border-bottom: var(--border-width-1) solid var(--color-border-default);
+  }
+
+  .root[data-stack] tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .root[data-stack] tbody tr > * {
+    display: block;
+    block-size: auto;
+    border-bottom: none;
+  }
+
+  /* stackUnder (23 Nov 2026): this column goes under the name like the third and later ones, even as the second */
+  .root[data-stack] tbody tr > td.under {
+    grid-column: 1;
+    grid-row: auto;
+    display: block;
+    padding-block-start: 0;
+    text-align: start;
+    color: var(--color-content-subtle);
+  }
+
+  .root[data-stack] tbody tr > td.under > * {
+    justify-content: flex-start;
+  }
+
+  /* a line under the name may hold a long path or code word ("specs/components/<Name>.spec.yaml"): it breaks inside
+     the word rather than running past the cell at 320 (24 Nov 2026, CHIP's audit plan table) */
+  .root[data-stack] tbody tr > td.under [class],
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) [class] {
+    min-inline-size: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .root[data-stack] tbody tr > td.under .stackLabel {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--typography-body-default-font-family);
+  }
+
+  /* compact rows stacked (23 Nov 2026, CHIP's Gaps drawer at 320): a stacked row grows with its lines; the compact
+     32 is the height of one line only, so it would let the "Label: value" lines run into the next row */
+  .root[data-stack][data-density='compact'] tbody tr > * {
+    block-size: auto;
+  }
+
+  .root[data-stack] tbody tr > :first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* the main number and the ↗ fill the row's height (so the row's hover is one block) and sit centred in it */
+  .root[data-stack] tbody tr > :nth-child(2) {
+    grid-column: 2;
+    grid-row: 1 / span 8;
+    display: flex;
+    align-items: center;
+  }
+
+  .root[data-stack] tbody tr > .openCell {
+    grid-column: 3;
+    grid-row: 1 / span 8;
+    display: flex;
+    align-items: center;
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) {
+    grid-column: 1;
+    padding-block-start: 0;
+    text-align: start;
+    color: var(--color-content-subtle);
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3):not(.openCell) > * {
+    justify-content: flex-start;
+  }
+
+  .root[data-stack] tbody tr > :nth-child(n + 3) .stackLabel {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--typography-body-default-font-family);
+  }
+}
+
+/* freezeFirst: the first column sticks to the start edge while the rest scrolls; header and body keep the surface behind it */
+.root[data-freeze] .table th:first-child,
+.root[data-freeze] .table td:first-child {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: var(--color-background-surface);
+}
+
+.root[data-freeze] .table thead th:first-child {
+  z-index: 2;
 }

@@ -47,6 +47,10 @@ export interface CardProps {
    */
   linkComponent?: ElementType;
   /** Extra classes on the outer wrapper. */
+  /** Figma "Show footer" › _Card footer "Footer text" (+ Show text): subtext line, bottom left. Missing = off. */
+  footerText?: ReactNode;
+  /** Figma "Show footer" › _Card footer "Action" (+ Show action): a Button secondary sm, bottom right. Not on an interactive card (no buttons inside a link). Missing = off. */
+  footerAction?: ReactNode;
   className?: string;
   /** Extra classes on the inner panel (e.g. custom padding/layout). */
   innerClassName?: string;
@@ -68,6 +72,8 @@ export default function Card({
   onClick,
   ariaLabel,
   linkComponent: LinkComponent = 'a',
+  footerText,
+  footerAction,
   className,
   innerClassName,
   style,
@@ -96,6 +102,17 @@ export default function Card({
     'data-bella-component': 'card',
   } as const;
 
+  /* Figma _Card footer (1307:4092): the last zone, pinned to the bottom when
+     the card stretches, so buttons line up across a row (18 Nov). */
+  const action = href || onClick ? null : footerAction;
+  const footer =
+    footerText != null || action != null ? (
+      <div className={styles.footer}>
+        {footerText != null ? <p className={styles.footerText}>{footerText}</p> : null}
+        {action != null ? <div className={styles.footerAction}>{action}</div> : null}
+      </div>
+    ) : null;
+
   const content = (
     <div className={innerClass}>
       {media != null && (
@@ -103,7 +120,17 @@ export default function Card({
           {media}
         </div>
       )}
-      {media != null ? <div className={styles.body}>{children}</div> : children}
+      {media != null ? (
+        <div className={styles.body}>
+          {children}
+          {footer}
+        </div>
+      ) : (
+        <>
+          <div className={styles.content}>{children}</div>
+          {footer}
+        </>
+      )}
     </div>
   );
 

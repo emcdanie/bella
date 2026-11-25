@@ -1,0 +1,121 @@
+/* ClientSwitcher (Figma "Client switcher", read 19 Nov 2026). Tokens only.
+ * A row: padding 8, gap 12, corner border/radius/12, min-height spacing/64,
+ * fills its panel. Tile 48 (spacing/48): surface fill, corner 12,
+ * shadow/card-ink, the mark centred by its drawn bounds. Text column:
+ * Name body face 700, 20 on a 24 line, content/default; Caption body 16 on
+ * 24, content/subtle. The ⇅ is Trailing (NavArrowUpDown). Hover:
+ * nav-list/hover-background, the one light-blue hover. Focus: the standard
+ * ring, 4 wide with a 4 gap, outside, following the 12 corner. */
+
+.switcher {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  inline-size: 100%;
+  min-block-size: var(--spacing-64);
+  margin: 0;
+  padding: var(--spacing-8);
+  border: none;
+  border-radius: var(--border-radius-12);
+  background: transparent;
+  color: var(--color-content-default);
+  /* a button does not inherit type: take the body face and size (16 on 24),
+   * so the hidden "Switch client:" reads at the floor too */
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  line-height: var(--typography-line-height-150);
+  text-align: start;
+  cursor: pointer;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.switcher:hover {
+  background: var(--nav-list-hover-background);
+}
+
+.switcher:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.tile {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--spacing-48);
+  block-size: var(--spacing-48);
+  border-radius: var(--border-radius-12);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.name {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+}
+
+.caption {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-body-default-font-size);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switcher {
+    transition: none;
+  }
+}
+
+/* plain (Figma Client switcher in CHIP Screen template 601:112027, read 21
+   Nov; her pick A, one plain line): the tile and caption off; the name
+   (Lexend 20 / 700 on 24) and a 16 ⌄ in the subtle ink, 4 apart; padding
+   20 / 8 / 20 / 16 (16 in, one left edge with Nav item and the tree rows,
+   published 21 Nov), the row 68 tall, the top bar's height (its 44 content
+   and 12 above and below; no 68 token), the name on the bar's centre line,
+   with the same corner and states. */
+.plain {
+  min-block-size: calc(var(--spacing-44) + var(--spacing-12) * 2);
+  gap: var(--spacing-4);
+  padding: var(--spacing-20) var(--spacing-8) var(--spacing-20) var(--spacing-16);
+}
+
+.plain .text {
+  flex: 0 1 auto;
+}
+
+.chevron {
+  display: inline-flex;
+  align-items: center;
+  align-self: stretch;
+  color: var(--color-content-subtle);
+}
+
+/* plain with a logo (CHIP, 23 Nov 2026): the client's drawn logo stands where the name stood, on the same centre
+   line; the row keeps its height, so the logo (40 tall in BrandWordmark nav) fits inside the row's padding. */
+.logo {
+  display: inline-flex;
+  align-items: center;
+}

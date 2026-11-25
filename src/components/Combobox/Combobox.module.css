@@ -7,8 +7,14 @@
 .combobox {
   display: grid;
   align-content: start; /* the field keeps its own height in a taller box */
+  /* One column that may shrink below the input's own width, so the field
+     never slides under its neighbour in a narrow row (19 Nov). */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-8);
   min-width: 0;
+  /* the part binds its face (published Combobox: body-default font family),
+     so the list never falls back to the page's face */
+  font-family: var(--typography-body-default-font-family);
 }
 
 .label {
@@ -29,7 +35,7 @@
   min-height: var(--spacing-44);
   padding-inline: var(--spacing-16) var(--spacing-12);
   border: var(--border-width-1) solid var(--color-border-strong);
-  border-radius: var(--border-radius-12);
+  border-radius: var(--border-radius-lg); /* every field, as every control (Elleta 21 Nov) */
   background: var(--color-background-surface);
 }
 
@@ -42,6 +48,9 @@
 .input {
   flex: 1;
   min-width: 0;
+  /* a value or placeholder longer than the field ends in an ellipsis, never
+     a cut letter (19 Nov audit: "Ask about BELLA" clipped at 1440) */
+  text-overflow: ellipsis;
   border: 0;
   padding: 0;
   margin: 0;
@@ -61,6 +70,11 @@
   opacity: 1;
 }
 
+.searchMark {
+  flex: none;
+  color: var(--color-content-subtle);
+}
+
 .hint {
   flex: none;
   display: inline-flex;
@@ -76,7 +90,7 @@
   max-block-size: calc(var(--spacing-80) * 5);
   overflow-y: auto;
   padding: var(--spacing-8);
-  border-radius: var(--border-radius-12);
+  border-radius: var(--border-radius-8); /* Figma List r8 (21 Nov publish) */
   border: var(--border-width-1) solid var(--color-border-default);
   background: var(--color-background-surface);
   box-shadow: var(--shadow-lg);
@@ -123,9 +137,11 @@
   cursor: pointer;
 }
 
+/* Active option: light blue with an ink label and subtle meta, the same as
+ * hover (published Combobox 172:430: "Pink is only for annotations", 19 Nov). */
 .option[aria-selected='true'] {
-  background: var(--color-background-accent-1);
-  color: var(--color-content-on-accent-1);
+  background: var(--color-background-brand-subtle);
+  color: var(--color-content-default);
 }
 
 .optionLabel {
@@ -141,10 +157,6 @@
   color: var(--color-content-subtle);
 }
 
-.option[aria-selected='true'] .meta {
-  color: var(--color-content-on-accent-1);
-}
-
 .srOnly {
   position: absolute;
   width: 1px;
@@ -152,4 +164,27 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* Figma Combobox no-results (1560:26256): one line in the list, padding 12 */
+.noResults {
+  margin: 0;
+  padding: var(--spacing-12);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  color: var(--color-content-subtle);
+}
+
+/* labelPosition="inline" (24 Nov 2026): the label 12 left of the field, in the body text at 16 (Select's label and
+   gap, published 21 Nov), centred on the 44 field; the list still hangs from the field. */
+.inline {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--spacing-12);
+}
+
+.inline .label {
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-body);
 }

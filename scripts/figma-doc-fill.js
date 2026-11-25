@@ -3,7 +3,7 @@
 // (node -e "console.log(JSON.stringify(require('js-yaml').load(require('fs').readFileSync(F,'utf8'))))"). Nothing is read from anywhere else.
 // Set the two constants first, then paste this file after them:
 //   const FILL_DATA = { ...spec as JSON... };
-//   const FILL_OPTS = { fileKey: 'JzN6DXIILH64KHI5MmgH8Q', pageName: '🧩 Link', setId: '298:6681', x: 0, y: 0, modelId: '718:126751' };
+//   const FILL_OPTS = { fileKey: '${FIGMA_FILE_KEY}', pageName: '🧩 Link', setId: '298:6681', x: 0, y: 0, modelId: '718:126751' };
 // Returns { pageId, filled: [...], skipped: [...], needsReview: [...], needsGuidance: [...] }.
 // Rules it follows: ONE fresh Doc / Component page instance; only text, properties and slot content are set; slot content is a
 // fresh instance of the component's own variants or of a Docs Kit piece, placed BEFORE its nested parts are edited; never a clone;

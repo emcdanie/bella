@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, within } from 'storybook/test';
-import ChatBubble from './ChatBubble';
+import { expect, userEvent, within } from 'storybook/test';
+import ChatBubble, { ReactionBar, type ReactionName } from './ChatBubble';
 import bubbleCssRaw from './ChatBubble.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const bubbleContract = (componentContract as any).component?.['chat-bubble']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ChatBubble> = {
-  title: 'Components/Chat/ChatBubble',
+  title: 'Components/Data/ChatBubble',
   component: ChatBubble,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -30,7 +30,7 @@ export default meta;
 
 type Story = StoryObj<typeof ChatBubble>;
 
-/** Side-by-side: sent (ink) and received (card surface). */
+/** Side-by-side: sent (her pink) and received. */
 export const SideBySide: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
@@ -42,7 +42,7 @@ export const SideBySide: Story = {
   ),
 };
 
-/** The tail corner flattens on the last bubble in a run. */
+/** The tail sits on the last bubble in a run, on the speaker's side. */
 export const Tails: Story = {
   render: () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)', maxWidth: 320 }}>
@@ -131,5 +131,96 @@ export const AskAndDraft: Story = {
     // the pop-in starts at opacity 0, so presence, not visibility
     await expect(c.getByText('Waiting on you')).toBeInTheDocument();
     await expect(c.getByText("Claude's draft · edit before sending")).toBeInTheDocument();
+  },
+};
+
+/** A reaction lands like iMessage (rules/ask-bella-and-chat.md, 19 Nov): the tapback pops onto the
+ * corner and six dots in the reaction colours burst out once and fade. Reduced motion: no burst, the
+ * reaction is simply there. No Replay. */
+export const ReactionLands: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)', padding: 'var(--spacing-24)', maxWidth: 320 }}>
+      <ChatBubble side="received" tail tapback="👍">
+        Gate passed, all 44 parts.
+      </ChatBubble>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const tapback = canvasElement.querySelector('[class*="tapback"]') as HTMLElement;
+    await step('the reaction lands with no sparkle burst, hidden from assistive tech', async () => {
+      await expect(tapback).toHaveTextContent('👍');
+      await expect(tapback).toHaveAttribute('aria-hidden', 'true');
+      await expect(tapback.querySelectorAll('[class*="spark"], [class*="burst"]').length).toBe(0);
+    });
+  },
+};
+
+function ReactDemo() {
+  const [picked, setPicked] = React.useState<ReactionName[]>([]);
+  const toggle = (n: ReactionName) => setPicked((p) => (p.includes(n) ? p.filter((x) => x !== n) : [...p, n]));
+  return (
+    <div style={{ display: 'grid', gap: 'var(--spacing-24)', justifyItems: 'start', padding: 'var(--spacing-32) var(--spacing-24)', maxInlineSize: 'calc(var(--spacing-80) * 6)' }}>
+      <ReactionBar label="React to BELLA's answer" selected={picked} onReact={toggle} />
+      <ChatBubble side="received" tail reactions={picked}>
+        2 of 43 components have no a11y notes: ScaledFrame and SectionHeader.
+      </ChatBubble>
+    </div>
+  );
+}
+
+/** Reactions, coloured like iMessage (Figma _Reaction, Reaction bar and Reaction badge, 21 Nov; her
+ * 19 Nov rule): pick from the bar (44 targets, aria-pressed), and the coloured badge pops onto the
+ * bubble with a small burst. Reduced motion: it is simply there. */
+export const Reactions: Story = {
+  render: () => <ReactDemo />,
+  play: async ({ canvasElement, canvas, step }) => {
+    const bar = canvas.getByRole('group', { name: "React to BELLA's answer" });
+    await step('six reactions, each a 44 target', async () => {
+      const buttons = within(bar).getAllByRole('button');
+      await expect(buttons.length).toBe(6);
+      for (const b of buttons) await expect(Math.round(b.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+    });
+    await step('picking two leaves both on the bubble, in their colours', async () => {
+      await userEvent.click(within(bar).getByRole('button', { name: 'Love' }));
+      await userEvent.click(within(bar).getByRole('button', { name: 'Like' }));
+      await expect(within(bar).getByRole('button', { name: 'Love' })).toHaveAttribute('aria-pressed', 'true');
+      const badge = canvas.getByRole('img', { name: /Reactions: Love, Like/ });
+      const glyphs = badge.querySelectorAll<HTMLElement>('[data-reaction]');
+      await expect(glyphs.length).toBe(2);
+      await expect(getComputedStyle(glyphs[0]).color).not.toBe(getComputedStyle(glyphs[1]).color);
+    });
+    await step('taking one back removes it', async () => {
+      await userEvent.click(within(bar).getByRole('button', { name: 'Love' }));
+      await expect(canvas.getByRole('img', { name: 'Reactions: Like' })).toBeInTheDocument();
+      await expect(canvasElement.querySelectorAll('[role="img"] [data-reaction]').length).toBe(1);
+    });
+  },
+};
+
+/** Received in Chip dark (library round 6): the bubble takes background/subtle, so it and its tail
+ * stand off the panel; the speaker is an initial disc ("B" for BELLA) readable in every theme. */
+export const ReceivedOnPanel: Story = {
+  render: () => (
+    <div data-panel="" style={{ display: 'grid', gap: 'var(--spacing-8)', padding: 'var(--spacing-24)', background: 'var(--color-background-default)', maxInlineSize: 'calc(var(--spacing-80) * 6)' }}>
+      <ChatBubble side="received" tail disc="B" senderName="BELLA">
+        2 of 43 components have no a11y notes.
+      </ChatBubble>
+      <ChatBubble side="sent" tail>
+        Why?
+      </ChatBubble>
+    </div>
+  ),
+  play: async ({ canvasElement, step }) => {
+    const panel = canvasElement.querySelector('[data-panel]') as HTMLElement;
+    const bubble = canvasElement.querySelector('[class*="received"]') as HTMLElement;
+    await step('the received bubble is not the panel colour', async () => {
+      await expect(getComputedStyle(bubble).backgroundColor).not.toBe(getComputedStyle(panel).backgroundColor);
+    });
+    await step('the initial disc shows its letter', async () => {
+      await expect(canvasElement.querySelector('[class*="initial"]')).toHaveTextContent('B');
+    });
+    await step('a bubble is at most 296 wide', async () => {
+      for (const row of canvasElement.querySelectorAll<HTMLElement>('[data-bella-component="chat-bubble"]')) await expect(row.querySelector<HTMLElement>(':scope > [class*="bubble"]')!.getBoundingClientRect().width).toBeLessThanOrEqual(296);
+    });
   },
 };

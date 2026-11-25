@@ -3,8 +3,8 @@
 name: SectionHeader
 lead:
   text: A structured page or section opening.
-  source: tokens/component.json description, up to the first colon or semicolon
-category: null
+  source: tokens/contracts.json description, up to the first colon or semicolon
+category: Layout
 rendersAs: null
 links:
   storybook: https://emcdanie.github.io/bella/?path=/docs/components-sectionheader--docs
@@ -48,6 +48,7 @@ props:
     doc: Semantic level; `h1` renders the page tier (the page opening).
     at: src/components/SectionHeader/SectionHeader.tsx:22
   - name: layout
+    figmaName: layout
     type: '''split'' | ''stacked'''
     values:
       - split
@@ -64,11 +65,13 @@ props:
     doc: The heading's id (a section's aria-labelledby points at it).
     at: src/components/SectionHeader/SectionHeader.tsx:30
   - name: lead
+    figmaName: Lead
     type: ReactNode
     required: false
     doc: The lead paragraph.
     at: src/components/SectionHeader/SectionHeader.tsx:32
   - name: children
+    figmaName: Children
     type: ReactNode
     required: false
     doc: 'Body: paragraphs, a list, a link, a figure.'
@@ -132,19 +135,19 @@ anatomy:
     size: 1056x146
     tokens:
       - field: itemSpacing
-        variable: spacing/12
+        variable: spacing/48
     children:
       - name: Title block
         type: FRAME
-        size: 403x83
+        size: 403x146
         tokens:
           - field: itemSpacing
-            variable: spacing/4
+            variable: spacing/16
         children:
           - name: Eyebrow
             type: INSTANCE
             instanceOf: Eyebrow
-            size: 97x21
+            size: 98x21
           - name: Heading
             type: INSTANCE
             instanceOf: Heading
@@ -154,7 +157,7 @@ anatomy:
         size: 605x146
         tokens:
           - field: itemSpacing
-            variable: spacing/5
+            variable: spacing/20
         children:
           - name: Lead
             type: TEXT
@@ -162,127 +165,129 @@ anatomy:
             size: 440x58
             tokens:
               - field: fills
-                variable: color/semantic/text-body
+                variable: color/content/body
               - field: fontSize
-                variable: typography/font-size/xl
+                variable: typography/font-size/22
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
           - name: Body
             type: TEXT
             text: Each item says why it matters and offers the action that follows. Nothing is display-only.
             size: 605x68
             tokens:
               - field: fills
-                variable: color/semantic/text-body
+                variable: color/content/body
+              - field: fontSize
+                variable: typography/font-size/20
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/regular
+                variable: typography/font-weight/400
   code: []
 tokens:
   used:
     - part: header
       state: rest
       property: row-gap
-      token: '--spacing-5'
+      token: '--spacing-20'
       selector: .header
       at: src/components/SectionHeader/SectionHeader.module.css:14
     - part: header
       state: rest
       property: column-gap
-      token: '--spacing-12'
+      token: '--spacing-48'
       selector: .header:not(.stacked)
       at: src/components/SectionHeader/SectionHeader.module.css:22
     - part: titleBlock
       state: rest
       property: row-gap
-      token: '--spacing-4'
+      token: '--spacing-16'
       selector: .titleBlock
       at: src/components/SectionHeader/SectionHeader.module.css:28
     - part: side
       state: rest
       property: row-gap
-      token: '--spacing-5'
+      token: '--spacing-20'
       selector: .side
       at: src/components/SectionHeader/SectionHeader.module.css:34
     - part: lead
       state: rest
       property: font-size
-      token: '--typography-font-size-xl'
+      token: '--typography-font-size-22'
       selector: .lead
       at: src/components/SectionHeader/SectionHeader.module.css:43
     - part: lead
       state: rest
       property: line-height
-      token: '--typography-line-height-snug'
+      token: '--typography-line-height-130'
       selector: .lead
       at: src/components/SectionHeader/SectionHeader.module.css:44
     - part: lead
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .lead
       at: src/components/SectionHeader/SectionHeader.module.css:45
     - part: body
       state: rest
       property: font-size
-      token: '--typography-font-size-body'
+      token: '--typography-body-default-font-size'
       selector: .body
       at: src/components/SectionHeader/SectionHeader.module.css:49
     - part: body
       state: rest
       property: letter-spacing
-      token: '--typography-letter-spacing-body'
+      token: '--typography-letter-spacing-0'
       selector: .body
       at: src/components/SectionHeader/SectionHeader.module.css:50
     - part: body
       state: rest
       property: line-height
-      token: '--typography-line-height-normal'
+      token: '--typography-line-height-150'
       selector: .body
       at: src/components/SectionHeader/SectionHeader.module.css:51
     - part: body
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .body
       at: src/components/SectionHeader/SectionHeader.module.css:52
     - part: root
       state: rest
       property: margin-top
-      token: '--spacing-5'
+      token: '--spacing-20'
       selector: .body > * + *
       at: src/components/SectionHeader/SectionHeader.module.css:60
   values:
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--spacing-12':
-      light: 48px
-      chip: 48px
-    '--spacing-4':
-      light: 16px
-      chip: 16px
-    '--spacing-5':
-      light: 20px
-      chip: 20px
-    '--typography-font-size-body':
-      light: 20px
-      chip: 16px
-    '--typography-font-size-xl':
-      light: 22px
-      chip: 22px
-    '--typography-letter-spacing-body':
-      light: '0'
-      chip: '0'
-    '--typography-line-height-normal':
-      light: '1.7'
-      chip: '1.5'
-    '--typography-line-height-snug':
-      light: '1.3'
-      chip: '1.3'
+    '--color-content-body':
+      light: null
+      chip: null
+    '--spacing-16':
+      light: null
+      chip: null
+    '--spacing-20':
+      light: null
+      chip: null
+    '--spacing-48':
+      light: null
+      chip: null
+    '--typography-body-default-font-size':
+      light: null
+      chip: null
+    '--typography-font-size-22':
+      light: null
+      chip: null
+    '--typography-letter-spacing-0':
+      light: null
+      chip: null
+    '--typography-line-height-130':
+      light: null
+      chip: null
+    '--typography-line-height-150':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -309,38 +314,8 @@ a11y:
   targetPx: null
   ariaChips: []
 contrast:
-  pairs:
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-  derived:
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: src/components/SectionHeader/SectionHeader.stories.tsx
   lines: 29-49
@@ -368,21 +343,21 @@ usage:
   dont:
     - 'Do not nest a Heading inside a SectionHeader: the heading is built in'
     - 'Do not use it for card titles or inline titles: those are Heading or a plain element'
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '405:17189'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    lead#740:105:
+    Lead#740:105:
       type: TEXT
       default: One list answers what is first, so nothing competes for your attention.
-    children#740:108:
+    Children#740:108:
       type: TEXT
       default: Each item says why it matters and offers the action that follows. Nothing is display-only.
-    showLead#740:111:
+    Show lead#740:111:
       type: BOOLEAN
       default: true
-    showEyebrow#740:114:
+    Show eyebrow#740:114:
       type: BOOLEAN
       default: true
     layout:
@@ -400,18 +375,23 @@ figma:
       height: 249
   defaultVariant: layout=split
   annotations:
-    - label: Dev · <SectionHeader eyebrow heading accent after term as layout lead>
+    - label: >-
+        <SectionHeader eyebrow heading accent after term as layout lead> · src/components/SectionHeader/SectionHeader.tsx. Composes Eyebrow
+        and Heading; layout split (lead on the right) or stacked (lead below); Body under it.
       category: '123:0'
-    - label: A11y · Heading level from as; term gives the accent an aria-label when it is interactive.
+    - label: Heading level from as; term gives the accent an aria-label when it is interactive. Text 10.99:1 or more.
       category: '123:2'
+    - label: 'None: static.'
+      category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-sectionheader--docs
 mismatch:
-  - field: props.as
+  - field: tokens.Body.fontSize
     code:
-      - h1
-      - h2
-    figma: no such variant property
+      - '--typography-font-size-22'
+      - '--typography-body-default-font-size'
+    figma: typography/font-size/20
+    sameValueInChip: false
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/SectionHeader/SectionHeader.tsx
@@ -505,3 +485,6 @@ guidance:
     lead: The lead paragraph
     children: The body
   anatomyScaleWidth: 1056
+  codeOnly:
+    - name: as
+      why: DOM heading level (h1 or h2); the look comes from the tier

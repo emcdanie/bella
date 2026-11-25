@@ -1,0 +1,204 @@
+/* GapChart (23 Nov 2026, the approved Audit reports mock, CHIP). Tokens only. Two scores per item on one
+ * scale: a hollow ring (base), a solid ink dot (new value) and a 4 tall round-capped line in the tone
+ * between them, on dashed gridlines at 0, half and max. Name 16/600, its numbers a 14 meta line in the
+ * number face; the gap in the number face 20/700 in the tone's ink; a Tag word; a tertiary Why button
+ * (44 target). One line per row at 760 wide and up (container query), stacked below. Tones: border/utility
+ * success, error (danger), warning; neutral = border/utility/neutral with subtle ink (no real change). */
+
+.root {
+  container-type: inline-size;
+  display: grid;
+  gap: var(--spacing-12);
+  min-inline-size: 0;
+  font-family: var(--typography-body-default-font-family);
+  color: var(--color-content-default);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8) var(--spacing-16);
+  color: var(--color-content-subtle);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--spacing-16);
+}
+
+.row {
+  --tone: var(--color-border-utility-neutral);
+  --ink: var(--color-content-subtle);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--spacing-4);
+  align-items: center;
+  padding-block: var(--spacing-12);
+  border-block-start: var(--border-width-1) solid var(--color-border-default);
+}
+
+.row[data-tone='success'] { --tone: var(--color-border-utility-success); --ink: var(--color-content-utility-success); }
+.row[data-tone='danger'] { --tone: var(--color-border-utility-error); --ink: var(--color-content-utility-error); }
+.row[data-tone='warning'] { --tone: var(--color-border-utility-warning); --ink: var(--color-content-utility-warning); }
+
+.head {
+  padding-block: 0;
+  border-block-start: 0;
+}
+
+.pad { display: none; }
+
+.name {
+  display: grid;
+  min-inline-size: 0;
+}
+
+.title {
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: anywhere;
+}
+
+.nums {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* the track: dashed gridlines at 0, half and max; inset by the mark's radius so a mark at an end is whole */
+.track {
+  position: relative;
+  block-size: var(--size-28);
+  margin-inline: var(--spacing-8);
+  background:
+    repeating-linear-gradient(to bottom, var(--color-border-subtle) 0 var(--spacing-4), transparent var(--spacing-4) var(--spacing-8)) 0 0 / var(--border-width-1) 100% no-repeat,
+    repeating-linear-gradient(to bottom, var(--color-border-subtle) 0 var(--spacing-4), transparent var(--spacing-4) var(--spacing-8)) 50% 0 / var(--border-width-1) 100% no-repeat,
+    repeating-linear-gradient(to bottom, var(--color-border-subtle) 0 var(--spacing-4), transparent var(--spacing-4) var(--spacing-8)) 100% 0 / var(--border-width-1) 100% no-repeat;
+}
+
+.axis {
+  block-size: var(--size-20);
+  background: none;
+}
+
+.tick {
+  position: absolute;
+  inset-block-start: 0;
+  translate: -50% 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+.gap {
+  position: absolute;
+  inset-block-start: 50%;
+  block-size: var(--spacing-4);
+  translate: 0 -50%;
+  border-radius: var(--border-radius-round);
+  background: var(--tone);
+}
+
+.mark {
+  position: absolute;
+  inset-block-start: 50%;
+  translate: -50% -50%;
+}
+
+.ring,
+.dot {
+  box-sizing: border-box;
+  flex: none;
+  inline-size: var(--spacing-16);
+  block-size: var(--spacing-16);
+  border-radius: var(--border-radius-round);
+}
+
+.ring {
+  background: var(--color-background-surface);
+  border: calc(var(--border-width-1) * 3) solid var(--color-border-strong);
+}
+
+.dot {
+  background: var(--color-content-default);
+}
+
+.end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.gapNum {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-700);
+  line-height: var(--size-28);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.whyCell {
+  justify-self: start;
+}
+
+.why {
+  grid-column: 1 / -1;
+  margin: 0;
+  max-inline-size: calc(var(--spacing-64) * 11);
+  color: var(--color-content-subtle);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+}
+
+/* wide: one line per row, the columns shared by every row (subgrid) */
+@container (min-width: 47.5rem) {
+  .grid {
+    grid-template-columns: minmax(calc(var(--spacing-40) * 5), calc(var(--spacing-40) * 7)) minmax(0, 1fr) auto auto;
+  }
+  .row {
+    grid-template-columns: subgrid;
+  }
+  .pad { display: block; }
+  .end { flex-wrap: nowrap; }
+  .whyCell { justify-self: end; }
+}
+
+@media (forced-colors: active) {
+  .gap, .dot { background: CanvasText; }
+  .ring { border-color: CanvasText; }
+}
+
+/* highlight (24 Nov 2026): the picked marks get the active glow (the chart rule: glow only on the active data); the
+   other marks step back a little, text untouched, so nothing becomes unreadable. */
+.root[data-highlight] .mark,
+.root[data-highlight] .gap { transition: opacity var(--motion-duration-150) var(--motion-easing-standard); }
+.root[data-highlight='base'] .dot,
+.root[data-highlight='base'] .gap,
+.root[data-highlight='value'] .ring { opacity: 0.45; }
+.root[data-highlight='base'] .ring,
+.root[data-highlight='value'] .dot { box-shadow: 0 0 0 var(--spacing-4) var(--color-background-brand-subtle); }
+.root[data-highlight='value'] .gap { box-shadow: 0 0 0 var(--spacing-2) var(--color-background-brand-subtle); }
+.srOnly { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .root[data-highlight] .mark,
+  .root[data-highlight] .gap { transition: none; }
+}

@@ -1,0 +1,241 @@
+/* Map line (Figma BellaComponents "Map line", read 19 Nov 2026). Tokens only.
+ * horizontal: a 16 tall box that stretches; the path is a 2px line on its
+ * centre (border/width/2). vertical: the same, 16 wide. The arrow is a 16
+ * Icon at the end; the path runs under it to 4 short of the end, as Figma's
+ * 116-in-120 path. turn: a 24 box holding a 16-radius quarter curve (a CSS border corner),
+ * joined at 8 so it meets straight pieces on their centre line.
+ * tone default = border/strong; selected = border/brand; danger = border/utility/error; accent = border/accent-1. Arrow ink:
+ * content/subtle, accent = content/accent. dashed: 6 on, 6 off, as Figma
+ * (CSS dashed borders, straight pieces and turn).
+ * Butt ends: connectors are not data marks. Named exception (craft-check R12):
+ * the arrow is the connector's arrowhead, not a row › cue. */
+
+.root {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--color-border-strong);
+}
+
+.horizontal {
+  flex: 1 1 auto;
+  min-inline-size: var(--size-16);
+  block-size: var(--size-16);
+}
+
+.vertical {
+  flex-direction: column;
+  flex: 1 1 auto;
+  inline-size: var(--size-16);
+  min-block-size: var(--spacing-12);
+}
+
+.path {
+  flex: 1 1 auto;
+  border: 0 solid currentColor;
+}
+
+.horizontal .path {
+  border-block-start-width: var(--border-width-2);
+}
+
+.vertical .path {
+  border-inline-start-width: var(--border-width-2);
+}
+
+.dashed .path {
+  border-style: dashed;
+}
+
+.arrow {
+  flex-shrink: 0;
+  color: var(--color-content-subtle);
+}
+
+.horizontal .arrow {
+  margin-inline-start: calc(var(--spacing-12) * -1);
+}
+
+.vertical .arrow {
+  margin-block-start: calc(var(--spacing-12) * -1);
+}
+
+.accent {
+  /* border/accent-1: 3.78:1 Chip light, 5.31:1 Chip dark (marks 3:1);
+   * background/accent-1 was 2.40:1 */
+  color: var(--color-border-accent-1);
+}
+
+.accent .arrow {
+  color: var(--color-content-accent);
+}
+
+.selected {
+  color: var(--color-border-brand);
+}
+
+.danger {
+  color: var(--color-border-utility-error);
+}
+
+.danger .arrow {
+  color: var(--color-content-utility-error);
+}
+
+/* curve (22 Nov, Processes): one bezier in a stretchable box, 2 wide, round ends, no arrow. */
+.curve {
+  position: relative;
+  display: block;
+  flex: 1 1 auto;
+  min-inline-size: var(--border-width-2);
+  min-block-size: var(--border-width-2);
+}
+
+.curve[data-flip] .curvePath {
+  scale: -1 1;
+}
+
+.curvePath {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: var(--border-width-2);
+  stroke-linecap: round;
+}
+
+.dashed .curvePath {
+  stroke-dasharray: calc(var(--border-width-2) * 3);
+}
+
+.turn {
+  inline-size: var(--size-24);
+  block-size: var(--size-24);
+}
+
+/* The arc is the rounded corner of a box with two borders. Its stroke is
+ * centred on the Figma path: the box starts half a stroke outside the 8
+ * line and its radius is 16 plus half a stroke. The open ends run to the
+ * box edge, where the straight pieces meet them on their centre line. */
+.turn {
+  display: grid;
+}
+
+.arc {
+  inline-size: calc(var(--size-16) + var(--border-width-2) / 2);
+  block-size: calc(var(--size-16) + var(--border-width-2) / 2);
+  box-sizing: border-box;
+  border: 0 solid currentColor;
+}
+
+.turn.dashed .arc {
+  border-style: dashed;
+}
+
+.arcTopLeft {
+  justify-self: end;
+  align-self: end;
+  border-top-width: var(--border-width-2);
+  border-left-width: var(--border-width-2);
+  border-top-left-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcTopRight {
+  justify-self: start;
+  align-self: end;
+  border-top-width: var(--border-width-2);
+  border-right-width: var(--border-width-2);
+  border-top-right-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcBottomLeft {
+  justify-self: end;
+  align-self: start;
+  border-bottom-width: var(--border-width-2);
+  border-left-width: var(--border-width-2);
+  border-bottom-left-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+.arcBottomRight {
+  justify-self: start;
+  align-self: start;
+  border-bottom-width: var(--border-width-2);
+  border-right-width: var(--border-width-2);
+  border-bottom-right-radius: calc(var(--size-16) + var(--border-width-2) / 2);
+}
+
+/* thin (curve only): 1px in a lighter tone, so the lines of unpicked steps stay quiet. Marks stay readable
+ * against the board because the words beside them carry the meaning. */
+.thin {
+  color: var(--color-border-default);
+}
+
+.thin .curvePath {
+  stroke-width: var(--border-width-1);
+}
+
+/* Motion (curve only). Draw-in reveals the line from its start to its end; every line runs top to bottom, so
+ * the reveal follows it. Motion tokens: 900ms the first draw of a map, 250ms a pick, ease-out. */
+.curve[data-draw='map'] {
+  animation: draw var(--motion-duration-900) var(--motion-easing-out) backwards;
+}
+
+.curve[data-draw='pick'] {
+  animation: draw var(--motion-duration-250) var(--motion-easing-out) backwards;
+}
+
+@keyframes draw {
+  from {
+    clip-path: inset(calc(var(--spacing-4) * -1) calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1));
+  }
+  to {
+    clip-path: inset(calc(var(--spacing-4) * -1));
+  }
+}
+
+/* travel: a soft highlight, one pass in the line's direction, then it rests (it is only in the page while travel is on). */
+.glint {
+  stroke: var(--color-border-ink);
+  stroke-opacity: 0.45;
+  filter: drop-shadow(0 0 var(--spacing-4) var(--color-border-brand));
+  animation: travel var(--motion-duration-900) var(--motion-easing-out) 1 both;
+}
+
+@keyframes travel {
+  0% {
+    clip-path: inset(0 calc(var(--spacing-4) * -1) 100% calc(var(--spacing-4) * -1));
+    opacity: 1;
+  }
+  20% {
+    clip-path: inset(0 calc(var(--spacing-4) * -1) 70% calc(var(--spacing-4) * -1));
+  }
+  80% {
+    clip-path: inset(70% calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1));
+  }
+  100% {
+    clip-path: inset(100% calc(var(--spacing-4) * -1) 0 calc(var(--spacing-4) * -1));
+    opacity: 0;
+  }
+}
+
+/* reduced motion: fully drawn, nothing travels (also when a story mocks the setting) */
+[data-motion='still'] {
+  animation: none;
+}
+
+[data-motion='still'] .glint {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curve[data-draw] {
+    animation: none;
+  }
+
+  .glint {
+    display: none;
+  }
+}

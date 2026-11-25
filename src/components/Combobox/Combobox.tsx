@@ -6,6 +6,7 @@ import React, {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
+import Icon from "../Icon/Icon";
 import styles from "./Combobox.module.css";
 
 export interface ComboboxOption {
@@ -30,6 +31,10 @@ export interface ComboboxProps {
   label: string;
   /** Keep the label for assistive tech only, when the context already names the field. */
   hideLabel?: boolean;
+  /** top (default): the label above the field. inline: the label 12 to the field's left in the body text, centred on
+   *  the 44 field, as Select and Input's inline label draw it, so a row of fields reads as one pattern (Elleta, 24 Nov
+   *  2026, on the Playground's Pages tab: "two inputs, one with label on top and one on the left, different font sizes"). */
+  labelPosition?: 'top' | 'inline';
   /** The text in the field. */
   value: string;
   onChange: (value: string) => void;
@@ -44,6 +49,10 @@ export interface ComboboxProps {
   placeholder?: string;
   /** Something quiet at the end of the field, such as a Kbd shortcut. */
   hint?: ReactNode;
+  /** The search mark at the start of the field (Figma Combobox: Search 20). */
+  search?: boolean;
+  /** Shown under the field when the typed value matches nothing ("No results for …"). Announced politely. */
+  noResults?: ReactNode;
   /** Runs before the field's own keys; call preventDefault to take the key over. */
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
   /** Id for the input. */
@@ -60,6 +69,7 @@ export interface ComboboxProps {
 export default function Combobox({
   label,
   hideLabel = false,
+  labelPosition = 'top',
   value,
   onChange,
   groups,
@@ -68,6 +78,8 @@ export default function Combobox({
   placement = "below",
   placeholder,
   hint,
+  search = false,
+  noResults,
   onKeyDown,
   id,
   className,
@@ -94,6 +106,7 @@ export default function Combobox({
   useEffect(() => setActive(startAt()), [signature, defaultOptionId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const expanded = open && flat.length > 0;
+  const empty = open && flat.length === 0 && value.trim() !== "" && !!noResults;
 
   function choose(i: number) {
     const f = flat[i];
@@ -130,7 +143,7 @@ export default function Combobox({
   let n = -1;
   return (
     <div
-      className={[styles.combobox, className].filter(Boolean).join(" ")}
+      className={[styles.combobox, labelPosition === 'inline' && !hideLabel ? styles.inline : '', className].filter(Boolean).join(" ")}
       data-placement={placement}
       data-bella-component="combobox"
     >
@@ -142,6 +155,7 @@ export default function Combobox({
       </label>
       <div className={styles.anchor}>
         <div className={styles.field}>
+          {search ? <Icon name="Search" size="md" className={styles.searchMark} /> : null}
           <input
             id={inputId}
             className={styles.input}
@@ -209,6 +223,13 @@ export default function Combobox({
               })}
             </div>
           ))}
+        </div>
+        <div role="status">
+          {empty ? (
+            <div className={styles.list}>
+              <p className={styles.noResults}>{noResults}</p>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

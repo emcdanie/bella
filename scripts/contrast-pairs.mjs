@@ -55,7 +55,7 @@ const ratio = (a, b) => {
 
 /* A translucent fill is composited over what it sits on: '<fill> over <surface>'.
  * Fills that are a tint in some themes (Chip dark: subtle and lane are white at 10%,
- * Elleta, 18 Nov: "A for the dark grey") sit where the parts put them: subtle on a
+ * decided 18 Nov) sit where the parts put them: subtle on a
  * card (the lighter, so the harder case for light text), lane on the page. */
 const SITS_ON = { '--color-background-brand-subtle-hover': '--color-background-surface', '--color-background-brand-subtle': '--color-background-surface', '--color-background-subtle': '--color-background-surface', '--color-background-lane': '--color-background-default' };
 function colour(vars, spec) {
@@ -82,12 +82,47 @@ const PAIRS = [
   ...['content-default', 'content-body', 'content-subtle', 'content-accent', 'content-link', 'content-brand', 'content-highlight'].flatMap((fg) =>
     PAGES.map((bg) => [`${fg} on ${bg}`, c(fg), c(bg), TEXT])),
   ['content-default on background-default-hover', c('content-default'), c('background-default-hover'), TEXT],
+  ['content-body on background-default-hover', c('content-body'), c('background-default-hover'), TEXT],
   ['content-default on the highlight over background-default', c('content-default'), `${c('background-highlight')} over ${c('background-default')}`, TEXT],
   ['content-highlight on the highlight over background-surface', c('content-highlight'), `${c('background-highlight')} over ${c('background-surface')}`, TEXT],
   ['content-disabled on background-disabled', c('content-disabled'), c('background-disabled'), TEXT],
   ['content-disabled on background-surface', c('content-disabled'), c('background-surface'), TEXT],
   ['content-lane-subtle on background-lane', c('content-lane-subtle'), c('background-lane'), TEXT],
+  // EmptyState (19 Nov 2026): its line on the card and the title on each wash's
+  // strongest stop. The line (content/lane-subtle, as Figma) on a wash is 5.3 to
+  // 5.5:1 in BELLA dark: reported to the library, not patched in code.
+  ['content-lane-subtle on background-surface', c('content-lane-subtle'), c('background-surface'), TEXT],
+  ['content-default on the pink wash over background-surface', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the blue wash over background-surface', c('content-default'), `${c('background-wash-blue-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the ochre wash over background-surface', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
+  ['content-default on the navy wash over background-surface', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
+  // History kinds (21 Nov): ink glyphs on the grey and yellow washes; decisions knockout on ink
+  ['content-default on the red wash over background-surface (History kind fix)', c('content-default'), `${c('background-wash-red-strong')} over ${c('background-surface')}`, MARK],
+  ['content-default on the grey wash over background-surface', c('content-default'), `${c('background-wash-grey-strong')} over ${c('background-surface')}`, MARK],
+  ['content-default on the yellow wash over background-surface', c('content-default'), `${c('background-wash-yellow-strong')} over ${c('background-surface')}`, MARK],
+  ['content-knockout on content-default', c('content-knockout'), c('content-default'), MARK],
   ['content-default on background-lane', c('content-default'), c('background-lane'), TEXT],
+  // BoardLane needs-you (19 Nov 2026): name and order on the warm wash, its edge off the page
+  ['content-default on the needs-you wash over background-default', c('content-default'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the needs-you wash over background-default', c('content-lane-subtle'), `${c('background-utility-warning')} over ${c('background-default')}`, TEXT],
+  ['border-utility-warning on background-default', c('border-utility-warning'), c('background-default'), MARK],
+  // BoardLane ideas (23 Nov 2026): name, order and empty text on the ochre wash over the page; the count plate ink on the strong wash
+  ['content-default on the ideas wash over background-default', c('content-default'), `${c('background-wash-ochre')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the ideas wash over background-default', c('content-lane-subtle'), `${c('background-wash-ochre')} over ${c('background-default')}`, TEXT],
+  ['content-default on the ideas count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-ochre-strong')} over ${c('background-surface')}`, TEXT],
+  // BoardLane next (23 Nov 2026): name, order and empty text on the navy wash over the page; the count plate ink on the strong wash
+  ['content-default on the next wash over background-default', c('content-default'), `${c('background-wash-navy')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the next wash over background-default', c('content-lane-subtle'), `${c('background-wash-navy')} over ${c('background-default')}`, TEXT],
+  ['content-default on the next count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-navy-strong')} over ${c('background-surface')}`, TEXT],
+  // BoardLane not-doing (23 Nov 2026): name, order and empty text on the pink wash over the page; the count plate ink on the strong wash
+  ['content-default on the not-doing wash over background-default', c('content-default'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
+  ['content-lane-subtle on the not-doing wash over background-default', c('content-lane-subtle'), `${c('background-wash-pink')} over ${c('background-default')}`, TEXT],
+  ['content-default on the not-doing count plate (strong wash over background-surface)', c('content-default'), `${c('background-wash-pink-strong')} over ${c('background-surface')}`, TEXT],
+  // Tertiary Button in Chip (22 Nov 2026, her pick E): the blue label at rest on the page, and on the pale blue wash it takes on hover and focus
+  ['content-brand on background-default', c('content-brand'), c('background-default'), TEXT],
+  ['content-brand on the blue wash over background-default', c('content-brand'), `${c('background-wash-blue')} over ${c('background-default')}`, TEXT],
+  // BoardLane drop space (19 Nov 2026): label and dashed edge on the lane
+  ['content-brand on background-lane', c('content-brand'), c('background-lane'), TEXT],
   // text on filled parts
   ['content-knockout on background-knockout', c('content-knockout'), c('background-knockout'), TEXT],
   ['content-brand-knockout on background-brand', c('content-brand-knockout'), c('background-brand'), TEXT],
@@ -143,22 +178,30 @@ const lines = [];
  * carries border-strong in the same rule; every other consumer is listed. */
 const INSET_FIELDS = /^src\/components\/(Input|Select|Combobox|Textarea)\//;
 const INSET_EXEMPT = {
+  'src/components/SegmentedControl/SegmentedControl.module.css :: .control': 'the track behind the segments, not a field: each segment is the 44 target, the selected one lifts (her rule, 19 Nov: "no border or dividers, selected lifted by a shadow")',
   'src/patterns/BeforeAfterFrame/BeforeAfterFrame.module.css :: .stage': 'decorative container around a screen, not a control',
   'src/components/StatusPill/StatusPill.module.css :: .neutral': 'identified by its text, not the fill',
-  'src/components/Kbd/Kbd.module.css :: .key': 'identified by its key label, not the fill',
+  'src/components/ScoreTile/ScoreTile.module.css :: .neutral': 'a score tile identified by its label, number and word, not the fill (as StatusPill .neutral); not a field',
   'src/components/Avatar/Avatar.module.css :: .avatar': 'identified by its initials or image, not the fill',
   'src/components/Input/Input.module.css :: .field:disabled': 'disabled state fill: the disabled styling carries it',
   'src/components/Button/Button.module.css :: .button:disabled': 'disabled state fill: the disabled styling carries it',
-  'src/components/NavList/NavList.module.css :: .item:hover': 'hover state fill: transient, the item text carries it',
   'src/components/ActionChip/ActionChip.module.css :: .quiet:hover, .quiet:focus-visible': 'hover and focus state fill: the focus ring and icon carry it',
   'src/components/AvatarStack/AvatarStack.module.css :: .overflow': 'identified by its +N count text, not the fill',
-  'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text, not a control',
   'src/components/TypingDots/TypingDots.module.css :: .root': 'a typing indicator, identified by its dots, not a control',
+  'src/components/ChatBubble/ChatBubble.module.css :: .received': 'a message bubble, identified by its text and tail, not a control (as TypingDots beside it)',
   'src/components/Stat/Stat.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
+  'src/components/RadiusTile/RadiusTile.module.css :: .shape': 'a corner specimen, not a control: its border-strong edge (inset shadow) shows the corner',
+  'src/components/EasingCurve/EasingCurve.module.css :: .well': 'the backdrop of a curve specimen, identified by its ink curve, not a control',
+  'src/components/EasingCurve/EasingCurve.module.css :: .track': 'a to-scale duration track, read by its ink fill and the ms value beside it, not a control',
   'src/components/PageHeader/PageHeader.module.css :: .iconWell': 'an icon well, identified by its icon, not the fill',
-  'src/components/Tabs/Tabs.module.css :: .count': 'a count, identified by its number, not the fill',
   'src/components/Button/Button.module.css :: .secondary:hover:not(:disabled), .secondary:focus-visible': 'hover and focus state fill: transient, the label and focus ring carry it',
   'src/components/Button/Button.module.css :: .secondary:active:not(:disabled)': 'pressed state fill: transient, the label carries it',
+  'src/components/Button/Button.module.css :: .tertiary:hover:not(:disabled), .tertiary:active:not(:disabled), .tertiary[aria-pressed=\'true\']:not(:disabled), .tertiary:focus-visible': 'tertiary hover, pressed, toggled-on and focus fill (Figma Button 26:320): transient or a state the icon and aria-pressed carry, with the focus ring',
+  'src/components/BarChart/BarChart.module.css :: .callout': 'a hover callout tint (her approved mock: grey tint), identified by its small-caps label and value text, not by the fill; it appears only while a bar is picked',
+  'src/components/NavItem/NavItem.module.css :: .item:hover': 'hover state fill (light blue in Chip): transient, the item label and icon carry it',
+  'src/components/TreeItem/TreeItem.module.css :: .row:hover': 'hover state fill (light blue in Chip): transient, the row label carries it',
+  'src/components/ClientSwitcher/ClientSwitcher.module.css :: .switcher:hover': 'hover state fill (light blue in Chip): transient, the name and logo carry it',
+  'src/components/ListRow/ListRow.module.css :: .interactive:active': 'pressed state fill: transient, the row text carries it',
 };
 {
   // part tokens that point at the subtle fill or the strong edge count as those tokens

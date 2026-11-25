@@ -3,7 +3,7 @@
 name: Tooltip
 lead:
   text: A short label on hover and keyboard focus, for an icon button.
-  source: tokens/component.json description, up to the first colon or semicolon
+  source: tokens/contracts.json description, up to the first colon or semicolon
 category: Feedback
 rendersAs: null
 links:
@@ -12,6 +12,7 @@ links:
   storyTitle: Components/Tooltip
 props:
   - name: label
+    figmaName: Label
     type: string
     required: true
     doc: What the bubble says. Give the trigger the same words as its accessible name. For `kind="rich"` this is the card's title.
@@ -22,6 +23,7 @@ props:
     doc: 'The trigger: an icon button carrying aria-label.'
     at: src/components/Tooltip/Tooltip.tsx:8
   - name: placement
+    figmaName: placement
     type: '''top'' | ''bottom'''
     values:
       - top
@@ -31,6 +33,7 @@ props:
     doc: Where the bubble sits.
     at: src/components/Tooltip/Tooltip.tsx:10
   - name: kind
+    figmaName: kind
     type: '''plain'' | ''rich'''
     values:
       - plain
@@ -87,239 +90,238 @@ anatomy:
       at: centre
       from: guidance.anatomyParts (a component whose parts sit in one row needs them named by hand)
   figma:
-    name: kind=plain, placement=bottom
+    name: kind=plain, placement=top
     type: COMPONENT
-    size: 109x35
+    size: 113x40
+    tokens:
+      - field: paddingBottom
+        variable: spacing/8
     children:
-      - name: Set aside · 13 Nov · Tail
-        type: POLYGON
-        hidden: true
-        size: 12x7
-        tokens:
-          - field: fills
-            variable: component/tooltip/background
       - name: Bubble
         type: FRAME
-        size: 109x35
+        size: 113x32
         tokens:
           - field: itemSpacing
-            variable: spacing/1
+            variable: spacing/4
           - field: paddingLeft
-            variable: component/tooltip/padding-x
+            variable: spacing/8
           - field: paddingTop
-            variable: component/tooltip/padding-y
+            variable: spacing/4
           - field: paddingRight
-            variable: component/tooltip/padding-x
+            variable: spacing/8
           - field: paddingBottom
-            variable: component/tooltip/padding-y
+            variable: spacing/4
           - field: topLeftRadius
-            variable: component/tooltip/border-radius
+            variable: border/radius/sm
           - field: topRightRadius
-            variable: component/tooltip/border-radius
+            variable: border/radius/sm
           - field: bottomLeftRadius
-            variable: component/tooltip/border-radius
+            variable: border/radius/sm
           - field: bottomRightRadius
-            variable: component/tooltip/border-radius
+            variable: border/radius/sm
           - field: fills
-            variable: component/tooltip/background
+            variable: color/background/knockout
         children:
           - name: Label
             type: TEXT
             text: Check again
-            size: 93x27
+            size: 97x24
             tokens:
               - field: fills
-                variable: component/tooltip/foreground
+                variable: color/content/knockout
               - field: fontSize
-                variable: component/tooltip/font-size
+                variable: typography/font-size/16
               - field: fontFamily
-                variable: typography/font-family/body
+                variable: typography/body-default/font-family
               - field: fontWeight
-                variable: typography/font-weight/medium
+                variable: typography/font-weight/400
+      - name: Pointer
+        type: VECTOR
+        size: 16x8
+        tokens:
+          - field: fills
+            variable: color/background/knockout
   code: []
 tokens:
   used:
     - part: tip
       state: rest
       property: padding
-      token: '--component-tooltip-padding-y'
+      token: '--spacing-4'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:14
     - part: tip
       state: rest
       property: padding
-      token: '--component-tooltip-padding-x'
+      token: '--spacing-8'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:14
     - part: tip
       state: rest
       property: border-radius
-      token: '--component-tooltip-border-radius'
+      token: '--border-radius-4'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:15
     - part: tip
       state: rest
       property: background
-      token: '--component-tooltip-background'
+      token: '--color-background-knockout'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:16
     - part: tip
       state: rest
       property: color
-      token: '--component-tooltip-foreground'
+      token: '--color-content-knockout'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:17
     - part: tip
       state: rest
       property: font-family
-      token: '--typography-font-family-body'
+      token: '--typography-body-default-font-family'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:18
     - part: tip
       state: rest
       property: font-size
-      token: '--component-tooltip-font-size'
+      token: '--typography-label-default-font-size'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:19
     - part: bottom
       state: rest
       property: top
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .bottom
       at: src/components/Tooltip/Tooltip.module.css:30
     - part: top
       state: rest
       property: bottom
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .top
       at: src/components/Tooltip/Tooltip.module.css:34
     - part: rich
       state: rest
       property: gap
-      token: '--spacing-1'
+      token: '--spacing-4'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:43
     - part: rich
       state: rest
       property: padding
-      token: '--spacing-3'
+      token: '--spacing-12'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:44
     - part: rich
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:45
     - part: rich
       state: rest
       property: border
-      token: '--color-semantic-border-subtle'
+      token: '--color-border-subtle'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:45
     - part: rich
       state: rest
       property: border-radius
-      token: '--radius-md'
+      token: '--border-radius-8'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:46
     - part: rich
       state: rest
       property: background
-      token: '--color-semantic-surface-elevated'
+      token: '--color-background-surface'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:47
     - part: rich
       state: rest
       property: color
-      token: '--color-semantic-text-body'
+      token: '--color-content-body'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:48
     - part: rich
       state: rest
       property: box-shadow
-      token: '--shadow-ui'
+      token: '--shadow-ui-ink'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:49
     - part: rich
       state: rest
       property: line-height
-      token: '--typography-line-height-snug'
+      token: '--typography-line-height-130'
       selector: .rich
       at: src/components/Tooltip/Tooltip.module.css:50
     - part: title
       state: rest
       property: font-weight
-      token: '--typography-font-weight-semibold'
+      token: '--typography-font-weight-600'
       selector: .title
       at: src/components/Tooltip/Tooltip.module.css:58
     - part: title
       state: rest
       property: color
-      token: '--color-semantic-text-primary'
+      token: '--color-content-default'
       selector: .title
       at: src/components/Tooltip/Tooltip.module.css:59
     - part: tip
       state: rest
       property: border
-      token: '--border-width-thin'
+      token: '--border-width-1'
       selector: .tip
       at: src/components/Tooltip/Tooltip.module.css:64
   values:
-    '--border-width-thin':
-      light: 1px
-      chip: 1px
-    '--color-semantic-border-subtle':
-      light: '#e4e6ec'
-      chip: '#e4e6ec'
-    '--color-semantic-surface-elevated':
-      light: '#ffffff'
-      chip: '#ffffff'
-    '--color-semantic-text-body':
-      light: '#2b2f3d'
-      chip: '#2b2f3d'
-    '--color-semantic-text-primary':
-      light: '#1d2030'
-      chip: '#1d2030'
-    '--component-tooltip-background':
-      light: '#171a22'
-      chip: '#171a22'
-    '--component-tooltip-border-radius':
-      light: 4px
-      chip: 4px
-    '--component-tooltip-font-size':
-      light: 16px
-      chip: 16px
-    '--component-tooltip-foreground':
-      light: '#eceef3'
-      chip: '#eceef3'
-    '--component-tooltip-padding-x':
-      light: 8px
-      chip: 8px
-    '--component-tooltip-padding-y':
-      light: 4px
-      chip: 4px
-    '--radius-md':
-      light: 8px
-      chip: 8px
-    '--shadow-ui':
-      light: '0 1px 2px #1d20300f, 0 4px 10px #1d203014'
-      chip: '0 1px 2px #1d20300f, 0 4px 10px #1d203014'
-    '--spacing-1':
-      light: 4px
-      chip: 4px
-    '--spacing-3':
-      light: 12px
-      chip: 12px
-    '--typography-font-family-body':
-      light: '''DM Sans'', system-ui, sans-serif'
-      chip: '''DM Sans'', system-ui, sans-serif'
-    '--typography-font-weight-semibold':
-      light: '600'
-      chip: '600'
-    '--typography-line-height-snug':
-      light: '1.3'
-      chip: '1.3'
+    '--border-radius-4':
+      light: null
+      chip: null
+    '--border-radius-8':
+      light: null
+      chip: null
+    '--border-width-1':
+      light: null
+      chip: null
+    '--color-background-knockout':
+      light: null
+      chip: null
+    '--color-background-surface':
+      light: null
+      chip: null
+    '--color-border-subtle':
+      light: null
+      chip: null
+    '--color-content-body':
+      light: null
+      chip: null
+    '--color-content-default':
+      light: null
+      chip: null
+    '--color-content-knockout':
+      light: null
+      chip: null
+    '--shadow-ui-ink':
+      light: null
+      chip: null
+    '--spacing-12':
+      light: null
+      chip: null
+    '--spacing-4':
+      light: null
+      chip: null
+    '--spacing-8':
+      light: null
+      chip: null
+    '--typography-body-default-font-family':
+      light: null
+      chip: null
+    '--typography-font-weight-600':
+      light: null
+      chip: null
+    '--typography-label-default-font-size':
+      light: null
+      chip: null
+    '--typography-line-height-130':
+      light: null
+      chip: null
 motion:
   transitions: []
   reducedMotion: null
@@ -360,109 +362,8 @@ a11y:
       value: aria-hidden="true"
       at: src/components/Tooltip/Tooltip.tsx:61
 contrast:
-  pairs:
-    - label: ink text on the page
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#F7F7F5'
-      ratio: 15.04
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:70
-    - label: ink text on panel
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:71
-    - label: body text on the page
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#F7F7F5'
-      ratio: 12.42
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:72
-    - label: body text on the card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:73
-    - label: tooltip label
-      foreground: '--component-tooltip-foreground'
-      background: '--component-tooltip-background'
-      foregroundHex: '#eceef3'
-      backgroundHex: '#171a22'
-      ratio: 14.98
-      bar: 7
-      barName: AAA
-      pass: true
-      theme: chip
-      at: scripts/contrast-pairs.mjs:145
-    - label: Rich title on card
-      foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-elevated'
-      foregroundHex: '#1d2030'
-      backgroundHex: '#ffffff'
-      ratio: 16.13
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-    - label: Rich rows on card
-      foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-elevated'
-      foregroundHex: '#2b2f3d'
-      backgroundHex: '#ffffff'
-      ratio: 13.32
-      bar: 4.5
-      barName: AA
-      pass: true
-      theme: chip
-      at: guidance.contrastExtra
-  derived:
-    - foreground: '--component-tooltip-foreground'
-      background: '--color-semantic-background'
-      ratio: 1.08
-      theme: chip
-    - foreground: '--component-tooltip-foreground'
-      background: '--color-semantic-surface-card'
-      ratio: 1.16
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-background'
-      ratio: 12.42
-      theme: chip
-    - foreground: '--color-semantic-text-body'
-      background: '--color-semantic-surface-card'
-      ratio: 13.32
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-background'
-      ratio: 15.04
-      theme: chip
-    - foreground: '--color-semantic-text-primary'
-      background: '--color-semantic-surface-card'
-      ratio: 16.13
-      theme: chip
+  pairs: []
+  derived: []
 codeExample:
   file: ~/DEV/bella-storybook-brand/src/components/Tooltip/Tooltip.stories.tsx
   lines: 25-37
@@ -480,12 +381,12 @@ usage:
   dont:
     - 'Do not put anything a person must read only in a tooltip: it labels, it never explains'
     - Do not use it on a trigger without an aria-label of the same words
-  source: tokens/component.json
+  source: tokens/contracts.json
 figma:
   nodeId: '436:112'
   fileKey: JzN6DXIILH64KHI5MmgH8Q
   props:
-    label#738:21:
+    Label#738:21:
       type: TEXT
       default: Check again
     Row 1#738:26:
@@ -494,7 +395,7 @@ figma:
     Row 2#738:31:
       type: TEXT
       default: 'Trust: Not measured'
-    title#739:72:
+    Title#739:72:
       type: TEXT
       default: Check again
     kind:
@@ -505,42 +406,66 @@ figma:
         - rich
     placement:
       type: VARIANT
-      default: bottom
+      default: top
       values:
         - top
         - bottom
+        - right
+        - left
   variants:
     - name: kind=plain, placement=bottom
-      width: 109
-      height: 35
+      width: 113
+      height: 40
     - name: kind=plain, placement=top
-      width: 109
-      height: 35
+      width: 113
+      height: 40
     - name: kind=rich, placement=top
-      width: 209
-      height: 97
+      width: 219
+      height: 104
     - name: kind=rich, placement=bottom
-      width: 209
-      height: 97
-  defaultVariant: kind=plain, placement=bottom
+      width: 219
+      height: 104
+    - name: kind=plain, placement=right
+      width: 121
+      height: 32
+    - name: kind=plain, placement=left
+      width: 121
+      height: 32
+    - name: kind=rich, placement=right
+      width: 227
+      height: 96
+    - name: kind=rich, placement=left
+      width: 227
+      height: 96
+  defaultVariant: kind=plain, placement=top
   annotations:
     - label: >-
-        Dev · <Tooltip label placement kind rows> · src/components/Tooltip/Tooltip.tsx:29. Bubble padding spacing/2 × spacing/1 (code:
-        --component-tooltip-padding-x/-y, bind after the Foundations publish), radius radius/sm (--component-tooltip-border-radius), fill
-        surface-inverse (--component-tooltip-background), label text-inverse at typography/font-size/tag (--component-tooltip-font-size).
-        Rich: padding spacing/3, radius/md, surface-elevated, shadow/ui-ink (Tooltip.module.css:40-51). Tail is set aside: code draws none.
+        <Tooltip label placement kind rows> · src/components/Tooltip/Tooltip.tsx. Plain: an ink bubble (color/background/knockout) with the
+        label in color/content/knockout, 32 tall, 8 from the trigger (spacing/8). kind=rich: a small card with a title and rows.
       category: '123:0'
     - label: >-
-        Shows on hover and focus of the trigger; stays while the pointer is on it; Esc hides it (Tooltip.tsx:35, WCAG 1.4.13). Plain is
-        aria-hidden: the trigger carries the same words as its aria-label (Tooltip.tsx:61). Rich is the trigger's description,
-        aria-describedby (Tooltip.tsx:48,50). Forced colours: plain gets a CanvasText border (Tooltip.module.css:62-66). The 44px target
-        belongs to the trigger, not the bubble.
+        Shows on hover and keyboard focus of its trigger; stays while the pointer is on it; Esc hides it (WCAG 1.4.13). Never focusable. The
+        trigger’s name is the label. Text 10.99:1 or more in all four themes.
       category: '123:2'
-    - label: 'None: the bubble is shown or hidden, no transition (Tooltip.module.css has no transition).'
+    - label: 'None: shown or hidden, no transition.'
       category: '123:4'
   documentationLinks:
     - https://emcdanie.github.io/bella/?path=/docs/components-tooltip--docs
-mismatch: []
+mismatch:
+  - field: props.placement.values
+    code:
+      - top
+      - bottom
+    figma:
+      - top
+      - bottom
+      - right
+      - left
+  - field: tokens.Label.fontSize
+    code:
+      - '--typography-label-default-font-size'
+    figma: typography/font-size/16
+    sameValueInChip: true
 notApplicable:
   - section: Sizes
     why: no size prop in src/components/Tooltip/Tooltip.tsx
@@ -569,7 +494,6 @@ guidance:
       dont:
         rule: Never a sentence
         text: Click here to check the status again
-  doDontIntro: A few words that name the button, nothing more.
   anatomyParts:
     - name: Bubble
       layer: Bubble
@@ -579,6 +503,7 @@ guidance:
       layer: Label
       at: centre
   inContext: []
+  doDontIntro: A few words that name the button, nothing more.
   contrastVarMap:
     '--component-tooltip-foreground': color/semantic/text-inverse
     '--component-tooltip-background': color/semantic/surface-inverse

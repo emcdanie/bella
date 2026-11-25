@@ -32,7 +32,7 @@ const VIEWS_WITH_ICONS = [
 
 
 const meta: Meta<typeof SegmentedControl> = {
-  title: 'Components/SegmentedControl',
+  title: 'Components/Actions/SegmentedControl',
   component: SegmentedControl,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -49,6 +49,10 @@ const meta: Meta<typeof SegmentedControl> = {
 export default meta;
 
 type Story = StoryObj<typeof SegmentedControl>;
+
+/* every number in Geist Mono: the element's face is the number token's first family */
+const numberFace = (el: Element) => getComputedStyle(document.documentElement).getPropertyValue('--typography-number-font-family').split(',')[0].trim().replace(/['"]/g, '');
+const faceOf = (el: Element) => getComputedStyle(el).fontFamily.split(',')[0].trim().replace(/['"]/g, '');
 
 /** The shipped shape: icon + label per segment, exactly the /work
  * switcher. Icons are decorative (aria-hidden); the label carries the
@@ -110,6 +114,58 @@ export const Behavior: Story = {
 
     await step('touch target: 44px minimum per segment', async () => {
       expectTouchTarget(cards);
+    });
+  },
+};
+
+/** Number labels (Playground widths): the number face, as every number; word labels stay Lexend. */
+export const NumberLabels: Story = {
+  render: () => {
+    const [v, setV] = useState('1024');
+    return (
+      <SegmentedControl
+        label="Width"
+        value={v}
+        onChange={setV}
+        options={['375', '768', '1024', '1440'].map((w) => ({ value: w, label: w }))}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    for (const b of canvasElement.querySelectorAll('button')) await expect(faceOf(b)).toBe(numberFace(b));
+  },
+};
+
+/** Figma "Show segment 4" and the instance drawn at card width (Gate runs' range): four options, `stretch` shares the width equally. */
+export const FourSegmentsStretched: Story = {
+  render: () => {
+    const [v, setV] = useState('d');
+    return (
+      <div style={{ inlineSize: 'calc(var(--spacing-80) * 4)' }}>
+        <SegmentedControl
+          label="Range"
+          stretch
+          value={v}
+          onChange={setV}
+          options={[
+            { value: 'd', label: 'D' },
+            { value: 'w', label: 'W' },
+            { value: 'm', label: 'M' },
+            { value: 'y', label: 'Y' },
+          ]}
+        />
+      </div>
+    );
+  },
+  play: async ({ canvasElement, step }) => {
+    const group = canvasElement.querySelector('[data-bella-component="segmented-control"]') as HTMLElement;
+    const buttons = Array.from(group.querySelectorAll('button'));
+    await step('four segments fill the group and share it equally', async () => {
+      await expect(buttons).toHaveLength(4);
+      const widths = buttons.map((b) => Math.round(b.getBoundingClientRect().width));
+      await expect(new Set(widths).size).toBe(1);
+      await expect(Math.round(group.getBoundingClientRect().width)).toBe(Math.round(group.parentElement!.getBoundingClientRect().width));
+      await expect(buttons[0]).toHaveAttribute('aria-current', 'true');
     });
   },
 };

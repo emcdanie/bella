@@ -1,7 +1,7 @@
 // figma-spec-read: reads one component set from Figma into plain JSON for scripts/spec-build.mjs (12 Nov 2026).
 // Read-only. Plain plugin-API JS, run through the Desktop Bridge (figma_execute). Nothing is written to the file.
 // Set READ_OPTS first, then paste this file after it:
-//   const READ_OPTS = { fileKey: 'JzN6DXIILH64KHI5MmgH8Q', pageName: '🧩 Link', setName: 'Link' };
+//   const READ_OPTS = { fileKey: '${FIGMA_FILE_KEY}', pageName: '🧩 Link', setName: 'Link' };
 // Save the returned `result` as JSON and pass it to: node scripts/spec-build.mjs Link --figma <file>.json
 // Never uses loadAllPagesAsync; one page.loadAsync, and an 8s race around every variable lookup.
 

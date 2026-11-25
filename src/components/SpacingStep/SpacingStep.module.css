@@ -1,0 +1,73 @@
+/* Spacing step (Figma BellaComponents 796:8518, read 19 Nov 2026). Tokens
+ * only. A row, 16 apart, centred: the step number (48 wide, 16,
+ * content/subtle), the bar (12 tall, border/ink, border/radius/sm) whose
+ * width is the spacing token itself, and the value (16, content/default).
+ * Both are numbers, so both are the number face (her font rule: every
+ * number in Geist Mono; re-audit 21 Nov). */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.step {
+  flex: none;
+  inline-size: var(--spacing-48);
+  color: var(--color-content-subtle);
+}
+
+.bar {
+  flex: none;
+  block-size: var(--spacing-12);
+  border-radius: var(--border-radius-sm);
+  background: var(--color-border-ink);
+}
+
+.s4 { inline-size: var(--spacing-4); }
+.s8 { inline-size: var(--spacing-8); }
+.s12 { inline-size: var(--spacing-12); }
+.s16 { inline-size: var(--spacing-16); }
+.s20 { inline-size: var(--spacing-20); }
+.s24 { inline-size: var(--spacing-24); }
+.s32 { inline-size: var(--spacing-32); }
+.s40 { inline-size: var(--spacing-40); }
+.s44 { inline-size: var(--spacing-44); }
+.s48 { inline-size: var(--spacing-48); }
+.s64 { inline-size: var(--spacing-64); }
+.s80 { inline-size: var(--spacing-80); }
+
+.value {
+  color: var(--color-content-default);
+}
+
+/* animated (CHIP Foundations, 23 Nov: the pink grow-in she liked): the bar is
+ * pink (accent-1) with its ink edge for the 3:1 line, and grows from zero to
+ * its token width once, as it scrolls into view. Reduced motion: drawn at full
+ * size, no growth. */
+.animated .bar {
+  background: var(--color-background-accent-1);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-ink);
+  transform-origin: left center;
+  animation: grow var(--motion-duration-450) var(--motion-easing-out) both;
+}
+
+@supports (animation-timeline: view()) {
+  .animated .bar {
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+
+@keyframes grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .bar { animation: none; }
+}

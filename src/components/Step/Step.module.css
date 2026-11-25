@@ -1,0 +1,318 @@
+/* Step (Figma BellaComponents "Step", read 19 Nov 2026). Tokens only.
+ * Marker: Icon well 36 (done success + Check, current info, pending neutral;
+ * 18 Nov: done uses the check in a soft success circle). Lines are Map line.
+ * horizontal: column, 12 apart, padding 12 on every side (21 Nov publish:
+ * paddingRight 12, the connector stops 12 short of the edge); marker row =
+ * marker + connector, 12 apart; text column 4 apart.
+ * vertical: row, 12 apart, 12 each side; marker column runs edge to edge
+ * (line above 12, marker, connector fills) so rows join; text column 12
+ * above and below, 4 apart; time 12 from the top.
+ * current: background/utility/info with a 1px inside edge border/utility/info,
+ * detail and time in content/utility/info. selected (vertical): background/
+ * brand-subtle-hover, no edge, ink text (content/default). Title 400 in every
+ * state (decided 22 Nov). Interactive rows: one light-blue
+ * hover (background/brand-subtle) and the 4 + 4 focus ring on the 12 corner.
+ * The inside edge is an inset shadow, so it adds no size (Figma INSIDE). */
+
+.step {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-inline-size: 0;
+}
+
+.step.horizontal {
+  flex: 1 1 0;
+}
+
+.row {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  border-radius: var(--border-radius-12);
+  text-align: start;
+}
+
+.horizontal .row {
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12);
+}
+
+.vertical .row {
+  flex-direction: row;
+  align-items: stretch;
+  gap: var(--spacing-12);
+  padding-inline: var(--spacing-12);
+}
+
+.markerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.markerColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marker {
+  flex-shrink: 0;
+}
+
+/* Marker column (20 Nov): at least the height of a title plus its tag
+   (24 + 4 + 32 + 12 + 12 = 84; named exception, no 84 token), so a hidden
+   tag keeps the row height. */
+.vertical .markerColumn {
+  min-block-size: calc(var(--typography-line-height-px-24) + var(--spacing-4) + var(--spacing-32) + var(--spacing-12) * 2);
+}
+
+.above {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 var(--spacing-12);
+}
+
+.below {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 var(--size-36);
+}
+
+.fill {
+  flex: 1 1 auto;
+  align-self: stretch;
+}
+
+/* _Step number: 36 circle, number face 600 */
+.number {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: var(--size-36);
+  block-size: var(--size-36);
+  border-radius: var(--border-radius-round);
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+}
+
+.number-done {
+  background: var(--color-background-utility-success);
+  color: var(--color-content-utility-success);
+}
+
+.number-current {
+  background: var(--color-background-utility-info);
+  box-shadow: inset 0 0 0 var(--border-width-2) var(--color-border-utility-info);
+  color: var(--color-content-utility-info);
+}
+
+.number-pending {
+  background: var(--color-background-utility-neutral);
+  color: var(--color-content-utility-neutral);
+}
+
+.number-failed {
+  background: var(--color-background-utility-error);
+  color: var(--color-content-utility-error);
+}
+
+/* Step day: the line runs through the day heading */
+.day {
+  display: flex;
+  gap: var(--spacing-12);
+  margin: 0;
+  padding-inline: var(--spacing-12);
+  list-style: none;
+}
+
+.dayLine {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 var(--size-36);
+}
+
+.dayText {
+  flex: 1 1 auto;
+  padding-block: var(--spacing-8);
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.vertical .text {
+  padding-block: var(--spacing-12);
+}
+
+.title,
+.detail,
+.time {
+  display: block;
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  overflow-wrap: break-word;
+  max-inline-size: 100%;
+}
+
+/* Title line (decided 22 Nov): the title at 600
+   with the time beside it after a dot; the line wraps, so a long title
+   takes the dot and time onto the next line */
+/* the title flows as text, so the dot and time follow its last word and
+   wrap together onto the next line only when they do not fit (her B) */
+.titleRow {
+  display: block;
+  max-inline-size: 100%;
+}
+
+.titleRow .title {
+  display: inline;
+}
+
+/* the dot and the time wrap together, never apart */
+.timeInline {
+  display: inline-flex;
+  align-items: baseline;
+  column-gap: var(--spacing-8);
+  margin-inline-start: var(--spacing-8);
+  white-space: nowrap;
+}
+
+.title {
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-600);
+  color: var(--color-content-default);
+}
+
+.detail,
+.time {
+  font-weight: var(--typography-font-weight-400);
+  color: var(--color-content-subtle);
+}
+
+/* The detail is a sentence: the reading face, her y23 answer 19 Nov. The time
+   is meta and stays in the subtext face. */
+.detail {
+  font-family: var(--typography-body-default-font-family);
+}
+
+/* Meta (decided 22 Nov): Geist Mono
+   14 on a 20 line (no line-height-px/20 token; size-20 carries it) */
+.time {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+}
+
+.time {
+  flex-shrink: 0;
+}
+
+/* The status Tag on the right edge, top-aligned with the title (Figma Time
+   zone, padding-top 12) */
+.tagSide {
+  display: flex;
+  align-self: flex-start;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-block-start: var(--spacing-12);
+}
+
+/* ---- states ---- */
+.current .row {
+  background: var(--color-background-utility-info);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-utility-info);
+}
+
+.current .detail,
+.current .time {
+  color: var(--color-content-utility-info);
+}
+
+/* failed (22 Nov, Figma audit): no working tint; the title and the detail
+   in ink, so the failure reads as plainly as the rest of the list */
+.failed .detail {
+  color: var(--color-content-default);
+}
+
+.step.selected .row {
+  /* the decided selected look: light-blue wash, bold ink label, no edge
+     (also over the current edge: selection wins) */
+  background: var(--color-background-brand-subtle-hover);
+  box-shadow: none;
+}
+
+/* Selected keeps its 12 of extra room inside the columns (Above 24, text 24
+   above and below), not as row padding, so the line runs to the row edge. */
+.step.selected .above {
+  flex-basis: var(--spacing-24);
+}
+
+.vertical.selected .markerColumn {
+  min-block-size: calc(var(--typography-line-height-px-24) + var(--spacing-4) + var(--spacing-32) + var(--spacing-24) * 2);
+}
+
+.vertical.selected .text {
+  padding-block: var(--spacing-24);
+}
+
+.vertical.selected .tagSide {
+  padding-block-start: var(--spacing-24);
+}
+
+.selected .detail,
+.selected .time {
+  /* Figma description: selected is a light-blue row with ink text */
+  color: var(--color-content-default);
+}
+
+.interactive .row {
+  cursor: pointer;
+  min-block-size: var(--spacing-44);
+}
+
+.interactive:not(.selected) .row:hover {
+  background: var(--color-background-brand-subtle);
+}
+
+.interactive .row:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Narrow (decided 22 Nov): the title line wraps by itself, so
+   no container query is needed; timeUnderTitle still puts the time on its
+   own line. */
+
+/* Kind markers (CHIP History flow, read 21 Nov): the Icon well's fill is the
+   kind's strong wash and the glyph is ink, as Figma overrides it (grey and
+   yellow washes mirror the published Figma variables, 19 Nov "B"). Merged
+   keeps the success well (green only for Merged). Doubled class beats the
+   well's own tone. */
+.marker.kind-docs { background: var(--color-background-wash-yellow-strong); color: var(--color-content-default); }
+.marker.kind-tooling { background: var(--color-background-wash-grey-strong); color: var(--color-content-default); }
+.marker.kind-tokens { background: var(--color-background-wash-navy-strong); color: var(--color-content-default); }
+.marker.kind-code { background: var(--color-background-wash-blue-strong); color: var(--color-content-default); }
+.marker.kind-visual { background: var(--color-background-wash-ochre-strong); color: var(--color-content-default); }
+.marker.kind-fix { background: var(--color-background-wash-red-strong); color: var(--color-content-default); } /* red wash, not pink: pink is annotation and selection (decided 21 Nov) */
+/* Decisions: a dark ink circle (her rule, 19 Nov); Figma does not draw one
+   yet, re-check when it does. */
+.marker.kind-decision { background: var(--color-content-default); color: var(--color-content-knockout); }

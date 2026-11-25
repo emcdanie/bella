@@ -1,0 +1,69 @@
+/* Radius tile (CHIP Dashboard "Foundations · Shape and space" 808:82396,
+ * read 21 Nov 2026). Tokens only. A column, 8 apart, 116 wide: the tile
+ * (72, background/subtle, a 1px border/strong edge inside) whose corner is
+ * the radius token itself; the token name (number face 16, content/default);
+ * the use line (reading face 16/24, content/subtle). */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+  inline-size: calc(var(--spacing-4) * 29); /* Figma's 116 column, so "lg-focus · 12px" fits */
+}
+
+.shape {
+  box-sizing: border-box;
+  inline-size: calc(var(--size-36) * 2); /* Figma 72 */
+  block-size: calc(var(--size-36) * 2);
+  background: var(--color-background-subtle);
+  box-shadow: inset 0 0 0 var(--border-width-1) var(--color-border-strong);
+}
+
+.r0 { border-radius: var(--border-radius-0); }
+.r4 { border-radius: var(--border-radius-4); }
+.r8 { border-radius: var(--border-radius-8); }
+.r12 { border-radius: var(--border-radius-12); }
+.r16 { border-radius: var(--border-radius-16); }
+.r20 { border-radius: var(--border-radius-20); }
+.r24 { border-radius: var(--border-radius-24); }
+.rround { border-radius: var(--border-radius-round); }
+
+.token {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-default);
+}
+
+.use {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-body-default-font-weight);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+}
+
+/* animated (CHIP Foundations, 23 Nov): the tile is the pink wash with its
+ * strong edge, and its corner rounds from square to the token once, as it
+ * scrolls into view. Reduced motion: drawn at its token, no morph. */
+.animated .shape {
+  background: var(--color-background-wash-pink-strong);
+  animation: round var(--motion-duration-450) var(--motion-easing-out) both;
+}
+
+@supports (animation-timeline: view()) {
+  .animated .shape {
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+}
+
+@keyframes round {
+  from { border-radius: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated .shape { animation: none; }
+}

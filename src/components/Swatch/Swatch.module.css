@@ -1,0 +1,82 @@
+/* Swatch (Figma BellaComponents 794:169044; the colour chip card, 22 Nov
+ * 19:08: "in a table, one plain square; the Swatch part itself is the colour
+ * chip"). Tokens only. A chip with a 1px border/subtle edge all round and
+ * corner 8, clipped, so a colour close to the page still shows where it
+ * ends: the colour block on top (64 sm, 96 lg) and the label strip on
+ * background/surface (padding 12, gap 4). Name: reading face 600, 16/24,
+ * content/default. Meta (a meta line, 22 Nov "Meta lines at 14: B"): hex
+ * left, ratio or "No pair" right, subtext face 14 on a 20 line,
+ * content/subtle, 4 apart, wraps when narrow. The edge is an
+ * inside outline, as Figma's inside stroke, so it takes no room. lg: the meta row ends in the
+ * secondary sm icon-only Copy button. */
+
+.swatch {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+  overflow: hidden;
+  /* Figma's stroke sits inside and takes no room, so the edge is an inside
+     outline, drawn over the colour block: the label keeps its full width and
+     the meta stays on one line at 156 (audit 10) */
+  outline: var(--border-width-1) solid var(--color-border-subtle);
+  outline-offset: calc(var(--border-width-1) * -1);
+  border-radius: var(--border-radius-8);
+  background: var(--color-background-surface);
+}
+
+.colour {
+  display: block;
+  block-size: var(--spacing-64);
+}
+
+/* lg is 264 wide by default, as Figma draws it (no 264 step: 4 x 64 + 8) */
+.lg {
+  inline-size: calc(var(--spacing-64) * 4 + var(--spacing-8));
+}
+
+.lg .colour {
+  block-size: calc(var(--spacing-48) * 2); /* 96: no 96 step; two of the 48 step */
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-12);
+}
+
+.name {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-default);
+  overflow-wrap: break-word;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  /* hex and ratio are one group: 4 apart (rule 10; Figma draws 8), so
+     "#1D2030" and "16.1:1" share one line at 156 wide (audit 10) */
+  gap: 0 var(--spacing-4);
+  min-inline-size: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20); /* 14 on a 20 line; no line-height-px/20 token */
+  color: var(--color-content-subtle);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.metaRow .meta {
+  flex: 1 1 auto;
+}

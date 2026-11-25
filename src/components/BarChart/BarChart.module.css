@@ -1,0 +1,491 @@
+/* BarChart (BellaComponents BarChart 1737:304, "Gate runs", published 22 Nov
+ * 2026; decided). Tokens only. A card: title, range
+ * (SegmentedControl, four segments), the summary block as Stat card (small
+ * caps label, number and unit in the number face 600, one meta line), then
+ * the chart: rounded bars from a visible zero baseline, thin dashed
+ * gridlines, a Y axis on the right, an X axis under, the legend and one
+ * summary line. Pass = status border success, fail = status border error
+ * with a cross mark (never colour alone). Scrub: a 1px ink guide full height
+ * through the picked bar, the picked bar outlined (highlight, never dim),
+ * and a callout above the plot (the plot keeps 112 above its top gridline in
+ * both states, so scrubbing never moves the layout). Bars grow from the base
+ * in 450 ms ease-out and morph between ranges; the callout and guide follow
+ * in 150. Reduced motion: the end state at once. Bar width 18 and the 160
+ * plot are Figma measurements built from tokens. */
+
+.card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  min-inline-size: 0;
+  padding: var(--spacing-24);
+  border-radius: var(--border-radius-card);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-card-ink);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  color: var(--color-content-default);
+}
+
+/* summary block, as Stat card */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+.number {
+  display: flex;
+  flex-wrap: wrap; /* a long unit goes under the number instead of past the card (23 Nov, 320 wide) */
+  align-items: baseline;
+  gap: var(--spacing-8);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.value {
+  flex: none;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-40);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--spacing-48); /* 40 on a 48 line; no line-height-px/48 token */
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+.unit {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-20);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+.context {
+  margin: 0;
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* ---- plot ---- */
+.plot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--spacing-16);
+  align-items: start;
+  touch-action: pan-y;
+}
+
+.main {
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* the room above the top gridline: 112, the callout lives here */
+.room {
+  position: relative;
+  block-size: calc(var(--spacing-64) + var(--spacing-48));
+}
+
+.area {
+  position: relative;
+  block-size: calc(var(--spacing-80) * 2);
+}
+
+.gridline,
+.baseline {
+  position: absolute;
+  inset-inline: 0;
+  pointer-events: none;
+}
+
+/* dashed 3 on 3, border/subtle, 1 thick */
+.gridline {
+  block-size: var(--border-width-1);
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-border-subtle) 0 calc(var(--border-width-1) * 3),
+    transparent calc(var(--border-width-1) * 3) calc(var(--border-width-1) * 6)
+  );
+}
+
+/* the scale starts at zero: a solid line */
+.baseline {
+  inset-block-end: 0;
+  block-size: var(--border-width-1);
+  background: var(--color-border-default);
+}
+
+.emptyText {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+.cells {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.cell {
+  flex: 1 1 0;
+  min-inline-size: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  block-size: 100%;
+  cursor: crosshair;
+  border-radius: var(--border-radius-8);
+}
+
+.bar {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--spacing-4);
+  inline-size: calc(var(--spacing-16) + var(--border-width-2)); /* Figma: 18 wide */
+  border-radius: var(--border-radius-round);
+  transition: block-size var(--motion-duration-450) var(--motion-easing-out);
+}
+
+[data-motion='live'] .bar {
+  animation: grow var(--motion-duration-450) var(--motion-easing-out) backwards;
+}
+
+@keyframes grow {
+  from {
+    block-size: 0;
+  }
+}
+
+.cell[data-picked] .bar {
+  outline: var(--border-width-2) solid var(--color-border-ink);
+}
+
+/* the focus ring rides on the bar, not the whole column; it replaces the ink pick outline while the key focus is there */
+.cell:focus-visible {
+  outline: none;
+}
+
+.cell:focus-visible .bar {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--border-width-2);
+}
+
+
+.passed,
+.failed {
+  min-block-size: var(--size-4);
+  border-radius: var(--border-radius-round);
+}
+
+.passed {
+  background: var(--color-border-utility-success);
+}
+
+.failed {
+  min-block-size: var(--size-20); /* room for the cross, so a failure is never colour alone */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-block-start: var(--spacing-4);
+  overflow: hidden;
+  background: var(--color-border-utility-error);
+}
+
+/* the cross mark: a 12 Xmark in the surface colour (sized in the component) */
+.cross {
+  flex: none;
+  color: var(--color-background-surface);
+}
+
+.valueLabel {
+  position: absolute;
+  inset-block-end: calc(100% + var(--spacing-4));
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+  pointer-events: none;
+}
+
+/* the picked bar's label sits 8 right of the guide */
+.cell[data-picked] .valueLabel {
+  translate: var(--spacing-8) 0;
+  inset-inline-start: 50%;
+}
+
+.guide {
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--border-width-1);
+  translate: -50% 0;
+  background: var(--color-border-ink);
+  pointer-events: none;
+  transition: left var(--motion-duration-150) var(--motion-easing-out);
+}
+
+/* ---- callout ---- */
+.callout {
+  position: absolute;
+  inset-block-start: 0;
+  left: var(--guide);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-12);
+  border-radius: var(--border-radius-8);
+  background: var(--color-background-subtle);
+  color: var(--color-content-default);
+  white-space: nowrap;
+  pointer-events: none;
+  transition:
+    left var(--motion-duration-150) var(--motion-easing-out),
+    translate var(--motion-duration-150) var(--motion-easing-out);
+}
+
+/* its right edge 8 left of the guide; flipped to 8 right of it when the bar is in the left half */
+.callout[data-side='left'] {
+  translate: calc(-100% - var(--spacing-8)) 0;
+}
+
+.callout[data-side='right'] {
+  translate: var(--spacing-8) 0;
+}
+
+.calloutStatus {
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+.calloutNumber {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-8);
+}
+
+.calloutValue {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-24);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-28);
+  font-variant-numeric: tabular-nums;
+}
+
+.calloutUnit {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16); /* the 16 floor: only meta lines go to 14 */
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+.calloutContext {
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-default);
+}
+
+/* what the axis counts, once, above the plot at the axis side (23 Nov) */
+.axisUnit {
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: end;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-14);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-20);
+  letter-spacing: var(--typography-letter-spacing-4);
+  text-transform: uppercase;
+  color: var(--color-content-subtle);
+}
+
+/* a callout line the caller words from the data */
+.calloutLine {
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--size-24);
+  font-variant-numeric: tabular-nums;
+}
+
+/* a slot with failures opens what failed */
+.cell[data-action] {
+  cursor: pointer;
+}
+
+/* ---- axes ---- */
+.xAxis {
+  display: flex;
+}
+
+.xCell {
+  position: relative;
+  flex: 1 1 0;
+  min-inline-size: 0;
+  block-size: var(--size-20);
+}
+
+.xLabel {
+  position: absolute;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* the Y axis sits right of the plot, its labels centred on the gridlines */
+.yAxis {
+  position: relative;
+  align-self: start;
+  margin-block-start: calc(var(--spacing-64) + var(--spacing-48));
+  block-size: calc(var(--spacing-80) * 2);
+  min-inline-size: var(--size-16);
+}
+
+.yLabel {
+  position: absolute;
+  inset-inline-start: 0;
+  translate: 0 -50%;
+  font-family: var(--typography-number-font-family);
+  font-size: var(--typography-font-size-14);
+  line-height: var(--size-20);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-content-subtle);
+}
+
+/* ---- legend and foot ---- */
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-body);
+}
+
+.keyMark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: var(--size-16);
+  block-size: var(--size-16);
+  border-radius: var(--border-radius-4);
+}
+
+.keyPassed {
+  background: var(--color-border-utility-success);
+}
+
+.keyFailed {
+  background: var(--color-border-utility-error);
+}
+
+.summaryLine {
+  margin: 0;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
+}
+
+/* reduced motion: the end state at once (also when a story mocks the setting) */
+[data-motion='still'] .bar,
+[data-motion='still'] .guide,
+[data-motion='still'] .callout {
+  animation: none;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .guide,
+  .callout {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .passed,
+  .failed,
+  .keyMark {
+    forced-color-adjust: none;
+  }
+}

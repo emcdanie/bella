@@ -1,0 +1,59 @@
+/* Anatomy highlight (Figma BellaComponents 1309:233, read 20 Nov 2026). Tokens only.
+ * A 2px outline outside the piece in background/accent-2 (the yellow pin's
+ * colour), corner round for shape=round. The tag (_Anatomy tag 1311:5454):
+ * accent-2 fill, padding 4 / 12, the subtext face 16 / 600 on
+ * content/on-accent-1, square corners, sitting on the outline's top-left
+ * outer edge (tag=bottom: under the bottom edge). Named exception in Figma:
+ * the tag is an absolute overlay on the outline edge. */
+
+.highlight {
+  position: absolute;
+  box-sizing: border-box;
+  outline: var(--border-width-2) solid var(--color-background-accent-2);
+  outline-offset: 0;
+  pointer-events: none;
+}
+
+.round {
+  border-radius: var(--border-radius-round);
+}
+
+.tag {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-4) var(--spacing-12);
+  background: var(--color-background-accent-2);
+  font-family: var(--typography-subtext-font-family);
+  font-size: var(--typography-font-size-16);
+  font-weight: var(--typography-font-weight-600);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-on-accent-1);
+  white-space: nowrap;
+}
+
+.onEdge {
+  position: absolute;
+  inset-inline-start: calc(var(--border-width-2) * -1);
+  inset-block-end: calc(100% + var(--border-width-2));
+}
+
+.bottom .onEdge {
+  inset-block-end: auto;
+  inset-block-start: calc(100% + var(--border-width-2));
+}
+
+/* Show tag off: the name stays for screen readers */
+.name {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (forced-colors: active) {
+  .highlight { outline-color: Highlight; }
+  .tag { border: var(--border-width-1) solid CanvasText; }
+}

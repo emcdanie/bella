@@ -1,0 +1,63 @@
+/* MapLeaf (23 Nov 2026, Processes mind map). Tokens only. Bare text on a branch end: no box until hover
+ * or pick. 44 tall, padding 6 / 10, corner 12. Name Lexend 500 16; the state row is the status dot and its word (her review, 24 Nov: one status mark),
+ * then an optional measured line in plain text. selected = MapNode's: background/brand-subtle and the 2px brand edge; related = a 1px brand
+ * edge. Focus ring as MapNode. */
+
+.leaf {
+  --edge: 0;
+  box-sizing: border-box;
+  display: block;
+  min-block-size: var(--spacing-44);
+  inline-size: 100%;
+  padding-block: calc(calc(var(--spacing-4) + var(--border-width-2)) - var(--edge));
+  padding-inline: calc(calc(var(--spacing-8) + var(--border-width-2)) - var(--edge));
+  border: var(--edge) solid transparent;
+  border-radius: var(--border-radius-12);
+  background: none;
+  box-shadow: none;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.leaf:hover:not(.selected) {
+  background: var(--color-background-brand-subtle);
+}
+
+.leaf:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-border-focus);
+  outline-offset: var(--spacing-4);
+}
+
+.related {
+  --edge: var(--border-width-1);
+  border-color: var(--color-border-brand);
+}
+
+.selected {
+  --edge: var(--border-width-2);
+  border-color: var(--color-border-brand);
+  background: var(--color-background-brand-subtle);
+}
+
+.name {
+  display: block;
+  font-weight: var(--typography-font-weight-500);
+}
+
+.state {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--spacing-4) + var(--border-width-2));
+  color: var(--color-content-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    transition: none;
+  }
+}

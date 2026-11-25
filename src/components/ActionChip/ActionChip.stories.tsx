@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const chipContract = (componentContract as any).component?.['action-chip']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof ActionChip> = {
-  title: 'Components/ActionChip',
+  title: 'Components/Actions/ActionChip',
   component: ActionChip,
   parameters: {
     docs: { page: ComponentDocsPage },
@@ -81,6 +81,64 @@ export const Behavior: Story = {
       chip.focus();
       await userEvent.keyboard('{Enter}');
       expect(canvas.getByTestId('n').textContent).toBe('1');
+    });
+  },
+};
+
+/* Figma re-sync (19 Nov 2026): variant x state in Chip light and Chip dark;
+ * corner border/radius/lg (8 in Chip), label 600. Hover and focus are live. */
+export const ChipThemes: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)' }}>
+      {(['chip-light', 'chip-dark'] as const).map((theme) => (
+        <div key={theme} data-theme={theme} style={{ padding: 'var(--spacing-24)', background: 'var(--color-background-surface)', display: 'flex', gap: 'var(--spacing-16)', flexWrap: 'wrap' }}>
+          <ActionChip label="Run" onClick={() => {}} />
+          <ActionChip onClick={() => {}}>Try in sandbox</ActionChip>
+          <ActionChip variant="quiet" onClick={() => {}}>Try in sandbox</ActionChip>
+          <ActionChip disabled>Unavailable</ActionChip>
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+function BusyDemo() {
+  const [busy, setBusy] = useState(false);
+  const [asks, setAsks] = useState(0);
+  return (
+    <div style={{ display: 'flex', gap: 'var(--spacing-12)', alignItems: 'center', padding: 'var(--spacing-24)' }}>
+      <ActionChip
+        busy={busy}
+        onClick={() => {
+          setAsks((n) => n + 1);
+          setBusy(true);
+        }}
+      >
+        Ask
+      </ActionChip>
+      <span data-testid="asks" style={{ fontFamily: 'var(--typography-number-font-family)', color: 'var(--color-content-default)' }}>
+        {asks}
+      </span>
+    </div>
+  );
+}
+
+/** busy (as Button busy, motion item 1): the question is on its way, so an icon turns before the
+ * label and clicks wait. The label stays. Reduced motion: the icon holds still. */
+export const Busy: Story = {
+  render: () => <BusyDemo />,
+  play: async ({ canvas, step }) => {
+    const chip = canvas.getByRole('button', { name: /Ask/ });
+    await step('a click starts it: aria-busy, the icon turns', async () => {
+      await userEvent.click(chip);
+      await expect(chip).toHaveAttribute('aria-busy', 'true');
+      const turn = chip.querySelector('[class*="turn"]') as HTMLElement;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      await expect(getComputedStyle(turn).animationName).toMatch(reduced ? /^none$/ : /chipTurn/);
+    });
+    await step('while busy, clicks wait', async () => {
+      await userEvent.click(chip);
+      await expect(canvas.getByTestId('asks')).toHaveTextContent('1');
     });
   },
 };

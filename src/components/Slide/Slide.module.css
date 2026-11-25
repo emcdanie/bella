@@ -1,0 +1,41 @@
+/* Slide (deck plan, 23 Nov 2026). Tokens only. The frame is 16:9 and takes the width it is given.
+ * The canvas inside is drawn at 1280 by 720 (spacing/80 times 16 and 9) and scaled to fit, origin
+ * top left. Card look: surface, 1px default border, radius 16, soft shadow, as the other frames. */
+
+.frame {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: var(--border-width-1) solid var(--color-border-default);
+  border-radius: var(--border-radius-16);
+  background: var(--color-background-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.canvas {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  box-sizing: border-box;
+  inline-size: calc(var(--spacing-80) * 16);
+  block-size: calc(var(--spacing-80) * 9);
+  padding: var(--spacing-64);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+  transform: scale(var(--slide-scale));
+  transform-origin: top left;
+  color: var(--color-content-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  overflow: hidden;
+}
+
+.centered {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

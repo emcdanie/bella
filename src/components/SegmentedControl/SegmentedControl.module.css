@@ -22,19 +22,35 @@
  */
 
 .control {
+  /* Published Figma SegmentedControl 145:166 (read 19 Nov 2026) and her rule
+     "Segmented control: md, 44 tall, one look, no border or dividers,
+     selected lifted by a shadow": a background/subtle track, corner 12,
+     padding 4, no border; segments 44 tall, corner 8, no dividers. */
   display: inline-flex;
   list-style: none;
   margin: 0;
-  --seg-inset: 3px;
-  padding: var(--seg-inset);
+  padding: var(--spacing-4);
   gap: 0;
-  border: 1px solid var(--color-border-strong); /* 3:1 control border */
+  border: none;
   border-radius: var(--border-radius-12);
-  background: var(--color-background-surface);
+  background: var(--color-background-subtle);
 }
 
 .control li {
   display: contents;
+}
+
+/* stretch: the group fills its container and the segments share it equally
+   (Figma Gate runs: Range drawn 472 wide, four segments) */
+.stretch {
+  display: flex;
+  inline-size: 100%;
+  box-sizing: border-box;
+}
+
+.stretch button {
+  flex: 1 1 0;
+  justify-content: center;
 }
 
 .control button {
@@ -46,9 +62,9 @@
   cursor: pointer;
   min-height: var(--spacing-44);
   padding: 0 var(--spacing-16);
-  border-radius: calc(var(--border-radius-12) - var(--seg-inset));
+  border-radius: var(--border-radius-8);
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16); /* every control label is 16 (Elleta, 20 Nov) */
   font-weight: var(--typography-font-weight-500);
   letter-spacing: var(--typography-letter-spacing-0);
   color: var(--color-content-body);
@@ -58,29 +74,35 @@
     color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
-/* hairline divider between segments; the seam dies against the selected
-   fill on both sides (the fill's own ring replaces it) */
-.control li + li button {
-  box-shadow: -1px 0 0 0 var(--color-border-default);
-}
-
-.control li:has(button[aria-current='true']) + li button {
-  box-shadow: none;
+/* a number label (Playground widths 375 / 768 / 1024 / 1440, 100%): the
+   number face, as every number (her font rule; re-audit 21 Nov) */
+.control button[data-numeric] {
+  font-family: var(--typography-number-font-family);
 }
 
 .control button[aria-current='true'] {
-  background: var(--color-background-accent-subtle);
-  color: var(--color-content-accent);
-  box-shadow: inset 0 0 0 1px var(--color-border-accent);
+  /* Published Figma (selected=true): brand-subtle-hover fill, no edge; the
+     decided Chip selected look (18 Nov): light blue with a bold ink label. */
+  /* The lifted plate is a surface: the blue sits on background/surface, not
+     on the track, so Chip dark's see-through blue reads the same on a page
+     or a card (ink 7.09:1, was 5.70 on a card; audit 8, 21 Nov). The other
+     themes' blue is solid, so they look the same. */
+  background:
+    linear-gradient(var(--color-background-brand-subtle-hover), var(--color-background-brand-subtle-hover)),
+    var(--color-background-surface);
+  color: var(--color-content-default);
+  font-weight: var(--typography-font-weight-600);
+  box-shadow: var(--shadow-soft); /* the lift (published Segment selected=true) */
 }
 
 .control button:hover:not([aria-current='true']) {
-  background: var(--color-border-subtle);
+  /* Published Figma hover: brand-subtle, the one light-blue hover (18 Nov). */
+  background: var(--color-background-brand-subtle);
 }
 
 .control button:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
-  outline-offset: calc(-1 * var(--seg-inset));
+  outline-offset: calc(-1 * var(--spacing-4));
 }
 
 .icon {

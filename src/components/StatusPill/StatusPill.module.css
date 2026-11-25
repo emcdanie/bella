@@ -36,6 +36,17 @@
   cursor: default;
   color: var(--color-content-body);
   border: 1px solid transparent;
+  /* a status change fades to the new tone (item 7, 21 Nov); reduced motion: at once */
+  transition:
+    background-color var(--motion-duration-250) var(--motion-easing-standard),
+    border-color var(--motion-duration-250) var(--motion-easing-standard),
+    color var(--motion-duration-250) var(--motion-easing-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill {
+    transition: none;
+  }
 }
 
 /* every variant reads its own background, label and border tokens, so a theme

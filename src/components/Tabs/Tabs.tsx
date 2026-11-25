@@ -1,15 +1,18 @@
-import React, { useRef, type KeyboardEvent } from 'react';
+import React, { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import Button from '../Button/Button';
 import Icon, { type IconName } from '../Icon/Icon';
+import StatusDot from '../StatusDot/StatusDot';
+import Tag from '../Tag/Tag';
 import styles from './Tabs.module.css';
 
 export interface TabsItem {
   id: string;
   label: string;
-  /** Optional run state, drawn as a dot and spoken as text: filled ink for running, a hollow ring for idle. */
+  /** Figma Tab "status". Optional run state, drawn as the StatusDot part (running = info, idle = neutral) and spoken as text. */
   status?: 'running' | 'idle';
-  /** How many items the panel holds, in a quiet pill after the label; spoken after the label (BellaComponents, 11 Nov 2026). */
+  /** Figma Tab "Show count". How many items the panel holds, as the Tag count pill after the label; spoken after the label. */
   count?: number;
-  /** An Iconoir glyph before the label (sm). Decorative: the label names the tab. */
+  /** Figma Tab "Show icon" + "icon". An Iconoir glyph before the label (sm). Decorative: the label names the tab. */
   icon?: IconName;
 }
 
@@ -23,7 +26,7 @@ export interface TabsProps {
   label: string;
   /** Prefix for the tab and panel ids, unique on the page, so aria-controls and aria-labelledby resolve. */
   idBase: string;
-  /** Extra classes on the tablist. */
+  /** Extra classes on the root (the row that carries the base line). */
   className?: string;
 }
 
@@ -48,6 +51,53 @@ export function tabPanelProps(idBase: string, id: string, selected: boolean) {
  */
 export default function Tabs({ tabs, value, onChange, label, idBase, className }: TabsProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
+  /* When the tabs are wider than their space the list scrolls sideways
+   * inside itself (Material, Carbon); the selected tab is always brought
+   * into view there, clear of the chevrons, never cut off, and the page
+   * itself never moves. It runs again once the chevrons appear, since they
+   * narrow the list. */
+  const [more, setMore] = useState({ start: false, end: false });
+  useEffect(() => {
+    const list = listRef.current;
+    const tab = refs.current[tabs.findIndex((t) => t.id === value)];
+    if (!list || !tab || list.scrollWidth <= list.clientWidth) return;
+    const start = tab.getBoundingClientRect().left - list.getBoundingClientRect().left + list.scrollLeft;
+    const end = start + tab.offsetWidth;
+    /* clear of the fades too: the list's scroll padding at each end */
+    const cs = getComputedStyle(list);
+    const padStart = parseFloat(cs.scrollPaddingInlineStart) || 0;
+    const padEnd = parseFloat(cs.scrollPaddingInlineEnd) || 0;
+    if (start < list.scrollLeft + padStart) list.scrollLeft = start - padStart;
+    else if (end > list.scrollLeft + list.clientWidth - padEnd) list.scrollLeft = end - list.clientWidth + padEnd;
+    /* again once the chevrons appear at all (they narrow the list), not each time one end's chevron comes
+       or goes: that pulled the row back to the selected tab on the first "More tabs" (21 Nov) */
+  }, [value, tabs, more.start || more.end]);
+
+  /* Her pick, 20 Nov ("B · chevron button", as Carbon): when the tabs are
+   * wider than their space, a 44 tertiary chevron sits at each end that has
+   * more, and scrolls the row that way. Swipe still works; tabs never wrap. */
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const update = () => {
+      const max = list.scrollWidth - list.clientWidth;
+      setMore({ start: list.scrollLeft > 1, end: list.scrollLeft < max - 1 });
+    };
+    update();
+    list.addEventListener('scroll', update, { passive: true });
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(update) : null;
+    ro?.observe(list);
+    return () => {
+      list.removeEventListener('scroll', update);
+      ro?.disconnect();
+    };
+  }, [tabs]);
+  const scrollBy = (dir: 1 | -1) => {
+    const list = listRef.current;
+    if (list) list.scrollBy({ left: dir * list.clientWidth * 0.8, behavior: 'smooth' });
+  };
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     const i = tabs.findIndex((t) => t.id === value);
@@ -65,41 +115,57 @@ export default function Tabs({ tabs, value, onChange, label, idBase, className }
   }
 
   return (
-    <div
-      role="tablist"
-      aria-label={label}
-      className={[styles.list, className].filter(Boolean).join(' ')}
-      onKeyDown={onKeyDown}
-      data-bella-component="tabs"
-    >
-      {tabs.map((t, i) => {
-        const selected = t.id === value;
-        return (
-          <button
-            key={t.id}
-            ref={(el) => { refs.current[i] = el; }}
-            type="button"
-            role="tab"
-            id={tabId(idBase, t.id)}
-            aria-selected={selected}
-            aria-controls={panelId(idBase, t.id)}
-            tabIndex={selected ? 0 : -1}
-            className={styles.tab}
-            onClick={() => onChange(t.id)}
-          >
-            {t.status ? <span className={styles.dot} data-status={t.status} aria-hidden="true" /> : null}
-            {t.icon ? <Icon name={t.icon} size="sm" /> : null}
-            {t.label}
-            {t.count != null ? (
-              <>
-                <span className={styles.count} aria-hidden="true">{t.count}</span>
-                <span className={styles.srOnly}>, {t.count}</span>
-              </>
-            ) : null}
-            {t.status ? <span className={styles.srOnly}>, {t.status}</span> : null}
-          </button>
-        );
-      })}
+    <div className={[styles.tabs, className].filter(Boolean).join(' ')} data-bella-component="tabs">
+      {more.start ? (
+        <span className={styles.more}>
+          <Button variant="tertiary" iconOnly icon="NavArrowLeft" ariaLabel="Earlier tabs" onClick={() => scrollBy(-1)} />
+        </span>
+      ) : null}
+      <div
+        role="tablist"
+        aria-label={label}
+        className={styles.list}
+        onKeyDown={onKeyDown}
+        ref={listRef}
+        data-more-start={more.start || undefined}
+        data-more-end={more.end || undefined}
+      >
+        {tabs.map((t, i) => {
+          const selected = t.id === value;
+          return (
+            <button
+              key={t.id}
+              ref={(el) => { refs.current[i] = el; }}
+              type="button"
+              role="tab"
+              id={tabId(idBase, t.id)}
+              aria-selected={selected}
+              aria-controls={panelId(idBase, t.id)}
+              tabIndex={selected ? 0 : -1}
+              className={styles.tab}
+              onClick={() => onChange(t.id)}
+            >
+              {t.icon ? <Icon name={t.icon} size="sm" /> : null}
+              {t.status ? <StatusDot tone={t.status === 'running' ? 'info' : 'neutral'} /> : null}
+              {t.label}
+              {t.count != null ? (
+                <>
+                  <span className={styles.count} aria-hidden="true">
+                    <Tag tone="count">{t.count}</Tag>
+                  </span>
+                  <span className={styles.srOnly}>, {t.count}</span>
+                </>
+              ) : null}
+              {t.status ? <span className={styles.srOnly}>, {t.status}</span> : null}
+            </button>
+          );
+        })}
+      </div>
+      {more.end ? (
+        <span className={styles.more}>
+          <Button variant="tertiary" iconOnly icon="NavArrowRight" ariaLabel="More tabs" onClick={() => scrollBy(1)} />
+        </span>
+      ) : null}
     </div>
   );
 }

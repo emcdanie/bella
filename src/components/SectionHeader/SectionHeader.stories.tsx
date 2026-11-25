@@ -13,7 +13,7 @@ const consumedTokens = Array.from(
 const sectionHeaderContract = (componentContract as any).component?.['section-header']?.$extensions?.bella ?? {};
 
 const meta: Meta<typeof SectionHeader> = {
-  title: 'Components/SectionHeader',
+  title: 'Components/Layout/SectionHeader',
   component: SectionHeader,
   parameters: {
     docs: { page: ComponentDocsPage },

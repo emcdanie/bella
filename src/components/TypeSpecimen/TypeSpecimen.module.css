@@ -1,0 +1,45 @@
+/* Type specimen (Figma BellaComponents 796:8332, read 19 Nov 2026). Tokens
+ * only. A row, 12 apart, centred: the specimen fills, set in the step's
+ * own size token (reading face 400, content/default; mono in the Geist Mono
+ * family), and the size in words beside it (16, content/subtle). Figma sets
+ * the specimen on its font's own line height (AUTO), here 1.3. */
+
+.row {
+  display: flex;
+  flex-wrap: wrap; /* narrow: the size goes under the specimen, never a word split */
+  align-items: center;
+  gap: var(--spacing-4) var(--spacing-12);
+  min-inline-size: 0;
+}
+
+.specimen {
+  flex: 1 1 0;
+  min-inline-size: min-content;
+  font-family: var(--typography-body-default-font-family);
+  font-weight: var(--typography-font-weight-400);
+  line-height: var(--typography-line-height-130);
+  color: var(--color-content-default);
+  overflow-wrap: normal;
+  hyphens: manual;
+}
+
+.display_page { font-size: var(--typography-font-size-display-page); }
+.display_section { font-size: var(--typography-font-size-display-section); }
+.subsection { font-size: var(--typography-font-size-28); }
+.xl { font-size: var(--typography-font-size-22); }
+.base { font-size: var(--typography-font-size-20); }
+.sm { font-size: var(--typography-font-size-18); }
+.tag { font-size: var(--typography-font-size-16); }
+.mono {
+  font-size: var(--typography-font-size-16);
+  font-family: var(--typography-font-family-geist-mono);
+}
+
+.size {
+  flex: none;
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-px-24);
+  color: var(--color-content-subtle);
+  white-space: nowrap;
+}

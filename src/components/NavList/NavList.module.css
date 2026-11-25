@@ -1,13 +1,11 @@
-/* NavList (CHIP components, 2026-10-03). Tokens only. A sidebar of grouped
- * links for CHIP's workspace shell.
+/* NavList (Figma BellaComponents NavList 167:226, read 19 Nov 2026). Tokens
+ * only. Toggle: a 44 box with SidebarCollapse in ink, light-blue hover.
+ * Body: groups 24 apart; each group a label (reading face 16, content/subtle,
+ * 0 12 0 16 padding) over Nav item rows 4 apart (the NavItem part draws the rows:
+ * icon, label, count, light-blue current with a bold ink label). Footer: 12
+ * padding (16 at the left) under a hairline, content/subtle.
  *
- * Paint: items are flat text rows. Where you are is aria-current="page",
- * painted as the border-subtle wash plus ink text plus medium weight, so
- * it never rests on a wash alone (hover is the lighter inset wash). Group
- * labels use the sans label style. The badge is a bare count, read as
- * part of the link name.
- *
- * Recorded divergence: focus rings sit inside the row (negative offset),
+ * Recorded divergence: the toggle's focus ring sits inside (negative offset),
  * because a sidebar scrolls and an outset ring would be clipped.
  */
 
@@ -21,16 +19,18 @@
 .toggle {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  /* Figma Toggle (21 Nov publish): the icon 16 in (spacing/16, MIN), on the
+     rows' and labels' left edge, not centred in the 44 box */
+  justify-content: flex-start;
   align-self: flex-start;
   min-width: var(--spacing-44);
   min-height: var(--spacing-44);
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 var(--spacing-16);
   border: none;
   border-radius: var(--border-radius-8);
   background: transparent;
-  color: var(--color-content-subtle);
+  color: var(--color-content-default);
   font-size: var(--typography-body-default-font-size); /* not the UA 13.33px: the hidden label clears the 16px floor */
   cursor: pointer;
   transition:
@@ -39,8 +39,7 @@
 }
 
 .toggle:hover {
-  color: var(--color-content-default);
-  background: var(--color-border-subtle);
+  background: var(--color-background-brand-subtle);
 }
 
 .body {
@@ -61,9 +60,10 @@
 
 .groupLabel {
   margin: 0;
-  padding: 0 var(--spacing-12);
+  padding: 0 var(--spacing-12) 0 var(--spacing-16); /* 16 in, on the rows' edge (21 Nov publish) */
   font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-font-size-18);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
   color: var(--color-content-subtle);
 }
 
@@ -76,59 +76,18 @@
   padding: 0;
 }
 
-.item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-12);
-  min-height: var(--spacing-44);
-  padding: 0 var(--spacing-12);
-  border-radius: var(--border-radius-8);
-  font-family: var(--typography-body-default-font-family);
-  font-size: var(--typography-body-default-font-size);
-  font-weight: var(--typography-font-weight-400);
-  letter-spacing: var(--typography-letter-spacing-0);
-  color: var(--color-content-subtle);
-  text-decoration: none;
-  transition:
-    background var(--motion-duration-150) var(--motion-easing-standard),
-    color var(--motion-duration-150) var(--motion-easing-standard);
-}
-
-.item:hover {
-  color: var(--color-content-default);
-  background: var(--color-background-subtle);
-}
-
-.item[aria-current='page'] {
-  color: var(--color-content-default);
-  background: var(--color-border-subtle);
-  font-weight: var(--typography-font-weight-500);
-}
-
-.item:focus-visible,
 .toggle:focus-visible {
   outline: var(--focus-ring-width) solid var(--color-border-focus);
   outline-offset: calc(-1 * var(--focus-ring-width));
 }
 
-.itemLabel {
-  flex: 1;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.badge {
-  flex: none;
-  font-family: var(--typography-number-font-family);
-  font-size: var(--typography-font-size-18);
-  font-variant-numeric: tabular-nums;
-  font-weight: var(--typography-font-weight-400);
-  color: var(--color-content-subtle);
-}
-
 .footer {
-  padding: var(--spacing-12);
+  padding: var(--spacing-12) var(--spacing-12) var(--spacing-12) var(--spacing-16); /* 16 in, one left edge (21 Nov publish) */
   border-top: var(--border-width-1) solid var(--color-border-default);
+  font-family: var(--typography-body-default-font-family);
+  font-size: var(--typography-font-size-16);
+  line-height: var(--typography-line-height-150);
+  color: var(--color-content-subtle);
 }
 
 .srOnly {
@@ -141,13 +100,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .item,
   .toggle {
     transition: none;
   }
-}
-
-/* on the current wash the count goes ink: muted on border-subtle is AA, not AAA */
-.item[aria-current='page'] .badge {
-  color: inherit;
 }

@@ -16,13 +16,13 @@ props:
     type: ReactNode
     required: true
     doc: Figma "Title".
-    at: src/components/Step/Step.tsx:37
+    at: src/components/Step/Step.tsx:48
   - name: detail
     figmaName: Detail
     type: ReactNode
     required: false
     doc: Figma "Detail" + "Show detail". Missing = off. Subtext face; says the state in words.
-    at: src/components/Step/Step.tsx:39
+    at: src/components/Step/Step.tsx:50
   - name: showConnector
     figmaName: Show connector
     type: boolean
@@ -32,13 +32,17 @@ props:
     default: true
     required: false
     doc: Figma "Show connector". The line to the next marker; off on the last step.
-    at: src/components/Step/Step.tsx:41
+    at: src/components/Step/Step.tsx:52
   - name: tag
     figmaName: Show tag
     type: ReactNode
     required: false
-    doc: Figma "Show tag". The status Tag on the right edge, top-aligned with the title (vertical; her pick B, 22 Nov). Missing = off.
-    at: src/components/Step/Step.tsx:43
+    doc: >-
+      Figma "Show tag". The state's word ("Done", "Now", "Left") on the right edge, top-aligned with the title (vertical; her pick B, 22
+      Nov), drawn as a StatusDot in the state's tone (done success, current info, pending neutral, failed danger); pass the word, not a Tag
+      (25 Nov: one status mark, the dot). A status whose tone is not the step's own (History's Undone, On a branch) passes its own
+      StatusDot, drawn as given. Missing = off.
+    at: src/components/Step/Step.tsx:54
   - name: time
     figmaName: Time
     type: ReactNode
@@ -46,7 +50,7 @@ props:
     doc: >-
       Figma "Time" + "Show time". On the title line after a dot, a meta line (Geist Mono 14 on 20; vertical; her pick B, 22 Nov). A long
       title wraps and takes the dot and time with it. Missing = off.
-    at: src/components/Step/Step.tsx:45
+    at: src/components/Step/Step.tsx:56
   - name: timeUnderTitle
     figmaName: Show time under title
     type: boolean
@@ -56,7 +60,7 @@ props:
     default: false
     required: false
     doc: 'Figma "Show time under title": put the time on its own line under the title instead of on the title line. Default false.'
-    at: src/components/Step/Step.tsx:47
+    at: src/components/Step/Step.tsx:58
   - name: showLineAbove
     figmaName: Show line above
     type: boolean
@@ -66,7 +70,7 @@ props:
     default: false
     required: false
     doc: 'Figma "Show line above". Vertical: the line into this marker; off on the first row.'
-    at: src/components/Step/Step.tsx:49
+    at: src/components/Step/Step.tsx:60
   - name: state
     figmaName: state
     type: StepState
@@ -76,7 +80,7 @@ props:
       Figma "state". done = check in a soft success circle; current = the turning ProgressRing (22 Nov; the numbered ring when `number` is
       set); pending = neutral; failed = it ran and did not pass (the gate failed): the danger Icon well with the Xmark, title and detail in
       ink, no working tint.
-    at: src/components/Step/Step.tsx:51
+    at: src/components/Step/Step.tsx:62
   - name: layout
     figmaName: layout
     type: '''horizontal'' | ''vertical'''
@@ -86,7 +90,7 @@ props:
     default: vertical
     required: false
     doc: Figma "layout". horizontal = a pipeline (marker and connector on top, text under); vertical = a list.
-    at: src/components/Step/Step.tsx:53
+    at: src/components/Step/Step.tsx:64
   - name: selected
     figmaName: selected
     type: boolean
@@ -96,14 +100,14 @@ props:
     default: false
     required: false
     doc: 'Figma "selected". Vertical rows that open a record (History): light-blue row.'
-    at: src/components/Step/Step.tsx:55
+    at: src/components/Step/Step.tsx:66
   - name: icon
     type: IconName
     required: false
     doc: >-
       Figma "Marker" icon swap (the kind icon). Defaults: Check, Clock by state; the current state draws ProgressRing (running, md) unless
       this or `kind` is set.
-    at: src/components/Step/Step.tsx:57
+    at: src/components/Step/Step.tsx:68
   - name: kind
     type: StepKind
     required: false
@@ -112,7 +116,7 @@ props:
       on the yellow wash, tooling Settings on grey, tokens Palette on navy, code Code on blue, visual Eye on ochre, fix EditPencil on the
       red wash; decision a dark ink circle with a knockout glyph; merged Check on the success wash (green only for Merged). Pass `icon` to
       swap a glyph. Missing = the state's marker.
-    at: src/components/Step/Step.tsx:59
+    at: src/components/Step/Step.tsx:70
   - name: number
     figmaName: Show number
     type: number
@@ -120,27 +124,27 @@ props:
     doc: >-
       Figma "Show number" (Show icon off): the step's number for a real sequence (rule 11). done draws a check, current the number in a 2px
       ring, pending the plain number.
-    at: src/components/Step/Step.tsx:61
+    at: src/components/Step/Step.tsx:72
   - name: onSelect
     type: () => void
     required: false
     doc: Makes the row a button that opens its record (vertical, History). The whole row is the target.
-    at: src/components/Step/Step.tsx:63
+    at: src/components/Step/Step.tsx:74
   - name: className
     type: string
     required: false
-    at: src/components/Step/Step.tsx:64
+    at: src/components/Step/Step.tsx:75
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/Step/Step.tsx:65
+    at: src/components/Step/Step.tsx:76
 variants:
   layout:
     values:
       - horizontal
       - vertical
     default: vertical
-    at: src/components/Step/Step.tsx:53
+    at: src/components/Step/Step.tsx:64
 states:
   contract:
     - default
@@ -1045,34 +1049,34 @@ motion:
 a11y:
   element:
     tag: li
-    at: src/components/Step/Step.tsx:176
+    at: src/components/Step/Step.tsx:191
   role:
     value: listitem
     source: native element
-    at: src/components/Step/Step.tsx:176
+    at: src/components/Step/Step.tsx:191
   nameSource:
     value: visible content
-    at: src/components/Step/Step.tsx:176
+    at: src/components/Step/Step.tsx:191
   keyboard: []
   aria:
     - attribute: aria-current
       value: step
-      at: src/components/Step/Step.tsx:70
+      at: src/components/Step/Step.tsx:81
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Step/Step.tsx:118
+      at: src/components/Step/Step.tsx:129
     - attribute: aria-current
       value: state
-      at: src/components/Step/Step.tsx:176
+      at: src/components/Step/Step.tsx:191
     - attribute: aria-pressed
       value: selected
-      at: src/components/Step/Step.tsx:178
+      at: src/components/Step/Step.tsx:193
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Step/Step.tsx:194
+      at: src/components/Step/Step.tsx:209
     - attribute: aria-hidden
       value: 'true'
-      at: src/components/Step/Step.tsx:214
+      at: src/components/Step/Step.tsx:229
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -1097,13 +1101,13 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-current
-      at: src/components/Step/Step.tsx:176
+      at: src/components/Step/Step.tsx:191
     - kind: ARIA
       value: aria-hidden="true"
-      at: src/components/Step/Step.tsx:214
+      at: src/components/Step/Step.tsx:229
     - kind: ARIA
       value: aria-pressed
-      at: src/components/Step/Step.tsx:178
+      at: src/components/Step/Step.tsx:193
 contrast:
   pairs: []
   derived: []
@@ -1237,6 +1241,9 @@ mismatch:
   - field: props.timeUnderTitle
     code: boolean prop
     figma: not in the set
+  - field: anatomy.Tag
+    code: StatusDot in the state's tone with the word (25 Nov, one status mark)
+    figma: Tag instance (outlined); Figma catch-up swaps it for StatusDot
   - field: tokens.state=done, layout=vertical, selected=false.itemSpacing
     code:
       - '--spacing-12'

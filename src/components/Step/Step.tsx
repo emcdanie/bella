@@ -3,6 +3,7 @@ import IconWell from '../IconWell/IconWell';
 import Icon from '../Icon/Icon';
 import MapLine from '../MapLine/MapLine';
 import ProgressRing from '../ProgressRing/ProgressRing';
+import StatusDot, { type StatusDotProps } from '../StatusDot/StatusDot';
 import type { IconName } from '../Icon/Icon';
 import styles from './Step.module.css';
 
@@ -32,6 +33,16 @@ const MARKER: Record<StepState, { tone: 'success' | 'info' | 'neutral' | 'error'
   failed: { tone: 'error', icon: 'Xmark' },
 };
 
+/* The state's word on the right edge is a StatusDot in the state's tone (CHIP,
+ * "One status mark: the status dot", 24 Nov): state is shown by the dot and
+ * its word only, never an outlined Tag. */
+const DOT_TONE: Record<StepState, NonNullable<StatusDotProps['tone']>> = {
+  done: 'success',
+  current: 'info',
+  pending: 'neutral',
+  failed: 'danger',
+};
+
 export interface StepProps {
   /** Figma "Title". */
   title: ReactNode;
@@ -39,7 +50,7 @@ export interface StepProps {
   detail?: ReactNode;
   /** Figma "Show connector". The line to the next marker; off on the last step. */
   showConnector?: boolean;
-  /** Figma "Show tag". The status Tag on the right edge, top-aligned with the title (vertical; her pick B, 22 Nov). Missing = off. */
+  /** Figma "Show tag". The state's word ("Done", "Now", "Left") on the right edge, top-aligned with the title (vertical; her pick B, 22 Nov), drawn as a StatusDot in the state's tone (done success, current info, pending neutral, failed danger); pass the word, not a Tag (25 Nov: one status mark, the dot). A status whose tone is not the step's own (History's Undone, On a branch) passes its own StatusDot, drawn as given. Missing = off. */
   tag?: ReactNode;
   /** Figma "Time" + "Show time". On the title line after a dot, a meta line (Geist Mono 14 on 20; vertical; her pick B, 22 Nov). A long title wraps and takes the dot and time with it. Missing = off. */
   time?: ReactNode;
@@ -156,8 +167,12 @@ export default function Step({
         </span>
       </span>
       {text}
-      {/* Figma Time zone now holds the status Tag on the right edge (22 Nov, B) */}
-      {tag != null ? <span className={styles.tagSide}>{tag}</span> : null}
+      {/* Figma Time zone holds the state's word on the right edge (22 Nov, B), as a StatusDot (25 Nov) */}
+      {tag != null ? (
+        <span className={styles.tagSide}>
+          {React.isValidElement(tag) && tag.type === StatusDot ? tag : <StatusDot tone={DOT_TONE[state]} label={tag} />}
+        </span>
+      ) : null}
     </>
   );
 

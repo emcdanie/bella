@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, userEvent, within } from 'storybook/test';
 import Step, { StepDay, type StepState } from './Step';
-import Tag from '../Tag/Tag';
+import StatusDot from '../StatusDot/StatusDot';
 import cssRaw from './Step.module.css?raw';
 import componentContract from '../../../tokens/contracts.json';
 import { ComponentDocsPage } from '../../docs/DocBlocks';
@@ -93,13 +93,13 @@ export const Horizontal: Story = {
   },
 };
 
-/** Vertical activity list (History): line above / connector join row to row, tag, time, selected. */
+/** Vertical activity list (History): line above / connector join row to row, the state word, time, selected. */
 export const Vertical: Story = {
   render: () => (
     <Themed>
       <ol style={LIST}>
-        <Step state="done" title="Pairs added" detail="9 pairs, one commit." tag={<Tag tone="success">Merged</Tag>} time="10:02" />
-        <Step state="current" showLineAbove title="The gate" detail="Working now." tag={<Tag tone="attention">Waiting</Tag>} time="10:04" />
+        <Step state="done" title="Pairs added" detail="9 pairs, one commit." tag="Done" time="10:02" />
+        <Step state="current" showLineAbove title="The gate" detail="Working now." tag="Now" time="10:04" />
         <Step state="pending" showLineAbove showConnector={false} title="You" detail="Accept, or Undo." time="10:05" />
       </ol>
       <ol style={LIST}>
@@ -147,7 +147,7 @@ export const NumbersAndDays: Story = {
     <ol style={{ margin: 0, padding: 0, inlineSize: 'calc(var(--spacing-48) * 8)', background: 'var(--color-background-surface)' }}>
       <StepDay>14 Nov</StepDay>
       <Step number={1} state="done" title="Name the gap" showLineAbove time="09:40" />
-      <Step number={2} state="done" title="Draw the part" tag={<Tag tone="success">Merged</Tag>} showLineAbove time="09:58" />
+      <Step number={2} state="done" title="Draw the part" tag="Done" showLineAbove time="09:58" />
       <StepDay>15 Nov</StepDay>
       <Step number={3} state="current" title="Check it on the stage" detail="Working now." showLineAbove time="10:02" />
       <Step number={4} state="pending" title="Ship it" showLineAbove showConnector={false} />
@@ -170,13 +170,13 @@ export const HistoryKinds: Story = {
       <Step kind="docs" title="Rules: Figma first, code follows" detail="Docs" showLineAbove time="10:24" />
       <Step kind="tooling" title="Save the week's work before backup" detail="Tooling" showLineAbove time="10:28" />
       <Step kind="decision" title="History kinds get ink glyphs" detail="Decision" showLineAbove time="10:30" />
-      <Step kind="merged" title="Merge chip/fix-llms-txt" tag={<Tag tone="success">Merged</Tag>} showLineAbove showConnector={false} time="10:36" />
+      <Step kind="merged" title="Merge chip/fix-llms-txt" tag="Merged" showLineAbove showConnector={false} time="10:36" />
     </ol>
   ),
 };
 
 /** Title line (22 Nov, her pick B): the title at 600 with the time beside
- * it after a dot, the status Tag on the right edge. A long title wraps and
+ * it after a dot, the state's dot and word on the right edge. A long title wraps and
  * takes the dot and time with it; timeUnderTitle puts the time on its own
  * line. Time is a meta line: Geist Mono 14 on a 20 line. */
 export const TimeUnderTitle: Story = {
@@ -184,7 +184,7 @@ export const TimeUnderTitle: Story = {
     <Themed>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 6)' }} data-testid="wide">
-          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" tag={<Tag tone="success">Merged</Tag>} showConnector={false} />
+          <Step state="done" title="Pairs added" detail="9 pairs, one commit." time="10:02" tag="Done" showConnector={false} />
         </ol>
         <ol style={{ ...LIST, inlineSize: 'calc(var(--spacing-80) * 3.5)' }} data-testid="narrow">
           <Step state="done" title="Merge the reading fixes" detail="9 pairs, one commit." time="10:02" showConnector={false} />
@@ -197,13 +197,13 @@ export const TimeUnderTitle: Story = {
   ),
   play: async ({ canvas, step }) => {
     const times = (list: HTMLElement) => Array.from(list.querySelectorAll<HTMLElement>('[data-bella-meta]:not([aria-hidden])'));
-    await step('wide: the time is on the title line, after the title; the Tag is on the right edge', async () => {
+    await step('wide: the time is on the title line, after the title; the state dot and word are on the right edge', async () => {
       const wide = canvas.getByTestId('wide');
       const [t] = times(wide);
       const titleBox = canvas.getByText('Pairs added').getBoundingClientRect();
       await expect(t.getBoundingClientRect().left).toBeGreaterThan(titleBox.right);
       await expect(Math.abs(t.getBoundingClientRect().bottom - titleBox.bottom)).toBeLessThanOrEqual(4);
-      const tag = within(wide).getByText('Merged').closest('[data-bella-component="tag"]') as HTMLElement;
+      const tag = within(wide).getByText('Done').closest('[data-bella-component="status-dot"]') as HTMLElement;
       const row = wide.querySelector('li')!.getBoundingClientRect();
       await expect(tag.getBoundingClientRect().left).toBeGreaterThan(t.getBoundingClientRect().right);
       await expect(row.right - tag.getBoundingClientRect().right).toBeLessThanOrEqual(13);
@@ -229,7 +229,7 @@ export const TimeUnderTitle: Story = {
 
 /** state=failed (22 Nov, Figma audit): a step that ran and did not pass, such as a failed gate. The
  * danger Icon well with the Xmark, title and detail in ink, no working tint. A long title wraps between
- * words and never truncates; her B title line stays (title 600, "· time" after it, Tag on the right). */
+ * words and never truncates; her B title line stays (title 600, "· time" after it, the state word on the right). */
 export const Failed: Story = {
   render: () => (
     <Themed>
@@ -303,6 +303,44 @@ export const CurrentIsTheRing: Story = {
     await step('number set keeps the numbered ring', async () => {
       await expect(items[1].querySelector('[data-bella-component="progress-ring"]')).toBeNull();
       await expect(items[1]).toHaveTextContent('3');
+    });
+  },
+};
+
+/** The state's word (25 Nov, CHIP "One status mark: the status dot"): pass the
+ * word as `tag` and Step draws it as BELLA's StatusDot in the state's tone,
+ * never an outlined Tag. A plan's steps: Done, Now, Left; a failed run: Failed. A status with its own
+ * tone passes its own StatusDot. */
+export const StateWord: Story = {
+  render: () => (
+    <Themed>
+      <ol style={LIST} data-testid="plan">
+        <Step number={1} state="done" title="Read the drift report" tag="Done" />
+        <Step number={2} state="current" selected showLineAbove title="Fix the nine parts" tag="Now" />
+        <Step number={3} state="pending" showLineAbove title="Run the gate" tag="Left" />
+        <Step number={4} state="failed" showLineAbove title="Publish" tag="Failed" />
+        <Step state="done" showLineAbove showConnector={false} title="A record on a branch" tag={<StatusDot tone="attention" label="On a branch" />} />
+      </ol>
+    </Themed>
+  ),
+  play: async ({ canvas, step }) => {
+    const plan = canvas.getByTestId('plan');
+    await step('each state word is a StatusDot with its word, no Tag', async () => {
+      await expect(plan.querySelectorAll('[data-bella-component="tag"]')).toHaveLength(0);
+      const dots = plan.querySelectorAll<HTMLElement>('[data-bella-component="status-dot"]');
+      await expect(dots).toHaveLength(5);
+      await expect(Array.from(dots).map((d) => d.textContent)).toEqual(['Done', 'Now', 'Left', 'Failed', 'On a branch']);
+    });
+    await step('the dot takes the state tone: done success, current info, pending neutral, failed danger', async () => {
+      const tones = Array.from(plan.querySelectorAll<HTMLElement>('[data-bella-component="status-dot"]')).map((d) => d.className);
+      await expect(tones[0]).toMatch(/success/);
+      await expect(tones[1]).toMatch(/info/);
+      await expect(tones[2]).toMatch(/neutral/);
+      await expect(tones[3]).toMatch(/danger/);
+    });
+    await step('a StatusDot passed as the tag is drawn as given, with its own tone', async () => {
+      const tones = Array.from(plan.querySelectorAll<HTMLElement>('[data-bella-component="status-dot"]')).map((d) => d.className);
+      await expect(tones[4]).toMatch(/attention/);
     });
   },
 };

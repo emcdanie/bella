@@ -12175,7 +12175,7 @@ entries:
   - kind: component
     id: step
     name: Step
-    description: "Figma \"Title\". */ title: ReactNode; /** Figma \"Detail\" + \"Show detail\". Missing = off. Subtext face; says the state in words. */ detail?: ReactNode; /** Figma \"Show connector\". The line to the next marker; off on the last step. */ showConnector?: boolean; /** Figma \"Show tag\". A Tag under the title (vertical). Missing = off. */ tag?: ReactNode; /** Figma \"Time\" + \"Show time\". Right column, subtext face (vertical). Missing = off. */ time?: ReactNode; /** Figma \"Show line above\". Vertical: the line into this marker; off on the first row. */ showLineAbove?: boolean; /** Figma \"state\". done = check in a soft success circle; current = info; pending = neutral. */ state?: StepState; /** Figma \"layout\". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */ layout?: 'horizontal' | 'vertical'; /** Figma \"selected\". Vertical rows that open a record (History): light-blue row. */ selected?: boolean; /** Figma \"Marker\" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */ icon?: IconName; /** Makes the row a button that opens its record (vertical, History). The whole row is the target. */ onSelect?: () => void; className?: string; style?: CSSProperties; } /** One step in a short ordered process, or one event in an activity list. Renders an <li>: put Steps in an <ol>. aria-current=\"step\" on the current one."
+    description: "Figma \"Title\". */ title: ReactNode; /** Figma \"Detail\" + \"Show detail\". Missing = off. Subtext face; says the state in words. */ detail?: ReactNode; /** Figma \"Show connector\". The line to the next marker; off on the last step. */ showConnector?: boolean; /** Figma \"Show tag\". The state's word (Done, Now, Left) on the right edge, drawn as a StatusDot in the state's tone; pass the word, not a Tag (25 Nov: one status mark, the dot); a status with its own tone passes its own StatusDot. Missing = off. */ tag?: ReactNode; /** Figma \"Time\" + \"Show time\". Right column, subtext face (vertical). Missing = off. */ time?: ReactNode; /** Figma \"Show line above\". Vertical: the line into this marker; off on the first row. */ showLineAbove?: boolean; /** Figma \"state\". done = check in a soft success circle; current = info; pending = neutral. */ state?: StepState; /** Figma \"layout\". horizontal = a pipeline (marker and connector on top, text under); vertical = a list. */ layout?: 'horizontal' | 'vertical'; /** Figma \"selected\". Vertical rows that open a record (History): light-blue row. */ selected?: boolean; /** Figma \"Marker\" icon swap (the kind icon). Defaults: Check, RefreshDouble, Clock by state. */ icon?: IconName; /** Makes the row a button that opens its record (vertical, History). The whole row is the target. */ onSelect?: () => void; className?: string; style?: CSSProperties; } /** One step in a short ordered process, or one event in an activity list. Renders an <li>: put Steps in an <ol>. aria-current=\"step\" on the current one."
     metadata:
       origin:
         method: extracted
@@ -12192,6 +12192,8 @@ entries:
         items:
           - level: may
             statement: CHIP "Not again" page and screen shell (19 Nov 2026)
+          - level: may
+            statement: "CHIP plan drawers and Work: a plan's steps say Done, Now or Left as a StatusDot and its word (25 Nov 2026)"
     refs:
       - href: ./src/components/Step/Step.stories.tsx
         rel: storybook

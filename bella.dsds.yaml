@@ -10262,9 +10262,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A td, or a th: kind=header renders th scope=col with aria-sort when sort is set (none, ascending or descending; the ⇅ and arrow mark is aria-hidden), and rowHeader renders a body cell as th scope=row. Not interactive and not a tab stop: it has no keys, and a header with sort is a label, not a button, so sorting itself is the consumer's to wire (a gap: aria-sort without a control that sorts). kind=link puts the consumer's Link inside, with its own focus ring and target; kind=tag draws a line Tag; kind=swatch hides the colour square (aria-hidden) and the hex text names it. Target: block-size 44 (a table cell grows to at least that), padding 8 and 16. Ratios, worst of the four themes: text and mono content/default 10.99:1 on the card (13.90:1 on the page); header content/subtle at 600, 7.54:1 on the card and 7.95:1 on the page, and 7.34:1 on the row's hover wash (brand-subtle over the card); a selected cell is content/default at 600, 7.09:1 on the selected wash (brand-subtle-hover over the card), 7.34:1 over the page. The bottom edge is border/default, a divider, not a boundary a control depends on. All text 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - table-cell
@@ -10302,6 +10299,7 @@ entries:
         states:
           - default
           - selected
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A td, or a th: kind=header renders th scope=col with aria-sort when sort is set (none, ascending or descending; the ⇅ and arrow mark is aria-hidden), and rowHeader renders a body cell as th scope=row. Not interactive and not a tab stop: it has no keys, and a header with sort is a label, not a button, so sorting itself is the consumer's to wire (a gap: aria-sort without a control that sorts). kind=link puts the consumer's Link inside, with its own focus ring and target; kind=tag draws a line Tag; kind=swatch hides the colour square (aria-hidden) and the hex text names it. Target: block-size 44 (a table cell grows to at least that), padding 8 and 16. Ratios, worst of the four themes: text and mono content/default 10.99:1 on the card (13.90:1 on the page); header content/subtle at 600, 7.54:1 on the card and 7.95:1 on the page, and 7.34:1 on the row's hover wash (brand-subtle over the card); a selected cell is content/default at 600, 7.09:1 on the selected wash (brand-subtle-hover over the card), 7.34:1 over the page. The bottom edge is border/default, a divider, not a boundary a control depends on. All text 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: table-row
     name: TableRow
@@ -10311,9 +10309,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A tr (role row) with aria-selected and data-selected when selected is set. Not interactive and not a tab stop: hover is a pointer wash only, there are no keys and no focus treatment, so a row that opens or selects something needs a control in a cell (Link or Button) that the consumer provides. I am guessing that aria-selected on a row of a plain table is not announced by every screen reader (it is defined for grid rows); the bold ink the cells take and the blue wash carry the selection visually, so it is not colour alone. Target: the row is 44 tall through its cells; the row itself is not a target. Ratios on the cells' ink, worst of the four themes: content/default on the hover wash (brand-subtle over the card) 8.86:1, over the page 10.99:1; on the selected wash (brand-subtle-hover over the card) 7.09:1, over the page 7.34:1. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - table-row
@@ -10352,6 +10347,7 @@ entries:
           - default
           - hover
           - selected
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A tr (role row) with aria-selected and data-selected when selected is set. Not interactive and not a tab stop: hover is a pointer wash only, there are no keys and no focus treatment, so a row that opens or selects something needs a control in a cell (Link or Button) that the consumer provides. I am guessing that aria-selected on a row of a plain table is not announced by every screen reader (it is defined for grid rows); the bold ink the cells take and the blue wash carry the selection visually, so it is not colour alone. Target: the row is 44 tall through its cells; the row itself is not a target. Ratios on the cells' ink, worst of the four themes: content/default on the hover wash (brand-subtle over the card) 8.86:1, over the page 10.99:1; on the selected wash (brand-subtle-hover over the card) 7.09:1, over the page 7.34:1. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: data-table
     name: DataTable
@@ -11209,9 +11205,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div holding an Eyebrow, a real heading from Heading (h2, or h1 with as=h1), an optional lead paragraph and the body children. Reading order is source order at every width: the split layout (a container query at 768 on the header's own width) only moves the columns. When accent is an interactive node, term sets the heading's spoken name (heading, a space, term, then after) so the button does not pad it. Not a tab stop and no keys: any link or button in the body is the consumer's. Ratios, worst of the four themes: heading content/default 10.99:1 on the card (13.90:1 on the page); eyebrow, lead and body content/body 10.99:1 on the card and 11.89:1 on the page; the accent half-line is Heading's record (content/subtle 7.54:1 on the card, 7.95:1 on the page). Lead 22, body 16 on 24; nothing under 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - section-header
@@ -11250,6 +11243,7 @@ entries:
     $extensions:
       design.bella:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div holding an Eyebrow, a real heading from Heading (h2, or h1 with as=h1), an optional lead paragraph and the body children. Reading order is source order at every width: the split layout (a container query at 768 on the header's own width) only moves the columns. When accent is an interactive node, term sets the heading's spoken name (heading, a space, term, then after) so the button does not pad it. Not a tab stop and no keys: any link or button in the body is the consumer's. Ratios, worst of the four themes: heading content/default 10.99:1 on the card (13.90:1 on the page); eyebrow, lead and body content/body 10.99:1 on the card and 11.89:1 on the page; the accent half-line is Heading's record (content/subtle 7.54:1 on the card, 7.95:1 on the page). Lead 22, body 16 on 24; nothing under 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: scaled-frame
     name: ScaledFrame
@@ -11259,9 +11253,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. It has no colour of its own, so it states no ratio; what it shows keeps its own. Live children: a div named by title, role=img and inert when not interactive (a still picture: nothing inside is read or reached), or role=group named by title when interactive, the children then reached in their own order. With src: an iframe titled by title, tabIndex -1 and pointer-events off when not interactive (I am guessing every browser then also keeps the page inside it out of the tab order; not checked). No keys, focus ring or target of its own: an interactive frame takes whatever its content takes. Gap: the canvas is scaled to container width divided by design width (1280 by default), so text and targets inside are drawn smaller than their CSS size; in a narrow container 16 text draws under 16 and a 44 target under 44, and nothing in the part stops that (it matters most when interactive). No motion of its own. Sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - scaled-frame
@@ -11298,6 +11289,7 @@ entries:
     $extensions:
       design.bella:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. It has no colour of its own, so it states no ratio; what it shows keeps its own (decided by Elleta, 26 Nov 2026: a11y.contrast none, no pair). Live children: a div named by title, role=img and inert when not interactive (a still picture: nothing inside is read or reached), or role=group named by title when interactive, the children then reached in their own order. With src: an iframe titled by title, tabIndex -1 and pointer-events off when not interactive (I am guessing every browser then also keeps the page inside it out of the tab order; not checked). No keys, focus ring or target of its own: an interactive frame takes whatever its content takes. Gap: the canvas is scaled to container width divided by design width (1280 by default), so text and targets inside are drawn smaller than their CSS size; in a narrow container 16 text draws under 16 and a 44 target under 44, and nothing in the part stops that (it matters most when interactive). No motion of its own. Sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: chat-bubble
     name: ChatBubble
@@ -12055,9 +12047,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, not interactive and not a tab stop, no keys. The dot, halo and check are aria-hidden; the word is the status, so the name is the label text. With showLabel off the word stays in the DOM, visually hidden, as the accessible name. With no label the part is silent, so a dot alone says nothing: TreeItem and SystemHealth pass none and let the row's text carry the meaning. The tone is never the colour alone: the word is the meaning and the success check is a shape. A tone change fades over 250 ms and grows a halo once (none under reduced motion) and is not announced, as there is no live region. Ratios, worst of the four themes: the word is content/subtle, 7.54:1 on the card and 7.95:1 on the page. The dot against the card: success 5.83:1, info 4.39:1, error 4.04:1, neutral 3.76:1 (marks need 3:1); the attention dot's yellow fill alone is 1.85:1 in the light themes, so it carries a 1px border/utility/warning edge, 3.81:1. Check ink on its wash: success 7.35:1, info 7.06:1, error 7.52:1, warning 7.94:1, neutral 7.54:1. Slot 24 and dot 12: not targets. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - status-dot
@@ -12086,6 +12075,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, not interactive and not a tab stop, no keys. The dot, halo and check are aria-hidden; the word is the status, so the name is the label text. With showLabel off the word stays in the DOM, visually hidden, as the accessible name. With no label the part is silent, so a dot alone says nothing: TreeItem and SystemHealth pass none and let the row's text carry the meaning. The tone is never the colour alone: the word is the meaning and the success check is a shape. A tone change fades over 250 ms and grows a halo once (none under reduced motion) and is not announced, as there is no live region. Ratios, worst of the four themes: the word is content/subtle, 7.54:1 on the card and 7.95:1 on the page. The dot against the card: success 5.83:1, info 4.39:1, error 4.04:1, neutral 3.76:1 (marks need 3:1); the attention dot's yellow fill alone is 1.85:1 in the light themes, so it carries a 1px border/utility/warning edge, 3.81:1. Check ink on its wash: success 7.35:1, info 7.06:1, error 7.52:1, warning 7.94:1, neutral 7.54:1. Slot 24 and dot 12: not targets. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: icon-well
     name: IconWell
@@ -12095,9 +12085,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, decorative by default: the Icon inside is aria-hidden, so it adds nothing to the name. With label it becomes role=img named by it (Icon's record); use label only when no text beside it says the same. Not a tab stop, no keys, no pointer affordance. Meaning is never the colour alone: the glyph and the words beside it carry it. Ink on wash, worst of the four themes: success 7.35:1, info 7.06:1, warning 7.94:1, error 7.52:1, neutral 7.54:1. History kinds, content/default on the kind's strong wash over the card: fix 8.98:1, grey tooling 7.99:1, navy tokens 7.78:1, ochre visual 7.79:1, yellow docs 7.73:1, blue contract 7.86:1; decision is content/knockout on content/default, 13.90:1. Sizes: md a 36 circle with a 24 glyph, sm a 24 circle with a 16 glyph; not targets. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - icon-well
@@ -12126,6 +12113,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, decorative by default: the Icon inside is aria-hidden, so it adds nothing to the name. With label it becomes role=img named by it (Icon's record); use label only when no text beside it says the same. Not a tab stop, no keys, no pointer affordance. Meaning is never the colour alone: the glyph and the words beside it carry it. Ink on wash, worst of the four themes: success 7.35:1, info 7.06:1, warning 7.94:1, error 7.52:1, neutral 7.54:1. History kinds, content/default on the kind's strong wash over the card: fix 8.98:1, grey tooling 7.99:1, navy tokens 7.78:1, ochre visual 7.79:1, yellow docs 7.73:1, blue contract 7.86:1; decision is content/knockout on content/default, 13.90:1. Sizes: md a 36 circle with a 24 glyph, sm a 24 circle with a 16 glyph; not targets. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: text-stack
     name: TextStack
@@ -12135,9 +12123,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div of plain text spans and one paragraph (body), read in source order: overline, title, count, subtitle, meta, body. No role or ARIA of its own. titleAs sets the title's element: a span by default; h2 to h4 make it a real heading and the consumer picks the level. Not a tab stop and no keys. All text is 16 or more on a 150 line (the title is 20 on a 28 line). Ratios, worst of the four themes: title and body content/default 10.99:1 on the card (13.90:1 on the page); overline, subtitle, meta and the count content/subtle 7.54:1 on the card and 7.95:1 on the page. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - text-stack
@@ -12166,6 +12151,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div of plain text spans and one paragraph (body), read in source order: overline, title, count, subtitle, meta, body. No role or ARIA of its own. titleAs sets the title's element: a span by default; h2 to h4 make it a real heading and the consumer picks the level. Not a tab stop and no keys. All text is 16 or more on a 150 line (the title is 20 on a 28 line). Ratios, worst of the four themes: title and body content/default 10.99:1 on the card (13.90:1 on the page); overline, subtitle, meta and the count content/subtle 7.54:1 on the card and 7.95:1 on the page. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: trailing
     name: Trailing
@@ -12175,9 +12161,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, decorative by default: its Icon is aria-hidden because the row names the target. With label the glyph is role=img named by it. Not a tab stop and no keys: the whole row is the target and Trailing only marks it. Its 44 by 44 hit area is a ::after box on the span, not an interactive element, so it adds no target of its own and does not make the row one. The glyph is content/subtle, 7.54:1 on the card and 7.95:1 on the page, worst of the four themes (a mark needs 3:1). Sizes: the frame is 24 wide; the glyph is 24 (the › is a 32 box with a 1.5 line). Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - trailing
@@ -12206,6 +12189,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A span, decorative by default: its Icon is aria-hidden because the row names the target. With label the glyph is role=img named by it. Not a tab stop and no keys: the whole row is the target and Trailing only marks it. Its 44 by 44 hit area is a ::after box on the span, not an interactive element, so it adds no target of its own and does not make the row one. The glyph is content/subtle, 7.54:1 on the card and 7.95:1 on the page, worst of the four themes (a mark needs 3:1). Sizes: the frame is 24 wide; the glyph is 24 (the › is a 32 box with a 1.5 line). Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: status-square
     name: StatusSquare
@@ -12252,9 +12236,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=progressbar (bar, segments or ring): aria-valuemin 0, aria-valuemax 100 (or the segment count), aria-valuenow the amount, aria-valuetext when value is a string, and aria-describedby pointing at a hidden one-line summary (what, how much, against the target). It is named by aria-label from label only when label is a string; a node label gives no name (a gap, and the visible label is not wired with aria-labelledby). The track, segments and ring are aria-hidden so it speaks once. Not interactive and no tab stop, except with callout: then tabIndex=0 and the Tooltip below the bar shows on hover and on keyboard focus; no other keys. Focus ring (callout only, focus-visible): border/focus, 4 wide, 4 gap, outside; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: not 44. The bar track is 8 tall and the ring 64, and the CSS gives the focusable root no min-height, so with callout on a 44 target is not met (a gap). Ratios on the card, worst of the four themes: value content/default 10.99:1, label content/subtle 7.54:1; fill marks info 4.39:1, success 5.83:1, error 4.04:1, neutral (border/strong) 3.76:1, warning the yellow mark plus its 1px border/utility/warning edge 3.81:1 (the yellow alone is 1.85:1 in the light themes); target dash border/brand 5.60:1; success fill against the track 4.51:1, brand against the track 3.74:1. The empty track is border/subtle, 1.16:1 to 1.50:1 on the card: by design not a mark (decided 21 Nov), the amount is always in words. Draw-in and the changed-amount band are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - progress
@@ -12283,6 +12264,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=progressbar (bar, segments or ring): aria-valuemin 0, aria-valuemax 100 (or the segment count), aria-valuenow the amount, aria-valuetext when value is a string, and aria-describedby pointing at a hidden one-line summary (what, how much, against the target). It is named by aria-label from label only when label is a string; a node label gives no name (a gap, and the visible label is not wired with aria-labelledby). The track, segments and ring are aria-hidden so it speaks once. Not interactive and no tab stop, except with callout: then tabIndex=0 and the Tooltip below the bar shows on hover and on keyboard focus; no other keys. Focus ring (callout only, focus-visible): border/focus, 4 wide, 4 gap, outside; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: not 44. The bar track is 8 tall and the ring 64, and the CSS gives the focusable root no min-height, so with callout on a 44 target is not met (a gap). Ratios on the card, worst of the four themes: value content/default 10.99:1, label content/subtle 7.54:1; fill marks info 4.39:1, success 5.83:1, error 4.04:1, neutral (border/strong) 3.76:1, warning the yellow mark plus its 1px border/utility/warning edge 3.81:1 (the yellow alone is 1.85:1 in the light themes); target dash border/brand 5.60:1; success fill against the track 4.51:1, brand against the track 3.74:1. The empty track is border/subtle, 1.16:1 to 1.50:1 on the card: by design not a mark (decided 21 Nov), the amount is always in words. Draw-in and the changed-amount band are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: progress-ring
     name: ProgressRing
@@ -12345,9 +12327,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A section with no name of its own, so not a landmark. The header is a link (href), a button (onOpen) or plain text, named by the title; the ↗ is decorative. When it opens something, the header's ::after stretches over the whole card, so the card is one target; a footer action, the bar and the sparkline sit above it (z-index 1) and stay their own controls. The figure counts up as drawing only (aria-hidden) and a visually hidden copy carries the final value; a trend arrow is read as 'Up' or 'Down'. With a meter the bar is Progress (role=progressbar, a hidden summary, and tabIndex=0 because the callout is always on), so a card with a meter has the header, the bar and any footer action as tab stops. Keys are the browser's: Tab, Enter on a link, Enter or Space on a button; no others. Focus ring on the header, focus-visible: border/focus, 4 wide, 4 gap, outside; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: the header row min-height 44, and the whole card when it opens something. The focusable bar is not 44 (see Progress). Ratios on the card, worst of the four themes: title, figure and value content/default 10.99:1; label, unit, context, comparison and caption content/subtle 7.54:1 (the label and context lines are 14, meta); header on its hover wash (brand-subtle over the card) content/default 8.86:1. The neutral well's glyph is content/utility/info on the neutral wash and is not measured here. Draw-in and count-up are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - stat-card
@@ -12376,6 +12355,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A section with no name of its own, so not a landmark. The header is a link (href), a button (onOpen) or plain text, named by the title; the ↗ is decorative. When it opens something, the header's ::after stretches over the whole card, so the card is one target; a footer action, the bar and the sparkline sit above it (z-index 1) and stay their own controls. The figure counts up as drawing only (aria-hidden) and a visually hidden copy carries the final value; a trend arrow is read as 'Up' or 'Down'. With a meter the bar is Progress (role=progressbar, a hidden summary, and tabIndex=0 because the callout is always on), so a card with a meter has the header, the bar and any footer action as tab stops. Keys are the browser's: Tab, Enter on a link, Enter or Space on a button; no others. Focus ring on the header, focus-visible: border/focus, 4 wide, 4 gap, outside; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: the header row min-height 44, and the whole card when it opens something. The focusable bar is not 44 (see Progress). Ratios on the card, worst of the four themes: title, figure and value content/default 10.99:1; label, unit, context, comparison and caption content/subtle 7.54:1 (the label and context lines are 14, meta); header on its hover wash (brand-subtle over the card) content/default 8.86:1. The neutral well's glyph is content/utility/info on the neutral wash and is not measured here. Draw-in and count-up are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: step
     name: Step
@@ -12385,9 +12365,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. An li: put Steps in an ol the consumer provides (the part's list-style is none, so I am guessing some screen readers drop the list; not checked). The current step has aria-current=step. With onSelect the row is a button (type=button) with aria-pressed set from selected, and its name is the title, the time, the detail and the tag word in reading order; without it the row is plain text, not a tab stop. The markers (IconWell, the turning ProgressRing, the number) are decorative and hidden, so the state is spoken only by the words the consumer passes: with no tag or detail, a done step and a pending step read the same (a gap). Connector lines are MapLine; how a screen reader meets them is MapLine's open question, not decided here. Keys are the browser's: Tab, Enter or Space. Focus ring on the interactive row, focus-visible: border/focus, 4 wide, 4 gap, outside, on the 12 corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: an interactive row has min-height 44 and fills the list's width; a plain row sets none. Ratios on the card, worst of the four themes: title content/default 10.99:1; detail and the time content/subtle 7.54:1 (the time is 14, meta); current: detail and time content/utility/info on the info wash 7.06:1, with a 1px border/utility/info edge 3.83:1 against that wash; selected: ink on the brand-subtle-hover fill 7.09:1; hover: content/default on brand-subtle 8.86:1 and content/subtle 7.34:1. Number markers, ink on wash: done 7.35:1, current 7.06:1, pending 7.54:1, failed 7.52:1. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - step
@@ -12418,6 +12395,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. An li: put Steps in an ol the consumer provides (the part's list-style is none, so I am guessing some screen readers drop the list; not checked). The current step has aria-current=step. With onSelect the row is a button (type=button) with aria-pressed set from selected, and its name is the title, the time, the detail and the tag word in reading order; without it the row is plain text, not a tab stop. The markers (IconWell, the turning ProgressRing, the number) are decorative and hidden, so the state is spoken only by the words the consumer passes: with no tag or detail, a done step and a pending step read the same (a gap). Connector lines are MapLine; its record holds what a screen reader should hear (decided 26 Nov 2026), and the code still hides every line. Keys are the browser's: Tab, Enter or Space. Focus ring on the interactive row, focus-visible: border/focus, 4 wide, 4 gap, outside, on the 12 corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: an interactive row has min-height 44 and fills the list's width; a plain row sets none. Ratios on the card, worst of the four themes: title content/default 10.99:1; detail and the time content/subtle 7.54:1 (the time is 14, meta); current: detail and time content/utility/info on the info wash 7.06:1, with a 1px border/utility/info edge 3.83:1 against that wash; selected: ink on the brand-subtle-hover fill 7.09:1; hover: content/default on brand-subtle 8.86:1 and content/subtle 7.34:1. Number markers, ink on wash: done 7.35:1, current 7.06:1, pending 7.54:1, failed 7.52:1. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: map-line
     name: MapLine
@@ -12457,6 +12435,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: the line is read as the link it draws, 'A connects to B' (WCAG 1.3.1). Missing in the code: a screen reader hears nothing. Every direction renders a span with aria-hidden=true; the curve's svg is named 'Connection' (and its travelling highlight 'Highlight travelling along the connection') but both sit inside that hidden span; no prop names the two ends. The part's description and TSDoc still call it decorative. Not interactive and not a tab stop, no keys, no target. A dashed line (an optional path, or a step not yet done) says so by its style alone. Motion (curve only): draw-in and travel are off under reduced motion. Ratios against the card and the page, worst of the four themes (marks need 3:1): default border/strong 3.76:1 and 4.76:1; selected border/brand 5.60:1 and 5.41:1; accent border/accent-1 3.78:1 and 3.53:1; danger border/utility/error 4.04:1 and 3.77:1; arrow content/subtle 7.54:1 and 7.95:1, accent arrow content/accent 10.99:1 and 13.90:1, danger arrow content/utility/error 8.00:1 and 8.16:1. The thin curve is border/default, 1.16:1 on the card and 1.08:1 on the page at worst, under 3:1 (a gap). Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: notification
     name: Notification
@@ -12506,9 +12485,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div row, not a landmark. The title is a span with role=heading and aria-level (default 2; titleLevel 3 or 4; 0 makes it plain text), because it sits inside TextStack's inline title. The number, its words and the description are plain text read in source order after the title. The IconWell is decorative (no label). Not a tab stop and no keys of its own: the optional action is a Button the consumer passes, with its own focus ring and 44 target, and the row wraps so the action drops under the text instead of clipping. Ratios on the card, worst of the four themes: title and number content/default 10.99:1; words and description content/subtle 7.54:1 (7.95:1 on the page); the well's ink on its wash is IconWell's record (7.06:1 worst). Sizes: title 20 (16 with size=card), everything else 16; nothing under 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - section-head
@@ -12537,6 +12513,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div row, not a landmark. The title is a span with role=heading and aria-level (default 2; titleLevel 3 or 4; 0 makes it plain text), because it sits inside TextStack's inline title. The number, its words and the description are plain text read in source order after the title. The IconWell is decorative (no label). Not a tab stop and no keys of its own: the optional action is a Button the consumer passes, with its own focus ring and 44 target, and the row wraps so the action drops under the text instead of clipping. Ratios on the card, worst of the four themes: title and number content/default 10.99:1; words and description content/subtle 7.54:1 (7.95:1 on the page); the well's ink on its wash is IconWell's record (7.06:1 worst). Sizes: title 20 (16 with size=card), everything else 16; nothing under 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: nav-item
     name: NavItem
@@ -12546,9 +12523,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A link (a, when href is passed) or a button (type=button). The name is the visible label; with iconOnly the label becomes aria-label and the control is wrapped in a Tooltip placed to the right (Tooltip's own record says when it shows). The current place has aria-current=page and a bold label, so it is not colour alone; in forced colours it gets a 2px CanvasText outline. The icon is aria-hidden and a badge count is read after the label as text. Keys are the browser's: Tab; Enter on a link; Enter or Space on a button; no arrow keys. Focus ring on focus-visible: border/focus, 4 wide, 4 gap, outside, following the md corner; 5.41:1 worst on the page and 5.60:1 worst on the card. Target: min-height 44 and the full row width (iconOnly 44 by 44), so 44 is met. Ratios, worst of the four themes: label content/default 10.99:1 on the card; icon and badge content/subtle 7.54:1; on the hover fill (BELLA subtle, Chip brand-subtle, over the card) 8.86:1 and 7.34:1; current in Chip is content/default on the brand-subtle-hover fill, 7.09:1, and in BELLA content/brand-knockout on the brand plate, 13.90:1. Transition off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - nav-item
@@ -12577,6 +12551,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A link (a, when href is passed) or a button (type=button). The name is the visible label; with iconOnly the label becomes aria-label and the control is wrapped in a Tooltip placed to the right (Tooltip's own record says when it shows). The current place has aria-current=page and a bold label, so it is not colour alone; in forced colours it gets a 2px CanvasText outline. The icon is aria-hidden and a badge count is read after the label as text. Keys are the browser's: Tab; Enter on a link; Enter or Space on a button; no arrow keys. Focus ring on focus-visible: border/focus, 4 wide, 4 gap, outside, following the md corner; 5.41:1 worst on the page and 5.60:1 worst on the card. Target: min-height 44 and the full row width (iconOnly 44 by 44), so 44 is met. Ratios, worst of the four themes: label content/default 10.99:1 on the card; icon and badge content/subtle 7.54:1; on the hover fill (BELLA subtle, Chip brand-subtle, over the card) 8.86:1 and 7.34:1; current in Chip is content/default on the brand-subtle-hover fill, 7.09:1, and in BELLA content/brand-knockout on the brand plate, 13.90:1. Transition off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: icon-rail
     name: IconRail
@@ -12586,9 +12561,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A nav landmark named by label (default 'Main'; the SideMenu also defaults to 'Main', so two on one page need different labels). It holds the CHIP mark or the app's logo (BrandWordmark's own name), the NavItem children and an optional end item; the rail adds no role to them. Not a tab stop and no keys of its own: Tab goes to the NavItems inside it in source order, the end item last. The rail draws no text. Its ground is background/surface and its 1px right edge is border/default drawn as an inset shadow, a divider that no control depends on. Text and marks on that ground are NavItem's: content/default 10.99:1 worst and icons content/subtle 7.54:1 worst on the card. The width is layout/rail/width (72), so a NavItem's 44 square fits; the rail is not a target itself. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - icon-rail
@@ -12617,6 +12589,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A nav landmark named by label (default 'Main'; the SideMenu also defaults to 'Main', so two on one page need different labels). It holds the CHIP mark or the app's logo (BrandWordmark's own name), the NavItem children and an optional end item; the rail adds no role to them. Not a tab stop and no keys of its own: Tab goes to the NavItems inside it in source order, the end item last. The rail draws no text. Its ground is background/surface and its 1px right edge is border/default drawn as an inset shadow, a divider that no control depends on. Text and marks on that ground are NavItem's: content/default 10.99:1 worst and icons content/subtle 7.54:1 worst on the card. The width is layout/rail/width (72), so a NavItem's 44 square fits; the rail is not a target itself. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: tree-item
     name: TreeItem
@@ -12626,9 +12599,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A link (a, when href is passed) or a button (type=button) inside a div. group and folder rows carry aria-expanded from open; the current row has aria-current=page and a bold label. The name is the label, then a group or status count; a needs-work dot adds the hidden word 'needs work'; a branch row's status icon is named by its word (failed, waiting, working, passed) and comes first. A status row's dot has no word, so the label carries it. The spine and tick are aria-hidden. The part is not a role=tree: rows are plain links and buttons, with no arrow-key movement (the consumer wraps them in lists). Keys are the browser's: Tab, Enter on a link, Enter or Space on a button. Focus ring on the row, focus-visible: border/focus, 4 wide, 4 gap, outside, following the md corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: every row min-height 44, the whole row. Ratios, worst of the four themes: label and status total content/default 10.99:1 on the card; group count and chevrons content/subtle 7.54:1; on the hover fill (BELLA subtle, Chip brand-subtle, over the card) 8.86:1 and 7.34:1; current in Chip content/default on the brand-subtle-hover fill 7.09:1, in BELLA content/brand-knockout on the brand plate 13.90:1; the branch status well's ink on its wash 7.06:1 or better (IconWell's record); the spine and tick border/strong on the card 3.76:1 (a mark, 3:1); the needs-work dot is StatusDot's (its 1px edge 3.81:1). Transition off under reduced motion; in forced colours the current row gets a 2px CanvasText outline. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - tree-item
@@ -12657,6 +12627,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A link (a, when href is passed) or a button (type=button) inside a div. group and folder rows carry aria-expanded from open; the current row has aria-current=page and a bold label. The name is the label, then a group or status count; a needs-work dot adds the hidden word 'needs work'; a branch row's status icon is named by its word (failed, waiting, working, passed) and comes first. A status row's dot has no word, so the label carries it. The spine and tick are aria-hidden. The part is not a role=tree: rows are plain links and buttons, with no arrow-key movement (the consumer wraps them in lists). Keys are the browser's: Tab, Enter on a link, Enter or Space on a button. Focus ring on the row, focus-visible: border/focus, 4 wide, 4 gap, outside, following the md corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: every row min-height 44, the whole row. Ratios, worst of the four themes: label and status total content/default 10.99:1 on the card; group count and chevrons content/subtle 7.54:1; on the hover fill (BELLA subtle, Chip brand-subtle, over the card) 8.86:1 and 7.34:1; current in Chip content/default on the brand-subtle-hover fill 7.09:1, in BELLA content/brand-knockout on the brand plate 13.90:1; the branch status well's ink on its wash 7.06:1 or better (IconWell's record); the spine and tick border/strong on the card 3.76:1 (a mark, 3:1); the needs-work dot is StatusDot's (its 1px edge 3.81:1). Transition off under reduced motion; in forced colours the current row gets a 2px CanvasText outline. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: project-panel
     name: ProjectPanel
@@ -12703,9 +12674,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. One button (type=button) with aria-haspopup=listbox, and aria-expanded when expanded is passed. Its name is 'Switch client: ' (visually hidden) plus the client name, and in the tile variant the caption; the tile mark is aria-hidden, and the plain variant with a logo hides the logo and speaks the name. Keys are the browser's: Tab to reach it, Enter or Space to press it. The part draws no list and has no arrow keys, so the listbox it announces is the consumer's to build with its own keys (a gap: the popup role promises more than this part provides). Focus ring on focus-visible only: border/focus, 4 wide, 4 gap, outside, following the 12 corner; 5.41:1 worst on the page and 5.60:1 worst on the card. Target: the whole row, min-height 64 (tile) or 68 (plain), full width, so 44 is met. Ratios (worst of BELLA light, BELLA dark, Chip light, Chip dark): name content/default 10.99:1 on the card (13.90:1 on the page); caption content/subtle 7.54:1 on the card; both on the hover fill (the nav-list hover over the card) 8.86:1 and 7.34:1; the ⇅ and ⌄ marks are content/subtle, 7.34:1 on the hover fill. Transition off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, target sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - client-switcher
@@ -12734,6 +12702,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. One button (type=button) with aria-haspopup=listbox, and aria-expanded when expanded is passed. Its name is 'Switch client: ' (visually hidden) plus the client name, and in the tile variant the caption; the tile mark is aria-hidden, and the plain variant with a logo hides the logo and speaks the name. Keys are the browser's: Tab to reach it, Enter or Space to press it. The part draws no list and has no arrow keys, so the listbox it announces is the consumer's to build with its own keys (a gap: the popup role promises more than this part provides). Focus ring on focus-visible only: border/focus, 4 wide, 4 gap, outside, following the 12 corner; 5.41:1 worst on the page and 5.60:1 worst on the card. Target: the whole row, min-height 64 (tile) or 68 (plain), full width, so 44 is met. Ratios (worst of BELLA light, BELLA dark, Chip light, Chip dark): name content/default 10.99:1 on the card (13.90:1 on the page); caption content/subtle 7.54:1 on the card; both on the hover fill (the nav-list hover over the card) 8.86:1 and 7.34:1; the ⇅ and ⌄ marks are content/subtle, 7.34:1 on the hover fill. Transition off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, target sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: top-bar
     name: TopBar
@@ -12844,9 +12813,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A label wrapping an input type=search (the searchbox role); its name is aria-label from label, or the placeholder when label is missing. The part sets no landmark: put it in a search landmark (TopBar does). With showShortcut the input has aria-keyshortcuts 'Meta+K Control+K' and a document-level listener: Command K or Ctrl K focuses the field and cancels the browser's own shortcut, on any page the part is mounted on. Enter calls onSubmit; typing and clearing are native, and the browser's cancel cross is hidden. The Kbd legend is named 'Command K'. Focus ring on the whole field, focus-visible: border/focus, 4 wide, 4 gap, outside, following the 16 corner (the input's own outline is off); 5.41:1 worst on the page, 5.60:1 worst on the card. Target: min-height 44, the whole label focuses the input. Ratios, worst of the four themes, on the highlight wash over the card (over the page is higher): typed text content/default 7.99:1; placeholder content/body 7.99:1; search icon content/subtle 5.48:1 (a mark, 3:1). Gap: the field has no border, so its boundary is the highlight wash alone, a faint tint far under 3:1 (this pair is not in contrast-pairs.mjs and I did not compute it); the icon and the placeholder name it, but the edge does not meet the non-text bar. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - search-field
@@ -12875,6 +12841,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A label wrapping an input type=search (the searchbox role); its name is aria-label from label, or the placeholder when label is missing. The part sets no landmark: put it in a search landmark (TopBar does). With showShortcut the input has aria-keyshortcuts 'Meta+K Control+K' and a document-level listener: Command K or Ctrl K focuses the field and cancels the browser's own shortcut, on any page the part is mounted on. Enter calls onSubmit; typing and clearing are native, and the browser's cancel cross is hidden. The Kbd legend is named 'Command K'. Focus ring on the whole field, focus-visible: border/focus, 4 wide, 4 gap, outside, following the 16 corner (the input's own outline is off); 5.41:1 worst on the page, 5.60:1 worst on the card. Target: min-height 44, the whole label focuses the input. Ratios, worst of the four themes, on the highlight wash over the card (over the page is higher): typed text content/default 7.99:1; placeholder content/body 7.99:1; search icon content/subtle 5.48:1 (a mark, 3:1). Gap: the field has no border, so its boundary is the highlight wash alone, a faint tint far under 3:1 (this pair is not in contrast-pairs.mjs and I did not compute it); the icon and the placeholder name it, but the edge does not meet the non-text bar. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: empty-state
     name: EmptyState
@@ -12912,6 +12879,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: the animated mark is hidden from screen readers, because the title already says it (WCAG 1.1.1). In the code: by default it is. The image mark has an empty alt inside an aria-hidden span, and the emoji mark (also the fallback when the image fails) is aria-hidden. Missing: nothing stops a consumer passing markLabel, which gives the image an alt and drops aria-hidden, against this decision. A div with no role: the title and the line are paragraphs read in that order, so the title is not a heading. Not a tab stop and no keys of its own; the actions are the consumer's Buttons, with their own focus ring and 44 target. Motion: the emoji rises once and holds still under reduced motion; an animated image swaps to markStill under reduced motion, and without markStill keeps animating (a gap). Ratios, worst of the four themes: title content/default 10.99:1 on the card, 13.90:1 on the page, 10.17:1 on the lane ground; the line is content/default in the lane size (the same ratios) and content/subtle in the page size, 7.54:1 on the card and 7.95:1 on the page. All text 16 or more. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: task-card
     name: TaskCard
@@ -13232,9 +13200,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. The card is a section headed by an h2 (the title). The gauge is role=meter: aria-valuemin 0, aria-valuemax 100, aria-valuenow the real score from the first paint (the count-up is drawn and hidden), aria-valuetext '95%, Healthy' when status is a string, named by the title and described by a hidden one-line summary (what, how much, against the target, how many pass). The ticks and the big number are aria-hidden so the gauge speaks once. The failing checks are a ul: each row is a link (href), a button (onOpen) or a plain row, named by the check name and its 'n of m fail' text; the attention StatusDot has no word and the ↗ is hidden, so the row's text carries the meaning. Keys are the browser's: the gauge is not a tab stop; each openable row is one tab stop; Enter on a link, Enter or Space on a button. Focus ring on a row, focus-visible: border/focus, 4 wide, 4 gap, outside, on the 8 corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: each row min-height 44, full width. Ratios on the card, worst of the four themes: title, big number and fail names content/default 10.99:1; subtitle, scale ends and the small-caps status (14, meta) content/subtle 7.54:1; why content/body 10.99:1; a row on its hover wash (brand-subtle over the card) 8.86:1. Lit ticks border/utility/success 5.83:1; the target tick border/brand 5.60:1; lit against unlit 4.51:1. Unlit ticks are border/subtle, 1.16:1 to 1.50:1 on the card, by design not a mark (the score is in words). Count-up and tick fill are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - system-health
@@ -13255,6 +13220,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. The card is a section headed by an h2 (the title). The gauge is role=meter: aria-valuemin 0, aria-valuemax 100, aria-valuenow the real score from the first paint (the count-up is drawn and hidden), aria-valuetext '95%, Healthy' when status is a string, named by the title and described by a hidden one-line summary (what, how much, against the target, how many pass). The ticks and the big number are aria-hidden so the gauge speaks once. The failing checks are a ul: each row is a link (href), a button (onOpen) or a plain row, named by the check name and its 'n of m fail' text; the attention StatusDot has no word and the ↗ is hidden, so the row's text carries the meaning. Keys are the browser's: the gauge is not a tab stop; each openable row is one tab stop; Enter on a link, Enter or Space on a button. Focus ring on a row, focus-visible: border/focus, 4 wide, 4 gap, outside, on the 8 corner; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: each row min-height 44, full width. Ratios on the card, worst of the four themes: title, big number and fail names content/default 10.99:1; subtitle, scale ends and the small-caps status (14, meta) content/subtle 7.54:1; why content/body 10.99:1; a row on its hover wash (brand-subtle over the card) 8.86:1. Lit ticks border/utility/success 5.83:1; the target tick border/brand 5.60:1; lit against unlit 4.51:1. Unlit ticks are border/subtle, 1.16:1 to 1.50:1 on the card, by design not a mark (the score is in words). Count-up and tick fill are off under reduced motion. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: swatch
     name: Swatch
@@ -13285,6 +13251,7 @@ entries:
         states:
           - sm
           - lg
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: a screen reader hears the colour name and value, and the Copy button says 'Copy' plus the name. In the code: the colour block is aria-hidden, and the name, hex and contrast pair (or 'No pair') are text read in that order, so name and value are heard. Missing: the Copy button (size lg with onCopy) is named 'Copy' alone, without the colour name. A div with no role. Only the Copy button is a tab stop (a secondary sm icon-only Button, Enter or Space, Button's focus ring, a 32 plate with a 44 tap area); the part announces nothing after a copy, which is the consumer's to say. Ratios on the surface, worst of the four themes: name content/default 10.99:1; hex and pair content/subtle 7.54:1 at 14 (a meta line). The border/subtle edge is a decoration (1.16:1); no text sits on the colour. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: variant-tile
     name: VariantTile
@@ -13347,9 +13314,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=group and aria-roledescription='tour step', with no accessible name of its own (the count text is not wired to it; a gap). The Pin is not interactive; the text is a paragraph; Close is a tertiary icon Button named 'Close the tour'; Back (only when onBack is passed) and Next or Done are Buttons. Tab order follows the source: Close, Back, Next. Keys are the browser's: Enter or Space; there is no Escape key, no live region, and the part moves no focus: returning focus to the code on close and moving it when the step changes are the consumer's (gaps if it does not). Focus ring and the 44 target are Button's (min-height 44; ring 5.41:1 worst on the page, 5.60:1 on the card). Ratios on the card, worst of the four themes: text content/default 10.99:1; count content/subtle 7.54:1; the red Pin's number content/on-accent-1 on the error-knockout disc 8.67:1, but the disc against the card is 2.21:1 in BELLA light and Chip light, under the 3:1 mark bar (a gap in Pin, not changed here; the number carries it). The card edge is border/default, a decoration. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - tour-step
@@ -13371,6 +13335,7 @@ entries:
         states:
           - middle
           - end
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=group and aria-roledescription='tour step', with no accessible name of its own (the count text is not wired to it; a gap). The Pin is not interactive; the text is a paragraph; Close is a tertiary icon Button named 'Close the tour'; Back (only when onBack is passed) and Next or Done are Buttons. Tab order follows the source: Close, Back, Next. Keys are the browser's: Enter or Space; there is no Escape key, no live region, and the part moves no focus: returning focus to the code on close and moving it when the step changes are the consumer's (gaps if it does not). Focus ring and the 44 target are Button's (min-height 44; ring 5.41:1 worst on the page, 5.60:1 on the card). Ratios on the card, worst of the four themes: text content/default 10.99:1; count content/subtle 7.54:1; the red Pin's number content/on-accent-1 on the error-knockout disc 8.67:1, but the disc against the card is 2.21:1 in BELLA light and Chip light, under the 3:1 mark bar (a gap in Pin, not changed here; the number carries it). The card edge is border/default, a decoration. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: type-specimen
     name: TypeSpecimen
@@ -13407,6 +13372,7 @@ entries:
           - sm
           - tag
           - mono
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: a screen reader hears the step name and size, then the sample. Missing in the code: the part reads the sample first and the size after it. The sample span holds name, or the size key when name is missing, set in the step's own size; the step name is heard only when it is that text, there is no separate step-name element, and no hidden text puts name and size before the sample. A div with two spans, no role and no heading; not a tab stop, no keys, no target. Ratios, worst of the four themes: sample content/default 10.99:1 on the card (13.90:1 on the page); size content/subtle 7.54:1 on the card, 7.95:1 on the page. Smallest step 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: radius-tile
     name: RadiusTile
@@ -13443,6 +13409,7 @@ entries:
           - "20"
           - "24"
           - round
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: a screen reader hears the token name and its value. In the code: it does by default. The drawn tile is aria-hidden; the token name ('radius/8') and the use line, which ends in the value ('md, lg · 8px'), are text. A use string passed by the consumer replaces that line, so the value is heard only if the string carries it. A div with no role, not a tab stop, no keys, no target. Motion (animated): the corner rounds once and is still under reduced motion. Ratios, worst of the four themes: token content/default 10.99:1 on the card (13.90:1 on the page); use content/subtle 7.54:1 on the card, 7.95:1 on the page; the tile's border/strong edge 3.76:1 against the card, 4.76:1 against the page (marks 3:1). All text 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: easing-curve
     name: EasingCurve
@@ -13476,6 +13443,7 @@ entries:
           - out
           - draw
           - pop
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: a screen reader hears the curve's name and timing. In the code, still rows (EasingCurve and DurationBar): a div, not a tab stop. EasingCurve holds an svg role=img named 'The {easing} easing curve: how a move speeds up and slows down over its time', then the token name and the cubic-bezier value as text; DurationBar holds the token name, its use when passed and the ms value as text, with the track hidden. So name and timing are in the reading order. With animated the row is a button (type=button), Enter or Space plays it, and the riding dot is hidden from screen readers. Missing: the EasingCurve button's aria-label ('Play {easing} easing, motion/easing/{easing}') replaces its content, so the cubic-bezier timing is not part of its name; the DurationBar button's label keeps the duration and drops the use; playing announces nothing, as there is no live region. Focus ring on a playable row, focus-visible: border/focus, 4 wide, 4 gap, outside; 5.41:1 worst on the page, 5.60:1 worst on the card. Target: a playable row is at least 44 tall and fills its width; a still row is not a target. Under reduced motion the dot jumps to the end. Ratios, worst of the four themes: token content/default 10.99:1 on the card (13.90:1 on the page); value, use and ms content/subtle 7.54:1 on the card, 7.95:1 on the page. Marks (3:1) over the card: the curve and the duration fill content/default on background/subtle 7.99:1; the pink dot's ink edge on the same ground 7.99:1. All text 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: spacing-step
     name: SpacingStep
@@ -13516,6 +13484,7 @@ entries:
           - "16"
           - "20"
           - touch
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. Decided by Elleta, 26 Nov 2026: a screen reader hears the step and its size. In the code: it does by default. The step and the value ('16px'; the touch step reads 'touch' then '44px') are text, and the bar is aria-hidden. A value passed by the consumer replaces the size, so the size is heard only if that string says it. A div with no role, not a tab stop, no keys, no target. Motion (animated): the bar grows once and is still under reduced motion. Ratios, worst of the four themes: step content/subtle 7.54:1 on the card (7.95:1 on the page); value content/default 10.99:1 on the card (13.90:1 on the page); the bar border/ink 10.99:1 on the card, 13.90:1 on the page, and the animated pink bar keeps that ink edge. All text 16. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: app-tile
     name: AppTile
@@ -13561,9 +13530,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=status and aria-live=polite, so the message is announced without moving focus; every tone is polite (Notification uses alert for danger, Toast does not). The tone icon is aria-hidden, so the tone is not spoken: the message itself must say it (a gap against Notification). The toast is not a tab stop. Its action is a secondary Button and Close a tertiary icon Button named 'Close'; both are tab stops, Enter or Space, and there is no Escape key (a gap). With onClose and a duration (default 6000 ms; 0 stays) it closes itself, paused while the pointer is over it or focus is inside it; a screen reader user who does not move focus there has the same 6 seconds (a gap against 2.2.1). Focus ring and the 44 target are Button's (min-height 44; 5.41:1 worst on the page, 5.60:1 on the card). Ratios on the card, worst of the four themes: message content/default 10.99:1; tone icon ink content/utility on the card: info 8.75:1, success 8.70:1, warning 8.74:1, error 8.00:1; the 2px edge border/utility on the card: info 4.39:1, success 5.83:1, warning 3.81:1, error 4.04:1 (marks need 3:1). Arrival and exit motion are off under reduced motion, and it then closes at once. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - toast
@@ -13587,6 +13553,7 @@ entries:
           - success
           - attention
           - danger
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A div with role=status and aria-live=polite, so the message is announced without moving focus; every tone is polite (Notification uses alert for danger, Toast does not). The tone icon is aria-hidden, so the tone is not spoken: the message itself must say it (a gap against Notification). The toast is not a tab stop. Its action is a secondary Button and Close a tertiary icon Button named 'Close'; both are tab stops, Enter or Space, and there is no Escape key (a gap). With onClose and a duration (default 6000 ms; 0 stays) it closes itself, paused while the pointer is over it or focus is inside it; a screen reader user who does not move focus there has the same 6 seconds (a gap against 2.2.1). Focus ring and the 44 target are Button's (min-height 44; 5.41:1 worst on the page, 5.60:1 on the card). Ratios on the card, worst of the four themes: message content/default 10.99:1; tone icon ink content/utility on the card: info 8.75:1, success 8.70:1, warning 8.74:1, error 8.00:1; the 2px edge border/utility on the card: info 4.39:1, success 5.83:1, warning 3.81:1, error 4.04:1 (marks need 3:1). Arrival and exit motion are off under reduced motion, and it then closes at once. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: connector-tile
     name: ConnectorTile
@@ -13596,9 +13563,6 @@ entries:
         method: extracted
         author: machine-assisted
         note: Extracted from the BELLA contract in tokens/contracts.json and the component’s own TSDoc. Not hand-written for this document.
-      reviewed:
-        - by: human:elleta
-          note: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A section with no name of its own, so not a landmark. The service name is an h3, the value and the detail are paragraphs, and the status is a StatusDot whose word is read as text; the app tile is the consumer's. Not a tab stop and no keys: the one action is a Button the consumer passes, with its own focus ring and 44 target. A changed value glows once (brand-subtle wash, 900 ms; none under reduced motion); there is no live region, so a screen reader is not told that the value changed (a gap). Ratios on the card, worst of the four themes: name and value content/default 10.99:1, detail content/subtle 7.54:1, the value on its glow wash (brand-subtle over the card) 8.86:1. The status word and dot are StatusDot's record. The card edge is border/subtle, a decoration no control depends on. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
       tags:
         - component
         - connector-tile
@@ -13619,6 +13583,7 @@ entries:
         context: "BELLA contract facts DSDS has no typed field for: the runtime state list (no per-state description exists to satisfy a trait’s required `description`), and the machine-checked rest-state invariants."
         states:
           - default
+        a11yDraft: "Drafted 2026-11-26 from the .tsx, CSS and tokens. A section with no name of its own, so not a landmark. The service name is an h3, the value and the detail are paragraphs, and the status is a StatusDot whose word is read as text; the app tile is the consumer's. Not a tab stop and no keys: the one action is a Button the consumer passes, with its own focus ring and 44 target. A changed value glows once (brand-subtle wash, 900 ms; none under reduced motion); there is no live region, so a screen reader is not told that the value changed (a gap). Ratios on the card, worst of the four themes: name and value content/default 10.99:1, detail content/subtle 7.54:1, the value on its glow wash (brand-subtle over the card) 8.86:1. The status word and dot are StatusDot's record. The card edge is border/subtle, a decoration no control depends on. Ratios taken with the maths in scripts/contrast-pairs.mjs, sizes from the CSS; no browser or screen reader checked any of this."
   - kind: component
     id: progress-target
     name: ProgressTarget

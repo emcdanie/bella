@@ -46,8 +46,10 @@ for (const t of tokens) t.name = nameFor(t, takenNames);
 
 // ---------- helpers ----------
 const REVIEW_RE = /^Verified\s+(\d{4}-\d{2}-\d{2})[,:]?\s*(.*)$/s;
+/* A note that starts "Drafted" is not a review: it names no reviewer, and is carried as
+ * $extensions a11yDraft instead. */
 function reviewedFrom(a11y) {
-  if (!a11y || typeof a11y !== 'string') return null;
+  if (!a11y || typeof a11y !== 'string' || a11y.startsWith('Drafted')) return null;
   const m = a11y.match(REVIEW_RE);
   if (m) return [{ date: m[1], by: 'human:elleta', note: m[2].trim() }];
   return [{ by: 'human:elleta', note: a11y.trim() }];
@@ -304,6 +306,7 @@ function componentEntry(key) {
   if (c.states?.length) ext.states = c.states;
   if (c.restState) ext.restState = c.restState;
   if (c.note) ext.note = c.note;
+  if (c.a11y && !reviewed) ext.a11yDraft = c.a11y;
   e.$extensions = { 'design.bella': ext };
   return e;
 }

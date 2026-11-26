@@ -10,6 +10,11 @@ export interface SearchFieldProps {
   showShortcut?: boolean;
   /** Accessible name. Defaults to the placeholder. */
   label?: string;
+  /**
+   * Fill the row it sits in, past Figma's 420 (CHIP, 26 Nov 2026): a menu's Find row runs edge to edge with the menu
+   * rows under it, the field growing and its button last at the right edge. Off: up to 420, as the top bar.
+   */
+  fill?: boolean;
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
@@ -29,6 +34,7 @@ export default function SearchField({
   placeholder = 'Search',
   showShortcut = true,
   label,
+  fill = false,
   value,
   defaultValue,
   onChange,
@@ -49,7 +55,7 @@ export default function SearchField({
     return () => document.removeEventListener('keydown', key);
   }, [showShortcut]);
   return (
-    <label className={[styles.field, className].filter(Boolean).join(' ')} style={style} data-bella-component="search-field">
+    <label className={[styles.field, fill && styles.fill, className].filter(Boolean).join(' ')} style={style} data-bella-component="search-field">
       <Icon name="Search" size="md" className={styles.icon} />
       <input
         ref={input}

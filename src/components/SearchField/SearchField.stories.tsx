@@ -50,6 +50,21 @@ export const States: Story = {
   ),
 };
 
+/** Fill: in a menu's Find row the field takes the row beside its filter button, edge to edge with the menu rows
+ * (CHIP's phone menu sheet, 26 Nov 2026). Without fill it stops at 420. */
+export const Fill: Story = {
+  render: () => (
+    <div style={{ display: 'grid', gap: 'var(--spacing-16)', maxInlineSize: 680, padding: 'var(--spacing-8)', background: 'var(--color-background-surface)' }}>
+      <SearchField fill showShortcut={false} placeholder="Find" />
+      <SearchField showShortcut={false} placeholder="Find" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const [filled, capped] = Array.from(canvasElement.querySelectorAll('[data-bella-component="search-field"]')) as HTMLElement[];
+    expect(filled.getBoundingClientRect().width).toBeGreaterThan(capped.getBoundingClientRect().width);
+  },
+};
+
 /** Behavior: a searchbox named by its placeholder, ⌘K focuses it, 44 tall. */
 export const Behavior: Story = {
   render: () => <SearchField />,

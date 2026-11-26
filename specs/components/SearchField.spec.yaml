@@ -33,32 +33,43 @@ props:
     required: false
     doc: Accessible name. Defaults to the placeholder.
     at: src/components/SearchField/SearchField.tsx:12
+  - name: fill
+    type: boolean
+    values:
+      - true
+      - false
+    default: false
+    required: false
+    doc: >-
+      Fill the row it sits in, past Figma's 420 (CHIP, 26 Nov 2026): a menu's Find row runs edge to edge with the menu rows under it, the
+      field growing and its button last at the right edge. Off: up to 420, as the top bar.
+    at: src/components/SearchField/SearchField.tsx:17
   - name: value
     type: string
     required: false
-    at: src/components/SearchField/SearchField.tsx:13
+    at: src/components/SearchField/SearchField.tsx:18
   - name: defaultValue
     type: string
     required: false
-    at: src/components/SearchField/SearchField.tsx:14
+    at: src/components/SearchField/SearchField.tsx:19
   - name: onChange
     type: '(value: string) => void'
     required: false
-    at: src/components/SearchField/SearchField.tsx:15
+    at: src/components/SearchField/SearchField.tsx:20
   - name: onSubmit
     type: '(value: string) => void'
     required: false
     doc: Called with the query when Enter is pressed.
-    at: src/components/SearchField/SearchField.tsx:17
+    at: src/components/SearchField/SearchField.tsx:22
   - name: className
     type: string
     required: false
     doc: Extra classes on the field.
-    at: src/components/SearchField/SearchField.tsx:19
+    at: src/components/SearchField/SearchField.tsx:24
   - name: style
     type: CSSProperties
     required: false
-    at: src/components/SearchField/SearchField.tsx:20
+    at: src/components/SearchField/SearchField.tsx:25
 variants: {}
 states:
   contract:
@@ -176,67 +187,67 @@ tokens:
       property: outline
       token: '--focus-ring-width'
       selector: .field:has(.input:focus-visible)
-      at: src/components/SearchField/SearchField.module.css:31
+      at: src/components/SearchField/SearchField.module.css:37
     - part: root
       state: focus-visible
       property: outline
       token: '--color-border-focus'
       selector: .field:has(.input:focus-visible)
-      at: src/components/SearchField/SearchField.module.css:31
+      at: src/components/SearchField/SearchField.module.css:37
     - part: root
       state: focus-visible
       property: outline-offset
       token: '--focus-ring-offset'
       selector: .field:has(.input:focus-visible)
-      at: src/components/SearchField/SearchField.module.css:32
+      at: src/components/SearchField/SearchField.module.css:38
     - part: icon
       state: rest
       property: color
       token: '--color-content-subtle'
       selector: .icon
-      at: src/components/SearchField/SearchField.module.css:36
+      at: src/components/SearchField/SearchField.module.css:42
     - part: input
       state: rest
       property: color
       token: '--color-content-default'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:47
+      at: src/components/SearchField/SearchField.module.css:53
     - part: input
       state: rest
       property: font-family
       token: '--typography-body-default-font-family'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:48
+      at: src/components/SearchField/SearchField.module.css:54
     - part: input
       state: rest
       property: font-size
       token: '--typography-body-default-font-size'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:49
+      at: src/components/SearchField/SearchField.module.css:55
     - part: input
       state: rest
       property: font-weight
       token: '--typography-body-default-font-weight'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:50
+      at: src/components/SearchField/SearchField.module.css:56
     - part: input
       state: rest
       property: line-height
       token: '--typography-line-height-px-24'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:51
+      at: src/components/SearchField/SearchField.module.css:57
     - part: input
       state: rest
       property: letter-spacing
       token: '--typography-letter-spacing-0'
       selector: .input
-      at: src/components/SearchField/SearchField.module.css:52
+      at: src/components/SearchField/SearchField.module.css:58
     - part: input
       state: rest
       property: color
       token: '--color-content-body'
       selector: .input::placeholder
-      at: src/components/SearchField/SearchField.module.css:58
+      at: src/components/SearchField/SearchField.module.css:64
   values:
     '--border-radius-lg':
       light: null
@@ -293,25 +304,25 @@ motion:
 a11y:
   element:
     tag: label
-    at: src/components/SearchField/SearchField.tsx:52
+    at: src/components/SearchField/SearchField.tsx:58
   role:
     value: null
     source: native element
-    at: src/components/SearchField/SearchField.tsx:52
+    at: src/components/SearchField/SearchField.tsx:58
   nameSource:
     value: visible content
-    at: src/components/SearchField/SearchField.tsx:52
+    at: src/components/SearchField/SearchField.tsx:58
   keyboard:
     - key: Enter
       source: handler in the .tsx
-      at: src/components/SearchField/SearchField.tsx:64
+      at: src/components/SearchField/SearchField.tsx:70
   aria:
     - attribute: aria-label
       value: label
-      at: src/components/SearchField/SearchField.tsx:59
+      at: src/components/SearchField/SearchField.tsx:65
     - attribute: aria-keyshortcuts
       value: showShortcut
-      at: src/components/SearchField/SearchField.tsx:60
+      at: src/components/SearchField/SearchField.tsx:66
   focusRing:
     - property: outline
       value: var(--focus-ring-width) solid var(--color-border-focus)
@@ -320,13 +331,13 @@ a11y:
           value: null
         - token: '--color-border-focus'
           value: null
-      at: src/components/SearchField/SearchField.module.css:31
+      at: src/components/SearchField/SearchField.module.css:37
     - property: outline-offset
       value: var(--focus-ring-offset)
       tokens:
         - token: '--focus-ring-offset'
           value: null
-      at: src/components/SearchField/SearchField.module.css:32
+      at: src/components/SearchField/SearchField.module.css:38
   disabled:
     prop: null
     note: no disabled prop
@@ -336,10 +347,10 @@ a11y:
   ariaChips:
     - kind: ARIA
       value: aria-label
-      at: src/components/SearchField/SearchField.tsx:59
+      at: src/components/SearchField/SearchField.tsx:65
     - kind: ARIA
       value: aria-keyshortcuts
-      at: src/components/SearchField/SearchField.tsx:60
+      at: src/components/SearchField/SearchField.tsx:66
 contrast:
   pairs: []
   derived: []

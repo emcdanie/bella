@@ -421,7 +421,7 @@ Order: Switch, Input password with show/hide, Dialog, destructive Button, Pagina
 - each component's description follows the one pattern the other components already use (decided 12 Nov). Copy that shape part for part; never replace a description with a single build note (those go in annotations). Set the Storybook link set as its documentation link;
 - annotations are Pin & Leader instances, specimens sit on Card instances.
 Fails get fixed before any code.
-- **Look first.** Check BellaComponents, the Docs Kit and her Fabrik exports (`~/DEV/fabrik/exports/<component>/`, layout only, no Fabrik names or tokens) for one that exists. Extend before making new.
+- **Look first.** Check BellaComponents, the Docs Kit and her private layout exports (layout only, no names or tokens from them) for one that exists. Extend before making new.
 - **Figma first.** Build the component set in BellaComponents from BELLA variables only: no raw colours, sizes or radii. Variant properties use the same names and values the React props will use.
 - **The bar is built in.** 44px target, the theme's focus ring (pink in Chip), body and label contrast per "The accessibility bar", every outline at least 3:1 on page, panel and stone stage. Every state drawn: default, hover, pressed, focus, disabled, and error or checked where it applies.
 - **One sample, then her yes.** Show the set at 100% beside one doc page built from the Docs Kit template, after a fresh agent has rated it 5/5 and checked it for overlaps and loose nodes. Code waits for "All of Figma first" above.
